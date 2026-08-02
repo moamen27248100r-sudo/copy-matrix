@@ -49,6 +49,12 @@ export default async function DashboardPage() {
         >
           لوحة المتداول
         </Link>
+        <Link
+          href="/kyc"
+          className="w-fit rounded border border-border px-3 py-2 text-sm"
+        >
+          توثيق الهوية
+        </Link>
       </div>
 
       <form action={logout}>
