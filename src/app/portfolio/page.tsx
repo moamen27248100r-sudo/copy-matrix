@@ -34,7 +34,6 @@ export default async function PortfolioPage() {
   ]);
 
   const allPositions = positions ?? [];
-  const openPositions = allPositions.filter((p) => p.status === "open");
   const closedPositions = allPositions.filter((p) => p.status === "closed");
   const totalRealizedPnl = closedPositions.reduce((sum, p) => sum + (p.pnl ?? 0), 0);
 
@@ -54,7 +53,7 @@ export default async function PortfolioPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-3 text-center text-sm">
+      <div className="grid grid-cols-2 gap-3 text-center text-sm">
         <div className="rounded-lg border border-border bg-surface p-3">
           <p
             className={
@@ -69,12 +68,8 @@ export default async function PortfolioPage() {
           <p className="text-xs text-muted">صافي الأرباح المحققة</p>
         </div>
         <div className="rounded-lg border border-border bg-surface p-3">
-          <p className="text-lg font-semibold">{openPositions.length}</p>
-          <p className="text-xs text-muted">صفقات مفتوحة</p>
-        </div>
-        <div className="rounded-lg border border-border bg-surface p-3">
           <p className="text-lg font-semibold">{closedPositions.length}</p>
-          <p className="text-xs text-muted">صفقات مغلقة</p>
+          <p className="text-xs text-muted">عدد الصفقات المغلقة</p>
         </div>
       </div>
 
@@ -122,10 +117,10 @@ export default async function PortfolioPage() {
       </section>
 
       <section className="flex flex-col gap-2">
-        <h2 className="font-medium">الصفقات المنسوخة</h2>
-        {allPositions.length === 0 ? (
+        <h2 className="font-medium">الصفقات المنسوخة المغلقة</h2>
+        {closedPositions.length === 0 ? (
           <p className="text-sm text-muted">
-            لا توجد صفقات منسوخة حتى الآن. ستظهر الصفقات هنا فور نشر أي متداول تتابعه لصفقة جديدة.
+            لا توجد صفقات منسوخة مغلقة حتى الآن. ستظهر النتائج هنا فور إغلاق أي متداول تتابعه لصفقة.
           </p>
         ) : (
           <div className="overflow-x-auto">
@@ -137,15 +132,16 @@ export default async function PortfolioPage() {
                   <th className="py-2">الاتجاه</th>
                   <th className="py-2">الدخول</th>
                   <th className="py-2">الخروج</th>
-                  <th className="py-2">الربح/الخسارة</th>
+                  <th className="py-2">النتيجة</th>
                 </tr>
               </thead>
               <tbody>
-                {allPositions.map((pos) => {
+                {closedPositions.map((pos) => {
                   const signal = Array.isArray(pos.signals) ? pos.signals[0] : pos.signals;
                   const providerName = signal
                     ? providerNameById.get(signal.provider_id) ?? "—"
                     : "—";
+                  const isWin = (pos.pnl ?? 0) >= 0;
                   return (
                     <tr key={pos.id} className="border-b border-border/60">
                       <td className="py-2">{providerName}</td>
@@ -158,16 +154,12 @@ export default async function PortfolioPage() {
                         {signal?.side === "buy" ? "شراء" : signal?.side === "sell" ? "بيع" : "—"}
                       </td>
                       <td className="py-2">{pos.entry_price}</td>
-                      <td className="py-2">{pos.status === "open" ? "مفتوحة" : pos.exit_price}</td>
+                      <td className="py-2">{pos.exit_price}</td>
                       <td className="py-2">
-                        {pos.status === "open" ? (
-                          <span className="text-xs text-muted">جارية</span>
-                        ) : (
-                          <span className={(pos.pnl ?? 0) >= 0 ? "text-success" : "text-danger"}>
-                            {(pos.pnl ?? 0) >= 0 ? "+" : ""}
-                            {(pos.pnl ?? 0).toFixed(2)}
-                          </span>
-                        )}
+                        <span className={isWin ? "text-success" : "text-danger"}>
+                          {isWin ? "ربح" : "خسارة"} {(pos.pnl ?? 0) >= 0 ? "+" : ""}
+                          {(pos.pnl ?? 0).toFixed(2)}
+                        </span>
                       </td>
                     </tr>
                   );

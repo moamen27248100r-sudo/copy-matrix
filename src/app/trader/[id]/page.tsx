@@ -232,7 +232,7 @@ export default async function TraderPage({
       </section>
 
       <section className="flex flex-col gap-2">
-        <h2 className="font-medium">سجل الصفقات</h2>
+        <h2 className="font-medium">سجل الصفقات المغلقة</h2>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -246,42 +246,37 @@ export default async function TraderPage({
               </tr>
             </thead>
             <tbody>
-              {allSignals.map((s) => {
-                const isOpen = s.status === "open";
-                const raw =
-                  s.exit_price != null ? (s.exit_price - s.entry_price) / s.entry_price : null;
-                const signedPct = raw != null ? (s.side === "sell" ? -raw : raw) * 100 : null;
-                return (
-                  <tr key={s.id} className="border-b border-border/60">
-                    <td className="py-2 text-xs text-muted">
-                      {new Date(s.opened_at).toLocaleDateString("ar-EG")}
-                    </td>
-                    <td className="py-2 font-medium">{s.symbol}</td>
-                    <td className={s.side === "buy" ? "py-2 text-success" : "py-2 text-danger"}>
-                      {s.side === "buy" ? "شراء" : "بيع"}
-                    </td>
-                    <td className="py-2">{s.entry_price}</td>
-                    <td className="py-2">{isOpen ? "مفتوحة" : s.exit_price}</td>
-                    <td className="py-2">
-                      {isOpen ? (
-                        <span className="text-xs text-muted">جارية</span>
-                      ) : (
-                        <span
-                          className={
-                            signedPct != null && signedPct >= 0 ? "text-success" : "text-danger"
-                          }
-                        >
-                          {signedPct != null
-                            ? `${signedPct > 0 ? "+" : ""}${signedPct.toFixed(2)}%`
-                            : "—"}
+              {allSignals
+                .filter((s) => s.status === "closed" && s.exit_price != null)
+                .map((s) => {
+                  const raw = (s.exit_price! - s.entry_price) / s.entry_price;
+                  const signedPct = (s.side === "sell" ? -raw : raw) * 100;
+                  const isWin = signedPct >= 0;
+                  return (
+                    <tr key={s.id} className="border-b border-border/60">
+                      <td className="py-2 text-xs text-muted">
+                        {new Date(s.opened_at).toLocaleDateString("ar-EG")}
+                      </td>
+                      <td className="py-2 font-medium">{s.symbol}</td>
+                      <td className={s.side === "buy" ? "py-2 text-success" : "py-2 text-danger"}>
+                        {s.side === "buy" ? "شراء" : "بيع"}
+                      </td>
+                      <td className="py-2">{s.entry_price}</td>
+                      <td className="py-2">{s.exit_price}</td>
+                      <td className="py-2">
+                        <span className={isWin ? "text-success" : "text-danger"}>
+                          {isWin ? "ربح" : "خسارة"} {signedPct > 0 ? "+" : ""}
+                          {signedPct.toFixed(2)}%
                         </span>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
+                      </td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
+          {allSignals.filter((s) => s.status === "closed").length === 0 && (
+            <p className="py-2 text-sm text-muted">لا توجد صفقات مغلقة حتى الآن.</p>
+          )}
         </div>
       </section>
     </main>
