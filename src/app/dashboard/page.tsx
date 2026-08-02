@@ -16,7 +16,7 @@ export default async function DashboardPage() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("display_name")
+    .select("display_name, is_admin")
     .eq("id", user.id)
     .single();
 
@@ -55,6 +55,14 @@ export default async function DashboardPage() {
         >
           توثيق الهوية
         </Link>
+        {profile?.is_admin && (
+          <Link
+            href="/admin"
+            className="w-fit rounded border border-border px-3 py-2 text-sm"
+          >
+            لوحة الإدارة
+          </Link>
+        )}
       </div>
 
       <form action={logout}>
