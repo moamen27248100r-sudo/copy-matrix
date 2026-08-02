@@ -174,7 +174,7 @@ export default async function TraderPage({
 
         <div className="grid grid-cols-2 gap-3 text-center text-sm sm:grid-cols-4">
           <div>
-            <p className="font-semibold">{provider.followers_count}</p>
+            <p className="font-semibold text-brand">{provider.followers_count}</p>
             <p className="text-xs text-muted">ناسخ</p>
           </div>
           <div>
@@ -184,13 +184,13 @@ export default async function TraderPage({
             <p className="text-xs text-muted">إجمالي الأرباح</p>
           </div>
           <div>
-            <p className="font-semibold">
+            <p className="font-semibold text-brand">
               ${Number(provider.total_withdrawals).toLocaleString("en-US", { maximumFractionDigits: 0 })}
             </p>
             <p className="text-xs text-muted">إجمالي السحوبات</p>
           </div>
           <div>
-            <p className="font-semibold">
+            <p className="font-semibold text-brand">
               {provider.win_rate_pct != null ? `${provider.win_rate_pct}%` : "—"}
             </p>
             <p className="text-xs text-muted">نسبة النجاح الكلية</p>

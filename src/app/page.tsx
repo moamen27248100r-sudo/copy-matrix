@@ -76,15 +76,15 @@ export default async function Home() {
 
       <section className="grid grid-cols-3 gap-4 border-y border-border bg-surface px-6 py-8 text-center">
         <div>
-          <p className="text-2xl font-semibold">{totalTraders}+</p>
+          <p className="text-2xl font-semibold text-brand">{totalTraders}+</p>
           <p className="text-xs text-muted">متداول نشط</p>
         </div>
         <div>
-          <p className="text-2xl font-semibold">{totalCopiers.toLocaleString("en-US")}+</p>
+          <p className="text-2xl font-semibold text-brand">{totalCopiers.toLocaleString("en-US")}+</p>
           <p className="text-xs text-muted">مستخدم ناسخ</p>
         </div>
         <div>
-          <p className="text-2xl font-semibold text-success">
+          <p className="text-2xl font-semibold text-brand">
             {avgWinRate != null ? `${avgWinRate}%` : "—"}
           </p>
           <p className="text-xs text-muted">متوسط نسبة النجاح</p>

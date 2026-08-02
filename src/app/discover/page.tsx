@@ -116,7 +116,7 @@ export default async function DiscoverPage({
 
                 <div className="grid grid-cols-3 gap-2 text-center text-sm">
                   <div>
-                    <p className="font-semibold">
+                    <p className="font-semibold text-brand">
                       {p.win_rate_pct != null ? `${p.win_rate_pct}%` : "—"}
                     </p>
                     <p className="text-xs text-muted">نسبة النجاح</p>
@@ -134,7 +134,7 @@ export default async function DiscoverPage({
                     <p className="text-xs text-muted">متوسط العائد</p>
                   </div>
                   <div>
-                    <p className="font-semibold">{p.closed_signals}</p>
+                    <p className="font-semibold text-brand">{p.closed_signals}</p>
                     <p className="text-xs text-muted">صفقات مغلقة</p>
                   </div>
                 </div>
