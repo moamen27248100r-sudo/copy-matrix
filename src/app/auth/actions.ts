@@ -35,7 +35,7 @@ export async function login(formData: FormData) {
 export async function signup(formData: FormData) {
   const supabase = await createClient();
 
-  const { error } = await supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signUp({
     email: formData.get("email") as string,
     password: formData.get("password") as string,
     options: {
@@ -47,6 +47,12 @@ export async function signup(formData: FormData) {
 
   if (error) {
     redirect(`/signup?error=${encodeURIComponent(translateAuthError(error.message))}`);
+  }
+
+  // If email confirmation isn't required, signUp() already returns an
+  // active session — skip the "check your email" step entirely.
+  if (data.session) {
+    redirect("/dashboard");
   }
 
   redirect("/signup/check-email");
