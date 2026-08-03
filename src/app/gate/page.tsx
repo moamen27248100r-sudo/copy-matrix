@@ -29,7 +29,7 @@ export default async function GatePage({
           required
           className="rounded border border-border bg-surface px-3 py-2"
         />
-        <button type="submit" className="rounded bg-brand px-3 py-2 text-brand-foreground">
+        <button type="submit" className="rounded border border-border bg-surface px-3 py-2 text-foreground">
           دخول
         </button>
       </form>

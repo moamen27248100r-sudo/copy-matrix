@@ -86,7 +86,7 @@ export default async function Home() {
           <Link href="/login" className="rounded border border-border px-4 py-2 text-sm">
             تسجيل الدخول
           </Link>
-          <Link href="/signup" className="rounded bg-brand px-4 py-2 text-sm text-brand-foreground">
+          <Link href="/signup" className="rounded border border-border bg-surface px-4 py-2 text-sm text-foreground">
             إنشاء حساب
           </Link>
         </div>
@@ -99,7 +99,7 @@ export default async function Home() {
         <p className="max-w-md text-muted">
           تصفح سجلات أداء حقيقية وموثقة لمئات المتداولين، واختر من تثق به لنسخ صفقاته.
         </p>
-        <Link href="/signup" className="rounded bg-brand px-6 py-3 text-brand-foreground">
+        <Link href="/signup" className="rounded border border-border bg-surface px-6 py-3 text-foreground">
           ابدأ الآن مجانًا
         </Link>
       </section>
@@ -196,7 +196,7 @@ export default async function Home() {
 
       <section className="flex flex-col items-center gap-4 border-t border-border px-6 py-16 text-center">
         <h2 className="text-2xl font-semibold">هل أنت مستعد للبدء؟</h2>
-        <Link href="/signup" className="rounded bg-brand px-6 py-3 text-brand-foreground">
+        <Link href="/signup" className="rounded border border-border bg-surface px-6 py-3 text-foreground">
           إنشاء حساب مجاني
         </Link>
       </section>
