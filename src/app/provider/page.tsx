@@ -49,7 +49,7 @@ export default async function ProviderPage({
             rows={4}
             className="rounded border border-border bg-surface px-3 py-2"
           />
-          <button type="submit" className="rounded border border-border bg-surface px-3 py-2 text-foreground">
+          <button type="submit" className="rounded bg-brand px-3 py-2 text-brand-foreground">
             نشر الملف التعريفي كمتداول
           </button>
         </form>
@@ -129,7 +129,7 @@ export default async function ProviderPage({
           />
           <button
             type="submit"
-            className="col-span-2 rounded border border-border bg-surface px-3 py-2 text-foreground"
+            className="col-span-2 rounded bg-brand px-3 py-2 text-brand-foreground"
           >
             نشر الصفقة
           </button>

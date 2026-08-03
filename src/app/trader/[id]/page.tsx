@@ -162,7 +162,7 @@ export default async function TraderPage({
               className={
                 isFollowing
                   ? "rounded border border-border px-4 py-2 text-sm"
-                  : "rounded border border-border bg-surface px-4 py-2 text-sm text-foreground"
+                  : "rounded bg-brand px-4 py-2 text-sm text-brand-foreground"
               }
             >
               {isFollowing ? "إلغاء المتابعة" : "نسخ المتداول"}
