@@ -62,8 +62,8 @@ export default async function Home() {
             strokeLinejoin="round"
             aria-hidden="true"
           >
-            <path d="M4 16l6-6 6 6" />
-            <path d="M4 21l6-6 6 6" />
+            <path d="M4 8h13l-4-4" />
+            <path d="M20 16H7l4 4" />
           </svg>
         </span>
         <div className="flex items-center gap-3">
