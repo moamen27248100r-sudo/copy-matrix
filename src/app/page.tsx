@@ -50,9 +50,12 @@ export default async function Home() {
   return (
     <main className="flex min-h-screen flex-col">
       <nav className="flex items-center justify-between border-b border-border px-6 py-4">
-        <span className="flex items-center gap-2 text-lg font-semibold">
-          <span className="h-2 w-2 rounded-full bg-brand" />
-          Copy Matrix
+        <span className="flex items-center gap-1.5 text-lg font-semibold" dir="ltr">
+          Copy
+          <svg viewBox="0 0 24 24" className="h-4 w-4 text-brand" fill="currentColor" aria-hidden="true">
+            <path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8z" />
+          </svg>
+          Matrix
         </span>
         <div className="flex items-center gap-3">
           <ThemeToggle />
