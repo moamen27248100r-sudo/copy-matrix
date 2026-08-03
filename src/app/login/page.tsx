@@ -39,7 +39,7 @@ export default async function LoginPage({
         />
         <button
           type="submit"
-          className="rounded bg-brand px-3 py-2 text-brand-foreground"
+          className="rounded border border-border bg-surface px-3 py-2 text-foreground"
         >
           تسجيل الدخول
         </button>
