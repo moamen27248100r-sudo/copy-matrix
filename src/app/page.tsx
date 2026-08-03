@@ -51,11 +51,20 @@ export default async function Home() {
     <main className="flex min-h-screen flex-col">
       <nav className="flex items-center justify-between border-b border-border px-6 py-4">
         <span className="flex items-center gap-1.5 text-lg font-semibold" dir="ltr">
-          Copy
-          <svg viewBox="0 0 24 24" className="h-4 w-4 text-brand" fill="currentColor" aria-hidden="true">
-            <path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8z" />
+          Copy Matrix
+          <svg
+            viewBox="0 0 24 24"
+            className="h-4 w-4 text-brand"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M4 16l6-6 6 6" />
+            <path d="M4 21l6-6 6 6" />
           </svg>
-          Matrix
         </span>
         <div className="flex items-center gap-3">
           <ThemeToggle />
