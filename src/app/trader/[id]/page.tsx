@@ -142,7 +142,7 @@ export default async function TraderPage({
 
       <div className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-4">
         <div className="flex items-center gap-4">
-          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-brand text-lg text-brand-foreground">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-foreground text-lg text-background">
             {provider.display_name?.charAt(0) ?? "؟"}
           </div>
           <div className="flex-1">
@@ -174,7 +174,7 @@ export default async function TraderPage({
 
         <div className="grid grid-cols-2 gap-3 text-center text-sm sm:grid-cols-4">
           <div>
-            <p className="font-semibold text-brand">{provider.followers_count}</p>
+            <p className="font-semibold">{provider.followers_count}</p>
             <p className="text-xs text-muted">ناسخ</p>
           </div>
           <div>
@@ -184,13 +184,13 @@ export default async function TraderPage({
             <p className="text-xs text-muted">إجمالي الأرباح</p>
           </div>
           <div>
-            <p className="font-semibold text-brand">
+            <p className="font-semibold">
               ${Number(provider.total_withdrawals).toLocaleString("en-US", { maximumFractionDigits: 0 })}
             </p>
             <p className="text-xs text-muted">إجمالي السحوبات</p>
           </div>
           <div>
-            <p className="font-semibold text-brand">
+            <p className="font-semibold">
               {provider.win_rate_pct != null ? `${provider.win_rate_pct}%` : "—"}
             </p>
             <p className="text-xs text-muted">نسبة النجاح الكلية</p>

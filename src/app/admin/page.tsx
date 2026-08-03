@@ -84,7 +84,7 @@ export default async function AdminPage() {
 
               <div className="flex gap-3">
                 {s.idDocumentUrl && (
-                  <a href={s.idDocumentUrl} target="_blank" rel="noreferrer" className="text-sm text-brand underline">
+                  <a href={s.idDocumentUrl} target="_blank" rel="noreferrer" className="text-sm underline">
                     عرض إثبات الهوية
                   </a>
                 )}
@@ -93,7 +93,7 @@ export default async function AdminPage() {
                     href={s.addressProofUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-sm text-brand underline"
+                    className="text-sm underline"
                   >
                     عرض إثبات العنوان
                   </a>
@@ -104,7 +104,7 @@ export default async function AdminPage() {
                 <div className="flex gap-3">
                   <form action={approveKyc}>
                     <input type="hidden" name="submissionId" value={s.id} />
-                    <button type="submit" className="rounded bg-brand px-3 py-1.5 text-sm text-brand-foreground">
+                    <button type="submit" className="rounded bg-foreground px-3 py-1.5 text-sm text-background">
                       قبول
                     </button>
                   </form>

@@ -80,7 +80,7 @@ export default async function DiscoverPage({
           <option value="followers">الأكثر متابعة</option>
           <option value="winrate">الأعلى نسبة نجاح</option>
         </select>
-        <button type="submit" className="rounded bg-brand px-4 py-2 text-sm text-brand-foreground">
+        <button type="submit" className="rounded bg-foreground px-4 py-2 text-sm text-background">
           بحث
         </button>
       </form>
@@ -99,7 +99,7 @@ export default async function DiscoverPage({
                 className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4"
               >
                 <Link href={`/trader/${p.provider_id}`} className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand text-sm text-brand-foreground">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-sm text-background">
                     {p.display_name?.charAt(0) ?? "؟"}
                   </div>
                   <div>
@@ -116,7 +116,7 @@ export default async function DiscoverPage({
 
                 <div className="grid grid-cols-3 gap-2 text-center text-sm">
                   <div>
-                    <p className="font-semibold text-brand">
+                    <p className="font-semibold">
                       {p.win_rate_pct != null ? `${p.win_rate_pct}%` : "—"}
                     </p>
                     <p className="text-xs text-muted">نسبة النجاح</p>
@@ -134,7 +134,7 @@ export default async function DiscoverPage({
                     <p className="text-xs text-muted">متوسط العائد</p>
                   </div>
                   <div>
-                    <p className="font-semibold text-brand">{p.closed_signals}</p>
+                    <p className="font-semibold">{p.closed_signals}</p>
                     <p className="text-xs text-muted">صفقات مغلقة</p>
                   </div>
                 </div>
@@ -146,7 +146,7 @@ export default async function DiscoverPage({
                     className={
                       isFollowing
                         ? "w-full rounded border border-border px-3 py-2 text-sm"
-                        : "w-full rounded bg-brand px-3 py-2 text-sm text-brand-foreground"
+                        : "w-full rounded bg-foreground px-3 py-2 text-sm text-background"
                     }
                   >
                     {isFollowing ? "إلغاء المتابعة" : "متابعة"}

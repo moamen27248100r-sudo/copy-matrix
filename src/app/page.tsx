@@ -50,7 +50,10 @@ export default async function Home() {
   return (
     <main className="flex min-h-screen flex-col">
       <nav className="flex items-center justify-between border-b border-border px-6 py-4">
-        <span className="text-lg font-semibold">Copy Matrix</span>
+        <span className="flex items-center gap-2 text-lg font-semibold">
+          <span className="h-2 w-2 rounded-full bg-brand" />
+          Copy Matrix
+        </span>
         <div className="flex items-center gap-3">
           <ThemeToggle />
           <Link href="/login" className="rounded border border-border px-4 py-2 text-sm">
@@ -76,15 +79,15 @@ export default async function Home() {
 
       <section className="grid grid-cols-3 gap-4 border-y border-border bg-surface px-6 py-8 text-center">
         <div>
-          <p className="text-2xl font-semibold text-brand">{totalTraders}+</p>
+          <p className="text-2xl font-semibold">{totalTraders}+</p>
           <p className="text-xs text-muted">متداول نشط</p>
         </div>
         <div>
-          <p className="text-2xl font-semibold text-brand">{totalCopiers.toLocaleString("en-US")}+</p>
+          <p className="text-2xl font-semibold">{totalCopiers.toLocaleString("en-US")}+</p>
           <p className="text-xs text-muted">مستخدم ناسخ</p>
         </div>
         <div>
-          <p className="text-2xl font-semibold text-brand">
+          <p className="text-2xl font-semibold">
             {avgWinRate != null ? `${avgWinRate}%` : "—"}
           </p>
           <p className="text-xs text-muted">متوسط نسبة النجاح</p>
@@ -96,7 +99,7 @@ export default async function Home() {
         <div className="mx-auto grid w-full max-w-3xl grid-cols-1 gap-6 sm:grid-cols-3">
           {STEPS.map((s) => (
             <div key={s.n} className="flex flex-col items-center gap-2 text-center">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand text-sm text-brand-foreground">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-sm text-background">
                 {s.n}
               </div>
               <p className="font-medium">{s.title}</p>
@@ -118,7 +121,7 @@ export default async function Home() {
             {topProviders.map((p) => (
               <div key={p.provider_id} className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand text-sm text-brand-foreground">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-sm text-background">
                     {p.display_name?.charAt(0) ?? "؟"}
                   </div>
                   <div>

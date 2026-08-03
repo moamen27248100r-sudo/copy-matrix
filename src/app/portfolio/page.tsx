@@ -90,7 +90,7 @@ export default async function PortfolioPage() {
               className="flex items-center justify-between rounded-lg border border-border bg-surface p-3"
             >
               <Link href={`/trader/${p.provider_id}`} className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand text-sm text-brand-foreground">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-foreground text-sm text-background">
                   {p.display_name?.charAt(0) ?? "؟"}
                 </div>
                 <div>
