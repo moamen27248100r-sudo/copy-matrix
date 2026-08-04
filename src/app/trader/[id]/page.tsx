@@ -2,7 +2,8 @@ import Link from "next/link";
 import { redirect, notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { followProvider, unfollowProvider } from "@/app/discover/actions";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { AppNav } from "@/components/AppNav";
+import { TraderEquityChart } from "@/components/TraderEquityChart";
 
 type SignalRow = {
   id: string;
@@ -14,52 +15,6 @@ type SignalRow = {
   opened_at: string;
   closed_at: string | null;
 };
-
-function buildEquityCurve(signals: SignalRow[]) {
-  const closed = signals
-    .filter((s) => s.status === "closed" && s.closed_at && s.exit_price != null)
-    .sort((a, b) => new Date(a.closed_at!).getTime() - new Date(b.closed_at!).getTime());
-
-  let cumulative = 0;
-  const points = [0];
-  for (const s of closed) {
-    const raw = (s.exit_price! - s.entry_price) / s.entry_price;
-    const signed = s.side === "sell" ? -raw : raw;
-    cumulative += signed * 100;
-    points.push(cumulative);
-  }
-  return points;
-}
-
-function EquityChart({ points }: { points: number[] }) {
-  if (points.length < 3) {
-    return <p className="text-sm text-muted">لا توجد صفقات مغلقة كافية لعرض الرسم البياني.</p>;
-  }
-
-  const width = 600;
-  const height = 160;
-  const min = Math.min(...points, 0);
-  const max = Math.max(...points, 0);
-  const range = max - min || 1;
-  const stepX = width / (points.length - 1);
-  const coords = points
-    .map((v, i) => `${i * stepX},${height - ((v - min) / range) * height}`)
-    .join(" ");
-  const zeroY = height - ((0 - min) / range) * height;
-  const isPositive = points[points.length - 1] >= 0;
-
-  return (
-    <svg viewBox={`0 0 ${width} ${height}`} className="h-40 w-full">
-      <line x1={0} y1={zeroY} x2={width} y2={zeroY} stroke="var(--border)" strokeDasharray="4" />
-      <polyline
-        fill="none"
-        stroke={isPositive ? "var(--success)" : "var(--danger)"}
-        strokeWidth={2}
-        points={coords}
-      />
-    </svg>
-  );
-}
 
 function periodStats(signals: SignalRow[], days: number) {
   const cutoffMs = Date.now() - days * 24 * 60 * 60 * 1000;
@@ -87,10 +42,13 @@ function periodStats(signals: SignalRow[], days: number) {
 
 export default async function TraderPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ error?: string }>;
 }) {
   const { id } = await params;
+  const { error } = await searchParams;
   const supabase = await createClient();
   const {
     data: { user },
@@ -100,7 +58,7 @@ export default async function TraderPage({
     redirect("/login");
   }
 
-  const [{ data: provider }, { data: signals }, { data: mySub }] = await Promise.all([
+  const [{ data: provider }, { data: signals }, { data: mySub }, { data: myProfile }] = await Promise.all([
     supabase.from("provider_cards").select("*").eq("provider_id", id).single(),
     supabase
       .from("signals")
@@ -109,11 +67,12 @@ export default async function TraderPage({
       .order("opened_at", { ascending: false }),
     supabase
       .from("subscriptions")
-      .select("id")
+      .select("id, allocated_amount, max_drawdown_pct")
       .eq("follower_id", user.id)
       .eq("provider_id", id)
       .eq("is_active", true)
       .maybeSingle(),
+    supabase.from("profiles").select("balance").eq("id", user.id).single(),
   ]);
 
   if (!provider) {
@@ -132,13 +91,18 @@ export default async function TraderPage({
   ];
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-3xl flex-col gap-6 p-6">
-      <div className="flex items-center justify-between">
+    <>
+      <AppNav />
+      <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6">
         <Link href="/discover" className="w-fit text-sm underline">
           العودة إلى اكتشاف المتداولين
         </Link>
-        <ThemeToggle />
-      </div>
+
+        {error && (
+          <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
+            {error}
+          </p>
+        )}
 
       <div className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-4">
         <div className="flex items-center gap-4">
@@ -155,22 +119,76 @@ export default async function TraderPage({
               })}
             </p>
           </div>
-          <form action={isFollowing ? unfollowProvider : followProvider}>
-            <input type="hidden" name="providerId" value={id} />
-            <button
-              type="submit"
-              className={
-                isFollowing
-                  ? "rounded border border-border px-4 py-2 text-sm"
-                  : "rounded border border-border bg-surface px-4 py-2 text-sm text-foreground"
-              }
-            >
-              {isFollowing ? "إلغاء المتابعة" : "نسخ المتداول"}
-            </button>
-          </form>
+        </div>
+
+        <div className="flex flex-wrap gap-1.5 text-xs">
+          <span className="rounded border border-border px-2 py-0.5 text-muted">{provider.tier}</span>
+          <span className="rounded border border-border px-2 py-0.5 text-muted">
+            مستوى المخاطرة: {provider.risk_level}
+          </span>
+          <span className="rounded border border-border px-2 py-0.5 text-muted">
+            تقييم: {provider.rating_score}/100
+          </span>
         </div>
 
         {provider.bio && <p className="text-sm text-muted">{provider.bio}</p>}
+
+        <div className="flex flex-col gap-3 rounded-lg border border-border bg-background p-3">
+          <form action={followProvider} className="flex flex-wrap items-center gap-3">
+            <input type="hidden" name="providerId" value={id} />
+            <label className="flex items-center gap-2 text-sm text-muted">
+              مبلغ النسخ
+              <input
+                name="allocatedAmount"
+                type="number"
+                step="any"
+                min={provider.min_copy_amount}
+                defaultValue={mySub?.allocated_amount ?? provider.min_copy_amount}
+                required
+                className="w-28 rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground"
+              />
+            </label>
+            <label className="flex items-center gap-2 text-sm text-muted">
+              حد إيقاف الخسارة
+              <input
+                name="maxDrawdownPct"
+                type="number"
+                step="any"
+                min="1"
+                max="100"
+                defaultValue={mySub?.max_drawdown_pct ?? 50}
+                required
+                className="w-20 rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground"
+              />
+              %
+            </label>
+            <button
+              type="submit"
+              className="rounded bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
+            >
+              {isFollowing ? "تحديث الإعدادات" : "نسخ المتداول"}
+            </button>
+            {isFollowing && (
+              <span className="text-xs text-muted">
+                (سيتم إيقاف النسخ تلقائيًا لو خسائر هذا المتداول وصلت لهذه النسبة من مبلغ النسخ)
+              </span>
+            )}
+          </form>
+          {isFollowing && (
+            <form action={unfollowProvider}>
+              <input type="hidden" name="providerId" value={id} />
+              <button type="submit" className="rounded border border-border px-4 py-1.5 text-sm">
+                إلغاء المتابعة
+              </button>
+            </form>
+          )}
+        </div>
+        <div className="flex flex-wrap justify-between gap-2 text-xs text-muted">
+          <span>الحد الأدنى للنسخ عند هذا المتداول: ${Number(provider.min_copy_amount).toLocaleString("en-US")}</span>
+          <span>
+            رصيدك المتاح: {myProfile?.balance != null ? `$${Number(myProfile.balance).toLocaleString("en-US", { maximumFractionDigits: 2 })}` : "—"}
+          </span>
+        </div>
 
         <div className="grid grid-cols-2 gap-3 text-center text-sm sm:grid-cols-4">
           <div>
@@ -200,7 +218,7 @@ export default async function TraderPage({
 
       <section className="flex flex-col gap-2">
         <h2 className="font-medium">منحنى الأداء التراكمي</h2>
-        <EquityChart points={buildEquityCurve(allSignals)} />
+        <TraderEquityChart signals={allSignals} />
       </section>
 
       <section className="flex flex-col gap-3">
@@ -234,14 +252,14 @@ export default async function TraderPage({
       <section className="flex flex-col gap-2">
         <h2 className="font-medium">سجل الصفقات المغلقة</h2>
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full min-w-[560px] text-sm">
             <thead>
               <tr className="border-b border-border text-right text-xs text-muted">
-                <th className="py-2">التاريخ</th>
-                <th className="py-2">الرمز</th>
-                <th className="py-2">الاتجاه</th>
-                <th className="py-2">الدخول</th>
-                <th className="py-2">الخروج</th>
+                <th className="py-2 pl-3">التاريخ</th>
+                <th className="py-2 pl-3">الرمز</th>
+                <th className="py-2 pl-3">الاتجاه</th>
+                <th className="py-2 pl-3">الدخول</th>
+                <th className="py-2 pl-3">الخروج</th>
                 <th className="py-2">النتيجة</th>
               </tr>
             </thead>
@@ -254,16 +272,16 @@ export default async function TraderPage({
                   const isWin = signedPct >= 0;
                   return (
                     <tr key={s.id} className="border-b border-border/60">
-                      <td className="py-2 text-xs text-muted">
+                      <td className="py-2 pl-3 whitespace-nowrap text-xs text-muted">
                         {new Date(s.opened_at).toLocaleDateString("ar-EG")}
                       </td>
-                      <td className="py-2 font-medium">{s.symbol}</td>
-                      <td className={s.side === "buy" ? "py-2 text-success" : "py-2 text-danger"}>
+                      <td className="py-2 pl-3 whitespace-nowrap font-medium">{s.symbol}</td>
+                      <td className={s.side === "buy" ? "py-2 pl-3 whitespace-nowrap text-success" : "py-2 pl-3 whitespace-nowrap text-danger"}>
                         {s.side === "buy" ? "شراء" : "بيع"}
                       </td>
-                      <td className="py-2">{s.entry_price}</td>
-                      <td className="py-2">{s.exit_price}</td>
-                      <td className="py-2">
+                      <td className="py-2 pl-3 whitespace-nowrap">{Number(s.entry_price).toLocaleString("en-US", { maximumFractionDigits: 4 })}</td>
+                      <td className="py-2 pl-3 whitespace-nowrap">{Number(s.exit_price).toLocaleString("en-US", { maximumFractionDigits: 4 })}</td>
+                      <td className="py-2 whitespace-nowrap">
                         <span className={isWin ? "text-success" : "text-danger"}>
                           {isWin ? "ربح" : "خسارة"} {signedPct > 0 ? "+" : ""}
                           {signedPct.toFixed(2)}%
@@ -279,6 +297,7 @@ export default async function TraderPage({
           )}
         </div>
       </section>
-    </main>
+      </main>
+    </>
   );
 }

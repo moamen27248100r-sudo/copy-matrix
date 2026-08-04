@@ -1,31 +1,19 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 :root {
-  --background: #ffffff;
-  --foreground: #0a0d1a;
-  --surface: #f3f4f8;
-  --border: #e2e4ee;
-  --brand: #e08e0d;
-  --brand-hover: #b8720a;
-  --brand-foreground: #ffffff;
-  --success: #0fa958;
-  --danger: #e0264a;
-  --muted: #5b6483;
-}
-
-.dark {
-  --background: #0d1120;
+  --background: #0b0f19;
   --foreground: #ffffff;
-  --surface: #161b2e;
-  --border: #2d3459;
-  --brand: #ffb020;
-  --brand-hover: #ffc857;
-  --brand-foreground: #0d1120;
-  --success: #2ee27a;
-  --danger: #ff5470;
-  --muted: #a7b0d1;
+  --surface: #1a2234;
+  --border: #2a3448;
+  --brand: #2f6fed;
+  --brand-hover: #4d84f0;
+  --brand-foreground: #ffffff;
+  --accent: #2f6fed;
+  --accent-hover: #4d84f0;
+  --accent-foreground: #ffffff;
+  --success: #0ecb81;
+  --danger: #f6465d;
+  --muted: #8392a5;
 }
 
 @theme inline {
@@ -36,6 +24,9 @@
   --color-brand: var(--brand);
   --color-brand-hover: var(--brand-hover);
   --color-brand-foreground: var(--brand-foreground);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-foreground: var(--accent-foreground);
   --color-success: var(--success);
   --color-danger: var(--danger);
   --color-muted: var(--muted);

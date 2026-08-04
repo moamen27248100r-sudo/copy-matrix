@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { login } from "@/app/auth/actions";
-import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default async function LoginPage({
   searchParams,
@@ -11,10 +10,7 @@ export default async function LoginPage({
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col justify-center gap-4 p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">تسجيل الدخول</h1>
-        <ThemeToggle />
-      </div>
+      <h1 className="text-2xl font-semibold">تسجيل الدخول</h1>
 
       {error && (
         <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
@@ -39,11 +35,15 @@ export default async function LoginPage({
         />
         <button
           type="submit"
-          className="rounded border border-border bg-surface px-3 py-2 text-foreground"
+          className="rounded bg-accent px-3 py-2 font-medium text-accent-foreground transition hover:bg-accent-hover"
         >
           تسجيل الدخول
         </button>
       </form>
+
+      <Link href="/forgot-password" className="text-sm text-muted underline">
+        نسيت كلمة المرور؟
+      </Link>
 
       <p className="text-sm text-muted">
         ألا تملك حسابًا؟{" "}

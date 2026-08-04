@@ -1,23 +1,26 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
+import { translateAuthError } from "@/lib/auth-errors";
+import { checkRateLimit } from "@/lib/rate-limit";
 
-const KNOWN_ERRORS: [string, string][] = [
-  ["Invalid login credentials", "البريد الإلكتروني أو كلمة المرور غير صحيحة."],
-  ["Email not confirmed", "لم يتم تأكيد البريد الإلكتروني بعد. يرجى فتح رابط التأكيد المرسل إليك."],
-  ["User already registered", "هذا البريد الإلكتروني مسجَّل بالفعل. يرجى تسجيل الدخول."],
-  ["Password should be at least", "كلمة المرور يجب أن تتكوّن من ٦ أحرف على الأقل."],
-  ["is invalid", "البريد الإلكتروني المُدخل غير صالح."],
-  ["only request this after", "يرجى الانتظار قليلًا قبل إعادة المحاولة."],
-];
+const RATE_LIMIT_MESSAGE = "محاولات كثيرة جدًا. يرجى الانتظار قليلًا قبل إعادة المحاولة.";
 
-function translateAuthError(message: string): string {
-  const match = KNOWN_ERRORS.find(([needle]) => message.includes(needle));
-  return match ? match[1] : "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.";
+async function getSiteUrl() {
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
+  const headersList = await headers();
+  const host = headersList.get("host") ?? "localhost:3000";
+  const protocol = host.startsWith("localhost") ? "http" : "https";
+  return `${protocol}://${host}`;
 }
 
 export async function login(formData: FormData) {
+  if (!(await checkRateLimit("login", 10, 300))) {
+    redirect(`/login?error=${encodeURIComponent(RATE_LIMIT_MESSAGE)}`);
+  }
+
   const supabase = await createClient();
 
   const { error } = await supabase.auth.signInWithPassword({
@@ -33,6 +36,12 @@ export async function login(formData: FormData) {
 }
 
 export async function signup(formData: FormData) {
+  if (!(await checkRateLimit("signup", 5, 600))) {
+    redirect(`/signup?error=${encodeURIComponent(RATE_LIMIT_MESSAGE)}`);
+  }
+
+  const accountType = formData.get("accountType") === "real" ? "real" : "demo";
+
   const supabase = await createClient();
 
   const { data, error } = await supabase.auth.signUp({
@@ -41,6 +50,7 @@ export async function signup(formData: FormData) {
     options: {
       data: {
         display_name: formData.get("displayName") as string,
+        account_type: accountType,
       },
     },
   });
@@ -62,4 +72,47 @@ export async function logout() {
   const supabase = await createClient();
   await supabase.auth.signOut();
   redirect("/login");
+}
+
+export async function requestPasswordReset(formData: FormData) {
+  if (!(await checkRateLimit("password-reset", 5, 900))) {
+    redirect(`/forgot-password?error=${encodeURIComponent(RATE_LIMIT_MESSAGE)}`);
+  }
+
+  const supabase = await createClient();
+  const email = formData.get("email") as string;
+  const siteUrl = await getSiteUrl();
+
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${siteUrl}/auth/confirm?next=/reset-password`,
+  });
+
+  if (error) {
+    redirect(`/forgot-password?error=${encodeURIComponent(translateAuthError(error.message))}`);
+  }
+
+  redirect("/forgot-password/check-email");
+}
+
+export async function updatePassword(formData: FormData) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect(
+      "/forgot-password?error=" +
+        encodeURIComponent("انتهت صلاحية رابط إعادة التعيين. يرجى طلب رابط جديد."),
+    );
+  }
+
+  const password = formData.get("password") as string;
+  const { error } = await supabase.auth.updateUser({ password });
+
+  if (error) {
+    redirect(`/reset-password?error=${encodeURIComponent(translateAuthError(error.message))}`);
+  }
+
+  redirect("/dashboard");
 }

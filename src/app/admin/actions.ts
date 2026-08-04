@@ -46,3 +46,69 @@ export async function rejectKyc(formData: FormData) {
 
   revalidatePath("/admin");
 }
+
+export async function approveWalletRequest(formData: FormData) {
+  const supabase = await assertAdmin();
+  const requestId = formData.get("requestId") as string;
+
+  const { error } = await supabase
+    .from("wallet_requests")
+    .update({ status: "approved" })
+    .eq("id", requestId)
+    .eq("status", "pending");
+
+  if (error) {
+    redirect("/admin?error=" + encodeURIComponent("تعذّرت الموافقة على الطلب: " + error.message));
+  }
+
+  revalidatePath("/admin");
+}
+
+export async function rejectWalletRequest(formData: FormData) {
+  const supabase = await assertAdmin();
+  const requestId = formData.get("requestId") as string;
+
+  await supabase
+    .from("wallet_requests")
+    .update({ status: "rejected" })
+    .eq("id", requestId)
+    .eq("status", "pending");
+
+  revalidatePath("/admin");
+}
+
+export async function toggleAdmin(formData: FormData) {
+  const supabase = await assertAdmin();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const targetId = formData.get("userId") as string;
+  const nextValue = formData.get("nextValue") === "true";
+
+  if (targetId === user?.id) {
+    redirect("/admin?error=" + encodeURIComponent("لا يمكنك تعديل صلاحيات حسابك الخاص."));
+  }
+
+  await supabase.from("profiles").update({ is_admin: nextValue }).eq("id", targetId);
+
+  revalidatePath("/admin");
+}
+
+export async function toggleSuspend(formData: FormData) {
+  const supabase = await assertAdmin();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const targetId = formData.get("userId") as string;
+  const nextValue = formData.get("nextValue") === "true";
+
+  if (targetId === user?.id) {
+    redirect("/admin?error=" + encodeURIComponent("لا يمكنك تعليق حسابك الخاص."));
+  }
+
+  await supabase.from("profiles").update({ is_suspended: nextValue }).eq("id", targetId);
+
+  revalidatePath("/admin");
+}

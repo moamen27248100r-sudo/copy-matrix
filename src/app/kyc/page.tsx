@@ -1,8 +1,7 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { submitKyc } from "@/app/kyc/actions";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { AppNav } from "@/components/AppNav";
 
 const STATUS_LABELS: Record<string, string> = {
   pending: "قيد المراجعة",
@@ -34,11 +33,10 @@ export default async function KycPage({
     .maybeSingle();
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col justify-center gap-4 p-6">
-      <div className="flex items-center justify-between">
+    <>
+      <AppNav />
+      <main className="mx-auto flex w-full max-w-sm flex-col justify-center gap-4 p-6">
         <h1 className="text-2xl font-semibold">توثيق الهوية</h1>
-        <ThemeToggle />
-      </div>
 
       {submission ? (
         <div className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
@@ -108,16 +106,13 @@ export default async function KycPage({
                 className="rounded border border-border bg-surface px-3 py-2 text-sm"
               />
             </label>
-            <button type="submit" className="rounded border border-border bg-surface px-3 py-2 text-foreground">
+            <button type="submit" className="rounded bg-accent px-3 py-2 font-medium text-accent-foreground transition hover:bg-accent-hover">
               إرسال للمراجعة
             </button>
           </form>
         </>
       )}
-
-      <Link href="/dashboard" className="text-sm underline">
-        العودة إلى لوحة التحكم
-      </Link>
-    </main>
+      </main>
+    </>
   );
 }

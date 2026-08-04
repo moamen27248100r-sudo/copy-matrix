@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 export async function followProvider(formData: FormData) {
@@ -9,19 +10,58 @@ export async function followProvider(formData: FormData) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) return;
+  if (!user) redirect("/login");
 
   const providerId = formData.get("providerId") as string;
+  const allocatedAmount = Number(formData.get("allocatedAmount"));
+  const maxDrawdownPct = Number(formData.get("maxDrawdownPct") ?? 50);
 
-  await supabase
+  if (!Number.isFinite(allocatedAmount) || allocatedAmount <= 0) {
+    redirect(`/trader/${providerId}?error=${encodeURIComponent("مبلغ النسخ يجب أن يكون رقمًا أكبر من صفر.")}`);
+  }
+
+  if (!Number.isFinite(maxDrawdownPct) || maxDrawdownPct <= 0 || maxDrawdownPct > 100) {
+    redirect(`/trader/${providerId}?error=${encodeURIComponent("حد الخسارة يجب أن يكون بين ١ و١٠٠٪.")}`);
+  }
+
+  const [{ data: profile }, { data: provider }] = await Promise.all([
+    supabase.from("profiles").select("balance").eq("id", user.id).single(),
+    supabase.from("providers").select("min_copy_amount").eq("id", providerId).single(),
+  ]);
+
+  if (profile && allocatedAmount > profile.balance) {
+    redirect(`/trader/${providerId}?error=${encodeURIComponent("مبلغ النسخ أكبر من رصيدك المتاح.")}`);
+  }
+
+  if (provider && allocatedAmount < provider.min_copy_amount) {
+    redirect(
+      `/trader/${providerId}?error=${encodeURIComponent(
+        `مبلغ النسخ أقل من الحد الأدنى لهذا المتداول ($${Number(provider.min_copy_amount).toLocaleString("en-US")}).`,
+      )}`,
+    );
+  }
+
+  const { error } = await supabase
     .from("subscriptions")
     .upsert(
-      { follower_id: user.id, provider_id: providerId, is_active: true },
+      {
+        follower_id: user.id,
+        provider_id: providerId,
+        is_active: true,
+        allocated_amount: allocatedAmount,
+        max_drawdown_pct: maxDrawdownPct,
+      },
       { onConflict: "follower_id,provider_id" },
     );
 
+  if (error) {
+    redirect(`/trader/${providerId}?error=${encodeURIComponent("تعذّر نسخ المتداول. حاول مرة أخرى.")}`);
+  }
+
   revalidatePath("/discover");
   revalidatePath("/dashboard");
+  revalidatePath("/portfolio");
+  revalidatePath(`/trader/${providerId}`);
 }
 
 export async function unfollowProvider(formData: FormData) {
@@ -42,4 +82,6 @@ export async function unfollowProvider(formData: FormData) {
 
   revalidatePath("/discover");
   revalidatePath("/dashboard");
+  revalidatePath("/portfolio");
+  revalidatePath(`/trader/${providerId}`);
 }

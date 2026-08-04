@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { followProvider, unfollowProvider } from "@/app/discover/actions";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { AppNav } from "@/components/AppNav";
 
 const SORT_OPTIONS = {
   return: { column: "avg_return_pct", ascending: false },
@@ -50,21 +50,12 @@ export default async function DiscoverPage({
   );
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col gap-6 p-6">
-      <div className="flex items-center justify-between">
+    <>
+      <AppNav />
+      <main className="mx-auto flex w-full max-w-4xl flex-col gap-6 p-6">
         <h1 className="text-2xl font-semibold">اكتشاف المتداولين</h1>
-        <div className="flex items-center gap-3 text-sm">
-          <Link href="/portfolio" className="underline">
-            محفظتي
-          </Link>
-          <Link href="/dashboard" className="underline">
-            لوحة التحكم
-          </Link>
-          <ThemeToggle />
-        </div>
-      </div>
 
-      <form method="get" className="flex flex-col gap-2 sm:flex-row">
+        <form method="get" className="flex flex-col gap-2 sm:flex-row">
         <input
           name="q"
           defaultValue={q}
@@ -114,6 +105,16 @@ export default async function DiscoverPage({
                   <p className="text-sm text-muted">{p.bio}</p>
                 )}
 
+                <div className="flex flex-wrap gap-1.5 text-xs">
+                  <span className="rounded border border-border px-2 py-0.5 text-muted">{p.tier}</span>
+                  <span className="rounded border border-border px-2 py-0.5 text-muted">
+                    مخاطرة {p.risk_level}
+                  </span>
+                  <span className="rounded border border-border px-2 py-0.5 text-muted">
+                    تقييم {p.rating_score}/100
+                  </span>
+                </div>
+
                 <div className="grid grid-cols-3 gap-2 text-center text-sm">
                   <div>
                     <p className="font-semibold">
@@ -139,24 +140,32 @@ export default async function DiscoverPage({
                   </div>
                 </div>
 
-                <form action={isFollowing ? unfollowProvider : followProvider}>
-                  <input type="hidden" name="providerId" value={p.provider_id} />
-                  <button
-                    type="submit"
-                    className={
-                      isFollowing
-                        ? "w-full rounded border border-border px-3 py-2 text-sm"
-                        : "w-full rounded bg-foreground px-3 py-2 text-sm text-background"
-                    }
+                <p className="text-xs text-muted">
+                  الحد الأدنى للنسخ: ${Number(p.min_copy_amount).toLocaleString("en-US")}
+                </p>
+
+                <div className="flex gap-2">
+                  <Link
+                    href={`/trader/${p.provider_id}`}
+                    className="flex-1 rounded border border-border bg-background px-3 py-2 text-center text-sm text-foreground"
                   >
-                    {isFollowing ? "إلغاء المتابعة" : "متابعة"}
-                  </button>
-                </form>
+                    عرض الملف الشخصي
+                  </Link>
+                  {isFollowing && (
+                    <form action={unfollowProvider}>
+                      <input type="hidden" name="providerId" value={p.provider_id} />
+                      <button type="submit" className="rounded border border-border px-3 py-2 text-sm">
+                        إلغاء المتابعة
+                      </button>
+                    </form>
+                  )}
+                </div>
               </div>
             );
           })}
         </div>
       )}
-    </main>
+      </main>
+    </>
   );
 }

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { ThemeToggle } from "@/components/ThemeToggle";
 
 const FEATURES = [
   {
@@ -49,8 +48,8 @@ export default async function Home() {
 
   return (
     <main className="flex min-h-screen flex-col">
-      <nav className="flex items-center justify-between border-b border-border px-6 py-4">
-        <span className="flex items-center gap-1.5 text-lg font-semibold" dir="ltr">
+      <nav className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-4 py-3 sm:px-6 sm:py-4">
+        <span className="flex items-center gap-1.5 text-base font-semibold sm:text-lg" dir="ltr">
           Copy Matrix
           <span className="flex items-center">
             <svg
@@ -81,12 +80,14 @@ export default async function Home() {
             </svg>
           </span>
         </span>
-        <div className="flex items-center gap-3">
-          <ThemeToggle />
-          <Link href="/login" className="rounded border border-border px-4 py-2 text-sm">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <Link href="/login" className="rounded border border-border px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm">
             تسجيل الدخول
           </Link>
-          <Link href="/signup" className="rounded border border-border bg-surface px-4 py-2 text-sm text-foreground">
+          <Link
+            href="/signup"
+            className="rounded bg-accent px-3 py-1.5 text-xs font-medium text-accent-foreground transition hover:bg-accent-hover sm:px-4 sm:py-2 sm:text-sm"
+          >
             إنشاء حساب
           </Link>
         </div>
@@ -99,8 +100,11 @@ export default async function Home() {
         <p className="max-w-md text-muted">
           تصفح سجلات أداء حقيقية وموثقة لمئات المتداولين، واختر من تثق به لنسخ صفقاته.
         </p>
-        <Link href="/signup" className="rounded border border-border bg-surface px-6 py-3 text-foreground">
-          ابدأ الآن مجانًا
+        <Link
+          href="/signup"
+          className="rounded bg-accent px-6 py-3 font-medium text-accent-foreground transition hover:bg-accent-hover"
+        >
+          ابدأ الآن
         </Link>
       </section>
 
@@ -196,13 +200,24 @@ export default async function Home() {
 
       <section className="flex flex-col items-center gap-4 border-t border-border px-6 py-16 text-center">
         <h2 className="text-2xl font-semibold">هل أنت مستعد للبدء؟</h2>
-        <Link href="/signup" className="rounded border border-border bg-surface px-6 py-3 text-foreground">
+        <Link
+          href="/signup"
+          className="rounded bg-accent px-6 py-3 font-medium text-accent-foreground transition hover:bg-accent-hover"
+        >
           إنشاء حساب مجاني
         </Link>
       </section>
 
-      <footer className="border-t border-border px-6 py-6 text-center text-xs text-muted">
-        © {new Date().getFullYear()} Copy Matrix. جميع الحقوق محفوظة.
+      <footer className="flex flex-col items-center gap-3 border-t border-border px-6 py-6 text-center text-xs text-muted">
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          <Link href="/legal/terms" className="hover:text-foreground">
+            الشروط والأحكام
+          </Link>
+          <Link href="/legal/privacy" className="hover:text-foreground">
+            سياسة الخصوصية
+          </Link>
+        </div>
+        <p>© {new Date().getFullYear()} Copy Matrix. جميع الحقوق محفوظة. تأسست عام ٢٠٢٤.</p>
       </footer>
     </main>
   );

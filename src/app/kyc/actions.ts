@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 function extensionOf(file: File): string {
   const fromName = file.name.split(".").pop();
@@ -16,6 +17,10 @@ export async function submitKyc(formData: FormData) {
   } = await supabase.auth.getUser();
 
   if (!user) redirect("/login");
+
+  if (!(await checkRateLimit("kyc-submit", 5, 3600))) {
+    redirect("/kyc?error=" + encodeURIComponent("محاولات كثيرة جدًا. يرجى الانتظار قليلًا قبل إعادة المحاولة."));
+  }
 
   const fullName = formData.get("fullName") as string;
   const nationalIdNumber = formData.get("nationalIdNumber") as string;
@@ -32,7 +37,7 @@ export async function submitKyc(formData: FormData) {
     .upload(idDocumentPath, idDocument);
 
   if (uploadError) {
-    redirect("/kyc?error=" + encodeURIComponent(uploadError.message));
+    redirect("/kyc?error=" + encodeURIComponent("تعذّر رفع مستند إثبات الهوية. حاول مرة أخرى."));
   }
 
   let addressProofPath: string | null = null;
@@ -50,7 +55,7 @@ export async function submitKyc(formData: FormData) {
   });
 
   if (insertError) {
-    redirect("/kyc?error=" + encodeURIComponent(insertError.message));
+    redirect("/kyc?error=" + encodeURIComponent("تعذّر إرسال طلب التوثيق. حاول مرة أخرى."));
   }
 
   redirect("/kyc");
