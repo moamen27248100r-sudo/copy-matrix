@@ -35,7 +35,10 @@ export function LegalNav() {
         </span>
       </Link>
       <div className="flex items-center gap-3">
-        <Link href="/" className="text-sm text-muted hover:text-foreground">
+        <Link
+          href="/"
+          className="rounded border border-border px-3 py-1.5 text-sm font-medium text-foreground transition hover:border-accent hover:text-accent"
+        >
           العودة إلى الرئيسية
         </Link>
       </div>

@@ -38,7 +38,7 @@ export default function PrivacyPage() {
       <main className="mx-auto flex w-full max-w-2xl flex-col gap-6 p-6">
         <div className="flex flex-col gap-2">
           <h1 className="text-2xl font-semibold">سياسة الخصوصية</h1>
-          <p className="text-xs text-muted">آخر تحديث: هذه نسخة أولية قابلة للتحديث أثناء مرحلة التطوير.</p>
+          <p className="text-xs text-muted">آخر تحديث: {new Date().toLocaleDateString("ar-EG")}</p>
         </div>
 
         <div className="flex flex-col gap-5">

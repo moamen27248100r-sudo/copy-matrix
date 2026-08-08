@@ -9,9 +9,9 @@ export default async function GatePage({
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col justify-center gap-4 p-6">
-      <h1 className="text-2xl font-semibold">الوصول محدود</h1>
+      <h1 className="text-2xl font-semibold">وصول حصري</h1>
       <p className="text-sm text-muted">
-        هذه المنصة قيد التطوير وغير متاحة للجمهور حاليًا. أدخل كلمة المرور للمتابعة.
+        الوصول إلى هذه المنصة مقصور على الأعضاء المصرح لهم. أدخل كلمة المرور للمتابعة.
       </p>
 
       {error && (
@@ -29,7 +29,7 @@ export default async function GatePage({
           required
           className="rounded border border-border bg-surface px-3 py-2"
         />
-        <button type="submit" className="rounded border border-border bg-surface px-3 py-2 text-foreground">
+        <button type="submit" className="rounded bg-accent px-3 py-2 font-medium text-accent-foreground transition hover:bg-accent-hover">
           دخول
         </button>
       </form>

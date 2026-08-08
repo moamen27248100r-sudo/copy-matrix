@@ -10,7 +10,7 @@ async function assertAdmin() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) redirect("/login");
+  if (!user) redirect("/admin/login");
 
   const { data: profile } = await supabase
     .from("profiles")
@@ -18,7 +18,7 @@ async function assertAdmin() {
     .eq("id", user.id)
     .single();
 
-  if (!profile?.is_admin) redirect("/dashboard");
+  if (!profile?.is_admin) redirect("/admin/login");
 
   return supabase;
 }

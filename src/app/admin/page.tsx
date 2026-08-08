@@ -33,7 +33,7 @@ export default async function AdminPage({
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/login");
+    redirect("/admin/login");
   }
 
   const { data: profile } = await supabase
@@ -43,7 +43,7 @@ export default async function AdminPage({
     .single();
 
   if (!profile?.is_admin) {
-    redirect("/dashboard");
+    redirect("/admin/login?error=" + encodeURIComponent("هذا الحساب لا يملك صلاحية الوصول إلى لوحة الإدارة."));
   }
 
   const [
