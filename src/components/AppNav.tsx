@@ -2,10 +2,15 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { logout } from "@/app/auth/actions";
+import { MarketTicker } from "@/components/MarketTicker";
+import { BottomNav } from "@/components/BottomNav";
+
+const PRIMARY_HREFS = new Set(["/dashboard", "/discover", "/markets", "/portfolio"]);
 
 const LINKS = [
   { href: "/dashboard", label: "لوحة التحكم" },
   { href: "/discover", label: "اكتشاف المتداولين" },
+  { href: "/markets", label: "الأسواق" },
   { href: "/portfolio", label: "محفظتي" },
   { href: "/kyc", label: "توثيق الهوية" },
   { href: "/settings", label: "الإعدادات" },
@@ -36,8 +41,10 @@ export async function AppNav() {
   }
 
   const links = isAdmin ? [...LINKS, { href: "/admin", label: "لوحة الإدارة" }] : LINKS;
+  const mobileMenuLinks = links.filter((l) => !PRIMARY_HREFS.has(l.href));
 
   return (
+    <>
     <nav className="border-b border-border">
       <div className="mx-auto max-w-5xl px-4 py-3 sm:px-6 sm:py-4">
         <div className="flex items-center justify-between gap-2">
@@ -119,21 +126,32 @@ export async function AppNav() {
         </div>
 
         <input type="checkbox" id="app-nav-toggle" className="peer hidden" />
-        <div className="hidden flex-col gap-3 border-t border-border pt-3 mt-3 text-sm peer-checked:flex sm:mt-0 sm:flex sm:flex-row sm:flex-wrap sm:items-center sm:gap-4 sm:border-t-0 sm:pt-0">
-          {links.map((l) => (
+        <div className="hidden flex-col gap-3 border-t border-border pt-3 mt-3 text-sm peer-checked:flex sm:hidden">
+          {mobileMenuLinks.map((l) => (
             <Link key={l.href} href={l.href} className="text-muted hover:text-foreground">
               {l.label}
             </Link>
           ))}
           {user && (
-            <form action={logout} className="sm:hidden">
+            <form action={logout}>
               <button type="submit" className="rounded border border-border px-3 py-1.5 text-sm">
                 تسجيل الخروج
               </button>
             </form>
           )}
         </div>
+
+        <div className="hidden sm:flex sm:flex-row sm:flex-wrap sm:items-center sm:gap-4 sm:pt-3 text-sm">
+          {links.map((l) => (
+            <Link key={l.href} href={l.href} className="text-muted hover:text-foreground">
+              {l.label}
+            </Link>
+          ))}
+        </div>
       </div>
     </nav>
+    {user && <MarketTicker />}
+    {user && <BottomNav />}
+    </>
   );
 }
