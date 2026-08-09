@@ -2,7 +2,6 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { logout } from "@/app/auth/actions";
-import { MarketTicker } from "@/components/MarketTicker";
 import { BottomNav } from "@/components/BottomNav";
 
 const PRIMARY_HREFS = new Set(["/dashboard", "/discover", "/markets", "/portfolio"]);
@@ -150,7 +149,6 @@ export async function AppNav() {
         </div>
       </div>
     </nav>
-    {user && <MarketTicker />}
     {user && <BottomNav />}
     </>
   );
