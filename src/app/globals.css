@@ -13,6 +13,7 @@
   --accent-foreground: #ffffff;
   --success: #0ecb81;
   --danger: #f6465d;
+  --warning: #f0a020;
   --muted: #8392a5;
 }
 
@@ -29,6 +30,7 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-success: var(--success);
   --color-danger: var(--danger);
+  --color-warning: var(--warning);
   --color-muted: var(--muted);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);

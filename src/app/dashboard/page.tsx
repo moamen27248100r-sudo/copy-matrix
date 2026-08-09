@@ -126,8 +126,8 @@ export default async function DashboardPage() {
             <span
               className={
                 profile.account_type === "real"
-                  ? "rounded border border-success/40 px-2 py-0.5 text-xs text-success"
-                  : "rounded border border-border px-2 py-0.5 text-xs text-muted"
+                  ? "rounded-full border border-success/40 bg-success/10 px-3 py-1 text-xs font-semibold text-success"
+                  : "rounded-full border border-warning/40 bg-warning/10 px-3 py-1 text-xs font-semibold text-warning"
               }
             >
               {profile.account_type === "real" ? "حساب حقيقي" : "حساب تجريبي"}

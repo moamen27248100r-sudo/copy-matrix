@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { updateProfile, changePassword } from "@/app/settings/actions";
+import { updateProfile, updateAccountType, changePassword } from "@/app/settings/actions";
 import { AppNav } from "@/components/AppNav";
 
 export default async function SettingsPage({
@@ -18,7 +18,7 @@ export default async function SettingsPage({
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("display_name")
+    .select("display_name, account_type")
     .eq("id", user.id)
     .single();
 
@@ -56,6 +56,48 @@ export default async function SettingsPage({
               className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground"
             >
               حفظ الاسم
+            </button>
+          </form>
+        </section>
+
+        <section className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
+          <h2 className="font-medium">نوع الحساب</h2>
+          <p className="text-xs text-muted">
+            الحساب الحقيقي يتيح إيداع وسحب أموال فعلية. الحساب التجريبي مخصص للتدريب والاستكشاف برصيد وهمي فقط.
+          </p>
+          <form action={updateAccountType} className="flex flex-col gap-2">
+            <label
+              className={
+                (profile?.account_type ?? "demo") === "demo"
+                  ? "flex items-center gap-2 rounded border border-warning/40 bg-warning/10 px-3 py-2 text-sm"
+                  : "flex items-center gap-2 rounded border border-border bg-background px-3 py-2 text-sm"
+              }
+            >
+              <input
+                type="radio"
+                name="accountType"
+                value="demo"
+                defaultChecked={(profile?.account_type ?? "demo") === "demo"}
+              />
+              <span className="font-semibold text-warning">حساب تجريبي</span>
+              <span className="text-xs text-muted">— للتدريب والاستكشاف</span>
+            </label>
+            <label
+              className={
+                profile?.account_type === "real"
+                  ? "flex items-center gap-2 rounded border border-success/40 bg-success/10 px-3 py-2 text-sm"
+                  : "flex items-center gap-2 rounded border border-border bg-background px-3 py-2 text-sm"
+              }
+            >
+              <input type="radio" name="accountType" value="real" defaultChecked={profile?.account_type === "real"} />
+              <span className="font-semibold text-success">حساب حقيقي</span>
+              <span className="text-xs text-muted">— إيداع وسحب أموال فعلية</span>
+            </label>
+            <button
+              type="submit"
+              className="mt-1 rounded border border-border bg-background px-3 py-2 text-sm text-foreground"
+            >
+              حفظ نوع الحساب
             </button>
           </form>
         </section>

@@ -33,6 +33,30 @@ export async function updateProfile(formData: FormData) {
   redirect("/settings?success=1");
 }
 
+export async function updateAccountType(formData: FormData) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) redirect("/login");
+
+  const accountType = formData.get("accountType") === "real" ? "real" : "demo";
+
+  const { error } = await supabase
+    .from("profiles")
+    .update({ account_type: accountType })
+    .eq("id", user.id);
+
+  if (error) {
+    redirect("/settings?error=" + encodeURIComponent("تعذّر تحديث نوع الحساب. حاول مرة أخرى."));
+  }
+
+  revalidatePath("/settings");
+  revalidatePath("/dashboard");
+  redirect("/settings?success=1");
+}
+
 export async function changePassword(formData: FormData) {
   const supabase = await createClient();
   const {

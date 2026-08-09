@@ -42,18 +42,6 @@ export default async function SignupPage({
           className="rounded border border-border bg-surface px-3 py-2"
         />
 
-        <fieldset className="flex flex-col gap-2 rounded border border-border p-3">
-          <legend className="px-1 text-xs text-muted">نوع الحساب</legend>
-          <label className="flex items-center gap-2 text-sm">
-            <input type="radio" name="accountType" value="demo" defaultChecked />
-            حساب تجريبي — للتدريب والاستكشاف
-          </label>
-          <label className="flex items-center gap-2 text-sm">
-            <input type="radio" name="accountType" value="real" />
-            حساب حقيقي
-          </label>
-        </fieldset>
-
         <button
           type="submit"
           className="rounded bg-accent px-3 py-2 font-medium text-accent-foreground transition hover:bg-accent-hover"
