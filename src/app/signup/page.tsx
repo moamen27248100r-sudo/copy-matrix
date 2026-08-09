@@ -62,12 +62,18 @@ export default async function SignupPage({
         .
       </p>
 
-      <p className="text-sm text-muted">
-        هل تملك حسابًا بالفعل؟{" "}
-        <Link href="/login" className="text-foreground underline">
-          تسجيل الدخول
-        </Link>
-      </p>
+      <div className="flex items-center gap-3 text-xs text-muted">
+        <span className="h-px flex-1 bg-border" />
+        أو
+        <span className="h-px flex-1 bg-border" />
+      </div>
+
+      <Link
+        href="/login"
+        className="rounded border border-border px-3 py-2 text-center font-medium text-foreground transition hover:border-accent hover:text-accent"
+      >
+        لدي حساب بالفعل — تسجيل الدخول
+      </Link>
     </main>
   );
 }
