@@ -41,7 +41,7 @@ export default async function PortfolioPage({
   const providerIds = (subscriptions ?? []).map((s) => s.provider_id);
   const allocationByProvider = new Map((subscriptions ?? []).map((s) => [s.provider_id, s.allocated_amount]));
 
-  const [{ data: profile }, { data: followedProviders }, { data: positions }, { data: transactions }, { data: pendingRequests }] =
+  const [{ data: profile }, { data: followedProviders }, { data: positions }, { data: transactions }, { data: walletRequests }] =
     await Promise.all([
       supabase.from("profiles").select("balance").eq("id", user.id).single(),
       providerIds.length > 0
@@ -62,9 +62,11 @@ export default async function PortfolioPage({
         .from("wallet_requests")
         .select("id, type, amount, status, requested_at")
         .eq("user_id", user.id)
-        .eq("status", "pending")
-        .order("requested_at", { ascending: false }),
+        .order("requested_at", { ascending: false })
+        .limit(20),
     ]);
+
+  const pendingRequests = (walletRequests ?? []).filter((r) => r.status === "pending");
 
   const allPositions = positions ?? [];
   const closedPositions = allPositions.filter((p) => p.status === "closed");
@@ -132,10 +134,10 @@ export default async function PortfolioPage({
             طلبات الإيداع والسحب تحتاج مراجعة وموافقة من فريق الإدارة قبل ما تنعكس على رصيدك.
           </p>
 
-          {(pendingRequests ?? []).length > 0 && (
+          {pendingRequests.length > 0 && (
             <div className="flex flex-col gap-2">
               <p className="text-xs font-medium text-muted">طلبات قيد المراجعة</p>
-              {pendingRequests!.map((r) => (
+              {pendingRequests.map((r) => (
                 <div
                   key={r.id}
                   className="flex items-center justify-between rounded border border-border bg-background px-3 py-2 text-sm"
@@ -292,6 +294,50 @@ export default async function PortfolioPage({
                       {Number(t.amount).toFixed(2)}
                     </td>
                     <td className="py-2 whitespace-nowrap">${Number(t.balance_after).toLocaleString("en-US", { maximumFractionDigits: 2 })}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
+
+      <section className="flex flex-col gap-2">
+        <h2 className="font-medium">طلبات الإيداع والسحب</h2>
+        {(walletRequests ?? []).length === 0 ? (
+          <p className="text-sm text-muted">لا توجد طلبات إيداع أو سحب حتى الآن.</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[420px] text-sm">
+              <thead>
+                <tr className="border-b border-border text-right text-xs text-muted">
+                  <th className="py-2 pl-3">التاريخ</th>
+                  <th className="py-2 pl-3">النوع</th>
+                  <th className="py-2 pl-3">المبلغ</th>
+                  <th className="py-2">الحالة</th>
+                </tr>
+              </thead>
+              <tbody>
+                {walletRequests!.map((r) => (
+                  <tr key={r.id} className="border-b border-border/60">
+                    <td className="py-2 pl-3 whitespace-nowrap text-xs text-muted">
+                      {new Date(r.requested_at).toLocaleDateString("ar-EG")}
+                    </td>
+                    <td className="py-2 pl-3 whitespace-nowrap">{r.type === "deposit" ? "إيداع" : "سحب"}</td>
+                    <td className="py-2 pl-3 whitespace-nowrap">${Number(r.amount).toLocaleString("en-US")}</td>
+                    <td className="py-2 whitespace-nowrap">
+                      <span
+                        className={
+                          r.status === "approved"
+                            ? "text-success"
+                            : r.status === "rejected"
+                              ? "text-danger"
+                              : "text-muted"
+                        }
+                      >
+                        {REQUEST_STATUS_LABELS[r.status]}
+                      </span>
+                    </td>
                   </tr>
                 ))}
               </tbody>
