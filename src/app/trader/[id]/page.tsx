@@ -58,7 +58,7 @@ export default async function TraderPage({
     redirect("/login");
   }
 
-  const [{ data: provider }, { data: signals }, { data: mySub }, { data: myProfile }] = await Promise.all([
+  const [{ data: provider }, { data: signals }, { data: mySub }, { data: myProfile }, { data: otherSub }] = await Promise.all([
     supabase.from("provider_cards").select("*").eq("provider_id", id).single(),
     supabase
       .from("signals")
@@ -73,6 +73,13 @@ export default async function TraderPage({
       .eq("is_active", true)
       .maybeSingle(),
     supabase.from("profiles").select("balance").eq("id", user.id).single(),
+    supabase
+      .from("subscriptions")
+      .select("provider_id")
+      .eq("follower_id", user.id)
+      .eq("is_active", true)
+      .neq("provider_id", id)
+      .maybeSingle(),
   ]);
 
   if (!provider) {
@@ -81,6 +88,17 @@ export default async function TraderPage({
 
   const allSignals = (signals ?? []) as SignalRow[];
   const isFollowing = !!mySub;
+
+  let otherProviderName: string | null = null;
+  if (otherSub) {
+    const { data: otherProvider } = await supabase
+      .from("provider_cards")
+      .select("display_name")
+      .eq("provider_id", otherSub.provider_id)
+      .single();
+    otherProviderName = otherProvider?.display_name ?? "متداول آخر";
+  }
+  const isBlocked = !!otherSub;
 
   const periods = [
     { label: "اليوم", days: 1 },
@@ -134,6 +152,18 @@ export default async function TraderPage({
         {provider.bio && <p className="text-sm text-muted">{provider.bio}</p>}
 
         <div className="flex flex-col gap-3 rounded-lg border border-border bg-background p-3">
+          {isBlocked ? (
+            <div className="flex flex-col gap-2 rounded border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-warning">
+              <p>
+                أنت تنسخ حاليًا <strong>{otherProviderName}</strong>. يمكنك نسخ متداول واحد فقط في نفس
+                الوقت — ألغِ المتابعة أولاً من{" "}
+                <Link href="/portfolio" className="underline">
+                  محفظتك
+                </Link>{" "}
+                لتتمكن من نسخ {provider.display_name}.
+              </p>
+            </div>
+          ) : (
           <form action={followProvider} className="flex flex-wrap items-center gap-3">
             <input type="hidden" name="providerId" value={id} />
             <label className="flex items-center gap-2 text-sm text-muted">
@@ -174,6 +204,7 @@ export default async function TraderPage({
               </span>
             )}
           </form>
+          )}
           {isFollowing && (
             <form action={unfollowProvider}>
               <input type="hidden" name="providerId" value={id} />

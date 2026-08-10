@@ -24,10 +24,30 @@ export async function followProvider(formData: FormData) {
     redirect(`/trader/${providerId}?error=${encodeURIComponent("حد الخسارة يجب أن يكون بين ١ و١٠٠٪.")}`);
   }
 
-  const [{ data: profile }, { data: provider }] = await Promise.all([
+  const [{ data: profile }, { data: provider }, { data: otherSub }] = await Promise.all([
     supabase.from("profiles").select("balance").eq("id", user.id).single(),
     supabase.from("providers").select("min_copy_amount").eq("id", providerId).single(),
+    supabase
+      .from("subscriptions")
+      .select("provider_id")
+      .eq("follower_id", user.id)
+      .eq("is_active", true)
+      .neq("provider_id", providerId)
+      .maybeSingle(),
   ]);
+
+  if (otherSub) {
+    const { data: otherProvider } = await supabase
+      .from("provider_cards")
+      .select("display_name")
+      .eq("provider_id", otherSub.provider_id)
+      .single();
+    redirect(
+      `/trader/${providerId}?error=${encodeURIComponent(
+        `أنت تنسخ حاليًا ${otherProvider?.display_name ?? "متداولًا آخر"}. يمكنك نسخ متداول واحد فقط في نفس الوقت — ألغِ المتابعة أولاً من محفظتك.`,
+      )}`,
+    );
+  }
 
   if (profile && allocatedAmount > profile.balance) {
     redirect(`/trader/${providerId}?error=${encodeURIComponent("مبلغ النسخ أكبر من رصيدك المتاح.")}`);

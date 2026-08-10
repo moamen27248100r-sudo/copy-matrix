@@ -70,6 +70,7 @@ export default async function PortfolioPage({
 
   const allPositions = positions ?? [];
   const closedPositions = allPositions.filter((p) => p.status === "closed");
+  const openPositions = allPositions.filter((p) => p.status === "open");
   const totalRealizedPnl = closedPositions.reduce((sum, p) => sum + (p.pnl ?? 0), 0);
 
   const providerNameById = new Map(
@@ -214,10 +215,18 @@ export default async function PortfolioPage({
       </section>
 
       <section className="flex flex-col gap-2">
-        <h2 className="font-medium">الصفقات المنسوخة المغلقة</h2>
-        {closedPositions.length === 0 ? (
+        <h2 className="flex items-center gap-2 font-medium">
+          الصفقات المفتوحة الآن
+          {openPositions.length > 0 && (
+            <span className="flex items-center gap-1 text-xs font-normal text-success">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-success" />
+              مباشر
+            </span>
+          )}
+        </h2>
+        {openPositions.length === 0 ? (
           <p className="text-sm text-muted">
-            لا توجد صفقات منسوخة مغلقة حتى الآن. ستظهر النتائج هنا فور إغلاق أي متداول تتابعه لصفقة.
+            لا توجد صفقات مفتوحة حاليًا. أي صفقة جديدة ينفذها متداول تتابعه ستُنسخ لحسابك تلقائيًا وتظهر هنا فورًا.
           </p>
         ) : (
           <div className="overflow-x-auto">
@@ -228,17 +237,16 @@ export default async function PortfolioPage({
                   <th className="py-2 pl-3">الرمز</th>
                   <th className="py-2 pl-3">الاتجاه</th>
                   <th className="py-2 pl-3">الدخول</th>
-                  <th className="py-2 pl-3">الخروج</th>
-                  <th className="py-2">النتيجة</th>
+                  <th className="py-2 pl-3">الحجم</th>
+                  <th className="py-2">وقت الفتح</th>
                 </tr>
               </thead>
               <tbody>
-                {closedPositions.map((pos) => {
+                {openPositions.map((pos) => {
                   const signal = Array.isArray(pos.signals) ? pos.signals[0] : pos.signals;
                   const providerName = signal
                     ? providerNameById.get(signal.provider_id) ?? "—"
                     : "—";
-                  const isWin = (pos.pnl ?? 0) >= 0;
                   return (
                     <tr key={pos.id} className="border-b border-border/60">
                       <td className="py-2 pl-3 whitespace-nowrap">{providerName}</td>
@@ -251,7 +259,64 @@ export default async function PortfolioPage({
                         {signal?.side === "buy" ? "شراء" : signal?.side === "sell" ? "بيع" : "—"}
                       </td>
                       <td className="py-2 pl-3 whitespace-nowrap">{Number(pos.entry_price).toLocaleString("en-US", { maximumFractionDigits: 4 })}</td>
+                      <td className="py-2 pl-3 whitespace-nowrap">{Number(pos.size).toLocaleString("en-US", { maximumFractionDigits: 2 })}</td>
+                      <td className="py-2 whitespace-nowrap text-xs text-muted">
+                        {new Date(pos.opened_at).toLocaleString("ar-EG", { dateStyle: "short", timeStyle: "short" })}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
+
+      <section className="flex flex-col gap-2">
+        <h2 className="font-medium">الصفقات المنسوخة المغلقة</h2>
+        {closedPositions.length === 0 ? (
+          <p className="text-sm text-muted">
+            لا توجد صفقات منسوخة مغلقة حتى الآن. ستظهر النتائج هنا فور إغلاق أي متداول تتابعه لصفقة.
+          </p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[680px] text-sm">
+              <thead>
+                <tr className="border-b border-border text-right text-xs text-muted">
+                  <th className="py-2 pl-3">التاريخ</th>
+                  <th className="py-2 pl-3">المتداول</th>
+                  <th className="py-2 pl-3">الرمز</th>
+                  <th className="py-2 pl-3">الاتجاه</th>
+                  <th className="py-2 pl-3">الدخول</th>
+                  <th className="py-2 pl-3">الخروج</th>
+                  <th className="py-2 pl-3">الحجم</th>
+                  <th className="py-2">النتيجة</th>
+                </tr>
+              </thead>
+              <tbody>
+                {closedPositions.map((pos) => {
+                  const signal = Array.isArray(pos.signals) ? pos.signals[0] : pos.signals;
+                  const providerName = signal
+                    ? providerNameById.get(signal.provider_id) ?? "—"
+                    : "—";
+                  const isWin = (pos.pnl ?? 0) >= 0;
+                  return (
+                    <tr key={pos.id} className="border-b border-border/60">
+                      <td className="py-2 pl-3 whitespace-nowrap text-xs text-muted">
+                        {pos.closed_at ? new Date(pos.closed_at).toLocaleDateString("ar-EG") : "—"}
+                      </td>
+                      <td className="py-2 pl-3 whitespace-nowrap">{providerName}</td>
+                      <td className="py-2 pl-3 whitespace-nowrap font-medium">{signal?.symbol ?? "—"}</td>
+                      <td
+                        className={
+                          signal?.side === "buy" ? "py-2 pl-3 whitespace-nowrap text-success" : "py-2 pl-3 whitespace-nowrap text-danger"
+                        }
+                      >
+                        {signal?.side === "buy" ? "شراء" : signal?.side === "sell" ? "بيع" : "—"}
+                      </td>
+                      <td className="py-2 pl-3 whitespace-nowrap">{Number(pos.entry_price).toLocaleString("en-US", { maximumFractionDigits: 4 })}</td>
                       <td className="py-2 pl-3 whitespace-nowrap">{Number(pos.exit_price).toLocaleString("en-US", { maximumFractionDigits: 4 })}</td>
+                      <td className="py-2 pl-3 whitespace-nowrap">{Number(pos.size).toLocaleString("en-US", { maximumFractionDigits: 2 })}</td>
                       <td className="py-2 whitespace-nowrap">
                         <span className={isWin ? "text-success" : "text-danger"} dir="ltr">
                           {(pos.pnl ?? 0) >= 0 ? "+" : ""}
