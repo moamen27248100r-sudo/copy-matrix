@@ -90,7 +90,7 @@ export default async function DiscoverPage({
                 className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4"
               >
                 <Link href={`/trader/${p.provider_id}`} className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-sm text-background">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-accent to-brand text-sm font-semibold text-white">
                     {p.display_name?.charAt(0) ?? "؟"}
                   </div>
                   <div>

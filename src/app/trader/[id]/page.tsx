@@ -124,7 +124,7 @@ export default async function TraderPage({
 
       <div className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-4">
         <div className="flex items-center gap-4">
-          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-foreground text-lg text-background">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-accent to-brand text-lg font-semibold text-white">
             {provider.display_name?.charAt(0) ?? "؟"}
           </div>
           <div className="flex-1">

@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { unfollowProvider } from "@/app/discover/actions";
 import { requestDeposit, requestWithdrawal } from "@/app/portfolio/actions";
 import { AppNav } from "@/components/AppNav";
+import { PortfolioTabs } from "@/components/PortfolioTabs";
 
 const TX_LABELS: Record<string, string> = {
   deposit: "إيداع",
@@ -16,6 +17,39 @@ const REQUEST_STATUS_LABELS: Record<string, string> = {
   approved: "مقبول",
   rejected: "مرفوض",
 };
+
+function timeSince(iso: string) {
+  const ms = Date.now() - new Date(iso).getTime();
+  const hours = Math.floor(ms / 3_600_000);
+  if (hours < 1) return "منذ أقل من ساعة";
+  if (hours < 24) return `منذ ${hours} ساعة`;
+  const days = Math.floor(hours / 24);
+  return `منذ ${days} يوم`;
+}
+
+type PositionSignal = { symbol: string; side: string; provider_id: string };
+type Position = {
+  id: string;
+  entry_price: number;
+  exit_price: number | null;
+  size: number;
+  status: string;
+  pnl: number | null;
+  opened_at: string;
+  closed_at: string | null;
+  signals: PositionSignal | PositionSignal[] | null;
+};
+
+function positionSignal(pos: Position): PositionSignal | null {
+  return Array.isArray(pos.signals) ? pos.signals[0] ?? null : pos.signals;
+}
+
+function signedReturnPct(pos: Position) {
+  const signal = positionSignal(pos);
+  if (!signal || pos.exit_price == null) return 0;
+  const raw = (pos.exit_price - pos.entry_price) / pos.entry_price;
+  return (signal.side === "sell" ? -raw : raw) * 100;
+}
 
 export default async function PortfolioPage({
   searchParams,
@@ -68,111 +102,117 @@ export default async function PortfolioPage({
 
   const pendingRequests = (walletRequests ?? []).filter((r) => r.status === "pending");
 
-  const allPositions = positions ?? [];
+  const allPositions = (positions ?? []) as Position[];
   const closedPositions = allPositions.filter((p) => p.status === "closed");
   const openPositions = allPositions.filter((p) => p.status === "open");
   const totalRealizedPnl = closedPositions.reduce((sum, p) => sum + (p.pnl ?? 0), 0);
+
+  const myWins = closedPositions.filter((p) => (p.pnl ?? 0) >= 0).length;
+  const myWinRatePct = closedPositions.length > 0 ? Math.round((myWins / closedPositions.length) * 100) : null;
+  const myAvgReturnPct =
+    closedPositions.length > 0
+      ? closedPositions.reduce((sum, p) => sum + signedReturnPct(p), 0) / closedPositions.length
+      : null;
 
   const providerNameById = new Map(
     (followedProviders ?? []).map((p) => [p.provider_id, p.display_name]),
   );
 
-  return (
-    <>
-      <AppNav />
-      <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6">
-        <h1 className="text-2xl font-semibold">محفظتي</h1>
-
-        {error && (
-          <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
-            {error}
+  const overview = (
+    <div className="flex flex-col gap-6">
+      <section className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-4">
+        <div>
+          <p className="text-xs text-muted">الرصيد المتاح</p>
+          <p className="text-3xl font-semibold">
+            ${profile?.balance != null ? Number(profile.balance).toLocaleString("en-US", { maximumFractionDigits: 2 }) : "—"}
           </p>
-        )}
-        {success && (
-          <p className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">
-            تمت العملية بنجاح.
-          </p>
-        )}
-
-        <section className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-4">
-          <div>
-            <p className="text-xs text-muted">الرصيد المتاح</p>
-            <p className="text-3xl font-semibold">
-              ${profile?.balance != null ? Number(profile.balance).toLocaleString("en-US", { maximumFractionDigits: 2 }) : "—"}
-            </p>
-          </div>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <form action={requestDeposit} className="flex items-center gap-2">
-              <input
-                name="amount"
-                type="number"
-                step="any"
-                min="1"
-                placeholder="مبلغ الإيداع"
-                required
-                className="flex-1 rounded border border-border bg-background px-3 py-2 text-sm"
-              />
-              <button type="submit" className="rounded bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover">
-                طلب إيداع
-              </button>
-            </form>
-            <form action={requestWithdrawal} className="flex items-center gap-2">
-              <input
-                name="amount"
-                type="number"
-                step="any"
-                min="1"
-                placeholder="مبلغ السحب"
-                required
-                className="flex-1 rounded border border-border bg-background px-3 py-2 text-sm"
-              />
-              <button type="submit" className="rounded border border-border bg-background px-4 py-2 text-sm text-foreground">
-                طلب سحب
-              </button>
-            </form>
-          </div>
-          <p className="text-xs text-muted">
-            طلبات الإيداع والسحب تحتاج مراجعة وموافقة من فريق الإدارة قبل ما تنعكس على رصيدك.
-          </p>
-
-          {pendingRequests.length > 0 && (
-            <div className="flex flex-col gap-2">
-              <p className="text-xs font-medium text-muted">طلبات قيد المراجعة</p>
-              {pendingRequests.map((r) => (
-                <div
-                  key={r.id}
-                  className="flex items-center justify-between rounded border border-border bg-background px-3 py-2 text-sm"
-                >
-                  <span>{r.type === "deposit" ? "إيداع" : "سحب"} ${Number(r.amount).toLocaleString("en-US")}</span>
-                  <span className="text-xs text-muted">{REQUEST_STATUS_LABELS[r.status]}</span>
-                </div>
-              ))}
-            </div>
-          )}
-        </section>
-
-        <div className="grid grid-cols-2 gap-3 text-center text-sm">
-        <div className="rounded-lg border border-border bg-surface p-3">
-          <p
-            className={
-              totalRealizedPnl >= 0
-                ? "text-lg font-semibold text-success"
-                : "text-lg font-semibold text-danger"
-            }
-          >
-            {totalRealizedPnl >= 0 ? "+" : ""}
-            {totalRealizedPnl.toFixed(2)}
-          </p>
-          <p className="text-xs text-muted">صافي الأرباح المحققة</p>
         </div>
-        <div className="rounded-lg border border-border bg-surface p-3">
-          <p className="text-lg font-semibold">{closedPositions.length}</p>
-          <p className="text-xs text-muted">عدد الصفقات المغلقة</p>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <form action={requestDeposit} className="flex items-center gap-2">
+            <input
+              name="amount"
+              type="number"
+              step="any"
+              min="1"
+              placeholder="مبلغ الإيداع"
+              required
+              className="flex-1 rounded border border-border bg-background px-3 py-2 text-sm"
+            />
+            <button type="submit" className="rounded bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover">
+              طلب إيداع
+            </button>
+          </form>
+          <form action={requestWithdrawal} className="flex items-center gap-2">
+            <input
+              name="amount"
+              type="number"
+              step="any"
+              min="1"
+              placeholder="مبلغ السحب"
+              required
+              className="flex-1 rounded border border-border bg-background px-3 py-2 text-sm"
+            />
+            <button type="submit" className="rounded border border-border bg-background px-4 py-2 text-sm text-foreground">
+              طلب سحب
+            </button>
+          </form>
         </div>
-      </div>
+        <p className="text-xs text-muted">
+          طلبات الإيداع والسحب تحتاج مراجعة وموافقة من فريق الإدارة قبل ما تنعكس على رصيدك.
+        </p>
+
+        {pendingRequests.length > 0 && (
+          <div className="flex flex-col gap-2">
+            <p className="text-xs font-medium text-muted">طلبات قيد المراجعة</p>
+            {pendingRequests.map((r) => (
+              <div
+                key={r.id}
+                className="flex items-center justify-between rounded border border-border bg-background px-3 py-2 text-sm"
+              >
+                <span>{r.type === "deposit" ? "إيداع" : "سحب"} ${Number(r.amount).toLocaleString("en-US")}</span>
+                <span className="text-xs text-muted">{REQUEST_STATUS_LABELS[r.status]}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">المتداولون الذين تتابعهم</h2>
+        <h2 className="font-medium">أداء نسخي</h2>
+        <div className="grid grid-cols-2 gap-3 text-center text-sm sm:grid-cols-4">
+          <div className="rounded-lg border border-border bg-surface p-3">
+            <p className={totalRealizedPnl >= 0 ? "text-lg font-semibold text-success" : "text-lg font-semibold text-danger"} dir="ltr">
+              {totalRealizedPnl >= 0 ? "+" : ""}
+              {totalRealizedPnl.toFixed(2)}
+            </p>
+            <p className="text-xs text-muted">صافي الأرباح المحققة</p>
+          </div>
+          <div className="rounded-lg border border-border bg-surface p-3">
+            <p className="text-lg font-semibold">{myWinRatePct != null ? `${myWinRatePct}%` : "—"}</p>
+            <p className="text-xs text-muted">نسبة نجاح صفقاتي المنسوخة</p>
+          </div>
+          <div className="rounded-lg border border-border bg-surface p-3">
+            <p
+              className={
+                myAvgReturnPct != null && myAvgReturnPct < 0
+                  ? "text-lg font-semibold text-danger"
+                  : "text-lg font-semibold text-success"
+              }
+              dir="ltr"
+            >
+              {myAvgReturnPct != null ? `${myAvgReturnPct > 0 ? "+" : ""}${myAvgReturnPct.toFixed(2)}%` : "—"}
+            </p>
+            <p className="text-xs text-muted">متوسط عائد الصفقة</p>
+          </div>
+          <div className="rounded-lg border border-border bg-surface p-3">
+            <p className="text-lg font-semibold">{closedPositions.length}</p>
+            <p className="text-xs text-muted">عدد الصفقات المغلقة</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="flex flex-col gap-3">
+        <h2 className="font-medium">المتداول الذي تتابعه</h2>
         {(followedProviders ?? []).length === 0 ? (
           <p className="text-sm text-muted">
             أنت لا تتابع أي متداول حتى الآن. انتقل إلى{" "}
@@ -188,7 +228,7 @@ export default async function PortfolioPage({
               className="flex items-center justify-between rounded-lg border border-border bg-surface p-3"
             >
               <Link href={`/trader/${p.provider_id}`} className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-foreground text-sm text-background">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-accent to-brand text-sm font-semibold text-white">
                   {p.display_name?.charAt(0) ?? "؟"}
                 </div>
                 <div>
@@ -213,7 +253,11 @@ export default async function PortfolioPage({
           ))
         )}
       </section>
+    </div>
+  );
 
+  const positionsPanel = (
+    <div className="flex flex-col gap-6">
       <section className="flex flex-col gap-2">
         <h2 className="flex items-center gap-2 font-medium">
           الصفقات المفتوحة الآن
@@ -238,15 +282,13 @@ export default async function PortfolioPage({
                   <th className="py-2 pl-3">الاتجاه</th>
                   <th className="py-2 pl-3">الدخول</th>
                   <th className="py-2 pl-3">الحجم</th>
-                  <th className="py-2">وقت الفتح</th>
+                  <th className="py-2">مدة الصفقة</th>
                 </tr>
               </thead>
               <tbody>
                 {openPositions.map((pos) => {
-                  const signal = Array.isArray(pos.signals) ? pos.signals[0] : pos.signals;
-                  const providerName = signal
-                    ? providerNameById.get(signal.provider_id) ?? "—"
-                    : "—";
+                  const signal = positionSignal(pos);
+                  const providerName = signal ? providerNameById.get(signal.provider_id) ?? "—" : "—";
                   return (
                     <tr key={pos.id} className="border-b border-border/60">
                       <td className="py-2 pl-3 whitespace-nowrap">{providerName}</td>
@@ -260,9 +302,7 @@ export default async function PortfolioPage({
                       </td>
                       <td className="py-2 pl-3 whitespace-nowrap">{Number(pos.entry_price).toLocaleString("en-US", { maximumFractionDigits: 4 })}</td>
                       <td className="py-2 pl-3 whitespace-nowrap">{Number(pos.size).toLocaleString("en-US", { maximumFractionDigits: 2 })}</td>
-                      <td className="py-2 whitespace-nowrap text-xs text-muted">
-                        {new Date(pos.opened_at).toLocaleString("ar-EG", { dateStyle: "short", timeStyle: "short" })}
-                      </td>
+                      <td className="py-2 whitespace-nowrap text-xs text-muted">{timeSince(pos.opened_at)}</td>
                     </tr>
                   );
                 })}
@@ -295,10 +335,8 @@ export default async function PortfolioPage({
               </thead>
               <tbody>
                 {closedPositions.map((pos) => {
-                  const signal = Array.isArray(pos.signals) ? pos.signals[0] : pos.signals;
-                  const providerName = signal
-                    ? providerNameById.get(signal.provider_id) ?? "—"
-                    : "—";
+                  const signal = positionSignal(pos);
+                  const providerName = signal ? providerNameById.get(signal.provider_id) ?? "—" : "—";
                   const isWin = (pos.pnl ?? 0) >= 0;
                   return (
                     <tr key={pos.id} className="border-b border-border/60">
@@ -331,7 +369,11 @@ export default async function PortfolioPage({
           </div>
         )}
       </section>
+    </div>
+  );
 
+  const activity = (
+    <div className="flex flex-col gap-6">
       <section className="flex flex-col gap-2">
         <h2 className="font-medium">حركات المحفظة</h2>
         {(transactions ?? []).length === 0 ? (
@@ -410,6 +452,27 @@ export default async function PortfolioPage({
           </div>
         )}
       </section>
+    </div>
+  );
+
+  return (
+    <>
+      <AppNav />
+      <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6">
+        <h1 className="text-2xl font-semibold">محفظتي</h1>
+
+        {error && (
+          <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
+            {error}
+          </p>
+        )}
+        {success && (
+          <p className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">
+            تمت العملية بنجاح.
+          </p>
+        )}
+
+        <PortfolioTabs overview={overview} positions={positionsPanel} activity={activity} />
       </main>
     </>
   );
