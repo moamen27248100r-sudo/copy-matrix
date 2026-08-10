@@ -282,8 +282,8 @@ export default async function TraderPage({
                       <td className="py-2 pl-3 whitespace-nowrap">{Number(s.entry_price).toLocaleString("en-US", { maximumFractionDigits: 4 })}</td>
                       <td className="py-2 pl-3 whitespace-nowrap">{Number(s.exit_price).toLocaleString("en-US", { maximumFractionDigits: 4 })}</td>
                       <td className="py-2 whitespace-nowrap">
-                        <span className={isWin ? "text-success" : "text-danger"}>
-                          {isWin ? "ربح" : "خسارة"} {signedPct > 0 ? "+" : ""}
+                        <span className={isWin ? "text-success" : "text-danger"} dir="ltr">
+                          {signedPct > 0 ? "+" : ""}
                           {signedPct.toFixed(2)}%
                         </span>
                       </td>

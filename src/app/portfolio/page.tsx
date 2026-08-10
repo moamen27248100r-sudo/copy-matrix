@@ -253,8 +253,8 @@ export default async function PortfolioPage({
                       <td className="py-2 pl-3 whitespace-nowrap">{Number(pos.entry_price).toLocaleString("en-US", { maximumFractionDigits: 4 })}</td>
                       <td className="py-2 pl-3 whitespace-nowrap">{Number(pos.exit_price).toLocaleString("en-US", { maximumFractionDigits: 4 })}</td>
                       <td className="py-2 whitespace-nowrap">
-                        <span className={isWin ? "text-success" : "text-danger"}>
-                          {isWin ? "ربح" : "خسارة"} {(pos.pnl ?? 0) >= 0 ? "+" : ""}
+                        <span className={isWin ? "text-success" : "text-danger"} dir="ltr">
+                          {(pos.pnl ?? 0) >= 0 ? "+" : ""}
                           {(pos.pnl ?? 0).toFixed(2)}
                         </span>
                       </td>
