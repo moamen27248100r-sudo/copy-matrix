@@ -48,6 +48,7 @@ export default async function DiscoverPage({
   const followingIds = new Set(
     (mySubscriptions ?? []).map((s) => s.provider_id),
   );
+  const followingProviderId = (mySubscriptions ?? [])[0]?.provider_id ?? null;
 
   return (
     <>
@@ -84,6 +85,7 @@ export default async function DiscoverPage({
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {providers.map((p) => {
             const isFollowing = followingIds.has(p.provider_id);
+            const isBlocked = followingProviderId != null && !isFollowing;
             return (
               <div
                 key={p.provider_id}
@@ -144,18 +146,39 @@ export default async function DiscoverPage({
                   الحد الأدنى للنسخ: ${Number(p.min_copy_amount).toLocaleString("en-US")}
                 </p>
 
-                <div className="flex gap-2">
+                <div className="flex flex-col gap-2">
                   <Link
                     href={`/trader/${p.provider_id}`}
-                    className="flex-1 rounded border border-border bg-background px-3 py-2 text-center text-sm text-foreground"
+                    className="rounded border border-border bg-background px-3 py-2 text-center text-sm text-foreground"
                   >
                     عرض الملف الشخصي
                   </Link>
-                  {isFollowing && (
+                  {isFollowing ? (
                     <form action={unfollowProvider}>
                       <input type="hidden" name="providerId" value={p.provider_id} />
-                      <button type="submit" className="rounded border border-border px-3 py-2 text-sm">
+                      <button type="submit" className="w-full rounded border border-border px-3 py-2 text-sm">
                         إلغاء المتابعة
+                      </button>
+                    </form>
+                  ) : isBlocked ? (
+                    <button
+                      type="button"
+                      disabled
+                      title="أنت تنسخ متداولًا آخر حاليًا — ألغِ المتابعة أولاً من محفظتك لتتمكن من نسخ هذا المتداول."
+                      className="w-full cursor-not-allowed rounded bg-accent/30 px-3 py-2 text-sm font-medium text-accent-foreground/60"
+                    >
+                      نسخ
+                    </button>
+                  ) : (
+                    <form action={followProvider}>
+                      <input type="hidden" name="providerId" value={p.provider_id} />
+                      <input type="hidden" name="allocatedAmount" value={p.min_copy_amount} />
+                      <input type="hidden" name="maxDrawdownPct" value={50} />
+                      <button
+                        type="submit"
+                        className="w-full rounded bg-accent px-3 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
+                      >
+                        نسخ
                       </button>
                     </form>
                   )}
