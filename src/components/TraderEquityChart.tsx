@@ -58,8 +58,7 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
   const coords = points.map((v, i) => `${i * stepX},${height - ((v - min) / range) * height}`).join(" ");
   const zeroY = height - ((0 - min) / range) * height;
   const last = points[points.length - 1] ?? 0;
-  const isPositive = last >= 0;
-  const color = isPositive ? "var(--success)" : "var(--danger)";
+  const color = "var(--brand)";
   const areaPoints = hasData ? `0,${height} ${coords} ${width},${height}` : "";
 
   return (
@@ -116,7 +115,7 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
           </svg>
           <div className="flex items-center justify-between text-xs text-muted">
             <span>البداية: 0%</span>
-            <span className={isPositive ? "text-success" : "text-danger"}>
+            <span className="text-foreground">
               الحالي: {last > 0 ? "+" : ""}
               {last.toFixed(2)}%
             </span>
