@@ -300,14 +300,11 @@ export default async function Home() {
             </Link>
           </div>
           <div className="mx-auto grid w-full max-w-5xl grid-cols-1 gap-4 sm:grid-cols-3">
-            {topProviders.map((p, i) => (
+            {topProviders.map((p) => (
               <div
                 key={p.provider_id}
                 className="group relative flex flex-col gap-3 rounded-xl border border-border bg-surface p-4 transition hover:border-accent/40 hover:shadow-lg"
               >
-                <span className="absolute left-4 top-4 rounded-full border border-border bg-background px-2 py-0.5 text-xs font-semibold text-muted">
-                  #{i + 1}
-                </span>
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-accent to-brand text-sm font-semibold text-white">
                     {p.display_name?.charAt(0) ?? "؟"}
