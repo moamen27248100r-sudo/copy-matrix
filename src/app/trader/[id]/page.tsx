@@ -151,7 +151,7 @@ export default async function TraderPage({
 
         {provider.bio && <p className="text-sm text-muted">{provider.bio}</p>}
 
-        <div className="flex flex-col gap-3 rounded-lg border border-border bg-background p-3">
+        <div id="copy" className="flex flex-col gap-3 rounded-lg border border-border bg-background p-3 scroll-mt-20">
           {isBlocked ? (
             <div className="flex flex-col gap-2 rounded border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-warning">
               <p>

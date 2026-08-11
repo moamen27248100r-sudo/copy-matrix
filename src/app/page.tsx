@@ -347,7 +347,7 @@ export default async function Home() {
                     عرض الملف الشخصي
                   </Link>
                   <Link
-                    href={`/trader/${p.provider_id}`}
+                    href={`/trader/${p.provider_id}#copy`}
                     className="rounded bg-accent px-3 py-2 text-center text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
                   >
                     نسخ

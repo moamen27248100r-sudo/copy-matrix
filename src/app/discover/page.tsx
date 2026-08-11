@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { followProvider, unfollowProvider } from "@/app/discover/actions";
+import { unfollowProvider } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
 
 const SORT_OPTIONS = {
@@ -170,17 +170,12 @@ export default async function DiscoverPage({
                       نسخ
                     </button>
                   ) : (
-                    <form action={followProvider}>
-                      <input type="hidden" name="providerId" value={p.provider_id} />
-                      <input type="hidden" name="allocatedAmount" value={p.min_copy_amount} />
-                      <input type="hidden" name="maxDrawdownPct" value={50} />
-                      <button
-                        type="submit"
-                        className="w-full rounded bg-accent px-3 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
-                      >
-                        نسخ
-                      </button>
-                    </form>
+                    <Link
+                      href={`/trader/${p.provider_id}#copy`}
+                      className="w-full rounded bg-accent px-3 py-2 text-center text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
+                    >
+                      نسخ
+                    </Link>
                   )}
                 </div>
               </div>
