@@ -18,15 +18,6 @@ const REQUEST_STATUS_LABELS: Record<string, string> = {
   rejected: "مرفوض",
 };
 
-function timeSince(iso: string) {
-  const ms = Date.now() - new Date(iso).getTime();
-  const hours = Math.floor(ms / 3_600_000);
-  if (hours < 1) return "منذ أقل من ساعة";
-  if (hours < 24) return `منذ ${hours} ساعة`;
-  const days = Math.floor(hours / 24);
-  return `منذ ${days} يوم`;
-}
-
 type PositionSignal = { symbol: string; side: string; provider_id: string };
 type Position = {
   id: string;
@@ -281,8 +272,7 @@ export default async function PortfolioPage({
                   <th className="py-2 pl-3">الرمز</th>
                   <th className="py-2 pl-3">الاتجاه</th>
                   <th className="py-2 pl-3">الدخول</th>
-                  <th className="py-2 pl-3">الحجم</th>
-                  <th className="py-2">مدة الصفقة</th>
+                  <th className="py-2">الحجم</th>
                 </tr>
               </thead>
               <tbody>
@@ -301,8 +291,7 @@ export default async function PortfolioPage({
                         {signal?.side === "buy" ? "شراء" : signal?.side === "sell" ? "بيع" : "—"}
                       </td>
                       <td className="py-2 pl-3 whitespace-nowrap">{Number(pos.entry_price).toLocaleString("en-US", { maximumFractionDigits: 4 })}</td>
-                      <td className="py-2 pl-3 whitespace-nowrap">{Number(pos.size).toLocaleString("en-US", { maximumFractionDigits: 2 })}</td>
-                      <td className="py-2 whitespace-nowrap text-xs text-muted">{timeSince(pos.opened_at)}</td>
+                      <td className="py-2 whitespace-nowrap">{Number(pos.size).toLocaleString("en-US", { maximumFractionDigits: 2 })}</td>
                     </tr>
                   );
                 })}
