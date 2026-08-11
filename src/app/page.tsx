@@ -313,7 +313,12 @@ export default async function Home() {
                     {p.display_name?.charAt(0) ?? "؟"}
                   </div>
                   <div>
-                    <p className="text-sm font-medium">{p.display_name}</p>
+                    <div className="flex items-center gap-2">
+                      <p className="text-sm font-medium">{p.display_name}</p>
+                      <span className="rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 text-[10px] font-medium text-accent">
+                        متابعة
+                      </span>
+                    </div>
                     <p className="text-xs text-muted">{p.followers_count} ناسخ</p>
                   </div>
                 </div>
@@ -336,6 +341,20 @@ export default async function Home() {
                     </p>
                     <p className="text-xs text-muted">متوسط العائد</p>
                   </div>
+                </div>
+                <div className="flex flex-col gap-2 pt-1">
+                  <Link
+                    href={`/trader/${p.provider_id}`}
+                    className="rounded border border-border bg-background px-3 py-2 text-center text-sm text-foreground"
+                  >
+                    عرض الملف الشخصي
+                  </Link>
+                  <Link
+                    href={`/trader/${p.provider_id}`}
+                    className="rounded bg-accent px-3 py-2 text-center text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
+                  >
+                    نسخ
+                  </Link>
                 </div>
               </div>
             ))}
