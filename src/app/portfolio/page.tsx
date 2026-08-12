@@ -325,6 +325,7 @@ export default async function PortfolioPage({
                   const signal = positionSignal(pos);
                   const providerName = signal ? providerNameById.get(signal.provider_id) ?? "—" : "—";
                   const isWin = (pos.pnl ?? 0) >= 0;
+                  const pct = signedReturnPct(pos);
                   return (
                     <tr key={pos.id} className="border-b border-border/60">
                       <td className="py-2 pl-3 whitespace-nowrap text-xs text-muted">
@@ -343,10 +344,16 @@ export default async function PortfolioPage({
                       <td className="py-2 pl-3 whitespace-nowrap">{Number(pos.exit_price).toLocaleString("en-US", { maximumFractionDigits: 4 })}</td>
                       <td className="py-2 pl-3 whitespace-nowrap">{Number(pos.size).toLocaleString("en-US", { maximumFractionDigits: 2 })}</td>
                       <td className="py-2 whitespace-nowrap">
-                        <span className={isWin ? "text-success" : "text-danger"} dir="ltr">
-                          {(pos.pnl ?? 0) >= 0 ? "+" : ""}
-                          {(pos.pnl ?? 0).toFixed(2)}
-                        </span>
+                        <div className={isWin ? "text-success" : "text-danger"} dir="ltr">
+                          <span className="font-medium">
+                            {pct >= 0 ? "+" : ""}
+                            {pct.toFixed(2)}%
+                          </span>
+                          <span className="block text-xs opacity-80">
+                            {(pos.pnl ?? 0) >= 0 ? "+" : ""}
+                            {(pos.pnl ?? 0).toFixed(2)}$
+                          </span>
+                        </div>
                       </td>
                     </tr>
                   );
