@@ -60,6 +60,7 @@ test.describe.serial("Copy Matrix smoke tests", () => {
 
   test("logout returns to the login page", async () => {
     await page.goto("/dashboard");
+    await page.getByRole("button", { name: "الحساب" }).click();
     await page.getByRole("button", { name: "تسجيل الخروج" }).click();
     await expect(page).toHaveURL(/\/login/);
   });

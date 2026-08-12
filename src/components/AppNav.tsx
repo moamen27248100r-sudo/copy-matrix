@@ -1,18 +1,14 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { logout } from "@/app/auth/actions";
 import { BottomNav } from "@/components/BottomNav";
-
-const PRIMARY_HREFS = new Set(["/dashboard", "/discover", "/markets", "/portfolio"]);
+import { AccountMenu } from "@/components/AccountMenu";
 
 const LINKS = [
   { href: "/dashboard", label: "لوحة التحكم" },
   { href: "/discover", label: "اكتشاف المتداولين" },
   { href: "/markets", label: "الأسواق" },
   { href: "/portfolio", label: "محفظتي" },
-  { href: "/kyc", label: "توثيق الهوية" },
-  { href: "/settings", label: "الإعدادات" },
 ];
 
 export async function AppNav() {
@@ -24,9 +20,10 @@ export async function AppNav() {
   let isAdmin = false;
   let balance: number | null = null;
   let unreadCount = 0;
+  let displayName: string | null = null;
   if (user) {
     const [{ data: profile }, { count }] = await Promise.all([
-      supabase.from("profiles").select("is_admin, balance, is_suspended").eq("id", user.id).single(),
+      supabase.from("profiles").select("is_admin, balance, is_suspended, display_name").eq("id", user.id).single(),
       supabase
         .from("notifications")
         .select("id", { count: "exact", head: true })
@@ -37,10 +34,8 @@ export async function AppNav() {
     isAdmin = !!profile?.is_admin;
     balance = profile?.balance ?? null;
     unreadCount = count ?? 0;
+    displayName = profile?.display_name ?? null;
   }
-
-  const links = isAdmin ? [...LINKS, { href: "/admin", label: "لوحة الإدارة" }] : LINKS;
-  const mobileMenuLinks = links.filter((l) => !PRIMARY_HREFS.has(l.href));
 
   return (
     <>
@@ -105,43 +100,12 @@ export async function AppNav() {
                 ${Number(balance).toLocaleString("en-US", { maximumFractionDigits: 0 })}
               </Link>
             )}
-            {user && (
-              <form action={logout} className="hidden sm:block">
-                <button type="submit" className="rounded border border-border px-3 py-1.5 text-sm">
-                  تسجيل الخروج
-                </button>
-              </form>
-            )}
-            <label
-              htmlFor="app-nav-toggle"
-              className="flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded border border-border text-foreground sm:hidden"
-              aria-label="القائمة"
-            >
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </label>
+            {user && <AccountMenu isAdmin={isAdmin} displayName={displayName} />}
           </div>
         </div>
 
-        <input type="checkbox" id="app-nav-toggle" className="peer hidden" />
-        <div className="hidden flex-col gap-3 border-t border-border pt-3 mt-3 text-sm peer-checked:flex sm:hidden">
-          {mobileMenuLinks.map((l) => (
-            <Link key={l.href} href={l.href} className="text-muted hover:text-foreground">
-              {l.label}
-            </Link>
-          ))}
-          {user && (
-            <form action={logout}>
-              <button type="submit" className="rounded border border-border px-3 py-1.5 text-sm">
-                تسجيل الخروج
-              </button>
-            </form>
-          )}
-        </div>
-
         <div className="hidden sm:flex sm:flex-row sm:flex-wrap sm:items-center sm:gap-4 sm:pt-3 text-sm">
-          {links.map((l) => (
+          {LINKS.map((l) => (
             <Link key={l.href} href={l.href} className="text-muted hover:text-foreground">
               {l.label}
             </Link>
