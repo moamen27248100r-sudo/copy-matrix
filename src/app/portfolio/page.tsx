@@ -271,8 +271,7 @@ export default async function PortfolioPage({
                   <th className="py-2 pl-3">المتداول</th>
                   <th className="py-2 pl-3">الرمز</th>
                   <th className="py-2 pl-3">الاتجاه</th>
-                  <th className="py-2 pl-3">الدخول</th>
-                  <th className="py-2">الحجم</th>
+                  <th className="py-2">الدخول</th>
                 </tr>
               </thead>
               <tbody>
@@ -290,8 +289,7 @@ export default async function PortfolioPage({
                       >
                         {signal?.side === "buy" ? "شراء" : signal?.side === "sell" ? "بيع" : "—"}
                       </td>
-                      <td className="py-2 pl-3 whitespace-nowrap">{Number(pos.entry_price).toLocaleString("en-US", { maximumFractionDigits: 4 })}</td>
-                      <td className="py-2 whitespace-nowrap">{Number(pos.size).toLocaleString("en-US", { maximumFractionDigits: 2 })}</td>
+                      <td className="py-2 whitespace-nowrap">{Number(pos.entry_price).toLocaleString("en-US", { maximumFractionDigits: 4 })}</td>
                     </tr>
                   );
                 })}
