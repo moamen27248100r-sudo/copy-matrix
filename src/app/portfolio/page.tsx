@@ -289,12 +289,14 @@ export default async function PortfolioPage({
     </div>
   );
 
+  const walletMovements = (transactions ?? []).filter((t) => t.type === "deposit" || t.type === "withdrawal");
+
   const activity = (
     <div className="flex flex-col gap-6">
       <section className="flex flex-col gap-2">
         <h2 className="font-medium">حركات المحفظة</h2>
-        {(transactions ?? []).length === 0 ? (
-          <p className="text-sm text-muted">لا توجد حركات على المحفظة حتى الآن.</p>
+        {walletMovements.length === 0 ? (
+          <p className="text-sm text-muted">لا توجد حركات إيداع أو سحب على المحفظة حتى الآن.</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[420px] text-sm">
@@ -307,7 +309,7 @@ export default async function PortfolioPage({
                 </tr>
               </thead>
               <tbody>
-                {transactions!.map((t) => (
+                {walletMovements.map((t) => (
                   <tr key={t.id} className="border-b border-border/60">
                     <td className="py-2 pl-3 whitespace-nowrap text-xs text-muted">
                       {new Date(t.created_at).toLocaleDateString("ar-EG")}
