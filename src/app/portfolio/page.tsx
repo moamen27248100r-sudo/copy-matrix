@@ -105,8 +105,21 @@ export default async function PortfolioPage({
       ? closedPositions.reduce((sum, p) => sum + signedReturnPct(p), 0) / closedPositions.length
       : null;
 
+  const historyProviderIds = Array.from(
+    new Set(
+      allPositions
+        .map((p) => positionSignal(p)?.provider_id)
+        .filter((id): id is string => !!id),
+    ),
+  );
+
+  const { data: historyProviders } =
+    historyProviderIds.length > 0
+      ? await supabase.from("provider_cards").select("provider_id, display_name").in("provider_id", historyProviderIds)
+      : { data: [] as { provider_id: string; display_name: string }[] };
+
   const providerNameById = new Map(
-    (followedProviders ?? []).map((p) => [p.provider_id, p.display_name]),
+    (historyProviders ?? []).map((p) => [p.provider_id, p.display_name]),
   );
 
   const closedHistory = closedPositions.map((pos) => {
