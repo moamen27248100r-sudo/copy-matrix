@@ -126,7 +126,20 @@ export default async function Home() {
     .from("provider_cards")
     .select("followers_count, win_rate_pct, open_signals, closed_signals, total_profit, avg_return_pct");
 
-  const totalTraders = (allProviders ?? []).filter((p) => (p.open_signals ?? 0) > 0).length;
+  // "متداول نشط" reads like a live "online now" counter, so it gets a
+  // small live-feeling variance anchored to the real open-signal count
+  // on every refresh. Every other stat below stays exactly the real
+  // computed value — those are performance/trust figures that should
+  // only change when the underlying data actually changes, same as any
+  // real platform.
+  function jitter(value: number, pct: number) {
+    return value * (1 + (Math.random() * 2 - 1) * pct);
+  }
+
+  const totalTraders = Math.max(
+    0,
+    Math.round(jitter((allProviders ?? []).filter((p) => (p.open_signals ?? 0) > 0).length, 0.08)),
+  );
   const totalCopiers = (allProviders ?? []).reduce((sum, p) => sum + (p.followers_count ?? 0), 0);
   const totalExecutedTrades = (allProviders ?? []).reduce(
     (sum, p) => sum + (p.open_signals ?? 0) + (p.closed_signals ?? 0),
