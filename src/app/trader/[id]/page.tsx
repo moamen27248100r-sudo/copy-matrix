@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { followProvider, unfollowProvider } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
 import { TraderEquityChart } from "@/components/TraderEquityChart";
+import { TradeHistory } from "@/components/TradeHistory";
 
 type SignalRow = {
   id: string;
@@ -88,6 +89,22 @@ export default async function TraderPage({
 
   const allSignals = (signals ?? []) as SignalRow[];
   const isFollowing = !!mySub;
+
+  const closedHistory = allSignals
+    .filter((s) => s.status === "closed" && s.exit_price != null)
+    .map((s) => {
+      const raw = (s.exit_price! - s.entry_price) / s.entry_price;
+      const pct = (s.side === "sell" ? -raw : raw) * 100;
+      return {
+        id: s.id,
+        symbol: s.symbol,
+        side: s.side,
+        entry: Number(s.entry_price),
+        exit: Number(s.exit_price),
+        pct,
+        closedAt: s.closed_at,
+      };
+    });
 
   let otherProviderName: string | null = null;
   if (otherSub) {
@@ -280,53 +297,13 @@ export default async function TraderPage({
         </div>
       </section>
 
-      <section className="flex flex-col gap-2">
-        <h2 className="font-medium">سجل الصفقات المغلقة</h2>
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-[560px] text-sm">
-            <thead>
-              <tr className="border-b border-border text-right text-xs text-muted">
-                <th className="py-2 pl-3">التاريخ</th>
-                <th className="py-2 pl-3">الرمز</th>
-                <th className="py-2 pl-3">الاتجاه</th>
-                <th className="py-2 pl-3">الدخول</th>
-                <th className="py-2 pl-3">الخروج</th>
-                <th className="py-2">النتيجة</th>
-              </tr>
-            </thead>
-            <tbody>
-              {allSignals
-                .filter((s) => s.status === "closed" && s.exit_price != null)
-                .map((s) => {
-                  const raw = (s.exit_price! - s.entry_price) / s.entry_price;
-                  const signedPct = (s.side === "sell" ? -raw : raw) * 100;
-                  const isWin = signedPct >= 0;
-                  return (
-                    <tr key={s.id} className="border-b border-border/60">
-                      <td className="py-2 pl-3 whitespace-nowrap text-xs text-muted">
-                        {new Date(s.opened_at).toLocaleDateString("ar-EG")}
-                      </td>
-                      <td className="py-2 pl-3 whitespace-nowrap font-medium">{s.symbol}</td>
-                      <td className={s.side === "buy" ? "py-2 pl-3 whitespace-nowrap text-success" : "py-2 pl-3 whitespace-nowrap text-danger"}>
-                        {s.side === "buy" ? "شراء" : "بيع"}
-                      </td>
-                      <td className="py-2 pl-3 whitespace-nowrap">{Number(s.entry_price).toLocaleString("en-US", { maximumFractionDigits: 4 })}</td>
-                      <td className="py-2 pl-3 whitespace-nowrap">{Number(s.exit_price).toLocaleString("en-US", { maximumFractionDigits: 4 })}</td>
-                      <td className="py-2 whitespace-nowrap">
-                        <span className={isWin ? "text-success" : "text-danger"} dir="ltr">
-                          {signedPct > 0 ? "+" : ""}
-                          {signedPct.toFixed(2)}%
-                        </span>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
-          {allSignals.filter((s) => s.status === "closed").length === 0 && (
-            <p className="py-2 text-sm text-muted">لا توجد صفقات مغلقة حتى الآن.</p>
-          )}
-        </div>
+      <section className="flex flex-col gap-3">
+        <h2 className="font-medium">سجل الصفقات</h2>
+        {closedHistory.length === 0 ? (
+          <p className="text-sm text-muted">لا توجد صفقات مغلقة حتى الآن.</p>
+        ) : (
+          <TradeHistory trades={closedHistory} />
+        )}
       </section>
       </main>
     </>

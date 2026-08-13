@@ -6,13 +6,13 @@ type Trade = {
   id: string;
   symbol: string;
   side: string;
-  size: number;
+  size?: number;
   entry: number;
   exit: number | null;
-  pnl: number;
+  pnl?: number | null;
   pct: number;
   closedAt: string | null;
-  providerName: string;
+  providerName?: string;
 };
 
 const PERIODS = [
@@ -52,19 +52,34 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
     return () => document.removeEventListener("mousedown", onClick);
   }, []);
 
+  const hasDollar = trades.length > 0 && trades[0].pnl != null;
   const filtered = trades.filter((t) => withinPeriod(t.closedAt, period));
-  const netResult = filtered.reduce((sum, t) => sum + t.pnl, 0);
+  const netResult = filtered.reduce((sum, t) => sum + (t.pnl ?? 0), 0);
+  const wins = filtered.filter((t) => t.pct >= 0).length;
+  const winRate = filtered.length > 0 ? Math.round((wins / filtered.length) * 100) : null;
   const currentLabel = PERIODS.find((p) => p.key === period)!.label;
 
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
         <p className="text-sm text-muted">
-          {filtered.length} صفقة ·{" "}
-          <span className={netResult >= 0 ? "text-success" : "text-danger"} dir="ltr">
-            {netResult >= 0 ? "+" : ""}
-            {netResult.toFixed(2)}$
-          </span>
+          {filtered.length} صفقة
+          {hasDollar ? (
+            <>
+              {" · "}
+              <span className={netResult >= 0 ? "text-success" : "text-danger"} dir="ltr">
+                {netResult >= 0 ? "+" : ""}
+                {netResult.toFixed(2)}$
+              </span>
+            </>
+          ) : (
+            winRate != null && (
+              <>
+                {" · نسبة النجاح "}
+                <span className="text-foreground">{winRate}%</span>
+              </>
+            )
+          )}
         </p>
         <div ref={menuRef} className="relative">
           <button
@@ -117,12 +132,19 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
                   <span className={t.side === "buy" ? "text-success" : "text-danger"}>
                     {t.side === "buy" ? "شراء" : "بيع"}
                   </span>{" "}
-                  <span className="text-muted">{t.size}</span>
+                  {t.size != null && <span className="text-muted">{t.size}</span>}
                 </div>
-                <p className={t.pnl >= 0 ? "font-semibold text-success" : "font-semibold text-danger"} dir="ltr">
-                  {t.pnl >= 0 ? "+" : ""}
-                  {t.pnl.toFixed(2)}$
-                </p>
+                {t.pnl != null ? (
+                  <p className={t.pnl >= 0 ? "font-semibold text-success" : "font-semibold text-danger"} dir="ltr">
+                    {t.pnl >= 0 ? "+" : ""}
+                    {t.pnl.toFixed(2)}$
+                  </p>
+                ) : (
+                  <p className={t.pct >= 0 ? "font-semibold text-success" : "font-semibold text-danger"} dir="ltr">
+                    {t.pct >= 0 ? "+" : ""}
+                    {t.pct.toFixed(2)}%
+                  </p>
+                )}
               </div>
               <div className="mt-1 flex items-center justify-between text-xs text-muted">
                 <span dir="ltr">
@@ -130,10 +152,12 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
                   {" → "}
                   {t.exit != null ? t.exit.toLocaleString("en-US", { maximumFractionDigits: 4 }) : "—"}
                 </span>
-                <span className={t.pct >= 0 ? "text-success" : "text-danger"} dir="ltr">
-                  {t.pct >= 0 ? "+" : ""}
-                  {t.pct.toFixed(2)}%
-                </span>
+                {t.pnl != null && (
+                  <span className={t.pct >= 0 ? "text-success" : "text-danger"} dir="ltr">
+                    {t.pct >= 0 ? "+" : ""}
+                    {t.pct.toFixed(2)}%
+                  </span>
+                )}
               </div>
               <div className="mt-1 flex items-center justify-between text-[11px] text-muted/70">
                 <span>{t.providerName}</span>
