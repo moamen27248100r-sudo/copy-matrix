@@ -59,13 +59,50 @@ const STEPS = [
 const NAV_LINKS = [
   { href: "#how-it-works", label: "كيف تعمل" },
   { href: "#traders", label: "المتداولون" },
+  { href: "#markets", label: "الأسواق" },
   { href: "#features", label: "المميزات" },
+  { href: "#faq", label: "الأسئلة الشائعة" },
 ];
 
 const FOOTER_LINKS = [
   { href: "#how-it-works", label: "كيف تعمل" },
   { href: "#traders", label: "المتداولون" },
+  { href: "#markets", label: "الأسواق" },
   { href: "#features", label: "المميزات" },
+  { href: "#faq", label: "الأسئلة الشائعة" },
+];
+
+const TRUST_POINTS = [
+  "بدون أي عمولات خفية على النسخ أو الأرباح",
+  "أوقف نسخ أي متداول فورًا في أي وقت",
+  "بياناتك محمية ومشفّرة بالكامل",
+];
+
+const FAQS = [
+  {
+    q: "هل الحساب تجريبي ولا حقيقي؟",
+    a: "تقدر تختار نوع حسابك (تجريبي أو حقيقي) وتغيّره في أي وقت من صفحة الإعدادات بعد التسجيل.",
+  },
+  {
+    q: "إزاي بتتنسخ الصفقات؟",
+    a: "أي صفقة ينفذها المتداول اللي بتتابعه — فتح أو إغلاق — بتتنسخ لحسابك تلقائيًا بنفس التفاصيل لحظة تنفيذها، من غير ما تتدخل يدويًا.",
+  },
+  {
+    q: "هل أقدر أوقف النسخ في أي وقت؟",
+    a: "أيوه، تقدر توقف نسخ أي متداول في أي وقت من صفحة محفظتك بدون أي شروط أو رسوم.",
+  },
+  {
+    q: "هل ينفعني أنسخ أكتر من متداول في نفس الوقت؟",
+    a: "لأ، النظام مصمم إنك تنسخ متداول واحد بس في كل مرة للحفاظ على وضوح إدارة المخاطر. تقدر تلغي المتابعة وتنسخ متداول تاني في أي وقت.",
+  },
+  {
+    q: "إزاي بسحب أو بودع فلوس؟",
+    a: "من صفحة محفظتك، تقدر تطلب إيداع أو سحب، وهيتم مراجعته والموافقة عليه من فريق الإدارة قبل ما ينعكس على رصيدك.",
+  },
+  {
+    q: "هل فيه عمولة على الأرباح؟",
+    a: "لا، مفيش أي عمولات أو رسوم خفية على نسخ الصفقات أو الأرباح المحققة.",
+  },
 ];
 
 const FOOTER_LEGAL = [
@@ -176,16 +213,29 @@ export default async function Home() {
             تصفح المتداولين
           </a>
         </div>
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-4 text-xs text-muted">
+          {TRUST_POINTS.map((t) => (
+            <span key={t} className="flex items-center gap-1.5">
+              <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 shrink-0 text-success" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+              {t}
+            </span>
+          ))}
+        </div>
       </section>
 
       <section className="px-6 py-12">
         <div className="mx-auto flex max-w-5xl flex-col gap-6">
-          <div className="mx-auto flex items-center gap-2 text-xs text-muted">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
-            </span>
-            بيانات حية، تُحدَّث لحظيًا
+          <div className="mx-auto flex flex-col items-center gap-2 text-center">
+            <h2 className="text-2xl font-semibold sm:text-3xl">المنصة بالأرقام</h2>
+            <div className="flex items-center gap-2 text-xs text-muted">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
+              </span>
+              بيانات حية، تُحدَّث لحظيًا
+            </div>
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -359,7 +409,7 @@ export default async function Home() {
         </section>
       )}
 
-      <section className="flex flex-col gap-4 border-t border-border px-6 py-16">
+      <section id="markets" className="flex flex-col gap-4 border-t border-border px-6 py-16">
         <div className="mx-auto flex w-full max-w-5xl flex-col gap-1">
           <h2 className="text-2xl font-semibold">الأسواق مباشرة</h2>
           <p className="text-sm text-muted">تابع حركة الأسعار لحظة بلحظة، وغيّر الزوج من داخل الشارت.</p>
@@ -396,6 +446,36 @@ export default async function Home() {
                 <p className="mt-1 text-sm leading-relaxed text-muted">{f.desc}</p>
               </div>
             </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="faq" className="flex flex-col gap-8 border-t border-border px-6 py-16">
+        <h2 className="text-center text-2xl font-semibold sm:text-3xl">الأسئلة الشائعة</h2>
+        <div className="mx-auto flex w-full max-w-3xl flex-col gap-3">
+          {FAQS.map((f) => (
+            <details
+              key={f.q}
+              className="group rounded-xl border border-border bg-surface p-4 open:border-accent/40"
+            >
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-medium">
+                {f.q}
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-4 w-4 shrink-0 text-muted transition group-open:rotate-45"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+              </summary>
+              <p className="mt-3 text-sm leading-relaxed text-muted">{f.a}</p>
+            </details>
           ))}
         </div>
       </section>
