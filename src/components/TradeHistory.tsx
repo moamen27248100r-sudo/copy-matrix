@@ -19,6 +19,7 @@ const PERIODS = [
   { key: "today", label: "اليوم" },
   { key: "week", label: "الأسبوع" },
   { key: "month", label: "الشهر" },
+  { key: "threeMonths", label: "٣ أشهر" },
   { key: "sixMonths", label: "٦ أشهر" },
   { key: "year", label: "سنة" },
   { key: "all", label: "الكل" },
@@ -38,6 +39,7 @@ function withinPeriod(iso: string | null, period: PeriodKey) {
   }
   if (period === "week") return Date.now() - ts <= 7 * day;
   if (period === "month") return Date.now() - ts <= 30 * day;
+  if (period === "threeMonths") return Date.now() - ts <= 90 * day;
   if (period === "sixMonths") return Date.now() - ts <= 182 * day;
   if (period === "year") return Date.now() - ts <= 365 * day;
   return true;
