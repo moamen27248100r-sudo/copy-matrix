@@ -316,6 +316,15 @@ export default async function Home() {
               <p className="mt-1 text-xs text-muted">إجمالي الصفقات المنفذة</p>
             </div>
           </div>
+
+          <p className="mx-auto max-w-2xl text-center text-xs leading-relaxed text-muted">
+            الأداء السابق لا يضمن نتائج مستقبلية. نسخ الصفقات ينطوي على مخاطر قد تؤدي إلى خسارة جزء من رأس المال
+            أو كله، ويُرجى مراجعة{" "}
+            <Link href="/legal/terms" className="underline">
+              الشروط والأحكام
+            </Link>{" "}
+            قبل البدء.
+          </p>
         </div>
       </section>
 
@@ -363,7 +372,7 @@ export default async function Home() {
                     <div className="flex items-center gap-2">
                       <p className="text-sm font-medium">{p.display_name}</p>
                       <span className="rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 text-[10px] font-medium text-accent">
-                        متابعة
+                        {p.tier}
                       </span>
                     </div>
                     <p className="text-xs text-muted">{p.followers_count} ناسخ</p>
