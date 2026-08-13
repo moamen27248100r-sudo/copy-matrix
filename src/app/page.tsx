@@ -126,7 +126,7 @@ export default async function Home() {
     .from("provider_cards")
     .select("followers_count, win_rate_pct, open_signals, closed_signals, total_profit, avg_return_pct");
 
-  const totalTraders = allProviders?.length ?? 0;
+  const totalTraders = (allProviders ?? []).filter((p) => (p.open_signals ?? 0) > 0).length;
   const totalCopiers = (allProviders ?? []).reduce((sum, p) => sum + (p.followers_count ?? 0), 0);
   const totalExecutedTrades = (allProviders ?? []).reduce(
     (sum, p) => sum + (p.open_signals ?? 0) + (p.closed_signals ?? 0),
@@ -374,9 +374,13 @@ export default async function Home() {
                   <div>
                     <div className="flex items-center gap-2">
                       <p className="text-sm font-medium">{p.display_name}</p>
-                      <span className="rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 text-[10px] font-medium text-accent">
-                        {p.tier}
-                      </span>
+                      <Link
+                        href={`/trader/${p.provider_id}`}
+                        title="تابع أداء هذا المتداول واحصل على كل نتائجه"
+                        className="rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 text-[10px] font-medium text-accent transition hover:bg-accent/20"
+                      >
+                        متابعة
+                      </Link>
                     </div>
                     <p className="text-xs text-muted">{p.followers_count} ناسخ</p>
                   </div>

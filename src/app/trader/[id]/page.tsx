@@ -41,6 +41,27 @@ function periodStats(signals: SignalRow[], days: number) {
   };
 }
 
+function computeMaxDrawdown(signals: SignalRow[]) {
+  const closed = signals
+    .filter((s) => s.status === "closed" && s.exit_price != null && s.closed_at)
+    .sort((a, b) => new Date(a.closed_at!).getTime() - new Date(b.closed_at!).getTime());
+
+  if (closed.length === 0) return null;
+
+  let cumulative = 0;
+  let peak = 0;
+  let maxDrawdown = 0;
+  for (const s of closed) {
+    const raw = (s.exit_price! - s.entry_price) / s.entry_price;
+    const signed = s.side === "sell" ? -raw : raw;
+    cumulative += signed * 100;
+    if (cumulative > peak) peak = cumulative;
+    const drawdown = peak - cumulative;
+    if (drawdown > maxDrawdown) maxDrawdown = drawdown;
+  }
+  return Math.round(maxDrawdown * 100) / 100;
+}
+
 export default async function TraderPage({
   params,
   searchParams,
@@ -89,6 +110,7 @@ export default async function TraderPage({
 
   const allSignals = (signals ?? []) as SignalRow[];
   const isFollowing = !!mySub;
+  const maxDrawdown = computeMaxDrawdown(allSignals);
 
   const closedHistory = allSignals
     .filter((s) => s.status === "closed" && s.exit_price != null)
@@ -238,7 +260,7 @@ export default async function TraderPage({
           </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 text-center text-sm sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 text-center text-sm sm:grid-cols-3">
           <div>
             <p className="font-semibold">{provider.followers_count}</p>
             <p className="text-xs text-muted">ناسخ</p>
@@ -260,6 +282,16 @@ export default async function TraderPage({
               {provider.win_rate_pct != null ? `${provider.win_rate_pct}%` : "—"}
             </p>
             <p className="text-xs text-muted">نسبة النجاح الكلية</p>
+          </div>
+          <div>
+            <p className="font-semibold text-danger" dir="ltr">
+              {maxDrawdown != null ? `-${maxDrawdown}%` : "—"}
+            </p>
+            <p className="text-xs text-muted">أقصى تراجع</p>
+          </div>
+          <div>
+            <p className="font-semibold">${Number(provider.min_copy_amount).toLocaleString("en-US")}</p>
+            <p className="text-xs text-muted">الحد الأدنى للنسخ</p>
           </div>
         </div>
       </div>
