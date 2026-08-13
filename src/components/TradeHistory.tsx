@@ -19,6 +19,8 @@ const PERIODS = [
   { key: "today", label: "اليوم" },
   { key: "week", label: "الأسبوع" },
   { key: "month", label: "الشهر" },
+  { key: "sixMonths", label: "٦ أشهر" },
+  { key: "year", label: "سنة" },
   { key: "all", label: "الكل" },
 ] as const;
 
@@ -36,6 +38,8 @@ function withinPeriod(iso: string | null, period: PeriodKey) {
   }
   if (period === "week") return Date.now() - ts <= 7 * day;
   if (period === "month") return Date.now() - ts <= 30 * day;
+  if (period === "sixMonths") return Date.now() - ts <= 182 * day;
+  if (period === "year") return Date.now() - ts <= 365 * day;
   return true;
 }
 
@@ -97,7 +101,7 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
             </svg>
           </button>
           {open && (
-            <div className="absolute left-0 top-full z-10 mt-1 w-32 overflow-hidden rounded border border-border bg-surface shadow-lg">
+            <div className="absolute left-0 top-full z-10 mt-1 w-36 overflow-hidden rounded border border-border bg-surface shadow-lg">
               {PERIODS.map((p) => (
                 <button
                   key={p.key}
