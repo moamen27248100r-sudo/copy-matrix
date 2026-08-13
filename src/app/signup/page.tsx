@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { signup } from "@/app/auth/actions";
+import { SignupForm } from "@/components/SignupForm";
 
 export default async function SignupPage({
   searchParams,
@@ -9,8 +9,26 @@ export default async function SignupPage({
   const { error } = await searchParams;
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col justify-center gap-4 p-6">
-      <h1 className="text-2xl font-semibold">إنشاء حساب</h1>
+    <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col justify-center gap-5 p-6">
+      <div className="flex flex-col items-center gap-2 text-center">
+        <div className="flex items-center gap-1.5 text-xl font-semibold" dir="ltr">
+          Copy Matrix
+          <span className="flex items-center">
+            <svg viewBox="0 0 24 24" className="h-5 w-5 text-brand" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M5 19l3-5 3 3 5-9" />
+              <path d="M12 8h4v4" />
+            </svg>
+            <svg viewBox="0 0 24 24" className="-ml-1.5 h-5 w-5 text-brand" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M5 19l3-5 3 3 5-9" />
+              <path d="M12 8h4v4" />
+            </svg>
+          </span>
+        </div>
+        <div>
+          <h1 className="text-lg font-semibold">إنشاء حساب جديد</h1>
+          <p className="text-sm text-muted">انضم وابدأ نسخ صفقات أفضل المتداولين في دقائق.</p>
+        </div>
+      </div>
 
       {error && (
         <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
@@ -18,49 +36,9 @@ export default async function SignupPage({
         </p>
       )}
 
-      <form action={signup} className="flex flex-col gap-3">
-        <input
-          name="displayName"
-          type="text"
-          placeholder="الاسم الكامل"
-          required
-          className="rounded border border-border bg-surface px-3 py-2"
-        />
-        <input
-          name="email"
-          type="email"
-          placeholder="البريد الإلكتروني"
-          required
-          className="rounded border border-border bg-surface px-3 py-2"
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="كلمة المرور (٦ أحرف على الأقل)"
-          required
-          minLength={6}
-          className="rounded border border-border bg-surface px-3 py-2"
-        />
-
-        <button
-          type="submit"
-          className="rounded bg-accent px-3 py-2 font-medium text-accent-foreground transition hover:bg-accent-hover"
-        >
-          إنشاء حساب
-        </button>
-      </form>
-
-      <p className="text-xs text-muted">
-        بإنشائك حسابًا فإنك توافق على{" "}
-        <Link href="/legal/terms" className="underline">
-          الشروط والأحكام
-        </Link>{" "}
-        و{" "}
-        <Link href="/legal/privacy" className="underline">
-          سياسة الخصوصية
-        </Link>
-        .
-      </p>
+      <div className="rounded-xl border border-border bg-surface p-5 shadow-lg">
+        <SignupForm />
+      </div>
 
       <div className="flex items-center gap-3 text-xs text-muted">
         <span className="h-px flex-1 bg-border" />
