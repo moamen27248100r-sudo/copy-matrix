@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { unfollowProvider } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
+import { pinTopLeaders } from "@/lib/pin-top-leaders";
 
 const SORT_OPTIONS = {
   return: { column: "avg_return_pct", ascending: false },
@@ -36,7 +37,7 @@ export default async function DiscoverPage({
   const { column, ascending } = SORT_OPTIONS[sortKey];
   providersQuery = providersQuery.order(column, { ascending, nullsFirst: false });
 
-  const [{ data: providers }, { data: mySubscriptions }] = await Promise.all([
+  const [{ data: rawProviders }, { data: mySubscriptions }] = await Promise.all([
     providersQuery,
     supabase
       .from("subscriptions")
@@ -44,6 +45,8 @@ export default async function DiscoverPage({
       .eq("follower_id", user.id)
       .eq("is_active", true),
   ]);
+
+  const providers = rawProviders && sortKey === "return" && !q ? pinTopLeaders(rawProviders) : rawProviders;
 
   const followingIds = new Set(
     (mySubscriptions ?? []).map((s) => s.provider_id),

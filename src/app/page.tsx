@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { TradingViewChart } from "@/components/TradingViewChart";
+import { pinTopLeaders } from "@/lib/pin-top-leaders";
 
 export const dynamic = "force-dynamic";
 
@@ -113,11 +114,13 @@ const FOOTER_LEGAL = [
 export default async function Home() {
   const supabase = await createClient();
 
-  const { data: topProviders } = await supabase
+  const { data: rawTopProviders } = await supabase
     .from("provider_cards")
     .select("*")
     .order("avg_return_pct", { ascending: false, nullsFirst: false })
-    .limit(6);
+    .limit(10);
+
+  const topProviders = rawTopProviders ? pinTopLeaders(rawTopProviders).slice(0, 6) : rawTopProviders;
 
   const { data: allProviders } = await supabase
     .from("provider_cards")
