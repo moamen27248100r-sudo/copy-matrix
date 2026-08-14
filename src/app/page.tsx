@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { TradingViewChart } from "@/components/TradingViewChart";
+import { MarketOverview } from "@/components/MarketOverview";
 import { pinTopLeaders } from "@/lib/pin-top-leaders";
 
 export const dynamic = "force-dynamic";
@@ -46,6 +47,27 @@ const FEATURES = [
         <circle cx="12" cy="12" r="10" />
         <line x1="2" y1="12" x2="22" y2="12" />
         <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+      </>
+    ),
+  },
+  {
+    title: "بدون عمولات خفية",
+    desc: "لا نخصم أي عمولة من أرباحك أو من عمليات النسخ، مهما زادت قيمتها.",
+    icon: (
+      <>
+        <line x1="12" y1="1" x2="12" y2="23" />
+        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+      </>
+    ),
+  },
+  {
+    title: "مراجعة إدارية لكل معاملة",
+    desc: "كل طلب إيداع أو سحب يُراجَع ويُعتمد يدويًا من فريق الإدارة قبل تنفيذه، لحماية حسابك.",
+    icon: (
+      <>
+        <path d="M9 12l2 2 4-4" />
+        <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.05 0 3.93.68 5.44 1.83" />
+        <path d="M21 3v6h-6" />
       </>
     ),
   },
@@ -441,6 +463,14 @@ export default async function Home() {
 
       <section id="markets" className="flex flex-col gap-4 border-t border-border px-6 py-16">
         <div className="mx-auto flex w-full max-w-5xl flex-col gap-1">
+          <h2 className="text-2xl font-semibold">الأدوات المتاحة للتداول</h2>
+          <p className="text-sm text-muted">أسعار حية لنفس الأدوات التي يتداول بها متداولو المنصة.</p>
+        </div>
+        <div className="mx-auto w-full max-w-5xl overflow-hidden rounded-lg border border-border">
+          <MarketOverview />
+        </div>
+
+        <div className="mx-auto flex w-full max-w-5xl flex-col gap-1 pt-6">
           <h2 className="text-2xl font-semibold">الأسواق مباشرة</h2>
           <p className="text-sm text-muted">تابع حركة الأسعار لحظة بلحظة، وغيّر الزوج من داخل الشارت.</p>
         </div>
