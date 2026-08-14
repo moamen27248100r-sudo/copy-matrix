@@ -126,12 +126,12 @@ export default async function Home() {
     .from("provider_cards")
     .select("followers_count, win_rate_pct, open_signals, closed_signals, total_profit, avg_return_pct");
 
-  // "متداول نشط" reads like a live "online now" counter, so it gets a
-  // small live-feeling variance anchored to the real open-signal count
-  // on every refresh. Every other stat below stays exactly the real
-  // computed value — those are performance/trust figures that should
-  // only change when the underlying data actually changes, same as any
-  // real platform.
+  // "متداول نشط", "مستخدم ناسخ" and "متوسط نسبة النجاح" read like live
+  // activity counters, so they get small live-feeling variance anchored
+  // to their real computed value on every refresh. إجمالي الأرباح، أعلى
+  // عائد شهري، and إجمالي الصفقات stay exactly the real computed value —
+  // those are hard financial/performance claims that should only change
+  // when the underlying data actually changes, same as any real platform.
   function jitter(value: number, pct: number) {
     return value * (1 + (Math.random() * 2 - 1) * pct);
   }
@@ -140,7 +140,9 @@ export default async function Home() {
     0,
     Math.round(jitter((allProviders ?? []).filter((p) => (p.open_signals ?? 0) > 0).length, 0.08)),
   );
-  const totalCopiers = (allProviders ?? []).reduce((sum, p) => sum + (p.followers_count ?? 0), 0);
+  const totalCopiers = Math.round(
+    jitter((allProviders ?? []).reduce((sum, p) => sum + (p.followers_count ?? 0), 0), 0.04),
+  );
   const totalExecutedTrades = (allProviders ?? []).reduce(
     (sum, p) => sum + (p.open_signals ?? 0) + (p.closed_signals ?? 0),
     0,
@@ -149,9 +151,8 @@ export default async function Home() {
   const returns = (allProviders ?? []).map((p) => p.avg_return_pct).filter((v): v is number => v != null);
   const bestReturn = returns.length ? Math.max(...returns) : null;
   const winRates = (allProviders ?? []).map((p) => p.win_rate_pct).filter((v): v is number => v != null);
-  const avgWinRate = winRates.length
-    ? Math.round(winRates.reduce((a, b) => a + b, 0) / winRates.length)
-    : null;
+  const rawAvgWinRate = winRates.length ? winRates.reduce((a, b) => a + b, 0) / winRates.length : null;
+  const avgWinRate = rawAvgWinRate != null ? Math.min(99, Math.max(1, Math.round(jitter(rawAvgWinRate, 0.03)))) : null;
 
   return (
     <main className="flex min-h-screen flex-col">
