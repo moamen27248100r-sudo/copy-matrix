@@ -302,8 +302,8 @@ export default async function Home() {
                   <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                 </svg>
               </div>
-              <p className="text-3xl font-semibold text-success">
-                ${totalProfit.toLocaleString("en-US", { maximumFractionDigits: 0 })}
+              <p className="text-3xl font-semibold text-success" title={`$${totalProfit.toLocaleString("en-US", { maximumFractionDigits: 0 })}`}>
+                ${totalProfit.toLocaleString("en-US", { notation: "compact", maximumFractionDigits: 1 })}
               </p>
               <p className="mt-1 text-xs text-muted">إجمالي الأرباح المحققة</p>
             </div>
