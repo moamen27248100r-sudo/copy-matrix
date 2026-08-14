@@ -245,7 +245,7 @@ export default async function Home() {
       <section className="px-6 py-12">
         <div className="mx-auto flex max-w-5xl flex-col gap-6">
           <div className="mx-auto flex flex-col items-center gap-2 text-center">
-            <h2 className="text-2xl font-semibold sm:text-3xl">المنصة بالأرقام</h2>
+            <h2 className="text-2xl font-semibold sm:text-3xl">أرقام تتحدث عن نفسها</h2>
             <div className="flex items-center gap-2 text-xs text-muted">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
