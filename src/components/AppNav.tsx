@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { BottomNav } from "@/components/BottomNav";
 import { AccountMenu } from "@/components/AccountMenu";
 
 const LINKS = [
@@ -104,7 +103,7 @@ export async function AppNav() {
           </div>
         </div>
 
-        <div className="hidden sm:flex sm:flex-row sm:flex-wrap sm:items-center sm:gap-4 sm:pt-3 text-sm">
+        <div className="flex flex-wrap items-center gap-4 pt-3 text-sm">
           {LINKS.map((l) => (
             <Link key={l.href} href={l.href} className="text-muted hover:text-foreground">
               {l.label}
@@ -113,7 +112,6 @@ export async function AppNav() {
         </div>
       </div>
     </nav>
-    {user && <BottomNav />}
     </>
   );
 }
