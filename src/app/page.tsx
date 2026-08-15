@@ -1,8 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 import { TradingViewChart } from "@/components/TradingViewChart";
 import { MarketOverview } from "@/components/MarketOverview";
-import { HeroIllustration } from "@/components/HeroIllustration";
 import { pinTopLeaders } from "@/lib/pin-top-leaders";
 
 export const dynamic = "force-dynamic";
@@ -320,8 +320,15 @@ export default async function Home() {
             </span>
           ))}
         </div>
-        <div className="w-full pt-6">
-          <HeroIllustration />
+        <div className="mx-auto w-full max-w-2xl overflow-hidden rounded-2xl border border-border pt-0 sm:pt-2">
+          <Image
+            src="/hero-broker.png"
+            alt=""
+            width={1024}
+            height={1024}
+            priority
+            className="h-auto w-full object-cover"
+          />
         </div>
       </section>
 
