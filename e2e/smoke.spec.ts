@@ -37,7 +37,7 @@ test.describe.serial("Copy Matrix smoke tests", () => {
   test("discover page lists traders and follow controls are present", async () => {
     await page.goto("/discover");
     await expect(page.getByRole("heading", { name: "اكتشاف المتداولين" })).toBeVisible();
-    const copyControls = page.getByRole("link", { name: "نسخ" }).or(page.getByRole("button", { name: "إلغاء المتابعة" }));
+    const copyControls = page.getByRole("link", { name: "نسخ" }).or(page.getByRole("button", { name: "إيقاف النسخ" }));
     await expect(copyControls.first()).toBeVisible();
   });
 
