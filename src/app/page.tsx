@@ -217,57 +217,59 @@ export default async function Home() {
   return (
     <main className="flex min-h-screen flex-col">
       <nav className="border-b border-border">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
-          <span className="flex items-center gap-0.5 text-base font-semibold sm:text-lg" dir="ltr">
-            Copy Matrix
-            <span className="flex items-center">
-              <svg
-                viewBox="0 0 24 24"
-                className="h-4 w-4 text-brand"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M5 19l3-5 3 3 5-9" />
-                <path d="M12 8h4v4" />
-              </svg>
-              <svg
-                viewBox="0 0 24 24"
-                className="-ml-1.5 h-4 w-4 text-brand"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M5 19l3-5 3 3 5-9" />
-                <path d="M12 8h4v4" />
-              </svg>
+        <div className="mx-auto max-w-6xl px-4 py-3 sm:px-6 sm:py-4">
+          <div className="flex items-center justify-between gap-3">
+            <span className="flex items-center gap-0.5 text-base font-semibold sm:text-lg" dir="ltr">
+              Copy Matrix
+              <span className="flex items-center">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-4 w-4 text-brand"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M5 19l3-5 3 3 5-9" />
+                  <path d="M12 8h4v4" />
+                </svg>
+                <svg
+                  viewBox="0 0 24 24"
+                  className="-ml-1.5 h-4 w-4 text-brand"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M5 19l3-5 3 3 5-9" />
+                  <path d="M12 8h4v4" />
+                </svg>
+              </span>
             </span>
-          </span>
 
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted sm:gap-x-6 sm:text-sm">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <Link href="/login" className="rounded border border-border px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm">
+                تسجيل الدخول
+              </Link>
+              <Link
+                href="/signup"
+                className="rounded bg-accent px-3 py-1.5 text-xs font-medium text-accent-foreground transition hover:bg-accent-hover sm:px-4 sm:py-2 sm:text-sm"
+              >
+                إنشاء حساب
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-2 text-xs text-muted sm:gap-x-6 sm:pt-3 sm:text-sm">
             {NAV_LINKS.map((l) => (
               <a key={l.href} href={l.href} className="hover:text-foreground">
                 {l.label}
               </a>
             ))}
-          </div>
-
-          <div className="flex items-center gap-2 sm:gap-3">
-            <Link href="/login" className="rounded border border-border px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm">
-              تسجيل الدخول
-            </Link>
-            <Link
-              href="/signup"
-              className="rounded bg-accent px-3 py-1.5 text-xs font-medium text-accent-foreground transition hover:bg-accent-hover sm:px-4 sm:py-2 sm:text-sm"
-            >
-              إنشاء حساب
-            </Link>
           </div>
         </div>
       </nav>
