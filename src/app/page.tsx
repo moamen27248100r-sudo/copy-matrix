@@ -74,9 +74,26 @@ const FEATURES = [
 ];
 
 const STEPS = [
-  { n: "1", title: "أنشئ حسابك", desc: "سجّل في دقيقتين وابدأ استكشاف المنصة." },
-  { n: "2", title: "اختر متداولًا", desc: "تصفح سجلات الأداء الكاملة واختر ما يناسب أسلوبك." },
-  { n: "3", title: "انسخ تلقائيًا", desc: "تُنسخ صفقاته إلى حسابك أولًا بأول، ويمكنك إيقاف النسخ في أي وقت." },
+  {
+    n: "1",
+    title: "أنشئ حسابك",
+    desc: "أكمل عملية التسجيل وتوثيق الهوية للحصول على حساب موثّق خلال دقائق.",
+  },
+  {
+    n: "2",
+    title: "أودع رصيدك",
+    desc: "قم بإيداع المبلغ الذي ترغب في استثماره عبر وسائل الدفع المتاحة، ليتم اعتماده من فريق الإدارة.",
+  },
+  {
+    n: "3",
+    title: "اختر متداولًا",
+    desc: "راجع سجلات الأداء الموثقة لكل متداول، واختر من يناسب استراتيجيتك ومستوى المخاطرة الذي تفضّله.",
+  },
+  {
+    n: "4",
+    title: "ابدأ النسخ تلقائيًا",
+    desc: "تُنسخ صفقات المتداول الذي اخترته إلى حسابك أولًا بأول، ويمكنك إيقاف النسخ في أي وقت دون قيود.",
+  },
 ];
 
 const NAV_LINKS = [
@@ -355,21 +372,21 @@ export default async function Home() {
 
       <section id="how-it-works" className="flex flex-col gap-10 px-6 py-16">
         <div className="mx-auto flex max-w-xl flex-col items-center gap-2 text-center">
-          <span className="text-xs font-medium text-accent">٣ خطوات بسيطة</span>
+          <span className="text-xs font-medium text-accent">٤ خطوات بسيطة</span>
           <h2 className="text-2xl font-semibold sm:text-3xl">آلية عمل المنصة</h2>
           <p className="text-sm text-muted">ابدأ نسخ الصفقات تلقائيًا في دقائق معدودة</p>
         </div>
-        <div className="mx-auto grid w-full max-w-5xl grid-cols-1 gap-6 sm:grid-cols-3">
+        <div className="mx-auto grid w-full max-w-4xl grid-cols-2 gap-3 sm:gap-6">
           {STEPS.map((s) => (
             <div
               key={s.n}
-              className="group flex flex-col gap-3 rounded-xl border border-border bg-surface p-6 transition hover:border-accent/40 hover:shadow-lg"
+              className="group flex flex-col gap-2 rounded-xl border border-border bg-surface p-3 transition hover:border-accent/40 hover:shadow-lg sm:gap-3 sm:p-6"
             >
-              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-accent text-sm font-semibold text-accent-foreground">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-xs font-semibold text-accent-foreground sm:h-11 sm:w-11 sm:text-sm">
                 {s.n}
               </div>
-              <p className="text-lg font-medium">{s.title}</p>
-              <p className="text-sm leading-relaxed text-muted">{s.desc}</p>
+              <p className="text-sm font-medium sm:text-lg">{s.title}</p>
+              <p className="text-[11px] leading-relaxed text-muted sm:text-sm">{s.desc}</p>
             </div>
           ))}
         </div>
