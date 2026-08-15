@@ -121,17 +121,23 @@ export function MainMenu({
         </svg>
       </button>
 
-      {open && (
-        <div className="fixed inset-0 z-50 flex justify-end">
-          <div
-            className="absolute inset-0 bg-black/50"
-            onClick={() => setOpen(false)}
-            aria-hidden="true"
-          />
-          <div
-            ref={panelRef}
-            className="relative flex h-full w-full max-w-xs flex-col overflow-y-auto bg-surface shadow-xl"
-          >
+      <div
+        className={
+          open
+            ? "fixed inset-0 z-50 bg-black/50 transition-opacity duration-300"
+            : "fixed inset-0 z-50 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300"
+        }
+        onClick={() => setOpen(false)}
+        aria-hidden="true"
+      />
+      <div
+        ref={panelRef}
+        className={
+          open
+            ? "fixed inset-y-0 right-0 z-50 flex w-[65%] max-w-xs translate-x-0 flex-col overflow-y-auto bg-surface shadow-xl transition-transform duration-300 ease-out"
+            : "fixed inset-y-0 right-0 z-50 flex w-[65%] max-w-xs translate-x-full flex-col overflow-y-auto bg-surface shadow-xl transition-transform duration-300 ease-out"
+        }
+      >
             <div className="flex items-center justify-between border-b border-border px-4 py-3">
               <span className="text-sm font-medium">القائمة</span>
               <button
@@ -212,9 +218,7 @@ export function MainMenu({
                 </button>
               </form>
             </div>
-          </div>
-        </div>
-      )}
+      </div>
     </>
   );
 }
