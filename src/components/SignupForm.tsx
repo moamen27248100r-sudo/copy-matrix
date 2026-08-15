@@ -4,6 +4,45 @@ import { useState } from "react";
 import Link from "next/link";
 import { signup } from "@/app/auth/actions";
 
+const COUNTRY_CODES = [
+  { code: "+20", name: "مصر" },
+  { code: "+966", name: "السعودية" },
+  { code: "+971", name: "الإمارات" },
+  { code: "+965", name: "الكويت" },
+  { code: "+974", name: "قطر" },
+  { code: "+973", name: "البحرين" },
+  { code: "+968", name: "عُمان" },
+  { code: "+962", name: "الأردن" },
+  { code: "+961", name: "لبنان" },
+  { code: "+963", name: "سوريا" },
+  { code: "+964", name: "العراق" },
+  { code: "+970", name: "فلسطين" },
+  { code: "+967", name: "اليمن" },
+  { code: "+218", name: "ليبيا" },
+  { code: "+216", name: "تونس" },
+  { code: "+213", name: "الجزائر" },
+  { code: "+212", name: "المغرب" },
+  { code: "+249", name: "السودان" },
+  { code: "+222", name: "موريتانيا" },
+  { code: "+252", name: "الصومال" },
+  { code: "+90", name: "تركيا" },
+  { code: "+1", name: "الولايات المتحدة" },
+  { code: "+44", name: "المملكة المتحدة" },
+  { code: "+49", name: "ألمانيا" },
+  { code: "+33", name: "فرنسا" },
+  { code: "+39", name: "إيطاليا" },
+  { code: "+34", name: "إسبانيا" },
+  { code: "+7", name: "روسيا" },
+  { code: "+86", name: "الصين" },
+  { code: "+91", name: "الهند" },
+  { code: "+92", name: "باكستان" },
+  { code: "+62", name: "إندونيسيا" },
+  { code: "+60", name: "ماليزيا" },
+  { code: "+61", name: "أستراليا" },
+  { code: "+55", name: "البرازيل" },
+  { code: "+27", name: "جنوب أفريقيا" },
+];
+
 function PasswordStrength({ value }: { value: string }) {
   if (!value) return null;
   const score =
@@ -84,6 +123,35 @@ export function SignupForm() {
           required
           className="w-full rounded border border-border bg-background px-3 py-2 pr-9 text-sm"
         />
+      </div>
+
+      <div className="flex gap-2">
+        <select
+          name="phoneCountryCode"
+          defaultValue="+20"
+          aria-label="مفتاح الدولة"
+          className="w-[6.5rem] shrink-0 rounded border border-border bg-background px-2 py-2 text-sm"
+        >
+          {COUNTRY_CODES.map((c) => (
+            <option key={c.code + c.name} value={c.code}>
+              {c.code} {c.name}
+            </option>
+          ))}
+        </select>
+        <div className="relative flex-1">
+          <svg viewBox="0 0 24 24" className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+          </svg>
+          <input
+            name="phoneNumber"
+            type="tel"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            placeholder="رقم الهاتف"
+            required
+            className="w-full rounded border border-border bg-background px-3 py-2 pr-9 text-sm"
+          />
+        </div>
       </div>
 
       <div className="flex flex-col gap-1.5">
