@@ -110,6 +110,7 @@ function CountryCodeSelect() {
         className="flex w-full items-center justify-between gap-1 rounded border border-border bg-background px-2 py-2 text-sm"
       >
         <span className="flex items-center gap-1 truncate">
+          <span>{country.flag}</span>
           <span className="text-xs text-muted">{country.iso}</span>
           <span dir="ltr">{country.code}</span>
         </span>
