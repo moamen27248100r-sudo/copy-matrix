@@ -32,8 +32,8 @@ export async function AppNav() {
   }
 
   return (
-    <nav className="border-b border-border">
-      <div className="mx-auto grid max-w-5xl grid-cols-[auto_1fr_auto] items-center gap-2 px-4 py-3 sm:px-6 sm:py-4">
+    <nav className="sticky top-0 z-40 border-b border-border bg-background">
+      <div className="mx-auto grid h-14 max-w-5xl grid-cols-[auto_1fr_auto] items-center gap-2 px-4 sm:h-16 sm:px-6">
         <div className="flex justify-start">
           {user && <MainMenu balance={balance} isAdmin={isAdmin} displayName={displayName} />}
         </div>

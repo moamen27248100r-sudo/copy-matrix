@@ -110,7 +110,7 @@ export function MainMenu({
     <>
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={() => setOpen((v) => !v)}
         aria-label="القائمة"
         className="flex h-9 w-9 shrink-0 items-center justify-center rounded border border-border text-foreground"
       >
@@ -124,8 +124,8 @@ export function MainMenu({
       <div
         className={
           open
-            ? "fixed inset-0 z-50 bg-black/50 transition-opacity duration-300"
-            : "fixed inset-0 z-50 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300"
+            ? "fixed inset-x-0 top-14 bottom-0 z-40 bg-black/50 transition-opacity duration-300 sm:top-16"
+            : "fixed inset-x-0 top-14 bottom-0 z-40 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300 sm:top-16"
         }
         onClick={() => setOpen(false)}
         aria-hidden="true"
@@ -134,23 +134,12 @@ export function MainMenu({
         ref={panelRef}
         className={
           open
-            ? "fixed inset-y-0 right-0 z-50 flex w-[65%] max-w-xs translate-x-0 flex-col overflow-y-auto bg-surface shadow-xl transition-transform duration-300 ease-out"
-            : "fixed inset-y-0 right-0 z-50 flex w-[65%] max-w-xs translate-x-full flex-col overflow-y-auto bg-surface shadow-xl transition-transform duration-300 ease-out"
+            ? "fixed top-14 bottom-0 right-0 z-40 flex w-[65%] max-w-xs translate-x-0 flex-col overflow-y-auto bg-surface shadow-xl transition-transform duration-300 ease-out sm:top-16"
+            : "fixed top-14 bottom-0 right-0 z-40 flex w-[65%] max-w-xs translate-x-full flex-col overflow-y-auto bg-surface shadow-xl transition-transform duration-300 ease-out sm:top-16"
         }
       >
-            <div className="flex items-center justify-between border-b border-border px-4 py-3">
+            <div className="border-b border-border px-4 py-3">
               <span className="text-sm font-medium">القائمة</span>
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                aria-label="إغلاق"
-                className="flex h-8 w-8 items-center justify-center rounded border border-border text-foreground"
-              >
-                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M18 6L6 18" />
-                  <path d="M6 6l12 12" />
-                </svg>
-              </button>
             </div>
 
             <Link
