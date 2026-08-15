@@ -14,14 +14,12 @@ export async function followProvider(formData: FormData) {
 
   const providerId = formData.get("providerId") as string;
   const allocatedAmount = Number(formData.get("allocatedAmount"));
-  const maxDrawdownPct = Number(formData.get("maxDrawdownPct") ?? 50);
+  // Stop-loss is no longer a customer-facing setting — every copy relationship
+  // gets the same default protection threshold instead of asking for it upfront.
+  const maxDrawdownPct = 50;
 
   if (!Number.isFinite(allocatedAmount) || allocatedAmount <= 0) {
     redirect(`/trader/${providerId}?error=${encodeURIComponent("مبلغ النسخ يجب أن يكون رقمًا أكبر من صفر.")}`);
-  }
-
-  if (!Number.isFinite(maxDrawdownPct) || maxDrawdownPct <= 0 || maxDrawdownPct > 100) {
-    redirect(`/trader/${providerId}?error=${encodeURIComponent("حد الخسارة يجب أن يكون بين ١ و١٠٠٪.")}`);
   }
 
   const [{ data: profile }, { data: provider }, { data: otherSub }] = await Promise.all([
@@ -44,7 +42,7 @@ export async function followProvider(formData: FormData) {
       .single();
     redirect(
       `/trader/${providerId}?error=${encodeURIComponent(
-        `أنت تنسخ حاليًا ${otherProvider?.display_name ?? "متداولًا آخر"}. يمكنك نسخ متداول واحد فقط في نفس الوقت — ألغِ المتابعة أولاً من محفظتك.`,
+        `أنت تنسخ حاليًا ${otherProvider?.display_name ?? "متداولًا آخر"}. يمكنك نسخ متداول واحد فقط في نفس الوقت — أوقف النسخ أولاً من محفظتك.`,
       )}`,
     );
   }
@@ -102,6 +100,45 @@ export async function unfollowProvider(formData: FormData) {
 
   revalidatePath("/discover");
   revalidatePath("/dashboard");
+  revalidatePath("/portfolio");
+  revalidatePath(`/trader/${providerId}`);
+}
+
+// "متابعة" (follow) is separate from "نسخ" (copy): free, unlimited, no
+// money involved — it just lets a customer keep an eye on a trader's
+// activity from their portfolio without allocating any funds.
+export async function followTrader(formData: FormData) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) redirect("/login");
+
+  const providerId = formData.get("providerId") as string;
+
+  await supabase
+    .from("follows")
+    .upsert({ follower_id: user.id, provider_id: providerId }, { onConflict: "follower_id,provider_id" });
+
+  revalidatePath("/discover");
+  revalidatePath("/portfolio");
+  revalidatePath(`/trader/${providerId}`);
+}
+
+export async function unfollowTrader(formData: FormData) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return;
+
+  const providerId = formData.get("providerId") as string;
+
+  await supabase.from("follows").delete().eq("follower_id", user.id).eq("provider_id", providerId);
+
+  revalidatePath("/discover");
   revalidatePath("/portfolio");
   revalidatePath(`/trader/${providerId}`);
 }

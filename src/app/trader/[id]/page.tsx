@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect, notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { followProvider, unfollowProvider } from "@/app/discover/actions";
+import { followProvider, unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
 import { TraderEquityChart } from "@/components/TraderEquityChart";
 import { TradeHistory } from "@/components/TradeHistory";
@@ -80,7 +80,7 @@ export default async function TraderPage({
     redirect("/login");
   }
 
-  const [{ data: provider }, { data: signals }, { data: mySub }, { data: myProfile }, { data: otherSub }] = await Promise.all([
+  const [{ data: provider }, { data: signals }, { data: mySub }, { data: myProfile }, { data: otherSub }, { data: myFollow }] = await Promise.all([
     supabase.from("provider_cards").select("*").eq("provider_id", id).single(),
     supabase
       .from("signals")
@@ -102,6 +102,7 @@ export default async function TraderPage({
       .eq("is_active", true)
       .neq("provider_id", id)
       .maybeSingle(),
+    supabase.from("follows").select("id").eq("follower_id", user.id).eq("provider_id", id).maybeSingle(),
   ]);
 
   if (!provider) {
@@ -110,6 +111,7 @@ export default async function TraderPage({
 
   const allSignals = (signals ?? []) as SignalRow[];
   const isFollowing = !!mySub;
+  const isFollowingTrader = !!myFollow;
   const maxDrawdown = computeMaxDrawdown(allSignals);
 
   const closedHistory = allSignals
@@ -176,6 +178,19 @@ export default async function TraderPage({
               })}
             </p>
           </div>
+          <form action={isFollowingTrader ? unfollowTrader : followTrader}>
+            <input type="hidden" name="providerId" value={id} />
+            <button
+              type="submit"
+              className={
+                isFollowingTrader
+                  ? "rounded-full border border-accent bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent"
+                  : "rounded-full border border-border px-4 py-1.5 text-sm font-medium text-foreground transition hover:border-accent hover:text-accent"
+              }
+            >
+              {isFollowingTrader ? "متابَع ✓" : "متابعة"}
+            </button>
+          </form>
         </div>
 
         <div className="flex flex-wrap gap-1.5 text-xs">
@@ -195,7 +210,7 @@ export default async function TraderPage({
             <div className="flex flex-col gap-2 rounded border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-warning">
               <p>
                 أنت تنسخ حاليًا <strong>{otherProviderName}</strong>. يمكنك نسخ متداول واحد فقط في نفس
-                الوقت — ألغِ المتابعة أولاً من{" "}
+                الوقت — أوقف النسخ أولاً من{" "}
                 <Link href="/portfolio" className="underline">
                   محفظتك
                 </Link>{" "}
@@ -217,38 +232,19 @@ export default async function TraderPage({
                 className="w-28 rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground"
               />
             </label>
-            <label className="flex items-center gap-2 text-sm text-muted">
-              حد إيقاف الخسارة
-              <input
-                name="maxDrawdownPct"
-                type="number"
-                step="any"
-                min="1"
-                max="100"
-                defaultValue={mySub?.max_drawdown_pct ?? 50}
-                required
-                className="w-20 rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground"
-              />
-              %
-            </label>
             <button
               type="submit"
               className="rounded bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
             >
-              {isFollowing ? "تحديث الإعدادات" : "نسخ المتداول"}
+              {isFollowing ? "تحديث الإعدادات" : "نسخ"}
             </button>
-            {isFollowing && (
-              <span className="text-xs text-muted">
-                (سيتم إيقاف النسخ تلقائيًا لو خسائر هذا المتداول وصلت لهذه النسبة من مبلغ النسخ)
-              </span>
-            )}
           </form>
           )}
           {isFollowing && (
             <form action={unfollowProvider}>
               <input type="hidden" name="providerId" value={id} />
               <button type="submit" className="rounded border border-border px-4 py-1.5 text-sm">
-                إلغاء المتابعة
+                إيقاف النسخ
               </button>
             </form>
           )}

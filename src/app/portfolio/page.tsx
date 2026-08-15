@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { unfollowProvider } from "@/app/discover/actions";
+import { unfollowProvider, unfollowTrader } from "@/app/discover/actions";
 import { requestDeposit, requestWithdrawal } from "@/app/portfolio/actions";
 import { AppNav } from "@/components/AppNav";
 import { PortfolioTabs } from "@/components/PortfolioTabs";
@@ -67,11 +67,23 @@ export default async function PortfolioPage({
   const providerIds = (subscriptions ?? []).map((s) => s.provider_id);
   const allocationByProvider = new Map((subscriptions ?? []).map((s) => [s.provider_id, s.allocated_amount]));
 
-  const [{ data: profile }, { data: followedProviders }, { data: positions }, { data: transactions }, { data: walletRequests }] =
-    await Promise.all([
+  const { data: follows } = await supabase.from("follows").select("provider_id").eq("follower_id", user.id);
+  const followedTraderIds = (follows ?? []).map((f) => f.provider_id);
+
+  const [
+    { data: profile },
+    { data: followedProviders },
+    { data: followedTraders },
+    { data: positions },
+    { data: transactions },
+    { data: walletRequests },
+  ] = await Promise.all([
       supabase.from("profiles").select("balance").eq("id", user.id).single(),
       providerIds.length > 0
         ? supabase.from("provider_cards").select("*").in("provider_id", providerIds)
+        : Promise.resolve({ data: [] as never[] }),
+      followedTraderIds.length > 0
+        ? supabase.from("provider_cards").select("*").in("provider_id", followedTraderIds)
         : Promise.resolve({ data: [] as never[] }),
       supabase
         .from("simulated_positions")
@@ -232,14 +244,14 @@ export default async function PortfolioPage({
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">المتداول الذي تتابعه</h2>
+        <h2 className="font-medium">المتداول الذي تنسخه</h2>
         {(followedProviders ?? []).length === 0 ? (
           <p className="text-sm text-muted">
-            أنت لا تتابع أي متداول حتى الآن. انتقل إلى{" "}
+            أنت لا تنسخ أي متداول حتى الآن. انتقل إلى{" "}
             <Link href="/discover" className="underline">
               اكتشاف المتداولين
             </Link>{" "}
-            وابدأ المتابعة.
+            وابدأ النسخ.
           </p>
         ) : (
           followedProviders!.map((p) => (
@@ -266,6 +278,39 @@ export default async function PortfolioPage({
                   type="submit"
                   className="rounded border border-border px-3 py-1 text-xs"
                 >
+                  إيقاف النسخ
+                </button>
+              </form>
+            </div>
+          ))
+        )}
+      </section>
+
+      <section className="flex flex-col gap-3">
+        <h2 className="font-medium">المتداولون الذين تتابعهم</h2>
+        {(followedTraders ?? []).length === 0 ? (
+          <p className="text-sm text-muted">
+            أنت لا تتابع أي متداول حتى الآن. تابع أي متداول من صفحته الشخصية لترى صفقاته وتحركاته هنا، دون
+            الحاجة لنسخه بأموالك.
+          </p>
+        ) : (
+          followedTraders!.map((p) => (
+            <div
+              key={p.provider_id}
+              className="flex items-center justify-between rounded-lg border border-border bg-surface p-3"
+            >
+              <Link href={`/trader/${p.provider_id}`} className="flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-accent to-brand text-sm font-semibold text-white">
+                  {p.display_name?.charAt(0) ?? "؟"}
+                </div>
+                <div>
+                  <p className="text-sm font-medium underline-offset-2 hover:underline">{p.display_name}</p>
+                  <p className="text-xs text-muted">عرض صفقاته وتحركاته</p>
+                </div>
+              </Link>
+              <form action={unfollowTrader}>
+                <input type="hidden" name="providerId" value={p.provider_id} />
+                <button type="submit" className="rounded border border-border px-3 py-1 text-xs">
                   إلغاء المتابعة
                 </button>
               </form>

@@ -160,14 +160,14 @@ export default async function DiscoverPage({
                     <form action={unfollowProvider}>
                       <input type="hidden" name="providerId" value={p.provider_id} />
                       <button type="submit" className="w-full rounded border border-border px-3 py-2 text-sm">
-                        إلغاء المتابعة
+                        إيقاف النسخ
                       </button>
                     </form>
                   ) : isBlocked ? (
                     <button
                       type="button"
                       disabled
-                      title="أنت تنسخ متداولًا آخر حاليًا — ألغِ المتابعة أولاً من محفظتك لتتمكن من نسخ هذا المتداول."
+                      title="أنت تنسخ متداولًا آخر حاليًا — أوقف النسخ أولاً من محفظتك لتتمكن من نسخ هذا المتداول."
                       className="w-full cursor-not-allowed rounded bg-accent/30 px-3 py-2 text-sm font-medium text-accent-foreground/60"
                     >
                       نسخ
