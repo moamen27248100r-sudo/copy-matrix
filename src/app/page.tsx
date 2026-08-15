@@ -306,16 +306,16 @@ export default async function Home() {
 
       <section id="features" className="flex flex-col gap-10 border-t border-border px-6 py-16">
         <h2 className="text-center text-2xl font-semibold sm:text-3xl">مميزات المنصة</h2>
-        <div className="mx-auto grid w-full max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="mx-auto grid w-full max-w-5xl grid-cols-2 gap-3 sm:gap-4">
           {FEATURES.map((f) => (
             <div
               key={f.title}
-              className="flex items-start gap-4 rounded-xl border border-border bg-surface p-5 transition hover:border-accent/40 hover:shadow-lg"
+              className="flex flex-col items-center gap-2 rounded-xl border border-border bg-surface p-3 text-center transition hover:border-accent/40 hover:shadow-lg sm:flex-row sm:items-start sm:gap-4 sm:p-5 sm:text-start"
             >
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent/10">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/10 sm:h-11 sm:w-11">
                 <svg
                   viewBox="0 0 24 24"
-                  className="h-5 w-5 text-accent"
+                  className="h-4 w-4 text-accent sm:h-5 sm:w-5"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
@@ -327,8 +327,8 @@ export default async function Home() {
                 </svg>
               </div>
               <div>
-                <p className="font-medium">{f.title}</p>
-                <p className="mt-1 text-sm leading-relaxed text-muted">{f.desc}</p>
+                <p className="text-xs font-medium sm:text-base">{f.title}</p>
+                <p className="mt-1 text-[11px] leading-relaxed text-muted sm:text-sm">{f.desc}</p>
               </div>
             </div>
           ))}
@@ -383,60 +383,58 @@ export default async function Home() {
               عرض الكل
             </Link>
           </div>
-          <div className="mx-auto grid w-full max-w-5xl grid-cols-1 gap-4 sm:grid-cols-3">
+          <div className="mx-auto grid w-full max-w-5xl grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
             {topProviders.map((p) => (
               <div
                 key={p.provider_id}
-                className="group relative flex flex-col gap-3 rounded-xl border border-border bg-surface p-4 transition hover:border-accent/40 hover:shadow-lg"
+                className="group relative flex flex-col gap-2 rounded-xl border border-border bg-surface p-3 transition hover:border-accent/40 hover:shadow-lg sm:gap-3 sm:p-4"
               >
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-accent to-brand text-sm font-semibold text-white">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-accent to-brand text-xs font-semibold text-white sm:h-10 sm:w-10 sm:text-sm">
                     {p.display_name?.charAt(0) ?? "؟"}
                   </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <p className="text-sm font-medium">{p.display_name}</p>
-                      <Link
-                        href={`/trader/${p.provider_id}`}
-                        title="تابع أداء هذا المتداول واحصل على كل نتائجه"
-                        className="rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 text-[10px] font-medium text-accent transition hover:bg-accent/20"
-                      >
-                        متابعة
-                      </Link>
-                    </div>
-                    <p className="text-xs text-muted">{p.followers_count} ناسخ</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-xs font-medium sm:text-sm">{p.display_name}</p>
+                    <p className="text-[10px] text-muted sm:text-xs">{p.followers_count} ناسخ</p>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-center text-sm">
+                <Link
+                  href={`/trader/${p.provider_id}`}
+                  title="تابع أداء هذا المتداول واحصل على كل نتائجه"
+                  className="self-start rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 text-[9px] font-medium text-accent transition hover:bg-accent/20 sm:text-[10px]"
+                >
+                  متابعة
+                </Link>
+                <div className="grid grid-cols-2 gap-2 text-center">
                   <div>
-                    <p className="font-semibold">
+                    <p className="text-xs font-semibold sm:text-sm">
                       {p.win_rate_pct != null ? `${p.win_rate_pct}%` : "—"}
                     </p>
-                    <p className="text-xs text-muted">نسبة النجاح</p>
+                    <p className="text-[10px] text-muted sm:text-xs">نسبة النجاح</p>
                   </div>
                   <div>
                     <p
                       className={
                         p.avg_return_pct != null && p.avg_return_pct < 0
-                          ? "font-semibold text-danger"
-                          : "font-semibold text-success"
+                          ? "text-xs font-semibold text-danger sm:text-sm"
+                          : "text-xs font-semibold text-success sm:text-sm"
                       }
                     >
                       {p.avg_return_pct != null ? `${p.avg_return_pct}%` : "—"}
                     </p>
-                    <p className="text-xs text-muted">متوسط العائد</p>
+                    <p className="text-[10px] text-muted sm:text-xs">متوسط العائد</p>
                   </div>
                 </div>
-                <div className="flex flex-col gap-2 pt-1">
+                <div className="flex flex-col gap-1.5 pt-1 sm:gap-2">
                   <Link
                     href={`/trader/${p.provider_id}`}
-                    className="rounded border border-border bg-background px-3 py-2 text-center text-sm text-foreground"
+                    className="rounded border border-border bg-background px-2 py-1.5 text-center text-[11px] text-foreground sm:px-3 sm:py-2 sm:text-sm"
                   >
                     عرض الملف الشخصي
                   </Link>
                   <Link
                     href={`/trader/${p.provider_id}#copy`}
-                    className="rounded bg-accent px-3 py-2 text-center text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
+                    className="rounded bg-accent px-2 py-1.5 text-center text-[11px] font-medium text-accent-foreground transition hover:bg-accent-hover sm:px-3 sm:py-2 sm:text-sm"
                   >
                     نسخ
                   </Link>
