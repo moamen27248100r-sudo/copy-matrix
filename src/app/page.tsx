@@ -458,92 +458,95 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <div className="rounded-lg border border-border p-6 text-center">
-              <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-foreground/5">
-                <svg viewBox="0 0 24 24" className="h-5 w-5 text-foreground" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
+            <div className="rounded-lg border border-border p-3 text-center sm:p-6">
+              <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-foreground/5 sm:mb-3 sm:h-10 sm:w-10">
+                <svg viewBox="0 0 24 24" className="h-4 w-4 text-foreground sm:h-5 sm:w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
                   <circle cx="9" cy="7" r="4" />
                   <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
                   <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                 </svg>
               </div>
-              <p className="text-3xl font-semibold">{totalTraders}+</p>
-              <p className="mt-1 text-xs text-muted">
+              <p className="text-xl font-semibold sm:text-3xl">{totalTraders}+</p>
+              <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 متداول نشط<sup>1</sup>
               </p>
             </div>
 
-            <div className="rounded-lg border border-border p-6 text-center">
-              <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-foreground/5">
-                <svg viewBox="0 0 24 24" className="h-5 w-5 text-foreground" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <div className="rounded-lg border border-border p-3 text-center sm:p-6">
+              <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-foreground/5 sm:mb-3 sm:h-10 sm:w-10">
+                <svg viewBox="0 0 24 24" className="h-4 w-4 text-foreground sm:h-5 sm:w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M17 1l4 4-4 4" />
                   <path d="M3 11V9a4 4 0 0 1 4-4h14" />
                   <path d="M7 23l-4-4 4-4" />
                   <path d="M21 13v2a4 4 0 0 1-4 4H3" />
                 </svg>
               </div>
-              <p className="text-3xl font-semibold">{totalCopiers.toLocaleString("en-US")}+</p>
-              <p className="mt-1 text-xs text-muted">
+              <p className="text-xl font-semibold sm:text-3xl">{totalCopiers.toLocaleString("en-US")}+</p>
+              <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 مستخدم ناسخ<sup>1</sup>
               </p>
             </div>
 
-            <div className="rounded-lg border border-border p-6 text-center">
-              <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-success/10">
-                <svg viewBox="0 0 24 24" className="h-5 w-5 text-success" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <div className="rounded-lg border border-border p-3 text-center sm:p-6">
+              <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-success/10 sm:mb-3 sm:h-10 sm:w-10">
+                <svg viewBox="0 0 24 24" className="h-4 w-4 text-success sm:h-5 sm:w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M23 6l-9.5 9.5-5-5L1 18" />
                   <path d="M17 6h6v6" />
                 </svg>
               </div>
-              <p className="text-3xl font-semibold text-success">
+              <p className="text-xl font-semibold text-success sm:text-3xl">
                 {avgWinRate != null ? `${avgWinRate}%` : "—"}
               </p>
-              <p className="mt-1 text-xs text-muted">
+              <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 متوسط نسبة النجاح<sup>1</sup>
               </p>
             </div>
 
-            <div className="rounded-lg border border-border p-6 text-center">
-              <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-success/10">
-                <svg viewBox="0 0 24 24" className="h-5 w-5 text-success" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <div className="rounded-lg border border-border p-3 text-center sm:p-6">
+              <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-success/10 sm:mb-3 sm:h-10 sm:w-10">
+                <svg viewBox="0 0 24 24" className="h-4 w-4 text-success sm:h-5 sm:w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <line x1="12" y1="1" x2="12" y2="23" />
                   <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                 </svg>
               </div>
-              <p className="text-3xl font-semibold text-success" title={`$${totalProfit.toLocaleString("en-US", { maximumFractionDigits: 0 })}`}>
+              <p
+                className="text-xl font-semibold text-success sm:text-3xl"
+                title={`$${totalProfit.toLocaleString("en-US", { maximumFractionDigits: 0 })}`}
+              >
                 ${totalProfit.toLocaleString("en-US", { notation: "compact", maximumFractionDigits: 1 })}
               </p>
-              <p className="mt-1 text-xs text-muted">
+              <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 إجمالي الأرباح المحققة<sup>2</sup>
               </p>
             </div>
 
-            <div className="rounded-lg border border-border p-6 text-center">
-              <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-success/10">
-                <svg viewBox="0 0 24 24" className="h-5 w-5 text-success" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <div className="rounded-lg border border-border p-3 text-center sm:p-6">
+              <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-success/10 sm:mb-3 sm:h-10 sm:w-10">
+                <svg viewBox="0 0 24 24" className="h-4 w-4 text-success sm:h-5 sm:w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <circle cx="12" cy="8" r="7" />
                   <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
                 </svg>
               </div>
-              <p className="text-3xl font-semibold text-success" dir="ltr">
+              <p className="text-xl font-semibold text-success sm:text-3xl" dir="ltr">
                 {bestReturn != null ? `+${bestReturn}%` : "—"}
               </p>
-              <p className="mt-1 text-xs text-muted">
+              <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 أعلى عائد شهري<sup>2</sup>
               </p>
             </div>
 
-            <div className="rounded-lg border border-border p-6 text-center">
-              <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-foreground/5">
-                <svg viewBox="0 0 24 24" className="h-5 w-5 text-foreground" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <div className="rounded-lg border border-border p-3 text-center sm:p-6">
+              <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-foreground/5 sm:mb-3 sm:h-10 sm:w-10">
+                <svg viewBox="0 0 24 24" className="h-4 w-4 text-foreground sm:h-5 sm:w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <line x1="18" y1="20" x2="18" y2="10" />
                   <line x1="12" y1="20" x2="12" y2="4" />
                   <line x1="6" y1="20" x2="6" y2="14" />
                 </svg>
               </div>
-              <p className="text-3xl font-semibold">{totalExecutedTrades.toLocaleString("en-US")}+</p>
-              <p className="mt-1 text-xs text-muted">
+              <p className="text-xl font-semibold sm:text-3xl">{totalExecutedTrades.toLocaleString("en-US")}+</p>
+              <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 إجمالي الصفقات المنفذة<sup>2</sup>
               </p>
             </div>
