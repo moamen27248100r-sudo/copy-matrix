@@ -229,6 +229,38 @@ export default async function Home() {
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3">
+            <details className="group relative sm:hidden">
+              <summary
+                className="flex h-8 w-8 cursor-pointer list-none items-center justify-center rounded border border-border marker:content-none"
+                aria-label="القائمة"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-4 w-4 text-foreground"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <line x1="3" y1="12" x2="21" y2="12" />
+                  <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+              </summary>
+              <div className="absolute end-0 top-[calc(100%+0.5rem)] z-20 flex w-48 flex-col gap-1 rounded-lg border border-border bg-surface p-2 text-sm shadow-lg">
+                {NAV_LINKS.map((l) => (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    className="rounded px-3 py-2 text-muted hover:bg-background hover:text-foreground"
+                  >
+                    {l.label}
+                  </a>
+                ))}
+              </div>
+            </details>
             <Link href="/login" className="rounded border border-border px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm">
               تسجيل الدخول
             </Link>
