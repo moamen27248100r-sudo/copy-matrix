@@ -411,54 +411,56 @@ export default async function Home() {
             {topProviders.map((p) => (
               <div
                 key={p.provider_id}
-                className="group relative flex flex-col gap-2 rounded-xl border border-border bg-surface p-3 transition hover:border-accent/40 hover:shadow-lg sm:gap-3 sm:p-4"
+                className="group relative flex flex-col gap-2.5 rounded-xl border border-border bg-surface p-3.5 transition hover:border-accent/40 hover:shadow-lg sm:gap-3 sm:p-4"
               >
                 <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-accent to-brand text-xs font-semibold text-white sm:h-10 sm:w-10 sm:text-sm">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-accent to-brand text-sm font-semibold text-white sm:h-10 sm:w-10">
                     {p.display_name?.charAt(0) ?? "؟"}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-xs font-medium sm:text-sm">{p.display_name}</p>
-                    <p className="text-[10px] text-muted sm:text-xs">{p.followers_count} ناسخ</p>
+                    <div className="flex items-center gap-1.5">
+                      <p className="min-w-0 truncate text-sm font-semibold">{p.display_name}</p>
+                      <Link
+                        href={`/trader/${p.provider_id}`}
+                        title="تابع أداء هذا المتداول واحصل على كل نتائجه"
+                        className="shrink-0 rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 text-[10px] font-medium text-accent transition hover:bg-accent/20"
+                      >
+                        متابعة
+                      </Link>
+                    </div>
+                    <p className="text-xs text-muted">{p.followers_count} ناسخ</p>
                   </div>
                 </div>
-                <Link
-                  href={`/trader/${p.provider_id}`}
-                  title="تابع أداء هذا المتداول واحصل على كل نتائجه"
-                  className="self-start rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 text-[9px] font-medium text-accent transition hover:bg-accent/20 sm:text-[10px]"
-                >
-                  متابعة
-                </Link>
                 <div className="grid grid-cols-2 gap-2 text-center">
                   <div>
-                    <p className="text-xs font-semibold sm:text-sm">
+                    <p className="text-sm font-semibold sm:text-base">
                       {p.win_rate_pct != null ? `${p.win_rate_pct}%` : "—"}
                     </p>
-                    <p className="text-[10px] text-muted sm:text-xs">نسبة النجاح</p>
+                    <p className="text-[11px] text-muted">نسبة النجاح</p>
                   </div>
                   <div>
                     <p
                       className={
                         p.avg_return_pct != null && p.avg_return_pct < 0
-                          ? "text-xs font-semibold text-danger sm:text-sm"
-                          : "text-xs font-semibold text-success sm:text-sm"
+                          ? "text-sm font-semibold text-danger sm:text-base"
+                          : "text-sm font-semibold text-success sm:text-base"
                       }
                     >
                       {p.avg_return_pct != null ? `${p.avg_return_pct}%` : "—"}
                     </p>
-                    <p className="text-[10px] text-muted sm:text-xs">متوسط العائد</p>
+                    <p className="text-[11px] text-muted">متوسط العائد</p>
                   </div>
                 </div>
-                <div className="flex flex-col gap-1.5 pt-1 sm:gap-2">
+                <div className="flex flex-col gap-2 pt-1">
                   <Link
                     href={`/trader/${p.provider_id}`}
-                    className="rounded border border-border bg-background px-2 py-1.5 text-center text-[11px] text-foreground sm:px-3 sm:py-2 sm:text-sm"
+                    className="rounded border border-border bg-background px-3 py-2 text-center text-xs text-foreground sm:text-sm"
                   >
                     عرض الملف الشخصي
                   </Link>
                   <Link
                     href={`/trader/${p.provider_id}#copy`}
-                    className="rounded bg-accent px-2 py-1.5 text-center text-[11px] font-medium text-accent-foreground transition hover:bg-accent-hover sm:px-3 sm:py-2 sm:text-sm"
+                    className="rounded bg-accent px-3 py-2 text-center text-xs font-medium text-accent-foreground transition hover:bg-accent-hover sm:text-sm"
                   >
                     نسخ
                   </Link>
