@@ -41,9 +41,8 @@ export async function signup(formData: FormData) {
   }
 
   const accountType = formData.get("accountType") === "real" ? "real" : "demo";
-  const phoneCountryCode = (formData.get("phoneCountryCode") as string) ?? "";
-  const phoneNumber = ((formData.get("phoneNumber") as string) ?? "").replace(/\D/g, "");
-  const phone = phoneNumber ? `${phoneCountryCode}${phoneNumber}` : null;
+  const phoneDigits = ((formData.get("phone") as string) ?? "").replace(/\D/g, "");
+  const phone = phoneDigits ? `+${phoneDigits}` : null;
 
   const supabase = await createClient();
 
