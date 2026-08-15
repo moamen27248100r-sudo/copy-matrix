@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { TradingViewChart } from "@/components/TradingViewChart";
 import { MarketOverview } from "@/components/MarketOverview";
+import { HeroIllustration } from "@/components/HeroIllustration";
 import { pinTopLeaders } from "@/lib/pin-top-leaders";
 
 export const dynamic = "force-dynamic";
@@ -318,6 +319,9 @@ export default async function Home() {
               {t}
             </span>
           ))}
+        </div>
+        <div className="w-full pt-6">
+          <HeroIllustration />
         </div>
       </section>
 
