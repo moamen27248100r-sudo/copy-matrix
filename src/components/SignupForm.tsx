@@ -5,8 +5,8 @@ import Link from "next/link";
 import { signup } from "@/app/auth/actions";
 
 const COUNTRY_CODES = [
-  { code: "+20", name: "مصر", flag: "🇪🇬" },
   { code: "+966", name: "السعودية", flag: "🇸🇦" },
+  { code: "+20", name: "مصر", flag: "🇪🇬" },
   { code: "+971", name: "الإمارات", flag: "🇦🇪" },
   { code: "+965", name: "الكويت", flag: "🇰🇼" },
   { code: "+974", name: "قطر", flag: "🇶🇦" },
@@ -128,7 +128,7 @@ export function SignupForm() {
       <div className="flex gap-2">
         <select
           name="phoneCountryCode"
-          defaultValue="+20"
+          defaultValue="+966"
           aria-label="مفتاح الدولة"
           className="w-[6.5rem] shrink-0 rounded border border-border bg-background px-2 py-2 text-sm"
         >
