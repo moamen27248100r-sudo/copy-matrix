@@ -320,7 +320,7 @@ export default async function Home() {
             </span>
           ))}
         </div>
-        <div className="mx-auto w-full max-w-2xl overflow-hidden rounded-2xl border border-border pt-0 sm:pt-2">
+        <div className="mx-auto w-full max-w-2xl">
           <Image
             src="/hero-broker.png"
             alt=""
@@ -328,6 +328,14 @@ export default async function Home() {
             height={1024}
             priority
             className="h-auto w-full object-cover"
+            style={{
+              maskImage:
+                "linear-gradient(to bottom, transparent 0%, black 14%, black 62%, transparent 96%), linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
+              maskComposite: "intersect",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, transparent 0%, black 14%, black 62%, transparent 96%), linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
+              WebkitMaskComposite: "source-in",
+            }}
           />
         </div>
       </section>
