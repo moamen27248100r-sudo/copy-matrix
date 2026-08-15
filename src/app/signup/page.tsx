@@ -26,7 +26,7 @@ export default async function SignupPage({
         </div>
         <div>
           <h1 className="text-lg font-semibold">إنشاء حساب جديد</h1>
-          <p className="text-sm text-muted">انضم وابدأ نسخ صفقات أفضل المتداولين في دقائق.</p>
+          <p className="text-sm text-muted">انضم وابدأ نسخ صفقات أفضل المتداولين تلقائيًا.</p>
         </div>
       </div>
 

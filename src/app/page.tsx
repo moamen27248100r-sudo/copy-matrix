@@ -71,7 +71,7 @@ const STEPS = [
   {
     n: "1",
     title: "أنشئ حسابك",
-    desc: "أكمل عملية التسجيل وتوثيق الهوية للحصول على حساب موثّق خلال دقائق.",
+    desc: "أكمل عملية التسجيل وتوثيق الهوية للحصول على حساب موثّق.",
   },
   {
     n: "2",
@@ -383,7 +383,7 @@ export default async function Home() {
         <div className="mx-auto flex max-w-xl flex-col items-center gap-2 text-center">
           <span className="text-xs font-medium text-accent">٤ خطوات بسيطة</span>
           <h2 className="text-2xl font-semibold sm:text-3xl">آلية عمل المنصة</h2>
-          <p className="text-sm text-muted">ابدأ نسخ الصفقات تلقائيًا في دقائق معدودة</p>
+          <p className="text-sm text-muted">ابدأ نسخ الصفقات تلقائيًا باتباع خطوات واضحة وبسيطة</p>
         </div>
         <div className="mx-auto grid w-full max-w-4xl grid-cols-2 gap-3 sm:gap-6">
           {STEPS.map((s) => (
@@ -645,7 +645,7 @@ export default async function Home() {
       <section className="border-t border-border px-6 py-16">
         <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-4 rounded-2xl border border-border bg-surface px-6 py-14 text-center">
           <h2 className="text-2xl font-semibold sm:text-3xl">هل أنت مستعد للبدء؟</h2>
-          <p className="max-w-sm text-sm text-muted">أنشئ حسابك الآن وابدأ نسخ صفقات أفضل المتداولين في دقائق.</p>
+          <p className="max-w-sm text-sm text-muted">أنشئ حسابك الآن وابدأ نسخ صفقات أفضل المتداولين تلقائيًا.</p>
           <Link
             href="/signup"
             className="mt-2 rounded bg-accent px-6 py-3 font-medium text-accent-foreground transition hover:bg-accent-hover"
