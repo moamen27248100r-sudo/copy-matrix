@@ -119,6 +119,21 @@ const TRUST_POINTS = [
   "بياناتك محمية ومشفّرة بالكامل",
 ];
 
+const TRADER_TRUST_POINTS = [
+  {
+    title: "سجل صفقات كامل وموثّق",
+    desc: "كل صفقة نفّذها أي متداول — رابحة أو خاسرة — موجودة في ملفه الشخصي بالتاريخ والتفاصيل.",
+  },
+  {
+    title: "مؤشرات أداء حقيقية",
+    desc: "نسبة النجاح، متوسط العائد، وأقصى تراجع لكل متداول — أرقام محسوبة من صفقاته الفعلية.",
+  },
+  {
+    title: "تحكم في المخاطرة",
+    desc: "لكل متداول حد أدنى للنسخ ومستوى مخاطرة واضح، فتختار ما يناسب أسلوبك أنت.",
+  },
+];
+
 const FAQS = [
   {
     q: "ما الفرق بين الحساب التجريبي والحساب الحقيقي؟",
@@ -337,6 +352,14 @@ export default async function Home() {
               WebkitMaskComposite: "source-in",
             }}
           />
+        </div>
+        <div className="mx-auto -mt-6 grid w-full max-w-3xl grid-cols-1 gap-x-10 gap-y-5 px-4 text-start sm:-mt-10 sm:grid-cols-2">
+          {TRADER_TRUST_POINTS.map((p) => (
+            <div key={p.title}>
+              <p className="text-sm font-semibold sm:text-base">{p.title}</p>
+              <p className="mt-1 text-xs leading-relaxed text-muted sm:text-sm">{p.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 
