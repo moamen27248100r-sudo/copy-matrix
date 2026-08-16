@@ -82,8 +82,9 @@ export async function chooseAccountType(formData: FormData) {
   if (!user) redirect("/login");
 
   const accountType = formData.get("accountType") === "real" ? "real" : "demo";
+  const balance = accountType === "real" ? 0 : 1000;
 
-  await supabase.from("profiles").update({ account_type: accountType }).eq("id", user.id);
+  await supabase.from("profiles").update({ account_type: accountType, balance }).eq("id", user.id);
 
   redirect("/dashboard");
 }
