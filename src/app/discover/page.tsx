@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { unfollowProvider } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
@@ -26,10 +25,6 @@ export default async function DiscoverPage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
-    redirect("/login");
-  }
-
   let providersQuery = supabase.from("provider_cards").select("*");
   if (q) {
     providersQuery = providersQuery.ilike("display_name", `%${q}%`);
@@ -39,11 +34,13 @@ export default async function DiscoverPage({
 
   const [{ data: rawProviders }, { data: mySubscriptions }] = await Promise.all([
     providersQuery,
-    supabase
-      .from("subscriptions")
-      .select("provider_id")
-      .eq("follower_id", user.id)
-      .eq("is_active", true),
+    user
+      ? supabase
+          .from("subscriptions")
+          .select("provider_id")
+          .eq("follower_id", user.id)
+          .eq("is_active", true)
+      : Promise.resolve({ data: [] as { provider_id: string }[] }),
   ]);
 
   const providers = rawProviders && sortKey === "return" && !q ? pinTopLeaders(rawProviders) : rawProviders;

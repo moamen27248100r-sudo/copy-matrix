@@ -10,7 +10,7 @@ export async function followProvider(formData: FormData) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) redirect("/login");
+  if (!user) redirect("/signup");
 
   const providerId = formData.get("providerId") as string;
   const allocatedAmount = Number(formData.get("allocatedAmount"));
@@ -113,7 +113,7 @@ export async function followTrader(formData: FormData) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) redirect("/login");
+  if (!user) redirect("/signup");
 
   const providerId = formData.get("providerId") as string;
 

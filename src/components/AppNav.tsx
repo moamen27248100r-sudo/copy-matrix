@@ -37,11 +37,20 @@ export async function AppNav() {
     <nav className="sticky top-0 z-40 border-b border-border bg-background">
       <div className="mx-auto grid h-14 max-w-5xl grid-cols-[auto_1fr_auto] items-center gap-2 px-4 sm:h-16 sm:px-6">
         <div className="flex justify-start">
-          {user && <MainMenu balance={balance} isAdmin={isAdmin} displayName={displayName} email={email} />}
+          {user ? (
+            <MainMenu balance={balance} isAdmin={isAdmin} displayName={displayName} email={email} />
+          ) : (
+            <Link
+              href="/signup"
+              className="rounded bg-accent px-3 py-1.5 text-xs font-medium text-accent-foreground transition hover:bg-accent-hover sm:text-sm"
+            >
+              إنشاء حساب
+            </Link>
+          )}
         </div>
 
         <Link
-          href="/dashboard"
+          href={user ? "/dashboard" : "/"}
           className="flex items-center justify-center gap-1 whitespace-nowrap text-base font-semibold sm:gap-1.5 sm:text-lg"
           dir="ltr"
         >
@@ -77,7 +86,13 @@ export async function AppNav() {
         </Link>
 
         <div className="flex justify-end">
-          {user && <NotificationsMenu notifications={notifications} />}
+          {user ? (
+            <NotificationsMenu notifications={notifications} />
+          ) : (
+            <Link href="/login" className="text-xs font-medium text-foreground underline sm:text-sm">
+              تسجيل الدخول
+            </Link>
+          )}
         </div>
       </div>
     </nav>

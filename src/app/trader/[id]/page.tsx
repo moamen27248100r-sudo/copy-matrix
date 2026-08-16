@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { redirect, notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { followProvider, unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
@@ -76,10 +76,6 @@ export default async function TraderPage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
-    redirect("/login");
-  }
-
   const [{ data: provider }, { data: signals }, { data: mySub }, { data: myProfile }, { data: otherSub }, { data: myFollow }] = await Promise.all([
     supabase.from("provider_cards").select("*").eq("provider_id", id).single(),
     supabase
@@ -87,22 +83,30 @@ export default async function TraderPage({
       .select("id, symbol, side, entry_price, exit_price, status, opened_at, closed_at")
       .eq("provider_id", id)
       .order("opened_at", { ascending: false }),
-    supabase
-      .from("subscriptions")
-      .select("id, allocated_amount, max_drawdown_pct")
-      .eq("follower_id", user.id)
-      .eq("provider_id", id)
-      .eq("is_active", true)
-      .maybeSingle(),
-    supabase.from("profiles").select("balance").eq("id", user.id).single(),
-    supabase
-      .from("subscriptions")
-      .select("provider_id")
-      .eq("follower_id", user.id)
-      .eq("is_active", true)
-      .neq("provider_id", id)
-      .maybeSingle(),
-    supabase.from("follows").select("id").eq("follower_id", user.id).eq("provider_id", id).maybeSingle(),
+    user
+      ? supabase
+          .from("subscriptions")
+          .select("id, allocated_amount, max_drawdown_pct")
+          .eq("follower_id", user.id)
+          .eq("provider_id", id)
+          .eq("is_active", true)
+          .maybeSingle()
+      : Promise.resolve({ data: null }),
+    user
+      ? supabase.from("profiles").select("balance").eq("id", user.id).single()
+      : Promise.resolve({ data: null }),
+    user
+      ? supabase
+          .from("subscriptions")
+          .select("provider_id")
+          .eq("follower_id", user.id)
+          .eq("is_active", true)
+          .neq("provider_id", id)
+          .maybeSingle()
+      : Promise.resolve({ data: null }),
+    user
+      ? supabase.from("follows").select("id").eq("follower_id", user.id).eq("provider_id", id).maybeSingle()
+      : Promise.resolve({ data: null }),
   ]);
 
   if (!provider) {
@@ -178,19 +182,28 @@ export default async function TraderPage({
               })}
             </p>
           </div>
-          <form action={isFollowingTrader ? unfollowTrader : followTrader}>
-            <input type="hidden" name="providerId" value={id} />
-            <button
-              type="submit"
-              className={
-                isFollowingTrader
-                  ? "rounded-full border border-accent bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent"
-                  : "rounded-full border border-border px-4 py-1.5 text-sm font-medium text-foreground transition hover:border-accent hover:text-accent"
-              }
+          {user ? (
+            <form action={isFollowingTrader ? unfollowTrader : followTrader}>
+              <input type="hidden" name="providerId" value={id} />
+              <button
+                type="submit"
+                className={
+                  isFollowingTrader
+                    ? "rounded-full border border-accent bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent"
+                    : "rounded-full border border-border px-4 py-1.5 text-sm font-medium text-foreground transition hover:border-accent hover:text-accent"
+                }
+              >
+                {isFollowingTrader ? "متابَع ✓" : "متابعة"}
+              </button>
+            </form>
+          ) : (
+            <Link
+              href="/signup"
+              className="rounded-full border border-border px-4 py-1.5 text-sm font-medium text-foreground transition hover:border-accent hover:text-accent"
             >
-              {isFollowingTrader ? "متابَع ✓" : "متابعة"}
-            </button>
-          </form>
+              متابعة
+            </Link>
+          )}
         </div>
 
         <div className="flex flex-wrap gap-1.5 text-xs">
@@ -206,7 +219,19 @@ export default async function TraderPage({
         {provider.bio && <p className="text-sm text-muted">{provider.bio}</p>}
 
         <div id="copy" className="flex flex-col gap-3 rounded-lg border border-border bg-background p-3 scroll-mt-20">
-          {isBlocked ? (
+          {!user ? (
+            <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm text-muted">
+                سجّل حساب مجانًا لتتمكن من نسخ {provider.display_name} ومتابعة أداء صفقاته.
+              </p>
+              <Link
+                href="/signup"
+                className="w-full shrink-0 rounded bg-accent px-4 py-1.5 text-center text-sm font-medium text-accent-foreground transition hover:bg-accent-hover sm:w-fit"
+              >
+                إنشاء حساب مجاني
+              </Link>
+            </div>
+          ) : isBlocked ? (
             <div className="flex flex-col gap-2 rounded border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-warning">
               <p>
                 أنت تنسخ حاليًا <strong>{otherProviderName}</strong>. يمكنك نسخ متداول واحد فقط في نفس
@@ -251,9 +276,11 @@ export default async function TraderPage({
         </div>
         <div className="flex flex-wrap justify-between gap-2 text-xs text-muted">
           <span>الحد الأدنى للنسخ عند هذا المتداول: ${Number(provider.min_copy_amount).toLocaleString("en-US")}</span>
-          <span>
-            رصيدك المتاح: {myProfile?.balance != null ? `$${Number(myProfile.balance).toLocaleString("en-US", { maximumFractionDigits: 2 })}` : "—"}
-          </span>
+          {user && (
+            <span>
+              رصيدك المتاح: {myProfile?.balance != null ? `$${Number(myProfile.balance).toLocaleString("en-US", { maximumFractionDigits: 2 })}` : "—"}
+            </span>
+          )}
         </div>
 
         <div className="grid grid-cols-2 gap-3 text-center text-sm sm:grid-cols-3">
