@@ -7,8 +7,12 @@ import {
   rejectWalletRequest,
   toggleAdmin,
   toggleSuspend,
+  createLeader,
+  updateLeader,
+  deleteLeader,
 } from "@/app/admin/actions";
 import { AppNav } from "@/components/AppNav";
+import { ConfirmButton } from "@/components/ConfirmButton";
 
 const STATUS_LABELS: Record<string, string> = {
   pending: "قيد المراجعة",
@@ -59,6 +63,8 @@ export default async function AdminPage({
     { data: balances },
     { data: deposits },
     { data: withdrawals },
+    { data: leaders },
+    { data: leaderCards },
   ] = await Promise.all([
     supabase
       .from("kyc_submissions")
@@ -75,7 +81,7 @@ export default async function AdminPage({
       .order("created_at", { ascending: false })
       .limit(100),
     supabase.from("profiles").select("id", { count: "exact", head: true }),
-    supabase.from("providers").select("id", { count: "exact", head: true }).not("user_id", "is", null),
+    supabase.from("providers").select("id", { count: "exact", head: true }),
     supabase.from("kyc_submissions").select("id", { count: "exact", head: true }).eq("status", "pending"),
     supabase.from("wallet_requests").select("id", { count: "exact", head: true }).eq("status", "pending"),
     supabase.from("signals").select("id", { count: "exact", head: true }),
@@ -83,7 +89,19 @@ export default async function AdminPage({
     supabase.from("profiles").select("balance"),
     supabase.from("wallet_transactions").select("amount").eq("type", "deposit"),
     supabase.from("wallet_transactions").select("amount").eq("type", "withdrawal"),
+    supabase
+      .from("providers")
+      .select("id, display_name, bio, skill, min_copy_amount, base_followers_count, total_profit, total_withdrawals, created_at, user_id")
+      .order("created_at", { ascending: false })
+      .limit(150),
+    supabase
+      .from("provider_cards")
+      .select("provider_id, followers_count, win_rate_pct, avg_return_pct, tier, rating_score")
+      .limit(150),
   ]);
+
+  const leaderCardById = new Map((leaderCards ?? []).map((c) => [c.provider_id, c]));
+  const leaderRows = (leaders ?? []).map((l) => ({ ...l, card: leaderCardById.get(l.id) }));
 
   const withUrls = await Promise.all(
     (submissions ?? []).map(async (s) => {
@@ -109,7 +127,7 @@ export default async function AdminPage({
 
   const stats = [
     { label: "إجمالي المستخدمين", value: userCount ?? 0 },
-    { label: "متداولون مسجلون", value: providerCount ?? 0 },
+    { label: "إجمالي المتداولين", value: providerCount ?? 0 },
     { label: "طلبات توثيق معلقة", value: pendingKycCount ?? 0 },
     { label: "طلبات محفظة معلقة", value: pendingWalletCount ?? 0 },
     { label: "إجمالي الصفقات", value: signalCount ?? 0 },
@@ -221,6 +239,166 @@ export default async function AdminPage({
               </tbody>
             </table>
           </div>
+        </section>
+
+        <section className="flex flex-col gap-3">
+          <div className="flex items-center justify-between">
+            <h2 className="font-medium">إدارة المتداولين</h2>
+            <span className="text-xs text-muted">{leaderRows.length} متداول</span>
+          </div>
+
+          <details className="rounded-lg border border-border bg-surface p-4">
+            <summary className="cursor-pointer text-sm font-medium">+ إضافة متداول جديد</summary>
+            <form action={createLeader} className="mt-4 flex flex-col gap-3">
+              <input
+                name="displayName"
+                type="text"
+                placeholder="اسم المتداول"
+                required
+                className="rounded border border-border bg-background px-3 py-2 text-sm"
+              />
+              <textarea
+                name="bio"
+                placeholder="نبذة تعريفية (اختياري)"
+                rows={2}
+                className="rounded border border-border bg-background px-3 py-2 text-sm"
+              />
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                <label className="flex flex-col gap-1 text-xs text-muted">
+                  نسبة النجاح المستهدفة %
+                  <input
+                    name="skill"
+                    type="number"
+                    min={30}
+                    max={85}
+                    defaultValue={55}
+                    className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground"
+                  />
+                </label>
+                <label className="flex flex-col gap-1 text-xs text-muted">
+                  الحد الأدنى للنسخ ($)
+                  <input
+                    name="minCopyAmount"
+                    type="number"
+                    min={1}
+                    defaultValue={50}
+                    className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground"
+                  />
+                </label>
+                <label className="flex flex-col gap-1 text-xs text-muted">
+                  عدد المتابعين الابتدائي
+                  <input
+                    name="baseFollowers"
+                    type="number"
+                    min={0}
+                    defaultValue={0}
+                    className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground"
+                  />
+                </label>
+              </div>
+              <button
+                type="submit"
+                className="w-fit rounded bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
+              >
+                إنشاء المتداول
+              </button>
+            </form>
+          </details>
+
+          {leaderRows.length === 0 ? (
+            <p className="text-sm text-muted">لا يوجد متداولون حتى الآن.</p>
+          ) : (
+            <div className="flex flex-col gap-2">
+              {leaderRows.map((l) => (
+                <details key={l.id} className="rounded-lg border border-border bg-surface p-4">
+                  <summary className="flex cursor-pointer flex-wrap items-center justify-between gap-2 text-sm">
+                    <span className="font-medium">{l.display_name}</span>
+                    <span className="flex flex-wrap gap-1.5 text-xs text-muted">
+                      <span className="rounded border border-border px-2 py-0.5">{l.card?.tier ?? "—"}</span>
+                      <span className="rounded border border-border px-2 py-0.5">
+                        تقييم {l.card?.rating_score ?? "—"}
+                      </span>
+                      <span className="rounded border border-border px-2 py-0.5">
+                        {l.card?.followers_count ?? 0} متابع
+                      </span>
+                      <span className="rounded border border-border px-2 py-0.5">
+                        نجاح {l.card?.win_rate_pct != null ? `${l.card.win_rate_pct}%` : "—"}
+                      </span>
+                    </span>
+                  </summary>
+
+                  <div className="mt-4 flex flex-col gap-3">
+                    <form action={updateLeader} className="flex flex-col gap-3">
+                      <input type="hidden" name="providerId" value={l.id} />
+                      <input
+                        name="displayName"
+                        type="text"
+                        defaultValue={l.display_name ?? ""}
+                        required
+                        className="rounded border border-border bg-background px-3 py-2 text-sm"
+                      />
+                      <textarea
+                        name="bio"
+                        defaultValue={l.bio ?? ""}
+                        rows={2}
+                        className="rounded border border-border bg-background px-3 py-2 text-sm"
+                      />
+                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                        <label className="flex flex-col gap-1 text-xs text-muted">
+                          نسبة النجاح المستهدفة %
+                          <input
+                            name="skill"
+                            type="number"
+                            min={30}
+                            max={85}
+                            defaultValue={Math.round(Number(l.skill) * 100)}
+                            className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground"
+                          />
+                        </label>
+                        <label className="flex flex-col gap-1 text-xs text-muted">
+                          الحد الأدنى للنسخ ($)
+                          <input
+                            name="minCopyAmount"
+                            type="number"
+                            min={1}
+                            defaultValue={l.min_copy_amount}
+                            className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground"
+                          />
+                        </label>
+                        <label className="flex flex-col gap-1 text-xs text-muted">
+                          عدد المتابعين الابتدائي
+                          <input
+                            name="baseFollowers"
+                            type="number"
+                            min={0}
+                            defaultValue={l.base_followers_count}
+                            className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground"
+                          />
+                        </label>
+                      </div>
+                      <div className="flex gap-3">
+                        <button
+                          type="submit"
+                          className="rounded bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
+                        >
+                          حفظ التعديلات
+                        </button>
+                      </div>
+                    </form>
+                    <form action={deleteLeader}>
+                      <input type="hidden" name="providerId" value={l.id} />
+                      <ConfirmButton
+                        confirmText={`هل تريد حذف "${l.display_name}"؟ سيتم حذف كل صفقاته وسجله نهائيًا ولن يتمكن أي مستخدم من نسخه بعد ذلك.`}
+                        className="rounded border border-danger/40 px-4 py-1.5 text-sm text-danger"
+                      >
+                        حذف المتداول
+                      </ConfirmButton>
+                    </form>
+                  </div>
+                </details>
+              ))}
+            </div>
+          )}
         </section>
 
         <section className="flex flex-col gap-3">

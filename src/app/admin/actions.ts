@@ -112,3 +112,74 @@ export async function toggleSuspend(formData: FormData) {
 
   revalidatePath("/admin");
 }
+
+function readLeaderFields(formData: FormData) {
+  const displayName = ((formData.get("displayName") as string) ?? "").trim();
+  const bio = ((formData.get("bio") as string) ?? "").trim();
+  const skillPct = Number(formData.get("skill"));
+  const minCopyAmount = Number(formData.get("minCopyAmount"));
+  const baseFollowers = Number(formData.get("baseFollowers"));
+
+  return {
+    display_name: displayName,
+    bio: bio || null,
+    skill: Math.min(0.85, Math.max(0.3, (Number.isFinite(skillPct) ? skillPct : 55) / 100)),
+    min_copy_amount: Number.isFinite(minCopyAmount) && minCopyAmount > 0 ? minCopyAmount : 50,
+    base_followers_count: Number.isFinite(baseFollowers) && baseFollowers >= 0 ? baseFollowers : 0,
+  };
+}
+
+export async function createLeader(formData: FormData) {
+  const supabase = await assertAdmin();
+  const fields = readLeaderFields(formData);
+
+  if (!fields.display_name) {
+    redirect("/admin?error=" + encodeURIComponent("اسم المتداول مطلوب."));
+  }
+
+  const { error } = await supabase.from("providers").insert(fields);
+
+  if (error) {
+    redirect("/admin?error=" + encodeURIComponent("تعذّر إنشاء المتداول: " + error.message));
+  }
+
+  revalidatePath("/admin");
+  revalidatePath("/discover");
+  revalidatePath("/");
+}
+
+export async function updateLeader(formData: FormData) {
+  const supabase = await assertAdmin();
+  const providerId = formData.get("providerId") as string;
+  const fields = readLeaderFields(formData);
+
+  if (!fields.display_name) {
+    redirect("/admin?error=" + encodeURIComponent("اسم المتداول مطلوب."));
+  }
+
+  const { error } = await supabase.from("providers").update(fields).eq("id", providerId);
+
+  if (error) {
+    redirect("/admin?error=" + encodeURIComponent("تعذّر تحديث بيانات المتداول: " + error.message));
+  }
+
+  revalidatePath("/admin");
+  revalidatePath("/discover");
+  revalidatePath(`/trader/${providerId}`);
+  revalidatePath("/");
+}
+
+export async function deleteLeader(formData: FormData) {
+  const supabase = await assertAdmin();
+  const providerId = formData.get("providerId") as string;
+
+  const { error } = await supabase.from("providers").delete().eq("id", providerId);
+
+  if (error) {
+    redirect("/admin?error=" + encodeURIComponent("تعذّر حذف المتداول: " + error.message));
+  }
+
+  revalidatePath("/admin");
+  revalidatePath("/discover");
+  revalidatePath("/");
+}
