@@ -91,17 +91,28 @@ export default async function DiscoverPage({
                 key={p.provider_id}
                 className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4"
               >
-                <Link href={`/trader/${p.provider_id}`} className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-accent to-brand text-sm font-semibold text-white">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-accent to-brand text-sm font-semibold text-white">
                     {p.display_name?.charAt(0) ?? "؟"}
                   </div>
-                  <div>
-                    <p className="font-medium underline-offset-2 hover:underline">{p.display_name}</p>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-1.5">
+                      <Link href={`/trader/${p.provider_id}`} className="min-w-0 truncate font-medium underline-offset-2 hover:underline">
+                        {p.display_name}
+                      </Link>
+                      <Link
+                        href={`/trader/${p.provider_id}`}
+                        title="تابع أداء هذا المتداول واحصل على كل نتائجه"
+                        className="shrink-0 rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 text-[10px] font-medium text-accent transition hover:bg-accent/20"
+                      >
+                        متابعة
+                      </Link>
+                    </div>
                     <p className="text-xs text-muted">
                       {p.followers_count} ناسخ
                     </p>
                   </div>
-                </Link>
+                </div>
 
                 {p.bio && (
                   <p className="text-sm text-muted">{p.bio}</p>
