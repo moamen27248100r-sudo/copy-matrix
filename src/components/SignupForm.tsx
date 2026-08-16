@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { signup } from "@/app/auth/actions";
+import { isValidEmailFormat, isValidPhoneForCountry } from "@/lib/validate-signup";
 
 const COUNTRY_CODES = [
   { code: "+966", name: "السعودية", flag: "🇸🇦", iso: "SA" },
@@ -153,6 +154,9 @@ function CountryCodeSelect({ country, onChange }: { country: Country; onChange: 
 export function SignupForm() {
   const [country, setCountry] = useState<Country>(COUNTRY_CODES[0]);
   const [nationalNumber, setNationalNumber] = useState("");
+  const [phoneTouched, setPhoneTouched] = useState(false);
+  const [email, setEmail] = useState("");
+  const [emailTouched, setEmailTouched] = useState(false);
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -160,7 +164,9 @@ export function SignupForm() {
   const [agreed, setAgreed] = useState(false);
 
   const mismatch = confirm.length > 0 && password !== confirm;
-  const canSubmit = agreed && password.length >= 6 && !mismatch;
+  const emailValid = isValidEmailFormat(email);
+  const phoneValid = isValidPhoneForCountry(nationalNumber, country.iso);
+  const canSubmit = agreed && password.length >= 6 && !mismatch && emailValid && phoneValid;
 
   return (
     <form action={signup} className="flex flex-col gap-3">
@@ -188,9 +194,15 @@ export function SignupForm() {
           type="email"
           placeholder="البريد الإلكتروني"
           required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          onBlur={() => setEmailTouched(true)}
           className="w-full rounded border border-border bg-background px-3 py-2 pr-9 text-sm"
         />
       </div>
+      {emailTouched && email.length > 0 && !emailValid && (
+        <p className="-mt-2 text-xs text-danger">اكتب بريدًا إلكترونيًا حقيقيًا (مثل name@gmail.com).</p>
+      )}
 
       <div className="flex gap-2">
         <CountryCodeSelect country={country} onChange={setCountry} />
@@ -199,6 +211,7 @@ export function SignupForm() {
             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
           </svg>
           <input type="hidden" name="phoneCountryCode" value={country.code} />
+          <input type="hidden" name="phoneCountryIso" value={country.iso} />
           <div
             dir="ltr"
             className="flex w-full items-center gap-1.5 rounded border border-border bg-background py-2 pl-3 pr-9 text-sm"
@@ -210,6 +223,7 @@ export function SignupForm() {
               inputMode="numeric"
               value={nationalNumber}
               onChange={(e) => setNationalNumber(e.target.value.replace(/\D/g, ""))}
+              onBlur={() => setPhoneTouched(true)}
               placeholder="5xxxxxxxx"
               required
               className="w-full min-w-0 bg-transparent outline-none"
@@ -217,6 +231,9 @@ export function SignupForm() {
           </div>
         </div>
       </div>
+      {phoneTouched && nationalNumber.length > 0 && !phoneValid && (
+        <p className="-mt-2 text-xs text-danger">رقم الهاتف غير صحيح لهذه الدولة، تأكد من كتابته بالكامل.</p>
+      )}
 
       <div className="flex flex-col gap-1.5">
         <div className="relative">

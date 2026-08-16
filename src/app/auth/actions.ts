@@ -5,6 +5,7 @@ import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import { translateAuthError } from "@/lib/auth-errors";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { isValidEmailFormat, isValidPhoneForCountry } from "@/lib/validate-signup";
 
 const RATE_LIMIT_MESSAGE = "محاولات كثيرة جدًا. يرجى الانتظار قليلًا قبل إعادة المحاولة.";
 
@@ -42,8 +43,19 @@ export async function signup(formData: FormData) {
 
   const accountType = formData.get("accountType") === "real" ? "real" : "demo";
   const phoneCountryCode = (formData.get("phoneCountryCode") as string) ?? "";
+  const phoneCountryIso = (formData.get("phoneCountryIso") as string) ?? "";
   const phoneNumber = ((formData.get("phoneNumber") as string) ?? "").replace(/\D/g, "");
-  const phone = phoneNumber ? `${phoneCountryCode}${phoneNumber}` : null;
+  const email = (formData.get("email") as string) ?? "";
+
+  if (!isValidEmailFormat(email)) {
+    redirect(`/signup?error=${encodeURIComponent("اكتب بريدًا إلكترونيًا حقيقيًا (مثل name@gmail.com).")}`);
+  }
+
+  if (!isValidPhoneForCountry(phoneNumber, phoneCountryIso)) {
+    redirect(`/signup?error=${encodeURIComponent("رقم الهاتف غير صحيح لهذه الدولة، تأكد من كتابته بالكامل.")}`);
+  }
+
+  const phone = `${phoneCountryCode}${phoneNumber}`;
 
   const supabase = await createClient();
 
