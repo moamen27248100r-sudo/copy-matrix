@@ -152,7 +152,7 @@ export default async function PortfolioPage({
 
   const overview = (
     <div className="flex flex-col gap-6">
-      <section className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-4">
+      <section id="wallet" className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-4 scroll-mt-20">
         <div>
           <p className="text-xs text-muted">الرصيد المتاح</p>
           <p className="text-3xl font-semibold">
@@ -286,7 +286,7 @@ export default async function PortfolioPage({
         )}
       </section>
 
-      <section className="flex flex-col gap-3">
+      <section id="following" className="flex flex-col gap-3 scroll-mt-20">
         <h2 className="font-medium">المتداولون الذين تتابعهم</h2>
         {(followedTraders ?? []).length === 0 ? (
           <p className="text-sm text-muted">

@@ -13,10 +13,11 @@ export async function AppNav() {
   let isAdmin = false;
   let balance: number | null = null;
   let displayName: string | null = null;
+  let email: string | null = null;
   let notifications: { id: string; title: string; body: string | null; is_read: boolean; created_at: string }[] = [];
   if (user) {
     const [{ data: profile }, { data: notificationRows }] = await Promise.all([
-      supabase.from("profiles").select("is_admin, balance, is_suspended, display_name").eq("id", user.id).single(),
+      supabase.from("profiles").select("is_admin, balance, is_suspended, display_name, email").eq("id", user.id).single(),
       supabase
         .from("notifications")
         .select("id, title, body, is_read, created_at")
@@ -28,6 +29,7 @@ export async function AppNav() {
     isAdmin = !!profile?.is_admin;
     balance = profile?.balance ?? null;
     displayName = profile?.display_name ?? null;
+    email = profile?.email ?? user.email ?? null;
     notifications = notificationRows ?? [];
   }
 
@@ -35,7 +37,7 @@ export async function AppNav() {
     <nav className="sticky top-0 z-40 border-b border-border bg-background">
       <div className="mx-auto grid h-14 max-w-5xl grid-cols-[auto_1fr_auto] items-center gap-2 px-4 sm:h-16 sm:px-6">
         <div className="flex justify-start">
-          {user && <MainMenu balance={balance} isAdmin={isAdmin} displayName={displayName} />}
+          {user && <MainMenu balance={balance} isAdmin={isAdmin} displayName={displayName} email={email} />}
         </div>
 
         <Link

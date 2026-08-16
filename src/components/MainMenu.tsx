@@ -45,6 +45,41 @@ const NAV_ITEMS = [
       </>
     ),
   },
+  {
+    href: "/portfolio#following",
+    label: "المتداولون المتابَعون",
+    icon: (
+      <>
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </>
+    ),
+  },
+];
+
+const PAYMENT_ITEMS = [
+  {
+    href: "/portfolio#wallet",
+    label: "إيداع",
+    icon: (
+      <>
+        <path d="M12 19V5" />
+        <path d="M5 12l7 7 7-7" />
+      </>
+    ),
+  },
+  {
+    href: "/portfolio#wallet",
+    label: "سحب",
+    icon: (
+      <>
+        <path d="M12 5v14" />
+        <path d="M5 12l7-7 7 7" />
+      </>
+    ),
+  },
 ];
 
 const ACCOUNT_ITEMS = [
@@ -88,10 +123,12 @@ export function MainMenu({
   balance,
   isAdmin,
   displayName,
+  email,
 }: {
   balance: number | null;
   isAdmin: boolean;
   displayName?: string | null;
+  email?: string | null;
 }) {
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -139,7 +176,9 @@ export function MainMenu({
         }
       >
             <div className="border-b border-border px-4 py-3">
-              <span className="text-sm font-medium">القائمة</span>
+              <span className="truncate text-sm font-medium" dir="ltr">
+                {email ?? "—"}
+              </span>
             </div>
 
             <Link
@@ -161,6 +200,25 @@ export function MainMenu({
               {NAV_ITEMS.map((item) => (
                 <Link
                   key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background"
+                >
+                  <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    {item.icon}
+                  </svg>
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+
+            <div className="border-t border-border" />
+
+            <SectionLabel>المدفوعات</SectionLabel>
+            <div className="flex flex-col pb-2">
+              {PAYMENT_ITEMS.map((item) => (
+                <Link
+                  key={item.label}
                   href={item.href}
                   onClick={() => setOpen(false)}
                   className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background"
