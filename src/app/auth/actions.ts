@@ -64,12 +64,28 @@ export async function signup(formData: FormData) {
   }
 
   // If email confirmation isn't required, signUp() already returns an
-  // active session — skip the "check your email" step entirely.
+  // active session — skip the "check your email" step entirely and let
+  // the customer choose demo vs. real before landing on the dashboard.
   if (data.session) {
-    redirect("/dashboard");
+    redirect("/onboarding/account-type");
   }
 
   redirect("/signup/check-email");
+}
+
+export async function chooseAccountType(formData: FormData) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) redirect("/login");
+
+  const accountType = formData.get("accountType") === "real" ? "real" : "demo";
+
+  await supabase.from("profiles").update({ account_type: accountType }).eq("id", user.id);
+
+  redirect("/dashboard");
 }
 
 export async function logout() {
