@@ -46,9 +46,9 @@ function signedReturnPct(pos: Position) {
 export default async function PortfolioPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string; success?: string }>;
+  searchParams: Promise<{ error?: string; success?: string; tab?: string }>;
 }) {
-  const { error, success } = await searchParams;
+  const { error, success, tab } = await searchParams;
   const supabase = await createClient();
   const {
     data: { user },
@@ -436,7 +436,7 @@ export default async function PortfolioPage({
           </p>
         )}
 
-        <PortfolioTabs overview={overview} positions={positionsPanel} activity={activity} />
+        <PortfolioTabs overview={overview} positions={positionsPanel} activity={activity} initialTab={tab} />
       </main>
     </>
   );

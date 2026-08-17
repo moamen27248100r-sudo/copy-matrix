@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import { logout } from "@/app/auth/actions";
 import { useNavDrawer } from "@/components/nav-drawer-context";
 
-const NAV_ITEMS = [
+const TRADING_ITEMS = [
   {
     href: "/dashboard",
     label: "لوحة التحكم",
@@ -13,6 +13,35 @@ const NAV_ITEMS = [
       <>
         <path d="M3 11l9-8 9 8" />
         <path d="M5 10v10h14V10" />
+      </>
+    ),
+  },
+  {
+    href: "/dashboard#accounts",
+    label: "الحسابات",
+    icon: (
+      <>
+        <rect x="2" y="5" width="20" height="14" rx="2" />
+        <path d="M2 10h20" />
+      </>
+    ),
+  },
+  {
+    href: "/portfolio",
+    label: "الأداء",
+    icon: (
+      <>
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+      </>
+    ),
+  },
+  {
+    href: "/portfolio?tab=positions",
+    label: "سجل الأوامر",
+    icon: (
+      <>
+        <path d="M9 11l3 3L22 4" />
+        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
       </>
     ),
   },
@@ -33,16 +62,6 @@ const NAV_ITEMS = [
       <>
         <path d="M3 3v18h18" />
         <path d="M7 15l4-5 3 3 5-7" />
-      </>
-    ),
-  },
-  {
-    href: "/portfolio",
-    label: "محفظتي",
-    icon: (
-      <>
-        <rect x="2" y="7" width="20" height="14" rx="2" />
-        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
       </>
     ),
   },
@@ -120,6 +139,23 @@ function SectionLabel({ children }: { children: string }) {
   return <p className="px-4 pt-4 pb-1 text-xs font-medium text-muted">{children}</p>;
 }
 
+function WalletIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-5 w-5 text-accent" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M21 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-1" />
+      <path d="M21 12H15a2 2 0 0 0 0 4h6z" />
+    </svg>
+  );
+}
+
+// Masks the local part of an email for privacy: "delta126@gmail.com" -> "d****6@gmail.com".
+function maskEmail(email: string): string {
+  const [local, domain] = email.split("@");
+  if (!domain) return email;
+  if (local.length <= 2) return `${local[0]}****@${domain}`;
+  return `${local[0]}****${local[local.length - 1]}@${domain}`;
+}
+
 export function MainMenu({
   balance,
   isAdmin,
@@ -176,29 +212,47 @@ export function MainMenu({
             : "fixed top-14 bottom-0 right-0 z-40 flex w-[65%] max-w-xs translate-x-full flex-col overflow-y-auto bg-surface shadow-xl transition-transform duration-300 ease-out sm:top-16"
         }
       >
-            <div className="border-b border-border px-4 py-3">
-              <span className="truncate text-sm font-medium" dir="ltr">
-                {email ?? "—"}
-              </span>
+            <div className="flex items-center justify-between gap-2 border-b border-border px-4 py-3">
+              <div className="flex min-w-0 items-center gap-2">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-background text-muted">
+                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="8" r="4" />
+                    <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" />
+                  </svg>
+                </span>
+                <span className="truncate text-sm font-medium" dir="ltr">
+                  {email ? maskEmail(email) : "—"}
+                </span>
+              </div>
+              <Link href="/settings" onClick={close} aria-label="إعدادات الحساب" className="shrink-0 text-muted">
+                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </Link>
             </div>
 
             <Link
               href="/portfolio"
               onClick={close}
-              className="flex flex-col gap-0.5 border-b border-border bg-background px-4 py-4"
+              className="flex items-center gap-3 border-b border-border bg-background px-4 py-4"
             >
-              {displayName && <span className="text-xs text-muted">{displayName}</span>}
-              <span className="text-xl font-semibold">
-                {balance != null
-                  ? `$${Number(balance).toLocaleString("en-US", { maximumFractionDigits: 2 })}`
-                  : "—"}
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/10">
+                <WalletIcon />
               </span>
-              <span className="text-xs text-muted">الرصيد المتاح</span>
+              <div className="flex flex-col gap-0.5">
+                {displayName && <span className="text-xs text-muted">{displayName}</span>}
+                <span className="text-xl font-semibold">
+                  {balance != null
+                    ? `$${Number(balance).toLocaleString("en-US", { maximumFractionDigits: 2 })}`
+                    : "—"}
+                </span>
+                <span className="text-xs text-muted">الرصيد المتاح</span>
+              </div>
             </Link>
 
-            <SectionLabel>التنقل</SectionLabel>
+            <SectionLabel>التداول</SectionLabel>
             <div className="flex flex-col pb-2">
-              {NAV_ITEMS.map((item) => (
+              {TRADING_ITEMS.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
@@ -215,7 +269,7 @@ export function MainMenu({
 
             <div className="border-t border-border" />
 
-            <SectionLabel>المدفوعات</SectionLabel>
+            <SectionLabel>المدفوعات والمحفظة</SectionLabel>
             <div className="flex flex-col pb-2">
               {PAYMENT_ITEMS.map((item) => (
                 <Link

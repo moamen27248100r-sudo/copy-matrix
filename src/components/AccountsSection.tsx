@@ -29,7 +29,7 @@ export function AccountsSection({
   const [activeTab, setActiveTab] = useState<AccountType>(accountType);
 
   return (
-    <section className="flex flex-col gap-3">
+    <section id="accounts" className="flex flex-col gap-3 scroll-mt-20">
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold">حساباتي</h2>
         <select

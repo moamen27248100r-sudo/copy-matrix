@@ -10,16 +10,20 @@ const TABS = [
 
 type TabKey = (typeof TABS)[number]["key"];
 
+const isTabKey = (v: string | undefined): v is TabKey => TABS.some((t) => t.key === v);
+
 export function PortfolioTabs({
   overview,
   positions,
   activity,
+  initialTab,
 }: {
   overview: ReactNode;
   positions: ReactNode;
   activity: ReactNode;
+  initialTab?: string;
 }) {
-  const [active, setActive] = useState<TabKey>("overview");
+  const [active, setActive] = useState<TabKey>(isTabKey(initialTab) ? initialTab : "overview");
   const panels: Record<TabKey, ReactNode> = { overview, positions, activity };
 
   return (
