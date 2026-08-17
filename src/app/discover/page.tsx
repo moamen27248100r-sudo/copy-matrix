@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { unfollowProvider } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
 import { pinTopLeaders } from "@/lib/pin-top-leaders";
+import { RatingBar } from "@/components/RatingBar";
 
 const SORT_OPTIONS = {
   return: { column: "avg_return_pct", ascending: false },
@@ -129,10 +130,9 @@ export default async function DiscoverPage({
                   <span className="rounded border border-border px-2 py-0.5 text-muted">
                     مخاطرة {p.risk_level}
                   </span>
-                  <span className="rounded border border-border px-2 py-0.5 text-muted">
-                    تقييم {p.rating_score}/100
-                  </span>
                 </div>
+
+                <RatingBar score={p.rating_score} label="تقييم المتداول" />
 
                 <div className="grid grid-cols-3 gap-2 text-center text-sm">
                   <div>

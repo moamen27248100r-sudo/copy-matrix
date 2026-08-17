@@ -5,6 +5,7 @@ import { followProvider, unfollowProvider, followTrader, unfollowTrader } from "
 import { AppNav } from "@/components/AppNav";
 import { TraderEquityChart } from "@/components/TraderEquityChart";
 import { TradeHistory } from "@/components/TradeHistory";
+import { RatingBar } from "@/components/RatingBar";
 
 type SignalRow = {
   id: string;
@@ -211,9 +212,10 @@ export default async function TraderPage({
           <span className="rounded border border-border px-2 py-0.5 text-muted">
             مستوى المخاطرة: {provider.risk_level}
           </span>
-          <span className="rounded border border-border px-2 py-0.5 text-muted">
-            تقييم: {provider.rating_score}/100
-          </span>
+        </div>
+
+        <div className="max-w-xs">
+          <RatingBar score={provider.rating_score} label="تقييم المتداول" />
         </div>
 
         {provider.bio && <p className="text-sm text-muted">{provider.bio}</p>}
