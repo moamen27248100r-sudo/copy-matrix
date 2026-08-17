@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { logout } from "@/app/auth/actions";
+import { useNavDrawer } from "@/components/nav-drawer-context";
 
 const NAV_ITEMS = [
   {
@@ -130,7 +131,7 @@ export function MainMenu({
   displayName?: string | null;
   email?: string | null;
 }) {
-  const [open, setOpen] = useState(false);
+  const { open, toggle, close } = useNavDrawer("menu");
   const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -147,7 +148,7 @@ export function MainMenu({
     <>
       <button
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={toggle}
         aria-label="القائمة"
         className="flex h-9 w-9 shrink-0 items-center justify-center rounded border border-border text-foreground"
       >
@@ -164,7 +165,7 @@ export function MainMenu({
             ? "fixed inset-x-0 top-14 bottom-0 z-40 bg-black/50 transition-opacity duration-300 sm:top-16"
             : "fixed inset-x-0 top-14 bottom-0 z-40 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300 sm:top-16"
         }
-        onClick={() => setOpen(false)}
+        onClick={close}
         aria-hidden="true"
       />
       <div
@@ -183,7 +184,7 @@ export function MainMenu({
 
             <Link
               href="/portfolio"
-              onClick={() => setOpen(false)}
+              onClick={close}
               className="flex flex-col gap-0.5 border-b border-border bg-background px-4 py-4"
             >
               {displayName && <span className="text-xs text-muted">{displayName}</span>}
@@ -201,7 +202,7 @@ export function MainMenu({
                 <Link
                   key={item.href}
                   href={item.href}
-                  onClick={() => setOpen(false)}
+                  onClick={close}
                   className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background"
                 >
                   <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -220,7 +221,7 @@ export function MainMenu({
                 <Link
                   key={item.label}
                   href={item.href}
-                  onClick={() => setOpen(false)}
+                  onClick={close}
                   className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background"
                 >
                   <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -239,7 +240,7 @@ export function MainMenu({
                 <Link
                   key={item.href}
                   href={item.href}
-                  onClick={() => setOpen(false)}
+                  onClick={close}
                   className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background"
                 >
                   <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

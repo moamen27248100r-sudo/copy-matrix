@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { MainMenu } from "@/components/MainMenu";
 import { NotificationsMenu } from "@/components/NotificationsMenu";
+import { NavDrawerProvider } from "@/components/nav-drawer-context";
 
 export async function AppNav() {
   const supabase = await createClient();
@@ -36,6 +37,7 @@ export async function AppNav() {
   return (
     <>
     <nav className="fixed inset-x-0 top-0 z-50 w-full border-b border-border bg-background">
+      <NavDrawerProvider>
       <div className="mx-auto grid h-14 max-w-5xl grid-cols-[auto_1fr_auto] items-center gap-2 px-4 sm:h-16 sm:px-6">
         <div className="flex justify-start">
           {user ? (
@@ -96,6 +98,7 @@ export async function AppNav() {
           )}
         </div>
       </div>
+      </NavDrawerProvider>
     </nav>
     <div className="h-14 sm:h-16" aria-hidden="true" />
     </>

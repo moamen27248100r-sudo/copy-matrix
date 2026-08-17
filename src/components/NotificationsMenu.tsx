@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 import { markOneRead } from "@/app/notifications/actions";
+import { useNavDrawer } from "@/components/nav-drawer-context";
 
 type NotificationRow = {
   id: string;
@@ -26,7 +26,7 @@ function renderBody(body: string) {
 }
 
 export function NotificationsMenu({ notifications }: { notifications: NotificationRow[] }) {
-  const [open, setOpen] = useState(false);
+  const { open, toggle, close } = useNavDrawer("notifications");
   const unreadCount = notifications.filter((n) => !n.is_read).length;
   const preview = notifications.slice(0, 6);
 
@@ -34,7 +34,7 @@ export function NotificationsMenu({ notifications }: { notifications: Notificati
     <>
       <button
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={toggle}
         aria-label="الإشعارات"
         className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded border border-border text-foreground"
       >
@@ -55,7 +55,7 @@ export function NotificationsMenu({ notifications }: { notifications: Notificati
             ? "fixed inset-x-0 top-14 bottom-0 z-40 bg-black/50 transition-opacity duration-300 sm:top-16"
             : "fixed inset-x-0 top-14 bottom-0 z-40 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300 sm:top-16"
         }
-        onClick={() => setOpen(false)}
+        onClick={close}
         aria-hidden="true"
       />
       <div
@@ -96,7 +96,7 @@ export function NotificationsMenu({ notifications }: { notifications: Notificati
         <div className="border-t border-border p-3">
           <Link
             href="/notifications"
-            onClick={() => setOpen(false)}
+            onClick={close}
             className="flex w-full items-center justify-center rounded border border-border px-3 py-2 text-sm text-foreground hover:bg-background"
           >
             عرض الكل
