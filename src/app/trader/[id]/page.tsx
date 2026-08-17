@@ -6,6 +6,9 @@ import { AppNav } from "@/components/AppNav";
 import { TraderEquityChart } from "@/components/TraderEquityChart";
 import { TradeHistory } from "@/components/TradeHistory";
 import { RatingBar } from "@/components/RatingBar";
+import { CircularGauge } from "@/components/CircularGauge";
+import { AssetAllocationBar } from "@/components/AssetAllocationBar";
+import { OpenOrdersTable } from "@/components/OpenOrdersTable";
 
 type SignalRow = {
   id: string;
@@ -134,6 +137,24 @@ export default async function TraderPage({
         closedAt: s.closed_at,
       };
     });
+
+  const openOrders = allSignals.filter((s) => s.status === "open");
+  const openSymbols = Array.from(new Set(openOrders.map((s) => s.symbol)));
+  const { data: livePrices } =
+    openSymbols.length > 0
+      ? await supabase.from("market_prices").select("symbol, price").in("symbol", openSymbols)
+      : { data: [] as { symbol: string; price: number }[] };
+  const priceBySymbol = new Map((livePrices ?? []).map((p) => [p.symbol, Number(p.price)]));
+
+  const reliabilityScore = Number(provider.rating_score ?? 50);
+  const safetyScore = Math.max(0, Math.min(100, Math.round(100 - Number(provider.return_volatility ?? 2) * 15)));
+  const riskExposureScore =
+    maxDrawdown != null ? Math.max(0, Math.min(100, Math.round(maxDrawdown * 8))) : 20;
+
+  const daysAsMember = Math.max(
+    0,
+    Math.floor((Date.now() - new Date(provider.joined_at).getTime()) / (24 * 60 * 60 * 1000)),
+  );
 
   let otherProviderName: string | null = null;
   if (otherSub) {
@@ -321,6 +342,37 @@ export default async function TraderPage({
         </div>
       </div>
 
+      <section className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-4">
+        <h2 className="font-medium">مستوى موثوقية التداول</h2>
+        <div className="grid grid-cols-3 gap-3">
+          <CircularGauge value={reliabilityScore} label="الموثوقية" />
+          <CircularGauge value={safetyScore} label="درجة الأمان" />
+          <CircularGauge value={riskExposureScore} label="قيمة معرضة للمخاطرة" invert />
+        </div>
+        <div className="flex flex-wrap gap-2 border-t border-border pt-4">
+          <div className="flex flex-1 items-center gap-2 rounded-lg border border-border bg-background px-3 py-2">
+            <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-success" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M9 12l2 2 4-4" />
+              <circle cx="12" cy="12" r="9" />
+            </svg>
+            <div>
+              <p className="text-sm font-semibold">{closedHistory.length}</p>
+              <p className="text-[11px] text-muted">صفقة مغلقة</p>
+            </div>
+          </div>
+          <div className="flex flex-1 items-center gap-2 rounded-lg border border-border bg-background px-3 py-2">
+            <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-success" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M9 12l2 2 4-4" />
+              <circle cx="12" cy="12" r="9" />
+            </svg>
+            <div>
+              <p className="text-sm font-semibold">{daysAsMember}</p>
+              <p className="text-[11px] text-muted">يوم عضوية</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="flex flex-col gap-2">
         <h2 className="font-medium">منحنى الأداء التراكمي</h2>
         <TraderEquityChart signals={allSignals} />
@@ -352,6 +404,18 @@ export default async function TraderPage({
             );
           })}
         </div>
+      </section>
+
+      {allSignals.length > 0 && (
+        <section className="flex flex-col gap-3">
+          <h2 className="font-medium">أدوات التداول</h2>
+          <AssetAllocationBar signals={allSignals} />
+        </section>
+      )}
+
+      <section className="flex flex-col gap-3">
+        <h2 className="font-medium">الأوامر المفتوحة</h2>
+        <OpenOrdersTable orders={openOrders} priceBySymbol={priceBySymbol} />
       </section>
 
       <section className="flex flex-col gap-3">
