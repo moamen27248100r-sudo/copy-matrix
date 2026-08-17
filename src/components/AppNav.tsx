@@ -36,7 +36,7 @@ export async function AppNav() {
 
   return (
     <>
-    <nav className="fixed inset-x-0 top-0 z-50 w-full border-b border-border bg-background">
+    <nav className="fixed inset-x-0 top-0 left-0 right-0 z-[9999] w-full border-b border-border bg-[#0b1726]">
       <NavDrawerProvider>
       <div className="mx-auto grid h-14 max-w-5xl grid-cols-[auto_1fr_auto] items-center gap-2 px-4 sm:h-16 sm:px-6">
         <div className="flex justify-start">
