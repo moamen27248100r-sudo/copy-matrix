@@ -1,6 +1,7 @@
 import { symbolIcon } from "@/lib/symbol-icons";
 
-const PALETTE = ["#38bdf8", "#f472b6", "#818cf8", "#fbbf24", "#94a3b8"];
+// Calm, well-known colors (standard Tailwind palette) instead of loud/unusual hues.
+const PALETTE = ["#3b82f6", "#10b981", "#8b5cf6", "#f59e0b", "#64748b"];
 
 export function AssetAllocationBar({ signals }: { signals: { symbol: string }[] }) {
   if (signals.length === 0) return null;
@@ -14,9 +15,13 @@ export function AssetAllocationBar({ signals }: { signals: { symbol: string }[] 
   if (restCount > 0) top.push(["أخرى", restCount]);
 
   const total = signals.length;
+  // Keep the bar's actual widths as exact fractions (not pre-rounded) so the
+  // segments always sum to precisely 100% and fill the bar with no gaps —
+  // only the displayed percentage labels are rounded, for readability.
   const segments = top.map(([symbol, count], i) => ({
     symbol,
-    pct: Math.round((count / total) * 100),
+    widthPct: (count / total) * 100,
+    displayPct: Math.round((count / total) * 100),
     color: PALETTE[i % PALETTE.length],
   }));
 
@@ -24,7 +29,12 @@ export function AssetAllocationBar({ signals }: { signals: { symbol: string }[] 
     <div className="flex flex-col gap-3">
       <div className="flex h-3 w-full overflow-hidden rounded-full bg-border">
         {segments.map((seg) => (
-          <div key={seg.symbol} style={{ width: `${seg.pct}%`, backgroundColor: seg.color }} title={seg.symbol} />
+          <div
+            key={seg.symbol}
+            className="shrink-0"
+            style={{ width: `${seg.widthPct}%`, backgroundColor: seg.color }}
+            title={seg.symbol}
+          />
         ))}
       </div>
       <div className="flex flex-wrap gap-x-5 gap-y-2">
@@ -37,7 +47,7 @@ export function AssetAllocationBar({ signals }: { signals: { symbol: string }[] 
             />
             <span className="text-sm">{seg.symbol === "أخرى" ? "🔹" : symbolIcon(seg.symbol)}</span>
             <span className="text-xs text-muted">{seg.symbol}</span>
-            <span className="text-xs font-semibold">{seg.pct}%</span>
+            <span className="text-xs font-semibold">{seg.displayPct}%</span>
           </div>
         ))}
       </div>
