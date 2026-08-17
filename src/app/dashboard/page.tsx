@@ -53,9 +53,9 @@ const QUICK_LINKS = [
 
 const KYC_COPY: Record<string, { title: string; desc: string; action?: string }> = {
   none: {
-    title: "وثّق هويتك لتفعيل حسابك بالكامل",
+    title: "مرحبًا بك! يرجى ملء تفاصيل حسابك وإتمام الإيداع الأول.",
     desc: "التوثيق مطلوب لفتح كل ميزات المنصة، بما فيها طلبات السحب.",
-    action: "أكمل التوثيق",
+    action: "إكمال",
   },
   pending: {
     title: "طلب التوثيق قيد المراجعة",
@@ -137,10 +137,10 @@ export default async function DashboardPage() {
         </div>
 
         {kycCopy && (
-          <div className="flex flex-col gap-4 rounded-2xl border border-warning/30 bg-warning/10 p-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-4 rounded-2xl border border-accent/30 bg-accent/10 p-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-warning/15">
-                <svg viewBox="0 0 24 24" className="h-5 w-5 text-warning" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent/15">
+                <svg viewBox="0 0 24 24" className="h-5 w-5 text-accent" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <circle cx="12" cy="8" r="4" />
                   <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" />
                 </svg>
@@ -154,7 +154,7 @@ export default async function DashboardPage() {
               <div className="flex shrink-0 gap-2">
                 <Link
                   href="/kyc"
-                  className="rounded-lg bg-warning px-4 py-2 text-center text-sm font-semibold text-background transition hover:brightness-110"
+                  className="rounded-lg bg-accent px-4 py-2 text-center text-sm font-semibold text-accent-foreground transition hover:bg-accent-hover"
                 >
                   {kycCopy.action}
                 </Link>
