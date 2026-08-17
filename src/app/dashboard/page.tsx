@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
+import { AccountsSection } from "@/components/AccountsSection";
 
 const QUICK_LINKS = [
   {
@@ -136,36 +137,41 @@ export default async function DashboardPage() {
         </div>
 
         {kycCopy && (
-          <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-surface p-4">
-            <div>
-              <p className="text-sm font-medium">{kycCopy.title}</p>
-              <p className="mt-0.5 text-xs text-muted">{kycCopy.desc}</p>
+          <div className="flex flex-col gap-4 rounded-2xl border border-warning/30 bg-warning/10 p-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-warning/15">
+                <svg viewBox="0 0 24 24" className="h-5 w-5 text-warning" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-sm font-medium">{kycCopy.title}</p>
+                <p className="mt-0.5 text-xs text-muted">{kycCopy.desc}</p>
+              </div>
             </div>
             {kycCopy.action && (
-              <Link
-                href="/kyc"
-                className="shrink-0 rounded bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
-              >
-                {kycCopy.action}
-              </Link>
+              <div className="flex shrink-0 gap-2">
+                <Link
+                  href="/kyc"
+                  className="rounded-lg bg-warning px-4 py-2 text-center text-sm font-semibold text-background transition hover:brightness-110"
+                >
+                  {kycCopy.action}
+                </Link>
+                <Link
+                  href="/kyc"
+                  className="rounded-lg border border-border px-4 py-2 text-center text-sm text-foreground transition hover:border-accent hover:text-accent"
+                >
+                  اعرف المزيد
+                </Link>
+              </div>
             )}
           </div>
         )}
 
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          <div className="rounded-lg border border-border p-4 text-center">
-            <div className="mx-auto mb-2 flex h-9 w-9 items-center justify-center rounded-full bg-success/10">
-              <svg viewBox="0 0 24 24" className="h-4 w-4 text-success" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <line x1="12" y1="1" x2="12" y2="23" />
-                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-              </svg>
-            </div>
-            <p className="text-xl font-semibold">
-              ${profile?.balance != null ? Number(profile.balance).toLocaleString("en-US", { maximumFractionDigits: 0 }) : "—"}
-            </p>
-            <p className="mt-1 text-xs text-muted">الرصيد المتاح</p>
-          </div>
+        <AccountsSection accountType={(profile?.account_type as "real" | "demo") ?? "demo"} balance={profile?.balance ?? null} />
 
+        <div className="grid grid-cols-3 gap-3">
           <div className="rounded-lg border border-border p-4 text-center">
             <div className="mx-auto mb-2 flex h-9 w-9 items-center justify-center rounded-full bg-foreground/5">
               <svg viewBox="0 0 24 24" className="h-4 w-4 text-foreground" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
