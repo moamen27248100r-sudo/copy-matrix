@@ -31,7 +31,7 @@ export function AccountsSection({
   return (
     <section className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-accent">حساباتي</h2>
+        <h2 className="text-lg font-semibold">حساباتي</h2>
         <select
           defaultValue="latest"
           aria-label="ترتيب الحسابات"
