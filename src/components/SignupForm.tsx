@@ -151,7 +151,7 @@ function CountryCodeSelect({ country, onChange }: { country: Country; onChange: 
   );
 }
 
-export function SignupForm() {
+export function SignupForm({ next }: { next?: string | null }) {
   const [country, setCountry] = useState<Country>(COUNTRY_CODES[0]);
   const [nationalNumber, setNationalNumber] = useState("");
   const [phoneTouched, setPhoneTouched] = useState(false);
@@ -170,6 +170,7 @@ export function SignupForm() {
 
   return (
     <form action={signup} className="flex flex-col gap-3">
+      {next && <input type="hidden" name="next" value={next} />}
       <div className="relative">
         <svg viewBox="0 0 24 24" className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <circle cx="12" cy="8" r="4" />

@@ -1,12 +1,15 @@
 import Link from "next/link";
 import { SignupForm } from "@/components/SignupForm";
+import { safeNextPath } from "@/lib/safe-next";
 
 export default async function SignupPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; next?: string }>;
 }) {
-  const { error } = await searchParams;
+  const { error, next: rawNext } = await searchParams;
+  const next = safeNextPath(rawNext);
+  const loginHref = next ? `/login?next=${encodeURIComponent(next)}` : "/login";
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col justify-center gap-5 p-6">
@@ -22,7 +25,7 @@ export default async function SignupPage({
       )}
 
       <div className="rounded-xl border border-border bg-surface p-5 shadow-lg">
-        <SignupForm />
+        <SignupForm next={next} />
       </div>
 
       <div className="flex items-center gap-3 text-xs text-muted">
@@ -32,7 +35,7 @@ export default async function SignupPage({
       </div>
 
       <Link
-        href="/login"
+        href={loginHref}
         className="rounded border border-border px-3 py-2 text-center font-medium text-foreground transition hover:border-accent hover:text-accent"
       >
         لدي حساب بالفعل — تسجيل الدخول

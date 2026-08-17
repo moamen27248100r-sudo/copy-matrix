@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { translateAuthError } from "@/lib/auth-errors";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { isValidEmailFormat, isValidPhoneForCountry } from "@/lib/validate-signup";
+import { safeNextPath } from "@/lib/safe-next";
 
 const RATE_LIMIT_MESSAGE = "محاولات كثيرة جدًا. يرجى الانتظار قليلًا قبل إعادة المحاولة.";
 
@@ -18,8 +19,11 @@ async function getSiteUrl() {
 }
 
 export async function login(formData: FormData) {
+  const next = safeNextPath(formData.get("next") as string);
+  const nextParam = next ? `&next=${encodeURIComponent(next)}` : "";
+
   if (!(await checkRateLimit("login", 10, 300))) {
-    redirect(`/login?error=${encodeURIComponent(RATE_LIMIT_MESSAGE)}`);
+    redirect(`/login?error=${encodeURIComponent(RATE_LIMIT_MESSAGE)}${nextParam}`);
   }
 
   const supabase = await createClient();
@@ -30,15 +34,18 @@ export async function login(formData: FormData) {
   });
 
   if (error) {
-    redirect(`/login?error=${encodeURIComponent(translateAuthError(error.message))}`);
+    redirect(`/login?error=${encodeURIComponent(translateAuthError(error.message))}${nextParam}`);
   }
 
-  redirect("/dashboard");
+  redirect(next ?? "/dashboard");
 }
 
 export async function signup(formData: FormData) {
+  const next = safeNextPath(formData.get("next") as string);
+  const nextParam = next ? `&next=${encodeURIComponent(next)}` : "";
+
   if (!(await checkRateLimit("signup", 5, 600))) {
-    redirect(`/signup?error=${encodeURIComponent(RATE_LIMIT_MESSAGE)}`);
+    redirect(`/signup?error=${encodeURIComponent(RATE_LIMIT_MESSAGE)}${nextParam}`);
   }
 
   const accountType = formData.get("accountType") === "real" ? "real" : "demo";
@@ -48,11 +55,11 @@ export async function signup(formData: FormData) {
   const email = (formData.get("email") as string) ?? "";
 
   if (!isValidEmailFormat(email)) {
-    redirect(`/signup?error=${encodeURIComponent("اكتب بريدًا إلكترونيًا حقيقيًا (مثل name@gmail.com).")}`);
+    redirect(`/signup?error=${encodeURIComponent("اكتب بريدًا إلكترونيًا حقيقيًا (مثل name@gmail.com).")}${nextParam}`);
   }
 
   if (!isValidPhoneForCountry(phoneNumber, phoneCountryIso)) {
-    redirect(`/signup?error=${encodeURIComponent("رقم الهاتف غير صحيح لهذه الدولة، تأكد من كتابته بالكامل.")}`);
+    redirect(`/signup?error=${encodeURIComponent("رقم الهاتف غير صحيح لهذه الدولة، تأكد من كتابته بالكامل.")}${nextParam}`);
   }
 
   const phone = `${phoneCountryCode}${phoneNumber}`;
@@ -72,33 +79,38 @@ export async function signup(formData: FormData) {
   });
 
   if (error) {
-    redirect(`/signup?error=${encodeURIComponent(translateAuthError(error.message))}`);
+    redirect(`/signup?error=${encodeURIComponent(translateAuthError(error.message))}${nextParam}`);
   }
+
+  const onboardingNext = next ? `?next=${encodeURIComponent(next)}` : "";
 
   // If email confirmation isn't required, signUp() already returns an
   // active session — skip the "check your email" step entirely and let
-  // the customer choose demo vs. real before landing on the dashboard.
+  // the customer choose demo vs. real before landing on the dashboard
+  // (or back on the trader they came to copy/follow, if any).
   if (data.session) {
-    redirect("/onboarding/account-type");
+    redirect(`/onboarding/account-type${onboardingNext}`);
   }
 
-  redirect("/signup/check-email");
+  redirect(`/signup/check-email${onboardingNext}`);
 }
 
 export async function chooseAccountType(formData: FormData) {
+  const next = safeNextPath(formData.get("next") as string);
+
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) redirect("/login");
+  if (!user) redirect(next ? `/login?next=${encodeURIComponent(next)}` : "/login");
 
   const accountType = formData.get("accountType") === "real" ? "real" : "demo";
   const balance = accountType === "real" ? 0 : 1000;
 
   await supabase.from("profiles").update({ account_type: accountType, balance }).eq("id", user.id);
 
-  redirect("/dashboard");
+  redirect(next ?? "/dashboard");
 }
 
 export async function logout() {

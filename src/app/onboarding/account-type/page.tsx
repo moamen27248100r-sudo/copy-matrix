@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { chooseAccountType } from "@/app/auth/actions";
+import { safeNextPath } from "@/lib/safe-next";
 
 const OPTIONS = [
   {
@@ -27,13 +28,20 @@ const OPTIONS = [
   },
 ];
 
-export default async function ChooseAccountTypePage() {
+export default async function ChooseAccountTypePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ next?: string }>;
+}) {
+  const { next: rawNext } = await searchParams;
+  const next = safeNextPath(rawNext);
+
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) redirect("/login");
+  if (!user) redirect(next ? `/login?next=${encodeURIComponent(next)}` : "/login");
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-md flex-col justify-center gap-6 p-6">
@@ -46,6 +54,7 @@ export default async function ChooseAccountTypePage() {
         {OPTIONS.map((opt) => (
           <form key={opt.value} action={chooseAccountType}>
             <input type="hidden" name="accountType" value={opt.value} />
+            {next && <input type="hidden" name="next" value={next} />}
             <button
               type="submit"
               className="flex w-full items-start gap-4 rounded-xl border border-border bg-surface p-5 text-start transition hover:border-accent/50 hover:shadow-lg"

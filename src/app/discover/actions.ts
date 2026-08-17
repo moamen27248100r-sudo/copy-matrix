@@ -5,14 +5,15 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 export async function followProvider(formData: FormData) {
+  const providerId = formData.get("providerId") as string;
+
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) redirect("/signup");
+  if (!user) redirect(`/signup?next=${encodeURIComponent(`/trader/${providerId}#copy`)}`);
 
-  const providerId = formData.get("providerId") as string;
   const allocatedAmount = Number(formData.get("allocatedAmount"));
   // Stop-loss is no longer a customer-facing setting — every copy relationship
   // gets the same default protection threshold instead of asking for it upfront.
@@ -108,14 +109,14 @@ export async function unfollowProvider(formData: FormData) {
 // money involved — it just lets a customer keep an eye on a trader's
 // activity from their portfolio without allocating any funds.
 export async function followTrader(formData: FormData) {
+  const providerId = formData.get("providerId") as string;
+
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) redirect("/signup");
-
-  const providerId = formData.get("providerId") as string;
+  if (!user) redirect(`/signup?next=${encodeURIComponent(`/trader/${providerId}`)}`);
 
   await supabase
     .from("follows")

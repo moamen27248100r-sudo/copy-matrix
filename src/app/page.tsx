@@ -173,6 +173,9 @@ const FOOTER_LEGAL = [
 
 export default async function Home() {
   const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   const { data: rawTopProviders } = await supabase
     .from("provider_cards")
@@ -410,7 +413,14 @@ export default async function Home() {
             </Link>
           </div>
           <div className="mx-auto grid w-full max-w-5xl grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
-            {topProviders.map((p) => (
+            {topProviders.map((p) => {
+              const followBadgeHref = user
+                ? `/trader/${p.provider_id}`
+                : `/signup?next=${encodeURIComponent(`/trader/${p.provider_id}`)}`;
+              const copyHref = user
+                ? `/trader/${p.provider_id}#copy`
+                : `/signup?next=${encodeURIComponent(`/trader/${p.provider_id}#copy`)}`;
+              return (
               <div
                 key={p.provider_id}
                 className="group relative flex flex-col gap-2.5 rounded-xl border border-border bg-surface p-3.5 transition hover:border-accent/40 hover:shadow-lg sm:gap-3 sm:p-4"
@@ -423,7 +433,7 @@ export default async function Home() {
                     <div className="flex items-center gap-1.5">
                       <p className="min-w-0 truncate text-sm font-semibold">{p.display_name}</p>
                       <Link
-                        href={`/trader/${p.provider_id}`}
+                        href={followBadgeHref}
                         title="تابع أداء هذا المتداول واحصل على كل نتائجه"
                         className="shrink-0 rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 text-[10px] font-medium text-accent transition hover:bg-accent/20"
                       >
@@ -461,14 +471,15 @@ export default async function Home() {
                     عرض الملف الشخصي
                   </Link>
                   <Link
-                    href={`/trader/${p.provider_id}#copy`}
+                    href={copyHref}
                     className="rounded bg-accent px-3 py-2 text-center text-xs font-medium text-accent-foreground transition hover:bg-accent-hover sm:text-sm"
                   >
                     نسخ
                   </Link>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </section>
       )}

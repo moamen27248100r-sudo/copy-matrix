@@ -1,12 +1,15 @@
 import Link from "next/link";
 import { login } from "@/app/auth/actions";
+import { safeNextPath } from "@/lib/safe-next";
 
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; next?: string }>;
 }) {
-  const { error } = await searchParams;
+  const { error, next: rawNext } = await searchParams;
+  const next = safeNextPath(rawNext);
+  const signupHref = next ? `/signup?next=${encodeURIComponent(next)}` : "/signup";
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col justify-center gap-4 p-6">
@@ -19,6 +22,7 @@ export default async function LoginPage({
       )}
 
       <form action={login} className="flex flex-col gap-3">
+        {next && <input type="hidden" name="next" value={next} />}
         <input
           name="email"
           type="email"
@@ -47,7 +51,7 @@ export default async function LoginPage({
 
       <p className="text-sm text-muted">
         ألا تملك حسابًا؟{" "}
-        <Link href="/signup" className="text-foreground underline">
+        <Link href={signupHref} className="text-foreground underline">
           إنشاء حساب جديد
         </Link>
       </p>

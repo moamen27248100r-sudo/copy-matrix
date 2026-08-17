@@ -198,7 +198,7 @@ export default async function TraderPage({
             </form>
           ) : (
             <Link
-              href="/signup"
+              href={`/signup?next=${encodeURIComponent(`/trader/${id}`)}`}
               className="rounded-full border border-border px-4 py-1.5 text-sm font-medium text-foreground transition hover:border-accent hover:text-accent"
             >
               متابعة
@@ -225,7 +225,7 @@ export default async function TraderPage({
                 سجّل حساب مجانًا لتتمكن من نسخ {provider.display_name} ومتابعة أداء صفقاته.
               </p>
               <Link
-                href="/signup"
+                href={`/signup?next=${encodeURIComponent(`/trader/${id}#copy`)}`}
                 className="w-full shrink-0 rounded bg-accent px-4 py-1.5 text-center text-sm font-medium text-accent-foreground transition hover:bg-accent-hover sm:w-fit"
               >
                 إنشاء حساب مجاني

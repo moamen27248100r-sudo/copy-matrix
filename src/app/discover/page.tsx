@@ -86,6 +86,12 @@ export default async function DiscoverPage({
           {providers.map((p) => {
             const isFollowing = followingIds.has(p.provider_id);
             const isBlocked = followingProviderId != null && !isFollowing;
+            const followBadgeHref = user
+              ? `/trader/${p.provider_id}`
+              : `/signup?next=${encodeURIComponent(`/trader/${p.provider_id}`)}`;
+            const copyHref = user
+              ? `/trader/${p.provider_id}#copy`
+              : `/signup?next=${encodeURIComponent(`/trader/${p.provider_id}#copy`)}`;
             return (
               <div
                 key={p.provider_id}
@@ -101,7 +107,7 @@ export default async function DiscoverPage({
                         {p.display_name}
                       </Link>
                       <Link
-                        href={`/trader/${p.provider_id}`}
+                        href={followBadgeHref}
                         title="تابع أداء هذا المتداول واحصل على كل نتائجه"
                         className="shrink-0 rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 text-[10px] font-medium text-accent transition hover:bg-accent/20"
                       >
@@ -182,7 +188,7 @@ export default async function DiscoverPage({
                     </button>
                   ) : (
                     <Link
-                      href={`/trader/${p.provider_id}#copy`}
+                      href={copyHref}
                       className="w-full rounded bg-accent px-3 py-2 text-center text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
                     >
                       نسخ
