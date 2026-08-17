@@ -1,7 +1,4 @@
-import { symbolIcon } from "@/lib/symbol-icons";
-
-// Calm, well-known colors (standard Tailwind palette) instead of loud/unusual hues.
-const PALETTE = ["#3b82f6", "#10b981", "#8b5cf6", "#f59e0b", "#64748b"];
+import { symbolColor, OTHER_COLOR } from "@/lib/symbol-icons";
 
 export function AssetAllocationBar({ signals }: { signals: { symbol: string }[] }) {
   if (signals.length === 0) return null;
@@ -18,11 +15,11 @@ export function AssetAllocationBar({ signals }: { signals: { symbol: string }[] 
   // Keep the bar's actual widths as exact fractions (not pre-rounded) so the
   // segments always sum to precisely 100% and fill the bar with no gaps —
   // only the displayed percentage labels are rounded, for readability.
-  const segments = top.map(([symbol, count], i) => ({
+  const segments = top.map(([symbol, count]) => ({
     symbol,
     widthPct: (count / total) * 100,
     displayPct: Math.round((count / total) * 100),
-    color: PALETTE[i % PALETTE.length],
+    color: symbol === "أخرى" ? OTHER_COLOR : symbolColor(symbol),
   }));
 
   return (
@@ -37,17 +34,20 @@ export function AssetAllocationBar({ signals }: { signals: { symbol: string }[] 
           />
         ))}
       </div>
-      <div className="flex flex-wrap gap-x-5 gap-y-2">
+      <div className="flex flex-wrap justify-between gap-x-3 gap-y-3">
         {segments.map((seg) => (
-          <div key={seg.symbol} className="flex items-center gap-1.5">
-            <span
-              className="h-2 w-2 shrink-0 rounded-full"
-              style={{ backgroundColor: seg.color }}
-              aria-hidden="true"
-            />
-            <span className="text-sm">{seg.symbol === "أخرى" ? "🔹" : symbolIcon(seg.symbol)}</span>
-            <span className="text-xs text-muted">{seg.symbol}</span>
-            <span className="text-xs font-semibold">{seg.displayPct}%</span>
+          <div key={seg.symbol} className="flex flex-col gap-1">
+            <div className="flex items-center gap-1.5">
+              <span
+                className="h-2 w-2 shrink-0 rounded-full"
+                style={{ backgroundColor: seg.color }}
+                aria-hidden="true"
+              />
+              <span className="text-xs text-muted" dir="ltr">
+                {seg.symbol}
+              </span>
+            </div>
+            <span className="text-sm font-bold">{seg.displayPct}%</span>
           </div>
         ))}
       </div>
