@@ -294,7 +294,7 @@ export function MainMenu({
             <Link
               href="/portfolio"
               onClick={close}
-              className="flex flex-col gap-1 border-b border-border bg-background px-4 py-4"
+              className="flex flex-col gap-1 border-b border-border px-4 py-4"
             >
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
