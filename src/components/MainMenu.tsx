@@ -316,18 +316,15 @@ export function MainMenu({
               onClick={close}
               className="flex flex-col gap-1 border-b border-border px-4 py-4"
             >
-              <div className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-2">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/10">
-                    <WalletIcon />
-                  </span>
-                  <span className="text-base font-medium" dir="ltr">
-                    {balance != null
-                      ? `USD ${Number(balance).toLocaleString("en-US", { maximumFractionDigits: 2 })}`
-                      : "—"}
-                  </span>
-                </div>
-                <ChevronIcon open={false} />
+              <div className="flex items-center gap-2">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/10">
+                  <WalletIcon />
+                </span>
+                <span className="text-base font-medium" dir="ltr">
+                  {balance != null
+                    ? `USD ${Number(balance).toLocaleString("en-US", { maximumFractionDigits: 2 })}`
+                    : "—"}
+                </span>
               </div>
               <span className="text-xs text-muted">الرصيد المتاح</span>
             </Link>
