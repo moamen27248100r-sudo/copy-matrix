@@ -329,7 +329,7 @@ export function MainMenu({
                   className="flex items-center justify-between gap-2 rounded-lg border border-border bg-background px-3 py-2.5"
                 >
                   <div className="min-w-0">
-                    <p className="text-sm font-medium text-foreground">النسخة النشطة</p>
+                    <p className="text-sm font-medium text-foreground">النسخ النشط</p>
                     <p className="truncate text-xs text-muted">
                       {activeCopyProviderId ? `تنسخ ${activeCopyProviderName ?? "متداول"}` : "لا تنسخ أحد"}
                     </p>
