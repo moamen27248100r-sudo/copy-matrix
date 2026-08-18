@@ -269,20 +269,22 @@ export function MainMenu({
             <Link
               href="/portfolio"
               onClick={close}
-              className="flex items-center justify-between gap-3 border-b border-border bg-background px-4 py-4"
+              className="flex flex-col gap-1 border-b border-border bg-background px-4 py-4"
             >
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/10">
-                <WalletIcon />
-              </span>
-              <div className="flex flex-1 flex-col items-end gap-0.5">
-                <span className="text-xl font-semibold" dir="ltr">
-                  {balance != null
-                    ? `USD ${Number(balance).toLocaleString("en-US", { maximumFractionDigits: 2 })}`
-                    : "—"}
-                </span>
-                <span className="text-xs text-muted">الرصيد المتاح</span>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/10">
+                    <WalletIcon />
+                  </span>
+                  <span className="text-base font-medium" dir="ltr">
+                    {balance != null
+                      ? `USD ${Number(balance).toLocaleString("en-US", { maximumFractionDigits: 2 })}`
+                      : "—"}
+                  </span>
+                </div>
+                <ChevronIcon open={false} />
               </div>
-              <ChevronIcon open={false} />
+              <span className="text-xs text-muted">الرصيد المتاح</span>
             </Link>
 
             <button
