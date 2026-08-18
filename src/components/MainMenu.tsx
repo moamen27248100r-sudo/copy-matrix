@@ -1,21 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { logout } from "@/app/auth/actions";
 import { useNavDrawer } from "@/components/nav-drawer-context";
 
 const TRADING_ITEMS = [
-  {
-    href: "/dashboard",
-    label: "لوحة التحكم",
-    icon: (
-      <>
-        <path d="M3 11l9-8 9 8" />
-        <path d="M5 10v10h14V10" />
-      </>
-    ),
-  },
   {
     href: "/dashboard#accounts",
     label: "الحسابات",
@@ -62,18 +53,6 @@ const TRADING_ITEMS = [
       <>
         <path d="M3 3v18h18" />
         <path d="M7 15l4-5 3 3 5-7" />
-      </>
-    ),
-  },
-  {
-    href: "/portfolio#following",
-    label: "المتداولون المتابَعون",
-    icon: (
-      <>
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-        <circle cx="12" cy="7" r="4" />
-        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
       </>
     ),
   },
@@ -148,6 +127,32 @@ function WalletIcon() {
   );
 }
 
+function CandlestickIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M5 3v4M5 13v8M9 7h-4v6h4z" />
+      <path d="M13 9v3M13 18v4M17 12h-4v6h4z" />
+    </svg>
+  );
+}
+
+function ChevronIcon({ open }: { open: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className={`h-4 w-4 shrink-0 text-muted transition-transform ${open ? "rotate-180" : ""}`}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  );
+}
+
 // Masks the local part of an email for privacy: "delta126@gmail.com" -> "d****6@gmail.com".
 function maskEmail(email: string): string {
   const [local, domain] = email.split("@");
@@ -169,6 +174,10 @@ export function MainMenu({
 }) {
   const { open, toggle, close } = useNavDrawer("menu");
   const panelRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+  const [copyOpen, setCopyOpen] = useState(true);
+  const [hash, setHash] = useState("");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     if (!open) return;
@@ -178,7 +187,24 @@ export function MainMenu({
     };
   }, [open]);
 
+  useEffect(() => {
+    setHash(window.location.hash);
+    setSearch(window.location.search.replace(/^\?/, ""));
+    const onHashChange = () => setHash(window.location.hash);
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, [pathname]);
+
   const accountItems = isAdmin ? [...ACCOUNT_ITEMS, ADMIN_ITEM] : ACCOUNT_ITEMS;
+
+  const isActive = (href: string) => {
+    const [pathAndQuery, hashPart] = href.split("#");
+    const [path, query] = pathAndQuery.split("?");
+    if (path !== pathname) return false;
+    if (hashPart) return hash === `#${hashPart}`;
+    if (query) return search === query;
+    return !hash && !search;
+  };
 
   return (
     <>
@@ -234,37 +260,63 @@ export function MainMenu({
             <Link
               href="/portfolio"
               onClick={close}
-              className="flex items-center gap-3 border-b border-border bg-background px-4 py-4"
+              className="flex items-center justify-between gap-3 border-b border-border bg-background px-4 py-4"
             >
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/10">
-                <WalletIcon />
-              </span>
-              <div className="flex flex-col gap-0.5">
-                <span className="text-xl font-semibold">
+              <ChevronIcon open={false} />
+              <div className="flex flex-1 flex-col items-end gap-0.5">
+                <span className="text-xl font-semibold" dir="ltr">
                   {balance != null
-                    ? `$${Number(balance).toLocaleString("en-US", { maximumFractionDigits: 2 })}`
+                    ? `USD ${Number(balance).toLocaleString("en-US", { maximumFractionDigits: 2 })}`
                     : "—"}
                 </span>
                 <span className="text-xs text-muted">الرصيد المتاح</span>
               </div>
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/10">
+                <WalletIcon />
+              </span>
             </Link>
 
-            <SectionLabel>التداول</SectionLabel>
-            <div className="flex flex-col pb-2">
-              {TRADING_ITEMS.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={close}
-                  className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background"
-                >
-                  <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    {item.icon}
-                  </svg>
-                  {item.label}
-                </Link>
-              ))}
-            </div>
+            <button
+              type="button"
+              onClick={() => setCopyOpen((v) => !v)}
+              className="flex items-center justify-between gap-2 px-4 pt-4 pb-1"
+            >
+              <span className="flex items-center gap-2 text-xs font-medium text-muted">
+                النسخ
+                <CandlestickIcon />
+              </span>
+              <ChevronIcon open={copyOpen} />
+            </button>
+            {copyOpen && (
+              <div className="flex flex-col pb-2">
+                {TRADING_ITEMS.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={close}
+                    className={
+                      isActive(item.href)
+                        ? "flex items-center gap-3 bg-accent/10 px-4 py-2.5 text-sm text-accent"
+                        : "flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background"
+                    }
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      className={isActive(item.href) ? "h-4 w-4 shrink-0" : "h-4 w-4 shrink-0 text-muted"}
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      {item.icon}
+                    </svg>
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            )}
 
             <div className="border-t border-border" />
 
