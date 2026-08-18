@@ -79,6 +79,17 @@ const PAYMENT_ITEMS = [
       </>
     ),
   },
+  {
+    href: "/portfolio?tab=activity",
+    label: "سجل المعاملات",
+    icon: (
+      <>
+        <path d="M9 3h6a2 2 0 0 1 2 2v14l-3-2-2 2-2-2-2 2-3-2V5a2 2 0 0 1 2-2z" />
+        <path d="M9 8h6" />
+        <path d="M9 12h6" />
+      </>
+    ),
+  },
 ];
 
 const ACCOUNT_ITEMS = [
