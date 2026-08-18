@@ -131,7 +131,7 @@ function CandlestickIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="h-6 w-6 shrink-0"
+      className="h-6 w-6 shrink-0 text-muted"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.5"
