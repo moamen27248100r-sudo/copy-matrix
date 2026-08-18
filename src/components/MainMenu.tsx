@@ -129,9 +129,18 @@ function WalletIcon() {
 
 function CandlestickIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M5 3v4M5 13v8M9 7h-4v6h4z" />
-      <path d="M13 9v3M13 18v4M17 12h-4v6h4z" />
+    <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <line x1="5" y1="2" x2="5" y2="6" />
+      <rect x="3" y="6" width="4" height="6" rx="0.5" />
+      <line x1="5" y1="12" x2="5" y2="15" />
+
+      <line x1="12" y1="7" x2="12" y2="9" />
+      <rect x="10" y="9" width="4" height="8" rx="0.5" />
+      <line x1="12" y1="17" x2="12" y2="20" />
+
+      <line x1="19" y1="3" x2="19" y2="7" />
+      <rect x="17" y="7" width="4" height="5" rx="0.5" />
+      <line x1="19" y1="12" x2="19" y2="15" />
     </svg>
   );
 }
@@ -262,7 +271,9 @@ export function MainMenu({
               onClick={close}
               className="flex items-center justify-between gap-3 border-b border-border bg-background px-4 py-4"
             >
-              <ChevronIcon open={false} />
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/10">
+                <WalletIcon />
+              </span>
               <div className="flex flex-1 flex-col items-end gap-0.5">
                 <span className="text-xl font-semibold" dir="ltr">
                   {balance != null
@@ -271,20 +282,16 @@ export function MainMenu({
                 </span>
                 <span className="text-xs text-muted">الرصيد المتاح</span>
               </div>
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/10">
-                <WalletIcon />
-              </span>
+              <ChevronIcon open={false} />
             </Link>
 
             <button
               type="button"
               onClick={() => setCopyOpen((v) => !v)}
-              className="flex items-center justify-between gap-2 px-4 pt-4 pb-1"
+              className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background"
             >
-              <span className="flex items-center gap-2 text-xs font-medium text-muted">
-                النسخ
-                <CandlestickIcon />
-              </span>
+              <CandlestickIcon />
+              <span className="flex-1 text-start">النسخ</span>
               <ChevronIcon open={copyOpen} />
             </button>
             {copyOpen && (
