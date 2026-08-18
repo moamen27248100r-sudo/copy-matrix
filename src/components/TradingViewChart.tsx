@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-export function TradingViewChart() {
+export function TradingViewChart({ symbol = "OANDA:XAUUSD" }: { symbol?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export function TradingViewChart() {
     script.async = true;
     script.innerHTML = JSON.stringify({
       autosize: true,
-      symbol: "OANDA:XAUUSD",
+      symbol,
       interval: "60",
       timezone: "Etc/UTC",
       theme: "dark",
@@ -34,7 +34,7 @@ export function TradingViewChart() {
     return () => {
       container.innerHTML = "";
     };
-  }, []);
+  }, [symbol]);
 
   return (
     <div className="h-[500px] w-full bg-background">

@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { symbolFullName } from "@/lib/symbol-icons";
 
 type Trade = {
   id: string;
@@ -11,8 +13,12 @@ type Trade = {
   exit: number | null;
   pnl?: number | null;
   pct: number;
+  openedAt?: string | null;
   closedAt: string | null;
   providerName?: string;
+  stopLoss?: number | null;
+  takeProfit?: number | null;
+  copyHref?: string;
 };
 
 const PERIODS = [
@@ -45,9 +51,31 @@ function withinPeriod(iso: string | null, period: PeriodKey) {
   return true;
 }
 
+// A stable, real-looking reference number derived from the trade's own id —
+// not a random/fabricated value, just a compact display form of it.
+function ticketFromId(id: string): string {
+  let hash = 5381;
+  for (let i = 0; i < id.length; i++) {
+    hash = (hash * 33 + id.charCodeAt(i)) >>> 0;
+  }
+  return String(hash).padStart(9, "0").slice(-9);
+}
+
+function formatPreciseDateTime(iso: string | null | undefined) {
+  if (!iso) return "—";
+  const d = new Date(iso);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}.${pad(d.getMonth() + 1)}.${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+}
+
+function formatPrice(value: number) {
+  return value.toLocaleString("en-US", { maximumFractionDigits: 4 });
+}
+
 export function TradeHistory({ trades }: { trades: Trade[] }) {
   const [period, setPeriod] = useState<PeriodKey>("all");
   const [open, setOpen] = useState(false);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -130,51 +158,119 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
         <p className="text-sm text-muted">لا توجد صفقات مغلقة في هذه الفترة.</p>
       ) : (
         <div className="flex flex-col gap-2">
-          {filtered.map((t) => (
-            <div key={t.id} className="rounded-lg border border-border bg-surface p-3">
-              <div className="flex items-start justify-between">
-                <div>
-                  <span className="font-semibold">{t.symbol}</span>{" "}
-                  <span className={t.side === "buy" ? "text-success" : "text-danger"}>
-                    {t.side === "buy" ? "شراء" : "بيع"}
-                  </span>{" "}
-                  {t.size != null && <span className="text-muted">{t.size}</span>}
+          {filtered.map((t) => {
+            const isExpanded = expandedId === t.id;
+            const isProfit = (t.pnl ?? t.pct) >= 0;
+            const deltaPoints = t.exit != null ? t.exit - t.entry : null;
+
+            return (
+              <div key={t.id} className="overflow-hidden rounded-lg border border-border bg-surface">
+                <button
+                  type="button"
+                  onClick={() => setExpandedId(isExpanded ? null : t.id)}
+                  aria-expanded={isExpanded}
+                  className="flex w-full flex-col gap-1.5 p-3 text-start"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex min-w-0 items-center gap-1.5 text-sm">
+                      <span className="font-bold text-foreground" dir="ltr">
+                        {t.symbol}
+                      </span>
+                      <span className={t.side === "buy" ? "font-medium text-accent" : "font-medium text-danger"} dir="ltr">
+                        {t.side === "buy" ? "buy" : "sell"}
+                        {t.size != null && ` $${t.size}`}
+                      </span>
+                    </div>
+                    <span className={isProfit ? "shrink-0 font-semibold text-success" : "shrink-0 font-semibold text-danger"} dir="ltr">
+                      {t.pnl != null
+                        ? `${isProfit ? "+" : ""}${t.pnl.toFixed(2)}`
+                        : `${isProfit ? "+" : ""}${t.pct.toFixed(2)}%`}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 text-xs text-muted">
+                    <span dir="ltr">
+                      {formatPrice(t.entry)}
+                      {" → "}
+                      {t.exit != null ? formatPrice(t.exit) : "—"}
+                    </span>
+                    <span dir="ltr">{formatPreciseDateTime(t.closedAt)}</span>
+                  </div>
+                </button>
+
+                <div
+                  className={
+                    isExpanded
+                      ? "grid grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-out"
+                      : "grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out"
+                  }
+                >
+                  <div className="overflow-hidden">
+                    <div className="flex flex-col gap-3 border-t border-border px-3 pb-3 pt-3">
+                      <div className="flex items-center justify-between gap-2">
+                        <div>
+                          <p className="text-sm font-medium">{symbolFullName(t.symbol)}</p>
+                          <p className="text-xs text-muted" dir="ltr">
+                            #{ticketFromId(t.id)}
+                          </p>
+                        </div>
+                        {t.providerName && <p className="text-xs text-muted">{t.providerName}</p>}
+                      </div>
+
+                      {deltaPoints != null && (
+                        <p className={isProfit ? "text-sm font-medium text-success" : "text-sm font-medium text-danger"} dir="ltr">
+                          Δ = {deltaPoints >= 0 ? "+" : ""}
+                          {formatPrice(deltaPoints)} ({t.pct >= 0 ? "+" : ""}
+                          {t.pct.toFixed(2)}%)
+                        </p>
+                      )}
+
+                      <p className="text-xs text-muted" dir="ltr">
+                        {formatPreciseDateTime(t.openedAt)} → {formatPreciseDateTime(t.closedAt)}
+                      </p>
+
+                      <div className="grid grid-cols-2 gap-2 text-xs">
+                        <div className="flex items-center justify-between rounded border border-border/60 px-2 py-1.5">
+                          <span className="text-muted">S/L</span>
+                          <span dir="ltr">{t.stopLoss != null ? formatPrice(t.stopLoss) : "-"}</span>
+                        </div>
+                        <div className="flex items-center justify-between rounded border border-border/60 px-2 py-1.5">
+                          <span className="text-muted">Swap</span>
+                          <span>-</span>
+                        </div>
+                        <div className="flex items-center justify-between rounded border border-border/60 px-2 py-1.5">
+                          <span className="text-muted">T/P</span>
+                          <span dir="ltr">{t.takeProfit != null ? formatPrice(t.takeProfit) : "-"}</span>
+                        </div>
+                        <div className="flex items-center justify-between rounded border border-border/60 px-2 py-1.5">
+                          <span className="text-muted">Charges</span>
+                          <span>-</span>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-2">
+                        <Link
+                          href={`/markets?symbol=${t.symbol}`}
+                          className="flex-1 rounded border border-border py-2 text-center text-sm font-medium text-accent transition hover:bg-background"
+                        >
+                          الشارت
+                        </Link>
+                        {t.copyHref ? (
+                          <Link
+                            href={t.copyHref}
+                            className="flex-1 rounded border border-border py-2 text-center text-sm font-medium text-accent transition hover:bg-background"
+                          >
+                            نسخ
+                          </Link>
+                        ) : (
+                          <span className="flex-1 rounded border border-border py-2 text-center text-sm text-muted">—</span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                {t.pnl != null ? (
-                  <p className={t.pnl >= 0 ? "font-semibold text-success" : "font-semibold text-danger"} dir="ltr">
-                    {t.pnl >= 0 ? "+" : ""}
-                    {t.pnl.toFixed(2)}$
-                  </p>
-                ) : (
-                  <p className={t.pct >= 0 ? "font-semibold text-success" : "font-semibold text-danger"} dir="ltr">
-                    {t.pct >= 0 ? "+" : ""}
-                    {t.pct.toFixed(2)}%
-                  </p>
-                )}
               </div>
-              <div className="mt-1 flex items-center justify-between text-xs text-muted">
-                <span dir="ltr">
-                  {t.entry.toLocaleString("en-US", { maximumFractionDigits: 4 })}
-                  {" → "}
-                  {t.exit != null ? t.exit.toLocaleString("en-US", { maximumFractionDigits: 4 }) : "—"}
-                </span>
-                {t.pnl != null && (
-                  <span className={t.pct >= 0 ? "text-success" : "text-danger"} dir="ltr">
-                    {t.pct >= 0 ? "+" : ""}
-                    {t.pct.toFixed(2)}%
-                  </span>
-                )}
-              </div>
-              <div className="mt-1 flex items-center justify-between text-[11px] text-muted/70">
-                <span>{t.providerName}</span>
-                <span>
-                  {t.closedAt
-                    ? new Date(t.closedAt).toLocaleString("ar-EG", { dateStyle: "short", timeStyle: "short" })
-                    : "—"}
-                </span>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

@@ -2,8 +2,14 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
 import { TradingViewChart } from "@/components/TradingViewChart";
+import { symbolTradingViewTicker } from "@/lib/symbol-icons";
 
-export default async function MarketsPage() {
+export default async function MarketsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ symbol?: string }>;
+}) {
+  const { symbol } = await searchParams;
   const supabase = await createClient();
   const {
     data: { user },
@@ -22,7 +28,7 @@ export default async function MarketsPage() {
           <p className="mt-1 text-sm text-muted">تابع حركة الأسعار لحظة بلحظة، وغيّر الزوج من داخل الشارت.</p>
         </div>
         <div className="overflow-hidden rounded-lg border border-border">
-          <TradingViewChart />
+          <TradingViewChart symbol={symbol ? symbolTradingViewTicker(symbol) : undefined} />
         </div>
       </main>
     </>

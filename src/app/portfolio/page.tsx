@@ -19,7 +19,13 @@ const REQUEST_STATUS_LABELS: Record<string, string> = {
   rejected: "مرفوض",
 };
 
-type PositionSignal = { symbol: string; side: string; provider_id: string };
+type PositionSignal = {
+  symbol: string;
+  side: string;
+  provider_id: string;
+  stop_loss: number | null;
+  take_profit: number | null;
+};
 type Position = {
   id: string;
   entry_price: number;
@@ -87,7 +93,9 @@ export default async function PortfolioPage({
         : Promise.resolve({ data: [] as never[] }),
       supabase
         .from("simulated_positions")
-        .select("id, entry_price, exit_price, size, status, pnl, opened_at, closed_at, signals(symbol, side, provider_id)")
+        .select(
+          "id, entry_price, exit_price, size, status, pnl, opened_at, closed_at, signals(symbol, side, provider_id, stop_loss, take_profit)",
+        )
         .eq("follower_id", user.id)
         .order("opened_at", { ascending: false }),
       supabase
@@ -145,8 +153,12 @@ export default async function PortfolioPage({
       exit: pos.exit_price != null ? Number(pos.exit_price) : null,
       pnl: pos.pnl ?? 0,
       pct: signedReturnPct(pos),
+      openedAt: pos.opened_at,
       closedAt: pos.closed_at,
+      copyHref: signal?.provider_id ? `/trader/${signal.provider_id}#copy` : undefined,
       providerName: signal ? providerNameById.get(signal.provider_id) ?? "—" : "—",
+      stopLoss: signal?.stop_loss ?? null,
+      takeProfit: signal?.take_profit ?? null,
     };
   });
 

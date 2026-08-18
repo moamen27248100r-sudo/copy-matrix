@@ -36,3 +36,37 @@ export const OTHER_COLOR = "#cbd5e1";
 export function symbolColor(symbol: string): string {
   return SYMBOL_COLORS[symbol] ?? OTHER_COLOR;
 }
+
+export const SYMBOL_FULL_NAMES: Record<string, string> = {
+  XAUUSD: "Gold vs US Dollar",
+  EURUSD: "Euro vs US Dollar",
+  GBPUSD: "British Pound vs US Dollar",
+  USDJPY: "US Dollar vs Japanese Yen",
+  BTCUSDT: "Bitcoin vs Tether",
+  ETHUSDT: "Ethereum vs Tether",
+  SOLUSDT: "Solana vs Tether",
+  BNBUSDT: "BNB vs Tether",
+  XRPUSDT: "XRP vs Tether",
+  US30: "Dow Jones Industrial Average",
+};
+
+export function symbolFullName(symbol: string): string {
+  return SYMBOL_FULL_NAMES[symbol] ?? symbol;
+}
+
+export const SYMBOL_TRADINGVIEW_TICKERS: Record<string, string> = {
+  XAUUSD: "OANDA:XAUUSD",
+  EURUSD: "OANDA:EURUSD",
+  GBPUSD: "OANDA:GBPUSD",
+  USDJPY: "OANDA:USDJPY",
+  BTCUSDT: "BINANCE:BTCUSDT",
+  ETHUSDT: "BINANCE:ETHUSDT",
+  SOLUSDT: "BINANCE:SOLUSDT",
+  BNBUSDT: "BINANCE:BNBUSDT",
+  XRPUSDT: "BINANCE:XRPUSDT",
+  US30: "FOREXCOM:DJI",
+};
+
+export function symbolTradingViewTicker(symbol: string): string {
+  return SYMBOL_TRADINGVIEW_TICKERS[symbol] ?? "OANDA:XAUUSD";
+}

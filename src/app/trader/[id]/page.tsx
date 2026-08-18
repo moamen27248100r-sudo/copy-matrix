@@ -15,6 +15,8 @@ type SignalRow = {
   side: string;
   entry_price: number;
   exit_price: number | null;
+  stop_loss: number | null;
+  take_profit: number | null;
   status: string;
   opened_at: string;
   closed_at: string | null;
@@ -83,7 +85,7 @@ export default async function TraderPage({
     supabase.from("provider_cards").select("*").eq("provider_id", id).single(),
     supabase
       .from("signals")
-      .select("id, symbol, side, entry_price, exit_price, status, opened_at, closed_at")
+      .select("id, symbol, side, entry_price, exit_price, stop_loss, take_profit, status, opened_at, closed_at")
       .eq("provider_id", id)
       .order("opened_at", { ascending: false }),
     user
@@ -133,7 +135,11 @@ export default async function TraderPage({
         entry: Number(s.entry_price),
         exit: Number(s.exit_price),
         pct,
+        openedAt: s.opened_at,
         closedAt: s.closed_at,
+        stopLoss: s.stop_loss,
+        takeProfit: s.take_profit,
+        copyHref: "#copy",
       };
     });
 
