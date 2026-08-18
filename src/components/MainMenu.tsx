@@ -173,6 +173,25 @@ function ChevronIcon({ open }: { open: boolean }) {
   );
 }
 
+function PaymentsIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="h-6 w-6 shrink-0 text-muted"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="2.5" y="6" width="19" height="13" rx="2" />
+      <line x1="2.5" y1="10" x2="21.5" y2="10" />
+      <line x1="6" y1="14.5" x2="10" y2="14.5" />
+    </svg>
+  );
+}
+
 // Masks the local part of an email for privacy: "delta126@gmail.com" -> "d****6@gmail.com".
 function maskEmail(email: string): string {
   const [local, domain] = email.split("@");
@@ -210,6 +229,7 @@ export function MainMenu({
   const panelRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const [copyOpen, setCopyOpen] = useState(true);
+  const [paymentsOpen, setPaymentsOpen] = useState(true);
   const [hash, setHash] = useState("");
   const [search, setSearch] = useState("");
 
@@ -384,22 +404,32 @@ export function MainMenu({
 
             <div className="border-t border-border" />
 
-            <SectionLabel>المدفوعات والمحفظة</SectionLabel>
-            <div className="flex flex-col pb-2">
-              {PAYMENT_ITEMS.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  onClick={close}
-                  className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background"
-                >
-                  <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    {item.icon}
-                  </svg>
-                  {item.label}
-                </Link>
-              ))}
-            </div>
+            <button
+              type="button"
+              onClick={() => setPaymentsOpen((v) => !v)}
+              className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background"
+            >
+              <PaymentsIcon />
+              <span className="flex-1 text-start">المدفوعات والمحفظة</span>
+              <ChevronIcon open={paymentsOpen} />
+            </button>
+            {paymentsOpen && (
+              <div className="flex flex-col pb-2">
+                {PAYMENT_ITEMS.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    onClick={close}
+                    className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background"
+                  >
+                    <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      {item.icon}
+                    </svg>
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            )}
 
             <div className="border-t border-border" />
 
