@@ -129,18 +129,18 @@ function WalletIcon() {
 
 function CandlestickIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <line x1="5" y1="2" x2="5" y2="6" />
-      <rect x="3" y="6" width="4" height="6" rx="0.5" />
-      <line x1="5" y1="12" x2="5" y2="15" />
+    <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" aria-hidden="true">
+      <line x1="5" y1="2" x2="5" y2="6" stroke="#ffffff" strokeWidth="1.75" strokeLinecap="round" />
+      <rect x="3" y="6" width="4" height="6" rx="0.5" fill="var(--accent)" />
+      <line x1="5" y1="12" x2="5" y2="15" stroke="#ffffff" strokeWidth="1.75" strokeLinecap="round" />
 
-      <line x1="12" y1="7" x2="12" y2="9" />
-      <rect x="10" y="9" width="4" height="8" rx="0.5" />
-      <line x1="12" y1="17" x2="12" y2="20" />
+      <line x1="12" y1="7" x2="12" y2="9" stroke="#ffffff" strokeWidth="1.75" strokeLinecap="round" />
+      <rect x="10" y="9" width="4" height="8" rx="0.5" fill="var(--accent)" />
+      <line x1="12" y1="17" x2="12" y2="20" stroke="#ffffff" strokeWidth="1.75" strokeLinecap="round" />
 
-      <line x1="19" y1="3" x2="19" y2="7" />
-      <rect x="17" y="7" width="4" height="5" rx="0.5" />
-      <line x1="19" y1="12" x2="19" y2="15" />
+      <line x1="19" y1="3" x2="19" y2="7" stroke="#ffffff" strokeWidth="1.75" strokeLinecap="round" />
+      <rect x="17" y="7" width="4" height="5" rx="0.5" fill="var(--accent)" />
+      <line x1="19" y1="12" x2="19" y2="15" stroke="#ffffff" strokeWidth="1.75" strokeLinecap="round" />
     </svg>
   );
 }
