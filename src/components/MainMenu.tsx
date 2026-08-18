@@ -129,24 +129,28 @@ function WalletIcon() {
 
 function CandlestickIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="h-6 w-6 shrink-0" aria-hidden="true">
-      <defs>
-        <filter id="candle-shadow" x="-50%" y="-50%" width="200%" height="200%">
-          <feDropShadow dx="0" dy="0.4" stdDeviation="0.4" floodColor="#000000" floodOpacity="0.35" />
-        </filter>
-      </defs>
-      <g filter="url(#candle-shadow)" transform="translate(12 12) scale(1.15) translate(-12 -12)">
-        <line x1="6" y1="2" x2="6" y2="4" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
-        <rect x="3.2" y="4" width="5.6" height="9" rx="0.75" fill="var(--accent)" stroke="var(--accent)" strokeWidth="0.4" />
-        <line x1="6" y1="13" x2="6" y2="15" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
+    <svg
+      viewBox="0 0 24 24"
+      className="h-6 w-6 shrink-0"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <g transform="translate(12 12) scale(1.15) translate(-12 -12)">
+        <line x1="6" y1="2" x2="6" y2="4" />
+        <rect x="3.2" y="4" width="5.6" height="9" rx="0.75" />
+        <line x1="6" y1="13" x2="6" y2="15" />
 
-        <line x1="12" y1="5" x2="12" y2="8" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
-        <rect x="9.2" y="8" width="5.6" height="7.5" rx="0.75" fill="#ffffff" stroke="#ffffff" strokeWidth="0.4" />
-        <line x1="12" y1="15.5" x2="12" y2="19" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
+        <line x1="12" y1="5" x2="12" y2="8" />
+        <rect x="9.2" y="8" width="5.6" height="7.5" rx="0.75" />
+        <line x1="12" y1="15.5" x2="12" y2="19" />
 
-        <line x1="18" y1="3" x2="18" y2="5" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
-        <rect x="15.2" y="5" width="5.6" height="9" rx="0.75" fill="var(--accent)" stroke="var(--accent)" strokeWidth="0.4" />
-        <line x1="18" y1="14" x2="18" y2="16" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
+        <line x1="18" y1="3" x2="18" y2="5" />
+        <rect x="15.2" y="5" width="5.6" height="9" rx="0.75" />
+        <line x1="18" y1="14" x2="18" y2="16" />
       </g>
     </svg>
   );
