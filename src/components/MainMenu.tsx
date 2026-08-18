@@ -354,7 +354,7 @@ export function MainMenu({
                 <Link
                   href={activeCopyProviderId ? `/trader/${activeCopyProviderId}` : "/discover"}
                   onClick={close}
-                  className="flex items-center justify-between gap-2 rounded-lg border border-border bg-background px-3 py-2.5"
+                  className="flex items-center justify-between gap-2 rounded-lg border border-border px-3 py-2.5"
                 >
                   <div className="min-w-0">
                     <p className="text-sm font-medium text-foreground">النسخ النشط</p>
@@ -367,7 +367,7 @@ export function MainMenu({
                 <Link
                   href="/portfolio#following"
                   onClick={close}
-                  className="flex items-center justify-between gap-2 rounded-lg border border-border bg-background px-3 py-2.5"
+                  className="flex items-center justify-between gap-2 rounded-lg border border-border px-3 py-2.5"
                 >
                   <div className="min-w-0">
                     <p className="text-sm font-medium text-foreground">المتابَعون</p>
