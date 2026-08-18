@@ -181,16 +181,30 @@ function maskEmail(email: string): string {
   return `${local[0]}****${local[local.length - 1]}@${domain}`;
 }
 
+function ForwardArrowIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M15 6l-6 6 6 6" />
+    </svg>
+  );
+}
+
 export function MainMenu({
   balance,
   isAdmin,
   displayName,
   email,
+  activeCopyProviderId,
+  activeCopyProviderName,
+  followsCount,
 }: {
   balance: number | null;
   isAdmin: boolean;
   displayName?: string | null;
   email?: string | null;
+  activeCopyProviderId?: string | null;
+  activeCopyProviderName?: string | null;
+  followsCount?: number;
 }) {
   const { open, toggle, close } = useNavDrawer("menu");
   const panelRef = useRef<HTMLDivElement>(null);
@@ -307,6 +321,36 @@ export function MainMenu({
               <span className="flex-1 text-start">النسخ</span>
               <ChevronIcon open={copyOpen} />
             </button>
+            {copyOpen && (
+              <div className="flex flex-col gap-2 px-4 pb-2 pt-1">
+                <Link
+                  href={activeCopyProviderId ? `/trader/${activeCopyProviderId}` : "/discover"}
+                  onClick={close}
+                  className="flex items-center justify-between gap-2 rounded-lg border border-border bg-background px-3 py-2.5"
+                >
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium text-foreground">النسخة النشطة</p>
+                    <p className="truncate text-xs text-muted">
+                      {activeCopyProviderId ? `تنسخ ${activeCopyProviderName ?? "متداول"}` : "لا تنسخ أحد"}
+                    </p>
+                  </div>
+                  <ForwardArrowIcon />
+                </Link>
+                <Link
+                  href="/portfolio#following"
+                  onClick={close}
+                  className="flex items-center justify-between gap-2 rounded-lg border border-border bg-background px-3 py-2.5"
+                >
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium text-foreground">المتابَعون</p>
+                    <p className="truncate text-xs text-muted">
+                      {followsCount && followsCount > 0 ? `تتابع ${followsCount} متداول` : "لا تتابع أحد"}
+                    </p>
+                  </div>
+                  <ForwardArrowIcon />
+                </Link>
+              </div>
+            )}
             {copyOpen && (
               <div className="flex flex-col pb-2">
                 {TRADING_ITEMS.map((item) => (
