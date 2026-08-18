@@ -312,8 +312,9 @@ export default async function TraderPage({
             <p className="text-xs text-muted">ناسخ</p>
           </div>
           <div>
-            <p className="font-semibold text-success">
-              ${Number(provider.total_profit).toLocaleString("en-US", { maximumFractionDigits: 0 })}
+            <p className={Number(provider.total_profit) >= 0 ? "font-semibold text-success" : "font-semibold text-danger"}>
+              {Number(provider.total_profit) >= 0 ? "+" : "-"}$
+              {Math.abs(Number(provider.total_profit)).toLocaleString("en-US", { maximumFractionDigits: 0 })}
             </p>
             <p className="text-xs text-muted">إجمالي الأرباح</p>
           </div>
