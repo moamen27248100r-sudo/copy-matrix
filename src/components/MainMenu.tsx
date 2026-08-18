@@ -240,7 +240,6 @@ export function MainMenu({
                 <WalletIcon />
               </span>
               <div className="flex flex-col gap-0.5">
-                {displayName && <span className="text-xs text-muted">{displayName}</span>}
                 <span className="text-xl font-semibold">
                   {balance != null
                     ? `$${Number(balance).toLocaleString("en-US", { maximumFractionDigits: 2 })}`
