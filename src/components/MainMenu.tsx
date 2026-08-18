@@ -94,6 +94,15 @@ const PAYMENT_ITEMS = [
 
 const ACCOUNT_ITEMS = [
   {
+    href: null,
+    label: "مركز الدعم",
+    icon: (
+      <>
+        <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z" />
+      </>
+    ),
+  },
+  {
     href: "/kyc",
     label: "توثيق الهوية",
     icon: (
@@ -443,19 +452,28 @@ export function MainMenu({
 
             <SectionLabel>الحساب</SectionLabel>
             <div className="flex flex-col pb-2">
-              {accountItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={close}
-                  className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background"
-                >
-                  <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    {item.icon}
-                  </svg>
-                  {item.label}
-                </Link>
-              ))}
+              {accountItems.map((item) =>
+                item.href ? (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    onClick={close}
+                    className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background"
+                  >
+                    <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      {item.icon}
+                    </svg>
+                    <span className="flex-1">{item.label}</span>
+                  </Link>
+                ) : (
+                  <div key={item.label} className="flex items-center gap-3 px-4 py-2.5 text-sm text-muted">
+                    <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      {item.icon}
+                    </svg>
+                    <span className="flex-1">{item.label}</span>
+                  </div>
+                ),
+              )}
             </div>
 
             <div className="mt-auto border-t border-border">
