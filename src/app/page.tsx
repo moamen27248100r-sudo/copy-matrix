@@ -330,7 +330,7 @@ export default async function Home() {
             }}
           />
         </div>
-        <div className="mx-auto grid w-full max-w-2xl grid-cols-1 gap-x-10 gap-y-4 px-4 text-start sm:grid-cols-2">
+        <div className="mx-auto mt-6 grid w-full max-w-2xl grid-cols-1 gap-x-10 gap-y-4 border-t border-border px-4 pt-8 text-start sm:mt-8 sm:grid-cols-2">
           {APP_HIGHLIGHTS.map((h) => (
             <div key={h.title} className="flex items-start gap-2">
               <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
