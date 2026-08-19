@@ -305,22 +305,14 @@ export default async function Home() {
             </span>
           ))}
         </div>
-        <div className="mx-auto w-full max-w-2xl">
+        <div className="mx-auto w-full max-w-3xl overflow-hidden rounded-xl border border-border">
           <Image
-            src="/hero-broker.png"
-            alt=""
-            width={1024}
-            height={1024}
+            src="/hero-app-preview.png"
+            alt="لقطة من تطبيق Copy Matrix تعرض متابعة صفقة وميزات المنصة"
+            width={1376}
+            height={768}
             priority
             className="h-auto w-full object-cover"
-            style={{
-              maskImage:
-                "linear-gradient(to bottom, transparent 0%, black 14%, black 62%, transparent 96%), linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
-              maskComposite: "intersect",
-              WebkitMaskImage:
-                "linear-gradient(to bottom, transparent 0%, black 14%, black 62%, transparent 96%), linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
-              WebkitMaskComposite: "source-in",
-            }}
           />
         </div>
         <div className="mx-auto -mt-6 grid w-full max-w-4xl grid-cols-1 gap-x-12 gap-y-7 px-4 text-start sm:-mt-10 sm:grid-cols-2">
