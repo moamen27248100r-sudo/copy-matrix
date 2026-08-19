@@ -112,6 +112,13 @@ const TRUST_POINTS = [
   "بياناتك محمية ومشفّرة بالكامل",
 ];
 
+const APP_HIGHLIGHTS = [
+  { title: "متابعة لحظية", desc: "تابع صفقاتك فورًا" },
+  { title: "سحب سريع", desc: "إيداع وسحب سريع وآمن" },
+  { title: "بدون عمولات خفية", desc: "شفافية كاملة في الرسوم" },
+  { title: "أمان وشفافية", desc: "أمان بأحدث التقنيات" },
+];
+
 const TRADER_TRUST_POINTS = [
   {
     title: "سجل صفقات كامل وموثّق",
@@ -323,7 +330,18 @@ export default async function Home() {
             }}
           />
         </div>
-        <div className="mx-auto -mt-6 grid w-full max-w-4xl grid-cols-1 gap-x-12 gap-y-7 px-4 text-start sm:-mt-10 sm:grid-cols-2">
+        <div className="mx-auto grid w-full max-w-2xl grid-cols-1 gap-x-10 gap-y-4 px-4 text-start sm:grid-cols-2">
+          {APP_HIGHLIGHTS.map((h) => (
+            <div key={h.title} className="flex items-start gap-2">
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+              <div>
+                <p className="text-sm font-semibold sm:text-base">{h.title}</p>
+                <p className="text-xs text-muted sm:text-sm">{h.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mx-auto -mt-2 grid w-full max-w-4xl grid-cols-1 gap-x-12 gap-y-7 px-4 text-start sm:-mt-4 sm:grid-cols-2">
           {TRADER_TRUST_POINTS.map((p) => (
             <div key={p.title}>
               <p className="text-sm font-semibold sm:text-base">{p.title}</p>
