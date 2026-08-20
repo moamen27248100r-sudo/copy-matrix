@@ -119,25 +119,6 @@ const APP_HIGHLIGHTS = [
   { title: "أمان وشفافية", desc: "أمان بأحدث التقنيات" },
 ];
 
-const TRADER_TRUST_POINTS = [
-  {
-    title: "سجل صفقات كامل وموثّق",
-    desc: "كل صفقة نفّذها أي متداول على المنصة — رابحة كانت أو خاسرة — موجودة في ملفه الشخصي بالتاريخ والسعر والنتيجة، بدون أي حذف أو انتقاء.",
-  },
-  {
-    title: "مؤشرات أداء حقيقية",
-    desc: "نسبة النجاح، متوسط العائد، وأقصى تراجع لكل متداول أرقام محسوبة مباشرة من صفقاته الفعلية المُغلقة، تتحدّث كل ما ينفّذ صفقة جديدة.",
-  },
-  {
-    title: "تنفيذ تلقائي لحظة بلحظة",
-    desc: "بمجرد أن ينفّذ المتداول الذي تتابعه صفقة، تُنسخ إلى حسابك بالتفاصيل نفسها خلال لحظات، دون أي تأخير أو تدخل يدوي منك.",
-  },
-  {
-    title: "حرية كاملة في إدارة حسابك",
-    desc: "أوقف متابعة أي متداول، بدّله بآخر، أو اطلب سحب رصيدك في أي وقت — بدون أي قيود أو فترات انتظار مخفية.",
-  },
-];
-
 const FAQS = [
   {
     q: "ما الفرق بين الحساب التجريبي والحساب الحقيقي؟",
@@ -338,14 +319,6 @@ export default async function Home() {
                 <p className="text-sm font-semibold sm:text-base">{h.title}</p>
                 <p className="text-xs text-muted sm:text-sm">{h.desc}</p>
               </div>
-            </div>
-          ))}
-        </div>
-        <div className="mx-auto -mt-2 grid w-full max-w-4xl grid-cols-1 gap-x-12 gap-y-7 px-4 text-start sm:-mt-4 sm:grid-cols-2">
-          {TRADER_TRUST_POINTS.map((p) => (
-            <div key={p.title}>
-              <p className="text-sm font-semibold sm:text-base">{p.title}</p>
-              <p className="mt-1 text-xs leading-relaxed text-muted sm:text-sm">{p.desc}</p>
             </div>
           ))}
         </div>
