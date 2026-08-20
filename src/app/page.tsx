@@ -405,9 +405,6 @@ export default async function Home() {
           </div>
           <div className="mx-auto grid w-full max-w-5xl grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
             {topProviders.map((p) => {
-              const followBadgeHref = user
-                ? `/trader/${p.provider_id}`
-                : `/signup?next=${encodeURIComponent(`/trader/${p.provider_id}`)}`;
               const copyHref = user
                 ? `/trader/${p.provider_id}#copy`
                 : `/signup?next=${encodeURIComponent(`/trader/${p.provider_id}#copy`)}`;
@@ -423,13 +420,6 @@ export default async function Home() {
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-1.5">
                       <p className="min-w-0 truncate text-sm font-semibold">{p.display_name}</p>
-                      <Link
-                        href={followBadgeHref}
-                        title="تابع أداء هذا المتداول واحصل على كل نتائجه"
-                        className="shrink-0 rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 text-[10px] font-medium text-accent transition hover:bg-accent/20"
-                      >
-                        متابعة
-                      </Link>
                     </div>
                     <p className="text-xs text-muted">{p.followers_count} ناسخ</p>
                   </div>

@@ -3,7 +3,6 @@ import { createClient } from "@/lib/supabase/server";
 import { unfollowProvider } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
 import { pinTopLeaders } from "@/lib/pin-top-leaders";
-import { RatingBar } from "@/components/RatingBar";
 
 const SORT_OPTIONS = {
   return: { column: "avg_return_pct", ascending: false },
@@ -87,9 +86,6 @@ export default async function DiscoverPage({
           {providers.map((p) => {
             const isFollowing = followingIds.has(p.provider_id);
             const isBlocked = followingProviderId != null && !isFollowing;
-            const followBadgeHref = user
-              ? `/trader/${p.provider_id}`
-              : `/signup?next=${encodeURIComponent(`/trader/${p.provider_id}`)}`;
             const copyHref = user
               ? `/trader/${p.provider_id}#copy`
               : `/signup?next=${encodeURIComponent(`/trader/${p.provider_id}#copy`)}`;
@@ -106,13 +102,6 @@ export default async function DiscoverPage({
                     <div className="flex items-center gap-1.5">
                       <Link href={`/trader/${p.provider_id}`} className="min-w-0 truncate font-medium underline-offset-2 hover:underline">
                         {p.display_name}
-                      </Link>
-                      <Link
-                        href={followBadgeHref}
-                        title="تابع أداء هذا المتداول واحصل على كل نتائجه"
-                        className="shrink-0 rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 text-[10px] font-medium text-accent transition hover:bg-accent/20"
-                      >
-                        متابعة
                       </Link>
                     </div>
                     <p className="text-xs text-muted">
@@ -131,8 +120,6 @@ export default async function DiscoverPage({
                     مخاطرة {p.risk_level}
                   </span>
                 </div>
-
-                <RatingBar score={p.rating_score} label="تقييم المتداول" />
 
                 <div className="grid grid-cols-3 gap-2 text-center text-sm">
                   <div>
