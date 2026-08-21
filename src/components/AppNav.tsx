@@ -1,12 +1,17 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { MainMenu } from "@/components/MainMenu";
 import { NotificationsMenu } from "@/components/NotificationsMenu";
 import { NavDrawerProvider } from "@/components/nav-drawer-context";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import type { Locale } from "@/i18n/locales";
 
 export async function AppNav() {
   const supabase = await createClient();
+  const t = await getTranslations("Nav");
+  const locale = (await getLocale()) as Locale;
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -62,7 +67,7 @@ export async function AppNav() {
               href="/signup"
               className="rounded bg-accent px-3 py-1.5 text-xs font-medium text-accent-foreground transition hover:bg-accent-hover sm:text-sm"
             >
-              إنشاء حساب
+              {t("createAccount")}
             </Link>
           )}
         </div>
@@ -103,13 +108,16 @@ export async function AppNav() {
           </span>
         </Link>
 
-        <div className="flex justify-end">
+        <div className="flex items-center justify-end gap-2">
           {user ? (
             <NotificationsMenu notifications={notifications} />
           ) : (
-            <Link href="/login" className="text-xs font-medium text-foreground underline sm:text-sm">
-              تسجيل الدخول
-            </Link>
+            <>
+              <LanguageSwitcher currentLocale={locale} />
+              <Link href="/login" className="text-xs font-medium text-foreground underline sm:text-sm">
+                {t("login")}
+              </Link>
+            </>
           )}
         </div>
       </div>
