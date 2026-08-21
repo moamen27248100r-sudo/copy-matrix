@@ -220,35 +220,22 @@ function maskEmail(email: string): string {
   return `${local[0]}****${local[local.length - 1]}@${domain}`;
 }
 
-function ForwardArrowIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M15 6l-6 6 6 6" />
-    </svg>
-  );
-}
-
 export function MainMenu({
   balance,
   isAdmin,
   displayName,
   email,
   activeCopyProviderId,
-  activeCopyProviderName,
-  followsCount,
 }: {
   balance: number | null;
   isAdmin: boolean;
   displayName?: string | null;
   email?: string | null;
   activeCopyProviderId?: string | null;
-  activeCopyProviderName?: string | null;
-  followsCount?: number;
 }) {
   const { open, toggle, close } = useNavDrawer("menu");
   const panelRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
-  const [copyOpen, setCopyOpen] = useState(true);
   const [paymentsOpen, setPaymentsOpen] = useState(true);
   const [hash, setHash] = useState("");
   const [search, setSearch] = useState("");
@@ -349,48 +336,16 @@ export function MainMenu({
               <span className="text-xs text-muted">الرصيد المتاح</span>
             </Link>
 
-            <button
-              type="button"
-              onClick={() => setCopyOpen((v) => !v)}
+            <Link
+              href={activeCopyProviderId ? `/trader/${activeCopyProviderId}` : "/discover"}
+              onClick={close}
               className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background"
             >
               <CandlestickIcon />
-              <span className="flex-1 text-start">النسخ</span>
-              <ChevronIcon open={copyOpen} />
-            </button>
-            {copyOpen && (
-              <div className="flex flex-col gap-2 px-4 pb-2 pt-1">
-                <Link
-                  href={activeCopyProviderId ? `/trader/${activeCopyProviderId}` : "/discover"}
-                  onClick={close}
-                  className="flex items-center justify-between gap-2 rounded-lg border border-border px-3 py-2.5"
-                >
-                  <div className="min-w-0">
-                    <p className="text-sm font-medium text-foreground">النسخ النشط</p>
-                    <p className="truncate text-xs text-muted">
-                      {activeCopyProviderId ? `تنسخ ${activeCopyProviderName ?? "متداول"}` : "لا تنسخ أحد"}
-                    </p>
-                  </div>
-                  <ForwardArrowIcon />
-                </Link>
-                <Link
-                  href="/portfolio#following"
-                  onClick={close}
-                  className="flex items-center justify-between gap-2 rounded-lg border border-border px-3 py-2.5"
-                >
-                  <div className="min-w-0">
-                    <p className="text-sm font-medium text-foreground">المتابَعون</p>
-                    <p className="truncate text-xs text-muted">
-                      {followsCount && followsCount > 0 ? `تتابع ${followsCount} متداول` : "لا تتابع أحد"}
-                    </p>
-                  </div>
-                  <ForwardArrowIcon />
-                </Link>
-              </div>
-            )}
-            {copyOpen && (
-              <div className="flex flex-col pb-2">
-                {TRADING_ITEMS.map((item) => (
+              <span className="flex-1 text-start">النسخ النشط</span>
+            </Link>
+            <div className="flex flex-col pb-2">
+              {TRADING_ITEMS.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
@@ -416,8 +371,7 @@ export function MainMenu({
                     {item.label}
                   </Link>
                 ))}
-              </div>
-            )}
+            </div>
 
             <div className="border-t border-border" />
 

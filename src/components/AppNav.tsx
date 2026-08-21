@@ -17,10 +17,8 @@ export async function AppNav() {
   let email: string | null = null;
   let notifications: { id: string; title: string; body: string | null; is_read: boolean; created_at: string }[] = [];
   let activeCopyProviderId: string | null = null;
-  let activeCopyProviderName: string | null = null;
-  let followsCount = 0;
   if (user) {
-    const [{ data: profile }, { data: notificationRows }, { data: activeSub }, { count: followCount }] = await Promise.all([
+    const [{ data: profile }, { data: notificationRows }, { data: activeSub }] = await Promise.all([
       supabase.from("profiles").select("is_admin, balance, is_suspended, display_name, email").eq("id", user.id).single(),
       supabase
         .from("notifications")
@@ -35,7 +33,6 @@ export async function AppNav() {
         .eq("is_active", true)
         .limit(1)
         .maybeSingle(),
-      supabase.from("follows").select("provider_id", { count: "exact", head: true }).eq("follower_id", user.id),
     ]);
     if (profile?.is_suspended) redirect("/suspended");
     isAdmin = !!profile?.is_admin;
@@ -43,17 +40,7 @@ export async function AppNav() {
     displayName = profile?.display_name ?? null;
     email = profile?.email ?? user.email ?? null;
     notifications = notificationRows ?? [];
-    followsCount = followCount ?? 0;
-
-    if (activeSub?.provider_id) {
-      activeCopyProviderId = activeSub.provider_id;
-      const { data: activeProvider } = await supabase
-        .from("provider_cards")
-        .select("display_name")
-        .eq("provider_id", activeSub.provider_id)
-        .single();
-      activeCopyProviderName = activeProvider?.display_name ?? null;
-    }
+    activeCopyProviderId = activeSub?.provider_id ?? null;
   }
 
   return (
@@ -69,8 +56,6 @@ export async function AppNav() {
               displayName={displayName}
               email={email}
               activeCopyProviderId={activeCopyProviderId}
-              activeCopyProviderName={activeCopyProviderName}
-              followsCount={followsCount}
             />
           ) : (
             <Link
