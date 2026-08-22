@@ -108,12 +108,13 @@ export async function AppNav() {
           </span>
         </Link>
 
-        <div className="flex items-center justify-end gap-2">
+        <div className="flex items-center justify-end gap-3">
           {user ? (
             <NotificationsMenu notifications={notifications} />
           ) : (
             <>
               <LanguageSwitcher currentLocale={locale} />
+              <span className="h-4 w-px bg-border" aria-hidden="true" />
               <Link href="/login" className="text-xs font-medium text-foreground underline sm:text-sm">
                 {t("login")}
               </Link>

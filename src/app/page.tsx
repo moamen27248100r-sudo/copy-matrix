@@ -143,7 +143,6 @@ export default async function Home() {
             </span>
 
             <div className="flex items-center gap-2 sm:gap-3">
-              <LanguageSwitcher currentLocale={locale} />
               <Link href="/login" className="rounded border border-border px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm">
                 {t("nav.login")}
               </Link>
@@ -156,12 +155,15 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-2 text-xs text-muted sm:gap-x-6 sm:pt-3 sm:text-sm">
-            {navLinks.map((l) => (
-              <a key={l.href} href={l.href} className="hover:text-foreground">
-                {l.label}
-              </a>
-            ))}
+          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 pt-2 text-xs text-muted sm:gap-x-6 sm:pt-3 sm:text-sm">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 sm:gap-x-6">
+              {navLinks.map((l) => (
+                <a key={l.href} href={l.href} className="hover:text-foreground">
+                  {l.label}
+                </a>
+              ))}
+            </div>
+            <LanguageSwitcher currentLocale={locale} />
           </div>
         </div>
       </nav>
