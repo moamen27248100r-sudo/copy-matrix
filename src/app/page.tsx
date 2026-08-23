@@ -109,20 +109,20 @@ export default async function Home() {
     <main className="flex min-h-screen flex-col">
       <nav className="border-b border-border">
         <div className="mx-auto max-w-6xl px-4 py-3 sm:px-6 sm:py-4">
-          <div className="grid grid-cols-[auto_1fr_auto] items-center gap-2 sm:gap-3">
+          <div className="grid grid-cols-[auto_1fr_auto] items-center gap-1 sm:gap-3">
             <Link
               href="/signup"
-              className="rounded bg-accent px-3 py-1.5 text-xs font-medium text-accent-foreground transition hover:bg-accent-hover sm:px-4 sm:py-2 sm:text-sm"
+              className="whitespace-nowrap rounded bg-accent px-2 py-1.5 text-[11px] font-medium text-accent-foreground transition hover:bg-accent-hover sm:px-4 sm:py-2 sm:text-sm"
             >
               {t("nav.signup")}
             </Link>
 
-            <span className="flex items-center justify-center gap-0.5 text-base font-semibold sm:text-lg" dir="ltr">
+            <span className="flex items-center justify-center gap-0.5 whitespace-nowrap text-sm font-semibold sm:text-lg" dir="ltr">
               Copy Matrix
               <span className="flex items-center">
                 <svg
                   viewBox="0 0 24 24"
-                  className="h-4 w-4 text-brand"
+                  className="h-3 w-3 text-brand sm:h-4 sm:w-4"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2.5"
@@ -135,7 +135,7 @@ export default async function Home() {
                 </svg>
                 <svg
                   viewBox="0 0 24 24"
-                  className="-ml-1.5 h-4 w-4 text-brand"
+                  className="-ml-1 h-3 w-3 text-brand sm:-ml-1.5 sm:h-4 sm:w-4"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2.5"
@@ -149,9 +149,9 @@ export default async function Home() {
               </span>
             </span>
 
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-1 sm:gap-3">
               <LanguageSwitcher currentLocale={locale} />
-              <Link href="/login" className="rounded border border-border px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm">
+              <Link href="/login" className="whitespace-nowrap rounded border border-border px-2 py-1.5 text-[11px] sm:px-4 sm:py-2 sm:text-sm">
                 {t("nav.login")}
               </Link>
             </div>
