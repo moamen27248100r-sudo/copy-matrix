@@ -109,52 +109,50 @@ export default async function Home() {
     <main className="flex min-h-screen flex-col">
       <nav className="border-b border-border">
         <div className="mx-auto max-w-6xl px-4 py-3 sm:px-6 sm:py-4">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 sm:gap-3">
-              <span className="flex items-center gap-0.5 text-base font-semibold sm:text-lg" dir="ltr">
-                Copy Matrix
-                <span className="flex items-center">
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="h-4 w-4 text-brand"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M5 19l3-5 3 3 5-9" />
-                    <path d="M12 8h4v4" />
-                  </svg>
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="-ml-1.5 h-4 w-4 text-brand"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M5 19l3-5 3 3 5-9" />
-                    <path d="M12 8h4v4" />
-                  </svg>
-                </span>
+          <div className="grid grid-cols-[auto_1fr_auto] items-center gap-2 sm:gap-3">
+            <Link
+              href="/signup"
+              className="rounded bg-accent px-3 py-1.5 text-xs font-medium text-accent-foreground transition hover:bg-accent-hover sm:px-4 sm:py-2 sm:text-sm"
+            >
+              {t("nav.signup")}
+            </Link>
+
+            <span className="flex items-center justify-center gap-0.5 text-base font-semibold sm:text-lg" dir="ltr">
+              Copy Matrix
+              <span className="flex items-center">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-4 w-4 text-brand"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M5 19l3-5 3 3 5-9" />
+                  <path d="M12 8h4v4" />
+                </svg>
+                <svg
+                  viewBox="0 0 24 24"
+                  className="-ml-1.5 h-4 w-4 text-brand"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M5 19l3-5 3 3 5-9" />
+                  <path d="M12 8h4v4" />
+                </svg>
               </span>
-              <span className="h-4 w-px bg-border" aria-hidden="true" />
-              <LanguageSwitcher currentLocale={locale} />
-            </div>
+            </span>
 
             <div className="flex items-center gap-2 sm:gap-3">
+              <LanguageSwitcher currentLocale={locale} />
               <Link href="/login" className="rounded border border-border px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm">
                 {t("nav.login")}
-              </Link>
-              <Link
-                href="/signup"
-                className="rounded bg-accent px-3 py-1.5 text-xs font-medium text-accent-foreground transition hover:bg-accent-hover sm:px-4 sm:py-2 sm:text-sm"
-              >
-                {t("nav.signup")}
               </Link>
             </div>
           </div>
