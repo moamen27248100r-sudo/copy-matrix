@@ -15,7 +15,7 @@ export function TradingViewChart({ symbol = "OANDA:XAUUSD" }: { symbol?: string 
     script.innerHTML = JSON.stringify({
       autosize: true,
       symbol,
-      interval: "60",
+      interval: "1",
       timezone: "Etc/UTC",
       theme: "dark",
       style: "1",
