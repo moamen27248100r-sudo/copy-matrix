@@ -1,0 +1,115 @@
+{
+  "Home": {
+    "nav": {
+      "howItWorks": "Comment ça marche",
+      "traders": "Traders",
+      "markets": "Marchés",
+      "features": "Fonctionnalités",
+      "faq": "FAQ",
+      "login": "Connexion",
+      "signup": "S'inscrire"
+    },
+    "hero": {
+      "title": "Copiez automatiquement les trades des meilleurs traders",
+      "subtitle": "Parcourez des historiques de performance réels et vérifiés pour des centaines de traders, et choisissez celui en qui vous avez confiance pour copier ses trades.",
+      "start": "Commencer",
+      "browse": "Parcourir les traders",
+      "trust0": "Aucuns frais cachés sur la copie ou les profits",
+      "trust1": "Arrêtez de copier n'importe quel trader instantanément, à tout moment",
+      "trust2": "Vos données sont entièrement protégées et chiffrées",
+      "imageAlt": "Capture d'écran de l'application Copy Matrix montrant un trade en direct et les fonctionnalités de la plateforme"
+    },
+    "highlights": [
+      { "title": "Suivi en temps réel", "desc": "Suivez vos trades instantanément" },
+      { "title": "Retraits rapides", "desc": "Dépôts et retraits rapides et sécurisés" },
+      { "title": "Sans frais cachés", "desc": "Transparence totale sur les frais" },
+      { "title": "Sécurité et transparence", "desc": "Protégé par les dernières technologies" }
+    ],
+    "features": {
+      "title": "Fonctionnalités de la plateforme",
+      "items": [
+        { "title": "Transparence totale", "desc": "L'historique de chaque trader est public — chaque trade et chaque résultat sont documentés et clairs." },
+        { "title": "Suivi en temps réel", "desc": "Suivez la performance des traders que vous copiez et vos profits, instant par instant, depuis un seul tableau de bord." },
+        { "title": "Compte démo ou réel", "desc": "Commencez avec un compte démo pour vous entraîner avec des fonds virtuels sans risque, ou un compte réel qui reflète votre solde réel — changez entre les deux à tout moment." },
+        { "title": "Marchés multiples", "desc": "Des traders spécialisés en cryptomonnaies, forex, or et indices mondiaux." },
+        { "title": "Sans frais cachés", "desc": "Nous ne déduisons jamais de commission sur vos profits ni sur la copie, quel que soit le montant." },
+        { "title": "Vérification administrative sur chaque transaction", "desc": "Chaque demande de dépôt ou de retrait est vérifiée et approuvée manuellement par notre équipe avant exécution, pour protéger votre compte." }
+      ]
+    },
+    "markets": {
+      "toolsTitle": "Instruments de trading disponibles",
+      "toolsDesc": "Prix en direct pour les mêmes instruments négociés par les traders de notre plateforme.",
+      "liveTitle": "Marchés en direct",
+      "liveDesc": "Suivez les mouvements de prix instant par instant, et changez de paire directement depuis le graphique."
+    },
+    "howItWorks": {
+      "badge": "4 étapes simples",
+      "title": "Comment fonctionne la plateforme",
+      "subtitle": "Commencez à copier des trades automatiquement en suivant des étapes claires et simples",
+      "steps": [
+        { "title": "Créez votre compte", "desc": "Terminez l'inscription et la vérification d'identité pour obtenir un compte vérifié." },
+        { "title": "Déposez vos fonds", "desc": "Déposez le montant que vous souhaitez investir via les moyens de paiement disponibles, à approuver par notre équipe d'administration." },
+        { "title": "Choisissez un trader", "desc": "Consultez les historiques de performance vérifiés de chaque trader, et choisissez celui qui correspond à votre stratégie et à votre niveau de risque préféré." },
+        { "title": "Commencez à copier automatiquement", "desc": "Les trades du trader que vous avez choisi sont copiés instantanément sur votre compte, et vous pouvez arrêter la copie à tout moment sans restriction." }
+      ]
+    },
+    "traders": {
+      "title": "Meilleurs traders",
+      "viewAll": "Voir tout",
+      "copiers": "copieurs",
+      "winRate": "Taux de réussite",
+      "avgReturn": "Rendement moyen",
+      "viewProfile": "Voir le profil",
+      "copy": "Copier"
+    },
+    "stats": {
+      "title": "Statistiques",
+      "live": "Données en direct, mises à jour en temps réel",
+      "activeTraders": "Traders actifs",
+      "copyUsers": "Utilisateurs copieurs",
+      "avgWinRate": "Taux de réussite moyen",
+      "totalProfit": "Profits totaux réalisés",
+      "bestReturn": "Meilleur rendement mensuel",
+      "totalTrades": "Total des trades exécutés",
+      "footnote1": "Ce chiffre fluctue naturellement autour de sa valeur réelle à chaque actualisation de la page pour refléter l'activité en direct sur la plateforme.",
+      "footnote2": "Un chiffre réel calculé directement à partir des résultats des trades clôturés des traders sur la plateforme, sans aucun arrondi ni ajustement.",
+      "disclaimer": "Les performances passées ne garantissent pas les résultats futurs. La copie de trading comporte des risques pouvant entraîner la perte d'une partie ou de la totalité de votre capital — veuillez consulter les",
+      "termsLink": "Conditions générales",
+      "disclaimerEnd": "avant de commencer."
+    },
+    "faq": {
+      "title": "Questions fréquentes",
+      "subtitle": "Tout ce que vous devez savoir avant de commencer à copier des trades",
+      "items": [
+        { "q": "Quelle est la différence entre un compte démo et un compte réel ?", "a": "Un compte démo vous permet d'essayer la copie de trading avec des fonds virtuels sans risque, tandis qu'un compte réel reflète votre solde réel. Vous pouvez choisir et changer votre type de compte à tout moment depuis la page des paramètres après inscription." },
+        { "q": "Comment fonctionne la copie de trades ?", "a": "Dès que vous suivez un trader, chaque trade qu'il exécute — ouverture ou fermeture — est copié automatiquement sur votre compte avec les mêmes détails, au moment même où il se produit, sans aucune action manuelle de votre part." },
+        { "q": "Puis-je arrêter de copier à tout moment ?", "a": "Oui, vous pouvez arrêter de copier n'importe quel trader instantanément, à tout moment, depuis la page de votre portefeuille, sans conditions ni période d'attente." },
+        { "q": "Puis-je copier plusieurs traders en même temps ?", "a": "Non, le système est conçu pour que vous ne copiiez qu'un seul trader à la fois, afin de garder une gestion des risques claire. Vous pouvez vous désabonner et copier un autre trader à tout moment." },
+        { "q": "Quel est le minimum requis pour commencer à copier ?", "a": "Le minimum varie d'un trader à l'autre, et est indiqué clairement sur le profil de chaque trader avant de commencer à le suivre." },
+        { "q": "Y a-t-il des frais ou commissions cachés ?", "a": "Non, il n'y a aucune commission ni frais cachés sur la copie de trades ou sur les profits réalisés, quel que soit le montant." },
+        { "q": "Dois-je installer une plateforme de trading séparée ?", "a": "Non, le suivi de la performance des traders et la copie de leurs trades se font entièrement depuis le tableau de bord Copy Matrix, sans besoin d'installer une application ou plateforme externe." },
+        { "q": "Comment déposer ou retirer des fonds ?", "a": "Vous pouvez soumettre une demande de dépôt ou de retrait depuis la page de votre portefeuille à tout moment, et elle sera examinée et approuvée par notre équipe d'administration avant de se refléter sur votre solde." }
+      ]
+    },
+    "cta": {
+      "title": "Prêt à commencer ?",
+      "subtitle": "Créez votre compte maintenant et commencez à copier automatiquement les trades des meilleurs traders.",
+      "button": "Créer un compte gratuit"
+    },
+    "footer": {
+      "tagline": "Une plateforme sociale de copy trading pour suivre les meilleurs traders et copier automatiquement leurs trades.",
+      "platform": "Plateforme",
+      "legal": "Légal",
+      "terms": "Conditions générales",
+      "privacy": "Politique de confidentialité",
+      "rights": "Tous droits réservés. Fondée en 2024."
+    }
+  },
+  "Nav": {
+    "createAccount": "S'inscrire",
+    "login": "Connexion"
+  },
+  "LangSwitcher": {
+    "label": "Langue"
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "Home": {
+    "nav": {
+      "howItWorks": "Jinsi inavyofanya kazi",
+      "traders": "Wafanyabiashara",
+      "markets": "Masoko",
+      "features": "Vipengele",
+      "faq": "Maswali yanayoulizwa mara kwa mara",
+      "login": "Ingia",
+      "signup": "Jisajili"
+    },
+    "hero": {
+      "title": "Nakili biashara za wafanyabiashara bora kiotomatiki",
+      "subtitle": "Vinjari rekodi za utendaji halisi na zilizothibitishwa za mamia ya wafanyabiashara, na uchague unayemwamini kunakili biashara zake.",
+      "start": "Anza sasa",
+      "browse": "Vinjari wafanyabiashara",
+      "trust0": "Hakuna ada zilizofichwa kwenye kunakili au faida",
+      "trust1": "Acha kunakili mfanyabiashara yeyote papo hapo, wakati wowote",
+      "trust2": "Data yako imelindwa na kusimbwa kwa usiri kikamilifu",
+      "imageAlt": "Picha ya skrini ya programu ya Copy Matrix ikionyesha biashara ya moja kwa moja na vipengele vya jukwaa"
+    },
+    "highlights": [
+      { "title": "Ufuatiliaji wa wakati halisi", "desc": "Fuatilia biashara zako papo hapo" },
+      { "title": "Uondoaji wa haraka", "desc": "Uwekaji na uondoaji wa fedha kwa haraka na usalama" },
+      { "title": "Hakuna ada zilizofichwa", "desc": "Uwazi kamili katika ada" },
+      { "title": "Usalama na uwazi", "desc": "Imelindwa kwa teknolojia ya kisasa zaidi" }
+    ],
+    "features": {
+      "title": "Vipengele vya Jukwaa",
+      "items": [
+        { "title": "Uwazi kamili", "desc": "Rekodi ya kila mfanyabiashara ni ya wazi kwa umma — kila biashara na kila matokeo yameandikwa na ni wazi." },
+        { "title": "Ufuatiliaji wa wakati halisi", "desc": "Fuatilia utendaji wa wafanyabiashara unaowanakili na faida zako, wakati kwa wakati, kutoka dashibodi moja." },
+        { "title": "Akaunti ya majaribio au halisi", "desc": "Anza na akaunti ya majaribio kufanya mazoezi kwa fedha za kudhaniwa bila hatari, au akaunti halisi inayoakisi salio lako halisi — badilisha kati ya hizo wakati wowote." },
+        { "title": "Masoko mengi", "desc": "Wafanyabiashara wanaobobea katika sarafu za kidijitali, forex, dhahabu, na fahirisi za kimataifa." },
+        { "title": "Hakuna ada zilizofichwa", "desc": "Hatuondoi kamwe kamisheni yoyote kutoka kwa faida zako au kutoka kwa unakili, haijalishi kiasi ni kikubwa kiasi gani." },
+        { "title": "Ukaguzi wa usimamizi kwa kila muamala", "desc": "Kila ombi la uwekaji au uondoaji hukaguliwa na kuidhinishwa kwa mkono na timu yetu kabla ya utekelezaji, ili kulinda akaunti yako." }
+      ]
+    },
+    "markets": {
+      "toolsTitle": "Vyombo vya Biashara Vinavyopatikana",
+      "toolsDesc": "Bei za moja kwa moja za vyombo sawa vinavyofanyiwa biashara na wafanyabiashara wa jukwaa letu.",
+      "liveTitle": "Masoko ya Moja kwa Moja",
+      "liveDesc": "Fuatilia mwendo wa bei wakati kwa wakati, na ubadilishe jozi moja kwa moja kutoka kwenye chati."
+    },
+    "howItWorks": {
+      "badge": "Hatua 4 rahisi",
+      "title": "Jinsi Jukwaa Linavyofanya Kazi",
+      "subtitle": "Anza kunakili biashara kiotomatiki kwa kufuata hatua wazi na rahisi",
+      "steps": [
+        { "title": "Unda akaunti yako", "desc": "Kamilisha usajili na uthibitisho wa utambulisho ili kupata akaunti iliyothibitishwa." },
+        { "title": "Weka fedha zako", "desc": "Weka kiasi unachotaka kuwekeza kupitia njia za malipo zinazopatikana, ili kiidhinishwe na timu yetu ya usimamizi." },
+        { "title": "Chagua mfanyabiashara", "desc": "Kagua rekodi za utendaji zilizothibitishwa za kila mfanyabiashara, na uchague anayeendana na mkakati wako na kiwango cha hatari unachopendelea." },
+        { "title": "Anza kunakili kiotomatiki", "desc": "Biashara za mfanyabiashara uliyemchagua zinanakiliwa kwenye akaunti yako papo hapo, na unaweza kusitisha unakili wakati wowote bila vikwazo." }
+      ]
+    },
+    "traders": {
+      "title": "Wafanyabiashara Bora",
+      "viewAll": "Tazama wote",
+      "copiers": "wanaonakili",
+      "winRate": "Kiwango cha ushindi",
+      "avgReturn": "Wastani wa mapato",
+      "viewProfile": "Tazama wasifu",
+      "copy": "Nakili"
+    },
+    "stats": {
+      "title": "Takwimu",
+      "live": "Data ya moja kwa moja, inasasishwa kwa wakati halisi",
+      "activeTraders": "Wafanyabiashara hai",
+      "copyUsers": "Watumiaji wanaonakili",
+      "avgWinRate": "Wastani wa kiwango cha ushindi",
+      "totalProfit": "Jumla ya faida zilizopatikana",
+      "bestReturn": "Mapato bora zaidi ya kila mwezi",
+      "totalTrades": "Jumla ya biashara zilizotekelezwa",
+      "footnote1": "Nambari hii inabadilika kiasili kuzunguka thamani yake halisi kwa kila kuonyesha upya ukurasa ili kuakisi shughuli za moja kwa moja kwenye jukwaa.",
+      "footnote2": "Nambari halisi iliyohesabiwa moja kwa moja kutoka kwa matokeo ya biashara zilizofungwa za wafanyabiashara kwenye jukwaa, bila mzunguko au marekebisho yoyote.",
+      "disclaimer": "Utendaji wa zamani hauhakikishi matokeo ya baadaye. Unakili wa biashara unahusisha hatari zinazoweza kusababisha kupoteza sehemu au mtaji wako wote — tafadhali kagua",
+      "termsLink": "Masharti na Vigezo",
+      "disclaimerEnd": "kabla ya kuanza."
+    },
+    "faq": {
+      "title": "Maswali Yanayoulizwa Mara kwa Mara",
+      "subtitle": "Kila kitu unachohitaji kujua kabla ya kuanza kunakili biashara",
+      "items": [
+        { "q": "Kuna tofauti gani kati ya akaunti ya majaribio na akaunti halisi?", "a": "Akaunti ya majaribio inakuruhusu kujaribu unakili wa biashara kwa fedha za kudhaniwa bila hatari, wakati akaunti halisi inaakisi salio lako halisi. Unaweza kuchagua na kubadilisha aina ya akaunti wakati wowote kutoka ukurasa wa mipangilio baada ya kujisajili." },
+        { "q": "Unakili wa biashara unafanyaje kazi?", "a": "Mara tu unapomfuata mfanyabiashara, kila biashara anayoifanya — kufungua au kufunga — inanakiliwa kiotomatiki kwenye akaunti yako kwa maelezo sawa, wakati huo huo inatokea, bila hatua yoyote ya mkono kutoka kwako." },
+        { "q": "Je, ninaweza kusitisha unakili wakati wowote?", "a": "Ndiyo, unaweza kusitisha kunakili mfanyabiashara yeyote papo hapo, wakati wowote, kutoka ukurasa wa portfolio yako, bila masharti au muda wa kusubiri." },
+        { "q": "Je, ninaweza kunakili wafanyabiashara zaidi ya mmoja kwa wakati mmoja?", "a": "Hapana, mfumo umeundwa ili unakili mfanyabiashara mmoja tu kwa wakati, ili kudumisha usimamizi wa hatari wazi. Unaweza kuacha kumfuata na kunakili mfanyabiashara mwingine wakati wowote." },
+        { "q": "Kiasi cha chini kinachohitajika kuanza kunakili ni kipi?", "a": "Kiasi cha chini kinatofautiana kutoka kwa mfanyabiashara mmoja hadi mwingine, na kinaonyeshwa wazi kwenye wasifu wa kila mfanyabiashara kabla ya kuanza kumfuata." },
+        { "q": "Je, kuna ada au kamisheni zilizofichwa?", "a": "Hapana, hakuna kamisheni au ada zilizofichwa kwenye unakili wa biashara au faida zilizopatikana, haijalishi kiasi ni kikubwa kiasi gani." },
+        { "q": "Je, ninahitaji kusakinisha jukwaa la biashara tofauti?", "a": "Hapana, ufuatiliaji wa utendaji wa wafanyabiashara na unakili wa biashara zao hufanyika kikamilifu ndani ya dashibodi ya Copy Matrix, bila haja ya kusakinisha programu au jukwaa lolote la nje." },
+        { "q": "Ninawezaje kuweka au kutoa fedha?", "a": "Unaweza kuwasilisha ombi la uwekaji au uondoaji kutoka ukurasa wa portfolio yako wakati wowote, na litakaguliwa na kuidhinishwa na timu yetu ya usimamizi kabla ya kuakisiwa kwenye salio lako." }
+      ]
+    },
+    "cta": {
+      "title": "Uko tayari kuanza?",
+      "subtitle": "Unda akaunti yako sasa na uanze kunakili biashara za wafanyabiashara bora kiotomatiki.",
+      "button": "Unda akaunti bila malipo"
+    },
+    "footer": {
+      "tagline": "Jukwaa la kijamii la unakili wa biashara kwa ajili ya kufuata wafanyabiashara bora na kunakili biashara zao kiotomatiki.",
+      "platform": "Jukwaa",
+      "legal": "Kisheria",
+      "terms": "Masharti na Vigezo",
+      "privacy": "Sera ya Faragha",
+      "rights": "Haki zote zimehifadhiwa. Ilianzishwa mwaka 2024."
+    }
+  },
+  "Nav": {
+    "createAccount": "Jisajili",
+    "login": "Ingia"
+  },
+  "LangSwitcher": {
+    "label": "Lugha"
+  }
+}

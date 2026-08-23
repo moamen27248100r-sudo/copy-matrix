@@ -1,0 +1,115 @@
+{
+  "Home": {
+    "nav": {
+      "howItWorks": "Cara kerja",
+      "traders": "Trader",
+      "markets": "Pasar",
+      "features": "Fitur",
+      "faq": "FAQ",
+      "login": "Masuk",
+      "signup": "Daftar"
+    },
+    "hero": {
+      "title": "Salin transaksi trader terbaik secara otomatis",
+      "subtitle": "Jelajahi rekam jejak performa yang nyata dan terverifikasi dari ratusan trader, dan pilih siapa yang Anda percaya untuk disalin transaksinya.",
+      "start": "Mulai sekarang",
+      "browse": "Jelajahi trader",
+      "trust0": "Tanpa biaya tersembunyi untuk menyalin atau keuntungan",
+      "trust1": "Hentikan menyalin trader mana pun secara instan, kapan saja",
+      "trust2": "Data Anda sepenuhnya dilindungi dan dienkripsi",
+      "imageAlt": "Tangkapan layar aplikasi Copy Matrix yang menampilkan transaksi langsung dan fitur-fitur platform"
+    },
+    "highlights": [
+      { "title": "Pelacakan real-time", "desc": "Ikuti transaksi Anda secara instan" },
+      { "title": "Penarikan cepat", "desc": "Deposit dan penarikan yang cepat dan aman" },
+      { "title": "Tanpa biaya tersembunyi", "desc": "Transparansi penuh dalam biaya" },
+      { "title": "Keamanan & transparansi", "desc": "Dilindungi dengan teknologi terbaru" }
+    ],
+    "features": {
+      "title": "Fitur Platform",
+      "items": [
+        { "title": "Transparansi penuh", "desc": "Rekam jejak setiap trader bersifat publik — setiap transaksi dan setiap hasil didokumentasikan dan jelas." },
+        { "title": "Pelacakan real-time", "desc": "Ikuti performa trader yang Anda salin dan keuntungan Anda, dari waktu ke waktu, dari satu dasbor." },
+        { "title": "Akun demo atau real", "desc": "Mulai dengan akun demo untuk berlatih dengan dana virtual tanpa risiko, atau akun real yang mencerminkan saldo aktual Anda — beralih di antara keduanya kapan saja." },
+        { "title": "Berbagai pasar", "desc": "Trader yang berspesialisasi dalam kripto, forex, emas, dan indeks global." },
+        { "title": "Tanpa biaya tersembunyi", "desc": "Kami tidak pernah memotong komisi apa pun dari keuntungan Anda atau dari penyalinan, berapa pun besarnya." },
+        { "title": "Peninjauan admin pada setiap transaksi", "desc": "Setiap permintaan deposit atau penarikan ditinjau dan disetujui secara manual oleh tim kami sebelum dieksekusi, untuk melindungi akun Anda." }
+      ]
+    },
+    "markets": {
+      "toolsTitle": "Instrumen Trading yang Tersedia",
+      "toolsDesc": "Harga langsung untuk instrumen yang sama yang diperdagangkan oleh trader di platform kami.",
+      "liveTitle": "Pasar Langsung",
+      "liveDesc": "Pantau pergerakan harga dari waktu ke waktu, dan ubah pasangan langsung dari grafik."
+    },
+    "howItWorks": {
+      "badge": "4 langkah mudah",
+      "title": "Cara Kerja Platform",
+      "subtitle": "Mulai menyalin transaksi secara otomatis dengan mengikuti langkah-langkah yang jelas dan sederhana",
+      "steps": [
+        { "title": "Buat akun Anda", "desc": "Selesaikan pendaftaran dan verifikasi identitas untuk mendapatkan akun terverifikasi." },
+        { "title": "Setor dana Anda", "desc": "Setor jumlah yang ingin Anda investasikan melalui metode pembayaran yang tersedia, untuk disetujui oleh tim admin kami." },
+        { "title": "Pilih seorang trader", "desc": "Tinjau rekam jejak performa terverifikasi dari setiap trader, dan pilih yang sesuai dengan strategi dan tingkat risiko yang Anda sukai." },
+        { "title": "Mulai menyalin secara otomatis", "desc": "Transaksi trader yang Anda pilih disalin ke akun Anda secara instan, dan Anda dapat berhenti menyalin kapan saja tanpa batasan." }
+      ]
+    },
+    "traders": {
+      "title": "Trader Terbaik",
+      "viewAll": "Lihat semua",
+      "copiers": "penyalin",
+      "winRate": "Tingkat kemenangan",
+      "avgReturn": "Rata-rata imbal hasil",
+      "viewProfile": "Lihat profil",
+      "copy": "Salin"
+    },
+    "stats": {
+      "title": "Statistik",
+      "live": "Data langsung, diperbarui secara real-time",
+      "activeTraders": "Trader aktif",
+      "copyUsers": "Pengguna penyalin",
+      "avgWinRate": "Rata-rata tingkat kemenangan",
+      "totalProfit": "Total keuntungan yang direalisasikan",
+      "bestReturn": "Imbal hasil bulanan terbaik",
+      "totalTrades": "Total transaksi yang dieksekusi",
+      "footnote1": "Angka ini secara alami berfluktuasi di sekitar nilai sebenarnya dengan setiap penyegaran halaman untuk mencerminkan aktivitas langsung di platform.",
+      "footnote2": "Angka aktual yang dihitung langsung dari hasil transaksi trader yang telah ditutup di platform, tanpa pembulatan atau penyesuaian apa pun.",
+      "disclaimer": "Kinerja masa lalu tidak menjamin hasil di masa depan. Copy trading melibatkan risiko yang dapat menyebabkan kehilangan sebagian atau seluruh modal Anda — harap tinjau",
+      "termsLink": "Syarat & Ketentuan",
+      "disclaimerEnd": "sebelum memulai."
+    },
+    "faq": {
+      "title": "Pertanyaan yang Sering Diajukan",
+      "subtitle": "Semua yang perlu Anda ketahui sebelum mulai menyalin transaksi",
+      "items": [
+        { "q": "Apa perbedaan antara akun demo dan akun real?", "a": "Akun demo memungkinkan Anda mencoba copy trading dengan dana virtual tanpa risiko, sedangkan akun real mencerminkan saldo aktual Anda. Anda dapat memilih dan mengubah jenis akun kapan saja dari halaman pengaturan setelah mendaftar." },
+        { "q": "Bagaimana cara kerja penyalinan transaksi?", "a": "Setelah Anda mengikuti seorang trader, setiap transaksi yang mereka lakukan — buka atau tutup — akan disalin secara otomatis ke akun Anda dengan detail yang sama, pada saat itu terjadi, tanpa tindakan manual dari Anda." },
+        { "q": "Bisakah saya berhenti menyalin kapan saja?", "a": "Ya, Anda dapat berhenti menyalin trader mana pun secara instan, kapan saja, dari halaman portofolio Anda, tanpa syarat atau masa tunggu." },
+        { "q": "Bisakah saya menyalin lebih dari satu trader sekaligus?", "a": "Tidak, sistem dirancang agar Anda hanya menyalin satu trader dalam satu waktu, untuk menjaga manajemen risiko tetap jelas. Anda dapat berhenti mengikuti dan menyalin trader lain kapan saja." },
+        { "q": "Berapa minimum yang diperlukan untuk mulai menyalin?", "a": "Minimum bervariasi dari satu trader ke trader lainnya, dan ditampilkan dengan jelas di profil setiap trader sebelum Anda mulai mengikutinya." },
+        { "q": "Apakah ada biaya atau komisi tersembunyi?", "a": "Tidak, tidak ada komisi atau biaya tersembunyi untuk menyalin transaksi atau keuntungan yang direalisasikan, berapa pun besarnya." },
+        { "q": "Apakah saya perlu menginstal platform trading terpisah?", "a": "Tidak, pelacakan performa trader dan penyalinan transaksi mereka sepenuhnya dilakukan dari dalam dasbor Copy Matrix, tanpa perlu menginstal aplikasi atau platform eksternal apa pun." },
+        { "q": "Bagaimana cara saya melakukan deposit atau penarikan?", "a": "Anda dapat mengajukan permintaan deposit atau penarikan dari halaman portofolio Anda kapan saja, dan akan ditinjau serta disetujui oleh tim admin kami sebelum tercermin pada saldo Anda." }
+      ]
+    },
+    "cta": {
+      "title": "Siap untuk memulai?",
+      "subtitle": "Buat akun Anda sekarang dan mulai menyalin transaksi trader terbaik secara otomatis.",
+      "button": "Buat akun gratis"
+    },
+    "footer": {
+      "tagline": "Platform copy trading sosial untuk mengikuti trader terbaik dan menyalin transaksi mereka secara otomatis.",
+      "platform": "Platform",
+      "legal": "Legal",
+      "terms": "Syarat & Ketentuan",
+      "privacy": "Kebijakan Privasi",
+      "rights": "Hak cipta dilindungi. Didirikan pada 2024."
+    }
+  },
+  "Nav": {
+    "createAccount": "Daftar",
+    "login": "Masuk"
+  },
+  "LangSwitcher": {
+    "label": "Bahasa"
+  }
+}

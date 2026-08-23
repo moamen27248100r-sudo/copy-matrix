@@ -1,0 +1,115 @@
+{
+  "Home": {
+    "nav": {
+      "howItWorks": "Cómo funciona",
+      "traders": "Traders",
+      "markets": "Mercados",
+      "features": "Características",
+      "faq": "Preguntas frecuentes",
+      "login": "Iniciar sesión",
+      "signup": "Registrarse"
+    },
+    "hero": {
+      "title": "Copia automáticamente las operaciones de los mejores traders",
+      "subtitle": "Explora historiales de rendimiento reales y verificados de cientos de traders, y elige en quién confías para copiar sus operaciones.",
+      "start": "Comenzar",
+      "browse": "Explorar traders",
+      "trust0": "Sin comisiones ocultas por copiar u obtener ganancias",
+      "trust1": "Deja de copiar a cualquier trader al instante, en cualquier momento",
+      "trust2": "Tus datos están totalmente protegidos y cifrados",
+      "imageAlt": "Captura de pantalla de la app Copy Matrix mostrando una operación en vivo y las funciones de la plataforma"
+    },
+    "highlights": [
+      { "title": "Seguimiento en tiempo real", "desc": "Sigue tus operaciones al instante" },
+      { "title": "Retiros rápidos", "desc": "Depósitos y retiros rápidos y seguros" },
+      { "title": "Sin comisiones ocultas", "desc": "Transparencia total en las tarifas" },
+      { "title": "Seguridad y transparencia", "desc": "Protegido con la última tecnología" }
+    ],
+    "features": {
+      "title": "Características de la plataforma",
+      "items": [
+        { "title": "Transparencia total", "desc": "El historial de cada trader es público — cada operación y cada resultado están documentados y son claros." },
+        { "title": "Seguimiento en tiempo real", "desc": "Sigue el rendimiento de los traders que copias y tus ganancias, momento a momento, desde un solo panel." },
+        { "title": "Cuenta demo o real", "desc": "Empieza con una cuenta demo para practicar con fondos virtuales sin riesgo, o una cuenta real que refleje tu saldo real — cambia entre ellas cuando quieras." },
+        { "title": "Múltiples mercados", "desc": "Traders especializados en criptomonedas, forex, oro e índices globales." },
+        { "title": "Sin comisiones ocultas", "desc": "Nunca deducimos ninguna comisión de tus ganancias ni de la copia, sin importar el monto." },
+        { "title": "Revisión administrativa en cada transacción", "desc": "Cada solicitud de depósito o retiro es revisada y aprobada manualmente por nuestro equipo antes de ejecutarse, para proteger tu cuenta." }
+      ]
+    },
+    "markets": {
+      "toolsTitle": "Instrumentos de trading disponibles",
+      "toolsDesc": "Precios en vivo para los mismos instrumentos que operan los traders de nuestra plataforma.",
+      "liveTitle": "Mercados en vivo",
+      "liveDesc": "Sigue el movimiento de precios momento a momento, y cambia de par directamente desde el gráfico."
+    },
+    "howItWorks": {
+      "badge": "4 pasos simples",
+      "title": "Cómo funciona la plataforma",
+      "subtitle": "Comienza a copiar operaciones automáticamente siguiendo pasos claros y sencillos",
+      "steps": [
+        { "title": "Crea tu cuenta", "desc": "Completa el registro y la verificación de identidad para obtener una cuenta verificada." },
+        { "title": "Deposita tus fondos", "desc": "Deposita el monto que deseas invertir a través de los métodos de pago disponibles, para ser aprobado por nuestro equipo de administración." },
+        { "title": "Elige un trader", "desc": "Revisa los historiales de rendimiento verificados de cada trader, y elige el que se ajuste a tu estrategia y nivel de riesgo preferido." },
+        { "title": "Comienza a copiar automáticamente", "desc": "Las operaciones del trader que elegiste se copian a tu cuenta al instante, y puedes dejar de copiar en cualquier momento sin restricciones." }
+      ]
+    },
+    "traders": {
+      "title": "Mejores traders",
+      "viewAll": "Ver todos",
+      "copiers": "copiadores",
+      "winRate": "Tasa de acierto",
+      "avgReturn": "Rendimiento promedio",
+      "viewProfile": "Ver perfil",
+      "copy": "Copiar"
+    },
+    "stats": {
+      "title": "Estadísticas",
+      "live": "Datos en vivo, actualizados en tiempo real",
+      "activeTraders": "Traders activos",
+      "copyUsers": "Usuarios copiando",
+      "avgWinRate": "Tasa de acierto promedio",
+      "totalProfit": "Ganancias totales obtenidas",
+      "bestReturn": "Mejor rendimiento mensual",
+      "totalTrades": "Total de operaciones ejecutadas",
+      "footnote1": "Esta cifra fluctúa naturalmente alrededor de su valor real con cada actualización de la página para reflejar la actividad en vivo en la plataforma.",
+      "footnote2": "Una cifra real calculada directamente a partir de los resultados de las operaciones cerradas de los traders en la plataforma, sin ningún redondeo ni ajuste.",
+      "disclaimer": "El rendimiento pasado no garantiza resultados futuros. Copiar operaciones implica riesgos que pueden llevar a la pérdida de parte o la totalidad de tu capital — por favor revisa los",
+      "termsLink": "Términos y condiciones",
+      "disclaimerEnd": "antes de empezar."
+    },
+    "faq": {
+      "title": "Preguntas frecuentes",
+      "subtitle": "Todo lo que necesitas saber antes de empezar a copiar operaciones",
+      "items": [
+        { "q": "¿Cuál es la diferencia entre una cuenta demo y una cuenta real?", "a": "Una cuenta demo te permite probar la copia de operaciones con fondos virtuales sin riesgo, mientras que una cuenta real refleja tu saldo real. Puedes elegir y cambiar el tipo de cuenta en cualquier momento desde la página de configuración después de registrarte." },
+        { "q": "¿Cómo funciona la copia de operaciones?", "a": "En cuanto sigues a un trader, cada operación que ejecuta — apertura o cierre — se copia automáticamente en tu cuenta con los mismos detalles, en el momento en que ocurre, sin ninguna acción manual de tu parte." },
+        { "q": "¿Puedo dejar de copiar en cualquier momento?", "a": "Sí, puedes dejar de copiar a cualquier trader al instante, en cualquier momento, desde la página de tu portafolio, sin condiciones ni período de espera." },
+        { "q": "¿Puedo copiar a más de un trader al mismo tiempo?", "a": "No, el sistema está diseñado para que copies solo a un trader a la vez, para mantener clara la gestión de riesgos. Puedes dejar de seguir y copiar a otro trader en cualquier momento." },
+        { "q": "¿Cuál es el mínimo requerido para empezar a copiar?", "a": "El mínimo varía de un trader a otro, y se muestra claramente en el perfil de cada trader antes de empezar a seguirlo." },
+        { "q": "¿Hay comisiones o tarifas ocultas?", "a": "No, no hay ninguna comisión ni tarifa oculta por copiar operaciones o por las ganancias obtenidas, sin importar el monto." },
+        { "q": "¿Necesito instalar una plataforma de trading aparte?", "a": "No, el seguimiento del rendimiento de los traders y la copia de sus operaciones se realiza completamente desde el panel de Copy Matrix, sin necesidad de instalar ninguna aplicación o plataforma externa." },
+        { "q": "¿Cómo deposito o retiro fondos?", "a": "Puedes enviar una solicitud de depósito o retiro desde la página de tu portafolio en cualquier momento, y será revisada y aprobada por nuestro equipo de administración antes de reflejarse en tu saldo." }
+      ]
+    },
+    "cta": {
+      "title": "¿Listo para empezar?",
+      "subtitle": "Crea tu cuenta ahora y comienza a copiar automáticamente las operaciones de los mejores traders.",
+      "button": "Crear cuenta gratis"
+    },
+    "footer": {
+      "tagline": "Una plataforma social de copy trading para seguir a los mejores traders y copiar sus operaciones automáticamente.",
+      "platform": "Plataforma",
+      "legal": "Legal",
+      "terms": "Términos y condiciones",
+      "privacy": "Política de privacidad",
+      "rights": "Todos los derechos reservados. Fundada en 2024."
+    }
+  },
+  "Nav": {
+    "createAccount": "Registrarse",
+    "login": "Iniciar sesión"
+  },
+  "LangSwitcher": {
+    "label": "Idioma"
+  }
+}
