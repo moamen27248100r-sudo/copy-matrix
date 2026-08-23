@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { updateProfile, updateAccountType, changePassword } from "@/app/settings/actions";
 import { AppNav } from "@/components/AppNav";
+import { BackButton } from "@/components/BackButton";
 
 export default async function SettingsPage({
   searchParams,
@@ -26,6 +27,7 @@ export default async function SettingsPage({
     <>
       <AppNav />
       <main className="mx-auto flex w-full max-w-sm flex-col gap-6 p-6">
+        <BackButton fallbackHref="/dashboard" />
         <h1 className="text-2xl font-semibold">الإعدادات</h1>
 
         {error && (

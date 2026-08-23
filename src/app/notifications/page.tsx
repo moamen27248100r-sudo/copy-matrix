@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { markAllRead, markOneRead } from "@/app/notifications/actions";
 import { AppNav } from "@/components/AppNav";
+import { BackButton } from "@/components/BackButton";
 
 function renderBody(body: string) {
   const match = body.match(/^(.*?)([+-]\d[\d,]*\.?\d*)\$$/);
@@ -37,6 +38,7 @@ export default async function NotificationsPage() {
     <>
       <AppNav />
       <main className="mx-auto flex w-full max-w-lg flex-col gap-4 p-6">
+        <BackButton fallbackHref="/dashboard" />
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-semibold">الإشعارات</h1>
           {hasUnread && (

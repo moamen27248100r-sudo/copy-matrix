@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { submitKyc } from "@/app/kyc/actions";
 import { AppNav } from "@/components/AppNav";
+import { BackButton } from "@/components/BackButton";
 
 const STATUS_LABELS: Record<string, string> = {
   pending: "قيد المراجعة",
@@ -36,6 +37,7 @@ export default async function KycPage({
     <>
       <AppNav />
       <main className="mx-auto flex w-full max-w-sm flex-col justify-center gap-4 p-6">
+        <BackButton fallbackHref="/dashboard" />
         <h1 className="text-2xl font-semibold">توثيق الهوية</h1>
 
       {submission ? (
