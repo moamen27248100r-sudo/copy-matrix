@@ -65,7 +65,7 @@ export async function AppNav() {
           ) : (
             <Link
               href="/signup"
-              className="rounded bg-accent px-3 py-1.5 text-xs font-medium text-accent-foreground transition hover:bg-accent-hover sm:text-sm"
+              className="whitespace-nowrap rounded bg-accent px-2 py-1.5 text-[11px] font-medium text-accent-foreground transition hover:bg-accent-hover sm:px-3 sm:text-sm"
             >
               {t("createAccount")}
             </Link>
@@ -108,14 +108,14 @@ export async function AppNav() {
           </span>
         </Link>
 
-        <div className="flex items-center justify-end gap-3">
+        <div className="flex items-center justify-end gap-2 sm:gap-3">
           {user ? (
             <NotificationsMenu notifications={notifications} />
           ) : (
             <>
               <LanguageSwitcher currentLocale={locale} />
               <span className="h-4 w-px bg-border" aria-hidden="true" />
-              <Link href="/login" className="text-xs font-medium text-foreground underline sm:text-sm">
+              <Link href="/login" className="whitespace-nowrap text-[11px] font-medium text-foreground underline sm:text-sm">
                 {t("login")}
               </Link>
             </>
