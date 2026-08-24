@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
+import { BackButton } from "@/components/BackButton";
 import { AccountsSection } from "@/components/AccountsSection";
 
 const QUICK_LINKS = [
@@ -116,6 +117,7 @@ export default async function DashboardPage() {
     <>
       <AppNav />
       <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6">
+        <BackButton fallbackHref="/" />
         <div className="flex flex-wrap items-center gap-3">
           <div>
             <h1 className="text-2xl font-semibold">

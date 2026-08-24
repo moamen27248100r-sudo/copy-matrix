@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { unfollowProvider } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
+import { BackButton } from "@/components/BackButton";
 import { pinTopLeaders } from "@/lib/pin-top-leaders";
 
 const SORT_OPTIONS = {
@@ -54,6 +55,7 @@ export default async function DiscoverPage({
     <>
       <AppNav />
       <main className="mx-auto flex w-full max-w-4xl flex-col gap-6 p-6">
+        <BackButton fallbackHref="/dashboard" />
         <h1 className="text-2xl font-semibold">اكتشاف المتداولين</h1>
 
         <form method="get" className="flex flex-col gap-2 sm:flex-row">

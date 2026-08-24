@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
+import { BackButton } from "@/components/BackButton";
 import { TradingViewChart } from "@/components/TradingViewChart";
 import { symbolTradingViewTicker } from "@/lib/symbol-icons";
 
@@ -23,6 +24,7 @@ export default async function MarketsPage({
     <>
       <AppNav />
       <main className="mx-auto flex w-full max-w-5xl flex-col gap-4 p-6">
+        <BackButton fallbackHref="/dashboard" />
         <div>
           <h1 className="text-2xl font-semibold">الأسواق</h1>
           <p className="mt-1 text-sm text-muted">تابع حركة الأسعار لحظة بلحظة، وغيّر الزوج من داخل الشارت.</p>

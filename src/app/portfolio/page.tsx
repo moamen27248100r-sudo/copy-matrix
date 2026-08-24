@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { unfollowProvider, unfollowTrader } from "@/app/discover/actions";
 import { requestDeposit, requestWithdrawal } from "@/app/portfolio/actions";
 import { AppNav } from "@/components/AppNav";
+import { BackButton } from "@/components/BackButton";
 import { PortfolioTabs } from "@/components/PortfolioTabs";
 import { TradeHistory } from "@/components/TradeHistory";
 
@@ -435,6 +436,7 @@ export default async function PortfolioPage({
     <>
       <AppNav />
       <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6">
+        <BackButton fallbackHref="/dashboard" />
         <h1 className="text-2xl font-semibold">محفظتي</h1>
 
         {error && (

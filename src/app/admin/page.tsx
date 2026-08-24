@@ -12,6 +12,7 @@ import {
   deleteLeader,
 } from "@/app/admin/actions";
 import { AppNav } from "@/components/AppNav";
+import { BackButton } from "@/components/BackButton";
 import { ConfirmButton } from "@/components/ConfirmButton";
 
 const STATUS_LABELS: Record<string, string> = {
@@ -141,6 +142,7 @@ export default async function AdminPage({
     <>
       <AppNav />
       <main className="mx-auto flex w-full max-w-4xl flex-col gap-8 p-6">
+        <BackButton fallbackHref="/dashboard" />
         <h1 className="text-2xl font-semibold">لوحة الإدارة</h1>
 
         {error && (
