@@ -233,7 +233,7 @@ export function SignupForm({ next }: { next?: string | null }) {
               value={nationalNumber}
               onChange={(e) => setNationalNumber(e.target.value.replace(/\D/g, ""))}
               onBlur={() => setPhoneTouched(true)}
-              placeholder="5xxxxxxxx"
+              placeholder="xxxxxxxxx"
               required
               className="w-full min-w-0 bg-transparent outline-none"
             />
