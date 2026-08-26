@@ -110,7 +110,11 @@ function CountryCodeSelect({ country, onChange }: { country: Country; onChange: 
         aria-label="اختر مفتاح الدولة"
         className="flex w-full items-center justify-center gap-1 rounded border border-border bg-background px-1.5 py-2 text-sm"
       >
-        <span>{country.flag}</span>
+        <img
+          src={`https://flagcdn.com/24x18/${country.iso.toLowerCase()}.png`}
+          alt=""
+          className="h-3.5 w-[1.15rem] shrink-0 rounded-[1px] object-cover"
+        />
         <span className="text-xs text-muted">{country.iso}</span>
         <svg
           viewBox="0 0 24 24"
@@ -138,7 +142,11 @@ function CountryCodeSelect({ country, onChange }: { country: Country; onChange: 
               }}
               className="flex w-full items-center gap-2 rounded px-2 py-1.5 text-start text-sm hover:bg-background"
             >
-              <span>{c.flag}</span>
+              <img
+                src={`https://flagcdn.com/24x18/${c.iso.toLowerCase()}.png`}
+                alt=""
+                className="h-3.5 w-[1.15rem] shrink-0 rounded-[1px] object-cover"
+              />
               <span className="flex-1 truncate">{c.name}</span>
               <span className="text-xs text-muted" dir="ltr">
                 {c.code}
