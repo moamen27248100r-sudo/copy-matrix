@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { followProvider, unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/actions";
+import { followProvider, unfollowProvider } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
 import { TraderEquityChart } from "@/components/TraderEquityChart";
@@ -82,7 +82,7 @@ export default async function TraderPage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  const [{ data: provider }, { data: signals }, { data: mySub }, { data: myProfile }, { data: otherSub }, { data: myFollow }] = await Promise.all([
+  const [{ data: provider }, { data: signals }, { data: mySub }, { data: myProfile }, { data: otherSub }] = await Promise.all([
     supabase.from("provider_cards").select("*").eq("provider_id", id).single(),
     supabase
       .from("signals")
@@ -110,9 +110,6 @@ export default async function TraderPage({
           .neq("provider_id", id)
           .maybeSingle()
       : Promise.resolve({ data: null }),
-    user
-      ? supabase.from("follows").select("id").eq("follower_id", user.id).eq("provider_id", id).maybeSingle()
-      : Promise.resolve({ data: null }),
   ]);
 
   if (!provider) {
@@ -121,7 +118,6 @@ export default async function TraderPage({
 
   const allSignals = (signals ?? []) as SignalRow[];
   const isFollowing = !!mySub;
-  const isFollowingTrader = !!myFollow;
   const maxDrawdown = computeMaxDrawdown(allSignals);
 
   const closedHistory = allSignals
@@ -208,28 +204,6 @@ export default async function TraderPage({
               })}
             </p>
           </div>
-          {user ? (
-            <form action={isFollowingTrader ? unfollowTrader : followTrader}>
-              <input type="hidden" name="providerId" value={id} />
-              <button
-                type="submit"
-                className={
-                  isFollowingTrader
-                    ? "rounded-full border border-accent bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent"
-                    : "rounded-full border border-border px-4 py-1.5 text-sm font-medium text-foreground transition hover:border-accent hover:text-accent"
-                }
-              >
-                {isFollowingTrader ? "متابَع ✓" : "متابعة"}
-              </button>
-            </form>
-          ) : (
-            <Link
-              href={`/signup?next=${encodeURIComponent(`/trader/${id}`)}`}
-              className="rounded-full border border-border px-4 py-1.5 text-sm font-medium text-foreground transition hover:border-accent hover:text-accent"
-            >
-              متابعة
-            </Link>
-          )}
         </div>
 
         <div className="flex flex-wrap gap-1.5 text-xs">
