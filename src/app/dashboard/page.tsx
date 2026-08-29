@@ -263,7 +263,7 @@ export default async function DashboardPage() {
                     <div>
                       <p className="text-sm font-medium">{p.display_name}</p>
                       <p className="text-xs text-muted">
-                        مبلغ النسخ: ${Number(allocationByProvider.get(p.provider_id) ?? 0).toLocaleString("en-US")}
+                        بدأ بمبلغ: ${Number(allocationByProvider.get(p.provider_id) ?? 0).toLocaleString("en-US")}
                       </p>
                     </div>
                   </div>

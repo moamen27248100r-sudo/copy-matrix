@@ -274,7 +274,7 @@ export default async function PortfolioPage({
                     {p.display_name}
                   </p>
                   <p className="text-xs text-muted">
-                    مبلغ النسخ: ${Number(allocationByProvider.get(p.provider_id) ?? 0).toLocaleString("en-US")}
+                    بدأ بمبلغ: ${Number(allocationByProvider.get(p.provider_id) ?? 0).toLocaleString("en-US")}
                   </p>
                 </div>
               </Link>
