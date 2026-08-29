@@ -80,6 +80,18 @@ export default async function Home() {
     return value * (1 + (Math.random() * 2 - 1) * pct);
   }
 
+  // أعلى عائد شهري changes once a day (not every refresh, since a
+  // real best-performer figure shouldn't visibly flicker) — seeded off
+  // today's date so it's stable all day and shifts to a new value
+  // tomorrow.
+  function dailyJitter(value: number, pct: number) {
+    const seed = new Date().toISOString().slice(0, 10);
+    let hash = 0;
+    for (let i = 0; i < seed.length; i++) hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
+    const rand = (hash % 10000) / 10000;
+    return value * (1 + (rand * 2 - 1) * pct);
+  }
+
   // "متداول نشط" = how many distinct traders currently have at least one
   // real copier — still tied directly to the same follower data as
   // "مستخدم ناسخ" (moves automatically as customers join/leave any
@@ -98,7 +110,8 @@ export default async function Home() {
   );
   const totalProfit = (allProviders ?? []).reduce((sum, p) => sum + Number(p.total_profit ?? 0), 0);
   const returns = (allProviders ?? []).map((p) => p.avg_return_pct).filter((v): v is number => v != null);
-  const bestReturn = returns.length ? Math.max(...returns) : null;
+  const rawBestReturn = returns.length ? Math.max(...returns) : null;
+  const bestReturn = rawBestReturn != null ? Math.round(dailyJitter(rawBestReturn, 0.08) * 100) / 100 : null;
   // Weighted by each trader's own follower count instead of a flat mean,
   // so this reads as "the win rate the average COPYING USER actually
   // sees" — consistent with totalCopiers and totalProfit — rather than
