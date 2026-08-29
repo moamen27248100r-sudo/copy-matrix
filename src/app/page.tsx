@@ -80,10 +80,12 @@ export default async function Home() {
     return value * (1 + (Math.random() * 2 - 1) * pct);
   }
 
-  const totalTraders = Math.max(
-    0,
-    Math.round(jitter((allProviders ?? []).filter((p) => (p.open_signals ?? 0) > 0).length, 0.08)),
-  );
+  // "متداول نشط" is the actual pool of traders available to copy — a
+  // stable count that totalCopiers divides into meaningfully (copiers ÷
+  // traders = the same "followers per trader" figure shown on each
+  // trader's own card), not a fast-fluctuating "has an open position
+  // this instant" sample that made the two numbers look unrelated.
+  const totalTraders = Math.max(0, Math.round(jitter((allProviders ?? []).length, 0.02)));
   const totalCopiers = Math.round(
     jitter((allProviders ?? []).reduce((sum, p) => sum + (p.followers_count ?? 0), 0), 0.04),
   );
@@ -94,8 +96,18 @@ export default async function Home() {
   const totalProfit = (allProviders ?? []).reduce((sum, p) => sum + Number(p.total_profit ?? 0), 0);
   const returns = (allProviders ?? []).map((p) => p.avg_return_pct).filter((v): v is number => v != null);
   const bestReturn = returns.length ? Math.max(...returns) : null;
-  const winRates = (allProviders ?? []).map((p) => p.win_rate_pct).filter((v): v is number => v != null);
-  const rawAvgWinRate = winRates.length ? winRates.reduce((a, b) => a + b, 0) / winRates.length : null;
+  // Weighted by each trader's own follower count instead of a flat mean,
+  // so this reads as "the win rate the average COPYING USER actually
+  // sees" — consistent with totalCopiers and totalProfit — rather than
+  // being dragged down by obscure, barely-followed traders counting the
+  // same as heavily-copied ones.
+  const winRateRows = (allProviders ?? []).filter(
+    (p): p is typeof p & { win_rate_pct: number } => p.win_rate_pct != null,
+  );
+  const winRateWeight = winRateRows.reduce((sum, p) => sum + Math.max(1, p.followers_count ?? 0), 0);
+  const rawAvgWinRate = winRateWeight
+    ? winRateRows.reduce((sum, p) => sum + p.win_rate_pct * Math.max(1, p.followers_count ?? 0), 0) / winRateWeight
+    : null;
   const avgWinRate = rawAvgWinRate != null ? Math.min(99, Math.max(1, Math.round(jitter(rawAvgWinRate, 0.03)))) : null;
 
   const navLinks = NAV_HASHES.map((h) => ({ href: `#${h}`, label: t(`nav.${h === "how-it-works" ? "howItWorks" : h}`) }));
