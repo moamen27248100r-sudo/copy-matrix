@@ -396,7 +396,6 @@ export default async function Home() {
               <p className="text-xl font-semibold sm:text-3xl">{totalTraders}+</p>
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 {t("stats.activeTraders")}
-                <sup>1</sup>
               </p>
             </div>
 
@@ -412,7 +411,6 @@ export default async function Home() {
               <p className="text-xl font-semibold sm:text-3xl">{totalCopiers.toLocaleString("en-US")}+</p>
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 {t("stats.copyUsers")}
-                <sup>1</sup>
               </p>
             </div>
 
@@ -428,7 +426,6 @@ export default async function Home() {
               </p>
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 {t("stats.avgWinRate")}
-                <sup>1</sup>
               </p>
             </div>
 
@@ -447,7 +444,6 @@ export default async function Home() {
               </p>
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 {t("stats.totalProfit")}
-                <sup>2</sup>
               </p>
             </div>
 
@@ -463,7 +459,6 @@ export default async function Home() {
               </p>
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 {t("stats.bestReturn")}
-                <sup>2</sup>
               </p>
             </div>
 
@@ -478,19 +473,12 @@ export default async function Home() {
               <p className="text-xl font-semibold sm:text-3xl">{totalExecutedTrades.toLocaleString("en-US")}+</p>
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 {t("stats.totalTrades")}
-                <sup>2</sup>
               </p>
             </div>
           </div>
 
           <div className="mx-auto flex max-w-2xl flex-col gap-2 text-center text-xs leading-relaxed text-muted">
             <p>
-              <sup>1</sup> {t("stats.footnote1")}
-            </p>
-            <p>
-              <sup>2</sup> {t("stats.footnote2")}
-            </p>
-            <p className="pt-2">
               {t("stats.disclaimer")}{" "}
               <Link href="/legal/terms" className="underline">
                 {t("stats.termsLink")}
