@@ -80,12 +80,14 @@ export default async function Home() {
     return value * (1 + (Math.random() * 2 - 1) * pct);
   }
 
-  // "متداول نشط" is the actual pool of traders available to copy — a
-  // stable count that totalCopiers divides into meaningfully (copiers ÷
-  // traders = the same "followers per trader" figure shown on each
-  // trader's own card), not a fast-fluctuating "has an open position
-  // this instant" sample that made the two numbers look unrelated.
-  const totalTraders = Math.max(0, Math.round(jitter((allProviders ?? []).length, 0.02)));
+  // "متداول نشط" = traders who actually have at least one real copier
+  // right now, so it's tied directly to the follower data and moves
+  // with it automatically as customers join or leave any trader —
+  // not a fixed pool size or an unrelated instantaneous sample.
+  const totalTraders = Math.max(
+    0,
+    Math.round(jitter((allProviders ?? []).filter((p) => (p.followers_count ?? 0) > 0).length, 0.02)),
+  );
   const totalCopiers = Math.round(
     jitter((allProviders ?? []).reduce((sum, p) => sum + (p.followers_count ?? 0), 0), 0.04),
   );
