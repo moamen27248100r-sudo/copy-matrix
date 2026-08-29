@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
-import { TradingViewChart } from "@/components/TradingViewChart";
 import { MarketOverview } from "@/components/MarketOverview";
 import { pinTopLeaders } from "@/lib/pin-top-leaders";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
@@ -260,14 +259,6 @@ export default async function Home() {
         </div>
         <div className="mx-auto w-full max-w-5xl overflow-hidden rounded-lg border border-border">
           <MarketOverview />
-        </div>
-
-        <div className="mx-auto flex w-full max-w-5xl flex-col gap-1 pt-6">
-          <h2 className="text-2xl font-semibold">{t("markets.liveTitle")}</h2>
-          <p className="text-sm text-muted">{t("markets.liveDesc")}</p>
-        </div>
-        <div className="mx-auto w-full max-w-5xl overflow-hidden rounded-lg border border-border">
-          <TradingViewChart />
         </div>
       </section>
 
