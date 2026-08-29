@@ -80,13 +80,14 @@ export default async function Home() {
     return value * (1 + (Math.random() * 2 - 1) * pct);
   }
 
-  // "متداول نشط" = the real total number of copying customers across
-  // every leader (same underlying sum as "مستخدم ناسخ"), independently
-  // jittered so it moves with that real data on its own each refresh
-  // instead of being a fixed trader-roster count.
+  // "متداول نشط" = how many distinct traders currently have at least one
+  // real copier — still tied directly to the same follower data as
+  // "مستخدم ناسخ" (moves automatically as customers join/leave any
+  // trader), but counting traders instead of summing customers keeps
+  // the two numbers at naturally different, non-confusable scales.
   const totalTraders = Math.max(
     0,
-    Math.round(jitter((allProviders ?? []).reduce((sum, p) => sum + (p.followers_count ?? 0), 0), 0.05)),
+    Math.round(jitter((allProviders ?? []).filter((p) => (p.followers_count ?? 0) > 0).length, 0.02)),
   );
   const totalCopiers = Math.round(
     jitter((allProviders ?? []).reduce((sum, p) => sum + (p.followers_count ?? 0), 0), 0.04),
