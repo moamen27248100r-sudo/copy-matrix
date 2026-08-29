@@ -183,7 +183,7 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
                     </div>
                     <span className={isProfit ? "shrink-0 font-semibold text-success" : "shrink-0 font-semibold text-danger"} dir="ltr">
                       {t.pnl != null
-                        ? `${isProfit ? "+" : ""}${t.pnl.toFixed(2)}`
+                        ? `${isProfit ? "+" : ""}${t.pnl.toFixed(2)} (${isProfit ? "+" : ""}${t.pct.toFixed(2)}%)`
                         : `${isProfit ? "+" : ""}${t.pct.toFixed(2)}%`}
                     </span>
                   </div>
