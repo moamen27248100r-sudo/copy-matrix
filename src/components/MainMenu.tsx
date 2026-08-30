@@ -3,8 +3,15 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { logout } from "@/app/auth/actions";
+import { logout, chooseAccountType } from "@/app/auth/actions";
 import { useNavDrawer } from "@/components/nav-drawer-context";
+
+type AccountType = "real" | "demo";
+
+const ACCOUNT_TYPE_OPTIONS: { key: AccountType; label: string; dot: string }[] = [
+  { key: "real", label: "الحساب الحقيقي", dot: "bg-success" },
+  { key: "demo", label: "الحساب التجريبي", dot: "bg-accent" },
+];
 
 const TRADING_ITEMS = [
   {
@@ -193,6 +200,15 @@ function ChevronIcon({ open }: { open: boolean }) {
   );
 }
 
+function CheckCircleIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-success" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M9 12l2 2 4-4" />
+    </svg>
+  );
+}
+
 function PaymentsIcon() {
   return (
     <svg
@@ -225,18 +241,21 @@ export function MainMenu({
   isAdmin,
   displayName,
   email,
+  accountType,
   activeCopyProviderId,
 }: {
   balance: number | null;
   isAdmin: boolean;
   displayName?: string | null;
   email?: string | null;
+  accountType?: AccountType | null;
   activeCopyProviderId?: string | null;
 }) {
   const { open, toggle, close } = useNavDrawer("menu");
   const panelRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const [paymentsOpen, setPaymentsOpen] = useState(true);
+  const [accountSwitcherOpen, setAccountSwitcherOpen] = useState(false);
   const [hash, setHash] = useState("");
   const [search, setSearch] = useState("");
 
@@ -311,12 +330,41 @@ export function MainMenu({
                   {email ? maskEmail(email) : "—"}
                 </span>
               </div>
-              <Link href="/settings" onClick={close} aria-label="إعدادات الحساب" className="shrink-0 text-muted">
-                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
-              </Link>
+              <button
+                type="button"
+                onClick={() => setAccountSwitcherOpen((v) => !v)}
+                aria-label="تبديل نوع الحساب"
+                className="shrink-0 text-muted"
+              >
+                <ChevronIcon open={accountSwitcherOpen} />
+              </button>
             </div>
+
+            {accountSwitcherOpen && (
+              <div className="flex flex-col border-b border-border">
+                {ACCOUNT_TYPE_OPTIONS.map((opt) =>
+                  accountType === opt.key ? (
+                    <div key={opt.key} className="flex items-center gap-3 bg-background/60 px-4 py-3 text-sm">
+                      <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${opt.dot}`} aria-hidden="true" />
+                      <span className="flex-1 font-medium">{opt.label}</span>
+                      <CheckCircleIcon />
+                    </div>
+                  ) : (
+                    <form key={opt.key} action={chooseAccountType}>
+                      <input type="hidden" name="accountType" value={opt.key} />
+                      <input type="hidden" name="next" value={pathname} />
+                      <button
+                        type="submit"
+                        className="flex w-full items-center gap-3 px-4 py-3 text-sm text-muted transition hover:bg-background hover:text-foreground"
+                      >
+                        <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${opt.dot} opacity-40`} aria-hidden="true" />
+                        <span className="flex-1 text-start">{opt.label}</span>
+                      </button>
+                    </form>
+                  ),
+                )}
+              </div>
+            )}
 
             <Link
               href="/portfolio"

@@ -21,11 +21,12 @@ export async function AppNav() {
   let balance: number | null = null;
   let displayName: string | null = null;
   let email: string | null = null;
+  let accountType: "real" | "demo" | null = null;
   let notifications: { id: string; title: string; body: string | null; is_read: boolean; created_at: string }[] = [];
   let activeCopyProviderId: string | null = null;
   if (user) {
     const [{ data: profile }, { data: notificationRows }, { data: activeSub }] = await Promise.all([
-      supabase.from("profiles").select("is_admin, balance, is_suspended, display_name, email").eq("id", user.id).single(),
+      supabase.from("profiles").select("is_admin, balance, is_suspended, display_name, email, account_type").eq("id", user.id).single(),
       supabase
         .from("notifications")
         .select("id, title, body, is_read, created_at")
@@ -45,6 +46,7 @@ export async function AppNav() {
     balance = profile?.balance ?? null;
     displayName = profile?.display_name ?? null;
     email = profile?.email ?? user.email ?? null;
+    accountType = (profile?.account_type as "real" | "demo") ?? "demo";
     notifications = notificationRows ?? [];
     activeCopyProviderId = activeSub?.provider_id ?? null;
   }
@@ -60,6 +62,7 @@ export async function AppNav() {
               isAdmin={isAdmin}
               displayName={displayName}
               email={email}
+              accountType={accountType}
               activeCopyProviderId={activeCopyProviderId}
             />
           ) : (
