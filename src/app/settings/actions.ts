@@ -42,10 +42,11 @@ export async function updateAccountType(formData: FormData) {
   if (!user) redirect("/login");
 
   const accountType = formData.get("accountType") === "real" ? "real" : "demo";
+  const balance = accountType === "real" ? 0 : 1000;
 
   const { error } = await supabase
     .from("profiles")
-    .update({ account_type: accountType })
+    .update({ account_type: accountType, balance })
     .eq("id", user.id);
 
   if (error) {

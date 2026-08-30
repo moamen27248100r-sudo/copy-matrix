@@ -66,6 +66,7 @@ export default async function SettingsPage({
           <h2 className="font-medium">نوع الحساب</h2>
           <p className="text-xs text-muted">
             الحساب الحقيقي يتيح إيداع وسحب أموال فعلية. الحساب التجريبي مخصص للتدريب والاستكشاف برصيد وهمي فقط.
+            التبديل بين النوعين يعيد ضبط رصيدك (تجريبي: 1,000$، حقيقي: 0$).
           </p>
           <form action={updateAccountType} className="flex flex-col gap-2">
             <label

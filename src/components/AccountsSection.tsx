@@ -1,7 +1,5 @@
-"use client";
-
 import Link from "next/link";
-import { useState } from "react";
+import { chooseAccountType } from "@/app/auth/actions";
 
 type AccountType = "real" | "demo";
 
@@ -26,8 +24,6 @@ export function AccountsSection({
   accountType: AccountType;
   balance: number | null;
 }) {
-  const [activeTab, setActiveTab] = useState<AccountType>(accountType);
-
   return (
     <section id="accounts" className="flex flex-col gap-3 scroll-mt-20">
       <div className="flex items-center justify-between">
@@ -42,57 +38,51 @@ export function AccountsSection({
       </div>
 
       <div className="flex gap-1.5 rounded-lg border border-border bg-surface p-1">
-        {TABS.map((t) => (
-          <button
-            key={t.key}
-            type="button"
-            onClick={() => setActiveTab(t.key)}
-            className={
-              activeTab === t.key
-                ? "flex-1 rounded bg-accent px-3 py-2 text-sm font-medium text-accent-foreground transition"
-                : "flex-1 rounded px-3 py-2 text-sm text-muted transition hover:text-foreground"
-            }
-          >
-            {t.label}
-          </button>
-        ))}
+        {TABS.map((t) =>
+          t.key === accountType ? (
+            <span
+              key={t.key}
+              className="flex-1 rounded bg-accent px-3 py-2 text-center text-sm font-medium text-accent-foreground"
+            >
+              {t.label}
+            </span>
+          ) : (
+            <form key={t.key} action={chooseAccountType} className="flex-1">
+              <input type="hidden" name="accountType" value={t.key} />
+              <input type="hidden" name="next" value="/dashboard" />
+              <button
+                type="submit"
+                className="w-full rounded px-3 py-2 text-sm text-muted transition hover:text-foreground"
+              >
+                {t.label}
+              </button>
+            </form>
+          ),
+        )}
       </div>
 
-      {activeTab === accountType ? (
-        <Link
-          href="/portfolio"
-          className="flex items-center justify-between rounded-xl border border-border bg-surface p-4 transition hover:border-accent/40 hover:shadow-lg"
-        >
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent/10">
-              <WalletIcon />
-            </div>
-            <div>
-              <p className="text-sm font-medium">
-                {accountType === "real" ? "الحساب الحقيقي" : "الحساب التجريبي"}
-              </p>
-              <p className="text-xs text-muted">الحساب الرئيسي</p>
-            </div>
+      <Link
+        href="/portfolio"
+        className="flex items-center justify-between rounded-xl border border-border bg-surface p-4 transition hover:border-accent/40 hover:shadow-lg"
+      >
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent/10">
+            <WalletIcon />
           </div>
-          <div className="text-end">
-            <p className="text-lg font-semibold">
-              ${balance != null ? Number(balance).toLocaleString("en-US", { maximumFractionDigits: 2 }) : "—"}
+          <div>
+            <p className="text-sm font-medium">
+              {accountType === "real" ? "الحساب الحقيقي" : "الحساب التجريبي"}
             </p>
-            <p className="text-xs text-muted">الرصيد المتاح</p>
+            <p className="text-xs text-muted">الحساب الرئيسي</p>
           </div>
-        </Link>
-      ) : (
-        <div className="flex flex-col items-center gap-2 rounded-xl border border-border bg-surface p-8 text-center">
-          <p className="text-sm font-medium">لا يوجد حسابات نشطة</p>
-          <p className="text-xs leading-relaxed text-muted">
-            حسابك الحالي {accountType === "real" ? "حقيقي" : "تجريبي"}. يمكنك تغيير نوع حسابك من الإعدادات
-            في أي وقت.
-          </p>
-          <Link href="/settings" className="mt-1 rounded border border-border px-4 py-1.5 text-sm text-foreground transition hover:border-accent hover:text-accent">
-            الذهاب إلى الإعدادات
-          </Link>
         </div>
-      )}
+        <div className="text-end">
+          <p className="text-lg font-semibold">
+            ${balance != null ? Number(balance).toLocaleString("en-US", { maximumFractionDigits: 2 }) : "—"}
+          </p>
+          <p className="text-xs text-muted">الرصيد المتاح</p>
+        </div>
+      </Link>
     </section>
   );
 }
