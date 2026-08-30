@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { followProvider, unfollowProvider } from "@/app/discover/actions";
+import { followProvider, unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
 import { TraderEquityChart } from "@/components/TraderEquityChart";
@@ -82,7 +82,7 @@ export default async function TraderPage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  const [{ data: provider }, { data: signals }, { data: mySub }, { data: myProfile }, { data: otherSub }] = await Promise.all([
+  const [{ data: provider }, { data: signals }, { data: mySub }, { data: myProfile }, { data: otherSub }, { data: myFollow }] = await Promise.all([
     supabase.from("provider_cards").select("*").eq("provider_id", id).single(),
     supabase
       .from("signals")
@@ -110,6 +110,9 @@ export default async function TraderPage({
           .neq("provider_id", id)
           .maybeSingle()
       : Promise.resolve({ data: null }),
+    user
+      ? supabase.from("follows").select("provider_id").eq("follower_id", user.id).eq("provider_id", id).maybeSingle()
+      : Promise.resolve({ data: null }),
   ]);
 
   if (!provider) {
@@ -118,6 +121,7 @@ export default async function TraderPage({
 
   const allSignals = (signals ?? []) as SignalRow[];
   const isFollowing = !!mySub;
+  const isWatching = !!myFollow;
   const maxDrawdown = computeMaxDrawdown(allSignals);
 
   const closedHistory = allSignals
@@ -195,7 +199,22 @@ export default async function TraderPage({
             {provider.display_name?.charAt(0) ?? "؟"}
           </div>
           <div className="flex-1">
-            <h1 className="text-xl font-semibold">{provider.display_name}</h1>
+            <div className="flex flex-wrap items-center gap-2">
+              <h1 className="text-xl font-semibold">{provider.display_name}</h1>
+              <form action={isWatching ? unfollowTrader : followTrader}>
+                <input type="hidden" name="providerId" value={id} />
+                <button
+                  type="submit"
+                  className={
+                    isWatching
+                      ? "rounded-full border border-border px-3 py-0.5 text-xs text-muted"
+                      : "rounded-full border border-accent px-3 py-0.5 text-xs text-accent"
+                  }
+                >
+                  {isWatching ? "إلغاء المتابعة" : "متابعة"}
+                </button>
+              </form>
+            </div>
             <p className="text-xs text-muted">
               عضو منذ{" "}
               {new Date(provider.joined_at).toLocaleDateString("ar-EG", {
@@ -203,6 +222,11 @@ export default async function TraderPage({
                 month: "long",
               })}
             </p>
+            {isWatching && (
+              <p className="mt-0.5 text-[11px] text-muted">
+                تصلك رسالة على بريدك الإلكتروني بتفاصيل أداء هذا المتداول عند المتابعة.
+              </p>
+            )}
           </div>
         </div>
 

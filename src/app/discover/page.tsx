@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { unfollowProvider } from "@/app/discover/actions";
+import { unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
 import { pinTopLeaders } from "@/lib/pin-top-leaders";
@@ -33,7 +33,7 @@ export default async function DiscoverPage({
   const { column, ascending } = SORT_OPTIONS[sortKey];
   providersQuery = providersQuery.order(column, { ascending, nullsFirst: false });
 
-  const [{ data: rawProviders }, { data: mySubscriptions }] = await Promise.all([
+  const [{ data: rawProviders }, { data: mySubscriptions }, { data: myFollows }] = await Promise.all([
     providersQuery,
     user
       ? supabase
@@ -41,6 +41,9 @@ export default async function DiscoverPage({
           .select("provider_id")
           .eq("follower_id", user.id)
           .eq("is_active", true)
+      : Promise.resolve({ data: [] as { provider_id: string }[] }),
+    user
+      ? supabase.from("follows").select("provider_id").eq("follower_id", user.id)
       : Promise.resolve({ data: [] as { provider_id: string }[] }),
   ]);
 
@@ -50,6 +53,7 @@ export default async function DiscoverPage({
     (mySubscriptions ?? []).map((s) => s.provider_id),
   );
   const followingProviderId = (mySubscriptions ?? [])[0]?.provider_id ?? null;
+  const watchingIds = new Set((myFollows ?? []).map((f) => f.provider_id));
 
   return (
     <>
@@ -88,6 +92,7 @@ export default async function DiscoverPage({
           {providers.map((p) => {
             const isFollowing = followingIds.has(p.provider_id);
             const isBlocked = followingProviderId != null && !isFollowing;
+            const isWatching = watchingIds.has(p.provider_id);
             const copyHref = user
               ? `/trader/${p.provider_id}#copy`
               : `/signup?next=${encodeURIComponent(`/trader/${p.provider_id}#copy`)}`;
@@ -101,10 +106,23 @@ export default async function DiscoverPage({
                     {p.display_name?.charAt(0) ?? "؟"}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex flex-wrap items-center gap-1.5">
                       <Link href={`/trader/${p.provider_id}`} className="min-w-0 truncate font-medium underline-offset-2 hover:underline">
                         {p.display_name}
                       </Link>
+                      <form action={isWatching ? unfollowTrader : followTrader}>
+                        <input type="hidden" name="providerId" value={p.provider_id} />
+                        <button
+                          type="submit"
+                          className={
+                            isWatching
+                              ? "rounded-full border border-border px-2 py-0.5 text-[11px] text-muted"
+                              : "rounded-full border border-accent px-2 py-0.5 text-[11px] text-accent"
+                          }
+                        >
+                          {isWatching ? "إلغاء المتابعة" : "متابعة"}
+                        </button>
+                      </form>
                     </div>
                     <p className="text-xs text-muted">
                       {p.followers_count} ناسخ
