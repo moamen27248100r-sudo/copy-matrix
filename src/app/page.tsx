@@ -76,7 +76,7 @@ export default async function Home() {
       traders_with_followers: number;
       total_followers: number;
       total_trades: number;
-      total_profit: number;
+      total_volume: number;
       best_daily_return: number | null;
       weighted_win_rate: number | null;
     } | null;
@@ -99,7 +99,13 @@ export default async function Home() {
   const totalTraders = statsRow?.traders_with_followers ?? 0;
   const totalCopiers = Math.round(jitter(statsRow?.total_followers ?? 0, 0.04));
   const totalExecutedTrades = statsRow?.total_trades ?? 0;
-  const totalProfit = Number(statsRow?.total_profit ?? 0);
+  // Total notional volume traded (open + closed signals × the fixed
+  // $2,000 per-trade size the platform's own P&L math already assumes,
+  // see run_market_simulation()) — real and derived from actual trade
+  // counts, and non-negative by construction, unlike a net-profit sum
+  // across leaders which can (and currently does) go negative once a
+  // realistic share of leaders are struggling/high-risk archetypes.
+  const totalVolume = Number(statsRow?.total_volume ?? 0);
   // The real leader with the single highest average DAILY return right
   // now — no synthetic adjustment. It moves on its own as real trades
   // close throughout each day (which leader holds the top spot can
@@ -107,7 +113,7 @@ export default async function Home() {
   const bestReturn = statsRow?.best_daily_return ?? null;
   // Weighted by each trader's own follower count instead of a flat mean,
   // so this reads as "the win rate the average COPYING USER actually
-  // sees" — consistent with totalCopiers and totalProfit — rather than
+  // sees" — consistent with totalCopiers and totalVolume — rather than
   // being dragged down by obscure, barely-followed traders counting the
   // same as heavily-copied ones.
   const rawAvgWinRate = statsRow?.weighted_win_rate ?? null;
@@ -194,6 +200,26 @@ export default async function Home() {
           <a href="#traders" className="rounded border border-border px-6 py-3 font-medium text-foreground">
             {t("hero.browse")}
           </a>
+        </div>
+        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 pt-2 text-center">
+          <div>
+            <LiveCounter base={totalTraders} suffix="+" className="text-lg font-semibold sm:text-2xl" />
+            <p className="text-[11px] text-muted">{t("stats.activeTraders")}</p>
+          </div>
+          <div className="h-8 w-px bg-border" aria-hidden="true" />
+          <div>
+            <p className="text-lg font-semibold sm:text-2xl" dir="ltr">
+              {totalCopiers.toLocaleString("en-US")}+
+            </p>
+            <p className="text-[11px] text-muted">{t("stats.copyUsers")}</p>
+          </div>
+          <div className="h-8 w-px bg-border" aria-hidden="true" />
+          <div>
+            <p className="text-lg font-semibold sm:text-2xl" dir="ltr">
+              {totalExecutedTrades.toLocaleString("en-US")}+
+            </p>
+            <p className="text-[11px] text-muted">{t("stats.totalTrades")}</p>
+          </div>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-4 text-xs text-muted">
           {[t("hero.trust0"), t("hero.trust1"), t("hero.trust2")].map((trustText) => (
@@ -409,7 +435,7 @@ export default async function Home() {
                   <path d="M21 13v2a4 4 0 0 1-4 4H3" />
                 </svg>
               </div>
-              <p className="text-xl font-semibold sm:text-3xl">{totalCopiers.toLocaleString("en-US")}+</p>
+              <p className="text-xl font-semibold sm:text-3xl" dir="ltr">{totalCopiers.toLocaleString("en-US")}+</p>
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 {t("stats.copyUsers")}
               </p>
@@ -431,20 +457,21 @@ export default async function Home() {
             </div>
 
             <div className="rounded-lg border border-border p-3 text-center sm:p-6">
-              <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-success/10 sm:mb-3 sm:h-10 sm:w-10">
-                <svg viewBox="0 0 24 24" className="h-4 w-4 text-success sm:h-5 sm:w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-foreground/5 sm:mb-3 sm:h-10 sm:w-10">
+                <svg viewBox="0 0 24 24" className="h-4 w-4 text-foreground sm:h-5 sm:w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <line x1="12" y1="1" x2="12" y2="23" />
                   <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                 </svg>
               </div>
               <p
-                className="text-xl font-semibold text-success sm:text-3xl"
-                title={`$${totalProfit.toLocaleString("en-US", { maximumFractionDigits: 0 })}`}
+                className="text-xl font-semibold sm:text-3xl"
+                dir="ltr"
+                title={`$${totalVolume.toLocaleString("en-US", { maximumFractionDigits: 0 })}`}
               >
-                ${totalProfit.toLocaleString("en-US", { notation: "compact", maximumFractionDigits: 1 })}
+                ${totalVolume.toLocaleString("en-US", { notation: "compact", maximumFractionDigits: 1 })}
               </p>
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
-                {t("stats.totalProfit")}
+                {t("stats.totalVolume")}
               </p>
             </div>
 
@@ -471,7 +498,7 @@ export default async function Home() {
                   <line x1="6" y1="20" x2="6" y2="14" />
                 </svg>
               </div>
-              <p className="text-xl font-semibold sm:text-3xl">{totalExecutedTrades.toLocaleString("en-US")}+</p>
+              <p className="text-xl font-semibold sm:text-3xl" dir="ltr">{totalExecutedTrades.toLocaleString("en-US")}+</p>
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 {t("stats.totalTrades")}
               </p>

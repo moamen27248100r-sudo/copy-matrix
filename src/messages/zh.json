@@ -68,7 +68,7 @@
       "activeTraders": "活跃交易员",
       "copyUsers": "跟单用户",
       "avgWinRate": "平均胜率",
-      "totalProfit": "已实现总利润",
+      "totalVolume": "总交易量",
       "bestReturn": "最佳日均收益",
       "totalTrades": "已执行交易总数",
       "footnote1": "此数字会随每次页面刷新在真实值附近自然波动，以反映平台上的实时活动。",

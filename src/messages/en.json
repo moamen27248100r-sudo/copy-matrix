@@ -68,7 +68,7 @@
       "activeTraders": "Active traders",
       "copyUsers": "Copying users",
       "avgWinRate": "Average win rate",
-      "totalProfit": "Total profits realized",
+      "totalVolume": "Total trading volume",
       "bestReturn": "Best avg. daily return",
       "totalTrades": "Total trades executed",
       "footnote1": "This number naturally fluctuates around its real value with every page refresh to reflect live activity on the platform.",

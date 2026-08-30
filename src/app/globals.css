@@ -32,7 +32,7 @@
   --color-danger: var(--danger);
   --color-warning: var(--warning);
   --color-muted: var(--muted);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-geist-sans), var(--font-tajawal), sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 

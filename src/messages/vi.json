@@ -68,7 +68,7 @@
       "activeTraders": "Nhà giao dịch đang hoạt động",
       "copyUsers": "Người dùng sao chép",
       "avgWinRate": "Tỷ lệ thắng trung bình",
-      "totalProfit": "Tổng lợi nhuận đã thực hiện",
+      "totalVolume": "Tổng khối lượng giao dịch",
       "bestReturn": "Lợi nhuận trung bình hàng ngày tốt nhất",
       "totalTrades": "Tổng số giao dịch đã thực hiện",
       "footnote1": "Con số này tự nhiên dao động quanh giá trị thực của nó với mỗi lần làm mới trang để phản ánh hoạt động trực tiếp trên nền tảng.",

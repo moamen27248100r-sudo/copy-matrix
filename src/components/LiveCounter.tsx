@@ -34,7 +34,7 @@ export function LiveCounter({
   }, [base]);
 
   return (
-    <p className={className} suppressHydrationWarning>
+    <p className={className} dir="ltr" suppressHydrationWarning>
       {value.toLocaleString("en-US")}
       {suffix}
     </p>
