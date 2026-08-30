@@ -6,6 +6,7 @@ import { MainMenu } from "@/components/MainMenu";
 import { NotificationsMenu } from "@/components/NotificationsMenu";
 import { NavDrawerProvider } from "@/components/nav-drawer-context";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { Logo } from "@/components/Logo";
 import type { Locale } from "@/i18n/locales";
 
 export async function AppNav() {
@@ -49,8 +50,7 @@ export async function AppNav() {
   }
 
   return (
-    <>
-    <nav className="fixed inset-x-0 top-0 left-0 right-0 z-[9999] w-full border-b border-border bg-[#0b1726]">
+    <nav className="sticky top-0 z-[9999] w-full border-b border-border bg-[#0b1726]">
       <NavDrawerProvider>
       <div className="mx-auto grid h-14 max-w-5xl grid-cols-[auto_1fr_auto] items-center gap-2 px-4 sm:h-16 sm:px-6">
         <div className="flex justify-start">
@@ -72,40 +72,8 @@ export async function AppNav() {
           )}
         </div>
 
-        <Link
-          href={user ? "/dashboard" : "/"}
-          className="flex items-center justify-center gap-1 whitespace-nowrap text-base font-semibold sm:gap-1.5 sm:text-lg"
-          dir="ltr"
-        >
-          Copy Matrix
-          <span className="flex items-center">
-            <svg
-              viewBox="0 0 24 24"
-              className="h-4 w-4 text-brand"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M5 19l3-5 3 3 5-9" />
-              <path d="M12 8h4v4" />
-            </svg>
-            <svg
-              viewBox="0 0 24 24"
-              className="-ml-1.5 h-4 w-4 text-brand"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M5 19l3-5 3 3 5-9" />
-              <path d="M12 8h4v4" />
-            </svg>
-          </span>
+        <Link href={user ? "/dashboard" : "/"} className="flex items-center justify-center">
+          <Logo iconClassName="h-7 w-7 sm:h-8 sm:w-8" textClassName="text-base sm:text-lg" />
         </Link>
 
         <div className="flex items-center justify-end gap-2 sm:gap-3">
@@ -124,7 +92,5 @@ export async function AppNav() {
       </div>
       </NavDrawerProvider>
     </nav>
-    <div className="h-14 sm:h-16" aria-hidden="true" />
-    </>
   );
 }

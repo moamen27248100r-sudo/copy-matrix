@@ -6,6 +6,7 @@ import { MarketOverview } from "@/components/MarketOverview";
 import { LiveCounter } from "@/components/LiveCounter";
 import { pinTopLeaders } from "@/lib/pin-top-leaders";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { Logo } from "@/components/Logo";
 import type { Locale } from "@/i18n/locales";
 
 export const dynamic = "force-dynamic";
@@ -127,7 +128,7 @@ export default async function Home() {
 
   return (
     <main className="flex min-h-screen flex-col">
-      <nav className="border-b border-border">
+      <nav className="sticky top-0 z-[9999] border-b border-border bg-background">
         <div className="mx-auto max-w-6xl px-4 py-3 sm:px-6 sm:py-4">
           <div className="grid grid-cols-[auto_1fr_auto] items-center gap-1 sm:gap-3">
             <Link
@@ -137,36 +138,8 @@ export default async function Home() {
               {t("nav.signup")}
             </Link>
 
-            <span className="flex items-center justify-center gap-0.5 whitespace-nowrap text-sm font-semibold sm:text-lg" dir="ltr">
-              Copy Matrix
-              <span className="flex items-center">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-3 w-3 text-brand sm:h-4 sm:w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M5 19l3-5 3 3 5-9" />
-                  <path d="M12 8h4v4" />
-                </svg>
-                <svg
-                  viewBox="0 0 24 24"
-                  className="-ml-1 h-3 w-3 text-brand sm:-ml-1.5 sm:h-4 sm:w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M5 19l3-5 3 3 5-9" />
-                  <path d="M12 8h4v4" />
-                </svg>
-              </span>
+            <span className="flex items-center justify-center">
+              <Logo iconClassName="h-7 w-7 sm:h-8 sm:w-8" textClassName="text-sm sm:text-lg" />
             </span>
 
             <div className="flex items-center gap-1 sm:gap-3">
@@ -574,19 +547,7 @@ export default async function Home() {
       <footer className="border-t border-border px-6 py-10">
         <div className="mx-auto flex w-full max-w-5xl flex-col gap-8 sm:flex-row sm:justify-between">
           <div className="flex flex-col gap-2">
-            <span className="flex items-center gap-0.5 text-base font-semibold" dir="ltr">
-              Copy Matrix
-              <span className="flex items-center">
-                <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 text-brand" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M5 19l3-5 3 3 5-9" />
-                  <path d="M12 8h4v4" />
-                </svg>
-                <svg viewBox="0 0 24 24" className="-ml-1.5 h-3.5 w-3.5 text-brand" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M5 19l3-5 3 3 5-9" />
-                  <path d="M12 8h4v4" />
-                </svg>
-              </span>
-            </span>
+            <Logo iconClassName="h-7 w-7" textClassName="text-base" />
             <p className="max-w-xs text-sm text-muted">{t("footer.tagline")}</p>
           </div>
 

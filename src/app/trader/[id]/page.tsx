@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { followProvider, unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
+import { TierBadge, RiskBadge } from "@/components/TraderBadges";
 import { TraderEquityChart } from "@/components/TraderEquityChart";
 import { TradeHistory } from "@/components/TradeHistory";
 import { CircularGauge } from "@/components/CircularGauge";
@@ -230,11 +231,9 @@ export default async function TraderPage({
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-1.5 text-xs">
-          <span className="rounded border border-border px-2 py-0.5 text-muted">{provider.tier}</span>
-          <span className="rounded border border-border px-2 py-0.5 text-muted">
-            مستوى المخاطرة: {provider.risk_level}
-          </span>
+        <div className="flex flex-wrap gap-1.5">
+          <TierBadge tier={provider.tier} />
+          <RiskBadge level={provider.risk_level} />
         </div>
 
         {provider.bio && <p className="text-sm text-muted">{provider.bio}</p>}

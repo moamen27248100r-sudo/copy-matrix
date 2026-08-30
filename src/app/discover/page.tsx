@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
+import { TierBadge, RiskBadge } from "@/components/TraderBadges";
 import { pinTopLeaders } from "@/lib/pin-top-leaders";
 
 const SORT_OPTIONS = {
@@ -134,11 +135,9 @@ export default async function DiscoverPage({
                   <p className="text-sm text-muted">{p.bio}</p>
                 )}
 
-                <div className="flex flex-wrap gap-1.5 text-xs">
-                  <span className="rounded border border-border px-2 py-0.5 text-muted">{p.tier}</span>
-                  <span className="rounded border border-border px-2 py-0.5 text-muted">
-                    مخاطرة {p.risk_level}
-                  </span>
+                <div className="flex flex-wrap gap-1.5">
+                  <TierBadge tier={p.tier} />
+                  <RiskBadge level={p.risk_level} />
                 </div>
 
                 <div className="grid grid-cols-3 gap-2 text-center text-sm">
