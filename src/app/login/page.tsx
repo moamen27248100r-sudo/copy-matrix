@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { login } from "@/app/auth/actions";
 import { safeNextPath } from "@/lib/safe-next";
+import { GoogleSignInButton } from "@/components/GoogleSignInButton";
 
 export default async function LoginPage({
   searchParams,
@@ -20,6 +21,14 @@ export default async function LoginPage({
           {error}
         </p>
       )}
+
+      <GoogleSignInButton next={next} label="المتابعة عبر Google" />
+
+      <div className="flex items-center gap-3 text-xs text-muted">
+        <span className="h-px flex-1 bg-border" />
+        أو
+        <span className="h-px flex-1 bg-border" />
+      </div>
 
       <form action={login} className="flex flex-col gap-3">
         {next && <input type="hidden" name="next" value={next} />}

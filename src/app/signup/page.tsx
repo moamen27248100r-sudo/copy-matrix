@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SignupForm } from "@/components/SignupForm";
 import { safeNextPath } from "@/lib/safe-next";
+import { GoogleSignInButton } from "@/components/GoogleSignInButton";
 
 export default async function SignupPage({
   searchParams,
@@ -24,14 +25,16 @@ export default async function SignupPage({
         </p>
       )}
 
-      <div className="rounded-xl border border-border bg-surface p-5 shadow-lg">
-        <SignupForm next={next} />
-      </div>
+      <GoogleSignInButton next={next} label="إنشاء حساب عبر Google" />
 
       <div className="flex items-center gap-3 text-xs text-muted">
         <span className="h-px flex-1 bg-border" />
         أو
         <span className="h-px flex-1 bg-border" />
+      </div>
+
+      <div className="rounded-xl border border-border bg-surface p-5 shadow-lg">
+        <SignupForm next={next} />
       </div>
 
       <Link
