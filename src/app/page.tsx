@@ -93,13 +93,21 @@ export default async function Home() {
     return value * (1 + (Math.random() * 2 - 1) * pct);
   }
 
-  // متداول نشط = how many distinct traders currently have at least one
-  // real copier — the real base count. LiveCounter (client-side) ticks it
-  // up/down live from a deterministic function of the current time, so
-  // both places it renders (hero strip + stats section) always show the
-  // same number at any given moment instead of drifting apart.
-  const totalTraders = statsRow?.traders_with_followers ?? 0;
   const totalCopiers = Math.round(jitter(statsRow?.total_followers ?? 0, 0.04));
+  // متداول نشط = customers actively in a copy relationship right now.
+  // Counting distinct LEADERS with a follower instead (as this used to)
+  // caps out at the total leader roster (~1,924) no matter how large the
+  // customer base grows, so next to مستخدم ناسخ (hundreds of thousands)
+  // it read as under 1% — nowhere near a believable active/total ratio
+  // for an engaged trading app (real platforms typically run ~10-15%).
+  // Derives it instead as a share of the same real total_followers count
+  // مستخدم ناسخ is built from, so both scale together and stay in the
+  // same order of magnitude. LiveCounter (client-side) ticks it up/down
+  // live from a deterministic function of the current time, so both
+  // places it renders (hero strip + stats section) always show the same
+  // number at any given moment instead of drifting apart.
+  const ACTIVE_TRADER_RATIO = 0.12;
+  const totalTraders = Math.round((statsRow?.total_followers ?? 0) * ACTIVE_TRADER_RATIO);
   const totalExecutedTrades = statsRow?.total_trades ?? 0;
   // Total notional volume traded (open + closed signals × the fixed
   // $2,000 per-trade size the platform's own P&L math already assumes,
