@@ -196,7 +196,7 @@ export default async function PortfolioPage({
           </form>
         </div>
         <p className="text-xs text-muted">
-          طلبات الإيداع والسحب تحتاج مراجعة وموافقة من فريق الإدارة قبل ما تنعكس على رصيدك.
+          طلبات الإيداع والسحب تحتاج إلى مراجعة وموافقة من فريق الإدارة قبل أن تنعكس على رصيدك.
         </p>
 
         {pendingRequests.length > 0 && (
