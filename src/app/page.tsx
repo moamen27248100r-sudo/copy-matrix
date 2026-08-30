@@ -3,6 +3,7 @@ import Image from "next/image";
 import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { MarketOverview } from "@/components/MarketOverview";
+import { LiveCounter } from "@/components/LiveCounter";
 import { pinTopLeaders } from "@/lib/pin-top-leaders";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import type { Locale } from "@/i18n/locales";
@@ -66,9 +67,20 @@ export default async function Home() {
 
   const topProviders = rawTopProviders ? pinTopLeaders(rawTopProviders).slice(0, 6) : rawTopProviders;
 
-  const { data: allProviders } = await supabase
-    .from("provider_cards")
-    .select("followers_count, win_rate_pct, open_signals, closed_signals, total_profit, avg_daily_return_pct");
+  // Aggregated entirely in SQL across the full table — a plain
+  // select() from provider_cards caps at Supabase's default 1,000-row
+  // REST limit, which would silently undercount every stat below now
+  // that the roster is in the thousands.
+  const { data: statsRow } = (await supabase.rpc("homepage_platform_stats").single()) as {
+    data: {
+      traders_with_followers: number;
+      total_followers: number;
+      total_trades: number;
+      total_profit: number;
+      best_daily_return: number | null;
+      weighted_win_rate: number | null;
+    } | null;
+  };
 
   // "متداول نشط", "مستخدم ناسخ" and "متوسط نسبة النجاح" read like live
   // activity counters, so they get small live-feeling variance anchored
@@ -81,40 +93,24 @@ export default async function Home() {
   }
 
   // "متداول نشط" = how many distinct traders currently have at least one
-  // real copier — still tied directly to the same follower data as
-  // "مستخدم ناسخ" (moves automatically as customers join/leave any
-  // trader), but counting traders instead of summing customers keeps
-  // the two numbers at naturally different, non-confusable scales.
-  const totalTraders = Math.max(
-    0,
-    Math.round(jitter((allProviders ?? []).filter((p) => (p.followers_count ?? 0) > 0).length, 0.02)),
-  );
-  const totalCopiers = Math.round(
-    jitter((allProviders ?? []).reduce((sum, p) => sum + (p.followers_count ?? 0), 0), 0.04),
-  );
-  const totalExecutedTrades = (allProviders ?? []).reduce(
-    (sum, p) => sum + (p.open_signals ?? 0) + (p.closed_signals ?? 0),
-    0,
-  );
-  const totalProfit = (allProviders ?? []).reduce((sum, p) => sum + Number(p.total_profit ?? 0), 0);
+  // real copier — the real base count. LiveCounter (client-side) handles
+  // the "moves on its own without a refresh" animation around this real
+  // anchor, so no server-side jitter is needed here.
+  const totalTraders = statsRow?.traders_with_followers ?? 0;
+  const totalCopiers = Math.round(jitter(statsRow?.total_followers ?? 0, 0.04));
+  const totalExecutedTrades = statsRow?.total_trades ?? 0;
+  const totalProfit = Number(statsRow?.total_profit ?? 0);
   // The real leader with the single highest average DAILY return right
   // now — no synthetic adjustment. It moves on its own as real trades
   // close throughout each day (which leader holds the top spot can
   // genuinely change), so it doesn't need an artificial jitter to feel live.
-  const returns = (allProviders ?? []).map((p) => p.avg_daily_return_pct).filter((v): v is number => v != null);
-  const bestReturn = returns.length ? Math.max(...returns) : null;
+  const bestReturn = statsRow?.best_daily_return ?? null;
   // Weighted by each trader's own follower count instead of a flat mean,
   // so this reads as "the win rate the average COPYING USER actually
   // sees" — consistent with totalCopiers and totalProfit — rather than
   // being dragged down by obscure, barely-followed traders counting the
   // same as heavily-copied ones.
-  const winRateRows = (allProviders ?? []).filter(
-    (p): p is typeof p & { win_rate_pct: number } => p.win_rate_pct != null,
-  );
-  const winRateWeight = winRateRows.reduce((sum, p) => sum + Math.max(1, p.followers_count ?? 0), 0);
-  const rawAvgWinRate = winRateWeight
-    ? winRateRows.reduce((sum, p) => sum + p.win_rate_pct * Math.max(1, p.followers_count ?? 0), 0) / winRateWeight
-    : null;
+  const rawAvgWinRate = statsRow?.weighted_win_rate ?? null;
   const avgWinRate = rawAvgWinRate != null ? Math.min(99, Math.max(1, Math.round(jitter(rawAvgWinRate, 0.03)))) : null;
 
   const navLinks = NAV_HASHES.map((h) => ({ href: `#${h}`, label: t(`nav.${h === "how-it-works" ? "howItWorks" : h}`) }));
@@ -398,7 +394,7 @@ export default async function Home() {
                   <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                 </svg>
               </div>
-              <p className="text-xl font-semibold sm:text-3xl">{totalTraders}+</p>
+              <LiveCounter base={totalTraders} suffix="+" className="text-xl font-semibold sm:text-3xl" />
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 {t("stats.activeTraders")}
               </p>
