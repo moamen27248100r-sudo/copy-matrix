@@ -53,6 +53,10 @@ export async function updateAccountType(formData: FormData) {
     redirect("/settings?error=" + encodeURIComponent("تعذّر تحديث نوع الحساب. حاول مرة أخرى."));
   }
 
+  // Same reset-on-switch rule as chooseAccountType: a copy relationship
+  // funded from the old balance shouldn't survive into the fresh account.
+  await supabase.from("subscriptions").update({ is_active: false }).eq("follower_id", user.id).eq("is_active", true);
+
   revalidatePath("/settings");
   revalidatePath("/dashboard");
   redirect("/settings?success=1");

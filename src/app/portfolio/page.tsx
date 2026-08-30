@@ -7,6 +7,8 @@ import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
 import { PortfolioTabs } from "@/components/PortfolioTabs";
 import { TradeHistory } from "@/components/TradeHistory";
+import { PortfolioValueBreakdown } from "@/components/PortfolioValueBreakdown";
+import { MyEquityChart } from "@/components/MyEquityChart";
 import { symbolIcon } from "@/lib/symbol-icons";
 
 const TX_LABELS: Record<string, string> = {
@@ -183,33 +185,11 @@ export default async function PortfolioPage({
   const overview = (
     <div className="flex flex-col gap-6">
       <section id="wallet" className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-4 scroll-mt-20">
-        <div>
-          <p className="text-xs text-muted">قيمة المحفظة الإجمالية</p>
-          <p className="text-3xl font-semibold" dir="ltr">
-            ${(Number(profile?.balance ?? 0) + totalAllocated + totalUnrealizedPnl).toLocaleString("en-US", { maximumFractionDigits: 2 })}
-          </p>
-          <div className="mt-3 grid grid-cols-3 gap-3 border-t border-border pt-3 text-sm">
-            <div>
-              <p className="font-semibold" dir="ltr">
-                ${Number(profile?.balance ?? 0).toLocaleString("en-US", { maximumFractionDigits: 2 })}
-              </p>
-              <p className="text-xs text-muted">نقدي متاح</p>
-            </div>
-            <div>
-              <p className="font-semibold" dir="ltr">
-                ${totalAllocated.toLocaleString("en-US", { maximumFractionDigits: 2 })}
-              </p>
-              <p className="text-xs text-muted">مستثمر في النسخ</p>
-            </div>
-            <div>
-              <p className={totalUnrealizedPnl >= 0 ? "font-semibold text-success" : "font-semibold text-danger"} dir="ltr">
-                {totalUnrealizedPnl >= 0 ? "+" : ""}
-                ${totalUnrealizedPnl.toLocaleString("en-US", { maximumFractionDigits: 2 })}
-              </p>
-              <p className="text-xs text-muted">ربح/خسارة غير محققة</p>
-            </div>
-          </div>
-        </div>
+        <PortfolioValueBreakdown
+          balance={Number(profile?.balance ?? 0)}
+          totalAllocated={totalAllocated}
+          totalUnrealizedPnl={totalUnrealizedPnl}
+        />
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <form action={requestDeposit} className="flex items-center gap-2">
             <input
@@ -258,6 +238,11 @@ export default async function PortfolioPage({
             ))}
           </div>
         )}
+      </section>
+
+      <section className="flex flex-col gap-3">
+        <h2 className="font-medium">أداء محفظتي التراكمي</h2>
+        <MyEquityChart positions={closedPositions.map((p) => ({ pnl: p.pnl, closed_at: p.closed_at }))} />
       </section>
 
       <section className="flex flex-col gap-3">

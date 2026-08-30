@@ -4,6 +4,8 @@ import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
 import { AccountsSection } from "@/components/AccountsSection";
+import { PortfolioValueBreakdown } from "@/components/PortfolioValueBreakdown";
+import { MyEquityChart } from "@/components/MyEquityChart";
 
 const QUICK_LINKS = [
   {
@@ -89,11 +91,15 @@ export default async function DashboardPage() {
       .limit(1)
       .maybeSingle(),
     supabase.from("subscriptions").select("provider_id, allocated_amount").eq("follower_id", user.id).eq("is_active", true),
-    supabase.from("simulated_positions").select("status, pnl").eq("follower_id", user.id),
+    supabase
+      .from("simulated_positions")
+      .select("status, pnl, entry_price, size, closed_at, signals(symbol, side)")
+      .eq("follower_id", user.id),
   ]);
 
   const providerIds = (subscriptions ?? []).map((s) => s.provider_id);
   const allocationByProvider = new Map((subscriptions ?? []).map((s) => [s.provider_id, s.allocated_amount]));
+  const totalAllocated = Array.from(allocationByProvider.values()).reduce((sum, a) => sum + Number(a), 0);
 
   const { data: followedProviders } =
     providerIds.length > 0
@@ -104,11 +110,40 @@ export default async function DashboardPage() {
           .limit(3)
       : { data: [] as never[] };
 
-  const allPositions = positions ?? [];
-  const openPositionsCount = allPositions.filter((p) => p.status === "open").length;
-  const netPnl = allPositions
-    .filter((p) => p.status === "closed")
-    .reduce((sum, p) => sum + (p.pnl ?? 0), 0);
+  type PositionSignal = { symbol: string; side: string };
+  type DashPosition = {
+    status: string;
+    pnl: number | null;
+    entry_price: number;
+    size: number;
+    closed_at: string | null;
+    signals: PositionSignal | PositionSignal[] | null;
+  };
+  const positionSignal = (p: DashPosition): PositionSignal | null =>
+    Array.isArray(p.signals) ? p.signals[0] ?? null : p.signals;
+
+  const allPositions = (positions ?? []) as DashPosition[];
+  const openPositions = allPositions.filter((p) => p.status === "open");
+  const closedPositions = allPositions.filter((p) => p.status === "closed");
+  const openPositionsCount = openPositions.length;
+  const netPnl = closedPositions.reduce((sum, p) => sum + (p.pnl ?? 0), 0);
+
+  const openSymbols = Array.from(
+    new Set(openPositions.map((p) => positionSignal(p)?.symbol).filter((s): s is string => !!s)),
+  );
+  const { data: livePrices } =
+    openSymbols.length > 0
+      ? await supabase.from("market_prices").select("symbol, price").in("symbol", openSymbols)
+      : { data: [] as { symbol: string; price: number }[] };
+  const priceBySymbol = new Map((livePrices ?? []).map((p) => [p.symbol, Number(p.price)]));
+
+  const totalUnrealizedPnl = openPositions.reduce((sum, pos) => {
+    const signal = positionSignal(pos);
+    const current = signal ? priceBySymbol.get(signal.symbol) : undefined;
+    if (current == null || !signal) return sum;
+    const pct = ((current - pos.entry_price) / pos.entry_price) * (signal.side === "sell" ? -1 : 1);
+    return sum + pct * Number(pos.size);
+  }, 0);
 
   const kycStatus = kyc?.status ?? "none";
   const kycCopy = kycStatus === "approved" ? null : KYC_COPY[kycStatus] ?? KYC_COPY.none;
@@ -172,6 +207,17 @@ export default async function DashboardPage() {
         )}
 
         <AccountsSection accountType={(profile?.account_type as "real" | "demo") ?? "demo"} balance={profile?.balance ?? null} />
+
+        <section className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-4">
+          <PortfolioValueBreakdown
+            balance={Number(profile?.balance ?? 0)}
+            totalAllocated={totalAllocated}
+            totalUnrealizedPnl={totalUnrealizedPnl}
+          />
+          <div className="border-t border-border pt-4">
+            <MyEquityChart positions={closedPositions.map((p) => ({ pnl: p.pnl, closed_at: p.closed_at }))} />
+          </div>
+        </section>
 
         <div className="grid grid-cols-3 gap-3">
           <div className="rounded-lg border border-border p-4 text-center">
