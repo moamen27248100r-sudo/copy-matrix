@@ -58,7 +58,7 @@
       "viewAll": "Ver todos",
       "copiers": "copiadores",
       "winRate": "Tasa de acierto",
-      "avgReturn": "Rendimiento promedio por operación",
+      "avgReturn": "Rendimiento diario promedio",
       "viewProfile": "Ver perfil",
       "copy": "Copiar"
     },
@@ -69,7 +69,7 @@
       "copyUsers": "Usuarios copiando",
       "avgWinRate": "Tasa de acierto promedio",
       "totalProfit": "Ganancias totales obtenidas",
-      "bestReturn": "Mejor rendimiento promedio por operación",
+      "bestReturn": "Mejor rendimiento diario promedio",
       "totalTrades": "Total de operaciones ejecutadas",
       "footnote1": "Esta cifra fluctúa naturalmente alrededor de su valor real con cada actualización de la página para reflejar la actividad en vivo en la plataforma.",
       "footnote2": "Una cifra real calculada directamente a partir de los resultados de las operaciones cerradas de los traders en la plataforma, sin ningún redondeo ni ajuste.",

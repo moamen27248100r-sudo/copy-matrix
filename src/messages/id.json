@@ -58,7 +58,7 @@
       "viewAll": "Lihat semua",
       "copiers": "penyalin",
       "winRate": "Tingkat kemenangan",
-      "avgReturn": "Rata-rata imbal hasil per transaksi",
+      "avgReturn": "Rata-rata imbal hasil harian",
       "viewProfile": "Lihat profil",
       "copy": "Salin"
     },
@@ -69,7 +69,7 @@
       "copyUsers": "Pengguna penyalin",
       "avgWinRate": "Rata-rata tingkat kemenangan",
       "totalProfit": "Total keuntungan yang direalisasikan",
-      "bestReturn": "Rata-rata imbal hasil terbaik per transaksi",
+      "bestReturn": "Rata-rata imbal hasil harian terbaik",
       "totalTrades": "Total transaksi yang dieksekusi",
       "footnote1": "Angka ini secara alami berfluktuasi di sekitar nilai sebenarnya dengan setiap penyegaran halaman untuk mencerminkan aktivitas langsung di platform.",
       "footnote2": "Angka aktual yang dihitung langsung dari hasil transaksi trader yang telah ditutup di platform, tanpa pembulatan atau penyesuaian apa pun.",

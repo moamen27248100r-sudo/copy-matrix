@@ -99,7 +99,7 @@ export default async function DashboardPage() {
     providerIds.length > 0
       ? await supabase
           .from("provider_cards")
-          .select("provider_id, display_name, win_rate_pct, avg_return_pct")
+          .select("provider_id, display_name, win_rate_pct, avg_daily_return_pct")
           .in("provider_id", providerIds)
           .limit(3)
       : { data: [] as never[] };
@@ -275,14 +275,14 @@ export default async function DashboardPage() {
                     <div>
                       <p
                         className={
-                          p.avg_return_pct != null && p.avg_return_pct < 0
+                          p.avg_daily_return_pct != null && p.avg_daily_return_pct < 0
                             ? "font-semibold text-danger"
                             : "font-semibold text-success"
                         }
                       >
-                        {p.avg_return_pct != null ? `${p.avg_return_pct}%` : "—"}
+                        {p.avg_daily_return_pct != null ? `${p.avg_daily_return_pct}%` : "—"}
                       </p>
-                      <p className="text-xs text-muted">متوسط العائد لكل صفقة</p>
+                      <p className="text-xs text-muted">متوسط العائد اليومي</p>
                     </div>
                   </div>
                 </Link>

@@ -61,14 +61,14 @@ export default async function Home() {
   const { data: rawTopProviders } = await supabase
     .from("provider_cards")
     .select("*")
-    .order("avg_return_pct", { ascending: false, nullsFirst: false })
+    .order("avg_daily_return_pct", { ascending: false, nullsFirst: false })
     .limit(10);
 
   const topProviders = rawTopProviders ? pinTopLeaders(rawTopProviders).slice(0, 6) : rawTopProviders;
 
   const { data: allProviders } = await supabase
     .from("provider_cards")
-    .select("followers_count, win_rate_pct, open_signals, closed_signals, total_profit, avg_return_pct");
+    .select("followers_count, win_rate_pct, open_signals, closed_signals, total_profit, avg_daily_return_pct");
 
   // "متداول نشط", "مستخدم ناسخ" and "متوسط نسبة النجاح" read like live
   // activity counters, so they get small live-feeling variance anchored
@@ -97,11 +97,11 @@ export default async function Home() {
     0,
   );
   const totalProfit = (allProviders ?? []).reduce((sum, p) => sum + Number(p.total_profit ?? 0), 0);
-  // The real leader with the single highest average return right now —
-  // no synthetic adjustment. It moves on its own as real trades close
-  // throughout each day (which leader holds the top spot can genuinely
-  // change), so it doesn't need an artificial jitter to feel live.
-  const returns = (allProviders ?? []).map((p) => p.avg_return_pct).filter((v): v is number => v != null);
+  // The real leader with the single highest average DAILY return right
+  // now — no synthetic adjustment. It moves on its own as real trades
+  // close throughout each day (which leader holds the top spot can
+  // genuinely change), so it doesn't need an artificial jitter to feel live.
+  const returns = (allProviders ?? []).map((p) => p.avg_daily_return_pct).filter((v): v is number => v != null);
   const bestReturn = returns.length ? Math.max(...returns) : null;
   // Weighted by each trader's own follower count instead of a flat mean,
   // so this reads as "the win rate the average COPYING USER actually
@@ -344,12 +344,12 @@ export default async function Home() {
                   <div>
                     <p
                       className={
-                        p.avg_return_pct != null && p.avg_return_pct < 0
+                        p.avg_daily_return_pct != null && p.avg_daily_return_pct < 0
                           ? "text-sm font-semibold text-danger sm:text-base"
                           : "text-sm font-semibold text-success sm:text-base"
                       }
                     >
-                      {p.avg_return_pct != null ? `${p.avg_return_pct}%` : "—"}
+                      {p.avg_daily_return_pct != null ? `${p.avg_daily_return_pct}%` : "—"}
                     </p>
                     <p className="text-[11px] text-muted">{t("traders.avgReturn")}</p>
                   </div>

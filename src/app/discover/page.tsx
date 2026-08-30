@@ -6,7 +6,7 @@ import { BackButton } from "@/components/BackButton";
 import { pinTopLeaders } from "@/lib/pin-top-leaders";
 
 const SORT_OPTIONS = {
-  return: { column: "avg_return_pct", ascending: false },
+  return: { column: "avg_daily_return_pct", ascending: false },
   followers: { column: "followers_count", ascending: false },
   winrate: { column: "win_rate_pct", ascending: false },
 } as const;
@@ -133,14 +133,14 @@ export default async function DiscoverPage({
                   <div>
                     <p
                       className={
-                        p.avg_return_pct != null && p.avg_return_pct < 0
+                        p.avg_daily_return_pct != null && p.avg_daily_return_pct < 0
                           ? "font-semibold text-danger"
                           : "font-semibold text-success"
                       }
                     >
-                      {p.avg_return_pct != null ? `${p.avg_return_pct}%` : "—"}
+                      {p.avg_daily_return_pct != null ? `${p.avg_daily_return_pct}%` : "—"}
                     </p>
-                    <p className="text-xs text-muted">متوسط العائد لكل صفقة</p>
+                    <p className="text-xs text-muted">متوسط العائد اليومي</p>
                   </div>
                   <div>
                     <p className="font-semibold">{p.closed_signals}</p>
