@@ -3,6 +3,7 @@ import Image from "next/image";
 import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { MarketOverview } from "@/components/MarketOverview";
+import { LiveCounter } from "@/components/LiveCounter";
 import { pinTopLeaders } from "@/lib/pin-top-leaders";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/Logo";
@@ -93,9 +94,10 @@ export default async function Home() {
   }
 
   // متداول نشط = how many distinct traders currently have at least one
-  // real copier — shown as the exact real count everywhere it appears
-  // (hero strip + stats section), with no jitter, so both stay in sync
-  // and match every other real, non-animated stat on the page.
+  // real copier — the real base count. LiveCounter (client-side) ticks it
+  // up/down live from a deterministic function of the current time, so
+  // both places it renders (hero strip + stats section) always show the
+  // same number at any given moment instead of drifting apart.
   const totalTraders = statsRow?.traders_with_followers ?? 0;
   const totalCopiers = Math.round(jitter(statsRow?.total_followers ?? 0, 0.04));
   const totalExecutedTrades = statsRow?.total_trades ?? 0;
@@ -175,9 +177,7 @@ export default async function Home() {
         </div>
         <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 pt-2 text-center">
           <div>
-            <p className="text-lg font-semibold sm:text-2xl" dir="ltr">
-              {totalTraders.toLocaleString("en-US")}+
-            </p>
+            <LiveCounter base={totalTraders} suffix="+" className="text-lg font-semibold sm:text-2xl" />
             <p className="text-[11px] text-muted">{t("stats.activeTraders")}</p>
           </div>
           <div className="h-8 w-px bg-border" aria-hidden="true" />
@@ -394,9 +394,7 @@ export default async function Home() {
                   <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                 </svg>
               </div>
-              <p className="text-xl font-semibold sm:text-3xl" dir="ltr">
-                {totalTraders.toLocaleString("en-US")}+
-              </p>
+              <LiveCounter base={totalTraders} suffix="+" className="text-xl font-semibold sm:text-3xl" />
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 {t("stats.activeTraders")}
               </p>
