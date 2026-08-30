@@ -73,7 +73,7 @@ export async function AppNav() {
         </div>
 
         <Link href={user ? "/dashboard" : "/"} className="flex items-center justify-center">
-          <Logo iconClassName="h-7 w-7 sm:h-8 sm:w-8" textClassName="text-base sm:text-lg" />
+          <Logo iconClassName="h-5 w-5 sm:h-6 sm:w-6" textClassName="text-lg sm:text-xl" />
         </Link>
 
         <div className="flex items-center justify-end gap-2 sm:gap-3">

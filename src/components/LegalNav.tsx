@@ -5,7 +5,7 @@ export function LegalNav() {
   return (
     <nav className="sticky top-0 z-[9999] flex items-center justify-between border-b border-border bg-background px-6 py-4">
       <Link href="/" className="flex items-center">
-        <Logo iconClassName="h-8 w-8" textClassName="text-lg" />
+        <Logo iconClassName="h-5 w-5" textClassName="text-xl" />
       </Link>
       <div className="flex items-center gap-3">
         <Link

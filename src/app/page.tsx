@@ -139,7 +139,7 @@ export default async function Home() {
             </Link>
 
             <span className="flex items-center justify-center">
-              <Logo iconClassName="h-7 w-7 sm:h-8 sm:w-8" textClassName="text-sm sm:text-lg" />
+              <Logo iconClassName="h-4 w-4 sm:h-6 sm:w-6" textClassName="text-base sm:text-xl" />
             </span>
 
             <div className="flex items-center gap-1 sm:gap-3">
@@ -547,7 +547,7 @@ export default async function Home() {
       <footer className="border-t border-border px-6 py-10">
         <div className="mx-auto flex w-full max-w-5xl flex-col gap-8 sm:flex-row sm:justify-between">
           <div className="flex flex-col gap-2">
-            <Logo iconClassName="h-7 w-7" textClassName="text-base" />
+            <Logo iconClassName="h-5 w-5" textClassName="text-lg" />
             <p className="max-w-xs text-sm text-muted">{t("footer.tagline")}</p>
           </div>
 
