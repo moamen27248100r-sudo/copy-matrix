@@ -40,6 +40,37 @@ export async function login(formData: FormData) {
   redirect(next ?? "/dashboard");
 }
 
+export async function sendMagicLink(formData: FormData) {
+  const next = safeNextPath(formData.get("next") as string);
+  const nextParam = next ? `&next=${encodeURIComponent(next)}` : "";
+  const email = ((formData.get("email") as string) ?? "").trim();
+
+  if (!isValidEmailFormat(email)) {
+    redirect(`/login?error=${encodeURIComponent("اكتب بريدًا إلكترونيًا صحيحًا.")}${nextParam}`);
+  }
+
+  if (!(await checkRateLimit("magic-link", 5, 600))) {
+    redirect(`/login?error=${encodeURIComponent(RATE_LIMIT_MESSAGE)}${nextParam}`);
+  }
+
+  const supabase = await createClient();
+  const siteUrl = await getSiteUrl();
+
+  const { error } = await supabase.auth.signInWithOtp({
+    email,
+    options: {
+      emailRedirectTo: `${siteUrl}/auth/confirm?next=${encodeURIComponent(next ?? "/dashboard")}`,
+      shouldCreateUser: true,
+    },
+  });
+
+  if (error) {
+    redirect(`/login?error=${encodeURIComponent(translateAuthError(error.message))}${nextParam}`);
+  }
+
+  redirect(`/login/check-email?email=${encodeURIComponent(email)}`);
+}
+
 export async function signup(formData: FormData) {
   const next = safeNextPath(formData.get("next") as string);
   const nextParam = next ? `&next=${encodeURIComponent(next)}` : "";

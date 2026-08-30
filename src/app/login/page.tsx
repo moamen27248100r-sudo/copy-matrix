@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { login } from "@/app/auth/actions";
+import { login, sendMagicLink } from "@/app/auth/actions";
 import { safeNextPath } from "@/lib/safe-next";
 import { GoogleSignInButton } from "@/components/GoogleSignInButton";
 
@@ -27,6 +27,29 @@ export default async function LoginPage({
       <div className="flex items-center gap-3 text-xs text-muted">
         <span className="h-px flex-1 bg-border" />
         أو
+        <span className="h-px flex-1 bg-border" />
+      </div>
+
+      <form action={sendMagicLink} className="flex flex-col gap-3">
+        {next && <input type="hidden" name="next" value={next} />}
+        <input
+          name="email"
+          type="email"
+          placeholder="البريد الإلكتروني"
+          required
+          className="rounded border border-border bg-surface px-3 py-2"
+        />
+        <button
+          type="submit"
+          className="rounded border border-accent px-3 py-2 font-medium text-accent transition hover:bg-accent/10"
+        >
+          الدخول برابط في البريد (بدون كلمة مرور)
+        </button>
+      </form>
+
+      <div className="flex items-center gap-3 text-xs text-muted">
+        <span className="h-px flex-1 bg-border" />
+        أو استخدم كلمة المرور
         <span className="h-px flex-1 bg-border" />
       </div>
 
