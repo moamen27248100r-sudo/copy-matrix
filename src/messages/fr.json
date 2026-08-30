@@ -58,7 +58,7 @@
       "viewAll": "Voir tout",
       "copiers": "copieurs",
       "winRate": "Taux de réussite",
-      "avgReturn": "Rendement moyen",
+      "avgReturn": "Rendement moyen par transaction",
       "viewProfile": "Voir le profil",
       "copy": "Copier"
     },
@@ -69,7 +69,7 @@
       "copyUsers": "Utilisateurs copieurs",
       "avgWinRate": "Taux de réussite moyen",
       "totalProfit": "Profits totaux réalisés",
-      "bestReturn": "Meilleur rendement mensuel",
+      "bestReturn": "Meilleur rendement moyen par transaction",
       "totalTrades": "Total des trades exécutés",
       "footnote1": "Ce chiffre fluctue naturellement autour de sa valeur réelle à chaque actualisation de la page pour refléter l'activité en direct sur la plateforme.",
       "footnote2": "Un chiffre réel calculé directement à partir des résultats des trades clôturés des traders sur la plateforme, sans aucun arrondi ni ajustement.",

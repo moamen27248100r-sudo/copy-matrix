@@ -58,7 +58,7 @@
       "viewAll": "Ver todos",
       "copiers": "copiadores",
       "winRate": "Taxa de acerto",
-      "avgReturn": "Retorno médio",
+      "avgReturn": "Retorno médio por operação",
       "viewProfile": "Ver perfil",
       "copy": "Copiar"
     },
@@ -69,7 +69,7 @@
       "copyUsers": "Usuários copiando",
       "avgWinRate": "Taxa de acerto média",
       "totalProfit": "Lucros totais realizados",
-      "bestReturn": "Melhor retorno mensal",
+      "bestReturn": "Melhor retorno médio por operação",
       "totalTrades": "Total de operações executadas",
       "footnote1": "Este número flutua naturalmente em torno do seu valor real a cada atualização da página para refletir a atividade ao vivo na plataforma.",
       "footnote2": "Um número real calculado diretamente a partir dos resultados das operações fechadas dos traders na plataforma, sem qualquer arredondamento ou ajuste.",

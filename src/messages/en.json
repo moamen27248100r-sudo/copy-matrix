@@ -58,7 +58,7 @@
       "viewAll": "View all",
       "copiers": "copiers",
       "winRate": "Win rate",
-      "avgReturn": "Avg. return",
+      "avgReturn": "Avg. return per trade",
       "viewProfile": "View profile",
       "copy": "Copy"
     },
@@ -69,7 +69,7 @@
       "copyUsers": "Copying users",
       "avgWinRate": "Average win rate",
       "totalProfit": "Total profits realized",
-      "bestReturn": "Best monthly return",
+      "bestReturn": "Best avg. return per trade",
       "totalTrades": "Total trades executed",
       "footnote1": "This number naturally fluctuates around its real value with every page refresh to reflect live activity on the platform.",
       "footnote2": "An actual figure calculated directly from traders' closed trade results on the platform, without any rounding or adjustment.",

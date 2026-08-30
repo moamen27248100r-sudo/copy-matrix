@@ -58,7 +58,7 @@
       "viewAll": "Xem tất cả",
       "copiers": "người sao chép",
       "winRate": "Tỷ lệ thắng",
-      "avgReturn": "Lợi nhuận trung bình",
+      "avgReturn": "Lợi nhuận trung bình mỗi giao dịch",
       "viewProfile": "Xem hồ sơ",
       "copy": "Sao chép"
     },
@@ -69,7 +69,7 @@
       "copyUsers": "Người dùng sao chép",
       "avgWinRate": "Tỷ lệ thắng trung bình",
       "totalProfit": "Tổng lợi nhuận đã thực hiện",
-      "bestReturn": "Lợi nhuận hàng tháng tốt nhất",
+      "bestReturn": "Lợi nhuận trung bình tốt nhất mỗi giao dịch",
       "totalTrades": "Tổng số giao dịch đã thực hiện",
       "footnote1": "Con số này tự nhiên dao động quanh giá trị thực của nó với mỗi lần làm mới trang để phản ánh hoạt động trực tiếp trên nền tảng.",
       "footnote2": "Một con số thực được tính trực tiếp từ kết quả các giao dịch đã đóng của các nhà giao dịch trên nền tảng, không làm tròn hay điều chỉnh.",

@@ -73,7 +73,7 @@ export default async function Home() {
   // "متداول نشط", "مستخدم ناسخ" and "متوسط نسبة النجاح" read like live
   // activity counters, so they get small live-feeling variance anchored
   // to their real computed value on every refresh. إجمالي الأرباح، أعلى
-  // عائد شهري، and إجمالي الصفقات stay exactly the real computed value —
+  // متوسط عائد لكل صفقة، and إجمالي الصفقات stay exactly the real computed value —
   // those are hard financial/performance claims that should only change
   // when the underlying data actually changes, same as any real platform.
   function jitter(value: number, pct: number) {

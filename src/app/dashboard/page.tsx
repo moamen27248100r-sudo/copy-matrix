@@ -282,7 +282,7 @@ export default async function DashboardPage() {
                       >
                         {p.avg_return_pct != null ? `${p.avg_return_pct}%` : "—"}
                       </p>
-                      <p className="text-xs text-muted">متوسط العائد</p>
+                      <p className="text-xs text-muted">متوسط العائد لكل صفقة</p>
                     </div>
                   </div>
                 </Link>

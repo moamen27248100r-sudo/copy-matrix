@@ -58,7 +58,7 @@
       "viewAll": "查看全部",
       "copiers": "跟单人数",
       "winRate": "胜率",
-      "avgReturn": "平均收益",
+      "avgReturn": "每笔交易平均收益",
       "viewProfile": "查看资料",
       "copy": "跟单"
     },
@@ -69,7 +69,7 @@
       "copyUsers": "跟单用户",
       "avgWinRate": "平均胜率",
       "totalProfit": "已实现总利润",
-      "bestReturn": "最佳月收益",
+      "bestReturn": "单笔交易最佳平均收益",
       "totalTrades": "已执行交易总数",
       "footnote1": "此数字会随每次页面刷新在真实值附近自然波动，以反映平台上的实时活动。",
       "footnote2": "该数字是根据平台上交易员已平仓交易的实际结果直接计算得出的真实数字，未经任何四舍五入或调整。",
