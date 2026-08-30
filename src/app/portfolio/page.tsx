@@ -7,6 +7,7 @@ import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
 import { PortfolioTabs } from "@/components/PortfolioTabs";
 import { TradeHistory } from "@/components/TradeHistory";
+import { symbolIcon } from "@/lib/symbol-icons";
 
 const TX_LABELS: Record<string, string> = {
   deposit: "إيداع",
@@ -110,7 +111,30 @@ export default async function PortfolioPage({
 
   const allPositions = (positions ?? []) as Position[];
   const closedPositions = allPositions.filter((p) => p.status === "closed");
+  const openPositions = allPositions.filter((p) => p.status === "open");
   const totalRealizedPnl = closedPositions.reduce((sum, p) => sum + (p.pnl ?? 0), 0);
+
+  const openSymbols = Array.from(
+    new Set(openPositions.map((p) => positionSignal(p)?.symbol).filter((s): s is string => !!s)),
+  );
+  const { data: livePrices } =
+    openSymbols.length > 0
+      ? await supabase.from("market_prices").select("symbol, price").in("symbol", openSymbols)
+      : { data: [] as { symbol: string; price: number }[] };
+  const priceBySymbol = new Map((livePrices ?? []).map((p) => [p.symbol, Number(p.price)]));
+
+  const openWithPnl = openPositions.map((pos) => {
+    const signal = positionSignal(pos);
+    const current = signal ? priceBySymbol.get(signal.symbol) : undefined;
+    const pct =
+      current != null && signal
+        ? ((current - pos.entry_price) / pos.entry_price) * (signal.side === "sell" ? -1 : 1) * 100
+        : null;
+    const unrealizedPnl = pct != null ? (pct / 100) * Number(pos.size) : null;
+    return { pos, signal, current, pct, unrealizedPnl };
+  });
+  const totalUnrealizedPnl = openWithPnl.reduce((sum, o) => sum + (o.unrealizedPnl ?? 0), 0);
+  const totalAllocated = Array.from(allocationByProvider.values()).reduce((sum, a) => sum + Number(a), 0);
 
   const myWins = closedPositions.filter((p) => (p.pnl ?? 0) >= 0).length;
   const myWinRatePct = closedPositions.length > 0 ? Math.round((myWins / closedPositions.length) * 100) : null;
@@ -160,10 +184,31 @@ export default async function PortfolioPage({
     <div className="flex flex-col gap-6">
       <section id="wallet" className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-4 scroll-mt-20">
         <div>
-          <p className="text-xs text-muted">الرصيد المتاح</p>
-          <p className="text-3xl font-semibold">
-            ${profile?.balance != null ? Number(profile.balance).toLocaleString("en-US", { maximumFractionDigits: 2 }) : "—"}
+          <p className="text-xs text-muted">قيمة المحفظة الإجمالية</p>
+          <p className="text-3xl font-semibold" dir="ltr">
+            ${(Number(profile?.balance ?? 0) + totalAllocated + totalUnrealizedPnl).toLocaleString("en-US", { maximumFractionDigits: 2 })}
           </p>
+          <div className="mt-3 grid grid-cols-3 gap-3 border-t border-border pt-3 text-sm">
+            <div>
+              <p className="font-semibold" dir="ltr">
+                ${Number(profile?.balance ?? 0).toLocaleString("en-US", { maximumFractionDigits: 2 })}
+              </p>
+              <p className="text-xs text-muted">نقدي متاح</p>
+            </div>
+            <div>
+              <p className="font-semibold" dir="ltr">
+                ${totalAllocated.toLocaleString("en-US", { maximumFractionDigits: 2 })}
+              </p>
+              <p className="text-xs text-muted">مستثمر في النسخ</p>
+            </div>
+            <div>
+              <p className={totalUnrealizedPnl >= 0 ? "font-semibold text-success" : "font-semibold text-danger"} dir="ltr">
+                {totalUnrealizedPnl >= 0 ? "+" : ""}
+                ${totalUnrealizedPnl.toLocaleString("en-US", { maximumFractionDigits: 2 })}
+              </p>
+              <p className="text-xs text-muted">ربح/خسارة غير محققة</p>
+            </div>
+          </div>
         </div>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <form action={requestDeposit} className="flex items-center gap-2">
@@ -295,15 +340,83 @@ export default async function PortfolioPage({
   );
 
   const positionsPanel = (
-    <div className="flex flex-col gap-3">
-      <h2 className="font-medium">سجل الصفقات</h2>
-      {closedHistory.length === 0 ? (
-        <p className="text-sm text-muted">
-          لا توجد صفقات منسوخة مغلقة حتى الآن. ستظهر النتائج هنا فور إغلاق أي متداول تتابعه لصفقة.
-        </p>
-      ) : (
-        <TradeHistory trades={closedHistory} />
-      )}
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-3">
+        <div className="flex items-center justify-between">
+          <h2 className="font-medium">المراكز المفتوحة</h2>
+          {openWithPnl.length > 0 && (
+            <span
+              className={totalUnrealizedPnl >= 0 ? "text-sm font-semibold text-success" : "text-sm font-semibold text-danger"}
+              dir="ltr"
+            >
+              {totalUnrealizedPnl >= 0 ? "+" : ""}
+              ${totalUnrealizedPnl.toLocaleString("en-US", { maximumFractionDigits: 2 })}
+            </span>
+          )}
+        </div>
+        {openWithPnl.length === 0 ? (
+          <p className="text-sm text-muted">لا توجد مراكز مفتوحة حاليًا. ستظهر هنا فور فتح متداول تنسخه لصفقة جديدة.</p>
+        ) : (
+          <div className="flex flex-col gap-2">
+            {openWithPnl.map(({ pos, signal, pct, unrealizedPnl }) => (
+              <div
+                key={pos.id}
+                className="flex items-center justify-between gap-3 rounded-lg border border-border bg-surface p-3"
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-background text-base">
+                    {symbolIcon(signal?.symbol ?? "")}
+                  </span>
+                  <div>
+                    <p className="text-sm font-medium" dir="ltr">
+                      {signal?.symbol ?? "—"}
+                    </p>
+                    <span
+                      className={
+                        signal?.side === "buy"
+                          ? "rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-medium text-success"
+                          : "rounded-full bg-danger/10 px-2 py-0.5 text-[10px] font-medium text-danger"
+                      }
+                    >
+                      {signal?.side === "buy" ? "شراء" : "بيع"}
+                    </span>
+                  </div>
+                </div>
+                <div className="text-end">
+                  <p
+                    className={
+                      unrealizedPnl == null
+                        ? "text-sm font-semibold text-muted"
+                        : unrealizedPnl >= 0
+                          ? "text-sm font-semibold text-success"
+                          : "text-sm font-semibold text-danger"
+                    }
+                    dir="ltr"
+                  >
+                    {unrealizedPnl != null
+                      ? `${unrealizedPnl >= 0 ? "+" : ""}$${unrealizedPnl.toLocaleString("en-US", { maximumFractionDigits: 2 })}`
+                      : "—"}
+                  </p>
+                  <p className="text-xs text-muted" dir="ltr">
+                    {pct != null ? `${pct >= 0 ? "+" : ""}${pct.toFixed(2)}%` : "—"}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-3">
+        <h2 className="font-medium">سجل الصفقات</h2>
+        {closedHistory.length === 0 ? (
+          <p className="text-sm text-muted">
+            لا توجد صفقات منسوخة مغلقة حتى الآن. ستظهر النتائج هنا فور إغلاق أي متداول تتابعه لصفقة.
+          </p>
+        ) : (
+          <TradeHistory trades={closedHistory} />
+        )}
+      </div>
     </div>
   );
 
