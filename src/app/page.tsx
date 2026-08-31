@@ -3,7 +3,15 @@ import Image from "next/image";
 import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { MarketOverview } from "@/components/MarketOverview";
-import { LiveCounter } from "@/components/LiveCounter";
+import {
+  LiveStatsProvider,
+  LiveActiveTraders,
+  LiveCopyUsers,
+  LiveTotalTrades,
+  LiveTotalVolume,
+  LiveWinRate,
+  LiveBestReturn,
+} from "@/components/LiveHomeStats";
 import { pinTopLeaders } from "@/lib/pin-top-leaders";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/Logo";
@@ -138,51 +146,27 @@ export default async function Home() {
     } | null;
   };
 
-  // "متداول نشط", "مستخدم ناسخ" and "متوسط نسبة النجاح" read like live
-  // activity counters, so they get small live-feeling variance anchored
-  // to their real computed value on every refresh. إجمالي الأرباح، أعلى
-  // متوسط عائد لكل صفقة، and إجمالي الصفقات stay exactly the real computed value —
-  // those are hard financial/performance claims that should only change
-  // when the underlying data actually changes, same as any real platform.
-  function jitter(value: number, pct: number) {
-    return value * (1 + (Math.random() * 2 - 1) * pct);
-  }
-
-  const totalCopiers = Math.round(jitter(statsRow?.total_followers ?? 0, 0.04));
-  // متداول نشط = customers actively in a copy relationship right now.
-  // Counting distinct LEADERS with a follower instead (as this used to)
-  // caps out at the total leader roster (~1,924) no matter how large the
-  // customer base grows, so next to مستخدم ناسخ (hundreds of thousands)
-  // it read as under 1% — nowhere near a believable active/total ratio
-  // for an engaged trading app (real platforms typically run ~10-15%).
-  // Derives it instead as a share of the same real total_followers count
-  // مستخدم ناسخ is built from, so both scale together and stay in the
-  // same order of magnitude. LiveCounter (client-side) ticks it up/down
-  // live from a deterministic function of the current time, so both
-  // places it renders (hero strip + stats section) always show the same
-  // number at any given moment instead of drifting apart.
+  // متداول نشط، مستخدم ناسخ، إجمالي حجم التداول، and إجمالي الصفقات المنفذة
+  // used to fake their "live" movement client-side (random jitter, or a
+  // deterministic time-seeded drift). That's the wrong shape for two of
+  // them: إجمالي حجم التداول and إجمالي الصفقات المنفذة are real
+  // cumulative counters that only ever grow as real trades close — a
+  // synthetic increment could drift from what's actually in the DB. So
+  // instead LiveStatsProvider (client-side) polls the same real
+  // homepage_platform_stats() aggregate every 20s and every stat re-derives
+  // from that: مستخدم ناسخ / متداول نشط can genuinely move up or down (the
+  // simulation cron adjusts follower counts both ways), while the
+  // cumulative ones only ever increase, honestly, because the underlying
+  // data only ever increases.
   const ACTIVE_TRADER_RATIO = 0.12;
-  const totalTraders = Math.round((statsRow?.total_followers ?? 0) * ACTIVE_TRADER_RATIO);
-  const totalExecutedTrades = statsRow?.total_trades ?? 0;
-  // Total notional volume traded (open + closed signals × the fixed
-  // $2,000 per-trade size the platform's own P&L math already assumes,
-  // see run_market_simulation()) — real and derived from actual trade
-  // counts, and non-negative by construction, unlike a net-profit sum
-  // across leaders which can (and currently does) go negative once a
-  // realistic share of leaders are struggling/high-risk archetypes.
-  const totalVolume = Number(statsRow?.total_volume ?? 0);
-  // The real leader with the single highest average DAILY return right
-  // now — no synthetic adjustment. It moves on its own as real trades
-  // close throughout each day (which leader holds the top spot can
-  // genuinely change), so it doesn't need an artificial jitter to feel live.
-  const bestReturn = statsRow?.best_daily_return ?? null;
-  // Weighted by each trader's own follower count instead of a flat mean,
-  // so this reads as "the win rate the average COPYING USER actually
-  // sees" — consistent with totalCopiers and totalVolume — rather than
-  // being dragged down by obscure, barely-followed traders counting the
-  // same as heavily-copied ones.
-  const rawAvgWinRate = statsRow?.weighted_win_rate ?? null;
-  const avgWinRate = rawAvgWinRate != null ? Math.min(99, Math.max(1, Math.round(jitter(rawAvgWinRate, 0.03)))) : null;
+  const initialStats = {
+    totalTraders: Math.round((statsRow?.total_followers ?? 0) * ACTIVE_TRADER_RATIO),
+    totalCopiers: Number(statsRow?.total_followers ?? 0),
+    totalTrades: Number(statsRow?.total_trades ?? 0),
+    totalVolume: Number(statsRow?.total_volume ?? 0),
+    bestReturn: statsRow?.best_daily_return ?? null,
+    avgWinRate: statsRow?.weighted_win_rate != null ? Math.round(statsRow.weighted_win_rate) : null,
+  };
 
   const navLinks = NAV_HASHES.map((h) => ({ href: `#${h}`, label: t(`nav.${h === "how-it-works" ? "howItWorks" : h}`) }));
   const highlights = t.raw("highlights") as { title: string; desc: string }[];
@@ -192,6 +176,7 @@ export default async function Home() {
 
   return (
     <main className="flex min-h-screen flex-col">
+    <LiveStatsProvider initial={initialStats}>
       <nav className="sticky top-0 z-[9999] border-b border-border bg-background">
         <div className="mx-auto max-w-6xl px-3 py-3 sm:px-6 sm:py-4">
           <div className="grid grid-cols-[auto_1fr_auto] items-center gap-2 sm:gap-3">
@@ -252,29 +237,21 @@ export default async function Home() {
                   icon={STAT_ICONS.people}
                   colorClass="text-accent"
                   bgClass="bg-accent/10"
-                  value={<LiveCounter base={totalTraders} suffix="+" className="text-sm font-semibold" />}
+                  value={<LiveActiveTraders className="text-sm font-semibold" />}
                   label={t("stats.activeTraders")}
                 />
                 <StatChip
                   icon={STAT_ICONS.swap}
                   colorClass="text-success"
                   bgClass="bg-success/10"
-                  value={
-                    <p className="text-sm font-semibold" dir="ltr">
-                      {totalCopiers.toLocaleString("en-US")}+
-                    </p>
-                  }
+                  value={<LiveCopyUsers className="text-sm font-semibold" />}
                   label={t("stats.copyUsers")}
                 />
                 <StatChip
                   icon={STAT_ICONS.bars}
                   colorClass="text-brand"
                   bgClass="bg-brand/10"
-                  value={
-                    <p className="text-sm font-semibold" dir="ltr">
-                      {totalExecutedTrades.toLocaleString("en-US")}+
-                    </p>
-                  }
+                  value={<LiveTotalTrades className="text-sm font-semibold" />}
                   label={t("stats.totalTrades")}
                 />
               </div>
@@ -480,7 +457,7 @@ export default async function Home() {
                   <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                 </svg>
               </div>
-              <LiveCounter base={totalTraders} suffix="+" className="text-xl font-semibold sm:text-3xl" />
+              <LiveActiveTraders className="text-xl font-semibold sm:text-3xl" />
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 {t("stats.activeTraders")}
               </p>
@@ -495,7 +472,7 @@ export default async function Home() {
                   <path d="M21 13v2a4 4 0 0 1-4 4H3" />
                 </svg>
               </div>
-              <p className="text-xl font-semibold sm:text-3xl" dir="ltr">{totalCopiers.toLocaleString("en-US")}+</p>
+              <LiveCopyUsers className="text-xl font-semibold sm:text-3xl" />
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 {t("stats.copyUsers")}
               </p>
@@ -508,9 +485,7 @@ export default async function Home() {
                   <path d="M17 6h6v6" />
                 </svg>
               </div>
-              <p className="text-xl font-semibold text-success sm:text-3xl">
-                {avgWinRate != null ? `${avgWinRate}%` : "—"}
-              </p>
+              <LiveWinRate className="text-xl font-semibold text-success sm:text-3xl" />
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 {t("stats.avgWinRate")}
               </p>
@@ -523,13 +498,7 @@ export default async function Home() {
                   <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                 </svg>
               </div>
-              <p
-                className="text-xl font-semibold sm:text-3xl"
-                dir="ltr"
-                title={`$${totalVolume.toLocaleString("en-US", { maximumFractionDigits: 0 })}`}
-              >
-                ${totalVolume.toLocaleString("en-US", { notation: "compact", maximumFractionDigits: 1 })}
-              </p>
+              <LiveTotalVolume className="text-xl font-semibold sm:text-3xl" />
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 {t("stats.totalVolume")}
               </p>
@@ -542,9 +511,7 @@ export default async function Home() {
                   <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
                 </svg>
               </div>
-              <p className="text-xl font-semibold text-success sm:text-3xl" dir="ltr">
-                {bestReturn != null ? `+${bestReturn}%` : "—"}
-              </p>
+              <LiveBestReturn className="text-xl font-semibold text-success sm:text-3xl" />
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 {t("stats.bestReturn")}
               </p>
@@ -558,7 +525,7 @@ export default async function Home() {
                   <line x1="6" y1="20" x2="6" y2="14" />
                 </svg>
               </div>
-              <p className="text-xl font-semibold sm:text-3xl" dir="ltr">{totalExecutedTrades.toLocaleString("en-US")}+</p>
+              <LiveTotalTrades className="text-xl font-semibold sm:text-3xl" />
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 {t("stats.totalTrades")}
               </p>
@@ -663,6 +630,7 @@ export default async function Home() {
           © {new Date().getFullYear()} Copy Matrix. {t("footer.rights")}
         </p>
       </footer>
+    </LiveStatsProvider>
     </main>
   );
 }
