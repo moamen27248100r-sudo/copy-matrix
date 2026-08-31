@@ -224,11 +224,11 @@ export default async function Home() {
           </a>
         </div>
         <div className="w-full max-w-sm overflow-hidden pt-2">
-          <div className="flex w-max animate-[ticker-scroll_16s_linear_infinite] gap-2 hover:[animation-play-state:paused]">
+          <div className="flex w-max animate-[ticker-scroll_16s_linear_infinite] hover:[animation-play-state:paused]">
             {[0, 1].map((copy) => (
-              <div key={copy} className="flex shrink-0 gap-2" aria-hidden={copy === 1}>
+              <div key={copy} className="flex shrink-0" aria-hidden={copy === 1}>
                 <StatCard
-                  className="w-28 shrink-0"
+                  className="me-2 w-28 shrink-0"
                   icon={STAT_ICONS.people}
                   colorClass="text-accent"
                   bgClass="bg-accent/10"
@@ -236,7 +236,7 @@ export default async function Home() {
                   label={t("stats.activeTraders")}
                 />
                 <StatCard
-                  className="w-28 shrink-0"
+                  className="me-2 w-28 shrink-0"
                   icon={STAT_ICONS.swap}
                   colorClass="text-success"
                   bgClass="bg-success/10"
@@ -244,7 +244,7 @@ export default async function Home() {
                   label={t("stats.copyUsers")}
                 />
                 <StatCard
-                  className="w-28 shrink-0"
+                  className="me-2 w-28 shrink-0"
                   icon={STAT_ICONS.bars}
                   colorClass="text-brand"
                   bgClass="bg-brand/10"
