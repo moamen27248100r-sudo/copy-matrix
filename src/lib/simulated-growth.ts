@@ -19,6 +19,19 @@ function seededRandom(seed: number): number {
   return x - Math.floor(x);
 }
 
+// A sin()-based hash is smooth by construction, so a small integer step
+// between ticks can occasionally land two adjacent ticks on nearly the
+// same value (a real-run gap could be seen sitting flat for a stretch).
+// Use a proper bit-mixing integer hash for the live tick wobble instead,
+// which has no such adjacent-input correlation.
+function hashToUnit(n: number): number {
+  let x = n | 0;
+  x = Math.imul(x ^ (x >>> 16), 0x45d9f3b);
+  x = Math.imul(x ^ (x >>> 16), 0x45d9f3b);
+  x = (x ^ (x >>> 16)) >>> 0;
+  return x / 4294967296;
+}
+
 const COPY_USERS_BASE = 73000;
 const COPY_USERS_EPOCH = Date.UTC(2026, 7, 31); // 2026-08-31 — day this system started
 // Asymmetric so the platform still trends gently upward over the long
@@ -46,9 +59,12 @@ export function simulatedCopyUsers(now: number): number {
   total += todayDelta * fractionalDay;
 
   // Live wobble within today's still-in-progress swing, free to move
-  // either direction (no floor pinned to yesterday's total).
+  // either direction (no floor pinned to yesterday's total). Floored to
+  // a minimum amplitude so the number keeps visibly moving tick to tick
+  // even on a day whose overall delta happens to be small.
   const tickBucket = Math.floor(now / 15000);
-  const wobble = (seededRandom(tickBucket * 3.71 + fullDays * 91.7) - 0.5) * Math.abs(todayDelta) * 0.6;
+  const wobbleAmplitude = Math.max(Math.abs(todayDelta) * 0.6, 60);
+  const wobble = (hashToUnit(tickBucket + fullDays * 97) - 0.5) * wobbleAmplitude;
 
   return Math.max(0, Math.round(total + wobble));
 }
