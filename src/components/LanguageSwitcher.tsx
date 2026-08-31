@@ -84,11 +84,11 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: Locale }) {
         ref={buttonRef}
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1 whitespace-nowrap rounded border border-border px-1.5 py-1.5 text-[11px] text-foreground sm:gap-1.5 sm:px-2.5 sm:text-sm"
+        className="flex items-center gap-1.5 whitespace-nowrap rounded border border-border px-2.5 py-2 text-sm text-foreground"
         aria-label="Language"
         aria-expanded={open}
       >
-        <svg viewBox="0 0 24 24" className="h-3 w-3 shrink-0 sm:h-4 sm:w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="10" />
           <line x1="2" y1="12" x2="22" y2="12" />
           <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />

@@ -8,6 +8,7 @@ import { pinTopLeaders } from "@/lib/pin-top-leaders";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/Logo";
 import type { Locale } from "@/i18n/locales";
+import type { ReactNode } from "react";
 
 export const dynamic = "force-dynamic";
 
@@ -46,6 +47,60 @@ const FEATURE_ICONS = [
     </>
   ),
 ];
+
+const STAT_ICONS = {
+  people: (
+    <>
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </>
+  ),
+  swap: (
+    <>
+      <path d="M17 1l4 4-4 4" />
+      <path d="M3 11V9a4 4 0 0 1 4-4h14" />
+      <path d="M7 23l-4-4 4-4" />
+      <path d="M21 13v2a4 4 0 0 1-4 4H3" />
+    </>
+  ),
+  bars: (
+    <>
+      <line x1="18" y1="20" x2="18" y2="10" />
+      <line x1="12" y1="20" x2="12" y2="4" />
+      <line x1="6" y1="20" x2="6" y2="14" />
+    </>
+  ),
+};
+
+function StatChip({
+  icon,
+  colorClass,
+  bgClass,
+  value,
+  label,
+}: {
+  icon: ReactNode;
+  colorClass: string;
+  bgClass: string;
+  value: ReactNode;
+  label: string;
+}) {
+  return (
+    <div className="flex shrink-0 items-center gap-3 rounded-full border border-border bg-surface py-2 pe-5 ps-2">
+      <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${bgClass}`}>
+        <svg viewBox="0 0 24 24" className={`h-4 w-4 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          {icon}
+        </svg>
+      </span>
+      <div className="text-start">
+        {value}
+        <p className="whitespace-nowrap text-[11px] text-muted">{label}</p>
+      </div>
+    </div>
+  );
+}
 
 const NAV_HASHES = ["how-it-works", "traders", "markets", "features", "faq"] as const;
 
@@ -138,22 +193,22 @@ export default async function Home() {
   return (
     <main className="flex min-h-screen flex-col">
       <nav className="sticky top-0 z-[9999] border-b border-border bg-background">
-        <div className="mx-auto max-w-6xl px-4 py-3 sm:px-6 sm:py-4">
-          <div className="grid grid-cols-[auto_1fr_auto] items-center gap-1 sm:gap-3">
+        <div className="mx-auto max-w-6xl px-3 py-3 sm:px-6 sm:py-4">
+          <div className="grid grid-cols-[auto_1fr_auto] items-center gap-2 sm:gap-3">
             <Link
               href="/signup"
-              className="whitespace-nowrap rounded bg-accent px-2 py-1.5 text-[11px] font-medium text-accent-foreground transition hover:bg-accent-hover sm:px-4 sm:py-2 sm:text-sm"
+              className="whitespace-nowrap rounded bg-accent px-3 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover sm:px-4"
             >
               {t("nav.signup")}
             </Link>
 
             <span className="flex items-center justify-center">
-              <Logo iconClassName="h-4 w-4 sm:h-6 sm:w-6" textClassName="text-base sm:text-xl" />
+              <Logo iconClassName="h-6 w-6 sm:h-6 sm:w-6" textClassName="text-lg sm:text-xl" />
             </span>
 
-            <div className="flex items-center gap-1 sm:gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <LanguageSwitcher currentLocale={locale} />
-              <Link href="/login" className="whitespace-nowrap rounded border border-border px-2 py-1.5 text-[11px] sm:px-4 sm:py-2 sm:text-sm">
+              <Link href="/login" className="whitespace-nowrap rounded border border-border px-3 py-2 text-sm sm:px-4">
                 {t("nav.login")}
               </Link>
             </div>
@@ -183,24 +238,47 @@ export default async function Home() {
             {t("hero.browse")}
           </a>
         </div>
-        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 pt-2 text-center">
-          <div>
-            <LiveCounter base={totalTraders} suffix="+" className="text-lg font-semibold sm:text-2xl" />
-            <p className="text-[11px] text-muted">{t("stats.activeTraders")}</p>
-          </div>
-          <div className="h-8 w-px bg-border" aria-hidden="true" />
-          <div>
-            <p className="text-lg font-semibold sm:text-2xl" dir="ltr">
-              {totalCopiers.toLocaleString("en-US")}+
-            </p>
-            <p className="text-[11px] text-muted">{t("stats.copyUsers")}</p>
-          </div>
-          <div className="h-8 w-px bg-border" aria-hidden="true" />
-          <div>
-            <p className="text-lg font-semibold sm:text-2xl" dir="ltr">
-              {totalExecutedTrades.toLocaleString("en-US")}+
-            </p>
-            <p className="text-[11px] text-muted">{t("stats.totalTrades")}</p>
+        <div
+          className="w-full max-w-full overflow-hidden pt-2"
+          style={{
+            maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+            WebkitMaskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+          }}
+        >
+          <div className="flex w-max animate-[ticker-scroll_24s_linear_infinite] gap-4 hover:[animation-play-state:paused]">
+            {[0, 1].map((dup) => (
+              <div key={dup} className="flex shrink-0 items-center gap-4" aria-hidden={dup === 1}>
+                <StatChip
+                  icon={STAT_ICONS.people}
+                  colorClass="text-accent"
+                  bgClass="bg-accent/10"
+                  value={<LiveCounter base={totalTraders} suffix="+" className="text-sm font-semibold" />}
+                  label={t("stats.activeTraders")}
+                />
+                <StatChip
+                  icon={STAT_ICONS.swap}
+                  colorClass="text-success"
+                  bgClass="bg-success/10"
+                  value={
+                    <p className="text-sm font-semibold" dir="ltr">
+                      {totalCopiers.toLocaleString("en-US")}+
+                    </p>
+                  }
+                  label={t("stats.copyUsers")}
+                />
+                <StatChip
+                  icon={STAT_ICONS.bars}
+                  colorClass="text-brand"
+                  bgClass="bg-brand/10"
+                  value={
+                    <p className="text-sm font-semibold" dir="ltr">
+                      {totalExecutedTrades.toLocaleString("en-US")}+
+                    </p>
+                  }
+                  label={t("stats.totalTrades")}
+                />
+              </div>
+            ))}
           </div>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-4 text-xs text-muted">
