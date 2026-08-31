@@ -223,10 +223,7 @@ export default async function Home() {
             {t("hero.browse")}
           </a>
         </div>
-        <div
-          className="w-full max-w-sm overflow-hidden pt-2"
-          style={{ maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)" }}
-        >
+        <div className="w-full max-w-sm overflow-hidden pt-2">
           <div className="flex w-max animate-[ticker-scroll_16s_linear_infinite] gap-2 hover:[animation-play-state:paused]">
             {[0, 1].map((copy) => (
               <div key={copy} className="flex shrink-0 gap-2" aria-hidden={copy === 1}>
