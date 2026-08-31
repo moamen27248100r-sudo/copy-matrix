@@ -83,24 +83,23 @@ const STAT_ICONS = {
   ),
 };
 
-// Static (no animation) so it can never cause horizontal overflow or
-// visible page shift on any device — a moving marquee here previously
-// read as the page itself being too wide on some phones.
 function StatCard({
   icon,
   colorClass,
   bgClass,
   value,
   label,
+  className = "",
 }: {
   icon: ReactNode;
   colorClass: string;
   bgClass: string;
   value: ReactNode;
   label: string;
+  className?: string;
 }) {
   return (
-    <div className="flex min-w-0 flex-col items-center gap-1.5 rounded-lg border border-border bg-surface px-1 py-3 text-center">
+    <div className={`flex min-w-0 flex-col items-center gap-1.5 rounded-lg border border-border bg-surface px-1 py-3 text-center ${className}`}>
       <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${bgClass}`}>
         <svg viewBox="0 0 24 24" className={`h-4 w-4 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           {icon}
@@ -189,7 +188,7 @@ export default async function Home() {
             </Link>
 
             <span className="flex min-w-0 items-center justify-center overflow-hidden">
-              <Logo iconClassName="h-5 w-5 sm:h-6 sm:w-6" textClassName="text-base sm:text-xl" />
+              <Logo iconClassName="h-4 w-4 sm:h-5 sm:w-5" textClassName="text-base sm:text-xl" />
             </span>
 
             <div className="flex min-w-0 items-center gap-0.5 sm:gap-3">
@@ -224,28 +223,40 @@ export default async function Home() {
             {t("hero.browse")}
           </a>
         </div>
-        <div className="grid w-full max-w-sm grid-cols-3 gap-2 pt-2">
-          <StatCard
-            icon={STAT_ICONS.people}
-            colorClass="text-accent"
-            bgClass="bg-accent/10"
-            value={<LiveActiveTraders className="text-sm font-semibold sm:text-base" />}
-            label={t("stats.activeTraders")}
-          />
-          <StatCard
-            icon={STAT_ICONS.swap}
-            colorClass="text-success"
-            bgClass="bg-success/10"
-            value={<LiveCopyUsers className="text-sm font-semibold sm:text-base" />}
-            label={t("stats.copyUsers")}
-          />
-          <StatCard
-            icon={STAT_ICONS.bars}
-            colorClass="text-brand"
-            bgClass="bg-brand/10"
-            value={<LiveTotalTrades className="text-sm font-semibold sm:text-base" />}
-            label={t("stats.totalTrades")}
-          />
+        <div
+          className="w-full max-w-sm overflow-hidden pt-2"
+          style={{ maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)" }}
+        >
+          <div className="flex w-max animate-[ticker-scroll_16s_linear_infinite] gap-2 hover:[animation-play-state:paused]">
+            {[0, 1].map((copy) => (
+              <div key={copy} className="flex shrink-0 gap-2" aria-hidden={copy === 1}>
+                <StatCard
+                  className="w-28 shrink-0"
+                  icon={STAT_ICONS.people}
+                  colorClass="text-accent"
+                  bgClass="bg-accent/10"
+                  value={<LiveActiveTraders className="text-sm font-semibold sm:text-base" />}
+                  label={t("stats.activeTraders")}
+                />
+                <StatCard
+                  className="w-28 shrink-0"
+                  icon={STAT_ICONS.swap}
+                  colorClass="text-success"
+                  bgClass="bg-success/10"
+                  value={<LiveCopyUsers className="text-sm font-semibold sm:text-base" />}
+                  label={t("stats.copyUsers")}
+                />
+                <StatCard
+                  className="w-28 shrink-0"
+                  icon={STAT_ICONS.bars}
+                  colorClass="text-brand"
+                  bgClass="bg-brand/10"
+                  value={<LiveTotalTrades className="text-sm font-semibold sm:text-base" />}
+                  label={t("stats.totalTrades")}
+                />
+              </div>
+            ))}
+          </div>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-4 text-xs text-muted">
           {[t("hero.trust0"), t("hero.trust1"), t("hero.trust2")].map((trustText) => (

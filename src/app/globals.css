@@ -47,3 +47,16 @@ body {
   overflow-x: hidden;
   max-width: 100%;
 }
+
+/* Stats strip marquee: two identical copies of the content sit
+   side by side and the track scrolls exactly one copy's width (-50%),
+   so the loop point is invisible. Contained by overflow-hidden on the
+   parent, so it can never affect page width. */
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

@@ -8,7 +8,7 @@ export function Logo({
   className?: string;
 }) {
   return (
-    <span className={`inline-flex items-center gap-1 whitespace-nowrap ${className}`} dir="ltr">
+    <span className={`inline-flex items-center gap-0.5 whitespace-nowrap ${className}`} dir="ltr">
       <span className={`font-bold ${textClassName}`}>Copy Matrix</span>
       <span className="flex items-center">
         <svg viewBox="0 0 24 24" className={`text-brand ${iconClassName}`} fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
