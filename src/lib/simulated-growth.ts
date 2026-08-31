@@ -1,11 +1,16 @@
-// مستخدم ناسخ needed a much smaller, controlled starting point (73,000
-// instead of the ~300,000 the real per-leader follower sum had grown
-// to) with natural day-by-day random growth going forward — a
-// deliberately simulated platform-growth curve for this one marketing
-// figure, decoupled from the real per-leader follower counts (which
-// still drive each trader's own "ناسخ" count on their profile/discover
-// card, untouched). Pure function of wall-clock time so server render
-// and every client tick agree exactly, with no backend call needed.
+// مستخدم ناسخ / متداول نشط are a deliberately simulated marketing
+// figure, decoupled from the real per-leader follower sum (which still
+// drives each trader's own "ناسخ" count on their profile/discover card,
+// untouched). Modeled as a genuine day-to-day random walk — some days
+// net up, some days net down, same as real active-user/copier counts —
+// not a monotonic always-climbing curve and not capped at any fixed
+// ceiling. Pure function of wall-clock time so server render and every
+// client tick agree exactly, with no backend call needed.
+//
+// إجمالي الصفقات المنفذة (total trade count) is intentionally NOT part
+// of this file — it's a real, DB-backed lifetime counter (see
+// homepage_platform_stats() / LiveHomeStats.tsx) that only ever grows,
+// because real executed trades can't be un-executed.
 
 const DAY_MS = 86400000;
 
@@ -16,9 +21,16 @@ function seededRandom(seed: number): number {
 
 const COPY_USERS_BASE = 73000;
 const COPY_USERS_EPOCH = Date.UTC(2026, 7, 31); // 2026-08-31 — day this system started
-const DAILY_GROWTH_MIN = 150;
-const DAILY_GROWTH_MAX = 350;
+// Asymmetric so the platform still trends gently upward over the long
+// run (real growing platforms do), while plenty of individual days net
+// negative — a true random walk, not one-directional growth.
+const DAILY_DELTA_MIN = -220;
+const DAILY_DELTA_MAX = 350;
 const ACTIVE_TRADER_RATIO = 0.12;
+
+function dailyDelta(dayIndex: number): number {
+  return DAILY_DELTA_MIN + seededRandom(dayIndex) * (DAILY_DELTA_MAX - DAILY_DELTA_MIN);
+}
 
 export function simulatedCopyUsers(now: number): number {
   const elapsedDays = Math.max(0, (now - COPY_USERS_EPOCH) / DAY_MS);
@@ -26,20 +38,19 @@ export function simulatedCopyUsers(now: number): number {
   const fractionalDay = elapsedDays - fullDays;
 
   let total = COPY_USERS_BASE;
-  for (let d = 0; d < fullDays; d++) {
-    total += DAILY_GROWTH_MIN + seededRandom(d + 1) * (DAILY_GROWTH_MAX - DAILY_GROWTH_MIN);
+  for (let d = 1; d <= fullDays; d++) {
+    total += dailyDelta(d);
   }
 
-  const todayGrowth = DAILY_GROWTH_MIN + seededRandom(fullDays + 1) * (DAILY_GROWTH_MAX - DAILY_GROWTH_MIN);
-  total += todayGrowth * fractionalDay;
+  const todayDelta = dailyDelta(fullDays + 1);
+  total += todayDelta * fractionalDay;
 
-  // Gentle live wobble within today's own still-in-progress growth band
-  // only, so the number keeps visibly moving tick to tick without ever
-  // dipping below yesterday's completed total.
+  // Live wobble within today's still-in-progress swing, free to move
+  // either direction (no floor pinned to yesterday's total).
   const tickBucket = Math.floor(now / 15000);
-  const wobble = (seededRandom(tickBucket * 3.71 + fullDays * 91.7) - 0.5) * todayGrowth * 0.4;
+  const wobble = (seededRandom(tickBucket * 3.71 + fullDays * 91.7) - 0.5) * Math.abs(todayDelta) * 0.6;
 
-  return Math.round(Math.max(total - todayGrowth * 0.05, total + wobble));
+  return Math.max(0, Math.round(total + wobble));
 }
 
 export function simulatedActiveTraders(now: number): number {
