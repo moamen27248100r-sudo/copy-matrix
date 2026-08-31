@@ -54,7 +54,7 @@ export async function AppNav() {
   return (
     <nav className="sticky top-0 z-[9999] w-full border-b border-border bg-[#0b1726]">
       <NavDrawerProvider>
-      <div className="mx-auto grid h-14 max-w-5xl grid-cols-[auto_1fr_auto] items-center gap-0.5 px-1.5 sm:h-16 sm:gap-2 sm:px-6">
+      <div className="mx-auto grid h-14 max-w-5xl grid-cols-[auto_1fr_auto] items-center gap-0.5 px-2 sm:h-16 sm:gap-2 sm:px-6">
         <div className="flex min-w-0 justify-start">
           {user ? (
             <MainMenu
@@ -68,7 +68,7 @@ export async function AppNav() {
           ) : (
             <Link
               href="/signup"
-              className="min-w-0 whitespace-nowrap rounded bg-accent px-1.5 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover sm:px-3"
+              className="min-w-0 whitespace-nowrap rounded bg-accent px-1 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover sm:px-3"
             >
               {t("createAccount")}
             </Link>
