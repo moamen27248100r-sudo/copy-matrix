@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { simulatedCopyUsers, simulatedActiveTraders } from "@/lib/simulated-growth";
 
@@ -82,29 +82,56 @@ function useLiveStats(): Stats {
   return ctx;
 }
 
+// A number that's only ever spotted mid-scroll (it's inside a moving
+// marquee) is easy to miss updating even when it genuinely does — the
+// eye is busy tracking position, not reading digits. Remounting the
+// span (via `key`) on every value change retriggers a brief color/scale
+// pop so the update itself is unmistakable, independent of the strip's
+// own motion.
+function useFlashKey(value: number): number {
+  const [flashKey, setFlashKey] = useState(0);
+  const prevRef = useRef(value);
+  useEffect(() => {
+    if (prevRef.current !== value) {
+      prevRef.current = value;
+      setFlashKey((k) => k + 1);
+    }
+  }, [value]);
+  return flashKey;
+}
+
 export function LiveActiveTraders({ className }: { className?: string }) {
   const { totalTraders } = useLiveStats();
+  const flashKey = useFlashKey(totalTraders);
   return (
     <p className={className} dir="ltr" suppressHydrationWarning>
-      {totalTraders.toLocaleString("en-US")}+
+      <span key={flashKey} className="inline-block animate-[stat-flash_0.7s_ease-out]">
+        {totalTraders.toLocaleString("en-US")}+
+      </span>
     </p>
   );
 }
 
 export function LiveCopyUsers({ className }: { className?: string }) {
   const { totalCopiers } = useLiveStats();
+  const flashKey = useFlashKey(totalCopiers);
   return (
     <p className={className} dir="ltr" suppressHydrationWarning>
-      {totalCopiers.toLocaleString("en-US")}+
+      <span key={flashKey} className="inline-block animate-[stat-flash_0.7s_ease-out]">
+        {totalCopiers.toLocaleString("en-US")}+
+      </span>
     </p>
   );
 }
 
 export function LiveTotalTrades({ className }: { className?: string }) {
   const { totalTrades } = useLiveStats();
+  const flashKey = useFlashKey(totalTrades);
   return (
     <p className={className} dir="ltr" suppressHydrationWarning>
-      {totalTrades.toLocaleString("en-US")}+
+      <span key={flashKey} className="inline-block animate-[stat-flash_0.7s_ease-out]">
+        {totalTrades.toLocaleString("en-US")}+
+      </span>
     </p>
   );
 }

@@ -60,3 +60,17 @@ body {
     transform: translateX(-50%);
   }
 }
+
+/* Pops and briefly recolors a live stat's digits whenever its value
+   changes, so the update reads clearly even while its card is also
+   sliding inside the marquee. */
+@keyframes stat-flash {
+  0% {
+    color: var(--accent);
+    transform: scale(1.15);
+  }
+  100% {
+    color: inherit;
+    transform: scale(1);
+  }
+}
