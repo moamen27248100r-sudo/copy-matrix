@@ -59,12 +59,18 @@ export function simulatedCopyUsers(now: number): number {
   total += todayDelta * fractionalDay;
 
   // Live wobble within today's still-in-progress swing, free to move
-  // either direction (no floor pinned to yesterday's total). Floored to
-  // a minimum amplitude so the number keeps visibly moving tick to tick
-  // even on a day whose overall delta happens to be small.
+  // either direction (no floor pinned to yesterday's total). Sign
+  // alternates every tick and magnitude is randomized but bounded away
+  // from zero, so consecutive ticks are *guaranteed* to swing apart by
+  // at least 2*WOBBLE_MIN — never just two independent draws that can
+  // coincidentally land close together and read as frozen.
+  const WOBBLE_MIN = 30;
+  const WOBBLE_MAX = 70;
   const tickBucket = Math.floor(now / 15000);
-  const wobbleAmplitude = Math.max(Math.abs(todayDelta) * 0.6, 60);
-  const wobble = (hashToUnit(tickBucket + fullDays * 97) - 0.5) * wobbleAmplitude;
+  const wobbleSeed = tickBucket + fullDays * 97;
+  const wobbleMagnitude = WOBBLE_MIN + hashToUnit(wobbleSeed) * (WOBBLE_MAX - WOBBLE_MIN);
+  const wobbleSign = tickBucket % 2 === 0 ? 1 : -1;
+  const wobble = wobbleSign * wobbleMagnitude;
 
   return Math.max(0, Math.round(total + wobble));
 }
