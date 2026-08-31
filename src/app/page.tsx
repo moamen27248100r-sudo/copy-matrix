@@ -179,22 +179,22 @@ export default async function Home() {
     <main className="flex min-h-screen flex-col">
     <LiveStatsProvider initial={initialStats}>
       <nav className="sticky top-0 z-[9999] border-b border-border bg-background">
-        <div className="mx-auto max-w-6xl px-3 py-3 sm:px-6 sm:py-4">
+        <div className="mx-auto max-w-6xl px-1.5 py-3 sm:px-6 sm:py-4">
           <div className="grid grid-cols-[auto_1fr_auto] items-center gap-0.5 sm:gap-3">
             <Link
               href="/signup"
-              className="min-w-0 whitespace-nowrap rounded bg-accent px-2 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover sm:px-4"
+              className="min-w-0 whitespace-nowrap rounded bg-accent px-1.5 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover sm:px-4"
             >
               {t("nav.signup")}
             </Link>
 
             <span className="flex min-w-0 items-center justify-center overflow-hidden">
-              <Logo iconClassName="h-6 w-6 sm:h-6 sm:w-6" textClassName="text-base sm:text-xl" />
+              <Logo iconClassName="h-5 w-5 sm:h-6 sm:w-6" textClassName="text-base sm:text-xl" />
             </span>
 
-            <div className="flex min-w-0 items-center gap-1.5 sm:gap-3">
+            <div className="flex min-w-0 items-center gap-0.5 sm:gap-3">
               <LanguageSwitcher currentLocale={locale} />
-              <Link href="/login" className="whitespace-nowrap rounded border border-border px-2.5 py-2 text-sm sm:px-4">
+              <Link href="/login" className="whitespace-nowrap rounded border border-border px-0.5 py-2 text-sm sm:px-4">
                 {t("nav.login")}
               </Link>
             </div>

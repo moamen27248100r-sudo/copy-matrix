@@ -84,7 +84,7 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: Locale }) {
         ref={buttonRef}
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1.5 whitespace-nowrap rounded border border-border px-2 py-2 text-sm text-foreground sm:px-2.5"
+        className="flex items-center gap-1.5 whitespace-nowrap rounded border border-border px-1.5 py-2 text-sm text-foreground sm:px-2.5"
         aria-label="Language"
         aria-expanded={open}
       >
