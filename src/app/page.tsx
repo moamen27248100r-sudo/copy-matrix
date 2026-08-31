@@ -13,6 +13,7 @@ import {
   LiveBestReturn,
 } from "@/components/LiveHomeStats";
 import { pinTopLeaders } from "@/lib/pin-top-leaders";
+import { simulatedCopyUsers, simulatedActiveTraders } from "@/lib/simulated-growth";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/Logo";
 import type { Locale } from "@/i18n/locales";
@@ -146,22 +147,21 @@ export default async function Home() {
     } | null;
   };
 
-  // متداول نشط، مستخدم ناسخ، إجمالي حجم التداول، and إجمالي الصفقات المنفذة
-  // used to fake their "live" movement client-side (random jitter, or a
-  // deterministic time-seeded drift). That's the wrong shape for two of
-  // them: إجمالي حجم التداول and إجمالي الصفقات المنفذة are real
-  // cumulative counters that only ever grow as real trades close — a
-  // synthetic increment could drift from what's actually in the DB. So
-  // instead LiveStatsProvider (client-side) polls the same real
-  // homepage_platform_stats() aggregate every 20s and every stat re-derives
-  // from that: مستخدم ناسخ / متداول نشط can genuinely move up or down (the
-  // simulation cron adjusts follower counts both ways), while the
-  // cumulative ones only ever increase, honestly, because the underlying
-  // data only ever increases.
-  const ACTIVE_TRADER_RATIO = 0.12;
+  // إجمالي حجم التداول and إجمالي الصفقات المنفذة are real cumulative
+  // counters — LiveStatsProvider (client-side) polls the real
+  // homepage_platform_stats() aggregate every 20s so they only ever grow,
+  // honestly, because the underlying data only ever grows. مستخدم ناسخ
+  // and متداول نشط are a deliberately simulated growth curve starting at
+  // 73,000 (see simulated-growth.ts) — the real per-leader follower sum
+  // had grown to ~300,000, too large a headline figure, and unlike a
+  // trade counter this one has no single real "true" value to poll for
+  // in the first place, only the sum of many synthetic per-leader
+  // baselines — so it's simulated forward from a controlled starting
+  // point instead, recomputed from wall-clock time client-side.
+  const now = Date.now();
   const initialStats = {
-    totalTraders: Math.round((statsRow?.total_followers ?? 0) * ACTIVE_TRADER_RATIO),
-    totalCopiers: Number(statsRow?.total_followers ?? 0),
+    totalTraders: simulatedActiveTraders(now),
+    totalCopiers: simulatedCopyUsers(now),
     totalTrades: Number(statsRow?.total_trades ?? 0),
     totalVolume: Number(statsRow?.total_volume ?? 0),
     bestReturn: statsRow?.best_daily_return ?? null,

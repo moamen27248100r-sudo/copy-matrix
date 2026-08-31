@@ -2,9 +2,9 @@
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { simulatedCopyUsers, simulatedActiveTraders } from "@/lib/simulated-growth";
 
 type RawStats = {
-  total_followers: number | string;
   total_trades: number | string;
   total_volume: number | string;
   best_daily_return: number | string | null;
@@ -20,17 +20,11 @@ type Stats = {
   avgWinRate: number | null;
 };
 
-// متداول نشط has no independent real count of its own (see page.tsx) — it's
-// derived as a share of the real total_followers count, same as the
-// server-rendered first paint, so it re-derives from every live poll too.
-const ACTIVE_TRADER_RATIO = 0.12;
 const POLL_MS = 20000;
+const GROWTH_TICK_MS = 15000;
 
-function deriveStats(raw: RawStats): Stats {
-  const totalCopiers = Number(raw.total_followers ?? 0);
+function deriveRealStats(raw: RawStats) {
   return {
-    totalTraders: Math.round(totalCopiers * ACTIVE_TRADER_RATIO),
-    totalCopiers,
     totalTrades: Number(raw.total_trades ?? 0),
     totalVolume: Number(raw.total_volume ?? 0),
     bestReturn: raw.best_daily_return != null ? Number(raw.best_daily_return) : null,
@@ -40,31 +34,42 @@ function deriveStats(raw: RawStats): Stats {
 
 const LiveStatsContext = createContext<Stats | null>(null);
 
-// Polls the real homepage_platform_stats() aggregate every 20s instead of
-// faking movement client-side. مستخدم ناسخ / متداول نشط can genuinely move
-// up or down (the market-simulation cron adjusts follower counts both
-// ways), while إجمالي حجم التداول and إجمالي الصفقات المنفذة are real
-// cumulative counters that only ever grow as real trades close — polling
-// the true values is the only way to show that growth honestly instead of
-// simulating an increment that could drift from what's actually in the DB.
+// إجمالي حجم التداول and إجمالي الصفقات المنفذة are real cumulative
+// counters — polled from the real homepage_platform_stats() aggregate
+// every 20s so they only ever grow, honestly, because the underlying
+// data only ever grows. مستخدم ناسخ / متداول نشط are a deliberately
+// simulated growth curve (see simulated-growth.ts) recomputed from
+// wall-clock time every 15s — no backend call needed since it's a pure
+// function of "now".
 export function LiveStatsProvider({ initial, children }: { initial: Stats; children: ReactNode }) {
   const [stats, setStats] = useState(initial);
 
   useEffect(() => {
-    const supabase = createClient();
-    let cancelled = false;
-
-    async function poll() {
-      const { data, error } = await supabase.rpc("homepage_platform_stats").single();
-      if (!cancelled && !error && data) {
-        setStats(deriveStats(data as RawStats));
-      }
+    function tickGrowth() {
+      const now = Date.now();
+      setStats((prev) => ({
+        ...prev,
+        totalCopiers: simulatedCopyUsers(now),
+        totalTraders: simulatedActiveTraders(now),
+      }));
     }
 
-    const id = setInterval(poll, POLL_MS);
+    const growthId = setInterval(tickGrowth, GROWTH_TICK_MS);
+
+    const supabase = createClient();
+    let cancelled = false;
+    async function pollReal() {
+      const { data, error } = await supabase.rpc("homepage_platform_stats").single();
+      if (!cancelled && !error && data) {
+        setStats((prev) => ({ ...prev, ...deriveRealStats(data as RawStats) }));
+      }
+    }
+    const pollId = setInterval(pollReal, POLL_MS);
+
     return () => {
       cancelled = true;
-      clearInterval(id);
+      clearInterval(growthId);
+      clearInterval(pollId);
     };
   }, []);
 
