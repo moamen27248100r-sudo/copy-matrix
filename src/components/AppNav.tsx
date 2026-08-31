@@ -85,8 +85,10 @@ export async function AppNav() {
           ) : (
             <>
               <LanguageSwitcher currentLocale={locale} />
-              <span className="hidden h-4 w-px bg-border sm:block" aria-hidden="true" />
-              <Link href="/login" className="whitespace-nowrap text-sm font-medium text-foreground underline">
+              <Link
+                href="/login"
+                className="min-w-0 whitespace-nowrap rounded border border-border px-2.5 py-2 text-sm font-medium text-foreground transition hover:bg-surface sm:px-4"
+              >
                 {t("login")}
               </Link>
             </>
