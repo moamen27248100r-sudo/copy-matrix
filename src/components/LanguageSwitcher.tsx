@@ -84,7 +84,7 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: Locale }) {
         ref={buttonRef}
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1.5 whitespace-nowrap rounded border border-border px-2.5 py-2 text-sm text-foreground"
+        className="flex items-center gap-1.5 whitespace-nowrap rounded border border-border px-2 py-2 text-sm text-foreground sm:px-2.5"
         aria-label="Language"
         aria-expanded={open}
       >
@@ -93,7 +93,7 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: Locale }) {
           <line x1="2" y1="12" x2="22" y2="12" />
           <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
         </svg>
-        {LOCALE_SHORT[currentLocale]}
+        <span className="hidden sm:inline">{LOCALE_SHORT[currentLocale]}</span>
       </button>
       {open && panelPos && (
         <div

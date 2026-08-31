@@ -83,7 +83,10 @@ const STAT_ICONS = {
   ),
 };
 
-function StatChip({
+// Static (no animation) so it can never cause horizontal overflow or
+// visible page shift on any device — a moving marquee here previously
+// read as the page itself being too wide on some phones.
+function StatCard({
   icon,
   colorClass,
   bgClass,
@@ -97,16 +100,14 @@ function StatChip({
   label: string;
 }) {
   return (
-    <div className="flex shrink-0 items-center gap-3 rounded-full border border-border bg-surface py-2 pe-5 ps-2">
-      <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${bgClass}`}>
+    <div className="flex min-w-0 flex-col items-center gap-1.5 rounded-lg border border-border bg-surface px-1 py-3 text-center">
+      <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${bgClass}`}>
         <svg viewBox="0 0 24 24" className={`h-4 w-4 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           {icon}
         </svg>
       </span>
-      <div className="text-start">
-        {value}
-        <p className="whitespace-nowrap text-[11px] text-muted">{label}</p>
-      </div>
+      {value}
+      <p className="text-[10px] leading-tight text-muted">{label}</p>
     </div>
   );
 }
@@ -179,21 +180,21 @@ export default async function Home() {
     <LiveStatsProvider initial={initialStats}>
       <nav className="sticky top-0 z-[9999] border-b border-border bg-background">
         <div className="mx-auto max-w-6xl px-3 py-3 sm:px-6 sm:py-4">
-          <div className="grid grid-cols-[auto_1fr_auto] items-center gap-2 sm:gap-3">
+          <div className="grid grid-cols-[auto_1fr_auto] items-center gap-0.5 sm:gap-3">
             <Link
               href="/signup"
-              className="whitespace-nowrap rounded bg-accent px-3 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover sm:px-4"
+              className="min-w-0 whitespace-nowrap rounded bg-accent px-2 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover sm:px-4"
             >
               {t("nav.signup")}
             </Link>
 
-            <span className="flex items-center justify-center">
-              <Logo iconClassName="h-6 w-6 sm:h-6 sm:w-6" textClassName="text-lg sm:text-xl" />
+            <span className="flex min-w-0 items-center justify-center overflow-hidden">
+              <Logo iconClassName="h-6 w-6 sm:h-6 sm:w-6" textClassName="text-base sm:text-xl" />
             </span>
 
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex min-w-0 items-center gap-1.5 sm:gap-3">
               <LanguageSwitcher currentLocale={locale} />
-              <Link href="/login" className="whitespace-nowrap rounded border border-border px-3 py-2 text-sm sm:px-4">
+              <Link href="/login" className="whitespace-nowrap rounded border border-border px-2.5 py-2 text-sm sm:px-4">
                 {t("nav.login")}
               </Link>
             </div>
@@ -223,40 +224,28 @@ export default async function Home() {
             {t("hero.browse")}
           </a>
         </div>
-        <div
-          className="w-full max-w-full overflow-hidden pt-2"
-          style={{
-            maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
-            WebkitMaskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
-          }}
-        >
-          <div className="flex w-max animate-[ticker-scroll_24s_linear_infinite] gap-4 hover:[animation-play-state:paused]">
-            {[0, 1].map((dup) => (
-              <div key={dup} className="flex shrink-0 items-center gap-4" aria-hidden={dup === 1}>
-                <StatChip
-                  icon={STAT_ICONS.people}
-                  colorClass="text-accent"
-                  bgClass="bg-accent/10"
-                  value={<LiveActiveTraders className="text-sm font-semibold" />}
-                  label={t("stats.activeTraders")}
-                />
-                <StatChip
-                  icon={STAT_ICONS.swap}
-                  colorClass="text-success"
-                  bgClass="bg-success/10"
-                  value={<LiveCopyUsers className="text-sm font-semibold" />}
-                  label={t("stats.copyUsers")}
-                />
-                <StatChip
-                  icon={STAT_ICONS.bars}
-                  colorClass="text-brand"
-                  bgClass="bg-brand/10"
-                  value={<LiveTotalTrades className="text-sm font-semibold" />}
-                  label={t("stats.totalTrades")}
-                />
-              </div>
-            ))}
-          </div>
+        <div className="grid w-full max-w-sm grid-cols-3 gap-2 pt-2">
+          <StatCard
+            icon={STAT_ICONS.people}
+            colorClass="text-accent"
+            bgClass="bg-accent/10"
+            value={<LiveActiveTraders className="text-sm font-semibold sm:text-base" />}
+            label={t("stats.activeTraders")}
+          />
+          <StatCard
+            icon={STAT_ICONS.swap}
+            colorClass="text-success"
+            bgClass="bg-success/10"
+            value={<LiveCopyUsers className="text-sm font-semibold sm:text-base" />}
+            label={t("stats.copyUsers")}
+          />
+          <StatCard
+            icon={STAT_ICONS.bars}
+            colorClass="text-brand"
+            bgClass="bg-brand/10"
+            value={<LiveTotalTrades className="text-sm font-semibold sm:text-base" />}
+            label={t("stats.totalTrades")}
+          />
         </div>
         <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-4 text-xs text-muted">
           {[t("hero.trust0"), t("hero.trust1"), t("hero.trust2")].map((trustText) => (

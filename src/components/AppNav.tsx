@@ -54,8 +54,8 @@ export async function AppNav() {
   return (
     <nav className="sticky top-0 z-[9999] w-full border-b border-border bg-[#0b1726]">
       <NavDrawerProvider>
-      <div className="mx-auto grid h-14 max-w-5xl grid-cols-[auto_1fr_auto] items-center gap-2 px-4 sm:h-16 sm:px-6">
-        <div className="flex justify-start">
+      <div className="mx-auto grid h-14 max-w-5xl grid-cols-[auto_1fr_auto] items-center gap-0.5 px-3 sm:h-16 sm:gap-2 sm:px-6">
+        <div className="flex min-w-0 justify-start">
           {user ? (
             <MainMenu
               balance={balance}
@@ -68,24 +68,24 @@ export async function AppNav() {
           ) : (
             <Link
               href="/signup"
-              className="whitespace-nowrap rounded bg-accent px-3 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
+              className="min-w-0 whitespace-nowrap rounded bg-accent px-2 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover sm:px-3"
             >
               {t("createAccount")}
             </Link>
           )}
         </div>
 
-        <Link href={user ? "/dashboard" : "/"} className="flex items-center justify-center">
-          <Logo iconClassName="h-5 w-5 sm:h-6 sm:w-6" textClassName="text-lg sm:text-xl" />
+        <Link href={user ? "/dashboard" : "/"} className="flex min-w-0 items-center justify-center overflow-hidden">
+          <Logo iconClassName="h-5 w-5 sm:h-6 sm:w-6" textClassName="text-base sm:text-xl" />
         </Link>
 
-        <div className="flex items-center justify-end gap-2 sm:gap-3">
+        <div className="flex min-w-0 items-center justify-end gap-1.5 sm:gap-3">
           {user ? (
             <NotificationsMenu notifications={notifications} />
           ) : (
             <>
               <LanguageSwitcher currentLocale={locale} />
-              <span className="h-4 w-px bg-border" aria-hidden="true" />
+              <span className="hidden h-4 w-px bg-border sm:block" aria-hidden="true" />
               <Link href="/login" className="whitespace-nowrap text-sm font-medium text-foreground underline">
                 {t("login")}
               </Link>
