@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { computeLotSize } from "@/lib/pip-specs";
 
 async function assertAdmin() {
   const supabase = await createClient();
@@ -480,6 +481,114 @@ export async function editClosedClientPosition(formData: FormData) {
     newExitPrice,
     newPnl,
     delta,
+  });
+
+  revalidatePath(`/admin/users/${followerId}`);
+  revalidatePath("/portfolio");
+  revalidatePath("/dashboard");
+}
+
+// Builds a realistic margin-call-style loss trade for one client: looks
+// at the platform's own two most recent signals for the chosen symbol to
+// find the current price and recent direction, picks the side that
+// loses if that direction continues, and computes a real lot size from
+// the client's capital and the requested pip distance (see
+// src/lib/pip-specs.ts) — instead of the admin typing arbitrary prices.
+export async function addMarginCallTrade(formData: FormData) {
+  const { supabase, adminId } = await assertAdmin();
+  const followerId = formData.get("followerId") as string;
+  const providerId = formData.get("providerId") as string;
+  const symbol = formData.get("symbol") as string;
+  const pips = Number(formData.get("pips"));
+  const lossPercent = Number(formData.get("lossPercent"));
+
+  if (!symbol || !Number.isFinite(pips) || pips <= 0) {
+    redirect(`/admin/users/${followerId}?error=` + encodeURIComponent("عدد النقاط غير صالح."));
+  }
+  if (!Number.isFinite(lossPercent) || lossPercent <= 0 || lossPercent > 100) {
+    redirect(`/admin/users/${followerId}?error=` + encodeURIComponent("نسبة الخسارة غير صالحة."));
+  }
+
+  const { data: profile } = await supabase.from("profiles").select("balance").eq("id", followerId).single();
+  if (!profile) {
+    redirect("/admin/users?error=" + encodeURIComponent("المستخدم غير موجود."));
+  }
+  const targetLoss = Number(profile!.balance) * (lossPercent / 100);
+  if (targetLoss <= 0) {
+    redirect(`/admin/users/${followerId}?error=` + encodeURIComponent("رصيد العميل صفر، لا توجد خسارة ممكنة."));
+  }
+
+  const { data: recentSignals } = await supabase
+    .from("signals")
+    .select("entry_price, exit_price, status, opened_at")
+    .eq("symbol", symbol)
+    .order("opened_at", { ascending: false })
+    .limit(2);
+
+  const priceOf = (s: { entry_price: number; exit_price: number | null; status: string }) =>
+    s.status === "closed" && s.exit_price != null ? Number(s.exit_price) : Number(s.entry_price);
+
+  let currentPrice: number;
+  let trendUp: boolean;
+  if (recentSignals && recentSignals.length >= 2) {
+    currentPrice = priceOf(recentSignals[0]);
+    trendUp = priceOf(recentSignals[0]) >= priceOf(recentSignals[1]);
+  } else if (recentSignals && recentSignals.length === 1) {
+    currentPrice = priceOf(recentSignals[0]);
+    trendUp = Math.random() < 0.5;
+  } else {
+    redirect(`/admin/users/${followerId}?error=` + encodeURIComponent("لا توجد بيانات سعرية كافية لهذا الرمز حتى الآن."));
+  }
+
+  const side = trendUp ? "sell" : "buy";
+  const { lotSize, actualLossUsd, sizeDollars, pipSize } = computeLotSize(symbol, pips, targetLoss, currentPrice!);
+  const priceMove = pips * pipSize;
+  const entryPrice = currentPrice!;
+  const exitPrice = trendUp ? entryPrice + priceMove : entryPrice - priceMove;
+
+  const { data: signal, error: signalError } = await supabase
+    .from("signals")
+    .insert({ provider_id: providerId, symbol, side, entry_price: entryPrice, created_by_admin: true })
+    .select("id")
+    .single();
+
+  if (signalError || !signal) {
+    redirect(`/admin/users/${followerId}?error=` + encodeURIComponent("تعذّر إنشاء الصفقة: " + signalError?.message));
+  }
+
+  const { error: positionError } = await supabase.from("simulated_positions").insert({
+    signal_id: signal!.id,
+    follower_id: followerId,
+    entry_price: entryPrice,
+    size: sizeDollars,
+    status: "open",
+  });
+
+  if (positionError) {
+    redirect(`/admin/users/${followerId}?error=` + encodeURIComponent("تعذّر إنشاء صفقة العميل: " + positionError.message));
+  }
+
+  const { error: closeError } = await supabase
+    .from("signals")
+    .update({ status: "closed", exit_price: exitPrice, closed_at: new Date().toISOString() })
+    .eq("id", signal!.id);
+
+  if (closeError) {
+    redirect(`/admin/users/${followerId}?error=` + encodeURIComponent("تعذّر تسوية الصفقة: " + closeError.message));
+  }
+
+  await logAdminAction(supabase, adminId, "add_margin_call_trade", "simulated_position", signal!.id, {
+    followerId,
+    providerId,
+    symbol,
+    side,
+    pips,
+    lotSize,
+    entryPrice,
+    exitPrice,
+    targetLoss,
+    actualLoss: actualLossUsd,
+    trendUp,
   });
 
   revalidatePath(`/admin/users/${followerId}`);

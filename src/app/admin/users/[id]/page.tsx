@@ -7,6 +7,7 @@ import {
   addClientTrade,
   closeClientTrade,
   editClosedClientPosition,
+  addMarginCallTrade,
 } from "@/app/admin/actions";
 import { SYMBOL_ICONS, symbolFullName } from "@/lib/symbol-icons";
 
@@ -394,6 +395,73 @@ export default async function AdminUserDetailPage({
               className="w-fit rounded bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
             >
               إنشاء الصفقة
+            </button>
+          </form>
+        </details>
+
+        <details className="rounded-lg border border-border bg-surface p-4">
+          <summary className="cursor-pointer text-sm font-medium">🎯 صفقة خسارة واقعية (مارجن كول)</summary>
+          <p className="mt-2 text-xs text-muted">
+            بتحسب كل حاجة زي MT5: بتاخد آخر سعرين حقيقيين لنفس الرمز على المنصة عشان تعرف اتجاه السوق، تختار جهة
+            (شراء/بيع) تخسر لو الاتجاه استمر، وتحسب حجم اللوت فعليًا من رصيد العميل وعدد النقاط. مش محتاج تكتب أسعار
+            بنفسك.
+          </p>
+          <form action={addMarginCallTrade} className="mt-4 flex flex-col gap-3">
+            <input type="hidden" name="followerId" value={id} />
+            <select name="providerId" required className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground">
+              <option value="">اختر المتداول المنسوب له</option>
+              {(allProviders ?? []).map((pr) => (
+                <option key={pr.id} value={pr.id}>
+                  {pr.display_name}
+                </option>
+              ))}
+            </select>
+            <select name="symbol" required className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground">
+              {SYMBOLS.map((sym) => (
+                <option key={sym} value={sym}>
+                  {sym} — {symbolFullName(sym)}
+                </option>
+              ))}
+            </select>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <label className="flex flex-col gap-1 text-xs text-muted">
+                عدد النقاط (Pips)
+                <input
+                  name="pips"
+                  type="number"
+                  step="any"
+                  min={1}
+                  required
+                  defaultValue={50}
+                  list="pips-presets"
+                  className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground"
+                />
+                <datalist id="pips-presets">
+                  <option value={50} />
+                  <option value={80} />
+                  <option value={100} />
+                  <option value={230} />
+                </datalist>
+              </label>
+              <label className="flex flex-col gap-1 text-xs text-muted">
+                نسبة الخسارة من رصيده %
+                <input
+                  name="lossPercent"
+                  type="number"
+                  step="any"
+                  min={1}
+                  max={100}
+                  required
+                  defaultValue={100}
+                  className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground"
+                />
+              </label>
+            </div>
+            <button
+              type="submit"
+              className="w-fit rounded bg-danger px-4 py-2 text-sm font-medium text-white transition hover:opacity-90"
+            >
+              تنفيذ صفقة الخسارة
             </button>
           </form>
         </details>
