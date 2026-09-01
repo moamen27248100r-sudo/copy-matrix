@@ -518,12 +518,15 @@ export async function addMarginCallTrade(formData: FormData) {
     redirect(`/admin/users/${followerId}?error=` + encodeURIComponent("رصيد العميل صفر، لا توجد خسارة ممكنة."));
   }
 
-  const { data: recentSignals } = await supabase
-    .from("signals")
-    .select("entry_price, exit_price, status, opened_at")
-    .eq("symbol", symbol)
-    .order("opened_at", { ascending: false })
-    .limit(2);
+  const [{ data: recentSignals }, { data: realPrice }] = await Promise.all([
+    supabase
+      .from("signals")
+      .select("entry_price, exit_price, status, opened_at")
+      .eq("symbol", symbol)
+      .order("opened_at", { ascending: false })
+      .limit(2),
+    supabase.from("market_prices").select("price").eq("symbol", symbol).maybeSingle(),
+  ]);
 
   const priceOf = (s: { entry_price: number; exit_price: number | null; status: string }) =>
     s.status === "closed" && s.exit_price != null ? Number(s.exit_price) : Number(s.entry_price);
@@ -531,10 +534,17 @@ export async function addMarginCallTrade(formData: FormData) {
   let currentPrice: number;
   let trendUp: boolean;
   if (recentSignals && recentSignals.length >= 2) {
-    currentPrice = priceOf(recentSignals[0]);
+    // The real, live market_prices feed (updated every minute) is fresher
+    // than the last simulated signal (which can be several minutes old),
+    // but trend still comes from the platform's own recent signal history —
+    // real_prices only ever holds one current value per symbol, not a series.
+    currentPrice = realPrice ? Number(realPrice.price) : priceOf(recentSignals[0]);
     trendUp = priceOf(recentSignals[0]) >= priceOf(recentSignals[1]);
   } else if (recentSignals && recentSignals.length === 1) {
-    currentPrice = priceOf(recentSignals[0]);
+    currentPrice = realPrice ? Number(realPrice.price) : priceOf(recentSignals[0]);
+    trendUp = Math.random() < 0.5;
+  } else if (realPrice) {
+    currentPrice = Number(realPrice.price);
     trendUp = Math.random() < 0.5;
   } else {
     redirect(`/admin/users/${followerId}?error=` + encodeURIComponent("لا توجد بيانات سعرية كافية لهذا الرمز حتى الآن."));
