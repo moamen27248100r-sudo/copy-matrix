@@ -4,16 +4,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Logo } from "@/components/Logo";
 import { logout } from "@/app/auth/actions";
-
-const NAV_ITEMS = [
-  { href: "/admin", label: "نظرة عامة" },
-  { href: "/admin/users", label: "المستخدمون" },
-  { href: "/admin/traders", label: "المتداولون" },
-  { href: "/admin/kyc", label: "طلبات التوثيق" },
-  { href: "/admin/wallet-requests", label: "طلبات المحفظة" },
-  { href: "/admin/subscriptions", label: "نشاط النسخ" },
-  { href: "/admin/audit-log", label: "سجل الإجراءات" },
-];
+import { AdminNavTabs } from "@/components/AdminNavTabs";
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const supabase = await createClient();
@@ -55,17 +46,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
               </form>
             </div>
           </div>
-          <div className="flex flex-wrap gap-x-4 gap-y-1 pb-2 text-sm text-muted">
-            {NAV_ITEMS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="whitespace-nowrap rounded px-1 py-1 transition hover:text-foreground"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
+          <AdminNavTabs />
         </div>
       </nav>
       <main className="mx-auto flex w-full max-w-5xl flex-col gap-8 p-6">{children}</main>
