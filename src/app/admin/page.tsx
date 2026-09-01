@@ -11,9 +11,11 @@ import {
   updateLeader,
   deleteLeader,
 } from "@/app/admin/actions";
-import { AppNav } from "@/components/AppNav";
+import Link from "next/link";
+import { Logo } from "@/components/Logo";
 import { BackButton } from "@/components/BackButton";
 import { ConfirmButton } from "@/components/ConfirmButton";
+import { logout } from "@/app/auth/actions";
 
 const STATUS_LABELS: Record<string, string> = {
   pending: "قيد المراجعة",
@@ -140,7 +142,26 @@ export default async function AdminPage({
 
   return (
     <>
-      <AppNav />
+      <nav className="sticky top-0 z-[9999] w-full border-b border-border bg-[#0b1726]">
+        <div className="mx-auto flex h-14 max-w-4xl items-center justify-between px-3 sm:h-16 sm:px-6">
+          <Link href="/admin" className="flex items-center gap-2 overflow-hidden">
+            <Logo iconClassName="h-4 w-4 sm:h-5 sm:w-5" textClassName="text-base sm:text-xl" />
+          </Link>
+          <div className="flex items-center gap-3">
+            <span className="rounded border border-border px-2.5 py-1 text-xs font-medium text-muted">
+              لوحة الإدارة
+            </span>
+            <form action={logout}>
+              <button
+                type="submit"
+                className="whitespace-nowrap rounded border border-border px-2.5 py-1.5 text-sm text-foreground transition hover:bg-surface"
+              >
+                تسجيل الخروج
+              </button>
+            </form>
+          </div>
+        </div>
+      </nav>
       <main className="mx-auto flex w-full max-w-4xl flex-col gap-8 p-6">
         <BackButton fallbackHref="/dashboard" />
         <h1 className="text-2xl font-semibold">لوحة الإدارة</h1>
