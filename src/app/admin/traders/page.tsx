@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { createLeader, updateLeader, deleteLeader } from "@/app/admin/actions";
+import { createLeader, updateLeader, deleteLeader, createTraderTrade, closeTraderTrade } from "@/app/admin/actions";
 import { ConfirmButton } from "@/components/ConfirmButton";
+import { SYMBOL_ICONS, symbolFullName } from "@/lib/symbol-icons";
 
 const PAGE_SIZE = 25;
+const SYMBOLS = Object.keys(SYMBOL_ICONS);
 
 export default async function AdminTradersPage({
   searchParams,
@@ -40,8 +42,29 @@ export default async function AdminTradersPage({
           .in("provider_id", leaderIds)
       : { data: [] };
 
+  const { data: openSignals } =
+    leaderIds.length > 0
+      ? await supabase
+          .from("signals")
+          .select("id, provider_id, symbol, side, entry_price, opened_at")
+          .in("provider_id", leaderIds)
+          .eq("status", "open")
+          .order("opened_at", { ascending: false })
+      : { data: [] };
+
+  const openSignalsByProvider = new Map<string, typeof openSignals>();
+  for (const s of openSignals ?? []) {
+    const list = openSignalsByProvider.get(s.provider_id) ?? [];
+    list.push(s);
+    openSignalsByProvider.set(s.provider_id, list);
+  }
+
   const leaderCardById = new Map((leaderCards ?? []).map((c) => [c.provider_id, c]));
-  const leaderRows = (leaders ?? []).map((l) => ({ ...l, card: leaderCardById.get(l.id) }));
+  const leaderRows = (leaders ?? []).map((l) => ({
+    ...l,
+    card: leaderCardById.get(l.id),
+    openSignals: openSignalsByProvider.get(l.id) ?? [],
+  }));
   const totalPages = Math.max(1, Math.ceil((count ?? 0) / PAGE_SIZE));
 
   return (
@@ -211,6 +234,66 @@ export default async function AdminTradersPage({
                     حذف المتداول
                   </ConfirmButton>
                 </form>
+
+                <div className="flex flex-col gap-2 border-t border-border pt-3">
+                  <p className="text-xs font-medium text-muted">
+                    صفقات المتداول المفتوحة — تُنسخ تلقائيًا لكل من يتابعه حاليًا
+                  </p>
+                  {l.openSignals.length === 0 ? (
+                    <p className="text-xs text-muted">لا توجد صفقات مفتوحة.</p>
+                  ) : (
+                    l.openSignals.map((s) => (
+                      <div key={s.id} className="flex flex-wrap items-center justify-between gap-2 rounded border border-border bg-background px-3 py-2 text-xs">
+                        <span>
+                          {s.symbol} · {s.side === "buy" ? "شراء" : "بيع"} · دخول {s.entry_price}
+                        </span>
+                        <form action={closeTraderTrade} className="flex items-center gap-2">
+                          <input type="hidden" name="signalId" value={s.id} />
+                          <input type="hidden" name="providerId" value={l.id} />
+                          <input
+                            name="exitPrice"
+                            type="number"
+                            step="any"
+                            required
+                            placeholder="سعر الإغلاق"
+                            className="w-28 rounded border border-border bg-surface px-2 py-1 text-xs text-foreground"
+                          />
+                          <button type="submit" className="rounded border border-border px-2 py-1 text-xs">
+                            إغلاق
+                          </button>
+                        </form>
+                      </div>
+                    ))
+                  )}
+
+                  <details>
+                    <summary className="cursor-pointer text-xs font-medium">+ صفقة جديدة</summary>
+                    <form action={createTraderTrade} className="mt-2 flex flex-col gap-2">
+                      <input type="hidden" name="providerId" value={l.id} />
+                      <div className="grid grid-cols-2 gap-2">
+                        <select name="symbol" required className="rounded border border-border bg-background px-2 py-1.5 text-xs text-foreground">
+                          {SYMBOLS.map((sym) => (
+                            <option key={sym} value={sym}>
+                              {sym} — {symbolFullName(sym)}
+                            </option>
+                          ))}
+                        </select>
+                        <select name="side" required className="rounded border border-border bg-background px-2 py-1.5 text-xs text-foreground">
+                          <option value="buy">شراء</option>
+                          <option value="sell">بيع</option>
+                        </select>
+                      </div>
+                      <div className="grid grid-cols-3 gap-2">
+                        <input name="entryPrice" type="number" step="any" required placeholder="سعر الدخول" className="rounded border border-border bg-background px-2 py-1.5 text-xs text-foreground" />
+                        <input name="stopLoss" type="number" step="any" placeholder="وقف الخسارة (اختياري)" className="rounded border border-border bg-background px-2 py-1.5 text-xs text-foreground" />
+                        <input name="takeProfit" type="number" step="any" placeholder="جني الأرباح (اختياري)" className="rounded border border-border bg-background px-2 py-1.5 text-xs text-foreground" />
+                      </div>
+                      <button type="submit" className="w-fit rounded bg-accent px-3 py-1.5 text-xs font-medium text-accent-foreground transition hover:bg-accent-hover">
+                        إنشاء الصفقة
+                      </button>
+                    </form>
+                  </details>
+                </div>
               </div>
             </details>
           ))}

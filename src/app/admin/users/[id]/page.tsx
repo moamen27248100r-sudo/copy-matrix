@@ -1,6 +1,16 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { toggleAdmin, toggleSuspend, adjustBalance } from "@/app/admin/actions";
+import {
+  toggleAdmin,
+  toggleSuspend,
+  adjustBalance,
+  addClientTrade,
+  closeClientTrade,
+  editClosedClientPosition,
+} from "@/app/admin/actions";
+import { SYMBOL_ICONS, symbolFullName } from "@/lib/symbol-icons";
+
+const SYMBOLS = Object.keys(SYMBOL_ICONS);
 
 const ACCOUNT_TYPE_LABELS: Record<string, string> = {
   real: "حقيقي",
@@ -34,29 +44,37 @@ export default async function AdminUserDetailPage({
     data: { user: currentUser },
   } = await supabase.auth.getUser();
 
-  const [{ data: profile }, { data: kyc }, { data: walletHistory }, { data: subscriptions }] = await Promise.all([
-    supabase
-      .from("profiles")
-      .select("id, email, display_name, phone, balance, is_admin, is_provider, is_suspended, account_type, created_at")
-      .eq("id", id)
-      .single(),
-    supabase
-      .from("kyc_submissions")
-      .select("id, full_name, national_id_number, status, submitted_at, reviewed_at")
-      .eq("user_id", id)
-      .order("submitted_at", { ascending: false }),
-    supabase
-      .from("wallet_requests")
-      .select("id, type, amount, status, requested_at")
-      .eq("user_id", id)
-      .order("requested_at", { ascending: false })
-      .limit(20),
-    supabase
-      .from("subscriptions")
-      .select("id, allocated_amount, is_active, created_at, providers(display_name)")
-      .eq("follower_id", id)
-      .order("created_at", { ascending: false }),
-  ]);
+  const [{ data: profile }, { data: kyc }, { data: walletHistory }, { data: subscriptions }, { data: positions }, { data: allProviders }] =
+    await Promise.all([
+      supabase
+        .from("profiles")
+        .select("id, email, display_name, phone, balance, is_admin, is_provider, is_suspended, account_type, created_at")
+        .eq("id", id)
+        .single(),
+      supabase
+        .from("kyc_submissions")
+        .select("id, full_name, national_id_number, status, submitted_at, reviewed_at")
+        .eq("user_id", id)
+        .order("submitted_at", { ascending: false }),
+      supabase
+        .from("wallet_requests")
+        .select("id, type, amount, status, requested_at")
+        .eq("user_id", id)
+        .order("requested_at", { ascending: false })
+        .limit(20),
+      supabase
+        .from("subscriptions")
+        .select("id, allocated_amount, is_active, created_at, providers(display_name)")
+        .eq("follower_id", id)
+        .order("created_at", { ascending: false }),
+      supabase
+        .from("simulated_positions")
+        .select("id, entry_price, exit_price, size, status, pnl, opened_at, signals(id, symbol, side, provider_id)")
+        .eq("follower_id", id)
+        .order("opened_at", { ascending: false })
+        .limit(50),
+      supabase.from("providers").select("id, display_name").order("display_name").limit(500),
+    ]);
 
   if (!profile) {
     return (
@@ -260,6 +278,125 @@ export default async function AdminUserDetailPage({
             })}
           </div>
         )}
+      </section>
+
+      <section className="flex flex-col gap-3">
+        <h2 className="font-medium">صفقات العميل</h2>
+        <p className="text-xs text-muted">
+          صفقات فردية خاصة بهذا العميل وحده — ما تعمله هنا ميأثرش على أي عميل تاني حتى لو بيتابع نفس المتداول.
+        </p>
+
+        {(positions ?? []).length === 0 ? (
+          <p className="text-sm text-muted">لا توجد صفقات لهذا العميل.</p>
+        ) : (
+          <div className="flex flex-col gap-2">
+            {positions!.map((p) => {
+              const signal = Array.isArray(p.signals) ? p.signals[0] : p.signals;
+              return (
+                <div key={p.id} className="flex flex-col gap-2 rounded-lg border border-border bg-surface p-3 text-sm">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span>
+                      {signal?.symbol ?? "—"} · {signal?.side === "buy" ? "شراء" : "بيع"} · دخول {p.entry_price} · حجم $
+                      {Number(p.size).toLocaleString("en-US")}
+                    </span>
+                    <span
+                      className={
+                        p.status === "open"
+                          ? "rounded border border-warning/40 px-2 py-0.5 text-xs text-warning"
+                          : Number(p.pnl ?? 0) >= 0
+                            ? "rounded border border-success/40 px-2 py-0.5 text-xs text-success"
+                            : "rounded border border-danger/40 px-2 py-0.5 text-xs text-danger"
+                      }
+                    >
+                      {p.status === "open" ? "مفتوحة" : `مغلقة (${Number(p.pnl ?? 0) >= 0 ? "+" : ""}${Number(p.pnl ?? 0).toFixed(2)}$)`}
+                    </span>
+                  </div>
+
+                  {p.status === "open" ? (
+                    <form action={closeClientTrade} className="flex items-center gap-2">
+                      <input type="hidden" name="signalId" value={signal?.id} />
+                      <input type="hidden" name="followerId" value={id} />
+                      <input
+                        name="exitPrice"
+                        type="number"
+                        step="any"
+                        required
+                        placeholder="سعر الإغلاق"
+                        className="w-32 rounded border border-border bg-background px-2 py-1 text-xs text-foreground"
+                      />
+                      <button type="submit" className="rounded border border-border px-2 py-1 text-xs">
+                        إغلاق الصفقة
+                      </button>
+                    </form>
+                  ) : (
+                    <details>
+                      <summary className="cursor-pointer text-xs text-muted">تعديل سعر الإغلاق</summary>
+                      <form action={editClosedClientPosition} className="mt-2 flex items-center gap-2">
+                        <input type="hidden" name="positionId" value={p.id} />
+                        <input type="hidden" name="followerId" value={id} />
+                        <input
+                          name="newExitPrice"
+                          type="number"
+                          step="any"
+                          required
+                          defaultValue={p.exit_price ?? undefined}
+                          className="w-32 rounded border border-border bg-background px-2 py-1 text-xs text-foreground"
+                        />
+                        <button type="submit" className="rounded border border-border px-2 py-1 text-xs">
+                          حفظ التعديل
+                        </button>
+                      </form>
+                    </details>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        <details className="rounded-lg border border-border bg-surface p-4">
+          <summary className="cursor-pointer text-sm font-medium">+ صفقة فردية جديدة</summary>
+          <form action={addClientTrade} className="mt-4 flex flex-col gap-3">
+            <input type="hidden" name="followerId" value={id} />
+            <select name="providerId" required className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground">
+              <option value="">اختر المتداول المنسوب له</option>
+              {(allProviders ?? []).map((pr) => (
+                <option key={pr.id} value={pr.id}>
+                  {pr.display_name}
+                </option>
+              ))}
+            </select>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <select name="symbol" required className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground">
+                {SYMBOLS.map((sym) => (
+                  <option key={sym} value={sym}>
+                    {sym} — {symbolFullName(sym)}
+                  </option>
+                ))}
+              </select>
+              <select name="side" required className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground">
+                <option value="buy">شراء</option>
+                <option value="sell">بيع</option>
+              </select>
+            </div>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <label className="flex flex-col gap-1 text-xs text-muted">
+                سعر الدخول
+                <input name="entryPrice" type="number" step="any" required className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground" />
+              </label>
+              <label className="flex flex-col gap-1 text-xs text-muted">
+                حجم الصفقة ($)
+                <input name="size" type="number" step="any" required className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground" />
+              </label>
+            </div>
+            <button
+              type="submit"
+              className="w-fit rounded bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
+            >
+              إنشاء الصفقة
+            </button>
+          </form>
+        </details>
       </section>
     </>
   );
