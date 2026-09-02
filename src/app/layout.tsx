@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Tajawal } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
+import { SupportChatWidget } from "@/components/SupportChatWidget";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -46,7 +47,10 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${tajawal.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider messages={messages}>
+          {children}
+          <SupportChatWidget />
+        </NextIntlClientProvider>
       </body>
     </html>
   );
