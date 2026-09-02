@@ -68,8 +68,8 @@ export function SupportChatWidget() {
   return (
     <>
       {open && (
-        <div className="fixed inset-0 z-[9999] flex flex-col bg-surface sm:inset-auto sm:bottom-4 sm:right-4 sm:h-[min(70vh,32rem)] sm:w-[min(90vw,22rem)] sm:overflow-hidden sm:rounded-xl sm:border sm:border-border sm:shadow-2xl">
-          <div className="flex items-center gap-3 border-b border-border bg-[#0b1726] px-3 py-3 sm:px-4">
+        <div className="fixed inset-0 z-[9999] flex flex-col bg-surface md:inset-auto md:bottom-4 md:right-4 md:h-[min(70vh,32rem)] md:w-[min(90vw,22rem)] md:overflow-hidden md:rounded-xl md:border md:border-border md:shadow-2xl">
+          <div className="flex items-center gap-3 border-b border-border bg-[#0b1726] px-3 py-3 md:px-4">
             <button
               type="button"
               onClick={() => setOpen(false)}
