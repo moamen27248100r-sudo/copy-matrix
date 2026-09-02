@@ -18,7 +18,7 @@ export default async function AdminWalletRequestsPage({
   const [{ data: pending }, { data: recent }] = await Promise.all([
     supabase
       .from("wallet_requests")
-      .select("id, user_id, type, amount, status, requested_at, profiles(display_name, email)")
+      .select("id, user_id, type, amount, status, note, requested_at, profiles(display_name, email)")
       .eq("status", "pending")
       .order("requested_at", { ascending: false }),
     supabase
@@ -57,6 +57,7 @@ export default async function AdminWalletRequestsPage({
                     <p className="text-xs text-muted">
                       {profile?.display_name} · {profile?.email}
                     </p>
+                    {r.note && <p className="text-xs text-muted">{r.note}</p>}
                     <p className="text-xs text-muted">{new Date(r.requested_at).toLocaleDateString("ar-EG")}</p>
                   </div>
                   <div className="flex gap-3">

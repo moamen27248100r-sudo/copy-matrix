@@ -2,13 +2,14 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { unfollowProvider } from "@/app/discover/actions";
-import { requestDeposit, requestWithdrawal } from "@/app/portfolio/actions";
+import { requestWithdrawal } from "@/app/portfolio/actions";
 import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
 import { PortfolioTabs } from "@/components/PortfolioTabs";
 import { TradeHistory } from "@/components/TradeHistory";
 import { PortfolioValueBreakdown } from "@/components/PortfolioValueBreakdown";
 import { MyEquityChart } from "@/components/MyEquityChart";
+import { DepositGateway } from "@/components/DepositGateway";
 import { symbolIcon } from "@/lib/symbol-icons";
 
 const TX_LABELS: Record<string, string> = {
@@ -191,20 +192,7 @@ export default async function PortfolioPage({
           totalUnrealizedPnl={totalUnrealizedPnl}
         />
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <form action={requestDeposit} className="flex items-center gap-2">
-            <input
-              name="amount"
-              type="number"
-              step="any"
-              min="1"
-              placeholder="مبلغ الإيداع"
-              required
-              className="flex-1 rounded border border-border bg-background px-3 py-2 text-sm"
-            />
-            <button type="submit" className="rounded bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover">
-              طلب إيداع
-            </button>
-          </form>
+          <DepositGateway />
           <form action={requestWithdrawal} className="flex items-center gap-2">
             <input
               name="amount"
