@@ -11,7 +11,8 @@ type ChatMessage = {
 
 const WELCOME_MESSAGE: ChatMessage = {
   role: "assistant",
-  content: "أهلًا بيك في دعم Copy Matrix! اسألني عن الإيداع، السحب، توثيق الهوية، أو أي حاجة تخص النسخ التلقائي.",
+  content:
+    "مرحبًا بكم في مركز الدعم الفني لمنصة Copy Matrix. يسعدنا مساعدتكم بخصوص الإيداع، السحب، توثيق الهوية، أو أي استفسار يتعلق بخدمة النسخ التلقائي.",
 };
 
 const QUICK_QUESTIONS = SUPPORT_FAQ.slice(0, 4);
@@ -46,10 +47,13 @@ export function SupportChatWidget() {
         body: JSON.stringify({ message: trimmed, history: nextMessages.slice(0, -1) }),
       });
       const data = await res.json();
-      const reply = typeof data.reply === "string" ? data.reply : "حصل خطأ، جرّب تاني.";
+      const reply = typeof data.reply === "string" ? data.reply : "عذرًا، حدث خطأ غير متوقع. يُرجى المحاولة مرة أخرى.";
       setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
     } catch {
-      setMessages((prev) => [...prev, { role: "assistant", content: "حصل خطأ في الاتصال، جرّب تاني بعد لحظات." }]);
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: "تعذّر الاتصال بالخادم. يُرجى المحاولة مرة أخرى بعد قليل." },
+      ]);
     } finally {
       setLoading(false);
     }
@@ -60,12 +64,18 @@ export function SupportChatWidget() {
       {open && (
         <div className="flex h-[min(70vh,32rem)] w-[min(90vw,22rem)] flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-2xl">
           <div className="flex items-center justify-between border-b border-border bg-[#0b1726] px-4 py-3">
-            <span className="text-sm font-bold text-foreground">الدعم الفني — Copy Matrix</span>
+            <div className="flex flex-col gap-0.5">
+              <span className="text-sm font-bold text-foreground">الدعم الفني — Copy Matrix</span>
+              <span className="flex items-center gap-1.5 text-[11px] text-muted">
+                <span className="h-1.5 w-1.5 rounded-full bg-success" />
+                متصل الآن — الرد خلال دقائق معدودة
+              </span>
+            </div>
             <button
               type="button"
               onClick={() => setOpen(false)}
               aria-label="إغلاق"
-              className="flex h-6 w-6 items-center justify-center rounded text-muted hover:text-foreground"
+              className="flex h-6 w-6 shrink-0 items-center justify-center rounded text-muted hover:text-foreground"
             >
               ✕
             </button>
@@ -88,7 +98,7 @@ export function SupportChatWidget() {
             {loading && (
               <div className="flex justify-end">
                 <div className="max-w-[85%] rounded-lg rounded-br-sm bg-brand px-3 py-2 text-sm text-brand-foreground opacity-70">
-                  جاري الكتابة...
+                  جارٍ إعداد الرد...
                 </div>
               </div>
             )}
@@ -119,7 +129,7 @@ export function SupportChatWidget() {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="اكتب سؤالك هنا..."
+              placeholder="اكتب استفسارك هنا..."
               className="min-w-0 flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted focus:border-brand focus:outline-none"
             />
             <button
