@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { logout, chooseAccountType } from "@/app/auth/actions";
 import { useNavDrawer } from "@/components/nav-drawer-context";
+import { useBodyScrollLock } from "@/lib/use-body-scroll-lock";
 
 type AccountType = "real" | "demo";
 
@@ -259,13 +260,7 @@ export function MainMenu({
   const [hash, setHash] = useState("");
   const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    if (!open) return;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
+  useBodyScrollLock(open);
 
   useEffect(() => {
     setHash(window.location.hash);

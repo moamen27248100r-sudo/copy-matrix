@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
+import { useBodyScrollLock } from "@/lib/use-body-scroll-lock";
 
 const ICONS: Record<string, ReactNode> = {
   overview: (
@@ -126,13 +127,7 @@ export function AdminMobileMenuButton() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    if (!open) return;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
+  useBodyScrollLock(open);
 
   useEffect(() => {
     setOpen(false);

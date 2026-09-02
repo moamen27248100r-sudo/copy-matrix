@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { markOneRead } from "@/app/notifications/actions";
 import { useNavDrawer } from "@/components/nav-drawer-context";
+import { useBodyScrollLock } from "@/lib/use-body-scroll-lock";
 
 type NotificationRow = {
   id: string;
@@ -29,6 +30,8 @@ export function NotificationsMenu({ notifications }: { notifications: Notificati
   const { open, toggle, close } = useNavDrawer("notifications");
   const unreadCount = notifications.filter((n) => !n.is_read).length;
   const preview = notifications.slice(0, 6);
+
+  useBodyScrollLock(open);
 
   return (
     <>
