@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useBodyScrollLock } from "@/lib/use-body-scroll-lock";
 
 const ICONS: Record<string, ReactNode> = {
@@ -126,8 +126,13 @@ export function AdminSidebar() {
 export function AdminMobileMenuButton() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   useBodyScrollLock(open);
+
+  useEffect(() => {
+    if (open && panelRef.current) panelRef.current.scrollTop = 0;
+  }, [open]);
 
   useEffect(() => {
     setOpen(false);
@@ -158,6 +163,7 @@ export function AdminMobileMenuButton() {
         aria-hidden="true"
       />
       <div
+        ref={panelRef}
         className={
           open
             ? "fixed top-14 bottom-0 right-0 z-40 w-[75%] max-w-xs translate-x-0 overflow-y-auto bg-surface p-3 shadow-xl transition-transform duration-300 ease-out"

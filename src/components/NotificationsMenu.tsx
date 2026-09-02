@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import { markOneRead } from "@/app/notifications/actions";
 import { useNavDrawer } from "@/components/nav-drawer-context";
 import { useBodyScrollLock } from "@/lib/use-body-scroll-lock";
@@ -30,8 +31,13 @@ export function NotificationsMenu({ notifications }: { notifications: Notificati
   const { open, toggle, close } = useNavDrawer("notifications");
   const unreadCount = notifications.filter((n) => !n.is_read).length;
   const preview = notifications.slice(0, 6);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   useBodyScrollLock(open);
+
+  useEffect(() => {
+    if (open && panelRef.current) panelRef.current.scrollTop = 0;
+  }, [open]);
 
   return (
     <>
@@ -62,6 +68,7 @@ export function NotificationsMenu({ notifications }: { notifications: Notificati
         aria-hidden="true"
       />
       <div
+        ref={panelRef}
         className={
           open
             ? "fixed top-14 bottom-0 left-0 z-40 flex w-[65%] max-w-xs -translate-x-0 flex-col overflow-y-auto bg-surface shadow-xl transition-transform duration-300 ease-out sm:top-16"

@@ -262,6 +262,13 @@ export function MainMenu({
 
   useBodyScrollLock(open);
 
+  // The panel can otherwise open already scrolled a few hundred pixels down
+  // (the browser's scroll-anchoring kicking in during the slide-in
+  // transition) instead of showing its content from the top.
+  useEffect(() => {
+    if (open && panelRef.current) panelRef.current.scrollTop = 0;
+  }, [open]);
+
   useEffect(() => {
     setHash(window.location.hash);
     setSearch(window.location.search.replace(/^\?/, ""));
