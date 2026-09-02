@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { matchFaq, SUPPORT_FAQ } from "@/lib/support-faq";
+import { matchFaq, NO_MATCH_FALLBACK, SUPPORT_FAQ } from "@/lib/support-faq";
 
 export const dynamic = "force-dynamic";
 
@@ -11,12 +11,7 @@ const SYSTEM_PROMPT = `أنت المساعد الرسمي لخدمة الدعم 
 - إذا لم تكن متأكدًا من إجابة تخص حساب المستخدم تحديدًا (كالرصيد أو معاملة معينة)، وجّهه للتواصل مع فريق الدعم البشري عبر البريد الإلكتروني بدلًا من التخمين.
 - لا تطلب من المستخدم كلمة المرور أو أي بيانات حساسة أبدًا.`;
 
-async function callAiFallback(message: string, history: ChatMessage[]): Promise<string> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
-    return "يتطلب هذا الاستفسار متابعة مباشرة من فريق الدعم الفني المختص. يُرجى التواصل معنا عبر البريد الإلكتروني support@copy-matrix.test، وسيتم الرد عليكم في أقرب وقت ممكن.";
-  }
-
+async function callAiFallback(message: string, history: ChatMessage[], apiKey: string): Promise<string> {
   const res = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: {
@@ -68,7 +63,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ reply: faqMatch.answer, source: "faq" });
   }
 
-  const reply = await callAiFallback(message, history);
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    return NextResponse.json({ reply: NO_MATCH_FALLBACK, source: "no_match" });
+  }
+
+  const reply = await callAiFallback(message, history, apiKey);
   return NextResponse.json({ reply, source: "ai" });
 }
 

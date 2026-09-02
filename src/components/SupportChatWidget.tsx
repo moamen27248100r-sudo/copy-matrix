@@ -23,6 +23,7 @@ export function SupportChatWidget() {
   const [messages, setMessages] = useState<ChatMessage[]>([WELCOME_MESSAGE]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showTopics, setShowTopics] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -39,6 +40,7 @@ export function SupportChatWidget() {
     setMessages(nextMessages);
     setInput("");
     setLoading(true);
+    setShowTopics(false);
 
     try {
       const res = await fetch("/api/support-chat", {
@@ -49,6 +51,7 @@ export function SupportChatWidget() {
       const data = await res.json();
       const reply = typeof data.reply === "string" ? data.reply : "عذرًا، حدث خطأ غير متوقع. يُرجى المحاولة مرة أخرى.";
       setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
+      if (data.source === "no_match") setShowTopics(true);
     } catch {
       setMessages((prev) => [
         ...prev,
@@ -102,7 +105,7 @@ export function SupportChatWidget() {
                 </div>
               </div>
             )}
-            {messages.length === 1 && (
+            {showTopics && !loading && (
               <div className="flex flex-col items-end gap-2 pt-1">
                 {QUICK_QUESTIONS.map((q) => (
                   <button
