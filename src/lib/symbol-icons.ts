@@ -54,6 +54,23 @@ export function symbolFullName(symbol: string): string {
   return SYMBOL_FULL_NAMES[symbol] ?? symbol;
 }
 
+export const SYMBOL_FULL_NAMES_AR: Record<string, string> = {
+  XAUUSD: "الذهب",
+  EURUSD: "اليورو مقابل الدولار",
+  GBPUSD: "الجنيه الإسترليني مقابل الدولار",
+  USDJPY: "الدولار مقابل الين الياباني",
+  BTCUSDT: "البيتكوين",
+  ETHUSDT: "الإيثيريوم",
+  SOLUSDT: "سولانا",
+  BNBUSDT: "البي إن بي",
+  XRPUSDT: "الريبل",
+  US30: "مؤشر داو جونز الصناعي",
+};
+
+export function symbolFullNameAr(symbol: string): string {
+  return SYMBOL_FULL_NAMES_AR[symbol] ?? symbol;
+}
+
 export const SYMBOL_TRADINGVIEW_TICKERS: Record<string, string> = {
   XAUUSD: "OANDA:XAUUSD",
   EURUSD: "OANDA:EURUSD",

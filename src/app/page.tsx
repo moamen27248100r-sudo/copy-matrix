@@ -3,6 +3,7 @@ import Image from "next/image";
 import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { MarketOverview } from "@/components/MarketOverview";
+import { TraderPostsFeed } from "@/components/TraderPostsFeed";
 import {
   LiveStatsProvider,
   LiveActiveTraders,
@@ -335,6 +336,14 @@ export default async function Home() {
         <div className="mx-auto w-full max-w-5xl overflow-hidden rounded-lg border border-border">
           <MarketOverview />
         </div>
+      </section>
+
+      <section id="trader-posts" className="flex flex-col gap-4 border-t border-border px-6 py-16">
+        <div className="mx-auto flex w-full max-w-5xl flex-col gap-1">
+          <h2 className="text-2xl font-semibold">{t("traderPosts.title")}</h2>
+          <p className="text-sm text-muted">{t("traderPosts.subtitle")}</p>
+        </div>
+        <TraderPostsFeed />
       </section>
 
       <section id="how-it-works" className="flex flex-col gap-10 px-6 py-16">
