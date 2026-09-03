@@ -156,7 +156,7 @@ export async function adjustBalance(formData: FormData) {
     redirect(`/admin/users/${targetId}?error=` + encodeURIComponent("قيمة التعديل غير صالحة."));
   }
   if (!reason) {
-    redirect(`/admin/users/${targetId}?error=` + encodeURIComponent("لازم تكتب سبب التعديل."));
+    redirect(`/admin/users/${targetId}?error=` + encodeURIComponent("يجب إدخال سبب التعديل."));
   }
 
   const { data: target } = await supabase.from("profiles").select("balance").eq("id", targetId).single();

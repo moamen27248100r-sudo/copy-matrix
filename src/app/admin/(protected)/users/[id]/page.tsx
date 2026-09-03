@@ -287,7 +287,7 @@ export default async function AdminUserDetailPage({
       <section className="flex flex-col gap-3">
         <h2 className="font-medium">صفقات العميل</h2>
         <p className="text-xs text-muted">
-          صفقات فردية خاصة بهذا العميل وحده — ما تعمله هنا ميأثرش على أي عميل تاني حتى لو بيتابع نفس المتداول.
+          صفقات فردية خاصة بهذا العميل وحده — لا يؤثر ما يُنفَّذ هنا على أي عميل آخر حتى لو كان يتابع المتداول نفسه.
         </p>
 
         {(positions ?? []).length === 0 ? (
@@ -405,9 +405,9 @@ export default async function AdminUserDetailPage({
         <details className="rounded-lg border border-border bg-surface p-4">
           <summary className="cursor-pointer text-sm font-medium">🎯 صفقة خسارة واقعية (مارجن كول)</summary>
           <p className="mt-2 text-xs text-muted">
-            بتحسب كل حاجة زي MT5: بتاخد آخر سعرين حقيقيين لنفس الرمز على المنصة عشان تعرف اتجاه السوق، تختار جهة
-            (شراء/بيع) تخسر لو الاتجاه استمر، وتحسب حجم اللوت فعليًا من رصيد العميل وقيمة الخسارة اللي تحددها. مش
-            محتاج تكتب أسعار بنفسك.
+            تُحسب كل التفاصيل مثل MT5: تُؤخذ آخر قيمتين حقيقيتين لنفس الرمز على المنصة لتحديد اتجاه السوق، ثم تُختار
+            جهة (شراء/بيع) تحقق خسارة إذا استمر الاتجاه، ويُحسب حجم اللوت فعليًا من رصيد العميل وقيمة الخسارة التي
+            تحددها. لست بحاجة إلى كتابة أي أسعار بنفسك.
           </p>
           <MarginCallForm
             followerId={id}

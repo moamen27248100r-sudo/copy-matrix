@@ -20,7 +20,7 @@ export function MarginCallForm({
   const [lossAmount, setLossAmount] = useState(-100);
 
   if (followedProviders.length === 0) {
-    return <p className="mt-4 text-sm text-muted">العميل ده مش بيتابع أي متداول حاليًا، فمفيش صفقة نسخ يتحطلها خسارة.</p>;
+    return <p className="mt-4 text-sm text-muted">لا يتابع هذا العميل أي متداول حاليًا، ولذلك لا توجد صفقة نسخ يمكن تسجيل خسارة عليها.</p>;
   }
 
   const targetLoss = Math.min(Math.abs(lossAmount), balance);
@@ -66,7 +66,7 @@ export function MarginCallForm({
       </label>
 
       <p className="rounded border border-danger/30 bg-danger/5 px-3 py-2 text-sm text-danger">
-        هتنزل خسارة ${targetLoss.toLocaleString("en-US", { maximumFractionDigits: 2 })} — الرصيد بعدها هيبقى $
+        ستُسجَّل خسارة قدرها ${targetLoss.toLocaleString("en-US", { maximumFractionDigits: 2 })} — وسيصبح الرصيد بعدها $
         {balanceAfter.toLocaleString("en-US", { maximumFractionDigits: 2 })} (كان ${balance.toLocaleString("en-US", { maximumFractionDigits: 2 })})
       </p>
 
