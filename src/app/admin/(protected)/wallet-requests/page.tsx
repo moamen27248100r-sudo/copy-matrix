@@ -34,30 +34,47 @@ type RecentRequest = {
 
 function PendingCard({ r }: { r: PendingRequest }) {
   const profile = oneProfile(r.profiles);
+  const isDeposit = r.type === "deposit";
   return (
     <div className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
       <div>
-        <p className="font-medium">${Number(r.amount).toLocaleString("en-US")}</p>
+        <p className="font-medium">${Number(r.amount).toLocaleString("en-US")} <span className="text-xs font-normal text-muted">(المبلغ الذي طلبه العميل)</span></p>
         <p className="text-xs text-muted">
           {profile?.display_name} · {profile?.email}
         </p>
         {r.note && <p className="text-xs text-muted">{r.note}</p>}
         <p className="text-xs text-muted">{new Date(r.requested_at).toLocaleDateString("ar-EG")}</p>
       </div>
-      <div className="flex gap-3">
-        <form action={approveWalletRequest}>
-          <input type="hidden" name="requestId" value={r.id} />
+
+      <form action={approveWalletRequest} className="flex flex-col gap-2">
+        <input type="hidden" name="requestId" value={r.id} />
+        {isDeposit && (
+          <label className="flex flex-col gap-1 text-xs text-muted">
+            المبلغ الذي وصل فعليًا (تحقّق منه قبل القبول)
+            <input
+              name="actualAmount"
+              type="number"
+              step="any"
+              min={0.01}
+              required
+              defaultValue={r.amount}
+              className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground"
+            />
+          </label>
+        )}
+        <div className="flex gap-3">
           <button type="submit" className="rounded bg-accent px-3 py-1.5 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover">
             قبول
           </button>
-        </form>
-        <form action={rejectWalletRequest}>
-          <input type="hidden" name="requestId" value={r.id} />
-          <button type="submit" className="rounded border border-danger/40 px-3 py-1.5 text-sm text-danger">
+          <button
+            type="submit"
+            formAction={rejectWalletRequest}
+            className="rounded border border-danger/40 px-3 py-1.5 text-sm text-danger"
+          >
             رفض
           </button>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 }

@@ -75,10 +75,25 @@ export async function rejectKyc(formData: FormData) {
 export async function approveWalletRequest(formData: FormData) {
   const { supabase, adminId } = await assertAdmin();
   const requestId = formData.get("requestId") as string;
+  // For deposits specifically, the admin can confirm the amount that was
+  // actually received (e.g. the client requested $1000 but only sent
+  // $200) — the trigger that credits the balance uses whatever value is
+  // in this column at approval time, not what the client originally
+  // typed, so this must be corrected here before approving.
+  const actualAmountRaw = formData.get("actualAmount");
+  const actualAmount =
+    actualAmountRaw != null && actualAmountRaw !== "" ? Number(actualAmountRaw) : null;
+
+  if (actualAmount != null && (!Number.isFinite(actualAmount) || actualAmount <= 0)) {
+    redirect("/admin/wallet-requests?error=" + encodeURIComponent("المبلغ الفعلي المؤكَّد غير صالح."));
+  }
+
+  const updatePayload: { status: "approved"; amount?: number } = { status: "approved" };
+  if (actualAmount != null) updatePayload.amount = actualAmount;
 
   const { error } = await supabase
     .from("wallet_requests")
-    .update({ status: "approved" })
+    .update(updatePayload)
     .eq("id", requestId)
     .eq("status", "pending");
 
@@ -86,7 +101,14 @@ export async function approveWalletRequest(formData: FormData) {
     redirect("/admin/wallet-requests?error=" + encodeURIComponent("تعذّرت الموافقة على الطلب: " + error.message));
   }
 
-  await logAdminAction(supabase, adminId, "approve_wallet_request", "wallet_request", requestId);
+  await logAdminAction(
+    supabase,
+    adminId,
+    "approve_wallet_request",
+    "wallet_request",
+    requestId,
+    actualAmount != null ? { confirmedAmount: actualAmount } : undefined,
+  );
 
   revalidatePath("/admin");
   revalidatePath("/admin/wallet-requests");
