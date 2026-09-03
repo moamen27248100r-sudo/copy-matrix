@@ -5,7 +5,7 @@ import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import { translateAuthError } from "@/lib/auth-errors";
 import { checkRateLimit } from "@/lib/rate-limit";
-import { isValidEmailFormat, isValidPhoneForCountry } from "@/lib/validate-signup";
+import { isValidEmailFormat, isValidPhoneForCountry, stripTrunkZero } from "@/lib/validate-signup";
 import { safeNextPath } from "@/lib/safe-next";
 
 const RATE_LIMIT_MESSAGE = "محاولات كثيرة جدًا. يرجى الانتظار قليلًا قبل إعادة المحاولة.";
@@ -51,7 +51,7 @@ export async function signup(formData: FormData) {
   const accountType = formData.get("accountType") === "real" ? "real" : "demo";
   const phoneCountryCode = (formData.get("phoneCountryCode") as string) ?? "";
   const phoneCountryIso = (formData.get("phoneCountryIso") as string) ?? "";
-  const phoneNumber = ((formData.get("phoneNumber") as string) ?? "").replace(/\D/g, "");
+  const phoneNumber = stripTrunkZero(((formData.get("phoneNumber") as string) ?? "").replace(/\D/g, ""));
   const email = (formData.get("email") as string) ?? "";
 
   if (!isValidEmailFormat(email)) {

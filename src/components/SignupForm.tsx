@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { signup } from "@/app/auth/actions";
-import { isValidEmailFormat, isValidPhoneForCountry } from "@/lib/validate-signup";
+import { isValidEmailFormat, isValidPhoneForCountry, isPhoneStillTooShort, stripTrunkZero } from "@/lib/validate-signup";
 
 const COUNTRY_CODES = [
   { code: "+966", name: "السعودية", flag: "🇸🇦", iso: "SA" },
@@ -174,6 +174,8 @@ export function SignupForm({ next }: { next?: string | null }) {
   const mismatch = confirm.length > 0 && password !== confirm;
   const emailValid = isValidEmailFormat(email);
   const phoneValid = isValidPhoneForCountry(nationalNumber, country.iso);
+  const phoneStillTyping = isPhoneStillTooShort(nationalNumber, country.iso);
+  const showPhoneError = phoneTouched && nationalNumber.length > 0 && !phoneStillTyping && !phoneValid;
   const canSubmit = agreed && password.length >= 6 && !mismatch && emailValid && phoneValid;
 
   return (
@@ -231,7 +233,7 @@ export function SignupForm({ next }: { next?: string | null }) {
               type="tel"
               inputMode="numeric"
               value={nationalNumber}
-              onChange={(e) => setNationalNumber(e.target.value.replace(/\D/g, ""))}
+              onChange={(e) => setNationalNumber(stripTrunkZero(e.target.value.replace(/\D/g, "")))}
               onBlur={() => setPhoneTouched(true)}
               placeholder="xxxxxxxxx"
               required
@@ -240,7 +242,7 @@ export function SignupForm({ next }: { next?: string | null }) {
           </div>
         </div>
       </div>
-      {phoneTouched && nationalNumber.length > 0 && !phoneValid && (
+      {showPhoneError && (
         <p className="-mt-2 text-xs text-danger">رقم الهاتف غير صحيح لهذه الدولة، تأكد من كتابته بالكامل.</p>
       )}
 
