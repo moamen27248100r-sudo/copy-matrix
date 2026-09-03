@@ -92,7 +92,6 @@ export default async function AdminUserDetailPage({
 
   const followedProviderIds = new Set((subscriptions ?? []).filter((s) => s.is_active).map((s) => s.provider_id));
   const followedProviders = (allProviders ?? []).filter((pr) => followedProviderIds.has(pr.id));
-  const otherProviders = (allProviders ?? []).filter((pr) => !followedProviderIds.has(pr.id));
 
   return (
     <>
@@ -407,14 +406,13 @@ export default async function AdminUserDetailPage({
           <summary className="cursor-pointer text-sm font-medium">🎯 صفقة خسارة واقعية (مارجن كول)</summary>
           <p className="mt-2 text-xs text-muted">
             بتحسب كل حاجة زي MT5: بتاخد آخر سعرين حقيقيين لنفس الرمز على المنصة عشان تعرف اتجاه السوق، تختار جهة
-            (شراء/بيع) تخسر لو الاتجاه استمر، وتحسب حجم اللوت فعليًا من رصيد العميل وعدد النقاط. مش محتاج تكتب أسعار
-            بنفسك.
+            (شراء/بيع) تخسر لو الاتجاه استمر، وتحسب حجم اللوت فعليًا من رصيد العميل وقيمة الخسارة اللي تحددها. مش
+            محتاج تكتب أسعار بنفسك.
           </p>
           <MarginCallForm
             followerId={id}
             balance={Number(profile.balance ?? 0)}
             followedProviders={followedProviders}
-            otherProviders={otherProviders}
             symbols={SYMBOLS}
           />
         </details>

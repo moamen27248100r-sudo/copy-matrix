@@ -499,21 +499,23 @@ export async function addMarginCallTrade(formData: FormData) {
   const followerId = formData.get("followerId") as string;
   const providerId = formData.get("providerId") as string;
   const symbol = formData.get("symbol") as string;
-  const pips = Number(formData.get("pips"));
-  const lossPercent = Number(formData.get("lossPercent"));
+  const lossAmount = Math.abs(Number(formData.get("lossAmount")));
+  // Pips isn't a user input anymore — pick a realistic random distance
+  // ourselves so every margin-call trade doesn't look identical.
+  const pips = 30 + Math.random() * 120;
 
-  if (!symbol || !Number.isFinite(pips) || pips <= 0) {
-    redirect(`/admin/users/${followerId}?error=` + encodeURIComponent("عدد النقاط غير صالح."));
+  if (!symbol) {
+    redirect(`/admin/users/${followerId}?error=` + encodeURIComponent("اختر رمزًا."));
   }
-  if (!Number.isFinite(lossPercent) || lossPercent <= 0 || lossPercent > 100) {
-    redirect(`/admin/users/${followerId}?error=` + encodeURIComponent("نسبة الخسارة غير صالحة."));
+  if (!Number.isFinite(lossAmount) || lossAmount <= 0) {
+    redirect(`/admin/users/${followerId}?error=` + encodeURIComponent("قيمة الخسارة غير صالحة."));
   }
 
   const { data: profile } = await supabase.from("profiles").select("balance").eq("id", followerId).single();
   if (!profile) {
     redirect("/admin/users?error=" + encodeURIComponent("المستخدم غير موجود."));
   }
-  const targetLoss = Number(profile!.balance) * (lossPercent / 100);
+  const targetLoss = Math.min(lossAmount, Number(profile!.balance));
   if (targetLoss <= 0) {
     redirect(`/admin/users/${followerId}?error=` + encodeURIComponent("رصيد العميل صفر، لا توجد خسارة ممكنة."));
   }
