@@ -113,7 +113,7 @@ export default async function Home() {
     .order("avg_daily_return_pct", { ascending: false, nullsFirst: false })
     .limit(10);
 
-  const topProviders = rawTopProviders ? pinTopLeaders(rawTopProviders).slice(0, 6) : rawTopProviders;
+  const topProviders = rawTopProviders ? pinTopLeaders(rawTopProviders).slice(0, 3) : rawTopProviders;
 
   // Aggregated entirely in SQL across the full table — a plain
   // select() from provider_cards caps at Supabase's default 1,000-row
@@ -323,7 +323,7 @@ export default async function Home() {
             <h2 className="text-2xl font-semibold sm:text-3xl">{t("traders.title")}</h2>
             <p className="max-w-xl text-sm text-muted">{t("traders.subtitle")}</p>
           </div>
-          <div className="mx-auto flex w-full max-w-5xl gap-4 overflow-x-auto pb-2 sm:grid sm:grid-cols-3 sm:overflow-visible">
+          <div className="mx-auto grid w-full max-w-5xl grid-cols-1 gap-5 md:grid-cols-3">
             {topProviders.map((p) => {
               const copyHref = user
                 ? `/trader/${p.provider_id}#copy`
@@ -331,58 +331,63 @@ export default async function Home() {
               return (
                 <div
                   key={p.provider_id}
-                  className="group flex w-72 shrink-0 flex-col overflow-hidden rounded-xl border border-border bg-surface transition hover:border-success/40 hover:shadow-lg sm:w-auto"
+                  className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-surface transition hover:border-success/40 hover:shadow-xl"
                 >
-                  <Link href={`/trader/${p.provider_id}`} className="relative block h-48 w-full shrink-0 overflow-hidden bg-gradient-to-br from-accent/20 to-brand/20">
+                  <Link href={`/trader/${p.provider_id}`} className="relative block aspect-[4/3] w-full shrink-0 overflow-hidden bg-gradient-to-br from-accent/20 to-brand/20">
                     {/* Synthetic, procedurally generated avatar — not a real person's
                         photo (see src/lib/trader-avatar.ts) */}
                     <img src={traderAvatarUrl(p.provider_id)} alt="" className="h-full w-full object-cover" />
-                    <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/90 to-transparent" />
-                    <div className="absolute inset-x-0 bottom-0 flex flex-col gap-1 p-3">
-                      <div className="flex items-center gap-1.5">
-                        <span className="h-2 w-2 shrink-0 rounded-full bg-success" aria-hidden="true" />
-                        <p className="truncate text-base font-semibold text-white">{p.display_name}</p>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 flex flex-col gap-1.5 p-4">
+                      <div className="flex items-center gap-2">
+                        <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-success shadow-[0_0_6px_theme(colors.success)]" aria-hidden="true" />
+                        <p className="truncate text-lg font-semibold text-white">{p.display_name}</p>
                       </div>
-                      {p.bio && <p className="line-clamp-2 text-xs text-white/80">{p.bio}</p>}
+                      {p.bio && <p className="line-clamp-2 text-xs leading-relaxed text-white/75">{p.bio}</p>}
                     </div>
                   </Link>
-                  <div className="grid grid-cols-2 gap-2 p-3">
-                    <div className="rounded-lg bg-background p-2.5 text-center">
-                      <p className="text-sm font-semibold sm:text-base">{p.followers_count}</p>
-                      <p className="text-[11px] text-muted">{t("traders.copiers")}</p>
+                  <div className="flex flex-col gap-3 p-4">
+                    <div className="grid grid-cols-2 gap-2.5">
+                      <div className="rounded-xl border border-white/10 bg-white/5 p-3 text-center">
+                        <p className="text-base font-semibold">{p.followers_count}</p>
+                        <p className="text-[11px] text-muted">{t("traders.copiers")}</p>
+                      </div>
+                      <div className="rounded-xl border border-white/10 bg-white/5 p-3 text-center">
+                        <p
+                          className={
+                            p.avg_daily_return_pct != null && p.avg_daily_return_pct < 0
+                              ? "text-base font-semibold text-danger"
+                              : "text-base font-semibold text-success"
+                          }
+                        >
+                          {p.avg_daily_return_pct != null ? `${p.avg_daily_return_pct}%` : "—"}
+                        </p>
+                        <p className="text-[11px] text-muted">{t("traders.avgReturn")}</p>
+                      </div>
                     </div>
-                    <div className="rounded-lg bg-background p-2.5 text-center">
-                      <p
-                        className={
-                          p.avg_daily_return_pct != null && p.avg_daily_return_pct < 0
-                            ? "text-sm font-semibold text-danger sm:text-base"
-                            : "text-sm font-semibold text-success sm:text-base"
-                        }
+                    <div className="flex items-center gap-3">
+                      <Link
+                        href={copyHref}
+                        className="flex-1 rounded-lg bg-accent px-3 py-2.5 text-center text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
                       >
-                        {p.avg_daily_return_pct != null ? `${p.avg_daily_return_pct}%` : "—"}
-                      </p>
-                      <p className="text-[11px] text-muted">{t("traders.avgReturn")}</p>
+                        {t("traders.copy")}
+                      </Link>
+                      <Link
+                        href={`/trader/${p.provider_id}`}
+                        className="shrink-0 text-xs text-muted underline-offset-2 transition hover:text-foreground hover:underline"
+                      >
+                        {t("traders.viewProfile")}
+                      </Link>
                     </div>
-                  </div>
-                  <div className="flex gap-2 px-3 pb-3">
-                    <Link
-                      href={`/trader/${p.provider_id}`}
-                      className="flex-1 rounded border border-border bg-background px-3 py-2 text-center text-xs text-foreground"
-                    >
-                      {t("traders.viewProfile")}
-                    </Link>
-                    <Link
-                      href={copyHref}
-                      className="flex-1 rounded bg-accent px-3 py-2 text-center text-xs font-medium text-accent-foreground transition hover:bg-accent-hover"
-                    >
-                      {t("traders.copy")}
-                    </Link>
                   </div>
                 </div>
               );
             })}
           </div>
-          <Link href="/discover" className="mx-auto text-sm underline">
+          <Link
+            href="/discover"
+            className="mx-auto rounded-full border border-border px-6 py-2.5 text-sm font-medium text-foreground transition hover:border-success/40 hover:text-success"
+          >
             {t("traders.viewAll")}
           </Link>
         </section>
