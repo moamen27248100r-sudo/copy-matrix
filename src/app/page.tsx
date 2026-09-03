@@ -272,8 +272,8 @@ export default async function Home() {
 
       <section className="overflow-hidden border-y border-border bg-surface py-6">
         <div className="flex w-max animate-[ticker-scroll_28s_linear_infinite] hover:[animation-play-state:paused]">
-          {[0, 1].map((copy) => (
-            <div key={copy} className="flex shrink-0 items-stretch" aria-hidden={copy === 1}>
+          {[0, 1, 2, 3].map((copy) => (
+            <div key={copy} className="flex shrink-0 items-stretch" aria-hidden={copy !== 0}>
               {TRUST_BADGES.map((badge, i) => (
                 <div key={i} className="flex shrink-0 items-center gap-3 border-e border-border px-6">
                   <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${badge.bgClass}`}>
