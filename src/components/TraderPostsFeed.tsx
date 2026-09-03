@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { countryDisplay } from "@/lib/country-metadata";
 import { traderAvatarUrl } from "@/lib/trader-avatar";
+import { TraderPostMiniChart } from "@/components/TraderPostMiniChart";
 
 function relativeTimeAr(iso: string): string {
   const diffMs = Date.now() - new Date(iso).getTime();
@@ -18,7 +19,7 @@ export async function TraderPostsFeed() {
 
   const { data: posts } = await supabase
     .from("trader_posts")
-    .select("id, provider_id, body, created_at")
+    .select("id, provider_id, body, symbol, created_at")
     .order("created_at", { ascending: false })
     .limit(20);
 
@@ -62,6 +63,7 @@ export async function TraderPostsFeed() {
                 <p className="text-[11px] text-muted">{relativeTimeAr(post.created_at)}</p>
               </div>
             </div>
+            {post.symbol && <TraderPostMiniChart symbol={post.symbol} />}
             <p className="text-sm leading-relaxed text-muted">{post.body}</p>
           </Link>
         );
