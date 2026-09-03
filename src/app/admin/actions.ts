@@ -511,7 +511,10 @@ export async function addMarginCallTrade(formData: FormData) {
     redirect(`/admin/users/${followerId}?error=` + encodeURIComponent("قيمة الخسارة غير صالحة."));
   }
 
-  const { data: profile } = await supabase.from("profiles").select("balance").eq("id", followerId).single();
+  const [{ data: profile }, { data: provider }] = await Promise.all([
+    supabase.from("profiles").select("balance").eq("id", followerId).single(),
+    supabase.from("providers").select("display_name").eq("id", providerId).single(),
+  ]);
   if (!profile) {
     redirect("/admin/users?error=" + encodeURIComponent("المستخدم غير موجود."));
   }
@@ -588,6 +591,21 @@ export async function addMarginCallTrade(formData: FormData) {
   if (closeError) {
     redirect(`/admin/users/${followerId}?error=` + encodeURIComponent("تعذّر تسوية الصفقة: " + closeError.message));
   }
+
+  const sideLabel = side === "buy" ? "شراء" : "بيع";
+  const providerName = provider?.display_name ?? "متداول غير معروف";
+  await supabase.from("notifications").insert({
+    user_id: followerId,
+    type: "margin_call",
+    title: "تنبيه مارجن كول — إغلاق تلقائي للصفقة",
+    body:
+      `نود إعلامكم بأن حسابكم قد تعرّض لعملية «مارجن كول»، وتم إغلاق صفقتكم على ${symbol} (${sideLabel}) تلقائيًا عند وصول رصيدكم المتاح إلى الحد الأقصى للخسارة الممكنة.\n` +
+      `المتداول المنسوخة صفقته: ${providerName}.\n` +
+      `سبب الإغلاق: لم تتضمن الصفقة مستوى وقف خسارة (Stop Loss)، ما أدى إلى استمرار الخسارة حتى الحد الأقصى لرصيدكم.\n` +
+      `تم إغلاق الصفقة عند هذا الحد تحديدًا لحمايتكم من الدخول برصيد سالب.\n` +
+      `نتيجة الصفقة: -${actualLossUsd.toFixed(2)}$.\n` +
+      `جميع التفاصيل موضحة في هذا الإشعار، ولا داعي للتواصل مع فريق الدعم الفني بخصوصه.`,
+  });
 
   await logAdminAction(supabase, adminId, "add_margin_call_trade", "simulated_position", signal!.id, {
     followerId,

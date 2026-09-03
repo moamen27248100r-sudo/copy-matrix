@@ -96,7 +96,7 @@ export function NotificationsMenu({ notifications }: { notifications: Notificati
                   }
                 >
                   <p className="text-sm font-medium">{n.title}</p>
-                  {n.body && <p className="text-xs text-muted">{renderBody(n.body)}</p>}
+                  {n.body && <p className="whitespace-pre-line text-xs text-muted">{renderBody(n.body)}</p>}
                 </button>
               </form>
             ))

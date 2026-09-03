@@ -72,7 +72,7 @@ export default async function NotificationsPage() {
                       {new Date(n.created_at).toLocaleDateString("ar-EG")}
                     </p>
                   </div>
-                  {n.body && <p className="text-xs text-muted">{renderBody(n.body)}</p>}
+                  {n.body && <p className="whitespace-pre-line text-xs text-muted">{renderBody(n.body)}</p>}
                 </button>
               </form>
             ))}
