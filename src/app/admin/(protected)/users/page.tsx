@@ -8,32 +8,72 @@ const ACCOUNT_TYPE_LABELS: Record<string, string> = {
   demo: "تجريبي",
 };
 
+type StatusFilter = "all" | "active" | "unverified" | "deposited";
+
+const STATUS_TABS: { key: StatusFilter; label: string }[] = [
+  { key: "all", label: "الكل" },
+  { key: "active", label: "نشط" },
+  { key: "unverified", label: "بدون توثيق" },
+  { key: "deposited", label: "أودع" },
+];
+
 export default async function AdminUsersPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; page?: string }>;
+  searchParams: Promise<{ q?: string; page?: string; status?: string }>;
 }) {
-  const { q, page: pageParam } = await searchParams;
+  const { q, page: pageParam, status: statusParam } = await searchParams;
   const page = Math.max(1, Number(pageParam) || 1);
   const from = (page - 1) * PAGE_SIZE;
   const to = from + PAGE_SIZE - 1;
+  const status: StatusFilter = STATUS_TABS.some((t) => t.key === statusParam) ? (statusParam as StatusFilter) : "all";
 
   const supabase = await createClient();
+
+  // KYC + deposit status is tracked in separate tables, so resolve the
+  // relevant id sets first and filter profiles by membership — this keeps
+  // pagination correct for the "unverified" / "deposited" tabs instead of
+  // filtering a page of results after the fact.
+  const [{ data: approvedKyc }, { data: depositedUsers }] = await Promise.all([
+    supabase.from("kyc_submissions").select("user_id").eq("status", "approved"),
+    supabase.from("wallet_transactions").select("user_id").eq("type", "deposit"),
+  ]);
+  const verifiedUserIds = new Set((approvedKyc ?? []).map((r) => r.user_id));
+  const depositedUserIds = new Set((depositedUsers ?? []).map((r) => r.user_id));
 
   let query = supabase
     .from("profiles")
     .select("id, email, display_name, balance, is_admin, is_provider, is_suspended, account_type, created_at", {
       count: "exact",
     })
-    .order("created_at", { ascending: false })
-    .range(from, to);
+    .order("created_at", { ascending: false });
 
   if (q) {
     query = query.or(`display_name.ilike.%${q}%,email.ilike.%${q}%`);
   }
+  if (status === "active") {
+    query = query.eq("is_suspended", false);
+  }
+  if (status === "unverified" && verifiedUserIds.size > 0) {
+    query = query.not("id", "in", `(${[...verifiedUserIds].join(",")})`);
+  }
+  if (status === "deposited") {
+    query = query.in("id", depositedUserIds.size > 0 ? [...depositedUserIds] : ["00000000-0000-0000-0000-000000000000"]);
+  }
+
+  query = query.range(from, to);
 
   const { data: users, count } = await query;
   const totalPages = Math.max(1, Math.ceil((count ?? 0) / PAGE_SIZE));
+
+  const linkParams = (overrides: Record<string, string | number>) => {
+    const params = new URLSearchParams();
+    if (q) params.set("q", q);
+    params.set("status", status);
+    params.set("page", String(page));
+    for (const [k, v] of Object.entries(overrides)) params.set(k, String(v));
+    return params.toString();
+  };
 
   return (
     <>
@@ -42,7 +82,24 @@ export default async function AdminUsersPage({
         <span className="text-sm text-muted">{count ?? 0} مستخدم</span>
       </div>
 
+      <div className="flex flex-wrap gap-2">
+        {STATUS_TABS.map((tab) => (
+          <Link
+            key={tab.key}
+            href={`/admin/users?${linkParams({ status: tab.key, page: 1 })}`}
+            className={
+              status === tab.key
+                ? "rounded-full bg-accent px-3.5 py-1.5 text-xs font-medium text-accent-foreground"
+                : "rounded-full border border-border px-3.5 py-1.5 text-xs text-muted hover:text-foreground"
+            }
+          >
+            {tab.label}
+          </Link>
+        ))}
+      </div>
+
       <form className="flex gap-2">
+        <input type="hidden" name="status" value={status} />
         <input
           name="q"
           type="text"
@@ -56,12 +113,14 @@ export default async function AdminUsersPage({
       </form>
 
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[640px] text-sm">
+        <table className="w-full min-w-[720px] text-sm">
           <thead>
             <tr className="border-b border-border text-right text-xs text-muted">
               <th className="py-2">المستخدم</th>
               <th className="py-2">الرصيد</th>
               <th className="py-2">تاريخ الانضمام</th>
+              <th className="py-2">التوثيق</th>
+              <th className="py-2">الإيداع</th>
               <th className="py-2">الحالة</th>
             </tr>
           </thead>
@@ -79,6 +138,20 @@ export default async function AdminUsersPage({
                 </td>
                 <td className="py-2 whitespace-nowrap text-xs text-muted">
                   {new Date(u.created_at).toLocaleDateString("ar-EG")}
+                </td>
+                <td className="py-2 whitespace-nowrap">
+                  {verifiedUserIds.has(u.id) ? (
+                    <span className="rounded border border-success/40 px-2 py-0.5 text-xs text-success">موثّق</span>
+                  ) : (
+                    <span className="rounded border border-border px-2 py-0.5 text-xs text-muted">غير موثّق</span>
+                  )}
+                </td>
+                <td className="py-2 whitespace-nowrap">
+                  {depositedUserIds.has(u.id) ? (
+                    <span className="rounded border border-success/40 px-2 py-0.5 text-xs text-success">أودع</span>
+                  ) : (
+                    <span className="rounded border border-border px-2 py-0.5 text-xs text-muted">لم يودع</span>
+                  )}
                 </td>
                 <td className="py-2 whitespace-nowrap">
                   <div className="flex flex-wrap gap-1">
@@ -102,7 +175,7 @@ export default async function AdminUsersPage({
       {totalPages > 1 && (
         <div className="flex items-center justify-center gap-3 text-sm">
           <Link
-            href={`/admin/users?q=${encodeURIComponent(q ?? "")}&page=${Math.max(1, page - 1)}`}
+            href={`/admin/users?${linkParams({ page: Math.max(1, page - 1) })}`}
             className={`rounded border border-border px-3 py-1.5 ${page <= 1 ? "pointer-events-none opacity-40" : ""}`}
           >
             السابق
@@ -111,7 +184,7 @@ export default async function AdminUsersPage({
             صفحة {page} من {totalPages}
           </span>
           <Link
-            href={`/admin/users?q=${encodeURIComponent(q ?? "")}&page=${Math.min(totalPages, page + 1)}`}
+            href={`/admin/users?${linkParams({ page: Math.min(totalPages, page + 1) })}`}
             className={`rounded border border-border px-3 py-1.5 ${page >= totalPages ? "pointer-events-none opacity-40" : ""}`}
           >
             التالي
