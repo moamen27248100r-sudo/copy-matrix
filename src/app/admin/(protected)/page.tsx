@@ -1,7 +1,20 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
-export default async function AdminOverviewPage() {
+type StatsView = "activity" | "financial";
+
+const STATS_TABS: { key: StatsView; label: string }[] = [
+  { key: "activity", label: "النشاط" },
+  { key: "financial", label: "الماليات" },
+];
+
+export default async function AdminOverviewPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ view?: string }>;
+}) {
+  const { view: viewParam } = await searchParams;
+  const view: StatsView = viewParam === "financial" ? "financial" : "activity";
   const supabase = await createClient();
 
   const [
@@ -70,25 +83,41 @@ export default async function AdminOverviewPage() {
       <section className="flex flex-col gap-3">
         <h2 className="font-medium">إحصائيات المنصة</h2>
 
-        <p className="text-xs text-muted">النشاط</p>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
-          {activityStats.map((s) => (
-            <div key={s.label} className="rounded-lg border border-border bg-surface p-3 text-center">
-              <p className="text-lg font-semibold">{s.value}</p>
-              <p className="text-xs text-muted">{s.label}</p>
-            </div>
+        <div className="flex flex-wrap gap-2">
+          {STATS_TABS.map((tab) => (
+            <Link
+              key={tab.key}
+              href={`/admin?view=${tab.key}`}
+              className={
+                view === tab.key
+                  ? "rounded-full bg-accent px-3.5 py-1.5 text-xs font-medium text-accent-foreground"
+                  : "rounded-full border border-border px-3.5 py-1.5 text-xs text-muted hover:text-foreground"
+              }
+            >
+              {tab.label}
+            </Link>
           ))}
         </div>
 
-        <p className="text-xs text-muted">الماليات</p>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-          {financialStats.map((s) => (
-            <div key={s.label} className="rounded-lg border border-accent/30 bg-accent/5 p-3 text-center">
-              <p className="text-lg font-semibold">{s.value}</p>
-              <p className="text-xs text-muted">{s.label}</p>
-            </div>
-          ))}
-        </div>
+        {view === "activity" ? (
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+            {activityStats.map((s) => (
+              <div key={s.label} className="rounded-lg border border-border bg-surface p-3 text-center">
+                <p className="text-lg font-semibold">{s.value}</p>
+                <p className="text-xs text-muted">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {financialStats.map((s) => (
+              <div key={s.label} className="rounded-lg border border-accent/30 bg-accent/5 p-3 text-center">
+                <p className="text-lg font-semibold">{s.value}</p>
+                <p className="text-xs text-muted">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="flex flex-col gap-3">
