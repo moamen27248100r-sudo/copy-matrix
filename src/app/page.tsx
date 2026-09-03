@@ -298,6 +298,61 @@ export default async function Home() {
         </div>
       </section>
 
+      <section className="px-6 py-16">
+        <div className="mx-auto flex w-full max-w-5xl flex-col gap-8">
+          <h2 className="text-center text-2xl font-semibold sm:text-3xl">{t("valueCards.title")}</h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {[
+              {
+                icon: (
+                  <>
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="8" y1="16" x2="16" y2="8" />
+                    <circle cx="8.5" cy="8.5" r="0.5" fill="currentColor" />
+                    <circle cx="15.5" cy="15.5" r="0.5" fill="currentColor" />
+                  </>
+                ),
+                headline: t("valueCards.card1Headline"),
+                subtitle: t("valueCards.card1Subtitle"),
+                desc: t("valueCards.card1Desc"),
+              },
+              {
+                icon: (
+                  <>
+                    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                    <polyline points="2 17 12 22 22 17" />
+                    <polyline points="2 12 12 17 22 12" />
+                  </>
+                ),
+                headline: t("valueCards.card2Headline"),
+                subtitle: t("valueCards.card2Subtitle"),
+                desc: t("valueCards.card2Desc"),
+              },
+              {
+                icon: STAT_ICONS.shield,
+                headline: t("valueCards.card3Headline"),
+                subtitle: t("valueCards.card3Subtitle"),
+                desc: t("valueCards.card3Desc"),
+              },
+            ].map((card, i) => (
+              <div
+                key={i}
+                className="flex flex-col gap-3 rounded-2xl border border-border bg-surface/40 p-6 backdrop-blur-sm transition hover:border-success/40"
+              >
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-success/10">
+                  <svg viewBox="0 0 24 24" className="h-5 w-5 text-success" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    {card.icon}
+                  </svg>
+                </span>
+                <p className="text-3xl font-bold text-success">{card.headline}</p>
+                <p className="font-medium">{card.subtitle}</p>
+                <p className="text-sm leading-relaxed text-muted">{card.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section id="features" className="flex flex-col gap-10 border-t border-border px-6 py-16">
         <h2 className="text-center text-2xl font-semibold sm:text-3xl">{t("features.title")}</h2>
         <div className="mx-auto grid w-full max-w-5xl grid-cols-2 gap-3 sm:gap-4">
