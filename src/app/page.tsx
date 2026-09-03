@@ -271,19 +271,25 @@ export default async function Home() {
       </section>
 
       <section className="overflow-hidden border-y border-border bg-surface py-6">
-        <div className="flex w-max animate-[ticker-scroll_60s_linear_infinite] hover:[animation-play-state:paused]">
-          {[0, 1, 2, 3, 4, 5].map((copy) => (
-            <div key={copy} className="flex shrink-0 items-stretch" aria-hidden={copy !== 0}>
+        <div className="flex w-max animate-[ticker-scroll_40s_linear_infinite] hover:[animation-play-state:paused]">
+          {[0, 1].map((copy) => (
+            <div key={copy} className="flex shrink-0 items-stretch" aria-hidden={copy === 1}>
               {TRUST_BADGES.map((badge, i) => (
-                <div key={i} className="flex shrink-0 items-center gap-3 border-e border-border px-6">
+                // Fixed width is load-bearing, not cosmetic: badge.value can be a
+                // live-updating counter (LiveActiveTraders etc.) that reflows
+                // whenever its digit count changes. If that were left to
+                // auto-size, the two marquee copies could drift out of sync in
+                // width and break the translateX(-50%) seamless-loop math,
+                // which is what caused the strip to render blank on refresh.
+                <div key={i} className="flex w-64 shrink-0 items-center gap-3 overflow-hidden border-e border-border px-6">
                   <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${badge.bgClass}`}>
                     <svg viewBox="0 0 24 24" className={`h-5 w-5 ${badge.colorClass}`} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       {STAT_ICONS[badge.icon]}
                     </svg>
                   </span>
-                  <div className="whitespace-nowrap text-start">
+                  <div className="min-w-0 flex-1 whitespace-nowrap text-start">
                     {badge.value ?? <p className="text-sm font-semibold">{t(badge.titleKey!)}</p>}
-                    <p className="text-xs text-muted">{t(badge.labelKey)}</p>
+                    <p className="truncate text-xs text-muted">{t(badge.labelKey)}</p>
                   </div>
                 </div>
               ))}

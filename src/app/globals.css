@@ -49,15 +49,23 @@ body {
 }
 
 /* Stats strip marquee: two identical copies of the content sit
-   side by side and the track scrolls exactly one copy's width (-50%),
-   so the loop point is invisible. Contained by overflow-hidden on the
-   parent, so it can never affect page width. */
+   side by side and the track scrolls exactly one copy's width, so the
+   loop point is invisible. Contained by overflow-hidden on the parent,
+   so it can never affect page width.
+   Direction is +50%, not -50%: the page is RTL, so a flex row's first
+   child is anchored at the right edge and the (wider-than-viewport)
+   track extends leftward into negative x by default. Animating toward
+   -50% pushes the whole track further left/off-screen with nothing
+   entering from the right to replace it — the strip goes fully blank
+   for most of each cycle, then snaps back. +50% instead slides the
+   second copy in from the right as the first exits, which is the
+   direction that's actually continuous under RTL static positioning. */
 @keyframes ticker-scroll {
   from {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-50%);
+    transform: translateX(50%);
   }
 }
 
