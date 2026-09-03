@@ -3,7 +3,10 @@
 // leader has providers.country = null and simply shows no flag.
 export type CountryCode =
   | "US" | "GB" | "BE" | "JP" | "DE" | "ZA" | "NG" | "FR" | "IN" | "KR"
-  | "CA" | "TR" | "BR" | "NL" | "IT" | "AU" | "ES" | "SE" | "MX" | "ID";
+  | "CA" | "TR" | "BR" | "NL" | "IT" | "AU" | "ES" | "SE" | "MX" | "ID"
+  | "AR" | "CO" | "CL" | "PE" | "PL" | "PT" | "CH" | "AT" | "NO" | "DK"
+  | "FI" | "GR" | "IE" | "RU" | "CN" | "TH" | "MY" | "SG" | "PH" | "VN"
+  | "PK" | "NZ" | "KE" | "GH" | "MA" | "CZ" | "HU" | "RO" | "UA" | "IL";
 
 export const COUNTRY_METADATA: Record<CountryCode, { nameAr: string; flag: string }> = {
   US: { nameAr: "الولايات المتحدة", flag: "🇺🇸" },
@@ -26,6 +29,36 @@ export const COUNTRY_METADATA: Record<CountryCode, { nameAr: string; flag: strin
   SE: { nameAr: "السويد", flag: "🇸🇪" },
   MX: { nameAr: "المكسيك", flag: "🇲🇽" },
   ID: { nameAr: "إندونيسيا", flag: "🇮🇩" },
+  AR: { nameAr: "الأرجنتين", flag: "🇦🇷" },
+  CO: { nameAr: "كولومبيا", flag: "🇨🇴" },
+  CL: { nameAr: "تشيلي", flag: "🇨🇱" },
+  PE: { nameAr: "بيرو", flag: "🇵🇪" },
+  PL: { nameAr: "بولندا", flag: "🇵🇱" },
+  PT: { nameAr: "البرتغال", flag: "🇵🇹" },
+  CH: { nameAr: "سويسرا", flag: "🇨🇭" },
+  AT: { nameAr: "النمسا", flag: "🇦🇹" },
+  NO: { nameAr: "النرويج", flag: "🇳🇴" },
+  DK: { nameAr: "الدنمارك", flag: "🇩🇰" },
+  FI: { nameAr: "فنلندا", flag: "🇫🇮" },
+  GR: { nameAr: "اليونان", flag: "🇬🇷" },
+  IE: { nameAr: "أيرلندا", flag: "🇮🇪" },
+  RU: { nameAr: "روسيا", flag: "🇷🇺" },
+  CN: { nameAr: "الصين", flag: "🇨🇳" },
+  TH: { nameAr: "تايلاند", flag: "🇹🇭" },
+  MY: { nameAr: "ماليزيا", flag: "🇲🇾" },
+  SG: { nameAr: "سنغافورة", flag: "🇸🇬" },
+  PH: { nameAr: "الفلبين", flag: "🇵🇭" },
+  VN: { nameAr: "فيتنام", flag: "🇻🇳" },
+  PK: { nameAr: "باكستان", flag: "🇵🇰" },
+  NZ: { nameAr: "نيوزيلندا", flag: "🇳🇿" },
+  KE: { nameAr: "كينيا", flag: "🇰🇪" },
+  GH: { nameAr: "غانا", flag: "🇬🇭" },
+  MA: { nameAr: "المغرب", flag: "🇲🇦" },
+  CZ: { nameAr: "التشيك", flag: "🇨🇿" },
+  HU: { nameAr: "المجر", flag: "🇭🇺" },
+  RO: { nameAr: "رومانيا", flag: "🇷🇴" },
+  UA: { nameAr: "أوكرانيا", flag: "🇺🇦" },
+  IL: { nameAr: "إسرائيل", flag: "🇮🇱" },
 };
 
 export function countryDisplay(code: string | null | undefined) {
