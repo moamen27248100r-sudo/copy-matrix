@@ -179,7 +179,6 @@ export default async function Home() {
   };
 
   const navLinks = NAV_HASHES.map((h) => ({ href: `#${h}`, label: t(`nav.${h === "how-it-works" ? "howItWorks" : h}`) }));
-  const highlights = t.raw("highlights") as { title: string; desc: string }[];
   const featureItems = t.raw("features.items") as { title: string; desc: string }[];
   const steps = t.raw("howItWorks.steps") as { title: string; desc: string }[];
   const faqs = t.raw("faq.items") as { q: string; a: string }[];
@@ -260,17 +259,6 @@ export default async function Home() {
               WebkitMaskComposite: "source-in",
             }}
           />
-        </div>
-        <div className="mx-auto mt-4 grid w-full max-w-2xl grid-cols-2 gap-x-6 gap-y-3 px-4 text-start sm:mt-5 sm:gap-x-10">
-          {highlights.map((h) => (
-            <div key={h.title} className="flex items-start gap-2">
-              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
-              <div>
-                <p className="text-sm font-semibold sm:text-base">{h.title}</p>
-                <p className="text-xs text-muted sm:text-sm">{h.desc}</p>
-              </div>
-            </div>
-          ))}
         </div>
       </section>
 
