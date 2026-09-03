@@ -34,12 +34,15 @@ export default async function AdminOverviewPage() {
     (withdrawals ?? []).reduce((sum, t) => sum + Number(t.amount ?? 0), 0),
   );
 
-  const stats = [
+  const activityStats = [
     { label: "إجمالي المستخدمين", value: userCount ?? 0 },
     { label: "إجمالي المتداولين", value: providerCount ?? 0 },
     { label: "اشتراكات نسخ نشطة", value: activeSubscriptionCount ?? 0 },
     { label: "إجمالي الصفقات", value: signalCount ?? 0 },
     { label: "صفقات منسوخة", value: positionCount ?? 0 },
+  ];
+
+  const financialStats = [
     { label: "رصيد المنصة الكلي", value: `$${totalBalance.toLocaleString("en-US", { maximumFractionDigits: 0 })}` },
     { label: "إجمالي الإيداعات", value: `$${totalDeposits.toLocaleString("en-US", { maximumFractionDigits: 0 })}` },
     { label: "إجمالي السحوبات", value: `$${totalWithdrawals.toLocaleString("en-US", { maximumFractionDigits: 0 })}` },
@@ -66,9 +69,21 @@ export default async function AdminOverviewPage() {
 
       <section className="flex flex-col gap-3">
         <h2 className="font-medium">إحصائيات المنصة</h2>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {stats.map((s) => (
+
+        <p className="text-xs text-muted">النشاط</p>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+          {activityStats.map((s) => (
             <div key={s.label} className="rounded-lg border border-border bg-surface p-3 text-center">
+              <p className="text-lg font-semibold">{s.value}</p>
+              <p className="text-xs text-muted">{s.label}</p>
+            </div>
+          ))}
+        </div>
+
+        <p className="text-xs text-muted">الماليات</p>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+          {financialStats.map((s) => (
+            <div key={s.label} className="rounded-lg border border-accent/30 bg-accent/5 p-3 text-center">
               <p className="text-lg font-semibold">{s.value}</p>
               <p className="text-xs text-muted">{s.label}</p>
             </div>
