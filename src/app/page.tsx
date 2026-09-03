@@ -4,6 +4,7 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { MarketOverview } from "@/components/MarketOverview";
 import { TraderPostsFeed } from "@/components/TraderPostsFeed";
+import { MarketNewsFeed } from "@/components/MarketNewsFeed";
 import {
   LiveStatsProvider,
   LiveActiveTraders,
@@ -344,6 +345,14 @@ export default async function Home() {
           <p className="text-sm text-muted">{t("traderPosts.subtitle")}</p>
         </div>
         <TraderPostsFeed />
+      </section>
+
+      <section id="market-news" className="flex flex-col gap-4 border-t border-border px-6 py-16">
+        <div className="mx-auto flex w-full max-w-5xl flex-col gap-1">
+          <h2 className="text-2xl font-semibold">{t("marketNews.title")}</h2>
+          <p className="text-sm text-muted">{t("marketNews.subtitle")}</p>
+        </div>
+        <MarketNewsFeed />
       </section>
 
       <section id="how-it-works" className="flex flex-col gap-10 px-6 py-16">
