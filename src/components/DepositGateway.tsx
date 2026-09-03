@@ -133,7 +133,7 @@ export function DepositGateway() {
           </div>
 
           <p className="text-xs text-muted">
-            بعد إرسال المبلغ إلى العنوان أعلاه، اضغط «لقد أرسلت المبلغ» — سيُراجع فريق الإدارة العملية ويعتمدها على رصيدك.
+            بعد إرسال المبلغ إلى العنوان أعلاه، اضغط «لقد أرسلت المبلغ» — وسينعكس المبلغ على رصيدك فورًا.
           </p>
 
           <button type="submit" className="rounded bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover">

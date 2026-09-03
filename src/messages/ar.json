@@ -43,12 +43,14 @@
       "liveDesc": "تابع حركة الأسعار لحظة بلحظة، وغيّر الزوج من داخل الشارت."
     },
     "trustStrip": {
-      "adminReviewTitle": "مراجعة إدارية",
-      "adminReviewDesc": "لكل عملية إيداع وسحب",
+      "instantTitle": "سحب وإيداع فوري",
+      "instantDesc": "معالجة تلقائية لحظية لكل الطلبات",
       "encryptionTitle": "تشفير كامل",
       "encryptionDesc": "لجميع بيانات الحسابات",
       "demoTitle": "حساب تجريبي",
-      "demoDesc": "بدون أي مخاطرة حقيقية"
+      "demoDesc": "بدون أي مخاطرة حقيقية",
+      "supportTitle": "دعم فني",
+      "supportDesc": "على مدار 24 ساعة"
     },
     "traderPosts": {
       "title": "آخر تحديثات المتداولين",

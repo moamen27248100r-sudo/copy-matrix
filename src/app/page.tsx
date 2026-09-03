@@ -96,6 +96,13 @@ const STAT_ICONS = {
       <path d="M9 12l2 2 4-4" />
     </>
   ),
+  bolt: <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />,
+  headset: (
+    <>
+      <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+      <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
+    </>
+  ),
 };
 
 type TrustBadge = {
@@ -116,9 +123,10 @@ const TRUST_BADGES: TrustBadge[] = [
   { icon: "people", colorClass: "text-accent", bgClass: "bg-accent/10", value: <LiveActiveTraders className="text-sm font-semibold" />, labelKey: "stats.activeTraders" },
   { icon: "swap", colorClass: "text-success", bgClass: "bg-success/10", value: <LiveCopyUsers className="text-sm font-semibold" />, labelKey: "stats.copyUsers" },
   { icon: "bars", colorClass: "text-brand", bgClass: "bg-brand/10", value: <LiveTotalTrades className="text-sm font-semibold" />, labelKey: "stats.totalTrades" },
-  { icon: "shield", colorClass: "text-warning", bgClass: "bg-warning/10", titleKey: "trustStrip.adminReviewTitle", labelKey: "trustStrip.adminReviewDesc" },
+  { icon: "bolt", colorClass: "text-warning", bgClass: "bg-warning/10", titleKey: "trustStrip.instantTitle", labelKey: "trustStrip.instantDesc" },
   { icon: "lock", colorClass: "text-success", bgClass: "bg-success/10", titleKey: "trustStrip.encryptionTitle", labelKey: "trustStrip.encryptionDesc" },
   { icon: "check", colorClass: "text-accent", bgClass: "bg-accent/10", titleKey: "trustStrip.demoTitle", labelKey: "trustStrip.demoDesc" },
+  { icon: "headset", colorClass: "text-brand", bgClass: "bg-brand/10", titleKey: "trustStrip.supportTitle", labelKey: "trustStrip.supportDesc" },
 ];
 
 const NAV_HASHES = ["how-it-works", "traders", "markets", "features", "faq"] as const;

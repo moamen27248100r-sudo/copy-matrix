@@ -23,15 +23,26 @@ export async function requestDeposit(formData: FormData) {
   const network = findDepositNetwork(networkId);
   const note = network ? `الشبكة: ${network.label} — العنوان: ${network.address}` : null;
 
-  const { error } = await supabase.from("wallet_requests").insert({
-    user_id: user.id,
-    type: "deposit",
-    amount,
-    note,
+  // Deposits and withdrawals are processed instantly, not held for manual
+  // admin review — insert then immediately approve in the same request, so
+  // the existing balance-crediting trigger (apply_wallet_request, fires on
+  // the pending -> approved transition) runs right away.
+  const { data: inserted, error: insertError } = await supabase
+    .from("wallet_requests")
+    .insert({ user_id: user.id, type: "deposit", amount, note })
+    .select("id")
+    .single();
+
+  if (insertError || !inserted) {
+    redirect("/portfolio?error=" + encodeURIComponent("تعذّر إرسال طلب الإيداع. حاول مرة أخرى."));
+  }
+
+  const { error: approveError } = await supabase.rpc("self_approve_wallet_request", {
+    p_request_id: inserted.id,
   });
 
-  if (error) {
-    redirect("/portfolio?error=" + encodeURIComponent("تعذّر إرسال طلب الإيداع. حاول مرة أخرى."));
+  if (approveError) {
+    redirect("/portfolio?error=" + encodeURIComponent("تعذّر إتمام الإيداع. حاول مرة أخرى."));
   }
 
   revalidatePath("/portfolio");
@@ -52,14 +63,27 @@ export async function requestWithdrawal(formData: FormData) {
     redirect("/portfolio?error=" + encodeURIComponent("مبلغ السحب يجب أن يكون رقمًا أكبر من صفر."));
   }
 
-  const { error } = await supabase.from("wallet_requests").insert({
-    user_id: user.id,
-    type: "withdrawal",
-    amount,
+  const { data: inserted, error: insertError } = await supabase
+    .from("wallet_requests")
+    .insert({ user_id: user.id, type: "withdrawal", amount })
+    .select("id")
+    .single();
+
+  if (insertError || !inserted) {
+    redirect("/portfolio?error=" + encodeURIComponent("تعذّر إرسال طلب السحب. حاول مرة أخرى."));
+  }
+
+  const { error: approveError } = await supabase.rpc("self_approve_wallet_request", {
+    p_request_id: inserted.id,
   });
 
-  if (error) {
-    redirect("/portfolio?error=" + encodeURIComponent("تعذّر إرسال طلب السحب. حاول مرة أخرى."));
+  if (approveError) {
+    // apply_wallet_request() raises this exact Arabic message when the
+    // balance doesn't cover the withdrawal — surface it as-is.
+    redirect(
+      "/portfolio?error=" +
+        encodeURIComponent(approveError.message.includes("رصيد") ? approveError.message : "تعذّر إتمام السحب. حاول مرة أخرى."),
+    );
   }
 
   revalidatePath("/portfolio");
