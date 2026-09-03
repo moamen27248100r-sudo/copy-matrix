@@ -10,6 +10,7 @@ import { TradeHistory } from "@/components/TradeHistory";
 import { CircularGauge } from "@/components/CircularGauge";
 import { AssetAllocationBar } from "@/components/AssetAllocationBar";
 import { OpenOrdersTable } from "@/components/OpenOrdersTable";
+import { countryDisplay } from "@/lib/country-metadata";
 
 type SignalRow = {
   id: string;
@@ -202,6 +203,11 @@ export default async function TraderPage({
           <div className="flex-1">
             <div className="flex flex-wrap items-center gap-2">
               <h1 className="text-xl font-semibold">{provider.display_name}</h1>
+              {countryDisplay(provider.country) && (
+                <span className="text-sm" title={countryDisplay(provider.country)!.nameAr}>
+                  {countryDisplay(provider.country)!.flag}
+                </span>
+              )}
               <form action={isWatching ? unfollowTrader : followTrader}>
                 <input type="hidden" name="providerId" value={id} />
                 <button
@@ -222,6 +228,7 @@ export default async function TraderPage({
                 year: "numeric",
                 month: "long",
               })}
+              {countryDisplay(provider.country) && ` · ${countryDisplay(provider.country)!.nameAr}`}
             </p>
             {isWatching && (
               <p className="mt-0.5 text-[11px] text-muted">
