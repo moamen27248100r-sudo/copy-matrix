@@ -23,42 +23,6 @@ import type { ReactNode } from "react";
 
 export const dynamic = "force-dynamic";
 
-const FEATURE_ICONS = [
-  (
-    <>
-      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-      <circle cx="12" cy="12" r="3" />
-    </>
-  ),
-  <polyline key="p" points="22 12 18 12 15 21 9 3 6 12 2 12" />,
-  (
-    <>
-      <rect x="2" y="7" width="20" height="10" rx="5" />
-      <circle cx="16" cy="12" r="3" />
-    </>
-  ),
-  (
-    <>
-      <circle cx="12" cy="12" r="10" />
-      <line x1="2" y1="12" x2="22" y2="12" />
-      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-    </>
-  ),
-  (
-    <>
-      <line x1="12" y1="1" x2="12" y2="23" />
-      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-    </>
-  ),
-  (
-    <>
-      <path d="M9 12l2 2 4-4" />
-      <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.05 0 3.93.68 5.44 1.83" />
-      <path d="M21 3v6h-6" />
-    </>
-  ),
-];
-
 const STAT_ICONS = {
   people: (
     <>
@@ -129,7 +93,7 @@ const TRUST_BADGES: TrustBadge[] = [
   { icon: "headset", colorClass: "text-brand", bgClass: "bg-brand/10", titleKey: "trustStrip.supportTitle", labelKey: "trustStrip.supportDesc" },
 ];
 
-const NAV_HASHES = ["how-it-works", "traders", "markets", "features", "faq"] as const;
+const NAV_HASHES = ["how-it-works", "traders", "markets", "faq"] as const;
 
 const FOOTER_LEGAL_HREFS = ["/legal/terms", "/legal/privacy"] as const;
 
@@ -187,7 +151,6 @@ export default async function Home() {
   };
 
   const navLinks = NAV_HASHES.map((h) => ({ href: `#${h}`, label: t(`nav.${h === "how-it-works" ? "howItWorks" : h}`) }));
-  const featureItems = t.raw("features.items") as { title: string; desc: string }[];
   const steps = t.raw("howItWorks.steps") as { title: string; desc: string }[];
   const faqs = t.raw("faq.items") as { q: string; a: string }[];
 
@@ -350,37 +313,6 @@ export default async function Home() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section id="features" className="flex flex-col gap-10 border-t border-border px-6 py-16">
-        <h2 className="text-center text-2xl font-semibold sm:text-3xl">{t("features.title")}</h2>
-        <div className="mx-auto grid w-full max-w-5xl grid-cols-2 gap-3 sm:gap-4">
-          {featureItems.map((f, i) => (
-            <div
-              key={f.title}
-              className="flex flex-col items-center gap-2 rounded-xl border border-border bg-surface p-3 text-center transition hover:border-accent/40 hover:shadow-lg sm:flex-row sm:items-start sm:gap-4 sm:p-5 sm:text-start"
-            >
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/10 sm:h-11 sm:w-11">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-4 w-4 text-accent sm:h-5 sm:w-5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  {FEATURE_ICONS[i]}
-                </svg>
-              </div>
-              <div>
-                <p className="text-xs font-medium sm:text-base">{f.title}</p>
-                <p className="mt-1 text-[11px] leading-relaxed text-muted sm:text-sm">{f.desc}</p>
-              </div>
-            </div>
-          ))}
         </div>
       </section>
 
