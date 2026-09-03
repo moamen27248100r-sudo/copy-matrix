@@ -61,20 +61,18 @@ export default async function AdminOverviewPage({
     { label: "إجمالي السحوبات", value: `$${totalWithdrawals.toLocaleString("en-US", { maximumFractionDigits: 0 })}` },
   ];
 
-  const quickLinks = [
-    {
-      href: "/admin/kyc",
-      label: "طلبات توثيق معلقة",
-      value: pendingKycCount ?? 0,
-      urgent: (pendingKycCount ?? 0) > 0,
-    },
-    {
-      href: "/admin/wallet-requests",
-      label: "طلبات محفظة معلقة",
-      value: pendingWalletCount ?? 0,
-      urgent: (pendingWalletCount ?? 0) > 0,
-    },
-  ];
+  const kycLink = {
+    href: "/admin/kyc",
+    label: "طلبات توثيق معلقة",
+    value: pendingKycCount ?? 0,
+    urgent: (pendingKycCount ?? 0) > 0,
+  };
+  const walletLink = {
+    href: "/admin/wallet-requests",
+    label: "طلبات محفظة معلقة",
+    value: pendingWalletCount ?? 0,
+    urgent: (pendingWalletCount ?? 0) > 0,
+  };
 
   return (
     <>
@@ -122,23 +120,35 @@ export default async function AdminOverviewPage({
 
       <section className="flex flex-col gap-3">
         <h2 className="font-medium">يحتاج مراجعة</h2>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {quickLinks.map((q) => (
-            <Link
-              key={q.href}
-              href={q.href}
-              className={`flex items-center justify-between rounded-lg border p-4 transition hover:bg-surface ${
-                q.urgent ? "border-warning/40 bg-warning/5" : "border-border bg-surface"
-              }`}
-            >
-              <span className="font-medium">{q.label}</span>
-              <span className="flex items-center gap-2">
-                <span className={`text-lg font-semibold ${q.urgent ? "text-warning" : ""}`}>{q.value}</span>
-                <span className="text-muted">←</span>
-              </span>
-            </Link>
-          ))}
-        </div>
+
+        <Link
+          href={kycLink.href}
+          className={`flex items-center justify-between rounded-lg border p-4 transition hover:bg-surface ${
+            kycLink.urgent ? "border-warning/40 bg-warning/5" : "border-border bg-surface"
+          }`}
+        >
+          <span className="font-medium">{kycLink.label}</span>
+          <span className="flex items-center gap-2">
+            <span className={`text-lg font-semibold ${kycLink.urgent ? "text-warning" : ""}`}>{kycLink.value}</span>
+            <span className="text-muted">←</span>
+          </span>
+        </Link>
+
+        <Link
+          href={walletLink.href}
+          className={`flex w-fit items-center gap-2 rounded-full border px-3.5 py-1.5 text-sm transition hover:bg-surface ${
+            walletLink.urgent ? "border-warning/40 text-warning" : "border-border text-muted hover:text-foreground"
+          }`}
+        >
+          {walletLink.label}
+          <span
+            className={`flex h-5 min-w-5 items-center justify-center rounded-full px-1 text-xs font-medium ${
+              walletLink.urgent ? "bg-warning text-background" : "bg-border text-foreground"
+            }`}
+          >
+            {walletLink.value}
+          </span>
+        </Link>
       </section>
 
       <section className="flex flex-col gap-3">
