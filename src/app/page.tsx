@@ -281,7 +281,7 @@ export default async function Home() {
                 // auto-size, the two marquee copies could drift out of sync in
                 // width and break the translateX(-50%) seamless-loop math,
                 // which is what caused the strip to render blank on refresh.
-                <div key={i} className="flex w-48 shrink-0 flex-col items-center justify-center gap-1 overflow-hidden px-3 text-center">
+                <div key={i} className="flex w-40 shrink-0 flex-col items-center justify-center gap-1 overflow-hidden px-1.5 text-center">
                   <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${badge.bgClass}`}>
                     <svg viewBox="0 0 24 24" className={`h-4 w-4 ${badge.colorClass}`} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       {STAT_ICONS[badge.icon]}
