@@ -83,35 +83,43 @@ const STAT_ICONS = {
       <line x1="6" y1="20" x2="6" y2="14" />
     </>
   ),
+  shield: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />,
+  lock: (
+    <>
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+    </>
+  ),
+  check: (
+    <>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M9 12l2 2 4-4" />
+    </>
+  ),
 };
 
-function StatCard({
-  icon,
-  colorClass,
-  bgClass,
-  value,
-  label,
-  className = "",
-}: {
-  icon: ReactNode;
+type TrustBadge = {
+  icon: keyof typeof STAT_ICONS;
   colorClass: string;
   bgClass: string;
-  value: ReactNode;
-  label: string;
-  className?: string;
-}) {
-  return (
-    <div className={`flex min-w-0 flex-col items-center gap-1.5 rounded-lg border border-border bg-surface px-1 py-3 text-center ${className}`}>
-      <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${bgClass}`}>
-        <svg viewBox="0 0 24 24" className={`h-4 w-4 ${colorClass}`} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          {icon}
-        </svg>
-      </span>
-      {value}
-      <p className="text-[10px] leading-tight text-muted">{label}</p>
-    </div>
-  );
-}
+  value?: ReactNode;
+  titleKey?: string;
+  labelKey: string;
+};
+
+// Same idea as eToro's trust-badge strip (real live platform numbers mixed
+// with policy/security assurances) — but every claim here is genuinely true
+// for Copy Matrix specifically. Deliberately excludes eToro's own facts
+// (founding year, stock-exchange listing, regulatory status) since those
+// would be false claims about this platform.
+const TRUST_BADGES: TrustBadge[] = [
+  { icon: "people", colorClass: "text-accent", bgClass: "bg-accent/10", value: <LiveActiveTraders className="text-sm font-semibold" />, labelKey: "stats.activeTraders" },
+  { icon: "swap", colorClass: "text-success", bgClass: "bg-success/10", value: <LiveCopyUsers className="text-sm font-semibold" />, labelKey: "stats.copyUsers" },
+  { icon: "bars", colorClass: "text-brand", bgClass: "bg-brand/10", value: <LiveTotalTrades className="text-sm font-semibold" />, labelKey: "stats.totalTrades" },
+  { icon: "shield", colorClass: "text-warning", bgClass: "bg-warning/10", titleKey: "trustStrip.adminReviewTitle", labelKey: "trustStrip.adminReviewDesc" },
+  { icon: "lock", colorClass: "text-success", bgClass: "bg-success/10", titleKey: "trustStrip.encryptionTitle", labelKey: "trustStrip.encryptionDesc" },
+  { icon: "check", colorClass: "text-accent", bgClass: "bg-accent/10", titleKey: "trustStrip.demoTitle", labelKey: "trustStrip.demoDesc" },
+];
 
 const NAV_HASHES = ["how-it-works", "traders", "markets", "features", "faq"] as const;
 
@@ -225,38 +233,6 @@ export default async function Home() {
             {t("hero.browse")}
           </a>
         </div>
-        <div className="w-full max-w-sm overflow-hidden pt-2">
-          <div className="flex w-max animate-[ticker-scroll_16s_linear_infinite] hover:[animation-play-state:paused]">
-            {[0, 1].map((copy) => (
-              <div key={copy} className="flex shrink-0" aria-hidden={copy === 1}>
-                <StatCard
-                  className="me-2 w-28 shrink-0"
-                  icon={STAT_ICONS.people}
-                  colorClass="text-accent"
-                  bgClass="bg-accent/10"
-                  value={<LiveActiveTraders className="text-sm font-semibold sm:text-base" />}
-                  label={t("stats.activeTraders")}
-                />
-                <StatCard
-                  className="me-2 w-28 shrink-0"
-                  icon={STAT_ICONS.swap}
-                  colorClass="text-success"
-                  bgClass="bg-success/10"
-                  value={<LiveCopyUsers className="text-sm font-semibold sm:text-base" />}
-                  label={t("stats.copyUsers")}
-                />
-                <StatCard
-                  className="me-2 w-28 shrink-0"
-                  icon={STAT_ICONS.bars}
-                  colorClass="text-brand"
-                  bgClass="bg-brand/10"
-                  value={<LiveTotalTrades className="text-sm font-semibold sm:text-base" />}
-                  label={t("stats.totalTrades")}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
         <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-4 text-xs text-muted">
           {[t("hero.trust0"), t("hero.trust1"), t("hero.trust2")].map((trustText) => (
             <span key={trustText} className="flex items-center gap-1.5">
@@ -293,6 +269,28 @@ export default async function Home() {
                 <p className="text-sm font-semibold sm:text-base">{h.title}</p>
                 <p className="text-xs text-muted sm:text-sm">{h.desc}</p>
               </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="overflow-hidden border-y border-border bg-surface py-6">
+        <div className="flex w-max animate-[ticker-scroll_28s_linear_infinite] hover:[animation-play-state:paused]">
+          {[0, 1].map((copy) => (
+            <div key={copy} className="flex shrink-0 items-stretch" aria-hidden={copy === 1}>
+              {TRUST_BADGES.map((badge, i) => (
+                <div key={i} className="flex shrink-0 items-center gap-3 border-e border-border px-6">
+                  <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${badge.bgClass}`}>
+                    <svg viewBox="0 0 24 24" className={`h-5 w-5 ${badge.colorClass}`} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      {STAT_ICONS[badge.icon]}
+                    </svg>
+                  </span>
+                  <div className="whitespace-nowrap text-start">
+                    {badge.value ?? <p className="text-sm font-semibold">{t(badge.titleKey!)}</p>}
+                    <p className="text-xs text-muted">{t(badge.labelKey)}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           ))}
         </div>
