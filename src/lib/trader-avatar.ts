@@ -3,6 +3,8 @@
 // without using any real person's photo. Loaded via a plain <img> tag the
 // same way SignupForm already loads flagcdn.com country flags — no
 // next.config.ts images.remotePatterns entry needed.
+const BG_COLORS = "2f6fed,0ecb81,f0a020,f6465d";
+
 export function traderAvatarUrl(providerId: string): string {
-  return `https://api.dicebear.com/9.x/notionists/svg?seed=${encodeURIComponent(providerId)}`;
+  return `https://api.dicebear.com/9.x/micah/svg?seed=${encodeURIComponent(providerId)}&backgroundColor=${BG_COLORS}`;
 }
