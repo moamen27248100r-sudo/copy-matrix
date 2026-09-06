@@ -201,7 +201,7 @@ export default async function DashboardPage({
                   {kycCopy.action}
                 </Link>
                 <Link
-                  href="/kyc"
+                  href="/kyc/steps"
                   className="rounded-lg border border-border px-4 py-2 text-center text-sm text-foreground transition hover:border-accent hover:text-accent"
                 >
                   اعرف المزيد
