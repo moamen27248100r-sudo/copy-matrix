@@ -12,35 +12,32 @@ type DohResponse = { Answer?: DohAnswer[] };
 async function dohQuery(name: string, type: "MX" | "A" | "AAAA"): Promise<DohResponse> {
   const res = await fetch(`https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(name)}&type=${type}`, {
     headers: { accept: "application/dns-json" },
-    signal: AbortSignal.timeout(4000),
+    signal: AbortSignal.timeout(6000),
   });
   if (!res.ok) throw new Error(`DoH query failed: ${res.status}`);
   return res.json();
 }
 
 export async function domainCanReceiveEmail(domain: string): Promise<boolean> {
-  try {
-    const mx = await dohQuery(domain, "MX");
-    const answers = mx.Answer ?? [];
+  // Run all three in parallel rather than falling back sequentially — one
+  // slow/unreachable query (MX is occasionally slower to answer than A/AAAA)
+  // shouldn't add its full timeout on top of the others'.
+  const [mx, a, aaaa] = await Promise.allSettled([
+    dohQuery(domain, "MX"),
+    dohQuery(domain, "A"),
+    dohQuery(domain, "AAAA"),
+  ]);
+
+  if (mx.status === "fulfilled") {
+    const answers = mx.value.Answer ?? [];
     // RFC 7505 "null MX" (priority 0, target ".") is a domain explicitly
-    // declaring it accepts no mail at all — definitive, no A/AAAA fallback.
-    if (answers.some((a) => /^0\s+\.?$/.test(a.data))) return false;
+    // declaring it accepts no mail at all — definitive, skip A/AAAA.
+    if (answers.some((ans) => /^0\s+\.?$/.test(ans.data))) return false;
     if (answers.length > 0) return true;
-  } catch {
-    // lookup failed — fall through to the A/AAAA fallback below
   }
 
-  try {
-    const a = await dohQuery(domain, "A");
-    if ((a.Answer ?? []).length > 0) return true;
-  } catch {
-    // try AAAA next
-  }
+  if (a.status === "fulfilled" && (a.value.Answer ?? []).length > 0) return true;
+  if (aaaa.status === "fulfilled" && (aaaa.value.Answer ?? []).length > 0) return true;
 
-  try {
-    const aaaa = await dohQuery(domain, "AAAA");
-    return (aaaa.Answer ?? []).length > 0;
-  } catch {
-    return false;
-  }
+  return false;
 }

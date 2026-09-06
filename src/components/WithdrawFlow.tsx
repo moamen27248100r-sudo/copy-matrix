@@ -4,6 +4,13 @@ import { useState } from "react";
 import { requestWithdrawal } from "@/app/portfolio/actions";
 import { DEPOSIT_NETWORKS, type DepositNetwork } from "@/lib/deposit-networks";
 
+// "1000.000000" reads as noise — show whole numbers plain ("1000") and
+// only keep decimals when the amount actually has cents ("1000.5").
+function formatAmount(n: number): string {
+  const rounded = Math.round(n * 100) / 100;
+  return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(2);
+}
+
 function AmountStep({
   amount,
   setAmount,
@@ -39,7 +46,7 @@ function AmountStep({
         </div>
       </div>
       <p className="text-xs text-muted" dir="ltr">
-        Max {maxAvailable.toFixed(6)} USD
+        Max {formatAmount(maxAvailable)} USD
       </p>
 
       <div className="mt-auto">
@@ -57,7 +64,7 @@ function AmountStep({
 }
 
 export function WithdrawFlow({ accountType, maxAvailable }: { accountType: "real" | "demo"; maxAvailable: number }) {
-  const [amount, setAmount] = useState(maxAvailable > 0 ? maxAvailable.toFixed(2) : "");
+  const [amount, setAmount] = useState(maxAvailable > 0 ? formatAmount(maxAvailable) : "");
   const [step, setStep] = useState<"amount" | "destination">("amount");
   const [network, setNetwork] = useState<DepositNetwork | null>(null);
   const [walletAddress, setWalletAddress] = useState("");
