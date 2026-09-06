@@ -82,7 +82,7 @@ export default async function KycStepsPage() {
       <div className="mt-auto flex flex-col gap-2">
         <Link
           href="/kyc"
-          className="rounded-lg bg-warning px-4 py-3 text-center text-sm font-semibold text-background transition hover:brightness-110"
+          className="rounded-lg bg-brand px-4 py-3 text-center text-sm font-semibold text-brand-foreground transition hover:bg-brand-hover"
         >
           ابدأ التوثيق الآن
         </Link>
