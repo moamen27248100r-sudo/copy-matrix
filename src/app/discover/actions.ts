@@ -130,12 +130,16 @@ export async function unfollowProvider(formData: FormData) {
   if (!user) return;
 
   const providerId = formData.get("providerId") as string;
+  const returnTo = (formData.get("returnTo") as string) || "/portfolio";
 
-  await supabase
-    .from("subscriptions")
-    .update({ is_active: false })
-    .eq("follower_id", user.id)
-    .eq("provider_id", providerId);
+  // stop_copy (security definer) blocks the transition while this
+  // subscription still has an open copied position, instead of the old
+  // plain .update({is_active:false}) — see 0091_reserve_allocated_capital.sql.
+  const { error } = await supabase.rpc("stop_copy", { p_provider_id: providerId });
+
+  if (error) {
+    redirect(`${returnTo}?error=${encodeURIComponent(error.message)}`);
+  }
 
   revalidatePath("/discover");
   revalidatePath("/dashboard");

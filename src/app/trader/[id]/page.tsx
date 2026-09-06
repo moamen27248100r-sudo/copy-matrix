@@ -295,6 +295,7 @@ export default async function TraderPage({
           {isFollowing && (
             <form action={unfollowProvider}>
               <input type="hidden" name="providerId" value={id} />
+              <input type="hidden" name="returnTo" value={`/trader/${id}`} />
               <button type="submit" className="rounded border border-border px-4 py-1.5 text-sm">
                 إيقاف النسخ
               </button>

@@ -63,6 +63,45 @@ export async function requestWithdrawal(formData: FormData) {
     redirect("/portfolio?error=" + encodeURIComponent("مبلغ السحب يجب أن يكون رقمًا أكبر من صفر."));
   }
 
+  // Pre-check before inserting the wallet_request row — apply_wallet_request()
+  // (0091_reserve_allocated_capital.sql) enforces the same two rules at the
+  // DB level as a safety net, but checking here first avoids leaving an
+  // orphaned pending row every time a blocked withdrawal is attempted.
+  const [{ count: openPositionsCount }, { data: activeSub }, { data: profile }] = await Promise.all([
+    supabase
+      .from("simulated_positions")
+      .select("id", { count: "exact", head: true })
+      .eq("follower_id", user.id)
+      .eq("status", "open"),
+    supabase
+      .from("subscriptions")
+      .select("allocated_amount")
+      .eq("follower_id", user.id)
+      .eq("is_active", true)
+      .maybeSingle(),
+    supabase.from("profiles").select("balance").eq("id", user.id).single(),
+  ]);
+
+  if (openPositionsCount && openPositionsCount > 0) {
+    redirect(
+      "/portfolio?error=" +
+        encodeURIComponent(
+          "تعذر تقديم طلب السحب: هناك أوامر مفعّلة ورصيدك حاليًا محجوز كـ Margin لتغطية الصفقات الجارية. عند الانتهاء من الصفقات، يمكنك إيقاف النسخ أولاً لإعادة الرصيد والمكاسب للمحفظة ثم إعادة طلب السحب.",
+        ),
+    );
+  }
+
+  const reserved = Number(activeSub?.allocated_amount ?? 0);
+  const available = Number(profile?.balance ?? 0) - reserved;
+  if (amount > available) {
+    redirect(
+      "/portfolio?error=" +
+        encodeURIComponent(
+          "رصيدك المتاح للسحب غير كافٍ — جزء من رصيدك محجوز حاليًا لحساب النسخ النشط. أوقف النسخ أولاً لإعادة هذا المبلغ إلى رصيدك المتاح.",
+        ),
+    );
+  }
+
   const { data: inserted, error: insertError } = await supabase
     .from("wallet_requests")
     .insert({ user_id: user.id, type: "withdrawal", amount })

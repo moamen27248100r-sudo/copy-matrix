@@ -18,9 +18,9 @@ type SortKey = keyof typeof SORT_OPTIONS;
 export default async function DiscoverPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; sort?: string }>;
+  searchParams: Promise<{ q?: string; sort?: string; error?: string }>;
 }) {
-  const { q, sort } = await searchParams;
+  const { q, sort, error } = await searchParams;
   const sortKey: SortKey = sort && sort in SORT_OPTIONS ? (sort as SortKey) : "return";
 
   const supabase = await createClient();
@@ -63,6 +63,12 @@ export default async function DiscoverPage({
       <main className="mx-auto flex w-full max-w-4xl flex-col gap-6 p-6">
         <BackButton fallbackHref="/dashboard" />
         <h1 className="text-2xl font-semibold">اكتشاف المتداولين</h1>
+
+        {error && (
+          <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
+            {error}
+          </p>
+        )}
 
         <form method="get" className="flex flex-col gap-2 sm:flex-row">
         <input
@@ -185,6 +191,7 @@ export default async function DiscoverPage({
                   {isFollowing ? (
                     <form action={unfollowProvider}>
                       <input type="hidden" name="providerId" value={p.provider_id} />
+                      <input type="hidden" name="returnTo" value="/discover" />
                       <button type="submit" className="w-full rounded border border-border px-3 py-2 text-sm">
                         إيقاف النسخ
                       </button>
