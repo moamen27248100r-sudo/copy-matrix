@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { DepositGateway } from "@/components/DepositGateway";
+import { SimpleDepositForm } from "@/components/SimpleDepositForm";
 
 export default async function DepositPage() {
   const supabase = await createClient();
@@ -10,6 +11,9 @@ export default async function DepositPage() {
   } = await supabase.auth.getUser();
 
   if (!user) redirect("/login");
+
+  const { data: profile } = await supabase.from("profiles").select("account_type").eq("id", user.id).single();
+  const isDemo = profile?.account_type !== "real";
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col gap-8 p-6">
@@ -24,7 +28,14 @@ export default async function DepositPage() {
 
       <h1 className="text-2xl font-semibold">الإيداع</h1>
 
-      <DepositGateway />
+      {isDemo ? (
+        // Demo money doesn't need a real network/address — one field, one
+        // tap, credited instantly, same simplification already made for
+        // demo withdrawals.
+        <SimpleDepositForm />
+      ) : (
+        <DepositGateway />
+      )}
     </main>
   );
 }

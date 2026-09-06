@@ -8,6 +8,7 @@ import { PortfolioTabs } from "@/components/PortfolioTabs";
 import { TradeHistory } from "@/components/TradeHistory";
 import { PortfolioValueBreakdown } from "@/components/PortfolioValueBreakdown";
 import { MyEquityChart } from "@/components/MyEquityChart";
+import { AutoDismissMessage } from "@/components/AutoDismissMessage";
 import { symbolIcon } from "@/lib/symbol-icons";
 
 const TX_LABELS: Record<string, string> = {
@@ -502,9 +503,12 @@ export default async function PortfolioPage({
           </p>
         )}
         {success && (
-          <p className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">
+          <AutoDismissMessage
+            className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success"
+            clearParams={["success"]}
+          >
             تمت العملية بنجاح.
-          </p>
+          </AutoDismissMessage>
         )}
 
         <PortfolioTabs overview={overview} positions={positionsPanel} activity={activity} initialTab={tab} />
