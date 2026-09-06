@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { translateAuthError } from "@/lib/auth-errors";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { isValidEmailFormat, isValidPhoneForCountry, stripTrunkZero } from "@/lib/validate-signup";
+import { domainCanReceiveEmail } from "@/lib/email-domain-check";
 import { safeNextPath } from "@/lib/safe-next";
 
 const RATE_LIMIT_MESSAGE = "محاولات كثيرة جدًا. يرجى الانتظار قليلًا قبل إعادة المحاولة.";
@@ -56,6 +57,14 @@ export async function signup(formData: FormData) {
 
   if (!isValidEmailFormat(email)) {
     redirect(`/signup?error=${encodeURIComponent("اكتب بريدًا إلكترونيًا حقيقيًا (مثل name@gmail.com).")}${nextParam}`);
+  }
+
+  // Format alone lets through syntactically valid but non-existent domains
+  // (e.g. "user@example.com") — reject unless the domain can actually
+  // receive mail.
+  const emailDomain = email.split("@")[1]?.trim();
+  if (!emailDomain || !(await domainCanReceiveEmail(emailDomain))) {
+    redirect(`/signup?error=${encodeURIComponent("هذا البريد الإلكتروني غير حقيقي أو نطاقه لا يستقبل رسائل. استخدم بريدًا فعليًا.")}${nextParam}`);
   }
 
   if (!isValidPhoneForCountry(phoneNumber, phoneCountryIso)) {

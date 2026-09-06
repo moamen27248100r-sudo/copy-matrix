@@ -21,20 +21,22 @@ function AmountStep({
     <div className="flex flex-1 flex-col gap-8">
       <p className="text-sm text-muted">أدخل مبلغ السحب</p>
 
-      <div className="flex items-baseline gap-2 border-b border-border pb-3">
-        <span className="text-lg font-semibold text-muted">USD</span>
-        <input
-          type="text"
-          inputMode="decimal"
-          autoFocus
-          value={amount}
-          onChange={(e) => {
-            const v = e.target.value.replace(/[^\d.]/g, "");
-            setAmount(v);
-          }}
-          className="flex-1 bg-transparent text-left text-3xl font-semibold text-foreground outline-none"
-          dir="ltr"
-        />
+      <div className="flex items-center gap-3">
+        <span className="shrink-0 text-lg font-semibold text-muted">USD</span>
+        <div className="flex-1 rounded-lg border border-border bg-surface px-4 py-3">
+          <input
+            type="text"
+            inputMode="decimal"
+            autoFocus
+            value={amount}
+            onChange={(e) => {
+              const v = e.target.value.replace(/[^\d.]/g, "");
+              setAmount(v);
+            }}
+            className="w-full bg-transparent text-right text-2xl font-semibold text-foreground outline-none"
+            dir="ltr"
+          />
+        </div>
       </div>
       <p className="text-xs text-muted" dir="ltr">
         Max {maxAvailable.toFixed(6)} USD
