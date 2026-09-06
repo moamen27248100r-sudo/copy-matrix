@@ -61,7 +61,7 @@ export async function followProvider(formData: FormData) {
     redirect(`/trader/${providerId}?error=${encodeURIComponent("مبلغ النسخ يجب أن يكون رقمًا أكبر من صفر.")}`);
   }
 
-  const [{ data: profile }, { data: provider }, { data: otherSub }] = await Promise.all([
+  const [{ data: profile }, { data: provider }, { data: otherSub }, { data: existingSub }] = await Promise.all([
     supabase.from("profiles").select("balance").eq("id", user.id).single(),
     supabase.from("providers").select("min_copy_amount").eq("id", providerId).single(),
     supabase
@@ -70,6 +70,13 @@ export async function followProvider(formData: FormData) {
       .eq("follower_id", user.id)
       .eq("is_active", true)
       .neq("provider_id", providerId)
+      .maybeSingle(),
+    supabase
+      .from("subscriptions")
+      .select("id")
+      .eq("follower_id", user.id)
+      .eq("provider_id", providerId)
+      .eq("is_active", true)
       .maybeSingle(),
   ]);
 
@@ -119,6 +126,8 @@ export async function followProvider(formData: FormData) {
   revalidatePath("/dashboard");
   revalidatePath("/portfolio");
   revalidatePath(`/trader/${providerId}`);
+
+  redirect(`/trader/${providerId}?success=${existingSub ? "updated" : "started"}`);
 }
 
 export async function unfollowProvider(formData: FormData) {

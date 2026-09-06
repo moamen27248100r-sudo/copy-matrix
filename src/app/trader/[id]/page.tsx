@@ -75,10 +75,10 @@ export default async function TraderPage({
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; success?: string }>;
 }) {
   const { id } = await params;
-  const { error } = await searchParams;
+  const { error, success } = await searchParams;
   const supabase = await createClient();
   const {
     data: { user },
@@ -192,6 +192,14 @@ export default async function TraderPage({
         {error && (
           <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
             {error}
+          </p>
+        )}
+
+        {success && mySub && (
+          <p className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">
+            {success === "started"
+              ? `بدأت نسخ ${provider.display_name} بنجاح بمبلغ $${Number(mySub.allocated_amount).toLocaleString("en-US", { maximumFractionDigits: 2 })}. سيتم إيقاف النسخ تلقائيًا كحماية إذا وصلت الخسارة إلى ${mySub.max_drawdown_pct}% من هذا المبلغ.`
+              : `تم تحديث مبلغ النسخ إلى $${Number(mySub.allocated_amount).toLocaleString("en-US", { maximumFractionDigits: 2 })} بنجاح.`}
           </p>
         )}
 
