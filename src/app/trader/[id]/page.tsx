@@ -279,7 +279,7 @@ export default async function TraderPage({
                 type="number"
                 step="any"
                 min={0}
-                defaultValue={mySub?.allocated_amount ?? provider.min_copy_amount}
+                defaultValue={mySub?.allocated_amount ?? myProfile?.balance ?? provider.min_copy_amount}
                 required
                 className="w-28 rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground"
               />
