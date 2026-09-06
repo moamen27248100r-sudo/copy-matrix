@@ -41,3 +41,47 @@ export async function domainCanReceiveEmail(domain: string): Promise<boolean> {
 
   return false;
 }
+
+// A typo like "hgmail.com" is a real, registered domain with its own
+// working mail servers (often a typo-squatter) — domainCanReceiveEmail()
+// correctly says it can receive mail, but it's almost certainly not the
+// address the customer actually meant to type, and they'd lose access to
+// their own account. Catching this needs a different signal: is the typed
+// domain one character away from a major, extremely common provider?
+const KNOWN_PROVIDERS = [
+  "gmail.com",
+  "yahoo.com",
+  "hotmail.com",
+  "outlook.com",
+  "icloud.com",
+  "live.com",
+  "msn.com",
+  "aol.com",
+  "protonmail.com",
+];
+
+function levenshteinDistance(a: string, b: string): number {
+  const rows = a.length + 1;
+  const cols = b.length + 1;
+  const dp: number[][] = Array.from({ length: rows }, (_, i) => [i, ...Array(cols - 1).fill(0)]);
+  for (let j = 0; j < cols; j++) dp[0][j] = j;
+
+  for (let i = 1; i < rows; i++) {
+    for (let j = 1; j < cols; j++) {
+      dp[i][j] =
+        a[i - 1] === b[j - 1]
+          ? dp[i - 1][j - 1]
+          : 1 + Math.min(dp[i - 1][j - 1], dp[i - 1][j], dp[i][j - 1]);
+    }
+  }
+  return dp[rows - 1][cols - 1];
+}
+
+export function likelyTypoOfKnownProvider(domain: string): string | null {
+  const lower = domain.toLowerCase();
+  if (KNOWN_PROVIDERS.includes(lower)) return null;
+  for (const provider of KNOWN_PROVIDERS) {
+    if (levenshteinDistance(lower, provider) === 1) return provider;
+  }
+  return null;
+}

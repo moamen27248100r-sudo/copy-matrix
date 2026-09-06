@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { translateAuthError } from "@/lib/auth-errors";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { isValidEmailFormat, isValidPhoneForCountry, stripTrunkZero } from "@/lib/validate-signup";
-import { domainCanReceiveEmail } from "@/lib/email-domain-check";
+import { domainCanReceiveEmail, likelyTypoOfKnownProvider } from "@/lib/email-domain-check";
 import { safeNextPath } from "@/lib/safe-next";
 
 const RATE_LIMIT_MESSAGE = "محاولات كثيرة جدًا. يرجى الانتظار قليلًا قبل إعادة المحاولة.";
@@ -65,6 +65,17 @@ export async function signup(formData: FormData) {
   const emailDomain = email.split("@")[1]?.trim();
   if (!emailDomain || !(await domainCanReceiveEmail(emailDomain))) {
     redirect(`/signup?error=${encodeURIComponent("هذا البريد الإلكتروني غير حقيقي أو نطاقه لا يستقبل رسائل. استخدم بريدًا فعليًا.")}${nextParam}`);
+  }
+
+  // A typo of a well-known provider (e.g. "hgmail.com") is a real,
+  // registered domain with its own mail servers — the check above passes
+  // it, but it's almost certainly not the address the customer meant to
+  // type, and they'd lose access to the account they just created.
+  const suggestedDomain = likelyTypoOfKnownProvider(emailDomain);
+  if (suggestedDomain) {
+    redirect(
+      `/signup?error=${encodeURIComponent(`تأكد من بريدك الإلكتروني — هل تقصد @${suggestedDomain}؟`)}${nextParam}`,
+    );
   }
 
   if (!isValidPhoneForCountry(phoneNumber, phoneCountryIso)) {
