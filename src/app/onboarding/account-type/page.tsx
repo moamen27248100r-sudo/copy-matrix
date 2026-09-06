@@ -43,6 +43,17 @@ export default async function ChooseAccountTypePage({
 
   if (!user) redirect(next ? `/login?next=${encodeURIComponent(next)}` : "/login");
 
+  // One-time step: once this is already done, this page must never render
+  // again — landing here later (e.g. a browser back-navigation after
+  // finishing onboarding) would let a stray tap silently re-run
+  // chooseAccountType and wipe out the balance/subscriptions a second time.
+  // account_type itself defaults to 'demo' for every profile, so it can't
+  // tell "never chosen" apart from "confirmed demo" — onboarding_completed
+  // is the real signal. Changing account type afterwards only happens
+  // through /settings.
+  const { data: profile } = await supabase.from("profiles").select("onboarding_completed").eq("id", user.id).single();
+  if (profile?.onboarding_completed) redirect(next ?? "/dashboard?onboarded=1");
+
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-md flex-col justify-center gap-6 p-6">
       <div className="flex flex-col items-center gap-2 text-center">

@@ -108,7 +108,7 @@ export async function chooseAccountType(formData: FormData) {
   const accountType = formData.get("accountType") === "real" ? "real" : "demo";
   const balance = accountType === "real" ? 0 : 1000;
 
-  await supabase.from("profiles").update({ account_type: accountType, balance }).eq("id", user.id);
+  await supabase.from("profiles").update({ account_type: accountType, balance, onboarding_completed: true }).eq("id", user.id);
   // Switching account type resets the balance to a fresh start — any copy
   // relationship funded from the old balance no longer has real money
   // behind it, so it has to stop too, or the new account would show
