@@ -55,8 +55,14 @@ export async function signup(formData: FormData) {
   const phoneNumber = stripTrunkZero(((formData.get("phoneNumber") as string) ?? "").replace(/\D/g, ""));
   const email = (formData.get("email") as string) ?? "";
 
+  // One plain message for every way the email can fail (not an email at
+  // all, a domain that can't receive mail, or a one-letter typo of a
+  // major provider) — deliberately doesn't reveal which specific check
+  // failed or suggest a "did you mean" domain.
+  const EMAIL_ERROR = "تأكد من عنوان بريدك الإلكتروني.";
+
   if (!isValidEmailFormat(email)) {
-    redirect(`/signup?error=${encodeURIComponent("اكتب بريدًا إلكترونيًا حقيقيًا (مثل name@gmail.com).")}${nextParam}`);
+    redirect(`/signup?error=${encodeURIComponent(EMAIL_ERROR)}${nextParam}`);
   }
 
   // Format alone lets through syntactically valid but non-existent domains
@@ -64,18 +70,15 @@ export async function signup(formData: FormData) {
   // receive mail.
   const emailDomain = email.split("@")[1]?.trim();
   if (!emailDomain || !(await domainCanReceiveEmail(emailDomain))) {
-    redirect(`/signup?error=${encodeURIComponent("هذا البريد الإلكتروني غير حقيقي أو نطاقه لا يستقبل رسائل. استخدم بريدًا فعليًا.")}${nextParam}`);
+    redirect(`/signup?error=${encodeURIComponent(EMAIL_ERROR)}${nextParam}`);
   }
 
   // A typo of a well-known provider (e.g. "hgmail.com") is a real,
   // registered domain with its own mail servers — the check above passes
   // it, but it's almost certainly not the address the customer meant to
   // type, and they'd lose access to the account they just created.
-  const suggestedDomain = likelyTypoOfKnownProvider(emailDomain);
-  if (suggestedDomain) {
-    redirect(
-      `/signup?error=${encodeURIComponent(`تأكد من بريدك الإلكتروني — هل تقصد @${suggestedDomain}؟`)}${nextParam}`,
-    );
+  if (likelyTypoOfKnownProvider(emailDomain)) {
+    redirect(`/signup?error=${encodeURIComponent(EMAIL_ERROR)}${nextParam}`);
   }
 
   if (!isValidPhoneForCountry(phoneNumber, phoneCountryIso)) {
