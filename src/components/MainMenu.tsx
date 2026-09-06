@@ -320,7 +320,12 @@ export function MainMenu({
             : "fixed top-14 bottom-0 right-0 z-40 flex w-[65%] max-w-xs translate-x-full flex-col overflow-y-auto bg-surface shadow-xl transition-transform duration-300 ease-out sm:top-16"
         }
       >
-            <div className="flex items-center justify-between gap-2 border-b border-border px-4 py-3">
+            <button
+              type="button"
+              onClick={() => setAccountSwitcherOpen((v) => !v)}
+              aria-label="تبديل نوع الحساب"
+              className="flex w-full items-center justify-between gap-2 border-b border-border px-4 py-3"
+            >
               <div className="flex min-w-0 items-center gap-2">
                 <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-background text-muted">
                   <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -332,15 +337,8 @@ export function MainMenu({
                   {email ? maskEmail(email) : "—"}
                 </span>
               </div>
-              <button
-                type="button"
-                onClick={() => setAccountSwitcherOpen((v) => !v)}
-                aria-label="تبديل نوع الحساب"
-                className="shrink-0 text-muted"
-              >
-                <ChevronIcon open={accountSwitcherOpen} />
-              </button>
-            </div>
+              <ChevronIcon open={accountSwitcherOpen} />
+            </button>
 
             {accountSwitcherOpen && (
               <div className="flex flex-col border-b border-border">
