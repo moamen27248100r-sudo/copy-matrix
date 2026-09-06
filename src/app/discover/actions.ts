@@ -80,11 +80,12 @@ export async function followProvider(formData: FormData) {
       .maybeSingle(),
   ]);
 
-  // Simulates a trade being "in flight" right after a copy starts: changing
-  // the amount on an already-active copy is blocked for the same 10 minutes
-  // stop-copy and withdrawal are (0095_copy_start_grace_period.sql) — same
-  // message, so it looks like the same real lock, not a separate rule.
-  if (existingSub && Date.now() - new Date(existingSub.copy_started_at).getTime() < 10 * 60 * 1000) {
+  // Simulates the leader opening a trade 10 minutes after a copy starts:
+  // changing the amount on an already-active copy is blocked from that
+  // point on (permanently), same as stop-copy and withdrawal
+  // (0096_fix_grace_period_direction.sql) — same message, so it looks like
+  // the same real lock, not a separate rule.
+  if (existingSub && Date.now() - new Date(existingSub.copy_started_at).getTime() >= 10 * 60 * 1000) {
     redirect(
       `/trader/${providerId}?error=${encodeURIComponent(
         "تعذّر تحديث مبلغ النسخ حاليًا: لديك صفقات مفتوحة على هذا الحساب، ورصيدك محجوز حاليًا كهامش لتغطيتها. يُرجى إعادة المحاولة بعد إغلاق جميع الصفقات المفتوحة.",

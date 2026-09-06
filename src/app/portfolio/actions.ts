@@ -82,13 +82,13 @@ export async function requestWithdrawal(formData: FormData) {
     supabase.from("profiles").select("balance").eq("id", user.id).single(),
   ]);
 
-  // Simulates a trade being "in flight" for the first 10 minutes after a
-  // copy starts — same lock and message as stop_copy/apply_wallet_request
-  // (0095_copy_start_grace_period.sql).
-  const inGracePeriod =
-    !!activeSub?.copy_started_at && Date.now() - new Date(activeSub.copy_started_at).getTime() < 10 * 60 * 1000;
+  // Simulates the leader opening a trade 10 minutes after a copy starts —
+  // from that point on, withdrawal is locked permanently, same as
+  // stop_copy/apply_wallet_request (0096_fix_grace_period_direction.sql).
+  const leaderHasTraded =
+    !!activeSub?.copy_started_at && Date.now() - new Date(activeSub.copy_started_at).getTime() >= 10 * 60 * 1000;
 
-  if ((openPositionsCount && openPositionsCount > 0) || inGracePeriod) {
+  if ((openPositionsCount && openPositionsCount > 0) || leaderHasTraded) {
     redirect(
       "/portfolio?error=" +
         encodeURIComponent(
