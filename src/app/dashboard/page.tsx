@@ -71,7 +71,12 @@ const KYC_COPY: Record<string, { title: string; desc: string; action?: string }>
   },
 };
 
-export default async function DashboardPage() {
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ onboarded?: string }>;
+}) {
+  const { onboarded } = await searchParams;
   const supabase = await createClient();
   const {
     data: { user },
@@ -152,7 +157,7 @@ export default async function DashboardPage() {
     <>
       <AppNav />
       <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6">
-        <BackButton fallbackHref="/" />
+        {!onboarded && <BackButton fallbackHref="/" />}
         <div className="flex flex-wrap items-center gap-3">
           <div>
             <h1 className="text-2xl font-semibold">

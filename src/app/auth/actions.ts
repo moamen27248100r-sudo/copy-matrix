@@ -115,7 +115,7 @@ export async function chooseAccountType(formData: FormData) {
   // "invested" money it never actually had.
   await supabase.from("subscriptions").update({ is_active: false }).eq("follower_id", user.id).eq("is_active", true);
 
-  redirect(next ?? "/dashboard");
+  redirect(next ?? "/dashboard?onboarded=1");
 }
 
 export async function logout() {
