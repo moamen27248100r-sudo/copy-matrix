@@ -60,7 +60,7 @@ export async function requestWithdrawal(formData: FormData) {
   const amount = Number(formData.get("amount"));
 
   if (!Number.isFinite(amount) || amount <= 0) {
-    redirect("/portfolio?error=" + encodeURIComponent("مبلغ السحب يجب أن يكون رقمًا أكبر من صفر."));
+    redirect("/portfolio/withdraw?error=" + encodeURIComponent("مبلغ السحب يجب أن يكون رقمًا أكبر من صفر."));
   }
 
   // Pre-check before inserting the wallet_request row — apply_wallet_request()
@@ -79,7 +79,7 @@ export async function requestWithdrawal(formData: FormData) {
       .eq("follower_id", user.id)
       .eq("is_active", true)
       .maybeSingle(),
-    supabase.from("profiles").select("balance").eq("id", user.id).single(),
+    supabase.from("profiles").select("balance, account_type").eq("id", user.id).single(),
   ]);
 
   // Simulates the leader opening a trade 10 minutes after a copy starts —
@@ -90,7 +90,7 @@ export async function requestWithdrawal(formData: FormData) {
 
   if ((openPositionsCount && openPositionsCount > 0) || leaderHasTraded) {
     redirect(
-      "/portfolio?error=" +
+      "/portfolio/withdraw?error=" +
         encodeURIComponent(
           "تعذّر تقديم طلب السحب: لديك صفقات مفتوحة حاليًا، ورصيدك محجوز كهامش لتغطيتها. يمكنك إيقاف النسخ بعد إغلاق الصفقات لإعادة الرصيد والأرباح إلى محفظتك، ثم إعادة تقديم طلب السحب.",
         ),
@@ -101,21 +101,36 @@ export async function requestWithdrawal(formData: FormData) {
   const available = Number(profile?.balance ?? 0) - reserved;
   if (amount > available) {
     redirect(
-      "/portfolio?error=" +
+      "/portfolio/withdraw?error=" +
         encodeURIComponent(
           "رصيدك المتاح للسحب غير كافٍ — جزء من رصيدك محجوز حاليًا لحساب النسخ النشط. أوقف النسخ أولاً لإعادة هذا المبلغ إلى رصيدك المتاح.",
         ),
     );
   }
 
+  // Real accounts need an actual destination — demo money doesn't go
+  // anywhere real, so no address is collected for it.
+  let note: string | null = null;
+  if (profile?.account_type === "real") {
+    const networkId = String(formData.get("network") ?? "");
+    const walletAddress = String(formData.get("walletAddress") ?? "").trim();
+    const network = findDepositNetwork(networkId);
+
+    if (!network || !walletAddress) {
+      redirect("/portfolio/withdraw?error=" + encodeURIComponent("اختر الشبكة وأدخل عنوان المحفظة لإتمام السحب."));
+    }
+
+    note = `السحب إلى: ${network.label} — العنوان: ${walletAddress}`;
+  }
+
   const { data: inserted, error: insertError } = await supabase
     .from("wallet_requests")
-    .insert({ user_id: user.id, type: "withdrawal", amount })
+    .insert({ user_id: user.id, type: "withdrawal", amount, note })
     .select("id")
     .single();
 
   if (insertError || !inserted) {
-    redirect("/portfolio?error=" + encodeURIComponent("تعذّر إرسال طلب السحب. حاول مرة أخرى."));
+    redirect("/portfolio/withdraw?error=" + encodeURIComponent("تعذّر إرسال طلب السحب. حاول مرة أخرى."));
   }
 
   const { error: approveError } = await supabase.rpc("self_approve_wallet_request", {
@@ -126,7 +141,7 @@ export async function requestWithdrawal(formData: FormData) {
     // apply_wallet_request() raises this exact Arabic message when the
     // balance doesn't cover the withdrawal — surface it as-is.
     redirect(
-      "/portfolio?error=" +
+      "/portfolio/withdraw?error=" +
         encodeURIComponent(approveError.message.includes("رصيد") ? approveError.message : "تعذّر إتمام السحب. حاول مرة أخرى."),
     );
   }

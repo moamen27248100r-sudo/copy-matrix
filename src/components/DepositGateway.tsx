@@ -6,7 +6,6 @@ import { requestDeposit } from "@/app/portfolio/actions";
 import { DEPOSIT_NETWORKS, type DepositNetwork } from "@/lib/deposit-networks";
 
 export function DepositGateway() {
-  const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<DepositNetwork | null>(null);
   const [qrDataUrl, setQrDataUrl] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -26,13 +25,6 @@ export function DepositGateway() {
     };
   }, [selected]);
 
-  function reset() {
-    setOpen(false);
-    setSelected(null);
-    setAmount("");
-    setCopied(false);
-  }
-
   async function copyAddress() {
     if (!selected) return;
     try {
@@ -44,27 +36,8 @@ export function DepositGateway() {
     }
   }
 
-  if (!open) {
-    return (
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className="flex flex-1 items-center justify-center gap-2 rounded bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
-      >
-        إيداع
-      </button>
-    );
-  }
-
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-border bg-background p-4 sm:col-span-2">
-      <div className="flex items-center justify-between">
-        <h3 className="text-sm font-bold">إيداع عبر العملات الرقمية</h3>
-        <button type="button" onClick={reset} aria-label="إغلاق" className="text-muted hover:text-foreground">
-          ✕
-        </button>
-      </div>
-
+    <div className="flex flex-col gap-4">
       {!selected ? (
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           {DEPOSIT_NETWORKS.map((n) => (

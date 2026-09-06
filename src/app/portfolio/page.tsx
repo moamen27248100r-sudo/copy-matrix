@@ -2,14 +2,12 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { unfollowProvider } from "@/app/discover/actions";
-import { requestWithdrawal } from "@/app/portfolio/actions";
 import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
 import { PortfolioTabs } from "@/components/PortfolioTabs";
 import { TradeHistory } from "@/components/TradeHistory";
 import { PortfolioValueBreakdown } from "@/components/PortfolioValueBreakdown";
 import { MyEquityChart } from "@/components/MyEquityChart";
-import { DepositGateway } from "@/components/DepositGateway";
 import { symbolIcon } from "@/lib/symbol-icons";
 
 const TX_LABELS: Record<string, string> = {
@@ -191,22 +189,34 @@ export default async function PortfolioPage({
           totalAllocated={totalAllocated}
           totalUnrealizedPnl={totalUnrealizedPnl}
         />
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <DepositGateway />
-          <form action={requestWithdrawal} className="flex items-center gap-2">
-            <input
-              name="amount"
-              type="number"
-              step="any"
-              min="1"
-              placeholder="مبلغ السحب"
-              required
-              className="flex-1 rounded border border-border bg-background px-3 py-2 text-sm"
-            />
-            <button type="submit" className="rounded border border-border bg-background px-4 py-2 text-sm text-foreground">
-              طلب سحب
-            </button>
-          </form>
+        <div className="grid grid-cols-3 gap-3">
+          <Link href="/portfolio/withdraw" className="flex flex-col items-center gap-2">
+            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-background text-foreground transition group-hover:bg-accent/10">
+              <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M5 12l7-7 7 7" />
+                <path d="M12 5v14" />
+              </svg>
+            </span>
+            <span className="text-sm text-foreground">سحب</span>
+          </Link>
+          <Link href="/portfolio/deposit" className="flex flex-col items-center gap-2">
+            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-background text-foreground">
+              <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M12 5v14" />
+                <path d="M5 12l7 7 7-7" />
+              </svg>
+            </span>
+            <span className="text-sm text-foreground">إيداع</span>
+          </Link>
+          <Link href="/discover" className="flex flex-col items-center gap-2">
+            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-accent-foreground">
+              <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" />
+                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+              </svg>
+            </span>
+            <span className="text-sm text-foreground">نسخ</span>
+          </Link>
         </div>
         <p className="text-xs text-muted">
           تُعالَج طلبات الإيداع والسحب فوريًا وتنعكس على رصيدك مباشرة.
