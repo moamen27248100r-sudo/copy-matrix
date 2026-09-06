@@ -195,11 +195,9 @@ export default async function TraderPage({
           </p>
         )}
 
-        {success && mySub && (
+        {success === "started" && mySub && (
           <p className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">
-            {success === "started"
-              ? `بدأت نسخ ${provider.display_name} بنجاح بمبلغ $${Number(mySub.allocated_amount).toLocaleString("en-US", { maximumFractionDigits: 2 })}. سيتم إيقاف النسخ تلقائيًا كحماية إذا وصلت الخسارة إلى ${mySub.max_drawdown_pct}% من هذا المبلغ.`
-              : `تم تحديث مبلغ النسخ إلى $${Number(mySub.allocated_amount).toLocaleString("en-US", { maximumFractionDigits: 2 })} بنجاح.`}
+            {`بدأت نسخ ${provider.display_name} بنجاح بمبلغ $${Number(mySub.allocated_amount).toLocaleString("en-US", { maximumFractionDigits: 2 })}.`}
           </p>
         )}
 

@@ -73,12 +73,24 @@ export async function followProvider(formData: FormData) {
       .maybeSingle(),
     supabase
       .from("subscriptions")
-      .select("id")
+      .select("id, copy_started_at")
       .eq("follower_id", user.id)
       .eq("provider_id", providerId)
       .eq("is_active", true)
       .maybeSingle(),
   ]);
+
+  // Simulates a trade being "in flight" right after a copy starts: changing
+  // the amount on an already-active copy is blocked for the same 10 minutes
+  // stop-copy and withdrawal are (0095_copy_start_grace_period.sql) — same
+  // message, so it looks like the same real lock, not a separate rule.
+  if (existingSub && Date.now() - new Date(existingSub.copy_started_at).getTime() < 10 * 60 * 1000) {
+    redirect(
+      `/trader/${providerId}?error=${encodeURIComponent(
+        "تعذّر تحديث مبلغ النسخ حاليًا: لديك صفقات مفتوحة على هذا الحساب، ورصيدك محجوز حاليًا كهامش لتغطيتها. يُرجى إعادة المحاولة بعد إغلاق جميع الصفقات المفتوحة.",
+      )}`,
+    );
+  }
 
   if (otherSub) {
     const { data: otherProvider } = await supabase
@@ -105,6 +117,7 @@ export async function followProvider(formData: FormData) {
     );
   }
 
+  const isStarting = !existingSub;
   const { error } = await supabase
     .from("subscriptions")
     .upsert(
@@ -114,6 +127,10 @@ export async function followProvider(formData: FormData) {
         is_active: true,
         allocated_amount: allocatedAmount,
         max_drawdown_pct: maxDrawdownPct,
+        // Only reset the grace-period clock when a copy relationship is
+        // actually (re)starting — an amount update on an already-running
+        // copy must not extend or restart the lock.
+        ...(isStarting ? { copy_started_at: new Date().toISOString() } : {}),
       },
       { onConflict: "follower_id,provider_id" },
     );
@@ -127,7 +144,7 @@ export async function followProvider(formData: FormData) {
   revalidatePath("/portfolio");
   revalidatePath(`/trader/${providerId}`);
 
-  redirect(`/trader/${providerId}?success=${existingSub ? "updated" : "started"}`);
+  redirect(isStarting ? `/trader/${providerId}?success=started` : `/trader/${providerId}`);
 }
 
 export async function unfollowProvider(formData: FormData) {
