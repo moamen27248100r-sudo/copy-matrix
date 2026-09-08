@@ -1,14 +1,14 @@
+import { cookies } from "next/headers";
 import { getRequestConfig } from "next-intl/server";
-import { DEFAULT_LOCALE } from "@/i18n/locales";
+import { DEFAULT_LOCALE, LOCALE_COOKIE, isSupportedLocale } from "@/i18n/locales";
 
-// Arabic-only platform, always — the language switcher that used to let a
-// visitor set a different locale cookie has been removed, but a visitor who
-// used it before this change would otherwise stay stuck in that language
-// for up to a year (the cookie's lifetime). Ignoring it here closes that
-// gap unconditionally, not just for new visitors.
 export default getRequestConfig(async () => {
+  const cookieStore = await cookies();
+  const cookieLocale = cookieStore.get(LOCALE_COOKIE)?.value;
+  const locale = isSupportedLocale(cookieLocale) ? cookieLocale : DEFAULT_LOCALE;
+
   return {
-    locale: DEFAULT_LOCALE,
-    messages: (await import(`../messages/${DEFAULT_LOCALE}.json`)).default,
+    locale,
+    messages: (await import(`../messages/${locale}.json`)).default,
   };
 });
