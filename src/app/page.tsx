@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getTranslations, getLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { MarketOverview } from "@/components/MarketOverview";
 import { TraderPostsFeed } from "@/components/TraderPostsFeed";
@@ -17,9 +17,7 @@ import {
 } from "@/components/LiveHomeStats";
 import { pinTopLeaders } from "@/lib/pin-top-leaders";
 import { simulatedCopyUsers, simulatedActiveTraders } from "@/lib/simulated-growth";
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/Logo";
-import type { Locale } from "@/i18n/locales";
 import type { ReactNode } from "react";
 
 export const dynamic = "force-dynamic";
@@ -105,7 +103,6 @@ export default async function Home() {
   } = await supabase.auth.getUser();
 
   const t = await getTranslations("Home");
-  const locale = (await getLocale()) as Locale;
 
   const { data: rawTopProviders } = await supabase
     .from("provider_cards")
@@ -173,7 +170,6 @@ export default async function Home() {
             </span>
 
             <div className="flex min-w-0 items-center gap-0.5 sm:gap-3">
-              <LanguageSwitcher currentLocale={locale} />
               <Link href="/login" className="whitespace-nowrap rounded border border-border px-0.5 py-2 text-sm sm:px-4">
                 {t("nav.login")}
               </Link>

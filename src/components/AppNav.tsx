@@ -1,18 +1,15 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { getTranslations, getLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { MainMenu } from "@/components/MainMenu";
 import { NotificationsMenu } from "@/components/NotificationsMenu";
 import { NavDrawerProvider } from "@/components/nav-drawer-context";
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/Logo";
-import type { Locale } from "@/i18n/locales";
 
 export async function AppNav() {
   const supabase = await createClient();
   const t = await getTranslations("Nav");
-  const locale = (await getLocale()) as Locale;
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -84,7 +81,6 @@ export async function AppNav() {
             <NotificationsMenu notifications={notifications} />
           ) : (
             <>
-              <LanguageSwitcher currentLocale={locale} />
               <Link
                 href="/login"
                 className="min-w-0 whitespace-nowrap rounded border border-border px-0.5 py-2 text-sm font-medium text-foreground transition hover:bg-surface sm:px-4"
