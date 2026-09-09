@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
 import { SupportChatWidget } from "@/components/SupportChatWidget";
+import { ImpersonationBanner } from "@/components/ImpersonationBanner";
 import "./globals.css";
 
 // One professional typeface for the whole platform (client pages and the
@@ -45,6 +46,7 @@ export default async function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <NextIntlClientProvider messages={messages}>
+          <ImpersonationBanner />
           {children}
           <SupportChatWidget />
         </NextIntlClientProvider>

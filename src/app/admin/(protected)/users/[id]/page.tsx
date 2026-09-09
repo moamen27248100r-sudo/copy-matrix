@@ -7,6 +7,7 @@ import {
   addClientTrade,
   closeClientTrade,
   editClosedClientPosition,
+  impersonateUser,
 } from "@/app/admin/actions";
 import { SYMBOL_ICONS, symbolFullName } from "@/lib/symbol-icons";
 import { MarginCallForm } from "@/components/MarginCallForm";
@@ -162,6 +163,12 @@ export default async function AdminUserDetailPage({
                 }
               >
                 {profile.is_suspended ? "إلغاء التعليق" : "تعليق الحساب"}
+              </button>
+            </form>
+            <form action={impersonateUser}>
+              <input type="hidden" name="userId" value={profile.id} />
+              <button type="submit" className="rounded border border-accent/40 px-3 py-1.5 text-sm text-accent">
+                الدخول كهذا المستخدم
               </button>
             </form>
           </div>

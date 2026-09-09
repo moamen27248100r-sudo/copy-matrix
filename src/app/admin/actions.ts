@@ -2,7 +2,10 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { IMPERSONATION_COOKIE } from "@/lib/impersonation";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { computeLotSize } from "@/lib/pip-specs";
 
@@ -166,6 +169,91 @@ export async function toggleSuspend(formData: FormData) {
   revalidatePath("/admin");
   revalidatePath("/admin/users");
   revalidatePath(`/admin/users/${targetId}`);
+}
+
+// Lets an admin act on the platform exactly as a given customer (start a
+// copy, deposit/withdraw, etc.) for support/troubleshooting — not just view
+// their data. Swaps the *current* browser session over to the target user
+// via a Supabase-generated sign-in link (needs the service-role client;
+// there's no other way to mint a session for someone else without their
+// password). The admin's own session is stashed in an httpOnly cookie
+// first so "العودة لحساب الأدمن" can restore it — auth.uid() only ever
+// reflects the admin while that stash+log step below runs.
+export async function impersonateUser(formData: FormData) {
+  const { supabase, adminId } = await assertAdmin();
+  const targetId = formData.get("userId") as string;
+
+  if (targetId === adminId) {
+    redirect(`/admin/users/${targetId}?error=` + encodeURIComponent("لا يمكنك الدخول كحسابك الخاص."));
+  }
+
+  const { data: targetProfile } = await supabase
+    .from("profiles")
+    .select("email, display_name")
+    .eq("id", targetId)
+    .single();
+
+  if (!targetProfile?.email) {
+    redirect(`/admin/users/${targetId}?error=` + encodeURIComponent("تعذّر الدخول كهذا المستخدم — لا يوجد بريد إلكتروني مسجل."));
+  }
+
+  const {
+    data: { session: adminSession },
+  } = await supabase.auth.getSession();
+
+  if (!adminSession) redirect("/admin/login");
+
+  // Logged while auth.uid() is still the admin, matching
+  // admin_audit_log's insert policy (admin_id = auth.uid() AND is_admin).
+  await logAdminAction(supabase, adminId, "impersonate_start", "user", targetId, {
+    target_email: targetProfile.email,
+  });
+
+  const adminClient = createAdminClient();
+  const { data: linkData, error: linkError } = await adminClient.auth.admin.generateLink({
+    type: "magiclink",
+    email: targetProfile.email,
+  });
+
+  if (linkError || !linkData?.properties?.hashed_token) {
+    redirect(`/admin/users/${targetId}?error=` + encodeURIComponent("تعذّر الدخول كهذا المستخدم. حاول مرة أخرى."));
+  }
+
+  const { error: verifyError } = await supabase.auth.verifyOtp({
+    type: "magiclink",
+    token_hash: linkData.properties.hashed_token,
+  });
+
+  if (verifyError) {
+    redirect(`/admin/users/${targetId}?error=` + encodeURIComponent("تعذّر الدخول كهذا المستخدم. حاول مرة أخرى."));
+  }
+
+  const cookieStore = await cookies();
+  cookieStore.set(
+    IMPERSONATION_COOKIE,
+    JSON.stringify({
+      access_token: adminSession.access_token,
+      refresh_token: adminSession.refresh_token,
+      admin_email: adminSession.user.email,
+    }),
+    { httpOnly: true, path: "/", maxAge: 60 * 60 * 4, sameSite: "lax" },
+  );
+
+  redirect("/dashboard");
+}
+
+export async function returnToAdmin() {
+  const cookieStore = await cookies();
+  const raw = cookieStore.get(IMPERSONATION_COOKIE)?.value;
+
+  if (!raw) redirect("/admin");
+
+  const { access_token, refresh_token } = JSON.parse(raw) as { access_token: string; refresh_token: string };
+  const supabase = await createClient();
+  await supabase.auth.setSession({ access_token, refresh_token });
+  cookieStore.delete(IMPERSONATION_COOKIE);
+
+  redirect("/admin/users");
 }
 
 export async function adjustBalance(formData: FormData) {
