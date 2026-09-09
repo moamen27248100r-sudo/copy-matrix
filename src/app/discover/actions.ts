@@ -63,7 +63,7 @@ export async function followProvider(formData: FormData) {
 
   const [{ data: profile }, { data: provider }, { data: otherSub }, { data: existingSub }] = await Promise.all([
     supabase.from("profiles").select("balance").eq("id", user.id).single(),
-    supabase.from("providers").select("min_copy_amount").eq("id", providerId).single(),
+    supabase.from("providers").select("min_copy_amount, trading_status").eq("id", providerId).single(),
     supabase
       .from("subscriptions")
       .select("provider_id")
@@ -90,6 +90,12 @@ export async function followProvider(formData: FormData) {
       `/trader/${providerId}?error=${encodeURIComponent(
         "تعذّر تحديث مبلغ النسخ حاليًا: لديك صفقات مفتوحة على هذا الحساب، ورصيدك محجوز حاليًا كهامش لتغطيتها. يُرجى إعادة المحاولة بعد إغلاق جميع الصفقات المفتوحة.",
       )}`,
+    );
+  }
+
+  if (provider?.trading_status === "stopped") {
+    redirect(
+      `/trader/${providerId}?error=${encodeURIComponent("هذا المتداول أوقف التداول ولم يعد متاحًا لبدء نسخ جديد.")}`,
     );
   }
 

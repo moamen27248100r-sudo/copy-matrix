@@ -66,3 +66,13 @@ export function RiskBadge({ level }: { level: string | null }) {
     </span>
   );
 }
+
+export function StoppedBadge({ stopped }: { stopped: boolean }) {
+  if (!stopped) return null;
+  return (
+    <span className="inline-flex items-center gap-1 rounded-full border border-border bg-foreground/5 px-2 py-0.5 text-xs font-medium text-muted">
+      <AlertIcon />
+      توقف عن التداول
+    </span>
+  );
+}

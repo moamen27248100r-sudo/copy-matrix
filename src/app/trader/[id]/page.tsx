@@ -174,6 +174,7 @@ export default async function TraderPage({
     otherProviderName = otherProvider?.display_name ?? "متداول آخر";
   }
   const isBlocked = !!otherSub;
+  const isStopped = provider.trading_status === "stopped";
 
   const periods = [
     { label: "اليوم", days: 1 },
@@ -264,6 +265,13 @@ export default async function TraderPage({
                 إنشاء حساب مجاني
               </Link>
             </div>
+          ) : isStopped ? (
+            <div className="flex flex-col gap-2 rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
+              <p>
+                توقف {provider.display_name} عن التداول ولا يمكن بدء نسخ جديد له. سجل أدائه السابق ما زال
+                متاحًا للعرض بالكامل.
+              </p>
+            </div>
           ) : isBlocked ? (
             <div className="flex flex-col gap-2 rounded border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-warning">
               <p>
@@ -334,6 +342,12 @@ export default async function TraderPage({
               ${Number(provider.total_withdrawals).toLocaleString("en-US", { maximumFractionDigits: 0 })}
             </p>
             <p className="text-xs text-muted">إجمالي السحوبات</p>
+          </div>
+          <div>
+            <p className="font-semibold">
+              ${Number(provider.account_capital ?? 0).toLocaleString("en-US", { maximumFractionDigits: 0 })}
+            </p>
+            <p className="text-xs text-muted">رأس المال الحالي</p>
           </div>
           <div>
             <p className="font-semibold">

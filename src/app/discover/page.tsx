@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
-import { TierBadge, RiskBadge } from "@/components/TraderBadges";
+import { TierBadge, RiskBadge, StoppedBadge } from "@/components/TraderBadges";
 import { pinTopLeaders } from "@/lib/pin-top-leaders";
 import { countryDisplay } from "@/lib/country-metadata";
 
@@ -100,6 +100,7 @@ export default async function DiscoverPage({
           {providers.map((p) => {
             const isFollowing = followingIds.has(p.provider_id);
             const isBlocked = followingProviderId != null && !isFollowing;
+            const isStopped = p.trading_status === "stopped";
             const isWatching = watchingIds.has(p.provider_id);
             const copyHref = user
               ? `/trader/${p.provider_id}#copy`
@@ -150,6 +151,7 @@ export default async function DiscoverPage({
                 <div className="flex flex-wrap gap-1.5">
                   <TierBadge tier={p.tier} />
                   <RiskBadge level={p.risk_level} />
+                  <StoppedBadge stopped={isStopped} />
                 </div>
 
                 <div className="grid grid-cols-3 gap-2 text-center text-sm">
@@ -196,6 +198,15 @@ export default async function DiscoverPage({
                         إيقاف النسخ
                       </button>
                     </form>
+                  ) : isStopped ? (
+                    <button
+                      type="button"
+                      disabled
+                      title="توقف هذا المتداول عن التداول ولم يعد متاحًا لبدء نسخ جديد."
+                      className="w-full cursor-not-allowed rounded bg-accent/30 px-3 py-2 text-sm font-medium text-accent-foreground/60"
+                    >
+                      نسخ
+                    </button>
                   ) : isBlocked ? (
                     <button
                       type="button"
