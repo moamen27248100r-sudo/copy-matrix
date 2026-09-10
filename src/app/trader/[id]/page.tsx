@@ -11,8 +11,6 @@ import { CircularGauge } from "@/components/CircularGauge";
 import { AssetAllocationBar } from "@/components/AssetAllocationBar";
 import { OpenOrdersTable } from "@/components/OpenOrdersTable";
 import { RecentCopiersList } from "@/components/RecentCopiersList";
-import { PositionTabs } from "@/components/PositionTabs";
-import { PendingOrdersEmpty } from "@/components/PendingOrdersEmpty";
 import { countryDisplay } from "@/lib/country-metadata";
 
 type SignalRow = {
@@ -451,25 +449,27 @@ export default async function TraderPage({
       )}
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">صفقات {provider.display_name}</h2>
-        <PositionTabs
-          openCount={openOrders.length}
-          closedCount={closedHistory.length}
-          open={<OpenOrdersTable orders={openOrders} initialPrices={initialPrices} />}
-          pending={<PendingOrdersEmpty />}
-          closed={
-            closedHistory.length === 0 ? (
-              <p className="text-sm text-muted">لا توجد صفقات مغلقة حتى الآن.</p>
-            ) : (
-              <TradeHistory trades={closedHistory} />
-            )
-          }
-        />
+        <h2 className="font-medium">الأوامر المفتوحة</h2>
+        <OpenOrdersTable orders={openOrders} initialPrices={initialPrices} />
+      </section>
+
+      <section className="flex flex-col gap-3">
+        <h2 className="font-medium">سجل الصفقات</h2>
+        {closedHistory.length === 0 ? (
+          <p className="text-sm text-muted">لا توجد صفقات مغلقة حتى الآن.</p>
+        ) : (
+          <TradeHistory trades={closedHistory} />
+        )}
       </section>
 
       {recentCopiers && recentCopiers.length > 0 && (
-        <section className="flex flex-col gap-3">
-          <h2 className="font-medium">قائمة الناسخين</h2>
+        <section className="flex flex-col gap-3 pt-2">
+          <div className="flex items-center justify-between rounded-lg border border-border bg-surface px-4 py-3 text-sm font-medium text-foreground">
+            قائمة الناسخين
+            <svg viewBox="0 0 24 24" className="h-4 w-4 text-muted rtl:rotate-180" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M9 6l6 6-6 6" />
+            </svg>
+          </div>
           <RecentCopiersList copiers={recentCopiers} providerId={id} />
         </section>
       )}
