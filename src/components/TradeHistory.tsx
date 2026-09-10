@@ -65,7 +65,12 @@ function formatPreciseDateTime(iso: string | null | undefined) {
   if (!iso) return "—";
   const d = new Date(iso);
   const pad = (n: number) => String(n).padStart(2, "0");
-  return `${d.getFullYear()}.${pad(d.getMonth() + 1)}.${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+  // UTC getters, not local ones: the server (Vercel, UTC) and a viewer's
+  // browser (any timezone) must render the exact same text, or React
+  // throws a hydration mismatch the moment the two disagree -- which
+  // aborts hydration for this subtree and silently kills any client
+  // effect below it, including the live-price WebSocket subscription.
+  return `${d.getUTCFullYear()}.${pad(d.getUTCMonth() + 1)}.${pad(d.getUTCDate())} ${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:${pad(d.getUTCSeconds())}`;
 }
 
 function formatPrice(value: number) {

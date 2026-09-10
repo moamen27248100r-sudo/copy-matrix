@@ -247,6 +247,7 @@ export default async function TraderPage({
               {new Date(provider.joined_at).toLocaleDateString("ar-EG", {
                 year: "numeric",
                 month: "long",
+                timeZone: "UTC",
               })}
               {countryDisplay(provider.country) && ` · ${countryDisplay(provider.country)!.nameAr}`}
             </p>

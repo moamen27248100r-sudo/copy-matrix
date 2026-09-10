@@ -379,7 +379,7 @@ export default async function PortfolioPage({
                 {walletMovements.map((t) => (
                   <tr key={t.id} className="border-b border-border/60">
                     <td className="py-2 pl-3 whitespace-nowrap text-xs text-muted">
-                      {new Date(t.created_at).toLocaleDateString("ar-EG")}
+                      {new Date(t.created_at).toLocaleDateString("ar-EG", { timeZone: "UTC" })}
                     </td>
                     <td className="py-2 pl-3 whitespace-nowrap">{TX_LABELS[t.type] ?? t.type}</td>
                     <td className={Number(t.amount) >= 0 ? "py-2 pl-3 whitespace-nowrap text-success" : "py-2 pl-3 whitespace-nowrap text-danger"}>
@@ -414,7 +414,7 @@ export default async function PortfolioPage({
                 {walletRequests!.map((r) => (
                   <tr key={r.id} className="border-b border-border/60">
                     <td className="py-2 pl-3 whitespace-nowrap text-xs text-muted">
-                      {new Date(r.requested_at).toLocaleDateString("ar-EG")}
+                      {new Date(r.requested_at).toLocaleDateString("ar-EG", { timeZone: "UTC" })}
                     </td>
                     <td className="py-2 pl-3 whitespace-nowrap">{r.type === "deposit" ? "إيداع" : "سحب"}</td>
                     <td className="py-2 pl-3 whitespace-nowrap">${Number(r.amount).toLocaleString("en-US")}</td>
