@@ -10,6 +10,7 @@ import { TradeHistory } from "@/components/TradeHistory";
 import { CircularGauge } from "@/components/CircularGauge";
 import { AssetAllocationBar } from "@/components/AssetAllocationBar";
 import { OpenOrdersTable } from "@/components/OpenOrdersTable";
+import { RecentCopiersList } from "@/components/RecentCopiersList";
 import { countryDisplay } from "@/lib/country-metadata";
 
 type SignalRow = {
@@ -84,13 +85,19 @@ export default async function TraderPage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  const [{ data: provider }, { data: signals }, { data: mySub }, { data: myProfile }, { data: otherSub }, { data: myFollow }] = await Promise.all([
+  const [{ data: provider }, { data: signals }, { data: recentCopiers }, { data: mySub }, { data: myProfile }, { data: otherSub }, { data: myFollow }] = await Promise.all([
     supabase.from("provider_cards").select("*").eq("provider_id", id).single(),
     supabase
       .from("signals")
       .select("id, symbol, side, entry_price, exit_price, stop_loss, take_profit, status, opened_at, closed_at")
       .eq("provider_id", id)
       .order("opened_at", { ascending: false }),
+    supabase
+      .from("synthetic_customers")
+      .select("id, display_name, joined_at, current_capital")
+      .eq("provider_id", id)
+      .order("current_capital", { ascending: false })
+      .limit(20),
     user
       ? supabase
           .from("subscriptions")
@@ -443,6 +450,13 @@ export default async function TraderPage({
         <h2 className="font-medium">الأوامر المفتوحة</h2>
         <OpenOrdersTable orders={openOrders} priceBySymbol={priceBySymbol} />
       </section>
+
+      {recentCopiers && recentCopiers.length > 0 && (
+        <section className="flex flex-col gap-3">
+          <h2 className="font-medium">آخر الناسخين</h2>
+          <RecentCopiersList copiers={recentCopiers} />
+        </section>
+      )}
 
       <section className="flex flex-col gap-3">
         <h2 className="font-medium">سجل الصفقات</h2>
