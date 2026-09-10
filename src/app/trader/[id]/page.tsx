@@ -163,7 +163,9 @@ export default async function TraderPage({
     openSymbols.length > 0
       ? await supabase.from("market_prices").select("symbol, price").in("symbol", openSymbols)
       : { data: [] as { symbol: string; price: number }[] };
-  const priceBySymbol = new Map((livePrices ?? []).map((p) => [p.symbol, Number(p.price)]));
+  const initialPrices: Record<string, number> = Object.fromEntries(
+    (livePrices ?? []).map((p) => [p.symbol, Number(p.price)]),
+  );
 
   const reliabilityScore = Number(provider.rating_score ?? 50);
   const safetyScore = Math.max(0, Math.min(100, Math.round(100 - Number(provider.return_volatility ?? 2) * 15)));
@@ -452,7 +454,7 @@ export default async function TraderPage({
 
       <section className="flex flex-col gap-3">
         <h2 className="font-medium">الأوامر المفتوحة</h2>
-        <OpenOrdersTable orders={openOrders} priceBySymbol={priceBySymbol} />
+        <OpenOrdersTable orders={openOrders} initialPrices={initialPrices} />
       </section>
 
       <section className="flex flex-col gap-3">

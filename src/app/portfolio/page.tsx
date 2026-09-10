@@ -9,7 +9,7 @@ import { TradeHistory } from "@/components/TradeHistory";
 import { PortfolioValueBreakdown } from "@/components/PortfolioValueBreakdown";
 import { MyEquityChart } from "@/components/MyEquityChart";
 import { AutoDismissMessage } from "@/components/AutoDismissMessage";
-import { SymbolIcon } from "@/lib/symbol-icons";
+import { MyOpenPositions } from "@/components/MyOpenPositions";
 
 const TX_LABELS: Record<string, string> = {
   deposit: "إيداع",
@@ -123,19 +123,31 @@ export default async function PortfolioPage({
     openSymbols.length > 0
       ? await supabase.from("market_prices").select("symbol, price").in("symbol", openSymbols)
       : { data: [] as { symbol: string; price: number }[] };
-  const priceBySymbol = new Map((livePrices ?? []).map((p) => [p.symbol, Number(p.price)]));
+  const initialPrices: Record<string, number> = Object.fromEntries(
+    (livePrices ?? []).map((p) => [p.symbol, Number(p.price)]),
+  );
 
-  const openWithPnl = openPositions.map((pos) => {
-    const signal = positionSignal(pos);
-    const current = signal ? priceBySymbol.get(signal.symbol) : undefined;
-    const pct =
-      current != null && signal
-        ? ((current - pos.entry_price) / pos.entry_price) * (signal.side === "sell" ? -1 : 1) * 100
-        : null;
-    const unrealizedPnl = pct != null ? (pct / 100) * Number(pos.size) : null;
-    return { pos, signal, current, pct, unrealizedPnl };
-  });
-  const totalUnrealizedPnl = openWithPnl.reduce((sum, o) => sum + (o.unrealizedPnl ?? 0), 0);
+  const myOpenPositions = openPositions
+    .map((pos) => {
+      const signal = positionSignal(pos);
+      if (!signal) return null;
+      return {
+        id: pos.id,
+        symbol: signal.symbol,
+        side: signal.side,
+        entry_price: Number(pos.entry_price),
+        size: Number(pos.size),
+        take_profit: signal.take_profit,
+        stop_loss: signal.stop_loss,
+      };
+    })
+    .filter((p): p is NonNullable<typeof p> => p != null);
+  const totalUnrealizedPnl = myOpenPositions.reduce((sum, p) => {
+    const current = initialPrices[p.symbol];
+    if (current == null) return sum;
+    const pct = ((current - p.entry_price) / p.entry_price) * (p.side === "sell" ? -1 : 1);
+    return sum + pct * p.size;
+  }, 0);
   const totalAllocated = Array.from(allocationByProvider.values()).reduce((sum, a) => sum + Number(a), 0);
 
   const myWins = closedPositions.filter((p) => (p.pnl ?? 0) >= 0).length;
@@ -326,71 +338,7 @@ export default async function PortfolioPage({
 
   const positionsPanel = (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="font-medium">المراكز المفتوحة</h2>
-          {openWithPnl.length > 0 && (
-            <span
-              className={totalUnrealizedPnl >= 0 ? "text-sm font-semibold text-success" : "text-sm font-semibold text-danger"}
-              dir="ltr"
-            >
-              {totalUnrealizedPnl >= 0 ? "+" : ""}
-              ${totalUnrealizedPnl.toLocaleString("en-US", { maximumFractionDigits: 2 })}
-            </span>
-          )}
-        </div>
-        {openWithPnl.length === 0 ? (
-          <p className="text-sm text-muted">لا توجد مراكز مفتوحة حاليًا. ستظهر هنا فور فتح متداول تنسخه لصفقة جديدة.</p>
-        ) : (
-          <div className="flex flex-col gap-2">
-            {openWithPnl.map(({ pos, signal, pct, unrealizedPnl }) => (
-              <div
-                key={pos.id}
-                className="flex items-center justify-between gap-3 rounded-lg border border-border bg-surface p-3"
-              >
-                <div className="flex items-center gap-2.5">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-background text-base">
-                    <SymbolIcon symbol={signal?.symbol ?? ""} />
-                  </span>
-                  <div>
-                    <p className="text-sm font-medium" dir="ltr">
-                      {signal?.symbol ?? "—"}
-                    </p>
-                    <span
-                      className={
-                        signal?.side === "buy"
-                          ? "rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-medium text-success"
-                          : "rounded-full bg-danger/10 px-2 py-0.5 text-[10px] font-medium text-danger"
-                      }
-                    >
-                      {signal?.side === "buy" ? "شراء" : "بيع"}
-                    </span>
-                  </div>
-                </div>
-                <div className="text-end">
-                  <p
-                    className={
-                      unrealizedPnl == null
-                        ? "text-sm font-semibold text-muted"
-                        : unrealizedPnl >= 0
-                          ? "text-sm font-semibold text-success"
-                          : "text-sm font-semibold text-danger"
-                    }
-                    dir="ltr"
-                  >
-                    {unrealizedPnl != null
-                      ? `${unrealizedPnl >= 0 ? "+" : ""}$${unrealizedPnl.toLocaleString("en-US", { maximumFractionDigits: 2 })}`
-                      : "—"}
-                  </p>
-                  <p className="text-xs text-muted" dir="ltr">
-                    {pct != null ? `${pct >= 0 ? "+" : ""}${pct.toFixed(2)}%` : "—"}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+      <MyOpenPositions positions={myOpenPositions} initialPrices={initialPrices} />
 
       <div className="flex flex-col gap-3">
         <h2 className="font-medium">سجل الصفقات</h2>
