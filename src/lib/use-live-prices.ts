@@ -24,10 +24,13 @@ export function useLivePrices(symbols: string[], initialPrices: Record<string, n
         (payload) => {
           const row = (payload.new ?? payload.old) as MarketPriceRow | null;
           if (!row || !symbols.includes(row.symbol)) return;
+          console.log("[useLivePrices] tick received:", row);
           setPrices((prev) => ({ ...prev, [row.symbol]: Number(row.price) }));
         },
       )
-      .subscribe();
+      .subscribe((status, err) => {
+        console.log("[useLivePrices] subscribe status:", status, err);
+      });
 
     return () => {
       supabase.removeChannel(channel);
