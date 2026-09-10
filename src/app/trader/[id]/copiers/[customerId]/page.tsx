@@ -45,12 +45,12 @@ export default async function CopierProfilePage({
       .order("closed_at", { ascending: true }),
     supabase
       .from("synthetic_customer_withdrawals")
-      .select("id, amount, occurred_at")
+      .select("id, signal_id, amount, occurred_at")
       .eq("customer_id", customerId)
       .order("occurred_at", { ascending: false }),
     supabase
       .from("synthetic_customer_pauses")
-      .select("paused_at, resumed_at")
+      .select("paused_at, resumed_at, redeposit_amount")
       .eq("customer_id", customerId)
       .order("paused_at", { ascending: true }),
   ]);
@@ -67,19 +67,45 @@ export default async function CopierProfilePage({
     });
   }
 
-  const qualifyingSignals = ((signals ?? []) as SignalRow[]).filter((s) => !isPaused(s.closed_at ?? s.opened_at));
   const withdrawalRows = withdrawals ?? [];
+  const withdrawalBySignal = new Map(withdrawalRows.filter((w) => w.signal_id).map((w) => [w.signal_id as string, Number(w.amount)]));
+  // Balance resets exactly when a paused customer resumes — without
+  // this, the walk below would keep compounding off the stale
+  // pre-pause balance instead of the real redeposit amount.
+  const resets = pauseWindows
+    .filter((p) => p.resumed_at && p.redeposit_amount != null)
+    .map((p) => ({ at: new Date(p.resumed_at!).getTime(), amount: Number(p.redeposit_amount) }))
+    .sort((a, b) => a.at - b.at);
 
-  // Same step-by-step walk used by scripts/backfill-synthetic-customers.mjs —
-  // deterministic here since it only replays already-persisted
-  // starting_capital/withdrawal amounts, no new randomness at request time.
+  // Same step-by-step walk used by scripts/backfill-synthetic-customers.mjs
+  // — deterministic here since it only replays already-persisted
+  // starting_capital/withdrawal/redeposit amounts, no new randomness at
+  // request time. Every trade's $ P&L is exactly pct% of the customer's
+  // real balance at that moment (withdrawals and pause redeposits both
+  // reduce/reset that running balance, matching the live engine and
+  // backfill script exactly).
   let balance = Number(customer.starting_capital);
-  const derivedTrades = qualifyingSignals.map((s) => {
+  let resetIdx = 0;
+  const derivedTrades: {
+    id: string; symbol: string; side: string; entry: number; exit: number;
+    pnl: number; pct: number; openedAt: string; closedAt: string | null;
+  }[] = [];
+  for (const s of (signals ?? []) as SignalRow[]) {
+    const t = new Date(s.closed_at ?? s.opened_at).getTime();
+    while (resetIdx < resets.length && resets[resetIdx].at <= t) {
+      balance = resets[resetIdx].amount;
+      resetIdx++;
+    }
+    if (isPaused(s.closed_at ?? s.opened_at)) continue;
+
     const raw = (s.exit_price - s.entry_price) / s.entry_price;
     const signed = s.side === "sell" ? -raw : raw;
     const pnl = Math.round(balance * signed * 100) / 100;
     balance = balance + pnl;
-    return {
+    const withdrawalAmount = withdrawalBySignal.get(s.id);
+    if (withdrawalAmount) balance = Math.max(10, balance - withdrawalAmount);
+
+    derivedTrades.push({
       id: s.id,
       symbol: s.symbol,
       side: s.side,
@@ -89,8 +115,8 @@ export default async function CopierProfilePage({
       pct: signed * 100,
       openedAt: s.opened_at,
       closedAt: s.closed_at,
-    };
-  });
+    });
+  }
 
   const totalGainPct =
     Number(customer.starting_capital) > 0

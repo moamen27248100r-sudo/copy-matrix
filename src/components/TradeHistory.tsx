@@ -181,10 +181,24 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
                         {t.size != null && ` $${t.size}`}
                       </span>
                     </div>
-                    <span className={isProfit ? "shrink-0 font-semibold text-success" : "shrink-0 font-semibold text-danger"} dir="ltr">
-                      {t.pnl != null
-                        ? `${isProfit ? "+" : ""}${t.pnl.toFixed(2)} (${isProfit ? "+" : ""}${t.pct.toFixed(2)}%)`
-                        : `${isProfit ? "+" : ""}${t.pct.toFixed(2)}%`}
+                    <span className="shrink-0 font-semibold" dir="ltr">
+                      {t.pnl != null ? (
+                        <>
+                          <span className={isProfit ? "text-accent" : "text-danger"}>
+                            {isProfit ? "+" : ""}
+                            {t.pnl.toFixed(2)}
+                          </span>{" "}
+                          <span className={isProfit ? "text-success" : "text-danger"}>
+                            ({isProfit ? "+" : ""}
+                            {t.pct.toFixed(2)}%)
+                          </span>
+                        </>
+                      ) : (
+                        <span className={isProfit ? "text-success" : "text-danger"}>
+                          {isProfit ? "+" : ""}
+                          {t.pct.toFixed(2)}%
+                        </span>
+                      )}
                     </span>
                   </div>
                   <div className="flex items-center justify-between gap-2 text-xs text-muted">

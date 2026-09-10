@@ -143,6 +143,7 @@ for (const p of providers) {
           copyStatus = "active";
           balance = Math.max(10, Math.round(startingCapital * (0.3 + Math.random() * 0.5) * 100) / 100);
           pauses[openPauseIdx].resumedAt = eventAt;
+          pauses[openPauseIdx].redepositAmount = balance;
           openPauseIdx = null;
         } else {
           lastCheckAtMs = eventAtMs;
@@ -255,12 +256,12 @@ for (let i = 0; i < pauses.length; i += CHUNK) {
   const values = chunk
     .map(
       (_, j) =>
-        `($${j * 4 + 1}::uuid, $${j * 4 + 2}::uuid, $${j * 4 + 3}::timestamptz, $${j * 4 + 4}::timestamptz)`,
+        `($${j * 5 + 1}::uuid, $${j * 5 + 2}::uuid, $${j * 5 + 3}::timestamptz, $${j * 5 + 4}::timestamptz, $${j * 5 + 5}::numeric)`,
     )
     .join(",");
-  const params = chunk.flatMap((pa) => [pa.customerId, pa.providerId, pa.pausedAt, pa.resumedAt]);
+  const params = chunk.flatMap((pa) => [pa.customerId, pa.providerId, pa.pausedAt, pa.resumedAt, pa.redepositAmount ?? null]);
   await db.query(
-    `insert into public.synthetic_customer_pauses (customer_id, provider_id, paused_at, resumed_at)
+    `insert into public.synthetic_customer_pauses (customer_id, provider_id, paused_at, resumed_at, redeposit_amount)
      values ${values}`,
     params,
   );
