@@ -157,7 +157,7 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
       {filtered.length === 0 ? (
         <p className="text-sm text-muted">لا توجد صفقات مغلقة في هذه الفترة.</p>
       ) : (
-        <div className="flex flex-col gap-2">
+        <div className="max-h-[520px] space-y-2 overflow-y-auto pe-1">
           {filtered.map((t) => {
             const isExpanded = expandedId === t.id;
             const isProfit = (t.pnl ?? t.pct) >= 0;

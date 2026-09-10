@@ -99,6 +99,7 @@ export default async function TraderPage({
       .from("synthetic_customers")
       .select("id, display_name, joined_at, current_capital, starting_capital")
       .eq("provider_id", id)
+      .neq("copy_status", "left")
       .order("current_capital", { ascending: false })
       .limit(20),
     user
@@ -454,13 +455,6 @@ export default async function TraderPage({
         <OpenOrdersTable orders={openOrders} priceBySymbol={priceBySymbol} />
       </section>
 
-      {recentCopiers && recentCopiers.length > 0 && (
-        <section className="flex flex-col gap-3">
-          <h2 className="font-medium">قائمة الناسخين</h2>
-          <RecentCopiersList copiers={recentCopiers} providerId={id} />
-        </section>
-      )}
-
       <section className="flex flex-col gap-3">
         <h2 className="font-medium">سجل الصفقات</h2>
         {closedHistory.length === 0 ? (
@@ -469,6 +463,13 @@ export default async function TraderPage({
           <TradeHistory trades={closedHistory} />
         )}
       </section>
+
+      {recentCopiers && recentCopiers.length > 0 && (
+        <section className="flex flex-col gap-3">
+          <h2 className="font-medium">قائمة الناسخين</h2>
+          <RecentCopiersList copiers={recentCopiers} providerId={id} />
+        </section>
+      )}
       </main>
     </>
   );

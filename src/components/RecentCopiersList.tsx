@@ -25,7 +25,7 @@ export function RecentCopiersList({ copiers, providerId }: { copiers: Copier[]; 
   if (copiers.length === 0) return null;
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex max-h-[520px] flex-col gap-2 overflow-y-auto pe-1">
       {copiers.map((c) => {
         const gainPct =
           c.starting_capital && c.starting_capital > 0
