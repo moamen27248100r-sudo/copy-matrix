@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { SymbolIcon } from "@/lib/symbol-icons";
+import { useLivePrices } from "@/lib/use-live-prices";
+import { usePeriodicRefresh } from "@/lib/use-periodic-refresh";
 
 type OpenOrder = {
   id: string;
@@ -59,11 +61,11 @@ function OrderRow({ order, current }: { order: OpenOrder; current: number | unde
           <span
             className={
               order.side === "buy"
-                ? "rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-medium text-success"
+                ? "rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-medium text-accent"
                 : "rounded-full bg-danger/10 px-2 py-0.5 text-[10px] font-medium text-danger"
             }
           >
-            {order.side === "buy" ? "شراء" : "بيع"}
+            {order.side === "buy" ? "BUY" : "SELL"}
           </span>
         </div>
       </div>
@@ -71,10 +73,10 @@ function OrderRow({ order, current }: { order: OpenOrder; current: number | unde
         <p
           className={
             pct == null
-              ? "text-sm font-semibold text-muted"
+              ? "text-sm font-semibold text-muted transition-colors duration-300"
               : isProfit
-                ? "text-sm font-semibold text-success"
-                : "text-sm font-semibold text-danger"
+                ? "text-sm font-semibold text-success transition-colors duration-300"
+                : "text-sm font-semibold text-danger transition-colors duration-300"
           }
           dir="ltr"
         >
@@ -103,46 +105,33 @@ export function OpenOrdersTable({
   orders: OpenOrder[];
   initialPrices: Record<string, number>;
 }) {
-  const [prices, setPrices] = useState<Record<string, number>>(initialPrices);
-
-  useEffect(() => {
-    if (orders.length === 0) return;
-    const symbols = Array.from(new Set(orders.map((o) => o.symbol)));
-
-    let stopped = false;
-    let es: EventSource | null = null;
-
-    const connect = () => {
-      if (stopped) return;
-      es = new EventSource(`/api/live-prices?symbols=${encodeURIComponent(symbols.join(","))}`);
-      es.addEventListener("prices", (e) => {
-        try {
-          const payload = JSON.parse((e as MessageEvent).data) as Record<string, number>;
-          setPrices((prev) => ({ ...prev, ...payload }));
-        } catch {
-          // ignore malformed tick
-        }
-      });
-      es.onerror = () => {
-        es?.close();
-        if (!stopped) setTimeout(connect, 2000);
-      };
-    };
-
-    connect();
-    return () => {
-      stopped = true;
-      es?.close();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [orders.map((o) => o.symbol).join(",")]);
+  const symbols = Array.from(new Set(orders.map((o) => o.symbol)));
+  const prices = useLivePrices(symbols, initialPrices);
+  usePeriodicRefresh();
 
   if (orders.length === 0) {
     return <p className="text-sm text-muted">لا توجد صفقات مفتوحة حاليًا لهذا المتداول.</p>;
   }
 
+  const totalPct = orders.reduce((sum, o) => {
+    const current = prices[o.symbol];
+    if (current == null) return sum;
+    const pct = ((current - o.entry_price) / o.entry_price) * (o.side === "sell" ? -1 : 1) * 100;
+    return sum + pct;
+  }, 0);
+
   return (
     <div className="flex flex-col gap-2">
+      <div className="flex items-center justify-between rounded-lg bg-background px-3 py-2">
+        <span className="text-xs text-muted">إجمالي التذبذب العائم</span>
+        <span
+          className={totalPct >= 0 ? "text-sm font-semibold text-success" : "text-sm font-semibold text-danger"}
+          dir="ltr"
+        >
+          {totalPct >= 0 ? "+" : ""}
+          {totalPct.toFixed(2)}%
+        </span>
+      </div>
       {orders.map((o) => (
         <OrderRow key={o.id} order={o} current={prices[o.symbol]} />
       ))}

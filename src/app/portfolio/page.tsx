@@ -10,6 +10,8 @@ import { PortfolioValueBreakdown } from "@/components/PortfolioValueBreakdown";
 import { MyEquityChart } from "@/components/MyEquityChart";
 import { AutoDismissMessage } from "@/components/AutoDismissMessage";
 import { MyOpenPositions } from "@/components/MyOpenPositions";
+import { PositionTabs } from "@/components/PositionTabs";
+import { PendingOrdersEmpty } from "@/components/PendingOrdersEmpty";
 
 const TX_LABELS: Record<string, string> = {
   deposit: "إيداع",
@@ -337,20 +339,21 @@ export default async function PortfolioPage({
   );
 
   const positionsPanel = (
-    <div className="flex flex-col gap-6">
-      <MyOpenPositions positions={myOpenPositions} initialPrices={initialPrices} />
-
-      <div className="flex flex-col gap-3">
-        <h2 className="font-medium">سجل الصفقات</h2>
-        {closedHistory.length === 0 ? (
+    <PositionTabs
+      openCount={myOpenPositions.length}
+      closedCount={closedHistory.length}
+      open={<MyOpenPositions positions={myOpenPositions} initialPrices={initialPrices} />}
+      pending={<PendingOrdersEmpty />}
+      closed={
+        closedHistory.length === 0 ? (
           <p className="text-sm text-muted">
             لا توجد صفقات منسوخة مغلقة حتى الآن. ستظهر النتائج هنا فور إغلاق أي متداول تتابعه لصفقة.
           </p>
         ) : (
           <TradeHistory trades={closedHistory} />
-        )}
-      </div>
-    </div>
+        )
+      }
+    />
   );
 
   const walletMovements = (transactions ?? []).filter((t) => t.type === "deposit" || t.type === "withdrawal");
