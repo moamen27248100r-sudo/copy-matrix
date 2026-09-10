@@ -32,7 +32,7 @@ function periodStats(signals: SignalRow[], days: number) {
     (s) => s.status === "closed" && s.closed_at && new Date(s.closed_at).getTime() >= cutoffMs,
   );
 
-  if (closed.length === 0) return { count: 0, winRate: null as number | null, avgReturn: null as number | null };
+  if (closed.length === 0) return { count: 0, winRate: null as number | null, totalReturn: null as number | null };
 
   let wins = 0;
   let totalReturn = 0;
@@ -46,7 +46,10 @@ function periodStats(signals: SignalRow[], days: number) {
   return {
     count: closed.length,
     winRate: Math.round((wins / closed.length) * 100),
-    avgReturn: Math.round((totalReturn / closed.length) * 100) / 100,
+    // Real realized performance for the period (sum of each trade's %
+    // return, same convention TraderEquityChart already uses for its
+    // cumulative line) — not an average per trade.
+    totalReturn: Math.round(totalReturn * 100) / 100,
   };
 }
 
@@ -421,13 +424,13 @@ export default async function TraderPage({
                 <p className="text-xs text-muted">{p.label}</p>
                 <p
                   className={
-                    stats.avgReturn != null && stats.avgReturn < 0
+                    stats.totalReturn != null && stats.totalReturn < 0
                       ? "text-lg font-semibold text-danger"
                       : "text-lg font-semibold text-success"
                   }
                 >
-                  {stats.avgReturn != null
-                    ? `${stats.avgReturn > 0 ? "+" : ""}${stats.avgReturn}%`
+                  {stats.totalReturn != null
+                    ? `${stats.totalReturn > 0 ? "+" : ""}${stats.totalReturn}%`
                     : "—"}
                 </p>
                 <p className="text-xs text-muted">
