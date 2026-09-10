@@ -15,6 +15,39 @@ export function symbolIcon(symbol: string): string {
   return SYMBOL_ICONS[symbol] ?? "🔹";
 }
 
+// A real gold-bar glyph (gradient bullion ingot, like the icon most
+// trading platforms use for XAUUSD) instead of the generic 🥇 medal emoji.
+function GoldBarIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-[1.1em] w-[1.1em]" aria-hidden="true">
+      <defs>
+        <linearGradient id="cm-gold-bar" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#fff3c4" />
+          <stop offset="45%" stopColor="#f0b90b" />
+          <stop offset="100%" stopColor="#a9760a" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M5 8.5 L8 6 H16 L19 8.5 L17 17 H7 Z"
+        fill="url(#cm-gold-bar)"
+        stroke="#7c5a06"
+        strokeWidth="0.6"
+        strokeLinejoin="round"
+      />
+      <path d="M8 6 H16 L19 8.5 H5 Z" fill="#fff8dd" opacity="0.6" />
+      <path d="M9.3 9.2 L14.7 9.2 L13.6 14.8 L10.4 14.8 Z" fill="#00000022" />
+    </svg>
+  );
+}
+
+// Renders as a real gold-bar SVG for XAUUSD (visually distinctive from the
+// generic emoji set below) and falls back to the existing emoji glyph for
+// every other symbol.
+export function SymbolIcon({ symbol }: { symbol: string }) {
+  if (symbol === "XAUUSD") return <GoldBarIcon />;
+  return <>{symbolIcon(symbol)}</>;
+}
+
 // Fixed, distinctive color per instrument so the same asset always renders
 // the same color across every trader's page, instead of a color that shifts
 // with array position.

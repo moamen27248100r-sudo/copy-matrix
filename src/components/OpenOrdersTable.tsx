@@ -1,4 +1,4 @@
-import { symbolIcon } from "@/lib/symbol-icons";
+import { SymbolIcon } from "@/lib/symbol-icons";
 
 type OpenOrder = {
   id: string;
@@ -35,7 +35,7 @@ export function OpenOrdersTable({
           >
             <div className="flex items-center gap-2.5">
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-background text-base">
-                {symbolIcon(o.symbol)}
+                <SymbolIcon symbol={o.symbol} />
               </span>
               <div>
                 <p className="text-sm font-medium" dir="ltr">

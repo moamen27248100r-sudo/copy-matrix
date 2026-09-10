@@ -9,7 +9,7 @@ import { TradeHistory } from "@/components/TradeHistory";
 import { PortfolioValueBreakdown } from "@/components/PortfolioValueBreakdown";
 import { MyEquityChart } from "@/components/MyEquityChart";
 import { AutoDismissMessage } from "@/components/AutoDismissMessage";
-import { symbolIcon } from "@/lib/symbol-icons";
+import { SymbolIcon } from "@/lib/symbol-icons";
 
 const TX_LABELS: Record<string, string> = {
   deposit: "إيداع",
@@ -350,7 +350,7 @@ export default async function PortfolioPage({
               >
                 <div className="flex items-center gap-2.5">
                   <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-background text-base">
-                    {symbolIcon(signal?.symbol ?? "")}
+                    <SymbolIcon symbol={signal?.symbol ?? ""} />
                   </span>
                   <div>
                     <p className="text-sm font-medium" dir="ltr">
