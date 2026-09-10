@@ -108,9 +108,6 @@ export function OpenOrdersTable({
   const symbols = Array.from(new Set(orders.map((o) => o.symbol)));
   const prices = useLivePrices(symbols, initialPrices);
   usePeriodicRefresh();
-  useEffect(() => {
-    console.log("[OpenOrdersTable] mounted on client, orders:", orders.length);
-  }, []);
 
   if (orders.length === 0) {
     return <p className="text-sm text-muted">لا توجد صفقات مفتوحة حاليًا لهذا المتداول.</p>;

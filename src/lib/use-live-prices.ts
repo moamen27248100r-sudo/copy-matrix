@@ -13,7 +13,6 @@ export function useLivePrices(symbols: string[], initialPrices: Record<string, n
   const key = symbols.join(",");
 
   useEffect(() => {
-    console.log("[useLivePrices] effect running, symbols:", symbols);
     if (symbols.length === 0) return;
     const supabase = createClient();
     const channel = supabase
@@ -24,13 +23,10 @@ export function useLivePrices(symbols: string[], initialPrices: Record<string, n
         (payload) => {
           const row = (payload.new ?? payload.old) as MarketPriceRow | null;
           if (!row || !symbols.includes(row.symbol)) return;
-          console.log("[useLivePrices] tick received:", row);
           setPrices((prev) => ({ ...prev, [row.symbol]: Number(row.price) }));
         },
       )
-      .subscribe((status, err) => {
-        console.log("[useLivePrices] subscribe status:", status, err);
-      });
+      .subscribe();
 
     return () => {
       supabase.removeChannel(channel);
