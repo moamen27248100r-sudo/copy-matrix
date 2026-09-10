@@ -61,6 +61,29 @@ function logUniform(min, max) {
   return min * Math.pow(max / min, Math.random());
 }
 
+// Realistic retail capital distribution: most customers are modest,
+// only a rare few are "whales" — a plain log-uniform draw between
+// capFloor and ceiling gives EQUAL weight to every order of magnitude
+// (as many people at $10k-60k as at $100-600), which is not how real
+// wealth is distributed and produced way too many high-capital
+// customers (measured live: 24.6% starting above $10k, p99 = $41k).
+// Tiered instead: each tier is capped at the leader's own ceiling
+// (so a low-rated leader's customers can never reach the "whale"
+// tier), and collapses gracefully to the next-lower tier if its own
+// range doesn't fit under that ceiling.
+function pickStartingCapital(capFloor, ceiling) {
+  const cap = Math.max(capFloor + 1, ceiling);
+  const roll = Math.random();
+  let lo, hi;
+  if (roll < 0.60) { lo = capFloor; hi = Math.min(800, cap); }
+  else if (roll < 0.87) { lo = Math.min(800, cap); hi = Math.min(3000, cap); }
+  else if (roll < 0.97) { lo = Math.min(3000, cap); hi = Math.min(8000, cap); }
+  else if (roll < 0.995) { lo = Math.min(8000, cap); hi = Math.min(20000, cap); }
+  else { lo = Math.min(20000, cap); hi = cap; }
+  if (hi <= lo) { lo = capFloor; hi = Math.min(800, cap); }
+  return Math.round(logUniform(Math.max(capFloor, lo), Math.max(lo + 1, hi)) * 100) / 100;
+}
+
 const db = new Client({ connectionString: process.env.SUPABASE_DB_URL, ssl: { rejectUnauthorized: false } });
 await db.connect();
 
@@ -115,15 +138,18 @@ for (const p of providers) {
   for (let i = 0; i < n; i++) {
     const joinedAtMs = createdAtMs + Math.random() * (now - createdAtMs);
     const joinedAt = new Date(joinedAtMs);
-    const startingCapital = Math.round(logUniform(capFloor, ceiling) * 100) / 100;
+    const startingCapital = pickStartingCapital(capFloor, ceiling);
     const customerId = crypto.randomUUID();
 
     // Per-step bound (bounds every step of the walk, not just the end
     // result, so a long sequence of trades can't compound into an
     // absurd outlier) — also doubles as the "ran out of balance"
-    // proportional floor for the pause trigger below.
+    // proportional floor for the pause trigger below. Ceiling
+    // tightened from 15x to 8x alongside the capital-distribution fix
+    // above, since a lower, more realistic starting point compounding
+    // 15x still produced six-figure outliers.
     const floor = startingCapital * 0.1;
-    const ceil = startingCapital * 15;
+    const ceil = startingCapital * 8;
 
     let balance = startingCapital;
     let copyStatus = "active";
