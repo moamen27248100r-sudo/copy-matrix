@@ -374,10 +374,6 @@ export default async function TraderPage({
             </p>
             <p className="text-xs text-muted">أقصى تراجع</p>
           </div>
-          <div>
-            <p className="font-semibold">${Number(provider.min_copy_amount).toLocaleString("en-US")}</p>
-            <p className="text-xs text-muted">الحد الأدنى للنسخ</p>
-          </div>
         </div>
       </div>
 
