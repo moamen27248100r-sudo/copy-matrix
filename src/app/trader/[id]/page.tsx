@@ -453,7 +453,7 @@ export default async function TraderPage({
 
       {recentCopiers && recentCopiers.length > 0 && (
         <section className="flex flex-col gap-3">
-          <h2 className="font-medium">آخر الناسخين</h2>
+          <h2 className="font-medium">قائمة الناسخين</h2>
           <RecentCopiersList copiers={recentCopiers} providerId={id} />
         </section>
       )}

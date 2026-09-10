@@ -33,7 +33,7 @@ export default async function CopierProfilePage({
     notFound();
   }
 
-  const [{ data: provider }, { data: signals }, { data: withdrawals }] = await Promise.all([
+  const [{ data: provider }, { data: signals }, { data: withdrawals }, { data: pauses }] = await Promise.all([
     supabase.from("provider_cards").select("display_name").eq("provider_id", id).single(),
     supabase
       .from("signals")
@@ -42,15 +42,32 @@ export default async function CopierProfilePage({
       .eq("status", "closed")
       .not("exit_price", "is", null)
       .gte("opened_at", customer.joined_at)
-      .order("opened_at", { ascending: true }),
+      .order("closed_at", { ascending: true }),
     supabase
       .from("synthetic_customer_withdrawals")
       .select("id, amount, occurred_at")
       .eq("customer_id", customerId)
       .order("occurred_at", { ascending: false }),
+    supabase
+      .from("synthetic_customer_pauses")
+      .select("paused_at, resumed_at")
+      .eq("customer_id", customerId)
+      .order("paused_at", { ascending: true }),
   ]);
 
-  const qualifyingSignals = (signals ?? []) as SignalRow[];
+  const pauseWindows = pauses ?? [];
+  function isPaused(iso: string) {
+    const t = new Date(iso).getTime();
+    return pauseWindows.some((p) => {
+      const start = new Date(p.paused_at).getTime();
+      const end = p.resumed_at ? new Date(p.resumed_at).getTime() : Infinity;
+      // strictly after paused_at: the trade that triggered the pause
+      // already applied to this customer's capital, so it stays in history
+      return t > start && t < end;
+    });
+  }
+
+  const qualifyingSignals = ((signals ?? []) as SignalRow[]).filter((s) => !isPaused(s.closed_at ?? s.opened_at));
   const withdrawalRows = withdrawals ?? [];
 
   // Same step-by-step walk used by scripts/backfill-synthetic-customers.mjs —

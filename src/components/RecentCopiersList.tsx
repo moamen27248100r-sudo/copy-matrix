@@ -29,6 +29,7 @@ export function RecentCopiersList({ copiers, providerId }: { copiers: Copier[]; 
                 {new Date(c.joined_at).toLocaleDateString("ar-EG", {
                   year: "numeric",
                   month: "long",
+                  day: "numeric",
                 })}
               </p>
             </div>
