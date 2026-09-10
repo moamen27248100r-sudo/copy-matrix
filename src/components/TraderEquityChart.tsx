@@ -29,7 +29,15 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
 
   const points = useMemo<ChartPoint[]>(() => {
     const period = PERIODS[periodIdx];
-    const cutoff = period.days != null ? Date.now() - period.days * 24 * 60 * 60 * 1000 : 0;
+    // Rounded to the start of the current UTC day, not the exact millisecond:
+    // Date.now() computed fresh on both the server's SSR pass and the client's
+    // hydration pass can differ by however long the request took, which can
+    // flip whether a trade sitting right at the period boundary is included --
+    // a real (if narrow) hydration mismatch. Day-granularity makes that
+    // practically impossible without changing what "last 30 days" means.
+    const now = new Date();
+    const todayUtcStart = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+    const cutoff = period.days != null ? todayUtcStart - period.days * 24 * 60 * 60 * 1000 : 0;
     const closed = signals
       .filter(
         (s) =>

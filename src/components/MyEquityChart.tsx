@@ -20,7 +20,13 @@ export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
 
   const points = useMemo(() => {
     const period = PERIODS[periodIdx];
-    const cutoff = period.days != null ? Date.now() - period.days * 24 * 60 * 60 * 1000 : 0;
+    // Rounded to the start of the current UTC day -- see TraderEquityChart
+    // for why: Date.now() computed fresh during both the server's SSR pass
+    // and the client's hydration pass can differ enough to flip whether a
+    // trade right at the boundary is included, causing a hydration mismatch.
+    const now = new Date();
+    const todayUtcStart = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+    const cutoff = period.days != null ? todayUtcStart - period.days * 24 * 60 * 60 * 1000 : 0;
     const closed = positions
       .filter((p) => p.closed_at && new Date(p.closed_at).getTime() >= cutoff)
       .sort((a, b) => new Date(a.closed_at!).getTime() - new Date(b.closed_at!).getTime());
