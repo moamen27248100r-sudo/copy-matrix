@@ -13,6 +13,7 @@ export function useLivePrices(symbols: string[], initialPrices: Record<string, n
   const key = symbols.join(",");
 
   useEffect(() => {
+    console.log("[useLivePrices] effect running, symbols:", symbols);
     if (symbols.length === 0) return;
     const supabase = createClient();
     const channel = supabase
