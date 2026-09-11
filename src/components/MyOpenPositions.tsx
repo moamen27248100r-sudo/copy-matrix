@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { SymbolIcon } from "@/lib/symbol-icons";
 import { useLivePrices } from "@/lib/use-live-prices";
-import { usePeriodicRefresh } from "@/lib/use-periodic-refresh";
 
 type Position = {
   id: string;
@@ -104,7 +103,6 @@ export function MyOpenPositions({
 }) {
   const symbols = Array.from(new Set(positions.map((p) => p.symbol)));
   const prices = useLivePrices(symbols, initialPrices);
-  usePeriodicRefresh();
 
   const totalUnrealizedPnl = positions.reduce((sum, p) => {
     const current = prices[p.symbol];

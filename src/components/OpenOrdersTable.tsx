@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { SymbolIcon } from "@/lib/symbol-icons";
 import { useLivePrices } from "@/lib/use-live-prices";
-import { usePeriodicRefresh } from "@/lib/use-periodic-refresh";
 
 type OpenOrder = {
   id: string;
@@ -107,7 +106,6 @@ export function OpenOrdersTable({
 }) {
   const symbols = Array.from(new Set(orders.map((o) => o.symbol)));
   const prices = useLivePrices(symbols, initialPrices);
-  usePeriodicRefresh();
 
   if (orders.length === 0) {
     return <p className="text-sm text-muted">لا توجد صفقات مفتوحة حاليًا لهذا المتداول.</p>;
