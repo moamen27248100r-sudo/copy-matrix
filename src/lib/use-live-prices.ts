@@ -25,7 +25,6 @@ export function useLivePrices(symbols: string[], initialPrices: Record<string, n
 
   useEffect(() => {
     if (symbolsRef.current.length === 0) return;
-    console.log("[useLivePrices] mount, symbols:", symbolsRef.current);
     const supabase = createClient();
     let stopped = false;
 
@@ -46,7 +45,6 @@ export function useLivePrices(symbols: string[], initialPrices: Record<string, n
     tick();
     const id = setInterval(tick, POLL_MS);
     return () => {
-      console.log("[useLivePrices] cleanup/unmount");
       stopped = true;
       clearInterval(id);
     };
