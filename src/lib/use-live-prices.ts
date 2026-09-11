@@ -3,9 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
-const POLL_MS = 3000;
+const POLL_MS = 1000;
 
-// Polls market_prices every few seconds instead of relying on a
+// Polls market_prices once a second instead of relying on a
 // long-lived Realtime WebSocket channel. Realtime looked right in
 // isolated testing (ticks genuinely arrived, state genuinely updated)
 // but the channel could go quiet after the first update or two without
@@ -13,7 +13,10 @@ const POLL_MS = 3000;
 // was costing far more than it was worth. A short poll has no
 // connection-state machine to get stuck in: every tick independently
 // re-reads the current truth from the database, so even a bad tick
-// self-heals on the very next one a few seconds later.
+// self-heals on the very next one a second later. 1s matches the
+// underlying fetch cadence (Binance -> market_prices) one-for-one --
+// polling faster than the source itself updates wouldn't show
+// anything new.
 export function useLivePrices(symbols: string[], initialPrices: Record<string, number>) {
   const [prices, setPrices] = useState<Record<string, number>>(initialPrices);
   const key = symbols.join(",");
