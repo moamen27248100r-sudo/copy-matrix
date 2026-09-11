@@ -266,6 +266,26 @@ export default async function TraderPage({
 
         {provider.bio && <p className="text-sm text-muted">{provider.bio}</p>}
 
+        {recentCopiers && recentCopiers.length > 0 && (
+          <Link
+            href="#copiers"
+            className="flex items-center justify-between rounded-lg bg-accent/15 px-4 py-2.5 text-sm font-semibold text-accent transition hover:bg-accent/20"
+          >
+            <span className="flex items-center gap-2">
+              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+              قائمة الناسخين ({provider.followers_count})
+            </span>
+            <svg viewBox="0 0 24 24" className="h-4 w-4 rtl:rotate-180" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M9 6l6 6-6 6" />
+            </svg>
+          </Link>
+        )}
+
         <div id="copy" className="flex flex-col gap-3 rounded-lg border border-border bg-background p-3 scroll-mt-20">
           {!user ? (
             <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
@@ -307,7 +327,7 @@ export default async function TraderPage({
                 type="number"
                 step="any"
                 min={0}
-                defaultValue={mySub?.allocated_amount ?? myProfile?.balance ?? provider.min_copy_amount}
+                defaultValue={mySub?.allocated_amount ?? provider.min_copy_amount}
                 required
                 className="w-28 rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground"
               />
@@ -464,13 +484,7 @@ export default async function TraderPage({
       </section>
 
       {recentCopiers && recentCopiers.length > 0 && (
-        <section className="flex flex-col gap-3 pt-2">
-          <div className="flex items-center justify-between rounded-lg border border-border bg-surface px-4 py-3 text-sm font-medium text-foreground">
-            قائمة الناسخين
-            <svg viewBox="0 0 24 24" className="h-4 w-4 text-muted rtl:rotate-180" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M9 6l6 6-6 6" />
-            </svg>
-          </div>
+        <section id="copiers" className="flex flex-col gap-3 scroll-mt-20">
           <RecentCopiersList copiers={recentCopiers} providerId={id} />
         </section>
       )}
