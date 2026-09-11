@@ -1,35 +1,48 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
-type MarketPriceRow = { symbol: string; price: number | string };
+const POLL_MS = 3000;
 
-// Subscribes to real-time market_prices changes over Supabase's managed
-// WebSocket (Realtime) -- pushes the instant a row actually changes,
-// no polling interval on our side.
+// Polls market_prices every few seconds instead of relying on a
+// long-lived Realtime WebSocket channel. Realtime looked right in
+// isolated testing (ticks genuinely arrived, state genuinely updated)
+// but the channel could go quiet after the first update or two without
+// visibly recovering, and re-diagnosing that blind, in production,
+// was costing far more than it was worth. A short poll has no
+// connection-state machine to get stuck in: every tick independently
+// re-reads the current truth from the database, so even a bad tick
+// self-heals on the very next one a few seconds later.
 export function useLivePrices(symbols: string[], initialPrices: Record<string, number>) {
   const [prices, setPrices] = useState<Record<string, number>>(initialPrices);
   const key = symbols.join(",");
+  const symbolsRef = useRef(symbols);
+  symbolsRef.current = symbols;
 
   useEffect(() => {
-    if (symbols.length === 0) return;
+    if (symbolsRef.current.length === 0) return;
     const supabase = createClient();
-    const channel = supabase
-      .channel(`market-prices-${key}`)
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "market_prices" },
-        (payload) => {
-          const row = (payload.new ?? payload.old) as MarketPriceRow | null;
-          if (!row || !symbols.includes(row.symbol)) return;
-          setPrices((prev) => ({ ...prev, [row.symbol]: Number(row.price) }));
-        },
-      )
-      .subscribe();
+    let stopped = false;
 
+    const tick = async () => {
+      const { data, error } = await supabase
+        .from("market_prices")
+        .select("symbol, price")
+        .in("symbol", symbolsRef.current);
+      if (stopped || error || !data) return;
+      setPrices((prev) => {
+        const next = { ...prev };
+        for (const row of data) next[row.symbol] = Number(row.price);
+        return next;
+      });
+    };
+
+    tick();
+    const id = setInterval(tick, POLL_MS);
     return () => {
-      supabase.removeChannel(channel);
+      stopped = true;
+      clearInterval(id);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
