@@ -94,6 +94,11 @@ export default async function TraderPage({
       .from("signals")
       .select("id, symbol, side, entry_price, exit_price, stop_loss, take_profit, status, opened_at, closed_at")
       .eq("provider_id", id)
+      // created_by_admin signals are per-customer trades (manual corrections,
+      // margin calls, and the density-mechanic phantom positions below) --
+      // they belong to that one customer's own view, not the leader's public
+      // track record.
+      .eq("created_by_admin", false)
       .order("opened_at", { ascending: false }),
     supabase
       .from("synthetic_customers")
