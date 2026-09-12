@@ -50,7 +50,9 @@ export default async function AdminUserDetailPage({
     await Promise.all([
       supabase
         .from("profiles")
-        .select("id, email, display_name, phone, balance, is_admin, is_provider, is_suspended, account_type, created_at")
+        .select(
+          "id, email, display_name, phone, balance, is_admin, is_provider, is_suspended, account_type, created_at, signup_ip, last_login_ip, country, last_seen_at, login_count",
+        )
         .eq("id", id)
         .single(),
       supabase
@@ -135,6 +137,35 @@ export default async function AdminUserDetailPage({
         <div className="rounded-lg border border-border bg-surface p-3 text-center">
           <p className="text-lg font-semibold">{profile.phone ?? "—"}</p>
           <p className="text-xs text-muted">رقم الهاتف</p>
+        </div>
+      </section>
+
+      <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div className="rounded-lg border border-border bg-surface p-3 text-center">
+          <p className="text-sm font-semibold">
+            {profile.last_seen_at && Date.now() - new Date(profile.last_seen_at).getTime() < 5 * 60 * 1000 ? (
+              <span className="text-success">متصل الآن</span>
+            ) : profile.last_seen_at ? (
+              new Date(profile.last_seen_at).toLocaleString("ar-EG")
+            ) : (
+              "—"
+            )}
+          </p>
+          <p className="text-xs text-muted">آخر ظهور</p>
+        </div>
+        <div className="rounded-lg border border-border bg-surface p-3 text-center">
+          <p className="text-sm font-semibold">{profile.login_count ?? 0}</p>
+          <p className="text-xs text-muted">مرات الدخول</p>
+        </div>
+        <div className="rounded-lg border border-border bg-surface p-3 text-center">
+          <p className="text-sm font-semibold">{profile.country ?? "—"}</p>
+          <p className="text-xs text-muted">الدولة</p>
+        </div>
+        <div className="rounded-lg border border-border bg-surface p-3 text-center">
+          <p className="text-sm font-semibold" dir="ltr">
+            {profile.last_login_ip ?? profile.signup_ip ?? "—"}
+          </p>
+          <p className="text-xs text-muted">آخر IP</p>
         </div>
       </section>
 

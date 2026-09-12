@@ -11,6 +11,18 @@ import { safeNextPath } from "@/lib/safe-next";
 
 const RATE_LIMIT_MESSAGE = "محاولات كثيرة جدًا. يرجى الانتظار قليلًا قبل إعادة المحاولة.";
 
+// Vercel sets both of these at the edge on every request that reaches the
+// app through its network -- x-forwarded-for can carry a proxy chain, so
+// only the first (client-nearest) address is the real one; x-vercel-ip-country
+// needs no third-party GeoIP call. Both are absent in local dev.
+async function getRequestIpAndCountry() {
+  const headersList = await headers();
+  const forwardedFor = headersList.get("x-forwarded-for");
+  const ip = forwardedFor ? forwardedFor.split(",")[0].trim() : null;
+  const country = headersList.get("x-vercel-ip-country");
+  return { ip: ip || null, country: country || null };
+}
+
 async function getSiteUrl() {
   if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
   const headersList = await headers();
@@ -37,6 +49,9 @@ export async function login(formData: FormData) {
   if (error) {
     redirect(`/login?error=${encodeURIComponent(translateAuthError(error.message))}${nextParam}`);
   }
+
+  const { ip, country } = await getRequestIpAndCountry();
+  await supabase.rpc("record_login", { p_ip: ip, p_country: country });
 
   redirect(next ?? "/dashboard");
 }
@@ -112,6 +127,16 @@ export async function signup(formData: FormData) {
   // the customer choose demo vs. real before landing on the dashboard
   // (or back on the trader they came to copy/follow, if any).
   if (data.session) {
+    // Only reachable with a live session, so RLS (profiles_update_own)
+    // lets this through. If email confirmation is required instead,
+    // there's no session yet to attribute this to -- their first login
+    // captures the same fields via record_login, nothing is lost.
+    const { ip, country } = await getRequestIpAndCountry();
+    await supabase
+      .from("profiles")
+      .update({ signup_ip: ip, last_login_ip: ip, country, last_seen_at: new Date().toISOString(), login_count: 1 })
+      .eq("id", data.user!.id);
+
     redirect(`/onboarding/account-type${onboardingNext}`);
   }
 
