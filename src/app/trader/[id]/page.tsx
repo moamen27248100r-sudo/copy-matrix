@@ -485,6 +485,7 @@ export default async function TraderPage({
 
       {recentCopiers && recentCopiers.length > 0 && (
         <section id="copiers" className="flex flex-col gap-3 scroll-mt-20">
+          <h2 className="font-medium">قائمة الناسخين</h2>
           <RecentCopiersList copiers={recentCopiers} providerId={id} />
         </section>
       )}
