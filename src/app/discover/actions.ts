@@ -62,7 +62,7 @@ export async function followProvider(formData: FormData) {
   }
 
   const [{ data: profile }, { data: provider }, { data: otherSub }, { data: existingSub }] = await Promise.all([
-    supabase.from("profiles").select("balance, account_type").eq("id", user.id).single(),
+    supabase.from("profiles").select("balance").eq("id", user.id).single(),
     supabase.from("providers").select("min_copy_amount, trading_status").eq("id", providerId).single(),
     supabase
       .from("subscriptions")
@@ -144,16 +144,6 @@ export async function followProvider(formData: FormData) {
 
   if (error) {
     redirect(`/trader/${providerId}?error=${encodeURIComponent("تعذّر نسخ المتداول. حاول مرة أخرى.")}`);
-  }
-
-  // Real accounts should never have a moment with zero open positions
-  // once they start copying -- seeding this immediately (rather than
-  // waiting for the engine's next ~20-60s tick, which also does this
-  // for every real active follower) means it's already forming by the
-  // time the customer lands on their portfolio. Demo accounts get the
-  // leader's normal direct mirroring only, no density.
-  if (isStarting && profile?.account_type === "real") {
-    await supabase.rpc("seed_density_for_follower", { p_follower_id: user.id });
   }
 
   revalidatePath("/discover");
