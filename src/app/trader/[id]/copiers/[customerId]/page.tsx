@@ -22,12 +22,22 @@ export default async function CopierProfilePage({
   const { id, customerId } = await params;
   const supabase = await createClient();
 
-  const { data: customer } = await supabase
-    .from("synthetic_customers")
-    .select("id, provider_id, display_name, starting_capital, current_capital, joined_at")
-    .eq("id", customerId)
-    .eq("provider_id", id)
-    .single();
+  const customerQuery = () =>
+    supabase
+      .from("synthetic_customers")
+      .select("id, provider_id, display_name, starting_capital, current_capital, joined_at")
+      .eq("id", customerId)
+      .eq("provider_id", id)
+      .single();
+
+  let { data: customer } = await customerQuery();
+
+  if (!customer) {
+    // Null data here can mean a genuinely nonexistent id or a transient
+    // query failure -- Supabase returns the same shape either way, so
+    // one retry filters out the latter instead of showing a false 404.
+    ({ data: customer } = await customerQuery());
+  }
 
   if (!customer) {
     notFound();

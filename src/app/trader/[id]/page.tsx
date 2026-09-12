@@ -88,7 +88,7 @@ export default async function TraderPage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  const [{ data: provider }, { data: signals }, { data: recentCopiers }, { data: mySub }, { data: myProfile }, { data: otherSub }, { data: myFollow }] = await Promise.all([
+  let [{ data: provider }, { data: signals }, { data: recentCopiers }, { data: mySub }, { data: myProfile }, { data: otherSub }, { data: myFollow }] = await Promise.all([
     supabase.from("provider_cards").select("*").eq("provider_id", id).single(),
     supabase
       .from("signals")
@@ -127,6 +127,17 @@ export default async function TraderPage({
       ? supabase.from("follows").select("provider_id").eq("follower_id", user.id).eq("provider_id", id).maybeSingle()
       : Promise.resolve({ data: null }),
   ]);
+
+  if (!provider) {
+    // A missing row here usually means the id genuinely doesn't exist,
+    // but Supabase returns the same null data for a transient query
+    // failure (a brief DB connection hiccup) -- there's no way to tell
+    // those apart from `data` alone. One retry before committing to a
+    // 404 filters out the transient case instead of showing a false
+    // "trader not found" for what was really just a dropped request.
+    const retry = await supabase.from("provider_cards").select("*").eq("provider_id", id).single();
+    provider = retry.data;
+  }
 
   if (!provider) {
     notFound();
