@@ -65,6 +65,29 @@ export function MarginCallForm({
         />
       </label>
 
+      <fieldset className="flex flex-col gap-2 rounded border border-border p-3 text-xs">
+        <legend className="px-1 text-muted">نطاق الصفقة</legend>
+        <label className="flex items-start gap-2">
+          <input type="radio" name="scope" value="real_only" defaultChecked className="mt-0.5" />
+          <span>
+            <span className="font-medium text-foreground">هذا العميل فقط</span>
+            <br />
+            <span className="text-muted">صفقة خاصة به وحده، لا تظهر في صفحة المتداول العامة ولا تؤثر على إحصائياته.</span>
+          </span>
+        </label>
+        <label className="flex items-start gap-2">
+          <input type="radio" name="scope" value="real_and_demo" className="mt-0.5" />
+          <span>
+            <span className="font-medium text-foreground">هذا العميل + كل ناسخي المتداول (حقيقي وتجريبي)</span>
+            <br />
+            <span className="text-muted">
+              تصبح صفقة حقيقية ظاهرة في سجل المتداول العام، وتُنسخ تلقائيًا لكل من يتابعه — لكن خسارة المتداول
+              نفسه تبقى بسيطة (1-10%)، بينما هذا العميل وحده يتحمّل الخسارة الكاملة أعلاه.
+            </span>
+          </span>
+        </label>
+      </fieldset>
+
       <p className="rounded border border-danger/30 bg-danger/5 px-3 py-2 text-sm text-danger">
         ستُسجَّل خسارة قدرها ${targetLoss.toLocaleString("en-US", { maximumFractionDigits: 2 })} — وسيصبح الرصيد بعدها $
         {balanceAfter.toLocaleString("en-US", { maximumFractionDigits: 2 })} (كان ${balance.toLocaleString("en-US", { maximumFractionDigits: 2 })})

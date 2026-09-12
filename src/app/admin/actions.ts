@@ -604,12 +604,30 @@ export async function editClosedClientPosition(formData: FormData) {
 // loses if that direction continues, and computes a real lot size from
 // the client's capital and the requested pip distance (see
 // src/lib/pip-specs.ts) — instead of the admin typing arbitrary prices.
+//
+// scope controls who else sees this trade:
+// - "real_only" (default, original behavior): fully isolated
+//   (created_by_admin = true) — invisible to everyone but this one
+//   client, no effect on the leader's own public profile/stats.
+// - "real_and_demo": the SAME entry/exit/timing becomes a genuine,
+//   public signal for the leader (created_by_admin = false) — counted
+//   in their stats and mirrored 1:1 through the existing trigger to
+//   every OTHER follower (demo and real alike), each taking whatever
+//   ordinary % loss that price move represents on their own balance.
+//   The target client still gets their own precisely-calibrated
+//   position on this same signal (unaffected by the normal mirror,
+//   their subscription is briefly deactivated while the signal is
+//   inserted so the trigger skips them), and the leader's own
+//   total_profit/account_capital take a separate small 1-10% hit —
+//   so the leader's public trade looks like an ordinary loss, not the
+//   client's full-balance wipeout.
 export async function addMarginCallTrade(formData: FormData) {
   const { supabase, adminId } = await assertAdmin();
   const followerId = formData.get("followerId") as string;
   const providerId = formData.get("providerId") as string;
   const symbol = formData.get("symbol") as string;
   const lossAmount = Math.abs(Number(formData.get("lossAmount")));
+  const scope = formData.get("scope") === "real_and_demo" ? "real_and_demo" : "real_only";
   // Pips isn't a user input anymore — pick a realistic random distance
   // ourselves so every margin-call trade doesn't look identical.
   const pips = 30 + Math.random() * 120;
@@ -623,7 +641,7 @@ export async function addMarginCallTrade(formData: FormData) {
 
   const [{ data: profile }, { data: provider }] = await Promise.all([
     supabase.from("profiles").select("balance").eq("id", followerId).single(),
-    supabase.from("providers").select("display_name").eq("id", providerId).single(),
+    supabase.from("providers").select("display_name, account_capital, total_profit").eq("id", providerId).single(),
   ]);
   if (!profile) {
     redirect("/admin/users?error=" + encodeURIComponent("المستخدم غير موجود."));
@@ -671,17 +689,36 @@ export async function addMarginCallTrade(formData: FormData) {
   const entryPrice = currentPrice!;
   const exitPrice = trendUp ? entryPrice + priceMove : entryPrice - priceMove;
 
-  const { data: signal, error: signalError } = await supabase
+  // real_and_demo needs the service-role client: it inserts a
+  // created_by_admin = false signal (so it mirrors normally, per
+  // signals_insert_admin) and, in the same flow, a simulated_positions
+  // row on that signal for the target client -- simulated_positions_insert_admin
+  // only allows that when the linked signal is created_by_admin = true,
+  // which this deliberately isn't.
+  const db = scope === "real_and_demo" ? createAdminClient() : supabase;
+
+  if (scope === "real_and_demo") {
+    // Deactivate the target's own subscription for a moment so the
+    // mirror trigger (fires on the insert below) skips them -- they get
+    // their own precisely-calibrated position instead, right after.
+    await db.from("subscriptions").update({ is_active: false }).eq("follower_id", followerId).eq("provider_id", providerId);
+  }
+
+  const { data: signal, error: signalError } = await db
     .from("signals")
-    .insert({ provider_id: providerId, symbol, side, entry_price: entryPrice, created_by_admin: true })
+    .insert({ provider_id: providerId, symbol, side, entry_price: entryPrice, created_by_admin: scope === "real_only" })
     .select("id")
     .single();
+
+  if (scope === "real_and_demo") {
+    await db.from("subscriptions").update({ is_active: true }).eq("follower_id", followerId).eq("provider_id", providerId);
+  }
 
   if (signalError || !signal) {
     redirect(`/admin/users/${followerId}?error=` + encodeURIComponent("تعذّر إنشاء الصفقة: " + signalError?.message));
   }
 
-  const { error: positionError } = await supabase.from("simulated_positions").insert({
+  const { error: positionError } = await db.from("simulated_positions").insert({
     signal_id: signal!.id,
     follower_id: followerId,
     entry_price: entryPrice,
@@ -693,13 +730,29 @@ export async function addMarginCallTrade(formData: FormData) {
     redirect(`/admin/users/${followerId}?error=` + encodeURIComponent("تعذّر إنشاء صفقة العميل: " + positionError.message));
   }
 
-  const { error: closeError } = await supabase
+  const { error: closeError } = await db
     .from("signals")
     .update({ status: "closed", exit_price: exitPrice, closed_at: new Date().toISOString() })
     .eq("id", signal!.id);
 
   if (closeError) {
     redirect(`/admin/users/${followerId}?error=` + encodeURIComponent("تعذّر تسوية الصفقة: " + closeError.message));
+  }
+
+  if (scope === "real_and_demo") {
+    // The leader's own public trade should look like an ordinary loss,
+    // not the client's full-balance wipeout -- a separate, modest 1-10%
+    // hit to their own capital, independent of the client's calibrated size.
+    const leaderLossPct = 1 + Math.random() * 9;
+    const leaderCapital = Number(provider?.account_capital ?? 2000);
+    const leaderLoss = Math.round((leaderLossPct / 100) * leaderCapital * 100) / 100;
+    await db
+      .from("providers")
+      .update({
+        account_capital: Math.max(50, leaderCapital - leaderLoss),
+        total_profit: Number(provider?.total_profit ?? 0) - leaderLoss,
+      })
+      .eq("id", providerId);
   }
 
   const sideLabel = side === "buy" ? "شراء" : "بيع";
@@ -732,9 +785,13 @@ export async function addMarginCallTrade(formData: FormData) {
     targetLoss,
     actualLoss: actualLossUsd,
     trendUp,
+    scope,
   });
 
   revalidatePath(`/admin/users/${followerId}`);
   revalidatePath("/portfolio");
   revalidatePath("/dashboard");
+  if (scope === "real_and_demo") {
+    revalidatePath(`/trader/${providerId}`);
+  }
 }
