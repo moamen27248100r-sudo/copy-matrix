@@ -42,7 +42,9 @@ export async function updateAccountType(formData: FormData) {
   if (!user) redirect("/login");
 
   const accountType = formData.get("accountType") === "real" ? "real" : "demo";
-  const balance = accountType === "real" ? 0 : 1000;
+  // High enough to clear the min_copy_amount of nearly every leader on the
+  // platform, so a demo account isn't blocked from copying almost anyone.
+  const balance = accountType === "real" ? 0 : 10000;
 
   const { error } = await supabase
     .from("profiles")

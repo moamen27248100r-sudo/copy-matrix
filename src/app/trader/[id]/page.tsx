@@ -330,7 +330,7 @@ export default async function TraderPage({
                 type="number"
                 step="any"
                 min={0}
-                defaultValue={mySub?.allocated_amount ?? provider.min_copy_amount}
+                defaultValue={mySub?.allocated_amount ?? myProfile?.balance ?? provider.min_copy_amount}
                 required
                 className="w-28 rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground"
               />
@@ -353,10 +353,12 @@ export default async function TraderPage({
             </form>
           )}
         </div>
-        <div className="flex flex-wrap justify-between gap-2 text-xs text-muted">
-          <span>الحد الأدنى للنسخ عند هذا المتداول: ${Number(provider.min_copy_amount).toLocaleString("en-US")}</span>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <span className="rounded-full border border-accent/40 bg-accent/10 px-2.5 py-1 text-xs font-semibold text-accent">
+            الحد الأدنى للنسخ عند هذا المتداول: ${Number(provider.min_copy_amount).toLocaleString("en-US")}
+          </span>
           {user && (
-            <span>
+            <span className="text-xs text-muted">
               رصيدك المتاح: {myProfile?.balance != null ? `$${Number(myProfile.balance).toLocaleString("en-US", { maximumFractionDigits: 2 })}` : "—"}
             </span>
           )}

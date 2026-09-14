@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { signup } from "@/app/auth/actions";
 import { isValidEmailFormat, isValidPhoneForCountry, isPhoneStillTooShort, stripTrunkZero } from "@/lib/validate-signup";
 
@@ -169,14 +168,13 @@ export function SignupForm({ next }: { next?: string | null }) {
   const [confirm, setConfirm] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-  const [agreed, setAgreed] = useState(false);
 
   const mismatch = confirm.length > 0 && password !== confirm;
   const emailValid = isValidEmailFormat(email);
   const phoneValid = isValidPhoneForCountry(nationalNumber, country.iso);
   const phoneStillTyping = isPhoneStillTooShort(nationalNumber, country.iso);
   const showPhoneError = phoneTouched && nationalNumber.length > 0 && !phoneStillTyping && !phoneValid;
-  const canSubmit = agreed && password.length >= 6 && !mismatch && emailValid && phoneValid;
+  const canSubmit = password.length >= 6 && !mismatch && emailValid && phoneValid;
 
   return (
     <form action={signup} className="flex flex-col gap-3">
@@ -298,27 +296,6 @@ export function SignupForm({ next }: { next?: string | null }) {
         </button>
       </div>
       {mismatch && <p className="text-xs text-danger">كلمتا المرور غير متطابقتين.</p>}
-
-      <label className="flex items-start gap-2 text-xs text-muted">
-        <input
-          type="checkbox"
-          required
-          checked={agreed}
-          onChange={(e) => setAgreed(e.target.checked)}
-          className="mt-0.5 h-3.5 w-3.5 shrink-0 accent-accent"
-        />
-        <span>
-          أوافق على{" "}
-          <Link href="/legal/terms" className="underline">
-            الشروط والأحكام
-          </Link>{" "}
-          و{" "}
-          <Link href="/legal/privacy" className="underline">
-            سياسة الخصوصية
-          </Link>
-          .
-        </span>
-      </label>
 
       <button
         type="submit"

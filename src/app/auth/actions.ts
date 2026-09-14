@@ -154,7 +154,9 @@ export async function chooseAccountType(formData: FormData) {
   if (!user) redirect(next ? `/login?next=${encodeURIComponent(next)}` : "/login");
 
   const accountType = formData.get("accountType") === "real" ? "real" : "demo";
-  const balance = accountType === "real" ? 0 : 1000;
+  // High enough to clear the min_copy_amount of nearly every leader on the
+  // platform, so a demo account isn't blocked from copying almost anyone.
+  const balance = accountType === "real" ? 0 : 10000;
 
   await supabase.from("profiles").update({ account_type: accountType, balance, onboarding_completed: true }).eq("id", user.id);
   // Switching account type resets the balance to a fresh start — any copy
