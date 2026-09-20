@@ -658,6 +658,9 @@ export default async function Home() {
               <Link href={FOOTER_LEGAL_HREFS[1]} className="text-muted hover:text-foreground">
                 {t("footer.privacy")}
               </Link>
+              <Link href="/support" className="text-muted hover:text-foreground">
+                {t("footer.support")}
+              </Link>
             </div>
           </div>
         </div>

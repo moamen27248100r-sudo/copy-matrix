@@ -3,7 +3,6 @@ import { IBM_Plex_Sans_Arabic, IBM_Plex_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
-import { SupportChatWidget } from "@/components/SupportChatWidget";
 import { ImpersonationBanner } from "@/components/ImpersonationBanner";
 import "./globals.css";
 
@@ -48,7 +47,6 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <ImpersonationBanner />
           {children}
-          <SupportChatWidget />
         </NextIntlClientProvider>
       </body>
     </html>
