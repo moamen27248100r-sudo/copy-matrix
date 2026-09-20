@@ -19,6 +19,7 @@ import { pinTopLeaders } from "@/lib/pin-top-leaders";
 import { simulatedCopyUsers, simulatedActiveTraders } from "@/lib/simulated-growth";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/Logo";
+import { TryCopySection } from "@/components/TryCopySection";
 import type { Locale } from "@/i18n/locales";
 import type { ReactNode } from "react";
 
@@ -94,6 +95,10 @@ const TRUST_BADGES: TrustBadge[] = [
   { icon: "headset", colorClass: "text-brand", bgClass: "bg-brand/10", titleKey: "trustStrip.supportTitle", labelKey: "trustStrip.supportDesc" },
 ];
 
+// Matches the balance every new demo account actually starts with
+// (src/app/auth/actions.ts chooseAccountType).
+const DEMO_START_BALANCE = 10000;
+
 const NAV_HASHES = ["how-it-works", "traders", "markets", "faq"] as const;
 
 const FOOTER_LEGAL_HREFS = ["/legal/terms", "/legal/privacy"] as const;
@@ -114,6 +119,15 @@ export default async function Home() {
     .limit(10);
 
   const topProviders = rawTopProviders ? pinTopLeaders(rawTopProviders).slice(0, 3) : rawTopProviders;
+
+  // Real leaders for the "try copy trading" mockup card -- same ranking as
+  // the top-traders section, just five bars instead of three cards.
+  const tryCopyLeaders = (rawTopProviders ? pinTopLeaders(rawTopProviders).slice(0, 5) : [])
+    .filter((p) => p.avg_daily_return_pct != null && Number(p.avg_daily_return_pct) > 0)
+    .map((p) => ({
+      name: String(p.display_name ?? "").trim().split(" ")[0] || "?",
+      returnPct: Number(p.avg_daily_return_pct),
+    }));
 
   // Aggregated entirely in SQL across the full table — a plain
   // select() from provider_cards caps at Supabase's default 1,000-row
@@ -316,6 +330,21 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {t.has("tryCopy.title") && tryCopyLeaders.length >= 3 && (
+        <TryCopySection
+          title={t("tryCopy.title")}
+          description={t("tryCopy.description")}
+          cta={t("tryCopy.cta")}
+          ctaHref="/signup"
+          badgeLabel={t("tryCopy.badge")}
+          cardWelcome={t("tryCopy.cardWelcome")}
+          cardPortfolioLabel={t("tryCopy.cardPortfolioLabel")}
+          cardTopLabel={t("tryCopy.cardTopLabel")}
+          portfolioValue={DEMO_START_BALANCE}
+          leaders={tryCopyLeaders}
+        />
+      )}
 
       {topProviders && topProviders.length > 0 && (
         <section id="traders" className="flex flex-col gap-6 border-t border-border px-6 py-16">
