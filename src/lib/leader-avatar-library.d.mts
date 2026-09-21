@@ -1,1 +1,1 @@
-export const REAL_LEADER_AVATARS: string[];
+export const AI_TECH_AVATARS: string[];

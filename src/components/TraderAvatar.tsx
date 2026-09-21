@@ -1,4 +1,4 @@
-// Leader avatar: a clean circle with an optional level badge in the bottom
+// Leader avatar: a clean circle with an optional level badge (off by default; pass showLevel) in the bottom
 // corner. Uses the leader's own picture (providers.avatar_url -- an uploaded
 // image or the seeded generated one) and falls back to the generated avatar
 // for the id, so a leader is never shown as an empty circle.
@@ -27,7 +27,7 @@ export function TraderAvatar({
   avatarUrl,
   ratingScore,
   size = 40,
-  showLevel = true,
+  showLevel = false,
   priority = false,
   className = "",
 }: {
