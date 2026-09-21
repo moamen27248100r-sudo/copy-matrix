@@ -339,8 +339,3 @@ export function generateAvatarSvg(seed: string): string {
   const body = pick(rng, MARKS)(rng);
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">${body}</svg>`;
 }
-
-// The avatar route is cached for a year, so the URL carries a version: bump
-// it whenever the artwork changes so browsers and the CDN fetch the new set.
-export const AVATAR_VERSION = 2;
-export const defaultAvatarUrl = (providerId: string) => `/api/avatar/${providerId}?v=${AVATAR_VERSION}`;

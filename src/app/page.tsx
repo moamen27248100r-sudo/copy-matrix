@@ -4,7 +4,7 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { MarketOverview } from "@/components/MarketOverview";
 import { MarketNewsFeed } from "@/components/MarketNewsFeed";
-import { leaderLevel } from "@/components/TraderAvatar";
+import { leaderLevel } from "@/lib/leader-level";
 import {
   LiveStatsProvider,
   LiveActiveTraders,
@@ -20,7 +20,7 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/Logo";
 import { TryCopySection } from "@/components/TryCopySection";
 import type { Locale } from "@/i18n/locales";
-import { defaultAvatarUrl } from "@/lib/avatar-svg";
+import { defaultAvatarUrl } from "@/lib/avatar-url";
 import type { ReactNode } from "react";
 
 export const dynamic = "force-dynamic";

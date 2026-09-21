@@ -9,7 +9,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { defaultAvatarUrl } from "@/lib/avatar-svg";
+import { defaultAvatarUrl } from "@/lib/avatar-url";
+import { leaderLevel } from "@/lib/leader-level";
 
 const LEVEL_STYLES: Record<number, string> = {
   1: "bg-slate-500 text-white",
@@ -19,13 +20,6 @@ const LEVEL_STYLES: Record<number, string> = {
   5: "bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white",
 };
 
-// rating_score is 0-100; 20 points per level.
-export function leaderLevel(ratingScore: number | string | null | undefined): number | null {
-  if (ratingScore == null) return null;
-  const n = Number(ratingScore);
-  if (!Number.isFinite(n)) return null;
-  return Math.min(5, Math.max(1, Math.ceil(n / 20)));
-}
 
 export function TraderAvatar({
   providerId,

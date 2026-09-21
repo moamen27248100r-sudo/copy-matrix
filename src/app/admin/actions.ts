@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
-import { defaultAvatarUrl } from "@/lib/avatar-svg";
+import { defaultAvatarUrl } from "@/lib/avatar-url";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { IMPERSONATION_COOKIE } from "@/lib/impersonation";
