@@ -283,10 +283,25 @@ export default async function TraderPage({
         {provider.bio && <p className="text-sm text-muted">{provider.bio}</p>}
 
         {recentCopiers && recentCopiers.length > 0 && (
-          <div className="flex flex-col gap-3">
-            <h2 className="font-medium">قائمة الناسخين ({provider.followers_count})</h2>
-            <RecentCopiersList copiers={recentCopiers} providerId={id} />
-          </div>
+          <details className="group rounded-lg border border-accent/40 bg-accent/10">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-semibold text-accent transition hover:bg-accent/15 [&::-webkit-details-marker]:hidden">
+              <span className="flex items-center gap-2">
+                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+                قائمة الناسخين ({provider.followers_count})
+              </span>
+              <svg viewBox="0 0 24 24" className="h-4 w-4 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </summary>
+            <div className="border-t border-accent/30 p-3">
+              <RecentCopiersList copiers={recentCopiers} providerId={id} />
+            </div>
+          </details>
         )}
 
         <div id="copy" className="flex flex-col gap-3 rounded-lg border border-border bg-background p-3 scroll-mt-20">
