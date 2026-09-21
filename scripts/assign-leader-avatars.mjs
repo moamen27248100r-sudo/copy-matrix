@@ -8,7 +8,7 @@
 // Usage: node scripts/assign-leader-avatars.mjs [--dry-run]
 import { Client } from "pg";
 import { config } from "dotenv";
-import { AI_TECH_AVATARS } from "../src/lib/leader-avatar-library.mjs";
+import { AI_TECH_AVATARS, PERSON_AVATARS } from "../src/lib/leader-avatar-library.mjs";
 config({ path: ".env.local" });
 
 const dryRun = process.argv.includes("--dry-run");
@@ -64,9 +64,14 @@ const { rows: top } = await client.query(
 );
 const featuredIds = pinTopLeaders(top).slice(0, FEATURED).map((f) => f.id);
 
-const liveFlags = await Promise.all(AI_TECH_AVATARS.map(isLive));
-const pool = shuffle(AI_TECH_AVATARS.filter((_, i) => liveFlags[i]));
-console.log(`${pool.length}/${AI_TECH_AVATARS.length} images live`);
+const liveOnly = async (list) => {
+  const flags = await Promise.all(list.map(isLive));
+  return list.filter((_, i) => flags[i]);
+};
+const [techLive, peopleLive] = await Promise.all([liveOnly(AI_TECH_AVATARS), liveOnly(PERSON_AVATARS)]);
+// pop() takes from the end, so the portraits (last) reach the featured leaders first.
+const pool = [...shuffle(techLive), ...shuffle(peopleLive)];
+console.log(`${pool.length}/${AI_TECH_AVATARS.length + PERSON_AVATARS.length} images live (${peopleLive.length} portraits)`);
 
 const chart = (id) => `/api/avatar/${id}?v=${VERSION}`;
 const initials = (id) => `/api/avatar/${id}?v=${VERSION}&k=i`;
