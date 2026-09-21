@@ -4,7 +4,7 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { MarketOverview } from "@/components/MarketOverview";
 import { MarketNewsFeed } from "@/components/MarketNewsFeed";
-import { TraderAvatar } from "@/components/TraderAvatar";
+import { leaderLevel } from "@/lib/leader-level";
 import {
   LiveStatsProvider,
   LiveActiveTraders,
@@ -366,23 +366,23 @@ export default async function Home() {
                   className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-surface transition hover:border-success/40 hover:shadow-xl"
                 >
                   <Link href={`/trader/${p.provider_id}`} className="relative block aspect-[4/3] w-full shrink-0 overflow-hidden bg-gradient-to-br from-accent/20 to-brand/20">
-                    {/* Leader picture: uploaded or generated (src/lib/avatar-svg.ts), never a
-                        real person's photo. Blurred copy as the backdrop, the crisp round
-                        avatar with its level badge on top. */}
+                    {/* Leader picture: uploaded or seeded/generated (src/lib/avatar-svg.ts),
+                        never a real person's photo */}
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={p.avatar_url || defaultAvatarUrl(p.provider_id)}
-                      alt=""
-                      aria-hidden="true"
+                      alt={p.display_name ?? ""}
                       width={400}
                       height={300}
                       loading="lazy"
                       decoding="async"
-                      className="h-full w-full scale-125 object-cover opacity-60 blur-2xl"
+                      className="h-full w-full object-cover"
                     />
-                    <div className="absolute inset-x-0 top-3 z-10 flex justify-center">
-                      <TraderAvatar providerId={p.provider_id} name={p.display_name} avatarUrl={p.avatar_url} ratingScore={p.rating_score} size={68} />
-                    </div>
+                    {leaderLevel(p.rating_score) != null && (
+                      <span className="absolute end-3 top-3 rounded-full bg-black/55 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+                        المستوى {leaderLevel(p.rating_score)}
+                      </span>
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
                     <div className="absolute inset-x-0 bottom-0 flex flex-col gap-1.5 p-4">
                       <div className="flex items-center gap-2">
