@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { logout, chooseAccountType } from "@/app/auth/actions";
+import { ConfirmButton } from "@/components/ConfirmButton";
 import { useNavDrawer } from "@/components/nav-drawer-context";
 import { useBodyScrollLock } from "@/lib/use-body-scroll-lock";
 
@@ -14,33 +15,22 @@ const ACCOUNT_TYPE_OPTIONS: { key: AccountType; label: string; dot: string }[] =
   { key: "demo", label: "الحساب التجريبي", dot: "bg-accent" },
 ];
 
-const TRADING_ITEMS = [
+const SWITCH_WARNING =
+  "التبديل بين الحساب الحقيقي والتجريبي يعيد ضبط الرصيد ويوقف النسخ الحالي. هل تريد المتابعة؟";
+
+type NavItem = { href: string; label: string; icon: ReactNode };
+
+// Every destination appears exactly once in this menu. The wallet balance
+// card at the top is the entry to the portfolio overview, so there is no
+// separate "overview" item; deposit and withdraw point at their own pages.
+const MAIN_ITEMS: NavItem[] = [
   {
-    href: "/dashboard#accounts",
-    label: "الحسابات",
+    href: "/dashboard",
+    label: "الرئيسية",
     icon: (
       <>
-        <rect x="2" y="5" width="20" height="14" rx="2" />
-        <path d="M2 10h20" />
-      </>
-    ),
-  },
-  {
-    href: "/portfolio",
-    label: "الأداء",
-    icon: (
-      <>
-        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-      </>
-    ),
-  },
-  {
-    href: "/portfolio?tab=positions",
-    label: "سجل الأوامر",
-    icon: (
-      <>
-        <path d="M9 11l3 3L22 4" />
-        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+        <path d="M3 11l9-8 9 8" />
+        <path d="M5 10v10h14V10" />
       </>
     ),
   },
@@ -66,24 +56,21 @@ const TRADING_ITEMS = [
   },
 ];
 
-const PAYMENT_ITEMS = [
+const ACTIVE_COPY_ICON = (
+  <>
+    <rect x="9" y="9" width="12" height="12" rx="2" />
+    <path d="M5 15V5a2 2 0 0 1 2-2h10" />
+  </>
+);
+
+const WALLET_ITEMS: NavItem[] = [
   {
-    href: "/portfolio#wallet",
-    label: "إيداع",
+    href: "/portfolio?tab=positions",
+    label: "صفقاتي",
     icon: (
       <>
-        <path d="M12 19V5" />
-        <path d="M5 12l7 7 7-7" />
-      </>
-    ),
-  },
-  {
-    href: "/portfolio#wallet",
-    label: "سحب",
-    icon: (
-      <>
-        <path d="M12 5v14" />
-        <path d="M5 12l7-7 7 7" />
+        <path d="M9 11l3 3L22 4" />
+        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
       </>
     ),
   },
@@ -98,18 +85,29 @@ const PAYMENT_ITEMS = [
       </>
     ),
   },
-];
-
-const ACCOUNT_ITEMS = [
   {
-    href: null,
-    label: "مركز الدعم",
+    href: "/portfolio/deposit",
+    label: "إيداع",
     icon: (
       <>
-        <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z" />
+        <path d="M12 5v14" />
+        <path d="M5 12l7 7 7-7" />
       </>
     ),
   },
+  {
+    href: "/portfolio/withdraw",
+    label: "سحب",
+    icon: (
+      <>
+        <path d="M12 19V5" />
+        <path d="M5 12l7-7 7 7" />
+      </>
+    ),
+  },
+];
+
+const ACCOUNT_ITEMS: NavItem[] = [
   {
     href: "/kyc",
     label: "توثيق الهوية",
@@ -130,9 +128,23 @@ const ACCOUNT_ITEMS = [
       </>
     ),
   },
+  {
+    href: "/support",
+    label: "مركز الدعم",
+    icon: (
+      <>
+        <circle cx="12" cy="12" r="10" />
+        <circle cx="12" cy="12" r="4" />
+        <line x1="4.93" y1="4.93" x2="9.17" y2="9.17" />
+        <line x1="14.83" y1="14.83" x2="19.07" y2="19.07" />
+        <line x1="14.83" y1="9.17" x2="19.07" y2="4.93" />
+        <line x1="4.93" y1="19.07" x2="9.17" y2="14.83" />
+      </>
+    ),
+  },
 ];
 
-const ADMIN_ITEM = {
+const ADMIN_ITEM: NavItem = {
   href: "/admin",
   label: "لوحة الإدارة",
   icon: (
@@ -151,35 +163,6 @@ function WalletIcon() {
     <svg viewBox="0 0 24 24" className="h-5 w-5 text-accent" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M21 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-1" />
       <path d="M21 12H15a2 2 0 0 0 0 4h6z" />
-    </svg>
-  );
-}
-
-function CandlestickIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      className="h-6 w-6 shrink-0 text-muted"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <g transform="translate(12 12) scale(1.15) translate(-12 -12)">
-        <line x1="6" y1="2" x2="6" y2="4" />
-        <rect x="3.2" y="4" width="5.6" height="9" rx="0.75" />
-        <line x1="6" y1="13" x2="6" y2="15" />
-
-        <line x1="12" y1="5" x2="12" y2="8" />
-        <rect x="9.2" y="8" width="5.6" height="7.5" rx="0.75" />
-        <line x1="12" y1="15.5" x2="12" y2="19" />
-
-        <line x1="18" y1="3" x2="18" y2="5" />
-        <rect x="15.2" y="5" width="5.6" height="9" rx="0.75" />
-        <line x1="18" y1="14" x2="18" y2="16" />
-      </g>
     </svg>
   );
 }
@@ -210,25 +193,6 @@ function CheckCircleIcon() {
   );
 }
 
-function PaymentsIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      className="h-6 w-6 shrink-0 text-muted"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <rect x="2.5" y="6" width="19" height="13" rx="2" />
-      <line x1="2.5" y1="10" x2="21.5" y2="10" />
-      <line x1="6" y1="14.5" x2="10" y2="14.5" />
-    </svg>
-  );
-}
-
 // Masks the local part of an email for privacy: "delta126@gmail.com" -> "d****6@gmail.com".
 function maskEmail(email: string): string {
   const [local, domain] = email.split("@");
@@ -255,7 +219,6 @@ export function MainMenu({
   const { open, toggle, close } = useNavDrawer("menu");
   const panelRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
-  const [paymentsOpen, setPaymentsOpen] = useState(true);
   const [accountSwitcherOpen, setAccountSwitcherOpen] = useState(false);
   const [hash, setHash] = useState("");
   const [search, setSearch] = useState("");
@@ -277,7 +240,15 @@ export function MainMenu({
     return () => window.removeEventListener("hashchange", onHashChange);
   }, [pathname]);
 
+  const mainItems: NavItem[] = activeCopyProviderId
+    ? [
+        MAIN_ITEMS[0],
+        { href: `/trader/${activeCopyProviderId}`, label: "النسخ النشط", icon: ACTIVE_COPY_ICON },
+        ...MAIN_ITEMS.slice(1),
+      ]
+    : MAIN_ITEMS;
   const accountItems = isAdmin ? [...ACCOUNT_ITEMS, ADMIN_ITEM] : ACCOUNT_ITEMS;
+  const currentAccount = ACCOUNT_TYPE_OPTIONS.find((o) => o.key === accountType);
 
   const isActive = (href: string) => {
     const [pathAndQuery, hashPart] = href.split("#");
@@ -287,6 +258,40 @@ export function MainMenu({
     if (query) return search === query;
     return !hash && !search;
   };
+
+  const renderItems = (items: NavItem[]) => (
+    <div className="flex flex-col pb-1">
+      {items.map((item) => {
+        const active = isActive(item.href);
+        return (
+          <Link
+            key={item.href}
+            href={item.href}
+            onClick={close}
+            className={
+              active
+                ? "flex items-center gap-3 bg-accent/10 px-4 py-2.5 text-sm text-accent"
+                : "flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background"
+            }
+          >
+            <svg
+              viewBox="0 0 24 24"
+              className={active ? "h-4 w-4 shrink-0" : "h-4 w-4 shrink-0 text-muted"}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              {item.icon}
+            </svg>
+            <span className="flex-1">{item.label}</span>
+          </Link>
+        );
+      })}
+    </div>
+  );
 
   return (
     <>
@@ -320,179 +325,103 @@ export function MainMenu({
             : "fixed top-14 bottom-0 right-0 z-40 flex w-[65%] max-w-xs translate-x-full flex-col overflow-y-auto bg-surface shadow-xl transition-transform duration-300 ease-out sm:top-16"
         }
       >
-            <button
-              type="button"
-              onClick={() => setAccountSwitcherOpen((v) => !v)}
-              aria-label="تبديل نوع الحساب"
-              className="flex w-full items-center justify-between gap-2 border-b border-border px-4 py-3"
-            >
-              <div className="flex min-w-0 items-center gap-2">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-background text-muted">
-                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <circle cx="12" cy="8" r="4" />
-                    <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" />
-                  </svg>
-                </span>
-                <span className="truncate text-sm font-medium" dir="ltr">
-                  {email ? maskEmail(email) : "—"}
-                </span>
-              </div>
-              <ChevronIcon open={accountSwitcherOpen} />
-            </button>
-
-            {accountSwitcherOpen && (
-              <div className="flex flex-col border-b border-border">
-                {ACCOUNT_TYPE_OPTIONS.map((opt) =>
-                  accountType === opt.key ? (
-                    <div key={opt.key} className="flex items-center gap-3 bg-background/60 px-4 py-3 text-sm">
-                      <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${opt.dot}`} aria-hidden="true" />
-                      <span className="flex-1 font-medium">{opt.label}</span>
-                      <CheckCircleIcon />
-                    </div>
-                  ) : (
-                    <form key={opt.key} action={chooseAccountType}>
-                      <input type="hidden" name="accountType" value={opt.key} />
-                      <input type="hidden" name="next" value={pathname} />
-                      <button
-                        type="submit"
-                        className="flex w-full items-center gap-3 px-4 py-3 text-sm text-muted transition hover:bg-background hover:text-foreground"
-                      >
-                        <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${opt.dot} opacity-40`} aria-hidden="true" />
-                        <span className="flex-1 text-start">{opt.label}</span>
-                      </button>
-                    </form>
-                  ),
-                )}
-              </div>
-            )}
-
-            <Link
-              href="/portfolio"
-              onClick={close}
-              className="flex flex-col gap-1 border-b border-border px-4 py-4"
-            >
-              <div className="flex items-center gap-2">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/10">
-                  <WalletIcon />
-                </span>
-                <span className="text-base font-medium" dir="ltr">
-                  {balance != null
-                    ? `USD ${Number(balance).toLocaleString("en-US", { maximumFractionDigits: 2 })}`
-                    : "—"}
-                </span>
-              </div>
-              <span className="text-xs text-muted">الرصيد المتاح</span>
-            </Link>
-
-            <Link
-              href={activeCopyProviderId ? `/trader/${activeCopyProviderId}` : "/discover"}
-              onClick={close}
-              className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background"
-            >
-              <CandlestickIcon />
-              <span className="flex-1 text-start">النسخ النشط</span>
-            </Link>
-            <div className="flex flex-col pb-2">
-              {TRADING_ITEMS.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={close}
-                    className={
-                      isActive(item.href)
-                        ? "flex items-center gap-3 bg-accent/10 px-4 py-2.5 text-sm text-accent"
-                        : "flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background"
-                    }
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      className={isActive(item.href) ? "h-4 w-4 shrink-0" : "h-4 w-4 shrink-0 text-muted"}
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      {item.icon}
-                    </svg>
-                    {item.label}
-                  </Link>
-                ))}
-            </div>
-
-            <div className="border-t border-border" />
-
-            <button
-              type="button"
-              onClick={() => setPaymentsOpen((v) => !v)}
-              className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background"
-            >
-              <PaymentsIcon />
-              <span className="flex-1 text-start">المدفوعات والمحفظة</span>
-              <ChevronIcon open={paymentsOpen} />
-            </button>
-            {paymentsOpen && (
-              <div className="flex flex-col pb-2">
-                {PAYMENT_ITEMS.map((item) => (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    onClick={close}
-                    className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background"
-                  >
-                    <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      {item.icon}
-                    </svg>
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            )}
-
-            <div className="border-t border-border" />
-
-            <SectionLabel>الحساب</SectionLabel>
-            <div className="flex flex-col pb-2">
-              {accountItems.map((item) =>
-                item.href ? (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    onClick={close}
-                    className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background"
-                  >
-                    <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      {item.icon}
-                    </svg>
-                    <span className="flex-1">{item.label}</span>
-                  </Link>
-                ) : (
-                  <div key={item.label} className="flex items-center gap-3 px-4 py-2.5 text-sm text-muted">
-                    <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      {item.icon}
-                    </svg>
-                    <span className="flex-1">{item.label}</span>
-                  </div>
-                ),
+        <button
+          type="button"
+          onClick={() => setAccountSwitcherOpen((v) => !v)}
+          aria-label="تبديل نوع الحساب"
+          className="flex w-full items-center justify-between gap-2 border-b border-border px-4 py-3"
+        >
+          <div className="flex min-w-0 items-center gap-2">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-background text-muted">
+              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" />
+              </svg>
+            </span>
+            <div className="min-w-0 text-start">
+              <p className="truncate text-sm font-medium" dir="ltr">
+                {email ? maskEmail(email) : "—"}
+              </p>
+              {currentAccount && (
+                <p className="flex items-center gap-1.5 text-xs text-muted">
+                  <span className={`h-2 w-2 shrink-0 rounded-full ${currentAccount.dot}`} aria-hidden="true" />
+                  {currentAccount.label}
+                </p>
               )}
             </div>
+          </div>
+          <ChevronIcon open={accountSwitcherOpen} />
+        </button>
 
-            <div className="mt-auto border-t border-border">
-              <form action={logout}>
-                <button
-                  type="submit"
-                  className="flex w-full items-center gap-3 px-4 py-3.5 text-sm text-danger hover:bg-background"
-                >
-                  <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                    <path d="M16 17l5-5-5-5" />
-                    <path d="M21 12H9" />
-                  </svg>
-                  تسجيل الخروج
-                </button>
-              </form>
-            </div>
+        {accountSwitcherOpen && (
+          <div className="flex flex-col border-b border-border">
+            {ACCOUNT_TYPE_OPTIONS.map((opt) =>
+              accountType === opt.key ? (
+                <div key={opt.key} className="flex items-center gap-3 bg-background/60 px-4 py-3 text-sm">
+                  <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${opt.dot}`} aria-hidden="true" />
+                  <span className="flex-1 font-medium">{opt.label}</span>
+                  <CheckCircleIcon />
+                </div>
+              ) : (
+                <form key={opt.key} action={chooseAccountType}>
+                  <input type="hidden" name="accountType" value={opt.key} />
+                  <input type="hidden" name="next" value={pathname} />
+                  <ConfirmButton
+                    confirmText={SWITCH_WARNING}
+                    className="flex w-full items-center gap-3 px-4 py-3 text-sm text-muted transition hover:bg-background hover:text-foreground"
+                  >
+                    <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${opt.dot} opacity-40`} aria-hidden="true" />
+                    <span className="flex-1 text-start">{opt.label}</span>
+                  </ConfirmButton>
+                </form>
+              ),
+            )}
+          </div>
+        )}
+
+        <Link
+          href="/portfolio"
+          onClick={close}
+          className="flex flex-col gap-1 border-b border-border px-4 py-4 hover:bg-background"
+        >
+          <div className="flex items-center gap-2">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/10">
+              <WalletIcon />
+            </span>
+            <span className="text-base font-medium" dir="ltr">
+              {balance != null
+                ? `USD ${Number(balance).toLocaleString("en-US", { maximumFractionDigits: 2 })}`
+                : "—"}
+            </span>
+          </div>
+          <span className="text-xs text-muted">الرصيد المتاح · افتح المحفظة</span>
+        </Link>
+
+        <div className="pt-2">{renderItems(mainItems)}</div>
+
+        <div className="border-t border-border" />
+        <SectionLabel>المحفظة</SectionLabel>
+        {renderItems(WALLET_ITEMS)}
+
+        <div className="border-t border-border" />
+        <SectionLabel>الحساب</SectionLabel>
+        {renderItems(accountItems)}
+
+        <div className="mt-auto border-t border-border">
+          <form action={logout}>
+            <button
+              type="submit"
+              className="flex w-full items-center gap-3 px-4 py-3.5 text-sm text-danger hover:bg-background"
+            >
+              <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <path d="M16 17l5-5-5-5" />
+                <path d="M21 12H9" />
+              </svg>
+              تسجيل الخروج
+            </button>
+          </form>
+        </div>
       </div>
     </>
   );
