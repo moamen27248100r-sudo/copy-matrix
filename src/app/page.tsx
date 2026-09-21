@@ -4,7 +4,8 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { MarketOverview } from "@/components/MarketOverview";
 import { MarketNewsFeed } from "@/components/MarketNewsFeed";
-import { leaderLevel } from "@/lib/leader-level";
+import { TraderAvatar } from "@/components/TraderAvatar";
+import { Sparkline } from "@/components/Sparkline";
 import {
   LiveStatsProvider,
   LiveActiveTraders,
@@ -20,7 +21,6 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/Logo";
 import { TryCopySection } from "@/components/TryCopySection";
 import type { Locale } from "@/i18n/locales";
-import { defaultAvatarUrl } from "@/lib/avatar-url";
 import type { ReactNode } from "react";
 
 export const dynamic = "force-dynamic";
@@ -119,6 +119,31 @@ export default async function Home() {
     .limit(10);
 
   const topProviders = rawTopProviders ? pinTopLeaders(rawTopProviders).slice(0, 3) : rawTopProviders;
+
+  // Cumulative return (%) over each featured leader's last closed trades, for
+  // the sparkline on the card -- same per-trade move TraderEquityChart uses.
+  const sparkSeries: Record<string, number[]> = {};
+  await Promise.all(
+    (topProviders ?? []).map(async (p) => {
+      const { data: rows } = await supabase
+        .from("signals")
+        .select("side, entry_price, exit_price, closed_at")
+        .eq("provider_id", p.provider_id)
+        .eq("status", "closed")
+        .eq("created_by_admin", false)
+        .not("exit_price", "is", null)
+        .order("closed_at", { ascending: false })
+        .limit(40);
+      let cumulative = 0;
+      const series = [0];
+      for (const r of (rows ?? []).reverse()) {
+        const raw = (Number(r.exit_price) - Number(r.entry_price)) / Number(r.entry_price);
+        cumulative += (r.side === "sell" ? -raw : raw) * 100;
+        series.push(cumulative);
+      }
+      sparkSeries[String(p.provider_id)] = series;
+    }),
+  );
 
   // Real leaders for the "try copy trading" mockup card -- same ranking as
   // the top-traders section, just five bars instead of three cards.
@@ -363,35 +388,45 @@ export default async function Home() {
               return (
                 <div
                   key={p.provider_id}
-                  className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-surface transition hover:border-success/40 hover:shadow-xl"
+                  className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] shadow-lg shadow-black/20 backdrop-blur-sm transition hover:border-success/40 hover:bg-white/[0.06]"
                 >
-                  <Link href={`/trader/${p.provider_id}`} className="relative block aspect-[4/3] w-full shrink-0 overflow-hidden bg-gradient-to-br from-accent/20 to-brand/20">
-                    {/* Leader picture: uploaded or seeded/generated (src/lib/avatar-svg.ts),
-                        never a real person's photo */}
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={p.avatar_url || defaultAvatarUrl(p.provider_id)}
-                      alt={p.display_name ?? ""}
-                      width={400}
-                      height={300}
-                      loading="lazy"
-                      decoding="async"
-                      className="h-full w-full object-cover"
-                    />
-                    {leaderLevel(p.rating_score) != null && (
-                      <span className="absolute end-3 top-3 rounded-full bg-black/55 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur-sm">
-                        المستوى {leaderLevel(p.rating_score)}
-                      </span>
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
-                    <div className="absolute inset-x-0 bottom-0 flex flex-col gap-1.5 p-4">
-                      <div className="flex items-center gap-2">
-                        <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-success shadow-[0_0_6px_theme(colors.success)]" aria-hidden="true" />
-                        <p className="truncate text-lg font-semibold text-white">{p.display_name}</p>
+                  <div className="flex flex-col gap-4 p-5 pb-0">
+                    <Link href={`/trader/${p.provider_id}`} className="flex items-center gap-3">
+                      <TraderAvatar
+                        providerId={p.provider_id}
+                        name={p.display_name}
+                        avatarUrl={p.avatar_url}
+                        ratingScore={p.rating_score}
+                        size={50}
+                        priority
+                      />
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-base font-semibold">{p.display_name}</p>
+                        {p.bio && <p className="line-clamp-2 text-xs leading-relaxed text-muted">{p.bio}</p>}
                       </div>
-                      {p.bio && <p className="line-clamp-2 text-xs leading-relaxed text-white/75">{p.bio}</p>}
-                    </div>
-                  </Link>
+                    </Link>
+                    {(() => {
+                      const series = sparkSeries[String(p.provider_id)] ?? [];
+                      if (series.length < 3) return null;
+                      const total = series[series.length - 1];
+                      return (
+                        <div className="rounded-xl border border-white/5 bg-black/20 p-3">
+                          <div className="flex items-center justify-between text-[11px] text-muted">
+                            <span>{t.has("traders.recentTrades") ? t("traders.recentTrades") : ""}</span>
+                            <span dir="ltr" className={`font-semibold ${total >= 0 ? "text-success" : "text-danger"}`}>
+                              {total >= 0 ? "+" : ""}
+                              {total.toFixed(1)}%
+                            </span>
+                          </div>
+                          <Sparkline
+                            id={`spark-${p.provider_id}`}
+                            values={series}
+                            className={`mt-2 h-14 w-full ${total >= 0 ? "text-success" : "text-danger"}`}
+                          />
+                        </div>
+                      );
+                    })()}
+                  </div>
                   <div className="flex flex-col gap-3 p-4">
                     <div className="grid grid-cols-2 gap-2.5">
                       <div className="rounded-xl border border-white/10 bg-white/5 p-3 text-center">

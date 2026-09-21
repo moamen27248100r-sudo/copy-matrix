@@ -69,7 +69,8 @@
       "winRate": "Win rate",
       "avgReturn": "Avg. daily return",
       "viewProfile": "View profile",
-      "copy": "Copy"
+      "copy": "Copy",
+      "recentTrades": "Recent trades performance"
     },
     "stats": {
       "title": "Statistics",
