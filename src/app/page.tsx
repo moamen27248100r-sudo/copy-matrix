@@ -20,6 +20,7 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/Logo";
 import { TryCopySection } from "@/components/TryCopySection";
 import type { Locale } from "@/i18n/locales";
+import { defaultAvatarUrl } from "@/lib/avatar-svg";
 import type { ReactNode } from "react";
 
 export const dynamic = "force-dynamic";
@@ -369,7 +370,7 @@ export default async function Home() {
                         never a real person's photo */}
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={p.avatar_url || `/api/avatar/${p.provider_id}`}
+                      src={p.avatar_url || defaultAvatarUrl(p.provider_id)}
                       alt={p.display_name ?? ""}
                       width={400}
                       height={300}

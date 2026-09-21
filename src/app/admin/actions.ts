@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import { defaultAvatarUrl } from "@/lib/avatar-svg";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { IMPERSONATION_COOKIE } from "@/lib/impersonation";
@@ -426,7 +427,7 @@ export async function resetLeaderAvatar(formData: FormData) {
   const { data: current } = await supabase.from("providers").select("avatar_url").eq("id", providerId).single();
   const { error } = await supabase
     .from("providers")
-    .update({ avatar_url: `/api/avatar/${providerId}` })
+    .update({ avatar_url: defaultAvatarUrl(providerId) })
     .eq("id", providerId);
   if (error) {
     redirect("/admin/traders?error=" + encodeURIComponent("تعذّر إعادة الصورة الافتراضية: " + error.message));

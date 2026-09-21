@@ -9,6 +9,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { defaultAvatarUrl } from "@/lib/avatar-svg";
 
 const LEVEL_STYLES: Record<number, string> = {
   1: "bg-slate-500 text-white",
@@ -46,7 +47,7 @@ export function TraderAvatar({
   className?: string;
 }) {
   const level = showLevel ? leaderLevel(ratingScore) : null;
-  const fallback = `/api/avatar/${providerId}`;
+  const fallback = defaultAvatarUrl(providerId);
   const [failed, setFailed] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
@@ -69,7 +70,7 @@ export function TraderAvatar({
         height={size}
         loading={priority ? "eager" : "lazy"}
         decoding="async"
-        className="h-full w-full rounded-full bg-surface object-cover"
+        className="h-full w-full rounded-full bg-surface object-cover ring-1 ring-white/15"
       />
       {level != null && (
         <span
