@@ -92,7 +92,7 @@ export function TryCopySection({
                       className="w-full rounded-t-md bg-gradient-to-t from-success/60 to-success"
                       style={{ height: `${Math.max(12, (l.returnPct / maxReturn) * 88)}px` }}
                     />
-                    <TraderAvatar providerId={l.id} name={l.name} avatarUrl={l.avatarUrl} ratingScore={l.ratingScore} size={32} />
+                    <TraderAvatar providerId={l.id} name={l.name} avatarUrl={l.avatarUrl} ratingScore={l.ratingScore} size={32} showLevel={false} />
                   </div>
                 ))}
               </div>

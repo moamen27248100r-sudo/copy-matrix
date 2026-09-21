@@ -414,7 +414,7 @@ export default async function Home() {
                         <div className="rounded-xl border border-white/5 bg-black/20 p-3">
                           <div className="flex items-center justify-between text-[11px] text-muted">
                             <span>{t.has("traders.recentTrades") ? t("traders.recentTrades") : ""}</span>
-                            <span dir="ltr" className={`font-semibold ${total >= 0 ? "text-brand" : "text-danger"}`}>
+                            <span dir="ltr" className={`font-semibold ${total >= 0 ? "text-profit" : "text-danger"}`}>
                               {total >= 0 ? "+" : ""}
                               {total.toFixed(1)}%
                             </span>
@@ -439,7 +439,7 @@ export default async function Home() {
                           className={
                             p.avg_daily_return_pct != null && p.avg_daily_return_pct < 0
                               ? "text-base font-semibold text-danger"
-                              : "text-base font-semibold text-foreground"
+                              : "text-base font-semibold text-profit"
                           }
                         >
                           {p.avg_daily_return_pct != null ? `${p.avg_daily_return_pct}%` : "—"}
