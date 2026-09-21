@@ -75,7 +75,7 @@ export function TryCopySection({
           <div className="try-copy-float rounded-3xl border border-border bg-background p-5 shadow-2xl shadow-black/40 transition duration-300 hover:border-accent/40 sm:p-6">
             <p className="text-sm font-semibold">{cardWelcome}</p>
             <p className="mt-3 text-xs text-muted">{cardPortfolioLabel}</p>
-            <p className="text-4xl font-bold text-accent" dir="ltr">
+            <p className="text-4xl font-bold text-foreground" dir="ltr">
               ${portfolioValue.toLocaleString("en-US")}
             </p>
             <p className="text-xs text-success" dir="ltr">
