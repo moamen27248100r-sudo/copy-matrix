@@ -20,7 +20,9 @@ const SWITCH_WARNING =
 
 type NavItem = { href: string; label: string; icon: ReactNode };
 
-// Every destination appears exactly once in this menu. The wallet balance
+// Each destination appears once, except "النسخ النشط", which is
+// deliberately always shown and falls back to /discover when nothing is
+// being copied. The wallet balance
 // card at the top is the entry to the portfolio overview, so there is no
 // separate "overview" item; deposit and withdraw point at their own pages.
 const MAIN_ITEMS: NavItem[] = [
@@ -240,13 +242,17 @@ export function MainMenu({
     return () => window.removeEventListener("hashchange", onHashChange);
   }, [pathname]);
 
-  const mainItems: NavItem[] = activeCopyProviderId
-    ? [
-        MAIN_ITEMS[0],
-        { href: `/trader/${activeCopyProviderId}`, label: "النسخ النشط", icon: ACTIVE_COPY_ICON },
-        ...MAIN_ITEMS.slice(1),
-      ]
-    : MAIN_ITEMS;
+  // Always present: opens the leader being copied, or -- with no active
+  // copy -- sends the customer to browse leaders so they can start one.
+  const mainItems: NavItem[] = [
+    MAIN_ITEMS[0],
+    {
+      href: activeCopyProviderId ? `/trader/${activeCopyProviderId}` : "/discover",
+      label: "النسخ النشط",
+      icon: ACTIVE_COPY_ICON,
+    },
+    ...MAIN_ITEMS.slice(1),
+  ];
   const accountItems = isAdmin ? [...ACCOUNT_ITEMS, ADMIN_ITEM] : ACCOUNT_ITEMS;
   const currentAccount = ACCOUNT_TYPE_OPTIONS.find((o) => o.key === accountType);
 
@@ -265,7 +271,7 @@ export function MainMenu({
         const active = isActive(item.href);
         return (
           <Link
-            key={item.href}
+            key={item.label}
             href={item.href}
             onClick={close}
             className={

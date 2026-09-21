@@ -335,6 +335,14 @@ export default async function TraderPage({
                 لتتمكن من نسخ {provider.display_name}.
               </p>
             </div>
+          ) : isFollowing ? (
+            <p className="flex items-center gap-2 text-sm">
+              <span className="h-2 w-2 shrink-0 rounded-full bg-success" aria-hidden="true" />
+              أنت تنسخ هذا المتداول بمبلغ{" "}
+              <span className="font-semibold" dir="ltr">
+                ${Number(mySub?.allocated_amount ?? 0).toLocaleString("en-US")}
+              </span>
+            </p>
           ) : (
           <form action={followProvider} className="flex flex-wrap items-center gap-3">
             <input type="hidden" name="providerId" value={id} />
@@ -345,7 +353,7 @@ export default async function TraderPage({
                 type="number"
                 step="any"
                 min={0}
-                defaultValue={mySub?.allocated_amount ?? myProfile?.balance ?? provider.min_copy_amount}
+                defaultValue={myProfile?.balance ?? provider.min_copy_amount}
                 required
                 className="w-28 rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground"
               />
@@ -354,7 +362,7 @@ export default async function TraderPage({
               type="submit"
               className="rounded bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
             >
-              {isFollowing ? "تحديث الإعدادات" : "نسخ"}
+              نسخ
             </button>
           </form>
           )}
