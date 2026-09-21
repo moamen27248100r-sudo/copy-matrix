@@ -18,7 +18,9 @@ const ACCOUNT_TYPE_OPTIONS: { key: AccountType; label: string; dot: string }[] =
 const SWITCH_WARNING =
   "التبديل بين الحساب الحقيقي والتجريبي يعيد ضبط الرصيد ويوقف النسخ الحالي. هل تريد المتابعة؟";
 
-type NavItem = { href: string; label: string; icon: ReactNode };
+// neverActive: never highlight this entry as the current page (it can share
+// a href with another entry).
+type NavItem = { href: string; label: string; icon: ReactNode; neverActive?: boolean };
 
 // Each destination appears once, except "النسخ النشط", which is
 // deliberately always shown and falls back to /discover when nothing is
@@ -250,6 +252,7 @@ export function MainMenu({
       href: activeCopyProviderId ? `/trader/${activeCopyProviderId}` : "/discover",
       label: "النسخ النشط",
       icon: ACTIVE_COPY_ICON,
+      neverActive: !activeCopyProviderId,
     },
     ...MAIN_ITEMS.slice(1),
   ];
@@ -268,7 +271,7 @@ export function MainMenu({
   const renderItems = (items: NavItem[]) => (
     <div className="flex flex-col pb-1">
       {items.map((item) => {
-        const active = isActive(item.href);
+        const active = !item.neverActive && isActive(item.href);
         return (
           <Link
             key={item.label}
@@ -276,22 +279,30 @@ export function MainMenu({
             onClick={close}
             className={
               active
-                ? "flex items-center gap-3 bg-accent/10 px-4 py-2.5 text-sm text-accent"
-                : "flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background"
+                ? "flex items-center gap-3 bg-accent/10 px-4 py-1.5 text-[15px] font-semibold text-accent"
+                : "flex items-center gap-3 px-4 py-1.5 text-[15px] font-medium text-foreground transition hover:bg-background"
             }
           >
-            <svg
-              viewBox="0 0 24 24"
-              className={active ? "h-4 w-4 shrink-0" : "h-4 w-4 shrink-0 text-muted"}
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
+            <span
+              className={
+                active
+                  ? "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-accent/15"
+                  : "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-background/70 text-foreground/80"
+              }
             >
-              {item.icon}
-            </svg>
+              <svg
+                viewBox="0 0 24 24"
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                {item.icon}
+              </svg>
+            </span>
             <span className="flex-1">{item.label}</span>
           </Link>
         );
@@ -417,7 +428,7 @@ export function MainMenu({
           <form action={logout}>
             <button
               type="submit"
-              className="flex w-full items-center gap-3 px-4 py-3.5 text-sm text-danger hover:bg-background"
+              className="flex w-full items-center gap-3 px-4 py-3.5 text-[15px] font-medium text-danger hover:bg-background"
             >
               <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
