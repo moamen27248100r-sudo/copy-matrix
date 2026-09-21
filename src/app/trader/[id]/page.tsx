@@ -11,6 +11,7 @@ import { CircularGauge } from "@/components/CircularGauge";
 import { AssetAllocationBar } from "@/components/AssetAllocationBar";
 import { OpenOrdersTable } from "@/components/OpenOrdersTable";
 import { RecentCopiersList } from "@/components/RecentCopiersList";
+import { TraderAvatar } from "@/components/TraderAvatar";
 import { countryDisplay } from "@/lib/country-metadata";
 
 type SignalRow = {
@@ -233,9 +234,7 @@ export default async function TraderPage({
 
       <div className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-4">
         <div className="flex items-center gap-4">
-          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-accent to-brand text-lg font-semibold text-white">
-            {provider.display_name?.charAt(0) ?? "؟"}
-          </div>
+          <TraderAvatar providerId={id} name={provider.display_name} avatarUrl={provider.avatar_url} ratingScore={provider.rating_score} size={64} priority />
           <div className="flex-1">
             <div className="flex flex-wrap items-center gap-2">
               <h1 className="text-xl font-semibold">{provider.display_name}</h1>

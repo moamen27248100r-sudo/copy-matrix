@@ -6,6 +6,7 @@ import { BackButton } from "@/components/BackButton";
 import { TierBadge, RiskBadge, StoppedBadge } from "@/components/TraderBadges";
 import { pinTopLeaders } from "@/lib/pin-top-leaders";
 import { countryDisplay } from "@/lib/country-metadata";
+import { TraderAvatar } from "@/components/TraderAvatar";
 
 const SORT_OPTIONS = {
   return: { column: "avg_daily_return_pct", ascending: false },
@@ -111,9 +112,7 @@ export default async function DiscoverPage({
                 className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4"
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-accent to-brand text-sm font-semibold text-white">
-                    {p.display_name?.charAt(0) ?? "؟"}
-                  </div>
+                  <TraderAvatar providerId={p.provider_id} name={p.display_name} avatarUrl={p.avatar_url} ratingScore={p.rating_score} size={44} />
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-1.5">
                       <Link href={`/trader/${p.provider_id}`} className="min-w-0 truncate font-medium underline-offset-2 hover:underline">

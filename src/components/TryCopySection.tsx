@@ -1,7 +1,11 @@
 import Link from "next/link";
+import { TraderAvatar } from "@/components/TraderAvatar";
 
 export type TryCopyLeader = {
+  id: string;
   name: string;
+  avatarUrl: string | null;
+  ratingScore: number | null;
   returnPct: number;
 };
 
@@ -82,15 +86,13 @@ export function TryCopySection({
               <p className="mb-3 text-sm font-semibold">{cardTopLabel}</p>
               <div className="flex h-36 items-end justify-between gap-3" dir="ltr">
                 {leaders.map((l) => (
-                  <div key={l.name} className="flex flex-1 flex-col items-center gap-2">
+                  <div key={l.id} className="flex flex-1 flex-col items-center gap-2">
                     <span className="text-[11px] font-semibold text-success">{l.returnPct.toFixed(1)}%</span>
                     <div
                       className="w-full rounded-t-md bg-gradient-to-t from-success/60 to-success"
                       style={{ height: `${Math.max(12, (l.returnPct / maxReturn) * 88)}px` }}
                     />
-                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent/15 text-xs font-semibold text-accent">
-                      {l.name.charAt(0)}
-                    </span>
+                    <TraderAvatar providerId={l.id} name={l.name} avatarUrl={l.avatarUrl} ratingScore={l.ratingScore} size={32} />
                   </div>
                 ))}
               </div>

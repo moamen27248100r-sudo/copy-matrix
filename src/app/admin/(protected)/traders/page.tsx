@@ -1,6 +1,15 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { createLeader, updateLeader, deleteLeader, createTraderTrade, closeTraderTrade } from "@/app/admin/actions";
+import {
+  createLeader,
+  updateLeader,
+  deleteLeader,
+  createTraderTrade,
+  closeTraderTrade,
+  updateLeaderAvatar,
+  resetLeaderAvatar,
+} from "@/app/admin/actions";
+import { TraderAvatar } from "@/components/TraderAvatar";
 import { ConfirmButton } from "@/components/ConfirmButton";
 import { SYMBOL_ICONS, symbolFullName } from "@/lib/symbol-icons";
 
@@ -22,7 +31,7 @@ export default async function AdminTradersPage({
   let leaderQuery = supabase
     .from("providers")
     .select(
-      "id, display_name, bio, skill, min_copy_amount, base_followers_count, total_profit, total_withdrawals, created_at, user_id",
+      "id, display_name, bio, skill, min_copy_amount, base_followers_count, total_profit, total_withdrawals, created_at, user_id, avatar_url",
       { count: "exact" },
     )
     .order("created_at", { ascending: false })
@@ -156,7 +165,10 @@ export default async function AdminTradersPage({
           {leaderRows.map((l) => (
             <details key={l.id} className="rounded-lg border border-border bg-surface p-4">
               <summary className="flex cursor-pointer flex-wrap items-center justify-between gap-2 text-sm">
-                <span className="font-medium">{l.display_name}</span>
+                <span className="flex items-center gap-2.5 font-medium">
+                  <TraderAvatar providerId={l.id} name={l.display_name} avatarUrl={l.avatar_url} ratingScore={l.card?.rating_score} size={32} />
+                  {l.display_name}
+                </span>
                 <span className="flex flex-wrap gap-1.5 text-xs text-muted">
                   <span className="rounded border border-border px-2 py-0.5">{l.card?.tier ?? "—"}</span>
                   <span className="rounded border border-border px-2 py-0.5">تقييم {l.card?.rating_score ?? "—"}</span>
@@ -168,6 +180,30 @@ export default async function AdminTradersPage({
               </summary>
 
               <div className="mt-4 flex flex-col gap-3">
+                <div className="flex flex-wrap items-center gap-4 rounded-lg border border-border bg-background p-3">
+                  <TraderAvatar providerId={l.id} name={l.display_name} avatarUrl={l.avatar_url} ratingScore={l.card?.rating_score} size={64} />
+                  <form action={updateLeaderAvatar} className="flex flex-1 flex-wrap items-center gap-2">
+                    <input type="hidden" name="providerId" value={l.id} />
+                    <input
+                      name="avatar"
+                      type="file"
+                      accept="image/png,image/jpeg,image/webp"
+                      required
+                      className="min-w-0 flex-1 text-xs text-muted file:me-3 file:rounded file:border file:border-border file:bg-surface file:px-3 file:py-1.5 file:text-xs file:text-foreground"
+                    />
+                    <button type="submit" className="rounded border border-border px-3 py-1.5 text-xs">
+                      رفع الصورة
+                    </button>
+                  </form>
+                  <form action={resetLeaderAvatar}>
+                    <input type="hidden" name="providerId" value={l.id} />
+                    <button type="submit" className="rounded border border-border px-3 py-1.5 text-xs text-muted">
+                      الصورة الافتراضية
+                    </button>
+                  </form>
+                  <p className="w-full text-[11px] text-muted">PNG أو JPG أو WebP، حتى 1 ميجابايت، ويفضّل صورة مربعة.</p>
+                </div>
+
                 <form action={updateLeader} className="flex flex-col gap-3">
                   <input type="hidden" name="providerId" value={l.id} />
                   <input

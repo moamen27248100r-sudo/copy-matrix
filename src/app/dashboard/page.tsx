@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
 import { DashboardHero } from "@/components/DashboardHero";
+import { TraderAvatar } from "@/components/TraderAvatar";
 import { MyEquityChart } from "@/components/MyEquityChart";
 
 const QUICK_LINKS = [
@@ -109,7 +110,7 @@ export default async function DashboardPage({
     providerIds.length > 0
       ? await supabase
           .from("provider_cards")
-          .select("provider_id, display_name, win_rate_pct, avg_daily_return_pct")
+          .select("provider_id, display_name, win_rate_pct, avg_daily_return_pct, avatar_url, rating_score")
           .in("provider_id", providerIds)
           .limit(3)
       : { data: [] as never[] };
@@ -293,9 +294,7 @@ export default async function DashboardPage({
                   className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4 transition hover:border-accent/40 hover:shadow-lg"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-accent to-brand text-sm font-semibold text-white">
-                      {p.display_name?.charAt(0) ?? "؟"}
-                    </div>
+                    <TraderAvatar providerId={p.provider_id} name={p.display_name} avatarUrl={p.avatar_url} ratingScore={p.rating_score} size={44} />
                     <div className="min-w-0">
                       <p className="truncate text-sm font-medium">{p.display_name}</p>
                       <p className="text-xs text-muted">

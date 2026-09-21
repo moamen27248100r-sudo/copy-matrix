@@ -4,7 +4,7 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { MarketOverview } from "@/components/MarketOverview";
 import { MarketNewsFeed } from "@/components/MarketNewsFeed";
-import { traderAvatarUrl } from "@/lib/trader-avatar";
+import { leaderLevel } from "@/components/TraderAvatar";
 import {
   LiveStatsProvider,
   LiveActiveTraders,
@@ -124,7 +124,10 @@ export default async function Home() {
   const tryCopyLeaders = (rawTopProviders ? pinTopLeaders(rawTopProviders).slice(0, 5) : [])
     .filter((p) => p.avg_daily_return_pct != null && Number(p.avg_daily_return_pct) > 0)
     .map((p) => ({
+      id: String(p.provider_id),
       name: String(p.display_name ?? "").trim().split(" ")[0] || "?",
+      avatarUrl: (p.avatar_url as string | null) ?? null,
+      ratingScore: (p.rating_score as number | null) ?? null,
       returnPct: Number(p.avg_daily_return_pct),
     }));
 
@@ -362,9 +365,23 @@ export default async function Home() {
                   className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-surface transition hover:border-success/40 hover:shadow-xl"
                 >
                   <Link href={`/trader/${p.provider_id}`} className="relative block aspect-[4/3] w-full shrink-0 overflow-hidden bg-gradient-to-br from-accent/20 to-brand/20">
-                    {/* Synthetic, procedurally generated avatar — not a real person's
-                        photo (see src/lib/trader-avatar.ts) */}
-                    <img src={traderAvatarUrl(p.provider_id)} alt="" className="h-full w-full object-cover" />
+                    {/* Leader picture: uploaded or seeded/generated (src/lib/avatar-svg.ts),
+                        never a real person's photo */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={p.avatar_url || `/api/avatar/${p.provider_id}`}
+                      alt={p.display_name ?? ""}
+                      width={400}
+                      height={300}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover"
+                    />
+                    {leaderLevel(p.rating_score) != null && (
+                      <span className="absolute end-3 top-3 rounded-full bg-black/55 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+                        المستوى {leaderLevel(p.rating_score)}
+                      </span>
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
                     <div className="absolute inset-x-0 bottom-0 flex flex-col gap-1.5 p-4">
                       <div className="flex items-center gap-2">

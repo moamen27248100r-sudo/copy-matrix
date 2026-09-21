@@ -359,6 +359,88 @@ export async function updateLeader(formData: FormData) {
   revalidatePath("/");
 }
 
+const AVATAR_BUCKET = "leader-avatars";
+const AVATAR_MAX_BYTES = 1024 * 1024;
+const AVATAR_TYPES: Record<string, string> = { "image/png": "png", "image/jpeg": "jpg", "image/webp": "webp" };
+
+// Removes the previously uploaded file (if the current avatar_url points into
+// our bucket) so replacements don't leave orphans behind. Best-effort.
+async function removeUploadedAvatar(currentUrl: string | null) {
+  const marker = `/${AVATAR_BUCKET}/`;
+  const i = currentUrl ? currentUrl.indexOf(marker) : -1;
+  if (i < 0 || !currentUrl) return;
+  await createAdminClient().storage.from(AVATAR_BUCKET).remove([currentUrl.slice(i + marker.length)]);
+}
+
+// Leaders are platform-generated (there is no leader-facing account), so the
+// picture is managed here by admins: upload replaces the seeded generated
+// avatar. Writes use the service-role client -- the bucket is public-read but
+// has no client write policy.
+export async function updateLeaderAvatar(formData: FormData) {
+  const { supabase, adminId } = await assertAdmin();
+  const providerId = formData.get("providerId") as string;
+  const file = formData.get("avatar");
+
+  if (!(file instanceof File) || file.size === 0) {
+    redirect("/admin/traders?error=" + encodeURIComponent("اختر صورة أولًا."));
+  }
+  const ext = AVATAR_TYPES[file.type];
+  if (!ext) {
+    redirect("/admin/traders?error=" + encodeURIComponent("صيغة الصورة غير مدعومة (PNG أو JPG أو WebP فقط)."));
+  }
+  if (file.size > AVATAR_MAX_BYTES) {
+    redirect("/admin/traders?error=" + encodeURIComponent("حجم الصورة أكبر من 1 ميجابايت."));
+  }
+
+  const { data: current } = await supabase.from("providers").select("avatar_url").eq("id", providerId).single();
+
+  const path = `${providerId}/${Date.now()}.${ext}`;
+  const admin = createAdminClient();
+  const { error: uploadError } = await admin.storage.from(AVATAR_BUCKET).upload(path, file, {
+    contentType: file.type,
+    cacheControl: "31536000",
+  });
+  if (uploadError) {
+    redirect("/admin/traders?error=" + encodeURIComponent("تعذّر رفع الصورة: " + uploadError.message));
+  }
+
+  const publicUrl = admin.storage.from(AVATAR_BUCKET).getPublicUrl(path).data.publicUrl;
+  const { error } = await supabase.from("providers").update({ avatar_url: publicUrl }).eq("id", providerId);
+  if (error) {
+    redirect("/admin/traders?error=" + encodeURIComponent("تعذّر حفظ رابط الصورة: " + error.message));
+  }
+
+  await removeUploadedAvatar(current?.avatar_url ?? null);
+  await logAdminAction(supabase, adminId, "update_leader_avatar", "provider", providerId, { path });
+
+  revalidatePath("/admin/traders");
+  revalidatePath("/discover");
+  revalidatePath(`/trader/${providerId}`);
+  revalidatePath("/");
+}
+
+export async function resetLeaderAvatar(formData: FormData) {
+  const { supabase, adminId } = await assertAdmin();
+  const providerId = formData.get("providerId") as string;
+
+  const { data: current } = await supabase.from("providers").select("avatar_url").eq("id", providerId).single();
+  const { error } = await supabase
+    .from("providers")
+    .update({ avatar_url: `/api/avatar/${providerId}` })
+    .eq("id", providerId);
+  if (error) {
+    redirect("/admin/traders?error=" + encodeURIComponent("تعذّر إعادة الصورة الافتراضية: " + error.message));
+  }
+
+  await removeUploadedAvatar(current?.avatar_url ?? null);
+  await logAdminAction(supabase, adminId, "reset_leader_avatar", "provider", providerId);
+
+  revalidatePath("/admin/traders");
+  revalidatePath("/discover");
+  revalidatePath(`/trader/${providerId}`);
+  revalidatePath("/");
+}
+
 export async function deleteLeader(formData: FormData) {
   const { supabase, adminId } = await assertAdmin();
   const providerId = formData.get("providerId") as string;

@@ -12,6 +12,7 @@ import { AutoDismissMessage } from "@/components/AutoDismissMessage";
 import { MyOpenPositions } from "@/components/MyOpenPositions";
 import { PositionTabs } from "@/components/PositionTabs";
 import { PendingOrdersEmpty } from "@/components/PendingOrdersEmpty";
+import { TraderAvatar } from "@/components/TraderAvatar";
 
 const TX_LABELS: Record<string, string> = {
   deposit: "إيداع",
@@ -309,9 +310,7 @@ export default async function PortfolioPage({
               className="flex items-center justify-between rounded-lg border border-border bg-surface p-3"
             >
               <Link href={`/trader/${p.provider_id}`} className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-accent to-brand text-sm font-semibold text-white">
-                  {p.display_name?.charAt(0) ?? "؟"}
-                </div>
+                <TraderAvatar providerId={p.provider_id} name={p.display_name} avatarUrl={p.avatar_url} ratingScore={p.rating_score} size={40} />
                 <div>
                   <p className="text-sm font-medium underline-offset-2 hover:underline">
                     {p.display_name}
