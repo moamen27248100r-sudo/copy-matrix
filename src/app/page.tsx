@@ -414,7 +414,7 @@ export default async function Home() {
                         <div className="rounded-xl border border-white/5 bg-black/20 p-3">
                           <div className="flex items-center justify-between text-[11px] text-muted">
                             <span>{t.has("traders.recentTrades") ? t("traders.recentTrades") : ""}</span>
-                            <span dir="ltr" className={`font-semibold ${total >= 0 ? "text-profit" : "text-danger"}`}>
+                            <span dir="ltr" className={`font-semibold ${total >= 0 ? "text-success" : "text-danger"}`}>
                               {total >= 0 ? "+" : ""}
                               {total.toFixed(1)}%
                             </span>
@@ -422,7 +422,7 @@ export default async function Home() {
                           <Sparkline
                             id={`spark-${p.provider_id}`}
                             values={series}
-                            className="mt-2 h-14 w-full text-brand"
+                            className={`mt-2 h-14 w-full ${total >= 0 ? "text-success" : "text-danger"}`}
                           />
                         </div>
                       );
@@ -439,7 +439,7 @@ export default async function Home() {
                           className={
                             p.avg_daily_return_pct != null && p.avg_daily_return_pct < 0
                               ? "text-base font-semibold text-danger"
-                              : "text-base font-semibold text-profit"
+                              : "text-base font-semibold text-success"
                           }
                         >
                           {p.avg_daily_return_pct != null ? `${p.avg_daily_return_pct}%` : "—"}
