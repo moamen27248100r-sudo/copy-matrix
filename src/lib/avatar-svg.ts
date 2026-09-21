@@ -1,9 +1,13 @@
 // Deterministic avatar generator: the same seed always produces the same
 // picture, with no image files, no third-party service, and nobody real in
-// it. Every avatar is a financial-markets mark -- candlestick and line charts,
-// currency-pair badges, currency coins, gold bars, crypto coins, bull / bear,
-// order-book depth, allocation donut, heatmap, globe, risk gauge, ...
-// Everything is drawn on a 128x128 square; the UI clips it to a circle.
+// it. Every avatar is a price chart drawn from freshly random market data
+// (candlesticks, OHLC bars, line / area / step / baseline charts, histograms,
+// Bollinger bands, Renko bricks, P&L bars) on a vivid gradient background with
+// a glow, optional volume / moving average, and an instrument tag. Chart type x
+// palette x random series x overlays means neighbouring leaders almost never
+// look alike.
+// Everything is drawn on a 128x128 square; the UI clips it to a circle, so the
+// artwork stays inside the inscribed area.
 
 function hashSeed(seed: string): number {
   let h = 2166136261;
@@ -26,316 +30,320 @@ function mulberry32(a: number) {
 
 type Rng = () => number;
 const pick = <T,>(rng: Rng, items: readonly T[]): T => items[Math.floor(rng() * items.length)];
+const f = (n: number) => Math.round(n * 10) / 10;
 
-const UP = "#0ecb81";
-const DOWN = "#f6465d";
-const GOLD = "#f0b90b";
-
-// Mostly dark "terminal" backgrounds, plus a few brand colours.
+// Vivid gradient backgrounds (from, to).
 const BACKGROUNDS: readonly (readonly [string, string])[] = [
-  ["#1b2740", "#0b1120"],
-  ["#12303a", "#08141a"],
-  ["#2a2148", "#0f0b22"],
-  ["#1f3b2e", "#0a1610"],
-  ["#3a2a1a", "#150e08"],
-  ["#2f6fed", "#1b3f9a"],
-  ["#14b8c6", "#0b6f8a"],
-  ["#7c5cff", "#4326b8"],
-  ["#22c55e", "#0f6b35"],
-  ["#3b4a6b", "#1a2236"],
+  ["#2547d0", "#7c2ff0"],
+  ["#0e8a86", "#0a1f4a"],
+  ["#d61f7a", "#3b0a78"],
+  ["#e2560f", "#5a0a2a"],
+  ["#0c9a68", "#053a3a"],
+  ["#0a84d6", "#1b1466"],
+  ["#5b3df0", "#0a1330"],
+  ["#c026d3", "#241a6e"],
+  ["#0ea5c4", "#0a3a2e"],
+  ["#d98a0a", "#3a1408"],
+  ["#1d63f0", "#0a4a7a"],
+  ["#17a34a", "#062a1a"],
+  ["#d11d4a", "#231762"],
+  ["#1a2340", "#0a0f1f"],
 ];
-const DARK = [0, 1, 2, 3, 9] as const;
-const BRIGHT = [5, 6, 7, 8] as const;
+
+// Bright candle / line colours (up, down) that stay readable on the above.
+const SCHEMES: readonly (readonly [string, string])[] = [
+  ["#19f0a4", "#ff4d6d"],
+  ["#2dffb4", "#ff5c7a"],
+  ["#00e5ff", "#ff5cb0"],
+  ["#a6ff4d", "#ff7a3d"],
+  ["#4dffb8", "#ffdf4d"],
+  ["#5cf2ff", "#ff6b6b"],
+];
+const ACCENTS = ["#ffffff", "#ffd84d", "#7de0ff", "#f5a8ff", "#b6ff8a"] as const;
+const TICKERS = [
+  "EURUSD", "GBPUSD", "USDJPY", "XAUUSD", "XAGUSD", "BTCUSD", "ETHUSD", "US30", "NAS100",
+  "SPX500", "GER40", "USOIL", "AUDUSD", "USDCAD", "SOLUSD", "USDCHF", "NZDUSD", "EURJPY",
+] as const;
 
 const FONT = `font-family="Arial, Helvetica, sans-serif" font-weight="700"`;
 
-function bg(palette: readonly [string, string]) {
-  return `<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${palette[0]}"/><stop offset="1" stop-color="${palette[1]}"/></linearGradient></defs><rect width="128" height="128" fill="url(#g)"/>`;
-}
-const pal = (rng: Rng, group: readonly number[]) => BACKGROUNDS[pick(rng, group)];
-const grid = (n = 3) =>
-  `<g stroke="#fff" stroke-opacity=".08">${Array.from({ length: n }, (_, i) => `<line x1="0" y1="${(128 / (n + 1)) * (i + 1)}" x2="128" y2="${(128 / (n + 1)) * (i + 1)}"/>`).join("")}</g>`;
+type Ctx = {
+  x0: number;
+  x1: number;
+  y0: number;
+  y1: number;
+  up: string;
+  down: string;
+  accent: string;
+  bullish: boolean;
+};
 
-// ---------- charts ----------
+type Candle = { o: number; h: number; l: number; c: number };
 
-function candles(rng: Rng): string {
-  let out = bg(pal(rng, DARK)) + grid();
-  const n = 5 + Math.floor(rng() * 3);
-  const step = 104 / n;
-  const w = Math.min(12, step * 0.55);
-  let y = 72 + rng() * 10;
-  const closes: number[] = [];
+// Random-walk OHLC series; bullish series drift up.
+function candleSeries(rng: Rng, n: number, bullish: boolean): Candle[] {
+  const drift = (bullish ? 1 : -1) * (0.08 + rng() * 0.16);
+  const swing = 0.7 + rng() * 0.9;
+  let prev = 0;
+  const out: Candle[] = [];
   for (let i = 0; i < n; i++) {
-    const up = rng() < 0.58;
-    const h = 12 + rng() * 24;
-    const top = up ? y - h : y;
-    const color = up ? UP : DOWN;
-    const x = 12 + i * step;
-    out += `<line x1="${x + w / 2}" y1="${top - 8}" x2="${x + w / 2}" y2="${top + h + 8}" stroke="${color}" stroke-width="2"/><rect x="${x}" y="${top}" width="${w}" height="${h}" rx="2" fill="${color}"/>`;
-    closes.push(up ? top : top + h);
-    y = Math.min(100, Math.max(44, (up ? top : top + h) + (rng() - 0.55) * 12));
+    const c = prev + (rng() - 0.5 + drift) * swing;
+    const hi = Math.max(prev, c) + rng() * 0.45;
+    const lo = Math.min(prev, c) - rng() * 0.45;
+    out.push({ o: prev, h: hi, l: lo, c });
+    prev = c;
   }
-  const d = closes.map((c, i) => `${i ? "L" : "M"}${12 + i * step + w / 2} ${c}`).join(" ");
-  out += `<path d="${d}" fill="none" stroke="${GOLD}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>`;
   return out;
 }
 
-function trendLine(rng: Rng): string {
-  let out = bg(pal(rng, [...DARK, ...BRIGHT])) + grid();
-  const pts: [number, number][] = [];
-  let y = 96;
-  for (let i = 0; i < 8; i++) {
-    y = Math.max(26, Math.min(104, y - 3 - rng() * 12 + (rng() < 0.3 ? 12 : 0)));
-    pts.push([10 + i * 15.5, y]);
-  }
-  const d = pts.map(([x, py], i) => `${i ? "L" : "M"}${x} ${py}`).join(" ");
-  out += `<path d="${d} L${pts[pts.length - 1][0]} 120 L10 120z" fill="#fff" opacity=".12"/>`;
-  out += `<path d="${d}" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`;
-  const [lx, ly] = pts[pts.length - 1];
-  out += `<circle cx="${lx}" cy="${ly}" r="8" fill="${UP}" stroke="#fff" stroke-width="3"/>`;
-  return out;
+function lineSeries(rng: Rng, n: number, bullish: boolean): number[] {
+  return candleSeries(rng, n, bullish).map((k) => k.c);
 }
 
-function areaChart(rng: Rng): string {
-  const color = rng() < 0.75 ? UP : DOWN;
-  let out = bg(pal(rng, DARK)) + grid(4);
-  const pts: [number, number][] = [];
-  let y = color === UP ? 92 : 40;
-  for (let i = 0; i < 9; i++) {
-    y = Math.max(28, Math.min(104, y + (color === UP ? -1 : 1) * (2 + rng() * 6) + (rng() - 0.5) * 20));
-    pts.push([8 + i * 14, y]);
-  }
-  const d = pts.map(([x, py], i) => `${i ? "L" : "M"}${x} ${py}`).join(" ");
-  out += `<defs><linearGradient id="a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${color}" stop-opacity=".55"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></linearGradient></defs>`;
-  out += `<path d="${d} L${pts[pts.length - 1][0]} 120 L8 120z" fill="url(#a)"/><path d="${d}" fill="none" stroke="${color}" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>`;
-  return out;
+function scaler(values: number[], y0: number, y1: number) {
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const span = max - min || 1;
+  return (v: number) => y1 - ((v - min) / span) * (y1 - y0);
 }
 
-function maCross(rng: Rng): string {
-  let out = bg(pal(rng, DARK)) + grid();
-  const fast: string[] = [];
-  const slow: string[] = [];
-  for (let i = 0; i < 9; i++) {
-    const x = 8 + i * 14;
-    const base = 76 - i * 3 + Math.sin(i * 0.9 + rng()) * 6;
-    slow.push(`${i ? "L" : "M"}${x} ${base + 6 - i * 0.6}`);
-    fast.push(`${i ? "L" : "M"}${x} ${base + Math.cos(i * 1.2 + rng()) * 16 - i * 1.5}`);
-  }
-  out += `<path d="${slow.join(" ")}" fill="none" stroke="${GOLD}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>`;
-  out += `<path d="${fast.join(" ")}" fill="none" stroke="#4f8cff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>`;
-  return out;
-}
-
-function depth(rng: Rng): string {
-  let out = bg(pal(rng, DARK)) + grid();
-  const left: string[] = ["M6 116"];
-  const right: string[] = ["M122 116"];
-  let l = 30 + rng() * 20;
-  let r = 30 + rng() * 20;
-  for (let i = 0; i < 6; i++) {
-    l += 8 + rng() * 10;
-    r += 8 + rng() * 10;
-    left.push(`L${58 - i * 9} ${116 - l * 0.85}`);
-    right.push(`L${70 + i * 9} ${116 - r * 0.85}`);
-  }
-  out += `<path d="${left.join(" ")} L6 20 L6 116z" fill="${UP}" opacity=".55"/><path d="${left.join(" ")}" fill="none" stroke="${UP}" stroke-width="2.5"/>`;
-  out += `<path d="${right.join(" ")} L122 20 L122 116z" fill="${DOWN}" opacity=".55"/><path d="${right.join(" ")}" fill="none" stroke="${DOWN}" stroke-width="2.5"/>`;
-  out += `<line x1="64" y1="14" x2="64" y2="116" stroke="#fff" stroke-opacity=".35" stroke-dasharray="3 4"/>`;
-  return out;
-}
-
-function bars(rng: Rng): string {
-  let out = bg(pal(rng, [...DARK, ...BRIGHT]));
-  const heights = Array.from({ length: 5 }, (_, i) => 20 + i * 11 + rng() * 14);
-  heights.forEach((h, i) => {
-    out += `<rect x="${18 + i * 20}" y="${108 - h}" width="14" height="${h}" rx="4" fill="#fff" opacity="${0.5 + i * 0.1}"/>`;
+const path = (pts: [number, number][]) => pts.map(([x, y], i) => `${i ? "L" : "M"}${f(x)} ${f(y)}`).join(" ");
+const smooth = (vals: number[], w: number) =>
+  vals.map((_, i) => {
+    const s = vals.slice(Math.max(0, i - w + 1), i + 1);
+    return s.reduce((a, b) => a + b, 0) / s.length;
   });
-  out += `<path d="M20 64l24-14 22 8 40-28" fill="none" stroke="${UP}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M96 26h14v14" fill="none" stroke="${UP}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>`;
-  return out;
-}
 
-function heatmap(rng: Rng): string {
-  let out = bg(pal(rng, DARK));
-  for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++) {
-    const up = rng() < 0.6;
-    out += `<rect x="${16 + c * 25}" y="${16 + r * 25}" width="21" height="21" rx="4" fill="${up ? UP : DOWN}" opacity="${0.35 + rng() * 0.6}"/>`;
-  }
-  return out;
-}
+// ---------- chart bodies ----------
 
-function donut(rng: Rng): string {
-  let out = bg(pal(rng, DARK));
-  const cols = [UP, "#4f8cff", GOLD, "#a78bfa", DOWN];
-  const parts = Array.from({ length: 4 }, () => 0.15 + rng());
-  const sum = parts.reduce((a, b) => a + b, 0);
-  const C = 2 * Math.PI * 32;
-  let offset = 0;
-  parts.forEach((p, i) => {
-    const len = (p / sum) * C;
-    out += `<circle cx="64" cy="64" r="32" fill="none" stroke="${cols[i]}" stroke-width="16" stroke-dasharray="${len - 2} ${C - len + 2}" stroke-dashoffset="${-offset}" transform="rotate(-90 64 64)"/>`;
-    offset += len;
+function candles(rng: Rng, c: Ctx, opts: { ma: boolean; volume: boolean }): string {
+  const n = 8 + Math.floor(rng() * 4);
+  const data = candleSeries(rng, n, c.bullish);
+  const yTop = c.y0;
+  const yBot = opts.volume ? c.y1 - 14 : c.y1;
+  const sc = scaler(data.flatMap((k) => [k.h, k.l]), yTop, yBot);
+  const step = (c.x1 - c.x0) / n;
+  const w = Math.max(4, step * 0.58);
+  let out = "";
+  data.forEach((k, i) => {
+    const up = k.c >= k.o;
+    const col = up ? c.up : c.down;
+    const x = c.x0 + i * step + (step - w) / 2;
+    const top = sc(Math.max(k.o, k.c));
+    const bot = sc(Math.min(k.o, k.c));
+    out += `<line x1="${f(x + w / 2)}" y1="${f(sc(k.h))}" x2="${f(x + w / 2)}" y2="${f(sc(k.l))}" stroke="${col}" stroke-width="1.8" stroke-linecap="round"/>`;
+    out += `<rect x="${f(x)}" y="${f(top)}" width="${f(w)}" height="${f(Math.max(2.5, bot - top))}" rx="1.6" fill="${col}"/>`;
+    if (opts.volume) {
+      const vh = 3 + rng() * 11;
+      out += `<rect x="${f(x)}" y="${f(c.y1 - vh)}" width="${f(w)}" height="${f(vh)}" rx="1" fill="${col}" opacity=".45"/>`;
+    }
   });
-  out += `<circle cx="64" cy="64" r="16" fill="#0b1120" opacity=".85"/>`;
-  return out;
-}
-
-function gauge(rng: Rng): string {
-  let out = bg(pal(rng, DARK));
-  out += `<path d="M20 88a44 44 0 0 1 88 0" fill="none" stroke="${DOWN}" stroke-width="10" stroke-linecap="round" stroke-dasharray="30 400"/>`;
-  out += `<path d="M20 88a44 44 0 0 1 88 0" fill="none" stroke="${GOLD}" stroke-width="10" stroke-linecap="round" stroke-dasharray="0 30 30 400"/>`;
-  out += `<path d="M20 88a44 44 0 0 1 88 0" fill="none" stroke="${UP}" stroke-width="10" stroke-linecap="round" stroke-dasharray="0 60 80 400"/>`;
-  const a = (-160 + rng() * 140) * (Math.PI / 180);
-  out += `<line x1="64" y1="88" x2="${64 + 34 * Math.cos(a)}" y2="${88 + 34 * Math.sin(a)}" stroke="#fff" stroke-width="4" stroke-linecap="round"/><circle cx="64" cy="88" r="7" fill="#fff"/>`;
-  return out;
-}
-
-// ---------- currency / commodities / crypto ----------
-
-function fxCoin(rng: Rng): string {
-  const symbol = pick(rng, ["$", "€", "£", "¥"] as const);
-  let out = bg(pal(rng, [...BRIGHT, 0, 2]));
-  out += `<circle cx="64" cy="64" r="44" fill="#fff" opacity=".14"/><circle cx="64" cy="64" r="36" fill="#fff"/>`;
-  out += `<circle cx="64" cy="64" r="28" fill="none" stroke="#000" stroke-opacity=".1" stroke-width="2"/>`;
-  out += `<text x="64" y="78" text-anchor="middle" ${FONT} font-size="42" fill="${pick(rng, ["#1b3f9a", "#0f6b35", "#a3223a", "#4326b8"])}">${symbol}</text>`;
-  out += `<path d="M22 108l18-10 12 8 16-14 22 6" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
-  return out;
-}
-
-function pairBadge(rng: Rng): string {
-  const pair = pick(rng, ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "USD/CAD", "USD/CHF", "NZD/USD", "EUR/GBP", "EUR/JPY", "GBP/JPY"] as const);
-  const [a, b] = pair.split("/");
-  let out = bg(pal(rng, DARK));
-  out += `<circle cx="48" cy="46" r="24" fill="#2f6fed"/><circle cx="80" cy="46" r="24" fill="${pick(rng, ["#0ecb81", "#f0a020", "#7c5cff", "#f6465d"])}" style="mix-blend-mode:screen" opacity=".9"/>`;
-  out += `<text x="42" y="52" text-anchor="middle" ${FONT} font-size="15" fill="#fff">${a[0]}</text><text x="86" y="52" text-anchor="middle" ${FONT} font-size="15" fill="#fff">${b[0]}</text>`;
-  out += `<rect x="12" y="82" width="104" height="30" rx="15" fill="#fff" opacity=".95"/>`;
-  out += `<text x="64" y="103" text-anchor="middle" ${FONT} font-size="18" fill="#0b1120">${pair}</text>`;
-  return out;
-}
-
-function goldBars(rng: Rng): string {
-  let out = bg(pal(rng, [0, 4, 9]));
-  out += `<circle cx="64" cy="64" r="50" fill="${GOLD}" opacity=".1"/>`;
-  const bar = (x: number, y: number, s = 1) =>
-    `<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 26l8-20h48l8 20z" fill="#ffd84d"/><path d="M0 26h64v8H0z" fill="#d99a06"/><path d="M8 6h48l-3 8H11z" fill="#fff" opacity=".35"/></g>`;
-  out += bar(18, 52) + bar(46, 52) + bar(32, 28);
-  out += `<text x="64" y="104" text-anchor="middle" ${FONT} font-size="16" letter-spacing="2" fill="${GOLD}">XAU</text>`;
-  return out;
-}
-
-function goldCoin(rng: Rng): string {
-  let out = bg(pal(rng, [0, 4, 9]));
-  out += `<circle cx="64" cy="64" r="42" fill="${GOLD}"/><circle cx="64" cy="64" r="34" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="3"/>`;
-  out += `<text x="64" y="76" text-anchor="middle" ${FONT} font-size="32" fill="#8a5a00">Au</text>`;
-  out += `<path d="M30 30l6 6M92 28l-6 6" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`;
-  return out;
-}
-
-function btcCoin(rng: Rng): string {
-  let out = bg(pal(rng, [0, 2, 4]));
-  out += `<circle cx="64" cy="64" r="42" fill="#f7931a"/><circle cx="64" cy="64" r="34" fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="2.5"/>`;
-  out += `<path d="M52 42h16c8 0 12 4 12 10s-4 9-9 10c7 1 11 5 11 11s-5 11-14 11H52z M60 50v10h7c4 0 6-2 6-5s-2-5-6-5z M60 68v11h8c4 0 7-2 7-5.5S72 68 68 68z" fill="#fff" fill-rule="evenodd"/>`;
-  out += `<path d="M58 36v8M66 36v8M58 84v8M66 84v8" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`;
-  return out;
-}
-
-function ethCoin(rng: Rng): string {
-  let out = bg(pal(rng, [1, 2, 9]));
-  out += `<circle cx="64" cy="64" r="42" fill="#627eea"/>`;
-  out += `<path d="M64 26l-22 36 22 13 22-13z" fill="#fff" opacity=".9"/><path d="M64 26v49l22-13z" fill="#fff" opacity=".6"/><path d="M42 68l22 32 22-32-22 13z" fill="#fff" opacity=".85"/>`;
-  return out;
-}
-
-function altCoin(rng: Rng): string {
-  const c = pick(rng, ["#14b8c6", "#7c5cff", "#0ecb81", "#e05fa5"] as const);
-  let out = bg(pal(rng, DARK));
-  out += `<circle cx="64" cy="64" r="42" fill="${c}"/><circle cx="64" cy="64" r="34" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="2.5"/>`;
-  out += `<path d="M44 78l14-18 10 10 16-24" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>`;
-  out += `<path d="M28 40h10M90 92h10M30 96h8" stroke="#fff" stroke-opacity=".5" stroke-width="3" stroke-linecap="round"/>`;
-  return out;
-}
-
-// ---------- market symbols ----------
-
-function bull(rng: Rng): string {
-  let out = bg(pal(rng, [3, 8, 1]));
-  out += `<path d="M20 30c4 22 14 26 24 26M108 30c-4 22-14 26-24 26" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/>`;
-  out += `<path d="M38 52c8-8 44-8 52 0l-4 30c-2 12-10 22-22 22s-20-10-22-22z" fill="${UP}"/>`;
-  out += `<path d="M46 82c0 8 8 14 18 14s18-6 18-14c0-6-8-8-18-8s-18 2-18 8z" fill="#fff" opacity=".9"/>`;
-  out += `<circle cx="56" cy="86" r="2.6" fill="#0b1120"/><circle cx="72" cy="86" r="2.6" fill="#0b1120"/>`;
-  out += `<circle cx="52" cy="64" r="3.4" fill="#0b1120"/><circle cx="76" cy="64" r="3.4" fill="#0b1120"/>`;
-  out += `<path d="M96 100l10-10 8 6 8-14M116 82h6v6" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" transform="translate(-14 -2)"/>`;
-  return out;
-}
-
-function bear(rng: Rng): string {
-  let out = bg(pal(rng, [0, 2, 4]));
-  out += `<circle cx="38" cy="38" r="15" fill="${DOWN}"/><circle cx="90" cy="38" r="15" fill="${DOWN}"/><circle cx="38" cy="38" r="7" fill="#fff" opacity=".35"/><circle cx="90" cy="38" r="7" fill="#fff" opacity=".35"/>`;
-  out += `<ellipse cx="64" cy="66" rx="36" ry="34" fill="${DOWN}"/><ellipse cx="64" cy="78" rx="17" ry="13" fill="#fff" opacity=".9"/>`;
-  out += `<ellipse cx="64" cy="73" rx="6" ry="4" fill="#0b1120"/><circle cx="50" cy="58" r="3.4" fill="#0b1120"/><circle cx="78" cy="58" r="3.4" fill="#0b1120"/>`;
-  out += `<path d="M24 100l12 8 10-10 12 8" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M58 106h8v-8" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>`;
-  return out;
-}
-
-function trendArrow(rng: Rng): string {
-  const up = rng() < 0.72;
-  const c = up ? UP : DOWN;
-  let out = bg(pal(rng, DARK));
-  out += `<circle cx="64" cy="64" r="42" fill="${c}" opacity=".18"/>`;
-  out += up
-    ? `<path d="M30 92l24-26 16 14 30-38" fill="none" stroke="${c}" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M84 40h20v20" fill="none" stroke="${c}" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>`
-    : `<path d="M30 38l24 26 16-14 30 38" fill="none" stroke="${c}" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M84 88h20V68" fill="none" stroke="${c}" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>`;
-  return out;
-}
-
-function globe(rng: Rng): string {
-  let out = bg(pal(rng, [...DARK, 5, 6]));
-  out += `<circle cx="64" cy="64" r="42" fill="#fff" opacity=".08"/><g fill="none" stroke="#fff" stroke-opacity=".85" stroke-width="3"><circle cx="64" cy="64" r="42"/><ellipse cx="64" cy="64" rx="18" ry="42"/><path d="M22 64h84M28 42h72M28 86h72"/></g>`;
-  const dx = 40 + rng() * 48;
-  const dy = 40 + rng() * 48;
-  out += `<circle cx="${dx}" cy="${dy}" r="7" fill="${UP}" stroke="#fff" stroke-width="2.5"/>`;
-  return out;
-}
-
-function shield(rng: Rng): string {
-  let out = bg(pal(rng, [0, 9, 1]));
-  out += `<path d="M64 18l36 12v30c0 24-15 40-36 50-21-10-36-26-36-50V30z" fill="#fff" opacity=".95"/><path d="M64 18l36 12v30c0 24-15 40-36 50z" fill="#000" opacity=".06"/>`;
-  out += `<path d="M44 76l12-12 8 8 20-24" fill="none" stroke="${UP}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>`;
-  return out;
-}
-
-function rocket(rng: Rng): string {
-  let out = bg(pal(rng, [2, 7, 0]));
-  out += `<g stroke="#fff" stroke-opacity=".25" stroke-width="2"><line x1="20" y1="30" x2="20" y2="44"/><line x1="100" y1="20" x2="100" y2="32"/><line x1="30" y1="96" x2="30" y2="108"/></g>`;
-  out += `<g transform="rotate(40 64 64)"><path d="M64 14c14 14 16 40 12 62H52c-4-22-2-48 12-62z" fill="#fff"/><circle cx="64" cy="42" r="7" fill="#2f6fed"/><path d="M52 76l-12 14 14-4zM76 76l12 14-14-4z" fill="${DOWN}"/><path d="M58 76h12l-6 20z" fill="${GOLD}"/></g>`;
-  return out;
-}
-
-function chartFrame(rng: Rng): string {
-  // Screen-like candlestick panel with a price tag.
-  let out = bg(pal(rng, DARK));
-  out += `<rect x="12" y="16" width="104" height="96" rx="10" fill="#0b1120" opacity=".7" stroke="#fff" stroke-opacity=".15"/>`;
-  let y = 76;
-  for (let i = 0; i < 6; i++) {
-    const up = rng() < 0.6;
-    const h = 8 + rng() * 18;
-    const top = up ? y - h : y;
-    const color = up ? UP : DOWN;
-    const x = 20 + i * 14;
-    out += `<line x1="${x + 4}" y1="${top - 6}" x2="${x + 4}" y2="${top + h + 6}" stroke="${color}" stroke-width="1.6"/><rect x="${x}" y="${top}" width="8" height="${h}" rx="1.5" fill="${color}"/>`;
-    y = Math.min(88, Math.max(44, (up ? top : top + h) + (rng() - 0.55) * 10));
+  if (opts.ma) {
+    const ma = smooth(data.map((k) => k.c), 3);
+    const pts = ma.map((v, i): [number, number] => [c.x0 + i * step + step / 2, sc(v)]);
+    out += `<path d="${path(pts)}" fill="none" stroke="${c.accent}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" filter="url(#gl)"/>`;
   }
-  out += `<rect x="72" y="22" width="38" height="14" rx="7" fill="${UP}"/><text x="91" y="32.5" text-anchor="middle" ${FONT} font-size="9.5" fill="#0b1120">+${(1 + rng() * 9).toFixed(1)}%</text>`;
   return out;
 }
 
-const MARKS = [
-  candles, candles, trendLine, areaChart, areaChart, maCross, depth, bars, heatmap, donut, gauge, chartFrame,
-  fxCoin, fxCoin, pairBadge, pairBadge, pairBadge, goldBars, goldCoin, btcCoin, ethCoin, altCoin,
-  bull, bear, trendArrow, globe, shield, rocket,
-] as const;
+function ohlc(rng: Rng, c: Ctx): string {
+  const n = 8 + Math.floor(rng() * 4);
+  const data = candleSeries(rng, n, c.bullish);
+  const sc = scaler(data.flatMap((k) => [k.h, k.l]), c.y0, c.y1);
+  const step = (c.x1 - c.x0) / n;
+  let out = "";
+  data.forEach((k, i) => {
+    const col = k.c >= k.o ? c.up : c.down;
+    const x = c.x0 + i * step + step / 2;
+    out += `<g stroke="${col}" stroke-width="2.4" stroke-linecap="round"><line x1="${f(x)}" y1="${f(sc(k.h))}" x2="${f(x)}" y2="${f(sc(k.l))}"/><line x1="${f(x - step * 0.4)}" y1="${f(sc(k.o))}" x2="${f(x)}" y2="${f(sc(k.o))}"/><line x1="${f(x)}" y1="${f(sc(k.c))}" x2="${f(x + step * 0.4)}" y2="${f(sc(k.c))}"/></g>`;
+  });
+  return out;
+}
+
+function linePoints(rng: Rng, c: Ctx, n: number): [number, number][] {
+  const vals = lineSeries(rng, n, c.bullish);
+  const sc = scaler(vals, c.y0, c.y1);
+  const step = (c.x1 - c.x0) / (n - 1);
+  return vals.map((v, i): [number, number] => [c.x0 + i * step, sc(v)]);
+}
+
+function line(rng: Rng, c: Ctx): string {
+  const pts = linePoints(rng, c, 12 + Math.floor(rng() * 8));
+  const col = c.bullish ? c.up : c.down;
+  const last = pts[pts.length - 1];
+  let out = `<defs><linearGradient id="fa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${col}" stop-opacity=".5"/><stop offset="1" stop-color="${col}" stop-opacity="0"/></linearGradient></defs>`;
+  out += `<path d="${path(pts)} L${f(last[0])} ${c.y1 + 8} L${f(pts[0][0])} ${c.y1 + 8}z" fill="url(#fa)"/>`;
+  out += `<path d="${path(pts)}" fill="none" stroke="${c.accent}" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#gl)"/>`;
+  out += `<circle cx="${f(last[0])}" cy="${f(last[1])}" r="5" fill="${col}" stroke="#fff" stroke-width="2.4"/>`;
+  return out;
+}
+
+function area(rng: Rng, c: Ctx): string {
+  const pts = linePoints(rng, c, 16 + Math.floor(rng() * 8));
+  const col = c.bullish ? c.up : c.down;
+  let out = `<defs><linearGradient id="fa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${col}" stop-opacity=".85"/><stop offset="1" stop-color="${col}" stop-opacity=".05"/></linearGradient></defs>`;
+  out += `<path d="${path(pts)} L${f(pts[pts.length - 1][0])} ${c.y1 + 8} L${f(pts[0][0])} ${c.y1 + 8}z" fill="url(#fa)"/>`;
+  out += `<path d="${path(pts)}" fill="none" stroke="${col}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" filter="url(#gl)"/>`;
+  return out;
+}
+
+function step(rng: Rng, c: Ctx): string {
+  const n = 9 + Math.floor(rng() * 4);
+  const vals = lineSeries(rng, n, c.bullish);
+  const sc = scaler(vals, c.y0, c.y1);
+  const sx = (c.x1 - c.x0) / n;
+  let d = `M${f(c.x0)} ${f(sc(vals[0]))}`;
+  vals.forEach((v, i) => {
+    d += ` L${f(c.x0 + i * sx)} ${f(sc(v))} L${f(c.x0 + (i + 1) * sx)} ${f(sc(v))}`;
+  });
+  return `<path d="${d}" fill="none" stroke="${c.accent}" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round" filter="url(#gl)"/>`;
+}
+
+function histogram(rng: Rng, c: Ctx): string {
+  const n = 10 + Math.floor(rng() * 4);
+  const vals = lineSeries(rng, n, c.bullish);
+  const sc = scaler(vals, c.y0 + 6, c.y1);
+  const sx = (c.x1 - c.x0) / n;
+  let out = "";
+  vals.forEach((v, i) => {
+    const up = i === 0 || v >= vals[i - 1];
+    const y = sc(v);
+    out += `<rect x="${f(c.x0 + i * sx + 1)}" y="${f(y)}" width="${f(sx - 2.5)}" height="${f(c.y1 - y + 6)}" rx="2" fill="${up ? c.up : c.down}"/>`;
+  });
+  const pts = vals.map((v, i): [number, number] => [c.x0 + i * sx + sx / 2, sc(v) - 5]);
+  out += `<path d="${path(pts)}" fill="none" stroke="${c.accent}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" filter="url(#gl)"/>`;
+  return out;
+}
+
+function pnlBars(rng: Rng, c: Ctx): string {
+  const n = 9 + Math.floor(rng() * 4);
+  const mid = (c.y0 + c.y1) / 2;
+  const half = (c.y1 - c.y0) / 2;
+  const sx = (c.x1 - c.x0) / n;
+  let out = `<line x1="${c.x0}" y1="${f(mid)}" x2="${c.x1}" y2="${f(mid)}" stroke="#fff" stroke-opacity=".45" stroke-width="1.5" stroke-dasharray="3 3"/>`;
+  for (let i = 0; i < n; i++) {
+    const win = rng() < (c.bullish ? 0.68 : 0.36);
+    const h = (0.2 + rng() * 0.8) * half * (win ? 1 : 0.7);
+    out += `<rect x="${f(c.x0 + i * sx + 1)}" y="${f(win ? mid - h : mid)}" width="${f(sx - 2.5)}" height="${f(h)}" rx="2" fill="${win ? c.up : c.down}"/>`;
+  }
+  return out;
+}
+
+function baseline(rng: Rng, c: Ctx): string {
+  const pts = linePoints(rng, c, 16 + Math.floor(rng() * 6));
+  const mid = (c.y0 + c.y1) / 2;
+  const d = `${path(pts)} L${f(pts[pts.length - 1][0])} ${f(mid)} L${f(pts[0][0])} ${f(mid)}z`;
+  let out = `<defs><clipPath id="ca"><rect x="0" y="0" width="128" height="${f(mid)}"/></clipPath><clipPath id="cb"><rect x="0" y="${f(mid)}" width="128" height="128"/></clipPath></defs>`;
+  out += `<path d="${d}" fill="${c.up}" opacity=".7" clip-path="url(#ca)"/><path d="${d}" fill="${c.down}" opacity=".7" clip-path="url(#cb)"/>`;
+  out += `<line x1="${c.x0}" y1="${f(mid)}" x2="${c.x1}" y2="${f(mid)}" stroke="#fff" stroke-opacity=".5" stroke-dasharray="3 3"/>`;
+  out += `<path d="${path(pts)}" fill="none" stroke="${c.accent}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#gl)"/>`;
+  return out;
+}
+
+function bollinger(rng: Rng, c: Ctx): string {
+  const n = 14 + Math.floor(rng() * 5);
+  const vals = lineSeries(rng, n, c.bullish);
+  const ma = smooth(vals, 4);
+  const band = 0.5 + rng() * 0.5;
+  const all = [...vals, ...ma.map((v) => v + band), ...ma.map((v) => v - band)];
+  const sc = scaler(all, c.y0, c.y1);
+  const sx = (c.x1 - c.x0) / (n - 1);
+  const X = (i: number) => c.x0 + i * sx;
+  const upper = ma.map((v, i): [number, number] => [X(i), sc(v + band)]);
+  const lower = ma.map((v, i): [number, number] => [X(i), sc(v - band)]);
+  let out = `<path d="${path(upper)} ${path([...lower].reverse()).replace("M", "L")}z" fill="${c.accent}" opacity=".16"/>`;
+  out += `<path d="${path(upper)}" fill="none" stroke="${c.accent}" stroke-opacity=".7" stroke-width="1.6"/><path d="${path(lower)}" fill="none" stroke="${c.accent}" stroke-opacity=".7" stroke-width="1.6"/>`;
+  out += `<path d="${path(vals.map((v, i): [number, number] => [X(i), sc(v)]))}" fill="none" stroke="${c.bullish ? c.up : c.down}" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#gl)"/>`;
+  return out;
+}
+
+function renko(rng: Rng, c: Ctx): string {
+  const n = 9 + Math.floor(rng() * 3);
+  const sx = (c.x1 - c.x0) / n;
+  const bh = 8;
+  let level = 0;
+  const levels: { lv: number; up: boolean }[] = [];
+  for (let i = 0; i < n; i++) {
+    const up = rng() < (c.bullish ? 0.7 : 0.32);
+    level += up ? 1 : -1;
+    levels.push({ lv: level, up });
+  }
+  const min = Math.min(...levels.map((l) => l.lv));
+  const max = Math.max(...levels.map((l) => l.lv));
+  const unit = Math.min(bh + 2, (c.y1 - c.y0) / Math.max(1, max - min + 1));
+  let out = "";
+  levels.forEach(({ lv, up }, i) => {
+    const y = c.y1 - (lv - min + 1) * unit;
+    out += `<rect x="${f(c.x0 + i * sx + 0.8)}" y="${f(y)}" width="${f(sx - 1.6)}" height="${f(unit - 1.4)}" rx="1.6" fill="${up ? c.up : c.down}"/>`;
+  });
+  return out;
+}
+
+// ---------- assembly ----------
+
+const BODIES: readonly ((rng: Rng, c: Ctx) => string)[] = [
+  (r, c) => candles(r, c, { ma: r() < 0.55, volume: r() < 0.4 }),
+  (r, c) => candles(r, c, { ma: r() < 0.55, volume: r() < 0.4 }),
+  (r, c) => candles(r, c, { ma: true, volume: r() < 0.5 }),
+  ohlc,
+  line,
+  line,
+  area,
+  area,
+  step,
+  histogram,
+  pnlBars,
+  baseline,
+  bollinger,
+  bollinger,
+  renko,
+];
 
 export function generateAvatarSvg(seed: string): string {
   const rng = mulberry32(hashSeed(seed));
-  const body = pick(rng, MARKS)(rng);
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">${body}</svg>`;
+  const [b0, b1] = pick(rng, BACKGROUNDS);
+  const [up, down] = pick(rng, SCHEMES);
+  const accent = pick(rng, ACCENTS);
+  const bullish = rng() < 0.7;
+  const tag = rng() < 0.6;
+  const angle = rng() * Math.PI * 2;
+  const gx = 64 + Math.cos(angle) * 64;
+  const gy = 64 + Math.sin(angle) * 64;
+
+  const ctx: Ctx = {
+    x0: 20,
+    x1: 108,
+    y0: tag ? 48 : 30,
+    y1: 102,
+    up,
+    down,
+    accent,
+    bullish,
+  };
+
+  let out = `<defs>`;
+  out += `<linearGradient id="bg" x1="${f(gx / 128)}" y1="${f(gy / 128)}" x2="${f(1 - gx / 128)}" y2="${f(1 - gy / 128)}"><stop offset="0" stop-color="${b0}"/><stop offset="1" stop-color="${b1}"/></linearGradient>`;
+  out += `<radialGradient id="gw" cx="${f(rng())}" cy="${f(rng() * 0.6)}" r=".7"><stop offset="0" stop-color="#fff" stop-opacity=".28"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>`;
+  out += `<filter id="gl" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>`;
+  out += `</defs><rect width="128" height="128" fill="url(#bg)"/><rect width="128" height="128" fill="url(#gw)"/>`;
+
+  // chart grid
+  const vertical = rng() < 0.5;
+  out += `<g stroke="#fff" stroke-opacity=".1" stroke-width="1">`;
+  for (let i = 1; i < 5; i++) out += `<line x1="0" y1="${i * 25.6}" x2="128" y2="${i * 25.6}"/>`;
+  if (vertical) for (let i = 1; i < 5; i++) out += `<line x1="${i * 25.6}" y1="0" x2="${i * 25.6}" y2="128"/>`;
+  out += `</g>`;
+
+  out += pick(rng, BODIES)(rng, ctx);
+
+  if (tag) {
+    const sym = pick(rng, TICKERS);
+    const col = bullish ? up : down;
+    const tri = bullish ? "M34 33l5-8 5 8z" : "M34 25l5 8 5-8z";
+    out += `<rect x="26" y="19" width="76" height="20" rx="10" fill="#050914" opacity=".55"/>`;
+    out += `<path d="${tri}" fill="${col}" transform="translate(-2 0)"/>`;
+    out += `<text x="70" y="33.5" text-anchor="middle" ${FONT} font-size="11" letter-spacing=".4" fill="#fff">${sym}</text>`;
+  }
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">${out}</svg>`;
 }

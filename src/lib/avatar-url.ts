@@ -2,5 +2,5 @@
 // it whenever the artwork in avatar-svg.ts changes so browsers and the CDN
 // fetch the new set. (Separate file so client components don't bundle the
 // SVG generator.)
-export const AVATAR_VERSION = 2;
+export const AVATAR_VERSION = 3;
 export const defaultAvatarUrl = (providerId: string) => `/api/avatar/${providerId}?v=${AVATAR_VERSION}`;
