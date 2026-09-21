@@ -15,7 +15,7 @@ console.log(`${rows[0].total} providers, ${rows[0].uploaded} with uploaded avata
 
 if (!dryRun) {
   const res = await client.query(
-    `update public.providers set avatar_url = '/api/avatar/' || id::text || '?v=3'
+    `update public.providers set avatar_url = '/api/avatar/' || id::text || '?v=4'
      where avatar_url is null or avatar_url not like '%/storage/v1/%'`,
   );
   console.log(`updated ${res.rowCount}`);

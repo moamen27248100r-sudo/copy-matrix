@@ -13,10 +13,10 @@ import { defaultAvatarUrl } from "@/lib/avatar-url";
 import { leaderLevel } from "@/lib/leader-level";
 
 const LEVEL_STYLES: Record<number, string> = {
-  1: "bg-slate-500 text-white",
-  2: "bg-accent text-white",
-  3: "bg-success text-background",
-  4: "bg-warning text-background",
+  1: "bg-gradient-to-br from-slate-400 to-slate-600 text-white",
+  2: "bg-gradient-to-br from-sky-400 to-blue-600 text-white",
+  3: "bg-gradient-to-br from-emerald-400 to-emerald-600 text-white",
+  4: "bg-gradient-to-br from-amber-300 to-amber-500 text-slate-900",
   5: "bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white",
 };
 
@@ -70,7 +70,7 @@ export function TraderAvatar({
         <span
           title={`المستوى ${level}`}
           aria-label={`المستوى ${level}`}
-          className={`absolute -bottom-0.5 -end-0.5 flex items-center justify-center rounded-full border-2 border-background font-bold leading-none ${LEVEL_STYLES[level]}`}
+          className={`absolute -bottom-1 -end-1 flex items-center justify-center rounded-full border-2 border-background font-bold leading-none shadow-md shadow-black/40 ${LEVEL_STYLES[level]}`}
           style={{ width: badge, height: badge, fontSize: Math.max(8, Math.round(badge * 0.55)) }}
         >
           {level}

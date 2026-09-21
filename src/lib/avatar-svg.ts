@@ -9,6 +9,8 @@
 // Everything is drawn on a 128x128 square; the UI clips it to a circle, so the
 // artwork stays inside the inscribed area.
 
+import { generateInitialsSvg } from "@/lib/avatar-initials";
+
 function hashSeed(seed: string): number {
   let h = 2166136261;
   for (let i = 0; i < seed.length; i++) {
@@ -346,4 +348,14 @@ export function generateAvatarSvg(seed: string): string {
   }
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">${out}</svg>`;
+}
+
+// A leader's avatar: roughly half get a ZuluTrade-style initials badge (always
+// for handle-like Latin names containing "FX"), the rest a trading-chart mark.
+// Chosen deterministically from the id so it never changes between requests.
+export function generateLeaderAvatarSvg(seed: string, name: string | null | undefined): string {
+  const clean = (name ?? "").trim();
+  if (!clean) return generateAvatarSvg(seed);
+  const useInitials = /fx/i.test(clean) || hashSeed(seed + "|style") % 100 < 55;
+  return useInitials ? generateInitialsSvg(seed, clean) : generateAvatarSvg(seed);
 }
