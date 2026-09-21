@@ -3,8 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
-import { AccountsSection } from "@/components/AccountsSection";
-import { PortfolioValueBreakdown } from "@/components/PortfolioValueBreakdown";
+import { DashboardHero } from "@/components/DashboardHero";
 import { MyEquityChart } from "@/components/MyEquityChart";
 
 const QUICK_LINKS = [
@@ -152,6 +151,8 @@ export default async function DashboardPage({
 
   const kycStatus = kyc?.status ?? "none";
   const kycCopy = kycStatus === "approved" ? null : KYC_COPY[kycStatus] ?? KYC_COPY.none;
+  // Once verified, the identity-verification tile is just noise.
+  const quickLinks = QUICK_LINKS.filter((l) => !(l.href === "/kyc" && kycStatus === "approved"));
 
   return (
     <>
@@ -160,7 +161,7 @@ export default async function DashboardPage({
         {!onboarded && <BackButton fallbackHref="/" />}
         <div className="flex flex-wrap items-center gap-3">
           <div>
-            <h1 className="text-2xl font-semibold">
+            <h1 className="text-xl font-semibold">
               مرحبًا، {profile?.display_name ?? user.email}
             </h1>
             <p className="text-sm text-muted">{user.email}</p>
@@ -211,90 +212,74 @@ export default async function DashboardPage({
           </div>
         )}
 
-        <AccountsSection accountType={(profile?.account_type as "real" | "demo") ?? "demo"} balance={profile?.balance ?? null} />
+        <DashboardHero
+          accountType={(profile?.account_type as "real" | "demo") ?? "demo"}
+          balance={Number(profile?.balance ?? 0)}
+          totalAllocated={totalAllocated}
+          totalUnrealizedPnl={totalUnrealizedPnl}
+        />
 
-        <section className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-4">
-          <PortfolioValueBreakdown
-            balance={Number(profile?.balance ?? 0)}
-            totalAllocated={totalAllocated}
-            totalUnrealizedPnl={totalUnrealizedPnl}
-          />
-          <div className="border-t border-border pt-4">
-            <MyEquityChart positions={closedPositions.map((p) => ({ pnl: p.pnl, closed_at: p.closed_at }))} />
-          </div>
-        </section>
-
-        <div className="grid grid-cols-3 gap-3">
-          <div className="rounded-lg border border-border p-4 text-center">
-            <div className="mx-auto mb-2 flex h-9 w-9 items-center justify-center rounded-full bg-foreground/5">
-              <svg viewBox="0 0 24 24" className="h-4 w-4 text-foreground" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                <circle cx="9" cy="7" r="4" />
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        <section className="grid grid-cols-3 rounded-2xl border border-border bg-surface">
+          {[
+            {
+              value: String(providerIds.length),
+              label: "متداولون متابَعون",
+              tone: "",
+              icon: (
+                <>
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </>
+              ),
+            },
+            {
+              value: String(openPositionsCount),
+              label: "صفقات مفتوحة",
+              tone: "",
+              icon: <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />,
+            },
+            {
+              value: `${netPnl >= 0 ? "+" : "-"}$${Math.abs(netPnl).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
+              label: "صافي الأرباح المحققة",
+              tone: netPnl >= 0 ? "text-success" : "text-danger",
+              icon: (
+                <>
+                  <path d="M23 6l-9.5 9.5-5-5L1 18" />
+                  <path d="M17 6h6v6" />
+                </>
+              ),
+            },
+          ].map((kpi) => (
+            <div key={kpi.label} className="flex flex-col items-center gap-1 border-s border-border px-2 py-4 text-center first:border-s-0">
+              <svg viewBox="0 0 24 24" className="h-4 w-4 text-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                {kpi.icon}
               </svg>
+              <p className={`text-lg font-semibold ${kpi.tone}`} dir="ltr">
+                {kpi.value}
+              </p>
+              <p className="text-xs text-muted">{kpi.label}</p>
             </div>
-            <p className="text-xl font-semibold">{providerIds.length}</p>
-            <p className="mt-1 text-xs text-muted">متداولون متابَعون</p>
-          </div>
-
-          <div className="rounded-lg border border-border p-4 text-center">
-            <div className="mx-auto mb-2 flex h-9 w-9 items-center justify-center rounded-full bg-foreground/5">
-              <svg viewBox="0 0 24 24" className="h-4 w-4 text-foreground" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-              </svg>
-            </div>
-            <p className="text-xl font-semibold">{openPositionsCount}</p>
-            <p className="mt-1 text-xs text-muted">صفقات مفتوحة</p>
-          </div>
-
-          <div className="rounded-lg border border-border p-4 text-center">
-            <div className="mx-auto mb-2 flex h-9 w-9 items-center justify-center rounded-full bg-foreground/5">
-              <svg viewBox="0 0 24 24" className="h-4 w-4 text-foreground" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M23 6l-9.5 9.5-5-5L1 18" />
-                <path d="M17 6h6v6" />
-              </svg>
-            </div>
-            <p className={netPnl >= 0 ? "text-xl font-semibold text-success" : "text-xl font-semibold text-danger"} dir="ltr">
-              {netPnl >= 0 ? "+" : ""}
-              {netPnl.toFixed(2)}
-            </p>
-            <p className="mt-1 text-xs text-muted">صافي الأرباح المحققة</p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {QUICK_LINKS.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="flex flex-col gap-2 rounded-lg border border-border bg-surface p-4 transition hover:border-accent/40 hover:shadow-lg"
-            >
-              <svg viewBox="0 0 24 24" className="h-5 w-5 text-accent" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                {l.icon}
-              </svg>
-              <p className="text-sm font-medium">{l.title}</p>
-              <p className="text-xs leading-relaxed text-muted">{l.desc}</p>
-            </Link>
           ))}
-        </div>
+        </section>
 
         <section className="flex flex-col gap-3">
           <div className="flex items-center justify-between">
-            <h2 className="font-medium">المتداولون الذين تتابعهم</h2>
+            <h2 className="text-base font-semibold">المتداول الذي تنسخه</h2>
             {providerIds.length > 0 && (
-              <Link href="/portfolio" className="text-sm underline">
+              <Link href="/portfolio" className="text-sm text-accent hover:underline">
                 عرض الكل
               </Link>
             )}
           </div>
 
           {(followedProviders ?? []).length === 0 ? (
-            <div className="flex flex-col items-center gap-3 rounded-lg border border-border bg-surface p-6 text-center">
-              <p className="text-sm text-muted">أنت لا تتابع أي متداول حتى الآن.</p>
+            <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-border bg-surface/50 p-6 text-center">
+              <p className="text-sm text-muted">لا تنسخ أي متداول حتى الآن — اختر متداولًا وابدأ النسخ بضغطة واحدة.</p>
               <Link
                 href="/discover"
-                className="rounded bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
+                className="rounded-lg bg-accent px-5 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
               >
                 تصفح المتداولين
               </Link>
@@ -305,20 +290,20 @@ export default async function DashboardPage({
                 <Link
                   key={p.provider_id}
                   href={`/trader/${p.provider_id}`}
-                  className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4 transition hover:border-accent/40 hover:shadow-lg"
+                  className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4 transition hover:border-accent/40 hover:shadow-lg"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-accent to-brand text-sm font-semibold text-white">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-accent to-brand text-sm font-semibold text-white">
                       {p.display_name?.charAt(0) ?? "؟"}
                     </div>
-                    <div>
-                      <p className="text-sm font-medium">{p.display_name}</p>
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-medium">{p.display_name}</p>
                       <p className="text-xs text-muted">
                         بدأ بمبلغ: ${Number(allocationByProvider.get(p.provider_id) ?? 0).toLocaleString("en-US")}
                       </p>
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 gap-2 text-center text-sm">
+                  <div className="grid grid-cols-2 gap-2 border-t border-border pt-3 text-center text-sm">
                     <div>
                       <p className="font-semibold">{p.win_rate_pct != null ? `${p.win_rate_pct}%` : "—"}</p>
                       <p className="text-xs text-muted">نسبة النجاح</p>
@@ -340,6 +325,39 @@ export default async function DashboardPage({
               ))}
             </div>
           )}
+        </section>
+
+        <section className="flex flex-col gap-3">
+          <h2 className="text-base font-semibold">أداء المحفظة</h2>
+          <div className="rounded-2xl border border-border bg-surface p-5">
+            {closedPositions.length === 0 ? (
+              <div className="flex flex-col items-center gap-1 py-6 text-center">
+                <p className="text-sm font-medium">لا توجد صفقات مغلقة بعد</p>
+                <p className="text-xs text-muted">سيظهر منحنى أدائك هنا بعد إغلاق أول صفقة منسوخة.</p>
+              </div>
+            ) : (
+              <MyEquityChart positions={closedPositions.map((p) => ({ pnl: p.pnl, closed_at: p.closed_at }))} />
+            )}
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-3">
+          <h2 className="text-base font-semibold">وصول سريع</h2>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {quickLinks.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className="flex flex-col gap-2 rounded-2xl border border-border bg-surface p-4 transition hover:border-accent/40 hover:shadow-lg"
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5 text-accent" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  {l.icon}
+                </svg>
+                <p className="text-sm font-medium">{l.title}</p>
+                <p className="text-xs leading-relaxed text-muted">{l.desc}</p>
+              </Link>
+            ))}
+          </div>
         </section>
       </main>
     </>
