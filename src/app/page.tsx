@@ -398,6 +398,7 @@ export default async function Home() {
                         avatarUrl={p.avatar_url}
                         ratingScore={p.rating_score}
                         size={50}
+                        showLevel={false}
                         priority
                       />
                       <div className="min-w-0 flex-1">
@@ -421,7 +422,7 @@ export default async function Home() {
                           <Sparkline
                             id={`spark-${p.provider_id}`}
                             values={series}
-                            className={`mt-2 h-14 w-full ${total >= 0 ? "text-success" : "text-danger"}`}
+                            className="mt-2 h-14 w-full text-brand"
                           />
                         </div>
                       );
