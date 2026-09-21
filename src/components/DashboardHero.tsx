@@ -70,12 +70,16 @@ export function DashboardHero({
       </div>
 
       <div>
-        <p className="text-4xl font-bold tracking-tight" dir="ltr">
-          ${money(totalValue)}
+        <p className="text-4xl font-bold tracking-tight">
+          <span dir="ltr" className="inline-block">
+            ${money(totalValue)}
+          </span>
         </p>
-        <p className={`mt-1 text-sm ${pnlPositive ? "text-success" : "text-danger"}`} dir="ltr">
-          {pnlPositive ? "+" : "-"}${money(Math.abs(totalUnrealizedPnl))} ({pnlPositive ? "+" : "-"}
-          {Math.abs(pnlPct).toFixed(2)}%)
+        <p className="mt-1 text-sm">
+          <span dir="ltr" className={`inline-block ${pnlPositive ? "text-success" : "text-danger"}`}>
+            {pnlPositive ? "+" : "-"}${money(Math.abs(totalUnrealizedPnl))} ({pnlPositive ? "+" : "-"}
+            {Math.abs(pnlPct).toFixed(2)}%)
+          </span>
           <span className="ms-2 text-xs text-muted">ربح/خسارة غير محققة</span>
         </p>
       </div>
@@ -83,14 +87,18 @@ export function DashboardHero({
       <div className="grid grid-cols-2 gap-3 border-t border-border pt-4">
         <div>
           <p className="text-xs text-muted">نقدي متاح للسحب</p>
-          <p className="mt-0.5 font-semibold" dir="ltr">
-            ${money(availableCash)}
+          <p className="mt-0.5 font-semibold">
+            <span dir="ltr" className="inline-block">
+              ${money(availableCash)}
+            </span>
           </p>
         </div>
         <div>
           <p className="text-xs text-muted">محجوز لحساب النسخ النشط</p>
-          <p className="mt-0.5 font-semibold" dir="ltr">
-            ${money(totalAllocated)}
+          <p className="mt-0.5 font-semibold">
+            <span dir="ltr" className="inline-block">
+              ${money(totalAllocated)}
+            </span>
           </p>
         </div>
       </div>

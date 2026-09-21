@@ -21,26 +21,34 @@ export function PortfolioValueBreakdown({
   return (
     <div>
       <p className="text-xs text-muted">قيمة المحفظة الإجمالية</p>
-      <p className="text-3xl font-semibold" dir="ltr">
-        ${money(totalValue)}
+      <p className="text-3xl font-semibold">
+        <span dir="ltr" className="inline-block">
+          ${money(totalValue)}
+        </span>
       </p>
       <div className="mt-3 grid grid-cols-3 gap-3 border-t border-border pt-3 text-sm">
         <div>
-          <p className="font-semibold" dir="ltr">
-            ${money(availableCash)}
+          <p className="font-semibold">
+            <span dir="ltr" className="inline-block">
+              ${money(availableCash)}
+            </span>
           </p>
           <p className="text-xs text-muted">نقدي متاح للسحب</p>
         </div>
         <div>
-          <p className="font-semibold" dir="ltr">
-            ${money(totalAllocated)}
+          <p className="font-semibold">
+            <span dir="ltr" className="inline-block">
+              ${money(totalAllocated)}
+            </span>
           </p>
           <p className="text-xs text-muted">محجوز لحساب النسخ النشط</p>
         </div>
         <div>
-          <p className={totalUnrealizedPnl >= 0 ? "font-semibold text-success" : "font-semibold text-danger"} dir="ltr">
-            {totalUnrealizedPnl >= 0 ? "+" : ""}
-            ${money(totalUnrealizedPnl)}
+          <p className={totalUnrealizedPnl >= 0 ? "font-semibold text-success" : "font-semibold text-danger"}>
+            <span dir="ltr" className="inline-block">
+              {totalUnrealizedPnl >= 0 ? "+" : ""}
+              ${money(totalUnrealizedPnl)}
+            </span>
           </p>
           <p className="text-xs text-muted">ربح/خسارة غير محققة</p>
         </div>
