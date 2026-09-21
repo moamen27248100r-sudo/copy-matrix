@@ -3,9 +3,12 @@
 // image or the seeded generated one) and falls back to the generated avatar
 // for the id, so a leader is never shown as an empty circle.
 //
-// Plain <img> with explicit dimensions, lazy loading and async decoding: the
-// generated avatars are ~2 KB same-origin SVGs cached for a year, and this
-// keeps long lists from blocking rendering.
+// Plain <img> with explicit dimensions, lazy loading and async decoding. If
+// the stored (possibly external) URL fails to load, it swaps to the generated
+// same-origin avatar so the circle is never empty.
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 
 const LEVEL_STYLES: Record<number, string> = {
   1: "bg-slate-500 text-white",
@@ -43,13 +46,24 @@ export function TraderAvatar({
   className?: string;
 }) {
   const level = showLevel ? leaderLevel(ratingScore) : null;
+  const fallback = `/api/avatar/${providerId}`;
+  const [failed, setFailed] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  // An error can fire before hydration attaches onError; catch that case here.
+  useEffect(() => {
+    const img = imgRef.current;
+    if (img && img.complete && img.naturalWidth === 0) setFailed(true);
+  }, []);
   const badge = Math.max(14, Math.round(size * 0.4));
 
   return (
     <span className={`relative inline-block shrink-0 ${className}`} style={{ width: size, height: size }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={avatarUrl || `/api/avatar/${providerId}`}
+        ref={imgRef}
+        src={failed ? fallback : avatarUrl || fallback}
+        onError={() => setFailed(true)}
         alt={name ?? ""}
         width={size}
         height={size}
