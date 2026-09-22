@@ -183,6 +183,13 @@ export async function requestPasswordReset(formData: FormData) {
   const email = formData.get("email") as string;
   const siteUrl = await getSiteUrl();
 
+  // Both the browser and server Supabase clients in this app are configured
+  // (by @supabase/ssr, which hardcodes it) for the PKCE flow, so this lands
+  // the user back on /auth/confirm with a ?code= query param -- readable
+  // server-side, unlike the plain access_token/hash delivery a non-PKCE
+  // client would get. /auth/confirm exchanges it for a session before
+  // redirecting to /reset-password, exactly like /auth/callback already does
+  // for the Google sign-in redirect.
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${siteUrl}/auth/confirm?next=/reset-password`,
   });
@@ -208,6 +215,15 @@ export async function updatePassword(formData: FormData) {
   }
 
   const password = formData.get("password") as string;
+  const passwordConfirm = formData.get("passwordConfirm") as string;
+
+  // The form already disables submit on a mismatch client-side; this is the
+  // server-side backstop for anyone who bypasses that (JS disabled, a direct
+  // POST, ...).
+  if (password !== passwordConfirm) {
+    redirect(`/reset-password?error=${encodeURIComponent("كلمتا المرور غير متطابقتين.")}`);
+  }
+
   const { error } = await supabase.auth.updateUser({ password });
 
   if (error) {

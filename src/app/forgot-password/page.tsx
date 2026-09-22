@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { requestPasswordReset } from "@/app/auth/actions";
+import { ForgotPasswordForm } from "@/components/ForgotPasswordForm";
 
 export default async function ForgotPasswordPage({
   searchParams,
@@ -22,21 +22,7 @@ export default async function ForgotPasswordPage({
         </p>
       )}
 
-      <form action={requestPasswordReset} className="flex flex-col gap-3">
-        <input
-          name="email"
-          type="email"
-          placeholder="البريد الإلكتروني"
-          required
-          className="rounded border border-border bg-surface px-3 py-2"
-        />
-        <button
-          type="submit"
-          className="rounded border border-border bg-surface px-3 py-2 text-foreground"
-        >
-          إرسال رابط إعادة التعيين
-        </button>
-      </form>
+      <ForgotPasswordForm />
 
       <p className="text-sm text-muted">
         تذكّرت كلمة المرور؟{" "}

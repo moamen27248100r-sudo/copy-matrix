@@ -1,4 +1,4 @@
-import { updatePassword } from "@/app/auth/actions";
+import { ResetPasswordForm } from "@/components/ResetPasswordForm";
 
 export default async function ResetPasswordPage({
   searchParams,
@@ -19,22 +19,7 @@ export default async function ResetPasswordPage({
         </p>
       )}
 
-      <form action={updatePassword} className="flex flex-col gap-3">
-        <input
-          name="password"
-          type="password"
-          placeholder="كلمة المرور الجديدة (٦ أحرف على الأقل)"
-          required
-          minLength={6}
-          className="rounded border border-border bg-surface px-3 py-2"
-        />
-        <button
-          type="submit"
-          className="rounded border border-border bg-surface px-3 py-2 text-foreground"
-        >
-          تحديث كلمة المرور
-        </button>
-      </form>
+      <ResetPasswordForm />
     </main>
   );
 }
