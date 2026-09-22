@@ -18,6 +18,7 @@ type Props = {
   cardWelcome: string;
   cardPortfolioLabel: string;
   cardTopLabel: string;
+  liveLabel: string;
   portfolioValue: number;
   leaders: TryCopyLeader[];
 };
@@ -45,6 +46,7 @@ export function TryCopySection({
   cardWelcome,
   cardPortfolioLabel,
   cardTopLabel,
+  liveLabel,
   portfolioValue,
   leaders,
 }: Props) {
@@ -83,17 +85,47 @@ export function TryCopySection({
             </p>
 
             <div className="mt-5 rounded-2xl border border-border bg-surface/60 p-4">
-              <p className="mb-3 text-sm font-semibold">{cardTopLabel}</p>
+              <div className="mb-3 flex items-center justify-between">
+                <p className="text-sm font-semibold">{cardTopLabel}</p>
+                <span className="flex items-center gap-1 text-[10px] text-muted">
+                  <span className="h-1.5 w-1.5 rounded-full bg-success shadow-[0_0_6px_theme(colors.success)]" aria-hidden="true" />
+                  {liveLabel}
+                </span>
+              </div>
+              {/* Real per-leader avg_daily_return_pct, so this moves with actual
+                  platform performance day to day. Each bar links to that
+                  leader's profile -- a real "interactive" mockup, not a static
+                  picture. */}
               <div className="flex h-36 items-end justify-between gap-3" dir="ltr">
                 {leaders.map((l) => (
-                  <div key={l.id} className="flex flex-1 flex-col items-center gap-2">
-                    <span className="text-[11px] font-semibold text-success">{l.returnPct.toFixed(1)}%</span>
+                  <Link
+                    key={l.id}
+                    href={`/trader/${l.id}`}
+                    className="group/bar relative flex flex-1 flex-col items-center gap-2 outline-none"
+                  >
+                    <span
+                      role="tooltip"
+                      className="pointer-events-none absolute -top-7 z-10 whitespace-nowrap rounded-md bg-background px-2 py-1 text-[10px] font-medium text-foreground opacity-0 shadow-lg shadow-black/30 ring-1 ring-border transition duration-150 group-hover/bar:opacity-100 group-focus-visible/bar:opacity-100"
+                    >
+                      {l.name}
+                    </span>
+                    <span className="text-[11px] font-semibold text-success transition group-hover/bar:text-success">
+                      {l.returnPct.toFixed(1)}%
+                    </span>
                     <div
-                      className="w-full rounded-t-md bg-gradient-to-t from-success/60 to-success"
+                      className="w-full rounded-t-md bg-gradient-to-t from-success/60 to-success transition-[height,filter] duration-300 group-hover/bar:brightness-110 group-hover/bar:shadow-[0_0_10px_theme(colors.success/60%)]"
                       style={{ height: `${Math.max(12, (l.returnPct / maxReturn) * 88)}px` }}
                     />
-                    <TraderAvatar providerId={l.id} name={l.name} avatarUrl={l.avatarUrl} ratingScore={l.ratingScore} size={32} showLevel={false} />
-                  </div>
+                    <TraderAvatar
+                      providerId={l.id}
+                      name={l.name}
+                      avatarUrl={l.avatarUrl}
+                      ratingScore={l.ratingScore}
+                      size={32}
+                      showLevel={false}
+                      className="transition group-hover/bar:scale-110 group-hover/bar:ring-2 group-hover/bar:ring-success"
+                    />
+                  </Link>
                 ))}
               </div>
             </div>

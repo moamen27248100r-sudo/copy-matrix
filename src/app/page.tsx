@@ -369,6 +369,7 @@ export default async function Home() {
           cardWelcome={t("tryCopy.cardWelcome")}
           cardPortfolioLabel={t("tryCopy.cardPortfolioLabel")}
           cardTopLabel={t("tryCopy.cardTopLabel")}
+          liveLabel={t.has("tryCopy.live") ? t("tryCopy.live") : ""}
           portfolioValue={DEMO_START_BALANCE}
           leaders={tryCopyLeaders}
         />
