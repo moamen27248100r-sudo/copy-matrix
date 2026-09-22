@@ -112,11 +112,28 @@ export default async function Home() {
   const t = await getTranslations("Home");
   const locale = (await getLocale()) as Locale;
 
-  const { data: rawTopProviders } = await supabase
-    .from("provider_cards")
-    .select("*")
-    .order("avg_daily_return_pct", { ascending: false, nullsFirst: false })
-    .limit(10);
+  // The leader cards further down are meant to always be on the page, not
+  // appear only when this happens to succeed on the first try -- so a
+  // transient failure (a dropped connection, a cold start) gets two more
+  // tries before giving up. provider_cards itself is fast and reliable now
+  // (backed by provider_performance_mv, see migration 0144), so a retry
+  // costs at most ~150ms extra and should essentially never be needed.
+  // Matches the untyped shape .select("*") already returned here (no
+  // generated Database types wired into this client).
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let rawTopProviders: any[] | null = null;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    const { data, error } = await supabase
+      .from("provider_cards")
+      .select("*")
+      .order("avg_daily_return_pct", { ascending: false, nullsFirst: false })
+      .limit(10);
+    if (!error) {
+      rawTopProviders = data;
+      break;
+    }
+    console.error(`provider_cards fetch attempt ${attempt} failed:`, error.message);
+  }
 
   const topProviders = rawTopProviders ? pinTopLeaders(rawTopProviders).slice(0, 3) : rawTopProviders;
 
