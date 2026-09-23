@@ -183,13 +183,12 @@ export async function requestPasswordReset(formData: FormData) {
   const email = formData.get("email") as string;
   const siteUrl = await getSiteUrl();
 
-  // Both the browser and server Supabase clients in this app are configured
-  // (by @supabase/ssr, which hardcodes it) for the PKCE flow, so this lands
-  // the user back on /auth/confirm with a ?code= query param -- readable
-  // server-side, unlike the plain access_token/hash delivery a non-PKCE
-  // client would get. /auth/confirm exchanges it for a session before
-  // redirecting to /reset-password, exactly like /auth/callback already does
-  // for the Google sign-in redirect.
+  // The email carries both a clickable link (works if opened on the same
+  // browser/device that requested it -- PKCE, see /auth/confirm) AND a
+  // 6-digit code (device-independent: verifyResetCode below exchanges it for
+  // a session via verifyOtp, no cookie continuity required). The code is the
+  // one that actually works when the link is opened from a phone's mail app
+  // while the request came from a desktop browser.
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${siteUrl}/auth/confirm?next=/reset-password`,
   });
@@ -198,7 +197,29 @@ export async function requestPasswordReset(formData: FormData) {
     redirect(`/forgot-password?error=${encodeURIComponent(translateAuthError(error.message))}`);
   }
 
-  redirect("/forgot-password/check-email");
+  redirect(`/forgot-password/verify-code?email=${encodeURIComponent(email)}`);
+}
+
+export async function verifyResetCode(formData: FormData) {
+  const email = (formData.get("email") as string) ?? "";
+  const code = ((formData.get("code") as string) ?? "").trim();
+  const backTo = `/forgot-password/verify-code?email=${encodeURIComponent(email)}`;
+
+  if (!(await checkRateLimit("verify-reset-code", 8, 900))) {
+    redirect(`${backTo}&error=${encodeURIComponent(RATE_LIMIT_MESSAGE)}`);
+  }
+  if (!email || !/^\d{8}$/.test(code)) {
+    redirect(`${backTo}&error=${encodeURIComponent("أدخل الكود المكوَّن من 8 أرقام كما وصلك بالإيميل.")}`);
+  }
+
+  const supabase = await createClient();
+  const { error } = await supabase.auth.verifyOtp({ email, token: code, type: "recovery" });
+
+  if (error) {
+    redirect(`${backTo}&error=${encodeURIComponent("الكود غير صحيح أو منتهي الصلاحية. تأكد منه أو اطلب كودًا جديدًا.")}`);
+  }
+
+  redirect("/reset-password");
 }
 
 export async function updatePassword(formData: FormData) {
