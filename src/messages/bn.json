@@ -301,7 +301,8 @@
   },
   "Common": {
     "level": "লেভেল {level}",
-    "back": "ফিরে যান"
+    "back": "ফিরে যান",
+    "other": "অন্যান্য"
   },
   "Notifications": {
     "copyOpenedTitle": "নতুন ট্রেড কপি হয়েছে",
@@ -410,5 +411,69 @@
     "BNBUSDT": "বিএনবি",
     "XRPUSDT": "এক্সআরপি",
     "US30": "ডাউ জোন্স ইন্ডাস্ট্রিয়াল এভারেজ"
+  },
+  "TraderBadges": {
+    "tierElite": "এলিট",
+    "tierPro": "প্রো",
+    "tierIntermediate": "মধ্যবর্তী",
+    "tierBeginner": "শিক্ষানবিস",
+    "riskLow": "কম",
+    "riskMedium": "মাঝারি",
+    "riskHigh": "বেশি",
+    "riskLabel": "{level} ঝুঁকি",
+    "stoppedTrading": "ট্রেডিং বন্ধ"
+  },
+  "TraderEquityChart": {
+    "start": "শুরু",
+    "current": "বর্তমান",
+    "notEnoughData": "এই সময়কালে চার্ট দেখানোর জন্য পর্যাপ্ত বন্ধ ট্রেড নেই।"
+  },
+  "OpenOrders": {
+    "entryPrefix": "এন্ট্রি",
+    "currentPrefix": "বর্তমান",
+    "noOpenOrders": "এই ট্রেডারের জন্য বর্তমানে কোনো খোলা ট্রেড নেই।",
+    "totalFloatingPnl": "মোট ফ্লোটিং লাভ/ক্ষতি"
+  },
+  "RecentCopiers": {
+    "memberSince": "{date} থেকে"
+  },
+  "TraderProfile": {
+    "follow": "ফলো করুন",
+    "unfollow": "আনফলো করুন",
+    "memberSince": "{date} থেকে সদস্য",
+    "followNotifyNote": "ফলো করলে আপনি এই ট্রেডারের পারফরম্যান্স বিবরণসহ একটি ইমেইল পাবেন।",
+    "copiersListLabel": "কপিয়ারদের তালিকা ({count})",
+    "signupPrompt": "{name} কে কপি করতে এবং তার পারফরম্যান্স ট্র্যাক করতে বিনামূল্যে সাইন আপ করুন।",
+    "signupCta": "বিনামূল্যে অ্যাকাউন্ট তৈরি করুন",
+    "stoppedTradingNotice": "{name} ট্রেডিং বন্ধ করে দিয়েছেন এবং নতুন কপি শুরু করা যাবে না। তার পূর্বের রেকর্ড এখনও সম্পূর্ণ দেখা যায়।",
+    "blockedNotice": "আপনি বর্তমানে <strong>{otherName}</strong> কে কপি করছেন। আপনি একই সময়ে শুধুমাত্র একজন ট্রেডারকে কপি করতে পারবেন — {name} কে কপি করতে প্রথমে <link>আপনার পোর্টফোলিও</link> থেকে কপি করা বন্ধ করুন।",
+    "currentlyCopyingAmount": "আপনি এই ট্রেডারকে {amount} দিয়ে কপি করছেন",
+    "copyAmountLabel": "কপির পরিমাণ",
+    "copyCta": "কপি করুন",
+    "stopCopyingCta": "কপি করা বন্ধ করুন",
+    "minCopyBadge": "এই ট্রেডারের জন্য সর্বনিম্ন কপি পরিমাণ: {amount}",
+    "availableBalance": "উপলব্ধ ব্যালেন্স: {amount}",
+    "statCopiers": "কপিয়ার",
+    "statTotalProfit": "মোট লাভ",
+    "statTotalWithdrawals": "মোট উত্তোলন",
+    "statCurrentCapital": "বর্তমান মূলধন",
+    "statOverallWinRate": "সামগ্রিক জয়ের হার",
+    "statMaxDrawdown": "সর্বোচ্চ ড্রডাউন",
+    "reliabilitySectionTitle": "ট্রেডিং নির্ভরযোগ্যতার স্তর",
+    "gaugeReliability": "নির্ভরযোগ্যতা",
+    "gaugeSafety": "নিরাপত্তা স্কোর",
+    "gaugeRiskExposure": "ঝুঁকির এক্সপোজার",
+    "closedTradesStat": "বন্ধ ট্রেড",
+    "daysMemberStat": "সদস্যপদের দিন",
+    "equityChartTitle": "সঞ্চিত পারফরম্যান্স",
+    "periodsPerformanceTitle": "সময়কাল অনুযায়ী পারফরম্যান্স",
+    "winRateInline": "জয়ের হার {pct}%",
+    "noTradesLabel": "কোনো ট্রেড নেই",
+    "assetsSectionTitle": "ট্রেডিং যন্ত্র",
+    "openOrdersSectionTitle": "খোলা অর্ডার",
+    "tradeHistorySectionTitle": "ট্রেড ইতিহাস",
+    "noClosedTrades": "এখনও কোনো বন্ধ ট্রেড নেই।",
+    "copyStartedSuccess": "আপনি সফলভাবে {amount} দিয়ে {name} কে কপি করা শুরু করেছেন।",
+    "anotherTraderFallback": "অন্য একজন ট্রেডার"
   }
 }

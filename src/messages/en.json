@@ -301,7 +301,8 @@
   },
   "Common": {
     "level": "Level {level}",
-    "back": "Back"
+    "back": "Back",
+    "other": "Other"
   },
   "Notifications": {
     "copyOpenedTitle": "New trade copied",
@@ -410,5 +411,69 @@
     "BNBUSDT": "BNB",
     "XRPUSDT": "XRP",
     "US30": "Dow Jones Industrial Average"
+  },
+  "TraderBadges": {
+    "tierElite": "Elite",
+    "tierPro": "Pro",
+    "tierIntermediate": "Intermediate",
+    "tierBeginner": "Beginner",
+    "riskLow": "Low",
+    "riskMedium": "Medium",
+    "riskHigh": "High",
+    "riskLabel": "{level} risk",
+    "stoppedTrading": "Stopped trading"
+  },
+  "TraderEquityChart": {
+    "start": "Start",
+    "current": "Current",
+    "notEnoughData": "Not enough closed trades in this period to show the chart."
+  },
+  "OpenOrders": {
+    "entryPrefix": "Entry",
+    "currentPrefix": "Current",
+    "noOpenOrders": "No open trades for this trader right now.",
+    "totalFloatingPnl": "Total floating P/L"
+  },
+  "RecentCopiers": {
+    "memberSince": "Since {date}"
+  },
+  "TraderProfile": {
+    "follow": "Follow",
+    "unfollow": "Unfollow",
+    "memberSince": "Member since {date}",
+    "followNotifyNote": "You'll get an email with this trader's performance details when you follow them.",
+    "copiersListLabel": "Copiers list ({count})",
+    "signupPrompt": "Sign up for free to copy {name} and track their trading performance.",
+    "signupCta": "Create free account",
+    "stoppedTradingNotice": "{name} has stopped trading and new copying can't be started. Their past track record is still fully viewable.",
+    "blockedNotice": "You are currently copying <strong>{otherName}</strong>. You can only copy one trader at a time — stop copying first from <link>your portfolio</link> to copy {name}.",
+    "currentlyCopyingAmount": "You are copying this trader with {amount}",
+    "copyAmountLabel": "Copy amount",
+    "copyCta": "Copy",
+    "stopCopyingCta": "Stop copying",
+    "minCopyBadge": "Minimum copy amount for this trader: {amount}",
+    "availableBalance": "Available balance: {amount}",
+    "statCopiers": "Copiers",
+    "statTotalProfit": "Total profit",
+    "statTotalWithdrawals": "Total withdrawals",
+    "statCurrentCapital": "Current capital",
+    "statOverallWinRate": "Overall win rate",
+    "statMaxDrawdown": "Max drawdown",
+    "reliabilitySectionTitle": "Trading reliability level",
+    "gaugeReliability": "Reliability",
+    "gaugeSafety": "Safety score",
+    "gaugeRiskExposure": "Risk exposure",
+    "closedTradesStat": "Closed trades",
+    "daysMemberStat": "Days as member",
+    "equityChartTitle": "Cumulative performance",
+    "periodsPerformanceTitle": "Performance by period",
+    "winRateInline": "Win rate {pct}%",
+    "noTradesLabel": "No trades",
+    "assetsSectionTitle": "Trading instruments",
+    "openOrdersSectionTitle": "Open orders",
+    "tradeHistorySectionTitle": "Trade history",
+    "noClosedTrades": "No closed trades yet.",
+    "copyStartedSuccess": "You started copying {name} successfully with {amount}.",
+    "anotherTraderFallback": "another trader"
   }
 }

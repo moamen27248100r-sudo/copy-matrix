@@ -301,7 +301,8 @@
   },
   "Common": {
     "level": "等级 {level}",
-    "back": "返回"
+    "back": "返回",
+    "other": "其他"
   },
   "Notifications": {
     "copyOpenedTitle": "已复制新交易",
@@ -410,5 +411,69 @@
     "BNBUSDT": "币安币",
     "XRPUSDT": "瑞波币",
     "US30": "道琼斯工业平均指数"
+  },
+  "TraderBadges": {
+    "tierElite": "精英",
+    "tierPro": "专业",
+    "tierIntermediate": "中级",
+    "tierBeginner": "新手",
+    "riskLow": "低",
+    "riskMedium": "中",
+    "riskHigh": "高",
+    "riskLabel": "{level}风险",
+    "stoppedTrading": "已停止交易"
+  },
+  "TraderEquityChart": {
+    "start": "起点",
+    "current": "当前",
+    "notEnoughData": "该时段内已平仓交易不足，无法显示图表。"
+  },
+  "OpenOrders": {
+    "entryPrefix": "入场",
+    "currentPrefix": "当前",
+    "noOpenOrders": "该交易员目前没有持仓中的交易。",
+    "totalFloatingPnl": "浮动盈亏总计"
+  },
+  "RecentCopiers": {
+    "memberSince": "自 {date} 起"
+  },
+  "TraderProfile": {
+    "follow": "关注",
+    "unfollow": "取消关注",
+    "memberSince": "加入于 {date}",
+    "followNotifyNote": "关注后您将收到包含该交易员表现详情的邮件。",
+    "copiersListLabel": "跟单者列表（{count}）",
+    "signupPrompt": "免费注册以跟单 {name} 并追踪其交易表现。",
+    "signupCta": "创建免费账户",
+    "stoppedTradingNotice": "{name} 已停止交易，无法开始新的跟单。其历史记录仍可完整查看。",
+    "blockedNotice": "您当前正在跟单 <strong>{otherName}</strong>。同一时间只能跟单一位交易员 — 请先在<link>您的投资组合</link>中停止跟单，才能跟单 {name}。",
+    "currentlyCopyingAmount": "您正在以 {amount} 跟单该交易员",
+    "copyAmountLabel": "跟单金额",
+    "copyCta": "跟单",
+    "stopCopyingCta": "停止跟单",
+    "minCopyBadge": "该交易员的最低跟单金额：{amount}",
+    "availableBalance": "可用余额：{amount}",
+    "statCopiers": "跟单者",
+    "statTotalProfit": "总利润",
+    "statTotalWithdrawals": "总提款",
+    "statCurrentCapital": "当前资本",
+    "statOverallWinRate": "总体胜率",
+    "statMaxDrawdown": "最大回撤",
+    "reliabilitySectionTitle": "交易可靠性水平",
+    "gaugeReliability": "可靠性",
+    "gaugeSafety": "安全评分",
+    "gaugeRiskExposure": "风险敞口",
+    "closedTradesStat": "已平仓交易",
+    "daysMemberStat": "加入天数",
+    "equityChartTitle": "累计表现",
+    "periodsPerformanceTitle": "分期表现",
+    "winRateInline": "胜率 {pct}%",
+    "noTradesLabel": "无交易",
+    "assetsSectionTitle": "交易品种",
+    "openOrdersSectionTitle": "持仓订单",
+    "tradeHistorySectionTitle": "交易记录",
+    "noClosedTrades": "暂无已平仓交易。",
+    "copyStartedSuccess": "您已成功以 {amount} 开始跟单 {name}。",
+    "anotherTraderFallback": "另一位交易员"
   }
 }

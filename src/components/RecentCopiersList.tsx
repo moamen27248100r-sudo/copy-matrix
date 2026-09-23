@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { getLocale, getTranslations } from "next-intl/server";
+import { formatDate } from "@/lib/locale-format";
+import type { Locale } from "@/i18n/locales";
 
 type Copier = {
   id: string;
@@ -21,8 +24,10 @@ function avatarStyle(name: string) {
   return AVATAR_STYLES[hash % AVATAR_STYLES.length];
 }
 
-export function RecentCopiersList({ copiers, providerId }: { copiers: Copier[]; providerId: string }) {
+export async function RecentCopiersList({ copiers, providerId }: { copiers: Copier[]; providerId: string }) {
   if (copiers.length === 0) return null;
+  const locale = (await getLocale()) as Locale;
+  const t = await getTranslations("RecentCopiers");
 
   return (
     <div className="flex max-h-[520px] flex-col gap-2 overflow-y-auto pe-1">
@@ -47,12 +52,8 @@ export function RecentCopiersList({ copiers, providerId }: { copiers: Copier[]; 
               <div>
                 <p className="text-sm font-semibold text-foreground">{c.display_name}</p>
                 <p className="text-xs text-muted">
-                  منذ{" "}
-                  {new Date(c.joined_at).toLocaleDateString("ar-EG", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                    timeZone: "UTC",
+                  {t("memberSince", {
+                    date: formatDate(c.joined_at, locale, { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }),
                   })}
                 </p>
               </div>

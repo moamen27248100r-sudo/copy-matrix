@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { SymbolIcon } from "@/lib/symbol-icons";
 import { useLivePrices } from "@/lib/use-live-prices";
 
@@ -22,6 +23,7 @@ function formatPrice(value: number) {
 // actually changes the value, so the "alive" feel doesn't rely on the
 // unchanging forex daily rate ticking every 2s with the exact same number.
 function OrderRow({ order, current }: { order: OpenOrder; current: number | undefined }) {
+  const t = useTranslations("OpenOrders");
   const [flash, setFlash] = useState<"up" | "down" | null>(null);
   const prevPrice = useRef<number | undefined>(current);
 
@@ -82,8 +84,8 @@ function OrderRow({ order, current }: { order: OpenOrder; current: number | unde
           {pct != null ? `${pct >= 0 ? "+" : ""}${pct.toFixed(2)}%` : "—"}
         </p>
         <p className="text-xs text-muted" dir="ltr">
-          دخول {formatPrice(order.entry_price)}
-          {current != null && <> · الحالي {formatPrice(current)}</>}
+          {t("entryPrefix")} {formatPrice(order.entry_price)}
+          {current != null && <> · {t("currentPrefix")} {formatPrice(current)}</>}
         </p>
         {(order.take_profit != null || order.stop_loss != null) && (
           <p className="text-[11px] text-muted" dir="ltr">
@@ -104,11 +106,12 @@ export function OpenOrdersTable({
   orders: OpenOrder[];
   initialPrices: Record<string, number>;
 }) {
+  const t = useTranslations("OpenOrders");
   const symbols = Array.from(new Set(orders.map((o) => o.symbol)));
   const prices = useLivePrices(symbols, initialPrices);
 
   if (orders.length === 0) {
-    return <p className="text-sm text-muted">لا توجد صفقات مفتوحة حاليًا لهذا المتداول.</p>;
+    return <p className="text-sm text-muted">{t("noOpenOrders")}</p>;
   }
 
   const totalPct = orders.reduce((sum, o) => {
@@ -121,7 +124,7 @@ export function OpenOrdersTable({
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-between rounded-lg bg-background px-3 py-2">
-        <span className="text-xs text-muted">إجمالي التذبذب العائم</span>
+        <span className="text-xs text-muted">{t("totalFloatingPnl")}</span>
         <span
           className={totalPct >= 0 ? "text-sm font-semibold text-success" : "text-sm font-semibold text-danger"}
           dir="ltr"

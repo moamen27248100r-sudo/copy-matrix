@@ -301,7 +301,8 @@
   },
   "Common": {
     "level": "लेवल {level}",
-    "back": "वापस"
+    "back": "वापस",
+    "other": "अन्य"
   },
   "Notifications": {
     "copyOpenedTitle": "नया ट्रेड कॉपी हुआ",
@@ -410,5 +411,69 @@
     "BNBUSDT": "बीएनबी",
     "XRPUSDT": "एक्सआरपी",
     "US30": "डाउ जोन्स इंडस्ट्रियल एवरेज"
+  },
+  "TraderBadges": {
+    "tierElite": "एलीट",
+    "tierPro": "प्रो",
+    "tierIntermediate": "मध्यम",
+    "tierBeginner": "शुरुआती",
+    "riskLow": "कम",
+    "riskMedium": "मध्यम",
+    "riskHigh": "उच्च",
+    "riskLabel": "{level} जोखिम",
+    "stoppedTrading": "ट्रेडिंग रुकी हुई"
+  },
+  "TraderEquityChart": {
+    "start": "शुरुआत",
+    "current": "वर्तमान",
+    "notEnoughData": "इस अवधि में चार्ट दिखाने के लिए पर्याप्त बंद ट्रेड नहीं हैं।"
+  },
+  "OpenOrders": {
+    "entryPrefix": "एंट्री",
+    "currentPrefix": "वर्तमान",
+    "noOpenOrders": "इस ट्रेडर के लिए फिलहाल कोई खुला ट्रेड नहीं है।",
+    "totalFloatingPnl": "कुल फ्लोटिंग लाभ/हानि"
+  },
+  "RecentCopiers": {
+    "memberSince": "{date} से"
+  },
+  "TraderProfile": {
+    "follow": "फॉलो करें",
+    "unfollow": "अनफॉलो करें",
+    "memberSince": "{date} से सदस्य",
+    "followNotifyNote": "फॉलो करने पर आपको इस ट्रेडर के प्रदर्शन विवरण के साथ एक ईमेल मिलेगा।",
+    "copiersListLabel": "कॉपीयर सूची ({count})",
+    "signupPrompt": "{name} को कॉपी करने और उनके प्रदर्शन को ट्रैक करने के लिए मुफ्त में साइन अप करें।",
+    "signupCta": "मुफ्त खाता बनाएं",
+    "stoppedTradingNotice": "{name} ने ट्रेडिंग बंद कर दी है और नई कॉपी शुरू नहीं की जा सकती। उनका पिछला ट्रैक रिकॉर्ड अभी भी पूरी तरह देखने योग्य है।",
+    "blockedNotice": "आप वर्तमान में <strong>{otherName}</strong> को कॉपी कर रहे हैं। आप एक समय में केवल एक ट्रेडर को कॉपी कर सकते हैं — {name} को कॉपी करने के लिए पहले <link>अपने पोर्टफोलियो</link> से कॉपी करना बंद करें।",
+    "currentlyCopyingAmount": "आप इस ट्रेडर को {amount} के साथ कॉपी कर रहे हैं",
+    "copyAmountLabel": "कॉपी राशि",
+    "copyCta": "कॉपी करें",
+    "stopCopyingCta": "कॉपी करना बंद करें",
+    "minCopyBadge": "इस ट्रेडर के लिए न्यूनतम कॉपी राशि: {amount}",
+    "availableBalance": "उपलब्ध शेष: {amount}",
+    "statCopiers": "कॉपीयर",
+    "statTotalProfit": "कुल लाभ",
+    "statTotalWithdrawals": "कुल निकासी",
+    "statCurrentCapital": "वर्तमान पूंजी",
+    "statOverallWinRate": "समग्र जीत दर",
+    "statMaxDrawdown": "अधिकतम ड्रॉडाउन",
+    "reliabilitySectionTitle": "ट्रेडिंग विश्वसनीयता स्तर",
+    "gaugeReliability": "विश्वसनीयता",
+    "gaugeSafety": "सुरक्षा स्कोर",
+    "gaugeRiskExposure": "जोखिम एक्सपोजर",
+    "closedTradesStat": "बंद ट्रेड",
+    "daysMemberStat": "सदस्यता के दिन",
+    "equityChartTitle": "संचयी प्रदर्शन",
+    "periodsPerformanceTitle": "अवधि के अनुसार प्रदर्शन",
+    "winRateInline": "जीत दर {pct}%",
+    "noTradesLabel": "कोई ट्रेड नहीं",
+    "assetsSectionTitle": "ट्रेडिंग साधन",
+    "openOrdersSectionTitle": "खुले ऑर्डर",
+    "tradeHistorySectionTitle": "ट्रेड इतिहास",
+    "noClosedTrades": "अभी तक कोई बंद ट्रेड नहीं है।",
+    "copyStartedSuccess": "आपने {amount} के साथ सफलतापूर्वक {name} को कॉपी करना शुरू कर दिया है।",
+    "anotherTraderFallback": "एक अन्य ट्रेडर"
   }
 }

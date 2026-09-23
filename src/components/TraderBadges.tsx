@@ -1,5 +1,9 @@
 import type { ReactNode } from "react";
+import { getTranslations } from "next-intl/server";
 
+// tier/risk_level are stored in the database as fixed Arabic strings (see
+// provider_cards.tier / .risk_level) -- these map that raw DB value to both
+// its style and its translation key, independent of the UI locale.
 const TIER_STYLES: Record<string, string> = {
   "نخبة": "border-amber-500/40 bg-amber-500/10 text-amber-400",
   "محترف": "border-accent/40 bg-accent/10 text-accent",
@@ -7,10 +11,23 @@ const TIER_STYLES: Record<string, string> = {
   "مبتدئ": "border-border bg-foreground/5 text-muted",
 };
 
+const TIER_KEYS: Record<string, string> = {
+  "نخبة": "tierElite",
+  "محترف": "tierPro",
+  "متوسط": "tierIntermediate",
+  "مبتدئ": "tierBeginner",
+};
+
 const RISK_STYLES: Record<string, string> = {
   "منخفضة": "border-success/40 bg-success/10 text-success",
   "متوسطة": "border-warning/40 bg-warning/10 text-warning",
   "مرتفعة": "border-danger/40 bg-danger/10 text-danger",
+};
+
+const RISK_KEYS: Record<string, string> = {
+  "منخفضة": "riskLow",
+  "متوسطة": "riskMedium",
+  "مرتفعة": "riskHigh",
 };
 
 function StarIcon() {
@@ -45,34 +62,39 @@ const TIER_ICONS: Record<string, ReactNode> = {
   "محترف": <ShieldIcon />,
 };
 
-export function TierBadge({ tier }: { tier: string | null }) {
+export async function TierBadge({ tier }: { tier: string | null }) {
   if (!tier) return null;
+  const t = await getTranslations("TraderBadges");
   const classes = TIER_STYLES[tier] ?? TIER_STYLES["مبتدئ"];
+  const label = t(TIER_KEYS[tier] ?? "tierBeginner");
   return (
     <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-medium ${classes}`}>
       {TIER_ICONS[tier]}
-      {tier}
+      {label}
     </span>
   );
 }
 
-export function RiskBadge({ level }: { level: string | null }) {
+export async function RiskBadge({ level }: { level: string | null }) {
   if (!level) return null;
+  const t = await getTranslations("TraderBadges");
   const classes = RISK_STYLES[level] ?? "border-border bg-foreground/5 text-muted";
+  const label = t(RISK_KEYS[level] ?? "riskMedium");
   return (
     <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-medium ${classes}`}>
       {level === "منخفضة" ? <ShieldIcon /> : <AlertIcon />}
-      مخاطرة {level}
+      {t("riskLabel", { level: label })}
     </span>
   );
 }
 
-export function StoppedBadge({ stopped }: { stopped: boolean }) {
+export async function StoppedBadge({ stopped }: { stopped: boolean }) {
   if (!stopped) return null;
+  const t = await getTranslations("TraderBadges");
   return (
     <span className="inline-flex items-center gap-1 rounded-full border border-border bg-foreground/5 px-2 py-0.5 text-xs font-medium text-muted">
       <AlertIcon />
-      توقف عن التداول
+      {t("stoppedTrading")}
     </span>
   );
 }

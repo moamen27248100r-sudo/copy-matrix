@@ -1,7 +1,11 @@
+import { getTranslations } from "next-intl/server";
 import { symbolColor, OTHER_COLOR } from "@/lib/symbol-icons";
 
-export function AssetAllocationBar({ signals }: { signals: { symbol: string }[] }) {
+const OTHER = "__other__";
+
+export async function AssetAllocationBar({ signals }: { signals: { symbol: string }[] }) {
   if (signals.length === 0) return null;
+  const t = await getTranslations("Common");
 
   const counts = new Map<string, number>();
   for (const s of signals) counts.set(s.symbol, (counts.get(s.symbol) ?? 0) + 1);
@@ -9,7 +13,7 @@ export function AssetAllocationBar({ signals }: { signals: { symbol: string }[] 
   const sorted = Array.from(counts.entries()).sort((a, b) => b[1] - a[1]);
   const top = sorted.slice(0, 4);
   const restCount = sorted.slice(4).reduce((sum, [, c]) => sum + c, 0);
-  if (restCount > 0) top.push(["أخرى", restCount]);
+  if (restCount > 0) top.push([OTHER, restCount]);
 
   const total = signals.length;
   // Keep the bar's actual widths as exact fractions (not pre-rounded) so the
@@ -17,9 +21,10 @@ export function AssetAllocationBar({ signals }: { signals: { symbol: string }[] 
   // only the displayed percentage labels are rounded, for readability.
   const segments = top.map(([symbol, count]) => ({
     symbol,
+    label: symbol === OTHER ? t("other") : symbol,
     widthPct: (count / total) * 100,
     displayPct: Math.round((count / total) * 100),
-    color: symbol === "أخرى" ? OTHER_COLOR : symbolColor(symbol),
+    color: symbol === OTHER ? OTHER_COLOR : symbolColor(symbol),
   }));
 
   return (
@@ -30,7 +35,7 @@ export function AssetAllocationBar({ signals }: { signals: { symbol: string }[] 
             key={seg.symbol}
             className="shrink-0"
             style={{ width: `${seg.widthPct}%`, backgroundColor: seg.color }}
-            title={seg.symbol}
+            title={seg.label}
           />
         ))}
       </div>
@@ -44,7 +49,7 @@ export function AssetAllocationBar({ signals }: { signals: { symbol: string }[] 
                 aria-hidden="true"
               />
               <span className="text-xs text-muted" dir="ltr">
-                {seg.symbol}
+                {seg.label}
               </span>
             </div>
             <span className="text-sm font-bold">{seg.displayPct}%</span>

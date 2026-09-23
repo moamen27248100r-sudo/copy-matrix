@@ -301,7 +301,8 @@
   },
   "Common": {
     "level": "Level {level}",
-    "back": "Kembali"
+    "back": "Kembali",
+    "other": "Lainnya"
   },
   "Notifications": {
     "copyOpenedTitle": "Trade baru disalin",
@@ -410,5 +411,69 @@
     "BNBUSDT": "BNB",
     "XRPUSDT": "XRP",
     "US30": "Dow Jones Industrial Average"
+  },
+  "TraderBadges": {
+    "tierElite": "Elite",
+    "tierPro": "Pro",
+    "tierIntermediate": "Menengah",
+    "tierBeginner": "Pemula",
+    "riskLow": "Rendah",
+    "riskMedium": "Sedang",
+    "riskHigh": "Tinggi",
+    "riskLabel": "Risiko {level}",
+    "stoppedTrading": "Trading dihentikan"
+  },
+  "TraderEquityChart": {
+    "start": "Awal",
+    "current": "Saat ini",
+    "notEnoughData": "Tidak cukup trade tertutup pada periode ini untuk menampilkan grafik."
+  },
+  "OpenOrders": {
+    "entryPrefix": "Entry",
+    "currentPrefix": "Saat ini",
+    "noOpenOrders": "Tidak ada trade terbuka untuk trader ini saat ini.",
+    "totalFloatingPnl": "Total P/L mengambang"
+  },
+  "RecentCopiers": {
+    "memberSince": "Sejak {date}"
+  },
+  "TraderProfile": {
+    "follow": "Ikuti",
+    "unfollow": "Berhenti mengikuti",
+    "memberSince": "Anggota sejak {date}",
+    "followNotifyNote": "Anda akan menerima email berisi detail performa trader ini saat mengikutinya.",
+    "copiersListLabel": "Daftar penyalin ({count})",
+    "signupPrompt": "Daftar gratis untuk menyalin {name} dan melacak performa tradingnya.",
+    "signupCta": "Buat akun gratis",
+    "stoppedTradingNotice": "{name} telah berhenti trading dan penyalinan baru tidak dapat dimulai. Rekam jejak sebelumnya masih dapat dilihat sepenuhnya.",
+    "blockedNotice": "Anda sedang menyalin <strong>{otherName}</strong>. Anda hanya dapat menyalin satu trader dalam satu waktu — hentikan penyalinan dulu dari <link>portofolio Anda</link> untuk menyalin {name}.",
+    "currentlyCopyingAmount": "Anda menyalin trader ini dengan {amount}",
+    "copyAmountLabel": "Jumlah salinan",
+    "copyCta": "Salin",
+    "stopCopyingCta": "Hentikan penyalinan",
+    "minCopyBadge": "Jumlah minimum penyalinan untuk trader ini: {amount}",
+    "availableBalance": "Saldo tersedia: {amount}",
+    "statCopiers": "Penyalin",
+    "statTotalProfit": "Total profit",
+    "statTotalWithdrawals": "Total penarikan",
+    "statCurrentCapital": "Modal saat ini",
+    "statOverallWinRate": "Tingkat kemenangan keseluruhan",
+    "statMaxDrawdown": "Drawdown maksimum",
+    "reliabilitySectionTitle": "Tingkat keandalan trading",
+    "gaugeReliability": "Keandalan",
+    "gaugeSafety": "Skor keamanan",
+    "gaugeRiskExposure": "Eksposur risiko",
+    "closedTradesStat": "Trade tertutup",
+    "daysMemberStat": "Hari sebagai anggota",
+    "equityChartTitle": "Performa kumulatif",
+    "periodsPerformanceTitle": "Performa per periode",
+    "winRateInline": "Tingkat kemenangan {pct}%",
+    "noTradesLabel": "Tidak ada trade",
+    "assetsSectionTitle": "Instrumen trading",
+    "openOrdersSectionTitle": "Order terbuka",
+    "tradeHistorySectionTitle": "Riwayat trade",
+    "noClosedTrades": "Belum ada trade tertutup.",
+    "copyStartedSuccess": "Anda berhasil mulai menyalin {name} dengan {amount}.",
+    "anotherTraderFallback": "trader lain"
   }
 }

@@ -301,7 +301,8 @@
   },
   "Common": {
     "level": "ระดับ {level}",
-    "back": "กลับ"
+    "back": "กลับ",
+    "other": "อื่นๆ"
   },
   "Notifications": {
     "copyOpenedTitle": "คัดลอกออเดอร์ใหม่แล้ว",
@@ -410,5 +411,69 @@
     "BNBUSDT": "บีเอ็นบี",
     "XRPUSDT": "เอ็กซ์อาร์พี",
     "US30": "ดัชนีดาวโจนส์"
+  },
+  "TraderBadges": {
+    "tierElite": "อีลิท",
+    "tierPro": "โปร",
+    "tierIntermediate": "ปานกลาง",
+    "tierBeginner": "มือใหม่",
+    "riskLow": "ต่ำ",
+    "riskMedium": "ปานกลาง",
+    "riskHigh": "สูง",
+    "riskLabel": "ความเสี่ยง{level}",
+    "stoppedTrading": "หยุดเทรดแล้ว"
+  },
+  "TraderEquityChart": {
+    "start": "เริ่มต้น",
+    "current": "ปัจจุบัน",
+    "notEnoughData": "มีออเดอร์ที่ปิดไม่เพียงพอในช่วงเวลานี้สำหรับแสดงกราฟ"
+  },
+  "OpenOrders": {
+    "entryPrefix": "เข้า",
+    "currentPrefix": "ปัจจุบัน",
+    "noOpenOrders": "ขณะนี้ไม่มีออเดอร์เปิดสำหรับเทรดเดอร์รายนี้",
+    "totalFloatingPnl": "กำไร/ขาดทุนลอยตัวรวม"
+  },
+  "RecentCopiers": {
+    "memberSince": "ตั้งแต่ {date}"
+  },
+  "TraderProfile": {
+    "follow": "ติดตาม",
+    "unfollow": "เลิกติดตาม",
+    "memberSince": "สมาชิกตั้งแต่ {date}",
+    "followNotifyNote": "คุณจะได้รับอีเมลพร้อมรายละเอียดผลงานของเทรดเดอร์รายนี้เมื่อติดตาม",
+    "copiersListLabel": "รายชื่อผู้คัดลอก ({count})",
+    "signupPrompt": "สมัครฟรีเพื่อคัดลอก {name} และติดตามผลงานการเทรด",
+    "signupCta": "สร้างบัญชีฟรี",
+    "stoppedTradingNotice": "{name} หยุดเทรดแล้วและไม่สามารถเริ่มคัดลอกใหม่ได้ ประวัติผลงานที่ผ่านมายังคงดูได้อย่างครบถ้วน",
+    "blockedNotice": "ขณะนี้คุณกำลังคัดลอก <strong>{otherName}</strong> อยู่ คุณสามารถคัดลอกเทรดเดอร์ได้ครั้งละคนเท่านั้น — โปรดหยุดคัดลอกก่อนจาก<link>พอร์ตของคุณ</link>เพื่อคัดลอก {name}",
+    "currentlyCopyingAmount": "คุณกำลังคัดลอกเทรดเดอร์รายนี้ด้วย {amount}",
+    "copyAmountLabel": "จำนวนเงินที่คัดลอก",
+    "copyCta": "คัดลอก",
+    "stopCopyingCta": "หยุดคัดลอก",
+    "minCopyBadge": "จำนวนเงินคัดลอกขั้นต่ำสำหรับเทรดเดอร์รายนี้: {amount}",
+    "availableBalance": "ยอดคงเหลือที่ใช้ได้: {amount}",
+    "statCopiers": "ผู้คัดลอก",
+    "statTotalProfit": "กำไรรวม",
+    "statTotalWithdrawals": "ยอดถอนรวม",
+    "statCurrentCapital": "เงินทุนปัจจุบัน",
+    "statOverallWinRate": "อัตราชนะโดยรวม",
+    "statMaxDrawdown": "การลดลงสูงสุด",
+    "reliabilitySectionTitle": "ระดับความน่าเชื่อถือในการเทรด",
+    "gaugeReliability": "ความน่าเชื่อถือ",
+    "gaugeSafety": "คะแนนความปลอดภัย",
+    "gaugeRiskExposure": "การเปิดรับความเสี่ยง",
+    "closedTradesStat": "ออเดอร์ที่ปิด",
+    "daysMemberStat": "จำนวนวันที่เป็นสมาชิก",
+    "equityChartTitle": "ผลงานสะสม",
+    "periodsPerformanceTitle": "ผลงานตามช่วงเวลา",
+    "winRateInline": "อัตราชนะ {pct}%",
+    "noTradesLabel": "ไม่มีออเดอร์",
+    "assetsSectionTitle": "เครื่องมือที่เทรด",
+    "openOrdersSectionTitle": "ออเดอร์ที่เปิดอยู่",
+    "tradeHistorySectionTitle": "ประวัติการเทรด",
+    "noClosedTrades": "ยังไม่มีออเดอร์ที่ปิด",
+    "copyStartedSuccess": "คุณเริ่มคัดลอก {name} สำเร็จด้วย {amount}",
+    "anotherTraderFallback": "เทรดเดอร์อื่น"
   }
 }

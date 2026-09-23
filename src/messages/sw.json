@@ -301,7 +301,8 @@
   },
   "Common": {
     "level": "Kiwango {level}",
-    "back": "Rudi"
+    "back": "Rudi",
+    "other": "Nyingine"
   },
   "Notifications": {
     "copyOpenedTitle": "Biashara mpya imenakiliwa",
@@ -410,5 +411,69 @@
     "BNBUSDT": "BNB",
     "XRPUSDT": "XRP",
     "US30": "Dow Jones Industrial Average"
+  },
+  "TraderBadges": {
+    "tierElite": "Wasomi",
+    "tierPro": "Mtaalamu",
+    "tierIntermediate": "Wastani",
+    "tierBeginner": "Mwanzilishi",
+    "riskLow": "Chini",
+    "riskMedium": "Wastani",
+    "riskHigh": "Juu",
+    "riskLabel": "Hatari {level}",
+    "stoppedTrading": "Biashara imesimamishwa"
+  },
+  "TraderEquityChart": {
+    "start": "Mwanzo",
+    "current": "Sasa",
+    "notEnoughData": "Hakuna biashara za kutosha zilizofungwa katika kipindi hiki kuonyesha chati."
+  },
+  "OpenOrders": {
+    "entryPrefix": "Kuingia",
+    "currentPrefix": "Sasa",
+    "noOpenOrders": "Hakuna biashara zilizo wazi kwa mfanyabiashara huyu kwa sasa.",
+    "totalFloatingPnl": "Jumla ya faida/hasara inayoelea"
+  },
+  "RecentCopiers": {
+    "memberSince": "Tangu {date}"
+  },
+  "TraderProfile": {
+    "follow": "Fuata",
+    "unfollow": "Acha kufuata",
+    "memberSince": "Mwanachama tangu {date}",
+    "followNotifyNote": "Utapata barua pepe yenye maelezo ya utendaji wa mfanyabiashara huyu unapomfuata.",
+    "copiersListLabel": "Orodha ya wanaonakili ({count})",
+    "signupPrompt": "Jisajili bila malipo ili kunakili {name} na kufuatilia utendaji wake.",
+    "signupCta": "Fungua akaunti bila malipo",
+    "stoppedTradingNotice": "{name} ameacha kufanya biashara na unakili mpya hauwezi kuanzishwa. Rekodi yake ya awali bado inaonekana kikamilifu.",
+    "blockedNotice": "Kwa sasa unamnakili <strong>{otherName}</strong>. Unaweza kunakili mfanyabiashara mmoja tu kwa wakati mmoja — acha kunakili kwanza kutoka <link>pochi yako</link> ili kunakili {name}.",
+    "currentlyCopyingAmount": "Unamnakili mfanyabiashara huyu kwa {amount}",
+    "copyAmountLabel": "Kiasi cha kunakili",
+    "copyCta": "Nakili",
+    "stopCopyingCta": "Acha kunakili",
+    "minCopyBadge": "Kiasi cha chini cha kunakili kwa mfanyabiashara huyu: {amount}",
+    "availableBalance": "Salio linalopatikana: {amount}",
+    "statCopiers": "Wanaonakili",
+    "statTotalProfit": "Faida jumla",
+    "statTotalWithdrawals": "Uondoaji jumla",
+    "statCurrentCapital": "Mtaji wa sasa",
+    "statOverallWinRate": "Kiwango cha ushindi kwa jumla",
+    "statMaxDrawdown": "Upungufu wa juu",
+    "reliabilitySectionTitle": "Kiwango cha uaminifu wa biashara",
+    "gaugeReliability": "Uaminifu",
+    "gaugeSafety": "Alama za usalama",
+    "gaugeRiskExposure": "Mfiduo wa hatari",
+    "closedTradesStat": "Biashara zilizofungwa",
+    "daysMemberStat": "Siku za uanachama",
+    "equityChartTitle": "Utendaji wa jumla",
+    "periodsPerformanceTitle": "Utendaji kwa kipindi",
+    "winRateInline": "Kiwango cha ushindi {pct}%",
+    "noTradesLabel": "Hakuna biashara",
+    "assetsSectionTitle": "Vyombo vya biashara",
+    "openOrdersSectionTitle": "Oda zilizo wazi",
+    "tradeHistorySectionTitle": "Historia ya biashara",
+    "noClosedTrades": "Bado hakuna biashara zilizofungwa.",
+    "copyStartedSuccess": "Umeanza kumnakili {name} kwa mafanikio kwa {amount}.",
+    "anotherTraderFallback": "mfanyabiashara mwingine"
   }
 }

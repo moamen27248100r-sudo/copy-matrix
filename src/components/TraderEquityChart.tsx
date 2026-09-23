@@ -1,6 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useTranslations, useLocale } from "next-intl";
+import { localeTag } from "@/lib/locale-format";
+import type { Locale } from "@/i18n/locales";
 
 type SignalRow = {
   id: string;
@@ -13,17 +16,20 @@ type SignalRow = {
   closed_at: string | null;
 };
 
-const PERIODS: { label: string; days: number | null }[] = [
-  { label: "أسبوع", days: 7 },
-  { label: "شهر", days: 30 },
-  { label: "٣ أشهر", days: 90 },
-  { label: "سنة", days: 365 },
-  { label: "الكل", days: null },
+const PERIODS: { labelKey: string; days: number | null }[] = [
+  { labelKey: "periodWeek", days: 7 },
+  { labelKey: "periodMonth", days: 30 },
+  { labelKey: "periodThreeMonths", days: 90 },
+  { labelKey: "periodYear", days: 365 },
+  { labelKey: "periodAll", days: null },
 ];
 
 type ChartPoint = { value: number; date: string | null };
 
 export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
+  const t = useTranslations("TraderEquityChart");
+  const tp = useTranslations("TradeHistory");
+  const locale = useLocale() as Locale;
   const [periodIdx, setPeriodIdx] = useState(1);
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
 
@@ -88,7 +94,7 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
       <div className="flex flex-wrap gap-1.5">
         {PERIODS.map((p, i) => (
           <button
-            key={p.label}
+            key={p.labelKey}
             type="button"
             onClick={() => setPeriodIdx(i)}
             className={
@@ -97,13 +103,13 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
                 : "rounded border border-border px-3 py-1 text-xs text-muted"
             }
           >
-            {p.label}
+            {tp(p.labelKey)}
           </button>
         ))}
       </div>
 
       {!hasData ? (
-        <p className="text-sm text-muted">لا توجد صفقات مغلقة كافية في هذه الفترة لعرض الرسم البياني.</p>
+        <p className="text-sm text-muted">{t("notEnoughData")}</p>
       ) : (
         <div className="rounded-lg border border-border bg-background p-3">
           <svg
@@ -165,8 +171,8 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
                       <rect x={px} y={py} width={boxWidth} height={boxHeight} rx={6} fill="var(--surface)" stroke="var(--border)" strokeWidth={1} />
                       <text x={px + boxWidth / 2} y={py + 15} textAnchor="middle" fontSize="10" fill="var(--muted)">
                         {hovered.date
-                          ? new Date(hovered.date).toLocaleDateString("ar-EG", { day: "numeric", month: "short" })
-                          : "البداية"}
+                          ? new Date(hovered.date).toLocaleDateString(localeTag(locale), { day: "numeric", month: "short" })
+                          : t("start")}
                       </text>
                       <text x={px + boxWidth / 2} y={py + 28} textAnchor="middle" fontSize="12" fontWeight="600" fill="var(--foreground)">
                         {hovered.value > 0 ? "+" : ""}
@@ -179,9 +185,9 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
             )}
           </svg>
           <div className="flex items-center justify-between text-xs text-muted">
-            <span>البداية: 0%</span>
+            <span>{t("start")}: 0%</span>
             <span className="text-foreground">
-              الحالي: {last > 0 ? "+" : ""}
+              {t("current")}: {last > 0 ? "+" : ""}
               {last.toFixed(2)}%
             </span>
           </div>

@@ -301,7 +301,8 @@
   },
   "Common": {
     "level": "لیول {level}",
-    "back": "واپس"
+    "back": "واپس",
+    "other": "دیگر"
   },
   "Notifications": {
     "copyOpenedTitle": "نئی ٹریڈ کاپی ہوگئی",
@@ -410,5 +411,69 @@
     "BNBUSDT": "بی این بی",
     "XRPUSDT": "ایکس آر پی",
     "US30": "ڈاؤ جونز انڈسٹریل ایوریج"
+  },
+  "TraderBadges": {
+    "tierElite": "ایلیٹ",
+    "tierPro": "پرو",
+    "tierIntermediate": "درمیانہ",
+    "tierBeginner": "ابتدائی",
+    "riskLow": "کم",
+    "riskMedium": "درمیانہ",
+    "riskHigh": "زیادہ",
+    "riskLabel": "{level} خطرہ",
+    "stoppedTrading": "ٹریڈنگ رک گئی"
+  },
+  "TraderEquityChart": {
+    "start": "آغاز",
+    "current": "موجودہ",
+    "notEnoughData": "اس مدت میں چارٹ دکھانے کے لیے کافی بند ٹریڈز نہیں ہیں۔"
+  },
+  "OpenOrders": {
+    "entryPrefix": "انٹری",
+    "currentPrefix": "موجودہ",
+    "noOpenOrders": "اس ٹریڈر کے لیے فی الحال کوئی کھلی ٹریڈ نہیں۔",
+    "totalFloatingPnl": "کل فلوٹنگ منافع/نقصان"
+  },
+  "RecentCopiers": {
+    "memberSince": "{date} سے"
+  },
+  "TraderProfile": {
+    "follow": "فالو کریں",
+    "unfollow": "ان فالو کریں",
+    "memberSince": "{date} سے رکن",
+    "followNotifyNote": "فالو کرنے پر آپ کو اس ٹریڈر کی کارکردگی کی تفصیلات کے ساتھ ای میل ملے گی۔",
+    "copiersListLabel": "کاپیئرز کی فہرست ({count})",
+    "signupPrompt": "{name} کو کاپی کرنے اور ان کی کارکردگی دیکھنے کے لیے مفت سائن اپ کریں۔",
+    "signupCta": "مفت اکاؤنٹ بنائیں",
+    "stoppedTradingNotice": "{name} نے ٹریڈنگ روک دی ہے اور نئی کاپی شروع نہیں کی جا سکتی۔ ان کا سابقہ ریکارڈ اب بھی مکمل طور پر دیکھا جا سکتا ہے۔",
+    "blockedNotice": "آپ فی الحال <strong>{otherName}</strong> کو کاپی کر رہے ہیں۔ آپ ایک وقت میں صرف ایک ٹریڈر کو کاپی کر سکتے ہیں — {name} کو کاپی کرنے کے لیے پہلے <link>اپنے پورٹ فولیو</link> سے کاپی کرنا بند کریں۔",
+    "currentlyCopyingAmount": "آپ اس ٹریڈر کو {amount} کے ساتھ کاپی کر رہے ہیں",
+    "copyAmountLabel": "کاپی رقم",
+    "copyCta": "کاپی کریں",
+    "stopCopyingCta": "کاپی کرنا بند کریں",
+    "minCopyBadge": "اس ٹریڈر کے لیے کم از کم کاپی رقم: {amount}",
+    "availableBalance": "دستیاب بیلنس: {amount}",
+    "statCopiers": "کاپیئرز",
+    "statTotalProfit": "کل منافع",
+    "statTotalWithdrawals": "کل نکلوائی",
+    "statCurrentCapital": "موجودہ سرمایہ",
+    "statOverallWinRate": "مجموعی کامیابی کی شرح",
+    "statMaxDrawdown": "زیادہ سے زیادہ ڈرا ڈاؤن",
+    "reliabilitySectionTitle": "ٹریڈنگ قابل اعتمادی کی سطح",
+    "gaugeReliability": "اعتماد",
+    "gaugeSafety": "حفاظتی اسکور",
+    "gaugeRiskExposure": "خطرے کی نمائش",
+    "closedTradesStat": "بند ٹریڈز",
+    "daysMemberStat": "رکنیت کے دن",
+    "equityChartTitle": "مجموعی کارکردگی",
+    "periodsPerformanceTitle": "مدت کے مطابق کارکردگی",
+    "winRateInline": "کامیابی کی شرح {pct}%",
+    "noTradesLabel": "کوئی ٹریڈ نہیں",
+    "assetsSectionTitle": "ٹریڈنگ آلات",
+    "openOrdersSectionTitle": "کھلے آرڈرز",
+    "tradeHistorySectionTitle": "ٹریڈ ہسٹری",
+    "noClosedTrades": "ابھی تک کوئی بند ٹریڈ نہیں۔",
+    "copyStartedSuccess": "آپ نے {amount} کے ساتھ کامیابی سے {name} کو کاپی کرنا شروع کر دیا۔",
+    "anotherTraderFallback": "ایک اور ٹریڈر"
   }
 }

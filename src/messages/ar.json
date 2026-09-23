@@ -313,7 +313,8 @@
   },
   "Common": {
     "level": "المستوى {level}",
-    "back": "رجوع"
+    "back": "رجوع",
+    "other": "أخرى"
   },
   "Notifications": {
     "copyOpenedTitle": "تم نسخ صفقة جديدة",
@@ -422,5 +423,69 @@
     "BNBUSDT": "البي إن بي",
     "XRPUSDT": "الريبل",
     "US30": "مؤشر داو جونز الصناعي"
+  },
+  "TraderBadges": {
+    "tierElite": "نخبة",
+    "tierPro": "محترف",
+    "tierIntermediate": "متوسط",
+    "tierBeginner": "مبتدئ",
+    "riskLow": "منخفضة",
+    "riskMedium": "متوسطة",
+    "riskHigh": "مرتفعة",
+    "riskLabel": "مخاطرة {level}",
+    "stoppedTrading": "توقف عن التداول"
+  },
+  "TraderEquityChart": {
+    "start": "البداية",
+    "current": "الحالي",
+    "notEnoughData": "لا توجد صفقات مغلقة كافية في هذه الفترة لعرض الرسم البياني."
+  },
+  "OpenOrders": {
+    "entryPrefix": "دخول",
+    "currentPrefix": "الحالي",
+    "noOpenOrders": "لا توجد صفقات مفتوحة حاليًا لهذا المتداول.",
+    "totalFloatingPnl": "إجمالي التذبذب العائم"
+  },
+  "RecentCopiers": {
+    "memberSince": "منذ {date}"
+  },
+  "TraderProfile": {
+    "follow": "متابعة",
+    "unfollow": "إلغاء المتابعة",
+    "memberSince": "عضو منذ {date}",
+    "followNotifyNote": "تصلك رسالة على بريدك الإلكتروني بتفاصيل أداء هذا المتداول عند المتابعة.",
+    "copiersListLabel": "قائمة الناسخين ({count})",
+    "signupPrompt": "سجّل حساب مجانًا لتتمكن من نسخ {name} ومتابعة أداء صفقاته.",
+    "signupCta": "إنشاء حساب مجاني",
+    "stoppedTradingNotice": "توقف {name} عن التداول ولا يمكن بدء نسخ جديد له. سجل أدائه السابق ما زال متاحًا للعرض بالكامل.",
+    "blockedNotice": "أنت تنسخ حاليًا <strong>{otherName}</strong>. يمكنك نسخ متداول واحد فقط في نفس الوقت — أوقف النسخ أولاً من <link>محفظتك</link> لتتمكن من نسخ {name}.",
+    "currentlyCopyingAmount": "أنت تنسخ هذا المتداول بمبلغ {amount}",
+    "copyAmountLabel": "مبلغ النسخ",
+    "copyCta": "نسخ",
+    "stopCopyingCta": "إيقاف النسخ",
+    "minCopyBadge": "الحد الأدنى للنسخ عند هذا المتداول: {amount}",
+    "availableBalance": "رصيدك المتاح: {amount}",
+    "statCopiers": "ناسخ",
+    "statTotalProfit": "إجمالي الأرباح",
+    "statTotalWithdrawals": "إجمالي السحوبات",
+    "statCurrentCapital": "رأس المال الحالي",
+    "statOverallWinRate": "نسبة النجاح الكلية",
+    "statMaxDrawdown": "أقصى تراجع",
+    "reliabilitySectionTitle": "مستوى موثوقية التداول",
+    "gaugeReliability": "الموثوقية",
+    "gaugeSafety": "درجة الأمان",
+    "gaugeRiskExposure": "قيمة معرضة للمخاطرة",
+    "closedTradesStat": "صفقة مغلقة",
+    "daysMemberStat": "يوم عضوية",
+    "equityChartTitle": "منحنى الأداء التراكمي",
+    "periodsPerformanceTitle": "الأداء عبر الفترات",
+    "winRateInline": "نسبة النجاح {pct}%",
+    "noTradesLabel": "لا توجد صفقات",
+    "assetsSectionTitle": "أدوات التداول",
+    "openOrdersSectionTitle": "الأوامر المفتوحة",
+    "tradeHistorySectionTitle": "سجل الصفقات",
+    "noClosedTrades": "لا توجد صفقات مغلقة حتى الآن.",
+    "copyStartedSuccess": "بدأت نسخ {name} بنجاح بمبلغ {amount}.",
+    "anotherTraderFallback": "متداول آخر"
   }
 }

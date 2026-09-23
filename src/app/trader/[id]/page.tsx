@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { followProvider, unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
@@ -13,6 +14,8 @@ import { OpenOrdersTable } from "@/components/OpenOrdersTable";
 import { RecentCopiersList } from "@/components/RecentCopiersList";
 import { TraderAvatar } from "@/components/TraderAvatar";
 import { countryDisplay } from "@/lib/country-metadata";
+import { formatDate } from "@/lib/locale-format";
+import type { Locale } from "@/i18n/locales";
 
 type SignalRow = {
   id: string;
@@ -84,6 +87,9 @@ export default async function TraderPage({
 }) {
   const { id } = await params;
   const { error, success } = await searchParams;
+  const locale = (await getLocale()) as Locale;
+  const t = await getTranslations("TraderProfile");
+  const tp = await getTranslations("TradeHistory");
   const supabase = await createClient();
   const {
     data: { user },
@@ -201,17 +207,17 @@ export default async function TraderPage({
       .select("display_name")
       .eq("provider_id", otherSub.provider_id)
       .single();
-    otherProviderName = otherProvider?.display_name ?? "متداول آخر";
+    otherProviderName = otherProvider?.display_name ?? t("anotherTraderFallback");
   }
   const isBlocked = !!otherSub;
   const isStopped = provider.trading_status === "stopped";
 
   const periods = [
-    { label: "اليوم", days: 1 },
-    { label: "أسبوع", days: 7 },
-    { label: "شهر", days: 30 },
-    { label: "٣ أشهر", days: 90 },
-    { label: "٦ أشهر", days: 180 },
+    { labelKey: "periodToday", days: 1 },
+    { labelKey: "periodWeek", days: 7 },
+    { labelKey: "periodMonth", days: 30 },
+    { labelKey: "periodThreeMonths", days: 90 },
+    { labelKey: "periodSixMonths", days: 180 },
   ];
 
   return (
@@ -228,7 +234,10 @@ export default async function TraderPage({
 
         {success === "started" && mySub && (
           <p className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">
-            {`بدأت نسخ ${provider.display_name} بنجاح بمبلغ $${Number(mySub.allocated_amount).toLocaleString("en-US", { maximumFractionDigits: 2 })}.`}
+            {t("copyStartedSuccess", {
+              name: provider.display_name,
+              amount: `$${Number(mySub.allocated_amount).toLocaleString("en-US", { maximumFractionDigits: 2 })}`,
+            })}
           </p>
         )}
 
@@ -248,22 +257,19 @@ export default async function TraderPage({
                       : "rounded-full border border-accent px-3 py-0.5 text-xs text-accent"
                   }
                 >
-                  {isWatching ? "إلغاء المتابعة" : "متابعة"}
+                  {isWatching ? t("unfollow") : t("follow")}
                 </button>
               </form>
             </div>
             <p className="text-xs text-muted">
-              عضو منذ{" "}
-              {new Date(provider.joined_at).toLocaleDateString("ar-EG", {
-                year: "numeric",
-                month: "long",
-                timeZone: "UTC",
+              {t("memberSince", {
+                date: formatDate(provider.joined_at, locale, { year: "numeric", month: "long", timeZone: "UTC" }),
               })}
               {countryDisplay(provider.country) && ` · ${countryDisplay(provider.country)!.nameAr}`}
             </p>
             {isWatching && (
               <p className="mt-0.5 text-[11px] text-muted">
-                تصلك رسالة على بريدك الإلكتروني بتفاصيل أداء هذا المتداول عند المتابعة.
+                {t("followNotifyNote")}
               </p>
             )}
           </div>
@@ -286,7 +292,7 @@ export default async function TraderPage({
                   <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
                   <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                 </svg>
-                قائمة الناسخين ({provider.followers_count})
+                {t("copiersListLabel", { count: provider.followers_count })}
               </span>
               <svg viewBox="0 0 24 24" className="h-4 w-4 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M6 9l6 6 6-6" />
@@ -302,46 +308,48 @@ export default async function TraderPage({
           {!user ? (
             <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-sm text-muted">
-                سجّل حساب مجانًا لتتمكن من نسخ {provider.display_name} ومتابعة أداء صفقاته.
+                {t("signupPrompt", { name: provider.display_name })}
               </p>
               <Link
                 href={`/signup?next=${encodeURIComponent(`/trader/${id}#copy`)}`}
                 className="w-full shrink-0 rounded bg-accent px-4 py-1.5 text-center text-sm font-medium text-accent-foreground transition hover:bg-accent-hover sm:w-fit"
               >
-                إنشاء حساب مجاني
+                {t("signupCta")}
               </Link>
             </div>
           ) : isStopped ? (
             <div className="flex flex-col gap-2 rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
               <p>
-                توقف {provider.display_name} عن التداول ولا يمكن بدء نسخ جديد له. سجل أدائه السابق ما زال
-                متاحًا للعرض بالكامل.
+                {t("stoppedTradingNotice", { name: provider.display_name })}
               </p>
             </div>
           ) : isBlocked ? (
             <div className="flex flex-col gap-2 rounded border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-warning">
               <p>
-                أنت تنسخ حاليًا <strong>{otherProviderName}</strong>. يمكنك نسخ متداول واحد فقط في نفس
-                الوقت — أوقف النسخ أولاً من{" "}
-                <Link href="/portfolio" className="underline">
-                  محفظتك
-                </Link>{" "}
-                لتتمكن من نسخ {provider.display_name}.
+                {t.rich("blockedNotice", {
+                  otherName: otherProviderName ?? t("anotherTraderFallback"),
+                  name: provider.display_name,
+                  strong: (chunks) => <strong>{chunks}</strong>,
+                  link: (chunks) => (
+                    <Link href="/portfolio" className="underline">
+                      {chunks}
+                    </Link>
+                  ),
+                })}
               </p>
             </div>
           ) : isFollowing ? (
             <p className="flex items-center gap-2 text-sm">
               <span className="h-2 w-2 shrink-0 rounded-full bg-success" aria-hidden="true" />
-              أنت تنسخ هذا المتداول بمبلغ{" "}
-              <span className="font-semibold" dir="ltr">
-                ${Number(mySub?.allocated_amount ?? 0).toLocaleString("en-US")}
-              </span>
+              {t("currentlyCopyingAmount", {
+                amount: `$${Number(mySub?.allocated_amount ?? 0).toLocaleString("en-US")}`,
+              })}
             </p>
           ) : (
           <form action={followProvider} className="flex flex-wrap items-center gap-3">
             <input type="hidden" name="providerId" value={id} />
             <label className="flex items-center gap-2 text-sm text-muted">
-              مبلغ النسخ
+              {t("copyAmountLabel")}
               <input
                 name="allocatedAmount"
                 type="number"
@@ -356,7 +364,7 @@ export default async function TraderPage({
               type="submit"
               className="rounded bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
             >
-              نسخ
+              {t("copyCta")}
             </button>
           </form>
           )}
@@ -365,18 +373,20 @@ export default async function TraderPage({
               <input type="hidden" name="providerId" value={id} />
               <input type="hidden" name="returnTo" value={`/trader/${id}`} />
               <button type="submit" className="rounded border border-border px-4 py-1.5 text-sm">
-                إيقاف النسخ
+                {t("stopCopyingCta")}
               </button>
             </form>
           )}
         </div>
         <div className="flex flex-wrap items-center justify-between gap-2">
           <span className="rounded-full border border-accent/40 bg-accent/10 px-2.5 py-1 text-xs font-semibold text-accent">
-            الحد الأدنى للنسخ عند هذا المتداول: ${Number(provider.min_copy_amount).toLocaleString("en-US")}
+            {t("minCopyBadge", { amount: `$${Number(provider.min_copy_amount).toLocaleString("en-US")}` })}
           </span>
           {user && (
             <span className="text-xs text-muted">
-              رصيدك المتاح: {myProfile?.balance != null ? `$${Number(myProfile.balance).toLocaleString("en-US", { maximumFractionDigits: 2 })}` : "—"}
+              {t("availableBalance", {
+                amount: myProfile?.balance != null ? `$${Number(myProfile.balance).toLocaleString("en-US", { maximumFractionDigits: 2 })}` : "—",
+              })}
             </span>
           )}
         </div>
@@ -384,48 +394,48 @@ export default async function TraderPage({
         <div className="grid grid-cols-2 gap-3 text-center text-sm sm:grid-cols-3">
           <div>
             <p className="font-semibold">{provider.followers_count}</p>
-            <p className="text-xs text-muted">ناسخ</p>
+            <p className="text-xs text-muted">{t("statCopiers")}</p>
           </div>
           <div>
             <p className={Number(provider.total_profit) >= 0 ? "font-semibold text-success" : "font-semibold text-danger"}>
               {Number(provider.total_profit) >= 0 ? "+" : "-"}$
               {Math.abs(Number(provider.total_profit)).toLocaleString("en-US", { maximumFractionDigits: 0 })}
             </p>
-            <p className="text-xs text-muted">إجمالي الأرباح</p>
+            <p className="text-xs text-muted">{t("statTotalProfit")}</p>
           </div>
           <div>
             <p className="font-semibold">
               ${Number(provider.total_withdrawals).toLocaleString("en-US", { maximumFractionDigits: 0 })}
             </p>
-            <p className="text-xs text-muted">إجمالي السحوبات</p>
+            <p className="text-xs text-muted">{t("statTotalWithdrawals")}</p>
           </div>
           <div>
             <p className="font-semibold">
               ${Number(provider.account_capital ?? 0).toLocaleString("en-US", { maximumFractionDigits: 0 })}
             </p>
-            <p className="text-xs text-muted">رأس المال الحالي</p>
+            <p className="text-xs text-muted">{t("statCurrentCapital")}</p>
           </div>
           <div>
             <p className="font-semibold">
               {provider.win_rate_pct != null ? `${provider.win_rate_pct}%` : "—"}
             </p>
-            <p className="text-xs text-muted">نسبة النجاح الكلية</p>
+            <p className="text-xs text-muted">{t("statOverallWinRate")}</p>
           </div>
           <div>
             <p className="font-semibold text-danger" dir="ltr">
               {maxDrawdown != null ? `-${maxDrawdown}%` : "—"}
             </p>
-            <p className="text-xs text-muted">أقصى تراجع</p>
+            <p className="text-xs text-muted">{t("statMaxDrawdown")}</p>
           </div>
         </div>
       </div>
 
       <section className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-4">
-        <h2 className="font-medium">مستوى موثوقية التداول</h2>
+        <h2 className="font-medium">{t("reliabilitySectionTitle")}</h2>
         <div className="grid grid-cols-3 gap-3">
-          <CircularGauge value={reliabilityScore} label="الموثوقية" />
-          <CircularGauge value={safetyScore} label="درجة الأمان" />
-          <CircularGauge value={riskExposureScore} label="قيمة معرضة للمخاطرة" invert />
+          <CircularGauge value={reliabilityScore} label={t("gaugeReliability")} />
+          <CircularGauge value={safetyScore} label={t("gaugeSafety")} />
+          <CircularGauge value={riskExposureScore} label={t("gaugeRiskExposure")} invert />
         </div>
         <div className="flex flex-wrap gap-2 border-t border-border pt-4">
           <div className="flex flex-1 items-center gap-2 rounded-lg border border-border bg-background px-3 py-2">
@@ -435,7 +445,7 @@ export default async function TraderPage({
             </svg>
             <div>
               <p className="text-sm font-semibold">{closedHistory.length}</p>
-              <p className="text-[11px] text-muted">صفقة مغلقة</p>
+              <p className="text-[11px] text-muted">{t("closedTradesStat")}</p>
             </div>
           </div>
           <div className="flex flex-1 items-center gap-2 rounded-lg border border-border bg-background px-3 py-2">
@@ -445,25 +455,25 @@ export default async function TraderPage({
             </svg>
             <div>
               <p className="text-sm font-semibold">{daysAsMember}</p>
-              <p className="text-[11px] text-muted">يوم عضوية</p>
+              <p className="text-[11px] text-muted">{t("daysMemberStat")}</p>
             </div>
           </div>
         </div>
       </section>
 
       <section className="flex flex-col gap-2">
-        <h2 className="font-medium">منحنى الأداء التراكمي</h2>
+        <h2 className="font-medium">{t("equityChartTitle")}</h2>
         <TraderEquityChart signals={allSignals} />
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">الأداء عبر الفترات</h2>
+        <h2 className="font-medium">{t("periodsPerformanceTitle")}</h2>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
           {periods.map((p) => {
             const stats = periodStats(allSignals, p.days);
             return (
-              <div key={p.label} className="rounded-lg border border-border bg-surface p-3 text-center">
-                <p className="text-xs text-muted">{p.label}</p>
+              <div key={p.labelKey} className="rounded-lg border border-border bg-surface p-3 text-center">
+                <p className="text-xs text-muted">{tp(p.labelKey)}</p>
                 <p
                   className={
                     stats.totalReturn != null && stats.totalReturn < 0
@@ -476,7 +486,7 @@ export default async function TraderPage({
                     : "—"}
                 </p>
                 <p className="text-xs text-muted">
-                  {stats.winRate != null ? `نسبة النجاح ${stats.winRate}%` : "لا توجد صفقات"}
+                  {stats.winRate != null ? t("winRateInline", { pct: stats.winRate }) : t("noTradesLabel")}
                 </p>
               </div>
             );
@@ -486,20 +496,20 @@ export default async function TraderPage({
 
       {allSignals.length > 0 && (
         <section className="flex flex-col gap-3">
-          <h2 className="font-medium">أدوات التداول</h2>
+          <h2 className="font-medium">{t("assetsSectionTitle")}</h2>
           <AssetAllocationBar signals={allSignals} />
         </section>
       )}
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">الأوامر المفتوحة</h2>
+        <h2 className="font-medium">{t("openOrdersSectionTitle")}</h2>
         <OpenOrdersTable orders={openOrders} initialPrices={initialPrices} />
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">سجل الصفقات</h2>
+        <h2 className="font-medium">{t("tradeHistorySectionTitle")}</h2>
         {closedHistory.length === 0 ? (
-          <p className="text-sm text-muted">لا توجد صفقات مغلقة حتى الآن.</p>
+          <p className="text-sm text-muted">{t("noClosedTrades")}</p>
         ) : (
           <TradeHistory trades={closedHistory} />
         )}

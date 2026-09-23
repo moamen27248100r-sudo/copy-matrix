@@ -301,7 +301,8 @@
   },
   "Common": {
     "level": "Nivel {level}",
-    "back": "Volver"
+    "back": "Volver",
+    "other": "Otro"
   },
   "Notifications": {
     "copyOpenedTitle": "Nueva operación copiada",
@@ -410,5 +411,69 @@
     "BNBUSDT": "BNB",
     "XRPUSDT": "XRP",
     "US30": "Promedio Industrial Dow Jones"
+  },
+  "TraderBadges": {
+    "tierElite": "Élite",
+    "tierPro": "Pro",
+    "tierIntermediate": "Intermedio",
+    "tierBeginner": "Principiante",
+    "riskLow": "Bajo",
+    "riskMedium": "Medio",
+    "riskHigh": "Alto",
+    "riskLabel": "Riesgo {level}",
+    "stoppedTrading": "Trading detenido"
+  },
+  "TraderEquityChart": {
+    "start": "Inicio",
+    "current": "Actual",
+    "notEnoughData": "No hay suficientes operaciones cerradas en este período para mostrar el gráfico."
+  },
+  "OpenOrders": {
+    "entryPrefix": "Entrada",
+    "currentPrefix": "Actual",
+    "noOpenOrders": "No hay operaciones abiertas para este trader actualmente.",
+    "totalFloatingPnl": "P/L flotante total"
+  },
+  "RecentCopiers": {
+    "memberSince": "Desde {date}"
+  },
+  "TraderProfile": {
+    "follow": "Seguir",
+    "unfollow": "Dejar de seguir",
+    "memberSince": "Miembro desde {date}",
+    "followNotifyNote": "Recibirás un correo con los detalles de rendimiento de este trader al seguirlo.",
+    "copiersListLabel": "Lista de copiadores ({count})",
+    "signupPrompt": "Regístrate gratis para copiar a {name} y seguir su rendimiento.",
+    "signupCta": "Crear cuenta gratis",
+    "stoppedTradingNotice": "{name} ha dejado de operar y no se puede iniciar una nueva copia. Su historial sigue totalmente disponible.",
+    "blockedNotice": "Actualmente estás copiando a <strong>{otherName}</strong>. Solo puedes copiar a un trader a la vez — detén la copia primero desde <link>tu portafolio</link> para copiar a {name}.",
+    "currentlyCopyingAmount": "Estás copiando a este trader con {amount}",
+    "copyAmountLabel": "Monto a copiar",
+    "copyCta": "Copiar",
+    "stopCopyingCta": "Detener copia",
+    "minCopyBadge": "Monto mínimo de copia para este trader: {amount}",
+    "availableBalance": "Saldo disponible: {amount}",
+    "statCopiers": "Copiadores",
+    "statTotalProfit": "Beneficio total",
+    "statTotalWithdrawals": "Retiros totales",
+    "statCurrentCapital": "Capital actual",
+    "statOverallWinRate": "Tasa de éxito general",
+    "statMaxDrawdown": "Máximo drawdown",
+    "reliabilitySectionTitle": "Nivel de fiabilidad de trading",
+    "gaugeReliability": "Fiabilidad",
+    "gaugeSafety": "Puntuación de seguridad",
+    "gaugeRiskExposure": "Exposición al riesgo",
+    "closedTradesStat": "Operaciones cerradas",
+    "daysMemberStat": "Días como miembro",
+    "equityChartTitle": "Rendimiento acumulado",
+    "periodsPerformanceTitle": "Rendimiento por período",
+    "winRateInline": "Tasa de éxito {pct}%",
+    "noTradesLabel": "Sin operaciones",
+    "assetsSectionTitle": "Instrumentos operados",
+    "openOrdersSectionTitle": "Órdenes abiertas",
+    "tradeHistorySectionTitle": "Historial de operaciones",
+    "noClosedTrades": "Aún no hay operaciones cerradas.",
+    "copyStartedSuccess": "Comenzaste a copiar a {name} con éxito con {amount}.",
+    "anotherTraderFallback": "otro trader"
   }
 }

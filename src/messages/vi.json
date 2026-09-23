@@ -301,7 +301,8 @@
   },
   "Common": {
     "level": "Cấp độ {level}",
-    "back": "Quay lại"
+    "back": "Quay lại",
+    "other": "Khác"
   },
   "Notifications": {
     "copyOpenedTitle": "Đã sao chép giao dịch mới",
@@ -410,5 +411,69 @@
     "BNBUSDT": "BNB",
     "XRPUSDT": "XRP",
     "US30": "Chỉ số công nghiệp Dow Jones"
+  },
+  "TraderBadges": {
+    "tierElite": "Ưu tú",
+    "tierPro": "Chuyên nghiệp",
+    "tierIntermediate": "Trung cấp",
+    "tierBeginner": "Mới bắt đầu",
+    "riskLow": "Thấp",
+    "riskMedium": "Trung bình",
+    "riskHigh": "Cao",
+    "riskLabel": "Rủi ro {level}",
+    "stoppedTrading": "Đã dừng giao dịch"
+  },
+  "TraderEquityChart": {
+    "start": "Bắt đầu",
+    "current": "Hiện tại",
+    "notEnoughData": "Không đủ giao dịch đã đóng trong khoảng thời gian này để hiển thị biểu đồ."
+  },
+  "OpenOrders": {
+    "entryPrefix": "Vào lệnh",
+    "currentPrefix": "Hiện tại",
+    "noOpenOrders": "Hiện không có giao dịch mở nào cho nhà giao dịch này.",
+    "totalFloatingPnl": "Tổng lãi/lỗ nổi"
+  },
+  "RecentCopiers": {
+    "memberSince": "Từ {date}"
+  },
+  "TraderProfile": {
+    "follow": "Theo dõi",
+    "unfollow": "Bỏ theo dõi",
+    "memberSince": "Thành viên từ {date}",
+    "followNotifyNote": "Bạn sẽ nhận được email chứa chi tiết hiệu suất của nhà giao dịch này khi theo dõi họ.",
+    "copiersListLabel": "Danh sách người sao chép ({count})",
+    "signupPrompt": "Đăng ký miễn phí để sao chép {name} và theo dõi hiệu suất giao dịch của họ.",
+    "signupCta": "Tạo tài khoản miễn phí",
+    "stoppedTradingNotice": "{name} đã ngừng giao dịch và không thể bắt đầu sao chép mới. Lịch sử trước đây vẫn có thể xem đầy đủ.",
+    "blockedNotice": "Bạn hiện đang sao chép <strong>{otherName}</strong>. Bạn chỉ có thể sao chép một nhà giao dịch tại một thời điểm — hãy dừng sao chép trước từ <link>danh mục đầu tư của bạn</link> để sao chép {name}.",
+    "currentlyCopyingAmount": "Bạn đang sao chép nhà giao dịch này với {amount}",
+    "copyAmountLabel": "Số tiền sao chép",
+    "copyCta": "Sao chép",
+    "stopCopyingCta": "Dừng sao chép",
+    "minCopyBadge": "Số tiền sao chép tối thiểu cho nhà giao dịch này: {amount}",
+    "availableBalance": "Số dư khả dụng: {amount}",
+    "statCopiers": "Người sao chép",
+    "statTotalProfit": "Tổng lợi nhuận",
+    "statTotalWithdrawals": "Tổng rút tiền",
+    "statCurrentCapital": "Vốn hiện tại",
+    "statOverallWinRate": "Tỷ lệ thắng tổng thể",
+    "statMaxDrawdown": "Sụt giảm tối đa",
+    "reliabilitySectionTitle": "Mức độ tin cậy giao dịch",
+    "gaugeReliability": "Độ tin cậy",
+    "gaugeSafety": "Điểm an toàn",
+    "gaugeRiskExposure": "Mức độ rủi ro",
+    "closedTradesStat": "Giao dịch đã đóng",
+    "daysMemberStat": "Số ngày là thành viên",
+    "equityChartTitle": "Hiệu suất tích lũy",
+    "periodsPerformanceTitle": "Hiệu suất theo giai đoạn",
+    "winRateInline": "Tỷ lệ thắng {pct}%",
+    "noTradesLabel": "Không có giao dịch",
+    "assetsSectionTitle": "Công cụ giao dịch",
+    "openOrdersSectionTitle": "Lệnh đang mở",
+    "tradeHistorySectionTitle": "Lịch sử giao dịch",
+    "noClosedTrades": "Chưa có giao dịch nào đã đóng.",
+    "copyStartedSuccess": "Bạn đã bắt đầu sao chép {name} thành công với {amount}.",
+    "anotherTraderFallback": "một nhà giao dịch khác"
   }
 }
