@@ -1,13 +1,15 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { WithdrawFlow } from "@/components/WithdrawFlow";
 
-function PageShell({ children }: { children: React.ReactNode }) {
+async function PageShell({ children }: { children: React.ReactNode }) {
+  const t = await getTranslations("Portfolio");
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col gap-8 p-6">
       <div className="flex items-center justify-between">
-        <Link href="/portfolio" aria-label="إغلاق" className="text-muted transition hover:text-foreground">
+        <Link href="/portfolio" aria-label={t("close")} className="text-muted transition hover:text-foreground">
           <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <line x1="18" y1="6" x2="6" y2="18" />
             <line x1="6" y1="6" x2="18" y2="18" />
@@ -15,7 +17,7 @@ function PageShell({ children }: { children: React.ReactNode }) {
         </Link>
       </div>
 
-      <h1 className="text-2xl font-semibold">السحب</h1>
+      <h1 className="text-2xl font-semibold">{t("withdrawTitle")}</h1>
 
       {children}
     </main>
@@ -27,6 +29,7 @@ export default async function WithdrawPage({
 }: {
   searchParams: Promise<{ error?: string }>;
 }) {
+  const t = await getTranslations("Portfolio");
   const { error } = await searchParams;
   const supabase = await createClient();
   const {
@@ -62,7 +65,7 @@ export default async function WithdrawPage({
     return (
       <PageShell>
         <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
-          تعذّر تقديم طلب السحب: لديك صفقات مفتوحة حاليًا، ورصيدك محجوز كهامش لتغطيتها. يمكنك إيقاف النسخ بعد إغلاق الصفقات لإعادة الرصيد والأرباح إلى محفظتك، ثم إعادة تقديم طلب السحب.
+          {t("withdrawBlockedError")}
         </p>
       </PageShell>
     );

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 
 // A brand-new tab can already report window.history.length as 2 or more
@@ -14,8 +15,10 @@ import { useRouter } from "next/navigation";
 // be > 1.
 const initialHistoryLength = typeof window !== "undefined" ? window.history.length : 0;
 
-export function BackButton({ fallbackHref, label = "رجوع" }: { fallbackHref: string; label?: string }) {
+export function BackButton({ fallbackHref, label }: { fallbackHref: string; label?: string }) {
+  const t = useTranslations("Common");
   const router = useRouter();
+  const resolvedLabel = label ?? t("back");
 
   return (
     <button
@@ -41,7 +44,7 @@ export function BackButton({ fallbackHref, label = "رجوع" }: { fallbackHref:
       >
         <polyline points="9 5 15 12 9 19" />
       </svg>
-      {label}
+      {resolvedLabel}
     </button>
   );
 }

@@ -1,14 +1,11 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState, type ReactNode } from "react";
 
-const TABS = [
-  { key: "open", label: "الصفقات المفتوحة" },
-  { key: "pending", label: "الأوامر المعلقة" },
-  { key: "closed", label: "السجل" },
-] as const;
+const TAB_KEYS = ["open", "pending", "closed"] as const;
 
-type TabKey = (typeof TABS)[number]["key"];
+type TabKey = (typeof TAB_KEYS)[number];
 
 export function PositionTabs({
   open,
@@ -23,26 +20,28 @@ export function PositionTabs({
   openCount?: number;
   closedCount?: number;
 }) {
+  const t = useTranslations("Portfolio");
   const [tab, setTab] = useState<TabKey>("open");
   const counts: Partial<Record<TabKey, number>> = { open: openCount, closed: closedCount };
+  const labels: Record<TabKey, string> = { open: t("openPositionsTab"), pending: t("pendingOrders"), closed: t("history") };
 
   return (
     <div className="flex flex-col gap-3">
       <div className="flex gap-1 rounded-lg border border-border bg-surface p-1">
-        {TABS.map((t) => (
+        {TAB_KEYS.map((key) => (
           <button
-            key={t.key}
+            key={key}
             type="button"
-            onClick={() => setTab(t.key)}
+            onClick={() => setTab(key)}
             className={
-              tab === t.key
+              tab === key
                 ? "flex-1 rounded-md bg-accent px-2 py-2 text-center text-xs font-medium text-accent-foreground transition sm:text-sm"
                 : "flex-1 rounded-md px-2 py-2 text-center text-xs font-medium text-muted transition hover:text-foreground sm:text-sm"
             }
           >
-            {t.label}
-            {counts[t.key] != null && counts[t.key]! > 0 && (
-              <span className="ms-1 text-[11px] opacity-80">({counts[t.key]})</span>
+            {labels[key]}
+            {counts[key] != null && counts[key]! > 0 && (
+              <span className="ms-1 text-[11px] opacity-80">({counts[key]})</span>
             )}
           </button>
         ))}

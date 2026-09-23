@@ -1,16 +1,13 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState, type ReactNode } from "react";
 
-const TABS = [
-  { key: "overview", label: "نظرة عامة" },
-  { key: "positions", label: "الصفقات" },
-  { key: "activity", label: "المعاملات" },
-] as const;
+const TAB_KEYS = ["overview", "positions", "activity"] as const;
 
-type TabKey = (typeof TABS)[number]["key"];
+type TabKey = (typeof TAB_KEYS)[number];
 
-const isTabKey = (v: string | undefined): v is TabKey => TABS.some((t) => t.key === v);
+const isTabKey = (v: string | undefined): v is TabKey => TAB_KEYS.includes(v as TabKey);
 
 export function PortfolioTabs({
   overview,
@@ -23,24 +20,26 @@ export function PortfolioTabs({
   activity: ReactNode;
   initialTab?: string;
 }) {
+  const t = useTranslations("Portfolio");
   const [active, setActive] = useState<TabKey>(isTabKey(initialTab) ? initialTab : "overview");
   const panels: Record<TabKey, ReactNode> = { overview, positions, activity };
+  const labels: Record<TabKey, string> = { overview: t("tabOverview"), positions: t("tabPositions"), activity: t("tabActivity") };
 
   return (
     <div className="flex flex-col gap-6">
       <div className="flex gap-1.5 rounded-lg border border-border bg-surface p-1">
-        {TABS.map((t) => (
+        {TAB_KEYS.map((key) => (
           <button
-            key={t.key}
+            key={key}
             type="button"
-            onClick={() => setActive(t.key)}
+            onClick={() => setActive(key)}
             className={
-              active === t.key
+              active === key
                 ? "flex-1 rounded bg-accent px-3 py-2 text-sm font-medium text-accent-foreground transition"
                 : "flex-1 rounded px-3 py-2 text-sm text-muted transition hover:text-foreground"
             }
           >
-            {t.label}
+            {labels[key]}
           </button>
         ))}
       </div>

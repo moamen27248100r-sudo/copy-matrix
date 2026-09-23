@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { DepositGateway } from "@/components/DepositGateway";
 import { SimpleDepositForm } from "@/components/SimpleDepositForm";
 
 export default async function DepositPage() {
+  const t = await getTranslations("Portfolio");
   const supabase = await createClient();
   const {
     data: { user },
@@ -18,7 +20,7 @@ export default async function DepositPage() {
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col gap-8 p-6">
       <div className="flex items-center justify-between">
-        <Link href="/portfolio" aria-label="إغلاق" className="text-muted transition hover:text-foreground">
+        <Link href="/portfolio" aria-label={t("close")} className="text-muted transition hover:text-foreground">
           <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <line x1="18" y1="6" x2="6" y2="18" />
             <line x1="6" y1="6" x2="18" y2="18" />
@@ -26,7 +28,7 @@ export default async function DepositPage() {
         </Link>
       </div>
 
-      <h1 className="text-2xl font-semibold">الإيداع</h1>
+      <h1 className="text-2xl font-semibold">{t("depositTitle")}</h1>
 
       {isDemo ? (
         // Demo money doesn't need a real network/address — one field, one

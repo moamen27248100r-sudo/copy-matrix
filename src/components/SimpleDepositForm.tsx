@@ -1,14 +1,17 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { requestDeposit } from "@/app/portfolio/actions";
 
 export function SimpleDepositForm() {
+  const t = useTranslations("Portfolio");
+  const td = useTranslations("Dashboard");
   const [amount, setAmount] = useState("");
 
   return (
     <form action={requestDeposit} className="flex flex-1 flex-col gap-8">
-      <p className="text-sm text-muted">أدخل مبلغ الإيداع</p>
+      <p className="text-sm text-muted">{t("enterDepositAmount")}</p>
 
       <div className="flex items-center gap-3">
         <span className="shrink-0 text-lg font-semibold text-muted">USD</span>
@@ -33,7 +36,7 @@ export function SimpleDepositForm() {
           disabled={!amount || Number(amount) <= 0}
           className="w-full rounded-lg bg-accent px-4 py-3 text-center text-sm font-semibold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
         >
-          إيداع
+          {td("deposit")}
         </button>
       </div>
     </form>

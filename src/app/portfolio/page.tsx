@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { unfollowProvider } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
@@ -13,18 +14,6 @@ import { MyOpenPositions } from "@/components/MyOpenPositions";
 import { PositionTabs } from "@/components/PositionTabs";
 import { PendingOrdersEmpty } from "@/components/PendingOrdersEmpty";
 import { TraderAvatar } from "@/components/TraderAvatar";
-
-const TX_LABELS: Record<string, string> = {
-  deposit: "إيداع",
-  withdrawal: "سحب",
-  pnl: "نتيجة صفقة",
-};
-
-const REQUEST_STATUS_LABELS: Record<string, string> = {
-  pending: "قيد المراجعة",
-  approved: "مقبول",
-  rejected: "مرفوض",
-};
 
 type PositionSignal = {
   symbol: string;
@@ -62,6 +51,18 @@ export default async function PortfolioPage({
   searchParams: Promise<{ error?: string; success?: string; tab?: string }>;
 }) {
   const { error, success, tab } = await searchParams;
+  const t = await getTranslations("Portfolio");
+  const td = await getTranslations("Dashboard");
+  const TX_LABELS: Record<string, string> = {
+    deposit: t("txDeposit"),
+    withdrawal: t("txWithdrawal"),
+    pnl: t("txPnl"),
+  };
+  const REQUEST_STATUS_LABELS: Record<string, string> = {
+    pending: t("statusPending"),
+    approved: t("statusApproved"),
+    rejected: t("statusRejected"),
+  };
   const supabase = await createClient();
   const {
     data: { user },
@@ -213,7 +214,7 @@ export default async function PortfolioPage({
                 <path d="M12 5v14" />
               </svg>
             </span>
-            <span className="text-sm text-foreground">سحب</span>
+            <span className="text-sm text-foreground">{td("withdraw")}</span>
           </Link>
           <Link href="/portfolio/deposit" className="flex flex-col items-center gap-2">
             <span className="flex h-14 w-14 items-center justify-center rounded-full bg-background text-foreground">
@@ -222,7 +223,7 @@ export default async function PortfolioPage({
                 <path d="M5 12l7 7 7-7" />
               </svg>
             </span>
-            <span className="text-sm text-foreground">إيداع</span>
+            <span className="text-sm text-foreground">{td("deposit")}</span>
           </Link>
           <Link href="/discover" className="flex flex-col items-center gap-2">
             <span className="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-accent-foreground">
@@ -231,22 +232,20 @@ export default async function PortfolioPage({
                 <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
               </svg>
             </span>
-            <span className="text-sm text-foreground">نسخ</span>
+            <span className="text-sm text-foreground">{td("copy")}</span>
           </Link>
         </div>
-        <p className="text-xs text-muted">
-          تُعالَج طلبات الإيداع والسحب فوريًا وتنعكس على رصيدك مباشرة.
-        </p>
+        <p className="text-xs text-muted">{t("instantProcessingNote")}</p>
 
         {pendingRequests.length > 0 && (
           <div className="flex flex-col gap-2">
-            <p className="text-xs font-medium text-muted">طلبات قيد المراجعة</p>
+            <p className="text-xs font-medium text-muted">{t("pendingRequestsLabel")}</p>
             {pendingRequests.map((r) => (
               <div
                 key={r.id}
                 className="flex items-center justify-between rounded border border-border bg-background px-3 py-2 text-sm"
               >
-                <span>{r.type === "deposit" ? "إيداع" : "سحب"} ${Number(r.amount).toLocaleString("en-US")}</span>
+                <span>{r.type === "deposit" ? td("deposit") : td("withdraw")} ${Number(r.amount).toLocaleString("en-US")}</span>
                 <span className="text-xs text-muted">{REQUEST_STATUS_LABELS[r.status]}</span>
               </div>
             ))}
@@ -255,23 +254,23 @@ export default async function PortfolioPage({
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">أداء محفظتي التراكمي</h2>
+        <h2 className="font-medium">{t("cumulativePerformance")}</h2>
         <MyEquityChart positions={closedPositions.map((p) => ({ pnl: p.pnl, closed_at: p.closed_at }))} />
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">أداء نسخي</h2>
+        <h2 className="font-medium">{t("myPerformance")}</h2>
         <div className="grid grid-cols-2 gap-3 text-center text-sm sm:grid-cols-4">
           <div className="rounded-lg border border-border bg-surface p-3">
             <p className={totalRealizedPnl >= 0 ? "text-lg font-semibold text-success" : "text-lg font-semibold text-danger"} dir="ltr">
               {totalRealizedPnl >= 0 ? "+" : ""}
               {totalRealizedPnl.toFixed(2)}
             </p>
-            <p className="text-xs text-muted">صافي الأرباح المحققة</p>
+            <p className="text-xs text-muted">{td("netRealizedProfit")}</p>
           </div>
           <div className="rounded-lg border border-border bg-surface p-3">
             <p className="text-lg font-semibold">{myWinRatePct != null ? `${myWinRatePct}%` : "—"}</p>
-            <p className="text-xs text-muted">نسبة نجاح صفقاتي المنسوخة</p>
+            <p className="text-xs text-muted">{t("myWinRate")}</p>
           </div>
           <div className="rounded-lg border border-border bg-surface p-3">
             <p
@@ -284,24 +283,26 @@ export default async function PortfolioPage({
             >
               {myAvgReturnPct != null ? `${myAvgReturnPct > 0 ? "+" : ""}${myAvgReturnPct.toFixed(2)}%` : "—"}
             </p>
-            <p className="text-xs text-muted">متوسط عائد الصفقة</p>
+            <p className="text-xs text-muted">{t("avgTradeReturn")}</p>
           </div>
           <div className="rounded-lg border border-border bg-surface p-3">
             <p className="text-lg font-semibold">{closedPositions.length}</p>
-            <p className="text-xs text-muted">عدد الصفقات المغلقة</p>
+            <p className="text-xs text-muted">{t("closedTradesCount")}</p>
           </div>
         </div>
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">المتداول الذي تنسخه</h2>
+        <h2 className="font-medium">{td("traderYouCopy")}</h2>
         {(followedProviders ?? []).length === 0 ? (
           <p className="text-sm text-muted">
-            أنت لا تنسخ أي متداول حتى الآن. انتقل إلى{" "}
-            <Link href="/discover" className="underline">
-              اكتشاف المتداولين
-            </Link>{" "}
-            وابدأ النسخ.
+            {t.rich("notCopyingYet", {
+              link: (chunks) => (
+                <Link href="/discover" className="underline">
+                  {chunks}
+                </Link>
+              ),
+            })}
           </p>
         ) : (
           followedProviders!.map((p) => (
@@ -316,7 +317,7 @@ export default async function PortfolioPage({
                     {p.display_name}
                   </p>
                   <p className="text-xs text-muted">
-                    بدأ بمبلغ: ${Number(allocationByProvider.get(p.provider_id) ?? 0).toLocaleString("en-US")}
+                    {td("startedWith", { amount: Number(allocationByProvider.get(p.provider_id) ?? 0).toLocaleString("en-US") })}
                   </p>
                 </div>
               </Link>
@@ -327,7 +328,7 @@ export default async function PortfolioPage({
                   type="submit"
                   className="rounded border border-border px-3 py-1 text-xs"
                 >
-                  إيقاف النسخ
+                  {t("stopCopying")}
                 </button>
               </form>
             </div>
@@ -345,9 +346,7 @@ export default async function PortfolioPage({
       pending={<PendingOrdersEmpty />}
       closed={
         closedHistory.length === 0 ? (
-          <p className="text-sm text-muted">
-            لا توجد صفقات منسوخة مغلقة حتى الآن. ستظهر النتائج هنا فور إغلاق أي متداول تتابعه لصفقة.
-          </p>
+          <p className="text-sm text-muted">{t("noClosedCopiedTrades")}</p>
         ) : (
           <TradeHistory trades={closedHistory} />
         )
@@ -360,18 +359,18 @@ export default async function PortfolioPage({
   const activity = (
     <div className="flex flex-col gap-6">
       <section className="flex flex-col gap-2">
-        <h2 className="font-medium">حركات المحفظة</h2>
+        <h2 className="font-medium">{t("walletMovements")}</h2>
         {walletMovements.length === 0 ? (
-          <p className="text-sm text-muted">لا توجد حركات إيداع أو سحب على المحفظة حتى الآن.</p>
+          <p className="text-sm text-muted">{t("noWalletMovements")}</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[420px] text-sm">
               <thead>
                 <tr className="border-b border-border text-right text-xs text-muted">
-                  <th className="py-2 pl-3">التاريخ</th>
-                  <th className="py-2 pl-3">النوع</th>
-                  <th className="py-2 pl-3">المبلغ</th>
-                  <th className="py-2">الرصيد بعدها</th>
+                  <th className="py-2 pl-3">{t("date")}</th>
+                  <th className="py-2 pl-3">{t("type")}</th>
+                  <th className="py-2 pl-3">{t("amount")}</th>
+                  <th className="py-2">{t("balanceAfter")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -395,18 +394,18 @@ export default async function PortfolioPage({
       </section>
 
       <section className="flex flex-col gap-2">
-        <h2 className="font-medium">طلبات الإيداع والسحب</h2>
+        <h2 className="font-medium">{t("depositWithdrawRequests")}</h2>
         {(walletRequests ?? []).length === 0 ? (
-          <p className="text-sm text-muted">لا توجد طلبات إيداع أو سحب حتى الآن.</p>
+          <p className="text-sm text-muted">{t("noRequests")}</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[420px] text-sm">
               <thead>
                 <tr className="border-b border-border text-right text-xs text-muted">
-                  <th className="py-2 pl-3">التاريخ</th>
-                  <th className="py-2 pl-3">النوع</th>
-                  <th className="py-2 pl-3">المبلغ</th>
-                  <th className="py-2">الحالة</th>
+                  <th className="py-2 pl-3">{t("date")}</th>
+                  <th className="py-2 pl-3">{t("type")}</th>
+                  <th className="py-2 pl-3">{t("amount")}</th>
+                  <th className="py-2">{t("status")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -415,7 +414,7 @@ export default async function PortfolioPage({
                     <td className="py-2 pl-3 whitespace-nowrap text-xs text-muted">
                       {new Date(r.requested_at).toLocaleDateString("ar-EG", { timeZone: "UTC" })}
                     </td>
-                    <td className="py-2 pl-3 whitespace-nowrap">{r.type === "deposit" ? "إيداع" : "سحب"}</td>
+                    <td className="py-2 pl-3 whitespace-nowrap">{r.type === "deposit" ? td("deposit") : td("withdraw")}</td>
                     <td className="py-2 pl-3 whitespace-nowrap">${Number(r.amount).toLocaleString("en-US")}</td>
                     <td className="py-2 whitespace-nowrap">
                       <span
@@ -445,7 +444,7 @@ export default async function PortfolioPage({
       <AppNav />
       <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6">
         <BackButton fallbackHref="/dashboard" />
-        <h1 className="text-2xl font-semibold">محفظتي</h1>
+        <h1 className="text-2xl font-semibold">{t("title")}</h1>
 
         {error && (
           <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
@@ -457,7 +456,7 @@ export default async function PortfolioPage({
             className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success"
             clearParams={["success"]}
           >
-            تمت العملية بنجاح.
+            {t("successMessage")}
           </AutoDismissMessage>
         )}
 

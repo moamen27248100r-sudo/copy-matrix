@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { SymbolIcon } from "@/lib/symbol-icons";
 import { useLivePrices } from "@/lib/use-live-prices";
@@ -101,6 +102,7 @@ export function MyOpenPositions({
   positions: Position[];
   initialPrices: Record<string, number>;
 }) {
+  const t = useTranslations("Portfolio");
   const symbols = Array.from(new Set(positions.map((p) => p.symbol)));
   const prices = useLivePrices(symbols, initialPrices);
 
@@ -114,7 +116,7 @@ export function MyOpenPositions({
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <span className="text-sm text-muted">إجمالي الربح/الخسارة العائم</span>
+        <span className="text-sm text-muted">{t("totalFloatingPnl")}</span>
         {positions.length > 0 && (
           <span
             className={totalUnrealizedPnl >= 0 ? "text-sm font-semibold text-success" : "text-sm font-semibold text-danger"}
@@ -126,7 +128,7 @@ export function MyOpenPositions({
         )}
       </div>
       {positions.length === 0 ? (
-        <p className="text-sm text-muted">لا توجد مراكز مفتوحة حاليًا. ستظهر هنا فور فتح متداول تنسخه لصفقة جديدة.</p>
+        <p className="text-sm text-muted">{t("noOpenPositions")}</p>
       ) : (
         <div className="flex flex-col gap-2">
           {positions.map((pos) => (

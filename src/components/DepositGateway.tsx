@@ -1,11 +1,13 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import QRCode from "qrcode";
 import { requestDeposit } from "@/app/portfolio/actions";
 import { DEPOSIT_NETWORKS, type DepositNetwork } from "@/lib/deposit-networks";
 
 export function DepositGateway() {
+  const t = useTranslations("Portfolio");
   const [selected, setSelected] = useState<DepositNetwork | null>(null);
   const [qrDataUrl, setQrDataUrl] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -60,17 +62,17 @@ export function DepositGateway() {
             onClick={() => setSelected(null)}
             className="flex w-fit items-center gap-1 text-xs text-muted hover:text-foreground"
           >
-            ← تغيير الشبكة
+            {t("changeNetwork")}
           </button>
 
           <div className="flex flex-col items-center gap-3 rounded-lg border border-border bg-surface p-4">
             {qrDataUrl && (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={qrDataUrl} alt={`رمز QR لعنوان ${selected.label}`} width={160} height={160} className="rounded bg-white p-2" />
+              <img src={qrDataUrl} alt={t("qrAlt", { label: selected.label })} width={160} height={160} className="rounded bg-white p-2" />
             )}
             <div className="w-full">
               <p className="text-center text-xs text-muted">
-                أرسل {selected.currency} فقط عبر شبكة {selected.network} إلى العنوان التالي
+                {t("sendOnlyNote", { currency: selected.currency, network: selected.network })}
               </p>
               <div className="mt-2 flex items-center gap-2 rounded border border-border bg-background px-3 py-2">
                 <span dir="ltr" className="flex-1 truncate text-xs text-foreground">
@@ -81,13 +83,13 @@ export function DepositGateway() {
                   onClick={copyAddress}
                   className="shrink-0 rounded border border-border px-2 py-1 text-[11px] text-muted hover:border-accent hover:text-foreground"
                 >
-                  {copied ? "تم النسخ" : "نسخ"}
+                  {copied ? t("copied") : t("copyAddress")}
                 </button>
               </div>
             </div>
             <div className="grid w-full grid-cols-2 gap-2 text-center text-[11px] text-muted">
-              <span>الحد الأدنى: {selected.minDeposit} {selected.currency}</span>
-              <span>تأكيدات الشبكة: {selected.confirmations}</span>
+              <span>{t("minDeposit", { amount: selected.minDeposit, currency: selected.currency })}</span>
+              <span>{t("networkConfirmations", { count: selected.confirmations })}</span>
             </div>
           </div>
 
@@ -99,18 +101,16 @@ export function DepositGateway() {
               min="1"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              placeholder={`المبلغ المُرسَل بالدولار`}
+              placeholder={t("amountSentPlaceholder")}
               required
               className="flex-1 rounded border border-border bg-surface px-3 py-2 text-sm"
             />
           </div>
 
-          <p className="text-xs text-muted">
-            بعد إرسال المبلغ إلى العنوان أعلاه، اضغط «لقد أرسلت المبلغ» — وسينعكس المبلغ على رصيدك فورًا.
-          </p>
+          <p className="text-xs text-muted">{t("afterSendingNote")}</p>
 
           <button type="submit" className="rounded bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover">
-            لقد أرسلت المبلغ
+            {t("iSentAmount")}
           </button>
         </form>
       )}

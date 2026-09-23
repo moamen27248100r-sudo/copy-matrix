@@ -1,8 +1,10 @@
+import { getTranslations } from "next-intl/server";
+
 function money(n: number) {
   return n.toLocaleString("en-US", { maximumFractionDigits: 2 });
 }
 
-export function PortfolioValueBreakdown({
+export async function PortfolioValueBreakdown({
   balance,
   totalAllocated,
   totalUnrealizedPnl,
@@ -11,6 +13,7 @@ export function PortfolioValueBreakdown({
   totalAllocated: number;
   totalUnrealizedPnl: number;
 }) {
+  const t = await getTranslations("Dashboard");
   // balance already includes any allocated capital (followProvider never
   // actually deducts it — allocated_amount is a reservation on top of the
   // same dollars, not separate money), so only unrealized P&L — not yet
@@ -20,7 +23,7 @@ export function PortfolioValueBreakdown({
 
   return (
     <div>
-      <p className="text-xs text-muted">قيمة المحفظة الإجمالية</p>
+      <p className="text-xs text-muted">{t("portfolioValue")}</p>
       <p className="text-3xl font-semibold">
         <span dir="ltr" className="inline-block">
           ${money(totalValue)}
@@ -33,7 +36,7 @@ export function PortfolioValueBreakdown({
               ${money(availableCash)}
             </span>
           </p>
-          <p className="text-xs text-muted">نقدي متاح للسحب</p>
+          <p className="text-xs text-muted">{t("availableCash")}</p>
         </div>
         <div>
           <p className="font-semibold">
@@ -41,7 +44,7 @@ export function PortfolioValueBreakdown({
               ${money(totalAllocated)}
             </span>
           </p>
-          <p className="text-xs text-muted">محجوز لحساب النسخ النشط</p>
+          <p className="text-xs text-muted">{t("reservedForCopy")}</p>
         </div>
         <div>
           <p className={totalUnrealizedPnl >= 0 ? "font-semibold text-success" : "font-semibold text-danger"}>
@@ -50,7 +53,7 @@ export function PortfolioValueBreakdown({
               ${money(totalUnrealizedPnl)}
             </span>
           </p>
-          <p className="text-xs text-muted">ربح/خسارة غير محققة</p>
+          <p className="text-xs text-muted">{t("unrealizedPnl")}</p>
         </div>
       </div>
     </div>

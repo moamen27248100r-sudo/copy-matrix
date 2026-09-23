@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { requestWithdrawal } from "@/app/portfolio/actions";
 import { DEPOSIT_NETWORKS, type DepositNetwork } from "@/lib/deposit-networks";
@@ -24,9 +25,10 @@ function AmountStep({
   buttonLabel: string;
   onContinue?: () => void;
 }) {
+  const t = useTranslations("Portfolio");
   return (
     <div className="flex flex-1 flex-col gap-8">
-      <p className="text-sm text-muted">أدخل مبلغ السحب</p>
+      <p className="text-sm text-muted">{t("enterWithdrawAmount")}</p>
 
       <div className="flex items-center gap-3">
         <span className="shrink-0 text-lg font-semibold text-muted">USD</span>
@@ -46,7 +48,7 @@ function AmountStep({
         </div>
       </div>
       <p className="text-xs text-muted" dir="ltr">
-        Max {formatAmount(maxAvailable)} USD
+        {t("maxAvailable", { amount: formatAmount(maxAvailable) })}
       </p>
 
       <div className="mt-auto">
@@ -64,6 +66,7 @@ function AmountStep({
 }
 
 export function WithdrawFlow({ accountType, maxAvailable }: { accountType: "real" | "demo"; maxAvailable: number }) {
+  const t = useTranslations("Portfolio");
   const [amount, setAmount] = useState(maxAvailable > 0 ? formatAmount(maxAvailable) : "");
   const [step, setStep] = useState<"amount" | "destination">("amount");
   const [network, setNetwork] = useState<DepositNetwork | null>(null);
@@ -73,7 +76,7 @@ export function WithdrawFlow({ accountType, maxAvailable }: { accountType: "real
     return (
       <form action={requestWithdrawal} className="flex flex-1 flex-col">
         <input type="hidden" name="amount" value={amount} />
-        <AmountStep amount={amount} setAmount={setAmount} maxAvailable={maxAvailable} buttonLabel="متابعة" />
+        <AmountStep amount={amount} setAmount={setAmount} maxAvailable={maxAvailable} buttonLabel={t("continue")} />
       </form>
     );
   }
@@ -85,7 +88,7 @@ export function WithdrawFlow({ accountType, maxAvailable }: { accountType: "real
           amount={amount}
           setAmount={setAmount}
           maxAvailable={maxAvailable}
-          buttonLabel="متابعة"
+          buttonLabel={t("continue")}
           onContinue={() => setStep("destination")}
         />
       </div>
@@ -102,10 +105,10 @@ export function WithdrawFlow({ accountType, maxAvailable }: { accountType: "real
         onClick={() => setStep("amount")}
         className="flex w-fit items-center gap-1 text-xs text-muted hover:text-foreground"
       >
-        → رجوع لتعديل المبلغ
+        {t("backEditAmount")}
       </button>
 
-      <p className="text-sm text-muted">اختر الشبكة</p>
+      <p className="text-sm text-muted">{t("chooseNetwork")}</p>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
         {DEPOSIT_NETWORKS.map((n) => (
           <button
@@ -125,13 +128,13 @@ export function WithdrawFlow({ accountType, maxAvailable }: { accountType: "real
       </div>
 
       <label className="flex flex-col gap-1 text-sm">
-        عنوان المحفظة
+        {t("walletAddressLabel")}
         <input
           name="walletAddress"
           type="text"
           value={walletAddress}
           onChange={(e) => setWalletAddress(e.target.value)}
-          placeholder="أدخل عنوان محفظتك على الشبكة المختارة"
+          placeholder={t("walletAddressPlaceholder")}
           dir="ltr"
           required
           className="rounded border border-border bg-surface px-3 py-2 text-sm text-foreground"
@@ -144,7 +147,7 @@ export function WithdrawFlow({ accountType, maxAvailable }: { accountType: "real
           disabled={!network || !walletAddress.trim()}
           className="w-full rounded-lg bg-warning px-4 py-3 text-center text-sm font-semibold text-background transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          تأكيد السحب
+          {t("confirmWithdraw")}
         </button>
       </div>
     </form>
