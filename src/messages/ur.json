@@ -304,6 +304,8 @@
     "back": "واپس"
   },
   "Notifications": {
+    "copyOpenedTitle": "نئی ٹریڈ کاپی ہوگئی",
+    "copyOpenedBody": "آپ کے فالو کردہ ٹریڈر سے {symbol} ({side, select, sell {فروخت} other {خریداری}}) ٹریڈ کاپی ہوگئی۔",
     "copyClosedTitle": "{providerName} سے کاپی شدہ ٹریڈ",
     "copyClosedBody": "{symbol} ٹریڈ {positive, select, true {+} other {-}}{amount}$ کے نتیجے کے ساتھ بند ہوئی",
     "autoStopCopyTitle": "کاپی کرنا خودکار طور پر روک دیا گیا",

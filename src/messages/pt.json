@@ -304,6 +304,8 @@
     "back": "Voltar"
   },
   "Notifications": {
+    "copyOpenedTitle": "Nova operação copiada",
+    "copyOpenedBody": "Foi copiada uma operação {symbol} ({side, select, sell {venda} other {compra}}) de um trader que você segue.",
     "copyClosedTitle": "Operação copiada de {providerName}",
     "copyClosedBody": "A operação {symbol} foi fechada com um resultado de {positive, select, true {+} other {-}}{amount}$",
     "autoStopCopyTitle": "Cópia interrompida automaticamente",

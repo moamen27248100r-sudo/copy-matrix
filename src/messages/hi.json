@@ -304,6 +304,8 @@
     "back": "वापस"
   },
   "Notifications": {
+    "copyOpenedTitle": "नया ट्रेड कॉपी हुआ",
+    "copyOpenedBody": "आपके फॉलो किए गए ट्रेडर से {symbol} ({side, select, sell {बिक्री} other {खरीद}}) ट्रेड कॉपी किया गया।",
     "copyClosedTitle": "{providerName} से कॉपी किया गया ट्रेड",
     "copyClosedBody": "{symbol} ट्रेड {positive, select, true {+} other {-}}{amount}$ के परिणाम के साथ बंद हुआ",
     "autoStopCopyTitle": "कॉपी करना स्वचालित रूप से रोका गया",

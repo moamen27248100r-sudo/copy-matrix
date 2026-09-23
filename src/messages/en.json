@@ -304,7 +304,9 @@
     "back": "Back"
   },
   "Notifications": {
-    "copyClosedTitle": "Copied trade from {providerName}",
+    "copyOpenedTitle": "New trade copied",
+  "copyOpenedBody": "Copied a {symbol} ({side, select, sell {sell} other {buy}}) trade from a trader you follow.",
+  "copyClosedTitle": "Copied trade from {providerName}",
     "copyClosedBody": "The {symbol} trade closed with a result of {positive, select, true {+} other {-}}{amount}$",
     "autoStopCopyTitle": "Copying stopped automatically",
     "autoStopCopyBody": "Copying a trader was automatically stopped after exceeding the allowed loss limit ({maxDrawdownPct}%). You can follow them again anytime from the discover page.",

@@ -304,6 +304,8 @@
     "back": "Kembali"
   },
   "Notifications": {
+    "copyOpenedTitle": "Trade baru disalin",
+    "copyOpenedBody": "Trade {symbol} ({side, select, sell {jual} other {beli}}) disalin dari trader yang Anda ikuti.",
     "copyClosedTitle": "Transaksi disalin dari {providerName}",
     "copyClosedBody": "Transaksi {symbol} ditutup dengan hasil {positive, select, true {+} other {-}}{amount}$",
     "autoStopCopyTitle": "Penyalinan dihentikan secara otomatis",

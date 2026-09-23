@@ -304,6 +304,8 @@
     "back": "Quay lại"
   },
   "Notifications": {
+    "copyOpenedTitle": "Đã sao chép giao dịch mới",
+    "copyOpenedBody": "Đã sao chép giao dịch {symbol} ({side, select, sell {bán} other {mua}}) từ nhà giao dịch bạn theo dõi.",
     "copyClosedTitle": "Giao dịch được sao chép từ {providerName}",
     "copyClosedBody": "Giao dịch {symbol} đã đóng với kết quả {positive, select, true {+} other {-}}{amount}$",
     "autoStopCopyTitle": "Sao chép đã dừng tự động",

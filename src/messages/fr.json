@@ -304,6 +304,8 @@
     "back": "Retour"
   },
   "Notifications": {
+    "copyOpenedTitle": "Nouvelle position copiée",
+    "copyOpenedBody": "Position {symbol} ({side, select, sell {vente} other {achat}}) copiée d'un trader que vous suivez.",
     "copyClosedTitle": "Trade copié de {providerName}",
     "copyClosedBody": "Le trade {symbol} a été clôturé avec un résultat de {positive, select, true {+} other {-}}{amount}$",
     "autoStopCopyTitle": "Copie arrêtée automatiquement",

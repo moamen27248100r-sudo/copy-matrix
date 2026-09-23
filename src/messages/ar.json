@@ -316,7 +316,9 @@
     "back": "رجوع"
   },
   "Notifications": {
-    "copyClosedTitle": "صفقة منسوخة من {providerName}",
+    "copyOpenedTitle": "تم نسخ صفقة جديدة",
+  "copyOpenedBody": "تم نسخ صفقة {symbol} ({side, select, sell {بيع} other {شراء}}) من متداول تتابعه.",
+  "copyClosedTitle": "صفقة منسوخة من {providerName}",
     "copyClosedBody": "أُغلقت صفقة {symbol} بنتيجة {positive, select, true {+} other {-}}{amount}$",
     "autoStopCopyTitle": "تم إيقاف النسخ تلقائيًا",
     "autoStopCopyBody": "تم إيقاف متابعة أحد المتداولين تلقائيًا بعد تجاوز حد الخسارة المسموح به ({maxDrawdownPct}%). يمكنك متابعته مجددًا في أي وقت من صفحة اكتشاف المتداولين.",

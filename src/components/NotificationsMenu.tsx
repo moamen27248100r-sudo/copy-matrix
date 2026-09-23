@@ -106,8 +106,8 @@ export function NotificationsMenu({ notifications }: { notifications: Notificati
                         : "flex w-full flex-col gap-1 rounded-lg border border-brand/40 bg-brand/5 p-3 text-start"
                     }
                   >
-                    <p className="text-sm font-medium">{title}</p>
-                    {body && <p className="whitespace-pre-line text-xs text-muted">{renderBody(body)}</p>}
+                    <p className="text-sm font-medium" dir="auto">{title}</p>
+                    {body && <p className="whitespace-pre-line text-xs text-muted" dir="auto">{renderBody(body)}</p>}
                   </button>
                 </form>
               );

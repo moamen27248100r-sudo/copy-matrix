@@ -304,6 +304,8 @@
     "back": "Rudi"
   },
   "Notifications": {
+    "copyOpenedTitle": "Biashara mpya imenakiliwa",
+    "copyOpenedBody": "Biashara ya {symbol} ({side, select, sell {kuuza} other {kununua}}) imenakiliwa kutoka kwa mfanyabiashara unayemfuata.",
     "copyClosedTitle": "Biashara iliyonakiliwa kutoka {providerName}",
     "copyClosedBody": "Biashara ya {symbol} imefungwa kwa matokeo ya {positive, select, true {+} other {-}}{amount}$",
     "autoStopCopyTitle": "Unakili umesimamishwa kiotomatiki",

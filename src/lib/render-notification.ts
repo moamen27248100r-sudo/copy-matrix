@@ -30,6 +30,11 @@ export function renderNotification(t: Translator, n: NotificationRow): { title: 
   const sign = (v: unknown) => (v ? "true" : "false");
 
   switch (n.type) {
+    case "copy_opened":
+      return {
+        title: t("copyOpenedTitle"),
+        body: t("copyOpenedBody", { symbol: String(d.symbol ?? ""), side: String(d.side ?? "buy") }),
+      };
     case "copy_closed":
       return {
         title: t("copyClosedTitle", { providerName: String(d.providerName ?? "") }),

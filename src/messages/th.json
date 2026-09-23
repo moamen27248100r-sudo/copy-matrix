@@ -304,6 +304,8 @@
     "back": "กลับ"
   },
   "Notifications": {
+    "copyOpenedTitle": "คัดลอกออเดอร์ใหม่แล้ว",
+    "copyOpenedBody": "คัดลอกออเดอร์ {symbol} ({side, select, sell {ขาย} other {ซื้อ}}) จากเทรดเดอร์ที่คุณติดตามแล้ว",
     "copyClosedTitle": "การเทรดที่คัดลอกจาก {providerName}",
     "copyClosedBody": "การเทรด {symbol} ปิดแล้วด้วยผลลัพธ์ {positive, select, true {+} other {-}}{amount}$",
     "autoStopCopyTitle": "การคัดลอกหยุดโดยอัตโนมัติ",

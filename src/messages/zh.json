@@ -304,6 +304,8 @@
     "back": "返回"
   },
   "Notifications": {
+    "copyOpenedTitle": "已复制新交易",
+    "copyOpenedBody": "已从您关注的交易员复制一笔 {symbol}（{side, select, sell {卖出} other {买入}}）交易。",
     "copyClosedTitle": "来自 {providerName} 的跟单交易",
     "copyClosedBody": "{symbol} 交易已平仓，结果为 {positive, select, true {+} other {-}}{amount} 美元",
     "autoStopCopyTitle": "跟单已自动停止",

@@ -166,10 +166,10 @@ export default async function NotificationsPage() {
                     <NotificationIcon type={n.type} />
                     <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                       <div className="flex items-start justify-between gap-2">
-                        <p className="text-sm font-medium">{title}</p>
+                        <p className="text-sm font-medium" dir="auto">{title}</p>
                         {!n.is_read && <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />}
                       </div>
-                      {body && <p className="whitespace-pre-line text-xs text-muted">{renderBody(body)}</p>}
+                      {body && <p className="whitespace-pre-line text-xs text-muted" dir="auto">{renderBody(body)}</p>}
                       <p className="mt-1 text-[11px] text-muted/70" dir="ltr">
                         {formatNotificationTime(n.created_at, locale)}
                       </p>

@@ -304,6 +304,8 @@
     "back": "ফিরে যান"
   },
   "Notifications": {
+    "copyOpenedTitle": "নতুন ট্রেড কপি হয়েছে",
+    "copyOpenedBody": "আপনার অনুসরণ করা ট্রেডারের কাছ থেকে {symbol} ({side, select, sell {বিক্রয়} other {ক্রয়}}) ট্রেড কপি হয়েছে।",
     "copyClosedTitle": "{providerName} থেকে কপি করা ট্রেড",
     "copyClosedBody": "{symbol} ট্রেড {positive, select, true {+} other {-}}{amount}$ ফলাফল সহ বন্ধ হয়েছে",
     "autoStopCopyTitle": "কপি করা স্বয়ংক্রিয়ভাবে বন্ধ হয়েছে",
