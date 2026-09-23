@@ -238,11 +238,6 @@ export default async function TraderPage({
           <div className="flex-1">
             <div className="flex flex-wrap items-center gap-2">
               <h1 className="text-xl font-semibold">{provider.display_name}</h1>
-              {countryDisplay(provider.country) && (
-                <span className="text-sm" title={countryDisplay(provider.country)!.nameAr}>
-                  {countryDisplay(provider.country)!.flag}
-                </span>
-              )}
               <form action={isWatching ? unfollowTrader : followTrader}>
                 <input type="hidden" name="providerId" value={id} />
                 <button

@@ -5,7 +5,6 @@ import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
 import { TierBadge, RiskBadge, StoppedBadge } from "@/components/TraderBadges";
 import { pinTopLeaders } from "@/lib/pin-top-leaders";
-import { countryDisplay } from "@/lib/country-metadata";
 import { TraderAvatar } from "@/components/TraderAvatar";
 
 const SORT_OPTIONS = {
@@ -133,11 +132,6 @@ export default async function DiscoverPage({
                       <Link href={`/trader/${p.provider_id}`} className="min-w-0 truncate font-medium underline-offset-2 hover:underline">
                         {p.display_name}
                       </Link>
-                      {countryDisplay(p.country) && (
-                        <span className="text-xs" title={countryDisplay(p.country)!.nameAr}>
-                          {countryDisplay(p.country)!.flag}
-                        </span>
-                      )}
                       <form action={isWatching ? unfollowTrader : followTrader}>
                         <input type="hidden" name="providerId" value={p.provider_id} />
                         <button
