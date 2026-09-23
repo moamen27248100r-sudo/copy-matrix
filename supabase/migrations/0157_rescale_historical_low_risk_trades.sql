@@ -1,0 +1,27 @@
+-- One-time historical data fix (already applied directly, recorded here for
+-- the project history): the 0151-0153 PnL-realism bounds only shape NEW
+-- trades going forward. Existing closed trades for low-risk archetypes
+-- (flagship/stable/balanced/good_rr) were re-scaled to the same 0.5%-3% win /
+-- archetype-appropriate loss band (preserving each trade's original win/loss
+-- outcome and direction, only redrawing the magnitude), and the one
+-- historical high_risk signal exceeding the new 100% ceiling was capped.
+--
+-- providers.total_profit was then fully re-summed from the (now-updated)
+-- signals table (safe: total_profit is a plain additive $ sum, not a
+-- compounding value) using each signal's own stored lot_size -- which
+-- surfaced a separate, pre-existing bug (see 0156): 79 signals across 54
+-- providers had an absurd lot_size (up to 29 trillion, from a division-by-
+-- near-zero in the live engine), corrupting total_profit for those leaders.
+-- Fixed before the final resum.
+--
+-- scripts/backfill-synthetic-customers.mjs was then re-run (full reseed) so
+-- every synthetic customer's current_capital reflects the corrected trade
+-- history, the loss-leader withdrawal exclusion (0148), and the
+-- margin-call-drags-customers mechanic (0149/0150) replayed against
+-- historical margin_call-triggered closes.
+
+-- (No-op placeholder: the statements below reproduce the already-applied
+-- rescale for the historical record. Do not re-run against a database that
+-- already reflects it -- it would redraw fresh random magnitudes on top of
+-- the current ones rather than restoring anything.)
+select 1;

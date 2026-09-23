@@ -89,9 +89,11 @@ await db.connect();
 
 console.log("fetching providers...");
 const { rows: providers } = await db.query(
-  `select id, created_at, min_copy_amount, base_followers_count, country from public.providers`,
+  `select id, created_at, min_copy_amount, base_followers_count, country, total_profit from public.providers`,
 );
 console.log(`${providers.length} providers, total base_followers_count = ${providers.reduce((s, p) => s + p.base_followers_count, 0)}`);
+const losingProviders = new Set(providers.filter((p) => Number(p.total_profit) < 0).map((p) => p.id));
+console.log(`${losingProviders.size} net-losing providers -- their customers never withdraw`);
 
 console.log("fetching provider ratings...");
 const { rows: ratings } = await db.query(`select provider_id, rating_score from public.provider_cards`);
@@ -99,9 +101,9 @@ const ratingByProvider = new Map(ratings.map((r) => [r.provider_id, r.rating_sco
 
 console.log("fetching closed signals...");
 const { rows: signals } = await db.query(
-  `select id, provider_id, side, entry_price, exit_price, opened_at, closed_at
+  `select id, provider_id, side, entry_price, exit_price, opened_at, closed_at, close_trigger
    from public.signals
-   where status = 'closed' and exit_price is not null
+   where status = 'closed' and exit_price is not null and not created_by_admin
    order by provider_id, closed_at asc`,
 );
 console.log(`${signals.length} closed signals`);
@@ -162,6 +164,8 @@ for (const p of providers) {
       const eventAt = s.closed_at ?? s.opened_at;
       const eventAtMs = new Date(eventAt).getTime();
 
+      if (copyStatus === "left") break; // permanent -- matches the live engine, no further trades ever apply
+
       if (copyStatus === "paused") {
         const gapMinutes = Math.max(0, (eventAtMs - lastCheckAtMs) / 60000);
         const resumeProb = 1 - Math.pow(1 - RESUME_PER_MINUTE_PROB, gapMinutes);
@@ -177,12 +181,22 @@ for (const p of providers) {
         }
       }
 
+      // Margin call: matches the live engine (0149/0150) -- drags the
+      // customer down with the leader's own blown account, severe cut,
+      // permanently marked 'left' (not 'paused' -- no resume, ever).
+      if (s.close_trigger === "margin_call") {
+        balance = Math.round(balance * (0.02 + Math.random() * 0.08) * 100) / 100;
+        copyStatus = "left";
+        pauses.push({ customerId, providerId: p.id, pausedAt: eventAt, resumedAt: null });
+        break;
+      }
+
       const raw = (Number(s.exit_price) - Number(s.entry_price)) / Number(s.entry_price);
       const signed = s.side === "sell" ? -raw : raw;
       const pnl = balance * signed;
       balance = Math.min(ceil, Math.max(floor, balance + pnl));
 
-      if (pnl > 0 && Math.random() < WITHDRAWAL_PROB) {
+      if (pnl > 0 && !losingProviders.has(p.id) && Math.random() < WITHDRAWAL_PROB) {
         const amount =
           Math.round(pnl * (WITHDRAWAL_MIN_FRAC + Math.random() * (WITHDRAWAL_MAX_FRAC - WITHDRAWAL_MIN_FRAC)) * 100) / 100;
         if (amount > 0) {
