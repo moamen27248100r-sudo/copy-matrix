@@ -20,20 +20,50 @@
       "imageAlt": "Ảnh chụp màn hình ứng dụng Copy Matrix hiển thị một giao dịch trực tiếp và các tính năng của nền tảng"
     },
     "highlights": [
-      { "title": "Theo dõi thời gian thực", "desc": "Theo dõi giao dịch của bạn ngay lập tức" },
-      { "title": "Rút tiền nhanh", "desc": "Nạp và rút tiền nhanh chóng, an toàn" },
-      { "title": "Không phí ẩn", "desc": "Minh bạch hoàn toàn về phí" },
-      { "title": "Bảo mật & minh bạch", "desc": "Được bảo vệ bằng công nghệ mới nhất" }
+      {
+        "title": "Theo dõi thời gian thực",
+        "desc": "Theo dõi giao dịch của bạn ngay lập tức"
+      },
+      {
+        "title": "Rút tiền nhanh",
+        "desc": "Nạp và rút tiền nhanh chóng, an toàn"
+      },
+      {
+        "title": "Không phí ẩn",
+        "desc": "Minh bạch hoàn toàn về phí"
+      },
+      {
+        "title": "Bảo mật & minh bạch",
+        "desc": "Được bảo vệ bằng công nghệ mới nhất"
+      }
     ],
     "features": {
       "title": "Tính năng nền tảng",
       "items": [
-        { "title": "Minh bạch hoàn toàn", "desc": "Hồ sơ giao dịch của mỗi nhà giao dịch đều công khai — mọi giao dịch và mọi kết quả đều được ghi lại rõ ràng." },
-        { "title": "Theo dõi thời gian thực", "desc": "Theo dõi hiệu suất của các nhà giao dịch bạn sao chép và lợi nhuận của bạn, từng khoảnh khắc, từ một bảng điều khiển duy nhất." },
-        { "title": "Tài khoản demo hoặc thực", "desc": "Bắt đầu với tài khoản demo để luyện tập với tiền ảo không rủi ro, hoặc tài khoản thực phản ánh số dư thực tế của bạn — chuyển đổi giữa hai loại bất cứ lúc nào." },
-        { "title": "Nhiều thị trường", "desc": "Các nhà giao dịch chuyên về tiền điện tử, ngoại hối, vàng và chỉ số toàn cầu." },
-        { "title": "Không phí ẩn", "desc": "Chúng tôi không bao giờ trừ bất kỳ hoa hồng nào từ lợi nhuận của bạn hoặc từ việc sao chép, dù số tiền lớn đến đâu." },
-        { "title": "Xét duyệt quản trị cho mọi giao dịch", "desc": "Mọi yêu cầu nạp hoặc rút tiền đều được đội ngũ của chúng tôi xem xét và phê duyệt thủ công trước khi thực hiện, để bảo vệ tài khoản của bạn." }
+        {
+          "title": "Minh bạch hoàn toàn",
+          "desc": "Hồ sơ giao dịch của mỗi nhà giao dịch đều công khai — mọi giao dịch và mọi kết quả đều được ghi lại rõ ràng."
+        },
+        {
+          "title": "Theo dõi thời gian thực",
+          "desc": "Theo dõi hiệu suất của các nhà giao dịch bạn sao chép và lợi nhuận của bạn, từng khoảnh khắc, từ một bảng điều khiển duy nhất."
+        },
+        {
+          "title": "Tài khoản demo hoặc thực",
+          "desc": "Bắt đầu với tài khoản demo để luyện tập với tiền ảo không rủi ro, hoặc tài khoản thực phản ánh số dư thực tế của bạn — chuyển đổi giữa hai loại bất cứ lúc nào."
+        },
+        {
+          "title": "Nhiều thị trường",
+          "desc": "Các nhà giao dịch chuyên về tiền điện tử, ngoại hối, vàng và chỉ số toàn cầu."
+        },
+        {
+          "title": "Không phí ẩn",
+          "desc": "Chúng tôi không bao giờ trừ bất kỳ hoa hồng nào từ lợi nhuận của bạn hoặc từ việc sao chép, dù số tiền lớn đến đâu."
+        },
+        {
+          "title": "Xét duyệt quản trị cho mọi giao dịch",
+          "desc": "Mọi yêu cầu nạp hoặc rút tiền đều được đội ngũ của chúng tôi xem xét và phê duyệt thủ công trước khi thực hiện, để bảo vệ tài khoản của bạn."
+        }
       ]
     },
     "markets": {
@@ -47,10 +77,22 @@
       "title": "Nền tảng hoạt động như thế nào",
       "subtitle": "Bắt đầu sao chép giao dịch tự động bằng cách làm theo các bước rõ ràng, đơn giản",
       "steps": [
-        { "title": "Tạo tài khoản của bạn", "desc": "Hoàn tất đăng ký và xác minh danh tính để có tài khoản đã xác minh." },
-        { "title": "Nạp tiền của bạn", "desc": "Nạp số tiền bạn muốn đầu tư qua các phương thức thanh toán có sẵn, để được đội ngũ quản trị của chúng tôi phê duyệt." },
-        { "title": "Chọn một nhà giao dịch", "desc": "Xem xét hồ sơ hiệu suất đã được xác minh của mỗi nhà giao dịch, và chọn người phù hợp với chiến lược và mức độ rủi ro ưa thích của bạn." },
-        { "title": "Bắt đầu sao chép tự động", "desc": "Các giao dịch của nhà giao dịch bạn chọn được sao chép vào tài khoản của bạn ngay lập tức, và bạn có thể dừng sao chép bất cứ lúc nào mà không bị giới hạn." }
+        {
+          "title": "Tạo tài khoản của bạn",
+          "desc": "Hoàn tất đăng ký và xác minh danh tính để có tài khoản đã xác minh."
+        },
+        {
+          "title": "Nạp tiền của bạn",
+          "desc": "Nạp số tiền bạn muốn đầu tư qua các phương thức thanh toán có sẵn, để được đội ngũ quản trị của chúng tôi phê duyệt."
+        },
+        {
+          "title": "Chọn một nhà giao dịch",
+          "desc": "Xem xét hồ sơ hiệu suất đã được xác minh của mỗi nhà giao dịch, và chọn người phù hợp với chiến lược và mức độ rủi ro ưa thích của bạn."
+        },
+        {
+          "title": "Bắt đầu sao chép tự động",
+          "desc": "Các giao dịch của nhà giao dịch bạn chọn được sao chép vào tài khoản của bạn ngay lập tức, và bạn có thể dừng sao chép bất cứ lúc nào mà không bị giới hạn."
+        }
       ]
     },
     "traders": {
@@ -60,7 +102,9 @@
       "winRate": "Tỷ lệ thắng",
       "avgReturn": "Lợi nhuận trung bình hàng ngày",
       "viewProfile": "Xem hồ sơ",
-      "copy": "Sao chép"
+      "copy": "Sao chép",
+      "subtitle": "Tìm những nhà giao dịch hàng đầu với kết quả đáng tin cậy, đã được xác minh. Chọn người phù hợp và sao chép chiến lược của họ chỉ với một cú nhấp chuột.",
+      "recentTrades": "Hiệu suất giao dịch gần đây"
     },
     "stats": {
       "title": "Thống kê",
@@ -81,14 +125,38 @@
       "title": "Câu hỏi thường gặp",
       "subtitle": "Mọi thứ bạn cần biết trước khi bắt đầu sao chép giao dịch",
       "items": [
-        { "q": "Sự khác biệt giữa tài khoản demo và tài khoản thực là gì?", "a": "Tài khoản demo cho phép bạn thử sao chép giao dịch với tiền ảo mà không có rủi ro, trong khi tài khoản thực phản ánh số dư thực tế của bạn. Bạn có thể chọn và thay đổi loại tài khoản bất cứ lúc nào từ trang cài đặt sau khi đăng ký." },
-        { "q": "Sao chép giao dịch hoạt động như thế nào?", "a": "Ngay khi bạn theo dõi một nhà giao dịch, mọi giao dịch họ thực hiện — mở hoặc đóng — sẽ được tự động sao chép vào tài khoản của bạn với cùng chi tiết, ngay tại thời điểm nó xảy ra, mà không cần bất kỳ thao tác thủ công nào từ bạn." },
-        { "q": "Tôi có thể dừng sao chép bất cứ lúc nào không?", "a": "Có, bạn có thể dừng sao chép bất kỳ nhà giao dịch nào ngay lập tức, bất cứ lúc nào, từ trang danh mục đầu tư của bạn, không cần điều kiện hay thời gian chờ." },
-        { "q": "Tôi có thể sao chép nhiều hơn một nhà giao dịch cùng lúc không?", "a": "Không, hệ thống được thiết kế để bạn chỉ sao chép một nhà giao dịch tại một thời điểm, nhằm giữ việc quản lý rủi ro rõ ràng. Tuy nhiên, bạn có thể theo dõi hiệu suất của bất kỳ số lượng nhà giao dịch nào mà không cần sao chép họ, và sẽ nhận được chi tiết hiệu suất của họ qua email — sau đó chọn một người để sao chép thực sự. Bạn có thể ngừng sao chép nhà giao dịch hiện tại và sao chép người khác bất cứ lúc nào." },
-        { "q": "Số tiền tối thiểu để bắt đầu sao chép là bao nhiêu?", "a": "Mức tối thiểu khác nhau tùy theo từng nhà giao dịch, và được hiển thị rõ ràng trên hồ sơ của mỗi nhà giao dịch trước khi bạn bắt đầu theo dõi." },
-        { "q": "Có phí hoặc hoa hồng ẩn nào không?", "a": "Không, không có bất kỳ hoa hồng hay phí ẩn nào khi sao chép giao dịch hoặc trên lợi nhuận đã thực hiện, dù số tiền lớn đến đâu." },
-        { "q": "Tôi có cần cài đặt một nền tảng giao dịch riêng không?", "a": "Không, việc theo dõi hiệu suất của các nhà giao dịch và sao chép giao dịch của họ hoàn toàn được thực hiện trong bảng điều khiển Copy Matrix, không cần cài đặt bất kỳ ứng dụng hay nền tảng bên ngoài nào." },
-        { "q": "Làm thế nào để tôi nạp hoặc rút tiền?", "a": "Bạn có thể gửi yêu cầu nạp hoặc rút tiền từ trang danh mục đầu tư của mình bất cứ lúc nào, và nó sẽ được đội ngũ quản trị của chúng tôi xem xét và phê duyệt trước khi phản ánh vào số dư của bạn." }
+        {
+          "q": "Sự khác biệt giữa tài khoản demo và tài khoản thực là gì?",
+          "a": "Tài khoản demo cho phép bạn thử sao chép giao dịch với tiền ảo mà không có rủi ro, trong khi tài khoản thực phản ánh số dư thực tế của bạn. Bạn có thể chọn và thay đổi loại tài khoản bất cứ lúc nào từ trang cài đặt sau khi đăng ký."
+        },
+        {
+          "q": "Sao chép giao dịch hoạt động như thế nào?",
+          "a": "Ngay khi bạn theo dõi một nhà giao dịch, mọi giao dịch họ thực hiện — mở hoặc đóng — sẽ được tự động sao chép vào tài khoản của bạn với cùng chi tiết, ngay tại thời điểm nó xảy ra, mà không cần bất kỳ thao tác thủ công nào từ bạn."
+        },
+        {
+          "q": "Tôi có thể dừng sao chép bất cứ lúc nào không?",
+          "a": "Có, bạn có thể dừng sao chép bất kỳ nhà giao dịch nào ngay lập tức, bất cứ lúc nào, từ trang danh mục đầu tư của bạn, không cần điều kiện hay thời gian chờ."
+        },
+        {
+          "q": "Tôi có thể sao chép nhiều hơn một nhà giao dịch cùng lúc không?",
+          "a": "Không, hệ thống được thiết kế để bạn chỉ sao chép một nhà giao dịch tại một thời điểm, nhằm giữ việc quản lý rủi ro rõ ràng. Tuy nhiên, bạn có thể theo dõi hiệu suất của bất kỳ số lượng nhà giao dịch nào mà không cần sao chép họ, và sẽ nhận được chi tiết hiệu suất của họ qua email — sau đó chọn một người để sao chép thực sự. Bạn có thể ngừng sao chép nhà giao dịch hiện tại và sao chép người khác bất cứ lúc nào."
+        },
+        {
+          "q": "Số tiền tối thiểu để bắt đầu sao chép là bao nhiêu?",
+          "a": "Mức tối thiểu khác nhau tùy theo từng nhà giao dịch, và được hiển thị rõ ràng trên hồ sơ của mỗi nhà giao dịch trước khi bạn bắt đầu theo dõi."
+        },
+        {
+          "q": "Có phí hoặc hoa hồng ẩn nào không?",
+          "a": "Không, không có bất kỳ hoa hồng hay phí ẩn nào khi sao chép giao dịch hoặc trên lợi nhuận đã thực hiện, dù số tiền lớn đến đâu."
+        },
+        {
+          "q": "Tôi có cần cài đặt một nền tảng giao dịch riêng không?",
+          "a": "Không, việc theo dõi hiệu suất của các nhà giao dịch và sao chép giao dịch của họ hoàn toàn được thực hiện trong bảng điều khiển Copy Matrix, không cần cài đặt bất kỳ ứng dụng hay nền tảng bên ngoài nào."
+        },
+        {
+          "q": "Làm thế nào để tôi nạp hoặc rút tiền?",
+          "a": "Bạn có thể gửi yêu cầu nạp hoặc rút tiền từ trang danh mục đầu tư của mình bất cứ lúc nào, và nó sẽ được đội ngũ quản trị của chúng tôi xem xét và phê duyệt trước khi phản ánh vào số dư của bạn."
+        }
       ]
     },
     "cta": {
@@ -104,6 +172,46 @@
       "privacy": "Chính sách bảo mật",
       "support": "Hỗ trợ",
       "rights": "Đã đăng ký bản quyền. Thành lập năm 2024."
+    },
+    "valueCards": {
+      "title": "Khoản đầu tư của bạn, điều khoản của bạn, minh bạch hoàn toàn",
+      "card1Headline": "0%",
+      "card1Subtitle": "Hoa hồng sao chép",
+      "card1Desc": "Sao chép giao dịch của các nhà giao dịch giỏi nhất mà không có bất kỳ khoản hoa hồng ẩn nào khi sao chép hay trên lợi nhuận của bạn, dù lớn đến đâu.",
+      "card2Headline": "4 thị trường",
+      "card2Subtitle": "Đa dạng công cụ thực sự",
+      "card2Desc": "Giao dịch tiền điện tử, forex, vàng và các chỉ số toàn cầu, với các nhà giao dịch chuyên về từng thị trường.",
+      "card3Headline": "Hiệu suất đã xác minh",
+      "card3Subtitle": "Không có số liệu giả",
+      "card3Desc": "Mọi giao dịch và mọi kết quả của từng nhà giao dịch đều được ghi lại và hiển thị rõ ràng trước mắt bạn — hãy xem toàn bộ lịch sử của họ trước khi sao chép."
+    },
+    "trustStrip": {
+      "instantTitle": "Nạp & rút tức thì",
+      "instantDesc": "Xử lý tự động theo thời gian thực cho mọi yêu cầu",
+      "encryptionTitle": "Mã hóa toàn diện",
+      "encryptionDesc": "Cho mọi dữ liệu tài khoản",
+      "demoTitle": "Tài khoản demo",
+      "demoDesc": "Không có rủi ro thực sự nào",
+      "supportTitle": "Hỗ trợ kỹ thuật",
+      "supportDesc": "Sẵn sàng 24 giờ mỗi ngày"
+    },
+    "traderPosts": {
+      "title": "Cập nhật mới nhất từ nhà giao dịch",
+      "subtitle": "Bình luận hằng ngày từ các nhà giao dịch trên nền tảng về các giao dịch thực tế của họ."
+    },
+    "marketNews": {
+      "title": "Tin tức thị trường",
+      "subtitle": "Tin tức tài chính thực mới nhất trực tiếp từ nguồn, được cập nhật liên tục."
+    },
+    "tryCopy": {
+      "badge": "Dùng thử miễn phí rủi ro",
+      "title": "Dùng thử copy trading miễn phí rủi ro",
+      "description": "Bạn muốn thử theo dõi và sao chép các nhà giao dịch hàng đầu thị trường? Mở tài khoản demo miễn phí với số dư ảo, và khám phá hiệu suất cũng như biến động lợi nhuận một cách tự do trước khi sao chép bằng tiền thật.",
+      "cta": "Bắt đầu sao chép ngay",
+      "cardWelcome": "Tài khoản demo miễn phí của bạn",
+      "cardPortfolioLabel": "Giá trị danh mục demo",
+      "cardTopLabel": "Nhà giao dịch hàng đầu theo lợi nhuận",
+      "live": "Dữ liệu trực tiếp"
     }
   },
   "Nav": {

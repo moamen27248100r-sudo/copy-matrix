@@ -20,20 +20,50 @@
       "imageAlt": "Capture d'écran de l'application Copy Matrix montrant un trade en direct et les fonctionnalités de la plateforme"
     },
     "highlights": [
-      { "title": "Suivi en temps réel", "desc": "Suivez vos trades instantanément" },
-      { "title": "Retraits rapides", "desc": "Dépôts et retraits rapides et sécurisés" },
-      { "title": "Sans frais cachés", "desc": "Transparence totale sur les frais" },
-      { "title": "Sécurité et transparence", "desc": "Protégé par les dernières technologies" }
+      {
+        "title": "Suivi en temps réel",
+        "desc": "Suivez vos trades instantanément"
+      },
+      {
+        "title": "Retraits rapides",
+        "desc": "Dépôts et retraits rapides et sécurisés"
+      },
+      {
+        "title": "Sans frais cachés",
+        "desc": "Transparence totale sur les frais"
+      },
+      {
+        "title": "Sécurité et transparence",
+        "desc": "Protégé par les dernières technologies"
+      }
     ],
     "features": {
       "title": "Fonctionnalités de la plateforme",
       "items": [
-        { "title": "Transparence totale", "desc": "L'historique de chaque trader est public — chaque trade et chaque résultat sont documentés et clairs." },
-        { "title": "Suivi en temps réel", "desc": "Suivez la performance des traders que vous copiez et vos profits, instant par instant, depuis un seul tableau de bord." },
-        { "title": "Compte démo ou réel", "desc": "Commencez avec un compte démo pour vous entraîner avec des fonds virtuels sans risque, ou un compte réel qui reflète votre solde réel — changez entre les deux à tout moment." },
-        { "title": "Marchés multiples", "desc": "Des traders spécialisés en cryptomonnaies, forex, or et indices mondiaux." },
-        { "title": "Sans frais cachés", "desc": "Nous ne déduisons jamais de commission sur vos profits ni sur la copie, quel que soit le montant." },
-        { "title": "Vérification administrative sur chaque transaction", "desc": "Chaque demande de dépôt ou de retrait est vérifiée et approuvée manuellement par notre équipe avant exécution, pour protéger votre compte." }
+        {
+          "title": "Transparence totale",
+          "desc": "L'historique de chaque trader est public — chaque trade et chaque résultat sont documentés et clairs."
+        },
+        {
+          "title": "Suivi en temps réel",
+          "desc": "Suivez la performance des traders que vous copiez et vos profits, instant par instant, depuis un seul tableau de bord."
+        },
+        {
+          "title": "Compte démo ou réel",
+          "desc": "Commencez avec un compte démo pour vous entraîner avec des fonds virtuels sans risque, ou un compte réel qui reflète votre solde réel — changez entre les deux à tout moment."
+        },
+        {
+          "title": "Marchés multiples",
+          "desc": "Des traders spécialisés en cryptomonnaies, forex, or et indices mondiaux."
+        },
+        {
+          "title": "Sans frais cachés",
+          "desc": "Nous ne déduisons jamais de commission sur vos profits ni sur la copie, quel que soit le montant."
+        },
+        {
+          "title": "Vérification administrative sur chaque transaction",
+          "desc": "Chaque demande de dépôt ou de retrait est vérifiée et approuvée manuellement par notre équipe avant exécution, pour protéger votre compte."
+        }
       ]
     },
     "markets": {
@@ -47,10 +77,22 @@
       "title": "Comment fonctionne la plateforme",
       "subtitle": "Commencez à copier des trades automatiquement en suivant des étapes claires et simples",
       "steps": [
-        { "title": "Créez votre compte", "desc": "Terminez l'inscription et la vérification d'identité pour obtenir un compte vérifié." },
-        { "title": "Déposez vos fonds", "desc": "Déposez le montant que vous souhaitez investir via les moyens de paiement disponibles, à approuver par notre équipe d'administration." },
-        { "title": "Choisissez un trader", "desc": "Consultez les historiques de performance vérifiés de chaque trader, et choisissez celui qui correspond à votre stratégie et à votre niveau de risque préféré." },
-        { "title": "Commencez à copier automatiquement", "desc": "Les trades du trader que vous avez choisi sont copiés instantanément sur votre compte, et vous pouvez arrêter la copie à tout moment sans restriction." }
+        {
+          "title": "Créez votre compte",
+          "desc": "Terminez l'inscription et la vérification d'identité pour obtenir un compte vérifié."
+        },
+        {
+          "title": "Déposez vos fonds",
+          "desc": "Déposez le montant que vous souhaitez investir via les moyens de paiement disponibles, à approuver par notre équipe d'administration."
+        },
+        {
+          "title": "Choisissez un trader",
+          "desc": "Consultez les historiques de performance vérifiés de chaque trader, et choisissez celui qui correspond à votre stratégie et à votre niveau de risque préféré."
+        },
+        {
+          "title": "Commencez à copier automatiquement",
+          "desc": "Les trades du trader que vous avez choisi sont copiés instantanément sur votre compte, et vous pouvez arrêter la copie à tout moment sans restriction."
+        }
       ]
     },
     "traders": {
@@ -60,7 +102,9 @@
       "winRate": "Taux de réussite",
       "avgReturn": "Rendement quotidien moyen",
       "viewProfile": "Voir le profil",
-      "copy": "Copier"
+      "copy": "Copier",
+      "subtitle": "Trouvez des traders d'élite aux résultats fiables et vérifiés. Choisissez le bon trader et copiez sa stratégie en un clic.",
+      "recentTrades": "Performance des trades récents"
     },
     "stats": {
       "title": "Statistiques",
@@ -81,14 +125,38 @@
       "title": "Questions fréquentes",
       "subtitle": "Tout ce que vous devez savoir avant de commencer à copier des trades",
       "items": [
-        { "q": "Quelle est la différence entre un compte démo et un compte réel ?", "a": "Un compte démo vous permet d'essayer la copie de trading avec des fonds virtuels sans risque, tandis qu'un compte réel reflète votre solde réel. Vous pouvez choisir et changer votre type de compte à tout moment depuis la page des paramètres après inscription." },
-        { "q": "Comment fonctionne la copie de trades ?", "a": "Dès que vous suivez un trader, chaque trade qu'il exécute — ouverture ou fermeture — est copié automatiquement sur votre compte avec les mêmes détails, au moment même où il se produit, sans aucune action manuelle de votre part." },
-        { "q": "Puis-je arrêter de copier à tout moment ?", "a": "Oui, vous pouvez arrêter de copier n'importe quel trader instantanément, à tout moment, depuis la page de votre portefeuille, sans conditions ni période d'attente." },
-        { "q": "Puis-je copier plusieurs traders en même temps ?", "a": "Non, le système est conçu pour que vous ne copiiez qu'un seul trader à la fois, afin de garder une gestion des risques claire. Vous pouvez toutefois suivre la performance d'autant de traders que vous le souhaitez sans les copier, et recevoir leurs détails de performance par e-mail, avant de choisir lequel copier réellement. Vous pouvez arrêter de copier votre trader actuel et en copier un autre à tout moment." },
-        { "q": "Quel est le minimum requis pour commencer à copier ?", "a": "Le minimum varie d'un trader à l'autre, et est indiqué clairement sur le profil de chaque trader avant de commencer à le suivre." },
-        { "q": "Y a-t-il des frais ou commissions cachés ?", "a": "Non, il n'y a aucune commission ni frais cachés sur la copie de trades ou sur les profits réalisés, quel que soit le montant." },
-        { "q": "Dois-je installer une plateforme de trading séparée ?", "a": "Non, le suivi de la performance des traders et la copie de leurs trades se font entièrement depuis le tableau de bord Copy Matrix, sans besoin d'installer une application ou plateforme externe." },
-        { "q": "Comment déposer ou retirer des fonds ?", "a": "Vous pouvez soumettre une demande de dépôt ou de retrait depuis la page de votre portefeuille à tout moment, et elle sera examinée et approuvée par notre équipe d'administration avant de se refléter sur votre solde." }
+        {
+          "q": "Quelle est la différence entre un compte démo et un compte réel ?",
+          "a": "Un compte démo vous permet d'essayer la copie de trading avec des fonds virtuels sans risque, tandis qu'un compte réel reflète votre solde réel. Vous pouvez choisir et changer votre type de compte à tout moment depuis la page des paramètres après inscription."
+        },
+        {
+          "q": "Comment fonctionne la copie de trades ?",
+          "a": "Dès que vous suivez un trader, chaque trade qu'il exécute — ouverture ou fermeture — est copié automatiquement sur votre compte avec les mêmes détails, au moment même où il se produit, sans aucune action manuelle de votre part."
+        },
+        {
+          "q": "Puis-je arrêter de copier à tout moment ?",
+          "a": "Oui, vous pouvez arrêter de copier n'importe quel trader instantanément, à tout moment, depuis la page de votre portefeuille, sans conditions ni période d'attente."
+        },
+        {
+          "q": "Puis-je copier plusieurs traders en même temps ?",
+          "a": "Non, le système est conçu pour que vous ne copiiez qu'un seul trader à la fois, afin de garder une gestion des risques claire. Vous pouvez toutefois suivre la performance d'autant de traders que vous le souhaitez sans les copier, et recevoir leurs détails de performance par e-mail, avant de choisir lequel copier réellement. Vous pouvez arrêter de copier votre trader actuel et en copier un autre à tout moment."
+        },
+        {
+          "q": "Quel est le minimum requis pour commencer à copier ?",
+          "a": "Le minimum varie d'un trader à l'autre, et est indiqué clairement sur le profil de chaque trader avant de commencer à le suivre."
+        },
+        {
+          "q": "Y a-t-il des frais ou commissions cachés ?",
+          "a": "Non, il n'y a aucune commission ni frais cachés sur la copie de trades ou sur les profits réalisés, quel que soit le montant."
+        },
+        {
+          "q": "Dois-je installer une plateforme de trading séparée ?",
+          "a": "Non, le suivi de la performance des traders et la copie de leurs trades se font entièrement depuis le tableau de bord Copy Matrix, sans besoin d'installer une application ou plateforme externe."
+        },
+        {
+          "q": "Comment déposer ou retirer des fonds ?",
+          "a": "Vous pouvez soumettre une demande de dépôt ou de retrait depuis la page de votre portefeuille à tout moment, et elle sera examinée et approuvée par notre équipe d'administration avant de se refléter sur votre solde."
+        }
       ]
     },
     "cta": {
@@ -104,6 +172,46 @@
       "privacy": "Politique de confidentialité",
       "support": "Support technique",
       "rights": "Tous droits réservés. Fondée en 2024."
+    },
+    "valueCards": {
+      "title": "Votre investissement, vos conditions, une transparence totale",
+      "card1Headline": "0 %",
+      "card1Subtitle": "Commission de copie",
+      "card1Desc": "Copiez les trades des meilleurs traders sans aucune commission cachée sur la copie ou sur vos profits, quel que soit leur montant.",
+      "card2Headline": "4 marchés",
+      "card2Subtitle": "Une vraie diversité d'instruments",
+      "card2Desc": "Négociez les cryptomonnaies, le forex, l'or et les indices mondiaux, avec des traders spécialisés dans chaque marché.",
+      "card3Headline": "Performance vérifiée",
+      "card3Subtitle": "Aucun chiffre fictif",
+      "card3Desc": "Chaque trade et chaque résultat de chaque trader sont documentés et clairement visibles — consultez tout son historique avant de le copier."
+    },
+    "trustStrip": {
+      "instantTitle": "Dépôt et retrait instantanés",
+      "instantDesc": "Traitement automatique en temps réel de chaque demande",
+      "encryptionTitle": "Chiffrement complet",
+      "encryptionDesc": "Pour toutes les données de compte",
+      "demoTitle": "Compte démo",
+      "demoDesc": "Sans aucun risque réel",
+      "supportTitle": "Support technique",
+      "supportDesc": "Disponible 24h/24"
+    },
+    "traderPosts": {
+      "title": "Dernières mises à jour des traders",
+      "subtitle": "Commentaires quotidiens des traders de la plateforme sur leurs trades réels."
+    },
+    "marketNews": {
+      "title": "Actualités du marché",
+      "subtitle": "Les dernières actualités financières réelles, directement de leurs sources, mises à jour en continu."
+    },
+    "tryCopy": {
+      "badge": "Essayez sans risque",
+      "title": "Essayez le copy trading sans risque",
+      "description": "Vous voulez essayer de suivre et copier les meilleurs traders du marché ? Ouvrez un compte démo gratuit avec un solde virtuel, et explorez librement la performance et l'évolution des profits avant de copier avec de l'argent réel.",
+      "cta": "Commencer à copier maintenant",
+      "cardWelcome": "Votre compte démo gratuit",
+      "cardPortfolioLabel": "Valeur du portefeuille démo",
+      "cardTopLabel": "Meilleurs traders par rendement",
+      "live": "Données en direct"
     }
   },
   "Nav": {

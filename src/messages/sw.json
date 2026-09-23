@@ -20,20 +20,50 @@
       "imageAlt": "Picha ya skrini ya programu ya Copy Matrix ikionyesha biashara ya moja kwa moja na vipengele vya jukwaa"
     },
     "highlights": [
-      { "title": "Ufuatiliaji wa wakati halisi", "desc": "Fuatilia biashara zako papo hapo" },
-      { "title": "Uondoaji wa haraka", "desc": "Uwekaji na uondoaji wa fedha kwa haraka na usalama" },
-      { "title": "Hakuna ada zilizofichwa", "desc": "Uwazi kamili katika ada" },
-      { "title": "Usalama na uwazi", "desc": "Imelindwa kwa teknolojia ya kisasa zaidi" }
+      {
+        "title": "Ufuatiliaji wa wakati halisi",
+        "desc": "Fuatilia biashara zako papo hapo"
+      },
+      {
+        "title": "Uondoaji wa haraka",
+        "desc": "Uwekaji na uondoaji wa fedha kwa haraka na usalama"
+      },
+      {
+        "title": "Hakuna ada zilizofichwa",
+        "desc": "Uwazi kamili katika ada"
+      },
+      {
+        "title": "Usalama na uwazi",
+        "desc": "Imelindwa kwa teknolojia ya kisasa zaidi"
+      }
     ],
     "features": {
       "title": "Vipengele vya Jukwaa",
       "items": [
-        { "title": "Uwazi kamili", "desc": "Rekodi ya kila mfanyabiashara ni ya wazi kwa umma — kila biashara na kila matokeo yameandikwa na ni wazi." },
-        { "title": "Ufuatiliaji wa wakati halisi", "desc": "Fuatilia utendaji wa wafanyabiashara unaowanakili na faida zako, wakati kwa wakati, kutoka dashibodi moja." },
-        { "title": "Akaunti ya majaribio au halisi", "desc": "Anza na akaunti ya majaribio kufanya mazoezi kwa fedha za kudhaniwa bila hatari, au akaunti halisi inayoakisi salio lako halisi — badilisha kati ya hizo wakati wowote." },
-        { "title": "Masoko mengi", "desc": "Wafanyabiashara wanaobobea katika sarafu za kidijitali, forex, dhahabu, na fahirisi za kimataifa." },
-        { "title": "Hakuna ada zilizofichwa", "desc": "Hatuondoi kamwe kamisheni yoyote kutoka kwa faida zako au kutoka kwa unakili, haijalishi kiasi ni kikubwa kiasi gani." },
-        { "title": "Ukaguzi wa usimamizi kwa kila muamala", "desc": "Kila ombi la uwekaji au uondoaji hukaguliwa na kuidhinishwa kwa mkono na timu yetu kabla ya utekelezaji, ili kulinda akaunti yako." }
+        {
+          "title": "Uwazi kamili",
+          "desc": "Rekodi ya kila mfanyabiashara ni ya wazi kwa umma — kila biashara na kila matokeo yameandikwa na ni wazi."
+        },
+        {
+          "title": "Ufuatiliaji wa wakati halisi",
+          "desc": "Fuatilia utendaji wa wafanyabiashara unaowanakili na faida zako, wakati kwa wakati, kutoka dashibodi moja."
+        },
+        {
+          "title": "Akaunti ya majaribio au halisi",
+          "desc": "Anza na akaunti ya majaribio kufanya mazoezi kwa fedha za kudhaniwa bila hatari, au akaunti halisi inayoakisi salio lako halisi — badilisha kati ya hizo wakati wowote."
+        },
+        {
+          "title": "Masoko mengi",
+          "desc": "Wafanyabiashara wanaobobea katika sarafu za kidijitali, forex, dhahabu, na fahirisi za kimataifa."
+        },
+        {
+          "title": "Hakuna ada zilizofichwa",
+          "desc": "Hatuondoi kamwe kamisheni yoyote kutoka kwa faida zako au kutoka kwa unakili, haijalishi kiasi ni kikubwa kiasi gani."
+        },
+        {
+          "title": "Ukaguzi wa usimamizi kwa kila muamala",
+          "desc": "Kila ombi la uwekaji au uondoaji hukaguliwa na kuidhinishwa kwa mkono na timu yetu kabla ya utekelezaji, ili kulinda akaunti yako."
+        }
       ]
     },
     "markets": {
@@ -47,10 +77,22 @@
       "title": "Jinsi Jukwaa Linavyofanya Kazi",
       "subtitle": "Anza kunakili biashara kiotomatiki kwa kufuata hatua wazi na rahisi",
       "steps": [
-        { "title": "Unda akaunti yako", "desc": "Kamilisha usajili na uthibitisho wa utambulisho ili kupata akaunti iliyothibitishwa." },
-        { "title": "Weka fedha zako", "desc": "Weka kiasi unachotaka kuwekeza kupitia njia za malipo zinazopatikana, ili kiidhinishwe na timu yetu ya usimamizi." },
-        { "title": "Chagua mfanyabiashara", "desc": "Kagua rekodi za utendaji zilizothibitishwa za kila mfanyabiashara, na uchague anayeendana na mkakati wako na kiwango cha hatari unachopendelea." },
-        { "title": "Anza kunakili kiotomatiki", "desc": "Biashara za mfanyabiashara uliyemchagua zinanakiliwa kwenye akaunti yako papo hapo, na unaweza kusitisha unakili wakati wowote bila vikwazo." }
+        {
+          "title": "Unda akaunti yako",
+          "desc": "Kamilisha usajili na uthibitisho wa utambulisho ili kupata akaunti iliyothibitishwa."
+        },
+        {
+          "title": "Weka fedha zako",
+          "desc": "Weka kiasi unachotaka kuwekeza kupitia njia za malipo zinazopatikana, ili kiidhinishwe na timu yetu ya usimamizi."
+        },
+        {
+          "title": "Chagua mfanyabiashara",
+          "desc": "Kagua rekodi za utendaji zilizothibitishwa za kila mfanyabiashara, na uchague anayeendana na mkakati wako na kiwango cha hatari unachopendelea."
+        },
+        {
+          "title": "Anza kunakili kiotomatiki",
+          "desc": "Biashara za mfanyabiashara uliyemchagua zinanakiliwa kwenye akaunti yako papo hapo, na unaweza kusitisha unakili wakati wowote bila vikwazo."
+        }
       ]
     },
     "traders": {
@@ -60,7 +102,9 @@
       "winRate": "Kiwango cha ushindi",
       "avgReturn": "Wastani wa mapato ya kila siku",
       "viewProfile": "Tazama wasifu",
-      "copy": "Nakili"
+      "copy": "Nakili",
+      "subtitle": "Pata wafanyabiashara bora wenye matokeo ya kuaminika na yaliyothibitishwa. Chagua mfanyabiashara sahihi na nakili mkakati wake kwa mbofyo mmoja.",
+      "recentTrades": "Utendaji wa biashara za hivi karibuni"
     },
     "stats": {
       "title": "Takwimu",
@@ -81,14 +125,38 @@
       "title": "Maswali Yanayoulizwa Mara kwa Mara",
       "subtitle": "Kila kitu unachohitaji kujua kabla ya kuanza kunakili biashara",
       "items": [
-        { "q": "Kuna tofauti gani kati ya akaunti ya majaribio na akaunti halisi?", "a": "Akaunti ya majaribio inakuruhusu kujaribu unakili wa biashara kwa fedha za kudhaniwa bila hatari, wakati akaunti halisi inaakisi salio lako halisi. Unaweza kuchagua na kubadilisha aina ya akaunti wakati wowote kutoka ukurasa wa mipangilio baada ya kujisajili." },
-        { "q": "Unakili wa biashara unafanyaje kazi?", "a": "Mara tu unapomfuata mfanyabiashara, kila biashara anayoifanya — kufungua au kufunga — inanakiliwa kiotomatiki kwenye akaunti yako kwa maelezo sawa, wakati huo huo inatokea, bila hatua yoyote ya mkono kutoka kwako." },
-        { "q": "Je, ninaweza kusitisha unakili wakati wowote?", "a": "Ndiyo, unaweza kusitisha kunakili mfanyabiashara yeyote papo hapo, wakati wowote, kutoka ukurasa wa portfolio yako, bila masharti au muda wa kusubiri." },
-        { "q": "Je, ninaweza kunakili wafanyabiashara zaidi ya mmoja kwa wakati mmoja?", "a": "Hapana, mfumo umeundwa ili unakili mfanyabiashara mmoja tu kwa wakati, ili kudumisha usimamizi wa hatari wazi. Hata hivyo, unaweza kufuatilia utendaji wa wafanyabiashara wengi kadri unavyotaka bila kuwanakili, na utapokea maelezo kamili ya utendaji wao kwa barua pepe — kisha kuchagua mmoja wa kunakili. Unaweza kuacha kunakili mfanyabiashara wa sasa na kunakili mwingine wakati wowote." },
-        { "q": "Kiasi cha chini kinachohitajika kuanza kunakili ni kipi?", "a": "Kiasi cha chini kinatofautiana kutoka kwa mfanyabiashara mmoja hadi mwingine, na kinaonyeshwa wazi kwenye wasifu wa kila mfanyabiashara kabla ya kuanza kumfuata." },
-        { "q": "Je, kuna ada au kamisheni zilizofichwa?", "a": "Hapana, hakuna kamisheni au ada zilizofichwa kwenye unakili wa biashara au faida zilizopatikana, haijalishi kiasi ni kikubwa kiasi gani." },
-        { "q": "Je, ninahitaji kusakinisha jukwaa la biashara tofauti?", "a": "Hapana, ufuatiliaji wa utendaji wa wafanyabiashara na unakili wa biashara zao hufanyika kikamilifu ndani ya dashibodi ya Copy Matrix, bila haja ya kusakinisha programu au jukwaa lolote la nje." },
-        { "q": "Ninawezaje kuweka au kutoa fedha?", "a": "Unaweza kuwasilisha ombi la uwekaji au uondoaji kutoka ukurasa wa portfolio yako wakati wowote, na litakaguliwa na kuidhinishwa na timu yetu ya usimamizi kabla ya kuakisiwa kwenye salio lako." }
+        {
+          "q": "Kuna tofauti gani kati ya akaunti ya majaribio na akaunti halisi?",
+          "a": "Akaunti ya majaribio inakuruhusu kujaribu unakili wa biashara kwa fedha za kudhaniwa bila hatari, wakati akaunti halisi inaakisi salio lako halisi. Unaweza kuchagua na kubadilisha aina ya akaunti wakati wowote kutoka ukurasa wa mipangilio baada ya kujisajili."
+        },
+        {
+          "q": "Unakili wa biashara unafanyaje kazi?",
+          "a": "Mara tu unapomfuata mfanyabiashara, kila biashara anayoifanya — kufungua au kufunga — inanakiliwa kiotomatiki kwenye akaunti yako kwa maelezo sawa, wakati huo huo inatokea, bila hatua yoyote ya mkono kutoka kwako."
+        },
+        {
+          "q": "Je, ninaweza kusitisha unakili wakati wowote?",
+          "a": "Ndiyo, unaweza kusitisha kunakili mfanyabiashara yeyote papo hapo, wakati wowote, kutoka ukurasa wa portfolio yako, bila masharti au muda wa kusubiri."
+        },
+        {
+          "q": "Je, ninaweza kunakili wafanyabiashara zaidi ya mmoja kwa wakati mmoja?",
+          "a": "Hapana, mfumo umeundwa ili unakili mfanyabiashara mmoja tu kwa wakati, ili kudumisha usimamizi wa hatari wazi. Hata hivyo, unaweza kufuatilia utendaji wa wafanyabiashara wengi kadri unavyotaka bila kuwanakili, na utapokea maelezo kamili ya utendaji wao kwa barua pepe — kisha kuchagua mmoja wa kunakili. Unaweza kuacha kunakili mfanyabiashara wa sasa na kunakili mwingine wakati wowote."
+        },
+        {
+          "q": "Kiasi cha chini kinachohitajika kuanza kunakili ni kipi?",
+          "a": "Kiasi cha chini kinatofautiana kutoka kwa mfanyabiashara mmoja hadi mwingine, na kinaonyeshwa wazi kwenye wasifu wa kila mfanyabiashara kabla ya kuanza kumfuata."
+        },
+        {
+          "q": "Je, kuna ada au kamisheni zilizofichwa?",
+          "a": "Hapana, hakuna kamisheni au ada zilizofichwa kwenye unakili wa biashara au faida zilizopatikana, haijalishi kiasi ni kikubwa kiasi gani."
+        },
+        {
+          "q": "Je, ninahitaji kusakinisha jukwaa la biashara tofauti?",
+          "a": "Hapana, ufuatiliaji wa utendaji wa wafanyabiashara na unakili wa biashara zao hufanyika kikamilifu ndani ya dashibodi ya Copy Matrix, bila haja ya kusakinisha programu au jukwaa lolote la nje."
+        },
+        {
+          "q": "Ninawezaje kuweka au kutoa fedha?",
+          "a": "Unaweza kuwasilisha ombi la uwekaji au uondoaji kutoka ukurasa wa portfolio yako wakati wowote, na litakaguliwa na kuidhinishwa na timu yetu ya usimamizi kabla ya kuakisiwa kwenye salio lako."
+        }
       ]
     },
     "cta": {
@@ -104,6 +172,46 @@
       "privacy": "Sera ya Faragha",
       "support": "Msaada",
       "rights": "Haki zote zimehifadhiwa. Ilianzishwa mwaka 2024."
+    },
+    "valueCards": {
+      "title": "Uwekezaji wako, masharti yako, uwazi kamili",
+      "card1Headline": "0%",
+      "card1Subtitle": "Kamisheni ya kunakili",
+      "card1Desc": "Nakili biashara za wafanyabiashara bora bila kamisheni yoyote iliyofichwa kwenye kunakili au kwenye faida yako, haijalishi ni kubwa kiasi gani.",
+      "card2Headline": "Masoko 4",
+      "card2Subtitle": "Uanuwai halisi wa vyombo",
+      "card2Desc": "Fanya biashara ya sarafu za kidijitali, fedha za kigeni, dhahabu na fahirisi za kimataifa, ukiwa na wafanyabiashara mahiri katika kila soko.",
+      "card3Headline": "Utendaji ulioidhinishwa",
+      "card3Subtitle": "Hakuna nambari za uongo",
+      "card3Desc": "Kila biashara na kila matokeo ya kila mfanyabiashara yameandikwa na kuonyeshwa wazi mbele yako — kagua rekodi yake kamili kabla ya kumnakili."
+    },
+    "trustStrip": {
+      "instantTitle": "Uwekaji na utoaji wa papo hapo",
+      "instantDesc": "Uchakataji wa kiotomatiki wa papo hapo kwa kila ombi",
+      "encryptionTitle": "Usimbaji kamili",
+      "encryptionDesc": "Kwa data zote za akaunti",
+      "demoTitle": "Akaunti ya majaribio",
+      "demoDesc": "Bila hatari yoyote halisi",
+      "supportTitle": "Msaada wa kiufundi",
+      "supportDesc": "Inapatikana saa 24"
+    },
+    "traderPosts": {
+      "title": "Sasisho la hivi karibuni la wafanyabiashara",
+      "subtitle": "Maoni ya kila siku kutoka kwa wafanyabiashara wa jukwaa kuhusu biashara zao halisi."
+    },
+    "marketNews": {
+      "title": "Habari za soko",
+      "subtitle": "Habari za hivi karibuni za kifedha halisi moja kwa moja kutoka vyanzo vyake, zinasasishwa mfululizo."
+    },
+    "tryCopy": {
+      "badge": "Jaribu bila hatari",
+      "title": "Jaribu copy trading bila hatari",
+      "description": "Unataka kujaribu kufuata na kunakili wafanyabiashara bora wa soko? Fungua akaunti ya majaribio ya bure yenye salio la kidhahania, na chunguza utendaji na mwenendo wa faida kwa uhuru kamili kabla ya kunakili kwa pesa halisi.",
+      "cta": "Anza kunakili sasa",
+      "cardWelcome": "Akaunti yako ya bure ya majaribio",
+      "cardPortfolioLabel": "Thamani ya jalada la majaribio",
+      "cardTopLabel": "Wafanyabiashara bora kwa faida",
+      "live": "Data ya moja kwa moja"
     }
   },
   "Nav": {

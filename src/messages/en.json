@@ -30,20 +30,50 @@
       "imageAlt": "A Copy Matrix app screenshot showing a live trade and the platform's features"
     },
     "highlights": [
-      { "title": "Real-time tracking", "desc": "Follow your trades instantly" },
-      { "title": "Fast withdrawals", "desc": "Fast and secure deposits & withdrawals" },
-      { "title": "No hidden fees", "desc": "Complete transparency in fees" },
-      { "title": "Security & transparency", "desc": "Protected with the latest technology" }
+      {
+        "title": "Real-time tracking",
+        "desc": "Follow your trades instantly"
+      },
+      {
+        "title": "Fast withdrawals",
+        "desc": "Fast and secure deposits & withdrawals"
+      },
+      {
+        "title": "No hidden fees",
+        "desc": "Complete transparency in fees"
+      },
+      {
+        "title": "Security & transparency",
+        "desc": "Protected with the latest technology"
+      }
     ],
     "features": {
       "title": "Platform Features",
       "items": [
-        { "title": "Full transparency", "desc": "Every trader's track record is public — every trade and every outcome is documented and clear." },
-        { "title": "Real-time tracking", "desc": "Follow the performance of the traders you copy and your profits, moment by moment, from one dashboard." },
-        { "title": "Demo or real account", "desc": "Start with a demo account to practice with virtual funds risk-free, or a real account that reflects your actual balance — switch between them anytime." },
-        { "title": "Multiple markets", "desc": "Traders specialized in crypto, forex, gold, and global indices." },
-        { "title": "No hidden fees", "desc": "We never deduct any commission from your profits or from copying, no matter how large." },
-        { "title": "Admin review on every transaction", "desc": "Every deposit or withdrawal request is manually reviewed and approved by our team before execution, to protect your account." }
+        {
+          "title": "Full transparency",
+          "desc": "Every trader's track record is public — every trade and every outcome is documented and clear."
+        },
+        {
+          "title": "Real-time tracking",
+          "desc": "Follow the performance of the traders you copy and your profits, moment by moment, from one dashboard."
+        },
+        {
+          "title": "Demo or real account",
+          "desc": "Start with a demo account to practice with virtual funds risk-free, or a real account that reflects your actual balance — switch between them anytime."
+        },
+        {
+          "title": "Multiple markets",
+          "desc": "Traders specialized in crypto, forex, gold, and global indices."
+        },
+        {
+          "title": "No hidden fees",
+          "desc": "We never deduct any commission from your profits or from copying, no matter how large."
+        },
+        {
+          "title": "Admin review on every transaction",
+          "desc": "Every deposit or withdrawal request is manually reviewed and approved by our team before execution, to protect your account."
+        }
       ]
     },
     "markets": {
@@ -57,10 +87,22 @@
       "title": "How the Platform Works",
       "subtitle": "Start copying trades automatically by following clear, simple steps",
       "steps": [
-        { "title": "Create your account", "desc": "Complete registration and identity verification to get a verified account." },
-        { "title": "Deposit your funds", "desc": "Deposit the amount you want to invest through the available payment methods, to be approved by our admin team." },
-        { "title": "Choose a trader", "desc": "Review the verified performance records of each trader, and pick the one that fits your strategy and preferred risk level." },
-        { "title": "Start copying automatically", "desc": "The trades of the trader you chose are copied to your account instantly, and you can stop copying anytime with no restrictions." }
+        {
+          "title": "Create your account",
+          "desc": "Complete registration and identity verification to get a verified account."
+        },
+        {
+          "title": "Deposit your funds",
+          "desc": "Deposit the amount you want to invest through the available payment methods, to be approved by our admin team."
+        },
+        {
+          "title": "Choose a trader",
+          "desc": "Review the verified performance records of each trader, and pick the one that fits your strategy and preferred risk level."
+        },
+        {
+          "title": "Start copying automatically",
+          "desc": "The trades of the trader you chose are copied to your account instantly, and you can stop copying anytime with no restrictions."
+        }
       ]
     },
     "traders": {
@@ -71,7 +113,8 @@
       "avgReturn": "Avg. daily return",
       "viewProfile": "View profile",
       "copy": "Copy",
-      "recentTrades": "Recent trades performance"
+      "recentTrades": "Recent trades performance",
+      "subtitle": "Find elite traders with trusted, verified results. Pick the right one and copy their strategy in one click."
     },
     "stats": {
       "title": "Statistics",
@@ -92,14 +135,38 @@
       "title": "Frequently Asked Questions",
       "subtitle": "Everything you need to know before you start copying trades",
       "items": [
-        { "q": "What's the difference between a demo and a real account?", "a": "A demo account lets you try copy trading with virtual funds risk-free, while a real account reflects your actual balance. You can choose and change your account type anytime from the settings page after signing up." },
-        { "q": "How does trade copying work?", "a": "Once you follow a trader, every trade they execute — opening or closing — is copied to your account automatically with the same details, the moment it happens, with no manual action from you." },
-        { "q": "Can I stop copying at any time?", "a": "Yes, you can stop copying any trader instantly, anytime, from your portfolio page, with no conditions or waiting period." },
-        { "q": "Can I copy more than one trader at the same time?", "a": "No, the system is designed so you copy only one trader at a time, to keep risk management clear. However, you can follow as many traders' performance as you like without copying them, and you'll receive their performance details by email — then pick one to actually copy. You can stop copying your current trader and copy another anytime." },
-        { "q": "What's the minimum required to start copying?", "a": "The minimum varies from one trader to another, and is shown clearly on each trader's profile before you start following." },
-        { "q": "Are there any hidden fees or commissions?", "a": "No, there are no hidden commissions or fees on copying trades or on realized profits, no matter how large." },
-        { "q": "Do I need to install a separate trading platform?", "a": "No, tracking traders' performance and copying their trades happens entirely from within the Copy Matrix dashboard, with no need to install any external app or platform." },
-        { "q": "How do I deposit or withdraw?", "a": "You can submit a deposit or withdrawal request from your portfolio page at any time, and it will be reviewed and approved by our admin team before it reflects on your balance." }
+        {
+          "q": "What's the difference between a demo and a real account?",
+          "a": "A demo account lets you try copy trading with virtual funds risk-free, while a real account reflects your actual balance. You can choose and change your account type anytime from the settings page after signing up."
+        },
+        {
+          "q": "How does trade copying work?",
+          "a": "Once you follow a trader, every trade they execute — opening or closing — is copied to your account automatically with the same details, the moment it happens, with no manual action from you."
+        },
+        {
+          "q": "Can I stop copying at any time?",
+          "a": "Yes, you can stop copying any trader instantly, anytime, from your portfolio page, with no conditions or waiting period."
+        },
+        {
+          "q": "Can I copy more than one trader at the same time?",
+          "a": "No, the system is designed so you copy only one trader at a time, to keep risk management clear. However, you can follow as many traders' performance as you like without copying them, and you'll receive their performance details by email — then pick one to actually copy. You can stop copying your current trader and copy another anytime."
+        },
+        {
+          "q": "What's the minimum required to start copying?",
+          "a": "The minimum varies from one trader to another, and is shown clearly on each trader's profile before you start following."
+        },
+        {
+          "q": "Are there any hidden fees or commissions?",
+          "a": "No, there are no hidden commissions or fees on copying trades or on realized profits, no matter how large."
+        },
+        {
+          "q": "Do I need to install a separate trading platform?",
+          "a": "No, tracking traders' performance and copying their trades happens entirely from within the Copy Matrix dashboard, with no need to install any external app or platform."
+        },
+        {
+          "q": "How do I deposit or withdraw?",
+          "a": "You can submit a deposit or withdrawal request from your portfolio page at any time, and it will be reviewed and approved by our admin team before it reflects on your balance."
+        }
       ]
     },
     "cta": {
@@ -115,6 +182,36 @@
       "privacy": "Privacy Policy",
       "support": "Support",
       "rights": "All rights reserved. Founded in 2024."
+    },
+    "valueCards": {
+      "title": "Your investment, your terms, full transparency",
+      "card1Headline": "0%",
+      "card1Subtitle": "Copy commission",
+      "card1Desc": "Copy the best traders' trades with no hidden commission on copying or on your profits, no matter how large.",
+      "card2Headline": "4 markets",
+      "card2Subtitle": "Real instrument variety",
+      "card2Desc": "Trade crypto, forex, gold and global indices, with traders specialized in each market.",
+      "card3Headline": "Verified performance",
+      "card3Subtitle": "No fake numbers",
+      "card3Desc": "Every trade and every result for every trader is documented and clear in front of you — review their full track record before you copy them."
+    },
+    "trustStrip": {
+      "instantTitle": "Instant deposit & withdrawal",
+      "instantDesc": "Automatic real-time processing for every request",
+      "encryptionTitle": "Full encryption",
+      "encryptionDesc": "For all account data",
+      "demoTitle": "Demo account",
+      "demoDesc": "No real risk at all",
+      "supportTitle": "Support",
+      "supportDesc": "Available 24 hours a day"
+    },
+    "traderPosts": {
+      "title": "Latest trader updates",
+      "subtitle": "Daily commentary from platform traders about their actual trades."
+    },
+    "marketNews": {
+      "title": "Market news",
+      "subtitle": "The latest real financial news from its sources, updated continuously."
     }
   },
   "Nav": {

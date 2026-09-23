@@ -2,7 +2,6 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
-import { BackButton } from "@/components/BackButton";
 import { DashboardHero } from "@/components/DashboardHero";
 import { TraderAvatar } from "@/components/TraderAvatar";
 import { MyEquityChart } from "@/components/MyEquityChart";
@@ -71,12 +70,7 @@ const KYC_COPY: Record<string, { title: string; desc: string; action?: string }>
   },
 };
 
-export default async function DashboardPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ onboarded?: string }>;
-}) {
-  const { onboarded } = await searchParams;
+export default async function DashboardPage() {
   const supabase = await createClient();
   const {
     data: { user },
@@ -159,7 +153,6 @@ export default async function DashboardPage({
     <>
       <AppNav />
       <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6">
-        {!onboarded && <BackButton fallbackHref="/" />}
         <div className="flex flex-wrap items-center gap-3">
           <div>
             <h1 className="text-xl font-semibold">
