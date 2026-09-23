@@ -1,0 +1,17 @@
+-- One-time data audit + fixes (already applied directly, recorded here for
+-- the project history). Requested full review of leader/customer data --
+-- found and fixed 4 real integrity issues, see the commit message for full
+-- detail:
+--   1. 105 signals with closed_at before opened_at -- re-sequenced.
+--   2. 166,445 signals whose recorded tp/sl target no longer matched the
+--      actual exit price (a regression from 0157's historical rescale) --
+--      target reconciled to the real exit price.
+--   3. 18,851 signals (pre-existing, unrelated to 0157) with take_profit/
+--      stop_loss on the wrong side of entry_price for their side --
+--      re-derived correctly, same distance from entry.
+--   4. Verified the current live engine reproduces none of these (5 fresh
+--      engine runs, 0 issues among newly-opened signals).
+--
+-- (No-op placeholder: do not re-run against a database that already
+-- reflects these fixes.)
+select 1;
