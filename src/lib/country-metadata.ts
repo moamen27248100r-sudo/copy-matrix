@@ -6,7 +6,7 @@ export type CountryCode =
   | "CA" | "TR" | "BR" | "NL" | "IT" | "AU" | "ES" | "SE" | "MX" | "ID"
   | "AR" | "CO" | "CL" | "PE" | "PL" | "PT" | "CH" | "AT" | "NO" | "DK"
   | "FI" | "GR" | "IE" | "RU" | "CN" | "TH" | "MY" | "SG" | "PH" | "VN"
-  | "PK" | "NZ" | "KE" | "GH" | "MA" | "CZ" | "HU" | "RO" | "UA" | "IL"
+  | "PK" | "NZ" | "KE" | "GH" | "MA" | "CZ" | "HU" | "RO" | "UA" | "IL" | "BD"
   // Arab countries -- assigned to the platform's majority Arabic-named
   // leaders and customers (see scripts/assign-leader-countries.mjs).
   | "SA" | "EG" | "AE" | "KW" | "QA" | "BH" | "OM" | "JO" | "LB" | "IQ"
@@ -63,6 +63,7 @@ export const COUNTRY_METADATA: Record<CountryCode, { nameAr: string; flag: strin
   RO: { nameAr: "رومانيا", flag: "🇷🇴" },
   UA: { nameAr: "أوكرانيا", flag: "🇺🇦" },
   IL: { nameAr: "إسرائيل", flag: "🇮🇱" },
+  BD: { nameAr: "بنغلاديش", flag: "🇧🇩" },
   SA: { nameAr: "السعودية", flag: "🇸🇦" },
   EG: { nameAr: "مصر", flag: "🇪🇬" },
   AE: { nameAr: "الإمارات", flag: "🇦🇪" },
@@ -105,5 +106,5 @@ export const INTERNATIONAL_COUNTRY_CODES: CountryCode[] = [
   "CA", "TR", "BR", "NL", "IT", "AU", "ES", "SE", "MX", "ID",
   "AR", "CO", "CL", "PE", "PL", "PT", "CH", "AT", "NO", "DK",
   "FI", "GR", "IE", "RU", "CN", "TH", "MY", "SG", "PH", "VN",
-  "PK", "NZ", "KE", "GH", "CZ", "HU", "RO", "UA", "IL",
+  "PK", "NZ", "KE", "GH", "CZ", "HU", "RO", "UA", "IL", "BD",
 ];
