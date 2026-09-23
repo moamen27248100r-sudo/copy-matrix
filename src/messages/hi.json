@@ -241,7 +241,8 @@
     "notificationsAriaLabel": "सूचनाएं",
     "notificationsTitle": "सूचनाएं",
     "notificationsEmpty": "अभी तक कोई सूचना नहीं।",
-    "viewAll": "सभी देखें"
+    "viewAll": "सभी देखें",
+    "markAllRead": "सभी को पढ़ा हुआ चिह्नित करें"
   },
   "LangSwitcher": {
     "label": "भाषा"
@@ -300,5 +301,23 @@
   },
   "Common": {
     "level": "लेवल {level}"
+  },
+  "Notifications": {
+    "copyClosedTitle": "{providerName} से कॉपी किया गया ट्रेड",
+    "copyClosedBody": "{symbol} ट्रेड {positive, select, true {+} other {-}}{amount}$ के परिणाम के साथ बंद हुआ",
+    "autoStopCopyTitle": "कॉपी करना स्वचालित रूप से रोका गया",
+    "autoStopCopyBody": "अनुमत हानि सीमा ({maxDrawdownPct}%) पार करने के बाद एक ट्रेडर की कॉपी स्वचालित रूप से रोक दी गई। आप किसी भी समय खोज पेज से उन्हें फिर से फॉलो कर सकते हैं।",
+    "followedTradeClosedTitle": "आपके फॉलो किए गए ट्रेडर से नया ट्रेड",
+    "followedTradeClosedBody": "{providerName} ने {symbol} ट्रेड को {positive, select, true {+} other {-}}{pct}% के परिणाम के साथ बंद किया",
+    "kycApprovedTitle": "सत्यापन अनुरोध स्वीकृत",
+    "kycApprovedBody": "आपका पहचान सत्यापन अनुरोध स्वीकृत कर दिया गया है।",
+    "kycRejectedTitle": "सत्यापन अनुरोध अस्वीकृत",
+    "kycRejectedBody": "आपका पहचान सत्यापन अनुरोध अस्वीकृत कर दिया गया। कारण जानने के लिए कृपया सहायता से संपर्क करें।",
+    "walletDepositApprovedTitle": "जमा अनुरोध स्वीकृत",
+    "walletWithdrawalApprovedTitle": "निकासी अनुरोध स्वीकृत",
+    "walletApprovedBody": "आपका {amount}$ का अनुरोध संसाधित कर दिया गया है।",
+    "walletDepositRejectedTitle": "जमा अनुरोध अस्वीकृत",
+    "walletWithdrawalRejectedTitle": "निकासी अनुरोध अस्वीकृत",
+    "walletRejectedBody": "आपका अनुरोध अस्वीकृत कर दिया गया। कारण जानने के लिए कृपया सहायता से संपर्क करें।"
   }
 }

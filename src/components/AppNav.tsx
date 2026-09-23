@@ -22,14 +22,14 @@ export async function AppNav() {
   let displayName: string | null = null;
   let email: string | null = null;
   let accountType: "real" | "demo" | null = null;
-  let notifications: { id: string; title: string; body: string | null; is_read: boolean; created_at: string }[] = [];
+  let notifications: { id: string; type: string; title: string; body: string | null; data: Record<string, unknown> | null; is_read: boolean; created_at: string }[] = [];
   let activeCopyProviderId: string | null = null;
   if (user) {
     const [{ data: profile }, { data: notificationRows }, { data: activeSub }] = await Promise.all([
       supabase.from("profiles").select("is_admin, balance, is_suspended, display_name, email, account_type").eq("id", user.id).single(),
       supabase
         .from("notifications")
-        .select("id, title, body, is_read, created_at")
+        .select("id, type, title, body, data, is_read, created_at")
         .eq("user_id", user.id)
         .order("created_at", { ascending: false })
         .limit(10),

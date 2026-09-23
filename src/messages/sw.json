@@ -241,7 +241,8 @@
     "notificationsAriaLabel": "Arifa",
     "notificationsTitle": "Arifa",
     "notificationsEmpty": "Hakuna arifa bado.",
-    "viewAll": "Ona zote"
+    "viewAll": "Ona zote",
+    "markAllRead": "Weka alama zote kama zimesomwa"
   },
   "LangSwitcher": {
     "label": "Lugha"
@@ -300,5 +301,23 @@
   },
   "Common": {
     "level": "Kiwango {level}"
+  },
+  "Notifications": {
+    "copyClosedTitle": "Biashara iliyonakiliwa kutoka {providerName}",
+    "copyClosedBody": "Biashara ya {symbol} imefungwa kwa matokeo ya {positive, select, true {+} other {-}}{amount}$",
+    "autoStopCopyTitle": "Unakili umesimamishwa kiotomatiki",
+    "autoStopCopyBody": "Unakili wa mfanyabiashara umesimamishwa kiotomatiki baada ya kuzidi kikomo cha hasara kinachoruhusiwa ({maxDrawdownPct}%). Unaweza kumfuata tena wakati wowote kutoka ukurasa wa ugunduzi.",
+    "followedTradeClosedTitle": "Biashara mpya kutoka kwa mfanyabiashara unayemfuata",
+    "followedTradeClosedBody": "{providerName} amefunga biashara ya {symbol} kwa matokeo ya {positive, select, true {+} other {-}}{pct}%",
+    "kycApprovedTitle": "Ombi la uthibitisho limeidhinishwa",
+    "kycApprovedBody": "Ombi lako la uthibitisho wa utambulisho limeidhinishwa.",
+    "kycRejectedTitle": "Ombi la uthibitisho limekataliwa",
+    "kycRejectedBody": "Ombi lako la uthibitisho wa utambulisho limekataliwa. Tafadhali wasiliana na msaada ili kujua sababu.",
+    "walletDepositApprovedTitle": "Ombi la kuweka pesa limeidhinishwa",
+    "walletWithdrawalApprovedTitle": "Ombi la kutoa pesa limeidhinishwa",
+    "walletApprovedBody": "Ombi lako la {amount}$ limeshughulikiwa.",
+    "walletDepositRejectedTitle": "Ombi la kuweka pesa limekataliwa",
+    "walletWithdrawalRejectedTitle": "Ombi la kutoa pesa limekataliwa",
+    "walletRejectedBody": "Ombi lako limekataliwa. Tafadhali wasiliana na msaada ili kujua sababu."
   }
 }

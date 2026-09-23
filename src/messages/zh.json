@@ -241,7 +241,8 @@
     "notificationsAriaLabel": "通知",
     "notificationsTitle": "通知",
     "notificationsEmpty": "暂无通知。",
-    "viewAll": "查看全部"
+    "viewAll": "查看全部",
+    "markAllRead": "全部标记为已读"
   },
   "LangSwitcher": {
     "label": "语言"
@@ -300,5 +301,23 @@
   },
   "Common": {
     "level": "等级 {level}"
+  },
+  "Notifications": {
+    "copyClosedTitle": "来自 {providerName} 的跟单交易",
+    "copyClosedBody": "{symbol} 交易已平仓，结果为 {positive, select, true {+} other {-}}{amount} 美元",
+    "autoStopCopyTitle": "跟单已自动停止",
+    "autoStopCopyBody": "对一位交易员的跟单在超过允许的亏损限额（{maxDrawdownPct}%）后已自动停止。您可以随时从发现页面重新关注该交易员。",
+    "followedTradeClosedTitle": "您关注的交易员有新交易",
+    "followedTradeClosedBody": "{providerName} 平仓了一笔 {symbol} 交易，结果为 {positive, select, true {+} other {-}}{pct}%",
+    "kycApprovedTitle": "验证申请已通过",
+    "kycApprovedBody": "您的身份验证申请已获批准。",
+    "kycRejectedTitle": "验证申请被拒绝",
+    "kycRejectedBody": "您的身份验证申请被拒绝。请联系客服了解原因。",
+    "walletDepositApprovedTitle": "存款申请已通过",
+    "walletWithdrawalApprovedTitle": "提款申请已通过",
+    "walletApprovedBody": "您金额为 {amount} 美元的申请已处理。",
+    "walletDepositRejectedTitle": "存款申请被拒绝",
+    "walletWithdrawalRejectedTitle": "提款申请被拒绝",
+    "walletRejectedBody": "您的申请被拒绝。请联系客服了解原因。"
   }
 }

@@ -1,8 +1,10 @@
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { markAllRead, markOneRead } from "@/app/notifications/actions";
 import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
+import { renderNotification } from "@/lib/render-notification";
 
 function renderBody(body: string) {
   const match = body.match(/^(.*?)([+-]\d[\d,]*\.?\d*)(\$|%)$/);
@@ -104,6 +106,8 @@ function formatNotificationTime(iso: string) {
 }
 
 export default async function NotificationsPage() {
+  const t = await getTranslations("Nav");
+  const tn = await getTranslations("Notifications");
   const supabase = await createClient();
   const {
     data: { user },
@@ -113,7 +117,7 @@ export default async function NotificationsPage() {
 
   const { data: notifications } = await supabase
     .from("notifications")
-    .select("id, type, title, body, is_read, created_at")
+    .select("id, type, title, body, data, is_read, created_at")
     .eq("user_id", user.id)
     .order("created_at", { ascending: false })
     .limit(50);
@@ -126,47 +130,50 @@ export default async function NotificationsPage() {
       <main className="mx-auto flex w-full max-w-lg flex-col gap-4 p-6">
         <BackButton fallbackHref="/dashboard" />
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-semibold">الإشعارات</h1>
+          <h1 className="text-2xl font-semibold">{t("notificationsTitle")}</h1>
           {hasUnread && (
             <form action={markAllRead}>
               <button type="submit" className="text-sm text-muted underline">
-                تحديد الكل كمقروء
+                {t("markAllRead")}
               </button>
             </form>
           )}
         </div>
 
         {(notifications ?? []).length === 0 ? (
-          <p className="text-sm text-muted">لا توجد إشعارات حتى الآن.</p>
+          <p className="text-sm text-muted">{t("notificationsEmpty")}</p>
         ) : (
           <div className="flex flex-col gap-2">
-            {notifications!.map((n) => (
-              <form key={n.id} action={markOneRead}>
-                <input type="hidden" name="id" value={n.id} />
-                <button
-                  type="submit"
-                  disabled={n.is_read}
-                  className={
-                    n.is_read
-                      ? "relative flex w-full items-start gap-3 overflow-hidden rounded-lg border border-border bg-surface p-3.5 text-right"
-                      : "relative flex w-full items-start gap-3 overflow-hidden rounded-lg border border-accent/30 bg-accent/5 p-3.5 text-right"
-                  }
-                >
-                  {!n.is_read && <span className="absolute inset-y-0 right-0 w-1 bg-accent" aria-hidden="true" />}
-                  <NotificationIcon type={n.type} />
-                  <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                    <div className="flex items-start justify-between gap-2">
-                      <p className="text-sm font-medium">{n.title}</p>
-                      {!n.is_read && <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />}
+            {notifications!.map((n) => {
+              const { title, body } = renderNotification(tn, n);
+              return (
+                <form key={n.id} action={markOneRead}>
+                  <input type="hidden" name="id" value={n.id} />
+                  <button
+                    type="submit"
+                    disabled={n.is_read}
+                    className={
+                      n.is_read
+                        ? "relative flex w-full items-start gap-3 overflow-hidden rounded-lg border border-border bg-surface p-3.5 text-right"
+                        : "relative flex w-full items-start gap-3 overflow-hidden rounded-lg border border-accent/30 bg-accent/5 p-3.5 text-right"
+                    }
+                  >
+                    {!n.is_read && <span className="absolute inset-y-0 right-0 w-1 bg-accent" aria-hidden="true" />}
+                    <NotificationIcon type={n.type} />
+                    <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+                      <div className="flex items-start justify-between gap-2">
+                        <p className="text-sm font-medium">{title}</p>
+                        {!n.is_read && <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />}
+                      </div>
+                      {body && <p className="whitespace-pre-line text-xs text-muted">{renderBody(body)}</p>}
+                      <p className="mt-1 text-[11px] text-muted/70" dir="ltr">
+                        {formatNotificationTime(n.created_at)}
+                      </p>
                     </div>
-                    {n.body && <p className="whitespace-pre-line text-xs text-muted">{renderBody(n.body)}</p>}
-                    <p className="mt-1 text-[11px] text-muted/70" dir="ltr">
-                      {formatNotificationTime(n.created_at)}
-                    </p>
-                  </div>
-                </button>
-              </form>
-            ))}
+                  </button>
+                </form>
+              );
+            })}
           </div>
         )}
       </main>

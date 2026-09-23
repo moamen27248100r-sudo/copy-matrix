@@ -241,7 +241,8 @@
     "notificationsAriaLabel": "Notifikasi",
     "notificationsTitle": "Notifikasi",
     "notificationsEmpty": "Belum ada notifikasi.",
-    "viewAll": "Lihat semua"
+    "viewAll": "Lihat semua",
+    "markAllRead": "Tandai semua sebagai dibaca"
   },
   "LangSwitcher": {
     "label": "Bahasa"
@@ -300,5 +301,23 @@
   },
   "Common": {
     "level": "Level {level}"
+  },
+  "Notifications": {
+    "copyClosedTitle": "Transaksi disalin dari {providerName}",
+    "copyClosedBody": "Transaksi {symbol} ditutup dengan hasil {positive, select, true {+} other {-}}{amount}$",
+    "autoStopCopyTitle": "Penyalinan dihentikan secara otomatis",
+    "autoStopCopyBody": "Penyalinan seorang trader dihentikan secara otomatis setelah melampaui batas kerugian yang diizinkan ({maxDrawdownPct}%). Anda dapat mengikutinya lagi kapan saja dari halaman temukan.",
+    "followedTradeClosedTitle": "Transaksi baru dari trader yang Anda ikuti",
+    "followedTradeClosedBody": "{providerName} menutup transaksi {symbol} dengan hasil {positive, select, true {+} other {-}}{pct}%",
+    "kycApprovedTitle": "Permintaan verifikasi disetujui",
+    "kycApprovedBody": "Permintaan verifikasi identitas Anda telah disetujui.",
+    "kycRejectedTitle": "Permintaan verifikasi ditolak",
+    "kycRejectedBody": "Permintaan verifikasi identitas Anda ditolak. Silakan hubungi dukungan untuk mengetahui alasannya.",
+    "walletDepositApprovedTitle": "Permintaan setor disetujui",
+    "walletWithdrawalApprovedTitle": "Permintaan tarik disetujui",
+    "walletApprovedBody": "Permintaan Anda sebesar {amount}$ telah diproses.",
+    "walletDepositRejectedTitle": "Permintaan setor ditolak",
+    "walletWithdrawalRejectedTitle": "Permintaan tarik ditolak",
+    "walletRejectedBody": "Permintaan Anda ditolak. Silakan hubungi dukungan untuk mengetahui alasannya."
   }
 }

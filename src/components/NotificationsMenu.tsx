@@ -6,30 +6,37 @@ import { useEffect, useRef } from "react";
 import { markOneRead } from "@/app/notifications/actions";
 import { useNavDrawer } from "@/components/nav-drawer-context";
 import { useBodyScrollLock } from "@/lib/use-body-scroll-lock";
+import { renderNotification } from "@/lib/render-notification";
 
 type NotificationRow = {
   id: string;
+  type: string;
   title: string;
   body: string | null;
+  data?: Record<string, unknown> | null;
   is_read: boolean;
   created_at: string;
 };
 
 function renderBody(body: string) {
-  const match = body.match(/^(.*?)([+-]\d[\d,]*\.?\d*)\$$/);
+  const match = body.match(/^(.*?)([+-]\d[\d,]*\.?\d*)(\$|%)$/);
   if (!match) return body;
-  const [, prefix, amount] = match;
+  const [, prefix, amount, unit] = match;
   const isPositive = !amount.startsWith("-");
   return (
     <>
       {prefix}
-      <span className={isPositive ? "text-success" : "text-danger"}>{amount}$</span>
+      <span className={isPositive ? "text-success" : "text-danger"}>
+        {amount}
+        {unit}
+      </span>
     </>
   );
 }
 
 export function NotificationsMenu({ notifications }: { notifications: NotificationRow[] }) {
   const t = useTranslations("Nav");
+  const tn = useTranslations("Notifications");
   const { open, toggle, close } = useNavDrawer("notifications");
   const unreadCount = notifications.filter((n) => !n.is_read).length;
   const preview = notifications.slice(0, 6);
@@ -85,23 +92,26 @@ export function NotificationsMenu({ notifications }: { notifications: Notificati
           {preview.length === 0 ? (
             <p className="p-3 text-center text-sm text-muted">{t("notificationsEmpty")}</p>
           ) : (
-            preview.map((n) => (
-              <form key={n.id} action={markOneRead}>
-                <input type="hidden" name="id" value={n.id} />
-                <button
-                  type="submit"
-                  disabled={n.is_read}
-                  className={
-                    n.is_read
-                      ? "flex w-full flex-col gap-1 rounded-lg border border-border bg-background p-3 text-start"
-                      : "flex w-full flex-col gap-1 rounded-lg border border-brand/40 bg-brand/5 p-3 text-start"
-                  }
-                >
-                  <p className="text-sm font-medium">{n.title}</p>
-                  {n.body && <p className="whitespace-pre-line text-xs text-muted">{renderBody(n.body)}</p>}
-                </button>
-              </form>
-            ))
+            preview.map((n) => {
+              const { title, body } = renderNotification(tn, n);
+              return (
+                <form key={n.id} action={markOneRead}>
+                  <input type="hidden" name="id" value={n.id} />
+                  <button
+                    type="submit"
+                    disabled={n.is_read}
+                    className={
+                      n.is_read
+                        ? "flex w-full flex-col gap-1 rounded-lg border border-border bg-background p-3 text-start"
+                        : "flex w-full flex-col gap-1 rounded-lg border border-brand/40 bg-brand/5 p-3 text-start"
+                    }
+                  >
+                    <p className="text-sm font-medium">{title}</p>
+                    {body && <p className="whitespace-pre-line text-xs text-muted">{renderBody(body)}</p>}
+                  </button>
+                </form>
+              );
+            })
           )}
         </div>
 

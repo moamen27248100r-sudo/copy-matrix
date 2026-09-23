@@ -241,7 +241,8 @@
     "notificationsAriaLabel": "Notifications",
     "notificationsTitle": "Notifications",
     "notificationsEmpty": "Aucune notification pour le moment.",
-    "viewAll": "Tout voir"
+    "viewAll": "Tout voir",
+    "markAllRead": "Tout marquer comme lu"
   },
   "LangSwitcher": {
     "label": "Langue"
@@ -300,5 +301,23 @@
   },
   "Common": {
     "level": "Niveau {level}"
+  },
+  "Notifications": {
+    "copyClosedTitle": "Trade copié de {providerName}",
+    "copyClosedBody": "Le trade {symbol} a été clôturé avec un résultat de {positive, select, true {+} other {-}}{amount}$",
+    "autoStopCopyTitle": "Copie arrêtée automatiquement",
+    "autoStopCopyBody": "La copie d'un trader a été arrêtée automatiquement après avoir dépassé la limite de perte autorisée ({maxDrawdownPct}%). Vous pouvez le suivre à nouveau à tout moment depuis la page de découverte.",
+    "followedTradeClosedTitle": "Nouveau trade d'un trader que vous suivez",
+    "followedTradeClosedBody": "{providerName} a clôturé un trade {symbol} avec un résultat de {positive, select, true {+} other {-}}{pct}%",
+    "kycApprovedTitle": "Demande de vérification approuvée",
+    "kycApprovedBody": "Votre demande de vérification d'identité a été approuvée.",
+    "kycRejectedTitle": "Demande de vérification rejetée",
+    "kycRejectedBody": "Votre demande de vérification d'identité a été rejetée. Veuillez contacter le support pour en connaître la raison.",
+    "walletDepositApprovedTitle": "Demande de dépôt approuvée",
+    "walletWithdrawalApprovedTitle": "Demande de retrait approuvée",
+    "walletApprovedBody": "Votre demande de {amount}$ a été traitée.",
+    "walletDepositRejectedTitle": "Demande de dépôt rejetée",
+    "walletWithdrawalRejectedTitle": "Demande de retrait rejetée",
+    "walletRejectedBody": "Votre demande a été rejetée. Veuillez contacter le support pour en connaître la raison."
   }
 }

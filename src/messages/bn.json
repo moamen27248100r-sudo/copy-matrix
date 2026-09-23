@@ -241,7 +241,8 @@
     "notificationsAriaLabel": "বিজ্ঞপ্তি",
     "notificationsTitle": "বিজ্ঞপ্তি",
     "notificationsEmpty": "এখনও কোনো বিজ্ঞপ্তি নেই।",
-    "viewAll": "সব দেখুন"
+    "viewAll": "সব দেখুন",
+    "markAllRead": "সব পঠিত হিসেবে চিহ্নিত করুন"
   },
   "LangSwitcher": {
     "label": "ভাষা"
@@ -300,5 +301,23 @@
   },
   "Common": {
     "level": "লেভেল {level}"
+  },
+  "Notifications": {
+    "copyClosedTitle": "{providerName} থেকে কপি করা ট্রেড",
+    "copyClosedBody": "{symbol} ট্রেড {positive, select, true {+} other {-}}{amount}$ ফলাফল সহ বন্ধ হয়েছে",
+    "autoStopCopyTitle": "কপি করা স্বয়ংক্রিয়ভাবে বন্ধ হয়েছে",
+    "autoStopCopyBody": "অনুমোদিত ক্ষতির সীমা ({maxDrawdownPct}%) অতিক্রম করার পর একজন ট্রেডারের কপি স্বয়ংক্রিয়ভাবে বন্ধ হয়ে গেছে। আপনি যেকোনো সময় আবিষ্কার পৃষ্ঠা থেকে তাকে আবার অনুসরণ করতে পারেন।",
+    "followedTradeClosedTitle": "আপনার অনুসরণ করা ট্রেডারের নতুন ট্রেড",
+    "followedTradeClosedBody": "{providerName} {symbol} ট্রেড {positive, select, true {+} other {-}}{pct}% ফলাফল সহ বন্ধ করেছে",
+    "kycApprovedTitle": "যাচাইকরণ অনুরোধ অনুমোদিত",
+    "kycApprovedBody": "আপনার পরিচয় যাচাইকরণ অনুরোধ অনুমোদিত হয়েছে।",
+    "kycRejectedTitle": "যাচাইকরণ অনুরোধ প্রত্যাখ্যাত",
+    "kycRejectedBody": "আপনার পরিচয় যাচাইকরণ অনুরোধ প্রত্যাখ্যাত হয়েছে। কারণ জানতে সহায়তার সাথে যোগাযোগ করুন।",
+    "walletDepositApprovedTitle": "জমার অনুরোধ অনুমোদিত",
+    "walletWithdrawalApprovedTitle": "উত্তোলনের অনুরোধ অনুমোদিত",
+    "walletApprovedBody": "আপনার {amount}$ এর অনুরোধ প্রক্রিয়া করা হয়েছে।",
+    "walletDepositRejectedTitle": "জমার অনুরোধ প্রত্যাখ্যাত",
+    "walletWithdrawalRejectedTitle": "উত্তোলনের অনুরোধ প্রত্যাখ্যাত",
+    "walletRejectedBody": "আপনার অনুরোধ প্রত্যাখ্যাত হয়েছে। কারণ জানতে সহায়তার সাথে যোগাযোগ করুন।"
   }
 }

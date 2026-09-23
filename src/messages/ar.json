@@ -253,7 +253,8 @@
     "notificationsAriaLabel": "الإشعارات",
     "notificationsTitle": "الإشعارات",
     "notificationsEmpty": "لا توجد إشعارات حتى الآن.",
-    "viewAll": "عرض الكل"
+    "viewAll": "عرض الكل",
+    "markAllRead": "تحديد الكل كمقروء"
   },
   "LangSwitcher": {
     "label": "اللغة"
@@ -312,5 +313,23 @@
   },
   "Common": {
     "level": "المستوى {level}"
+  },
+  "Notifications": {
+    "copyClosedTitle": "صفقة منسوخة من {providerName}",
+    "copyClosedBody": "أُغلقت صفقة {symbol} بنتيجة {positive, select, true {+} other {-}}{amount}$",
+    "autoStopCopyTitle": "تم إيقاف النسخ تلقائيًا",
+    "autoStopCopyBody": "تم إيقاف متابعة أحد المتداولين تلقائيًا بعد تجاوز حد الخسارة المسموح به ({maxDrawdownPct}%). يمكنك متابعته مجددًا في أي وقت من صفحة اكتشاف المتداولين.",
+    "followedTradeClosedTitle": "صفقة جديدة من متداول تتابعه",
+    "followedTradeClosedBody": "{providerName} أغلق صفقة {symbol} بنتيجة {positive, select, true {+} other {-}}{pct}%",
+    "kycApprovedTitle": "تم قبول طلب التوثيق",
+    "kycApprovedBody": "تمت الموافقة على طلب توثيق الهوية الخاص بك.",
+    "kycRejectedTitle": "تم رفض طلب التوثيق",
+    "kycRejectedBody": "تم رفض طلب توثيق الهوية. يرجى التواصل مع الدعم لمعرفة السبب.",
+    "walletDepositApprovedTitle": "تم قبول طلب الإيداع",
+    "walletWithdrawalApprovedTitle": "تم قبول طلب السحب",
+    "walletApprovedBody": "تم تنفيذ طلبك بمبلغ {amount}$.",
+    "walletDepositRejectedTitle": "تم رفض طلب الإيداع",
+    "walletWithdrawalRejectedTitle": "تم رفض طلب السحب",
+    "walletRejectedBody": "تم رفض طلبك. يرجى التواصل مع الدعم لمعرفة السبب."
   }
 }

@@ -241,7 +241,8 @@
     "notificationsAriaLabel": "اطلاعات",
     "notificationsTitle": "اطلاعات",
     "notificationsEmpty": "ابھی تک کوئی اطلاع نہیں۔",
-    "viewAll": "سب دیکھیں"
+    "viewAll": "سب دیکھیں",
+    "markAllRead": "سب کو پڑھا ہوا نشان زد کریں"
   },
   "LangSwitcher": {
     "label": "زبان"
@@ -300,5 +301,23 @@
   },
   "Common": {
     "level": "لیول {level}"
+  },
+  "Notifications": {
+    "copyClosedTitle": "{providerName} سے کاپی شدہ ٹریڈ",
+    "copyClosedBody": "{symbol} ٹریڈ {positive, select, true {+} other {-}}{amount}$ کے نتیجے کے ساتھ بند ہوئی",
+    "autoStopCopyTitle": "کاپی کرنا خودکار طور پر روک دیا گیا",
+    "autoStopCopyBody": "اجازت شدہ نقصان کی حد ({maxDrawdownPct}%) سے تجاوز کرنے کے بعد ایک ٹریڈر کی کاپی خودکار طور پر روک دی گئی۔ آپ کسی بھی وقت دریافت کے صفحے سے اسے دوبارہ فالو کر سکتے ہیں۔",
+    "followedTradeClosedTitle": "آپ کے فالو کیے گئے ٹریڈر سے نئی ٹریڈ",
+    "followedTradeClosedBody": "{providerName} نے {symbol} ٹریڈ کو {positive, select, true {+} other {-}}{pct}% کے نتیجے کے ساتھ بند کیا",
+    "kycApprovedTitle": "تصدیقی درخواست منظور",
+    "kycApprovedBody": "آپ کی شناختی تصدیق کی درخواست منظور کر لی گئی ہے۔",
+    "kycRejectedTitle": "تصدیقی درخواست مسترد",
+    "kycRejectedBody": "آپ کی شناختی تصدیق کی درخواست مسترد کر دی گئی۔ وجہ جاننے کے لیے براہ کرم سپورٹ سے رابطہ کریں۔",
+    "walletDepositApprovedTitle": "جمع کرنے کی درخواست منظور",
+    "walletWithdrawalApprovedTitle": "نکالنے کی درخواست منظور",
+    "walletApprovedBody": "آپ کی {amount}$ کی درخواست پر عمل کر دیا گیا ہے۔",
+    "walletDepositRejectedTitle": "جمع کرنے کی درخواست مسترد",
+    "walletWithdrawalRejectedTitle": "نکالنے کی درخواست مسترد",
+    "walletRejectedBody": "آپ کی درخواست مسترد کر دی گئی۔ وجہ جاننے کے لیے براہ کرم سپورٹ سے رابطہ کریں۔"
   }
 }

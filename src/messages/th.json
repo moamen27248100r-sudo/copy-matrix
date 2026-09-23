@@ -241,7 +241,8 @@
     "notificationsAriaLabel": "การแจ้งเตือน",
     "notificationsTitle": "การแจ้งเตือน",
     "notificationsEmpty": "ยังไม่มีการแจ้งเตือน",
-    "viewAll": "ดูทั้งหมด"
+    "viewAll": "ดูทั้งหมด",
+    "markAllRead": "ทำเครื่องหมายว่าอ่านแล้วทั้งหมด"
   },
   "LangSwitcher": {
     "label": "ภาษา"
@@ -300,5 +301,23 @@
   },
   "Common": {
     "level": "ระดับ {level}"
+  },
+  "Notifications": {
+    "copyClosedTitle": "การเทรดที่คัดลอกจาก {providerName}",
+    "copyClosedBody": "การเทรด {symbol} ปิดแล้วด้วยผลลัพธ์ {positive, select, true {+} other {-}}{amount}$",
+    "autoStopCopyTitle": "การคัดลอกหยุดโดยอัตโนมัติ",
+    "autoStopCopyBody": "การคัดลอกเทรดเดอร์หยุดโดยอัตโนมัติหลังจากเกินขีดจำกัดการขาดทุนที่อนุญาต ({maxDrawdownPct}%) คุณสามารถติดตามพวกเขาอีกครั้งได้ทุกเมื่อจากหน้าค้นหา",
+    "followedTradeClosedTitle": "การเทรดใหม่จากเทรดเดอร์ที่คุณติดตาม",
+    "followedTradeClosedBody": "{providerName} ปิดการเทรด {symbol} ด้วยผลลัพธ์ {positive, select, true {+} other {-}}{pct}%",
+    "kycApprovedTitle": "คำขอยืนยันตัวตนได้รับการอนุมัติ",
+    "kycApprovedBody": "คำขอยืนยันตัวตนของคุณได้รับการอนุมัติแล้ว",
+    "kycRejectedTitle": "คำขอยืนยันตัวตนถูกปฏิเสธ",
+    "kycRejectedBody": "คำขอยืนยันตัวตนของคุณถูกปฏิเสธ กรุณาติดต่อฝ่ายสนับสนุนเพื่อทราบสาเหตุ",
+    "walletDepositApprovedTitle": "คำขอฝากเงินได้รับการอนุมัติ",
+    "walletWithdrawalApprovedTitle": "คำขอถอนเงินได้รับการอนุมัติ",
+    "walletApprovedBody": "คำขอมูลค่า {amount}$ ของคุณได้รับการดำเนินการแล้ว",
+    "walletDepositRejectedTitle": "คำขอฝากเงินถูกปฏิเสธ",
+    "walletWithdrawalRejectedTitle": "คำขอถอนเงินถูกปฏิเสธ",
+    "walletRejectedBody": "คำขอของคุณถูกปฏิเสธ กรุณาติดต่อฝ่ายสนับสนุนเพื่อทราบสาเหตุ"
   }
 }

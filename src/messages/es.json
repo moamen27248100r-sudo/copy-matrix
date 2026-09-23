@@ -241,7 +241,8 @@
     "notificationsAriaLabel": "Notificaciones",
     "notificationsTitle": "Notificaciones",
     "notificationsEmpty": "Aún no hay notificaciones.",
-    "viewAll": "Ver todo"
+    "viewAll": "Ver todo",
+    "markAllRead": "Marcar todo como leído"
   },
   "LangSwitcher": {
     "label": "Idioma"
@@ -300,5 +301,23 @@
   },
   "Common": {
     "level": "Nivel {level}"
+  },
+  "Notifications": {
+    "copyClosedTitle": "Operación copiada de {providerName}",
+    "copyClosedBody": "La operación {symbol} se cerró con un resultado de {positive, select, true {+} other {-}}{amount}$",
+    "autoStopCopyTitle": "Copia detenida automáticamente",
+    "autoStopCopyBody": "La copia de un trader se detuvo automáticamente tras superar el límite de pérdida permitido ({maxDrawdownPct}%). Puedes volver a seguirlo en cualquier momento desde la página de exploración.",
+    "followedTradeClosedTitle": "Nueva operación de un trader que sigues",
+    "followedTradeClosedBody": "{providerName} cerró una operación {symbol} con un resultado de {positive, select, true {+} other {-}}{pct}%",
+    "kycApprovedTitle": "Solicitud de verificación aprobada",
+    "kycApprovedBody": "Tu solicitud de verificación de identidad ha sido aprobada.",
+    "kycRejectedTitle": "Solicitud de verificación rechazada",
+    "kycRejectedBody": "Tu solicitud de verificación de identidad fue rechazada. Contacta con soporte para conocer el motivo.",
+    "walletDepositApprovedTitle": "Solicitud de depósito aprobada",
+    "walletWithdrawalApprovedTitle": "Solicitud de retiro aprobada",
+    "walletApprovedBody": "Tu solicitud de {amount}$ ha sido procesada.",
+    "walletDepositRejectedTitle": "Solicitud de depósito rechazada",
+    "walletWithdrawalRejectedTitle": "Solicitud de retiro rechazada",
+    "walletRejectedBody": "Tu solicitud fue rechazada. Contacta con soporte para conocer el motivo."
   }
 }

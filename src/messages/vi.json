@@ -241,7 +241,8 @@
     "notificationsAriaLabel": "Thông báo",
     "notificationsTitle": "Thông báo",
     "notificationsEmpty": "Chưa có thông báo nào.",
-    "viewAll": "Xem tất cả"
+    "viewAll": "Xem tất cả",
+    "markAllRead": "Đánh dấu tất cả đã đọc"
   },
   "LangSwitcher": {
     "label": "Ngôn ngữ"
@@ -300,5 +301,23 @@
   },
   "Common": {
     "level": "Cấp độ {level}"
+  },
+  "Notifications": {
+    "copyClosedTitle": "Giao dịch được sao chép từ {providerName}",
+    "copyClosedBody": "Giao dịch {symbol} đã đóng với kết quả {positive, select, true {+} other {-}}{amount}$",
+    "autoStopCopyTitle": "Sao chép đã dừng tự động",
+    "autoStopCopyBody": "Việc sao chép một nhà giao dịch đã tự động dừng lại sau khi vượt quá giới hạn lỗ cho phép ({maxDrawdownPct}%). Bạn có thể theo dõi lại họ bất cứ lúc nào từ trang khám phá.",
+    "followedTradeClosedTitle": "Giao dịch mới từ nhà giao dịch bạn theo dõi",
+    "followedTradeClosedBody": "{providerName} đã đóng giao dịch {symbol} với kết quả {positive, select, true {+} other {-}}{pct}%",
+    "kycApprovedTitle": "Yêu cầu xác minh đã được duyệt",
+    "kycApprovedBody": "Yêu cầu xác minh danh tính của bạn đã được duyệt.",
+    "kycRejectedTitle": "Yêu cầu xác minh bị từ chối",
+    "kycRejectedBody": "Yêu cầu xác minh danh tính của bạn đã bị từ chối. Vui lòng liên hệ hỗ trợ để biết lý do.",
+    "walletDepositApprovedTitle": "Yêu cầu nạp tiền đã được duyệt",
+    "walletWithdrawalApprovedTitle": "Yêu cầu rút tiền đã được duyệt",
+    "walletApprovedBody": "Yêu cầu {amount}$ của bạn đã được xử lý.",
+    "walletDepositRejectedTitle": "Yêu cầu nạp tiền bị từ chối",
+    "walletWithdrawalRejectedTitle": "Yêu cầu rút tiền bị từ chối",
+    "walletRejectedBody": "Yêu cầu của bạn đã bị từ chối. Vui lòng liên hệ hỗ trợ để biết lý do."
   }
 }

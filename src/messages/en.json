@@ -241,7 +241,8 @@
     "notificationsAriaLabel": "Notifications",
     "notificationsTitle": "Notifications",
     "notificationsEmpty": "No notifications yet.",
-    "viewAll": "View all"
+    "viewAll": "View all",
+    "markAllRead": "Mark all as read"
   },
   "LangSwitcher": {
     "label": "Language"
@@ -300,5 +301,23 @@
   },
   "Common": {
     "level": "Level {level}"
+  },
+  "Notifications": {
+    "copyClosedTitle": "Copied trade from {providerName}",
+    "copyClosedBody": "The {symbol} trade closed with a result of {positive, select, true {+} other {-}}{amount}$",
+    "autoStopCopyTitle": "Copying stopped automatically",
+    "autoStopCopyBody": "Copying a trader was automatically stopped after exceeding the allowed loss limit ({maxDrawdownPct}%). You can follow them again anytime from the discover page.",
+    "followedTradeClosedTitle": "New trade from a trader you follow",
+    "followedTradeClosedBody": "{providerName} closed a {symbol} trade with a result of {positive, select, true {+} other {-}}{pct}%",
+    "kycApprovedTitle": "Verification request approved",
+    "kycApprovedBody": "Your identity verification request has been approved.",
+    "kycRejectedTitle": "Verification request rejected",
+    "kycRejectedBody": "Your identity verification request was rejected. Please contact support to find out why.",
+    "walletDepositApprovedTitle": "Deposit request approved",
+    "walletWithdrawalApprovedTitle": "Withdrawal request approved",
+    "walletApprovedBody": "Your request for {amount}$ has been processed.",
+    "walletDepositRejectedTitle": "Deposit request rejected",
+    "walletWithdrawalRejectedTitle": "Withdrawal request rejected",
+    "walletRejectedBody": "Your request was rejected. Please contact support to find out why."
   }
 }
