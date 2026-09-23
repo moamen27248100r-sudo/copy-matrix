@@ -1,30 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
-
-const STEPS: {
-  n: number;
-  title: string;
-  benefitsLabel?: string;
-  benefits?: string[];
-}[] = [
-  {
-    n: 1,
-    title: "تأكيد بياناتك الأساسية",
-    benefitsLabel: "يفتح لك",
-    benefits: ["طلبات السحب"],
-  },
-  {
-    n: 2,
-    title: "رفع صورة إثبات الهوية",
-  },
-  {
-    n: 3,
-    title: "إثبات عنوان الإقامة (اختياري)",
-    benefitsLabel: "يفتح لك",
-    benefits: ["حدود إيداع وسحب أعلى", "تفعيل كامل مزايا الحساب"],
-  },
-];
 
 export default async function KycStepsPage() {
   const supabase = await createClient();
@@ -34,10 +11,36 @@ export default async function KycStepsPage() {
 
   if (!user) redirect("/login");
 
+  const t = await getTranslations("Kyc");
+
+  const STEPS: {
+    n: number;
+    title: string;
+    benefitsLabel?: string;
+    benefits?: string[];
+  }[] = [
+    {
+      n: 1,
+      title: t("step1Title"),
+      benefitsLabel: t("unlocksLabel"),
+      benefits: [t("benefitWithdrawals")],
+    },
+    {
+      n: 2,
+      title: t("step2Title"),
+    },
+    {
+      n: 3,
+      title: t("step3Title"),
+      benefitsLabel: t("unlocksLabel"),
+      benefits: [t("benefitHigherLimits"), t("benefitFullFeatures")],
+    },
+  ];
+
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col gap-8 p-6">
       <div className="flex justify-end">
-        <Link href="/dashboard" aria-label="إغلاق" className="text-muted transition hover:text-foreground">
+        <Link href="/dashboard" aria-label={t("closeAria")} className="text-muted transition hover:text-foreground">
           <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <line x1="18" y1="6" x2="6" y2="18" />
             <line x1="6" y1="6" x2="18" y2="18" />
@@ -46,8 +49,8 @@ export default async function KycStepsPage() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-semibold">خطوات توثيق الحساب</h1>
-        <p className="text-sm text-muted">العملية بسيطة وتستغرق دقائق قليلة فقط.</p>
+        <h1 className="text-2xl font-semibold">{t("stepsTitle")}</h1>
+        <p className="text-sm text-muted">{t("stepsSubtitle")}</p>
       </div>
 
       <div className="flex flex-col">
@@ -84,13 +87,13 @@ export default async function KycStepsPage() {
           href="/kyc"
           className="rounded-lg bg-brand px-4 py-3 text-center text-sm font-semibold text-brand-foreground transition hover:bg-brand-hover"
         >
-          ابدأ التوثيق الآن
+          {t("startNow")}
         </Link>
         <Link
           href="/dashboard"
           className="rounded-lg border border-border px-4 py-3 text-center text-sm text-muted transition hover:border-accent hover:text-accent"
         >
-          يرجى تنفيذه لاحقًا
+          {t("doItLater")}
         </Link>
       </div>
     </main>

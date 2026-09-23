@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { SUPPORT_FAQ } from "@/lib/support-faq";
 
 type ChatMessage = {
@@ -9,17 +10,12 @@ type ChatMessage = {
   content: string;
 };
 
-const WELCOME_MESSAGE: ChatMessage = {
-  role: "assistant",
-  content:
-    "مرحبًا بكم في مركز الدعم الفني لمنصة Copy Matrix. يسعدنا مساعدتكم بخصوص الإيداع، السحب، توثيق الهوية، أو أي استفسار يتعلق بخدمة النسخ التلقائي.",
-};
-
 const QUICK_QUESTIONS = SUPPORT_FAQ.slice(0, 4);
 
 export function SupportChatPage() {
+  const t = useTranslations("Support");
   const router = useRouter();
-  const [messages, setMessages] = useState<ChatMessage[]>([WELCOME_MESSAGE]);
+  const [messages, setMessages] = useState<ChatMessage[]>([{ role: "assistant", content: t("welcomeMessage") }]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [showTopics, setShowTopics] = useState(true);
@@ -54,13 +50,13 @@ export function SupportChatPage() {
         body: JSON.stringify({ message: trimmed, history: nextMessages.slice(0, -1) }),
       });
       const data = await res.json();
-      const reply = typeof data.reply === "string" ? data.reply : "عذرًا، حدث خطأ غير متوقع. يُرجى المحاولة مرة أخرى.";
+      const reply = typeof data.reply === "string" ? data.reply : t("unexpectedError");
       setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
       if (data.source === "no_match") setShowTopics(true);
     } catch {
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: "تعذّر الاتصال بالخادم. يُرجى المحاولة مرة أخرى بعد قليل." },
+        { role: "assistant", content: t("connectionError") },
       ]);
     } finally {
       setLoading(false);
@@ -73,19 +69,19 @@ export function SupportChatPage() {
         <button
           type="button"
           onClick={goBack}
-          aria-label="رجوع"
+          aria-label={t("back")}
           className="flex shrink-0 items-center gap-1.5 rounded-full border border-border px-3.5 py-1.5 text-sm font-medium text-foreground transition hover:border-brand hover:text-brand"
         >
           <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <polyline points="9 5 15 12 9 19" />
           </svg>
-          رجوع
+          {t("back")}
         </button>
         <div className="flex min-w-0 flex-col gap-0.5">
-          <span className="truncate text-sm font-bold text-foreground">الدعم الفني — Copy Matrix</span>
+          <span className="truncate text-sm font-bold text-foreground">{t("headerTitle")}</span>
           <span className="flex items-center gap-1.5 text-[11px] text-muted">
             <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-success" />
-            متصل الآن — الرد خلال دقائق معدودة
+            {t("onlineStatus")}
           </span>
         </div>
       </div>
@@ -107,7 +103,7 @@ export function SupportChatPage() {
         {loading && (
           <div className="flex justify-end">
             <div className="max-w-[85%] rounded-lg rounded-br-sm bg-brand px-3 py-2 text-sm text-brand-foreground opacity-70">
-              جارٍ إعداد الرد...
+              {t("typingIndicator")}
             </div>
           </div>
         )}
@@ -138,7 +134,7 @@ export function SupportChatPage() {
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="اكتب استفسارك هنا..."
+          placeholder={t("inputPlaceholder")}
           className="min-w-0 flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted focus:border-brand focus:outline-none"
         />
         <button
@@ -146,7 +142,7 @@ export function SupportChatPage() {
           disabled={loading || !input.trim()}
           className="shrink-0 rounded-lg bg-brand px-3 py-2 text-sm font-medium text-brand-foreground disabled:opacity-50"
         >
-          إرسال
+          {t("send")}
         </button>
       </form>
     </div>

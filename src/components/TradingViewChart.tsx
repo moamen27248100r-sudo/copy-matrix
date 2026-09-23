@@ -1,8 +1,21 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useLocale } from "next-intl";
+import type { Locale } from "@/i18n/locales";
+
+// TradingView's widget only recognizes a fixed locale list of its own;
+// languages it doesn't support (confirmed: ur, bn, sw) fall back to English
+// rather than passing an unrecognized code the widget would silently ignore
+// in an unpredictable way.
+const TRADINGVIEW_LOCALES: Record<Locale, string> = {
+  ar: "ar", en: "en", fr: "fr", es: "es", pt: "pt",
+  zh: "zh_CN", hi: "hi_IN", id: "id_ID", vi: "vi_VN", th: "th_TH",
+  ur: "en", bn: "en", sw: "en",
+};
 
 export function TradingViewChart({ symbol = "OANDA:XAUUSD" }: { symbol?: string }) {
+  const locale = useLocale() as Locale;
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -19,7 +32,7 @@ export function TradingViewChart({ symbol = "OANDA:XAUUSD" }: { symbol?: string 
       timezone: "Etc/UTC",
       theme: "dark",
       style: "1",
-      locale: "ar",
+      locale: TRADINGVIEW_LOCALES[locale] ?? "en",
       backgroundColor: "rgba(0, 0, 0, 1)",
       gridColor: "rgba(255, 255, 255, 0.06)",
       hide_top_toolbar: false,
@@ -34,7 +47,7 @@ export function TradingViewChart({ symbol = "OANDA:XAUUSD" }: { symbol?: string 
     return () => {
       container.innerHTML = "";
     };
-  }, [symbol]);
+  }, [symbol, locale]);
 
   return (
     <div className="h-[500px] w-full bg-background">

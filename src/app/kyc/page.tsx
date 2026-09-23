@@ -1,14 +1,11 @@
 import { redirect } from "next/navigation";
+import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { submitKyc } from "@/app/kyc/actions";
 import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
-
-const STATUS_LABELS: Record<string, string> = {
-  pending: "قيد المراجعة",
-  approved: "مقبول",
-  rejected: "مرفوض",
-};
+import { formatDate } from "@/lib/locale-format";
+import type { Locale } from "@/i18n/locales";
 
 export default async function KycPage({
   searchParams,
@@ -16,6 +13,8 @@ export default async function KycPage({
   searchParams: Promise<{ error?: string }>;
 }) {
   const { error } = await searchParams;
+  const locale = (await getLocale()) as Locale;
+  const t = await getTranslations("Kyc");
   const supabase = await createClient();
   const {
     data: { user },
@@ -38,34 +37,37 @@ export default async function KycPage({
       <AppNav />
       <main className="mx-auto flex w-full max-w-sm flex-col justify-center gap-4 p-6">
         <BackButton fallbackHref="/dashboard" />
-        <h1 className="text-2xl font-semibold">توثيق الهوية</h1>
+        <h1 className="text-2xl font-semibold">{t("title")}</h1>
 
       {submission ? (
         <div className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
           <p className="text-sm">
-            حالة الطلب:{" "}
+            {t("statusLabel")}{" "}
             <span className="font-medium">
-              {STATUS_LABELS[submission.status] ?? submission.status}
+              {submission.status === "pending" && t("statusPending")}
+              {submission.status === "approved" && t("statusApproved")}
+              {submission.status === "rejected" && t("statusRejected")}
+              {!["pending", "approved", "rejected"].includes(submission.status) && submission.status}
             </span>
           </p>
           <p className="text-xs text-muted">
-            تاريخ التقديم: {new Date(submission.submitted_at).toLocaleDateString("ar-EG")}
+            {t("submittedDate", { date: formatDate(submission.submitted_at, locale) })}
           </p>
           {submission.status === "pending" && (
             <p className="text-sm text-muted">
-              طلبك قيد المراجعة حاليًا. سيتم إشعارك فور اتخاذ قرار.
+              {t("pendingNote")}
             </p>
           )}
           {submission.status === "rejected" && (
             <p className="text-sm text-danger">
-              تم رفض طلبك. يرجى التواصل مع الدعم لمعرفة السبب وإعادة التقديم.
+              {t("rejectedNote")}
             </p>
           )}
         </div>
       ) : (
         <>
           <p className="text-sm text-muted">
-            أكمل بيانات التوثيق التالية. هذه الخطوة مطلوبة قبل تفعيل الحساب بالكامل.
+            {t("intro")}
           </p>
 
           {error && (
@@ -78,19 +80,19 @@ export default async function KycPage({
             <input
               name="fullName"
               type="text"
-              placeholder="الاسم الكامل كما في الهوية"
+              placeholder={t("fullNamePlaceholder")}
               required
               className="rounded border border-border bg-surface px-3 py-2"
             />
             <input
               name="nationalIdNumber"
               type="text"
-              placeholder="الرقم القومي / رقم الهوية"
+              placeholder={t("nationalIdPlaceholder")}
               required
               className="rounded border border-border bg-surface px-3 py-2"
             />
             <label className="flex flex-col gap-1 text-sm">
-              صورة إثبات الهوية (بطاقة/جواز سفر)
+              {t("idDocumentLabel")}
               <input
                 name="idDocument"
                 type="file"
@@ -100,7 +102,7 @@ export default async function KycPage({
               />
             </label>
             <label className="flex flex-col gap-1 text-sm">
-              إثبات العنوان (اختياري)
+              {t("addressProofLabel")}
               <input
                 name="addressProof"
                 type="file"
@@ -109,7 +111,7 @@ export default async function KycPage({
               />
             </label>
             <button type="submit" className="rounded bg-accent px-3 py-2 font-medium text-accent-foreground transition hover:bg-accent-hover">
-              إرسال للمراجعة
+              {t("submitForReview")}
             </button>
           </form>
         </>
