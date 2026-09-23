@@ -16,6 +16,7 @@ import {
   LiveBestReturn,
 } from "@/components/LiveHomeStats";
 import { simulatedCopyUsers, simulatedActiveTraders } from "@/lib/simulated-growth";
+import { INTERNATIONAL_COUNTRY_CODES } from "@/lib/country-metadata";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/Logo";
 import { TryCopySection } from "@/components/TryCopySection";
@@ -122,9 +123,14 @@ export default async function Home() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let rawTopProviders: any[] | null = null;
   for (let attempt = 1; attempt <= 3; attempt++) {
+    // Restricted to the curated international roster (see
+    // country-metadata.ts) so the public homepage shows genuinely diverse,
+    // non-Arabic-named leaders -- a plain highest-return sort over the
+    // whole platform is dominated by the much larger Arabic-named pool.
     const { data, error } = await supabase
       .from("provider_cards")
       .select("*")
+      .in("country", INTERNATIONAL_COUNTRY_CODES)
       .order("avg_daily_return_pct", { ascending: false, nullsFirst: false })
       .limit(10);
     if (!error) {

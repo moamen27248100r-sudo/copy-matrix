@@ -89,3 +89,21 @@ export function countryDisplay(code: string | null | undefined) {
   if (!code) return null;
   return COUNTRY_METADATA[code as CountryCode] ?? null;
 }
+
+// The original 50-leader curated international roster's country codes
+// (see backfill-global-leader-identities.mjs) -- used to pull genuinely
+// diverse, non-Arabic-named leaders for the homepage's public "Top
+// Traders" section, since a plain highest-return sort is dominated by the
+// platform's much larger pool of Arabic-named leaders.
+// "MA" (Morocco) is deliberately excluded: it's also in
+// assign-leader-countries.mjs's bulk Arabic-name pool, so a leader with
+// country="MA" could be either a curated international identity or one of
+// the many bulk Arabic-named leaders -- no way to tell them apart by
+// country code alone, so it's dropped here to keep this list unambiguous.
+export const INTERNATIONAL_COUNTRY_CODES: CountryCode[] = [
+  "US", "GB", "BE", "JP", "DE", "ZA", "NG", "FR", "IN", "KR",
+  "CA", "TR", "BR", "NL", "IT", "AU", "ES", "SE", "MX", "ID",
+  "AR", "CO", "CL", "PE", "PL", "PT", "CH", "AT", "NO", "DK",
+  "FI", "GR", "IE", "RU", "CN", "TH", "MY", "SG", "PH", "VN",
+  "PK", "NZ", "KE", "GH", "CZ", "HU", "RO", "UA", "IL",
+];
