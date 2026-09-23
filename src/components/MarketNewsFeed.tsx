@@ -1,10 +1,13 @@
+import { getLocale } from "next-intl/server";
 import { getMarketNews } from "@/lib/market-news";
-import { relativeTimeAr } from "@/lib/relative-time-ar";
+import { formatRelativeTime } from "@/lib/locale-format";
+import type { Locale } from "@/i18n/locales";
 
 // Real market news from real sources (see src/lib/market-news.ts) — shown
 // as news, with its real source named and a real link out. Never attributed
 // to one of our fictional trader personas.
 export async function MarketNewsFeed() {
+  const locale = (await getLocale()) as Locale;
   const news = await getMarketNews();
   if (news.length === 0) return null;
 
@@ -25,7 +28,7 @@ export async function MarketNewsFeed() {
           <div className="flex flex-col gap-2 p-4">
             <div className="flex items-center justify-between gap-2">
               <span className="truncate text-xs font-medium text-accent">{item.source}</span>
-              <span className="shrink-0 text-[11px] text-muted">{relativeTimeAr(item.pubDate)}</span>
+              <span className="shrink-0 text-[11px] text-muted">{formatRelativeTime(item.pubDate, locale)}</span>
             </div>
             <p className="text-sm leading-relaxed text-foreground" dir="auto">
               {item.title}

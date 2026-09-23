@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
+import { formatDate } from "@/lib/locale-format";
+import type { Locale } from "@/i18n/locales";
 import { unfollowProvider } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
@@ -51,6 +53,7 @@ export default async function PortfolioPage({
   searchParams: Promise<{ error?: string; success?: string; tab?: string }>;
 }) {
   const { error, success, tab } = await searchParams;
+  const locale = (await getLocale()) as Locale;
   const t = await getTranslations("Portfolio");
   const td = await getTranslations("Dashboard");
   const TX_LABELS: Record<string, string> = {
@@ -377,7 +380,7 @@ export default async function PortfolioPage({
                 {walletMovements.map((t) => (
                   <tr key={t.id} className="border-b border-border/60">
                     <td className="py-2 pl-3 whitespace-nowrap text-xs text-muted">
-                      {new Date(t.created_at).toLocaleDateString("ar-EG", { timeZone: "UTC" })}
+                      {formatDate(t.created_at, locale, { timeZone: "UTC" })}
                     </td>
                     <td className="py-2 pl-3 whitespace-nowrap">{TX_LABELS[t.type] ?? t.type}</td>
                     <td className={Number(t.amount) >= 0 ? "py-2 pl-3 whitespace-nowrap text-success" : "py-2 pl-3 whitespace-nowrap text-danger"}>
@@ -412,7 +415,7 @@ export default async function PortfolioPage({
                 {walletRequests!.map((r) => (
                   <tr key={r.id} className="border-b border-border/60">
                     <td className="py-2 pl-3 whitespace-nowrap text-xs text-muted">
-                      {new Date(r.requested_at).toLocaleDateString("ar-EG", { timeZone: "UTC" })}
+                      {formatDate(r.requested_at, locale, { timeZone: "UTC" })}
                     </td>
                     <td className="py-2 pl-3 whitespace-nowrap">{r.type === "deposit" ? td("deposit") : td("withdraw")}</td>
                     <td className="py-2 pl-3 whitespace-nowrap">${Number(r.amount).toLocaleString("en-US")}</td>

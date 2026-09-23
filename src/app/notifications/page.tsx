@@ -1,10 +1,12 @@
 import { redirect } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { markAllRead, markOneRead } from "@/app/notifications/actions";
 import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
 import { renderNotification } from "@/lib/render-notification";
+import { localeTag } from "@/lib/locale-format";
+import type { Locale } from "@/i18n/locales";
 
 function renderBody(body: string) {
   const match = body.match(/^(.*?)([+-]\d[\d,]*\.?\d*)(\$|%)$/);
@@ -98,14 +100,16 @@ function NotificationIcon({ type }: { type: string }) {
   );
 }
 
-function formatNotificationTime(iso: string) {
+function formatNotificationTime(iso: string, locale: Locale) {
   const d = new Date(iso);
-  const date = d.toLocaleDateString("ar-EG", { year: "numeric", month: "short", day: "numeric" });
-  const time = d.toLocaleTimeString("ar-EG", { hour: "numeric", minute: "2-digit" });
+  const tag = localeTag(locale);
+  const date = d.toLocaleDateString(tag, { year: "numeric", month: "short", day: "numeric" });
+  const time = d.toLocaleTimeString(tag, { hour: "numeric", minute: "2-digit" });
   return `${date} · ${time}`;
 }
 
 export default async function NotificationsPage() {
+  const locale = (await getLocale()) as Locale;
   const t = await getTranslations("Nav");
   const tn = await getTranslations("Notifications");
   const supabase = await createClient();
@@ -167,7 +171,7 @@ export default async function NotificationsPage() {
                       </div>
                       {body && <p className="whitespace-pre-line text-xs text-muted">{renderBody(body)}</p>}
                       <p className="mt-1 text-[11px] text-muted/70" dir="ltr">
-                        {formatNotificationTime(n.created_at)}
+                        {formatNotificationTime(n.created_at, locale)}
                       </p>
                     </div>
                   </button>
