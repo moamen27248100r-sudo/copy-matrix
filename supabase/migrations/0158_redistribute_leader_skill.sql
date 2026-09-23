@@ -1,0 +1,11 @@
+-- One-time data fix (already applied directly, recorded here for the
+-- project history): redistribute providers.skill so most leaders trend
+-- net-losing over time under the existing PnL formula, calibrated via
+-- simulation (see commit message) -- 63% land in a losing band (0.30-0.40),
+-- 23% mixed/volatile (0.40-0.50), 14% the "few stable long-term winners"
+-- (0.50-0.85). No archetype or leader is exempted.
+--
+-- (No-op placeholder: re-running the random redistribution below against a
+-- database that already reflects it would just redraw fresh random skill
+-- values, not restore anything -- do not re-run.)
+select 1;
