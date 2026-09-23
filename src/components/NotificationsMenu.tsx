@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef } from "react";
 import { markOneRead } from "@/app/notifications/actions";
 import { useNavDrawer } from "@/components/nav-drawer-context";
@@ -28,6 +29,7 @@ function renderBody(body: string) {
 }
 
 export function NotificationsMenu({ notifications }: { notifications: NotificationRow[] }) {
+  const t = useTranslations("Nav");
   const { open, toggle, close } = useNavDrawer("notifications");
   const unreadCount = notifications.filter((n) => !n.is_read).length;
   const preview = notifications.slice(0, 6);
@@ -44,7 +46,7 @@ export function NotificationsMenu({ notifications }: { notifications: Notificati
       <button
         type="button"
         onClick={toggle}
-        aria-label="الإشعارات"
+        aria-label={t("notificationsAriaLabel")}
         className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded border border-border text-foreground"
       >
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -76,12 +78,12 @@ export function NotificationsMenu({ notifications }: { notifications: Notificati
         }
       >
         <div className="border-b border-border px-4 py-3">
-          <span className="text-sm font-medium">الإشعارات</span>
+          <span className="text-sm font-medium">{t("notificationsTitle")}</span>
         </div>
 
         <div className="flex flex-1 flex-col gap-2 overflow-y-auto p-3">
           {preview.length === 0 ? (
-            <p className="p-3 text-center text-sm text-muted">لا توجد إشعارات حتى الآن.</p>
+            <p className="p-3 text-center text-sm text-muted">{t("notificationsEmpty")}</p>
           ) : (
             preview.map((n) => (
               <form key={n.id} action={markOneRead}>
@@ -109,7 +111,7 @@ export function NotificationsMenu({ notifications }: { notifications: Notificati
             onClick={close}
             className="flex w-full items-center justify-center rounded border border-border px-3 py-2 text-sm text-foreground hover:bg-background"
           >
-            عرض الكل
+            {t("viewAll")}
           </Link>
         </div>
       </div>

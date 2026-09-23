@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 
 type ClosedPosition = {
@@ -7,15 +8,15 @@ type ClosedPosition = {
   closed_at: string | null;
 };
 
-const PERIODS: { label: string; days: number | null }[] = [
-  { label: "أسبوع", days: 7 },
-  { label: "شهر", days: 30 },
-  { label: "٣ أشهر", days: 90 },
-  { label: "سنة", days: 365 },
-  { label: "الكل", days: null },
-];
-
 export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
+  const t = useTranslations("Dashboard");
+  const PERIODS: { label: string; days: number | null }[] = [
+    { label: t("periodWeek"), days: 7 },
+    { label: t("periodMonth"), days: 30 },
+    { label: t("period3Months"), days: 90 },
+    { label: t("periodYear"), days: 365 },
+    { label: t("periodAll"), days: null },
+  ];
   const [periodIdx, setPeriodIdx] = useState(1);
 
   const points = useMemo(() => {
@@ -73,7 +74,7 @@ export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
       </div>
 
       {!hasData ? (
-        <p className="text-sm text-muted">لا توجد صفقات مغلقة كافية في هذه الفترة لعرض الرسم البياني.</p>
+        <p className="text-sm text-muted">{t("noEnoughClosedTrades")}</p>
       ) : (
         <div className="rounded-lg border border-border bg-background p-3">
           <svg viewBox={`0 0 ${width} ${height}`} className="h-44 w-full">
@@ -91,7 +92,7 @@ export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
             <polyline fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" points={coords} />
           </svg>
           <div className="flex items-center justify-between text-xs text-muted">
-            <span>البداية: $0</span>
+            <span>{t("startingPoint", { amount: "0" })}</span>
             <span className={last >= 0 ? "text-success" : "text-danger"} dir="ltr">
               {last >= 0 ? "+" : ""}${last.toLocaleString("en-US", { maximumFractionDigits: 2 })}
             </span>

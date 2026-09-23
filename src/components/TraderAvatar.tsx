@@ -9,6 +9,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { defaultAvatarUrl } from "@/lib/avatar-url";
 import { leaderLevel } from "@/lib/leader-level";
 
@@ -40,6 +41,7 @@ export function TraderAvatar({
   priority?: boolean;
   className?: string;
 }) {
+  const t = useTranslations("Common");
   const level = showLevel ? leaderLevel(ratingScore) : null;
   const fallback = defaultAvatarUrl(providerId);
   const [failed, setFailed] = useState(false);
@@ -68,8 +70,8 @@ export function TraderAvatar({
       />
       {level != null && (
         <span
-          title={`المستوى ${level}`}
-          aria-label={`المستوى ${level}`}
+          title={t("level", { level: level ?? 0 })}
+          aria-label={t("level", { level: level ?? 0 })}
           className={`absolute -bottom-1 -end-1 flex items-center justify-center rounded-full border-2 border-background font-bold leading-none shadow-md shadow-black/40 ${LEVEL_STYLES[level]}`}
           style={{ width: badge, height: badge, fontSize: Math.max(8, Math.round(badge * 0.55)) }}
         >

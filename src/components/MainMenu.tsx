@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { logout, chooseAccountType } from "@/app/auth/actions";
 import { ConfirmButton } from "@/components/ConfirmButton";
@@ -10,55 +11,30 @@ import { useBodyScrollLock } from "@/lib/use-body-scroll-lock";
 
 type AccountType = "real" | "demo";
 
-const ACCOUNT_TYPE_OPTIONS: { key: AccountType; label: string; dot: string }[] = [
-  { key: "real", label: "الحساب الحقيقي", dot: "bg-success" },
-  { key: "demo", label: "الحساب التجريبي", dot: "bg-accent" },
-];
-
-const SWITCH_WARNING =
-  "التبديل بين الحساب الحقيقي والتجريبي يعيد ضبط الرصيد ويوقف النسخ الحالي. هل تريد المتابعة؟";
-
 // neverActive: never highlight this entry as the current page (it can share
 // a href with another entry).
 type NavItem = { href: string; label: string; icon: ReactNode; neverActive?: boolean };
 
-// Each destination appears once, except "النسخ النشط", which is
-// deliberately always shown and falls back to /discover when nothing is
-// being copied. The wallet balance
-// card at the top is the entry to the portfolio overview, so there is no
-// separate "overview" item; deposit and withdraw point at their own pages.
-const MAIN_ITEMS: NavItem[] = [
-  {
-    href: "/dashboard",
-    label: "الرئيسية",
-    icon: (
-      <>
-        <path d="M3 11l9-8 9 8" />
-        <path d="M5 10v10h14V10" />
-      </>
-    ),
-  },
-  {
-    href: "/discover",
-    label: "اكتشاف المتداولين",
-    icon: (
-      <>
-        <circle cx="11" cy="11" r="7" />
-        <line x1="21" y1="21" x2="16.65" y2="16.65" />
-      </>
-    ),
-  },
-  {
-    href: "/markets",
-    label: "الأسواق",
-    icon: (
-      <>
-        <path d="M3 3v18h18" />
-        <path d="M7 15l4-5 3 3 5-7" />
-      </>
-    ),
-  },
-];
+const MAIN_ICONS = {
+  home: (
+    <>
+      <path d="M3 11l9-8 9 8" />
+      <path d="M5 10v10h14V10" />
+    </>
+  ),
+  discover: (
+    <>
+      <circle cx="11" cy="11" r="7" />
+      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+    </>
+  ),
+  markets: (
+    <>
+      <path d="M3 3v18h18" />
+      <path d="M7 15l4-5 3 3 5-7" />
+    </>
+  ),
+};
 
 const ACTIVE_COPY_ICON = (
   <>
@@ -67,96 +43,64 @@ const ACTIVE_COPY_ICON = (
   </>
 );
 
-const WALLET_ITEMS: NavItem[] = [
-  {
-    href: "/portfolio?tab=positions",
-    label: "صفقاتي",
-    icon: (
-      <>
-        <path d="M9 11l3 3L22 4" />
-        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
-      </>
-    ),
-  },
-  {
-    href: "/portfolio?tab=activity",
-    label: "سجل المعاملات",
-    icon: (
-      <>
-        <path d="M9 3h6a2 2 0 0 1 2 2v14l-3-2-2 2-2-2-2 2-3-2V5a2 2 0 0 1 2-2z" />
-        <path d="M9 8h6" />
-        <path d="M9 12h6" />
-      </>
-    ),
-  },
-  {
-    href: "/portfolio/deposit",
-    label: "إيداع",
-    icon: (
-      <>
-        <path d="M12 5v14" />
-        <path d="M5 12l7 7 7-7" />
-      </>
-    ),
-  },
-  {
-    href: "/portfolio/withdraw",
-    label: "سحب",
-    icon: (
-      <>
-        <path d="M12 19V5" />
-        <path d="M5 12l7-7 7 7" />
-      </>
-    ),
-  },
-];
-
-const ACCOUNT_ITEMS: NavItem[] = [
-  {
-    href: "/kyc",
-    label: "توثيق الهوية",
-    icon: (
-      <>
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-        <path d="M9 12l2 2 4-4" />
-      </>
-    ),
-  },
-  {
-    href: "/settings",
-    label: "الإعدادات",
-    icon: (
-      <>
-        <circle cx="12" cy="12" r="3" />
-        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
-      </>
-    ),
-  },
-  {
-    href: "/support",
-    label: "مركز الدعم",
-    icon: (
-      <>
-        <circle cx="12" cy="12" r="10" />
-        <circle cx="12" cy="12" r="4" />
-        <line x1="4.93" y1="4.93" x2="9.17" y2="9.17" />
-        <line x1="14.83" y1="14.83" x2="19.07" y2="19.07" />
-        <line x1="14.83" y1="9.17" x2="19.07" y2="4.93" />
-        <line x1="4.93" y1="19.07" x2="9.17" y2="14.83" />
-      </>
-    ),
-  },
-];
-
-const ADMIN_ITEM: NavItem = {
-  href: "/admin",
-  label: "لوحة الإدارة",
-  icon: (
+const WALLET_ICONS = {
+  myTrades: (
     <>
-      <path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" />
+      <path d="M9 11l3 3L22 4" />
+      <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+    </>
+  ),
+  history: (
+    <>
+      <path d="M9 3h6a2 2 0 0 1 2 2v14l-3-2-2 2-2-2-2 2-3-2V5a2 2 0 0 1 2-2z" />
+      <path d="M9 8h6" />
+      <path d="M9 12h6" />
+    </>
+  ),
+  deposit: (
+    <>
+      <path d="M12 5v14" />
+      <path d="M5 12l7 7 7-7" />
+    </>
+  ),
+  withdraw: (
+    <>
+      <path d="M12 19V5" />
+      <path d="M5 12l7-7 7 7" />
     </>
   ),
 };
+
+const ACCOUNT_ICONS = {
+  kyc: (
+    <>
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <path d="M9 12l2 2 4-4" />
+    </>
+  ),
+  settings: (
+    <>
+      <circle cx="12" cy="12" r="3" />
+      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+    </>
+  ),
+  support: (
+    <>
+      <circle cx="12" cy="12" r="10" />
+      <circle cx="12" cy="12" r="4" />
+      <line x1="4.93" y1="4.93" x2="9.17" y2="9.17" />
+      <line x1="14.83" y1="14.83" x2="19.07" y2="19.07" />
+      <line x1="14.83" y1="9.17" x2="19.07" y2="4.93" />
+      <line x1="4.93" y1="19.07" x2="9.17" y2="14.83" />
+    </>
+  ),
+};
+
+const ADMIN_ICON = (
+  <>
+    <path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" />
+  </>
+);
 
 function SectionLabel({ children }: { children: string }) {
   return <p className="px-4 pt-4 pb-1 text-xs font-medium text-muted">{children}</p>;
@@ -220,6 +164,7 @@ export function MainMenu({
   accountType?: AccountType | null;
   activeCopyProviderId?: string | null;
 }) {
+  const t = useTranslations("Nav");
   const { open, toggle, close } = useNavDrawer("menu");
   const panelRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
@@ -244,20 +189,39 @@ export function MainMenu({
     return () => window.removeEventListener("hashchange", onHashChange);
   }, [pathname]);
 
+  const accountTypeOptions: { key: AccountType; label: string; dot: string }[] = [
+    { key: "real", label: t("accountTypeReal"), dot: "bg-success" },
+    { key: "demo", label: t("accountTypeDemo"), dot: "bg-accent" },
+  ];
+
   // Always present: opens the leader being copied, or -- with no active
   // copy -- sends the customer to browse leaders so they can start one.
   const mainItems: NavItem[] = [
-    MAIN_ITEMS[0],
+    { href: "/dashboard", label: t("menuMain"), icon: MAIN_ICONS.home },
     {
       href: activeCopyProviderId ? `/trader/${activeCopyProviderId}` : "/discover",
-      label: "النسخ النشط",
+      label: t("menuActiveCopy"),
       icon: ACTIVE_COPY_ICON,
       neverActive: !activeCopyProviderId,
     },
-    ...MAIN_ITEMS.slice(1),
+    { href: "/discover", label: t("menuDiscover"), icon: MAIN_ICONS.discover },
+    { href: "/markets", label: t("menuMarkets"), icon: MAIN_ICONS.markets },
   ];
-  const accountItems = isAdmin ? [...ACCOUNT_ITEMS, ADMIN_ITEM] : ACCOUNT_ITEMS;
-  const currentAccount = ACCOUNT_TYPE_OPTIONS.find((o) => o.key === accountType);
+  const walletItems: NavItem[] = [
+    { href: "/portfolio?tab=positions", label: t("menuMyTrades"), icon: WALLET_ICONS.myTrades },
+    { href: "/portfolio?tab=activity", label: t("menuTransactionHistory"), icon: WALLET_ICONS.history },
+    { href: "/portfolio/deposit", label: t("menuDeposit"), icon: WALLET_ICONS.deposit },
+    { href: "/portfolio/withdraw", label: t("menuWithdraw"), icon: WALLET_ICONS.withdraw },
+  ];
+  const baseAccountItems: NavItem[] = [
+    { href: "/kyc", label: t("menuKyc"), icon: ACCOUNT_ICONS.kyc },
+    { href: "/settings", label: t("menuSettings"), icon: ACCOUNT_ICONS.settings },
+    { href: "/support", label: t("menuSupport"), icon: ACCOUNT_ICONS.support },
+  ];
+  const accountItems = isAdmin
+    ? [...baseAccountItems, { href: "/admin", label: t("menuAdmin"), icon: ADMIN_ICON }]
+    : baseAccountItems;
+  const currentAccount = accountTypeOptions.find((o) => o.key === accountType);
 
   const isActive = (href: string) => {
     const [pathAndQuery, hashPart] = href.split("#");
@@ -315,7 +279,7 @@ export function MainMenu({
       <button
         type="button"
         onClick={toggle}
-        aria-label="القائمة"
+        aria-label={t("menuAriaLabel")}
         className="flex h-9 w-9 shrink-0 items-center justify-center rounded border border-border text-foreground"
       >
         <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -345,7 +309,7 @@ export function MainMenu({
         <button
           type="button"
           onClick={() => setAccountSwitcherOpen((v) => !v)}
-          aria-label="تبديل نوع الحساب"
+          aria-label={t("switchAccountAriaLabel")}
           className="flex w-full items-center justify-between gap-2 border-b border-border px-4 py-3"
         >
           <div className="flex min-w-0 items-center gap-2">
@@ -372,7 +336,7 @@ export function MainMenu({
 
         {accountSwitcherOpen && (
           <div className="flex flex-col border-b border-border">
-            {ACCOUNT_TYPE_OPTIONS.map((opt) =>
+            {accountTypeOptions.map((opt) =>
               accountType === opt.key ? (
                 <div key={opt.key} className="flex items-center gap-3 bg-background/60 px-4 py-3 text-sm">
                   <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${opt.dot}`} aria-hidden="true" />
@@ -384,7 +348,7 @@ export function MainMenu({
                   <input type="hidden" name="accountType" value={opt.key} />
                   <input type="hidden" name="next" value={pathname} />
                   <ConfirmButton
-                    confirmText={SWITCH_WARNING}
+                    confirmText={t("switchAccountWarning")}
                     className="flex w-full items-center gap-3 px-4 py-3 text-sm text-muted transition hover:bg-background hover:text-foreground"
                   >
                     <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${opt.dot} opacity-40`} aria-hidden="true" />
@@ -411,17 +375,17 @@ export function MainMenu({
                 : "—"}
             </span>
           </div>
-          <span className="text-xs text-muted">الرصيد المتاح · افتح المحفظة</span>
+          <span className="text-xs text-muted">{t("availableBalance")}</span>
         </Link>
 
         <div className="pt-2">{renderItems(mainItems)}</div>
 
         <div className="border-t border-border" />
-        <SectionLabel>المحفظة</SectionLabel>
-        {renderItems(WALLET_ITEMS)}
+        <SectionLabel>{t("walletSectionLabel")}</SectionLabel>
+        {renderItems(walletItems)}
 
         <div className="border-t border-border" />
-        <SectionLabel>الحساب</SectionLabel>
+        <SectionLabel>{t("accountSectionLabel")}</SectionLabel>
         {renderItems(accountItems)}
 
         <div className="mt-auto border-t border-border">
@@ -435,7 +399,7 @@ export function MainMenu({
                 <path d="M16 17l5-5-5-5" />
                 <path d="M21 12H9" />
               </svg>
-              تسجيل الخروج
+              {t("logout")}
             </button>
           </form>
         </div>

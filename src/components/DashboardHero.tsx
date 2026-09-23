@@ -1,11 +1,9 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { chooseAccountType } from "@/app/auth/actions";
 import { ConfirmButton } from "@/components/ConfirmButton";
 
 type AccountType = "real" | "demo";
-
-const SWITCH_WARNING =
-  "التبديل بين الحساب الحقيقي والتجريبي يعيد ضبط الرصيد ويوقف النسخ الحالي. هل تريد المتابعة؟";
 
 function money(n: number) {
   return n.toLocaleString("en-US", { maximumFractionDigits: 2 });
@@ -23,7 +21,7 @@ function ActionIcon({ children }: { children: React.ReactNode }) {
 // the account switch, the cash / reserved / floating-P&L breakdown, and the
 // three primary money actions -- replacing what used to be two separate
 // cards that repeated the same balance three times.
-export function DashboardHero({
+export async function DashboardHero({
   accountType,
   balance,
   totalAllocated,
@@ -34,6 +32,8 @@ export function DashboardHero({
   totalAllocated: number;
   totalUnrealizedPnl: number;
 }) {
+  const t = await getTranslations("Dashboard");
+  const tNav = await getTranslations("Nav");
   // balance already includes any reserved copy capital (allocated_amount is
   // a reservation on the same dollars, not separate money) -- only
   // unrealized P&L, not yet in balance until a position closes, is added.
@@ -41,27 +41,28 @@ export function DashboardHero({
   const availableCash = Math.max(0, balance - totalAllocated);
   const pnlPct = balance > 0 ? (totalUnrealizedPnl / balance) * 100 : 0;
   const pnlPositive = totalUnrealizedPnl >= 0;
+  const accountTypeShort = (v: AccountType) => (v === "real" ? t("accountTypeShortReal") : t("accountTypeShortDemo"));
 
   return (
     <section className="flex flex-col gap-5 rounded-2xl border border-border bg-surface p-5">
       <div className="flex items-center justify-between gap-3">
-        <span className="text-sm text-muted">قيمة المحفظة الإجمالية</span>
+        <span className="text-sm text-muted">{t("portfolioValue")}</span>
 
-        <div className="flex gap-1 rounded-lg border border-border bg-background p-0.5 text-xs" role="group" aria-label="نوع الحساب">
-          {(["real", "demo"] as const).map((t) =>
-            t === accountType ? (
-              <span key={t} className="rounded-md bg-accent px-3 py-1.5 font-medium text-accent-foreground">
-                {t === "real" ? "حقيقي" : "تجريبي"}
+        <div className="flex gap-1 rounded-lg border border-border bg-background p-0.5 text-xs" role="group" aria-label={t("accountTypeAriaLabel")}>
+          {(["real", "demo"] as const).map((opt) =>
+            opt === accountType ? (
+              <span key={opt} className="rounded-md bg-accent px-3 py-1.5 font-medium text-accent-foreground">
+                {accountTypeShort(opt)}
               </span>
             ) : (
-              <form key={t} action={chooseAccountType}>
-                <input type="hidden" name="accountType" value={t} />
+              <form key={opt} action={chooseAccountType}>
+                <input type="hidden" name="accountType" value={opt} />
                 <input type="hidden" name="next" value="/dashboard" />
                 <ConfirmButton
-                  confirmText={SWITCH_WARNING}
+                  confirmText={tNav("switchAccountWarning")}
                   className="rounded-md px-3 py-1.5 text-muted transition hover:text-foreground"
                 >
-                  {t === "real" ? "حقيقي" : "تجريبي"}
+                  {accountTypeShort(opt)}
                 </ConfirmButton>
               </form>
             ),
@@ -80,13 +81,13 @@ export function DashboardHero({
             {pnlPositive ? "+" : "-"}${money(Math.abs(totalUnrealizedPnl))} ({pnlPositive ? "+" : "-"}
             {Math.abs(pnlPct).toFixed(2)}%)
           </span>
-          <span className="ms-2 text-xs text-muted">ربح/خسارة غير محققة</span>
+          <span className="ms-2 text-xs text-muted">{t("unrealizedPnl")}</span>
         </p>
       </div>
 
       <div className="grid grid-cols-2 gap-3 border-t border-border pt-4">
         <div>
-          <p className="text-xs text-muted">نقدي متاح للسحب</p>
+          <p className="text-xs text-muted">{t("availableCash")}</p>
           <p className="mt-0.5 font-semibold">
             <span dir="ltr" className="inline-block">
               ${money(availableCash)}
@@ -94,7 +95,7 @@ export function DashboardHero({
           </p>
         </div>
         <div>
-          <p className="text-xs text-muted">محجوز لحساب النسخ النشط</p>
+          <p className="text-xs text-muted">{t("reservedForCopy")}</p>
           <p className="mt-0.5 font-semibold">
             <span dir="ltr" className="inline-block">
               ${money(totalAllocated)}
@@ -112,7 +113,7 @@ export function DashboardHero({
             <path d="M12 5v14" />
             <path d="M5 12l7 7 7-7" />
           </ActionIcon>
-          إيداع
+          {t("deposit")}
         </Link>
         <Link
           href="/portfolio/withdraw"
@@ -122,7 +123,7 @@ export function DashboardHero({
             <path d="M5 12l7-7 7 7" />
             <path d="M12 5v14" />
           </ActionIcon>
-          سحب
+          {t("withdraw")}
         </Link>
         <Link
           href="/discover"
@@ -132,7 +133,7 @@ export function DashboardHero({
             <circle cx="12" cy="12" r="10" />
             <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
           </ActionIcon>
-          نسخ
+          {t("copy")}
         </Link>
       </div>
     </section>
