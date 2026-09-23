@@ -1,0 +1,28 @@
+-- Data-only change (documentation record; applied live via a one-off
+-- script, per project convention). User asked to delete 500 leaders at
+-- random along with all their data.
+--
+-- Selected 500 of 1,924 providers at random, excluding:
+--   - أنس ريان / يوسف علي (the two pinned/featured leaders)
+--   - the 2 providers with a real (non-synthetic) active subscription, so
+--     no actual signed-up user's copy relationship was silently broken
+--
+-- Deleted in batches of 25 (with deadlock retry) rather than one
+-- transaction: the live run_market_simulation() cron ticks every minute
+-- and touches the same tables, so a single 500-provider transaction
+-- deadlocked against it. Batching kept each transaction's lock footprint
+-- small enough to coexist with the live cron.
+--
+-- Cascade (all ON DELETE CASCADE on provider_id, confirmed via
+-- information_schema before running): 95,488 signals, 55,624
+-- synthetic_customers, 131,590 synthetic_customer_withdrawals, 4,503
+-- synthetic_customer_pauses removed alongside the 500 providers.
+--
+-- Followed by VACUUM (FULL, ANALYZE) on providers/signals/
+-- synthetic_customers/synthetic_customer_withdrawals/
+-- synthetic_customer_pauses to reclaim the freed space (443MB -> 372MB).
+--
+-- Final state: 1,424 providers, 285,706 signals, 157,557 synthetic
+-- customers, 395,753 withdrawal records.
+
+select 1;
