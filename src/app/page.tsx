@@ -15,7 +15,6 @@ import {
   LiveWinRate,
   LiveBestReturn,
 } from "@/components/LiveHomeStats";
-import { pinTopLeaders } from "@/lib/pin-top-leaders";
 import { simulatedCopyUsers, simulatedActiveTraders } from "@/lib/simulated-growth";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/Logo";
@@ -135,7 +134,7 @@ export default async function Home() {
     console.error(`provider_cards fetch attempt ${attempt} failed:`, error.message);
   }
 
-  const topProviders = rawTopProviders ? pinTopLeaders(rawTopProviders).slice(0, 3) : rawTopProviders;
+  const topProviders = rawTopProviders ? rawTopProviders.slice(0, 3) : rawTopProviders;
 
   // Cumulative return (%) over each featured leader's last closed trades, for
   // the sparkline on the card -- same per-trade move TraderEquityChart uses.
@@ -164,7 +163,7 @@ export default async function Home() {
 
   // Real leaders for the "try copy trading" mockup card -- same ranking as
   // the top-traders section, just five bars instead of three cards.
-  const tryCopyLeaders = (rawTopProviders ? pinTopLeaders(rawTopProviders).slice(0, 5) : [])
+  const tryCopyLeaders = (rawTopProviders ? rawTopProviders.slice(0, 5) : [])
     .filter((p) => p.avg_daily_return_pct != null && Number(p.avg_daily_return_pct) > 0)
     .map((p) => ({
       id: String(p.provider_id),

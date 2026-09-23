@@ -4,7 +4,6 @@ import { unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/a
 import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
 import { TierBadge, RiskBadge, StoppedBadge } from "@/components/TraderBadges";
-import { pinTopLeaders } from "@/lib/pin-top-leaders";
 import { TraderAvatar } from "@/components/TraderAvatar";
 
 const SORT_OPTIONS = {
@@ -50,7 +49,7 @@ export default async function DiscoverPage({
       : Promise.resolve({ data: [] as { provider_id: string }[] }),
   ]);
 
-  const providers = rawProviders && (sortKey === "best" || sortKey === "return") && !q ? pinTopLeaders(rawProviders) : rawProviders;
+  const providers = rawProviders;
 
   const followingIds = new Set(
     (mySubscriptions ?? []).map((s) => s.provider_id),
