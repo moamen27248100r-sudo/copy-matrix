@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
@@ -7,10 +8,10 @@ import { TierBadge, RiskBadge, StoppedBadge } from "@/components/TraderBadges";
 import { TraderAvatar } from "@/components/TraderAvatar";
 
 const SORT_OPTIONS = {
-  best: { column: "rating_score", ascending: false, label: "الأفضل" },
-  return: { column: "avg_daily_return_pct", ascending: false, label: "الأعلى عائدًا" },
-  winrate: { column: "win_rate_pct", ascending: false, label: "الأعلى نسبة نجاح" },
-  followers: { column: "followers_count", ascending: false, label: "الأكثر متابعة" },
+  best: { column: "rating_score", ascending: false, labelKey: "sortBest" },
+  return: { column: "avg_daily_return_pct", ascending: false, labelKey: "sortReturn" },
+  winrate: { column: "win_rate_pct", ascending: false, labelKey: "sortWinrate" },
+  followers: { column: "followers_count", ascending: false, labelKey: "sortFollowers" },
 } as const;
 
 type SortKey = keyof typeof SORT_OPTIONS;
@@ -22,6 +23,7 @@ export default async function DiscoverPage({
 }) {
   const { q, sort, error } = await searchParams;
   const sortKey: SortKey = sort && sort in SORT_OPTIONS ? (sort as SortKey) : "best";
+  const t = await getTranslations("Discover");
 
   const supabase = await createClient();
   const {
@@ -62,7 +64,7 @@ export default async function DiscoverPage({
       <AppNav />
       <main className="mx-auto flex w-full max-w-4xl flex-col gap-6 p-6">
         <BackButton fallbackHref="/dashboard" />
-        <h1 className="text-2xl font-semibold">اكتشاف المتداولين</h1>
+        <h1 className="text-2xl font-semibold">{t("title")}</h1>
 
         {error && (
           <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
@@ -74,12 +76,12 @@ export default async function DiscoverPage({
         <input
           name="q"
           defaultValue={q}
-          placeholder="ابحث عن متداول بالاسم"
+          placeholder={t("searchPlaceholder")}
           className="flex-1 rounded border border-border bg-surface px-3 py-2 text-sm"
         />
         <input type="hidden" name="sort" value={sortKey} />
         <button type="submit" className="rounded bg-foreground px-4 py-2 text-sm text-background">
-          بحث
+          {t("searchButton")}
         </button>
       </form>
 
@@ -99,7 +101,7 @@ export default async function DiscoverPage({
                   : "rounded-md px-3 py-1.5 text-sm text-muted transition hover:bg-background hover:text-foreground"
               }
             >
-              {SORT_OPTIONS[key].label}
+              {t(SORT_OPTIONS[key].labelKey)}
             </Link>
           );
         })}
@@ -107,7 +109,7 @@ export default async function DiscoverPage({
 
       {!providers || providers.length === 0 ? (
         <p className="text-sm text-muted">
-          لا يوجد متداولون مطابقون لبحثك.
+          {t("noMatches")}
         </p>
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -141,12 +143,12 @@ export default async function DiscoverPage({
                               : "rounded-full border border-accent px-2 py-0.5 text-[11px] text-accent"
                           }
                         >
-                          {isWatching ? "إلغاء المتابعة" : "متابعة"}
+                          {isWatching ? t("unfollow") : t("follow")}
                         </button>
                       </form>
                     </div>
                     <p className="text-xs text-muted">
-                      {p.followers_count} ناسخ
+                      {t("copiersCount", { count: p.followers_count })}
                     </p>
                   </div>
                 </div>
@@ -166,7 +168,7 @@ export default async function DiscoverPage({
                     <p className="font-semibold">
                       {p.win_rate_pct != null ? `${p.win_rate_pct}%` : "—"}
                     </p>
-                    <p className="text-xs text-muted">نسبة النجاح</p>
+                    <p className="text-xs text-muted">{t("winRate")}</p>
                   </div>
                   <div>
                     <p
@@ -178,16 +180,16 @@ export default async function DiscoverPage({
                     >
                       {p.avg_daily_return_pct != null ? `${p.avg_daily_return_pct}%` : "—"}
                     </p>
-                    <p className="text-xs text-muted">متوسط العائد اليومي</p>
+                    <p className="text-xs text-muted">{t("avgDailyReturn")}</p>
                   </div>
                   <div>
                     <p className="font-semibold">{p.closed_signals}</p>
-                    <p className="text-xs text-muted">صفقات مغلقة</p>
+                    <p className="text-xs text-muted">{t("closedTrades")}</p>
                   </div>
                 </div>
 
                 <p className="text-xs text-muted">
-                  الحد الأدنى للنسخ: ${Number(p.min_copy_amount).toLocaleString("en-US")}
+                  {t("minCopyAmount", { amount: `$${Number(p.min_copy_amount).toLocaleString("en-US")}` })}
                 </p>
 
                 <div className="flex flex-col gap-2">
@@ -195,40 +197,40 @@ export default async function DiscoverPage({
                     href={`/trader/${p.provider_id}`}
                     className="rounded border border-border bg-background px-3 py-2 text-center text-sm text-foreground"
                   >
-                    عرض الملف الشخصي
+                    {t("viewProfile")}
                   </Link>
                   {isFollowing ? (
                     <form action={unfollowProvider}>
                       <input type="hidden" name="providerId" value={p.provider_id} />
                       <input type="hidden" name="returnTo" value="/discover" />
                       <button type="submit" className="w-full rounded border border-border px-3 py-2 text-sm">
-                        إيقاف النسخ
+                        {t("stopCopying")}
                       </button>
                     </form>
                   ) : isStopped ? (
                     <button
                       type="button"
                       disabled
-                      title="توقف هذا المتداول عن التداول ولم يعد متاحًا لبدء نسخ جديد."
+                      title={t("stoppedTooltip")}
                       className="w-full cursor-not-allowed rounded bg-accent/30 px-3 py-2 text-sm font-medium text-accent-foreground/60"
                     >
-                      نسخ
+                      {t("copy")}
                     </button>
                   ) : isBlocked ? (
                     <button
                       type="button"
                       disabled
-                      title="أنت تنسخ متداولًا آخر حاليًا — أوقف النسخ أولاً من محفظتك لتتمكن من نسخ هذا المتداول."
+                      title={t("blockedTooltip")}
                       className="w-full cursor-not-allowed rounded bg-accent/30 px-3 py-2 text-sm font-medium text-accent-foreground/60"
                     >
-                      نسخ
+                      {t("copy")}
                     </button>
                   ) : (
                     <Link
                       href={copyHref}
                       className="w-full rounded bg-accent px-3 py-2 text-center text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
                     >
-                      نسخ
+                      {t("copy")}
                     </Link>
                   )}
                 </div>

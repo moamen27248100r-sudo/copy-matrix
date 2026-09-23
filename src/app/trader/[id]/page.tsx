@@ -90,6 +90,7 @@ export default async function TraderPage({
   const locale = (await getLocale()) as Locale;
   const t = await getTranslations("TraderProfile");
   const tp = await getTranslations("TradeHistory");
+  const tc = await getTranslations("Countries");
   const supabase = await createClient();
   const {
     data: { user },
@@ -265,7 +266,20 @@ export default async function TraderPage({
               {t("memberSince", {
                 date: formatDate(provider.joined_at, locale, { year: "numeric", month: "long", timeZone: "UTC" }),
               })}
-              {countryDisplay(provider.country) && ` · ${countryDisplay(provider.country)!.nameAr}`}
+              {countryDisplay(provider.country) && (
+                <span className="inline-flex items-center gap-1 align-text-bottom">
+                  {" · "}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={`https://flagcdn.com/16x12/${provider.country!.toLowerCase()}.png`}
+                    alt=""
+                    width={16}
+                    height={12}
+                    className="inline-block rounded-[1px]"
+                  />
+                  {tc(provider.country as never)}
+                </span>
+              )}
             </p>
             {isWatching && (
               <p className="mt-0.5 text-[11px] text-muted">
