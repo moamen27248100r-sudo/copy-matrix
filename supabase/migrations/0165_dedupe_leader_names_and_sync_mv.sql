@@ -1,0 +1,36 @@
+-- Data-only fix (documentation record; applied live via a one-off script
+-- and a direct function call, per project convention). User reported
+-- leaders "repeating" and asked to confirm the discover-page sort/filter
+-- genuinely works. Investigation found two real, unrelated causes:
+--
+-- 1. Duplicate leader names: the leader roster was built incrementally
+--    across many old migrations (0005-0053, each "expand roster" pass)
+--    reusing a small Arabic first/last name pool, so collisions were
+--    inevitable at 1,400+ leaders. Found 329 duplicate-name groups
+--    covering 748 leaders (over half the platform) -- e.g. "إيمان الشمري"
+--    existed 5 times as 5 distinct providers. This is what the user was
+--    actually seeing as "repetition", not a sort/filter bug.
+--    Fixed: kept the earliest-created provider per name unchanged, renamed
+--    the other 419 to a fresh name drawn from an expanded pool (~80
+--    Arabic first x 48 last, ~50 international first x 40 last -- well
+--    past what's needed, for headroom against future roster growth),
+--    matching each leader's existing country (Arab country -> Arabic
+--    pool, else international pool). Verified 0 duplicate groups remain.
+--
+-- 2. The sort/filter itself was already working correctly (verified by
+--    testing multiple sort keys live and confirming distinct, correctly-
+--    ordered results). What WAS stale: provider_performance_mv (the
+--    materialized view every ranking column reads from -- win_rate_pct,
+--    avg_return_pct, avg_daily_return_pct, return_volatility,
+--    closed/open_signals, and therefore rating_score/tier) only refreshes
+--    once daily (cron job "refresh-provider-performance", 0 0 * * *) --
+--    by design, not a bug. It still had 1,924 rows (from before today's
+--    500-leader deletion) against 1,424 real providers. Manually invoked
+--    public.refresh_provider_performance() to sync it immediately rather
+--    than waiting for the next midnight run -- confirmed the unique index
+--    needed for REFRESH ... CONCURRENTLY exists and the refresh completed
+--    in ~7s, row count now matches (1,424), and sample leaders' numbers
+--    visibly moved (e.g. أنس ريان: 75.34% -> 75.14% win rate) confirming
+--    it reflects live trading, not a frozen snapshot.
+
+select 1;
