@@ -686,5 +686,65 @@
     "demoAccountDesc": "Entraînez-vous à copier des trades avec des fonds virtuels sans risque, et familiarisez-vous avec la plateforme avant d'utiliser votre argent réel.",
     "realAccountTitle": "Compte réel",
     "realAccountDesc": "Commencez à copier des trades avec votre solde réel, tous les résultats réels de copie en profit ou perte y étant appliqués."
+  },
+  "Legal": {
+    "backToHome": "Retour à l'accueil",
+    "lastUpdated": "Dernière mise à jour : {date}",
+    "termsMetaTitle": "Conditions générales | Copy Matrix",
+    "termsTitle": "Conditions générales",
+    "termsSections": [
+      {
+        "title": "1. Compte et utilisation",
+        "body": "L'utilisateur s'engage à fournir des informations exactes lors de la création du compte et de la vérification d'identité (KYC), et à garder ses identifiants de connexion confidentiels sans les partager avec quiconque. Il est interdit d'utiliser la plateforme à des fins illégales ou de tenter d'accéder sans autorisation aux comptes ou données d'autres utilisateurs."
+      },
+      {
+        "title": "2. Copie de traders et risques",
+        "body": "La plateforme permet à l'utilisateur de suivre d'autres traders et de copier automatiquement leurs trades sur son compte. Le trading et la copie de trades comportent un risque de perte en capital, et les performances passées d'un trader ne garantissent pas des résultats similaires à l'avenir. La décision de suivre ou copier un trader relève entièrement de l'utilisateur."
+      },
+      {
+        "title": "3. Propriété intellectuelle",
+        "body": "Toutes les marques, logos, designs et contenus apparaissant sur la plateforme appartiennent à Copy Matrix et ne peuvent être copiés ou réutilisés sans autorisation écrite préalable."
+      },
+      {
+        "title": "4. Modifications du service",
+        "body": "Nous nous réservons le droit de modifier, suspendre ou interrompre toute partie de la plateforme à tout moment, et de mettre à jour ces conditions en fonction de l'évolution du service. Il est conseillé de consulter cette page régulièrement."
+      },
+      {
+        "title": "5. Limitation de responsabilité",
+        "body": "La plateforme n'est pas responsable des pertes financières résultant des décisions de trading ou de copie prises par l'utilisateur sur la base des informations disponibles sur la plateforme."
+      },
+      {
+        "title": "6. Contact et support",
+        "body": "Pour toute question concernant ces conditions, vous pouvez contacter l'équipe Copy Matrix via les canaux de support disponibles sur la plateforme."
+      }
+    ],
+    "privacyMetaTitle": "Politique de confidentialité | Copy Matrix",
+    "privacyTitle": "Politique de confidentialité",
+    "privacySections": [
+      {
+        "title": "1. Données que nous collectons",
+        "body": "Données de compte de base (nom, e-mail, mot de passe chiffré), et lors de la demande de vérification d'identité : nom complet, numéro d'identité nationale, photo de la pièce d'identité et justificatif de domicile le cas échéant. Nous collectons également des données d'utilisation de la plateforme, comme les traders que vous suivez et les trades liés à votre compte."
+      },
+      {
+        "title": "2. Comment nous utilisons vos données",
+        "body": "Les données sont utilisées pour créer et faire fonctionner votre compte, réaliser la vérification d'identité en vue de l'agrément réglementaire, afficher les performances de votre portefeuille et des traders, et améliorer la plateforme. Les données de vérification ne sont jamais utilisées à des fins marketing."
+      },
+      {
+        "title": "3. Stockage et protection des données",
+        "body": "Les données sont stockées chez un fournisseur de base de données et de stockage cloud (Supabase) avec des règles d'accès strictes au niveau des lignes (RLS), de sorte qu'aucun utilisateur ne peut accéder aux données ou documents d'un autre utilisateur. L'accès aux documents de vérification d'identité est réservé à l'équipe de révision administrative."
+      },
+      {
+        "title": "4. Partage des données avec des tiers",
+        "body": "Vos données ne sont jamais partagées avec un tiers à des fins marketing. Elles peuvent être partagées avec des autorités de régulation ou de contrôle si la loi l'exige dans le cadre de procédures d'agrément ou de conformité."
+      },
+      {
+        "title": "5. Vos droits",
+        "body": "Vous pouvez demander à consulter les données que nous détenons sur vous, ou demander la suppression de votre compte et de vos données, en contactant notre équipe de support ; votre demande sera traitée dans un délai raisonnable sauf en cas de conflit avec des obligations légales ou réglementaires."
+      },
+      {
+        "title": "6. Cookies",
+        "body": "La plateforme utilise uniquement des cookies essentiels pour maintenir votre session de connexion et votre préférence d'apparence (mode sombre/clair), jamais à des fins de suivi publicitaire."
+      }
+    ]
   }
 }

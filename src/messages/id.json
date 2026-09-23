@@ -686,5 +686,65 @@
     "demoAccountDesc": "Berlatih menyalin trade dengan dana virtual tanpa risiko, dan kenali platform sebelum menggunakan uang sungguhan Anda.",
     "realAccountTitle": "Akun nyata",
     "realAccountDesc": "Mulai menyalin trade dengan saldo asli Anda, dengan semua hasil penyalinan nyata dalam untung atau rugi diterapkan padanya."
+  },
+  "Legal": {
+    "backToHome": "Kembali ke beranda",
+    "lastUpdated": "Terakhir diperbarui: {date}",
+    "termsMetaTitle": "Syarat & Ketentuan | Copy Matrix",
+    "termsTitle": "Syarat & Ketentuan",
+    "termsSections": [
+      {
+        "title": "1. Akun dan Penggunaan",
+        "body": "Pengguna wajib memberikan data yang benar saat membuat akun dan menyelesaikan verifikasi identitas (KYC), serta menjaga kerahasiaan kredensial login dan tidak membagikannya kepada pihak lain. Dilarang menggunakan platform untuk tujuan ilegal apa pun atau mencoba mengakses akun atau data pengguna lain tanpa izin."
+      },
+      {
+        "title": "2. Menyalin Trader dan Risiko",
+        "body": "Platform memungkinkan pengguna mengikuti trader lain dan secara otomatis menyalin trade mereka ke akun sendiri. Trading dan menyalin trade mengandung risiko kerugian modal, dan kinerja historis trader mana pun bukan jaminan hasil serupa di masa depan. Keputusan untuk mengikuti atau menyalin trader mana pun sepenuhnya menjadi tanggung jawab pengguna."
+      },
+      {
+        "title": "3. Kekayaan Intelektual",
+        "body": "Semua merek dagang, logo, desain, dan konten yang muncul di platform adalah milik Copy Matrix, dan tidak boleh disalin atau digunakan kembali tanpa izin tertulis sebelumnya."
+      },
+      {
+        "title": "4. Perubahan pada Layanan",
+        "body": "Kami berhak mengubah, menangguhkan, atau menghentikan bagian mana pun dari platform kapan saja, dan memperbarui ketentuan ini sesuai dengan perkembangan layanan. Disarankan untuk meninjau halaman ini secara berkala."
+      },
+      {
+        "title": "5. Batasan Tanggung Jawab",
+        "body": "Platform tidak bertanggung jawab atas kerugian finansial apa pun yang timbul dari keputusan trading atau menyalin yang dibuat pengguna berdasarkan informasi yang tersedia di platform."
+      },
+      {
+        "title": "6. Kontak dan Dukungan",
+        "body": "Untuk pertanyaan apa pun terkait ketentuan ini, Anda dapat menghubungi tim Copy Matrix melalui saluran dukungan yang tersedia di platform."
+      }
+    ],
+    "privacyMetaTitle": "Kebijakan Privasi | Copy Matrix",
+    "privacyTitle": "Kebijakan Privasi",
+    "privacySections": [
+      {
+        "title": "1. Data yang Kami Kumpulkan",
+        "body": "Data akun dasar (nama, email, kata sandi terenkripsi), dan saat mengajukan verifikasi identitas: nama lengkap, nomor identitas nasional, foto dokumen identitas dan bukti alamat jika ada. Kami juga mengumpulkan data penggunaan platform seperti trader yang Anda ikuti dan trade yang terkait dengan akun Anda."
+      },
+      {
+        "title": "2. Bagaimana Kami Menggunakan Data Anda",
+        "body": "Data digunakan untuk membuat dan mengoperasikan akun Anda, menyelesaikan verifikasi identitas sebagai persiapan lisensi regulasi, menampilkan kinerja portofolio dan trader kepada Anda, serta meningkatkan platform. Data verifikasi tidak pernah digunakan untuk tujuan pemasaran."
+      },
+      {
+        "title": "3. Penyimpanan dan Perlindungan Data",
+        "body": "Data disimpan dengan penyedia basis data dan penyimpanan cloud (Supabase) menggunakan aturan akses tingkat baris (RLS) yang ketat, sehingga tidak ada pengguna yang dapat mengakses data atau dokumen pengguna lain. Akses ke dokumen verifikasi identitas dibatasi hanya untuk tim peninjau admin."
+      },
+      {
+        "title": "4. Berbagi Data dengan Pihak Ketiga",
+        "body": "Data Anda tidak pernah dibagikan kepada pihak ketiga mana pun untuk tujuan pemasaran. Data dapat dibagikan dengan badan regulasi atau pengawas jika diwajibkan secara hukum sebagai bagian dari prosedur perizinan atau kepatuhan."
+      },
+      {
+        "title": "5. Hak Anda",
+        "body": "Anda dapat meminta untuk melihat data yang kami simpan tentang Anda, atau meminta penghapusan akun dan data Anda, dengan menghubungi tim dukungan kami, dan permintaan Anda akan ditanggapi dalam waktu yang wajar kecuali bertentangan dengan kewajiban hukum atau regulasi."
+      },
+      {
+        "title": "6. Cookie",
+        "body": "Platform hanya menggunakan cookie esensial untuk mempertahankan sesi login dan preferensi tampilan Anda (mode gelap/terang), dan tidak pernah untuk tujuan pelacakan iklan."
+      }
+    ]
   }
 }

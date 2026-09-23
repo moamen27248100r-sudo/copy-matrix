@@ -686,5 +686,65 @@
     "demoAccountDesc": "Practice copying trades with virtual funds risk-free, and get familiar with the platform before using your real money.",
     "realAccountTitle": "Real account",
     "realAccountDesc": "Start copying trades with your actual balance, with all real copying results in profit or loss applied to it."
+  },
+  "Legal": {
+    "backToHome": "Back to home",
+    "lastUpdated": "Last updated: {date}",
+    "termsMetaTitle": "Terms & Conditions | Copy Matrix",
+    "termsTitle": "Terms & Conditions",
+    "termsSections": [
+      {
+        "title": "1. Account and Use",
+        "body": "Users must provide accurate information when creating an account and completing identity verification (KYC), and must keep their login credentials confidential and not share them with anyone else. Using the platform for any unlawful purpose, or attempting unauthorized access to other users' accounts or data, is prohibited."
+      },
+      {
+        "title": "2. Copying Traders and Risk",
+        "body": "The platform lets users follow other traders and automatically copy their trades to their own account. Trading and copy trading carry the risk of capital loss, and any trader's past performance is not a guarantee of similar future results. The decision to follow or copy any trader rests entirely with the user."
+      },
+      {
+        "title": "3. Intellectual Property",
+        "body": "All trademarks, logos, designs, and content appearing on the platform are owned by Copy Matrix and may not be copied or reused without prior written permission."
+      },
+      {
+        "title": "4. Changes to the Service",
+        "body": "We reserve the right to modify, suspend, or discontinue any part of the platform at any time, and to update these terms in line with the service's evolution. You are advised to review this page periodically."
+      },
+      {
+        "title": "5. Limitation of Liability",
+        "body": "The platform is not liable for any financial losses resulting from trading or copying decisions made by the user based on information available on the platform."
+      },
+      {
+        "title": "6. Contact and Support",
+        "body": "For any inquiry regarding these terms, you can contact the Copy Matrix team through the support channels available within the platform."
+      }
+    ],
+    "privacyMetaTitle": "Privacy Policy | Copy Matrix",
+    "privacyTitle": "Privacy Policy",
+    "privacySections": [
+      {
+        "title": "1. Data We Collect",
+        "body": "Basic account data (name, email, encrypted password), and when applying for identity verification: full name, national ID/identity number, and a photo of your ID document and proof of address if provided. We also collect in-platform usage data such as the traders you follow and the trades linked to your account."
+      },
+      {
+        "title": "2. How We Use Your Data",
+        "body": "Data is used to create and operate your account, to complete identity verification in preparation for regulatory licensing, to show you portfolio and trader performance, and to improve the platform. Verification data is never used for marketing purposes."
+      },
+      {
+        "title": "3. Data Storage and Protection",
+        "body": "Data is stored with a cloud database and storage provider (Supabase) using strict row-level access rules (RLS), so that no user can access another user's data or documents. Access to identity verification documents is restricted to the admin review team only."
+      },
+      {
+        "title": "4. Sharing Data with Third Parties",
+        "body": "Your data is never shared with any third party for marketing purposes. Data may be shared with regulatory or oversight bodies if legally required as part of licensing or compliance procedures."
+      },
+      {
+        "title": "5. Your Rights",
+        "body": "You can request to view the data we hold about you, or request deletion of your account and data, by contacting our support team, and your request will be responded to within a reasonable time unless this conflicts with legal or regulatory obligations."
+      },
+      {
+        "title": "6. Cookies",
+        "body": "The platform uses only essential cookies to maintain your login session and appearance preference (dark/light mode), and never for advertising tracking purposes."
+      }
+    ]
   }
 }

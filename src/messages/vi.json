@@ -686,5 +686,65 @@
     "demoAccountDesc": "Luyện tập sao chép giao dịch với tiền ảo không rủi ro, và làm quen với nền tảng trước khi sử dụng tiền thật của bạn.",
     "realAccountTitle": "Tài khoản thật",
     "realAccountDesc": "Bắt đầu sao chép giao dịch với số dư thực của bạn, với tất cả kết quả sao chép thực về lãi hoặc lỗ được áp dụng cho nó."
+  },
+  "Legal": {
+    "backToHome": "Về trang chủ",
+    "lastUpdated": "Cập nhật lần cuối: {date}",
+    "termsMetaTitle": "Điều khoản & Điều kiện | Copy Matrix",
+    "termsTitle": "Điều khoản & Điều kiện",
+    "termsSections": [
+      {
+        "title": "1. Tài khoản và Sử dụng",
+        "body": "Người dùng cam kết cung cấp thông tin chính xác khi tạo tài khoản và hoàn tất xác minh danh tính (KYC), đồng thời giữ bí mật thông tin đăng nhập và không chia sẻ với bất kỳ bên nào khác. Nghiêm cấm sử dụng nền tảng cho bất kỳ mục đích bất hợp pháp nào hoặc cố gắng truy cập trái phép vào tài khoản hoặc dữ liệu của người dùng khác."
+      },
+      {
+        "title": "2. Sao chép nhà giao dịch và rủi ro",
+        "body": "Nền tảng cho phép người dùng theo dõi các nhà giao dịch khác và tự động sao chép giao dịch của họ vào tài khoản của mình. Giao dịch và sao chép giao dịch tiềm ẩn rủi ro mất vốn, và hiệu suất trong quá khứ của bất kỳ nhà giao dịch nào không đảm bảo kết quả tương tự trong tương lai. Quyết định theo dõi hoặc sao chép bất kỳ nhà giao dịch nào hoàn toàn thuộc trách nhiệm của người dùng."
+      },
+      {
+        "title": "3. Sở hữu trí tuệ",
+        "body": "Tất cả nhãn hiệu, logo, thiết kế và nội dung xuất hiện trên nền tảng đều thuộc sở hữu của Copy Matrix và không được sao chép hoặc sử dụng lại nếu không có sự cho phép bằng văn bản trước."
+      },
+      {
+        "title": "4. Thay đổi dịch vụ",
+        "body": "Chúng tôi bảo lưu quyền sửa đổi, tạm ngừng hoặc ngừng bất kỳ phần nào của nền tảng bất cứ lúc nào, và cập nhật các điều khoản này theo sự phát triển của dịch vụ. Bạn nên xem lại trang này định kỳ."
+      },
+      {
+        "title": "5. Giới hạn trách nhiệm",
+        "body": "Nền tảng không chịu trách nhiệm về bất kỳ tổn thất tài chính nào phát sinh từ các quyết định giao dịch hoặc sao chép mà người dùng thực hiện dựa trên thông tin có sẵn trên nền tảng."
+      },
+      {
+        "title": "6. Liên hệ và Hỗ trợ",
+        "body": "Đối với bất kỳ thắc mắc nào liên quan đến các điều khoản này, bạn có thể liên hệ với đội ngũ Copy Matrix qua các kênh hỗ trợ có sẵn trong nền tảng."
+      }
+    ],
+    "privacyMetaTitle": "Chính sách quyền riêng tư | Copy Matrix",
+    "privacyTitle": "Chính sách quyền riêng tư",
+    "privacySections": [
+      {
+        "title": "1. Dữ liệu chúng tôi thu thập",
+        "body": "Dữ liệu tài khoản cơ bản (tên, email, mật khẩu đã mã hóa), và khi đăng ký xác minh danh tính: họ tên đầy đủ, số căn cước công dân, ảnh giấy tờ tùy thân và bằng chứng địa chỉ nếu có. Chúng tôi cũng thu thập dữ liệu sử dụng trong nền tảng như các nhà giao dịch bạn theo dõi và các giao dịch liên kết với tài khoản của bạn."
+      },
+      {
+        "title": "2. Cách chúng tôi sử dụng dữ liệu của bạn",
+        "body": "Dữ liệu được sử dụng để tạo và vận hành tài khoản của bạn, hoàn tất xác minh danh tính để chuẩn bị cho việc cấp phép theo quy định, hiển thị hiệu suất danh mục đầu tư và nhà giao dịch cho bạn, và cải thiện nền tảng. Dữ liệu xác minh không bao giờ được sử dụng cho mục đích tiếp thị."
+      },
+      {
+        "title": "3. Lưu trữ và bảo vệ dữ liệu",
+        "body": "Dữ liệu được lưu trữ với nhà cung cấp cơ sở dữ liệu và lưu trữ đám mây (Supabase) sử dụng các quy tắc truy cập cấp hàng nghiêm ngặt (RLS), để không người dùng nào có thể truy cập dữ liệu hoặc tài liệu của người dùng khác. Quyền truy cập vào tài liệu xác minh danh tính chỉ giới hạn cho đội ngũ kiểm duyệt quản trị."
+      },
+      {
+        "title": "4. Chia sẻ dữ liệu với bên thứ ba",
+        "body": "Dữ liệu của bạn không bao giờ được chia sẻ với bất kỳ bên thứ ba nào cho mục đích tiếp thị. Dữ liệu có thể được chia sẻ với các cơ quan quản lý hoặc giám sát nếu pháp luật yêu cầu như một phần của quy trình cấp phép hoặc tuân thủ."
+      },
+      {
+        "title": "5. Quyền của bạn",
+        "body": "Bạn có thể yêu cầu xem dữ liệu chúng tôi lưu giữ về bạn, hoặc yêu cầu xóa tài khoản và dữ liệu của bạn, bằng cách liên hệ với đội ngũ hỗ trợ của chúng tôi, và yêu cầu của bạn sẽ được phản hồi trong thời gian hợp lý trừ khi điều này xung đột với các nghĩa vụ pháp lý hoặc quy định."
+      },
+      {
+        "title": "6. Cookie",
+        "body": "Nền tảng chỉ sử dụng các cookie thiết yếu để duy trì phiên đăng nhập và tùy chọn giao diện (chế độ tối/sáng) của bạn, không bao giờ nhằm mục đích theo dõi quảng cáo."
+      }
+    ]
   }
 }

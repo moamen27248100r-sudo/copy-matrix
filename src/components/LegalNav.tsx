@@ -1,7 +1,9 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { Logo } from "@/components/Logo";
 
-export function LegalNav() {
+export async function LegalNav() {
+  const t = await getTranslations("Legal");
   return (
     <nav className="sticky top-0 z-[9999] flex items-center justify-between border-b border-border bg-background px-6 py-4">
       <Link href="/" className="flex items-center">
@@ -12,7 +14,7 @@ export function LegalNav() {
           href="/"
           className="rounded border border-border px-3 py-1.5 text-sm font-medium text-foreground transition hover:border-accent hover:text-accent"
         >
-          العودة إلى الرئيسية
+          {t("backToHome")}
         </Link>
       </div>
     </nav>

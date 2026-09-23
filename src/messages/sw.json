@@ -686,5 +686,65 @@
     "demoAccountDesc": "Fanya mazoezi ya kunakili biashara kwa fedha za dhahania bila hatari, na ujue jukwaa kabla ya kutumia pesa yako halisi.",
     "realAccountTitle": "Akaunti halisi",
     "realAccountDesc": "Anza kunakili biashara kwa salio lako halisi, huku matokeo yote halisi ya unakili ya faida au hasara yakiwekwa juu yake."
+  },
+  "Legal": {
+    "backToHome": "Rudi mwanzo",
+    "lastUpdated": "Ilisasishwa mwisho: {date}",
+    "termsMetaTitle": "Sheria na Masharti | Copy Matrix",
+    "termsTitle": "Sheria na Masharti",
+    "termsSections": [
+      {
+        "title": "1. Akaunti na Matumizi",
+        "body": "Mtumiaji anajitolea kutoa taarifa sahihi wakati wa kufungua akaunti na kukamilisha uthibitishaji wa utambulisho (KYC), na kutunza usiri wa maelezo yake ya kuingia bila kuyashiriki na mtu mwingine yeyote. Ni marufuku kutumia jukwaa kwa madhumuni yoyote haramu au kujaribu kupata bila idhini akaunti au data za watumiaji wengine."
+      },
+      {
+        "title": "2. Kunakili Wafanyabiashara na Hatari",
+        "body": "Jukwaa linamruhusu mtumiaji kufuata wafanyabiashara wengine na kunakili kiotomatiki biashara zao kwenye akaunti yake mwenyewe. Biashara na kunakili biashara huhusisha hatari ya kupoteza mtaji, na utendaji wa awali wa mfanyabiashara yeyote hauhakikishi matokeo sawa siku zijazo. Uamuzi wa kufuata au kunakili mfanyabiashara yeyote ni jukumu la mtumiaji pekee."
+      },
+      {
+        "title": "3. Haki Miliki",
+        "body": "Alama zote za biashara, nembo, miundo na maudhui yanayoonekana kwenye jukwaa ni mali ya Copy Matrix, na hayawezi kunakiliwa au kutumiwa tena bila idhini ya maandishi mapema."
+      },
+      {
+        "title": "4. Mabadiliko kwenye Huduma",
+        "body": "Tunahifadhi haki ya kurekebisha, kusitisha, au kukomesha sehemu yoyote ya jukwaa wakati wowote, na kusasisha masharti haya kulingana na maendeleo ya huduma. Inashauriwa kukagua ukurasa huu mara kwa mara."
+      },
+      {
+        "title": "5. Kikomo cha Dhima",
+        "body": "Jukwaa halina dhima kwa hasara yoyote ya kifedha inayotokana na maamuzi ya biashara au kunakili yaliyofanywa na mtumiaji kwa kuzingatia taarifa zilizopo kwenye jukwaa."
+      },
+      {
+        "title": "6. Mawasiliano na Msaada",
+        "body": "Kwa swali lolote kuhusu masharti haya, unaweza kuwasiliana na timu ya Copy Matrix kupitia njia za msaada zinazopatikana ndani ya jukwaa."
+      }
+    ],
+    "privacyMetaTitle": "Sera ya Faragha | Copy Matrix",
+    "privacyTitle": "Sera ya Faragha",
+    "privacySections": [
+      {
+        "title": "1. Data Tunayokusanya",
+        "body": "Data ya msingi ya akaunti (jina, barua pepe, nenosiri lililosimbwa), na wakati wa kuomba uthibitishaji wa utambulisho: jina kamili, namba ya kitambulisho cha taifa, picha ya kitambulisho na uthibitisho wa anwani ikiwa upo. Pia tunakusanya data ya matumizi ndani ya jukwaa kama vile wafanyabiashara unaowafuata na biashara zilizounganishwa na akaunti yako."
+      },
+      {
+        "title": "2. Jinsi Tunavyotumia Data Yako",
+        "body": "Data hutumika kuunda na kuendesha akaunti yako, kukamilisha uthibitishaji wa utambulisho kwa maandalizi ya leseni ya udhibiti, kukuonyesha utendaji wa portfolio na wafanyabiashara, na kuboresha jukwaa. Data ya uthibitishaji haitumiki kamwe kwa madhumuni ya masoko."
+      },
+      {
+        "title": "3. Uhifadhi na Ulinzi wa Data",
+        "body": "Data huhifadhiwa kwa mtoa huduma wa hifadhidata na uhifadhi wa wingu (Supabase) kwa kutumia kanuni kali za ufikiaji wa kiwango cha safu (RLS), ili hakuna mtumiaji anayeweza kufikia data au hati za mtumiaji mwingine. Ufikiaji wa hati za uthibitishaji wa utambulisho umezuiliwa kwa timu ya ukaguzi wa utawala pekee."
+      },
+      {
+        "title": "4. Kushiriki Data na Wahusika wa Tatu",
+        "body": "Data yako haishirikiwi kamwe na mhusika wa tatu yeyote kwa madhumuni ya masoko. Data inaweza kushirikiwa na mashirika ya udhibiti au usimamizi ikiwa inahitajika kisheria kama sehemu ya taratibu za leseni au uzingatiaji."
+      },
+      {
+        "title": "5. Haki Zako",
+        "body": "Unaweza kuomba kuona data tuliyonayo kuhusu wewe, au kuomba kufutwa kwa akaunti yako na data, kwa kuwasiliana na timu yetu ya msaada, na ombi lako litajibiwa ndani ya muda unaofaa isipokuwa hii inakinzana na wajibu wa kisheria au udhibiti."
+      },
+      {
+        "title": "6. Vidakuzi",
+        "body": "Jukwaa hutumia vidakuzi muhimu tu kudumisha kikao chako cha kuingia na upendeleo wa mwonekano (hali ya giza/mwanga), na kamwe si kwa madhumuni ya ufuatiliaji wa matangazo."
+      }
+    ]
   }
 }

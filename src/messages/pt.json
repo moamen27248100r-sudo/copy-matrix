@@ -686,5 +686,65 @@
     "demoAccountDesc": "Pratique copiar operações com fundos virtuais sem risco, e familiarize-se com a plataforma antes de usar seu dinheiro real.",
     "realAccountTitle": "Conta real",
     "realAccountDesc": "Comece a copiar operações com seu saldo real, com todos os resultados reais de cópia em lucro ou prejuízo aplicados a ele."
+  },
+  "Legal": {
+    "backToHome": "Voltar ao início",
+    "lastUpdated": "Última atualização: {date}",
+    "termsMetaTitle": "Termos e Condições | Copy Matrix",
+    "termsTitle": "Termos e Condições",
+    "termsSections": [
+      {
+        "title": "1. Conta e uso",
+        "body": "O usuário compromete-se a fornecer informações corretas ao criar a conta e concluir a verificação de identidade (KYC), e a manter a confidencialidade de suas credenciais de login sem compartilhá-las com terceiros. É proibido usar a plataforma para fins ilegais ou tentar acessar sem autorização contas ou dados de outros usuários."
+      },
+      {
+        "title": "2. Cópia de traders e riscos",
+        "body": "A plataforma permite que o usuário siga outros traders e copie automaticamente suas operações para sua conta. Negociar e copiar operações envolve risco de perda de capital, e o desempenho histórico de qualquer trader não garante resultados semelhantes no futuro. A decisão de seguir ou copiar qualquer trader é de total responsabilidade do usuário."
+      },
+      {
+        "title": "3. Propriedade intelectual",
+        "body": "Todas as marcas registradas, logotipos, designs e conteúdo exibidos na plataforma pertencem à Copy Matrix e não podem ser copiados ou reutilizados sem autorização prévia por escrito."
+      },
+      {
+        "title": "4. Alterações no serviço",
+        "body": "Reservamo-nos o direito de modificar, suspender ou descontinuar qualquer parte da plataforma a qualquer momento, e de atualizar estes termos conforme a evolução do serviço. Recomenda-se revisar esta página periodicamente."
+      },
+      {
+        "title": "5. Limitação de responsabilidade",
+        "body": "A plataforma não se responsabiliza por perdas financeiras resultantes de decisões de negociação ou cópia tomadas pelo usuário com base nas informações disponíveis na plataforma."
+      },
+      {
+        "title": "6. Contato e suporte",
+        "body": "Para qualquer dúvida sobre estes termos, entre em contato com a equipe da Copy Matrix pelos canais de suporte disponíveis na plataforma."
+      }
+    ],
+    "privacyMetaTitle": "Política de Privacidade | Copy Matrix",
+    "privacyTitle": "Política de Privacidade",
+    "privacySections": [
+      {
+        "title": "1. Dados que coletamos",
+        "body": "Dados básicos da conta (nome, e-mail, senha criptografada) e, ao solicitar a verificação de identidade: nome completo, número de identificação nacional, foto do documento de identidade e comprovante de endereço, se houver. Também coletamos dados de uso na plataforma, como os traders que você segue e as operações vinculadas à sua conta."
+      },
+      {
+        "title": "2. Como usamos seus dados",
+        "body": "Os dados são usados para criar e operar sua conta, concluir a verificação de identidade em preparação para o licenciamento regulatório, exibir o desempenho da sua carteira e dos traders, e melhorar a plataforma. Os dados de verificação nunca são usados para fins de marketing."
+      },
+      {
+        "title": "3. Armazenamento e proteção de dados",
+        "body": "Os dados são armazenados com um provedor de banco de dados e armazenamento em nuvem (Supabase) usando regras rígidas de acesso em nível de linha (RLS), de modo que nenhum usuário possa acessar dados ou documentos de outro usuário. O acesso aos documentos de verificação de identidade é restrito exclusivamente à equipe de revisão administrativa."
+      },
+      {
+        "title": "4. Compartilhamento de dados com terceiros",
+        "body": "Seus dados nunca são compartilhados com terceiros para fins de marketing. Os dados podem ser compartilhados com órgãos reguladores ou de supervisão se exigido por lei como parte de procedimentos de licenciamento ou conformidade."
+      },
+      {
+        "title": "5. Seus direitos",
+        "body": "Você pode solicitar acesso aos dados que temos sobre você, ou solicitar a exclusão de sua conta e dados, entrando em contato com nossa equipe de suporte; sua solicitação será atendida em um prazo razoável, a menos que isso conflite com obrigações legais ou regulatórias."
+      },
+      {
+        "title": "6. Cookies",
+        "body": "A plataforma utiliza apenas cookies essenciais para manter sua sessão de login e preferência de aparência (modo escuro/claro), nunca para fins de rastreamento publicitário."
+      }
+    ]
   }
 }
