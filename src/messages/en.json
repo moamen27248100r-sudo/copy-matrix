@@ -305,8 +305,8 @@
   },
   "Notifications": {
     "copyOpenedTitle": "New trade copied",
-  "copyOpenedBody": "Copied a {symbol} ({side, select, sell {sell} other {buy}}) trade from a trader you follow.",
-  "copyClosedTitle": "Copied trade from {providerName}",
+    "copyOpenedBody": "Copied a {symbol} ({side, select, sell {sell} other {buy}}) trade from a trader you follow.",
+    "copyClosedTitle": "Copied trade from {providerName}",
     "copyClosedBody": "The {symbol} trade closed with a result of {positive, select, true {+} other {-}}{amount}$",
     "autoStopCopyTitle": "Copying stopped automatically",
     "autoStopCopyBody": "Copying a trader was automatically stopped after exceeding the allowed loss limit ({maxDrawdownPct}%). You can follow them again anytime from the discover page.",
@@ -384,5 +384,31 @@
     "afterSendingNote": "After sending the amount to the address above, click \"I've sent the amount\" — it will be reflected in your balance immediately.",
     "iSentAmount": "I've sent the amount",
     "withdrawBlockedError": "Couldn't submit the withdrawal request: you currently have open positions, and your balance is reserved as margin to cover them. You can stop copying after the positions close to return the balance and profits to your wallet, then resubmit the withdrawal request."
+  },
+  "TradeHistory": {
+    "periodToday": "Today",
+    "periodWeek": "Week",
+    "periodMonth": "Month",
+    "periodThreeMonths": "3 months",
+    "periodSixMonths": "6 months",
+    "periodYear": "Year",
+    "periodAll": "All",
+    "tradesCount": "{count} trades",
+    "winRateLabel": "Win rate",
+    "noTradesInPeriod": "No closed trades in this period.",
+    "chart": "Chart",
+    "copy": "Copy"
+  },
+  "Symbols": {
+    "XAUUSD": "Gold",
+    "EURUSD": "Euro vs US Dollar",
+    "GBPUSD": "British Pound vs US Dollar",
+    "USDJPY": "US Dollar vs Japanese Yen",
+    "BTCUSDT": "Bitcoin",
+    "ETHUSDT": "Ethereum",
+    "SOLUSDT": "Solana",
+    "BNBUSDT": "BNB",
+    "XRPUSDT": "XRP",
+    "US30": "Dow Jones Industrial Average"
   }
 }

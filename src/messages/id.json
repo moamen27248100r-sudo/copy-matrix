@@ -384,5 +384,31 @@
     "afterSendingNote": "Setelah mengirim jumlah ke alamat di atas, klik \"Saya sudah mengirim jumlahnya\" — akan langsung tercermin di saldo Anda.",
     "iSentAmount": "Saya sudah mengirim jumlahnya",
     "withdrawBlockedError": "Tidak dapat mengirimkan permintaan penarikan: Anda saat ini memiliki posisi terbuka, dan saldo Anda dicadangkan sebagai margin untuk menutupinya. Anda dapat berhenti menyalin setelah posisi ditutup untuk mengembalikan saldo dan keuntungan ke dompet Anda, lalu kirimkan kembali permintaan penarikan."
+  },
+  "TradeHistory": {
+    "periodToday": "Hari ini",
+    "periodWeek": "Minggu",
+    "periodMonth": "Bulan",
+    "periodThreeMonths": "3 bulan",
+    "periodSixMonths": "6 bulan",
+    "periodYear": "Tahun",
+    "periodAll": "Semua",
+    "tradesCount": "{count} trade",
+    "winRateLabel": "Tingkat kemenangan",
+    "noTradesInPeriod": "Tidak ada trade tertutup pada periode ini.",
+    "chart": "Grafik",
+    "copy": "Salin"
+  },
+  "Symbols": {
+    "XAUUSD": "Emas",
+    "EURUSD": "Euro vs Dolar AS",
+    "GBPUSD": "Poundsterling Inggris vs Dolar AS",
+    "USDJPY": "Dolar AS vs Yen Jepang",
+    "BTCUSDT": "Bitcoin",
+    "ETHUSDT": "Ethereum",
+    "SOLUSDT": "Solana",
+    "BNBUSDT": "BNB",
+    "XRPUSDT": "XRP",
+    "US30": "Dow Jones Industrial Average"
   }
 }

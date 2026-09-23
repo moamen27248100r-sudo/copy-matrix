@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
-import { symbolFullName } from "@/lib/symbol-icons";
 
 type Trade = {
   id: string;
@@ -21,17 +21,19 @@ type Trade = {
   copyHref?: string;
 };
 
-const PERIODS = [
-  { key: "today", label: "اليوم" },
-  { key: "week", label: "الأسبوع" },
-  { key: "month", label: "الشهر" },
-  { key: "threeMonths", label: "٣ أشهر" },
-  { key: "sixMonths", label: "٦ أشهر" },
-  { key: "year", label: "سنة" },
-  { key: "all", label: "الكل" },
-] as const;
+const PERIOD_KEYS = ["today", "week", "month", "threeMonths", "sixMonths", "year", "all"] as const;
 
-type PeriodKey = (typeof PERIODS)[number]["key"];
+type PeriodKey = (typeof PERIOD_KEYS)[number];
+
+const PERIOD_LABEL_KEYS: Record<PeriodKey, string> = {
+  today: "periodToday",
+  week: "periodWeek",
+  month: "periodMonth",
+  threeMonths: "periodThreeMonths",
+  sixMonths: "periodSixMonths",
+  year: "periodYear",
+  all: "periodAll",
+};
 
 function withinPeriod(iso: string | null, period: PeriodKey) {
   if (!iso) return false;
@@ -78,6 +80,8 @@ function formatPrice(value: number) {
 }
 
 export function TradeHistory({ trades }: { trades: Trade[] }) {
+  const tt = useTranslations("TradeHistory");
+  const ts = useTranslations("Symbols");
   const [period, setPeriod] = useState<PeriodKey>("all");
   const [open, setOpen] = useState(false);
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -96,13 +100,13 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
   const netResult = filtered.reduce((sum, t) => sum + (t.pnl ?? 0), 0);
   const wins = filtered.filter((t) => t.pct >= 0).length;
   const winRate = filtered.length > 0 ? Math.round((wins / filtered.length) * 100) : null;
-  const currentLabel = PERIODS.find((p) => p.key === period)!.label;
+  const currentLabel = tt(PERIOD_LABEL_KEYS[period]);
 
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
         <p className="text-sm text-muted">
-          {filtered.length} صفقة
+          {tt("tradesCount", { count: filtered.length })}
           {hasDollar ? (
             <>
               {" · "}
@@ -114,7 +118,9 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
           ) : (
             winRate != null && (
               <>
-                {" · نسبة النجاح "}
+                {" · "}
+                {tt("winRateLabel")}
+                {" "}
                 <span className="text-foreground">{winRate}%</span>
               </>
             )
@@ -137,21 +143,21 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
           </button>
           {open && (
             <div className="absolute left-0 top-full z-10 mt-1 w-36 overflow-hidden rounded border border-border bg-surface shadow-lg">
-              {PERIODS.map((p) => (
+              {PERIOD_KEYS.map((key) => (
                 <button
-                  key={p.key}
+                  key={key}
                   type="button"
                   onClick={() => {
-                    setPeriod(p.key);
+                    setPeriod(key);
                     setOpen(false);
                   }}
                   className={
-                    p.key === period
+                    key === period
                       ? "block w-full px-3 py-2 text-right text-sm bg-accent/10 text-accent"
                       : "block w-full px-3 py-2 text-right text-sm text-foreground hover:bg-background"
                   }
                 >
-                  {p.label}
+                  {tt(PERIOD_LABEL_KEYS[key])}
                 </button>
               ))}
             </div>
@@ -160,7 +166,7 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
       </div>
 
       {filtered.length === 0 ? (
-        <p className="text-sm text-muted">لا توجد صفقات مغلقة في هذه الفترة.</p>
+        <p className="text-sm text-muted">{tt("noTradesInPeriod")}</p>
       ) : (
         <div className="max-h-[520px] space-y-2 overflow-y-auto pe-1">
           {filtered.map((t) => {
@@ -215,7 +221,7 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
                     <div className="flex flex-col gap-3 border-t border-border px-3 pb-3 pt-3">
                       <div className="flex items-center justify-between gap-2">
                         <div>
-                          <p className="text-sm font-medium">{symbolFullName(t.symbol)}</p>
+                          <p className="text-sm font-medium">{ts(t.symbol)}</p>
                           <p className="text-xs text-muted" dir="ltr">
                             #{ticketFromId(t.id)}
                           </p>
@@ -259,14 +265,14 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
                           href={`/markets?symbol=${t.symbol}`}
                           className="flex-1 rounded border border-border py-2 text-center text-sm font-medium text-accent transition hover:bg-background"
                         >
-                          الشارت
+                          {tt("chart")}
                         </Link>
                         {t.copyHref ? (
                           <Link
                             href={t.copyHref}
                             className="flex-1 rounded border border-border py-2 text-center text-sm font-medium text-accent transition hover:bg-background"
                           >
-                            نسخ
+                            {tt("copy")}
                           </Link>
                         ) : (
                           <span className="flex-1 rounded border border-border py-2 text-center text-sm text-muted">—</span>

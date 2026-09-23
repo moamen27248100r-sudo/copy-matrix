@@ -317,8 +317,8 @@
   },
   "Notifications": {
     "copyOpenedTitle": "تم نسخ صفقة جديدة",
-  "copyOpenedBody": "تم نسخ صفقة {symbol} ({side, select, sell {بيع} other {شراء}}) من متداول تتابعه.",
-  "copyClosedTitle": "صفقة منسوخة من {providerName}",
+    "copyOpenedBody": "تم نسخ صفقة {symbol} ({side, select, sell {بيع} other {شراء}}) من متداول تتابعه.",
+    "copyClosedTitle": "صفقة منسوخة من {providerName}",
     "copyClosedBody": "أُغلقت صفقة {symbol} بنتيجة {positive, select, true {+} other {-}}{amount}$",
     "autoStopCopyTitle": "تم إيقاف النسخ تلقائيًا",
     "autoStopCopyBody": "تم إيقاف متابعة أحد المتداولين تلقائيًا بعد تجاوز حد الخسارة المسموح به ({maxDrawdownPct}%). يمكنك متابعته مجددًا في أي وقت من صفحة اكتشاف المتداولين.",
@@ -396,5 +396,31 @@
     "afterSendingNote": "بعد إرسال المبلغ إلى العنوان أعلاه، اضغط «لقد أرسلت المبلغ» — وسينعكس المبلغ على رصيدك فورًا.",
     "iSentAmount": "لقد أرسلت المبلغ",
     "withdrawBlockedError": "تعذّر تقديم طلب السحب: لديك صفقات مفتوحة حاليًا، ورصيدك محجوز كهامش لتغطيتها. يمكنك إيقاف النسخ بعد إغلاق الصفقات لإعادة الرصيد والأرباح إلى محفظتك، ثم إعادة تقديم طلب السحب."
+  },
+  "TradeHistory": {
+    "periodToday": "اليوم",
+    "periodWeek": "الأسبوع",
+    "periodMonth": "الشهر",
+    "periodThreeMonths": "٣ أشهر",
+    "periodSixMonths": "٦ أشهر",
+    "periodYear": "سنة",
+    "periodAll": "الكل",
+    "tradesCount": "{count} صفقة",
+    "winRateLabel": "نسبة النجاح",
+    "noTradesInPeriod": "لا توجد صفقات مغلقة في هذه الفترة.",
+    "chart": "الشارت",
+    "copy": "نسخ"
+  },
+  "Symbols": {
+    "XAUUSD": "الذهب",
+    "EURUSD": "اليورو مقابل الدولار",
+    "GBPUSD": "الجنيه الإسترليني مقابل الدولار",
+    "USDJPY": "الدولار مقابل الين الياباني",
+    "BTCUSDT": "البيتكوين",
+    "ETHUSDT": "الإيثيريوم",
+    "SOLUSDT": "سولانا",
+    "BNBUSDT": "البي إن بي",
+    "XRPUSDT": "الريبل",
+    "US30": "مؤشر داو جونز الصناعي"
   }
 }

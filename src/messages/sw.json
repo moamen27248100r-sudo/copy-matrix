@@ -384,5 +384,31 @@
     "afterSendingNote": "Baada ya kutuma kiasi kwa anwani iliyo hapo juu, bofya \"Nimetuma kiasi\" — kitaonekana kwenye salio lako mara moja.",
     "iSentAmount": "Nimetuma kiasi",
     "withdrawBlockedError": "Imeshindwa kuwasilisha ombi la kutoa: kwa sasa una nafasi wazi, na salio lako limehifadhiwa kama dhamana ya kuzifidia. Unaweza kuacha kunakili baada ya nafasi kufungwa ili kurejesha salio na faida kwenye pochi yako, kisha uwasilishe tena ombi la kutoa."
+  },
+  "TradeHistory": {
+    "periodToday": "Leo",
+    "periodWeek": "Wiki",
+    "periodMonth": "Mwezi",
+    "periodThreeMonths": "Miezi 3",
+    "periodSixMonths": "Miezi 6",
+    "periodYear": "Mwaka",
+    "periodAll": "Zote",
+    "tradesCount": "Biashara {count}",
+    "winRateLabel": "Kiwango cha ushindi",
+    "noTradesInPeriod": "Hakuna biashara zilizofungwa katika kipindi hiki.",
+    "chart": "Chati",
+    "copy": "Nakili"
+  },
+  "Symbols": {
+    "XAUUSD": "Dhahabu",
+    "EURUSD": "Euro dhidi ya Dola ya Marekani",
+    "GBPUSD": "Pauni ya Uingereza dhidi ya Dola ya Marekani",
+    "USDJPY": "Dola ya Marekani dhidi ya Yen ya Japani",
+    "BTCUSDT": "Bitcoin",
+    "ETHUSDT": "Ethereum",
+    "SOLUSDT": "Solana",
+    "BNBUSDT": "BNB",
+    "XRPUSDT": "XRP",
+    "US30": "Dow Jones Industrial Average"
   }
 }

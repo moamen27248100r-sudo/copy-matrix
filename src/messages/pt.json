@@ -384,5 +384,31 @@
     "afterSendingNote": "Depois de enviar o valor para o endereço acima, clique em \"Enviei o valor\" — ele será refletido no seu saldo imediatamente.",
     "iSentAmount": "Enviei o valor",
     "withdrawBlockedError": "Não foi possível enviar a solicitação de saque: você tem posições abertas no momento, e seu saldo está reservado como margem para cobri-las. Você pode parar de copiar depois que as posições forem fechadas para devolver o saldo e os lucros à sua carteira, e então reenviar a solicitação de saque."
+  },
+  "TradeHistory": {
+    "periodToday": "Hoje",
+    "periodWeek": "Semana",
+    "periodMonth": "Mês",
+    "periodThreeMonths": "3 meses",
+    "periodSixMonths": "6 meses",
+    "periodYear": "Ano",
+    "periodAll": "Tudo",
+    "tradesCount": "{count} operações",
+    "winRateLabel": "Taxa de acerto",
+    "noTradesInPeriod": "Nenhuma operação fechada neste período.",
+    "chart": "Gráfico",
+    "copy": "Copiar"
+  },
+  "Symbols": {
+    "XAUUSD": "Ouro",
+    "EURUSD": "Euro em relação ao dólar americano",
+    "GBPUSD": "Libra esterlina em relação ao dólar americano",
+    "USDJPY": "Dólar americano em relação ao iene japonês",
+    "BTCUSDT": "Bitcoin",
+    "ETHUSDT": "Ethereum",
+    "SOLUSDT": "Solana",
+    "BNBUSDT": "BNB",
+    "XRPUSDT": "XRP",
+    "US30": "Dow Jones Industrial Average"
   }
 }

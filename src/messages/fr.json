@@ -384,5 +384,31 @@
     "afterSendingNote": "Après avoir envoyé le montant à l'adresse ci-dessus, cliquez sur « J'ai envoyé le montant » — il sera immédiatement reflété sur votre solde.",
     "iSentAmount": "J'ai envoyé le montant",
     "withdrawBlockedError": "Impossible de soumettre la demande de retrait : vous avez actuellement des positions ouvertes, et votre solde est réservé comme marge pour les couvrir. Vous pouvez arrêter la copie après la clôture des positions pour restituer le solde et les profits à votre portefeuille, puis soumettre à nouveau la demande de retrait."
+  },
+  "TradeHistory": {
+    "periodToday": "Aujourd'hui",
+    "periodWeek": "Semaine",
+    "periodMonth": "Mois",
+    "periodThreeMonths": "3 mois",
+    "periodSixMonths": "6 mois",
+    "periodYear": "Année",
+    "periodAll": "Tout",
+    "tradesCount": "{count} trades",
+    "winRateLabel": "Taux de réussite",
+    "noTradesInPeriod": "Aucun trade clôturé sur cette période.",
+    "chart": "Graphique",
+    "copy": "Copier"
+  },
+  "Symbols": {
+    "XAUUSD": "Or",
+    "EURUSD": "Euro / Dollar US",
+    "GBPUSD": "Livre sterling / Dollar US",
+    "USDJPY": "Dollar US / Yen japonais",
+    "BTCUSDT": "Bitcoin",
+    "ETHUSDT": "Ethereum",
+    "SOLUSDT": "Solana",
+    "BNBUSDT": "BNB",
+    "XRPUSDT": "XRP",
+    "US30": "Dow Jones Industrial Average"
   }
 }

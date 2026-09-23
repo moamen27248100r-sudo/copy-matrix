@@ -384,5 +384,31 @@
     "afterSendingNote": "Sau khi gửi số tiền đến địa chỉ trên, nhấn \"Tôi đã gửi số tiền\" — nó sẽ được phản ánh ngay vào số dư của bạn.",
     "iSentAmount": "Tôi đã gửi số tiền",
     "withdrawBlockedError": "Không thể gửi yêu cầu rút tiền: bạn hiện có vị thế đang mở, và số dư của bạn đang được giữ làm ký quỹ để bảo đảm cho chúng. Bạn có thể dừng sao chép sau khi các vị thế đóng để hoàn lại số dư và lợi nhuận vào ví, sau đó gửi lại yêu cầu rút tiền."
+  },
+  "TradeHistory": {
+    "periodToday": "Hôm nay",
+    "periodWeek": "Tuần",
+    "periodMonth": "Tháng",
+    "periodThreeMonths": "3 tháng",
+    "periodSixMonths": "6 tháng",
+    "periodYear": "Năm",
+    "periodAll": "Tất cả",
+    "tradesCount": "{count} giao dịch",
+    "winRateLabel": "Tỷ lệ thắng",
+    "noTradesInPeriod": "Không có giao dịch nào đã đóng trong khoảng thời gian này.",
+    "chart": "Biểu đồ",
+    "copy": "Sao chép"
+  },
+  "Symbols": {
+    "XAUUSD": "Vàng",
+    "EURUSD": "Euro so với Đô la Mỹ",
+    "GBPUSD": "Bảng Anh so với Đô la Mỹ",
+    "USDJPY": "Đô la Mỹ so với Yên Nhật",
+    "BTCUSDT": "Bitcoin",
+    "ETHUSDT": "Ethereum",
+    "SOLUSDT": "Solana",
+    "BNBUSDT": "BNB",
+    "XRPUSDT": "XRP",
+    "US30": "Chỉ số công nghiệp Dow Jones"
   }
 }

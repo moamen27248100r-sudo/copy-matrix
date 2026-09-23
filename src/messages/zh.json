@@ -384,5 +384,31 @@
     "afterSendingNote": "将金额发送到上述地址后，点击“我已发送金额”——余额将立即反映。",
     "iSentAmount": "我已发送金额",
     "withdrawBlockedError": "无法提交提款申请：您当前有持仓，您的余额已作为保证金被锁定以覆盖这些持仓。您可以在持仓平仓后停止跟单，将余额和利润退回钱包，然后重新提交提款申请。"
+  },
+  "TradeHistory": {
+    "periodToday": "今天",
+    "periodWeek": "本周",
+    "periodMonth": "本月",
+    "periodThreeMonths": "3个月",
+    "periodSixMonths": "6个月",
+    "periodYear": "一年",
+    "periodAll": "全部",
+    "tradesCount": "{count} 笔交易",
+    "winRateLabel": "胜率",
+    "noTradesInPeriod": "该时段内没有已平仓交易。",
+    "chart": "图表",
+    "copy": "跟单"
+  },
+  "Symbols": {
+    "XAUUSD": "黄金",
+    "EURUSD": "欧元兑美元",
+    "GBPUSD": "英镑兑美元",
+    "USDJPY": "美元兑日元",
+    "BTCUSDT": "比特币",
+    "ETHUSDT": "以太坊",
+    "SOLUSDT": "索拉纳",
+    "BNBUSDT": "币安币",
+    "XRPUSDT": "瑞波币",
+    "US30": "道琼斯工业平均指数"
   }
 }

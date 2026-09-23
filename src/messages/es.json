@@ -384,5 +384,31 @@
     "afterSendingNote": "Después de enviar el importe a la dirección anterior, haz clic en «He enviado el importe» — se reflejará en tu saldo de inmediato.",
     "iSentAmount": "He enviado el importe",
     "withdrawBlockedError": "No se pudo enviar la solicitud de retiro: actualmente tienes posiciones abiertas y tu saldo está reservado como margen para cubrirlas. Puedes dejar de copiar después de que se cierren las posiciones para devolver el saldo y las ganancias a tu cartera, y luego volver a enviar la solicitud de retiro."
+  },
+  "TradeHistory": {
+    "periodToday": "Hoy",
+    "periodWeek": "Semana",
+    "periodMonth": "Mes",
+    "periodThreeMonths": "3 meses",
+    "periodSixMonths": "6 meses",
+    "periodYear": "Año",
+    "periodAll": "Todo",
+    "tradesCount": "{count} operaciones",
+    "winRateLabel": "Tasa de éxito",
+    "noTradesInPeriod": "No hay operaciones cerradas en este período.",
+    "chart": "Gráfico",
+    "copy": "Copiar"
+  },
+  "Symbols": {
+    "XAUUSD": "Oro",
+    "EURUSD": "Euro frente al dólar estadounidense",
+    "GBPUSD": "Libra esterlina frente al dólar estadounidense",
+    "USDJPY": "Dólar estadounidense frente al yen japonés",
+    "BTCUSDT": "Bitcoin",
+    "ETHUSDT": "Ethereum",
+    "SOLUSDT": "Solana",
+    "BNBUSDT": "BNB",
+    "XRPUSDT": "XRP",
+    "US30": "Promedio Industrial Dow Jones"
   }
 }
