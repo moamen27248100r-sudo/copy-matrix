@@ -1,8 +1,11 @@
 import { notFound } from "next/navigation";
+import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
 import { TradeHistory } from "@/components/TradeHistory";
+import { formatDate } from "@/lib/locale-format";
+import type { Locale } from "@/i18n/locales";
 
 type SignalRow = {
   id: string;
@@ -20,6 +23,8 @@ export default async function CopierProfilePage({
   params: Promise<{ id: string; customerId: string }>;
 }) {
   const { id, customerId } = await params;
+  const locale = (await getLocale()) as Locale;
+  const t = await getTranslations("CopierProfile");
   const supabase = await createClient();
 
   const customerQuery = () =>
@@ -147,11 +152,9 @@ export default async function CopierProfilePage({
             <div className="flex-1">
               <h1 className="text-xl font-semibold">{customer.display_name}</h1>
               <p className="text-sm text-muted">
-                ناسخ صفقات {provider?.display_name ?? "المتداول"} · منذ{" "}
-                {new Date(customer.joined_at).toLocaleDateString("ar-EG", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
+                {t("copierOf", {
+                  name: provider?.display_name ?? t("defaultTraderFallback"),
+                  date: formatDate(customer.joined_at, locale, { year: "numeric", month: "long", day: "numeric" }),
                 })}
               </p>
             </div>
@@ -162,18 +165,18 @@ export default async function CopierProfilePage({
               <p className="font-semibold">
                 ${Number(customer.starting_capital).toLocaleString("en-US", { maximumFractionDigits: 0 })}
               </p>
-              <p className="text-xs text-muted">رأس المال الأولي</p>
+              <p className="text-xs text-muted">{t("startingCapital")}</p>
             </div>
             <div>
               <p className={totalGainPct >= 0 ? "font-semibold text-success" : "font-semibold text-danger"} dir="ltr">
                 {totalGainPct >= 0 ? "+" : ""}
                 {totalGainPct.toFixed(2)}%
               </p>
-              <p className="text-xs text-muted">إجمالي العائد</p>
+              <p className="text-xs text-muted">{t("totalReturn")}</p>
             </div>
             <div>
               <p className="font-semibold">{derivedTrades.length}</p>
-              <p className="text-xs text-muted">صفقة</p>
+              <p className="text-xs text-muted">{t("tradeCount")}</p>
             </div>
           </div>
 
@@ -181,27 +184,27 @@ export default async function CopierProfilePage({
             <p className="text-2xl font-bold" dir="ltr">
               ${Number(customer.current_capital).toLocaleString("en-US", { maximumFractionDigits: 0 })}
             </p>
-            <p className="text-xs text-muted">رأس المال الحالي</p>
+            <p className="text-xs text-muted">{t("currentCapital")}</p>
           </div>
         </div>
 
         <section className="flex flex-col gap-2">
-          <h2 className="font-medium">الإيداعات والسحوبات</h2>
+          <h2 className="font-medium">{t("depositsWithdrawalsTitle")}</h2>
           <div className="overflow-x-auto">
             <table className="w-full min-w-[420px] text-sm">
               <thead>
                 <tr className="border-b border-border text-right text-xs text-muted">
-                  <th className="py-2 pl-3">التاريخ</th>
-                  <th className="py-2 pl-3">النوع</th>
-                  <th className="py-2">المبلغ</th>
+                  <th className="py-2 pl-3">{t("dateCol")}</th>
+                  <th className="py-2 pl-3">{t("typeCol")}</th>
+                  <th className="py-2">{t("amountCol")}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="border-b border-border/60">
                   <td className="py-2 pl-3 whitespace-nowrap text-xs text-muted">
-                    {new Date(customer.joined_at).toLocaleDateString("ar-EG")}
+                    {formatDate(customer.joined_at, locale)}
                   </td>
-                  <td className="py-2 pl-3 whitespace-nowrap">إيداع أول</td>
+                  <td className="py-2 pl-3 whitespace-nowrap">{t("firstDeposit")}</td>
                   <td className="py-2 whitespace-nowrap text-success">
                     +{Number(customer.starting_capital).toLocaleString("en-US", { maximumFractionDigits: 2 })}
                   </td>
@@ -209,9 +212,9 @@ export default async function CopierProfilePage({
                 {withdrawalRows.map((w) => (
                   <tr key={w.id} className="border-b border-border/60">
                     <td className="py-2 pl-3 whitespace-nowrap text-xs text-muted">
-                      {new Date(w.occurred_at).toLocaleDateString("ar-EG")}
+                      {formatDate(w.occurred_at, locale)}
                     </td>
-                    <td className="py-2 pl-3 whitespace-nowrap">سحب</td>
+                    <td className="py-2 pl-3 whitespace-nowrap">{t("withdrawal")}</td>
                     <td className="py-2 whitespace-nowrap text-danger">
                       -{Number(w.amount).toLocaleString("en-US", { maximumFractionDigits: 2 })}
                     </td>
@@ -223,9 +226,9 @@ export default async function CopierProfilePage({
         </section>
 
         <section className="flex flex-col gap-3">
-          <h2 className="font-medium">سجل الصفقات</h2>
+          <h2 className="font-medium">{t("tradeHistoryTitle")}</h2>
           {derivedTrades.length === 0 ? (
-            <p className="text-sm text-muted">لا توجد صفقات مغلقة منذ انضمام هذا العميل.</p>
+            <p className="text-sm text-muted">{t("noTradesSinceJoined")}</p>
           ) : (
             <TradeHistory trades={[...derivedTrades].reverse()} />
           )}

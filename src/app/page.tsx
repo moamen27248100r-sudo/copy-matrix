@@ -20,7 +20,7 @@ import { INTERNATIONAL_COUNTRY_CODES } from "@/lib/country-metadata";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/Logo";
 import { TryCopySection } from "@/components/TryCopySection";
-import type { Locale } from "@/i18n/locales";
+import { isRtlLocale, type Locale } from "@/i18n/locales";
 import type { ReactNode } from "react";
 
 export const dynamic = "force-dynamic";
@@ -658,7 +658,7 @@ export default async function Home() {
             <details key={f.q} className="group open:bg-background/40">
               <summary className="flex cursor-pointer list-none items-start gap-4 px-5 py-5 marker:content-none sm:px-6 sm:py-6">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/10 text-sm font-bold text-accent">
-                  ؟
+                  {isRtlLocale(locale) ? "؟" : "?"}
                 </span>
                 <span className="flex-1 pt-1.5 text-[15px] font-semibold leading-snug sm:text-base">
                   {f.q}

@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { checkRateLimit } from "@/lib/rate-limit";
 
@@ -18,8 +19,11 @@ export async function submitKyc(formData: FormData) {
 
   if (!user) redirect("/login");
 
+  const t = await getTranslations("Actions");
+  const tKyc = await getTranslations("Actions.kyc");
+
   if (!(await checkRateLimit("kyc-submit", 5, 3600))) {
-    redirect("/kyc?error=" + encodeURIComponent("محاولات كثيرة جدًا. يرجى الانتظار قليلًا قبل إعادة المحاولة."));
+    redirect("/kyc?error=" + encodeURIComponent(t("rateLimit")));
   }
 
   const fullName = formData.get("fullName") as string;
@@ -28,7 +32,7 @@ export async function submitKyc(formData: FormData) {
   const addressProof = formData.get("addressProof") as File | null;
 
   if (!idDocument || idDocument.size === 0) {
-    redirect("/kyc?error=" + encodeURIComponent("صورة إثبات الهوية مطلوبة."));
+    redirect("/kyc?error=" + encodeURIComponent(tKyc("idDocumentRequired")));
   }
 
   const idDocumentPath = `${user.id}/id-document-${Date.now()}.${extensionOf(idDocument)}`;
@@ -37,7 +41,7 @@ export async function submitKyc(formData: FormData) {
     .upload(idDocumentPath, idDocument);
 
   if (uploadError) {
-    redirect("/kyc?error=" + encodeURIComponent("تعذّر رفع مستند إثبات الهوية. حاول مرة أخرى."));
+    redirect("/kyc?error=" + encodeURIComponent(tKyc("uploadFailed")));
   }
 
   let addressProofPath: string | null = null;
@@ -55,7 +59,7 @@ export async function submitKyc(formData: FormData) {
   });
 
   if (insertError) {
-    redirect("/kyc?error=" + encodeURIComponent("تعذّر إرسال طلب التوثيق. حاول مرة أخرى."));
+    redirect("/kyc?error=" + encodeURIComponent(tKyc("submitFailed")));
   }
 
   redirect("/kyc");

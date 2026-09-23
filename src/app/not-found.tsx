@@ -1,7 +1,9 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { LegalNav } from "@/components/LegalNav";
 
-export default function NotFound() {
+export default async function NotFound() {
+  const t = await getTranslations("General");
   return (
     <>
       <LegalNav />
@@ -9,15 +11,15 @@ export default function NotFound() {
         <span className="flex items-center gap-1.5 text-5xl font-bold text-brand" dir="ltr">
           404
         </span>
-        <h1 className="text-xl font-semibold">الصفحة غير موجودة</h1>
+        <h1 className="text-xl font-semibold">{t("notFoundTitle")}</h1>
         <p className="text-sm text-muted">
-          الرابط الذي حاولت الوصول إليه غير موجود أو تم نقله.
+          {t("notFoundDesc")}
         </p>
         <Link
           href="/"
           className="rounded border border-border bg-surface px-4 py-2 text-sm text-foreground"
         >
-          العودة إلى الرئيسية
+          {t("backToHome")}
         </Link>
       </main>
     </>

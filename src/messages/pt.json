@@ -746,5 +746,99 @@
         "body": "A plataforma utiliza apenas cookies essenciais para manter sua sessão de login e preferência de aparência (modo escuro/claro), nunca para fins de rastreamento publicitário."
       }
     ]
+  },
+  "MarketOverview": {
+    "crypto": "Criptomoedas",
+    "forex": "Forex e metais",
+    "indices": "Índices"
+  },
+  "General": {
+    "notFoundTitle": "Página não encontrada",
+    "notFoundDesc": "O link que você tentou acessar não existe ou foi movido.",
+    "backToHome": "Voltar ao início",
+    "suspendedTitle": "Conta suspensa",
+    "suspendedDesc": "Esta conta foi suspensa pela equipe de administração. Se você acredita que isso é um erro, entre em contato com o suporte.",
+    "logOut": "Sair",
+    "siteDescription": "Uma plataforma de trading social para seguir os melhores traders e copiar automaticamente suas operações."
+  },
+  "CopierProfile": {
+    "copierOf": "Copiando {name} · desde {date}",
+    "defaultTraderFallback": "o trader",
+    "startingCapital": "Capital inicial",
+    "totalReturn": "Retorno total",
+    "tradeCount": "Operações",
+    "currentCapital": "Capital atual",
+    "depositsWithdrawalsTitle": "Depósitos e saques",
+    "dateCol": "Data",
+    "typeCol": "Tipo",
+    "amountCol": "Valor",
+    "firstDeposit": "Primeiro depósito",
+    "withdrawal": "Saque",
+    "tradeHistoryTitle": "Histórico de operações",
+    "noTradesSinceJoined": "Nenhuma operação fechada desde que este cliente entrou."
+  },
+  "Actions": {
+    "rateLimit": "Muitas tentativas. Aguarde um momento antes de tentar novamente.",
+    "auth": {
+      "emailInvalidGeneric": "Verifique seu endereço de e-mail.",
+      "googleSignInFailed": "Não foi possível entrar com o Google. Tente novamente.",
+      "confirmLinkInvalid": "O link de confirmação é inválido ou expirou",
+      "codeMustBe8Digits": "Digite o código de 8 dígitos exatamente como enviado ao seu e-mail.",
+      "codeIncorrectOrExpired": "O código está incorreto ou expirou. Verifique-o ou solicite um novo.",
+      "resetLinkExpired": "O link de redefinição de senha expirou. Solicite um novo.",
+      "invalidCredentials": "E-mail ou senha incorretos.",
+      "emailNotConfirmed": "Seu e-mail ainda não foi confirmado. Abra o link de confirmação enviado a você.",
+      "alreadyRegistered": "Este e-mail já está registrado. Faça login.",
+      "passwordTooShort": "A senha deve ter pelo menos 6 caracteres.",
+      "emailInvalid": "O endereço de e-mail digitado é inválido.",
+      "waitBeforeRetry": "Aguarde um momento antes de tentar novamente.",
+      "genericError": "Ocorreu um erro inesperado. Tente novamente."
+    },
+    "kyc": {
+      "idDocumentRequired": "É necessária uma foto do documento de identidade.",
+      "uploadFailed": "Não foi possível enviar o documento de identidade. Tente novamente.",
+      "submitFailed": "Não foi possível enviar a solicitação de verificação. Tente novamente."
+    },
+    "portfolio": {
+      "depositAmountInvalid": "O valor do depósito deve ser um número maior que zero.",
+      "depositRequestFailed": "Não foi possível enviar a solicitação de depósito. Tente novamente.",
+      "depositCompleteFailed": "Não foi possível concluir o depósito. Tente novamente.",
+      "withdrawAmountInvalid": "O valor do saque deve ser um número maior que zero.",
+      "withdrawBlockedOpenPositions": "Não foi possível enviar a solicitação de saque: você tem operações abertas atualmente, e seu saldo está retido como margem para cobri-las. Você pode parar de copiar depois que essas operações forem fechadas para devolver o saldo e os lucros à sua carteira, e então enviar a solicitação de saque novamente.",
+      "withdrawInsufficientAvailable": "Seu saldo disponível para saque é insuficiente — parte do seu saldo está atualmente retido para uma cópia ativa. Pare de copiar primeiro para devolver esse valor ao seu saldo disponível.",
+      "withdrawNetworkRequired": "Escolha uma rede e insira um endereço de carteira para concluir o saque.",
+      "withdrawRequestFailed": "Não foi possível enviar a solicitação de saque. Tente novamente.",
+      "withdrawCompleteFailed": "Não foi possível concluir o saque. Tente novamente."
+    },
+    "settings": {
+      "nameEmpty": "O nome não pode estar vazio.",
+      "nameSaveFailed": "Não foi possível salvar o nome. Tente novamente.",
+      "accountTypeUpdateFailed": "Não foi possível atualizar o tipo de conta. Tente novamente."
+    },
+    "discover": {
+      "copyAmountInvalid": "O valor da cópia deve ser um número maior que zero.",
+      "copyAmountUpdateBlocked": "Não foi possível atualizar o valor da cópia no momento: você tem operações abertas nesta conta, e seu saldo está atualmente retido como margem para cobri-las. Tente novamente depois que todas as operações abertas forem fechadas.",
+      "traderStopped": "Este trader parou de negociar e não está mais disponível para iniciar uma nova cópia.",
+      "alreadyCopyingOther": "Você está copiando atualmente {name}. Você só pode copiar um trader por vez — pare de copiar primeiro na sua carteira.",
+      "anotherTraderFallback": "outro trader",
+      "copyAmountExceedsBalance": "O valor da cópia é maior que seu saldo disponível.",
+      "copyAmountBelowMinimum": "O valor da cópia é menor que o mínimo para este trader ({amount}).",
+      "copyFailed": "Não foi possível copiar este trader. Tente novamente.",
+      "stopCopyBlocked": "Não foi possível parar de copiar no momento: você tem operações abertas nesta conta, e seu saldo está atualmente retido como margem para cobri-las. Tente novamente depois que todas as operações abertas forem fechadas."
+    }
+  },
+  "FollowEmail": {
+    "subject": "Agora você está seguindo {name} na Copy Matrix",
+    "heading": "Agora você está seguindo {name}",
+    "intro": "Aqui está o desempenho completo deste trader, e manteremos você informado sobre suas atualizações.",
+    "tier": "Nível",
+    "riskLevel": "Nível de risco",
+    "winRate": "Taxa de acerto geral",
+    "avgReturn": "Retorno diário médio",
+    "totalProfit": "Lucro total realizado",
+    "followersCount": "Número de copiadores",
+    "closedSignals": "Número de operações fechadas",
+    "footer": "Este é um e-mail automático de acompanhamento de desempenho da Copy Matrix e não significa que as operações deste trader estão sendo copiadas automaticamente.",
+    "memberSinceLabel": "Membro desde"
   }
 }

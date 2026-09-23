@@ -2,14 +2,13 @@
 
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { translateAuthError } from "@/lib/auth-errors";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { isValidEmailFormat, isValidPhoneForCountry, stripTrunkZero } from "@/lib/validate-signup";
 import { domainCanReceiveEmail, likelyTypoOfKnownProvider } from "@/lib/email-domain-check";
 import { safeNextPath } from "@/lib/safe-next";
-
-const RATE_LIMIT_MESSAGE = "محاولات كثيرة جدًا. يرجى الانتظار قليلًا قبل إعادة المحاولة.";
 
 // Vercel sets both of these at the edge on every request that reaches the
 // app through its network -- x-forwarded-for can carry a proxy chain, so
@@ -34,9 +33,11 @@ async function getSiteUrl() {
 export async function login(formData: FormData) {
   const next = safeNextPath(formData.get("next") as string);
   const nextParam = next ? `&next=${encodeURIComponent(next)}` : "";
+  const t = await getTranslations("Actions");
+  const ta = await getTranslations("Actions.auth");
 
   if (!(await checkRateLimit("login", 10, 300))) {
-    redirect(`/login?error=${encodeURIComponent(RATE_LIMIT_MESSAGE)}${nextParam}`);
+    redirect(`/login?error=${encodeURIComponent(t("rateLimit"))}${nextParam}`);
   }
 
   const supabase = await createClient();
@@ -47,7 +48,7 @@ export async function login(formData: FormData) {
   });
 
   if (error) {
-    redirect(`/login?error=${encodeURIComponent(translateAuthError(error.message))}${nextParam}`);
+    redirect(`/login?error=${encodeURIComponent(translateAuthError(error.message, ta))}${nextParam}`);
   }
 
   const { ip, country } = await getRequestIpAndCountry();
@@ -59,9 +60,12 @@ export async function login(formData: FormData) {
 export async function signup(formData: FormData) {
   const next = safeNextPath(formData.get("next") as string);
   const nextParam = next ? `&next=${encodeURIComponent(next)}` : "";
+  const t = await getTranslations("Actions");
+  const ta = await getTranslations("Actions.auth");
+  const tAuth = await getTranslations("Auth");
 
   if (!(await checkRateLimit("signup", 5, 600))) {
-    redirect(`/signup?error=${encodeURIComponent(RATE_LIMIT_MESSAGE)}${nextParam}`);
+    redirect(`/signup?error=${encodeURIComponent(t("rateLimit"))}${nextParam}`);
   }
 
   const accountType = formData.get("accountType") === "real" ? "real" : "demo";
@@ -74,7 +78,7 @@ export async function signup(formData: FormData) {
   // all, a domain that can't receive mail, or a one-letter typo of a
   // major provider) — deliberately doesn't reveal which specific check
   // failed or suggest a "did you mean" domain.
-  const EMAIL_ERROR = "تأكد من عنوان بريدك الإلكتروني.";
+  const EMAIL_ERROR = ta("emailInvalidGeneric");
 
   if (!isValidEmailFormat(email)) {
     redirect(`/signup?error=${encodeURIComponent(EMAIL_ERROR)}${nextParam}`);
@@ -97,7 +101,7 @@ export async function signup(formData: FormData) {
   }
 
   if (!isValidPhoneForCountry(phoneNumber, phoneCountryIso)) {
-    redirect(`/signup?error=${encodeURIComponent("رقم الهاتف غير صحيح لهذه الدولة، تأكد من كتابته بالكامل.")}${nextParam}`);
+    redirect(`/signup?error=${encodeURIComponent(tAuth("phoneInvalidError"))}${nextParam}`);
   }
 
   const phone = `${phoneCountryCode}${phoneNumber}`;
@@ -117,7 +121,7 @@ export async function signup(formData: FormData) {
   });
 
   if (error) {
-    redirect(`/signup?error=${encodeURIComponent(translateAuthError(error.message))}${nextParam}`);
+    redirect(`/signup?error=${encodeURIComponent(translateAuthError(error.message, ta))}${nextParam}`);
   }
 
   const onboardingNext = next ? `?next=${encodeURIComponent(next)}` : "";
@@ -175,8 +179,11 @@ export async function logout() {
 }
 
 export async function requestPasswordReset(formData: FormData) {
+  const t = await getTranslations("Actions");
+  const ta = await getTranslations("Actions.auth");
+
   if (!(await checkRateLimit("password-reset", 5, 900))) {
-    redirect(`/forgot-password?error=${encodeURIComponent(RATE_LIMIT_MESSAGE)}`);
+    redirect(`/forgot-password?error=${encodeURIComponent(t("rateLimit"))}`);
   }
 
   const supabase = await createClient();
@@ -194,7 +201,7 @@ export async function requestPasswordReset(formData: FormData) {
   });
 
   if (error) {
-    redirect(`/forgot-password?error=${encodeURIComponent(translateAuthError(error.message))}`);
+    redirect(`/forgot-password?error=${encodeURIComponent(translateAuthError(error.message, ta))}`);
   }
 
   redirect(`/forgot-password/verify-code?email=${encodeURIComponent(email)}`);
@@ -204,19 +211,21 @@ export async function verifyResetCode(formData: FormData) {
   const email = (formData.get("email") as string) ?? "";
   const code = ((formData.get("code") as string) ?? "").trim();
   const backTo = `/forgot-password/verify-code?email=${encodeURIComponent(email)}`;
+  const t = await getTranslations("Actions");
+  const ta = await getTranslations("Actions.auth");
 
   if (!(await checkRateLimit("verify-reset-code", 8, 900))) {
-    redirect(`${backTo}&error=${encodeURIComponent(RATE_LIMIT_MESSAGE)}`);
+    redirect(`${backTo}&error=${encodeURIComponent(t("rateLimit"))}`);
   }
   if (!email || !/^\d{8}$/.test(code)) {
-    redirect(`${backTo}&error=${encodeURIComponent("أدخل الكود المكوَّن من 8 أرقام كما وصلك بالإيميل.")}`);
+    redirect(`${backTo}&error=${encodeURIComponent(ta("codeMustBe8Digits"))}`);
   }
 
   const supabase = await createClient();
   const { error } = await supabase.auth.verifyOtp({ email, token: code, type: "recovery" });
 
   if (error) {
-    redirect(`${backTo}&error=${encodeURIComponent("الكود غير صحيح أو منتهي الصلاحية. تأكد منه أو اطلب كودًا جديدًا.")}`);
+    redirect(`${backTo}&error=${encodeURIComponent(ta("codeIncorrectOrExpired"))}`);
   }
 
   redirect("/reset-password");
@@ -227,28 +236,30 @@ export async function updatePassword(formData: FormData) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  const ta = await getTranslations("Actions.auth");
 
   if (!user) {
     redirect(
       "/forgot-password?error=" +
-        encodeURIComponent("انتهت صلاحية رابط إعادة التعيين. يرجى طلب رابط جديد."),
+        encodeURIComponent(ta("resetLinkExpired")),
     );
   }
 
   const password = formData.get("password") as string;
   const passwordConfirm = formData.get("passwordConfirm") as string;
+  const tAuth = await getTranslations("Auth");
 
   // The form already disables submit on a mismatch client-side; this is the
   // server-side backstop for anyone who bypasses that (JS disabled, a direct
   // POST, ...).
   if (password !== passwordConfirm) {
-    redirect(`/reset-password?error=${encodeURIComponent("كلمتا المرور غير متطابقتين.")}`);
+    redirect(`/reset-password?error=${encodeURIComponent(tAuth("passwordMismatch"))}`);
   }
 
   const { error } = await supabase.auth.updateUser({ password });
 
   if (error) {
-    redirect(`/reset-password?error=${encodeURIComponent(translateAuthError(error.message))}`);
+    redirect(`/reset-password?error=${encodeURIComponent(translateAuthError(error.message, ta))}`);
   }
 
   redirect("/dashboard");

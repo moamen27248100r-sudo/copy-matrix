@@ -746,5 +746,99 @@
         "body": "Jukwaa hutumia vidakuzi muhimu tu kudumisha kikao chako cha kuingia na upendeleo wa mwonekano (hali ya giza/mwanga), na kamwe si kwa madhumuni ya ufuatiliaji wa matangazo."
       }
     ]
+  },
+  "MarketOverview": {
+    "crypto": "Sarafu za Kripto",
+    "forex": "Forex na Madini",
+    "indices": "Fahirisi"
+  },
+  "General": {
+    "notFoundTitle": "Ukurasa haujapatikana",
+    "notFoundDesc": "Kiungo ulichojaribu kufikia hakipo au kimehamishwa.",
+    "backToHome": "Rudi mwanzo",
+    "suspendedTitle": "Akaunti imesimamishwa",
+    "suspendedDesc": "Akaunti hii imesimamishwa na timu ya utawala. Ikiwa unaamini huu ni makosa, tafadhali wasiliana na msaada.",
+    "logOut": "Toka",
+    "siteDescription": "Jukwaa la biashara ya kijamii kwa ajili ya kufuata wafanyabiashara bora na kunakili biashara zao kiotomatiki."
+  },
+  "CopierProfile": {
+    "copierOf": "Anayenakili {name} · tangu {date}",
+    "defaultTraderFallback": "mfanyabiashara",
+    "startingCapital": "Mtaji wa mwanzo",
+    "totalReturn": "Faida jumla",
+    "tradeCount": "Biashara",
+    "currentCapital": "Mtaji wa sasa",
+    "depositsWithdrawalsTitle": "Amana na Uondoaji",
+    "dateCol": "Tarehe",
+    "typeCol": "Aina",
+    "amountCol": "Kiasi",
+    "firstDeposit": "Amana ya kwanza",
+    "withdrawal": "Uondoaji",
+    "tradeHistoryTitle": "Historia ya Biashara",
+    "noTradesSinceJoined": "Hakuna biashara zilizofungwa tangu mteja huyu ajiunge."
+  },
+  "Actions": {
+    "rateLimit": "Majaribio mengi sana. Tafadhali subiri kidogo kabla ya kujaribu tena.",
+    "auth": {
+      "emailInvalidGeneric": "Tafadhali angalia anwani yako ya barua pepe.",
+      "googleSignInFailed": "Imeshindwa kuingia kwa Google. Tafadhali jaribu tena.",
+      "confirmLinkInvalid": "Kiungo cha uthibitisho si sahihi au kimeisha muda wake",
+      "codeMustBe8Digits": "Weka msimbo wa tarakimu 8 kama ulivyotumwa kwenye barua pepe yako.",
+      "codeIncorrectOrExpired": "Msimbo si sahihi au umeisha muda wake. Uangalie au uombe mpya.",
+      "resetLinkExpired": "Kiungo cha kuweka upya nenosiri kimeisha muda wake. Tafadhali omba kiungo kipya.",
+      "invalidCredentials": "Barua pepe au nenosiri si sahihi.",
+      "emailNotConfirmed": "Barua pepe yako bado haijathibitishwa. Tafadhali fungua kiungo cha uthibitisho kilichotumwa kwako.",
+      "alreadyRegistered": "Barua pepe hii tayari imesajiliwa. Tafadhali ingia.",
+      "passwordTooShort": "Nenosiri lazima liwe na angalau herufi 6.",
+      "emailInvalid": "Anwani ya barua pepe iliyowekwa si sahihi.",
+      "waitBeforeRetry": "Tafadhali subiri kidogo kabla ya kujaribu tena.",
+      "genericError": "Hitilafu isiyotarajiwa imetokea. Tafadhali jaribu tena."
+    },
+    "kyc": {
+      "idDocumentRequired": "Picha ya kitambulisho inahitajika.",
+      "uploadFailed": "Imeshindwa kupakia hati ya kitambulisho. Tafadhali jaribu tena.",
+      "submitFailed": "Imeshindwa kuwasilisha ombi la uthibitisho. Tafadhali jaribu tena."
+    },
+    "portfolio": {
+      "depositAmountInvalid": "Kiasi cha amana lazima kiwe namba kubwa kuliko sifuri.",
+      "depositRequestFailed": "Imeshindwa kutuma ombi la amana. Tafadhali jaribu tena.",
+      "depositCompleteFailed": "Imeshindwa kukamilisha amana. Tafadhali jaribu tena.",
+      "withdrawAmountInvalid": "Kiasi cha kuondoa lazima kiwe namba kubwa kuliko sifuri.",
+      "withdrawBlockedOpenPositions": "Imeshindwa kuwasilisha ombi la kuondoa fedha: kwa sasa una biashara zilizo wazi, na salio lako limehifadhiwa kama dhamana kuzifidia. Unaweza kuacha kunakili baada ya biashara hizo kufungwa ili kurejesha salio na faida kwenye pochi yako, kisha uwasilishe tena ombi la kuondoa fedha.",
+      "withdrawInsufficientAvailable": "Salio lako linalopatikana la kuondoa halitoshi — sehemu ya salio lako kwa sasa imehifadhiwa kwa unakili unaoendelea. Acha kunakili kwanza ili kurejesha kiasi hiki kwenye salio lako linalopatikana.",
+      "withdrawNetworkRequired": "Chagua mtandao na uweke anwani ya pochi ili kukamilisha uondoaji.",
+      "withdrawRequestFailed": "Imeshindwa kutuma ombi la kuondoa fedha. Tafadhali jaribu tena.",
+      "withdrawCompleteFailed": "Imeshindwa kukamilisha uondoaji. Tafadhali jaribu tena."
+    },
+    "settings": {
+      "nameEmpty": "Jina haliwezi kuwa tupu.",
+      "nameSaveFailed": "Imeshindwa kuhifadhi jina. Tafadhali jaribu tena.",
+      "accountTypeUpdateFailed": "Imeshindwa kusasisha aina ya akaunti. Tafadhali jaribu tena."
+    },
+    "discover": {
+      "copyAmountInvalid": "Kiasi cha kunakili lazima kiwe namba kubwa kuliko sifuri.",
+      "copyAmountUpdateBlocked": "Imeshindwa kusasisha kiasi cha kunakili kwa sasa: una biashara zilizo wazi kwenye akaunti hii, na salio lako kwa sasa limehifadhiwa kama dhamana kuzifidia. Tafadhali jaribu tena baada ya biashara zote zilizo wazi kufungwa.",
+      "traderStopped": "Mfanyabiashara huyu ameacha kufanya biashara na hapatikani tena kuanzisha unakili mpya.",
+      "alreadyCopyingOther": "Kwa sasa unamnakili {name}. Unaweza kunakili mfanyabiashara mmoja tu kwa wakati mmoja — acha kunakili kwanza kutoka kwenye pochi yako.",
+      "anotherTraderFallback": "mfanyabiashara mwingine",
+      "copyAmountExceedsBalance": "Kiasi cha kunakili ni kikubwa kuliko salio lako linalopatikana.",
+      "copyAmountBelowMinimum": "Kiasi cha kunakili ni chini ya kiwango cha chini kwa mfanyabiashara huyu ({amount}).",
+      "copyFailed": "Imeshindwa kumnakili mfanyabiashara huyu. Tafadhali jaribu tena.",
+      "stopCopyBlocked": "Imeshindwa kuacha kunakili kwa sasa: una biashara zilizo wazi kwenye akaunti hii, na salio lako kwa sasa limehifadhiwa kama dhamana kuzifidia. Tafadhali jaribu tena baada ya biashara zote zilizo wazi kufungwa."
+    }
+  },
+  "FollowEmail": {
+    "subject": "Sasa unamfuata {name} kwenye Copy Matrix",
+    "heading": "Sasa unamfuata {name}",
+    "intro": "Huu ndio utendaji kamili wa mfanyabiashara huyu, na tutakujulisha masasisho yake kwanza.",
+    "tier": "Kiwango",
+    "riskLevel": "Kiwango cha hatari",
+    "winRate": "Kiwango cha ushindi kwa jumla",
+    "avgReturn": "Wastani wa faida ya kila siku",
+    "totalProfit": "Jumla ya faida iliyopatikana",
+    "followersCount": "Idadi ya wanaonakili",
+    "closedSignals": "Idadi ya biashara zilizofungwa",
+    "footer": "Hii ni barua pepe ya kiotomatiki ya kufuatilia utendaji kutoka Copy Matrix na haimaanishi kuwa biashara za mfanyabiashara huyu zinanakiliwa kiotomatiki.",
+    "memberSinceLabel": "Mwanachama tangu"
   }
 }

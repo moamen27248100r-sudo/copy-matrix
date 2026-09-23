@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { safeNextPath } from "@/lib/safe-next";
 
@@ -15,7 +16,8 @@ export async function GET(request: NextRequest) {
     }
   }
 
+  const ta = await getTranslations("Actions.auth");
   return NextResponse.redirect(
-    `${origin}/login?error=${encodeURIComponent("تعذّر تسجيل الدخول عبر Google. حاول مرة أخرى.")}`,
+    `${origin}/login?error=${encodeURIComponent(ta("googleSignInFailed"))}`,
   );
 }

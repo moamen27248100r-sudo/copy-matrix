@@ -746,5 +746,99 @@
         "body": "The platform uses only essential cookies to maintain your login session and appearance preference (dark/light mode), and never for advertising tracking purposes."
       }
     ]
+  },
+  "MarketOverview": {
+    "crypto": "Crypto",
+    "forex": "Forex & Metals",
+    "indices": "Indices"
+  },
+  "General": {
+    "notFoundTitle": "Page not found",
+    "notFoundDesc": "The link you tried to reach does not exist or has been moved.",
+    "backToHome": "Back to home",
+    "suspendedTitle": "Account suspended",
+    "suspendedDesc": "This account has been suspended by the admin team. If you believe this is a mistake, please contact support.",
+    "logOut": "Log out",
+    "siteDescription": "A social trading platform for following top traders and automatically copying their trades."
+  },
+  "CopierProfile": {
+    "copierOf": "Copying {name} · since {date}",
+    "defaultTraderFallback": "the trader",
+    "startingCapital": "Starting capital",
+    "totalReturn": "Total return",
+    "tradeCount": "Trades",
+    "currentCapital": "Current capital",
+    "depositsWithdrawalsTitle": "Deposits & Withdrawals",
+    "dateCol": "Date",
+    "typeCol": "Type",
+    "amountCol": "Amount",
+    "firstDeposit": "First deposit",
+    "withdrawal": "Withdrawal",
+    "tradeHistoryTitle": "Trade History",
+    "noTradesSinceJoined": "No closed trades since this customer joined."
+  },
+  "Actions": {
+    "rateLimit": "Too many attempts. Please wait a moment before trying again.",
+    "auth": {
+      "emailInvalidGeneric": "Please check your email address.",
+      "googleSignInFailed": "Could not sign in with Google. Please try again.",
+      "confirmLinkInvalid": "The confirmation link is invalid or has expired",
+      "codeMustBe8Digits": "Enter the 8-digit code exactly as sent to your email.",
+      "codeIncorrectOrExpired": "The code is incorrect or has expired. Check it or request a new one.",
+      "resetLinkExpired": "The password reset link has expired. Please request a new one.",
+      "invalidCredentials": "Incorrect email or password.",
+      "emailNotConfirmed": "Your email has not been confirmed yet. Please open the confirmation link sent to you.",
+      "alreadyRegistered": "This email is already registered. Please log in.",
+      "passwordTooShort": "Password must be at least 6 characters.",
+      "emailInvalid": "The email address entered is invalid.",
+      "waitBeforeRetry": "Please wait a moment before trying again.",
+      "genericError": "An unexpected error occurred. Please try again."
+    },
+    "kyc": {
+      "idDocumentRequired": "An ID document photo is required.",
+      "uploadFailed": "Could not upload the ID document. Please try again.",
+      "submitFailed": "Could not submit the verification request. Please try again."
+    },
+    "portfolio": {
+      "depositAmountInvalid": "The deposit amount must be a number greater than zero.",
+      "depositRequestFailed": "Could not send the deposit request. Please try again.",
+      "depositCompleteFailed": "Could not complete the deposit. Please try again.",
+      "withdrawAmountInvalid": "The withdrawal amount must be a number greater than zero.",
+      "withdrawBlockedOpenPositions": "Could not submit the withdrawal request: you currently have open trades, and your balance is held as margin to cover them. You can stop copying after those trades close to return the balance and profits to your wallet, then submit the withdrawal request again.",
+      "withdrawInsufficientAvailable": "Your available balance for withdrawal is insufficient — part of your balance is currently held for an active copy. Stop copying first to return this amount to your available balance.",
+      "withdrawNetworkRequired": "Choose a network and enter a wallet address to complete the withdrawal.",
+      "withdrawRequestFailed": "Could not send the withdrawal request. Please try again.",
+      "withdrawCompleteFailed": "Could not complete the withdrawal. Please try again."
+    },
+    "settings": {
+      "nameEmpty": "The name cannot be empty.",
+      "nameSaveFailed": "Could not save the name. Please try again.",
+      "accountTypeUpdateFailed": "Could not update the account type. Please try again."
+    },
+    "discover": {
+      "copyAmountInvalid": "The copy amount must be a number greater than zero.",
+      "copyAmountUpdateBlocked": "Could not update the copy amount right now: you have open trades on this account, and your balance is currently held as margin to cover them. Please try again after all open trades close.",
+      "traderStopped": "This trader has stopped trading and is no longer available to start new copying.",
+      "alreadyCopyingOther": "You are currently copying {name}. You can only copy one trader at a time — stop copying first from your portfolio.",
+      "anotherTraderFallback": "another trader",
+      "copyAmountExceedsBalance": "The copy amount is greater than your available balance.",
+      "copyAmountBelowMinimum": "The copy amount is below the minimum for this trader ({amount}).",
+      "copyFailed": "Could not copy this trader. Please try again.",
+      "stopCopyBlocked": "Could not stop copying right now: you have open trades on this account, and your balance is currently held as margin to cover them. Please try again after all open trades close."
+    }
+  },
+  "FollowEmail": {
+    "subject": "You are now following {name} on Copy Matrix",
+    "heading": "You are now following {name}",
+    "intro": "Here's this trader's full performance, and we'll keep you posted on their updates.",
+    "tier": "Tier",
+    "riskLevel": "Risk level",
+    "winRate": "Overall win rate",
+    "avgReturn": "Avg. daily return",
+    "totalProfit": "Total realized profit",
+    "followersCount": "Number of copiers",
+    "closedSignals": "Number of closed trades",
+    "footer": "This is an automated performance-follow email from Copy Matrix and does not mean this trader's trades are being copied automatically.",
+    "memberSinceLabel": "Member since"
   }
 }

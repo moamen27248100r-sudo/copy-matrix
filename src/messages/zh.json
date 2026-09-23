@@ -746,5 +746,99 @@
         "body": "平台仅使用必要的 Cookie 来维持您的登录会话和外观偏好（深色/浅色模式），绝不用于广告追踪目的。"
       }
     ]
+  },
+  "MarketOverview": {
+    "crypto": "加密货币",
+    "forex": "外汇与金属",
+    "indices": "指数"
+  },
+  "General": {
+    "notFoundTitle": "页面未找到",
+    "notFoundDesc": "您试图访问的链接不存在或已被移动。",
+    "backToHome": "返回首页",
+    "suspendedTitle": "账户已暂停",
+    "suspendedDesc": "该账户已被管理团队暂停。如果您认为这是错误，请联系客服。",
+    "logOut": "退出登录",
+    "siteDescription": "一个社交交易平台，用于关注顶尖交易员并自动复制他们的交易。"
+  },
+  "CopierProfile": {
+    "copierOf": "跟单 {name} · 自 {date} 起",
+    "defaultTraderFallback": "该交易员",
+    "startingCapital": "起始资金",
+    "totalReturn": "总回报",
+    "tradeCount": "交易数",
+    "currentCapital": "当前资金",
+    "depositsWithdrawalsTitle": "存款与提款",
+    "dateCol": "日期",
+    "typeCol": "类型",
+    "amountCol": "金额",
+    "firstDeposit": "首次存款",
+    "withdrawal": "提款",
+    "tradeHistoryTitle": "交易记录",
+    "noTradesSinceJoined": "该客户加入以来没有已平仓交易。"
+  },
+  "Actions": {
+    "rateLimit": "尝试次数过多。请稍等片刻再重试。",
+    "auth": {
+      "emailInvalidGeneric": "请检查您的电子邮箱地址。",
+      "googleSignInFailed": "无法通过 Google 登录，请重试。",
+      "confirmLinkInvalid": "确认链接无效或已过期",
+      "codeMustBe8Digits": "请输入发送到您邮箱的8位数验证码。",
+      "codeIncorrectOrExpired": "验证码不正确或已过期，请检查或申请新验证码。",
+      "resetLinkExpired": "密码重置链接已过期，请重新申请。",
+      "invalidCredentials": "邮箱或密码不正确。",
+      "emailNotConfirmed": "您的邮箱尚未确认，请打开发送给您的确认链接。",
+      "alreadyRegistered": "该邮箱已注册，请登录。",
+      "passwordTooShort": "密码必须至少6个字符。",
+      "emailInvalid": "输入的邮箱地址无效。",
+      "waitBeforeRetry": "请稍等片刻再重试。",
+      "genericError": "发生意外错误，请重试。"
+    },
+    "kyc": {
+      "idDocumentRequired": "需要提供身份证件照片。",
+      "uploadFailed": "无法上传身份证件，请重试。",
+      "submitFailed": "无法提交验证申请，请重试。"
+    },
+    "portfolio": {
+      "depositAmountInvalid": "存款金额必须是大于零的数字。",
+      "depositRequestFailed": "无法发送存款申请，请重试。",
+      "depositCompleteFailed": "无法完成存款，请重试。",
+      "withdrawAmountInvalid": "提款金额必须是大于零的数字。",
+      "withdrawBlockedOpenPositions": "无法提交提款申请：您目前有持仓中的交易，您的余额被作为保证金锁定以覆盖这些交易。这些交易平仓后您可以停止跟单，将余额和利润返还到您的钱包，然后重新提交提款申请。",
+      "withdrawInsufficientAvailable": "您可用于提款的余额不足 — 部分余额目前被锁定用于活跃跟单。请先停止跟单，将该金额返还到您的可用余额。",
+      "withdrawNetworkRequired": "请选择网络并输入钱包地址以完成提款。",
+      "withdrawRequestFailed": "无法发送提款申请，请重试。",
+      "withdrawCompleteFailed": "无法完成提款，请重试。"
+    },
+    "settings": {
+      "nameEmpty": "姓名不能为空。",
+      "nameSaveFailed": "无法保存姓名，请重试。",
+      "accountTypeUpdateFailed": "无法更新账户类型，请重试。"
+    },
+    "discover": {
+      "copyAmountInvalid": "跟单金额必须是大于零的数字。",
+      "copyAmountUpdateBlocked": "当前无法更新跟单金额：您在此账户上有持仓中的交易，您的余额目前被作为保证金锁定以覆盖这些交易。请等所有持仓交易平仓后再试。",
+      "traderStopped": "该交易员已停止交易，无法开始新的跟单。",
+      "alreadyCopyingOther": "您当前正在跟单 {name}。同一时间只能跟单一位交易员 — 请先在您的投资组合中停止跟单。",
+      "anotherTraderFallback": "另一位交易员",
+      "copyAmountExceedsBalance": "跟单金额超过您的可用余额。",
+      "copyAmountBelowMinimum": "跟单金额低于该交易员的最低要求（{amount}）。",
+      "copyFailed": "无法跟单该交易员，请重试。",
+      "stopCopyBlocked": "当前无法停止跟单：您在此账户上有持仓中的交易，您的余额目前被作为保证金锁定以覆盖这些交易。请等所有持仓交易平仓后再试。"
+    }
+  },
+  "FollowEmail": {
+    "subject": "您现在在 Copy Matrix 上关注了 {name}",
+    "heading": "您现在关注了 {name}",
+    "intro": "以下是该交易员的完整表现，我们会第一时间为您更新最新动态。",
+    "tier": "等级",
+    "riskLevel": "风险等级",
+    "winRate": "总体胜率",
+    "avgReturn": "平均每日回报",
+    "totalProfit": "已实现总利润",
+    "followersCount": "跟单者数量",
+    "closedSignals": "已平仓交易数量",
+    "footer": "这是 Copy Matrix 自动发送的表现关注邮件，并不代表该交易员的交易会被自动跟单。",
+    "memberSinceLabel": "加入于"
   }
 }

@@ -1,6 +1,7 @@
 import { type EmailOtpType } from "@supabase/supabase-js";
 import { type NextRequest } from "next/server";
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 
 // Lands here from Supabase's own hosted verify page after it checks the
@@ -37,5 +38,6 @@ export async function GET(request: NextRequest) {
   // "Cannot convert argument to a ByteString" when Next turns this into a
   // Location header (non-Latin1 characters aren't legal in an HTTP header
   // value), producing a 500 instead of the intended redirect.
-  redirect(`/login?error=${encodeURIComponent("رابط التأكيد غير صالح أو منتهي الصلاحية")}`);
+  const ta = await getTranslations("Actions.auth");
+  redirect(`/login?error=${encodeURIComponent(ta("confirmLinkInvalid"))}`);
 }

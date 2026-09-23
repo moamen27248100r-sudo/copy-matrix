@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { translateAuthError } from "@/lib/auth-errors";
 
@@ -13,10 +14,12 @@ export async function updateProfile(formData: FormData) {
 
   if (!user) redirect("/login");
 
+  const tSettings = await getTranslations("Actions.settings");
+
   const displayName = (formData.get("displayName") as string).trim();
 
   if (!displayName) {
-    redirect("/settings?error=" + encodeURIComponent("الاسم لا يمكن أن يكون فارغًا."));
+    redirect("/settings?error=" + encodeURIComponent(tSettings("nameEmpty")));
   }
 
   const { error } = await supabase
@@ -25,7 +28,7 @@ export async function updateProfile(formData: FormData) {
     .eq("id", user.id);
 
   if (error) {
-    redirect("/settings?error=" + encodeURIComponent("تعذّر حفظ الاسم. حاول مرة أخرى."));
+    redirect("/settings?error=" + encodeURIComponent(tSettings("nameSaveFailed")));
   }
 
   revalidatePath("/settings");
@@ -52,7 +55,8 @@ export async function updateAccountType(formData: FormData) {
     .eq("id", user.id);
 
   if (error) {
-    redirect("/settings?error=" + encodeURIComponent("تعذّر تحديث نوع الحساب. حاول مرة أخرى."));
+    const tSettings = await getTranslations("Actions.settings");
+    redirect("/settings?error=" + encodeURIComponent(tSettings("accountTypeUpdateFailed")));
   }
 
   // Same reset-on-switch rule as chooseAccountType: a copy relationship
@@ -76,7 +80,8 @@ export async function changePassword(formData: FormData) {
   const { error } = await supabase.auth.updateUser({ password });
 
   if (error) {
-    redirect("/settings?error=" + encodeURIComponent(translateAuthError(error.message)));
+    const ta = await getTranslations("Actions.auth");
+    redirect("/settings?error=" + encodeURIComponent(translateAuthError(error.message, ta)));
   }
 
   redirect("/settings?success=1");

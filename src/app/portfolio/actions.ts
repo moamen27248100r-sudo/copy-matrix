@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { findDepositNetwork } from "@/lib/deposit-networks";
 
@@ -13,10 +14,12 @@ export async function requestDeposit(formData: FormData) {
 
   if (!user) redirect("/login");
 
+  const tp = await getTranslations("Actions.portfolio");
+
   const amount = Number(formData.get("amount"));
 
   if (!Number.isFinite(amount) || amount <= 0) {
-    redirect("/portfolio?error=" + encodeURIComponent("مبلغ الإيداع يجب أن يكون رقمًا أكبر من صفر."));
+    redirect("/portfolio?error=" + encodeURIComponent(tp("depositAmountInvalid")));
   }
 
   const networkId = String(formData.get("network") ?? "");
@@ -34,7 +37,7 @@ export async function requestDeposit(formData: FormData) {
     .single();
 
   if (insertError || !inserted) {
-    redirect("/portfolio?error=" + encodeURIComponent("تعذّر إرسال طلب الإيداع. حاول مرة أخرى."));
+    redirect("/portfolio?error=" + encodeURIComponent(tp("depositRequestFailed")));
   }
 
   const { error: approveError } = await supabase.rpc("self_approve_wallet_request", {
@@ -42,7 +45,7 @@ export async function requestDeposit(formData: FormData) {
   });
 
   if (approveError) {
-    redirect("/portfolio?error=" + encodeURIComponent("تعذّر إتمام الإيداع. حاول مرة أخرى."));
+    redirect("/portfolio?error=" + encodeURIComponent(tp("depositCompleteFailed")));
   }
 
   revalidatePath("/portfolio");
@@ -57,10 +60,12 @@ export async function requestWithdrawal(formData: FormData) {
 
   if (!user) redirect("/login");
 
+  const tp = await getTranslations("Actions.portfolio");
+
   const amount = Number(formData.get("amount"));
 
   if (!Number.isFinite(amount) || amount <= 0) {
-    redirect("/portfolio/withdraw?error=" + encodeURIComponent("مبلغ السحب يجب أن يكون رقمًا أكبر من صفر."));
+    redirect("/portfolio/withdraw?error=" + encodeURIComponent(tp("withdrawAmountInvalid")));
   }
 
   // Pre-check before inserting the wallet_request row — apply_wallet_request()
@@ -90,10 +95,7 @@ export async function requestWithdrawal(formData: FormData) {
 
   if ((openPositionsCount && openPositionsCount > 0) || leaderHasTraded) {
     redirect(
-      "/portfolio/withdraw?error=" +
-        encodeURIComponent(
-          "تعذّر تقديم طلب السحب: لديك صفقات مفتوحة حاليًا، ورصيدك محجوز كهامش لتغطيتها. يمكنك إيقاف النسخ بعد إغلاق الصفقات لإعادة الرصيد والأرباح إلى محفظتك، ثم إعادة تقديم طلب السحب.",
-        ),
+      "/portfolio/withdraw?error=" + encodeURIComponent(tp("withdrawBlockedOpenPositions")),
     );
   }
 
@@ -101,10 +103,7 @@ export async function requestWithdrawal(formData: FormData) {
   const available = Number(profile?.balance ?? 0) - reserved;
   if (amount > available) {
     redirect(
-      "/portfolio/withdraw?error=" +
-        encodeURIComponent(
-          "رصيدك المتاح للسحب غير كافٍ — جزء من رصيدك محجوز حاليًا لحساب النسخ النشط. أوقف النسخ أولاً لإعادة هذا المبلغ إلى رصيدك المتاح.",
-        ),
+      "/portfolio/withdraw?error=" + encodeURIComponent(tp("withdrawInsufficientAvailable")),
     );
   }
 
@@ -117,7 +116,7 @@ export async function requestWithdrawal(formData: FormData) {
     const network = findDepositNetwork(networkId);
 
     if (!network || !walletAddress) {
-      redirect("/portfolio/withdraw?error=" + encodeURIComponent("اختر الشبكة وأدخل عنوان المحفظة لإتمام السحب."));
+      redirect("/portfolio/withdraw?error=" + encodeURIComponent(tp("withdrawNetworkRequired")));
     }
 
     note = `السحب إلى: ${network.label} — العنوان: ${walletAddress}`;
@@ -130,7 +129,7 @@ export async function requestWithdrawal(formData: FormData) {
     .single();
 
   if (insertError || !inserted) {
-    redirect("/portfolio/withdraw?error=" + encodeURIComponent("تعذّر إرسال طلب السحب. حاول مرة أخرى."));
+    redirect("/portfolio/withdraw?error=" + encodeURIComponent(tp("withdrawRequestFailed")));
   }
 
   const { error: approveError } = await supabase.rpc("self_approve_wallet_request", {
@@ -138,11 +137,14 @@ export async function requestWithdrawal(formData: FormData) {
   });
 
   if (approveError) {
-    // apply_wallet_request() raises this exact Arabic message when the
-    // balance doesn't cover the withdrawal — surface it as-is.
+    // apply_wallet_request() re-checks the same two conditions already
+    // pre-checked above (as a race-condition safety net) and raises its own
+    // Arabic-only exception message -- rather than surfacing that raw DB
+    // text (which can't follow the viewer's locale), always show our own
+    // translated fallback; the pre-checks above mean this DB-level path is
+    // only ever hit on a genuine race, not the common case.
     redirect(
-      "/portfolio/withdraw?error=" +
-        encodeURIComponent(approveError.message.includes("رصيد") ? approveError.message : "تعذّر إتمام السحب. حاول مرة أخرى."),
+      "/portfolio/withdraw?error=" + encodeURIComponent(tp("withdrawCompleteFailed")),
     );
   }
 

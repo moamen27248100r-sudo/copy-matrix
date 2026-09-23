@@ -746,5 +746,99 @@
         "body": "Platform hanya menggunakan cookie esensial untuk mempertahankan sesi login dan preferensi tampilan Anda (mode gelap/terang), dan tidak pernah untuk tujuan pelacakan iklan."
       }
     ]
+  },
+  "MarketOverview": {
+    "crypto": "Kripto",
+    "forex": "Forex & Logam",
+    "indices": "Indeks"
+  },
+  "General": {
+    "notFoundTitle": "Halaman tidak ditemukan",
+    "notFoundDesc": "Tautan yang Anda coba akses tidak ada atau telah dipindahkan.",
+    "backToHome": "Kembali ke beranda",
+    "suspendedTitle": "Akun ditangguhkan",
+    "suspendedDesc": "Akun ini telah ditangguhkan oleh tim admin. Jika Anda merasa ini adalah kesalahan, silakan hubungi dukungan.",
+    "logOut": "Keluar",
+    "siteDescription": "Platform trading sosial untuk mengikuti trader terbaik dan menyalin trade mereka secara otomatis."
+  },
+  "CopierProfile": {
+    "copierOf": "Menyalin {name} · sejak {date}",
+    "defaultTraderFallback": "trader tersebut",
+    "startingCapital": "Modal awal",
+    "totalReturn": "Total return",
+    "tradeCount": "Trade",
+    "currentCapital": "Modal saat ini",
+    "depositsWithdrawalsTitle": "Setoran & Penarikan",
+    "dateCol": "Tanggal",
+    "typeCol": "Jenis",
+    "amountCol": "Jumlah",
+    "firstDeposit": "Setoran pertama",
+    "withdrawal": "Penarikan",
+    "tradeHistoryTitle": "Riwayat Trade",
+    "noTradesSinceJoined": "Tidak ada trade tertutup sejak pelanggan ini bergabung."
+  },
+  "Actions": {
+    "rateLimit": "Terlalu banyak percobaan. Harap tunggu sebentar sebelum mencoba lagi.",
+    "auth": {
+      "emailInvalidGeneric": "Silakan periksa alamat email Anda.",
+      "googleSignInFailed": "Tidak dapat masuk dengan Google. Silakan coba lagi.",
+      "confirmLinkInvalid": "Tautan konfirmasi tidak valid atau telah kedaluwarsa",
+      "codeMustBe8Digits": "Masukkan kode 8 digit persis seperti yang dikirim ke email Anda.",
+      "codeIncorrectOrExpired": "Kode salah atau telah kedaluwarsa. Periksa atau minta kode baru.",
+      "resetLinkExpired": "Tautan reset kata sandi telah kedaluwarsa. Silakan minta tautan baru.",
+      "invalidCredentials": "Email atau kata sandi salah.",
+      "emailNotConfirmed": "Email Anda belum dikonfirmasi. Silakan buka tautan konfirmasi yang dikirimkan kepada Anda.",
+      "alreadyRegistered": "Email ini sudah terdaftar. Silakan masuk.",
+      "passwordTooShort": "Kata sandi harus terdiri dari minimal 6 karakter.",
+      "emailInvalid": "Alamat email yang dimasukkan tidak valid.",
+      "waitBeforeRetry": "Harap tunggu sebentar sebelum mencoba lagi.",
+      "genericError": "Terjadi kesalahan tak terduga. Silakan coba lagi."
+    },
+    "kyc": {
+      "idDocumentRequired": "Foto dokumen identitas diperlukan.",
+      "uploadFailed": "Tidak dapat mengunggah dokumen identitas. Silakan coba lagi.",
+      "submitFailed": "Tidak dapat mengirim permintaan verifikasi. Silakan coba lagi."
+    },
+    "portfolio": {
+      "depositAmountInvalid": "Jumlah setoran harus berupa angka lebih besar dari nol.",
+      "depositRequestFailed": "Tidak dapat mengirim permintaan setoran. Silakan coba lagi.",
+      "depositCompleteFailed": "Tidak dapat menyelesaikan setoran. Silakan coba lagi.",
+      "withdrawAmountInvalid": "Jumlah penarikan harus berupa angka lebih besar dari nol.",
+      "withdrawBlockedOpenPositions": "Tidak dapat mengirim permintaan penarikan: Anda saat ini memiliki trade terbuka, dan saldo Anda ditahan sebagai margin untuk menutupinya. Anda dapat berhenti menyalin setelah trade tersebut ditutup untuk mengembalikan saldo dan keuntungan ke dompet Anda, lalu kirim ulang permintaan penarikan.",
+      "withdrawInsufficientAvailable": "Saldo yang tersedia untuk penarikan tidak mencukupi — sebagian saldo Anda saat ini ditahan untuk penyalinan aktif. Hentikan penyalinan terlebih dahulu untuk mengembalikan jumlah ini ke saldo tersedia Anda.",
+      "withdrawNetworkRequired": "Pilih jaringan dan masukkan alamat dompet untuk menyelesaikan penarikan.",
+      "withdrawRequestFailed": "Tidak dapat mengirim permintaan penarikan. Silakan coba lagi.",
+      "withdrawCompleteFailed": "Tidak dapat menyelesaikan penarikan. Silakan coba lagi."
+    },
+    "settings": {
+      "nameEmpty": "Nama tidak boleh kosong.",
+      "nameSaveFailed": "Tidak dapat menyimpan nama. Silakan coba lagi.",
+      "accountTypeUpdateFailed": "Tidak dapat memperbarui jenis akun. Silakan coba lagi."
+    },
+    "discover": {
+      "copyAmountInvalid": "Jumlah salinan harus berupa angka lebih besar dari nol.",
+      "copyAmountUpdateBlocked": "Tidak dapat memperbarui jumlah salinan saat ini: Anda memiliki trade terbuka pada akun ini, dan saldo Anda saat ini ditahan sebagai margin untuk menutupinya. Silakan coba lagi setelah semua trade terbuka ditutup.",
+      "traderStopped": "Trader ini telah berhenti trading dan tidak lagi tersedia untuk memulai penyalinan baru.",
+      "alreadyCopyingOther": "Anda sedang menyalin {name}. Anda hanya dapat menyalin satu trader dalam satu waktu — hentikan penyalinan dulu dari portofolio Anda.",
+      "anotherTraderFallback": "trader lain",
+      "copyAmountExceedsBalance": "Jumlah salinan lebih besar dari saldo tersedia Anda.",
+      "copyAmountBelowMinimum": "Jumlah salinan di bawah minimum untuk trader ini ({amount}).",
+      "copyFailed": "Tidak dapat menyalin trader ini. Silakan coba lagi.",
+      "stopCopyBlocked": "Tidak dapat menghentikan penyalinan saat ini: Anda memiliki trade terbuka pada akun ini, dan saldo Anda saat ini ditahan sebagai margin untuk menutupinya. Silakan coba lagi setelah semua trade terbuka ditutup."
+    }
+  },
+  "FollowEmail": {
+    "subject": "Anda kini mengikuti {name} di Copy Matrix",
+    "heading": "Anda kini mengikuti {name}",
+    "intro": "Berikut kinerja lengkap trader ini, dan kami akan terus memberi tahu Anda pembaruannya.",
+    "tier": "Tingkat",
+    "riskLevel": "Tingkat risiko",
+    "winRate": "Tingkat kemenangan keseluruhan",
+    "avgReturn": "Rata-rata return harian",
+    "totalProfit": "Total profit terealisasi",
+    "followersCount": "Jumlah penyalin",
+    "closedSignals": "Jumlah trade tertutup",
+    "footer": "Ini adalah email otomatis pemantauan kinerja dari Copy Matrix dan tidak berarti trade trader ini disalin secara otomatis.",
+    "memberSinceLabel": "Anggota sejak"
   }
 }

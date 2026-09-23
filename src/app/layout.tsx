@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans_Arabic, IBM_Plex_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages } from "next-intl/server";
+import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
 import { ImpersonationBanner } from "@/components/ImpersonationBanner";
 import "./globals.css";
@@ -23,10 +23,13 @@ const plexMono = IBM_Plex_Mono({
   weight: ["400", "500", "600"],
 });
 
-export const metadata: Metadata = {
-  title: "Copy Matrix",
-  description: "منصة تداول اجتماعي لمتابعة أفضل المتداولين ونسخ صفقاتهم تلقائيًا.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("General");
+  return {
+    title: "Copy Matrix",
+    description: t("siteDescription"),
+  };
+}
 
 export default async function RootLayout({
   children,

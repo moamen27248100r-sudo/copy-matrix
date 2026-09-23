@@ -746,5 +746,99 @@
         "body": "Nền tảng chỉ sử dụng các cookie thiết yếu để duy trì phiên đăng nhập và tùy chọn giao diện (chế độ tối/sáng) của bạn, không bao giờ nhằm mục đích theo dõi quảng cáo."
       }
     ]
+  },
+  "MarketOverview": {
+    "crypto": "Tiền điện tử",
+    "forex": "Forex & Kim loại",
+    "indices": "Chỉ số"
+  },
+  "General": {
+    "notFoundTitle": "Không tìm thấy trang",
+    "notFoundDesc": "Liên kết bạn đang cố truy cập không tồn tại hoặc đã bị di chuyển.",
+    "backToHome": "Về trang chủ",
+    "suspendedTitle": "Tài khoản bị đình chỉ",
+    "suspendedDesc": "Tài khoản này đã bị đội ngũ quản trị đình chỉ. Nếu bạn cho rằng đây là sai sót, vui lòng liên hệ bộ phận hỗ trợ.",
+    "logOut": "Đăng xuất",
+    "siteDescription": "Một nền tảng giao dịch xã hội để theo dõi các nhà giao dịch hàng đầu và tự động sao chép giao dịch của họ."
+  },
+  "CopierProfile": {
+    "copierOf": "Đang sao chép {name} · từ {date}",
+    "defaultTraderFallback": "nhà giao dịch",
+    "startingCapital": "Vốn ban đầu",
+    "totalReturn": "Tổng lợi nhuận",
+    "tradeCount": "Giao dịch",
+    "currentCapital": "Vốn hiện tại",
+    "depositsWithdrawalsTitle": "Nạp tiền & Rút tiền",
+    "dateCol": "Ngày",
+    "typeCol": "Loại",
+    "amountCol": "Số tiền",
+    "firstDeposit": "Lần nạp đầu tiên",
+    "withdrawal": "Rút tiền",
+    "tradeHistoryTitle": "Lịch sử giao dịch",
+    "noTradesSinceJoined": "Không có giao dịch đã đóng nào kể từ khi khách hàng này tham gia."
+  },
+  "Actions": {
+    "rateLimit": "Quá nhiều lần thử. Vui lòng đợi một chút trước khi thử lại.",
+    "auth": {
+      "emailInvalidGeneric": "Vui lòng kiểm tra địa chỉ email của bạn.",
+      "googleSignInFailed": "Không thể đăng nhập bằng Google. Vui lòng thử lại.",
+      "confirmLinkInvalid": "Liên kết xác nhận không hợp lệ hoặc đã hết hạn",
+      "codeMustBe8Digits": "Nhập mã 8 chữ số chính xác như đã gửi đến email của bạn.",
+      "codeIncorrectOrExpired": "Mã không chính xác hoặc đã hết hạn. Kiểm tra lại hoặc yêu cầu mã mới.",
+      "resetLinkExpired": "Liên kết đặt lại mật khẩu đã hết hạn. Vui lòng yêu cầu liên kết mới.",
+      "invalidCredentials": "Email hoặc mật khẩu không chính xác.",
+      "emailNotConfirmed": "Email của bạn chưa được xác nhận. Vui lòng mở liên kết xác nhận đã gửi cho bạn.",
+      "alreadyRegistered": "Email này đã được đăng ký. Vui lòng đăng nhập.",
+      "passwordTooShort": "Mật khẩu phải có ít nhất 6 ký tự.",
+      "emailInvalid": "Địa chỉ email đã nhập không hợp lệ.",
+      "waitBeforeRetry": "Vui lòng đợi một chút trước khi thử lại.",
+      "genericError": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại."
+    },
+    "kyc": {
+      "idDocumentRequired": "Cần có ảnh giấy tờ tùy thân.",
+      "uploadFailed": "Không thể tải lên giấy tờ tùy thân. Vui lòng thử lại.",
+      "submitFailed": "Không thể gửi yêu cầu xác minh. Vui lòng thử lại."
+    },
+    "portfolio": {
+      "depositAmountInvalid": "Số tiền nạp phải là một số lớn hơn không.",
+      "depositRequestFailed": "Không thể gửi yêu cầu nạp tiền. Vui lòng thử lại.",
+      "depositCompleteFailed": "Không thể hoàn tất nạp tiền. Vui lòng thử lại.",
+      "withdrawAmountInvalid": "Số tiền rút phải là một số lớn hơn không.",
+      "withdrawBlockedOpenPositions": "Không thể gửi yêu cầu rút tiền: bạn hiện có các giao dịch đang mở và số dư của bạn đang được giữ làm ký quỹ để bù đắp cho chúng. Bạn có thể dừng sao chép sau khi các giao dịch đó đóng lại để hoàn trả số dư và lợi nhuận vào ví, sau đó gửi lại yêu cầu rút tiền.",
+      "withdrawInsufficientAvailable": "Số dư khả dụng để rút tiền của bạn không đủ — một phần số dư của bạn hiện đang được giữ cho việc sao chép đang hoạt động. Hãy dừng sao chép trước để hoàn trả số tiền này vào số dư khả dụng của bạn.",
+      "withdrawNetworkRequired": "Chọn một mạng lưới và nhập địa chỉ ví để hoàn tất việc rút tiền.",
+      "withdrawRequestFailed": "Không thể gửi yêu cầu rút tiền. Vui lòng thử lại.",
+      "withdrawCompleteFailed": "Không thể hoàn tất rút tiền. Vui lòng thử lại."
+    },
+    "settings": {
+      "nameEmpty": "Tên không được để trống.",
+      "nameSaveFailed": "Không thể lưu tên. Vui lòng thử lại.",
+      "accountTypeUpdateFailed": "Không thể cập nhật loại tài khoản. Vui lòng thử lại."
+    },
+    "discover": {
+      "copyAmountInvalid": "Số tiền sao chép phải là một số lớn hơn không.",
+      "copyAmountUpdateBlocked": "Hiện không thể cập nhật số tiền sao chép: bạn có giao dịch đang mở trên tài khoản này, và số dư của bạn hiện đang được giữ làm ký quỹ để bù đắp cho chúng. Vui lòng thử lại sau khi tất cả các giao dịch đang mở đóng lại.",
+      "traderStopped": "Nhà giao dịch này đã ngừng giao dịch và không còn khả dụng để bắt đầu sao chép mới.",
+      "alreadyCopyingOther": "Bạn hiện đang sao chép {name}. Bạn chỉ có thể sao chép một nhà giao dịch tại một thời điểm — hãy dừng sao chép trước từ danh mục đầu tư của bạn.",
+      "anotherTraderFallback": "một nhà giao dịch khác",
+      "copyAmountExceedsBalance": "Số tiền sao chép lớn hơn số dư khả dụng của bạn.",
+      "copyAmountBelowMinimum": "Số tiền sao chép thấp hơn mức tối thiểu đối với nhà giao dịch này ({amount}).",
+      "copyFailed": "Không thể sao chép nhà giao dịch này. Vui lòng thử lại.",
+      "stopCopyBlocked": "Hiện không thể dừng sao chép: bạn có giao dịch đang mở trên tài khoản này, và số dư của bạn hiện đang được giữ làm ký quỹ để bù đắp cho chúng. Vui lòng thử lại sau khi tất cả các giao dịch đang mở đóng lại."
+    }
+  },
+  "FollowEmail": {
+    "subject": "Bạn hiện đang theo dõi {name} trên Copy Matrix",
+    "heading": "Bạn hiện đang theo dõi {name}",
+    "intro": "Đây là hiệu suất đầy đủ của nhà giao dịch này, và chúng tôi sẽ cập nhật cho bạn về các diễn biến mới nhất.",
+    "tier": "Cấp bậc",
+    "riskLevel": "Mức độ rủi ro",
+    "winRate": "Tỷ lệ thắng tổng thể",
+    "avgReturn": "Lợi nhuận trung bình hàng ngày",
+    "totalProfit": "Tổng lợi nhuận đã thực hiện",
+    "followersCount": "Số người sao chép",
+    "closedSignals": "Số giao dịch đã đóng",
+    "footer": "Đây là email tự động theo dõi hiệu suất từ Copy Matrix và không có nghĩa là các giao dịch của nhà giao dịch này đang được sao chép tự động.",
+    "memberSinceLabel": "Thành viên từ"
   }
 }

@@ -2,41 +2,51 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { sendSupportEmail } from "@/lib/email";
+import { isRtlLocale, type Locale } from "@/i18n/locales";
+import { formatDate } from "@/lib/locale-format";
 
-function traderFollowEmailHtml(provider: {
-  display_name: string | null;
-  bio: string | null;
-  tier: string | null;
-  risk_level: string | null;
-  win_rate_pct: number | null;
-  avg_daily_return_pct: number | null;
-  total_profit: number | null;
-  followers_count: number | null;
-  closed_signals: number | null;
-  joined_at: string;
-}) {
+type FollowEmailTranslator = (key: string, values?: Record<string, string | number>) => string;
+
+function traderFollowEmailHtml(
+  provider: {
+    display_name: string | null;
+    bio: string | null;
+    tier: string | null;
+    risk_level: string | null;
+    win_rate_pct: number | null;
+    avg_daily_return_pct: number | null;
+    total_profit: number | null;
+    followers_count: number | null;
+    closed_signals: number | null;
+    joined_at: string;
+  },
+  t: FollowEmailTranslator,
+  locale: Locale,
+) {
   const row = (label: string, value: string) =>
     `<tr><td style="padding:6px 12px;color:#666;">${label}</td><td style="padding:6px 12px;font-weight:600;">${value}</td></tr>`;
+  const dir = isRtlLocale(locale) ? "rtl" : "ltr";
 
   return `
-    <div dir="rtl" style="font-family:Tahoma,Arial,sans-serif;max-width:480px;margin:auto;">
-      <h2 style="margin-bottom:4px;">أنت الآن تتابع ${provider.display_name}</h2>
-      <p style="color:#666;">إليك أداء هذا المتداول بالكامل، وسنوافيك بتحديثاته أولًا بأول.</p>
+    <div dir="${dir}" style="font-family:Tahoma,Arial,sans-serif;max-width:480px;margin:auto;">
+      <h2 style="margin-bottom:4px;">${t("heading", { name: provider.display_name ?? "" })}</h2>
+      <p style="color:#666;">${t("intro")}</p>
       ${provider.bio ? `<p style="color:#444;">${provider.bio}</p>` : ""}
       <table style="width:100%;border-collapse:collapse;">
-        ${row("الفئة", provider.tier ?? "—")}
-        ${row("مستوى المخاطرة", provider.risk_level ?? "—")}
-        ${row("نسبة النجاح الكلية", provider.win_rate_pct != null ? `${provider.win_rate_pct}%` : "—")}
-        ${row("متوسط العائد اليومي", provider.avg_daily_return_pct != null ? `${provider.avg_daily_return_pct}%` : "—")}
-        ${row("إجمالي الأرباح المحققة", provider.total_profit != null ? `$${Number(provider.total_profit).toLocaleString("en-US", { maximumFractionDigits: 0 })}` : "—")}
-        ${row("عدد الناسخين", provider.followers_count != null ? String(provider.followers_count) : "—")}
-        ${row("عدد الصفقات المغلقة", provider.closed_signals != null ? String(provider.closed_signals) : "—")}
-        ${row("عضو منذ", new Date(provider.joined_at).toLocaleDateString("ar-EG", { year: "numeric", month: "long" }))}
+        ${row(t("tier"), provider.tier ?? "—")}
+        ${row(t("riskLevel"), provider.risk_level ?? "—")}
+        ${row(t("winRate"), provider.win_rate_pct != null ? `${provider.win_rate_pct}%` : "—")}
+        ${row(t("avgReturn"), provider.avg_daily_return_pct != null ? `${provider.avg_daily_return_pct}%` : "—")}
+        ${row(t("totalProfit"), provider.total_profit != null ? `$${Number(provider.total_profit).toLocaleString("en-US", { maximumFractionDigits: 0 })}` : "—")}
+        ${row(t("followersCount"), provider.followers_count != null ? String(provider.followers_count) : "—")}
+        ${row(t("closedSignals"), provider.closed_signals != null ? String(provider.closed_signals) : "—")}
+        ${row(t("memberSinceLabel"), formatDate(provider.joined_at, locale, { year: "numeric", month: "long" }))}
       </table>
       <p style="color:#999;font-size:12px;margin-top:16px;">
-        هذه رسالة متابعة أداء تلقائية من Copy Matrix، ولا تعني نسخ صفقات هذا المتداول تلقائيًا.
+        ${t("footer")}
       </p>
     </div>
   `;
@@ -52,13 +62,15 @@ export async function followProvider(formData: FormData) {
 
   if (!user) redirect(`/signup?next=${encodeURIComponent(`/trader/${providerId}#copy`)}`);
 
+  const td = await getTranslations("Actions.discover");
+
   const allocatedAmount = Number(formData.get("allocatedAmount"));
   // Stop-loss is no longer a customer-facing setting — every copy relationship
   // gets the same default protection threshold instead of asking for it upfront.
   const maxDrawdownPct = 50;
 
   if (!Number.isFinite(allocatedAmount) || allocatedAmount <= 0) {
-    redirect(`/trader/${providerId}?error=${encodeURIComponent("مبلغ النسخ يجب أن يكون رقمًا أكبر من صفر.")}`);
+    redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copyAmountInvalid"))}`);
   }
 
   const [{ data: profile }, { data: provider }, { data: otherSub }, { data: existingSub }] = await Promise.all([
@@ -87,15 +99,13 @@ export async function followProvider(formData: FormData) {
   // the same real lock, not a separate rule.
   if (existingSub && Date.now() - new Date(existingSub.copy_started_at).getTime() >= 10 * 60 * 1000) {
     redirect(
-      `/trader/${providerId}?error=${encodeURIComponent(
-        "تعذّر تحديث مبلغ النسخ حاليًا: لديك صفقات مفتوحة على هذا الحساب، ورصيدك محجوز حاليًا كهامش لتغطيتها. يُرجى إعادة المحاولة بعد إغلاق جميع الصفقات المفتوحة.",
-      )}`,
+      `/trader/${providerId}?error=${encodeURIComponent(td("copyAmountUpdateBlocked"))}`,
     );
   }
 
   if (provider?.trading_status === "stopped") {
     redirect(
-      `/trader/${providerId}?error=${encodeURIComponent("هذا المتداول أوقف التداول ولم يعد متاحًا لبدء نسخ جديد.")}`,
+      `/trader/${providerId}?error=${encodeURIComponent(td("traderStopped"))}`,
     );
   }
 
@@ -107,19 +117,19 @@ export async function followProvider(formData: FormData) {
       .single();
     redirect(
       `/trader/${providerId}?error=${encodeURIComponent(
-        `أنت تنسخ حاليًا ${otherProvider?.display_name ?? "متداولًا آخر"}. يمكنك نسخ متداول واحد فقط في نفس الوقت — أوقف النسخ أولاً من محفظتك.`,
+        td("alreadyCopyingOther", { name: otherProvider?.display_name ?? td("anotherTraderFallback") }),
       )}`,
     );
   }
 
   if (profile && allocatedAmount > profile.balance) {
-    redirect(`/trader/${providerId}?error=${encodeURIComponent("مبلغ النسخ أكبر من رصيدك المتاح.")}`);
+    redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copyAmountExceedsBalance"))}`);
   }
 
   if (provider && allocatedAmount < provider.min_copy_amount) {
     redirect(
       `/trader/${providerId}?error=${encodeURIComponent(
-        `مبلغ النسخ أقل من الحد الأدنى لهذا المتداول ($${Number(provider.min_copy_amount).toLocaleString("en-US")}).`,
+        td("copyAmountBelowMinimum", { amount: `$${Number(provider.min_copy_amount).toLocaleString("en-US")}` }),
       )}`,
     );
   }
@@ -143,7 +153,7 @@ export async function followProvider(formData: FormData) {
     );
 
   if (error) {
-    redirect(`/trader/${providerId}?error=${encodeURIComponent("تعذّر نسخ المتداول. حاول مرة أخرى.")}`);
+    redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copyFailed"))}`);
   }
 
   revalidatePath("/discover");
@@ -171,7 +181,11 @@ export async function unfollowProvider(formData: FormData) {
   const { error } = await supabase.rpc("stop_copy", { p_provider_id: providerId });
 
   if (error) {
-    redirect(`${returnTo}?error=${encodeURIComponent(error.message)}`);
+    // stop_copy() raises its own Arabic-only exception message -- not
+    // locale-aware, so surface our own translated equivalent instead of the
+    // raw DB text (same condition, same message, just translatable).
+    const td = await getTranslations("Actions.discover");
+    redirect(`${returnTo}?error=${encodeURIComponent(td("stopCopyBlocked"))}`);
   }
 
   revalidatePath("/discover");
@@ -208,10 +222,12 @@ export async function followTrader(formData: FormData) {
 
     if (provider) {
       try {
+        const locale = (await getLocale()) as Locale;
+        const tEmail = await getTranslations("FollowEmail");
         await sendSupportEmail({
           to: user.email,
-          subject: `أنت الآن تتابع ${provider.display_name} على Copy Matrix`,
-          html: traderFollowEmailHtml(provider),
+          subject: tEmail("subject", { name: provider.display_name ?? "" }),
+          html: traderFollowEmailHtml(provider, tEmail, locale),
         });
       } catch (emailError) {
         console.error("[followTrader] failed to send follow email", emailError);

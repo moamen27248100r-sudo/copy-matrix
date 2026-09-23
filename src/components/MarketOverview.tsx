@@ -1,8 +1,13 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import type { Locale } from "@/i18n/locales";
+import { TRADINGVIEW_LOCALES } from "@/lib/tradingview-locale";
 
 export function MarketOverview() {
+  const locale = useLocale() as Locale;
+  const t = useTranslations("MarketOverview");
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -16,7 +21,7 @@ export function MarketOverview() {
       colorTheme: "dark",
       dateRange: "12M",
       showChart: false,
-      locale: "ar",
+      locale: TRADINGVIEW_LOCALES[locale] ?? "en",
       width: "100%",
       height: "100%",
       isTransparent: true,
@@ -33,7 +38,7 @@ export function MarketOverview() {
       symbolActiveColor: "rgba(47, 111, 237, 0.12)",
       tabs: [
         {
-          title: "العملات الرقمية",
+          title: t("crypto"),
           symbols: [
             { s: "BINANCE:BTCUSDT" },
             { s: "BINANCE:ETHUSDT" },
@@ -43,7 +48,7 @@ export function MarketOverview() {
           ],
         },
         {
-          title: "الفوركس والمعادن",
+          title: t("forex"),
           symbols: [
             { s: "OANDA:XAUUSD" },
             { s: "OANDA:EURUSD" },
@@ -52,7 +57,7 @@ export function MarketOverview() {
           ],
         },
         {
-          title: "المؤشرات",
+          title: t("indices"),
           symbols: [{ s: "FOREXCOM:US30" }],
         },
       ],
@@ -63,7 +68,7 @@ export function MarketOverview() {
     return () => {
       container.innerHTML = "";
     };
-  }, []);
+  }, [locale, t]);
 
   return (
     <div className="h-[420px] w-full bg-background">
