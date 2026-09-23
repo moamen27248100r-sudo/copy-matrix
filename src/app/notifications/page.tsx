@@ -1,8 +1,16 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { markAllRead, markOneRead } from "@/app/notifications/actions";
 import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
+
+const FILTERS = {
+  all: { label: "الكل" },
+  following: { label: "المتابَعون فقط" },
+} as const;
+
+type FilterKey = keyof typeof FILTERS;
 
 function renderBody(body: string) {
   const match = body.match(/^(.*?)([+-]\d[\d,]*\.?\d*)\$$/);
@@ -17,7 +25,14 @@ function renderBody(body: string) {
   );
 }
 
-export default async function NotificationsPage() {
+export default async function NotificationsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ filter?: string }>;
+}) {
+  const { filter } = await searchParams;
+  const filterKey: FilterKey = filter && filter in FILTERS ? (filter as FilterKey) : "all";
+
   const supabase = await createClient();
   const {
     data: { user },
@@ -25,10 +40,14 @@ export default async function NotificationsPage() {
 
   if (!user) redirect("/login");
 
-  const { data: notifications } = await supabase
+  let notificationsQuery = supabase
     .from("notifications")
     .select("id, type, title, body, is_read, created_at")
-    .eq("user_id", user.id)
+    .eq("user_id", user.id);
+  if (filterKey === "following") {
+    notificationsQuery = notificationsQuery.eq("type", "followed_trade_closed");
+  }
+  const { data: notifications } = await notificationsQuery
     .order("created_at", { ascending: false })
     .limit(50);
 
@@ -50,8 +69,29 @@ export default async function NotificationsPage() {
           )}
         </div>
 
+        <div className="flex flex-wrap gap-1.5 rounded-lg border border-border bg-surface p-1.5">
+          {(Object.keys(FILTERS) as FilterKey[]).map((key) => {
+            const isActive = key === filterKey;
+            return (
+              <Link
+                key={key}
+                href={`/notifications?filter=${key}`}
+                className={
+                  isActive
+                    ? "rounded-md bg-accent px-3 py-1.5 text-sm font-medium text-accent-foreground"
+                    : "rounded-md px-3 py-1.5 text-sm text-muted transition hover:bg-background hover:text-foreground"
+                }
+              >
+                {FILTERS[key].label}
+              </Link>
+            );
+          })}
+        </div>
+
         {(notifications ?? []).length === 0 ? (
-          <p className="text-sm text-muted">لا توجد إشعارات حتى الآن.</p>
+          <p className="text-sm text-muted">
+            {filterKey === "following" ? "لا توجد إشعارات من متداولين تتابعهم حتى الآن." : "لا توجد إشعارات حتى الآن."}
+          </p>
         ) : (
           <div className="flex flex-col gap-2">
             {notifications!.map((n) => (
