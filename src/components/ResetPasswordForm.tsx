@@ -1,14 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { updatePassword } from "@/app/auth/actions";
 import { PasswordStrength, EyeIcon } from "@/components/PasswordField";
 import { SubmitButton } from "@/components/SubmitButton";
 
 // New password + confirm, same validation/eye-toggle/strength-meter pattern
 // as SignupForm's password fields, plus a pending submit button so tapping
-// "تحديث" twice can't fire the update twice.
+// "update" twice can't fire the update twice.
 export function ResetPasswordForm() {
+  const t = useTranslations("Auth");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -28,7 +30,7 @@ export function ResetPasswordForm() {
           <input
             name="password"
             type={showPassword ? "text" : "password"}
-            placeholder="كلمة المرور الجديدة (٦ أحرف على الأقل)"
+            placeholder={t("newPasswordPlaceholder6")}
             required
             minLength={6}
             value={password}
@@ -38,7 +40,7 @@ export function ResetPasswordForm() {
           <button
             type="button"
             onClick={() => setShowPassword((v) => !v)}
-            aria-label={showPassword ? "إخفاء كلمة المرور" : "إظهار كلمة المرور"}
+            aria-label={showPassword ? t("hidePassword") : t("showPassword")}
             className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted"
           >
             <EyeIcon open={showPassword} />
@@ -55,7 +57,7 @@ export function ResetPasswordForm() {
         <input
           name="passwordConfirm"
           type={showConfirm ? "text" : "password"}
-          placeholder="تأكيد كلمة المرور الجديدة"
+          placeholder={t("confirmNewPasswordPlaceholder")}
           required
           value={confirm}
           onChange={(e) => setConfirm(e.target.value)}
@@ -64,16 +66,16 @@ export function ResetPasswordForm() {
         <button
           type="button"
           onClick={() => setShowConfirm((v) => !v)}
-          aria-label={showConfirm ? "إخفاء كلمة المرور" : "إظهار كلمة المرور"}
+          aria-label={showConfirm ? t("hidePassword") : t("showPassword")}
           className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted"
         >
           <EyeIcon open={showConfirm} />
         </button>
       </div>
-      {mismatch && <p className="text-xs text-danger">كلمتا المرور غير متطابقتين.</p>}
+      {mismatch && <p className="text-xs text-danger">{t("passwordMismatch")}</p>}
 
-      <SubmitButton disabled={!canSubmit} pendingLabel="جارٍ التحديث...">
-        تحديث كلمة المرور
+      <SubmitButton disabled={!canSubmit} pendingLabel={t("updating")}>
+        {t("updatePasswordButton")}
       </SubmitButton>
     </form>
   );

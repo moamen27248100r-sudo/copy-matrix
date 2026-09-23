@@ -1,32 +1,8 @@
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { chooseAccountType } from "@/app/auth/actions";
 import { safeNextPath } from "@/lib/safe-next";
-
-const OPTIONS = [
-  {
-    value: "demo",
-    title: "حساب تجريبي",
-    desc: "تدرّب على نسخ الصفقات بأموال افتراضية دون أي مخاطرة، وتعرّف على المنصة قبل استخدام أموالك الحقيقية.",
-    icon: (
-      <>
-        <path d="M12 8v4l3 3" />
-        <circle cx="12" cy="12" r="9" />
-      </>
-    ),
-  },
-  {
-    value: "real",
-    title: "حساب حقيقي",
-    desc: "ابدأ بنسخ الصفقات برصيدك الفعلي، وتُطبَّق عليه كل نتائج النسخ الحقيقية من أرباح أو خسائر.",
-    icon: (
-      <>
-        <line x1="12" y1="1" x2="12" y2="23" />
-        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-      </>
-    ),
-  },
-];
 
 export default async function ChooseAccountTypePage({
   searchParams,
@@ -35,6 +11,32 @@ export default async function ChooseAccountTypePage({
 }) {
   const { next: rawNext } = await searchParams;
   const next = safeNextPath(rawNext);
+  const t = await getTranslations("Auth");
+
+  const OPTIONS = [
+    {
+      value: "demo",
+      title: t("demoAccountTitle"),
+      desc: t("demoAccountDesc"),
+      icon: (
+        <>
+          <path d="M12 8v4l3 3" />
+          <circle cx="12" cy="12" r="9" />
+        </>
+      ),
+    },
+    {
+      value: "real",
+      title: t("realAccountTitle"),
+      desc: t("realAccountDesc"),
+      icon: (
+        <>
+          <line x1="12" y1="1" x2="12" y2="23" />
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+        </>
+      ),
+    },
+  ];
 
   const supabase = await createClient();
   const {
@@ -57,8 +59,8 @@ export default async function ChooseAccountTypePage({
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-md flex-col justify-center gap-6 p-6">
       <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-xl font-semibold">اختر نوع حسابك</h1>
-        <p className="text-sm text-muted">يمكنك تغيير هذا الاختيار لاحقًا من الإعدادات في أي وقت.</p>
+        <h1 className="text-xl font-semibold">{t("chooseAccountTypeTitle")}</h1>
+        <p className="text-sm text-muted">{t("chooseAccountTypeSubtitle")}</p>
       </div>
 
       <div className="flex flex-col gap-4">

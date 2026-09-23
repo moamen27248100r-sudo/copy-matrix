@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { ForgotPasswordForm } from "@/components/ForgotPasswordForm";
 
 export default async function ForgotPasswordPage({
@@ -7,13 +8,14 @@ export default async function ForgotPasswordPage({
   searchParams: Promise<{ error?: string }>;
 }) {
   const { error } = await searchParams;
+  const t = await getTranslations("Auth");
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col justify-center gap-4 p-6">
-      <h1 className="text-2xl font-semibold">نسيت كلمة المرور</h1>
+      <h1 className="text-2xl font-semibold">{t("forgotTitle")}</h1>
 
       <p className="text-sm text-muted">
-        أدخل بريدك الإلكتروني وسنرسل لك رابطًا لإعادة تعيين كلمة المرور.
+        {t("forgotSubtitle")}
       </p>
 
       {error && (
@@ -25,9 +27,9 @@ export default async function ForgotPasswordPage({
       <ForgotPasswordForm />
 
       <p className="text-sm text-muted">
-        تذكّرت كلمة المرور؟{" "}
+        {t("rememberedPassword")}{" "}
         <Link href="/login" className="text-foreground underline">
-          تسجيل الدخول
+          {t("loginButton")}
         </Link>
       </p>
     </main>

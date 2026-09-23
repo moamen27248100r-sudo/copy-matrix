@@ -1,8 +1,12 @@
+"use client";
+
 // Shared password-input building blocks: the strength meter and the
 // show/hide eye toggle icon, used by SignupForm and ResetPasswordForm so both
 // forms look and behave identically.
+import { useTranslations } from "next-intl";
 
 export function PasswordStrength({ value }: { value: string }) {
+  const t = useTranslations("Auth");
   if (!value) return null;
   const score =
     (value.length >= 6 ? 1 : 0) +
@@ -11,7 +15,7 @@ export function PasswordStrength({ value }: { value: string }) {
     (/[0-9]/.test(value) ? 1 : 0) +
     (/[^A-Za-z0-9]/.test(value) ? 1 : 0);
   const level = score <= 1 ? 0 : score <= 3 ? 1 : 2;
-  const labels = ["ضعيفة", "متوسطة", "قوية"];
+  const labels = [t("passwordStrengthWeak"), t("passwordStrengthMedium"), t("passwordStrengthStrong")];
   const colors = ["bg-danger", "bg-warning", "bg-success"];
 
   return (

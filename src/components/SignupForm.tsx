@@ -1,48 +1,51 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { signup } from "@/app/auth/actions";
 import { isValidEmailFormat, isValidPhoneForCountry, isPhoneStillTooShort, stripTrunkZero } from "@/lib/validate-signup";
 import { PasswordStrength, EyeIcon } from "@/components/PasswordField";
 import { SubmitButton } from "@/components/SubmitButton";
 
+// Names come from the Countries translation namespace (keyed by `iso`), not
+// a hardcoded field here, so this list stays in sync with the UI locale.
 const COUNTRY_CODES = [
-  { code: "+966", name: "السعودية", flag: "🇸🇦", iso: "SA" },
-  { code: "+20", name: "مصر", flag: "🇪🇬", iso: "EG" },
-  { code: "+971", name: "الإمارات", flag: "🇦🇪", iso: "AE" },
-  { code: "+965", name: "الكويت", flag: "🇰🇼", iso: "KW" },
-  { code: "+974", name: "قطر", flag: "🇶🇦", iso: "QA" },
-  { code: "+973", name: "البحرين", flag: "🇧🇭", iso: "BH" },
-  { code: "+968", name: "عُمان", flag: "🇴🇲", iso: "OM" },
-  { code: "+962", name: "الأردن", flag: "🇯🇴", iso: "JO" },
-  { code: "+961", name: "لبنان", flag: "🇱🇧", iso: "LB" },
-  { code: "+963", name: "سوريا", flag: "🇸🇾", iso: "SY" },
-  { code: "+964", name: "العراق", flag: "🇮🇶", iso: "IQ" },
-  { code: "+970", name: "فلسطين", flag: "🇵🇸", iso: "PS" },
-  { code: "+967", name: "اليمن", flag: "🇾🇪", iso: "YE" },
-  { code: "+218", name: "ليبيا", flag: "🇱🇾", iso: "LY" },
-  { code: "+216", name: "تونس", flag: "🇹🇳", iso: "TN" },
-  { code: "+213", name: "الجزائر", flag: "🇩🇿", iso: "DZ" },
-  { code: "+212", name: "المغرب", flag: "🇲🇦", iso: "MA" },
-  { code: "+249", name: "السودان", flag: "🇸🇩", iso: "SD" },
-  { code: "+222", name: "موريتانيا", flag: "🇲🇷", iso: "MR" },
-  { code: "+252", name: "الصومال", flag: "🇸🇴", iso: "SO" },
-  { code: "+90", name: "تركيا", flag: "🇹🇷", iso: "TR" },
-  { code: "+1", name: "الولايات المتحدة", flag: "🇺🇸", iso: "US" },
-  { code: "+44", name: "المملكة المتحدة", flag: "🇬🇧", iso: "GB" },
-  { code: "+49", name: "ألمانيا", flag: "🇩🇪", iso: "DE" },
-  { code: "+33", name: "فرنسا", flag: "🇫🇷", iso: "FR" },
-  { code: "+39", name: "إيطاليا", flag: "🇮🇹", iso: "IT" },
-  { code: "+34", name: "إسبانيا", flag: "🇪🇸", iso: "ES" },
-  { code: "+7", name: "روسيا", flag: "🇷🇺", iso: "RU" },
-  { code: "+86", name: "الصين", flag: "🇨🇳", iso: "CN" },
-  { code: "+91", name: "الهند", flag: "🇮🇳", iso: "IN" },
-  { code: "+92", name: "باكستان", flag: "🇵🇰", iso: "PK" },
-  { code: "+62", name: "إندونيسيا", flag: "🇮🇩", iso: "ID" },
-  { code: "+60", name: "ماليزيا", flag: "🇲🇾", iso: "MY" },
-  { code: "+61", name: "أستراليا", flag: "🇦🇺", iso: "AU" },
-  { code: "+55", name: "البرازيل", flag: "🇧🇷", iso: "BR" },
-  { code: "+27", name: "جنوب أفريقيا", flag: "🇿🇦", iso: "ZA" },
+  { code: "+966", flag: "🇸🇦", iso: "SA" },
+  { code: "+20", flag: "🇪🇬", iso: "EG" },
+  { code: "+971", flag: "🇦🇪", iso: "AE" },
+  { code: "+965", flag: "🇰🇼", iso: "KW" },
+  { code: "+974", flag: "🇶🇦", iso: "QA" },
+  { code: "+973", flag: "🇧🇭", iso: "BH" },
+  { code: "+968", flag: "🇴🇲", iso: "OM" },
+  { code: "+962", flag: "🇯🇴", iso: "JO" },
+  { code: "+961", flag: "🇱🇧", iso: "LB" },
+  { code: "+963", flag: "🇸🇾", iso: "SY" },
+  { code: "+964", flag: "🇮🇶", iso: "IQ" },
+  { code: "+970", flag: "🇵🇸", iso: "PS" },
+  { code: "+967", flag: "🇾🇪", iso: "YE" },
+  { code: "+218", flag: "🇱🇾", iso: "LY" },
+  { code: "+216", flag: "🇹🇳", iso: "TN" },
+  { code: "+213", flag: "🇩🇿", iso: "DZ" },
+  { code: "+212", flag: "🇲🇦", iso: "MA" },
+  { code: "+249", flag: "🇸🇩", iso: "SD" },
+  { code: "+222", flag: "🇲🇷", iso: "MR" },
+  { code: "+252", flag: "🇸🇴", iso: "SO" },
+  { code: "+90", flag: "🇹🇷", iso: "TR" },
+  { code: "+1", flag: "🇺🇸", iso: "US" },
+  { code: "+44", flag: "🇬🇧", iso: "GB" },
+  { code: "+49", flag: "🇩🇪", iso: "DE" },
+  { code: "+33", flag: "🇫🇷", iso: "FR" },
+  { code: "+39", flag: "🇮🇹", iso: "IT" },
+  { code: "+34", flag: "🇪🇸", iso: "ES" },
+  { code: "+7", flag: "🇷🇺", iso: "RU" },
+  { code: "+86", flag: "🇨🇳", iso: "CN" },
+  { code: "+91", flag: "🇮🇳", iso: "IN" },
+  { code: "+92", flag: "🇵🇰", iso: "PK" },
+  { code: "+62", flag: "🇮🇩", iso: "ID" },
+  { code: "+60", flag: "🇲🇾", iso: "MY" },
+  { code: "+61", flag: "🇦🇺", iso: "AU" },
+  { code: "+55", flag: "🇧🇷", iso: "BR" },
+  { code: "+27", flag: "🇿🇦", iso: "ZA" },
 ];
 
 // PasswordStrength and EyeIcon moved to @/components/PasswordField (also used
@@ -51,6 +54,8 @@ const COUNTRY_CODES = [
 type Country = (typeof COUNTRY_CODES)[number];
 
 function CountryCodeSelect({ country, onChange }: { country: Country; onChange: (c: Country) => void }) {
+  const t = useTranslations("Auth");
+  const tc = useTranslations("Countries");
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -69,7 +74,7 @@ function CountryCodeSelect({ country, onChange }: { country: Country; onChange: 
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        aria-label="اختر مفتاح الدولة"
+        aria-label={t("countryCodeAria")}
         className="flex w-full items-center justify-center gap-1 rounded border border-border bg-background px-1.5 py-2 text-sm"
       >
         <img
@@ -96,7 +101,7 @@ function CountryCodeSelect({ country, onChange }: { country: Country; onChange: 
         <div className="absolute start-0 top-[calc(100%+0.375rem)] z-20 max-h-64 w-64 max-w-[85vw] overflow-y-auto rounded-lg border border-border bg-surface p-1 shadow-lg">
           {COUNTRY_CODES.map((c) => (
             <button
-              key={c.code + c.name}
+              key={c.code + c.iso}
               type="button"
               onClick={() => {
                 onChange(c);
@@ -109,7 +114,7 @@ function CountryCodeSelect({ country, onChange }: { country: Country; onChange: 
                 alt=""
                 className="h-3.5 w-[1.15rem] shrink-0 rounded-[1px] object-cover"
               />
-              <span className="flex-1 truncate">{c.name}</span>
+              <span className="flex-1 truncate">{tc(c.iso as never)}</span>
               <span className="text-xs text-muted" dir="ltr">
                 {c.code}
               </span>
@@ -122,6 +127,7 @@ function CountryCodeSelect({ country, onChange }: { country: Country; onChange: 
 }
 
 export function SignupForm({ next }: { next?: string | null }) {
+  const t = useTranslations("Auth");
   const [country, setCountry] = useState<Country>(COUNTRY_CODES[0]);
   const [nationalNumber, setNationalNumber] = useState("");
   const [phoneTouched, setPhoneTouched] = useState(false);
@@ -150,7 +156,7 @@ export function SignupForm({ next }: { next?: string | null }) {
         <input
           name="displayName"
           type="text"
-          placeholder="الاسم الكامل"
+          placeholder={t("fullNamePlaceholder")}
           required
           className="w-full rounded border border-border bg-background px-3 py-2 pr-9 text-sm"
         />
@@ -164,7 +170,7 @@ export function SignupForm({ next }: { next?: string | null }) {
         <input
           name="email"
           type="email"
-          placeholder="البريد الإلكتروني"
+          placeholder={t("emailPlaceholder")}
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -173,7 +179,7 @@ export function SignupForm({ next }: { next?: string | null }) {
         />
       </div>
       {emailTouched && email.length > 0 && !emailValid && (
-        <p className="-mt-2 text-xs text-danger">اكتب بريدًا إلكترونيًا حقيقيًا (مثل name@gmail.com).</p>
+        <p className="-mt-2 text-xs text-danger">{t("emailInvalidError")}</p>
       )}
 
       <div className="flex gap-2">
@@ -204,7 +210,7 @@ export function SignupForm({ next }: { next?: string | null }) {
         </div>
       </div>
       {showPhoneError && (
-        <p className="-mt-2 text-xs text-danger">رقم الهاتف غير صحيح لهذه الدولة، تأكد من كتابته بالكامل.</p>
+        <p className="-mt-2 text-xs text-danger">{t("phoneInvalidError")}</p>
       )}
 
       <div className="flex flex-col gap-1.5">
@@ -216,7 +222,7 @@ export function SignupForm({ next }: { next?: string | null }) {
           <input
             name="password"
             type={showPassword ? "text" : "password"}
-            placeholder="كلمة المرور (٦ أحرف على الأقل)"
+            placeholder={t("passwordPlaceholder6")}
             required
             minLength={6}
             value={password}
@@ -226,7 +232,7 @@ export function SignupForm({ next }: { next?: string | null }) {
           <button
             type="button"
             onClick={() => setShowPassword((v) => !v)}
-            aria-label={showPassword ? "إخفاء كلمة المرور" : "إظهار كلمة المرور"}
+            aria-label={showPassword ? t("hidePassword") : t("showPassword")}
             className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted"
           >
             <EyeIcon open={showPassword} />
@@ -243,7 +249,7 @@ export function SignupForm({ next }: { next?: string | null }) {
         <input
           name="passwordConfirm"
           type={showConfirm ? "text" : "password"}
-          placeholder="تأكيد كلمة المرور"
+          placeholder={t("confirmPasswordPlaceholder")}
           required
           value={confirm}
           onChange={(e) => setConfirm(e.target.value)}
@@ -252,16 +258,16 @@ export function SignupForm({ next }: { next?: string | null }) {
         <button
           type="button"
           onClick={() => setShowConfirm((v) => !v)}
-          aria-label={showConfirm ? "إخفاء كلمة المرور" : "إظهار كلمة المرور"}
+          aria-label={showConfirm ? t("hidePassword") : t("showPassword")}
           className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted"
         >
           <EyeIcon open={showConfirm} />
         </button>
       </div>
-      {mismatch && <p className="text-xs text-danger">كلمتا المرور غير متطابقتين.</p>}
+      {mismatch && <p className="text-xs text-danger">{t("passwordMismatch")}</p>}
 
-      <SubmitButton disabled={!canSubmit} pendingLabel="جارٍ إنشاء الحساب...">
-        إنشاء حساب
+      <SubmitButton disabled={!canSubmit} pendingLabel={t("creatingAccount")}>
+        {t("createAccountButton")}
       </SubmitButton>
     </form>
   );

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
-export function GoogleSignInButton({ next, label }: { next?: string | null; label: string }) {
+export function GoogleSignInButton({ next, label, loadingLabel }: { next?: string | null; label: string; loadingLabel: string }) {
   const [loading, setLoading] = useState(false);
 
   async function handleClick() {
@@ -30,7 +30,7 @@ export function GoogleSignInButton({ next, label }: { next?: string | null; labe
         <path fill="#FBBC05" d="M5.27 14.28A7.2 7.2 0 0 1 4.89 12c0-.79.14-1.56.38-2.28V6.61H1.26A12 12 0 0 0 0 12c0 1.94.46 3.77 1.26 5.39l4.01-3.11z" />
         <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.44-3.44C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.69 1.26 6.61l4.01 3.11C6.22 6.86 8.87 4.75 12 4.75z" />
       </svg>
-      {loading ? "جارٍ التحويل إلى Google..." : label}
+      {loading ? loadingLabel : label}
     </button>
   );
 }

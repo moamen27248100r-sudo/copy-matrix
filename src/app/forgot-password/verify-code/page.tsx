@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { VerifyCodeForm } from "@/components/VerifyCodeForm";
 
 export default async function VerifyCodePage({
@@ -7,14 +8,14 @@ export default async function VerifyCodePage({
   searchParams: Promise<{ email?: string; error?: string }>;
 }) {
   const { email, error } = await searchParams;
+  const t = await getTranslations("Auth");
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col justify-center gap-4 p-6">
-      <h1 className="text-2xl font-semibold">أدخل كود التحقق</h1>
+      <h1 className="text-2xl font-semibold">{t("verifyTitle")}</h1>
 
       <p className="text-sm text-muted">
-        إذا كان البريد الإلكتروني{email ? ` (${email})` : ""} مسجَّلًا لدينا، فسنرسل لك كودًا مكوَّنًا من 8 أرقام.
-        اكتبه هنا لمتابعة تعيين كلمة مرور جديدة.
+        {t("verifyDesc", { emailPart: email ? ` (${email})` : "" })}
       </p>
 
       {error && (
@@ -26,9 +27,9 @@ export default async function VerifyCodePage({
       <VerifyCodeForm email={email ?? ""} />
 
       <p className="text-sm text-muted">
-        لم يصلك الكود؟{" "}
+        {t("noCodeReceived")}{" "}
         <Link href="/forgot-password" className="text-foreground underline">
-          اطلب كودًا جديدًا
+          {t("requestNewCode")}
         </Link>
       </p>
     </main>
