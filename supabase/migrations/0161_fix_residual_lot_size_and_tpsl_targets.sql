@@ -1,0 +1,31 @@
+-- Data-only fix (documentation record; applied live via a one-off script,
+-- per project convention). Follow-up to 0156/0157: two residual issues
+-- surfaced by a full-platform review, both already inert (no new violations
+-- in the hours before this fix -- confirmed by a live 90s wait-and-recheck):
+--
+-- 1. 80 signals (40 providers) still had lot_size > 500, the cap introduced
+--    in 0156. Most were stray rows from this session's own iterative
+--    redefinitions of run_market_simulation() earlier today; one (provider
+--    dbd97eeb-24a4-4b82-b55c-82b21c9f6c90, "عادل زكي") was a genuinely old
+--    2024-04-24 row from the original overflow bug that the 79-row fix in
+--    0156 didn't catch. Capped at exactly 500 (what least(500, ...) would
+--    have produced), then providers.total_profit was fully re-summed from
+--    signals for exactly those 40 affected providers (same safe method as
+--    0156's original fix). Largest single delta: ~$474k for "عادل زكي"
+--    ($1,335,260.07 -> ~$861k), traced entirely to that one 2024 row.
+--
+-- 2. 17,441 rows (8,813 tp + 8,628 sl) where close_trigger recorded a
+--    target hit but exit_price didn't match take_profit/stop_loss exactly
+--    -- the same invariant break already reconciled once in 0157/0160 for
+--    the historical-rescale-affected rows, here catching the remainder.
+--    Reconciled the same way: target column set to the actual exit_price.
+--    Cosmetic only (entry/exit drive all pct/pnl math, not the target
+--    fields) -- no financial figures affected by this half of the fix.
+--
+-- No corresponding function change needed: pg_get_functiondef() confirmed
+-- the live run_market_simulation() already has the lot_size cap and an
+-- exit_price assignment that makes a tp/sl-vs-target mismatch impossible
+-- going forward (verified with a live 90-second wait-and-recheck, 0 new
+-- violations). This migration is a record of the one-time data cleanup only.
+
+select 1;

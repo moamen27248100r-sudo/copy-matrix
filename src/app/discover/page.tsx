@@ -9,9 +9,10 @@ import { countryDisplay } from "@/lib/country-metadata";
 import { TraderAvatar } from "@/components/TraderAvatar";
 
 const SORT_OPTIONS = {
-  return: { column: "avg_daily_return_pct", ascending: false },
-  followers: { column: "followers_count", ascending: false },
-  winrate: { column: "win_rate_pct", ascending: false },
+  best: { column: "rating_score", ascending: false, label: "الأفضل" },
+  return: { column: "avg_daily_return_pct", ascending: false, label: "الأعلى عائدًا" },
+  winrate: { column: "win_rate_pct", ascending: false, label: "الأعلى نسبة نجاح" },
+  followers: { column: "followers_count", ascending: false, label: "الأكثر متابعة" },
 } as const;
 
 type SortKey = keyof typeof SORT_OPTIONS;
@@ -22,7 +23,7 @@ export default async function DiscoverPage({
   searchParams: Promise<{ q?: string; sort?: string; error?: string }>;
 }) {
   const { q, sort, error } = await searchParams;
-  const sortKey: SortKey = sort && sort in SORT_OPTIONS ? (sort as SortKey) : "return";
+  const sortKey: SortKey = sort && sort in SORT_OPTIONS ? (sort as SortKey) : "best";
 
   const supabase = await createClient();
   const {
@@ -50,7 +51,7 @@ export default async function DiscoverPage({
       : Promise.resolve({ data: [] as { provider_id: string }[] }),
   ]);
 
-  const providers = rawProviders && sortKey === "return" && !q ? pinTopLeaders(rawProviders) : rawProviders;
+  const providers = rawProviders && (sortKey === "best" || sortKey === "return") && !q ? pinTopLeaders(rawProviders) : rawProviders;
 
   const followingIds = new Set(
     (mySubscriptions ?? []).map((s) => s.provider_id),
@@ -78,19 +79,33 @@ export default async function DiscoverPage({
           placeholder="ابحث عن متداول بالاسم"
           className="flex-1 rounded border border-border bg-surface px-3 py-2 text-sm"
         />
-        <select
-          name="sort"
-          defaultValue={sortKey}
-          className="rounded border border-border bg-surface px-3 py-2 text-sm"
-        >
-          <option value="return">الأعلى عائدًا</option>
-          <option value="followers">الأكثر متابعة</option>
-          <option value="winrate">الأعلى نسبة نجاح</option>
-        </select>
+        <input type="hidden" name="sort" value={sortKey} />
         <button type="submit" className="rounded bg-foreground px-4 py-2 text-sm text-background">
           بحث
         </button>
       </form>
+
+      <div className="flex flex-wrap gap-1.5 rounded-lg border border-border bg-surface p-1.5">
+        {(Object.keys(SORT_OPTIONS) as SortKey[]).map((key) => {
+          const isActive = key === sortKey;
+          const params = new URLSearchParams();
+          if (q) params.set("q", q);
+          params.set("sort", key);
+          return (
+            <Link
+              key={key}
+              href={`/discover?${params.toString()}`}
+              className={
+                isActive
+                  ? "rounded-md bg-accent px-3 py-1.5 text-sm font-medium text-accent-foreground"
+                  : "rounded-md px-3 py-1.5 text-sm text-muted transition hover:bg-background hover:text-foreground"
+              }
+            >
+              {SORT_OPTIONS[key].label}
+            </Link>
+          );
+        })}
+      </div>
 
       {!providers || providers.length === 0 ? (
         <p className="text-sm text-muted">

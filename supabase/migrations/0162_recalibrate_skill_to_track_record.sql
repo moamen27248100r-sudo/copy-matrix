@@ -1,0 +1,37 @@
+-- Data-only fix (documentation record; applied live via a one-off script,
+-- per project convention). Follow-up to 95d7834's earlier skill
+-- redistribution, which pushed skill < 0.5 (net-losing going forward) to
+-- 85.8% of the 1,924 leaders -- far beyond "most" and, worse, essentially
+-- uncorrelated with each leader's own historical win rate (spot-checked:
+-- leaders with a 55-59% historical win rate were landing with skill in the
+-- 0.40s). User explicitly asked for this to be realistic and built on each
+-- leader's own track record instead.
+--
+-- Recalibrated: skill = clamp(0.30, 0.85,
+--   0.5 + (hist_winrate - 0.5) * 0.5 + (random()+random()-1) * 0.14 - 0.01)
+-- where hist_winrate is each leader's own actual win rate across their
+-- closed signals (side/entry/exit-derived, same method used throughout
+-- this session). The 0.5 correlation weight ties new skill to track record
+-- without making it deterministic; the noise term preserves realistic
+-- diversity (two leaders with similar history can still land on opposite
+-- sides); the -0.01 shift calibrates the overall population to ~55% net-
+-- losing (tuned and verified against the real 1,924-leader distribution
+-- before applying -- see decile breakdown in session notes: bottom decile
+-- ~28% historical win rate landed 99% net-losing, top decile ~67% landed
+-- 9% net-losing, smooth transition through the middle).
+--
+-- Result: 1,050/1,924 (54.6%) skill < 0.5. Both previously-pinned/featured
+-- leaders (أنس ريان 74.8% hist. win rate, يوسف علي 77.0%) landed on the
+-- winning side (skill 0.689 / 0.526) through the same unmodified formula --
+-- no special-casing, consistent with "no exceptions" confirmed earlier
+-- today, just no longer disconnected from their own history.
+--
+-- risk_archetype was left untouched: it was already spread roughly evenly
+-- across the leader population independent of win/loss outcome (~85-88%
+-- losing-skill in every archetype before this fix), so losing leaders are
+-- already diversified across dramatic (high_risk, margin-call-driven) and
+-- modest (balanced/stable/good_rr/struggling, no margin-call mechanic)
+-- decline styles -- satisfies "not all margin call, some just weak but
+-- ongoing" without needing a separate change.
+
+select 1;
