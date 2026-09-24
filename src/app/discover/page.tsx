@@ -6,6 +6,7 @@ import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
 import { TierBadge, RiskBadge, StoppedBadge } from "@/components/TraderBadges";
 import { TraderAvatar } from "@/components/TraderAvatar";
+import { SortDropdown } from "@/components/SortDropdown";
 import { getBioTranslator } from "@/lib/bio-translations";
 
 const SORT_OPTIONS = {
@@ -87,27 +88,20 @@ export default async function DiscoverPage({
         </button>
       </form>
 
-      <div className="flex flex-wrap gap-1.5 rounded-lg border border-border bg-surface p-1.5">
-        {(Object.keys(SORT_OPTIONS) as SortKey[]).map((key) => {
-          const isActive = key === sortKey;
+      <SortDropdown
+        currentLabel={t(SORT_OPTIONS[sortKey].labelKey)}
+        options={(Object.keys(SORT_OPTIONS) as SortKey[]).map((key) => {
           const params = new URLSearchParams();
           if (q) params.set("q", q);
           params.set("sort", key);
-          return (
-            <Link
-              key={key}
-              href={`/discover?${params.toString()}`}
-              className={
-                isActive
-                  ? "rounded-md bg-accent px-3 py-1.5 text-sm font-medium text-accent-foreground"
-                  : "rounded-md px-3 py-1.5 text-sm text-muted transition hover:bg-background hover:text-foreground"
-              }
-            >
-              {t(SORT_OPTIONS[key].labelKey)}
-            </Link>
-          );
+          return {
+            key,
+            label: t(SORT_OPTIONS[key].labelKey),
+            href: `/discover?${params.toString()}`,
+            active: key === sortKey,
+          };
         })}
-      </div>
+      />
 
       {!providers || providers.length === 0 ? (
         <p className="text-sm text-muted">
