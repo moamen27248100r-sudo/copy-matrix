@@ -21,8 +21,6 @@ type Trade = {
   copyHref?: string;
 };
 
-const PAGE_SIZE = 20;
-
 const PERIOD_KEYS = ["today", "week", "month", "threeMonths", "sixMonths", "year", "all"] as const;
 
 type PeriodKey = (typeof PERIOD_KEYS)[number];
@@ -86,7 +84,6 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
   const [period, setPeriod] = useState<PeriodKey>("all");
   const [open, setOpen] = useState(false);
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -99,7 +96,6 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
 
   const hasDollar = trades.length > 0 && trades[0].pnl != null;
   const filtered = trades.filter((t) => withinPeriod(t.closedAt, period));
-  const visible = filtered.slice(0, visibleCount);
   const netResult = filtered.reduce((sum, t) => sum + (t.pnl ?? 0), 0);
   const wins = filtered.filter((t) => t.pct >= 0).length;
   const winRate = filtered.length > 0 ? Math.round((wins / filtered.length) * 100) : null;
@@ -154,7 +150,6 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
                   onClick={() => {
                     setPeriod(key);
                     setOpen(false);
-                    setVisibleCount(PAGE_SIZE);
                   }}
                   className={
                     key === period
@@ -171,12 +166,12 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="relative flex min-h-[240px] items-center justify-center">
+        <div className="relative flex h-[520px] items-center justify-center">
           <p className="text-sm text-muted">{tt("noTradesInPeriod")}</p>
         </div>
       ) : (
-        <div className="relative min-h-[240px] max-h-[520px] space-y-2 overflow-y-auto pe-1 scroll-subtle">
-          {visible.map((t) => {
+        <div className="relative h-[520px] space-y-2 overflow-y-auto pe-1 scroll-subtle">
+          {filtered.map((t) => {
             const isExpanded = expandedId === t.id;
             const isProfit = (t.pnl ?? t.pct) >= 0;
             const deltaPoints = t.exit != null ? t.exit - t.entry : null;
@@ -294,16 +289,6 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
             );
           })}
         </div>
-      )}
-
-      {visible.length < filtered.length && (
-        <button
-          type="button"
-          onClick={() => setVisibleCount((v) => v + PAGE_SIZE)}
-          className="relative rounded-lg border border-border py-2 text-center text-sm font-medium text-accent transition hover:bg-background"
-        >
-          {tt("loadMore")}
-        </button>
       )}
     </div>
   );
