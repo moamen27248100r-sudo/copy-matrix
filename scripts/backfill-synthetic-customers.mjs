@@ -2,8 +2,8 @@
 // real per-row identity — a distinct synthetic customer per unit of
 // base_followers_count, each with its own name (foreign for foreign
 // leaders, mostly Arabic otherwise), starting capital (scaled by the
-// leader's own rating_score — better leaders can plausibly have some
-// high-capital customers), and join date. current_capital is computed
+// leader's own min_copy_amount in fixed proportions, with a "whale" tier
+// reserved for old customers of low-risk leaders), and join date. current_capital is computed
 // by walking that leader's REAL historical closed trades step-by-step
 // from the customer's own join date forward, interleaving a withdrawal
 // roll at each winning step AND a pause/resume walk — a customer whose
@@ -130,27 +130,23 @@ function logUniform(min, max) {
   return min * Math.pow(max / min, Math.random());
 }
 
-// Realistic retail capital distribution: most customers are modest,
-// only a rare few are "whales" — a plain log-uniform draw between
-// capFloor and ceiling gives EQUAL weight to every order of magnitude
-// (as many people at $10k-60k as at $100-600), which is not how real
-// wealth is distributed and produced way too many high-capital
-// customers (measured live: 24.6% starting above $10k, p99 = $41k).
-// Tiered instead: each tier is capped at the leader's own ceiling
-// (so a low-rated leader's customers can never reach the "whale"
-// tier), and collapses gracefully to the next-lower tier if its own
-// range doesn't fit under that ceiling.
-function pickStartingCapital(capFloor, ceiling) {
-  const cap = Math.max(capFloor + 1, ceiling);
+// Capital now scales off the LEADER's own min_copy_amount in fixed
+// proportions instead of a rating-derived flat ceiling (customer's
+// explicit spec): 58% of customers deposit exactly the floor, 32% a bit
+// above it (1.2x-3x), and a "whale" tier (4x-15x) is reserved for
+// customers who are BOTH old (joined 4+ months ago -- reflects them
+// having grown their own stake over time, not walking in with a huge sum
+// day one) AND copying a low-risk leader (real money gravitates to
+// stability, not to a leader who might blow up tomorrow). Everyone else
+// who rolls into the "whale" bracket falls back to the mid tier instead.
+function pickStartingCapital(capFloor, riskLevel, joinedAtMs, nowMs) {
+  const monthsTenure = (nowMs - joinedAtMs) / (1000 * 60 * 60 * 24 * 30);
   const roll = Math.random();
-  let lo, hi;
-  if (roll < 0.60) { lo = capFloor; hi = Math.min(800, cap); }
-  else if (roll < 0.87) { lo = Math.min(800, cap); hi = Math.min(3000, cap); }
-  else if (roll < 0.97) { lo = Math.min(3000, cap); hi = Math.min(8000, cap); }
-  else if (roll < 0.995) { lo = Math.min(8000, cap); hi = Math.min(20000, cap); }
-  else { lo = Math.min(20000, cap); hi = cap; }
-  if (hi <= lo) { lo = capFloor; hi = Math.min(800, cap); }
-  return Math.round(logUniform(Math.max(capFloor, lo), Math.max(lo + 1, hi)) * 100) / 100;
+  if (roll < 0.58) return capFloor;
+  if (roll < 0.90 || riskLevel !== "منخفضة" || monthsTenure < 4) {
+    return Math.round(logUniform(capFloor * 1.2, capFloor * 3) * 100) / 100;
+  }
+  return Math.round(logUniform(capFloor * 4, capFloor * 15) * 100) / 100;
 }
 
 const db = new Client({ connectionString: process.env.SUPABASE_DB_URL, ssl: { rejectUnauthorized: false } });
@@ -164,9 +160,9 @@ console.log(`${providers.length} providers, total base_followers_count = ${provi
 const losingProviders = new Set(providers.filter((p) => Number(p.total_profit) < 0).map((p) => p.id));
 console.log(`${losingProviders.size} net-losing providers -- their customers never withdraw`);
 
-console.log("fetching provider ratings...");
-const { rows: ratings } = await db.query(`select provider_id, rating_score from public.provider_cards`);
-const ratingByProvider = new Map(ratings.map((r) => [r.provider_id, r.rating_score]));
+console.log("fetching provider risk levels...");
+const { rows: riskRows } = await db.query(`select provider_id, risk_level from public.provider_cards`);
+const riskLevelByProvider = new Map(riskRows.map((r) => [r.provider_id, r.risk_level]));
 
 console.log("fetching closed signals...");
 const { rows: signals } = await db.query(
@@ -202,14 +198,13 @@ for (const p of providers) {
   const createdAtMs = new Date(p.created_at).getTime();
   const providerSignals = signalsByProvider.get(p.id) ?? [];
   const capFloor = Math.max(Number(p.min_copy_amount) || 25, 25);
-  const rating = ratingByProvider.get(p.id) ?? 45; // population median fallback
-  const ceiling = 5000 + rating * 700; // rating 0 -> $5,000, rating 79 (observed max) -> $60,300
+  const riskLevel = riskLevelByProvider.get(p.id) ?? null;
   const n = p.base_followers_count;
 
   for (let i = 0; i < n; i++) {
     const joinedAtMs = createdAtMs + Math.random() * (now - createdAtMs);
     const joinedAt = new Date(joinedAtMs);
-    const startingCapital = pickStartingCapital(capFloor, ceiling);
+    const startingCapital = pickStartingCapital(capFloor, riskLevel, joinedAtMs, now);
     const customerId = crypto.randomUUID();
 
     // Per-step bound (bounds every step of the walk, not just the end
