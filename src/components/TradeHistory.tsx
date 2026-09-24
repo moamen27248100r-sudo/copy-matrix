@@ -83,7 +83,6 @@ function formatPrice(value: number) {
 
 export function TradeHistory({ trades }: { trades: Trade[] }) {
   const tt = useTranslations("TradeHistory");
-  const ts = useTranslations("Symbols");
   const [period, setPeriod] = useState<PeriodKey>("all");
   const [open, setOpen] = useState(false);
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -229,7 +228,9 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
                     <div className="flex flex-col gap-3 border-t border-border px-3 pb-3 pt-3">
                       <div className="flex items-center justify-between gap-2">
                         <div>
-                          <p className="text-sm font-medium">{ts(t.symbol)}</p>
+                          <p className="text-sm font-medium" dir="ltr">
+                            {t.symbol}
+                          </p>
                           <p className="text-xs text-muted" dir="ltr">
                             #{ticketFromId(t.id)}
                           </p>
