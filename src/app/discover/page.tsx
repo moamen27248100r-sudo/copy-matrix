@@ -126,7 +126,7 @@ export default async function DiscoverPage({
             return (
               <div
                 key={p.provider_id}
-                className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4"
+                className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4 transition-colors hover:border-accent/40"
               >
                 <div className="flex items-center gap-3">
                   <TraderAvatar providerId={p.provider_id} name={p.display_name} avatarUrl={p.avatar_url} ratingScore={p.rating_score} size={44} />
@@ -155,9 +155,9 @@ export default async function DiscoverPage({
                   </div>
                 </div>
 
-                {p.bio && (
-                  <p className="text-sm text-muted">{translateBio(p.bio)}</p>
-                )}
+                <p className="line-clamp-2 min-h-[2.5rem] text-sm text-muted">
+                  {p.bio ? translateBio(p.bio) : " "}
+                </p>
 
                 <div className="flex flex-wrap gap-1.5">
                   <TierBadge tier={p.tier} />
@@ -165,7 +165,7 @@ export default async function DiscoverPage({
                   <StoppedBadge stopped={isStopped} />
                 </div>
 
-                <div className="grid grid-cols-3 gap-2 text-center text-sm">
+                <div className="grid grid-cols-3 gap-2 rounded-md border border-border bg-background p-2.5 text-center text-sm">
                   <div>
                     <p className="font-semibold">
                       {p.win_rate_pct != null ? `${p.win_rate_pct}%` : "—"}
