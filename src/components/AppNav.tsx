@@ -81,7 +81,10 @@ export async function AppNav() {
 
         <div className="flex min-w-0 items-center justify-end gap-0.5 sm:gap-3">
           {user ? (
-            <NotificationsMenu notifications={notifications} />
+            <>
+              <LanguageSwitcher currentLocale={locale} />
+              <NotificationsMenu notifications={notifications} />
+            </>
           ) : (
             <>
               <LanguageSwitcher currentLocale={locale} />

@@ -106,7 +106,12 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: Locale }) {
               <input type="hidden" name="path" value={pathname} />
               <button
                 type="submit"
-                onClick={() => setOpen(false)}
+                // Closing synchronously here unmounts this form before the
+                // browser dispatches its native submit, so the click is
+                // silently swallowed ("Form submission canceled because the
+                // form is not connected"). Deferring by a tick lets the
+                // submit go out first.
+                onClick={() => setTimeout(() => setOpen(false), 0)}
                 className={
                   locale === currentLocale
                     ? "block w-full px-3 py-2 text-start text-sm bg-accent/10 text-accent"
