@@ -15,6 +15,7 @@ import { RecentCopiersList } from "@/components/RecentCopiersList";
 import { TraderAvatar } from "@/components/TraderAvatar";
 import { countryDisplay } from "@/lib/country-metadata";
 import { formatDate } from "@/lib/locale-format";
+import { getBioTranslator } from "@/lib/bio-translations";
 import type { Locale } from "@/i18n/locales";
 
 type SignalRow = {
@@ -91,6 +92,7 @@ export default async function TraderPage({
   const t = await getTranslations("TraderProfile");
   const tp = await getTranslations("TradeHistory");
   const tc = await getTranslations("Countries");
+  const translateBio = await getBioTranslator();
   const supabase = await createClient();
   const {
     data: { user },
@@ -294,7 +296,7 @@ export default async function TraderPage({
           <RiskBadge level={provider.risk_level} />
         </div>
 
-        {provider.bio && <p className="text-sm text-muted">{provider.bio}</p>}
+        {provider.bio && <p className="text-sm text-muted">{translateBio(provider.bio)}</p>}
 
         {recentCopiers && recentCopiers.length > 0 && (
           <details className="group rounded-lg border border-accent/40 bg-accent/10">

@@ -21,6 +21,7 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/Logo";
 import { TryCopySection } from "@/components/TryCopySection";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
+import { getBioTranslator } from "@/lib/bio-translations";
 import type { ReactNode } from "react";
 
 export const dynamic = "force-dynamic";
@@ -111,6 +112,7 @@ export default async function Home() {
 
   const t = await getTranslations("Home");
   const locale = (await getLocale()) as Locale;
+  const translateBio = await getBioTranslator();
 
   // The leader cards further down are meant to always be on the page, not
   // appear only when this happens to succeed on the first try -- so a
@@ -426,7 +428,7 @@ export default async function Home() {
                       />
                       <div className="min-w-0 flex-1">
                         <p className="truncate text-base font-semibold">{p.display_name}</p>
-                        {p.bio && <p className="line-clamp-2 text-xs leading-relaxed text-muted">{p.bio}</p>}
+                        {p.bio && <p className="line-clamp-2 text-xs leading-relaxed text-muted">{translateBio(p.bio)}</p>}
                       </div>
                     </Link>
                     {(() => {

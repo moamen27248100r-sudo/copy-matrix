@@ -6,6 +6,7 @@ import { AppNav } from "@/components/AppNav";
 import { BackButton } from "@/components/BackButton";
 import { TierBadge, RiskBadge, StoppedBadge } from "@/components/TraderBadges";
 import { TraderAvatar } from "@/components/TraderAvatar";
+import { getBioTranslator } from "@/lib/bio-translations";
 
 const SORT_OPTIONS = {
   best: { column: "rating_score", ascending: false, labelKey: "sortBest" },
@@ -24,6 +25,7 @@ export default async function DiscoverPage({
   const { q, sort, error } = await searchParams;
   const sortKey: SortKey = sort && sort in SORT_OPTIONS ? (sort as SortKey) : "best";
   const t = await getTranslations("Discover");
+  const translateBio = await getBioTranslator();
 
   const supabase = await createClient();
   const {
@@ -154,7 +156,7 @@ export default async function DiscoverPage({
                 </div>
 
                 {p.bio && (
-                  <p className="text-sm text-muted">{p.bio}</p>
+                  <p className="text-sm text-muted">{translateBio(p.bio)}</p>
                 )}
 
                 <div className="flex flex-wrap gap-1.5">

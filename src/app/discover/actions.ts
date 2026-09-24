@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import { sendSupportEmail } from "@/lib/email";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
 import { formatDate } from "@/lib/locale-format";
+import { translateBio } from "@/lib/bio-translations";
 
 type FollowEmailTranslator = (key: string, values?: Record<string, string | number>) => string;
 
@@ -24,6 +25,7 @@ function traderFollowEmailHtml(
     joined_at: string;
   },
   t: FollowEmailTranslator,
+  tBio: (key: string) => string,
   locale: Locale,
 ) {
   const row = (label: string, value: string) =>
@@ -34,7 +36,7 @@ function traderFollowEmailHtml(
     <div dir="${dir}" style="font-family:Tahoma,Arial,sans-serif;max-width:480px;margin:auto;">
       <h2 style="margin-bottom:4px;">${t("heading", { name: provider.display_name ?? "" })}</h2>
       <p style="color:#666;">${t("intro")}</p>
-      ${provider.bio ? `<p style="color:#444;">${provider.bio}</p>` : ""}
+      ${provider.bio ? `<p style="color:#444;">${translateBio(provider.bio, tBio)}</p>` : ""}
       <table style="width:100%;border-collapse:collapse;">
         ${row(t("tier"), provider.tier ?? "—")}
         ${row(t("riskLevel"), provider.risk_level ?? "—")}
@@ -224,10 +226,11 @@ export async function followTrader(formData: FormData) {
       try {
         const locale = (await getLocale()) as Locale;
         const tEmail = await getTranslations("FollowEmail");
+        const tBio = await getTranslations("Bios");
         await sendSupportEmail({
           to: user.email,
           subject: tEmail("subject", { name: provider.display_name ?? "" }),
-          html: traderFollowEmailHtml(provider, tEmail, locale),
+          html: traderFollowEmailHtml(provider, tEmail, tBio, locale),
         });
       } catch (emailError) {
         console.error("[followTrader] failed to send follow email", emailError);
