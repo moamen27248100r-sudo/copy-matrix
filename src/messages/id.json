@@ -630,7 +630,8 @@
     "inputPlaceholder": "Ketik pertanyaan Anda di sini...",
     "send": "Kirim",
     "unexpectedError": "Maaf, terjadi kesalahan tak terduga. Silakan coba lagi.",
-    "connectionError": "Tidak dapat terhubung ke server. Silakan coba lagi sebentar."
+    "connectionError": "Tidak dapat terhubung ke server. Silakan coba lagi sebentar.",
+    "chatTab": "Obrolan"
   },
   "Auth": {
     "loginTitle": "Masuk",
@@ -905,5 +906,267 @@
     "bio61": "Trader Selandia Baru, spesialis trading emas.",
     "bio62": "Trader India, spesialis kripto, di salah satu pasar trading digital dengan pertumbuhan tercepat.",
     "bio63": "Trader Belanda, mengikuti EUR/USD dan pasar Eropa Barat."
+  },
+  "Faq": {
+    "entries": [
+      {
+        "id": "about-platform",
+        "question": "Apa itu platform Copy Matrix?",
+        "keywords": [
+          "apa itu platform",
+          "tentang platform",
+          "apa itu copy matrix"
+        ],
+        "answer": "Copy Matrix adalah platform untuk menyalin trade secara otomatis, memungkinkan Anda mengikuti trader dengan rekam jejak terverifikasi dan menghubungkan sebagian saldo Anda kepada mereka, sehingga trade mereka tercermin secara otomatis di portofolio Anda. Harap dicatat bahwa ini adalah lingkungan demo untuk tujuan demonstrasi dan latihan, bukan broker keuangan berlisensi."
+      },
+      {
+        "id": "how-to-start",
+        "question": "Bagaimana cara saya mulai menggunakan platform?",
+        "keywords": [
+          "cara mulai",
+          "memulai",
+          "langkah pertama"
+        ],
+        "answer": "Untuk memulai, buat akun dari halaman pendaftaran, lalu pilih jenis akun Anda (demo atau nyata). Setelah itu, Anda dapat menjelajahi halaman \"Temukan Trader\" dan memilih siapa yang ingin Anda salin berdasarkan rekam jejak dan tingkat risiko masing-masing."
+      },
+      {
+        "id": "deposit",
+        "question": "Bagaimana cara menyetor dana ke akun saya?",
+        "keywords": [
+          "setoran",
+          "tambah dana",
+          "isi ulang"
+        ],
+        "answer": "Anda dapat menyetor dana dengan memilih \"Setor\" dari bagian dompet di menu samping, lalu memasukkan jumlah dan metode pembayaran serta mengonfirmasi permintaan. Setoran akun demo bersifat instan dengan dana virtual, sedangkan setoran akun nyata melalui peninjauan singkat sebelum disetujui."
+      },
+      {
+        "id": "withdraw",
+        "question": "Bagaimana cara menarik keuntungan saya?",
+        "keywords": [
+          "penarikan",
+          "tarik dana",
+          "tarik keuntungan"
+        ],
+        "answer": "Untuk menarik dana, pilih \"Tarik\" dari menu samping, masukkan jumlah dan metode penarikan yang diinginkan, lalu kirim permintaan. Permintaan penarikan memerlukan verifikasi identitas (KYC) yang sudah disetujui, lalu melalui peninjauan tim kami sebelum diproses."
+      },
+      {
+        "id": "withdraw-time",
+        "question": "Berapa lama proses penarikan?",
+        "keywords": [
+          "waktu penarikan",
+          "kapan penarikan sampai",
+          "pemrosesan penarikan"
+        ],
+        "answer": "Permintaan penarikan ditinjau oleh tim kami dalam waktu singkat setelah verifikasi identitas dikonfirmasi selesai. Anda dapat melacak status permintaan kapan saja dari halaman \"Riwayat Transaksi\"."
+      },
+      {
+        "id": "kyc",
+        "question": "Apa itu verifikasi identitas (KYC) dan mengapa diperlukan?",
+        "keywords": [
+          "kyc",
+          "verifikasi identitas",
+          "verifikasi"
+        ],
+        "answer": "Verifikasi identitas adalah prosedur keamanan untuk memastikan Anda adalah pemilik akun yang sebenarnya, dan diperlukan sebelum penarikan atau akses penuh ke fitur akun nyata. Silakan unggah foto identitas yang jelas dari halaman \"Verifikasi Identitas\", dan akan ditinjau sesegera mungkin."
+      },
+      {
+        "id": "result-differs-from-trader",
+        "question": "Mengapa hasil trade saya berbeda dari trader yang saya salin?",
+        "keywords": [
+          "hasil berbeda",
+          "saya rugi",
+          "mengapa saya rugi"
+        ],
+        "answer": "Wajar jika hasil trade Anda sedikit berbeda dari trader asli, tetapi perbedaan besar (seperti kerugian bagi Anda dibandingkan keuntungan bagi mereka) biasanya disebabkan oleh salah satu alasan spesifik: ukuran lot yang dialokasikan untuk trade Anda mungkin relatif lebih besar dibandingkan modal Anda dibanding rasio trader terhadap modalnya sendiri, trade mungkin tidak memiliki stop loss sehingga margin volatilitas melebar, atau sedikit perbedaan waktu antara saat mereka membuka trade dan saat tercermin di akun Anda. Untuk meninjau detail trade spesifik Anda dan mengetahui alasan pastinya, silakan hubungi perwakilan dukungan kami di support@copy-matrix.test, sebutkan nomor trade jika memungkinkan."
+      },
+      {
+        "id": "copy-trading",
+        "question": "Apa itu copy trading dan bagaimana cara kerjanya?",
+        "keywords": [
+          "apa itu copy trading",
+          "cara kerja salin",
+          "mengikuti trader"
+        ],
+        "answer": "Copy trading memungkinkan Anda menghubungkan sebagian saldo Anda ke trader pilihan Anda, sehingga setiap trade yang dibuka trader tersebut otomatis tercermin ke portofolio Anda dengan proporsi yang sama, dan otomatis ditutup saat mereka menutupnya. Anda dapat berhenti menyalin atau menyesuaikan jumlah yang dialokasikan kapan saja dari halaman trader."
+      },
+      {
+        "id": "multiple-traders",
+        "question": "Bisakah saya menyalin lebih dari satu trader sekaligus?",
+        "keywords": [
+          "beberapa trader",
+          "banyak trader",
+          "lebih dari satu trader"
+        ],
+        "answer": "Tidak, sistem dirancang agar Anda hanya menyalin satu trader pada satu waktu, untuk menjaga manajemen risiko tetap jelas. Anda tetap dapat mengikuti performa sebanyak apa pun trader yang Anda inginkan tanpa menyalinnya."
+      },
+      {
+        "id": "min-copy",
+        "question": "Berapa jumlah minimum untuk menyalin seorang trader?",
+        "keywords": [
+          "jumlah minimum",
+          "minimum untuk menyalin",
+          "berapa banyak"
+        ],
+        "answer": "Setiap trader menetapkan jumlah minimum penyalinannya sendiri, ditampilkan di halaman profil mereka di samping tombol \"Salin\", dan biasanya berkisar antara $75 hingga $1.000 tergantung trader."
+      },
+      {
+        "id": "stop-copy",
+        "question": "Bagaimana cara berhenti menyalin seorang trader?",
+        "keywords": [
+          "berhenti menyalin",
+          "batalkan salinan",
+          "hentikan salin"
+        ],
+        "answer": "Untuk berhenti menyalin trader, buka halaman profil mereka dan klik \"Berhenti Menyalin\". Trade yang saat ini terbuka akan terus berjalan normal hingga trader menutupnya, dan tidak ada trade baru yang akan dibuka untuk Anda setelahnya."
+      },
+      {
+        "id": "risk-level",
+        "question": "Apa arti tingkat risiko yang ditampilkan di samping setiap trader?",
+        "keywords": [
+          "tingkat risiko",
+          "risiko tinggi",
+          "risiko rendah"
+        ],
+        "answer": "Tingkat risiko mencerminkan gaya trading trader itu sendiri, mulai dari \"konservatif\" dengan volatilitas terbatas hingga \"risiko tinggi\" dengan fluktuasi serta keuntungan atau kerugian yang lebih besar. Disarankan untuk meninjau peringkat ini bersama tingkat kemenangan dan riwayat trade sebelum memutuskan untuk menyalin."
+      },
+      {
+        "id": "trust-score",
+        "question": "Apa arti tingkat keandalan trading dan tingkat kemenangan?",
+        "keywords": [
+          "keandalan",
+          "tingkat kemenangan",
+          "peringkat trader"
+        ],
+        "answer": "Tingkat keandalan dan tingkat kemenangan adalah indikator yang dihitung dari rekam jejak trade trader di masa lalu, membantu Anda menilai kinerja historis mereka. Anda akan menemukan indikator ini secara rinci di halaman profil setiap trader."
+      },
+      {
+        "id": "fees",
+        "question": "Apakah ada biaya atau komisi tersembunyi?",
+        "keywords": [
+          "biaya",
+          "komisi",
+          "harga"
+        ],
+        "answer": "Tidak ada komisi tersembunyi pada layanan penyalinan itu sendiri. Biaya terkait transaksi setor atau tarik, jika ada, ditampilkan dengan jelas tepat sebelum Anda mengonfirmasi transaksi."
+      },
+      {
+        "id": "password",
+        "question": "Saya lupa kata sandi saya, apa yang harus saya lakukan?",
+        "keywords": [
+          "lupa kata sandi",
+          "reset kata sandi",
+          "ubah kata sandi"
+        ],
+        "answer": "Silakan klik \"Lupa kata sandi?\" di halaman masuk, lalu masukkan email Anda, dan Anda akan menerima pesan berisi tautan untuk mengatur ulang kata sandi Anda."
+      },
+      {
+        "id": "update-profile",
+        "question": "Bagaimana cara mengedit data akun pribadi saya?",
+        "keywords": [
+          "edit data",
+          "perbarui profil",
+          "data akun"
+        ],
+        "answer": "Anda dapat mengedit data pribadi Anda dari halaman \"Pengaturan\", tersedia di menu samping."
+      },
+      {
+        "id": "language",
+        "question": "Bagaimana cara mengubah bahasa platform?",
+        "keywords": [
+          "ubah bahasa",
+          "bahasa platform",
+          "ganti bahasa"
+        ],
+        "answer": "Anda dapat mengubah bahasa tampilan dari ikon di bagian atas halaman beranda di samping logo platform, dan platform akan otomatis terbuka dalam bahasa browser atau ponsel Anda pada kunjungan pertama."
+      },
+      {
+        "id": "notifications",
+        "question": "Bagaimana cara melacak notifikasi akun saya?",
+        "keywords": [
+          "notifikasi",
+          "peringatan"
+        ],
+        "answer": "Semua peringatan tentang akun dan trade Anda sampai melalui ikon lonceng di bagian atas halaman, dan Anda dapat meninjau riwayat lengkapnya kapan saja."
+      },
+      {
+        "id": "mobile-app",
+        "question": "Apakah ada aplikasi seluler?",
+        "keywords": [
+          "aplikasi seluler",
+          "aplikasi iphone",
+          "aplikasi android"
+        ],
+        "answer": "Platform saat ini berjalan melalui browser dengan desain responsif yang sepenuhnya mendukung ponsel dan tablet."
+      },
+      {
+        "id": "safety",
+        "question": "Apakah uang dan data saya aman?",
+        "keywords": [
+          "keamanan",
+          "aman",
+          "privasi"
+        ],
+        "answer": "Data Anda ditangani dengan kerahasiaan penuh dan disimpan terenkripsi, dan setiap perubahan pada saldo atau akun Anda dicatat dalam log audit internal yang lengkap. Untuk detail lebih lanjut, silakan tinjau Kebijakan Privasi."
+      },
+      {
+        "id": "demo-vs-real",
+        "question": "Apa perbedaan antara akun demo dan akun nyata?",
+        "keywords": [
+          "akun demo",
+          "akun nyata",
+          "perbedaan"
+        ],
+        "answer": "Akun demo memungkinkan Anda mencoba copy trading dengan dana virtual tanpa risiko nyata, sedangkan akun nyata didasarkan pada saldo aktual Anda, dan mencerminkan hasil penyalinan nyata berupa keuntungan atau kerugian."
+      },
+      {
+        "id": "suspend-account",
+        "question": "Bagaimana cara menangguhkan atau menghapus akun saya?",
+        "keywords": [
+          "hapus akun",
+          "tangguhkan akun",
+          "tutup akun"
+        ],
+        "answer": "Untuk menangguhkan atau menghapus akun Anda, silakan hubungi tim dukungan kami di support@copy-matrix.test dengan menjelaskan alasannya, dan Anda akan dipandu untuk menyelesaikan prosedur yang diperlukan."
+      },
+      {
+        "id": "support-contact",
+        "question": "Bagaimana cara menghubungi tim dukungan manusia?",
+        "keywords": [
+          "hubungi dukungan",
+          "dukungan manusia",
+          "layanan pelanggan"
+        ],
+        "answer": "Kami senang mendengar dari Anda kapan saja di support@copy-matrix.test, dan tim kami akan menanggapi pertanyaan Anda sesegera mungkin."
+      }
+    ],
+    "smallTalk": [
+      {
+        "id": "greeting",
+        "question": "Sapaan",
+        "keywords": [
+          "halo",
+          "hai",
+          "selamat pagi"
+        ],
+        "answer": "Selamat datang di Copy Matrix! Kami senang membantu — bagaimana kami bisa membantu Anda hari ini?"
+      },
+      {
+        "id": "thanks",
+        "question": "Terima kasih",
+        "keywords": [
+          "terima kasih",
+          "makasih"
+        ],
+        "answer": "Sama-sama, kami selalu senang membantu. Jangan ragu menghubungi kami jika Anda membutuhkan bantuan lain."
+      }
+    ],
+    "noMatchIntro": "Kami belum bisa memahami pertanyaan Anda dengan baik. Anda dapat mencoba menyusun ulang, atau memeriksa salah satu topik umum berikut:",
+    "noMatchOutro": "Jika Anda perlu menghubungi perwakilan dukungan manusia secara langsung, silakan hubungi kami di support@copy-matrix.test.",
+    "topicsHeading": "Topik umum",
+    "askAnything": "Atau ketik pertanyaan Anda secara bebas di bawah",
+    "aiTempError": "Maaf, terjadi kesalahan sementara pada layanan dukungan cerdas. Silakan coba lagi sebentar lagi, atau hubungi kami di support@copy-matrix.test.",
+    "aiNoClearAnswer": "Kami belum memiliki jawaban yang jelas untuk pertanyaan ini saat ini. Silakan coba susun ulang, atau hubungi tim dukungan kami.",
+    "searchTopics": "Cari topik umum...",
+    "noSearchResults": "Tidak ada topik yang cocok dengan pencarian Anda."
   }
 }

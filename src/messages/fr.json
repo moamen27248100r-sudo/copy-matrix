@@ -630,7 +630,8 @@
     "inputPlaceholder": "Écrivez votre question ici...",
     "send": "Envoyer",
     "unexpectedError": "Désolé, une erreur inattendue s'est produite. Veuillez réessayer.",
-    "connectionError": "Impossible de se connecter au serveur. Veuillez réessayer sous peu."
+    "connectionError": "Impossible de se connecter au serveur. Veuillez réessayer sous peu.",
+    "chatTab": "Discussion"
   },
   "Auth": {
     "loginTitle": "Connexion",
@@ -905,5 +906,268 @@
     "bio61": "Une traderse néo-zélandaise, spécialisée dans le trading de l'or.",
     "bio62": "Une traderse indienne, spécialisée dans les cryptomonnaies, sur l'un des marchés de trading numérique à la croissance la plus rapide.",
     "bio63": "Une traderse néerlandaise, suivant l'EUR/USD et les marchés d'Europe occidentale."
+  },
+  "Faq": {
+    "entries": [
+      {
+        "id": "about-platform",
+        "question": "Qu'est-ce que la plateforme Copy Matrix ?",
+        "keywords": [
+          "qu'est-ce que la plateforme",
+          "à propos de la plateforme",
+          "c'est quoi copy matrix"
+        ],
+        "answer": "Copy Matrix est une plateforme de copie automatique de trades, qui vous permet de suivre des traders au historique vérifié et de leur lier une partie de votre solde, afin que leurs trades soient automatiquement reflétés dans votre portefeuille. Veuillez noter qu'il s'agit d'un environnement de démonstration à des fins d'essai, et non d'un courtier financier agréé."
+      },
+      {
+        "id": "how-to-start",
+        "question": "Comment commencer à utiliser la plateforme ?",
+        "keywords": [
+          "comment commencer",
+          "premiers pas",
+          "débuter"
+        ],
+        "answer": "Pour commencer, créez un compte depuis la page d'inscription, puis choisissez votre type de compte (démo ou réel). Ensuite, vous pouvez parcourir la page « Découvrir les traders » et choisir qui vous souhaitez copier selon leur historique et leur niveau de risque."
+      },
+      {
+        "id": "deposit",
+        "question": "Comment déposer des fonds sur mon compte ?",
+        "keywords": [
+          "dépôt",
+          "ajouter des fonds",
+          "recharger"
+        ],
+        "answer": "Vous pouvez déposer des fonds en choisissant « Dépôt » dans la section portefeuille du menu latéral, puis en indiquant le montant et le mode de paiement et en confirmant la demande. Les dépôts sur compte démo sont instantanés avec des fonds virtuels, tandis que les dépôts sur compte réel font l'objet d'une brève vérification avant approbation."
+      },
+      {
+        "id": "withdraw",
+        "question": "Comment retirer mes bénéfices ?",
+        "keywords": [
+          "retrait",
+          "retirer",
+          "retirer les bénéfices"
+        ],
+        "answer": "Pour effectuer un retrait, choisissez « Retrait » dans le menu latéral, indiquez le montant et la méthode de retrait souhaitée, puis envoyez la demande. Les demandes de retrait nécessitent que la vérification d'identité (KYC) soit déjà approuvée, puis font l'objet d'un examen par notre équipe avant traitement."
+      },
+      {
+        "id": "withdraw-time",
+        "question": "Combien de temps prend un retrait ?",
+        "keywords": [
+          "délai de retrait",
+          "quand arrive le retrait",
+          "traitement du retrait"
+        ],
+        "answer": "Les demandes de retrait sont examinées par notre équipe dans un court délai une fois la vérification d'identité confirmée complète. Vous pouvez suivre l'état de votre demande à tout moment depuis la page « Historique des transactions »."
+      },
+      {
+        "id": "kyc",
+        "question": "Qu'est-ce que la vérification d'identité (KYC) et pourquoi est-elle requise ?",
+        "keywords": [
+          "kyc",
+          "vérification d'identité",
+          "vérification"
+        ],
+        "answer": "La vérification d'identité est une procédure de sécurité visant à confirmer que vous êtes bien le propriétaire réel du compte, et elle est requise avant les retraits ou l'accès complet aux fonctionnalités du compte réel. Veuillez téléverser une photo claire de votre pièce d'identité depuis la page « Vérification d'identité », elle sera examinée dans les plus brefs délais."
+      },
+      {
+        "id": "result-differs-from-trader",
+        "question": "Pourquoi le résultat de mon trade était-il différent de celui du trader que je copie ?",
+        "keywords": [
+          "résultat différent",
+          "j'ai perdu de l'argent",
+          "pourquoi j'ai perdu"
+        ],
+        "answer": "Il est normal que le résultat de votre trade diffère légèrement de celui du trader original, mais un écart important (une perte pour vous contre un gain pour lui) s'explique généralement par une raison précise : la taille du lot allouée à votre trade peut être relativement plus grande par rapport à votre capital que le ratio propre du trader par rapport au sien, le trade pouvait ne pas avoir de stop loss ce qui a élargi la marge de volatilité, ou un léger décalage de timing entre l'ouverture du trade chez lui et son reflet dans votre compte. Pour examiner les détails précis de votre trade et connaître la raison exacte, veuillez contacter un représentant du support via support@copy-matrix.test en mentionnant le numéro du trade si possible."
+      },
+      {
+        "id": "copy-trading",
+        "question": "Qu'est-ce que le copy trading et comment ça fonctionne ?",
+        "keywords": [
+          "qu'est-ce que le copy trading",
+          "comment fonctionne la copie",
+          "suivre un trader"
+        ],
+        "answer": "Le copy trading vous permet de lier une partie de votre solde à un trader de votre choix, afin que chaque trade qu'il ouvre soit automatiquement reflété dans votre portefeuille dans la même proportion, et se ferme automatiquement quand il le ferme. Vous pouvez arrêter de copier ou ajuster le montant alloué à tout moment depuis la page du trader."
+      },
+      {
+        "id": "multiple-traders",
+        "question": "Puis-je copier plusieurs traders en même temps ?",
+        "keywords": [
+          "plusieurs traders",
+          "plusieurs traders à la fois",
+          "plus d'un trader"
+        ],
+        "answer": "Non, le système est conçu pour que vous ne copiiez qu'un seul trader à la fois, afin de garder une gestion des risques claire. Vous pouvez toujours suivre la performance d'autant de traders que vous le souhaitez sans les copier."
+      },
+      {
+        "id": "min-copy",
+        "question": "Quel est le montant minimum pour copier un trader ?",
+        "keywords": [
+          "montant minimum",
+          "minimum pour copier",
+          "combien"
+        ],
+        "answer": "Chaque trader fixe son propre montant minimum de copie, affiché sur sa page de profil à côté du bouton « Copier », et il varie généralement entre 75 $ et 1 000 $ selon le trader."
+      },
+      {
+        "id": "stop-copy",
+        "question": "Comment arrêter de copier un trader ?",
+        "keywords": [
+          "arrêter de copier",
+          "annuler la copie",
+          "stopper la copie"
+        ],
+        "answer": "Pour arrêter de copier un trader, rendez-vous sur sa page de profil et cliquez sur « Arrêter de copier ». Les trades actuellement ouverts continuent normalement jusqu'à ce que le trader les ferme, et aucun nouveau trade ne s'ouvrira pour vous par la suite."
+      },
+      {
+        "id": "risk-level",
+        "question": "Que signifie le niveau de risque affiché à côté de chaque trader ?",
+        "keywords": [
+          "niveau de risque",
+          "risque élevé",
+          "risque faible"
+        ],
+        "answer": "Le niveau de risque reflète le style de trading du trader, de « conservateur » avec une volatilité limitée à « risque élevé » avec des variations et des gains ou pertes plus importants. Il est recommandé de consulter cette classification avec le taux de réussite et l'historique des trades avant de décider de copier."
+      },
+      {
+        "id": "trust-score",
+        "question": "Que signifient le niveau de fiabilité et le taux de réussite ?",
+        "keywords": [
+          "fiabilité",
+          "taux de réussite",
+          "note du trader"
+        ],
+        "answer": "Le niveau de fiabilité et le taux de réussite sont des indicateurs calculés à partir de l'historique réel des trades passés du trader, vous aidant à évaluer sa performance historique. Vous trouverez ces indicateurs en détail sur la page de profil de chaque trader."
+      },
+      {
+        "id": "fees",
+        "question": "Y a-t-il des frais ou commissions cachés ?",
+        "keywords": [
+          "frais",
+          "commission",
+          "coût"
+        ],
+        "answer": "Il n'y a aucune commission cachée sur le service de copie lui-même. Les frais liés aux opérations de dépôt ou de retrait, le cas échéant, sont affichés clairement juste avant la confirmation de l'opération."
+      },
+      {
+        "id": "password",
+        "question": "J'ai oublié mon mot de passe, que dois-je faire ?",
+        "keywords": [
+          "mot de passe oublié",
+          "réinitialiser le mot de passe",
+          "changer le mot de passe"
+        ],
+        "answer": "Veuillez cliquer sur « Mot de passe oublié ? » sur la page de connexion, puis saisir votre e-mail, vous recevrez un message contenant un lien pour réinitialiser votre mot de passe."
+      },
+      {
+        "id": "update-profile",
+        "question": "Comment modifier les informations de mon compte personnel ?",
+        "keywords": [
+          "modifier les informations",
+          "mettre à jour le profil",
+          "informations du compte"
+        ],
+        "answer": "Vous pouvez modifier vos informations personnelles depuis la page « Paramètres », disponible dans le menu latéral."
+      },
+      {
+        "id": "language",
+        "question": "Comment changer la langue de la plateforme ?",
+        "keywords": [
+          "changer de langue",
+          "langue de la plateforme",
+          "basculer la langue"
+        ],
+        "answer": "Vous pouvez changer la langue d'affichage depuis l'icône en haut de la page d'accueil, à côté du logo de la plateforme, et celle-ci s'ouvrira automatiquement dans la langue de votre navigateur ou téléphone lors de votre première visite."
+      },
+      {
+        "id": "notifications",
+        "question": "Comment suivre les notifications de mon compte ?",
+        "keywords": [
+          "notifications",
+          "alertes"
+        ],
+        "answer": "Toutes les alertes concernant votre compte et vos trades vous parviennent via l'icône de cloche en haut de la page, et vous pouvez consulter l'historique complet à tout moment."
+      },
+      {
+        "id": "mobile-app",
+        "question": "Y a-t-il une application mobile ?",
+        "keywords": [
+          "application mobile",
+          "application iphone",
+          "application android"
+        ],
+        "answer": "La plateforme fonctionne actuellement via le navigateur avec un design responsive qui prend entièrement en charge les téléphones mobiles et les tablettes."
+      },
+      {
+        "id": "safety",
+        "question": "Mon argent et mes données sont-ils en sécurité ?",
+        "keywords": [
+          "sécurité",
+          "sûr",
+          "protection",
+          "confidentialité"
+        ],
+        "answer": "Vos données sont traitées en toute confidentialité et stockées de manière chiffrée, et toute modification de votre solde ou de votre compte est enregistrée dans un journal d'audit interne complet. Pour plus de détails, veuillez consulter la politique de confidentialité."
+      },
+      {
+        "id": "demo-vs-real",
+        "question": "Quelle est la différence entre un compte démo et un compte réel ?",
+        "keywords": [
+          "compte démo",
+          "compte réel",
+          "différence entre"
+        ],
+        "answer": "Un compte démo vous permet d'essayer le copy trading avec des fonds virtuels sans risque réel, tandis qu'un compte réel repose sur votre solde effectif, et les résultats réels de la copie (gains ou pertes) y sont reflétés."
+      },
+      {
+        "id": "suspend-account",
+        "question": "Comment suspendre ou supprimer mon compte ?",
+        "keywords": [
+          "supprimer le compte",
+          "suspendre le compte",
+          "fermer le compte"
+        ],
+        "answer": "Pour suspendre ou supprimer votre compte, veuillez contacter notre équipe de support à support@copy-matrix.test en expliquant la raison, et vous serez guidé pour effectuer la démarche nécessaire."
+      },
+      {
+        "id": "support-contact",
+        "question": "Comment contacter l'équipe de support humain ?",
+        "keywords": [
+          "contacter le support",
+          "support humain",
+          "service client"
+        ],
+        "answer": "Nous sommes heureux de vous entendre à tout moment à support@copy-matrix.test, et notre équipe répondra à vos questions dans les plus brefs délais."
+      }
+    ],
+    "smallTalk": [
+      {
+        "id": "greeting",
+        "question": "Salutation",
+        "keywords": [
+          "bonjour",
+          "salut",
+          "coucou"
+        ],
+        "answer": "Bienvenue sur Copy Matrix ! Nous sommes ravis de vous aider — comment pouvons-nous vous assister aujourd'hui ?"
+      },
+      {
+        "id": "thanks",
+        "question": "Remerciement",
+        "keywords": [
+          "merci",
+          "je vous remercie"
+        ],
+        "answer": "Avec plaisir, nous sommes toujours heureux de vous aider. N'hésitez pas à nous recontacter si vous avez besoin d'autre chose."
+      }
+    ],
+    "noMatchIntro": "Nous n'avons pas encore bien compris votre question. Vous pouvez essayer de la reformuler, ou consulter l'un de ces sujets courants :",
+    "noMatchOutro": "Si vous souhaitez contacter directement un représentant du support humain, veuillez nous écrire à support@copy-matrix.test.",
+    "topicsHeading": "Sujets courants",
+    "askAnything": "Ou tapez librement votre question ci-dessous",
+    "aiTempError": "Désolé, une erreur temporaire s'est produite dans le service de support intelligent. Veuillez réessayer sous peu, ou nous contacter à support@copy-matrix.test.",
+    "aiNoClearAnswer": "Nous n'avons pas de réponse claire pour cette question en ce moment. Veuillez essayer de la reformuler, ou contacter notre équipe de support.",
+    "searchTopics": "Rechercher parmi les sujets courants...",
+    "noSearchResults": "Aucun sujet ne correspond à votre recherche."
   }
 }

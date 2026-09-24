@@ -630,7 +630,8 @@
     "inputPlaceholder": "Andika swali lako hapa...",
     "send": "Tuma",
     "unexpectedError": "Samahani, hitilafu isiyotarajiwa imetokea. Tafadhali jaribu tena.",
-    "connectionError": "Imeshindwa kuungana na seva. Tafadhali jaribu tena baadaye."
+    "connectionError": "Imeshindwa kuungana na seva. Tafadhali jaribu tena baadaye.",
+    "chatTab": "Gumzo"
   },
   "Auth": {
     "loginTitle": "Ingia",
@@ -905,5 +906,267 @@
     "bio61": "Mfanyabiashara mwanamke wa New Zealand, mtaalamu wa biashara ya dhahabu.",
     "bio62": "Mfanyabiashara mwanamke wa Kihindi, mtaalamu wa kripto, katika mojawapo ya masoko ya biashara ya kidijitali yanayokua kwa kasi zaidi.",
     "bio63": "Mfanyabiashara mwanamke wa Kiholanzi, akifuatilia EUR/USD na masoko ya Ulaya Magharibi."
+  },
+  "Faq": {
+    "entries": [
+      {
+        "id": "about-platform",
+        "question": "Jukwaa la Copy Matrix ni nini?",
+        "keywords": [
+          "jukwaa ni nini",
+          "kuhusu jukwaa",
+          "copy matrix ni nini"
+        ],
+        "answer": "Copy Matrix ni jukwaa la kunakili biashara kiotomatiki, linalokuruhusu kufuata wafanyabiashara wenye rekodi ya utendaji iliyothibitishwa na kuunganisha sehemu ya salio lako nao, ili biashara zao zionekane kiotomatiki kwenye portfolio yako. Tafadhali kumbuka kuwa huu ni mazingira ya mfano kwa madhumuni ya maonyesho na mazoezi, si wakala wa fedha aliyeidhinishwa."
+      },
+      {
+        "id": "how-to-start",
+        "question": "Nawezaje kuanza kutumia jukwaa?",
+        "keywords": [
+          "jinsi ya kuanza",
+          "kuanza",
+          "hatua ya kwanza"
+        ],
+        "answer": "Ili kuanza, fungua akaunti kutoka ukurasa wa kujisajili, kisha chagua aina ya akaunti yako (majaribio au halisi). Baada ya hapo, unaweza kuvinjari ukurasa wa \"Gundua Wafanyabiashara\" na kuchagua nani unataka kumnakili kulingana na rekodi yake ya utendaji na kiwango cha hatari."
+      },
+      {
+        "id": "deposit",
+        "question": "Nawezaje kuweka fedha kwenye akaunti yangu?",
+        "keywords": [
+          "amana",
+          "ongeza fedha",
+          "jaza upya"
+        ],
+        "answer": "Unaweza kuweka fedha kwa kuchagua \"Weka Amana\" katika sehemu ya pochi kwenye menyu ya pembeni, kisha kuingiza kiasi na njia ya malipo na kuthibitisha ombi. Amana za akaunti ya majaribio ni za papo hapo kwa fedha za dhahania, wakati amana za akaunti halisi hupitia ukaguzi mfupi kabla ya kuidhinishwa."
+      },
+      {
+        "id": "withdraw",
+        "question": "Nawezaje kuondoa faida zangu?",
+        "keywords": [
+          "uondoaji",
+          "toa fedha",
+          "toa faida"
+        ],
+        "answer": "Ili kuondoa, chagua \"Ondoa\" kutoka menyu ya pembeni, ingiza kiasi na njia ya uondoaji unayotaka, kisha wasilisha ombi. Maombi ya uondoaji yanahitaji uthibitishaji wa utambulisho (KYC) uliokwisha idhinishwa, kisha hupitia ukaguzi wa timu yetu kabla ya kuchakatwa."
+      },
+      {
+        "id": "withdraw-time",
+        "question": "Uondoaji huchukua muda gani?",
+        "keywords": [
+          "muda wa uondoaji",
+          "uondoaji utafika lini",
+          "uchakataji wa uondoaji"
+        ],
+        "answer": "Maombi ya uondoaji yanakaguliwa na timu yetu ndani ya muda mfupi baada ya kuthibitisha uthibitishaji wa utambulisho umekamilika. Unaweza kufuatilia hali ya ombi wakati wowote kutoka ukurasa wa \"Historia ya Miamala\"."
+      },
+      {
+        "id": "kyc",
+        "question": "Uthibitishaji wa utambulisho (KYC) ni nini na kwa nini unahitajika?",
+        "keywords": [
+          "kyc",
+          "uthibitishaji wa utambulisho",
+          "uthibitishaji"
+        ],
+        "answer": "Uthibitishaji wa utambulisho ni utaratibu wa usalama unaolenga kuthibitisha kuwa wewe ndiye mmiliki halisi wa akaunti, na unahitajika kabla ya uondoaji au ufikiaji kamili wa vipengele vya akaunti halisi. Tafadhali pakia picha wazi ya kitambulisho kutoka ukurasa wa \"Uthibitishaji wa Utambulisho\", na itakaguliwa haraka iwezekanavyo."
+      },
+      {
+        "id": "result-differs-from-trader",
+        "question": "Kwa nini matokeo ya biashara yangu yalikuwa tofauti na mfanyabiashara ninayemnakili?",
+        "keywords": [
+          "matokeo tofauti",
+          "nimepoteza fedha",
+          "kwa nini nimepata hasara"
+        ],
+        "answer": "Ni kawaida kwa matokeo ya biashara yako kutofautiana kidogo na mfanyabiashara wa asili, lakini tofauti kubwa (kama hasara kwako dhidi ya faida kwake) kwa kawaida hutokana na sababu maalum: ukubwa wa loti uliotengwa kwa biashara yako unaweza kuwa mkubwa zaidi ikilinganishwa na mtaji wako kuliko uwiano wa mfanyabiashara mwenyewe kwa mtaji wake, biashara inaweza kuwa haikuwa na kikomo cha hasara (Stop Loss) hivyo kupanua wigo wa kuyumba, au tofauti ndogo ya muda kati ya wakati alipofungua biashara na wakati ilipoonekana kwenye akaunti yako. Kuangalia maelezo ya biashara yako mahususi na kujua sababu halisi, tafadhali wasiliana na mwakilishi wetu wa msaada kupitia support@copy-matrix.test, ukitaja namba ya biashara ikiwezekana."
+      },
+      {
+        "id": "copy-trading",
+        "question": "Kunakili biashara ni nini na hufanya kazi vipi?",
+        "keywords": [
+          "kunakili biashara ni nini",
+          "kunakili hufanya kazi vipi",
+          "kumfuata mfanyabiashara"
+        ],
+        "answer": "Kunakili biashara kunakuruhusu kuunganisha sehemu ya salio lako na mfanyabiashara unayemchagua, ili kila biashara anayofungua mfanyabiashara huyo ionekane kiotomatiki kwenye portfolio yako kwa uwiano sawa, na kufungwa kiotomatiki anapoifunga. Unaweza kuacha kunakili au kurekebisha kiasi kilichotengwa wakati wowote kutoka ukurasa wa mfanyabiashara."
+      },
+      {
+        "id": "multiple-traders",
+        "question": "Je, ninaweza kunakili wafanyabiashara zaidi ya mmoja kwa wakati mmoja?",
+        "keywords": [
+          "wafanyabiashara wengi",
+          "wengi kwa pamoja",
+          "zaidi ya mmoja"
+        ],
+        "answer": "Hapana, mfumo umeundwa ili unakili mfanyabiashara mmoja tu kwa wakati mmoja, ili kudumisha usimamizi wa hatari wazi. Bado unaweza kufuatilia utendaji wa wafanyabiashara wengi kadri unavyotaka bila kuwanakili."
+      },
+      {
+        "id": "min-copy",
+        "question": "Kiasi cha chini cha kunakili mfanyabiashara ni kipi?",
+        "keywords": [
+          "kiasi cha chini",
+          "kiwango cha chini cha kunakili",
+          "kiasi gani"
+        ],
+        "answer": "Kila mfanyabiashara huweka kiasi chake cha chini cha kunakili, kinachoonyeshwa kwenye ukurasa wake wa wasifu karibu na kitufe cha \"Nakili\", na kwa kawaida huwa kati ya $75 na $1,000 kutegemea mfanyabiashara."
+      },
+      {
+        "id": "stop-copy",
+        "question": "Nawezaje kuacha kumnakili mfanyabiashara?",
+        "keywords": [
+          "acha kunakili",
+          "ghairi unakili",
+          "simamisha unakili"
+        ],
+        "answer": "Ili kuacha kumnakili mfanyabiashara, nenda kwenye ukurasa wake wa wasifu na ubofye \"Acha Kunakili\". Biashara zilizo wazi kwa sasa zitaendelea kwa kawaida hadi mfanyabiashara azifunge, na hakuna biashara mpya zitakazofunguliwa kwako baada ya hapo."
+      },
+      {
+        "id": "risk-level",
+        "question": "Kiwango cha hatari kinachoonyeshwa karibu na kila mfanyabiashara kina maana gani?",
+        "keywords": [
+          "kiwango cha hatari",
+          "hatari kubwa",
+          "hatari ndogo"
+        ],
+        "answer": "Kiwango cha hatari kinaonyesha mtindo wa mfanyabiashara mwenyewe wa kufanya biashara, kutoka \"mwangalifu\" mwenye kuyumba kidogo hadi \"hatari kubwa\" mwenye mabadiliko makubwa na faida au hasara kubwa zaidi. Inashauriwa kukagua uainishaji huu pamoja na kiwango cha ushindi na historia ya biashara kabla ya kuamua kunakili."
+      },
+      {
+        "id": "trust-score",
+        "question": "Kiwango cha uaminifu wa biashara na kiwango cha ushindi vina maana gani?",
+        "keywords": [
+          "uaminifu",
+          "kiwango cha ushindi",
+          "ukadiriaji wa mfanyabiashara"
+        ],
+        "answer": "Kiwango cha uaminifu na kiwango cha ushindi ni viashiria vinavyohesabiwa kutoka rekodi halisi ya biashara za nyuma za mfanyabiashara, vikikusaidia kutathmini utendaji wake wa kihistoria. Utapata viashiria hivi kwa undani kwenye ukurasa wa wasifu wa kila mfanyabiashara."
+      },
+      {
+        "id": "fees",
+        "question": "Je, kuna ada au kamisheni zilizofichwa?",
+        "keywords": [
+          "ada",
+          "kamisheni",
+          "gharama"
+        ],
+        "answer": "Hakuna kamisheni zilizofichwa kwenye huduma ya unakili yenyewe. Ada zinazohusiana na miamala ya amana au uondoaji, ikiwa zipo, zinaonyeshwa wazi kabla tu ya kuthibitisha muamala."
+      },
+      {
+        "id": "password",
+        "question": "Nimesahau nenosiri langu, nifanye nini?",
+        "keywords": [
+          "nenosiri limesahaulika",
+          "weka upya nenosiri",
+          "badilisha nenosiri"
+        ],
+        "answer": "Tafadhali bofya \"Umesahau nenosiri?\" kwenye ukurasa wa kuingia, kisha uingize barua pepe yako, nawe utapokea ujumbe wenye kiungo cha kuweka upya nenosiri lako."
+      },
+      {
+        "id": "update-profile",
+        "question": "Nawezaje kuhariri maelezo ya akaunti yangu binafsi?",
+        "keywords": [
+          "hariri maelezo",
+          "sasisha wasifu",
+          "maelezo ya akaunti"
+        ],
+        "answer": "Unaweza kuhariri maelezo yako binafsi kutoka ukurasa wa \"Mipangilio\", unaopatikana kwenye menyu ya pembeni."
+      },
+      {
+        "id": "language",
+        "question": "Nawezaje kubadilisha lugha ya jukwaa?",
+        "keywords": [
+          "badilisha lugha",
+          "lugha ya jukwaa",
+          "geuza lugha"
+        ],
+        "answer": "Unaweza kubadilisha lugha ya maonyesho kutoka aikoni iliyo juu ya ukurasa wa nyumbani karibu na nembo ya jukwaa, na jukwaa litafunguka kiotomatiki kwa lugha ya kivinjari chako au simu wakati wa ziara yako ya kwanza."
+      },
+      {
+        "id": "notifications",
+        "question": "Nawezaje kufuatilia arifa za akaunti yangu?",
+        "keywords": [
+          "arifa",
+          "tahadhari"
+        ],
+        "answer": "Arifa zote kuhusu akaunti yako na biashara zako hukufikia kupitia aikoni ya kengele juu ya ukurasa, na unaweza kukagua historia kamili wakati wowote."
+      },
+      {
+        "id": "mobile-app",
+        "question": "Je, kuna programu ya simu?",
+        "keywords": [
+          "programu ya simu",
+          "programu ya iphone",
+          "programu ya android"
+        ],
+        "answer": "Jukwaa kwa sasa linafanya kazi kupitia kivinjari kwa muundo unaojirekebisha unaotegemeza kikamilifu simu za mkononi na kompyuta kibao."
+      },
+      {
+        "id": "safety",
+        "question": "Je, fedha na data zangu ziko salama?",
+        "keywords": [
+          "usalama",
+          "salama",
+          "faragha"
+        ],
+        "answer": "Data yako inashughulikiwa kwa usiri kamili na kuhifadhiwa kwa usimbaji fiche, na mabadiliko yoyote kwenye salio au akaunti yako yanarekodiwa kwenye kumbukumbu kamili ya ukaguzi wa ndani. Kwa maelezo zaidi, tafadhali kagua Sera ya Faragha."
+      },
+      {
+        "id": "demo-vs-real",
+        "question": "Tofauti kati ya akaunti ya majaribio na akaunti halisi ni nini?",
+        "keywords": [
+          "akaunti ya majaribio",
+          "akaunti halisi",
+          "tofauti"
+        ],
+        "answer": "Akaunti ya majaribio inakuruhusu kujaribu kunakili biashara kwa fedha za dhahania bila hatari halisi, wakati akaunti halisi inategemea salio lako halisi, na huakisi matokeo halisi ya unakili katika faida au hasara."
+      },
+      {
+        "id": "suspend-account",
+        "question": "Nawezaje kusimamisha au kufuta akaunti yangu?",
+        "keywords": [
+          "futa akaunti",
+          "simamisha akaunti",
+          "funga akaunti"
+        ],
+        "answer": "Ili kusimamisha au kufuta akaunti yako, tafadhali wasiliana na timu yetu ya msaada kupitia support@copy-matrix.test ukieleza sababu, nawe utaelekezwa kukamilisha utaratibu unaohitajika."
+      },
+      {
+        "id": "support-contact",
+        "question": "Nawezaje kuwasiliana na timu ya msaada ya kibinadamu?",
+        "keywords": [
+          "wasiliana na msaada",
+          "msaada wa kibinadamu",
+          "huduma kwa wateja"
+        ],
+        "answer": "Tunafurahi kusikia kutoka kwako wakati wowote kupitia support@copy-matrix.test, na timu yetu itajibu maswali yako haraka iwezekanavyo."
+      }
+    ],
+    "smallTalk": [
+      {
+        "id": "greeting",
+        "question": "Salamu",
+        "keywords": [
+          "habari",
+          "hujambo",
+          "salamu"
+        ],
+        "answer": "Karibu Copy Matrix! Tunafurahi kukusaidia — tunaweza kukusaidiaje leo?"
+      },
+      {
+        "id": "thanks",
+        "question": "Shukrani",
+        "keywords": [
+          "asante",
+          "ahsante"
+        ],
+        "answer": "Karibu, tunafurahi kukusaidia kila wakati. Usisite kuwasiliana nasi ikiwa unahitaji msaada zaidi."
+      }
+    ],
+    "noMatchIntro": "Bado hatujaelewa swali lako vizuri. Unaweza kujaribu kuliandika upya, au kuangalia mojawapo ya mada hizi za kawaida:",
+    "noMatchOutro": "Ikiwa unahitaji kuwasiliana moja kwa moja na mwakilishi wa msaada wa kibinadamu, tafadhali wasiliana nasi kupitia support@copy-matrix.test.",
+    "topicsHeading": "Mada za kawaida",
+    "askAnything": "Au andika swali lako kwa uhuru hapa chini",
+    "aiTempError": "Samahani, hitilafu ya muda imetokea kwenye huduma ya msaada wa akili. Tafadhali jaribu tena baada ya muda mfupi, au wasiliana nasi kupitia support@copy-matrix.test.",
+    "aiNoClearAnswer": "Kwa sasa hatuna jibu wazi kwa swali hili. Tafadhali jaribu kuliandika upya, au wasiliana na timu yetu ya msaada.",
+    "searchTopics": "Tafuta mada za kawaida...",
+    "noSearchResults": "Hakuna mada zinazolingana na utafutaji wako."
   }
 }

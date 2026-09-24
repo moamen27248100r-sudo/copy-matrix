@@ -630,7 +630,8 @@
     "inputPlaceholder": "Type your question here...",
     "send": "Send",
     "unexpectedError": "Sorry, an unexpected error occurred. Please try again.",
-    "connectionError": "Could not connect to the server. Please try again shortly."
+    "connectionError": "Could not connect to the server. Please try again shortly.",
+    "chatTab": "Chat"
   },
   "Auth": {
     "loginTitle": "Log in",
@@ -905,5 +906,271 @@
     "bio61": "A New Zealand trader specialized in gold trading.",
     "bio62": "An Indian trader specialized in crypto, within one of the fastest-growing digital trading markets.",
     "bio63": "A Dutch trader following EUR/USD and Western European markets."
+  },
+  "Faq": {
+    "entries": [
+      {
+        "id": "about-platform",
+        "question": "What is the Copy Matrix platform?",
+        "keywords": [
+          "what is the platform",
+          "about the platform",
+          "what is copy matrix"
+        ],
+        "answer": "Copy Matrix is a platform for automatically copying trades, letting you follow traders with a verified track record and link part of your balance to them, so their trades are mirrored into your portfolio automatically. Please note this is a demo environment for demonstration and practice purposes, not a licensed financial brokerage."
+      },
+      {
+        "id": "how-to-start",
+        "question": "How do I start using the platform?",
+        "keywords": [
+          "how do i start",
+          "getting started",
+          "first step"
+        ],
+        "answer": "To get started, create an account from the sign-up page, then choose your account type (demo or real). After that, you can browse the \"Discover Traders\" page and pick who you'd like to copy based on their track record and risk level."
+      },
+      {
+        "id": "deposit",
+        "question": "How do I deposit funds into my account?",
+        "keywords": [
+          "deposit",
+          "add funds",
+          "top up"
+        ],
+        "answer": "You can deposit funds by choosing \"Deposit\" from the wallet section in the side menu, then entering the amount and payment method and confirming the request. Demo account deposits are instant with virtual funds, while real account deposits go through a brief review before being approved."
+      },
+      {
+        "id": "withdraw",
+        "question": "How do I withdraw my profits?",
+        "keywords": [
+          "withdraw",
+          "cash out",
+          "withdraw profits"
+        ],
+        "answer": "To withdraw, choose \"Withdraw\" from the side menu, enter the amount and preferred withdrawal method, and submit the request. Withdrawal requests require identity verification (KYC) to already be approved, and then go through review by our team before processing."
+      },
+      {
+        "id": "withdraw-time",
+        "question": "How long does a withdrawal take?",
+        "keywords": [
+          "withdrawal time",
+          "when will withdrawal arrive",
+          "withdrawal processing"
+        ],
+        "answer": "Withdrawal requests are reviewed by our team within a short period once identity verification is confirmed complete. You can track the request status anytime from the \"Transaction History\" page."
+      },
+      {
+        "id": "kyc",
+        "question": "What is identity verification (KYC) and why is it required?",
+        "keywords": [
+          "kyc",
+          "identity verification",
+          "verification"
+        ],
+        "answer": "Identity verification is a security procedure to confirm you are the account's actual owner, and it's required before withdrawals or full access to real-account features. Please upload a clear ID photo from the \"Identity Verification\" page, and it will be reviewed as soon as possible."
+      },
+      {
+        "id": "result-differs-from-trader",
+        "question": "Why was my trade result different from the trader I'm copying?",
+        "keywords": [
+          "different result",
+          "i lost money",
+          "why did i lose"
+        ],
+        "answer": "It's normal for your trade result to differ slightly from the original trader, but a large difference (like a loss for you against a profit for them) usually comes down to a specific reason: the lot size allocated to your trade may be relatively larger compared to your capital versus the trader's own ratio to theirs, the trade may have had no stop loss set so the volatility margin widened, or a small timing gap between when they opened the trade and when it was mirrored to your account. To review your specific trade's details and find the exact reason, please contact one of our support representatives at support@copy-matrix.test, mentioning the trade number if possible."
+      },
+      {
+        "id": "copy-trading",
+        "question": "What is copy trading and how does it work?",
+        "keywords": [
+          "what is copy trading",
+          "how does copying work",
+          "following a trader"
+        ],
+        "answer": "Copy trading lets you link part of your balance to a trader you choose, so every trade that trader opens is automatically mirrored into your portfolio at the same proportion, and automatically closes when they close it. You can stop copying or adjust the allocated amount anytime from the trader's page."
+      },
+      {
+        "id": "multiple-traders",
+        "question": "Can I copy more than one trader at the same time?",
+        "keywords": [
+          "multiple traders",
+          "several traders",
+          "more than one trader"
+        ],
+        "answer": "No, the system is designed so you copy only one trader at a time, to keep risk management clear. You can still follow as many traders' performance as you like without copying them."
+      },
+      {
+        "id": "min-copy",
+        "question": "What is the minimum amount to copy a trader?",
+        "keywords": [
+          "minimum amount",
+          "minimum to copy",
+          "how much"
+        ],
+        "answer": "Each trader sets their own minimum copy amount, shown on their profile page next to the \"Copy\" button, and it typically ranges between $75 and $1,000 depending on the trader."
+      },
+      {
+        "id": "stop-copy",
+        "question": "How do I stop copying a trader?",
+        "keywords": [
+          "stop copying",
+          "cancel copy",
+          "stop copy"
+        ],
+        "answer": "To stop copying a trader, go to their profile page and click \"Stop Copying\". Currently open trades keep running normally until the trader closes them, and no new trades will open for you afterward."
+      },
+      {
+        "id": "risk-level",
+        "question": "What does the risk level shown next to each trader mean?",
+        "keywords": [
+          "risk level",
+          "high risk",
+          "low risk"
+        ],
+        "answer": "The risk level reflects the trader's own trading style, from \"conservative\" with limited volatility to \"high risk\" with larger swings and bigger profits or losses. We recommend reviewing this rating alongside the win rate and trade history before deciding to copy."
+      },
+      {
+        "id": "trust-score",
+        "question": "What do the trading reliability level and win rate mean?",
+        "keywords": [
+          "reliability",
+          "win rate",
+          "trader rating"
+        ],
+        "answer": "The reliability level and win rate are indicators calculated from the trader's actual past trade record, helping you assess their historical performance. You'll find these indicators in detail on each trader's profile page."
+      },
+      {
+        "id": "fees",
+        "question": "Are there any hidden fees or commissions?",
+        "keywords": [
+          "fees",
+          "commission",
+          "cost"
+        ],
+        "answer": "There are no hidden commissions on the copying service itself. Any fees tied to deposit or withdrawal transactions, if applicable, are shown clearly right before you confirm the transaction."
+      },
+      {
+        "id": "password",
+        "question": "I forgot my password, what should I do?",
+        "keywords": [
+          "forgot password",
+          "reset password",
+          "change password"
+        ],
+        "answer": "Please click \"Forgot your password?\" on the login page, then enter your email, and you'll receive a message with a link to reset your password."
+      },
+      {
+        "id": "update-profile",
+        "question": "How do I edit my personal account details?",
+        "keywords": [
+          "edit details",
+          "update profile",
+          "account details"
+        ],
+        "answer": "You can edit your personal details from the \"Settings\" page, available in the side menu."
+      },
+      {
+        "id": "language",
+        "question": "How do I change the platform language?",
+        "keywords": [
+          "change language",
+          "platform language",
+          "switch language"
+        ],
+        "answer": "You can change the display language from the icon at the top of the homepage next to the platform logo, and the platform will automatically open in your browser or phone's language on your first visit."
+      },
+      {
+        "id": "notifications",
+        "question": "How do I keep track of my account notifications?",
+        "keywords": [
+          "notifications",
+          "alerts"
+        ],
+        "answer": "All alerts about your account and trades reach you via the bell icon at the top of the page, and you can review the full history at any time."
+      },
+      {
+        "id": "mobile-app",
+        "question": "Is there a mobile app?",
+        "keywords": [
+          "mobile app",
+          "iphone app",
+          "android app"
+        ],
+        "answer": "The platform currently runs through the browser with a responsive design that fully supports mobile phones and tablets."
+      },
+      {
+        "id": "safety",
+        "question": "Are my money and data safe?",
+        "keywords": [
+          "safety",
+          "safe",
+          "security",
+          "privacy"
+        ],
+        "answer": "Your data is handled with complete confidentiality and stored encrypted, and any change to your balance or account is recorded in a complete internal audit log. For more details, please review the Privacy Policy."
+      },
+      {
+        "id": "demo-vs-real",
+        "question": "What's the difference between a demo and a real account?",
+        "keywords": [
+          "demo account",
+          "real account",
+          "difference between"
+        ],
+        "answer": "A demo account lets you try copy trading with virtual funds with no actual risk, while a real account is based on your actual balance, and reflects real copying results in profit or loss."
+      },
+      {
+        "id": "suspend-account",
+        "question": "How do I suspend or delete my account?",
+        "keywords": [
+          "delete account",
+          "suspend account",
+          "close account"
+        ],
+        "answer": "To suspend or delete your account, please contact our support team at support@copy-matrix.test explaining the reason, and you'll be guided through the necessary steps."
+      },
+      {
+        "id": "support-contact",
+        "question": "How do I reach the human support team?",
+        "keywords": [
+          "contact support",
+          "human support",
+          "customer service"
+        ],
+        "answer": "We're happy to hear from you anytime at support@copy-matrix.test, and our team will respond to your inquiries as soon as possible."
+      }
+    ],
+    "smallTalk": [
+      {
+        "id": "greeting",
+        "question": "Greeting",
+        "keywords": [
+          "hello",
+          "hi",
+          "hey",
+          "good morning",
+          "good evening"
+        ],
+        "answer": "Welcome to Copy Matrix! We're happy to help — how can we assist you today?"
+      },
+      {
+        "id": "thanks",
+        "question": "Thanks",
+        "keywords": [
+          "thanks",
+          "thank you",
+          "appreciate it"
+        ],
+        "answer": "You're welcome, we're always happy to help. Feel free to reach out if you need anything else."
+      }
+    ],
+    "noMatchIntro": "We couldn't quite understand your question yet. You can try rephrasing it, or check one of these common topics:",
+    "noMatchOutro": "If you need to reach a human support representative directly, please contact us at support@copy-matrix.test.",
+    "topicsHeading": "Common topics",
+    "askAnything": "Or type your question freely below",
+    "aiTempError": "Sorry, a temporary error occurred in the smart support service. Please try again shortly, or contact us at support@copy-matrix.test.",
+    "aiNoClearAnswer": "We don't have a clear answer for this question right now. Please try rephrasing it, or contact our support team.",
+    "searchTopics": "Search common topics...",
+    "noSearchResults": "No topics match your search."
   }
 }

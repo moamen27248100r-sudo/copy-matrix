@@ -630,7 +630,8 @@
     "inputPlaceholder": "Nhập câu hỏi của bạn tại đây...",
     "send": "Gửi",
     "unexpectedError": "Xin lỗi, đã xảy ra lỗi không mong muốn. Vui lòng thử lại.",
-    "connectionError": "Không thể kết nối đến máy chủ. Vui lòng thử lại sau."
+    "connectionError": "Không thể kết nối đến máy chủ. Vui lòng thử lại sau.",
+    "chatTab": "Trò chuyện"
   },
   "Auth": {
     "loginTitle": "Đăng nhập",
@@ -905,5 +906,267 @@
     "bio61": "Một nữ nhà giao dịch người New Zealand, chuyên về giao dịch vàng.",
     "bio62": "Một nữ nhà giao dịch người Ấn Độ, chuyên về tiền điện tử, trong một trong những thị trường giao dịch kỹ thuật số tăng trưởng nhanh nhất.",
     "bio63": "Một nữ nhà giao dịch người Hà Lan, theo dõi EUR/USD và các thị trường Tây Âu."
+  },
+  "Faq": {
+    "entries": [
+      {
+        "id": "about-platform",
+        "question": "Nền tảng Copy Matrix là gì?",
+        "keywords": [
+          "nền tảng là gì",
+          "về nền tảng",
+          "copy matrix là gì"
+        ],
+        "answer": "Copy Matrix là nền tảng sao chép giao dịch tự động, cho phép bạn theo dõi các nhà giao dịch có thành tích đã được xác minh và liên kết một phần số dư của bạn với họ, để các giao dịch của họ được tự động phản ánh vào danh mục đầu tư của bạn. Xin lưu ý đây là môi trường demo với mục đích trình diễn và thực hành, không phải một công ty môi giới tài chính được cấp phép."
+      },
+      {
+        "id": "how-to-start",
+        "question": "Làm thế nào để tôi bắt đầu sử dụng nền tảng?",
+        "keywords": [
+          "cách bắt đầu",
+          "bắt đầu",
+          "bước đầu tiên"
+        ],
+        "answer": "Để bắt đầu, hãy tạo tài khoản từ trang đăng ký, sau đó chọn loại tài khoản của bạn (demo hoặc thực). Sau đó, bạn có thể duyệt trang \"Khám phá nhà giao dịch\" và chọn người bạn muốn sao chép dựa trên thành tích và mức độ rủi ro của họ."
+      },
+      {
+        "id": "deposit",
+        "question": "Làm thế nào để nạp tiền vào tài khoản của tôi?",
+        "keywords": [
+          "nạp tiền",
+          "thêm tiền",
+          "nạp thêm"
+        ],
+        "answer": "Bạn có thể nạp tiền bằng cách chọn \"Nạp tiền\" trong phần ví ở menu bên, sau đó nhập số tiền và phương thức thanh toán rồi xác nhận yêu cầu. Nạp tiền vào tài khoản demo diễn ra ngay lập tức với tiền ảo, trong khi nạp tiền vào tài khoản thực phải qua một quá trình xem xét ngắn trước khi được duyệt."
+      },
+      {
+        "id": "withdraw",
+        "question": "Làm thế nào để tôi rút lợi nhuận?",
+        "keywords": [
+          "rút tiền",
+          "rút",
+          "rút lợi nhuận"
+        ],
+        "answer": "Để rút tiền, chọn \"Rút tiền\" từ menu bên, nhập số tiền và phương thức rút tiền mong muốn, rồi gửi yêu cầu. Yêu cầu rút tiền cần xác minh danh tính (KYC) đã được phê duyệt trước, sau đó sẽ được đội ngũ của chúng tôi xem xét trước khi xử lý."
+      },
+      {
+        "id": "withdraw-time",
+        "question": "Rút tiền mất bao lâu?",
+        "keywords": [
+          "thời gian rút tiền",
+          "khi nào tiền rút về",
+          "xử lý rút tiền"
+        ],
+        "answer": "Yêu cầu rút tiền được đội ngũ của chúng tôi xem xét trong thời gian ngắn sau khi xác minh danh tính được xác nhận hoàn tất. Bạn có thể theo dõi trạng thái yêu cầu bất cứ lúc nào từ trang \"Lịch sử giao dịch\"."
+      },
+      {
+        "id": "kyc",
+        "question": "Xác minh danh tính (KYC) là gì và tại sao cần thiết?",
+        "keywords": [
+          "kyc",
+          "xác minh danh tính",
+          "xác minh"
+        ],
+        "answer": "Xác minh danh tính là một quy trình bảo mật nhằm xác nhận bạn là chủ sở hữu thực sự của tài khoản, và đây là điều kiện bắt buộc trước khi rút tiền hoặc truy cập đầy đủ các tính năng của tài khoản thực. Vui lòng tải lên ảnh rõ nét giấy tờ tùy thân từ trang \"Xác minh danh tính\", và sẽ được xem xét sớm nhất có thể."
+      },
+      {
+        "id": "result-differs-from-trader",
+        "question": "Tại sao kết quả giao dịch của tôi khác với nhà giao dịch tôi đang sao chép?",
+        "keywords": [
+          "kết quả khác nhau",
+          "tôi bị lỗ",
+          "tại sao tôi bị lỗ"
+        ],
+        "answer": "Việc kết quả giao dịch của bạn hơi khác so với nhà giao dịch gốc là điều bình thường, nhưng sự khác biệt lớn (như bạn lỗ trong khi họ lãi) thường xuất phát từ một trong các lý do cụ thể: kích thước lot phân bổ cho giao dịch của bạn có thể tương đối lớn hơn so với vốn của bạn so với tỷ lệ của chính nhà giao dịch với vốn của họ, giao dịch có thể không có mức dừng lỗ (Stop Loss) khiến biên độ biến động nới rộng, hoặc có sự chênh lệch nhỏ về thời gian giữa lúc họ mở giao dịch và lúc nó được phản ánh vào tài khoản của bạn. Để xem chi tiết giao dịch cụ thể của bạn và biết lý do chính xác, vui lòng liên hệ với đại diện hỗ trợ của chúng tôi qua support@copy-matrix.test, nêu rõ số giao dịch nếu có thể."
+      },
+      {
+        "id": "copy-trading",
+        "question": "Sao chép giao dịch là gì và hoạt động như thế nào?",
+        "keywords": [
+          "sao chép giao dịch là gì",
+          "sao chép hoạt động thế nào",
+          "theo dõi nhà giao dịch"
+        ],
+        "answer": "Sao chép giao dịch cho phép bạn liên kết một phần số dư của mình với một nhà giao dịch bạn chọn, để mỗi giao dịch mà nhà giao dịch đó mở đều tự động được phản ánh vào danh mục đầu tư của bạn theo cùng tỷ lệ, và tự động đóng khi họ đóng giao dịch đó. Bạn có thể dừng sao chép hoặc điều chỉnh số tiền phân bổ bất cứ lúc nào từ trang của nhà giao dịch."
+      },
+      {
+        "id": "multiple-traders",
+        "question": "Tôi có thể sao chép nhiều hơn một nhà giao dịch cùng lúc không?",
+        "keywords": [
+          "nhiều nhà giao dịch",
+          "nhiều người cùng lúc",
+          "hơn một nhà giao dịch"
+        ],
+        "answer": "Không, hệ thống được thiết kế để bạn chỉ sao chép một nhà giao dịch tại một thời điểm, nhằm giữ việc quản lý rủi ro rõ ràng. Bạn vẫn có thể theo dõi hiệu suất của bao nhiêu nhà giao dịch tùy thích mà không cần sao chép họ."
+      },
+      {
+        "id": "min-copy",
+        "question": "Số tiền tối thiểu để sao chép một nhà giao dịch là bao nhiêu?",
+        "keywords": [
+          "số tiền tối thiểu",
+          "tối thiểu để sao chép",
+          "bao nhiêu tiền"
+        ],
+        "answer": "Mỗi nhà giao dịch tự đặt số tiền sao chép tối thiểu của riêng mình, hiển thị trên trang hồ sơ của họ bên cạnh nút \"Sao chép\", và thường dao động từ $75 đến $1.000 tùy theo nhà giao dịch."
+      },
+      {
+        "id": "stop-copy",
+        "question": "Làm thế nào để tôi dừng sao chép một nhà giao dịch?",
+        "keywords": [
+          "dừng sao chép",
+          "hủy sao chép",
+          "ngừng sao chép"
+        ],
+        "answer": "Để dừng sao chép một nhà giao dịch, hãy vào trang hồ sơ của họ và nhấp vào \"Dừng sao chép\". Các giao dịch hiện đang mở sẽ tiếp tục hoạt động bình thường cho đến khi nhà giao dịch đóng chúng, và sẽ không có giao dịch mới nào được mở cho bạn sau đó."
+      },
+      {
+        "id": "risk-level",
+        "question": "Mức độ rủi ro hiển thị bên cạnh mỗi nhà giao dịch có ý nghĩa gì?",
+        "keywords": [
+          "mức độ rủi ro",
+          "rủi ro cao",
+          "rủi ro thấp"
+        ],
+        "answer": "Mức độ rủi ro phản ánh phong cách giao dịch riêng của nhà giao dịch, từ \"thận trọng\" với biến động hạn chế đến \"rủi ro cao\" với biến động và lợi nhuận hoặc thua lỗ lớn hơn. Bạn nên xem xét đánh giá này cùng với tỷ lệ thắng và lịch sử giao dịch trước khi quyết định sao chép."
+      },
+      {
+        "id": "trust-score",
+        "question": "Mức độ tin cậy giao dịch và tỷ lệ thắng có ý nghĩa gì?",
+        "keywords": [
+          "độ tin cậy",
+          "tỷ lệ thắng",
+          "đánh giá nhà giao dịch"
+        ],
+        "answer": "Mức độ tin cậy và tỷ lệ thắng là các chỉ số được tính toán từ lịch sử giao dịch thực tế trong quá khứ của nhà giao dịch, giúp bạn đánh giá hiệu suất lịch sử của họ. Bạn sẽ tìm thấy các chỉ số này chi tiết trên trang hồ sơ của mỗi nhà giao dịch."
+      },
+      {
+        "id": "fees",
+        "question": "Có bất kỳ phí hoặc hoa hồng ẩn nào không?",
+        "keywords": [
+          "phí",
+          "hoa hồng",
+          "chi phí"
+        ],
+        "answer": "Không có hoa hồng ẩn nào đối với dịch vụ sao chép. Các khoản phí liên quan đến giao dịch nạp hoặc rút tiền, nếu có, sẽ được hiển thị rõ ràng ngay trước khi bạn xác nhận giao dịch."
+      },
+      {
+        "id": "password",
+        "question": "Tôi quên mật khẩu, tôi phải làm gì?",
+        "keywords": [
+          "quên mật khẩu",
+          "đặt lại mật khẩu",
+          "đổi mật khẩu"
+        ],
+        "answer": "Vui lòng nhấp vào \"Quên mật khẩu?\" trên trang đăng nhập, sau đó nhập email của bạn, và bạn sẽ nhận được tin nhắn có liên kết để đặt lại mật khẩu."
+      },
+      {
+        "id": "update-profile",
+        "question": "Làm thế nào để chỉnh sửa thông tin tài khoản cá nhân của tôi?",
+        "keywords": [
+          "chỉnh sửa thông tin",
+          "cập nhật hồ sơ",
+          "thông tin tài khoản"
+        ],
+        "answer": "Bạn có thể chỉnh sửa thông tin cá nhân của mình từ trang \"Cài đặt\", có sẵn trong menu bên."
+      },
+      {
+        "id": "language",
+        "question": "Làm thế nào để thay đổi ngôn ngữ của nền tảng?",
+        "keywords": [
+          "đổi ngôn ngữ",
+          "ngôn ngữ nền tảng",
+          "chuyển ngôn ngữ"
+        ],
+        "answer": "Bạn có thể thay đổi ngôn ngữ hiển thị từ biểu tượng ở đầu trang chủ bên cạnh logo nền tảng, và nền tảng sẽ tự động mở bằng ngôn ngữ trình duyệt hoặc điện thoại của bạn trong lần truy cập đầu tiên."
+      },
+      {
+        "id": "notifications",
+        "question": "Làm thế nào để theo dõi thông báo tài khoản của tôi?",
+        "keywords": [
+          "thông báo",
+          "cảnh báo"
+        ],
+        "answer": "Tất cả cảnh báo về tài khoản và giao dịch của bạn đến qua biểu tượng chuông ở đầu trang, và bạn có thể xem toàn bộ lịch sử bất cứ lúc nào."
+      },
+      {
+        "id": "mobile-app",
+        "question": "Có ứng dụng di động không?",
+        "keywords": [
+          "ứng dụng di động",
+          "ứng dụng iphone",
+          "ứng dụng android"
+        ],
+        "answer": "Nền tảng hiện chạy qua trình duyệt với thiết kế responsive hỗ trợ đầy đủ điện thoại di động và máy tính bảng."
+      },
+      {
+        "id": "safety",
+        "question": "Tiền và dữ liệu của tôi có an toàn không?",
+        "keywords": [
+          "an toàn",
+          "bảo mật",
+          "quyền riêng tư"
+        ],
+        "answer": "Dữ liệu của bạn được xử lý với sự bảo mật tuyệt đối và được lưu trữ mã hóa, và mọi thay đổi đối với số dư hoặc tài khoản của bạn đều được ghi lại trong nhật ký kiểm toán nội bộ đầy đủ. Để biết thêm chi tiết, vui lòng xem Chính sách quyền riêng tư."
+      },
+      {
+        "id": "demo-vs-real",
+        "question": "Sự khác biệt giữa tài khoản demo và tài khoản thực là gì?",
+        "keywords": [
+          "tài khoản demo",
+          "tài khoản thực",
+          "sự khác biệt"
+        ],
+        "answer": "Tài khoản demo cho phép bạn thử sao chép giao dịch với tiền ảo mà không có rủi ro thực sự, trong khi tài khoản thực dựa trên số dư thực tế của bạn, và phản ánh kết quả sao chép thực về lãi hoặc lỗ."
+      },
+      {
+        "id": "suspend-account",
+        "question": "Làm thế nào để tôi tạm ngừng hoặc xóa tài khoản của mình?",
+        "keywords": [
+          "xóa tài khoản",
+          "tạm ngừng tài khoản",
+          "đóng tài khoản"
+        ],
+        "answer": "Để tạm ngừng hoặc xóa tài khoản của bạn, vui lòng liên hệ đội ngũ hỗ trợ của chúng tôi tại support@copy-matrix.test giải thích lý do, và bạn sẽ được hướng dẫn hoàn tất thủ tục cần thiết."
+      },
+      {
+        "id": "support-contact",
+        "question": "Làm thế nào để liên hệ với đội ngũ hỗ trợ con người?",
+        "keywords": [
+          "liên hệ hỗ trợ",
+          "hỗ trợ con người",
+          "dịch vụ khách hàng"
+        ],
+        "answer": "Chúng tôi rất vui được nghe từ bạn bất cứ lúc nào tại support@copy-matrix.test, và đội ngũ của chúng tôi sẽ phản hồi các thắc mắc của bạn sớm nhất có thể."
+      }
+    ],
+    "smallTalk": [
+      {
+        "id": "greeting",
+        "question": "Lời chào",
+        "keywords": [
+          "xin chào",
+          "chào",
+          "chào buổi sáng"
+        ],
+        "answer": "Chào mừng đến với Copy Matrix! Chúng tôi rất vui được hỗ trợ — hôm nay chúng tôi có thể giúp gì cho bạn?"
+      },
+      {
+        "id": "thanks",
+        "question": "Cảm ơn",
+        "keywords": [
+          "cảm ơn",
+          "cám ơn"
+        ],
+        "answer": "Không có gì, chúng tôi luôn vui lòng hỗ trợ bạn. Đừng ngần ngại liên hệ nếu bạn cần thêm sự trợ giúp nào khác."
+      }
+    ],
+    "noMatchIntro": "Chúng tôi chưa hiểu rõ câu hỏi của bạn. Bạn có thể thử diễn đạt lại, hoặc xem một trong các chủ đề phổ biến sau:",
+    "noMatchOutro": "Nếu bạn cần liên hệ trực tiếp với đại diện hỗ trợ con người, vui lòng liên hệ chúng tôi qua support@copy-matrix.test.",
+    "topicsHeading": "Chủ đề phổ biến",
+    "askAnything": "Hoặc nhập câu hỏi của bạn tự do bên dưới",
+    "aiTempError": "Xin lỗi, đã xảy ra lỗi tạm thời trong dịch vụ hỗ trợ thông minh. Vui lòng thử lại sau một chút, hoặc liên hệ chúng tôi tại support@copy-matrix.test.",
+    "aiNoClearAnswer": "Hiện tại chúng tôi chưa có câu trả lời rõ ràng cho câu hỏi này. Vui lòng thử diễn đạt lại, hoặc liên hệ đội ngũ hỗ trợ của chúng tôi.",
+    "searchTopics": "Tìm kiếm chủ đề phổ biến...",
+    "noSearchResults": "Không có chủ đề nào khớp với tìm kiếm của bạn."
   }
 }
