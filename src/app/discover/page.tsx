@@ -7,6 +7,7 @@ import { BackButton } from "@/components/BackButton";
 import { TierBadge, RiskBadge, StoppedBadge } from "@/components/TraderBadges";
 import { TraderAvatar } from "@/components/TraderAvatar";
 import { SortDropdown } from "@/components/SortDropdown";
+import { DiscoverFilterPanel } from "@/components/DiscoverFilterPanel";
 import { getBioTranslator } from "@/lib/bio-translations";
 
 const SORT_OPTIONS = {
@@ -18,13 +19,46 @@ const SORT_OPTIONS = {
 
 type SortKey = keyof typeof SORT_OPTIONS;
 
+// "Matrix Quick Focus" pills -- a different axis than SORT_OPTIONS (theme
+// vs raw column sort), so both coexist. "roi"/"trusted" reuse an existing
+// sort under the hood instead of duplicating that logic.
+const PILL_KEYS = ["safe", "consistent", "rising", "roi", "trusted"] as const;
+type PillKey = (typeof PILL_KEYS)[number];
+const PILL_LABEL_KEYS: Record<PillKey, string> = {
+  safe: "pillSafe",
+  consistent: "pillConsistent",
+  rising: "pillRising",
+  roi: "pillRoi",
+  trusted: "pillTrusted",
+};
+
+const ASSET_GROUPS: Record<string, string[]> = {
+  gold: ["XAUUSD", "US30"],
+  crypto: ["BTCUSDT", "ETHUSDT", "SOLUSDT", "BNBUSDT", "XRPUSDT"],
+  forex: ["EURUSD", "GBPUSD", "USDJPY"],
+};
+const RISK_VALUES = ["منخفضة", "متوسطة", "مرتفعة"] as const;
+
 export default async function DiscoverPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; sort?: string; error?: string }>;
+  searchParams: Promise<{
+    q?: string;
+    sort?: string;
+    error?: string;
+    pill?: string;
+    risk?: string;
+    minEntry?: string;
+    assetClass?: string;
+    trackRecord?: string;
+  }>;
 }) {
-  const { q, sort, error } = await searchParams;
-  const sortKey: SortKey = sort && sort in SORT_OPTIONS ? (sort as SortKey) : "best";
+  const { q, sort, error, pill, risk, minEntry, assetClass, trackRecord } = await searchParams;
+  const pillKey = pill && (PILL_KEYS as readonly string[]).includes(pill) ? (pill as PillKey) : null;
+  // "roi"/"trusted" pills force their matching sort; an explicit ?sort=
+  // still wins if the customer also picked one directly.
+  const effectiveSort = sort && sort in SORT_OPTIONS ? sort : pillKey === "roi" ? "return" : pillKey === "trusted" ? "followers" : undefined;
+  const sortKey: SortKey = effectiveSort && effectiveSort in SORT_OPTIONS ? (effectiveSort as SortKey) : "best";
   const t = await getTranslations("Discover");
   const translateBio = await getBioTranslator();
 
@@ -37,6 +71,37 @@ export default async function DiscoverPage({
   if (q) {
     providersQuery = providersQuery.ilike("display_name", `%${q}%`);
   }
+
+  if (pillKey === "safe") {
+    providersQuery = providersQuery.eq("risk_level", "منخفضة");
+  } else if (pillKey === "consistent") {
+    providersQuery = providersQuery.eq("risk_level", "منخفضة").gt("avg_daily_return_pct", 0);
+  } else if (pillKey === "rising") {
+    const sixtyDaysAgo = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString();
+    providersQuery = providersQuery.gte("joined_at", sixtyDaysAgo).gte("followers_count", 20);
+  }
+
+  if (risk && (RISK_VALUES as readonly string[]).includes(risk)) {
+    providersQuery = providersQuery.eq("risk_level", risk);
+  }
+  if (minEntry && !Number.isNaN(Number(minEntry))) {
+    // "Minimum entry" filters BY the customer's own budget -- show leaders
+    // whose min_copy_amount is at or below what they picked, not above.
+    providersQuery = providersQuery.lte("min_copy_amount", Number(minEntry));
+  }
+  if (assetClass && ASSET_GROUPS[assetClass]) {
+    // Every leader's symbol_bias already contains all 10 symbols, just
+    // reordered by preference -- overlaps() against it would match
+    // everyone. primary_symbol (symbol_bias[1], exposed as its own
+    // column) is their actual dominant market.
+    providersQuery = providersQuery.in("primary_symbol", ASSET_GROUPS[assetClass]);
+  }
+  if (trackRecord === "3m" || trackRecord === "1y") {
+    const days = trackRecord === "3m" ? 90 : 365;
+    const cutoff = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
+    providersQuery = providersQuery.lte("joined_at", cutoff);
+  }
+
   const { column, ascending } = SORT_OPTIONS[sortKey];
   providersQuery = providersQuery.order(column, { ascending, nullsFirst: false });
 
@@ -61,6 +126,20 @@ export default async function DiscoverPage({
   );
   const followingProviderId = (mySubscriptions ?? [])[0]?.provider_id ?? null;
   const watchingIds = new Set((myFollows ?? []).map((f) => f.provider_id));
+
+  // Builds a /discover?... href starting from the CURRENT filters, with
+  // one or more overridden -- passing null for a key removes it (toggle
+  // off). Every pill/advanced-filter control is a plain server-rendered
+  // link built from this, consistent with how q/sort already work here.
+  const currentParams: Record<string, string | undefined> = { q, sort, pill: pillKey ?? undefined, risk, minEntry, assetClass, trackRecord };
+  function hrefWith(overrides: Record<string, string | null>) {
+    const params = new URLSearchParams();
+    const merged = { ...currentParams, ...overrides };
+    for (const [key, value] of Object.entries(merged)) {
+      if (value) params.set(key, value);
+    }
+    return `/discover?${params.toString()}`;
+  }
 
   return (
     <>
@@ -88,20 +167,84 @@ export default async function DiscoverPage({
         </button>
       </form>
 
-      <SortDropdown
-        currentLabel={t(SORT_OPTIONS[sortKey].labelKey)}
-        options={(Object.keys(SORT_OPTIONS) as SortKey[]).map((key) => {
-          const params = new URLSearchParams();
-          if (q) params.set("q", q);
-          params.set("sort", key);
-          return {
+      <div className="flex flex-wrap items-center gap-2">
+        <Link
+          href={hrefWith({ pill: null })}
+          className={
+            pillKey === null
+              ? "rounded-full border border-accent/40 bg-accent/10 px-3 py-1.5 text-sm font-medium text-accent"
+              : "rounded-full border border-border px-3 py-1.5 text-sm text-foreground transition hover:border-accent/30"
+          }
+        >
+          {t("pillAll")}
+        </Link>
+        {PILL_KEYS.map((key) => (
+          <Link
+            key={key}
+            href={hrefWith({ pill: pillKey === key ? null : key })}
+            className={
+              pillKey === key
+                ? "rounded-full border border-accent/40 bg-accent/10 px-3 py-1.5 text-sm font-medium text-accent"
+                : "rounded-full border border-border px-3 py-1.5 text-sm text-foreground transition hover:border-accent/30"
+            }
+          >
+            {t(PILL_LABEL_KEYS[key])}
+          </Link>
+        ))}
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2">
+        <SortDropdown
+          currentLabel={t(SORT_OPTIONS[sortKey].labelKey)}
+          options={(Object.keys(SORT_OPTIONS) as SortKey[]).map((key) => ({
             key,
             label: t(SORT_OPTIONS[key].labelKey),
-            href: `/discover?${params.toString()}`,
+            href: hrefWith({ sort: key }),
             active: key === sortKey,
-          };
-        })}
-      />
+          }))}
+        />
+        <DiscoverFilterPanel
+          triggerLabel={t("advancedFilters")}
+          closeLabel={t("closeFilters")}
+          sections={[
+            {
+              label: t("filterRisk"),
+              options: [
+                { label: t("filterAny"), href: hrefWith({ risk: null }), active: !risk },
+                { label: t("riskLow"), href: hrefWith({ risk: "منخفضة" }), active: risk === "منخفضة" },
+                { label: t("riskModerate"), href: hrefWith({ risk: "متوسطة" }), active: risk === "متوسطة" },
+                { label: t("riskHigh"), href: hrefWith({ risk: "مرتفعة" }), active: risk === "مرتفعة" },
+              ],
+            },
+            {
+              label: t("filterMinEntry"),
+              options: [
+                { label: t("filterAny"), href: hrefWith({ minEntry: null }), active: !minEntry },
+                { label: "$100", href: hrefWith({ minEntry: "100" }), active: minEntry === "100" },
+                { label: "$500", href: hrefWith({ minEntry: "500" }), active: minEntry === "500" },
+                { label: "$1000+", href: hrefWith({ minEntry: "1000" }), active: minEntry === "1000" },
+              ],
+            },
+            {
+              label: t("pillAssets"),
+              options: [
+                { label: t("filterAny"), href: hrefWith({ assetClass: null }), active: !assetClass },
+                { label: t("assetGold"), href: hrefWith({ assetClass: "gold" }), active: assetClass === "gold" },
+                { label: t("assetCrypto"), href: hrefWith({ assetClass: "crypto" }), active: assetClass === "crypto" },
+                { label: t("assetForex"), href: hrefWith({ assetClass: "forex" }), active: assetClass === "forex" },
+              ],
+            },
+            {
+              label: t("filterTrackRecord"),
+              options: [
+                { label: t("filterAny"), href: hrefWith({ trackRecord: null }), active: !trackRecord },
+                { label: t("trackRecord3m"), href: hrefWith({ trackRecord: "3m" }), active: trackRecord === "3m" },
+                { label: t("trackRecord1y"), href: hrefWith({ trackRecord: "1y" }), active: trackRecord === "1y" },
+              ],
+            },
+          ]}
+        />
+      </div>
 
       {!providers || providers.length === 0 ? (
         <p className="text-sm text-muted">
