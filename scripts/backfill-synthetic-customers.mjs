@@ -34,6 +34,9 @@ const CUSTOMER_LAST_AR = [
   "الشريف", "العتيبي", "المطيري", "القحطاني", "الزهراني", "النجار", "حداد", "صالح", "شاهين", "كنعان",
   "درويش", "سالم", "بركات", "عيسى", "قاسم", "حمدان", "الجابر", "السيد", "مراد", "توفيق",
 ];
+// Generic fallback pool -- only used for a non-Arab country that (for
+// whatever reason) has no dedicated pool below, or as the "other country"
+// diversity slice for a leader whose own country DOES have a pool.
 const CUSTOMER_FIRST_INTL = [
   "David", "Anna", "Lucas", "Maria", "John", "Olivia", "Elena", "Ryan", "Sofia", "Thomas",
   "Laura", "Marco", "Julia", "Erik", "Charlotte", "Felix", "Camille", "Jonas", "Chloe", "Pablo",
@@ -46,15 +49,81 @@ const CUSTOMER_LAST_INTL = [
   "Hernández", "Gómez", "Muñoz", "Vargas", "Silva", "Rojas",
 ];
 
+const ARAB_COUNTRY_SET = new Set([
+  "SA", "EG", "AE", "IQ", "MA", "DZ", "KW", "JO", "TN", "SY", "YE", "SD",
+  "QA", "BH", "OM", "LB", "LY", "PS", "MR", "SO",
+]);
+
+// One small first/last-name pool per non-Arab country a leader can have
+// (providers.country, per assign-leader-countries.mjs / backfill-global-
+// leader-identities.mjs), so a leader's customers mostly get names that
+// actually match their own country instead of a single flat "generic
+// international" pool that ignores which country the leader is from.
+const INTL_NAME_POOLS = {
+  DE: { first: ["Lukas", "Anna", "Max", "Lena"], last: ["Müller", "Schmidt", "Weber", "Becker"] },
+  FR: { first: ["Louis", "Emma", "Hugo", "Camille"], last: ["Martin", "Bernard", "Dubois", "Girard"] },
+  IT: { first: ["Marco", "Giulia", "Luca", "Chiara"], last: ["Rossi", "Russo", "Ferrari", "Esposito"] },
+  ES: { first: ["Pablo", "Lucía", "Alejandro", "María"], last: ["García", "Martínez", "López", "Sánchez"] },
+  PT: { first: ["João", "Beatriz", "Tiago", "Ana"], last: ["Silva", "Santos", "Ferreira", "Pereira"] },
+  NL: { first: ["Daan", "Sanne", "Sem", "Eva"], last: ["de Jong", "Jansen", "de Vries", "Bakker"] },
+  BE: { first: ["Lucas", "Marie", "Louis", "Emma"], last: ["Peeters", "Janssens", "Maes", "Jacobs"] },
+  AT: { first: ["Jonas", "Anna", "Felix", "Lena"], last: ["Gruber", "Huber", "Bauer", "Wagner"] },
+  IE: { first: ["Sean", "Aoife", "Liam", "Niamh"], last: ["Byrne", "Murphy", "Kelly", "Walsh"] },
+  GR: { first: ["Nikos", "Eleni", "Giorgos", "Maria"], last: ["Papadopoulos", "Georgiou", "Ioannou", "Nikolaou"] },
+  NO: { first: ["Magnus", "Ingrid", "Erik", "Emma"], last: ["Haugen", "Olsen", "Hansen", "Andersen"] },
+  DK: { first: ["Mikkel", "Freja", "Oliver", "Ida"], last: ["Nielsen", "Jensen", "Andersen", "Christensen"] },
+  FI: { first: ["Elias", "Aino", "Väinö", "Emilia"], last: ["Korhonen", "Virtanen", "Mäkinen", "Nieminen"] },
+  RU: { first: ["Dmitri", "Anastasia", "Ivan", "Olga"], last: ["Volkov", "Ivanov", "Petrov", "Sokolova"] },
+  PL: { first: ["Jakub", "Zofia", "Piotr", "Anna"], last: ["Kowalski", "Nowak", "Wiśniewski", "Wójcik"] },
+  CZ: { first: ["Jakub", "Tereza", "Jan", "Eliška"], last: ["Novák", "Svoboda", "Dvořák", "Procházka"] },
+  HU: { first: ["Bence", "Zsófia", "Levente", "Anna"], last: ["Szabó", "Nagy", "Kovács", "Tóth"] },
+  RO: { first: ["Andrei", "Ioana", "Alexandru", "Maria"], last: ["Popescu", "Ionescu", "Popa", "Dumitru"] },
+  US: { first: ["Michael", "Emily", "James", "Jessica"], last: ["Johnson", "Williams", "Brown", "Davis"] },
+  MX: { first: ["Diego", "Valentina", "Santiago", "Camila"], last: ["Hernández", "García", "Martínez", "López"] },
+  BR: { first: ["Lucas", "Beatriz", "Gabriel", "Larissa"], last: ["Silva", "Souza", "Oliveira", "Pereira"] },
+  AR: { first: ["Mateo", "Valentina", "Franco", "Martina"], last: ["Rojas", "Fernández", "González", "Díaz"] },
+  CO: { first: ["Santiago", "Mariana", "Juan", "Valeria"], last: ["Gómez", "Rodríguez", "Martínez", "López"] },
+  CL: { first: ["Sebastián", "Fernanda", "Matías", "Camila"], last: ["Muñoz", "Contreras", "Rojas", "Vargas"] },
+  CN: { first: ["Wei", "Mei", "Jun", "Xin"], last: ["Zhang", "Wang", "Li", "Chen"] },
+  KR: { first: ["Ji-woo", "Min-jun", "Seo-yeon", "Joon"], last: ["Kim", "Park", "Lee", "Choi"] },
+  IN: { first: ["Arjun", "Ananya", "Rohan", "Priya"], last: ["Sharma", "Patel", "Gupta", "Kumar"] },
+  PK: { first: ["Ahmed", "Ayesha", "Bilal", "Sana"], last: ["Khan", "Malik", "Ahmed", "Raza"] },
+  BD: { first: ["Rafiq", "Nusrat", "Karim", "Farhana"], last: ["Ahmed", "Rahman", "Islam", "Hossain"] },
+  ID: { first: ["Bayu", "Putri", "Adi", "Dewi"], last: ["Pratama", "Santoso", "Wijaya", "Kusuma"] },
+  TH: { first: ["Somchai", "Siriporn", "Anong", "Krit"], last: ["Charoen", "Suwan", "Boonmee", "Saetang"] },
+  VN: { first: ["Minh", "Linh", "Nam", "Huong"], last: ["Nguyen", "Tran", "Le", "Pham"] },
+  PH: { first: ["Miguel", "Andrea", "Josef", "Angela"], last: ["Santos", "Reyes", "Cruz", "Garcia"] },
+  MY: { first: ["Nur", "Aisyah", "Danish", "Farah"], last: ["Ismail", "Rahman", "Yusof", "Hassan"] },
+  SG: { first: ["Wei Jie", "Michelle", "Kai", "Hui Ling"], last: ["Tan", "Lim", "Lee", "Ng"] },
+  IL: { first: ["Noa", "David", "Maya", "Omer"], last: ["Cohen", "Levi", "Mizrahi", "Peretz"] },
+  TR: { first: ["Emre", "Elif", "Mehmet", "Zeynep"], last: ["Yılmaz", "Kaya", "Demir", "Şahin"] },
+  ZA: { first: ["Sipho", "Thandi", "Johan", "Lerato"], last: ["Nkosi", "Dlamini", "van der Merwe", "Botha"] },
+  KE: { first: ["Brian", "Amina", "Kevin", "Wanjiru"], last: ["Otieno", "Kamau", "Wanjiru", "Mwangi"] },
+  GH: { first: ["Kwame", "Ama", "Kofi", "Akosua"], last: ["Mensah", "Owusu", "Asante", "Boateng"] },
+  AU: { first: ["Jack", "Chloe", "William", "Olivia"], last: ["Anderson", "Wilson", "Taylor", "Thompson"] },
+  NZ: { first: ["Liam", "Charlotte", "Jack", "Emily"], last: ["Reid", "Anderson", "Taylor", "Wilson"] },
+};
+
+const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
 function pickName(providerCountry) {
-  if (providerCountry != null || Math.random() < 0.1) {
-    const f = CUSTOMER_FIRST_INTL[Math.floor(Math.random() * CUSTOMER_FIRST_INTL.length)];
-    const l = CUSTOMER_LAST_INTL[Math.floor(Math.random() * CUSTOMER_LAST_INTL.length)];
-    return `${f} ${l}`;
+  const isArab = providerCountry != null && ARAB_COUNTRY_SET.has(providerCountry);
+
+  if (providerCountry != null && !isArab) {
+    // Non-Arab leader: mostly a name that matches their own specific
+    // country, a smaller slice of generic "other country" diversity, and
+    // a rare Arabic-diaspora customer -- never defaults to all-Arabic.
+    const pool = INTL_NAME_POOLS[providerCountry];
+    const roll = Math.random();
+    if (pool && roll < 0.85) return `${pick(pool.first)} ${pick(pool.last)}`;
+    if (roll < 0.95) return `${pick(CUSTOMER_FIRST_INTL)} ${pick(CUSTOMER_LAST_INTL)}`;
+    return `${pick(CUSTOMER_FIRST_AR)} ${pick(CUSTOMER_LAST_AR)}`;
   }
-  const f = CUSTOMER_FIRST_AR[Math.floor(Math.random() * CUSTOMER_FIRST_AR.length)];
-  const l = CUSTOMER_LAST_AR[Math.floor(Math.random() * CUSTOMER_LAST_AR.length)];
-  return `${f} ${l}`;
+
+  // Arab leader (or, defensively, no country at all): mostly Arabic, a
+  // smaller slice of international diversity -- unchanged from before.
+  if (Math.random() < 0.1) return `${pick(CUSTOMER_FIRST_INTL)} ${pick(CUSTOMER_LAST_INTL)}`;
+  return `${pick(CUSTOMER_FIRST_AR)} ${pick(CUSTOMER_LAST_AR)}`;
 }
 
 function logUniform(min, max) {
