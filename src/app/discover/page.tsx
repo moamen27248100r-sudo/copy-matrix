@@ -17,28 +17,6 @@ const SORT_OPTIONS = {
 
 type SortKey = keyof typeof SORT_OPTIONS;
 
-// Deterministic per-leader "trend" line for the card's mini sparkline --
-// seeded by provider id (stable across renders) and biased by their real
-// avg_daily_return_pct sign/magnitude, so it visually leans up for a
-// leader who's actually up and down for one who's actually down. Purely
-// decorative (the real equity curve is on the full profile page); no
-// extra query needed since it only uses data already fetched per card.
-function sparklinePoints(seed: string, biasPct: number | null): string {
-  let h = 0;
-  for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0;
-  const rand = () => {
-    h = (h * 1103515245 + 12345) & 0x7fffffff;
-    return (h % 1000) / 1000;
-  };
-  const bias = biasPct != null ? Math.max(-1, Math.min(1, biasPct / 2)) : 0;
-  const values = [50];
-  for (let i = 1; i < 14; i++) {
-    const next = values[i - 1] + bias * 2.5 + (rand() - 0.5) * 14;
-    values.push(Math.max(8, Math.min(92, next)));
-  }
-  return values.map((v, i) => `${(i / (values.length - 1)) * 100},${40 - (v / 100) * 40}`).join(" ");
-}
-
 export default async function DiscoverPage({
   searchParams,
 }: {
@@ -146,7 +124,6 @@ export default async function DiscoverPage({
               ? `/trader/${p.provider_id}#copy`
               : `/signup?next=${encodeURIComponent(`/trader/${p.provider_id}#copy`)}`;
             const isDown = p.avg_daily_return_pct != null && p.avg_daily_return_pct < 0;
-            const points = sparklinePoints(p.provider_id, p.avg_daily_return_pct);
             return (
               <div
                 key={p.provider_id}
@@ -155,18 +132,14 @@ export default async function DiscoverPage({
                 <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-accent/[0.07] to-transparent" />
 
                 <div className="relative flex items-center gap-3">
-                  <div className="relative shrink-0">
-                    <div className="absolute -inset-1 rounded-full bg-accent/25 opacity-60 blur-md transition-opacity group-hover:opacity-90" />
-                    <TraderAvatar
-                      providerId={p.provider_id}
-                      name={p.display_name}
-                      avatarUrl={p.avatar_url}
-                      ratingScore={p.rating_score}
-                      size={48}
-                      showLevel
-                      className="relative ring-2 ring-white/10"
-                    />
-                  </div>
+                  <TraderAvatar
+                    providerId={p.provider_id}
+                    name={p.display_name}
+                    avatarUrl={p.avatar_url}
+                    ratingScore={p.rating_score}
+                    size={48}
+                    showLevel
+                  />
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-1.5">
                       <Link href={`/trader/${p.provider_id}`} className="min-w-0 truncate text-base font-semibold tracking-tight underline-offset-2 hover:underline">
@@ -203,14 +176,6 @@ export default async function DiscoverPage({
                 </div>
 
                 <div className="relative overflow-hidden rounded-xl border border-white/[0.06] bg-background/70">
-                  <svg
-                    viewBox="0 0 100 40"
-                    preserveAspectRatio="none"
-                    className={`absolute inset-x-0 bottom-0 h-full w-full ${isDown ? "text-danger/15" : "text-success/15"}`}
-                    aria-hidden="true"
-                  >
-                    <polyline points={points} fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
                   <div className="relative grid grid-cols-3 p-2.5 text-center text-sm">
                     <div className="border-e border-white/10">
                       <p className="font-semibold text-success">
@@ -271,7 +236,7 @@ export default async function DiscoverPage({
                   ) : (
                     <Link
                       href={copyHref}
-                      className="w-full rounded-lg bg-gradient-to-r from-accent to-success px-3 py-2.5 text-center text-sm font-semibold text-white shadow-md shadow-accent/20 transition hover:shadow-lg hover:shadow-accent/30 hover:brightness-110"
+                      className="w-full rounded-lg bg-accent px-3 py-2.5 text-center text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
                     >
                       {t("copy")}
                     </Link>
