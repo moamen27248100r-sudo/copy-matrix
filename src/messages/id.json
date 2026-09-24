@@ -398,7 +398,8 @@
     "winRateLabel": "Tingkat kemenangan",
     "noTradesInPeriod": "Tidak ada trade tertutup pada periode ini.",
     "chart": "Grafik",
-    "copy": "Salin"
+    "copy": "Salin",
+    "loadMore": "Muat lebih banyak"
   },
   "Symbols": {
     "XAUUSD": "Emas",
@@ -496,7 +497,31 @@
     "stopCopying": "Hentikan penyalinan",
     "copy": "Salin",
     "stoppedTooltip": "Trader ini telah berhenti trading dan tidak lagi tersedia untuk memulai penyalinan baru.",
-    "blockedTooltip": "Anda sedang menyalin trader lain — hentikan penyalinan dulu dari portofolio Anda untuk dapat menyalin trader ini."
+    "blockedTooltip": "Anda sedang menyalin trader lain — hentikan penyalinan dulu dari portofolio Anda untuk dapat menyalin trader ini.",
+    "pillAll": "Semua",
+    "pillSafe": "Zona Aman",
+    "pillConsistent": "Pertumbuhan Stabil",
+    "pillRising": "Bintang Baru",
+    "pillRoi": "ROI Tertinggi",
+    "pillTrusted": "Paling Dipercaya",
+    "pillAssets": "Spesialis Aset",
+    "advancedFilters": "Filter lanjutan",
+    "filterTimeHorizon": "Rentang waktu",
+    "filterRisk": "Tingkat risiko",
+    "filterMinEntry": "Modal minimum",
+    "filterTrackRecord": "Lama aktif",
+    "filterApply": "Terapkan",
+    "filterReset": "Atur ulang",
+    "filterAny": "Semua",
+    "riskLow": "Rendah",
+    "riskModerate": "Sedang",
+    "riskHigh": "Tinggi",
+    "assetGold": "Emas & indeks",
+    "assetCrypto": "Kripto",
+    "assetForex": "Forex",
+    "trackRecord3m": "3+ bulan",
+    "trackRecord1y": "1+ tahun",
+    "closeFilters": "Tutup"
   },
   "Countries": {
     "US": "Amerika Serikat",

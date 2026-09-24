@@ -398,7 +398,8 @@
     "winRateLabel": "জয়ের হার",
     "noTradesInPeriod": "এই সময়কালে কোনো বন্ধ ট্রেড নেই।",
     "chart": "চার্ট",
-    "copy": "কপি করুন"
+    "copy": "কপি করুন",
+    "loadMore": "আরও দেখুন"
   },
   "Symbols": {
     "XAUUSD": "সোনা",
@@ -496,7 +497,31 @@
     "stopCopying": "কপি করা বন্ধ করুন",
     "copy": "কপি করুন",
     "stoppedTooltip": "এই ট্রেডার ট্রেডিং বন্ধ করে দিয়েছেন এবং নতুন কপি শুরু করার জন্য আর উপলব্ধ নেই।",
-    "blockedTooltip": "আপনি বর্তমানে অন্য একজন ট্রেডারকে কপি করছেন — এই ট্রেডারকে কপি করতে প্রথমে আপনার পোর্টফোলিও থেকে কপি করা বন্ধ করুন।"
+    "blockedTooltip": "আপনি বর্তমানে অন্য একজন ট্রেডারকে কপি করছেন — এই ট্রেডারকে কপি করতে প্রথমে আপনার পোর্টফোলিও থেকে কপি করা বন্ধ করুন।",
+    "pillAll": "সব",
+    "pillSafe": "নিরাপদ আশ্রয়",
+    "pillConsistent": "স্থিতিশীল প্রবৃদ্ধি",
+    "pillRising": "উদীয়মান তারকা",
+    "pillRoi": "সর্বোচ্চ রিটার্ন",
+    "pillTrusted": "সবচেয়ে বিশ্বস্ত",
+    "pillAssets": "সম্পদ বিশেষজ্ঞ",
+    "advancedFilters": "উন্নত ফিল্টার",
+    "filterTimeHorizon": "সময়সীমা",
+    "filterRisk": "ঝুঁকির মাত্রা",
+    "filterMinEntry": "ন্যূনতম প্রবেশ",
+    "filterTrackRecord": "অভিজ্ঞতার সময়কাল",
+    "filterApply": "প্রয়োগ করুন",
+    "filterReset": "রিসেট",
+    "filterAny": "সব",
+    "riskLow": "কম",
+    "riskModerate": "মাঝারি",
+    "riskHigh": "বেশি",
+    "assetGold": "স্বর্ণ ও সূচক",
+    "assetCrypto": "ক্রিপ্টো",
+    "assetForex": "ফরেক্স",
+    "trackRecord3m": "৩+ মাস",
+    "trackRecord1y": "১+ বছর",
+    "closeFilters": "বন্ধ করুন"
   },
   "Countries": {
     "US": "যুক্তরাষ্ট্র",

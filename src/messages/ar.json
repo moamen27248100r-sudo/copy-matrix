@@ -410,7 +410,8 @@
     "winRateLabel": "نسبة النجاح",
     "noTradesInPeriod": "لا توجد صفقات مغلقة في هذه الفترة.",
     "chart": "الشارت",
-    "copy": "نسخ"
+    "copy": "نسخ",
+    "loadMore": "عرض المزيد"
   },
   "Symbols": {
     "XAUUSD": "الذهب",
@@ -508,7 +509,31 @@
     "stopCopying": "إيقاف النسخ",
     "copy": "نسخ",
     "stoppedTooltip": "توقف هذا المتداول عن التداول ولم يعد متاحًا لبدء نسخ جديد.",
-    "blockedTooltip": "أنت تنسخ متداولًا آخر حاليًا — أوقف النسخ أولاً من محفظتك لتتمكن من نسخ هذا المتداول."
+    "blockedTooltip": "أنت تنسخ متداولًا آخر حاليًا — أوقف النسخ أولاً من محفظتك لتتمكن من نسخ هذا المتداول.",
+    "pillAll": "الكل",
+    "pillSafe": "ملاذ آمن",
+    "pillConsistent": "قادة الاتساق",
+    "pillRising": "نجوم Matrix",
+    "pillRoi": "النخبة الأعلى عائداً",
+    "pillTrusted": "الأكثر ثقة وإقبالاً",
+    "pillAssets": "تخصص الأصول",
+    "advancedFilters": "تصفية متقدمة",
+    "filterTimeHorizon": "الإطار الزمني",
+    "filterRisk": "مستوى المخاطرة",
+    "filterMinEntry": "الحد الأدنى للبدء",
+    "filterTrackRecord": "أقدمية القائد",
+    "filterApply": "تطبيق",
+    "filterReset": "إعادة تعيين",
+    "filterAny": "الكل",
+    "riskLow": "منخفضة",
+    "riskModerate": "متوسطة",
+    "riskHigh": "مرتفعة",
+    "assetGold": "الذهب والمؤشرات",
+    "assetCrypto": "العملات الرقمية",
+    "assetForex": "الفوركس",
+    "trackRecord3m": "أكثر من 3 أشهر",
+    "trackRecord1y": "أكثر من سنة",
+    "closeFilters": "إغلاق"
   },
   "Countries": {
     "US": "الولايات المتحدة",

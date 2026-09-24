@@ -398,7 +398,8 @@
     "winRateLabel": "Tỷ lệ thắng",
     "noTradesInPeriod": "Không có giao dịch nào đã đóng trong khoảng thời gian này.",
     "chart": "Biểu đồ",
-    "copy": "Sao chép"
+    "copy": "Sao chép",
+    "loadMore": "Xem thêm"
   },
   "Symbols": {
     "XAUUSD": "Vàng",
@@ -496,7 +497,31 @@
     "stopCopying": "Dừng sao chép",
     "copy": "Sao chép",
     "stoppedTooltip": "Nhà giao dịch này đã ngừng giao dịch và không còn khả dụng để bắt đầu sao chép mới.",
-    "blockedTooltip": "Bạn hiện đang sao chép một nhà giao dịch khác — hãy dừng sao chép trước từ danh mục đầu tư của bạn để có thể sao chép nhà giao dịch này."
+    "blockedTooltip": "Bạn hiện đang sao chép một nhà giao dịch khác — hãy dừng sao chép trước từ danh mục đầu tư của bạn để có thể sao chép nhà giao dịch này.",
+    "pillAll": "Tất cả",
+    "pillSafe": "Nơi trú ẩn an toàn",
+    "pillConsistent": "Tăng trưởng ổn định",
+    "pillRising": "Ngôi sao đang lên",
+    "pillRoi": "ROI cao nhất",
+    "pillTrusted": "Đáng tin cậy nhất",
+    "pillAssets": "Chuyên gia tài sản",
+    "advancedFilters": "Bộ lọc nâng cao",
+    "filterTimeHorizon": "Khung thời gian",
+    "filterRisk": "Mức rủi ro",
+    "filterMinEntry": "Vốn tối thiểu",
+    "filterTrackRecord": "Thời gian hoạt động",
+    "filterApply": "Áp dụng",
+    "filterReset": "Đặt lại",
+    "filterAny": "Tất cả",
+    "riskLow": "Thấp",
+    "riskModerate": "Trung bình",
+    "riskHigh": "Cao",
+    "assetGold": "Vàng & chỉ số",
+    "assetCrypto": "Tiền điện tử",
+    "assetForex": "Ngoại hối",
+    "trackRecord3m": "3+ tháng",
+    "trackRecord1y": "1+ năm",
+    "closeFilters": "Đóng"
   },
   "Countries": {
     "US": "Hoa Kỳ",

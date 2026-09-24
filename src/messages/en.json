@@ -398,7 +398,8 @@
     "winRateLabel": "Win rate",
     "noTradesInPeriod": "No closed trades in this period.",
     "chart": "Chart",
-    "copy": "Copy"
+    "copy": "Copy",
+    "loadMore": "Load more"
   },
   "Symbols": {
     "XAUUSD": "Gold",
@@ -496,7 +497,31 @@
     "stopCopying": "Stop copying",
     "copy": "Copy",
     "stoppedTooltip": "This trader has stopped trading and is no longer available to start new copying.",
-    "blockedTooltip": "You are currently copying another trader — stop copying first from your portfolio to be able to copy this trader."
+    "blockedTooltip": "You are currently copying another trader — stop copying first from your portfolio to be able to copy this trader.",
+    "pillAll": "All",
+    "pillSafe": "Safe Haven",
+    "pillConsistent": "Steady Growth",
+    "pillRising": "Rising Stars",
+    "pillRoi": "Top ROI",
+    "pillTrusted": "Most Trusted",
+    "pillAssets": "Asset Specialists",
+    "advancedFilters": "Advanced filters",
+    "filterTimeHorizon": "Time horizon",
+    "filterRisk": "Risk level",
+    "filterMinEntry": "Minimum entry",
+    "filterTrackRecord": "Track record",
+    "filterApply": "Apply",
+    "filterReset": "Reset",
+    "filterAny": "Any",
+    "riskLow": "Low",
+    "riskModerate": "Moderate",
+    "riskHigh": "High",
+    "assetGold": "Gold & indices",
+    "assetCrypto": "Crypto",
+    "assetForex": "Forex",
+    "trackRecord3m": "3+ months",
+    "trackRecord1y": "1+ year",
+    "closeFilters": "Close"
   },
   "Countries": {
     "US": "United States",

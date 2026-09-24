@@ -398,7 +398,8 @@
     "winRateLabel": "जीत दर",
     "noTradesInPeriod": "इस अवधि में कोई बंद ट्रेड नहीं है।",
     "chart": "चार्ट",
-    "copy": "कॉपी करें"
+    "copy": "कॉपी करें",
+    "loadMore": "और दिखाएं"
   },
   "Symbols": {
     "XAUUSD": "सोना",
@@ -496,7 +497,31 @@
     "stopCopying": "कॉपी करना बंद करें",
     "copy": "कॉपी करें",
     "stoppedTooltip": "इस ट्रेडर ने ट्रेडिंग बंद कर दी है और अब नई कॉपी शुरू करने के लिए उपलब्ध नहीं है।",
-    "blockedTooltip": "आप वर्तमान में किसी अन्य ट्रेडर को कॉपी कर रहे हैं — इस ट्रेडर को कॉपी करने के लिए पहले अपने पोर्टफोलियो से कॉपी करना बंद करें।"
+    "blockedTooltip": "आप वर्तमान में किसी अन्य ट्रेडर को कॉपी कर रहे हैं — इस ट्रेडर को कॉपी करने के लिए पहले अपने पोर्टफोलियो से कॉपी करना बंद करें।",
+    "pillAll": "सभी",
+    "pillSafe": "सुरक्षित आश्रय",
+    "pillConsistent": "स्थिर विकास",
+    "pillRising": "उभरते सितारे",
+    "pillRoi": "शीर्ष रिटर्न",
+    "pillTrusted": "सबसे भरोसेमंद",
+    "pillAssets": "एसेट विशेषज्ञ",
+    "advancedFilters": "उन्नत फ़िल्टर",
+    "filterTimeHorizon": "समय सीमा",
+    "filterRisk": "जोखिम स्तर",
+    "filterMinEntry": "न्यूनतम प्रवेश",
+    "filterTrackRecord": "अनुभव अवधि",
+    "filterApply": "लागू करें",
+    "filterReset": "रीसेट करें",
+    "filterAny": "सभी",
+    "riskLow": "कम",
+    "riskModerate": "मध्यम",
+    "riskHigh": "उच्च",
+    "assetGold": "सोना और सूचकांक",
+    "assetCrypto": "क्रिप्टो",
+    "assetForex": "फॉरेक्स",
+    "trackRecord3m": "3+ महीने",
+    "trackRecord1y": "1+ वर्ष",
+    "closeFilters": "बंद करें"
   },
   "Countries": {
     "US": "संयुक्त राज्य अमेरिका",

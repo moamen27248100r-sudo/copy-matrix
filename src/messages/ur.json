@@ -398,7 +398,8 @@
     "winRateLabel": "کامیابی کی شرح",
     "noTradesInPeriod": "اس مدت میں کوئی بند ٹریڈ نہیں۔",
     "chart": "چارٹ",
-    "copy": "کاپی کریں"
+    "copy": "کاپی کریں",
+    "loadMore": "مزید دکھائیں"
   },
   "Symbols": {
     "XAUUSD": "سونا",
@@ -496,7 +497,31 @@
     "stopCopying": "کاپی کرنا بند کریں",
     "copy": "کاپی کریں",
     "stoppedTooltip": "اس ٹریڈر نے ٹریڈنگ بند کر دی ہے اور اب نئی کاپی شروع کرنے کے لیے دستیاب نہیں۔",
-    "blockedTooltip": "آپ فی الحال کسی اور ٹریڈر کو کاپی کر رہے ہیں — اس ٹریڈر کو کاپی کرنے کے لیے پہلے اپنے پورٹ فولیو سے کاپی کرنا بند کریں۔"
+    "blockedTooltip": "آپ فی الحال کسی اور ٹریڈر کو کاپی کر رہے ہیں — اس ٹریڈر کو کاپی کرنے کے لیے پہلے اپنے پورٹ فولیو سے کاپی کرنا بند کریں۔",
+    "pillAll": "تمام",
+    "pillSafe": "محفوظ پناہ گاہ",
+    "pillConsistent": "مستحکم ترقی",
+    "pillRising": "ابھرتے ستارے",
+    "pillRoi": "بہترین منافع",
+    "pillTrusted": "سب سے معتبر",
+    "pillAssets": "اثاثہ ماہرین",
+    "advancedFilters": "اعلیٰ فلٹرز",
+    "filterTimeHorizon": "وقتی دورانیہ",
+    "filterRisk": "خطرے کی سطح",
+    "filterMinEntry": "کم از کم انٹری",
+    "filterTrackRecord": "تجربے کی مدت",
+    "filterApply": "لاگو کریں",
+    "filterReset": "دوبارہ ترتیب دیں",
+    "filterAny": "تمام",
+    "riskLow": "کم",
+    "riskModerate": "درمیانہ",
+    "riskHigh": "زیادہ",
+    "assetGold": "سونا اور انڈیکس",
+    "assetCrypto": "کرپٹو",
+    "assetForex": "فاریکس",
+    "trackRecord3m": "3+ ماہ",
+    "trackRecord1y": "1+ سال",
+    "closeFilters": "بند کریں"
   },
   "Countries": {
     "US": "امریکا",

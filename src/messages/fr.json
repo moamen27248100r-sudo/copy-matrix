@@ -398,7 +398,8 @@
     "winRateLabel": "Taux de réussite",
     "noTradesInPeriod": "Aucun trade clôturé sur cette période.",
     "chart": "Graphique",
-    "copy": "Copier"
+    "copy": "Copier",
+    "loadMore": "Afficher plus"
   },
   "Symbols": {
     "XAUUSD": "Or",
@@ -496,7 +497,31 @@
     "stopCopying": "Arrêter de copier",
     "copy": "Copier",
     "stoppedTooltip": "Ce trader a arrêté de trader et n'est plus disponible pour démarrer une nouvelle copie.",
-    "blockedTooltip": "Vous copiez actuellement un autre trader — arrêtez d'abord depuis votre portefeuille pour pouvoir copier ce trader."
+    "blockedTooltip": "Vous copiez actuellement un autre trader — arrêtez d'abord depuis votre portefeuille pour pouvoir copier ce trader.",
+    "pillAll": "Tous",
+    "pillSafe": "Refuge sûr",
+    "pillConsistent": "Croissance stable",
+    "pillRising": "Étoiles montantes",
+    "pillRoi": "Meilleur ROI",
+    "pillTrusted": "Les plus fiables",
+    "pillAssets": "Spécialistes d'actifs",
+    "advancedFilters": "Filtres avancés",
+    "filterTimeHorizon": "Horizon temporel",
+    "filterRisk": "Niveau de risque",
+    "filterMinEntry": "Entrée minimale",
+    "filterTrackRecord": "Ancienneté",
+    "filterApply": "Appliquer",
+    "filterReset": "Réinitialiser",
+    "filterAny": "Tous",
+    "riskLow": "Faible",
+    "riskModerate": "Modéré",
+    "riskHigh": "Élevé",
+    "assetGold": "Or et indices",
+    "assetCrypto": "Cryptomonnaies",
+    "assetForex": "Forex",
+    "trackRecord3m": "3+ mois",
+    "trackRecord1y": "1+ an",
+    "closeFilters": "Fermer"
   },
   "Countries": {
     "US": "États-Unis",

@@ -398,7 +398,8 @@
     "winRateLabel": "Tasa de éxito",
     "noTradesInPeriod": "No hay operaciones cerradas en este período.",
     "chart": "Gráfico",
-    "copy": "Copiar"
+    "copy": "Copiar",
+    "loadMore": "Ver más"
   },
   "Symbols": {
     "XAUUSD": "Oro",
@@ -496,7 +497,31 @@
     "stopCopying": "Detener copia",
     "copy": "Copiar",
     "stoppedTooltip": "Este trader ha dejado de operar y ya no está disponible para iniciar una nueva copia.",
-    "blockedTooltip": "Actualmente estás copiando a otro trader — detén la copia primero desde tu portafolio para poder copiar a este trader."
+    "blockedTooltip": "Actualmente estás copiando a otro trader — detén la copia primero desde tu portafolio para poder copiar a este trader.",
+    "pillAll": "Todos",
+    "pillSafe": "Refugio seguro",
+    "pillConsistent": "Crecimiento estable",
+    "pillRising": "Estrellas emergentes",
+    "pillRoi": "Mejor ROI",
+    "pillTrusted": "Más confiables",
+    "pillAssets": "Especialistas en activos",
+    "advancedFilters": "Filtros avanzados",
+    "filterTimeHorizon": "Horizonte temporal",
+    "filterRisk": "Nivel de riesgo",
+    "filterMinEntry": "Entrada mínima",
+    "filterTrackRecord": "Antigüedad",
+    "filterApply": "Aplicar",
+    "filterReset": "Restablecer",
+    "filterAny": "Todos",
+    "riskLow": "Bajo",
+    "riskModerate": "Moderado",
+    "riskHigh": "Alto",
+    "assetGold": "Oro e índices",
+    "assetCrypto": "Criptomonedas",
+    "assetForex": "Forex",
+    "trackRecord3m": "3+ meses",
+    "trackRecord1y": "1+ año",
+    "closeFilters": "Cerrar"
   },
   "Countries": {
     "US": "Estados Unidos",

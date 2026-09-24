@@ -398,7 +398,8 @@
     "winRateLabel": "胜率",
     "noTradesInPeriod": "该时段内没有已平仓交易。",
     "chart": "图表",
-    "copy": "跟单"
+    "copy": "跟单",
+    "loadMore": "加载更多"
   },
   "Symbols": {
     "XAUUSD": "黄金",
@@ -496,7 +497,31 @@
     "stopCopying": "停止跟单",
     "copy": "跟单",
     "stoppedTooltip": "该交易员已停止交易，无法开始新的跟单。",
-    "blockedTooltip": "您当前正在跟单另一位交易员 — 请先在您的投资组合中停止跟单，才能跟单该交易员。"
+    "blockedTooltip": "您当前正在跟单另一位交易员 — 请先在您的投资组合中停止跟单，才能跟单该交易员。",
+    "pillAll": "全部",
+    "pillSafe": "安全港",
+    "pillConsistent": "稳健增长",
+    "pillRising": "新星榜",
+    "pillRoi": "最高回报",
+    "pillTrusted": "最受信赖",
+    "pillAssets": "资产专家",
+    "advancedFilters": "高级筛选",
+    "filterTimeHorizon": "时间跨度",
+    "filterRisk": "风险等级",
+    "filterMinEntry": "最低起投额",
+    "filterTrackRecord": "从业时长",
+    "filterApply": "应用",
+    "filterReset": "重置",
+    "filterAny": "全部",
+    "riskLow": "低",
+    "riskModerate": "中",
+    "riskHigh": "高",
+    "assetGold": "黄金与指数",
+    "assetCrypto": "加密货币",
+    "assetForex": "外汇",
+    "trackRecord3m": "3个月以上",
+    "trackRecord1y": "1年以上",
+    "closeFilters": "关闭"
   },
   "Countries": {
     "US": "美国",

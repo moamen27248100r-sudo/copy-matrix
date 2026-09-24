@@ -398,7 +398,8 @@
     "winRateLabel": "อัตราชนะ",
     "noTradesInPeriod": "ไม่มีออเดอร์ที่ปิดในช่วงเวลานี้",
     "chart": "กราฟ",
-    "copy": "คัดลอก"
+    "copy": "คัดลอก",
+    "loadMore": "โหลดเพิ่มเติม"
   },
   "Symbols": {
     "XAUUSD": "ทองคำ",
@@ -496,7 +497,31 @@
     "stopCopying": "หยุดคัดลอก",
     "copy": "คัดลอก",
     "stoppedTooltip": "เทรดเดอร์รายนี้หยุดเทรดแล้วและไม่สามารถเริ่มคัดลอกใหม่ได้อีกต่อไป",
-    "blockedTooltip": "ขณะนี้คุณกำลังคัดลอกเทรดเดอร์อีกคนอยู่ — โปรดหยุดคัดลอกก่อนจากพอร์ตของคุณเพื่อคัดลอกเทรดเดอร์รายนี้"
+    "blockedTooltip": "ขณะนี้คุณกำลังคัดลอกเทรดเดอร์อีกคนอยู่ — โปรดหยุดคัดลอกก่อนจากพอร์ตของคุณเพื่อคัดลอกเทรดเดอร์รายนี้",
+    "pillAll": "ทั้งหมด",
+    "pillSafe": "แหล่งปลอดภัย",
+    "pillConsistent": "เติบโตมั่นคง",
+    "pillRising": "ดาวรุ่งมาแรง",
+    "pillRoi": "ผลตอบแทนสูงสุด",
+    "pillTrusted": "น่าเชื่อถือที่สุด",
+    "pillAssets": "ผู้เชี่ยวชาญสินทรัพย์",
+    "advancedFilters": "ตัวกรองขั้นสูง",
+    "filterTimeHorizon": "ช่วงเวลา",
+    "filterRisk": "ระดับความเสี่ยง",
+    "filterMinEntry": "เงินลงทุนขั้นต่ำ",
+    "filterTrackRecord": "ระยะเวลาที่ใช้งาน",
+    "filterApply": "นำไปใช้",
+    "filterReset": "รีเซ็ต",
+    "filterAny": "ทั้งหมด",
+    "riskLow": "ต่ำ",
+    "riskModerate": "ปานกลาง",
+    "riskHigh": "สูง",
+    "assetGold": "ทองคำและดัชนี",
+    "assetCrypto": "คริปโต",
+    "assetForex": "ฟอเร็กซ์",
+    "trackRecord3m": "3+ เดือน",
+    "trackRecord1y": "1+ ปี",
+    "closeFilters": "ปิด"
   },
   "Countries": {
     "US": "สหรัฐอเมริกา",

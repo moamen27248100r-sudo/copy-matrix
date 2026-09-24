@@ -21,6 +21,8 @@ type Trade = {
   copyHref?: string;
 };
 
+const PAGE_SIZE = 20;
+
 const PERIOD_KEYS = ["today", "week", "month", "threeMonths", "sixMonths", "year", "all"] as const;
 
 type PeriodKey = (typeof PERIOD_KEYS)[number];
@@ -85,6 +87,7 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
   const [period, setPeriod] = useState<PeriodKey>("all");
   const [open, setOpen] = useState(false);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -97,14 +100,16 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
 
   const hasDollar = trades.length > 0 && trades[0].pnl != null;
   const filtered = trades.filter((t) => withinPeriod(t.closedAt, period));
+  const visible = filtered.slice(0, visibleCount);
   const netResult = filtered.reduce((sum, t) => sum + (t.pnl ?? 0), 0);
   const wins = filtered.filter((t) => t.pct >= 0).length;
   const winRate = filtered.length > 0 ? Math.round((wins / filtered.length) * 100) : null;
   const currentLabel = tt(PERIOD_LABEL_KEYS[period]);
 
   return (
-    <div className="flex flex-col gap-3">
-      <div className="flex items-center justify-between">
+    <div className="relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-white/[0.08] bg-surface p-4 shadow-lg shadow-black/20">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-accent/[0.06] to-transparent" />
+      <div className="relative flex items-center justify-between">
         <p className="text-sm text-muted">
           {tt("tradesCount", { count: filtered.length })}
           {hasDollar ? (
@@ -150,6 +155,7 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
                   onClick={() => {
                     setPeriod(key);
                     setOpen(false);
+                    setVisibleCount(PAGE_SIZE);
                   }}
                   className={
                     key === period
@@ -166,10 +172,10 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
       </div>
 
       {filtered.length === 0 ? (
-        <p className="text-sm text-muted">{tt("noTradesInPeriod")}</p>
+        <p className="relative text-sm text-muted">{tt("noTradesInPeriod")}</p>
       ) : (
-        <div className="max-h-[520px] space-y-2 overflow-y-auto pe-1">
-          {filtered.map((t) => {
+        <div className="relative max-h-[520px] space-y-2 overflow-y-auto pe-1 scroll-subtle">
+          {visible.map((t) => {
             const isExpanded = expandedId === t.id;
             const isProfit = (t.pnl ?? t.pct) >= 0;
             const deltaPoints = t.exit != null ? t.exit - t.entry : null;
@@ -285,6 +291,16 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
             );
           })}
         </div>
+      )}
+
+      {visible.length < filtered.length && (
+        <button
+          type="button"
+          onClick={() => setVisibleCount((v) => v + PAGE_SIZE)}
+          className="relative rounded-lg border border-border py-2 text-center text-sm font-medium text-accent transition hover:bg-background"
+        >
+          {tt("loadMore")}
+        </button>
       )}
     </div>
   );

@@ -398,7 +398,8 @@
     "winRateLabel": "Kiwango cha ushindi",
     "noTradesInPeriod": "Hakuna biashara zilizofungwa katika kipindi hiki.",
     "chart": "Chati",
-    "copy": "Nakili"
+    "copy": "Nakili",
+    "loadMore": "Onyesha zaidi"
   },
   "Symbols": {
     "XAUUSD": "Dhahabu",
@@ -496,7 +497,31 @@
     "stopCopying": "Acha kunakili",
     "copy": "Nakili",
     "stoppedTooltip": "Mfanyabiashara huyu ameacha kufanya biashara na hapatikani tena kuanzisha unakili mpya.",
-    "blockedTooltip": "Kwa sasa unamnakili mfanyabiashara mwingine — acha kunakili kwanza kutoka kwenye pochi yako ili uweze kumnakili huyu."
+    "blockedTooltip": "Kwa sasa unamnakili mfanyabiashara mwingine — acha kunakili kwanza kutoka kwenye pochi yako ili uweze kumnakili huyu.",
+    "pillAll": "Zote",
+    "pillSafe": "Kimbilio Salama",
+    "pillConsistent": "Ukuaji Thabiti",
+    "pillRising": "Nyota Zinazoinuka",
+    "pillRoi": "Faida Bora",
+    "pillTrusted": "Wanaoaminika Zaidi",
+    "pillAssets": "Wataalamu wa Rasilimali",
+    "advancedFilters": "Vichujio vya juu",
+    "filterTimeHorizon": "Kipindi cha muda",
+    "filterRisk": "Kiwango cha hatari",
+    "filterMinEntry": "Kiasi cha chini",
+    "filterTrackRecord": "Muda wa uzoefu",
+    "filterApply": "Tumia",
+    "filterReset": "Weka upya",
+    "filterAny": "Zote",
+    "riskLow": "Chini",
+    "riskModerate": "Wastani",
+    "riskHigh": "Juu",
+    "assetGold": "Dhahabu na fahirisi",
+    "assetCrypto": "Sarafu za kripto",
+    "assetForex": "Forex",
+    "trackRecord3m": "Miezi 3+",
+    "trackRecord1y": "Mwaka 1+",
+    "closeFilters": "Funga"
   },
   "Countries": {
     "US": "Marekani",
