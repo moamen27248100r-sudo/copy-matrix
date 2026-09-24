@@ -172,9 +172,11 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
       </div>
 
       {filtered.length === 0 ? (
-        <p className="relative text-sm text-muted">{tt("noTradesInPeriod")}</p>
+        <div className="relative flex min-h-[240px] items-center justify-center">
+          <p className="text-sm text-muted">{tt("noTradesInPeriod")}</p>
+        </div>
       ) : (
-        <div className="relative max-h-[520px] space-y-2 overflow-y-auto pe-1 scroll-subtle">
+        <div className="relative min-h-[240px] max-h-[520px] space-y-2 overflow-y-auto pe-1 scroll-subtle">
           {visible.map((t) => {
             const isExpanded = expandedId === t.id;
             const isProfit = (t.pnl ?? t.pct) >= 0;
