@@ -129,10 +129,20 @@ export default async function Home() {
     // country-metadata.ts) so the public homepage shows genuinely diverse,
     // non-Arabic-named leaders -- a plain highest-return sort over the
     // whole platform is dominated by the much larger Arabic-named pool.
+    // Also low-risk, positive, and a healthy win rate only -- this section
+    // is meant to read as "the leaders worth following", not just
+    // whoever's return happens to be highest at this exact minute (which
+    // could be a high-risk leader mid-swing, or one whose recent-trades
+    // sparkline is choppy even with a decent long-run average). Archived
+    // (long-dead/margined) leaders never appear here either.
     const { data, error } = await supabase
       .from("provider_cards")
       .select("*")
       .in("country", INTERNATIONAL_COUNTRY_CODES)
+      .eq("risk_level", "منخفضة")
+      .eq("is_archived", false)
+      .gt("avg_daily_return_pct", 0)
+      .gte("win_rate_pct", 65)
       .order("avg_daily_return_pct", { ascending: false, nullsFirst: false })
       .limit(10);
     if (!error) {

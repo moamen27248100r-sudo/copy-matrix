@@ -33,7 +33,7 @@ export default async function DiscoverPage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  let providersQuery = supabase.from("provider_cards").select("*");
+  let providersQuery = supabase.from("provider_cards").select("*").eq("is_archived", false);
   if (q) {
     providersQuery = providersQuery.ilike("display_name", `%${q}%`);
   }
