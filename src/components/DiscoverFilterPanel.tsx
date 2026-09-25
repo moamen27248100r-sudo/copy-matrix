@@ -10,10 +10,18 @@ export function DiscoverFilterPanel({
   triggerLabel,
   closeLabel,
   sections,
+  compact = false,
+  active = false,
 }: {
   triggerLabel: string;
   closeLabel: string;
   sections: FilterSection[];
+  /** Icon-only trigger (no label) for tight mobile rows -- the full label
+   * still reaches screen readers via aria-label. */
+  compact?: boolean;
+  /** Shows a small dot on the icon when at least one filter is applied,
+   * so the icon-only trigger doesn't hide that state entirely. */
+  active?: boolean;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -22,12 +30,21 @@ export function DiscoverFilterPanel({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2 rounded-full border border-white/[0.08] bg-surface px-4 py-2 text-sm font-medium text-foreground transition hover:border-accent/30"
+        aria-label={compact ? triggerLabel : undefined}
+        title={compact ? triggerLabel : undefined}
+        className={
+          compact
+            ? "relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-surface/80 text-muted backdrop-blur-md transition hover:border-accent/30 hover:text-foreground"
+            : "flex items-center gap-2 rounded-full border border-white/[0.08] bg-surface px-4 py-2 text-sm font-medium text-foreground transition hover:border-accent/30"
+        }
       >
-        <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M4 6h16M7 12h10M10 18h4" />
         </svg>
-        {triggerLabel}
+        {!compact && triggerLabel}
+        {compact && active && (
+          <span className="absolute -end-0.5 -top-0.5 h-2 w-2 rounded-full bg-accent ring-2 ring-background" aria-hidden="true" />
+        )}
       </button>
 
       {open && (

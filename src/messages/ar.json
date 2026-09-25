@@ -501,6 +501,7 @@
     "follow": "متابعة",
     "unfollow": "إلغاء المتابعة",
     "copiersCount": "{count} ناسخ",
+    "copiersLabel": "ناسخ",
     "winRate": "نسبة النجاح",
     "avgDailyReturn": "متوسط العائد اليومي",
     "closedTrades": "صفقات مغلقة",

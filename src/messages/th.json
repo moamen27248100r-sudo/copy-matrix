@@ -489,6 +489,7 @@
     "follow": "ติดตาม",
     "unfollow": "เลิกติดตาม",
     "copiersCount": "{count} ผู้คัดลอก",
+    "copiersLabel": "ผู้คัดลอก",
     "winRate": "อัตราชนะ",
     "avgDailyReturn": "ผลตอบแทนเฉลี่ยรายวัน",
     "closedTrades": "ออเดอร์ที่ปิด",

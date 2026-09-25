@@ -8,7 +8,6 @@ import { TierBadge, RiskBadge, StoppedBadge } from "@/components/TraderBadges";
 import { TraderAvatar } from "@/components/TraderAvatar";
 import { SortDropdown } from "@/components/SortDropdown";
 import { DiscoverFilterPanel } from "@/components/DiscoverFilterPanel";
-import { getBioTranslator } from "@/lib/bio-translations";
 
 const SORT_OPTIONS = {
   best: { column: "rating_score", ascending: false, labelKey: "sortBest" },
@@ -60,7 +59,6 @@ export default async function DiscoverPage({
   const effectiveSort = sort && sort in SORT_OPTIONS ? sort : pillKey === "roi" ? "return" : pillKey === "trusted" ? "followers" : undefined;
   const sortKey: SortKey = effectiveSort && effectiveSort in SORT_OPTIONS ? (effectiveSort as SortKey) : "best";
   const t = await getTranslations("Discover");
-  const translateBio = await getBioTranslator();
 
   const supabase = await createClient();
   const {
@@ -154,59 +152,45 @@ export default async function DiscoverPage({
           </p>
         )}
 
-        <form method="get" className="flex flex-col gap-2 sm:flex-row">
-        <input
-          name="q"
-          defaultValue={q}
-          placeholder={t("searchPlaceholder")}
-          className="flex-1 rounded border border-border bg-surface px-3 py-2 text-sm"
-        />
-        <input type="hidden" name="sort" value={sortKey} />
-        <button type="submit" className="rounded bg-foreground px-4 py-2 text-sm text-background">
-          {t("searchButton")}
-        </button>
-      </form>
-
-      <div className="flex flex-wrap items-center gap-2">
-        <Link
-          href={hrefWith({ pill: null })}
-          className={
-            pillKey === null
-              ? "rounded-full border border-accent/40 bg-accent/10 px-3 py-1.5 text-sm font-medium text-accent"
-              : "rounded-full border border-border px-3 py-1.5 text-sm text-foreground transition hover:border-accent/30"
-          }
-        >
-          {t("pillAll")}
-        </Link>
-        {PILL_KEYS.map((key) => (
-          <Link
-            key={key}
-            href={hrefWith({ pill: pillKey === key ? null : key })}
-            className={
-              pillKey === key
-                ? "rounded-full border border-accent/40 bg-accent/10 px-3 py-1.5 text-sm font-medium text-accent"
-                : "rounded-full border border-border px-3 py-1.5 text-sm text-foreground transition hover:border-accent/30"
-            }
-          >
-            {t(PILL_LABEL_KEYS[key])}
-          </Link>
-        ))}
-      </div>
-
-      <div className="flex flex-wrap items-center gap-2">
-        <SortDropdown
-          currentLabel={t(SORT_OPTIONS[sortKey].labelKey)}
-          options={(Object.keys(SORT_OPTIONS) as SortKey[]).map((key) => ({
-            key,
-            label: t(SORT_OPTIONS[key].labelKey),
-            href: hrefWith({ sort: key }),
-            active: key === sortKey,
-          }))}
-        />
-        <DiscoverFilterPanel
-          triggerLabel={t("advancedFilters")}
-          closeLabel={t("closeFilters")}
-          sections={[
+        <div className="flex items-center gap-2">
+          <form method="get" className="relative min-w-0 flex-1">
+            <svg
+              viewBox="0 0 24 24"
+              className="pointer-events-none absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+            <input
+              name="q"
+              defaultValue={q}
+              placeholder={t("searchPlaceholder")}
+              className="w-full rounded-full border border-white/[0.08] bg-surface/80 py-2 ps-9 pe-3 text-sm text-foreground backdrop-blur-md placeholder:text-muted focus:border-accent/40 focus:outline-none"
+            />
+            <input type="hidden" name="sort" value={sortKey} />
+          </form>
+          <SortDropdown
+            compact
+            currentLabel={t(SORT_OPTIONS[sortKey].labelKey)}
+            options={(Object.keys(SORT_OPTIONS) as SortKey[]).map((key) => ({
+              key,
+              label: t(SORT_OPTIONS[key].labelKey),
+              href: hrefWith({ sort: key }),
+              active: key === sortKey,
+            }))}
+          />
+          <DiscoverFilterPanel
+            compact
+            active={Boolean(risk || minEntry || assetClass || trackRecord)}
+            triggerLabel={t("advancedFilters")}
+            closeLabel={t("closeFilters")}
+            sections={[
             {
               label: t("filterRisk"),
               options: [
@@ -246,12 +230,38 @@ export default async function DiscoverPage({
         />
       </div>
 
+      <div className="-mx-6 flex snap-x gap-2 overflow-x-auto px-6 scrollbar-hide">
+        <Link
+          href={hrefWith({ pill: null })}
+          className={
+            pillKey === null
+              ? "shrink-0 snap-start rounded-full border border-accent/40 bg-accent/10 px-3 py-1.5 text-sm font-medium text-accent"
+              : "shrink-0 snap-start rounded-full border border-white/[0.08] bg-surface/60 px-3 py-1.5 text-sm text-foreground backdrop-blur-md transition hover:border-accent/30"
+          }
+        >
+          {t("pillAll")}
+        </Link>
+        {PILL_KEYS.map((key) => (
+          <Link
+            key={key}
+            href={hrefWith({ pill: pillKey === key ? null : key })}
+            className={
+              pillKey === key
+                ? "shrink-0 snap-start rounded-full border border-accent/40 bg-accent/10 px-3 py-1.5 text-sm font-medium text-accent"
+                : "shrink-0 snap-start rounded-full border border-white/[0.08] bg-surface/60 px-3 py-1.5 text-sm text-foreground backdrop-blur-md transition hover:border-accent/30"
+            }
+          >
+            {t(PILL_LABEL_KEYS[key])}
+          </Link>
+        ))}
+      </div>
+
       {!providers || providers.length === 0 ? (
         <p className="text-sm text-muted">
           {t("noMatches")}
         </p>
       ) : (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {providers.map((p) => {
             const isFollowing = followingIds.has(p.provider_id);
             const isBlocked = followingProviderId != null && !isFollowing;
@@ -264,91 +274,62 @@ export default async function DiscoverPage({
             return (
               <div
                 key={p.provider_id}
-                className="group relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-white/[0.08] bg-surface p-4 shadow-lg shadow-black/20 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/10"
+                className="group relative flex flex-col gap-2.5 overflow-hidden rounded-2xl border border-white/[0.08] bg-surface/70 p-3 shadow-lg shadow-black/20 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/10"
               >
-                <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-accent/[0.07] to-transparent" />
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-accent/[0.07] to-transparent" />
 
-                <div className="relative flex items-center gap-3">
+                <Link
+                  href={`/trader/${p.provider_id}`}
+                  aria-label={p.display_name ?? ""}
+                  className="absolute inset-0 z-0"
+                />
+
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex min-w-0 items-center gap-2">
                   <TraderAvatar
                     providerId={p.provider_id}
                     name={p.display_name}
                     avatarUrl={p.avatar_url}
                     ratingScore={p.rating_score}
-                    size={48}
+                    size={38}
                     showLevel
                   />
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-1.5">
-                      <Link href={`/trader/${p.provider_id}`} className="min-w-0 truncate text-base font-semibold tracking-tight underline-offset-2 hover:underline">
+                  <div className="min-w-0">
+                    <div className="flex min-w-0 items-center gap-1">
+                      <p className="min-w-0 truncate text-sm font-semibold tracking-tight">
                         {p.display_name}
-                      </Link>
-                      <form action={isWatching ? unfollowTrader : followTrader}>
+                      </p>
+                      <form action={isWatching ? unfollowTrader : followTrader} className="relative z-10 shrink-0">
                         <input type="hidden" name="providerId" value={p.provider_id} />
                         <button
                           type="submit"
+                          title={isWatching ? t("unfollow") : t("follow")}
+                          aria-label={isWatching ? t("unfollow") : t("follow")}
                           className={
                             isWatching
-                              ? "rounded-full border border-border px-2 py-0.5 text-[11px] text-muted transition hover:border-muted hover:text-foreground"
-                              : "rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 text-[11px] font-medium text-accent transition hover:bg-accent/15"
+                              ? "flex h-4 w-4 items-center justify-center text-accent"
+                              : "flex h-4 w-4 items-center justify-center text-muted transition hover:text-accent"
                           }
                         >
-                          {isWatching ? t("unfollow") : t("follow")}
+                          <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill={isWatching ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <path d="M12 17.3 6.2 21l1.6-6.6-5-4.6 6.7-.6L12 3l2.5 6.2 6.7.6-5 4.6 1.6 6.6z" />
+                          </svg>
                         </button>
                       </form>
                     </div>
-                    <span className="mt-0.5 inline-flex items-center rounded-full bg-background px-1.5 py-0.5 text-xs text-muted">
-                      {t("copiersCount", { count: p.followers_count })}
-                    </span>
-                  </div>
-                </div>
-
-                <p className="relative line-clamp-2 min-h-[2.5rem] text-sm leading-relaxed text-muted">
-                  {p.bio ? translateBio(p.bio) : " "}
-                </p>
-
-                <div className="relative flex flex-wrap gap-1.5">
-                  <TierBadge tier={p.tier} />
-                  <RiskBadge level={p.risk_level} />
-                  <StoppedBadge stopped={isStopped} />
-                </div>
-
-                <div className="relative overflow-hidden rounded-xl border border-white/[0.06] bg-background/70">
-                  <div className="relative grid grid-cols-3 p-2.5 text-center text-sm">
-                    <div className="border-e border-white/10">
-                      <p className="font-semibold text-success">
-                        {p.win_rate_pct != null ? `${p.win_rate_pct}%` : "—"}
-                      </p>
-                      <p className="text-[11px] text-muted">{t("winRate")}</p>
-                    </div>
-                    <div className="border-e border-white/10">
-                      <p className={isDown ? "font-semibold text-danger" : "font-semibold text-success"}>
-                        {p.avg_daily_return_pct != null ? `${p.avg_daily_return_pct}%` : "—"}
-                      </p>
-                      <p className="text-[11px] text-muted">{t("avgDailyReturn")}</p>
-                    </div>
-                    <div>
-                      <p className="font-semibold">{p.closed_signals}</p>
-                      <p className="text-[11px] text-muted">{t("closedTrades")}</p>
+                    <div className="mt-0.5 flex flex-wrap items-center gap-1">
+                      <TierBadge tier={p.tier} />
+                      <RiskBadge level={p.risk_level} />
+                      <StoppedBadge stopped={isStopped} />
                     </div>
                   </div>
                 </div>
 
-                <p className="relative text-center text-xs text-muted">
-                  {t("minCopyAmount", { amount: `$${Number(p.min_copy_amount).toLocaleString("en-US")}` })}
-                </p>
-
-                <div className="relative flex flex-col gap-2">
-                  <Link
-                    href={`/trader/${p.provider_id}`}
-                    className="rounded-lg border border-border bg-transparent px-3 py-2.5 text-center text-sm font-medium text-foreground transition hover:border-accent/50 hover:bg-accent/5"
-                  >
-                    {t("viewProfile")}
-                  </Link>
                   {isFollowing ? (
-                    <form action={unfollowProvider}>
+                    <form action={unfollowProvider} className="relative z-10 shrink-0">
                       <input type="hidden" name="providerId" value={p.provider_id} />
                       <input type="hidden" name="returnTo" value="/discover" />
-                      <button type="submit" className="w-full rounded-lg border border-border px-3 py-2.5 text-sm transition hover:border-muted">
+                      <button type="submit" className="rounded-full border border-border px-3 py-1.5 text-xs font-medium text-muted transition hover:border-muted hover:text-foreground">
                         {t("stopCopying")}
                       </button>
                     </form>
@@ -357,7 +338,7 @@ export default async function DiscoverPage({
                       type="button"
                       disabled
                       title={t("stoppedTooltip")}
-                      className="w-full cursor-not-allowed rounded-lg bg-border px-3 py-2.5 text-sm font-medium text-muted"
+                      className="relative z-10 shrink-0 cursor-not-allowed rounded-full bg-border px-3 py-1.5 text-xs font-medium text-muted"
                     >
                       {t("copy")}
                     </button>
@@ -366,18 +347,44 @@ export default async function DiscoverPage({
                       type="button"
                       disabled
                       title={t("blockedTooltip")}
-                      className="w-full cursor-not-allowed rounded-lg bg-border px-3 py-2.5 text-sm font-medium text-muted"
+                      className="relative z-10 shrink-0 cursor-not-allowed rounded-full bg-border px-3 py-1.5 text-xs font-medium text-muted"
                     >
                       {t("copy")}
                     </button>
                   ) : (
                     <Link
                       href={copyHref}
-                      className="w-full rounded-lg bg-accent px-3 py-2.5 text-center text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
+                      className="relative z-10 shrink-0 rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-accent-foreground transition hover:bg-accent-hover"
                     >
                       {t("copy")}
                     </Link>
                   )}
+                </div>
+
+                <div className="flex items-center overflow-hidden rounded-xl border border-white/[0.06] bg-background/60">
+                  <div className="flex-1 border-e border-white/10 px-2 py-1.5 text-center">
+                    <p className="text-sm font-semibold text-success">
+                      {p.win_rate_pct != null ? `${p.win_rate_pct}%` : "—"}
+                    </p>
+                    <p className="text-[10px] text-muted">{t("winRate")}</p>
+                  </div>
+                  <div className="flex-1 border-e border-white/10 px-2 py-1.5 text-center">
+                    <p className={isDown ? "text-sm font-semibold text-danger" : "text-sm font-semibold text-success"}>
+                      {p.avg_daily_return_pct != null ? `${p.avg_daily_return_pct}%` : "—"}
+                    </p>
+                    <p className="text-[10px] text-muted">{t("avgDailyReturn")}</p>
+                  </div>
+                  <div className="flex-1 px-2 py-1.5 text-center">
+                    <p className="text-sm font-semibold">{p.followers_count}</p>
+                    <p className="text-[10px] text-muted">{t("copiersLabel")}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between text-xs text-muted">
+                  <span>{t("minCopyAmount", { amount: `$${Number(p.min_copy_amount).toLocaleString("en-US")}` })}</span>
+                  <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 shrink-0 rtl:rotate-180" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M9 18l6-6-6-6" />
+                  </svg>
                 </div>
               </div>
             );

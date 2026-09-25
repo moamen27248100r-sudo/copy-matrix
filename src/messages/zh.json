@@ -489,6 +489,7 @@
     "follow": "关注",
     "unfollow": "取消关注",
     "copiersCount": "{count} 位跟单者",
+    "copiersLabel": "跟单者",
     "winRate": "胜率",
     "avgDailyReturn": "平均每日回报",
     "closedTrades": "已平仓交易",

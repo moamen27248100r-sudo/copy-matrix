@@ -489,6 +489,7 @@
     "follow": "Follow",
     "unfollow": "Unfollow",
     "copiersCount": "{count} copiers",
+    "copiersLabel": "Copiers",
     "winRate": "Win rate",
     "avgDailyReturn": "Avg. daily return",
     "closedTrades": "Closed trades",

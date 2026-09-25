@@ -18,7 +18,17 @@ const VIEWPORT_MARGIN = 8;
 // viewport, closes on outside click), reused here for a consistent feel.
 // Each option is a plain <Link> (navigates via the existing ?sort= query
 // param, no client state) so sorting stays driven by the server component.
-export function SortDropdown({ options, currentLabel }: { options: SortOption[]; currentLabel: string }) {
+export function SortDropdown({
+  options,
+  currentLabel,
+  compact = false,
+}: {
+  options: SortOption[];
+  currentLabel: string;
+  /** Icon-only trigger (no label/chevron) for tight mobile rows -- the full
+   * label still reaches screen readers via aria-label. */
+  compact?: boolean;
+}) {
   const [open, setOpen] = useState(false);
   const [panelPos, setPanelPos] = useState<{ top: number; left: number } | null>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -60,24 +70,34 @@ export function SortDropdown({ options, currentLabel }: { options: SortOption[];
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="flex items-center gap-2 rounded-full border border-white/[0.08] bg-surface px-4 py-2 text-sm font-medium text-foreground transition hover:border-accent/30"
+        aria-label={compact ? currentLabel : undefined}
+        title={compact ? currentLabel : undefined}
+        className={
+          compact
+            ? "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-surface/80 text-muted backdrop-blur-md transition hover:border-accent/30 hover:text-foreground"
+            : "flex items-center gap-2 rounded-full border border-white/[0.08] bg-surface px-4 py-2 text-sm font-medium text-foreground transition hover:border-accent/30"
+        }
       >
-        <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M4 6h16M7 12h10M10 18h4" />
         </svg>
-        {currentLabel}
-        <svg
-          viewBox="0 0 24 24"
-          className={`h-3.5 w-3.5 shrink-0 text-muted transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M6 9l6 6 6-6" />
-        </svg>
+        {!compact && (
+          <>
+            {currentLabel}
+            <svg
+              viewBox="0 0 24 24"
+              className={`h-3.5 w-3.5 shrink-0 text-muted transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </>
+        )}
       </button>
 
       {open && panelPos && (

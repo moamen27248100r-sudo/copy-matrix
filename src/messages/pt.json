@@ -489,6 +489,7 @@
     "follow": "Seguir",
     "unfollow": "Deixar de seguir",
     "copiersCount": "{count} copiadores",
+    "copiersLabel": "Copiadores",
     "winRate": "Taxa de acerto",
     "avgDailyReturn": "Retorno diário médio",
     "closedTrades": "Operações fechadas",
