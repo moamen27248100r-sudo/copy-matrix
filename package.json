@@ -18,7 +18,7 @@
     "@supabase/ssr": "^0.12.4",
     "@supabase/supabase-js": "^2.111.0",
     "libphonenumber-js": "^1.13.11",
-    "next": "16.2.12",
+    "next": "16.3.6",
     "next-intl": "^4.13.7",
     "nodemailer": "^9.0.6",
     "qrcode": "^1.5.4",
@@ -37,7 +37,7 @@
     "@types/react-dom": "^19",
     "dotenv": "^17.4.2",
     "eslint": "^9",
-    "eslint-config-next": "16.2.12",
+    "eslint-config-next": "16.3.6",
     "pg": "^8.22.0",
     "tailwindcss": "^4",
     "typescript": "^5"
