@@ -149,8 +149,23 @@ const TEXT: Record<Locale, HowItWorksText> = {
   },
 };
 
+function StepBadge({ index, icon, size }: { index: number; icon: string; size: "sm" | "lg" }) {
+  const dims = size === "sm" ? "h-11 w-11 text-sm" : "h-14 w-14 text-base";
+  return (
+    <div
+      className={`relative flex ${dims} shrink-0 items-center justify-center rounded-full border border-neon-cyan/40 bg-glass-surface font-bold text-neon-cyan shadow-[0_0_18px_-3px_rgba(34,211,238,0.7)] backdrop-blur-xl`}
+    >
+      {index + 1}
+      <span className="absolute -bottom-1.5 -end-1.5 flex h-6 w-6 items-center justify-center rounded-full border border-glass-border bg-background text-xs">
+        {icon}
+      </span>
+    </div>
+  );
+}
+
 export function HowItWorks({ locale }: { locale: Locale }) {
   const t = TEXT[locale] ?? TEXT.en;
+  const lastIndex = t.steps.length - 1;
 
   return (
     <section id="how-it-works" className="flex flex-col gap-10 px-6 py-16">
@@ -160,23 +175,45 @@ export function HowItWorks({ locale }: { locale: Locale }) {
         <p className="line-clamp-2 text-sm text-muted">{t.subtitle}</p>
       </div>
 
-      <div className="relative mx-auto w-full max-w-5xl">
+      {/* Mobile / tablet: vertical stepper, badge fused to the card on the
+          reading-start side, connected by a neon line instead of stacked
+          above with empty space. */}
+      <div className="mx-auto flex w-full max-w-md flex-col md:hidden">
+        {t.steps.map((s, i) => (
+          <div key={s.title} className="flex gap-4">
+            <div className="flex flex-col items-center">
+              <StepBadge index={i} icon={s.icon} size="sm" />
+              {i < lastIndex && (
+                <div
+                  className="my-1 w-0.5 flex-1 rounded-full bg-gradient-to-b from-neon-cyan/50 to-neon-cyan/0"
+                  aria-hidden="true"
+                />
+              )}
+            </div>
+            <div className={`flex-1 ${i < lastIndex ? "pb-4" : ""}`}>
+              <div className="flex flex-col gap-1.5 rounded-2xl border border-glass-border bg-glass-surface p-4 backdrop-blur-xl transition hover:border-neon-cyan/30">
+                <p className="line-clamp-2 text-base font-bold text-foreground">{s.title}</p>
+                <p className="line-clamp-2 text-sm leading-relaxed text-muted">{s.desc}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop: horizontal 4-column grid, badges linked by one
+          continuous neon line running through the row. */}
+      <div className="relative mx-auto hidden w-full max-w-5xl md:block">
         <div
-          className="absolute top-6 right-6 left-6 hidden h-px bg-gradient-to-r from-transparent via-neon-cyan/50 to-transparent sm:block"
+          className="absolute top-7 right-7 left-7 h-px bg-gradient-to-r from-transparent via-neon-cyan/50 to-transparent"
           aria-hidden="true"
         />
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-4 sm:gap-6">
+        <div className="grid grid-cols-4 gap-4 lg:gap-6">
           {t.steps.map((s, i) => (
             <div key={s.title} className="relative flex h-full flex-col items-center gap-3 text-center">
-              <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-neon-cyan/40 bg-glass-surface text-sm font-bold text-neon-cyan shadow-[0_0_18px_-3px_rgba(34,211,238,0.7)] backdrop-blur-xl">
-                {i + 1}
-                <span className="absolute -bottom-1.5 -right-1.5 flex h-6 w-6 items-center justify-center rounded-full border border-glass-border bg-background text-xs">
-                  {s.icon}
-                </span>
-              </div>
-              <div className="flex h-full w-full flex-col justify-between gap-1.5 rounded-2xl border border-glass-border bg-glass-surface p-4 backdrop-blur-xl">
-                <p className="line-clamp-1 text-sm font-semibold sm:text-base">{s.title}</p>
-                <p className="line-clamp-2 text-xs leading-relaxed text-muted sm:text-sm">{s.desc}</p>
+              <StepBadge index={i} icon={s.icon} size="lg" />
+              <div className="flex h-full w-full flex-col justify-start gap-1.5 rounded-2xl border border-glass-border bg-glass-surface p-4 backdrop-blur-xl transition hover:border-neon-cyan/30">
+                <p className="line-clamp-2 text-base font-bold text-foreground">{s.title}</p>
+                <p className="line-clamp-2 text-sm leading-relaxed text-muted">{s.desc}</p>
               </div>
             </div>
           ))}
