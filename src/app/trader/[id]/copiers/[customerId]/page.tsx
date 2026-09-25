@@ -205,7 +205,7 @@ export default async function CopierProfilePage({
         <section className="flex flex-col gap-2">
           <h2 className="font-medium">{t("depositsWithdrawalsTitle")}</h2>
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[420px] text-sm">
+            <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border text-right text-xs text-muted">
                   <th className="py-2 pl-3">{t("dateCol")}</th>
@@ -219,8 +219,8 @@ export default async function CopierProfilePage({
                     {formatDate(customer.joined_at, locale)}
                   </td>
                   <td className="py-2 pl-3 whitespace-nowrap">{t("firstDeposit")}</td>
-                  <td className="py-2 whitespace-nowrap text-success">
-                    +{Number(customer.starting_capital).toLocaleString("en-US", { maximumFractionDigits: 2 })}
+                  <td className="py-2 whitespace-nowrap text-success" dir="ltr">
+                    +${Number(customer.starting_capital).toLocaleString("en-US", { maximumFractionDigits: 2 })}
                   </td>
                 </tr>
                 {[
@@ -234,8 +234,8 @@ export default async function CopierProfilePage({
                         {formatDate(row.occurredAt, locale)}
                       </td>
                       <td className="py-2 pl-3 whitespace-nowrap">{row.amount >= 0 ? t("deposit") : t("withdrawal")}</td>
-                      <td className={`py-2 whitespace-nowrap ${row.amount >= 0 ? "text-success" : "text-danger"}`}>
-                        {row.amount >= 0 ? "+" : "-"}
+                      <td className={`py-2 whitespace-nowrap ${row.amount >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
+                        {row.amount >= 0 ? "+" : "-"}$
                         {Math.abs(row.amount).toLocaleString("en-US", { maximumFractionDigits: 2 })}
                       </td>
                     </tr>

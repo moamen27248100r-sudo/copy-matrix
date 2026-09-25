@@ -343,7 +343,10 @@ export default async function DiscoverPage({
                 </div>
 
                 <div className="flex items-center justify-between text-xs text-muted">
-                  <span>{t("minCopyAmount", { amount: `$${Number(p.min_copy_amount).toLocaleString("en-US")}` })}</span>
+                  <span>
+                    {t("minCopyAmountLabel")}{" "}
+                    <span dir="ltr">${Number(p.min_copy_amount).toLocaleString("en-US")}</span>
+                  </span>
                   <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 shrink-0 rtl:rotate-180" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M9 18l6-6-6-6" />
                   </svg>

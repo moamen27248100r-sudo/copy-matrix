@@ -396,13 +396,16 @@ export default async function TraderPage({
         </div>
         <div className="flex flex-wrap items-center justify-between gap-2">
           <span className="rounded-full border border-accent/40 bg-accent/10 px-2.5 py-1 text-xs font-semibold text-accent">
-            {t("minCopyBadge", { amount: `$${Number(provider.min_copy_amount).toLocaleString("en-US")}` })}
+            {t("minCopyBadgeLabel")} <span dir="ltr">${Number(provider.min_copy_amount).toLocaleString("en-US")}</span>
           </span>
           {user && (
             <span className="text-xs text-muted">
-              {t("availableBalance", {
-                amount: myProfile?.balance != null ? `$${Number(myProfile.balance).toLocaleString("en-US", { maximumFractionDigits: 2 })}` : "—",
-              })}
+              {t("availableBalanceLabel")}{" "}
+              <span dir="ltr">
+                {myProfile?.balance != null
+                  ? `$${Number(myProfile.balance).toLocaleString("en-US", { maximumFractionDigits: 2 })}`
+                  : "—"}
+              </span>
             </span>
           )}
         </div>
