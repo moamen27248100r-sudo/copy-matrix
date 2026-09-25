@@ -274,9 +274,9 @@ export default async function DiscoverPage({
             return (
               <div
                 key={p.provider_id}
-                className="group relative flex flex-col gap-2.5 overflow-hidden rounded-2xl border border-white/[0.08] bg-surface/70 p-3 shadow-lg shadow-black/20 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/10"
+                className="group relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-white/[0.08] bg-surface/70 p-4 shadow-lg shadow-black/20 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/10"
               >
-                <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-accent/[0.07] to-transparent" />
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-accent/[0.07] to-transparent" />
 
                 <Link
                   href={`/trader/${p.provider_id}`}
@@ -291,12 +291,12 @@ export default async function DiscoverPage({
                     name={p.display_name}
                     avatarUrl={p.avatar_url}
                     ratingScore={p.rating_score}
-                    size={38}
+                    size={48}
                     showLevel
                   />
                   <div className="min-w-0">
                     <div className="flex min-w-0 items-center gap-1">
-                      <p className="min-w-0 truncate text-sm font-semibold tracking-tight">
+                      <p className="min-w-0 truncate text-base font-semibold tracking-tight">
                         {p.display_name}
                       </p>
                       <form action={isWatching ? unfollowTrader : followTrader} className="relative z-10 shrink-0">
@@ -317,7 +317,7 @@ export default async function DiscoverPage({
                         </button>
                       </form>
                     </div>
-                    <div className="mt-0.5 flex flex-wrap items-center gap-1">
+                    <div className="mt-0.5 flex flex-wrap items-center gap-1.5">
                       <TierBadge tier={p.tier} />
                       <RiskBadge level={p.risk_level} />
                       <StoppedBadge stopped={isStopped} />
@@ -362,21 +362,21 @@ export default async function DiscoverPage({
                 </div>
 
                 <div className="flex items-center overflow-hidden rounded-xl border border-white/[0.06] bg-background/60">
-                  <div className="flex-1 border-e border-white/10 px-2 py-1.5 text-center">
+                  <div className="flex-1 border-e border-white/10 px-2 py-2.5 text-center">
                     <p className="text-sm font-semibold text-success">
                       {p.win_rate_pct != null ? `${p.win_rate_pct}%` : "—"}
                     </p>
-                    <p className="text-[10px] text-muted">{t("winRate")}</p>
+                    <p className="text-[11px] text-muted">{t("winRate")}</p>
                   </div>
-                  <div className="flex-1 border-e border-white/10 px-2 py-1.5 text-center">
+                  <div className="flex-1 border-e border-white/10 px-2 py-2.5 text-center">
                     <p className={isDown ? "text-sm font-semibold text-danger" : "text-sm font-semibold text-success"}>
                       {p.avg_daily_return_pct != null ? `${p.avg_daily_return_pct}%` : "—"}
                     </p>
-                    <p className="text-[10px] text-muted">{t("avgDailyReturn")}</p>
+                    <p className="text-[11px] text-muted">{t("avgDailyReturn")}</p>
                   </div>
-                  <div className="flex-1 px-2 py-1.5 text-center">
+                  <div className="flex-1 px-2 py-2.5 text-center">
                     <p className="text-sm font-semibold">{p.followers_count}</p>
-                    <p className="text-[10px] text-muted">{t("copiersLabel")}</p>
+                    <p className="text-[11px] text-muted">{t("copiersLabel")}</p>
                   </div>
                 </div>
 
