@@ -299,23 +299,6 @@ export default async function DiscoverPage({
                       <p className="min-w-0 truncate text-base font-semibold tracking-tight">
                         {p.display_name}
                       </p>
-                      <form action={isWatching ? unfollowTrader : followTrader} className="relative z-10 shrink-0">
-                        <input type="hidden" name="providerId" value={p.provider_id} />
-                        <button
-                          type="submit"
-                          title={isWatching ? t("unfollow") : t("follow")}
-                          aria-label={isWatching ? t("unfollow") : t("follow")}
-                          className={
-                            isWatching
-                              ? "flex h-4 w-4 items-center justify-center text-accent"
-                              : "flex h-4 w-4 items-center justify-center text-muted transition hover:text-accent"
-                          }
-                        >
-                          <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill={isWatching ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                            <path d="M12 17.3 6.2 21l1.6-6.6-5-4.6 6.7-.6L12 3l2.5 6.2 6.7.6-5 4.6 1.6 6.6z" />
-                          </svg>
-                        </button>
-                      </form>
                     </div>
                     <div className="mt-0.5 flex flex-wrap items-center gap-1.5">
                       <TierBadge tier={p.tier} />
@@ -325,40 +308,19 @@ export default async function DiscoverPage({
                   </div>
                 </div>
 
-                  {isFollowing ? (
-                    <form action={unfollowProvider} className="relative z-10 shrink-0">
-                      <input type="hidden" name="providerId" value={p.provider_id} />
-                      <input type="hidden" name="returnTo" value="/discover" />
-                      <button type="submit" className="rounded-full border border-border px-3 py-1.5 text-xs font-medium text-muted transition hover:border-muted hover:text-foreground">
-                        {t("stopCopying")}
-                      </button>
-                    </form>
-                  ) : isStopped ? (
+                  <form action={isWatching ? unfollowTrader : followTrader} className="relative z-10 shrink-0">
+                    <input type="hidden" name="providerId" value={p.provider_id} />
                     <button
-                      type="button"
-                      disabled
-                      title={t("stoppedTooltip")}
-                      className="relative z-10 shrink-0 cursor-not-allowed rounded-full bg-border px-3 py-1.5 text-xs font-medium text-muted"
+                      type="submit"
+                      className={
+                        isWatching
+                          ? "rounded-full border border-border px-3 py-1.5 text-xs text-muted transition hover:border-muted hover:text-foreground"
+                          : "rounded-full border border-accent/40 bg-accent/10 px-3 py-1.5 text-xs font-medium text-accent transition hover:bg-accent/15"
+                      }
                     >
-                      {t("copy")}
+                      {isWatching ? t("unfollow") : t("follow")}
                     </button>
-                  ) : isBlocked ? (
-                    <button
-                      type="button"
-                      disabled
-                      title={t("blockedTooltip")}
-                      className="relative z-10 shrink-0 cursor-not-allowed rounded-full bg-border px-3 py-1.5 text-xs font-medium text-muted"
-                    >
-                      {t("copy")}
-                    </button>
-                  ) : (
-                    <Link
-                      href={copyHref}
-                      className="relative z-10 shrink-0 rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-accent-foreground transition hover:bg-accent-hover"
-                    >
-                      {t("copy")}
-                    </Link>
-                  )}
+                  </form>
                 </div>
 
                 <div className="flex items-center overflow-hidden rounded-xl border border-white/[0.06] bg-background/60">
