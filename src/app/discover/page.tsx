@@ -3,11 +3,9 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
-import { BackButton } from "@/components/BackButton";
 import { TierBadge, RiskBadge, StoppedBadge } from "@/components/TraderBadges";
 import { TraderAvatar } from "@/components/TraderAvatar";
-import { SortDropdown } from "@/components/SortDropdown";
-import { DiscoverFilterPanel } from "@/components/DiscoverFilterPanel";
+import { DiscoverFilterSheet } from "@/components/DiscoverFilterSheet";
 
 const SORT_OPTIONS = {
   best: { column: "rating_score", ascending: false, labelKey: "sortBest" },
@@ -125,25 +123,10 @@ export default async function DiscoverPage({
   const followingProviderId = (mySubscriptions ?? [])[0]?.provider_id ?? null;
   const watchingIds = new Set((myFollows ?? []).map((f) => f.provider_id));
 
-  // Builds a /discover?... href starting from the CURRENT filters, with
-  // one or more overridden -- passing null for a key removes it (toggle
-  // off). Every pill/advanced-filter control is a plain server-rendered
-  // link built from this, consistent with how q/sort already work here.
-  const currentParams: Record<string, string | undefined> = { q, sort, pill: pillKey ?? undefined, risk, minEntry, assetClass, trackRecord };
-  function hrefWith(overrides: Record<string, string | null>) {
-    const params = new URLSearchParams();
-    const merged = { ...currentParams, ...overrides };
-    for (const [key, value] of Object.entries(merged)) {
-      if (value) params.set(key, value);
-    }
-    return `/discover?${params.toString()}`;
-  }
-
   return (
     <>
       <AppNav />
       <main className="mx-auto flex w-full max-w-4xl flex-col gap-6 p-6">
-        <BackButton fallbackHref="/dashboard" />
         <h1 className="text-2xl font-semibold">{t("title")}</h1>
 
         {error && (
@@ -175,86 +158,81 @@ export default async function DiscoverPage({
             />
             <input type="hidden" name="sort" value={sortKey} />
           </form>
-          <SortDropdown
-            compact
-            currentLabel={t(SORT_OPTIONS[sortKey].labelKey)}
-            options={(Object.keys(SORT_OPTIONS) as SortKey[]).map((key) => ({
-              key,
-              label: t(SORT_OPTIONS[key].labelKey),
-              href: hrefWith({ sort: key }),
-              active: key === sortKey,
-            }))}
-          />
-          <DiscoverFilterPanel
-            compact
-            active={Boolean(risk || minEntry || assetClass || trackRecord)}
-            triggerLabel={t("advancedFilters")}
+          <DiscoverFilterSheet
+            triggerLabel={t("filterButtonLabel")}
+            applyLabel={t("filterApply")}
+            resetLabel={t("filterReset")}
             closeLabel={t("closeFilters")}
-            sections={[
-            {
-              label: t("filterRisk"),
-              options: [
-                { label: t("filterAny"), href: hrefWith({ risk: null }), active: !risk },
-                { label: t("riskLow"), href: hrefWith({ risk: "منخفضة" }), active: risk === "منخفضة" },
-                { label: t("riskModerate"), href: hrefWith({ risk: "متوسطة" }), active: risk === "متوسطة" },
-                { label: t("riskHigh"), href: hrefWith({ risk: "مرتفعة" }), active: risk === "مرتفعة" },
-              ],
-            },
-            {
-              label: t("filterMinEntry"),
-              options: [
-                { label: t("filterAny"), href: hrefWith({ minEntry: null }), active: !minEntry },
-                { label: "$100", href: hrefWith({ minEntry: "100" }), active: minEntry === "100" },
-                { label: "$500", href: hrefWith({ minEntry: "500" }), active: minEntry === "500" },
-                { label: "$1000+", href: hrefWith({ minEntry: "1000" }), active: minEntry === "1000" },
-              ],
-            },
-            {
-              label: t("pillAssets"),
-              options: [
-                { label: t("filterAny"), href: hrefWith({ assetClass: null }), active: !assetClass },
-                { label: t("assetGold"), href: hrefWith({ assetClass: "gold" }), active: assetClass === "gold" },
-                { label: t("assetCrypto"), href: hrefWith({ assetClass: "crypto" }), active: assetClass === "crypto" },
-                { label: t("assetForex"), href: hrefWith({ assetClass: "forex" }), active: assetClass === "forex" },
-              ],
-            },
-            {
-              label: t("filterTrackRecord"),
-              options: [
-                { label: t("filterAny"), href: hrefWith({ trackRecord: null }), active: !trackRecord },
-                { label: t("trackRecord3m"), href: hrefWith({ trackRecord: "3m" }), active: trackRecord === "3m" },
-                { label: t("trackRecord1y"), href: hrefWith({ trackRecord: "1y" }), active: trackRecord === "1y" },
-              ],
-            },
-          ]}
-        />
-      </div>
-
-      <div className="-mx-6 flex snap-x gap-2 overflow-x-auto px-6 scrollbar-hide">
-        <Link
-          href={hrefWith({ pill: null })}
-          className={
-            pillKey === null
-              ? "shrink-0 snap-start rounded-full border border-accent/40 bg-accent/10 px-3 py-1.5 text-sm font-medium text-accent"
-              : "shrink-0 snap-start rounded-full border border-white/[0.08] bg-surface/60 px-3 py-1.5 text-sm text-foreground backdrop-blur-md transition hover:border-accent/30"
-          }
-        >
-          {t("pillAll")}
-        </Link>
-        {PILL_KEYS.map((key) => (
-          <Link
-            key={key}
-            href={hrefWith({ pill: pillKey === key ? null : key })}
-            className={
-              pillKey === key
-                ? "shrink-0 snap-start rounded-full border border-accent/40 bg-accent/10 px-3 py-1.5 text-sm font-medium text-accent"
-                : "shrink-0 snap-start rounded-full border border-white/[0.08] bg-surface/60 px-3 py-1.5 text-sm text-foreground backdrop-blur-md transition hover:border-accent/30"
+            activeCount={
+              [pillKey, sortKey !== "best" ? sortKey : null, risk, minEntry, assetClass, trackRecord].filter(Boolean).length
             }
-          >
-            {t(PILL_LABEL_KEYS[key])}
-          </Link>
-        ))}
-      </div>
+            q={q}
+            resetHref={q ? `/discover?q=${encodeURIComponent(q)}` : "/discover"}
+            sections={[
+              {
+                name: "pill",
+                label: t("quickCategoriesLabel"),
+                current: pillKey ?? "",
+                options: [
+                  { value: "", label: t("pillAll") },
+                  ...PILL_KEYS.map((key) => ({ value: key, label: t(PILL_LABEL_KEYS[key]) })),
+                ],
+              },
+              {
+                name: "sort",
+                label: t("sortSectionLabel"),
+                current: sortKey,
+                options: (Object.keys(SORT_OPTIONS) as SortKey[]).map((key) => ({
+                  value: key,
+                  label: t(SORT_OPTIONS[key].labelKey),
+                })),
+              },
+              {
+                name: "risk",
+                label: t("filterRisk"),
+                current: risk ?? "",
+                options: [
+                  { value: "", label: t("filterAny") },
+                  { value: "منخفضة", label: t("riskLow") },
+                  { value: "متوسطة", label: t("riskModerate") },
+                  { value: "مرتفعة", label: t("riskHigh") },
+                ],
+              },
+              {
+                name: "minEntry",
+                label: t("filterMinEntry"),
+                current: minEntry ?? "",
+                options: [
+                  { value: "", label: t("filterAny") },
+                  { value: "100", label: "$100" },
+                  { value: "500", label: "$500" },
+                  { value: "1000", label: "$1000+" },
+                ],
+              },
+              {
+                name: "assetClass",
+                label: t("pillAssets"),
+                current: assetClass ?? "",
+                options: [
+                  { value: "", label: t("filterAny") },
+                  { value: "gold", label: t("assetGold") },
+                  { value: "crypto", label: t("assetCrypto") },
+                  { value: "forex", label: t("assetForex") },
+                ],
+              },
+              {
+                name: "trackRecord",
+                label: t("filterTrackRecord"),
+                current: trackRecord ?? "",
+                options: [
+                  { value: "", label: t("filterAny") },
+                  { value: "3m", label: t("trackRecord3m") },
+                  { value: "1y", label: t("trackRecord1y") },
+                ],
+              },
+            ]}
+          />
+        </div>
 
       {!providers || providers.length === 0 ? (
         <p className="text-sm text-muted">

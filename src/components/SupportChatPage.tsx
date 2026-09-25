@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 type ChatMessage = {
@@ -86,7 +85,6 @@ function CategoryIcon({ category }: { category: "wallet" | "shield" | "chart" | 
 export function SupportChatPage() {
   const t = useTranslations("Support");
   const tf = useTranslations("Faq");
-  const router = useRouter();
 
   const faqEntries = tf.raw("entries") as FaqEntry[];
 
@@ -110,14 +108,6 @@ export function SupportChatPage() {
   useEffect(() => {
     if (tab === "chat") scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, tab]);
-
-  function goBack() {
-    if (typeof window !== "undefined" && window.history.length > 1) {
-      router.back();
-    } else {
-      router.push("/");
-    }
-  }
 
   async function send(text: string) {
     const trimmed = text.trim();
@@ -154,17 +144,6 @@ export function SupportChatPage() {
       `}</style>
 
       <div className="flex items-center gap-3 border-b border-border bg-[#0b1726] px-3 py-3 sm:px-4">
-        <button
-          type="button"
-          onClick={goBack}
-          aria-label={t("back")}
-          className="flex shrink-0 items-center gap-1.5 rounded-full border border-border px-3.5 py-1.5 text-sm font-medium text-foreground transition hover:border-brand hover:text-brand"
-        >
-          <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <polyline points="9 5 15 12 9 19" />
-          </svg>
-          {t("back")}
-        </button>
         <div className="flex min-w-0 flex-col gap-0.5">
           <span className="truncate text-sm font-bold text-foreground">{t("headerTitle")}</span>
           <span className="flex items-center gap-1.5 text-[11px] text-muted">

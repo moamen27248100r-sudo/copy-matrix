@@ -302,7 +302,6 @@
   },
   "Common": {
     "level": "Kiwango {level}",
-    "back": "Rudi",
     "other": "Nyingine"
   },
   "Notifications": {
@@ -507,7 +506,6 @@
     "pillRoi": "Faida Bora",
     "pillTrusted": "Wanaoaminika Zaidi",
     "pillAssets": "Wataalamu wa Rasilimali",
-    "advancedFilters": "Vichujio vya juu",
     "filterTimeHorizon": "Kipindi cha muda",
     "filterRisk": "Kiwango cha hatari",
     "filterMinEntry": "Kiasi cha chini",
@@ -523,7 +521,10 @@
     "assetForex": "Forex",
     "trackRecord3m": "Miezi 3+",
     "trackRecord1y": "Mwaka 1+",
-    "closeFilters": "Funga"
+    "closeFilters": "Funga",
+    "filterButtonLabel": "Chuja",
+    "quickCategoriesLabel": "Jamii za haraka",
+    "sortSectionLabel": "Panga matokeo"
   },
   "Countries": {
     "US": "Marekani",
@@ -649,7 +650,6 @@
   },
   "Support": {
     "pageTitle": "Msaada — Copy Matrix",
-    "back": "Rudi",
     "headerTitle": "Msaada — Copy Matrix",
     "onlineStatus": "Mtandaoni sasa — jibu ndani ya dakika chache",
     "welcomeMessage": "Karibu kwenye kituo cha msaada cha Copy Matrix. Tunafurahi kukusaidia kuhusu amana, uondoaji, uthibitishaji wa utambulisho, au swali lolote kuhusu huduma ya kunakili biashara.",

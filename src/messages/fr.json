@@ -302,7 +302,6 @@
   },
   "Common": {
     "level": "Niveau {level}",
-    "back": "Retour",
     "other": "Autre"
   },
   "Notifications": {
@@ -507,7 +506,6 @@
     "pillRoi": "Meilleur ROI",
     "pillTrusted": "Les plus fiables",
     "pillAssets": "Spécialistes d'actifs",
-    "advancedFilters": "Filtres avancés",
     "filterTimeHorizon": "Horizon temporel",
     "filterRisk": "Niveau de risque",
     "filterMinEntry": "Entrée minimale",
@@ -523,7 +521,10 @@
     "assetForex": "Forex",
     "trackRecord3m": "3+ mois",
     "trackRecord1y": "1+ an",
-    "closeFilters": "Fermer"
+    "closeFilters": "Fermer",
+    "filterButtonLabel": "Filtrer",
+    "quickCategoriesLabel": "Catégories rapides",
+    "sortSectionLabel": "Trier les résultats"
   },
   "Countries": {
     "US": "États-Unis",
@@ -649,7 +650,6 @@
   },
   "Support": {
     "pageTitle": "Support — Copy Matrix",
-    "back": "Retour",
     "headerTitle": "Support — Copy Matrix",
     "onlineStatus": "En ligne — réponse en quelques minutes",
     "welcomeMessage": "Bienvenue au centre d'assistance de Copy Matrix. Nous sommes heureux de vous aider concernant les dépôts, les retraits, la vérification d'identité ou toute question sur le service de copy trading.",

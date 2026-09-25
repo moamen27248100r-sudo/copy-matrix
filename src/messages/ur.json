@@ -302,7 +302,6 @@
   },
   "Common": {
     "level": "لیول {level}",
-    "back": "واپس",
     "other": "دیگر"
   },
   "Notifications": {
@@ -507,7 +506,6 @@
     "pillRoi": "بہترین منافع",
     "pillTrusted": "سب سے معتبر",
     "pillAssets": "اثاثہ ماہرین",
-    "advancedFilters": "اعلیٰ فلٹرز",
     "filterTimeHorizon": "وقتی دورانیہ",
     "filterRisk": "خطرے کی سطح",
     "filterMinEntry": "کم از کم انٹری",
@@ -523,7 +521,10 @@
     "assetForex": "فاریکس",
     "trackRecord3m": "3+ ماہ",
     "trackRecord1y": "1+ سال",
-    "closeFilters": "بند کریں"
+    "closeFilters": "بند کریں",
+    "filterButtonLabel": "فلٹر",
+    "quickCategoriesLabel": "فوری زمرے",
+    "sortSectionLabel": "نتائج ترتیب دیں"
   },
   "Countries": {
     "US": "امریکا",
@@ -649,7 +650,6 @@
   },
   "Support": {
     "pageTitle": "سپورٹ — Copy Matrix",
-    "back": "واپس",
     "headerTitle": "سپورٹ — Copy Matrix",
     "onlineStatus": "ابھی آن لائن — چند منٹوں میں جواب",
     "welcomeMessage": "Copy Matrix سپورٹ سینٹر میں خوش آمدید۔ جمع، نکلوانے، شناخت کی تصدیق، یا کاپی ٹریڈنگ سروس سے متعلق کسی بھی سوال میں ہمیں مدد کرتے ہوئے خوشی ہوگی۔",

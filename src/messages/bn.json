@@ -302,7 +302,6 @@
   },
   "Common": {
     "level": "লেভেল {level}",
-    "back": "ফিরে যান",
     "other": "অন্যান্য"
   },
   "Notifications": {
@@ -507,7 +506,6 @@
     "pillRoi": "সর্বোচ্চ রিটার্ন",
     "pillTrusted": "সবচেয়ে বিশ্বস্ত",
     "pillAssets": "সম্পদ বিশেষজ্ঞ",
-    "advancedFilters": "উন্নত ফিল্টার",
     "filterTimeHorizon": "সময়সীমা",
     "filterRisk": "ঝুঁকির মাত্রা",
     "filterMinEntry": "ন্যূনতম প্রবেশ",
@@ -523,7 +521,10 @@
     "assetForex": "ফরেক্স",
     "trackRecord3m": "৩+ মাস",
     "trackRecord1y": "১+ বছর",
-    "closeFilters": "বন্ধ করুন"
+    "closeFilters": "বন্ধ করুন",
+    "filterButtonLabel": "ফিল্টার",
+    "quickCategoriesLabel": "দ্রুত বিভাগ",
+    "sortSectionLabel": "ফলাফল সাজান"
   },
   "Countries": {
     "US": "যুক্তরাষ্ট্র",
@@ -649,7 +650,6 @@
   },
   "Support": {
     "pageTitle": "সহায়তা — Copy Matrix",
-    "back": "ফিরে যান",
     "headerTitle": "সহায়তা — Copy Matrix",
     "onlineStatus": "এখন অনলাইন — কয়েক মিনিটের মধ্যে উত্তর",
     "welcomeMessage": "Copy Matrix সহায়তা কেন্দ্রে স্বাগতম। জমা, উত্তোলন, পরিচয় যাচাইকরণ, অথবা কপি-ট্রেডিং সেবা সম্পর্কিত যেকোনো প্রশ্নে আমরা আপনাকে সাহায্য করতে পেরে আনন্দিত।",

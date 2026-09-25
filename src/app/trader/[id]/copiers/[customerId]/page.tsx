@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
-import { BackButton } from "@/components/BackButton";
 import { TradeHistory } from "@/components/TradeHistory";
 import { formatDate } from "@/lib/locale-format";
 import type { Locale } from "@/i18n/locales";
@@ -156,8 +155,6 @@ export default async function CopierProfilePage({
     <>
       <AppNav />
       <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6">
-        <BackButton fallbackHref={`/trader/${id}`} />
-
         <div className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-4">
           <div className="flex items-center gap-4">
             <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-accent to-brand text-lg font-semibold text-white">

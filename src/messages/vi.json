@@ -302,7 +302,6 @@
   },
   "Common": {
     "level": "Cấp độ {level}",
-    "back": "Quay lại",
     "other": "Khác"
   },
   "Notifications": {
@@ -507,7 +506,6 @@
     "pillRoi": "ROI cao nhất",
     "pillTrusted": "Đáng tin cậy nhất",
     "pillAssets": "Chuyên gia tài sản",
-    "advancedFilters": "Bộ lọc nâng cao",
     "filterTimeHorizon": "Khung thời gian",
     "filterRisk": "Mức rủi ro",
     "filterMinEntry": "Vốn tối thiểu",
@@ -523,7 +521,10 @@
     "assetForex": "Ngoại hối",
     "trackRecord3m": "3+ tháng",
     "trackRecord1y": "1+ năm",
-    "closeFilters": "Đóng"
+    "closeFilters": "Đóng",
+    "filterButtonLabel": "Bộ lọc",
+    "quickCategoriesLabel": "Danh mục nhanh",
+    "sortSectionLabel": "Sắp xếp kết quả"
   },
   "Countries": {
     "US": "Hoa Kỳ",
@@ -649,7 +650,6 @@
   },
   "Support": {
     "pageTitle": "Hỗ trợ — Copy Matrix",
-    "back": "Quay lại",
     "headerTitle": "Hỗ trợ — Copy Matrix",
     "onlineStatus": "Đang trực tuyến — phản hồi trong vài phút",
     "welcomeMessage": "Chào mừng bạn đến với trung tâm hỗ trợ Copy Matrix. Chúng tôi rất vui được hỗ trợ bạn về nạp tiền, rút tiền, xác minh danh tính, hoặc bất kỳ câu hỏi nào về dịch vụ sao chép giao dịch.",

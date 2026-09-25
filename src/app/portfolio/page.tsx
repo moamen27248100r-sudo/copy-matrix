@@ -6,7 +6,6 @@ import { formatDate } from "@/lib/locale-format";
 import type { Locale } from "@/i18n/locales";
 import { unfollowProvider } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
-import { BackButton } from "@/components/BackButton";
 import { PortfolioTabs } from "@/components/PortfolioTabs";
 import { TradeHistory } from "@/components/TradeHistory";
 import { PortfolioValueBreakdown } from "@/components/PortfolioValueBreakdown";
@@ -446,7 +445,6 @@ export default async function PortfolioPage({
     <>
       <AppNav />
       <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6">
-        <BackButton fallbackHref="/dashboard" />
         <h1 className="text-2xl font-semibold">{t("title")}</h1>
 
         {error && (

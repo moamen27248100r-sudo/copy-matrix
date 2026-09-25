@@ -302,7 +302,6 @@
   },
   "Common": {
     "level": "ระดับ {level}",
-    "back": "กลับ",
     "other": "อื่นๆ"
   },
   "Notifications": {
@@ -507,7 +506,6 @@
     "pillRoi": "ผลตอบแทนสูงสุด",
     "pillTrusted": "น่าเชื่อถือที่สุด",
     "pillAssets": "ผู้เชี่ยวชาญสินทรัพย์",
-    "advancedFilters": "ตัวกรองขั้นสูง",
     "filterTimeHorizon": "ช่วงเวลา",
     "filterRisk": "ระดับความเสี่ยง",
     "filterMinEntry": "เงินลงทุนขั้นต่ำ",
@@ -523,7 +521,10 @@
     "assetForex": "ฟอเร็กซ์",
     "trackRecord3m": "3+ เดือน",
     "trackRecord1y": "1+ ปี",
-    "closeFilters": "ปิด"
+    "closeFilters": "ปิด",
+    "filterButtonLabel": "ตัวกรอง",
+    "quickCategoriesLabel": "หมวดหมู่ด่วน",
+    "sortSectionLabel": "เรียงผลลัพธ์"
   },
   "Countries": {
     "US": "สหรัฐอเมริกา",
@@ -649,7 +650,6 @@
   },
   "Support": {
     "pageTitle": "ฝ่ายสนับสนุน — Copy Matrix",
-    "back": "ย้อนกลับ",
     "headerTitle": "ฝ่ายสนับสนุน — Copy Matrix",
     "onlineStatus": "ออนไลน์อยู่ — ตอบกลับภายในไม่กี่นาที",
     "welcomeMessage": "ยินดีต้อนรับสู่ศูนย์ช่วยเหลือของ Copy Matrix เรายินดีช่วยเหลือเรื่องการฝากเงิน ถอนเงิน การยืนยันตัวตน หรือคำถามใดๆ เกี่ยวกับบริการคัดลอกการเทรด",

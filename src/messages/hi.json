@@ -302,7 +302,6 @@
   },
   "Common": {
     "level": "लेवल {level}",
-    "back": "वापस",
     "other": "अन्य"
   },
   "Notifications": {
@@ -507,7 +506,6 @@
     "pillRoi": "शीर्ष रिटर्न",
     "pillTrusted": "सबसे भरोसेमंद",
     "pillAssets": "एसेट विशेषज्ञ",
-    "advancedFilters": "उन्नत फ़िल्टर",
     "filterTimeHorizon": "समय सीमा",
     "filterRisk": "जोखिम स्तर",
     "filterMinEntry": "न्यूनतम प्रवेश",
@@ -523,7 +521,10 @@
     "assetForex": "फॉरेक्स",
     "trackRecord3m": "3+ महीने",
     "trackRecord1y": "1+ वर्ष",
-    "closeFilters": "बंद करें"
+    "closeFilters": "बंद करें",
+    "filterButtonLabel": "फ़िल्टर",
+    "quickCategoriesLabel": "त्वरित श्रेणियाँ",
+    "sortSectionLabel": "परिणाम क्रमबद्ध करें"
   },
   "Countries": {
     "US": "संयुक्त राज्य अमेरिका",
@@ -649,7 +650,6 @@
   },
   "Support": {
     "pageTitle": "सहायता — Copy Matrix",
-    "back": "वापस",
     "headerTitle": "सहायता — Copy Matrix",
     "onlineStatus": "अभी ऑनलाइन — कुछ मिनटों में जवाब",
     "welcomeMessage": "Copy Matrix सहायता केंद्र में आपका स्वागत है। जमा, निकासी, पहचान सत्यापन, या कॉपी-ट्रेडिंग सेवा से जुड़े किसी भी सवाल में हमें मदद करते हुए खुशी होगी।",

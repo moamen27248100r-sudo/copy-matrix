@@ -3,7 +3,6 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { submitKyc } from "@/app/kyc/actions";
 import { AppNav } from "@/components/AppNav";
-import { BackButton } from "@/components/BackButton";
 import { formatDate } from "@/lib/locale-format";
 import type { Locale } from "@/i18n/locales";
 
@@ -36,7 +35,6 @@ export default async function KycPage({
     <>
       <AppNav />
       <main className="mx-auto flex w-full max-w-sm flex-col justify-center gap-4 p-6">
-        <BackButton fallbackHref="/dashboard" />
         <h1 className="text-2xl font-semibold">{t("title")}</h1>
 
       {submission ? (

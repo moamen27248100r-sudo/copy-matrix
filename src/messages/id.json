@@ -302,7 +302,6 @@
   },
   "Common": {
     "level": "Level {level}",
-    "back": "Kembali",
     "other": "Lainnya"
   },
   "Notifications": {
@@ -507,7 +506,6 @@
     "pillRoi": "ROI Tertinggi",
     "pillTrusted": "Paling Dipercaya",
     "pillAssets": "Spesialis Aset",
-    "advancedFilters": "Filter lanjutan",
     "filterTimeHorizon": "Rentang waktu",
     "filterRisk": "Tingkat risiko",
     "filterMinEntry": "Modal minimum",
@@ -523,7 +521,10 @@
     "assetForex": "Forex",
     "trackRecord3m": "3+ bulan",
     "trackRecord1y": "1+ tahun",
-    "closeFilters": "Tutup"
+    "closeFilters": "Tutup",
+    "filterButtonLabel": "Filter",
+    "quickCategoriesLabel": "Kategori cepat",
+    "sortSectionLabel": "Urutkan hasil"
   },
   "Countries": {
     "US": "Amerika Serikat",
@@ -649,7 +650,6 @@
   },
   "Support": {
     "pageTitle": "Dukungan — Copy Matrix",
-    "back": "Kembali",
     "headerTitle": "Dukungan — Copy Matrix",
     "onlineStatus": "Online sekarang — balasan dalam beberapa menit",
     "welcomeMessage": "Selamat datang di pusat dukungan Copy Matrix. Kami dengan senang hati membantu Anda terkait setoran, penarikan, verifikasi identitas, atau pertanyaan apa pun tentang layanan copy trading.",

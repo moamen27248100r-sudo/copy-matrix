@@ -314,7 +314,6 @@
   },
   "Common": {
     "level": "المستوى {level}",
-    "back": "رجوع",
     "other": "أخرى"
   },
   "Notifications": {
@@ -519,7 +518,6 @@
     "pillRoi": "النخبة الأعلى عائداً",
     "pillTrusted": "الأكثر ثقة وإقبالاً",
     "pillAssets": "تخصص الأصول",
-    "advancedFilters": "تصفية متقدمة",
     "filterTimeHorizon": "الإطار الزمني",
     "filterRisk": "مستوى المخاطرة",
     "filterMinEntry": "الحد الأدنى للبدء",
@@ -535,7 +533,10 @@
     "assetForex": "الفوركس",
     "trackRecord3m": "أكثر من 3 أشهر",
     "trackRecord1y": "أكثر من سنة",
-    "closeFilters": "إغلاق"
+    "closeFilters": "إغلاق",
+    "filterButtonLabel": "تصفية",
+    "quickCategoriesLabel": "فئات سريعة",
+    "sortSectionLabel": "ترتيب النتائج"
   },
   "Countries": {
     "US": "الولايات المتحدة",
@@ -661,7 +662,6 @@
   },
   "Support": {
     "pageTitle": "الدعم الفني — Copy Matrix",
-    "back": "رجوع",
     "headerTitle": "الدعم الفني — Copy Matrix",
     "onlineStatus": "متصل الآن — الرد خلال دقائق معدودة",
     "welcomeMessage": "مرحبًا بكم في مركز الدعم الفني لمنصة Copy Matrix. يسعدنا مساعدتكم بخصوص الإيداع، السحب، توثيق الهوية، أو أي استفسار يتعلق بخدمة النسخ التلقائي.",

@@ -302,7 +302,6 @@
   },
   "Common": {
     "level": "等级 {level}",
-    "back": "返回",
     "other": "其他"
   },
   "Notifications": {
@@ -507,7 +506,6 @@
     "pillRoi": "最高回报",
     "pillTrusted": "最受信赖",
     "pillAssets": "资产专家",
-    "advancedFilters": "高级筛选",
     "filterTimeHorizon": "时间跨度",
     "filterRisk": "风险等级",
     "filterMinEntry": "最低起投额",
@@ -523,7 +521,10 @@
     "assetForex": "外汇",
     "trackRecord3m": "3个月以上",
     "trackRecord1y": "1年以上",
-    "closeFilters": "关闭"
+    "closeFilters": "关闭",
+    "filterButtonLabel": "筛选",
+    "quickCategoriesLabel": "快速分类",
+    "sortSectionLabel": "结果排序"
   },
   "Countries": {
     "US": "美国",
@@ -649,7 +650,6 @@
   },
   "Support": {
     "pageTitle": "支持 — Copy Matrix",
-    "back": "返回",
     "headerTitle": "支持 — Copy Matrix",
     "onlineStatus": "当前在线 — 几分钟内回复",
     "welcomeMessage": "欢迎来到 Copy Matrix 支持中心。我们很乐意为您解答关于存款、提款、身份验证或跟单交易服务的任何问题。",

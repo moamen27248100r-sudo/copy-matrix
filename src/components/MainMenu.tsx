@@ -305,8 +305,8 @@ export function MainMenu({
         ref={panelRef}
         className={
           open
-            ? "fixed top-14 bottom-0 right-0 z-40 flex w-[78%] max-w-xs translate-x-0 flex-col overflow-y-auto border-s border-white/[0.06] bg-[#0B132B]/90 shadow-2xl shadow-black/50 backdrop-blur-xl transition-transform duration-300 ease-out sm:top-16"
-            : "fixed top-14 bottom-0 right-0 z-40 flex w-[78%] max-w-xs translate-x-full flex-col overflow-y-auto border-s border-white/[0.06] bg-[#0B132B]/90 shadow-2xl shadow-black/50 backdrop-blur-xl transition-transform duration-300 ease-out sm:top-16"
+            ? "fixed top-14 bottom-0 start-0 z-40 flex w-[78%] max-w-xs translate-x-0 flex-col overflow-y-auto border-e border-white/[0.06] bg-[#0B132B]/90 shadow-2xl shadow-black/50 backdrop-blur-xl transition-transform duration-300 ease-out sm:top-16"
+            : "fixed top-14 bottom-0 start-0 z-40 flex w-[78%] max-w-xs -translate-x-full flex-col overflow-y-auto border-e border-white/[0.06] bg-[#0B132B]/90 shadow-2xl shadow-black/50 backdrop-blur-xl transition-transform duration-300 ease-out rtl:translate-x-full sm:top-16"
         }
       >
         {/* Account identity -- avatar with a live-status pulse dot */}
