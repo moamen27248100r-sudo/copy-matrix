@@ -181,7 +181,11 @@ export async function chooseAccountType(formData: FormData) {
 export async function logout() {
   const supabase = await createClient();
   await supabase.auth.signOut();
-  redirect("/login");
+  // Land on the public homepage, not /login -- its nav is unconditional
+  // (always shows "Sign up"/"Log in", never an account menu) and this is
+  // a Server Action redirect, so the whole page re-renders fresh against
+  // the now-signed-out session -- no separate client-state sync needed.
+  redirect("/");
 }
 
 export async function requestPasswordReset(formData: FormData) {
