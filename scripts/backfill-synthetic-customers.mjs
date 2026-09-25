@@ -7,15 +7,29 @@
 // by walking that leader's REAL historical closed trades step-by-step
 // from the customer's own join date forward, interleaving a withdrawal
 // roll at each winning step AND a pause/resume walk — a customer whose
-// capital crosses their own proportional floor (10% of starting
-// capital) pauses (stops experiencing further trades) until a
-// time-calibrated resume roll gives them fresh capital, mirroring the
-// live engine's per-minute resume mechanic. Purely decorative/
-// synthetic — not tied to real profiles/subscriptions in any way.
+// capital crosses their own proportional floor (10% of total_deposited)
+// pauses (stops experiencing further trades) until a time-calibrated
+// resume roll gives them fresh capital, mirroring the live engine's
+// per-minute resume mechanic. Purely decorative/synthetic — not tied to
+// real profiles/subscriptions in any way.
+//
+// Each customer is also assigned one of five realistic scenarios at
+// generation time, which biases (not replaces) the walk above so the
+// resulting record reads as a real, recognizable pattern instead of an
+// undirected side effect of the withdrawal/pause/margin-call rolls:
+//   (أ) compounder        — old join date, withdrawal roll disabled entirely
+//   (ب) regular_withdrawer — old-ish join date, boosted withdrawal roll
+//   (ج) multi_depositor    — starts at the leader's floor, tops up funds
+//                            after 60+ days once net-positive ("add funds")
+//   (د) new_joiner         — joined within the last 30 days
+//   (هـ) drawdown_victim    — on a severe loss (<=35% of total_deposited
+//                            left), may withdraw the remainder and exit,
+//                            or ride out the drawdown with reduced capital
 //
 // This DELETES and regenerates all existing synthetic_customers rows
-// (cascades to synthetic_customer_withdrawals/synthetic_customer_pauses)
-// — safe because nothing else references these ids yet.
+// (cascades to synthetic_customer_withdrawals/synthetic_customer_pauses/
+// synthetic_customer_deposits) — safe because nothing else references
+// these ids yet.
 //
 // Usage: node scripts/backfill-synthetic-customers.mjs [--dry-run]
 import { Client } from "pg";
@@ -149,6 +163,49 @@ function pickStartingCapital(capFloor, riskLevel, joinedAtMs, nowMs) {
   return Math.round(logUniform(capFloor * 4, capFloor * 15) * 100) / 100;
 }
 
+// Five realistic patterns (customer's explicit spec) -- weights are
+// generation-time bias only, the actual walk below still decides what
+// really happens trade-by-trade (a "compounder" with no real winning
+// history still ends up wherever the real signals take them).
+const SCENARIO_WEIGHTS = [
+  ["compounder", 0.25],
+  ["regular_withdrawer", 0.25],
+  ["multi_depositor", 0.20],
+  ["new_joiner", 0.15],
+  ["drawdown_victim", 0.15],
+];
+
+function pickScenario() {
+  const roll = Math.random();
+  let cumulative = 0;
+  for (const [name, weight] of SCENARIO_WEIGHTS) {
+    cumulative += weight;
+    if (roll < cumulative) return name;
+  }
+  return SCENARIO_WEIGHTS[SCENARIO_WEIGHTS.length - 1][0];
+}
+
+function pickJoinedAtMs(scenario, createdAtMs, nowMs) {
+  const lifetimeMs = Math.max(0, nowMs - createdAtMs);
+  switch (scenario) {
+    case "compounder":
+      return createdAtMs + Math.random() * (lifetimeMs / 3);
+    case "regular_withdrawer":
+      return createdAtMs + Math.random() * ((lifetimeMs * 2) / 3);
+    case "multi_depositor":
+      // Biased toward older so most of these actually clear the 60-day
+      // tenure gate the add-funds roll below requires.
+      return createdAtMs + Math.random() * (lifetimeMs * 0.8);
+    case "new_joiner": {
+      const windowMs = Math.min(lifetimeMs, 30 * 24 * 60 * 60 * 1000);
+      return nowMs - Math.random() * windowMs;
+    }
+    case "drawdown_victim":
+    default:
+      return createdAtMs + Math.random() * lifetimeMs;
+  }
+}
+
 const db = new Client({ connectionString: process.env.SUPABASE_DB_URL, ssl: { rejectUnauthorized: false } });
 await db.connect();
 
@@ -158,7 +215,7 @@ const { rows: providers } = await db.query(
 );
 console.log(`${providers.length} providers, total base_followers_count = ${providers.reduce((s, p) => s + p.base_followers_count, 0)}`);
 const losingProviders = new Set(providers.filter((p) => Number(p.total_profit) < 0).map((p) => p.id));
-console.log(`${losingProviders.size} net-losing providers -- their customers never withdraw`);
+console.log(`${losingProviders.size} net-losing providers -- their customers never skim profit-withdrawals`);
 
 console.log("fetching provider risk levels...");
 const { rows: riskRows } = await db.query(`select provider_id, risk_level from public.provider_cards`);
@@ -184,15 +241,23 @@ for (const s of signals) {
 }
 
 const WITHDRAWAL_PROB = 0.03;
+const REGULAR_WITHDRAWER_PROB = 0.12; // boosted so scenario (ب) reliably reaches multiple withdrawal events
 const WITHDRAWAL_MIN_FRAC = 0.10;
 const WITHDRAWAL_MAX_FRAC = 0.30;
 const PAUSE_ROLL_PROB = 0.0003; // per qualifying step, independent of the floor-cross trigger
 const RESUME_PER_MINUTE_PROB = 0.00005; // matches the live OPEN block's per-tick resume roll
+const DEPOSIT_MIN_TENURE_DAYS = 60;
+const DEPOSIT_ROLL_PROB = 0.02;
+const DEPOSIT_MAX_EVENTS = 2;
+const DRAWDOWN_EXIT_THRESHOLD_FRAC = 0.35; // exit-roll only eligible once balance <= 35% of total_deposited
+const DRAWDOWN_EXIT_ROLL_PROB = 0.03;
 
 const now = Date.now();
 const customers = [];
 const withdrawals = [];
+const deposits = [];
 const pauses = [];
+const scenarioCounts = {};
 
 for (const p of providers) {
   const createdAtMs = new Date(p.created_at).getTime();
@@ -202,22 +267,19 @@ for (const p of providers) {
   const n = p.base_followers_count;
 
   for (let i = 0; i < n; i++) {
-    const joinedAtMs = createdAtMs + Math.random() * (now - createdAtMs);
-    const joinedAt = new Date(joinedAtMs);
-    const startingCapital = pickStartingCapital(capFloor, riskLevel, joinedAtMs, now);
-    const customerId = crypto.randomUUID();
+    const scenario = pickScenario();
+    scenarioCounts[scenario] = (scenarioCounts[scenario] ?? 0) + 1;
 
-    // Per-step bound (bounds every step of the walk, not just the end
-    // result, so a long sequence of trades can't compound into an
-    // absurd outlier) — also doubles as the "ran out of balance"
-    // proportional floor for the pause trigger below. Ceiling
-    // tightened from 15x to 8x alongside the capital-distribution fix
-    // above, since a lower, more realistic starting point compounding
-    // 15x still produced six-figure outliers.
-    const floor = startingCapital * 0.1;
-    const ceil = startingCapital * 8;
+    const joinedAtMs = pickJoinedAtMs(scenario, createdAtMs, now);
+    const joinedAt = new Date(joinedAtMs);
+    const startingCapital =
+      scenario === "multi_depositor" ? capFloor : pickStartingCapital(capFloor, riskLevel, joinedAtMs, now);
+    const customerId = crypto.randomUUID();
+    const withdrawalProb = scenario === "compounder" ? 0 : scenario === "regular_withdrawer" ? REGULAR_WITHDRAWER_PROB : WITHDRAWAL_PROB;
 
     let balance = startingCapital;
+    let totalDeposited = startingCapital;
+    let depositCount = 0;
     let copyStatus = "active";
     let openPauseIdx = null;
     let lastCheckAtMs = null; // last time we rolled a resume check while paused
@@ -258,9 +320,41 @@ for (const p of providers) {
       const raw = (Number(s.exit_price) - Number(s.entry_price)) / Number(s.entry_price);
       const signed = s.side === "sell" ? -raw : raw;
       const pnl = balance * signed;
+      // Bounds now scale off total_deposited (starting capital + any
+      // add-funds events), not a fixed startingCapital captured once at
+      // join time -- so a multi-depositor's floor/ceiling grows with
+      // every top-up instead of staying pinned to their small first
+      // deposit.
+      const floor = totalDeposited * 0.1;
+      const ceil = totalDeposited * 8;
       balance = Math.min(ceil, Math.max(floor, balance + pnl));
 
-      if (pnl > 0 && !losingProviders.has(p.id) && Math.random() < WITHDRAWAL_PROB) {
+      // Scenario (هـ) drawdown/margin victim, the non-margin-call half:
+      // once a losing leader has ground this customer down to <=35% of
+      // everything they've put in, a real person plausibly gives up and
+      // pulls the remainder rather than riding it to zero. Allowed even
+      // for a net-losing leader (losingProviders only gates the profit-
+      // skim withdrawal below -- giving up after a loss is a different
+      // kind of event). If this never rolls, the walk just continues and
+      // the customer ends up "active" with reduced capital -- the other
+      // half of the same scenario, no extra code needed for that case.
+      if (
+        scenario === "drawdown_victim" &&
+        pnl < 0 &&
+        balance <= totalDeposited * DRAWDOWN_EXIT_THRESHOLD_FRAC &&
+        Math.random() < DRAWDOWN_EXIT_ROLL_PROB
+      ) {
+        const amount = Math.round(balance * 100) / 100;
+        if (amount > 0) {
+          withdrawals.push({ customerId, providerId: p.id, signalId: s.id, amount, occurredAt: eventAt });
+        }
+        balance = Math.round((10 + Math.random() * 40) * 100) / 100; // small residual, matches margin-call branch's floor
+        copyStatus = "left";
+        pauses.push({ customerId, providerId: p.id, pausedAt: eventAt, resumedAt: null });
+        break;
+      }
+
+      if (pnl > 0 && !losingProviders.has(p.id) && Math.random() < withdrawalProb) {
         const amount =
           Math.round(pnl * (WITHDRAWAL_MIN_FRAC + Math.random() * (WITHDRAWAL_MAX_FRAC - WITHDRAWAL_MIN_FRAC)) * 100) / 100;
         if (amount > 0) {
@@ -275,7 +369,22 @@ for (const p of providers) {
         }
       }
 
-      if (balance <= floor || Math.random() < PAUSE_ROLL_PROB) {
+      // Scenario (ج) multi-depositor: after seeing solid performance
+      // (net positive vs. everything deposited so far, and enough tenure
+      // to have actually watched it happen) they add funds -- capped at
+      // two top-ups so it stays a deliberate event, not a drip.
+      if (scenario === "multi_depositor" && depositCount < DEPOSIT_MAX_EVENTS && pnl > 0 && balance > totalDeposited) {
+        const tenureDays = (eventAtMs - joinedAtMs) / 86400000;
+        if (tenureDays >= DEPOSIT_MIN_TENURE_DAYS && Math.random() < DEPOSIT_ROLL_PROB) {
+          const amount = Math.round(balance * (0.5 + Math.random() * 1.0) * 100) / 100;
+          balance += amount;
+          totalDeposited += amount;
+          depositCount++;
+          deposits.push({ customerId, providerId: p.id, amount, occurredAt: eventAt });
+        }
+      }
+
+      if (balance <= totalDeposited * 0.1 || Math.random() < PAUSE_ROLL_PROB) {
         copyStatus = "paused";
         pauses.push({ customerId, providerId: p.id, pausedAt: eventAt, resumedAt: null });
         openPauseIdx = pauses.length - 1;
@@ -291,29 +400,39 @@ for (const p of providers) {
       displayName: pickName(p.country),
       startingCapital,
       currentCapital,
+      totalDeposited: Math.round(totalDeposited * 100) / 100,
       joinedAt: joinedAt.toISOString(),
       copyStatus,
     });
   }
 }
 
-console.log(`prepared ${customers.length} synthetic customers, ${withdrawals.length} withdrawal events, ${pauses.length} pause events`);
+console.log(`prepared ${customers.length} synthetic customers, ${withdrawals.length} withdrawal events, ${deposits.length} deposit events, ${pauses.length} pause events`);
+console.log("scenario distribution:", scenarioCounts);
 
 if (dryRun) {
   console.log("DRY RUN customer sample:", customers.slice(0, 5));
   console.log("DRY RUN withdrawal sample:", withdrawals.slice(0, 3));
+  console.log("DRY RUN deposit sample:", deposits.slice(0, 3));
   console.log("DRY RUN pause sample:", pauses.slice(0, 3));
   const totalStarting = customers.reduce((s, r) => s + r.startingCapital, 0);
   const totalCurrent = customers.reduce((s, r) => s + r.currentCapital, 0);
   console.log(`avg starting capital: ${(totalStarting / customers.length).toFixed(2)}`);
   console.log(`avg current capital: ${(totalCurrent / customers.length).toFixed(2)}`);
   const pausedCount = customers.filter((c) => c.copyStatus === "paused").length;
+  const leftCount = customers.filter((c) => c.copyStatus === "left").length;
   console.log(`currently paused: ${pausedCount}/${customers.length} (${((pausedCount / customers.length) * 100).toFixed(2)}%)`);
+  console.log(`left: ${leftCount}/${customers.length} (${((leftCount / customers.length) * 100).toFixed(2)}%)`);
+  const belowFloor = customers.filter((c) => {
+    const prov = providers.find((p) => p.id === c.providerId);
+    return prov && c.startingCapital < Math.max(Number(prov.min_copy_amount) || 25, 25);
+  }).length;
+  console.log(`customers with starting_capital below their leader's min_copy_amount: ${belowFloor} (expect 0)`);
   await db.end();
   process.exit(0);
 }
 
-console.log("deleting existing synthetic_customers (cascades to withdrawals/pauses)...");
+console.log("deleting existing synthetic_customers (cascades to withdrawals/pauses/deposits)...");
 await db.query(`delete from public.synthetic_customers`);
 
 const CHUNK = 500;
@@ -322,14 +441,14 @@ for (let i = 0; i < customers.length; i += CHUNK) {
   const values = chunk
     .map(
       (_, j) =>
-        `($${j * 7 + 1}::uuid, $${j * 7 + 2}::uuid, $${j * 7 + 3}::text, $${j * 7 + 4}::numeric, $${j * 7 + 5}::numeric, $${j * 7 + 6}::timestamptz, $${j * 7 + 7}::text)`,
+        `($${j * 8 + 1}::uuid, $${j * 8 + 2}::uuid, $${j * 8 + 3}::text, $${j * 8 + 4}::numeric, $${j * 8 + 5}::numeric, $${j * 8 + 6}::numeric, $${j * 8 + 7}::timestamptz, $${j * 8 + 8}::text)`,
     )
     .join(",");
   const params = chunk.flatMap((r) => [
-    r.id, r.providerId, r.displayName, r.startingCapital, r.currentCapital, r.joinedAt, r.copyStatus,
+    r.id, r.providerId, r.displayName, r.startingCapital, r.currentCapital, r.totalDeposited, r.joinedAt, r.copyStatus,
   ]);
   await db.query(
-    `insert into public.synthetic_customers (id, provider_id, display_name, starting_capital, current_capital, joined_at, copy_status)
+    `insert into public.synthetic_customers (id, provider_id, display_name, starting_capital, current_capital, total_deposited, joined_at, copy_status)
      values ${values}`,
     params,
   );
@@ -352,6 +471,21 @@ for (let i = 0; i < withdrawals.length; i += CHUNK) {
     params,
   );
   process.stdout.write(`\rwithdrawals: ${Math.min(i + CHUNK, withdrawals.length)}/${withdrawals.length}`);
+}
+console.log();
+
+for (let i = 0; i < deposits.length; i += CHUNK) {
+  const chunk = deposits.slice(i, i + CHUNK);
+  const values = chunk
+    .map((_, j) => `($${j * 4 + 1}::uuid, $${j * 4 + 2}::uuid, $${j * 4 + 3}::numeric, $${j * 4 + 4}::timestamptz)`)
+    .join(",");
+  const params = chunk.flatMap((d) => [d.customerId, d.providerId, d.amount, d.occurredAt]);
+  await db.query(
+    `insert into public.synthetic_customer_deposits (customer_id, provider_id, amount, occurred_at)
+     values ${values}`,
+    params,
+  );
+  process.stdout.write(`\rdeposits: ${Math.min(i + CHUNK, deposits.length)}/${deposits.length}`);
 }
 console.log();
 

@@ -800,6 +800,7 @@
     "typeCol": "Type",
     "amountCol": "Amount",
     "firstDeposit": "First deposit",
+    "additionalDeposit": "Additional deposit",
     "withdrawal": "Withdrawal",
     "tradeHistoryTitle": "Trade History",
     "noTradesSinceJoined": "No closed trades since this customer joined."

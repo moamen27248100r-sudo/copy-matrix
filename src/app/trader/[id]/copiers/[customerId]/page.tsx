@@ -30,7 +30,7 @@ export default async function CopierProfilePage({
   const customerQuery = () =>
     supabase
       .from("synthetic_customers")
-      .select("id, provider_id, display_name, starting_capital, current_capital, joined_at")
+      .select("id, provider_id, display_name, starting_capital, current_capital, total_deposited, joined_at")
       .eq("id", customerId)
       .eq("provider_id", id)
       .single();
@@ -48,7 +48,7 @@ export default async function CopierProfilePage({
     notFound();
   }
 
-  const [{ data: provider }, { data: signals }, { data: withdrawals }, { data: pauses }] = await Promise.all([
+  const [{ data: provider }, { data: signals }, { data: withdrawals }, { data: deposits }, { data: pauses }] = await Promise.all([
     supabase.from("provider_cards").select("display_name").eq("provider_id", id).single(),
     supabase
       .from("signals")
@@ -61,6 +61,11 @@ export default async function CopierProfilePage({
     supabase
       .from("synthetic_customer_withdrawals")
       .select("id, signal_id, amount, occurred_at")
+      .eq("customer_id", customerId)
+      .order("occurred_at", { ascending: false }),
+    supabase
+      .from("synthetic_customer_deposits")
+      .select("id, amount, occurred_at")
       .eq("customer_id", customerId)
       .order("occurred_at", { ascending: false }),
     supabase
@@ -83,14 +88,20 @@ export default async function CopierProfilePage({
   }
 
   const withdrawalRows = withdrawals ?? [];
+  const depositRows = deposits ?? [];
   const withdrawalBySignal = new Map(withdrawalRows.filter((w) => w.signal_id).map((w) => [w.signal_id as string, Number(w.amount)]));
-  // Balance resets exactly when a paused customer resumes — without
-  // this, the walk below would keep compounding off the stale
-  // pre-pause balance instead of the real redeposit amount.
-  const resets = pauseWindows
-    .filter((p) => p.resumed_at && p.redeposit_amount != null)
-    .map((p) => ({ at: new Date(p.resumed_at!).getTime(), amount: Number(p.redeposit_amount) }))
-    .sort((a, b) => a.at - b.at);
+  // Two kinds of balance events applied during the trade-replay walk
+  // below, in chronological order: a pause resume OVERWRITES the running
+  // balance with the real redeposit amount, while an "add funds" event
+  // ADDS to whatever the balance already is -- merged into one
+  // time-sorted stream so the walk applies them in the order they
+  // actually happened.
+  const balanceEvents = [
+    ...pauseWindows
+      .filter((p) => p.resumed_at && p.redeposit_amount != null)
+      .map((p) => ({ at: new Date(p.resumed_at!).getTime(), kind: "resume" as const, amount: Number(p.redeposit_amount) })),
+    ...depositRows.map((d) => ({ at: new Date(d.occurred_at).getTime(), kind: "deposit" as const, amount: Number(d.amount) })),
+  ].sort((a, b) => a.at - b.at);
 
   // Same step-by-step walk used by scripts/backfill-synthetic-customers.mjs
   // — deterministic here since it only replays already-persisted
@@ -100,16 +111,17 @@ export default async function CopierProfilePage({
   // reduce/reset that running balance, matching the live engine and
   // backfill script exactly).
   let balance = Number(customer.starting_capital);
-  let resetIdx = 0;
+  let eventIdx = 0;
   const derivedTrades: {
     id: string; symbol: string; side: string; entry: number; exit: number;
     pnl: number; pct: number; openedAt: string; closedAt: string | null;
   }[] = [];
   for (const s of (signals ?? []) as SignalRow[]) {
     const t = new Date(s.closed_at ?? s.opened_at).getTime();
-    while (resetIdx < resets.length && resets[resetIdx].at <= t) {
-      balance = resets[resetIdx].amount;
-      resetIdx++;
+    while (eventIdx < balanceEvents.length && balanceEvents[eventIdx].at <= t) {
+      const ev = balanceEvents[eventIdx];
+      balance = ev.kind === "resume" ? ev.amount : balance + ev.amount;
+      eventIdx++;
     }
     if (isPaused(s.closed_at ?? s.opened_at)) continue;
 
@@ -133,10 +145,12 @@ export default async function CopierProfilePage({
     });
   }
 
+  // total_deposited (starting capital + any later "add funds" events) is
+  // the correct denominator once a customer can top up -- falls back to
+  // starting_capital for a customer seeded before that column existed.
+  const totalDeposited = Number(customer.total_deposited ?? customer.starting_capital);
   const totalGainPct =
-    Number(customer.starting_capital) > 0
-      ? ((Number(customer.current_capital) - Number(customer.starting_capital)) / Number(customer.starting_capital)) * 100
-      : 0;
+    totalDeposited > 0 ? ((Number(customer.current_capital) - totalDeposited) / totalDeposited) * 100 : 0;
 
   return (
     <>
@@ -209,17 +223,23 @@ export default async function CopierProfilePage({
                     +{Number(customer.starting_capital).toLocaleString("en-US", { maximumFractionDigits: 2 })}
                   </td>
                 </tr>
-                {withdrawalRows.map((w) => (
-                  <tr key={w.id} className="border-b border-border/60">
-                    <td className="py-2 pl-3 whitespace-nowrap text-xs text-muted">
-                      {formatDate(w.occurred_at, locale)}
-                    </td>
-                    <td className="py-2 pl-3 whitespace-nowrap">{t("withdrawal")}</td>
-                    <td className="py-2 whitespace-nowrap text-danger">
-                      -{Number(w.amount).toLocaleString("en-US", { maximumFractionDigits: 2 })}
-                    </td>
-                  </tr>
-                ))}
+                {[
+                  ...withdrawalRows.map((w) => ({ id: w.id, occurredAt: w.occurred_at, amount: -Number(w.amount) })),
+                  ...depositRows.map((d) => ({ id: d.id, occurredAt: d.occurred_at, amount: Number(d.amount) })),
+                ]
+                  .sort((a, b) => new Date(b.occurredAt).getTime() - new Date(a.occurredAt).getTime())
+                  .map((row) => (
+                    <tr key={row.id} className="border-b border-border/60">
+                      <td className="py-2 pl-3 whitespace-nowrap text-xs text-muted">
+                        {formatDate(row.occurredAt, locale)}
+                      </td>
+                      <td className="py-2 pl-3 whitespace-nowrap">{row.amount >= 0 ? t("additionalDeposit") : t("withdrawal")}</td>
+                      <td className={`py-2 whitespace-nowrap ${row.amount >= 0 ? "text-success" : "text-danger"}`}>
+                        {row.amount >= 0 ? "+" : "-"}
+                        {Math.abs(row.amount).toLocaleString("en-US", { maximumFractionDigits: 2 })}
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>

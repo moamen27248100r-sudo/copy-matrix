@@ -812,6 +812,7 @@
     "typeCol": "النوع",
     "amountCol": "المبلغ",
     "firstDeposit": "إيداع أول",
+    "additionalDeposit": "إيداع إضافي",
     "withdrawal": "سحب",
     "tradeHistoryTitle": "سجل الصفقات",
     "noTradesSinceJoined": "لا توجد صفقات مغلقة منذ انضمام هذا العميل."

@@ -9,6 +9,7 @@ type Copier = {
   joined_at: string;
   current_capital: number;
   starting_capital?: number;
+  total_deposited?: number;
 };
 
 const AVATAR_STYLES = [
@@ -32,10 +33,12 @@ export async function RecentCopiersList({ copiers, providerId }: { copiers: Copi
   return (
     <div className="flex max-h-[520px] flex-col gap-2 overflow-y-auto pe-1">
       {copiers.map((c) => {
+        // total_deposited (starting capital + any later "add funds" events)
+        // is the correct denominator once a customer can top up -- falls
+        // back to starting_capital for any caller that hasn't selected it.
+        const deposited = c.total_deposited ?? c.starting_capital;
         const gainPct =
-          c.starting_capital && c.starting_capital > 0
-            ? ((Number(c.current_capital) - Number(c.starting_capital)) / Number(c.starting_capital)) * 100
-            : null;
+          deposited && deposited > 0 ? ((Number(c.current_capital) - Number(deposited)) / Number(deposited)) * 100 : null;
 
         return (
           <Link

@@ -800,6 +800,7 @@
     "typeCol": "Type",
     "amountCol": "Montant",
     "firstDeposit": "Premier dépôt",
+    "additionalDeposit": "Dépôt supplémentaire",
     "withdrawal": "Retrait",
     "tradeHistoryTitle": "Historique des trades",
     "noTradesSinceJoined": "Aucun trade clôturé depuis que ce client a rejoint."

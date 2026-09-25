@@ -112,7 +112,7 @@ export default async function TraderPage({
       .order("opened_at", { ascending: false }),
     supabase
       .from("synthetic_customers")
-      .select("id, display_name, joined_at, current_capital, starting_capital")
+      .select("id, display_name, joined_at, current_capital, starting_capital, total_deposited")
       .eq("provider_id", id)
       .neq("copy_status", "left")
       .order("current_capital", { ascending: false })

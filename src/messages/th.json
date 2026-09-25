@@ -800,6 +800,7 @@
     "typeCol": "ประเภท",
     "amountCol": "จำนวนเงิน",
     "firstDeposit": "การฝากครั้งแรก",
+    "additionalDeposit": "การฝากเพิ่มเติม",
     "withdrawal": "การถอนเงิน",
     "tradeHistoryTitle": "ประวัติการเทรด",
     "noTradesSinceJoined": "ไม่มีออเดอร์ที่ปิดตั้งแต่ลูกค้ารายนี้เข้าร่วม"

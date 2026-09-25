@@ -800,6 +800,7 @@
     "typeCol": "Jenis",
     "amountCol": "Jumlah",
     "firstDeposit": "Setoran pertama",
+    "additionalDeposit": "Setoran tambahan",
     "withdrawal": "Penarikan",
     "tradeHistoryTitle": "Riwayat Trade",
     "noTradesSinceJoined": "Tidak ada trade tertutup sejak pelanggan ini bergabung."

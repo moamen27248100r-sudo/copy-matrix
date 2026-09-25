@@ -800,6 +800,7 @@
     "typeCol": "प्रकार",
     "amountCol": "राशि",
     "firstDeposit": "पहली जमा",
+    "additionalDeposit": "अतिरिक्त जमा",
     "withdrawal": "निकासी",
     "tradeHistoryTitle": "ट्रेड इतिहास",
     "noTradesSinceJoined": "इस ग्राहक के शामिल होने के बाद से कोई बंद ट्रेड नहीं है।"
