@@ -18,7 +18,7 @@ const VARIANT_CLASSES: Record<Variant, string> = {
 };
 
 const BASE =
-  "inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-lg font-medium leading-none transition line-clamp-1";
+  "inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-lg font-medium leading-none transition";
 
 type CommonProps = {
   variant?: Variant;

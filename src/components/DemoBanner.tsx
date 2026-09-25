@@ -94,7 +94,7 @@ export function DemoBanner({ locale }: { locale: Locale }) {
           className="pointer-events-none absolute -top-20 left-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-cyan-400/15 blur-3xl"
           aria-hidden="true"
         />
-        <span className="relative line-clamp-1 inline-flex w-fit items-center gap-1 rounded-full border border-emerald-400/40 bg-emerald-400/10 px-2.5 py-1 text-[11px] font-semibold text-emerald-300 shadow-[0_0_12px_-2px_rgba(16,185,129,0.6)]">
+        <span className="relative inline-flex w-fit shrink-0 items-center gap-1 whitespace-nowrap rounded-full border border-emerald-400/40 bg-emerald-400/10 px-2.5 py-1 text-[11px] font-semibold text-emerald-300 shadow-[0_0_12px_-2px_rgba(16,185,129,0.6)]">
           ✓ {t.badge}
         </span>
         <h2 className="relative line-clamp-1 text-2xl font-semibold sm:text-3xl">{t.title}</h2>
