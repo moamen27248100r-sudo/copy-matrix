@@ -1,50 +1,4 @@
-import type { ReactNode } from "react";
 import type { Locale } from "@/i18n/locales";
-
-// Thin-line icons matching Lucide's ShieldCheck / Wallet / BarChart3 / Zap,
-// inlined so the stepper doesn't need the lucide-react dependency just for
-// four glyphs.
-const STEP_ICON_PATHS: ReactNode[] = [
-  <>
-    <path
-      key="shield"
-      d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
-    />
-    <path key="check" d="m9 12 2 2 4-4" />
-  </>,
-  <>
-    <path key="w1" d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4" />
-    <path key="w2" d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" />
-    <path key="w3" d="M18 12a2 2 0 0 0 0 4h4v-4Z" />
-  </>,
-  <>
-    <path key="b1" d="M3 3v16a2 2 0 0 0 2 2h16" />
-    <path key="b2" d="M18 17V9" />
-    <path key="b3" d="M13 17V5" />
-    <path key="b4" d="M8 17v-3" />
-  </>,
-  <path
-    key="zap"
-    d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"
-  />,
-];
-
-function StepIcon({ index, className }: { index: number; className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      className={className}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      {STEP_ICON_PATHS[index]}
-    </svg>
-  );
-}
 
 type Step = { title: string; desc: string };
 type HowItWorksText = { badge: string; title: string; subtitle: string; steps: Step[] };
@@ -195,17 +149,16 @@ const TEXT: Record<Locale, HowItWorksText> = {
   },
 };
 
-function StepBadge({ index, size }: { index: number; size: "sm" | "lg" }) {
-  const dims = size === "sm" ? "h-11 w-11" : "h-14 w-14";
-  const iconDims = size === "sm" ? "h-5 w-5" : "h-6 w-6";
+function StepBadge({ index }: { index: number }) {
   return (
-    <div
-      className={`relative flex ${dims} shrink-0 items-center justify-center rounded-full border border-neon-cyan/40 bg-glass-surface text-neon-cyan shadow-[0_0_18px_-3px_rgba(34,211,238,0.7)] backdrop-blur-xl`}
-    >
-      <StepIcon index={index} className={iconDims} />
+    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-slate-700/50 bg-slate-800/80 text-xs font-medium text-slate-300">
+      {index + 1}
     </div>
   );
 }
+
+const CARD_CLASSES =
+  "rounded-xl border border-white/[0.06] bg-[#111827]/60 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-700";
 
 export function HowItWorks({ locale }: { locale: Locale }) {
   const t = TEXT[locale] ?? TEXT.en;
@@ -214,50 +167,45 @@ export function HowItWorks({ locale }: { locale: Locale }) {
   return (
     <section id="how-it-works" className="flex flex-col gap-10 px-6 py-16">
       <div className="mx-auto flex max-w-xl flex-col items-center gap-2 text-center">
-        <span className="line-clamp-1 text-xs font-medium text-neon-cyan">{t.badge}</span>
-        <h2 className="line-clamp-1 text-2xl font-semibold sm:text-3xl">{t.title}</h2>
-        <p className="line-clamp-2 text-sm text-muted">{t.subtitle}</p>
+        <span className="line-clamp-1 inline-flex w-fit items-center rounded-md border border-slate-700/50 bg-slate-800/60 px-2 py-0.5 text-[11px] font-medium text-slate-300">
+          {t.badge}
+        </span>
+        <h2 className="line-clamp-1 text-2xl font-semibold text-slate-100 sm:text-3xl">{t.title}</h2>
+        <p className="line-clamp-2 text-sm text-slate-400">{t.subtitle}</p>
       </div>
 
-      {/* Mobile / tablet: vertical stepper, badge fused to the card on the
-          reading-start side, connected by a neon line instead of stacked
-          above with empty space. */}
+      {/* Mobile / tablet: vertical stepper, a small square index badge
+          fused beside each card and linked by a single hairline. */}
       <div className="mx-auto flex w-full max-w-md flex-col md:hidden">
         {t.steps.map((s, i) => (
           <div key={s.title} className="flex gap-4">
             <div className="flex flex-col items-center">
-              <StepBadge index={i} size="sm" />
-              {i < lastIndex && (
-                <div
-                  className="my-1 w-0.5 flex-1 rounded-full bg-gradient-to-b from-neon-cyan/50 to-neon-cyan/0"
-                  aria-hidden="true"
-                />
-              )}
+              <StepBadge index={i} />
+              {i < lastIndex && <div className="my-1 w-[1px] flex-1 bg-slate-800" aria-hidden="true" />}
             </div>
             <div className={`flex-1 ${i < lastIndex ? "pb-4" : ""}`}>
-              <div className="flex flex-col gap-1.5 rounded-2xl border border-glass-border bg-glass-surface p-4 backdrop-blur-xl transition hover:border-neon-cyan/30">
-                <p className="line-clamp-2 text-base font-bold text-foreground">{s.title}</p>
-                <p className="line-clamp-2 text-sm leading-relaxed text-muted">{s.desc}</p>
+              <div className={CARD_CLASSES}>
+                <p className="line-clamp-2 text-sm font-semibold text-slate-100">{s.title}</p>
+                <p className="line-clamp-2 mt-1 text-sm leading-relaxed text-slate-400">{s.desc}</p>
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Desktop: horizontal 4-column grid, badges linked by one
-          continuous neon line running through the row. */}
+      {/* Desktop: horizontal 4-column grid, index badges linked by one
+          hairline running through the row. */}
       <div className="relative mx-auto hidden w-full max-w-5xl md:block">
-        <div
-          className="absolute top-7 right-7 left-7 h-px bg-gradient-to-r from-transparent via-neon-cyan/50 to-transparent"
-          aria-hidden="true"
-        />
+        <div className="absolute top-3.5 right-7 left-7 h-[1px] bg-slate-800" aria-hidden="true" />
         <div className="grid grid-cols-4 gap-4 lg:gap-6">
           {t.steps.map((s, i) => (
-            <div key={s.title} className="relative flex h-full flex-col items-center gap-3 text-center">
-              <StepBadge index={i} size="lg" />
-              <div className="flex h-full w-full flex-col justify-start gap-1.5 rounded-2xl border border-glass-border bg-glass-surface p-4 backdrop-blur-xl transition hover:border-neon-cyan/30">
-                <p className="line-clamp-2 text-base font-bold text-foreground">{s.title}</p>
-                <p className="line-clamp-2 text-sm leading-relaxed text-muted">{s.desc}</p>
+            <div key={s.title} className="relative flex h-full flex-col gap-3">
+              <div className="flex justify-center">
+                <StepBadge index={i} />
+              </div>
+              <div className={`flex h-full flex-col gap-1 text-center ${CARD_CLASSES}`}>
+                <p className="line-clamp-2 text-sm font-semibold text-slate-100">{s.title}</p>
+                <p className="line-clamp-2 text-sm leading-relaxed text-slate-400">{s.desc}</p>
               </div>
             </div>
           ))}

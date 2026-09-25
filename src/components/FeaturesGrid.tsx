@@ -110,7 +110,7 @@ const MARKET_ICONS: { symbol: string; glyph: string }[] = [
 ];
 
 const CARD_BASE =
-  "group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-cyan-500/15 bg-[#0d1424]/90 p-6 shadow-2xl backdrop-blur-xl transition hover:border-neon-cyan/40";
+  "flex h-full flex-col justify-between rounded-xl border border-white/[0.06] bg-[#111827]/60 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-700 sm:p-8";
 
 export function FeaturesGrid({ locale }: { locale: Locale }) {
   const t = TEXT[locale] ?? TEXT.en;
@@ -119,46 +119,40 @@ export function FeaturesGrid({ locale }: { locale: Locale }) {
     <section className="px-6 py-16">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-8">
         <div className="mx-auto flex flex-col items-center gap-1.5 text-center">
-          <h2 className="line-clamp-1 text-2xl font-bold text-white sm:text-3xl">{t.title}</h2>
+          <h2 className="line-clamp-1 text-2xl font-semibold text-slate-100 sm:text-3xl">{t.title}</h2>
           <p className="line-clamp-2 text-sm text-slate-400">{t.subtitle}</p>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        {/* Asymmetrical bento layout: the markets card is the wide hero
+            cell, the instant-execution and risk cards stack beside it. */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:grid-rows-2">
           {/* Card 1 */}
-          <div className={CARD_BASE}>
-            <div
-              className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full bg-neon-cyan/20 blur-3xl transition group-hover:bg-neon-cyan/30"
-              aria-hidden="true"
-            />
-            <div className="relative flex flex-col gap-3">
-              <span className="inline-flex w-fit shrink-0 items-center gap-1 rounded-full border border-neon-cyan/40 bg-neon-cyan/10 px-2.5 py-1 text-[11px] font-semibold text-neon-cyan shadow-[0_0_12px_-2px_rgba(34,211,238,0.6)]">
-                ⚡ {t.card1.badge}
+          <div className={`${CARD_BASE} md:col-start-3 md:row-start-1`}>
+            <div className="flex flex-col gap-3">
+              <span className="inline-flex w-fit shrink-0 items-center gap-1.5 rounded-md border border-slate-700/50 bg-slate-800/60 px-2 py-0.5 text-[11px] font-medium text-slate-300">
+                {t.card1.badge}
               </span>
-              <h3 className="line-clamp-1 text-lg font-bold text-white">{t.card1.title}</h3>
+              <h3 className="line-clamp-1 text-lg font-semibold text-slate-100">{t.card1.title}</h3>
               <p className="line-clamp-2 text-sm leading-relaxed text-slate-400">{t.card1.desc}</p>
             </div>
             <div className="relative mt-4 h-1 w-full overflow-hidden rounded-full bg-white/5">
-              <div className="h-full w-2/3 rounded-full bg-gradient-to-r from-neon-cyan to-neon-emerald shadow-[0_0_10px_0_rgba(34,211,238,0.8)]" />
+              <div className="h-full w-2/3 rounded-full bg-emerald-500/70" />
             </div>
           </div>
 
           {/* Card 2 */}
-          <div className={CARD_BASE}>
-            <div
-              className="pointer-events-none absolute -bottom-16 -left-16 h-40 w-40 rounded-full bg-neon-cyan/15 blur-3xl transition group-hover:bg-neon-cyan/25"
-              aria-hidden="true"
-            />
-            <div className="relative flex flex-col gap-3">
-              <h3 className="line-clamp-1 text-lg font-bold text-white">{t.card2.title}</h3>
+          <div className={`${CARD_BASE} md:col-start-1 md:row-start-1 md:col-span-2 md:row-span-2`}>
+            <div className="flex flex-col gap-3">
+              <h3 className="line-clamp-1 text-lg font-semibold text-slate-100">{t.card2.title}</h3>
               <p className="line-clamp-2 text-sm leading-relaxed text-slate-400">{t.card2.desc}</p>
             </div>
-            <div className="relative mt-4 grid grid-cols-4 gap-2">
+            <div className="relative mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
               {MARKET_ICONS.map((m) => (
                 <div
                   key={m.symbol}
-                  className="flex flex-col items-center gap-1 rounded-xl border border-white/5 bg-[#131c31]/80 py-2.5 text-slate-200 backdrop-blur-sm"
+                  className="flex flex-col items-center gap-1 rounded-lg border border-white/5 bg-[#131c31]/60 py-3 text-slate-200"
                 >
-                  <span className="text-sm font-semibold text-neon-cyan">{m.glyph}</span>
+                  <span className="text-sm font-semibold text-slate-200">{m.glyph}</span>
                   <span className="line-clamp-1 text-[10px] text-slate-400">{m.symbol}</span>
                 </div>
               ))}
@@ -166,22 +160,18 @@ export function FeaturesGrid({ locale }: { locale: Locale }) {
           </div>
 
           {/* Card 3 */}
-          <div className={CARD_BASE}>
-            <div
-              className="pointer-events-none absolute -top-10 -left-10 h-32 w-32 rounded-full bg-neon-emerald/15 blur-3xl transition group-hover:bg-neon-emerald/25"
-              aria-hidden="true"
-            />
-            <div className="relative flex flex-col gap-3">
-              <h3 className="line-clamp-1 text-lg font-bold text-white">{t.card3.title}</h3>
+          <div className={`${CARD_BASE} md:col-start-3 md:row-start-2`}>
+            <div className="flex flex-col gap-3">
+              <h3 className="line-clamp-1 text-lg font-semibold text-slate-100">{t.card3.title}</h3>
               <p className="line-clamp-2 text-sm leading-relaxed text-slate-400">{t.card3.desc}</p>
             </div>
-            <div className="relative mt-4 rounded-xl border border-white/5 bg-[#131c31]/80 p-3 backdrop-blur-sm">
+            <div className="relative mt-4 rounded-lg border border-white/5 bg-[#131c31]/60 p-3">
               <div className="flex items-center justify-between text-[11px] text-slate-400">
                 <span className="line-clamp-1">{t.card3.riskLabel}</span>
-                <span className="line-clamp-1 font-semibold text-neon-emerald">{t.card3.riskValue}</span>
+                <span className="line-clamp-1 font-semibold text-emerald-400">{t.card3.riskValue}</span>
               </div>
               <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-white/5">
-                <div className="h-full w-1/4 rounded-full bg-gradient-to-r from-neon-emerald to-neon-cyan shadow-[0_0_10px_0_rgba(16,185,129,0.7)]" />
+                <div className="h-full w-1/4 rounded-full bg-emerald-500/70" />
               </div>
             </div>
           </div>
