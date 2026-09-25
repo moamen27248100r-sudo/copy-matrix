@@ -386,6 +386,48 @@ export default async function DiscoverPage({
                     <path d="M9 18l6-6-6-6" />
                   </svg>
                 </div>
+                <div className="relative z-10 flex flex-col gap-2">
+                  <Link
+                    href={`/trader/${p.provider_id}`}
+                    className="rounded-lg border border-border bg-transparent px-3 py-2.5 text-center text-sm font-medium text-foreground transition hover:border-accent/50 hover:bg-accent/5"
+                  >
+                    {t("viewProfile")}
+                  </Link>
+                  {isFollowing ? (
+                    <form action={unfollowProvider}>
+                      <input type="hidden" name="providerId" value={p.provider_id} />
+                      <input type="hidden" name="returnTo" value="/discover" />
+                      <button type="submit" className="w-full rounded-lg border border-border px-3 py-2.5 text-sm transition hover:border-muted">
+                        {t("stopCopying")}
+                      </button>
+                    </form>
+                  ) : isStopped ? (
+                    <button
+                      type="button"
+                      disabled
+                      title={t("stoppedTooltip")}
+                      className="w-full cursor-not-allowed rounded-lg bg-border px-3 py-2.5 text-sm font-medium text-muted"
+                    >
+                      {t("copy")}
+                    </button>
+                  ) : isBlocked ? (
+                    <button
+                      type="button"
+                      disabled
+                      title={t("blockedTooltip")}
+                      className="w-full cursor-not-allowed rounded-lg bg-border px-3 py-2.5 text-sm font-medium text-muted"
+                    >
+                      {t("copy")}
+                    </button>
+                  ) : (
+                    <Link
+                      href={copyHref}
+                      className="w-full rounded-lg bg-accent px-3 py-2.5 text-center text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
+                    >
+                      {t("copy")}
+                    </Link>
+                  )}
+                </div>
               </div>
             );
           })}
