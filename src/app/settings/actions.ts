@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { translateAuthError } from "@/lib/auth-errors";
 
 export async function updateProfile(formData: FormData) {
@@ -49,7 +50,11 @@ export async function updateAccountType(formData: FormData) {
   // platform, so a demo account isn't blocked from copying almost anyone.
   const balance = accountType === "real" ? 0 : 10000;
 
-  const { error } = await supabase
+  // account_type/balance have no direct-client UPDATE grant (balance in
+  // particular must never be client-settable to an arbitrary value) --
+  // this hardcoded 0-or-10000 assignment is the only legitimate way to
+  // change it, so it goes through the service-role client.
+  const { error } = await createAdminClient()
     .from("profiles")
     .update({ account_type: accountType, balance })
     .eq("id", user.id);

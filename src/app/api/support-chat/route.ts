@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getLocale, getTranslations } from "next-intl/server";
 import { matchFaq, buildNoMatchFallback, type FaqEntry } from "@/lib/support-faq";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export const dynamic = "force-dynamic";
 
@@ -59,6 +60,15 @@ async function callAiFallback(
 }
 
 export async function POST(request: Request) {
+  // No auth required (visitors can use support chat before signing up), and
+  // every non-FAQ message triggers a real, billed Anthropic API call --
+  // without this, an anonymous scripted client could hit the endpoint
+  // without limit and run up the platform's own API bill. Same per-IP
+  // mechanism as login/signup/kyc-submit.
+  if (!(await checkRateLimit("support-chat", 20, 600))) {
+    return NextResponse.json({ error: "rate_limited" }, { status: 429 });
+  }
+
   let body: { message?: unknown; history?: unknown };
   try {
     body = await request.json();

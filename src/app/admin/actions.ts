@@ -144,7 +144,9 @@ export async function toggleAdmin(formData: FormData) {
     redirect(`${returnTo}?error=` + encodeURIComponent("لا يمكنك تعديل صلاحيات حسابك الخاص."));
   }
 
-  await supabase.from("profiles").update({ is_admin: nextValue }).eq("id", targetId);
+  // is_admin has no direct-client UPDATE grant (a customer could otherwise
+  // self-escalate) -- only the service-role client can write it.
+  await createAdminClient().from("profiles").update({ is_admin: nextValue }).eq("id", targetId);
 
   await logAdminAction(supabase, adminId, nextValue ? "grant_admin" : "revoke_admin", "profile", targetId);
 
@@ -163,7 +165,8 @@ export async function toggleSuspend(formData: FormData) {
     redirect(`${returnTo}?error=` + encodeURIComponent("لا يمكنك تعليق حسابك الخاص."));
   }
 
-  await supabase.from("profiles").update({ is_suspended: nextValue }).eq("id", targetId);
+  // Same as is_admin above -- no direct-client UPDATE grant on is_suspended.
+  await createAdminClient().from("profiles").update({ is_suspended: nextValue }).eq("id", targetId);
 
   await logAdminAction(supabase, adminId, nextValue ? "suspend_user" : "unsuspend_user", "profile", targetId);
 
@@ -276,7 +279,10 @@ export async function adjustBalance(formData: FormData) {
   }
 
   const newBalance = Number(target.balance) + delta;
-  const { error } = await supabase.from("profiles").update({ balance: newBalance }).eq("id", targetId);
+  // balance has no direct-client UPDATE grant -- only the service-role
+  // client can write it, so a customer can't set their own balance via a
+  // raw API call.
+  const { error } = await createAdminClient().from("profiles").update({ balance: newBalance }).eq("id", targetId);
 
   if (error) {
     redirect(`/admin/users/${targetId}?error=` + encodeURIComponent("تعذّر تعديل الرصيد: " + error.message));
@@ -659,7 +665,7 @@ export async function editClosedClientPosition(formData: FormData) {
   const { data: profile } = await supabase.from("profiles").select("balance").eq("id", followerId).single();
   const newBalance = Number(profile?.balance ?? 0) + delta;
 
-  await supabase.from("profiles").update({ balance: newBalance }).eq("id", followerId);
+  await createAdminClient().from("profiles").update({ balance: newBalance }).eq("id", followerId);
 
   await supabase.from("wallet_transactions").insert({
     user_id: followerId,

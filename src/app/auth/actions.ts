@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { translateAuthError } from "@/lib/auth-errors";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { isValidEmailFormat, isValidPhoneForCountry, stripTrunkZero } from "@/lib/validate-signup";
@@ -162,7 +163,12 @@ export async function chooseAccountType(formData: FormData) {
   // platform, so a demo account isn't blocked from copying almost anyone.
   const balance = accountType === "real" ? 0 : 10000;
 
-  await supabase.from("profiles").update({ account_type: accountType, balance, onboarding_completed: true }).eq("id", user.id);
+  // account_type/balance/onboarding_completed have no direct-client UPDATE
+  // grant -- same reasoning as settings/actions.ts's updateAccountType.
+  await createAdminClient()
+    .from("profiles")
+    .update({ account_type: accountType, balance, onboarding_completed: true })
+    .eq("id", user.id);
   // Switching account type resets the balance to a fresh start — any copy
   // relationship funded from the old balance no longer has real money
   // behind it, so it has to stop too, or the new account would show
