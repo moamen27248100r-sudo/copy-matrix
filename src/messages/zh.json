@@ -800,7 +800,7 @@
     "typeCol": "类型",
     "amountCol": "金额",
     "firstDeposit": "首次存款",
-    "additionalDeposit": "追加存款",
+    "deposit": "存款",
     "withdrawal": "提款",
     "tradeHistoryTitle": "交易记录",
     "noTradesSinceJoined": "该客户加入以来没有已平仓交易。"

@@ -800,7 +800,7 @@
     "typeCol": "Tipo",
     "amountCol": "Valor",
     "firstDeposit": "Primeiro depósito",
-    "additionalDeposit": "Depósito adicional",
+    "deposit": "Depósito",
     "withdrawal": "Saque",
     "tradeHistoryTitle": "Histórico de operações",
     "noTradesSinceJoined": "Nenhuma operação fechada desde que este cliente entrou."

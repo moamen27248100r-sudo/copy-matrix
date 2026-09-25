@@ -800,7 +800,7 @@
     "typeCol": "Loại",
     "amountCol": "Số tiền",
     "firstDeposit": "Lần nạp đầu tiên",
-    "additionalDeposit": "Nạp thêm tiền",
+    "deposit": "Nạp tiền",
     "withdrawal": "Rút tiền",
     "tradeHistoryTitle": "Lịch sử giao dịch",
     "noTradesSinceJoined": "Không có giao dịch đã đóng nào kể từ khi khách hàng này tham gia."

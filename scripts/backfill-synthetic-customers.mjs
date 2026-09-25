@@ -240,10 +240,21 @@ for (const s of signals) {
   arr.push(s);
 }
 
-const WITHDRAWAL_PROB = 0.03;
-const REGULAR_WITHDRAWER_PROB = 0.12; // boosted so scenario (ب) reliably reaches multiple withdrawal events
-const WITHDRAWAL_MIN_FRAC = 0.10;
-const WITHDRAWAL_MAX_FRAC = 0.30;
+const WITHDRAWAL_PROB = 0.01;
+const REGULAR_WITHDRAWER_PROB = 0.025; // boosted so scenario (ب) reliably reaches multiple withdrawal events
+// Sized off the customer's CURRENT BALANCE at withdrawal time, not a sliver
+// of that one trade's own pnl -- the old pnl-based sizing produced
+// unrealistic cents-level withdrawals ($0.32, $1.36...). A real investor
+// cashing out takes a real chunk of what they have: typically 15-45% of
+// their current balance, and a smaller share of the time (BIG_CASHOUT_*)
+// pulls most of it out at once -- "withdrew the profit in full or a large
+// part of it," not a nibble. Probabilities above are correspondingly low
+// so this stays an occasional event, not every other winning trade.
+const WITHDRAWAL_MIN_FRAC = 0.15;
+const WITHDRAWAL_MAX_FRAC = 0.45;
+const BIG_CASHOUT_PROB = 0.15; // share of withdrawal events that are a big cash-out instead of the typical range
+const BIG_CASHOUT_MIN_FRAC = 0.60;
+const BIG_CASHOUT_MAX_FRAC = 0.90;
 const PAUSE_ROLL_PROB = 0.0003; // per qualifying step, independent of the floor-cross trigger
 const RESUME_PER_MINUTE_PROB = 0.00005; // matches the live OPEN block's per-tick resume roll
 const DEPOSIT_MIN_TENURE_DAYS = 60;
@@ -355,8 +366,11 @@ for (const p of providers) {
       }
 
       if (pnl > 0 && !losingProviders.has(p.id) && Math.random() < withdrawalProb) {
-        const amount =
-          Math.round(pnl * (WITHDRAWAL_MIN_FRAC + Math.random() * (WITHDRAWAL_MAX_FRAC - WITHDRAWAL_MIN_FRAC)) * 100) / 100;
+        const withdrawFrac =
+          Math.random() < BIG_CASHOUT_PROB
+            ? BIG_CASHOUT_MIN_FRAC + Math.random() * (BIG_CASHOUT_MAX_FRAC - BIG_CASHOUT_MIN_FRAC)
+            : WITHDRAWAL_MIN_FRAC + Math.random() * (WITHDRAWAL_MAX_FRAC - WITHDRAWAL_MIN_FRAC);
+        const amount = Math.round(balance * withdrawFrac * 100) / 100;
         if (amount > 0) {
           balance = Math.max(10, balance - amount);
           withdrawals.push({

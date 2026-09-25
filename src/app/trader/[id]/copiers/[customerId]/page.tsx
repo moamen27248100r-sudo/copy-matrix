@@ -233,7 +233,7 @@ export default async function CopierProfilePage({
                       <td className="py-2 pl-3 whitespace-nowrap text-xs text-muted">
                         {formatDate(row.occurredAt, locale)}
                       </td>
-                      <td className="py-2 pl-3 whitespace-nowrap">{row.amount >= 0 ? t("additionalDeposit") : t("withdrawal")}</td>
+                      <td className="py-2 pl-3 whitespace-nowrap">{row.amount >= 0 ? t("deposit") : t("withdrawal")}</td>
                       <td className={`py-2 whitespace-nowrap ${row.amount >= 0 ? "text-success" : "text-danger"}`}>
                         {row.amount >= 0 ? "+" : "-"}
                         {Math.abs(row.amount).toLocaleString("en-US", { maximumFractionDigits: 2 })}

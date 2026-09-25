@@ -800,7 +800,7 @@
     "typeCol": "ধরন",
     "amountCol": "পরিমাণ",
     "firstDeposit": "প্রথম জমা",
-    "additionalDeposit": "অতিরিক্ত জমা",
+    "deposit": "জমা",
     "withdrawal": "উত্তোলন",
     "tradeHistoryTitle": "ট্রেড ইতিহাস",
     "noTradesSinceJoined": "এই গ্রাহক যোগদানের পর থেকে কোনো বন্ধ ট্রেড নেই।"

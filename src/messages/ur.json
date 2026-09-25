@@ -800,7 +800,7 @@
     "typeCol": "قسم",
     "amountCol": "رقم",
     "firstDeposit": "پہلی جمع",
-    "additionalDeposit": "اضافی جمع",
+    "deposit": "جمع",
     "withdrawal": "نکلوائی",
     "tradeHistoryTitle": "ٹریڈ ہسٹری",
     "noTradesSinceJoined": "اس گاہک کے شامل ہونے کے بعد سے کوئی بند ٹریڈ نہیں۔"
