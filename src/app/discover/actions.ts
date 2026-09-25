@@ -67,94 +67,65 @@ export async function followProvider(formData: FormData) {
   const td = await getTranslations("Actions.discover");
 
   const allocatedAmount = Number(formData.get("allocatedAmount"));
-  // Stop-loss is no longer a customer-facing setting — every copy relationship
-  // gets the same default protection threshold instead of asking for it upfront.
-  const maxDrawdownPct = 50;
 
   if (!Number.isFinite(allocatedAmount) || allocatedAmount <= 0) {
     redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copyAmountInvalid"))}`);
   }
 
-  const [{ data: profile }, { data: provider }, { data: otherSub }, { data: existingSub }] = await Promise.all([
-    supabase.from("profiles").select("balance").eq("id", user.id).single(),
-    supabase.from("providers").select("min_copy_amount, trading_status").eq("id", providerId).single(),
-    supabase
-      .from("subscriptions")
-      .select("provider_id")
-      .eq("follower_id", user.id)
-      .eq("is_active", true)
-      .neq("provider_id", providerId)
-      .maybeSingle(),
-    supabase
-      .from("subscriptions")
-      .select("id, copy_started_at")
-      .eq("follower_id", user.id)
-      .eq("provider_id", providerId)
-      .eq("is_active", true)
-      .maybeSingle(),
-  ]);
-
-  // Simulates the leader opening a trade 10 minutes after a copy starts:
-  // changing the amount on an already-active copy is blocked from that
-  // point on (permanently), same as stop-copy and withdrawal
-  // (0096_fix_grace_period_direction.sql) — same message, so it looks like
-  // the same real lock, not a separate rule.
-  if (existingSub && Date.now() - new Date(existingSub.copy_started_at).getTime() >= 10 * 60 * 1000) {
-    redirect(
-      `/trader/${providerId}?error=${encodeURIComponent(td("copyAmountUpdateBlocked"))}`,
-    );
-  }
-
-  if (provider?.trading_status === "stopped") {
-    redirect(
-      `/trader/${providerId}?error=${encodeURIComponent(td("traderStopped"))}`,
-    );
-  }
-
-  if (otherSub) {
-    const { data: otherProvider } = await supabase
-      .from("provider_cards")
-      .select("display_name")
-      .eq("provider_id", otherSub.provider_id)
-      .single();
-    redirect(
-      `/trader/${providerId}?error=${encodeURIComponent(
-        td("alreadyCopyingOther", { name: otherProvider?.display_name ?? td("anotherTraderFallback") }),
-      )}`,
-    );
-  }
-
-  if (profile && allocatedAmount > profile.balance) {
-    redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copyAmountExceedsBalance"))}`);
-  }
-
-  if (provider && allocatedAmount < provider.min_copy_amount) {
-    redirect(
-      `/trader/${providerId}?error=${encodeURIComponent(
-        td("copyAmountBelowMinimum", { amount: `$${Number(provider.min_copy_amount).toLocaleString("en-US")}` }),
-      )}`,
-    );
-  }
-
-  const isStarting = !existingSub;
-  const { error } = await supabase
+  // Whether this call is starting a brand-new copy or editing an existing
+  // one, purely for the success-redirect message below -- every actual
+  // business rule (balance, minimum, single-active-copy, grace period,
+  // stopped leader) is re-validated inside start_or_update_copy() itself
+  // (security definer, uses auth.uid() internally), not trusted from here.
+  const { data: existingSub } = await supabase
     .from("subscriptions")
-    .upsert(
-      {
-        follower_id: user.id,
-        provider_id: providerId,
-        is_active: true,
-        allocated_amount: allocatedAmount,
-        max_drawdown_pct: maxDrawdownPct,
-        // Only reset the grace-period clock when a copy relationship is
-        // actually (re)starting — an amount update on an already-running
-        // copy must not extend or restart the lock.
-        ...(isStarting ? { copy_started_at: new Date().toISOString() } : {}),
-      },
-      { onConflict: "follower_id,provider_id" },
-    );
+    .select("id")
+    .eq("follower_id", user.id)
+    .eq("provider_id", providerId)
+    .eq("is_active", true)
+    .maybeSingle();
+  const isStarting = !existingSub;
+
+  const { error } = await supabase.rpc("start_or_update_copy", {
+    p_provider_id: providerId,
+    p_allocated_amount: allocatedAmount,
+  });
 
   if (error) {
+    if (error.code === "CM003") {
+      redirect(`/trader/${providerId}?error=${encodeURIComponent(td("traderStopped"))}`);
+    }
+    if (error.code === "CM004") {
+      redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copyAmountUpdateBlocked"))}`);
+    }
+    if (error.code === "CM005") {
+      const { data: otherSub } = await supabase
+        .from("subscriptions")
+        .select("provider_id")
+        .eq("follower_id", user.id)
+        .eq("is_active", true)
+        .neq("provider_id", providerId)
+        .maybeSingle();
+      const { data: otherProvider } = otherSub
+        ? await supabase.from("provider_cards").select("display_name").eq("provider_id", otherSub.provider_id).single()
+        : { data: null };
+      redirect(
+        `/trader/${providerId}?error=${encodeURIComponent(
+          td("alreadyCopyingOther", { name: otherProvider?.display_name ?? td("anotherTraderFallback") }),
+        )}`,
+      );
+    }
+    if (error.code === "CM006") {
+      redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copyAmountExceedsBalance"))}`);
+    }
+    if (error.code === "CM007") {
+      const { data: provider } = await supabase.from("providers").select("min_copy_amount").eq("id", providerId).single();
+      redirect(
+        `/trader/${providerId}?error=${encodeURIComponent(
+          td("copyAmountBelowMinimum", { amount: `$${Number(provider?.min_copy_amount ?? 0).toLocaleString("en-US")}` }),
+        )}`,
+      );
+    }
     redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copyFailed"))}`);
   }
 
