@@ -1,6 +1,52 @@
+import type { ReactNode } from "react";
 import type { Locale } from "@/i18n/locales";
 
-type Step = { icon: string; title: string; desc: string };
+// Thin-line icons matching Lucide's ShieldCheck / Wallet / BarChart3 / Zap,
+// inlined so the stepper doesn't need the lucide-react dependency just for
+// four glyphs.
+const STEP_ICON_PATHS: ReactNode[] = [
+  <>
+    <path
+      key="shield"
+      d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
+    />
+    <path key="check" d="m9 12 2 2 4-4" />
+  </>,
+  <>
+    <path key="w1" d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4" />
+    <path key="w2" d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" />
+    <path key="w3" d="M18 12a2 2 0 0 0 0 4h4v-4Z" />
+  </>,
+  <>
+    <path key="b1" d="M3 3v16a2 2 0 0 0 2 2h16" />
+    <path key="b2" d="M18 17V9" />
+    <path key="b3" d="M13 17V5" />
+    <path key="b4" d="M8 17v-3" />
+  </>,
+  <path
+    key="zap"
+    d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"
+  />,
+];
+
+function StepIcon({ index, className }: { index: number; className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {STEP_ICON_PATHS[index]}
+    </svg>
+  );
+}
+
+type Step = { title: string; desc: string };
 type HowItWorksText = { badge: string; title: string; subtitle: string; steps: Step[] };
 
 const TEXT: Record<Locale, HowItWorksText> = {
@@ -9,10 +55,10 @@ const TEXT: Record<Locale, HowItWorksText> = {
     title: "أربع خطوات لتبدأ النسخ",
     subtitle: "مسار واحد متصل من التسجيل إلى التنفيذ اللحظي",
     steps: [
-      { icon: "🛡️", title: "ربط الحساب وإدارة المحفظة", desc: "أنشئ حسابك واربط محفظتك بأمان في دقائق." },
-      { icon: "💰", title: "تخصيص ورأس المال المرن", desc: "حدد رأس المال المخصص لكل قائد تنسخه بحرية." },
-      { icon: "📊", title: "تحليل وتصفية قادة Matrix", desc: "قارن الأداء والمخاطرة واختر القادة الأنسب لك." },
-      { icon: "⚡", title: "التنفيذ اللحظي والتحكم التلقائي", desc: "صفقاتك تُنسخ لحظياً مع تحكم كامل بالإيقاف والفك." },
+      { title: "ربط الحساب وإدارة المحفظة", desc: "أنشئ حسابك واربط محفظتك بأمان في دقائق." },
+      { title: "تخصيص ورأس المال المرن", desc: "حدد رأس المال المخصص لكل قائد تنسخه بحرية." },
+      { title: "تحليل وتصفية قادة Matrix", desc: "قارن الأداء والمخاطرة واختر القادة الأنسب لك." },
+      { title: "التنفيذ اللحظي والتحكم التلقائي", desc: "صفقاتك تُنسخ لحظياً مع تحكم كامل بالإيقاف والفك." },
     ],
   },
   en: {
@@ -20,10 +66,10 @@ const TEXT: Record<Locale, HowItWorksText> = {
     title: "Four steps to start copying",
     subtitle: "One connected path from sign-up to instant execution",
     steps: [
-      { icon: "🛡️", title: "Connect your account & wallet", desc: "Create your account and link your wallet securely in minutes." },
-      { icon: "💰", title: "Flexible allocation & capital", desc: "Choose how much capital to allocate to each leader you copy." },
-      { icon: "📊", title: "Analyze & filter Matrix leaders", desc: "Compare performance and risk to pick the leaders that fit you." },
-      { icon: "⚡", title: "Instant execution & auto control", desc: "Trades copy instantly, with full control to pause or unfollow." },
+      { title: "Connect your account & wallet", desc: "Create your account and link your wallet securely in minutes." },
+      { title: "Flexible allocation & capital", desc: "Choose how much capital to allocate to each leader you copy." },
+      { title: "Analyze & filter Matrix leaders", desc: "Compare performance and risk to pick the leaders that fit you." },
+      { title: "Instant execution & auto control", desc: "Trades copy instantly, with full control to pause or unfollow." },
     ],
   },
   fr: {
@@ -31,10 +77,10 @@ const TEXT: Record<Locale, HowItWorksText> = {
     title: "Quatre étapes pour commencer à copier",
     subtitle: "Un seul parcours connecté, de l'inscription à l'exécution instantanée",
     steps: [
-      { icon: "🛡️", title: "Connectez votre compte et votre portefeuille", desc: "Créez votre compte et liez votre portefeuille en toute sécurité en quelques minutes." },
-      { icon: "💰", title: "Allocation et capital flexibles", desc: "Choisissez le capital à allouer à chaque leader que vous copiez." },
-      { icon: "📊", title: "Analysez et filtrez les leaders Matrix", desc: "Comparez performance et risque pour choisir les leaders qui vous conviennent." },
-      { icon: "⚡", title: "Exécution instantanée et contrôle automatique", desc: "Les trades sont copiés instantanément, avec un contrôle total pour suspendre ou vous désabonner." },
+      { title: "Connectez votre compte et votre portefeuille", desc: "Créez votre compte et liez votre portefeuille en toute sécurité en quelques minutes." },
+      { title: "Allocation et capital flexibles", desc: "Choisissez le capital à allouer à chaque leader que vous copiez." },
+      { title: "Analysez et filtrez les leaders Matrix", desc: "Comparez performance et risque pour choisir les leaders qui vous conviennent." },
+      { title: "Exécution instantanée et contrôle automatique", desc: "Les trades sont copiés instantanément, avec un contrôle total pour suspendre ou vous désabonner." },
     ],
   },
   es: {
@@ -42,10 +88,10 @@ const TEXT: Record<Locale, HowItWorksText> = {
     title: "Cuatro pasos para empezar a copiar",
     subtitle: "Un solo camino conectado, desde el registro hasta la ejecución instantánea",
     steps: [
-      { icon: "🛡️", title: "Conecta tu cuenta y billetera", desc: "Crea tu cuenta y vincula tu billetera de forma segura en minutos." },
-      { icon: "💰", title: "Asignación y capital flexibles", desc: "Elige cuánto capital asignar a cada líder que copias." },
-      { icon: "📊", title: "Analiza y filtra líderes de Matrix", desc: "Compara rendimiento y riesgo para elegir los líderes que más te convienen." },
-      { icon: "⚡", title: "Ejecución instantánea y control automático", desc: "Las operaciones se copian al instante, con control total para pausar o dejar de seguir." },
+      { title: "Conecta tu cuenta y billetera", desc: "Crea tu cuenta y vincula tu billetera de forma segura en minutos." },
+      { title: "Asignación y capital flexibles", desc: "Elige cuánto capital asignar a cada líder que copias." },
+      { title: "Analiza y filtra líderes de Matrix", desc: "Compara rendimiento y riesgo para elegir los líderes que más te convienen." },
+      { title: "Ejecución instantánea y control automático", desc: "Las operaciones se copian al instante, con control total para pausar o dejar de seguir." },
     ],
   },
   pt: {
@@ -53,10 +99,10 @@ const TEXT: Record<Locale, HowItWorksText> = {
     title: "Quatro passos para começar a copiar",
     subtitle: "Um único caminho conectado, do cadastro à execução instantânea",
     steps: [
-      { icon: "🛡️", title: "Conecte sua conta e carteira", desc: "Crie sua conta e vincule sua carteira com segurança em minutos." },
-      { icon: "💰", title: "Alocação e capital flexíveis", desc: "Escolha quanto capital alocar para cada líder que você copia." },
-      { icon: "📊", title: "Analise e filtre líderes Matrix", desc: "Compare desempenho e risco para escolher os líderes certos para você." },
-      { icon: "⚡", title: "Execução instantânea e controle automático", desc: "As operações são copiadas instantaneamente, com controle total para pausar ou deixar de seguir." },
+      { title: "Conecte sua conta e carteira", desc: "Crie sua conta e vincule sua carteira com segurança em minutos." },
+      { title: "Alocação e capital flexíveis", desc: "Escolha quanto capital alocar para cada líder que você copia." },
+      { title: "Analise e filtre líderes Matrix", desc: "Compare desempenho e risco para escolher os líderes certos para você." },
+      { title: "Execução instantânea e controle automático", desc: "As operações são copiadas instantaneamente, com controle total para pausar ou deixar de seguir." },
     ],
   },
   zh: {
@@ -64,10 +110,10 @@ const TEXT: Record<Locale, HowItWorksText> = {
     title: "四步开始跟单",
     subtitle: "从注册到即时执行的一条完整路径",
     steps: [
-      { icon: "🛡️", title: "连接账户与钱包", desc: "几分钟内安全创建账户并绑定钱包。" },
-      { icon: "💰", title: "灵活的资金分配", desc: "自由选择为每位跟单领导者分配的资金。" },
-      { icon: "📊", title: "分析并筛选 Matrix 领导者", desc: "比较业绩与风险，挑选最适合您的领导者。" },
-      { icon: "⚡", title: "即时执行与自动控制", desc: "交易即时复制，并可完全控制暂停或取消关注。" },
+      { title: "连接账户与钱包", desc: "几分钟内安全创建账户并绑定钱包。" },
+      { title: "灵活的资金分配", desc: "自由选择为每位跟单领导者分配的资金。" },
+      { title: "分析并筛选 Matrix 领导者", desc: "比较业绩与风险，挑选最适合您的领导者。" },
+      { title: "即时执行与自动控制", desc: "交易即时复制，并可完全控制暂停或取消关注。" },
     ],
   },
   hi: {
@@ -75,10 +121,10 @@ const TEXT: Record<Locale, HowItWorksText> = {
     title: "कॉपी शुरू करने के लिए चार चरण",
     subtitle: "साइन-अप से लेकर तुरंत निष्पादन तक एक जुड़ा हुआ रास्ता",
     steps: [
-      { icon: "🛡️", title: "खाता और वॉलेट कनेक्ट करें", desc: "मिनटों में सुरक्षित रूप से खाता बनाएं और वॉलेट लिंक करें।" },
-      { icon: "💰", title: "लचीला आवंटन और पूंजी", desc: "हर लीडर के लिए आवंटित पूंजी स्वतंत्र रूप से चुनें।" },
-      { icon: "📊", title: "Matrix लीडर्स का विश्लेषण और फ़िल्टर करें", desc: "प्रदर्शन और जोखिम की तुलना करें और सही लीडर चुनें।" },
-      { icon: "⚡", title: "तुरंत निष्पादन और स्वचालित नियंत्रण", desc: "ट्रेड तुरंत कॉपी होते हैं, रोकने या अनफॉलो करने पर पूर्ण नियंत्रण के साथ।" },
+      { title: "खाता और वॉलेट कनेक्ट करें", desc: "मिनटों में सुरक्षित रूप से खाता बनाएं और वॉलेट लिंक करें।" },
+      { title: "लचीला आवंटन और पूंजी", desc: "हर लीडर के लिए आवंटित पूंजी स्वतंत्र रूप से चुनें।" },
+      { title: "Matrix लीडर्स का विश्लेषण और फ़िल्टर करें", desc: "प्रदर्शन और जोखिम की तुलना करें और सही लीडर चुनें।" },
+      { title: "तुरंत निष्पादन और स्वचालित नियंत्रण", desc: "ट्रेड तुरंत कॉपी होते हैं, रोकने या अनफॉलो करने पर पूर्ण नियंत्रण के साथ।" },
     ],
   },
   ur: {
@@ -86,10 +132,10 @@ const TEXT: Record<Locale, HowItWorksText> = {
     title: "کاپی شروع کرنے کے لیے چار مراحل",
     subtitle: "سائن اپ سے لے کر فوری عملدرآمد تک ایک منسلک راستہ",
     steps: [
-      { icon: "🛡️", title: "اکاؤنٹ اور والیٹ منسلک کریں", desc: "منٹوں میں محفوظ طریقے سے اکاؤنٹ بنائیں اور والیٹ منسلک کریں۔" },
-      { icon: "💰", title: "لچکدار مختص اور سرمایہ", desc: "ہر لیڈر کے لیے مختص سرمایہ آزادانہ طور پر منتخب کریں۔" },
-      { icon: "📊", title: "Matrix لیڈرز کا تجزیہ اور فلٹر", desc: "کارکردگی اور خطرے کا موازنہ کر کے موزوں ترین لیڈرز منتخب کریں۔" },
-      { icon: "⚡", title: "فوری عملدرآمد اور خودکار کنٹرول", desc: "ٹریڈز فوری طور پر کاپی ہوتے ہیں، روکنے یا ان فالو کرنے پر مکمل کنٹرول کے ساتھ۔" },
+      { title: "اکاؤنٹ اور والیٹ منسلک کریں", desc: "منٹوں میں محفوظ طریقے سے اکاؤنٹ بنائیں اور والیٹ منسلک کریں۔" },
+      { title: "لچکدار مختص اور سرمایہ", desc: "ہر لیڈر کے لیے مختص سرمایہ آزادانہ طور پر منتخب کریں۔" },
+      { title: "Matrix لیڈرز کا تجزیہ اور فلٹر", desc: "کارکردگی اور خطرے کا موازنہ کر کے موزوں ترین لیڈرز منتخب کریں۔" },
+      { title: "فوری عملدرآمد اور خودکار کنٹرول", desc: "ٹریڈز فوری طور پر کاپی ہوتے ہیں، روکنے یا ان فالو کرنے پر مکمل کنٹرول کے ساتھ۔" },
     ],
   },
   id: {
@@ -97,10 +143,10 @@ const TEXT: Record<Locale, HowItWorksText> = {
     title: "Empat langkah untuk mulai menyalin",
     subtitle: "Satu alur terhubung dari pendaftaran hingga eksekusi instan",
     steps: [
-      { icon: "🛡️", title: "Hubungkan akun & dompet", desc: "Buat akun dan tautkan dompet Anda dengan aman dalam hitungan menit." },
-      { icon: "💰", title: "Alokasi & modal fleksibel", desc: "Pilih modal yang dialokasikan untuk setiap leader yang Anda ikuti." },
-      { icon: "📊", title: "Analisis & saring leader Matrix", desc: "Bandingkan performa dan risiko untuk memilih leader yang tepat untuk Anda." },
-      { icon: "⚡", title: "Eksekusi instan & kontrol otomatis", desc: "Transaksi disalin secara instan, dengan kontrol penuh untuk jeda atau berhenti mengikuti." },
+      { title: "Hubungkan akun & dompet", desc: "Buat akun dan tautkan dompet Anda dengan aman dalam hitungan menit." },
+      { title: "Alokasi & modal fleksibel", desc: "Pilih modal yang dialokasikan untuk setiap leader yang Anda ikuti." },
+      { title: "Analisis & saring leader Matrix", desc: "Bandingkan performa dan risiko untuk memilih leader yang tepat untuk Anda." },
+      { title: "Eksekusi instan & kontrol otomatis", desc: "Transaksi disalin secara instan, dengan kontrol penuh untuk jeda atau berhenti mengikuti." },
     ],
   },
   vi: {
@@ -108,10 +154,10 @@ const TEXT: Record<Locale, HowItWorksText> = {
     title: "Bốn bước để bắt đầu sao chép",
     subtitle: "Một hành trình liền mạch từ đăng ký đến thực thi tức thì",
     steps: [
-      { icon: "🛡️", title: "Kết nối tài khoản và ví", desc: "Tạo tài khoản và liên kết ví của bạn an toàn chỉ trong vài phút." },
-      { icon: "💰", title: "Phân bổ vốn linh hoạt", desc: "Chọn số vốn phân bổ cho mỗi leader bạn sao chép." },
-      { icon: "📊", title: "Phân tích và lọc leader Matrix", desc: "So sánh hiệu suất và rủi ro để chọn leader phù hợp nhất." },
-      { icon: "⚡", title: "Thực thi tức thì và kiểm soát tự động", desc: "Giao dịch được sao chép ngay lập tức, với toàn quyền tạm dừng hoặc hủy theo dõi." },
+      { title: "Kết nối tài khoản và ví", desc: "Tạo tài khoản và liên kết ví của bạn an toàn chỉ trong vài phút." },
+      { title: "Phân bổ vốn linh hoạt", desc: "Chọn số vốn phân bổ cho mỗi leader bạn sao chép." },
+      { title: "Phân tích và lọc leader Matrix", desc: "So sánh hiệu suất và rủi ro để chọn leader phù hợp nhất." },
+      { title: "Thực thi tức thì và kiểm soát tự động", desc: "Giao dịch được sao chép ngay lập tức, với toàn quyền tạm dừng hoặc hủy theo dõi." },
     ],
   },
   th: {
@@ -119,10 +165,10 @@ const TEXT: Record<Locale, HowItWorksText> = {
     title: "สี่ขั้นตอนเพื่อเริ่มคัดลอก",
     subtitle: "เส้นทางเดียวที่เชื่อมต่อกันตั้งแต่สมัครสมาชิกจนถึงการดำเนินการทันที",
     steps: [
-      { icon: "🛡️", title: "เชื่อมต่อบัญชีและกระเป๋าเงิน", desc: "สร้างบัญชีและเชื่อมโยงกระเป๋าเงินของคุณอย่างปลอดภัยในไม่กี่นาที" },
-      { icon: "💰", title: "การจัดสรรและเงินทุนที่ยืดหยุ่น", desc: "เลือกเงินทุนที่จะจัดสรรให้กับผู้นำแต่ละคนที่คุณคัดลอกได้อย่างอิสระ" },
-      { icon: "📊", title: "วิเคราะห์และคัดกรองผู้นำ Matrix", desc: "เปรียบเทียบผลงานและความเสี่ยงเพื่อเลือกผู้นำที่เหมาะกับคุณ" },
-      { icon: "⚡", title: "การดำเนินการทันทีและการควบคุมอัตโนมัติ", desc: "การเทรดถูกคัดลอกทันที พร้อมการควบคุมเต็มรูปแบบในการหยุดชั่วคราวหรือเลิกติดตาม" },
+      { title: "เชื่อมต่อบัญชีและกระเป๋าเงิน", desc: "สร้างบัญชีและเชื่อมโยงกระเป๋าเงินของคุณอย่างปลอดภัยในไม่กี่นาที" },
+      { title: "การจัดสรรและเงินทุนที่ยืดหยุ่น", desc: "เลือกเงินทุนที่จะจัดสรรให้กับผู้นำแต่ละคนที่คุณคัดลอกได้อย่างอิสระ" },
+      { title: "วิเคราะห์และคัดกรองผู้นำ Matrix", desc: "เปรียบเทียบผลงานและความเสี่ยงเพื่อเลือกผู้นำที่เหมาะกับคุณ" },
+      { title: "การดำเนินการทันทีและการควบคุมอัตโนมัติ", desc: "การเทรดถูกคัดลอกทันที พร้อมการควบคุมเต็มรูปแบบในการหยุดชั่วคราวหรือเลิกติดตาม" },
     ],
   },
   bn: {
@@ -130,10 +176,10 @@ const TEXT: Record<Locale, HowItWorksText> = {
     title: "কপি শুরু করার জন্য চারটি ধাপ",
     subtitle: "সাইন-আপ থেকে তাৎক্ষণিক এক্সিকিউশন পর্যন্ত একটি সংযুক্ত পথ",
     steps: [
-      { icon: "🛡️", title: "অ্যাকাউন্ট এবং ওয়ালেট সংযুক্ত করুন", desc: "মিনিটের মধ্যে নিরাপদে অ্যাকাউন্ট তৈরি করুন এবং ওয়ালেট লিঙ্ক করুন।" },
-      { icon: "💰", title: "নমনীয় বরাদ্দ এবং মূলধন", desc: "প্রতিটি লিডারের জন্য বরাদ্দকৃত মূলধন স্বাধীনভাবে বেছে নিন।" },
-      { icon: "📊", title: "Matrix লিডারদের বিশ্লেষণ ও ফিল্টার করুন", desc: "পারফরম্যান্স এবং ঝুঁকি তুলনা করে উপযুক্ত লিডার বেছে নিন।" },
-      { icon: "⚡", title: "তাৎক্ষণিক এক্সিকিউশন এবং স্বয়ংক্রিয় নিয়ন্ত্রণ", desc: "ট্রেড তাৎক্ষণিকভাবে কপি হয়, থামানো বা আনফলো করার সম্পূর্ণ নিয়ন্ত্রণসহ।" },
+      { title: "অ্যাকাউন্ট এবং ওয়ালেট সংযুক্ত করুন", desc: "মিনিটের মধ্যে নিরাপদে অ্যাকাউন্ট তৈরি করুন এবং ওয়ালেট লিঙ্ক করুন।" },
+      { title: "নমনীয় বরাদ্দ এবং মূলধন", desc: "প্রতিটি লিডারের জন্য বরাদ্দকৃত মূলধন স্বাধীনভাবে বেছে নিন।" },
+      { title: "Matrix লিডারদের বিশ্লেষণ ও ফিল্টার করুন", desc: "পারফরম্যান্স এবং ঝুঁকি তুলনা করে উপযুক্ত লিডার বেছে নিন।" },
+      { title: "তাৎক্ষণিক এক্সিকিউশন এবং স্বয়ংক্রিয় নিয়ন্ত্রণ", desc: "ট্রেড তাৎক্ষণিকভাবে কপি হয়, থামানো বা আনফলো করার সম্পূর্ণ নিয়ন্ত্রণসহ।" },
     ],
   },
   sw: {
@@ -141,24 +187,22 @@ const TEXT: Record<Locale, HowItWorksText> = {
     title: "Hatua nne za kuanza kunakili",
     subtitle: "Njia moja iliyounganishwa kutoka usajili hadi utekelezaji wa papo hapo",
     steps: [
-      { icon: "🛡️", title: "Unganisha akaunti na pochi", desc: "Unda akaunti yako na uunganishe pochi yako kwa usalama ndani ya dakika." },
-      { icon: "💰", title: "Ugavi na mtaji unaonyumbulika", desc: "Chagua mtaji wa kutenga kwa kila kiongozi unayenakili." },
-      { icon: "📊", title: "Changanua na chuja viongozi wa Matrix", desc: "Linganisha utendaji na hatari kuchagua viongozi wanaokufaa." },
-      { icon: "⚡", title: "Utekelezaji wa papo hapo na udhibiti wa kiotomatiki", desc: "Biashara zinanakiliwa papo hapo, ukiwa na udhibiti kamili wa kusitisha au kuacha kufuata." },
+      { title: "Unganisha akaunti na pochi", desc: "Unda akaunti yako na uunganishe pochi yako kwa usalama ndani ya dakika." },
+      { title: "Ugavi na mtaji unaonyumbulika", desc: "Chagua mtaji wa kutenga kwa kila kiongozi unayenakili." },
+      { title: "Changanua na chuja viongozi wa Matrix", desc: "Linganisha utendaji na hatari kuchagua viongozi wanaokufaa." },
+      { title: "Utekelezaji wa papo hapo na udhibiti wa kiotomatiki", desc: "Biashara zinanakiliwa papo hapo, ukiwa na udhibiti kamili wa kusitisha au kuacha kufuata." },
     ],
   },
 };
 
-function StepBadge({ index, icon, size }: { index: number; icon: string; size: "sm" | "lg" }) {
-  const dims = size === "sm" ? "h-11 w-11 text-sm" : "h-14 w-14 text-base";
+function StepBadge({ index, size }: { index: number; size: "sm" | "lg" }) {
+  const dims = size === "sm" ? "h-11 w-11" : "h-14 w-14";
+  const iconDims = size === "sm" ? "h-5 w-5" : "h-6 w-6";
   return (
     <div
-      className={`relative flex ${dims} shrink-0 items-center justify-center rounded-full border border-neon-cyan/40 bg-glass-surface font-bold text-neon-cyan shadow-[0_0_18px_-3px_rgba(34,211,238,0.7)] backdrop-blur-xl`}
+      className={`relative flex ${dims} shrink-0 items-center justify-center rounded-full border border-neon-cyan/40 bg-glass-surface text-neon-cyan shadow-[0_0_18px_-3px_rgba(34,211,238,0.7)] backdrop-blur-xl`}
     >
-      {index + 1}
-      <span className="absolute -bottom-1.5 -end-1.5 flex h-6 w-6 items-center justify-center rounded-full border border-glass-border bg-background text-xs">
-        {icon}
-      </span>
+      <StepIcon index={index} className={iconDims} />
     </div>
   );
 }
@@ -182,7 +226,7 @@ export function HowItWorks({ locale }: { locale: Locale }) {
         {t.steps.map((s, i) => (
           <div key={s.title} className="flex gap-4">
             <div className="flex flex-col items-center">
-              <StepBadge index={i} icon={s.icon} size="sm" />
+              <StepBadge index={i} size="sm" />
               {i < lastIndex && (
                 <div
                   className="my-1 w-0.5 flex-1 rounded-full bg-gradient-to-b from-neon-cyan/50 to-neon-cyan/0"
@@ -210,7 +254,7 @@ export function HowItWorks({ locale }: { locale: Locale }) {
         <div className="grid grid-cols-4 gap-4 lg:gap-6">
           {t.steps.map((s, i) => (
             <div key={s.title} className="relative flex h-full flex-col items-center gap-3 text-center">
-              <StepBadge index={i} icon={s.icon} size="lg" />
+              <StepBadge index={i} size="lg" />
               <div className="flex h-full w-full flex-col justify-start gap-1.5 rounded-2xl border border-glass-border bg-glass-surface p-4 backdrop-blur-xl transition hover:border-neon-cyan/30">
                 <p className="line-clamp-2 text-base font-bold text-foreground">{s.title}</p>
                 <p className="line-clamp-2 text-sm leading-relaxed text-muted">{s.desc}</p>
