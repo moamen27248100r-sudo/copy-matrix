@@ -194,7 +194,7 @@ export function Footer({ locale, dir, navLinks }: { locale: Locale; dir: "rtl" |
   const t = TEXT[locale] ?? TEXT.en;
 
   return (
-    <footer dir={dir} className="border-t border-cyan-500/10 px-6 py-10">
+    <footer dir={dir} className="border-t border-glass-border px-6 py-10">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-8">
         <div className="flex flex-col gap-2">
           <Logo iconClassName="h-5 w-5" textClassName="text-lg" />
@@ -202,8 +202,8 @@ export function Footer({ locale, dir, navLinks }: { locale: Locale; dir: "rtl" |
         </div>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-          <div className="flex h-full flex-col justify-between gap-2 rounded-2xl border border-cyan-500/15 bg-slate-900/40 p-5 backdrop-blur-xl">
-            <p className="line-clamp-1 text-xs font-semibold text-cyan-300">{t.platform}</p>
+          <div className="flex h-full flex-col justify-between gap-2 rounded-2xl border border-glass-border bg-glass-surface p-5 backdrop-blur-xl">
+            <p className="line-clamp-1 text-xs font-semibold text-neon-cyan">{t.platform}</p>
             <div className="flex flex-col gap-2 text-sm">
               {navLinks.map((l) => (
                 <a key={l.href} href={l.href} className="line-clamp-1 text-muted hover:text-foreground">
@@ -216,8 +216,8 @@ export function Footer({ locale, dir, navLinks }: { locale: Locale; dir: "rtl" |
             </div>
           </div>
 
-          <div className="flex h-full flex-col justify-between gap-2 rounded-2xl border border-cyan-500/15 bg-slate-900/40 p-5 backdrop-blur-xl">
-            <p className="line-clamp-1 text-xs font-semibold text-cyan-300">{t.security}</p>
+          <div className="flex h-full flex-col justify-between gap-2 rounded-2xl border border-glass-border bg-glass-surface p-5 backdrop-blur-xl">
+            <p className="line-clamp-1 text-xs font-semibold text-neon-cyan">{t.security}</p>
             <div className="flex flex-col gap-2 text-sm">
               <Link href="/security" className="line-clamp-1 text-muted hover:text-foreground">
                 {t.securityCenter}
@@ -228,8 +228,8 @@ export function Footer({ locale, dir, navLinks }: { locale: Locale; dir: "rtl" |
             </div>
           </div>
 
-          <div className="flex h-full flex-col justify-between gap-2 rounded-2xl border border-cyan-500/15 bg-slate-900/40 p-5 backdrop-blur-xl">
-            <p className="line-clamp-1 text-xs font-semibold text-cyan-300">{t.support}</p>
+          <div className="flex h-full flex-col justify-between gap-2 rounded-2xl border border-glass-border bg-glass-surface p-5 backdrop-blur-xl">
+            <p className="line-clamp-1 text-xs font-semibold text-neon-cyan">{t.support}</p>
             <div className="flex flex-col gap-2 text-sm">
               <Link href="/support" className="line-clamp-1 text-muted hover:text-foreground">
                 {t.supportLink}
@@ -245,7 +245,7 @@ export function Footer({ locale, dir, navLinks }: { locale: Locale; dir: "rtl" |
         </div>
       </div>
 
-      <p className="mx-auto mt-8 w-full max-w-5xl border-t border-cyan-500/10 pt-6 text-center text-xs text-muted">
+      <p className="mx-auto mt-8 w-full max-w-5xl border-t border-glass-border pt-6 text-center text-xs text-muted">
         © {new Date().getFullYear()} Copy Matrix. {t.rights}
       </p>
     </footer>

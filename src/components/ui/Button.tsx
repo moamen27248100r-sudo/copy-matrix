@@ -13,8 +13,8 @@ const VARIANT_CLASSES: Record<Variant, string> = {
   primary:
     "bg-accent text-accent-foreground hover:bg-accent-hover shadow-[0_0_20px_-4px_var(--accent)]",
   glass:
-    "border border-cyan-500/30 bg-slate-900/60 text-foreground backdrop-blur-xl hover:border-cyan-400/50 hover:shadow-[0_0_16px_-4px_rgba(34,211,238,0.5)]",
-  outline: "border border-border text-foreground hover:border-cyan-500/40 hover:bg-white/5",
+    "border border-glass-border bg-glass-surface text-foreground backdrop-blur-xl hover:border-neon-cyan/50 hover:shadow-[0_0_16px_-4px_rgba(34,211,238,0.5)]",
+  outline: "border border-border text-foreground hover:border-neon-cyan/40 hover:bg-white/5",
 };
 
 const BASE =

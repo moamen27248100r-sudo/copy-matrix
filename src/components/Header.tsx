@@ -19,7 +19,7 @@ export function Header({
   signupLabel: string;
 }) {
   return (
-    <nav dir={dir} className="sticky top-0 z-[9999] border-b border-cyan-500/10 bg-background/95 backdrop-blur-xl">
+    <nav dir={dir} className="sticky top-0 z-[9999] border-b border-glass-border bg-background/95 backdrop-blur-xl">
       <div className="mx-auto max-w-6xl px-2 py-3 sm:px-6 sm:py-4">
         <div className="grid grid-cols-[auto_1fr_auto] items-center gap-0.5 sm:gap-3">
           <Button href="/signup" variant="primary" size="sm" className="min-w-0 px-1 sm:px-4">
@@ -40,7 +40,7 @@ export function Header({
 
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-2 text-xs text-muted sm:gap-x-6 sm:pt-3 sm:text-sm">
           {navLinks.map((l) => (
-            <a key={l.href} href={l.href} className="line-clamp-1 hover:text-cyan-300">
+            <a key={l.href} href={l.href} className="line-clamp-1 hover:text-neon-cyan">
               {l.label}
             </a>
           ))}

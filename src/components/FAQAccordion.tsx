@@ -141,22 +141,22 @@ export function FAQAccordion({ locale }: { locale: Locale }) {
   const isRtl = isRtlLocale(locale);
 
   return (
-    <section id="faq" className="flex flex-col gap-8 border-t border-cyan-500/10 px-6 py-16">
+    <section id="faq" className="flex flex-col gap-8 border-t border-glass-border px-6 py-16">
       <div className="mx-auto flex flex-col items-center gap-2 text-center">
         <h2 className="line-clamp-1 text-2xl font-semibold sm:text-3xl">{t.title}</h2>
         <p className="line-clamp-2 text-sm text-muted">{t.subtitle}</p>
       </div>
-      <div className="mx-auto w-full max-w-3xl divide-y divide-cyan-500/10 overflow-hidden rounded-2xl border border-cyan-500/20 bg-slate-900/60 shadow-[0_0_30px_-10px_rgba(34,211,238,0.25)] backdrop-blur-xl">
+      <div className="mx-auto w-full max-w-3xl divide-y divide-glass-border overflow-hidden rounded-2xl border border-glass-border bg-glass-surface shadow-[0_0_30px_-10px_rgba(34,211,238,0.25)] backdrop-blur-xl">
         {t.items.map((f) => (
-          <details key={f.q} className="group open:bg-cyan-500/[0.04]">
+          <details key={f.q} className="group open:bg-neon-cyan/[0.04]">
             <summary className="flex cursor-pointer list-none items-start gap-4 px-5 py-5 marker:content-none sm:px-6 sm:py-6">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400/10 text-sm font-bold text-cyan-300">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-neon-cyan/30 bg-neon-cyan/10 text-sm font-bold text-neon-cyan">
                 {isRtl ? "؟" : "?"}
               </span>
               <span className="line-clamp-1 flex-1 pt-1.5 text-[15px] font-semibold leading-snug sm:text-base">
                 {f.q}
               </span>
-              <span className="mt-1.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-cyan-500/20 text-muted transition-all group-open:rotate-180 group-open:border-cyan-400/50 group-open:bg-cyan-400/10 group-open:text-cyan-300">
+              <span className="mt-1.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-glass-border text-muted transition-all group-open:rotate-180 group-open:border-neon-cyan/50 group-open:bg-neon-cyan/10 group-open:text-neon-cyan">
                 <svg
                   viewBox="0 0 24 24"
                   className="h-4 w-4"
@@ -173,7 +173,7 @@ export function FAQAccordion({ locale }: { locale: Locale }) {
             </summary>
             <div className="flex gap-4 px-5 pb-6 sm:px-6">
               <span className="h-9 w-9 shrink-0" aria-hidden="true" />
-              <p className="flex-1 border-t border-cyan-500/10 pt-4 text-base leading-8 text-foreground">
+              <p className="flex-1 border-t border-glass-border pt-4 text-base leading-8 text-foreground">
                 {f.a}
               </p>
             </div>

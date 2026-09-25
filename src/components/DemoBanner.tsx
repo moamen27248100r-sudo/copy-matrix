@@ -89,12 +89,12 @@ export function DemoBanner({ locale }: { locale: Locale }) {
 
   return (
     <section className="px-6 py-12">
-      <div className="relative mx-auto flex w-full max-w-5xl flex-col items-center gap-4 overflow-hidden rounded-2xl border border-cyan-500/20 bg-slate-900/60 px-6 py-12 text-center backdrop-blur-xl">
+      <div className="relative mx-auto flex w-full max-w-5xl flex-col items-center gap-4 overflow-hidden rounded-2xl border border-glass-border bg-glass-surface px-6 py-12 text-center backdrop-blur-xl">
         <div
-          className="pointer-events-none absolute -top-20 left-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-cyan-400/15 blur-3xl"
+          className="pointer-events-none absolute -top-20 left-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-neon-cyan/15 blur-3xl"
           aria-hidden="true"
         />
-        <span className="relative inline-flex w-fit shrink-0 items-center gap-1 whitespace-nowrap rounded-full border border-emerald-400/40 bg-emerald-400/10 px-2.5 py-1 text-[11px] font-semibold text-emerald-300 shadow-[0_0_12px_-2px_rgba(16,185,129,0.6)]">
+        <span className="relative inline-flex w-fit shrink-0 items-center gap-1 whitespace-nowrap rounded-full border border-neon-emerald/40 bg-neon-emerald/10 px-2.5 py-1 text-[11px] font-semibold text-neon-emerald shadow-[0_0_12px_-2px_rgba(16,185,129,0.6)]">
           ✓ {t.badge}
         </span>
         <h2 className="relative line-clamp-1 text-2xl font-semibold sm:text-3xl">{t.title}</h2>

@@ -160,7 +160,7 @@ export default async function RiskDisclosurePage() {
           {t.sections.map((s) => (
             <section
               key={s.title}
-              className="flex flex-col gap-2 rounded-2xl border border-cyan-500/15 bg-slate-900/40 p-5 backdrop-blur-xl"
+              className="flex flex-col gap-2 rounded-2xl border border-glass-border bg-glass-surface p-5 backdrop-blur-xl"
             >
               <h2 className="font-medium">{s.title}</h2>
               <p className="text-sm leading-relaxed text-muted">{s.body}</p>
