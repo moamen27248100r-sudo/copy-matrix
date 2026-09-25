@@ -17,9 +17,13 @@ import {
 } from "@/components/LiveHomeStats";
 import { simulatedCopyUsers, simulatedActiveTraders } from "@/lib/simulated-growth";
 import { INTERNATIONAL_COUNTRY_CODES } from "@/lib/country-metadata";
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import { Logo } from "@/components/Logo";
 import { TryCopySection } from "@/components/TryCopySection";
+import { Header } from "@/components/Header";
+import { FeaturesGrid } from "@/components/FeaturesGrid";
+import { HowItWorks } from "@/components/HowItWorks";
+import { FAQAccordion } from "@/components/FAQAccordion";
+import { DemoBanner } from "@/components/DemoBanner";
+import { Footer } from "@/components/Footer";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
 import { getBioTranslator } from "@/lib/bio-translations";
 import type { ReactNode } from "react";
@@ -101,8 +105,6 @@ const TRUST_BADGES: TrustBadge[] = [
 const DEMO_START_BALANCE = 10000;
 
 const NAV_HASHES = ["how-it-works", "traders", "markets", "faq"] as const;
-
-const FOOTER_LEGAL_HREFS = ["/legal/terms", "/legal/privacy"] as const;
 
 export default async function Home() {
   const supabase = await createClient();
@@ -228,43 +230,12 @@ export default async function Home() {
   };
 
   const navLinks = NAV_HASHES.map((h) => ({ href: `#${h}`, label: t(`nav.${h === "how-it-works" ? "howItWorks" : h}`) }));
-  const steps = t.raw("howItWorks.steps") as { title: string; desc: string }[];
-  const faqs = t.raw("faq.items") as { q: string; a: string }[];
+  const dir = isRtlLocale(locale) ? "rtl" : "ltr";
 
   return (
     <main className="flex min-h-screen flex-col">
     <LiveStatsProvider initial={initialStats}>
-      <nav className="sticky top-0 z-[9999] border-b border-border bg-background">
-        <div className="mx-auto max-w-6xl px-2 py-3 sm:px-6 sm:py-4">
-          <div className="grid grid-cols-[auto_1fr_auto] items-center gap-0.5 sm:gap-3">
-            <Link
-              href="/signup"
-              className="min-w-0 whitespace-nowrap rounded bg-accent px-1 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover sm:px-4"
-            >
-              {t("nav.signup")}
-            </Link>
-
-            <span className="flex min-w-0 items-center justify-center overflow-hidden">
-              <Logo iconClassName="h-4 w-4 sm:h-5 sm:w-5" textClassName="text-base sm:text-xl" />
-            </span>
-
-            <div className="flex min-w-0 items-center gap-0.5 sm:gap-3">
-              <LanguageSwitcher currentLocale={locale} />
-              <Link href="/login" className="whitespace-nowrap rounded border border-border px-0.5 py-2 text-sm sm:px-4">
-                {t("nav.login")}
-              </Link>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-2 text-xs text-muted sm:gap-x-6 sm:pt-3 sm:text-sm">
-            {navLinks.map((l) => (
-              <a key={l.href} href={l.href} className="hover:text-foreground">
-                {l.label}
-              </a>
-            ))}
-          </div>
-        </div>
-      </nav>
+      <Header locale={locale} dir={dir} navLinks={navLinks} loginLabel={t("nav.login")} signupLabel={t("nav.signup")} />
 
       <section className="flex flex-col items-center gap-5 px-6 py-20 text-center">
         <h1 className="max-w-2xl text-4xl font-semibold leading-tight sm:text-5xl">{t("hero.title")}</h1>
@@ -338,60 +309,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="px-6 py-16">
-        <div className="mx-auto flex w-full max-w-5xl flex-col gap-8">
-          <h2 className="text-center text-2xl font-semibold sm:text-3xl">{t("valueCards.title")}</h2>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            {[
-              {
-                icon: (
-                  <>
-                    <circle cx="12" cy="12" r="10" />
-                    <line x1="8" y1="16" x2="16" y2="8" />
-                    <circle cx="8.5" cy="8.5" r="0.5" fill="currentColor" />
-                    <circle cx="15.5" cy="15.5" r="0.5" fill="currentColor" />
-                  </>
-                ),
-                headline: t("valueCards.card1Headline"),
-                subtitle: t("valueCards.card1Subtitle"),
-                desc: t("valueCards.card1Desc"),
-              },
-              {
-                icon: (
-                  <>
-                    <polygon points="12 2 2 7 12 12 22 7 12 2" />
-                    <polyline points="2 17 12 22 22 17" />
-                    <polyline points="2 12 12 17 22 12" />
-                  </>
-                ),
-                headline: t("valueCards.card2Headline"),
-                subtitle: t("valueCards.card2Subtitle"),
-                desc: t("valueCards.card2Desc"),
-              },
-              {
-                icon: STAT_ICONS.shield,
-                headline: t("valueCards.card3Headline"),
-                subtitle: t("valueCards.card3Subtitle"),
-                desc: t("valueCards.card3Desc"),
-              },
-            ].map((card, i) => (
-              <div
-                key={i}
-                className="flex flex-col gap-3 rounded-2xl border border-border bg-surface/40 p-6 backdrop-blur-sm transition hover:border-success/40"
-              >
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-success/10">
-                  <svg viewBox="0 0 24 24" className="h-5 w-5 text-success" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    {card.icon}
-                  </svg>
-                </span>
-                <p className="text-3xl font-bold text-success">{card.headline}</p>
-                <p className="font-medium">{card.subtitle}</p>
-                <p className="text-sm leading-relaxed text-muted">{card.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FeaturesGrid locale={locale} />
 
       {t.has("tryCopy.title") && tryCopyLeaders.length >= 3 && (
         <TryCopySection
@@ -528,27 +446,7 @@ export default async function Home() {
         <MarketNewsFeed />
       </section>
 
-      <section id="how-it-works" className="flex flex-col gap-10 px-6 py-16">
-        <div className="mx-auto flex max-w-xl flex-col items-center gap-2 text-center">
-          <span className="text-xs font-medium text-accent">{t("howItWorks.badge")}</span>
-          <h2 className="text-2xl font-semibold sm:text-3xl">{t("howItWorks.title")}</h2>
-          <p className="text-sm text-muted">{t("howItWorks.subtitle")}</p>
-        </div>
-        <div className="mx-auto grid w-full max-w-4xl grid-cols-2 gap-3 sm:gap-6">
-          {steps.map((s, i) => (
-            <div
-              key={s.title}
-              className="group flex flex-col gap-2 rounded-xl border border-border bg-surface p-3 transition hover:border-accent/40 hover:shadow-lg sm:gap-3 sm:p-6"
-            >
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-xs font-semibold text-accent-foreground sm:h-11 sm:w-11 sm:text-sm">
-                {i + 1}
-              </div>
-              <p className="text-sm font-medium sm:text-lg">{s.title}</p>
-              <p className="text-[11px] leading-relaxed text-muted sm:text-sm">{s.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <HowItWorks locale={locale} />
 
       <section className="px-6 py-12">
         <div className="mx-auto flex max-w-5xl flex-col gap-6">
@@ -660,46 +558,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="faq" className="flex flex-col gap-8 border-t border-border px-6 py-16">
-        <div className="mx-auto flex flex-col items-center gap-2 text-center">
-          <h2 className="text-2xl font-semibold sm:text-3xl">{t("faq.title")}</h2>
-          <p className="text-sm text-muted">{t("faq.subtitle")}</p>
-        </div>
-        <div className="mx-auto w-full max-w-3xl divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface shadow-sm">
-          {faqs.map((f) => (
-            <details key={f.q} className="group open:bg-background/40">
-              <summary className="flex cursor-pointer list-none items-start gap-4 px-5 py-5 marker:content-none sm:px-6 sm:py-6">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/10 text-sm font-bold text-accent">
-                  {isRtlLocale(locale) ? "؟" : "?"}
-                </span>
-                <span className="flex-1 pt-1.5 text-[15px] font-semibold leading-snug sm:text-base">
-                  {f.q}
-                </span>
-                <span className="mt-1.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border text-muted transition-all group-open:rotate-180 group-open:border-accent group-open:bg-accent/10 group-open:text-accent">
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M6 9l6 6 6-6" />
-                  </svg>
-                </span>
-              </summary>
-              <div className="flex gap-4 px-5 pb-6 sm:px-6">
-                <span className="h-9 w-9 shrink-0" aria-hidden="true" />
-                <p className="flex-1 border-t border-border/60 pt-4 text-base leading-8 text-foreground">
-                  {f.a}
-                </p>
-              </div>
-            </details>
-          ))}
-        </div>
-      </section>
+      <FAQAccordion locale={locale} />
 
       <section className="border-t border-border px-6 py-16">
         <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-4 rounded-2xl border border-border bg-surface px-6 py-14 text-center">
@@ -714,41 +573,9 @@ export default async function Home() {
         </div>
       </section>
 
-      <footer className="border-t border-border px-6 py-10">
-        <div className="mx-auto flex w-full max-w-5xl flex-col gap-8 sm:flex-row sm:justify-between">
-          <div className="flex flex-col gap-2">
-            <Logo iconClassName="h-5 w-5" textClassName="text-lg" />
-            <p className="max-w-xs text-sm text-muted">{t("footer.tagline")}</p>
-          </div>
+      <DemoBanner locale={locale} />
 
-          <div className="flex flex-wrap gap-10 text-sm">
-            <div className="flex flex-col gap-2">
-              <p className="text-xs text-muted">{t("footer.platform")}</p>
-              {navLinks.map((l) => (
-                <a key={l.href} href={l.href} className="text-muted hover:text-foreground">
-                  {l.label}
-                </a>
-              ))}
-            </div>
-            <div className="flex flex-col gap-2">
-              <p className="text-xs text-muted">{t("footer.legal")}</p>
-              <Link href={FOOTER_LEGAL_HREFS[0]} className="text-muted hover:text-foreground">
-                {t("footer.terms")}
-              </Link>
-              <Link href={FOOTER_LEGAL_HREFS[1]} className="text-muted hover:text-foreground">
-                {t("footer.privacy")}
-              </Link>
-              <Link href="/support" className="text-muted hover:text-foreground">
-                {t("footer.support")}
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        <p className="mx-auto mt-8 w-full max-w-5xl border-t border-border pt-6 text-center text-xs text-muted">
-          © {new Date().getFullYear()} Copy Matrix. {t("footer.rights")}
-        </p>
-      </footer>
+      <Footer locale={locale} dir={dir} navLinks={navLinks} />
     </LiveStatsProvider>
     </main>
   );

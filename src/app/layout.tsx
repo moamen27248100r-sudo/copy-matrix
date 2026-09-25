@@ -40,6 +40,23 @@ export default async function RootLayout({
   const messages = await getMessages();
   const dir = isRtlLocale(locale) ? "rtl" : "ltr";
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        name: "Copy Matrix",
+        applicationCategory: "FinanceApplication",
+        operatingSystem: "Web",
+      },
+      {
+        "@type": "FinancialProduct",
+        name: "Copy Matrix",
+        description: "Copy trading software platform across crypto, forex, gold and index markets.",
+      },
+    ],
+  };
+
   return (
     <html
       lang={locale}
@@ -47,6 +64,11 @@ export default async function RootLayout({
       className={`${plexSansArabic.variable} ${plexMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <NextIntlClientProvider messages={messages}>
           <ImpersonationBanner />
           {children}
