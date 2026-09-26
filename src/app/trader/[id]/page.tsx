@@ -232,7 +232,7 @@ export default async function TraderPage({
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6">
+      <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6 pb-28 sm:pb-6">
         {error && (
           <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
             {error}
@@ -284,100 +284,89 @@ export default async function TraderPage({
               </p>
             )}
           </div>
-          {!user &&
-            (isStopped ? (
-              <span className="shrink-0 cursor-not-allowed rounded-lg bg-border px-4 py-2 text-sm font-semibold text-muted">
-                {t("copyCta")}
-              </span>
-            ) : (
-              <Link
-                href={`/signup?next=${encodeURIComponent(`/trader/${id}#copy`)}`}
-                className="shrink-0 rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground shadow-md shadow-accent/20 transition hover:bg-accent-hover"
-              >
-                {t("copyCta")}
-              </Link>
-            ))}
         </div>
 
         {provider.bio && <p className="text-sm text-muted">{translateBio(provider.bio)}</p>}
 
-        {user && (
-        <div id="copy" className="flex flex-col gap-3 scroll-mt-20">
+        {/* The primary copy action -- amount input + "نسخ" button. Fixed
+            to the bottom of the viewport on phones so it's always
+            reachable while scrolling; a normal inline bar right here,
+            under the bio, from sm up. */}
+        <div
+          id="copy"
+          className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-700/70 bg-[#0b0f17]/95 p-3 backdrop-blur scroll-mt-20 sm:static sm:inset-auto sm:z-auto sm:border-0 sm:bg-transparent sm:p-0 sm:backdrop-blur-0"
+        >
           {isStopped ? (
-            <div className="flex flex-col gap-2 rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
-              <p>
-                {t("stoppedTradingNotice", { name: provider.display_name })}
+            <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-3 text-center text-sm text-danger">
+              {t("stoppedTradingNotice", { name: provider.display_name })}
+            </p>
+          ) : !user ? (
+            <div className="flex flex-col gap-1.5">
+              <Link
+                href={`/signup?next=${encodeURIComponent(`/trader/${id}#copy`)}`}
+                className="block rounded-lg bg-accent px-5 py-3 text-center text-base font-bold text-accent-foreground shadow-md shadow-accent/20 transition hover:bg-accent-hover"
+              >
+                {t("copyCta")}
+              </Link>
+              <p className="text-center text-xs text-muted">
+                {t("minCopyBadgeLabel")} <span dir="ltr">${Number(provider.min_copy_amount).toLocaleString("en-US")}</span>
               </p>
             </div>
           ) : isBlocked ? (
-            <div className="flex flex-col gap-2 rounded border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-warning">
-              <p>
-                {t.rich("blockedNotice", {
-                  otherName: otherProviderName ?? t("anotherTraderFallback"),
-                  name: provider.display_name,
-                  strong: (chunks) => <strong>{chunks}</strong>,
-                  link: (chunks) => (
-                    <Link href="/portfolio" className="underline">
-                      {chunks}
-                    </Link>
-                  ),
-                })}
-              </p>
-            </div>
-          ) : isFollowing ? (
-            <p className="flex items-center gap-2 text-sm">
-              <span className="h-2 w-2 shrink-0 rounded-full bg-success" aria-hidden="true" />
-              {t("currentlyCopyingAmount", {
-                amount: `$${Number(mySub?.allocated_amount ?? 0).toLocaleString("en-US")}`,
+            <p className="rounded-lg border border-warning/30 bg-warning/10 px-3 py-3 text-center text-sm text-warning">
+              {t.rich("blockedNotice", {
+                otherName: otherProviderName ?? t("anotherTraderFallback"),
+                name: provider.display_name,
+                strong: (chunks) => <strong>{chunks}</strong>,
+                link: (chunks) => (
+                  <Link href="/portfolio" className="underline">
+                    {chunks}
+                  </Link>
+                ),
               })}
             </p>
-          ) : (
-          <form action={followProvider} className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
-            <input type="hidden" name="providerId" value={id} />
-            <label className="text-sm text-muted">{t("copyAmountLabel")}</label>
-            <div className="flex overflow-hidden rounded-lg border border-border sm:w-fit">
-              <input
-                name="allocatedAmount"
-                type="number"
-                step="any"
-                min={0}
-                defaultValue={myProfile?.balance ?? provider.min_copy_amount}
-                required
-                className="w-full min-w-0 flex-1 bg-surface px-2 py-2 text-sm text-foreground focus:outline-none sm:w-24 sm:flex-none"
-              />
-              <button
-                type="submit"
-                className="shrink-0 bg-accent px-5 py-2 text-sm font-semibold text-accent-foreground transition hover:bg-accent-hover"
-              >
-                {t("copyCta")}
-              </button>
+          ) : isFollowing ? (
+            <div className="flex items-center justify-between gap-3">
+              <p className="flex min-w-0 items-center gap-2 text-sm">
+                <span className="h-2 w-2 shrink-0 rounded-full bg-success" aria-hidden="true" />
+                <span className="truncate">
+                  {t("currentlyCopyingAmount", {
+                    amount: `$${Number(mySub?.allocated_amount ?? 0).toLocaleString("en-US")}`,
+                  })}
+                </span>
+              </p>
+              <form action={unfollowProvider}>
+                <input type="hidden" name="providerId" value={id} />
+                <input type="hidden" name="returnTo" value={`/trader/${id}`} />
+                <button type="submit" className="shrink-0 rounded-lg border border-border px-4 py-2 text-sm">
+                  {t("stopCopyingCta")}
+                </button>
+              </form>
             </div>
-          </form>
-          )}
-          {isFollowing && (
-            <form action={unfollowProvider}>
-              <input type="hidden" name="providerId" value={id} />
-              <input type="hidden" name="returnTo" value={`/trader/${id}`} />
-              <button type="submit" className="rounded border border-border px-4 py-1.5 text-sm">
-                {t("stopCopyingCta")}
-              </button>
-            </form>
-          )}
-        </div>
-        )}
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <span className="rounded-full border border-slate-700/50 bg-slate-800/80 px-2.5 py-1 text-xs font-semibold text-foreground">
-            {t("minCopyBadgeLabel")} <span dir="ltr">${Number(provider.min_copy_amount).toLocaleString("en-US")}</span>
-          </span>
-          {user && (
-            <span className="text-xs text-muted">
-              {t("availableBalanceLabel")}{" "}
-              <span dir="ltr">
-                {myProfile?.balance != null
-                  ? `$${Number(myProfile.balance).toLocaleString("en-US", { maximumFractionDigits: 2 })}`
-                  : "—"}
-              </span>
-            </span>
+          ) : (
+            <div className="flex flex-col gap-1.5">
+              <form action={followProvider} className="flex items-center gap-2">
+                <input type="hidden" name="providerId" value={id} />
+                <input
+                  name="allocatedAmount"
+                  type="number"
+                  step="any"
+                  min={0}
+                  defaultValue={myProfile?.balance ?? provider.min_copy_amount}
+                  required
+                  className="w-0 min-w-0 flex-1 rounded-lg border border-border bg-surface px-3 py-3 text-sm text-foreground focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  className="shrink-0 rounded-lg bg-accent px-6 py-3 text-base font-bold text-accent-foreground shadow-md shadow-accent/20 transition hover:bg-accent-hover"
+                >
+                  {t("copyCta")}
+                </button>
+              </form>
+              <p className="text-center text-xs text-muted">
+                {t("minCopyBadgeLabel")} <span dir="ltr">${Number(provider.min_copy_amount).toLocaleString("en-US")}</span>
+              </p>
+            </div>
           )}
         </div>
 
