@@ -249,7 +249,7 @@ export default async function TraderPage({
           </p>
         )}
 
-      <div className="flex flex-col gap-6 rounded-2xl border border-slate-800/60 bg-[#0b1222] p-4 sm:p-5">
+      <div className="flex flex-col gap-6">
         <div className="flex items-center gap-4">
           <TraderAvatar providerId={id} name={provider.display_name} avatarUrl={provider.avatar_url} ratingScore={provider.rating_score} size={64} priority />
           <div className="min-w-0 flex-1">
