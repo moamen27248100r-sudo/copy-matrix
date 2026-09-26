@@ -495,7 +495,16 @@
     "tradeHistorySectionTitle": "ट्रेड इतिहास",
     "noClosedTrades": "अभी तक कोई बंद ट्रेड नहीं है।",
     "copyStartedSuccess": "आपने {amount} के साथ सफलतापूर्वक {name} को कॉपी करना शुरू कर दिया है।",
-    "anotherTraderFallback": "एक अन्य ट्रेडर"
+    "anotherTraderFallback": "एक अन्य ट्रेडर",
+    "riskStatusLow": "सुरक्षित जोखिम",
+    "riskStatusMedium": "मध्यम जोखिम",
+    "riskStatusHigh": "उच्च जोखिम",
+    "safetyStatusHigh": "उच्च सुरक्षा",
+    "safetyStatusMedium": "मध्यम सुरक्षा",
+    "safetyStatusLow": "कम सुरक्षा",
+    "reliabilityStatusHigh": "उत्कृष्ट विश्वसनीयता",
+    "reliabilityStatusMedium": "अच्छी विश्वसनीयता",
+    "reliabilityStatusLow": "कम विश्वसनीयता"
   },
   "Discover": {
     "title": "ट्रेडर खोजें",

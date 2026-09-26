@@ -495,7 +495,16 @@
     "tradeHistorySectionTitle": "Lịch sử giao dịch",
     "noClosedTrades": "Chưa có giao dịch nào đã đóng.",
     "copyStartedSuccess": "Bạn đã bắt đầu sao chép {name} thành công với {amount}.",
-    "anotherTraderFallback": "một nhà giao dịch khác"
+    "anotherTraderFallback": "một nhà giao dịch khác",
+    "riskStatusLow": "Rủi ro an toàn",
+    "riskStatusMedium": "Rủi ro trung bình",
+    "riskStatusHigh": "Rủi ro cao",
+    "safetyStatusHigh": "Độ an toàn cao",
+    "safetyStatusMedium": "Độ an toàn trung bình",
+    "safetyStatusLow": "Độ an toàn thấp",
+    "reliabilityStatusHigh": "Độ tin cậy xuất sắc",
+    "reliabilityStatusMedium": "Độ tin cậy tốt",
+    "reliabilityStatusLow": "Độ tin cậy thấp"
   },
   "Discover": {
     "title": "Khám phá nhà giao dịch",

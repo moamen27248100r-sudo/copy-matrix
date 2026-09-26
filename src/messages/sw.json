@@ -495,7 +495,16 @@
     "tradeHistorySectionTitle": "Historia ya biashara",
     "noClosedTrades": "Bado hakuna biashara zilizofungwa.",
     "copyStartedSuccess": "Umeanza kumnakili {name} kwa mafanikio kwa {amount}.",
-    "anotherTraderFallback": "mfanyabiashara mwingine"
+    "anotherTraderFallback": "mfanyabiashara mwingine",
+    "riskStatusLow": "Hatari salama",
+    "riskStatusMedium": "Hatari ya wastani",
+    "riskStatusHigh": "Hatari kubwa",
+    "safetyStatusHigh": "Usalama wa juu",
+    "safetyStatusMedium": "Usalama wa wastani",
+    "safetyStatusLow": "Usalama wa chini",
+    "reliabilityStatusHigh": "Kuaminika bora",
+    "reliabilityStatusMedium": "Kuaminika vizuri",
+    "reliabilityStatusLow": "Kuaminika chini"
   },
   "Discover": {
     "title": "Gundua wafanyabiashara",

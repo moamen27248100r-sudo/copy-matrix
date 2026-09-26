@@ -495,7 +495,16 @@
     "tradeHistorySectionTitle": "ประวัติการเทรด",
     "noClosedTrades": "ยังไม่มีออเดอร์ที่ปิด",
     "copyStartedSuccess": "คุณเริ่มคัดลอก {name} สำเร็จด้วย {amount}",
-    "anotherTraderFallback": "เทรดเดอร์อื่น"
+    "anotherTraderFallback": "เทรดเดอร์อื่น",
+    "riskStatusLow": "ความเสี่ยงปลอดภัย",
+    "riskStatusMedium": "ความเสี่ยงปานกลาง",
+    "riskStatusHigh": "ความเสี่ยงสูง",
+    "safetyStatusHigh": "ความปลอดภัยสูง",
+    "safetyStatusMedium": "ความปลอดภัยปานกลาง",
+    "safetyStatusLow": "ความปลอดภัยต่ำ",
+    "reliabilityStatusHigh": "ความน่าเชื่อถือยอดเยี่ยม",
+    "reliabilityStatusMedium": "ความน่าเชื่อถือดี",
+    "reliabilityStatusLow": "ความน่าเชื่อถือต่ำ"
   },
   "Discover": {
     "title": "ค้นหาเทรดเดอร์",

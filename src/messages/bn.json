@@ -495,7 +495,16 @@
     "tradeHistorySectionTitle": "ট্রেড ইতিহাস",
     "noClosedTrades": "এখনও কোনো বন্ধ ট্রেড নেই।",
     "copyStartedSuccess": "আপনি সফলভাবে {amount} দিয়ে {name} কে কপি করা শুরু করেছেন।",
-    "anotherTraderFallback": "অন্য একজন ট্রেডার"
+    "anotherTraderFallback": "অন্য একজন ট্রেডার",
+    "riskStatusLow": "নিরাপদ ঝুঁকি",
+    "riskStatusMedium": "মাঝারি ঝুঁকি",
+    "riskStatusHigh": "উচ্চ ঝুঁকি",
+    "safetyStatusHigh": "উচ্চ নিরাপত্তা",
+    "safetyStatusMedium": "মাঝারি নিরাপত্তা",
+    "safetyStatusLow": "কম নিরাপত্তা",
+    "reliabilityStatusHigh": "চমৎকার নির্ভরযোগ্যতা",
+    "reliabilityStatusMedium": "ভালো নির্ভরযোগ্যতা",
+    "reliabilityStatusLow": "কম নির্ভরযোগ্যতা"
   },
   "Discover": {
     "title": "ট্রেডার খুঁজুন",

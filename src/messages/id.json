@@ -495,7 +495,16 @@
     "tradeHistorySectionTitle": "Riwayat trade",
     "noClosedTrades": "Belum ada trade tertutup.",
     "copyStartedSuccess": "Anda berhasil mulai menyalin {name} dengan {amount}.",
-    "anotherTraderFallback": "trader lain"
+    "anotherTraderFallback": "trader lain",
+    "riskStatusLow": "Risiko aman",
+    "riskStatusMedium": "Risiko sedang",
+    "riskStatusHigh": "Risiko tinggi",
+    "safetyStatusHigh": "Keamanan tinggi",
+    "safetyStatusMedium": "Keamanan sedang",
+    "safetyStatusLow": "Keamanan rendah",
+    "reliabilityStatusHigh": "Keandalan sangat baik",
+    "reliabilityStatusMedium": "Keandalan baik",
+    "reliabilityStatusLow": "Keandalan rendah"
   },
   "Discover": {
     "title": "Temukan trader",

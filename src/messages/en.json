@@ -495,7 +495,16 @@
     "tradeHistorySectionTitle": "Trade history",
     "noClosedTrades": "No closed trades yet.",
     "copyStartedSuccess": "You started copying {name} successfully with {amount}.",
-    "anotherTraderFallback": "another trader"
+    "anotherTraderFallback": "another trader",
+    "riskStatusLow": "Safe risk",
+    "riskStatusMedium": "Moderate risk",
+    "riskStatusHigh": "High risk",
+    "safetyStatusHigh": "High safety",
+    "safetyStatusMedium": "Moderate safety",
+    "safetyStatusLow": "Low safety",
+    "reliabilityStatusHigh": "Excellent reliability",
+    "reliabilityStatusMedium": "Good reliability",
+    "reliabilityStatusLow": "Low reliability"
   },
   "Discover": {
     "title": "Discover traders",

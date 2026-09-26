@@ -495,7 +495,16 @@
     "tradeHistorySectionTitle": "交易记录",
     "noClosedTrades": "暂无已平仓交易。",
     "copyStartedSuccess": "您已成功以 {amount} 开始跟单 {name}。",
-    "anotherTraderFallback": "另一位交易员"
+    "anotherTraderFallback": "另一位交易员",
+    "riskStatusLow": "风险较低",
+    "riskStatusMedium": "风险适中",
+    "riskStatusHigh": "风险较高",
+    "safetyStatusHigh": "安全性高",
+    "safetyStatusMedium": "安全性中等",
+    "safetyStatusLow": "安全性低",
+    "reliabilityStatusHigh": "可靠性极佳",
+    "reliabilityStatusMedium": "可靠性良好",
+    "reliabilityStatusLow": "可靠性较低"
   },
   "Discover": {
     "title": "发现交易员",

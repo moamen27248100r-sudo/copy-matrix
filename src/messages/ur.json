@@ -495,7 +495,16 @@
     "tradeHistorySectionTitle": "ٹریڈ ہسٹری",
     "noClosedTrades": "ابھی تک کوئی بند ٹریڈ نہیں۔",
     "copyStartedSuccess": "آپ نے {amount} کے ساتھ کامیابی سے {name} کو کاپی کرنا شروع کر دیا۔",
-    "anotherTraderFallback": "ایک اور ٹریڈر"
+    "anotherTraderFallback": "ایک اور ٹریڈر",
+    "riskStatusLow": "محفوظ خطرہ",
+    "riskStatusMedium": "درمیانہ خطرہ",
+    "riskStatusHigh": "زیادہ خطرہ",
+    "safetyStatusHigh": "اعلیٰ حفاظت",
+    "safetyStatusMedium": "درمیانی حفاظت",
+    "safetyStatusLow": "کم حفاظت",
+    "reliabilityStatusHigh": "بہترین اعتماد",
+    "reliabilityStatusMedium": "اچھا اعتماد",
+    "reliabilityStatusLow": "کم اعتماد"
   },
   "Discover": {
     "title": "ٹریڈرز دریافت کریں",

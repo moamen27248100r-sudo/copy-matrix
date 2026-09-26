@@ -495,7 +495,16 @@
     "tradeHistorySectionTitle": "Histórico de operações",
     "noClosedTrades": "Ainda não há operações fechadas.",
     "copyStartedSuccess": "Você começou a copiar {name} com sucesso com {amount}.",
-    "anotherTraderFallback": "outro trader"
+    "anotherTraderFallback": "outro trader",
+    "riskStatusLow": "Risco seguro",
+    "riskStatusMedium": "Risco moderado",
+    "riskStatusHigh": "Risco alto",
+    "safetyStatusHigh": "Segurança alta",
+    "safetyStatusMedium": "Segurança moderada",
+    "safetyStatusLow": "Segurança baixa",
+    "reliabilityStatusHigh": "Confiabilidade excelente",
+    "reliabilityStatusMedium": "Boa confiabilidade",
+    "reliabilityStatusLow": "Confiabilidade baixa"
   },
   "Discover": {
     "title": "Descobrir traders",

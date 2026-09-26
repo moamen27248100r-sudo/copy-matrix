@@ -507,7 +507,16 @@
     "tradeHistorySectionTitle": "سجل الصفقات",
     "noClosedTrades": "لا توجد صفقات مغلقة حتى الآن.",
     "copyStartedSuccess": "بدأت نسخ {name} بنجاح بمبلغ {amount}.",
-    "anotherTraderFallback": "متداول آخر"
+    "anotherTraderFallback": "متداول آخر",
+    "riskStatusLow": "مخاطرة آمنة",
+    "riskStatusMedium": "مخاطرة متوسطة",
+    "riskStatusHigh": "مخاطرة مرتفعة",
+    "safetyStatusHigh": "أمان مرتفع",
+    "safetyStatusMedium": "أمان متوسط",
+    "safetyStatusLow": "أمان منخفض",
+    "reliabilityStatusHigh": "موثوقية ممتازة",
+    "reliabilityStatusMedium": "موثوقية جيدة",
+    "reliabilityStatusLow": "موثوقية منخفضة"
   },
   "Discover": {
     "title": "اكتشاف المتداولين",

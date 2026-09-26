@@ -7,7 +7,7 @@ import { AppNav } from "@/components/AppNav";
 import { TierBadge, RiskBadge } from "@/components/TraderBadges";
 import { TraderEquityChart } from "@/components/TraderEquityChart";
 import { TradeHistory } from "@/components/TradeHistory";
-import { CircularGauge } from "@/components/CircularGauge";
+import { CircularGauge, getGaugeTier } from "@/components/CircularGauge";
 import { AssetAllocationBar } from "@/components/AssetAllocationBar";
 import { OpenOrdersTable } from "@/components/OpenOrdersTable";
 import { RecentCopiersList } from "@/components/RecentCopiersList";
@@ -196,6 +196,15 @@ export default async function TraderPage({
   const safetyScore = Math.max(0, Math.min(100, Math.round(100 - Number(provider.return_volatility ?? 2) * 15)));
   const riskExposureScore =
     maxDrawdown != null ? Math.max(0, Math.min(100, Math.round(maxDrawdown * 8))) : 20;
+
+  const STATUS_KEYS = {
+    reliability: { low: "reliabilityStatusLow", medium: "reliabilityStatusMedium", high: "reliabilityStatusHigh" },
+    safety: { low: "safetyStatusLow", medium: "safetyStatusMedium", high: "safetyStatusHigh" },
+    risk: { low: "riskStatusLow", medium: "riskStatusMedium", high: "riskStatusHigh" },
+  } as const;
+  const reliabilityStatus = t(STATUS_KEYS.reliability[getGaugeTier(reliabilityScore, "reliability")]);
+  const safetyStatus = t(STATUS_KEYS.safety[getGaugeTier(safetyScore, "safety")]);
+  const riskStatus = t(STATUS_KEYS.risk[getGaugeTier(riskExposureScore, "risk")]);
 
   const daysAsMember = Math.max(
     0,
@@ -449,9 +458,9 @@ export default async function TraderPage({
       <section className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-4">
         <h2 className="font-medium">{t("reliabilitySectionTitle")}</h2>
         <div className="grid grid-cols-3 gap-3">
-          <CircularGauge value={reliabilityScore} label={t("gaugeReliability")} />
-          <CircularGauge value={safetyScore} label={t("gaugeSafety")} />
-          <CircularGauge value={riskExposureScore} label={t("gaugeRiskExposure")} invert />
+          <CircularGauge value={reliabilityScore} label={t("gaugeReliability")} statusText={reliabilityStatus} variant="reliability" />
+          <CircularGauge value={safetyScore} label={t("gaugeSafety")} statusText={safetyStatus} variant="safety" />
+          <CircularGauge value={riskExposureScore} label={t("gaugeRiskExposure")} statusText={riskStatus} variant="risk" />
         </div>
         <div className="flex flex-wrap gap-2 border-t border-border pt-4">
           <div className="flex flex-1 items-center gap-2 rounded-lg border border-border bg-background px-3 py-2">
@@ -465,9 +474,9 @@ export default async function TraderPage({
             </div>
           </div>
           <div className="flex flex-1 items-center gap-2 rounded-lg border border-border bg-background px-3 py-2">
-            <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-success" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M9 12l2 2 4-4" />
-              <circle cx="12" cy="12" r="9" />
+            <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-accent" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="18" rx="2" />
+              <path d="M16 2v4M8 2v4M3 10h18" />
             </svg>
             <div>
               <p className="text-sm font-semibold">{daysAsMember}</p>
