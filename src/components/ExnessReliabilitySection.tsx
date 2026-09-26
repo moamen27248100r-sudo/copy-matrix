@@ -17,10 +17,10 @@ type SignalRow = {
 
 type ColorTier = "bad" | "medium" | "good";
 
-const TIER_COLOR: Record<ColorTier, { text: string; stroke: string; border: string }> = {
-  bad: { text: "text-rose-500", stroke: "stroke-rose-500", border: "border-rose-500/30" },
-  medium: { text: "text-amber-400", stroke: "stroke-amber-500", border: "border-amber-500/30" },
-  good: { text: "text-emerald-400", stroke: "stroke-emerald-500", border: "border-emerald-500/30" },
+const TIER_COLOR: Record<ColorTier, { text: string; stroke: string }> = {
+  bad: { text: "text-rose-500", stroke: "stroke-rose-500" },
+  medium: { text: "text-amber-400", stroke: "stroke-amber-500" },
+  good: { text: "text-emerald-400", stroke: "stroke-emerald-500" },
 };
 
 // Risk reads inverted -- a low score is the good outcome -- so its color
@@ -50,22 +50,10 @@ function CheckCircleIcon({ className }: { className?: string }) {
   );
 }
 
-// A clean, unfilled SVG ring -- no icon, no colored background card, just
-// a thin track + a thin colored progress arc, with the plain percentage
-// number set directly inside it in bright white/tier-colored text.
-function Ring({
-  value,
-  size,
-  strokeWidth,
-  tier,
-  showFraction,
-}: {
-  value: number;
-  size: number;
-  strokeWidth: number;
-  tier: ColorTier;
-  showFraction?: boolean;
-}) {
+// A minimalist, unfilled SVG ring -- a hairline track + hairline colored
+// progress arc, nothing else (no icon, no fill card behind it).
+function Ring({ value, size, tier }: { value: number; size: number; tier: ColorTier }) {
+  const strokeWidth = 2;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
   const clamped = Math.max(0, Math.min(100, Math.round(value)));
@@ -73,63 +61,103 @@ function Ring({
   const colors = TIER_COLOR[tier];
 
   return (
-    <div className="relative shrink-0" style={{ width: size, height: size }}>
-      <svg width={size} height={size} className="-rotate-90">
-        <circle cx={size / 2} cy={size / 2} r={radius} stroke="var(--border)" strokeOpacity={0.4} strokeWidth={strokeWidth} fill="none" />
-        <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          className={colors.stroke}
-          strokeWidth={strokeWidth}
-          fill="none"
-          strokeLinecap="round"
-          strokeDasharray={circumference}
-          strokeDashoffset={offset}
-        />
-      </svg>
-      {showFraction && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center leading-none" dir="ltr">
-          <span className="text-[13px] font-bold text-white">{clamped}</span>
-        </div>
-      )}
-    </div>
+    <svg width={size} height={size} className="-rotate-90 shrink-0">
+      <circle cx={size / 2} cy={size / 2} r={radius} stroke="var(--border)" strokeOpacity={0.4} strokeWidth={strokeWidth} fill="none" />
+      <circle
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        className={colors.stroke}
+        strokeWidth={strokeWidth}
+        fill="none"
+        strokeLinecap="round"
+        strokeDasharray={circumference}
+        strokeDashoffset={offset}
+      />
+    </svg>
   );
 }
 
-// A single hairline stem down to a hairline horizontal bar connecting two
-// children -- the thin right-angle "tree" connector, kept compact so the
-// whole tree reads as one tight cluster instead of a tall spread.
-function TreeConnector() {
+const ROW_H = 40;
+const ROW_GAP = 14;
+
+// A single hairline vertical spine with a short horizontal tick into each
+// of the 3 stacked rows -- exactly Exness's shape: one continuous line
+// touching every node in the column, not a branching tree with a fork.
+function Spine({ rows }: { rows: number }) {
+  const total = rows * ROW_H + (rows - 1) * ROW_GAP;
   return (
-    <div className="relative h-5 w-full">
-      <div className="absolute start-1/2 top-0 h-2.5 w-px -translate-x-1/2 rtl:translate-x-1/2 bg-slate-700/60" />
-      <div className="absolute start-1/4 top-2.5 end-1/4 h-px bg-slate-700/60" />
-      <div className="absolute start-1/4 top-2.5 h-2.5 w-px bg-slate-700/60" />
-      <div className="absolute end-1/4 top-2.5 h-2.5 w-px bg-slate-700/60" />
+    <div className="relative w-4 shrink-0" style={{ height: total }}>
+      <div className="absolute inset-y-0 end-0 w-px bg-slate-700/50" />
+      {Array.from({ length: rows }).map((_, i) => {
+        const centerY = i * (ROW_H + ROW_GAP) + ROW_H / 2;
+        return <div key={i} className="absolute end-0 h-px w-4 bg-slate-700/50" style={{ top: centerY }} />;
+      })}
     </div>
   );
 }
 
-function SubRingNode({ value, label, inverted }: { value: number; label: string; inverted?: boolean }) {
+function Row({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex items-center gap-2.5" style={{ height: ROW_H }}>
+      {children}
+    </div>
+  );
+}
+
+function MainRing({ value, status, tier, size }: { value: number; status: string; tier: ColorTier; size: number }) {
+  const colors = TIER_COLOR[tier];
+  return (
+    <Row>
+      <Ring value={value} size={size} tier={tier} />
+      <div className="flex flex-col items-start leading-tight">
+        <span className={`text-[11px] font-semibold ${colors.text}`}>{status}</span>
+        <span className={`text-base font-extrabold ${colors.text}`} dir="ltr">
+          {Math.max(0, Math.min(100, Math.round(value)))}/100
+        </span>
+      </div>
+    </Row>
+  );
+}
+
+function SubRing({ value, label, inverted }: { value: number; label: string; inverted?: boolean }) {
   const tier = colorTierFor(value, !!inverted);
+  const colors = TIER_COLOR[tier];
   return (
-    <div className="flex flex-1 flex-col items-center gap-1.5">
-      <Ring value={value} size={48} strokeWidth={3} tier={tier} showFraction />
-      <p className="text-center text-[11px] leading-tight text-slate-400">{label}</p>
-    </div>
+    <Row>
+      <Ring value={value} size={32} tier={tier} />
+      <div className="flex flex-col items-start leading-tight">
+        <span className="text-[11px] text-slate-400">{label}</span>
+        <span className={`text-sm font-bold ${colors.text}`} dir="ltr">
+          {Math.max(0, Math.min(100, Math.round(value)))}/100
+        </span>
+      </div>
+    </Row>
   );
 }
 
-function SubNumberNode({ value, label }: { value: number; label: string }) {
+function MainBadge({ label }: { label: string }) {
   return (
-    <div className="flex flex-1 flex-col items-center gap-1.5">
-      <span className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-700 text-emerald-400">
+    <Row>
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-700 text-emerald-400">
+        <BoltIcon className="h-4 w-4" />
+      </span>
+      <span className="text-sm font-bold text-white">{label}</span>
+    </Row>
+  );
+}
+
+function SubNumber({ value, label }: { value: number; label: string }) {
+  return (
+    <Row>
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-700 text-emerald-400">
         <CheckCircleIcon className="h-4 w-4" />
       </span>
-      <p className="text-sm font-bold text-white" dir="ltr">{value}</p>
-      <p className="text-center text-[11px] leading-tight text-slate-400">{label}</p>
-    </div>
+      <div className="flex flex-col items-start leading-tight">
+        <span className="text-[11px] text-slate-400">{label}</span>
+        <span className="text-sm font-bold text-white" dir="ltr">{value}</span>
+      </div>
+    </Row>
   );
 }
 
@@ -137,9 +165,7 @@ export function ExnessReliabilitySection({
   reliabilityScore,
   reliabilityStatus,
   safetyScore,
-  safetyStatus,
   riskExposureScore,
-  riskStatus,
   limitScore,
   activeTradingDays,
   signals,
@@ -147,52 +173,36 @@ export function ExnessReliabilitySection({
   reliabilityScore: number;
   reliabilityStatus: string;
   safetyScore: number;
-  safetyStatus: string;
   riskExposureScore: number;
-  riskStatus: string;
   limitScore: number;
   activeTradingDays: number;
   signals: SignalRow[];
 }) {
   const t = useTranslations("TraderProfile");
   const mainTier = colorTierFor(reliabilityScore, false);
-  const mainColors = TIER_COLOR[mainTier];
 
   return (
     <section className="flex flex-col gap-5 rounded-2xl border border-slate-800 bg-[#0b1222] p-4 sm:p-5">
       <h2 className="font-display text-base font-extrabold">{t("reliabilitySectionTitle")}</h2>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
         {/* First in DOM = right column under RTL: the main reliability node. */}
-        <div className="flex flex-col items-center">
-          <div className="flex w-full items-center justify-center gap-3">
-            <Ring value={reliabilityScore} size={64} strokeWidth={4} tier={mainTier} />
-            <div className="flex flex-col items-start gap-0.5">
-              <span className={`w-fit rounded-full border px-2 py-0.5 text-[10px] font-semibold ${mainColors.border} ${mainColors.text}`}>
-                {reliabilityStatus}
-              </span>
-              <p className={`text-xl font-extrabold ${mainColors.text}`} dir="ltr">
-                {Math.max(0, Math.min(100, Math.round(reliabilityScore)))}/100
-              </p>
-            </div>
-          </div>
-          <TreeConnector />
-          <div className="flex w-full items-start justify-center gap-6">
-            <SubRingNode value={safetyScore} label={t("gaugeSafety")} />
-            <SubRingNode value={riskExposureScore} label={t("gaugeRiskExposure")} inverted />
+        <div className="flex items-start gap-0">
+          <Spine rows={3} />
+          <div className="flex flex-col" style={{ gap: ROW_GAP }}>
+            <MainRing value={reliabilityScore} status={reliabilityStatus} tier={mainTier} size={40} />
+            <SubRing value={safetyScore} label={t("gaugeSafety")} />
+            <SubRing value={riskExposureScore} label={t("gaugeRiskExposure")} inverted />
           </div>
         </div>
 
         {/* Second in DOM = left column under RTL: trading-activity node. */}
-        <div className="flex flex-col items-center">
-          <span className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-700 text-emerald-400">
-            <BoltIcon className="h-4 w-4" />
-          </span>
-          <p className="mt-1 text-[11px] font-semibold text-slate-400">{t("importantBadgeLabel")}</p>
-          <TreeConnector />
-          <div className="flex w-full items-start justify-center gap-6">
-            <SubNumberNode value={limitScore} label={t("gaugeLimitScore")} />
-            <SubNumberNode value={activeTradingDays} label={t("gaugeTradingDays")} />
+        <div className="flex items-start gap-0">
+          <Spine rows={3} />
+          <div className="flex flex-col" style={{ gap: ROW_GAP }}>
+            <MainBadge label={t("importantBadgeLabel")} />
+            <SubNumber value={limitScore} label={t("gaugeLimitScore")} />
+            <SubNumber value={activeTradingDays} label={t("gaugeTradingDays")} />
           </div>
         </div>
       </div>

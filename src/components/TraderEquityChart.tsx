@@ -85,7 +85,6 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
   const zeroY = yFor(0);
   const last = values[values.length - 1] ?? 0;
   const color = "var(--brand)";
-  const areaPoints = hasData ? `0,${height} ${coords} ${width},${height}` : "";
   const hovered = hoverIdx != null ? points[hoverIdx] : null;
 
   const handlePointer = (clientX: number, svgEl: SVGSVGElement) => {
@@ -115,7 +114,7 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
         ))}
       </div>
 
-      <div className="rounded-lg border border-border bg-background p-3">
+      <div className="rounded-lg border border-border/50 p-3">
           <svg
             viewBox={`0 0 ${width} ${height}`}
             className="h-44 w-full touch-none"
@@ -127,12 +126,6 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
             }}
             onTouchEnd={() => setHoverIdx(null)}
           >
-            <defs>
-              <linearGradient id="equity-fill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor={color} stopOpacity="0.25" />
-                <stop offset="100%" stopColor={color} stopOpacity="0" />
-              </linearGradient>
-            </defs>
             {[0.25, 0.5, 0.75].map((f) => (
               <line
                 key={f}
@@ -145,11 +138,10 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
               />
             ))}
             <line x1={0} y1={zeroY} x2={width} y2={zeroY} stroke="var(--border)" strokeDasharray="4" />
-            <polygon points={areaPoints} fill="url(#equity-fill)" />
             <polyline
               fill="none"
               stroke={color}
-              strokeWidth={2}
+              strokeWidth={1.5}
               strokeLinecap="round"
               strokeLinejoin="round"
               points={coords}

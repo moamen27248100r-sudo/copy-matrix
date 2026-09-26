@@ -207,12 +207,8 @@ export default async function TraderPage({
 
   const STATUS_KEYS = {
     reliability: { low: "reliabilityStatusLow", medium: "reliabilityStatusMedium", high: "reliabilityStatusHigh" },
-    safety: { low: "safetyStatusLow", medium: "safetyStatusMedium", high: "safetyStatusHigh" },
-    risk: { low: "riskStatusLow", medium: "riskStatusMedium", high: "riskStatusHigh" },
   } as const;
   const reliabilityStatus = t(STATUS_KEYS.reliability[getGaugeTier(reliabilityScore, "reliability")]);
-  const safetyStatus = t(STATUS_KEYS.safety[getGaugeTier(safetyScore, "safety")]);
-  const riskStatus = t(STATUS_KEYS.risk[getGaugeTier(riskExposureScore, "risk")]);
 
   let otherProviderName: string | null = null;
   if (otherSub) {
@@ -440,9 +436,7 @@ export default async function TraderPage({
         reliabilityScore={reliabilityScore}
         reliabilityStatus={reliabilityStatus}
         safetyScore={safetyScore}
-        safetyStatus={safetyStatus}
         riskExposureScore={riskExposureScore}
-        riskStatus={riskStatus}
         limitScore={limitScore}
         activeTradingDays={activeTradingDays}
         signals={allSignals}
