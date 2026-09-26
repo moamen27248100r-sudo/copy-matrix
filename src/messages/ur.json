@@ -504,7 +504,11 @@
     "safetyStatusLow": "کم حفاظت",
     "reliabilityStatusHigh": "بہترین اعتماد",
     "reliabilityStatusMedium": "اچھا اعتماد",
-    "reliabilityStatusLow": "کم اعتماد"
+    "reliabilityStatusLow": "کم اعتماد",
+    "gaugeLimitScore": "حد اسکور",
+    "gaugeTradingDays": "فعال ٹریڈنگ دن",
+    "importantBadgeLabel": "اہم",
+    "reliabilityHistoryTitle": "ٹریڈنگ اعتباریت کی تاریخ"
   },
   "Discover": {
     "title": "ٹریڈرز دریافت کریں",

@@ -504,7 +504,11 @@
     "safetyStatusLow": "कम सुरक्षा",
     "reliabilityStatusHigh": "उत्कृष्ट विश्वसनीयता",
     "reliabilityStatusMedium": "अच्छी विश्वसनीयता",
-    "reliabilityStatusLow": "कम विश्वसनीयता"
+    "reliabilityStatusLow": "कम विश्वसनीयता",
+    "gaugeLimitScore": "लिमिट स्कोर",
+    "gaugeTradingDays": "सक्रिय ट्रेडिंग दिन",
+    "importantBadgeLabel": "महत्वपूर्ण",
+    "reliabilityHistoryTitle": "ट्रेडिंग विश्वसनीयता इतिहास"
   },
   "Discover": {
     "title": "ट्रेडर खोजें",

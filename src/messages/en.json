@@ -504,7 +504,11 @@
     "safetyStatusLow": "Low safety",
     "reliabilityStatusHigh": "Excellent reliability",
     "reliabilityStatusMedium": "Good reliability",
-    "reliabilityStatusLow": "Low reliability"
+    "reliabilityStatusLow": "Low reliability",
+    "gaugeLimitScore": "Limit Score",
+    "gaugeTradingDays": "Active Trading Days",
+    "importantBadgeLabel": "Important",
+    "reliabilityHistoryTitle": "Trading Reliability History"
   },
   "Discover": {
     "title": "Discover traders",

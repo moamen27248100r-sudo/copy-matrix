@@ -504,7 +504,11 @@
     "safetyStatusLow": "ความปลอดภัยต่ำ",
     "reliabilityStatusHigh": "ความน่าเชื่อถือยอดเยี่ยม",
     "reliabilityStatusMedium": "ความน่าเชื่อถือดี",
-    "reliabilityStatusLow": "ความน่าเชื่อถือต่ำ"
+    "reliabilityStatusLow": "ความน่าเชื่อถือต่ำ",
+    "gaugeLimitScore": "คะแนนขีดจำกัด",
+    "gaugeTradingDays": "วันเทรดที่มีการใช้งาน",
+    "importantBadgeLabel": "สำคัญ",
+    "reliabilityHistoryTitle": "ประวัติความน่าเชื่อถือในการเทรด"
   },
   "Discover": {
     "title": "ค้นหาเทรดเดอร์",

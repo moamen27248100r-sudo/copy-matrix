@@ -504,7 +504,11 @@
     "safetyStatusLow": "安全性低",
     "reliabilityStatusHigh": "可靠性极佳",
     "reliabilityStatusMedium": "可靠性良好",
-    "reliabilityStatusLow": "可靠性较低"
+    "reliabilityStatusLow": "可靠性较低",
+    "gaugeLimitScore": "限额评分",
+    "gaugeTradingDays": "活跃交易天数",
+    "importantBadgeLabel": "重要",
+    "reliabilityHistoryTitle": "交易可靠性历史"
   },
   "Discover": {
     "title": "发现交易员",

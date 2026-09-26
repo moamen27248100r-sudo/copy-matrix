@@ -504,7 +504,11 @@
     "safetyStatusLow": "কম নিরাপত্তা",
     "reliabilityStatusHigh": "চমৎকার নির্ভরযোগ্যতা",
     "reliabilityStatusMedium": "ভালো নির্ভরযোগ্যতা",
-    "reliabilityStatusLow": "কম নির্ভরযোগ্যতা"
+    "reliabilityStatusLow": "কম নির্ভরযোগ্যতা",
+    "gaugeLimitScore": "লিমিট স্কোর",
+    "gaugeTradingDays": "সক্রিয় ট্রেডিং দিন",
+    "importantBadgeLabel": "গুরুত্বপূর্ণ",
+    "reliabilityHistoryTitle": "ট্রেডিং নির্ভরযোগ্যতার ইতিহাস"
   },
   "Discover": {
     "title": "ট্রেডার খুঁজুন",

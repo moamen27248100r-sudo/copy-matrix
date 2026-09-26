@@ -504,7 +504,11 @@
     "safetyStatusLow": "Usalama wa chini",
     "reliabilityStatusHigh": "Kuaminika bora",
     "reliabilityStatusMedium": "Kuaminika vizuri",
-    "reliabilityStatusLow": "Kuaminika chini"
+    "reliabilityStatusLow": "Kuaminika chini",
+    "gaugeLimitScore": "Alama ya Kikomo",
+    "gaugeTradingDays": "Siku za Biashara Zilizo Hai",
+    "importantBadgeLabel": "Muhimu",
+    "reliabilityHistoryTitle": "Historia ya Kuaminika kwa Biashara"
   },
   "Discover": {
     "title": "Gundua wafanyabiashara",

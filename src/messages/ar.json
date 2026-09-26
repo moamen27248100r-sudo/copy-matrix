@@ -516,7 +516,11 @@
     "safetyStatusLow": "أمان منخفض",
     "reliabilityStatusHigh": "موثوقية ممتازة",
     "reliabilityStatusMedium": "موثوقية جيدة",
-    "reliabilityStatusLow": "موثوقية منخفضة"
+    "reliabilityStatusLow": "موثوقية منخفضة",
+    "gaugeLimitScore": "درجة الحد",
+    "gaugeTradingDays": "أيام التداول الفعلية",
+    "importantBadgeLabel": "مهم",
+    "reliabilityHistoryTitle": "سجل موثوقية التداول"
   },
   "Discover": {
     "title": "اكتشاف المتداولين",

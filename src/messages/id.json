@@ -504,7 +504,11 @@
     "safetyStatusLow": "Keamanan rendah",
     "reliabilityStatusHigh": "Keandalan sangat baik",
     "reliabilityStatusMedium": "Keandalan baik",
-    "reliabilityStatusLow": "Keandalan rendah"
+    "reliabilityStatusLow": "Keandalan rendah",
+    "gaugeLimitScore": "Skor Batas",
+    "gaugeTradingDays": "Hari Trading Aktif",
+    "importantBadgeLabel": "Penting",
+    "reliabilityHistoryTitle": "Riwayat Keandalan Trading"
   },
   "Discover": {
     "title": "Temukan trader",

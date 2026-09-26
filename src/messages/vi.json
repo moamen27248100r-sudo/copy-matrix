@@ -504,7 +504,11 @@
     "safetyStatusLow": "Độ an toàn thấp",
     "reliabilityStatusHigh": "Độ tin cậy xuất sắc",
     "reliabilityStatusMedium": "Độ tin cậy tốt",
-    "reliabilityStatusLow": "Độ tin cậy thấp"
+    "reliabilityStatusLow": "Độ tin cậy thấp",
+    "gaugeLimitScore": "Điểm giới hạn",
+    "gaugeTradingDays": "Số ngày giao dịch hoạt động",
+    "importantBadgeLabel": "Quan trọng",
+    "reliabilityHistoryTitle": "Lịch sử độ tin cậy giao dịch"
   },
   "Discover": {
     "title": "Khám phá nhà giao dịch",

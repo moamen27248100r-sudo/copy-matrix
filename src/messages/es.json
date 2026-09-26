@@ -504,7 +504,11 @@
     "safetyStatusLow": "Seguridad baja",
     "reliabilityStatusHigh": "Fiabilidad excelente",
     "reliabilityStatusMedium": "Buena fiabilidad",
-    "reliabilityStatusLow": "Fiabilidad baja"
+    "reliabilityStatusLow": "Fiabilidad baja",
+    "gaugeLimitScore": "Puntuación de límite",
+    "gaugeTradingDays": "Días de trading activos",
+    "importantBadgeLabel": "Importante",
+    "reliabilityHistoryTitle": "Historial de fiabilidad de trading"
   },
   "Discover": {
     "title": "Descubrir traders",
