@@ -5,7 +5,6 @@ import { createClient } from "@/lib/supabase/server";
 import { followProvider, unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
 import { TierBadge, RiskBadge } from "@/components/TraderBadges";
-import { TraderEquityChart } from "@/components/TraderEquityChart";
 import { TradeHistory } from "@/components/TradeHistory";
 import { getGaugeTier } from "@/components/CircularGauge";
 import { ExnessReliabilitySection } from "@/components/ExnessReliabilitySection";
@@ -446,13 +445,8 @@ export default async function TraderPage({
         riskStatus={riskStatus}
         limitScore={limitScore}
         activeTradingDays={activeTradingDays}
-        history={reliabilityTimeline}
+        signals={allSignals}
       />
-
-      <section className="flex flex-col gap-2">
-        <h2 className="font-medium">{t("equityChartTitle")}</h2>
-        <TraderEquityChart signals={allSignals} />
-      </section>
 
       <section className="flex flex-col gap-3">
         <h2 className="font-medium">{t("periodsPerformanceTitle")}</h2>
