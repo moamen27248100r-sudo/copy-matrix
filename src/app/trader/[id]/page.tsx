@@ -249,12 +249,22 @@ export default async function TraderPage({
           </p>
         )}
 
-      <div className="flex flex-col gap-4 rounded-2xl border border-slate-800/60 bg-[#0b1222] p-4 sm:p-5">
+      <div className="flex flex-col gap-6 rounded-2xl border border-slate-800/60 bg-[#0b1222] p-4 sm:p-5">
         <div className="flex items-center gap-4">
           <TraderAvatar providerId={id} name={provider.display_name} avatarUrl={provider.avatar_url} ratingScore={provider.rating_score} size={64} priority />
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
               <h1 className="text-xl font-semibold">{provider.display_name}</h1>
+              {countryDisplay(provider.country) && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={`https://flagcdn.com/20x15/${provider.country!.toLowerCase()}.png`}
+                  alt={tc(provider.country as never)}
+                  width={20}
+                  height={15}
+                  className="inline-block rounded-[2px]"
+                />
+              )}
               <form action={isWatching ? unfollowTrader : followTrader}>
                 <input type="hidden" name="providerId" value={id} />
                 <button
@@ -275,38 +285,25 @@ export default async function TraderPage({
               </p>
             )}
           </div>
-          {isStopped ? (
-            <span className="shrink-0 cursor-not-allowed rounded-lg bg-border px-4 py-2 text-sm font-semibold text-muted">
-              {t("copyCta")}
-            </span>
-          ) : (
-            <Link
-              href={user ? "#copy" : `/signup?next=${encodeURIComponent(`/trader/${id}#copy`)}`}
-              className="shrink-0 rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground shadow-md shadow-accent/20 transition hover:bg-accent-hover"
-            >
-              {t("copyCta")}
-            </Link>
-          )}
+          {!user &&
+            (isStopped ? (
+              <span className="shrink-0 cursor-not-allowed rounded-lg bg-border px-4 py-2 text-sm font-semibold text-muted">
+                {t("copyCta")}
+              </span>
+            ) : (
+              <Link
+                href={`/signup?next=${encodeURIComponent(`/trader/${id}#copy`)}`}
+                className="shrink-0 rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground shadow-md shadow-accent/20 transition hover:bg-accent-hover"
+              >
+                {t("copyCta")}
+              </Link>
+            ))}
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
           <TierBadge tier={provider.tier} />
           <RiskBadge level={provider.risk_level} />
           <span className="inline-flex items-center gap-1 rounded-full border border-border bg-foreground/5 px-2 py-0.5 text-xs font-medium text-muted">
-            {countryDisplay(provider.country) && (
-              <>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={`https://flagcdn.com/16x12/${provider.country!.toLowerCase()}.png`}
-                  alt=""
-                  width={16}
-                  height={12}
-                  className="inline-block rounded-[1px]"
-                />
-                {tc(provider.country as never)}
-                {" · "}
-              </>
-            )}
             {t("memberSince", {
               date: formatDate(provider.joined_at, locale, { year: "numeric", month: "long", timeZone: "UTC" }),
             })}
@@ -316,7 +313,7 @@ export default async function TraderPage({
         {provider.bio && <p className="text-sm text-muted">{translateBio(provider.bio)}</p>}
 
         {user && (
-        <div id="copy" className="flex flex-col gap-3 rounded-lg border border-border bg-background p-3 scroll-mt-20">
+        <div id="copy" className="flex flex-col gap-3 scroll-mt-20">
           {isStopped ? (
             <div className="flex flex-col gap-2 rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
               <p>
@@ -346,10 +343,10 @@ export default async function TraderPage({
               })}
             </p>
           ) : (
-          <form action={followProvider} className="flex flex-wrap items-center gap-3">
+          <form action={followProvider} className="flex items-center gap-3">
             <input type="hidden" name="providerId" value={id} />
-            <label className="flex items-center gap-2 text-sm text-muted">
-              {t("copyAmountLabel")}
+            <label className="text-sm text-muted">{t("copyAmountLabel")}</label>
+            <div className="inline-flex w-fit overflow-hidden rounded-lg border border-border">
               <input
                 name="allocatedAmount"
                 type="number"
@@ -357,15 +354,15 @@ export default async function TraderPage({
                 min={0}
                 defaultValue={myProfile?.balance ?? provider.min_copy_amount}
                 required
-                className="w-28 rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground"
+                className="w-24 bg-surface px-2 py-1.5 text-sm text-foreground focus:outline-none"
               />
-            </label>
-            <button
-              type="submit"
-              className="rounded bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
-            >
-              {t("copyCta")}
-            </button>
+              <button
+                type="submit"
+                className="shrink-0 bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
+              >
+                {t("copyCta")}
+              </button>
+            </div>
           </form>
           )}
           {isFollowing && (

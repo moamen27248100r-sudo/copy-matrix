@@ -97,8 +97,6 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
   const hasDollar = trades.length > 0 && trades[0].pnl != null;
   const filtered = trades.filter((t) => withinPeriod(t.closedAt, period));
   const netResult = filtered.reduce((sum, t) => sum + (t.pnl ?? 0), 0);
-  const wins = filtered.filter((t) => t.pct >= 0).length;
-  const winRate = filtered.length > 0 ? Math.round((wins / filtered.length) * 100) : null;
   const currentLabel = tt(PERIOD_LABEL_KEYS[period]);
 
   return (
@@ -107,22 +105,13 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
       <div className="relative flex items-center justify-between">
         <p className="text-sm text-muted">
           {tt("tradesCount", { count: filtered.length })}
-          {hasDollar ? (
+          {hasDollar && (
             <>
               {" · "}
               <span className={netResult >= 0 ? "text-success" : "text-danger"} dir="ltr">
                 {netResult >= 0 ? "+" : ""}${netResult.toFixed(2)}
               </span>
             </>
-          ) : (
-            winRate != null && (
-              <>
-                {" · "}
-                {tt("winRateLabel")}
-                {" "}
-                <span className="text-foreground">{winRate}%</span>
-              </>
-            )
           )}
         </p>
         <div ref={menuRef} className="relative">
