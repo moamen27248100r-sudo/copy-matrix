@@ -249,7 +249,7 @@ export default async function TraderPage({
           </p>
         )}
 
-      <div className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-4">
+      <div className="flex flex-col gap-4 rounded-2xl border border-slate-800/60 bg-[#0b1222] p-4 sm:p-5">
         <div className="flex items-center gap-4">
           <TraderAvatar providerId={id} name={provider.display_name} avatarUrl={provider.avatar_url} ratingScore={provider.rating_score} size={64} priority />
           <div className="flex-1">
@@ -393,7 +393,7 @@ export default async function TraderPage({
           )}
         </div>
 
-        <div className="grid grid-cols-2 gap-3 text-center text-sm sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 border-t border-slate-800/40 pt-4 text-center text-sm sm:grid-cols-3">
           <div>
             <p className="font-semibold">{provider.followers_count}</p>
             <p className="text-xs text-muted">{t("statCopiers")}</p>
@@ -430,17 +430,19 @@ export default async function TraderPage({
             <p className="text-xs text-muted">{t("statMaxDrawdown")}</p>
           </div>
         </div>
-      </div>
 
-      <ExnessReliabilitySection
-        reliabilityScore={reliabilityScore}
-        reliabilityStatus={reliabilityStatus}
-        safetyScore={safetyScore}
-        riskExposureScore={riskExposureScore}
-        limitScore={limitScore}
-        activeTradingDays={activeTradingDays}
-        signals={allSignals}
-      />
+        <div className="border-t border-slate-800/40 pt-4">
+          <ExnessReliabilitySection
+            reliabilityScore={reliabilityScore}
+            reliabilityStatus={reliabilityStatus}
+            safetyScore={safetyScore}
+            riskExposureScore={riskExposureScore}
+            limitScore={limitScore}
+            activeTradingDays={activeTradingDays}
+            signals={allSignals}
+          />
+        </div>
+      </div>
 
       <section className="flex flex-col gap-3">
         <h2 className="font-medium">{t("periodsPerformanceTitle")}</h2>

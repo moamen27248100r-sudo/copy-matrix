@@ -139,8 +139,8 @@ function SubRing({ value, label, inverted }: { value: number; label: string; inv
 function MainBadge({ label }: { label: string }) {
   return (
     <Row>
-      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-700 text-emerald-400">
-        <BoltIcon className="h-4 w-4" />
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center text-emerald-400">
+        <BoltIcon className="h-5 w-5" />
       </span>
       <span className="text-sm font-bold text-white">{label}</span>
     </Row>
@@ -150,8 +150,8 @@ function MainBadge({ label }: { label: string }) {
 function SubNumber({ value, label }: { value: number; label: string }) {
   return (
     <Row>
-      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-700 text-emerald-400">
-        <CheckCircleIcon className="h-4 w-4" />
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center text-emerald-400">
+        <CheckCircleIcon className="h-5 w-5" />
       </span>
       <div className="flex flex-col items-start leading-tight">
         <span className="text-[11px] text-slate-400">{label}</span>
@@ -182,7 +182,7 @@ export function ExnessReliabilitySection({
   const mainTier = colorTierFor(reliabilityScore, false);
 
   return (
-    <section className="flex flex-col gap-5 rounded-2xl border border-slate-800 bg-[#0b1222] p-4 sm:p-5">
+    <div className="flex flex-col gap-5">
       <h2 className="font-display text-base font-extrabold">{t("reliabilitySectionTitle")}</h2>
 
       <div className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
@@ -207,10 +207,10 @@ export function ExnessReliabilitySection({
         </div>
       </div>
 
-      <div className="flex flex-col gap-2.5 border-t border-slate-800 pt-4">
+      <div className="flex flex-col gap-2.5 border-t border-slate-800/40 pt-4">
         <h3 className="font-display text-sm font-extrabold">{t("equityChartTitle")}</h3>
         <TraderEquityChart signals={signals} />
       </div>
-    </section>
+    </div>
   );
 }
