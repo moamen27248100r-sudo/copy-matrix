@@ -298,7 +298,21 @@
     "periodYear": "سال",
     "periodAll": "سب",
     "noEnoughClosedTrades": "اس مدت میں چارٹ دکھانے کے لیے کافی بند ٹریڈز نہیں ہیں۔",
-    "startingPoint": "آغاز: ${amount}"
+    "startingPoint": "آغاز: ${amount}",
+    "periodDay": "1د",
+    "copiedPositionsTitle": "فعال کاپی شدہ پوزیشنز",
+    "tableSymbol": "علامت",
+    "tableSide": "قسم",
+    "tableEntry": "انٹری قیمت",
+    "tableMarket": "مارکیٹ قیمت",
+    "tablePnl": "نفع/نقصان",
+    "closeTrade": "بند کریں",
+    "closeTradeConfirm": "کیا آپ اس پوزیشن کو ابھی موجودہ مارکیٹ قیمت پر بند کرنا چاہتے ہیں؟",
+    "noCopiedPositions": "فی الحال کوئی کھلی کاپی شدہ پوزیشن نہیں ہے۔",
+    "riskProtectionLabel": "نقصان سے بیلنس کا تحفظ",
+    "riskProtectionUsed": "{maxPct}% میں سے {pct}%",
+    "stopCopying": "کاپی کرنا بند کریں",
+    "stopCopyingConfirm": "کیا آپ اس ٹریڈر کی کاپی کرنا بند کرنا چاہتے ہیں؟"
   },
   "Common": {
     "level": "لیول {level}",
@@ -892,6 +906,9 @@
       "copyAmountBelowMinimum": "کاپی کی رقم اس ٹریڈر کے کم از کم سے کم ہے ({amount})۔",
       "copyFailed": "اس ٹریڈر کو کاپی نہیں کیا جا سکا۔ دوبارہ کوشش کریں۔",
       "stopCopyBlocked": "فی الحال کاپی کرنا بند نہیں ہو سکتا: اس اکاؤنٹ پر آپ کے پاس کھلی ٹریڈز ہیں، اور آپ کا بیلنس فی الحال انہیں پورا کرنے کے لیے مارجن کے طور پر رکھا گیا ہے۔ تمام کھلی ٹریڈز بند ہونے کے بعد دوبارہ کوشش کریں۔"
+    },
+    "dashboard": {
+      "closeFailed": "پوزیشن بند نہیں ہو سکی۔ دوبارہ کوشش کریں۔"
     }
   },
   "FollowEmail": {

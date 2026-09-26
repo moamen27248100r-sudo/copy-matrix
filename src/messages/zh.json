@@ -298,7 +298,21 @@
     "periodYear": "年",
     "periodAll": "全部",
     "noEnoughClosedTrades": "此期间已平仓交易不足，无法显示图表。",
-    "startingPoint": "起点：${amount}"
+    "startingPoint": "起点：${amount}",
+    "periodDay": "1天",
+    "copiedPositionsTitle": "当前跟单仓位",
+    "tableSymbol": "品种",
+    "tableSide": "方向",
+    "tableEntry": "开仓价",
+    "tableMarket": "市场价",
+    "tablePnl": "盈亏",
+    "closeTrade": "平仓",
+    "closeTradeConfirm": "确定要以当前市场价格立即平掉此仓位吗？",
+    "noCopiedPositions": "目前没有未平仓的跟单仓位。",
+    "riskProtectionLabel": "余额亏损保护",
+    "riskProtectionUsed": "已用 {pct}%，上限 {maxPct}%",
+    "stopCopying": "停止跟单",
+    "stopCopyingConfirm": "确定要停止跟单该交易者吗？"
   },
   "Common": {
     "level": "等级 {level}",
@@ -892,6 +906,9 @@
       "copyAmountBelowMinimum": "跟单金额低于该交易员的最低要求（{amount}）。",
       "copyFailed": "无法跟单该交易员，请重试。",
       "stopCopyBlocked": "当前无法停止跟单：您在此账户上有持仓中的交易，您的余额目前被作为保证金锁定以覆盖这些交易。请等所有持仓交易平仓后再试。"
+    },
+    "dashboard": {
+      "closeFailed": "无法平仓，请重试。"
     }
   },
   "FollowEmail": {

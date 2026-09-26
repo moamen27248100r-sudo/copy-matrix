@@ -298,7 +298,21 @@
     "periodYear": "वर्ष",
     "periodAll": "सभी",
     "noEnoughClosedTrades": "इस अवधि में चार्ट दिखाने के लिए पर्याप्त बंद ट्रेड नहीं हैं।",
-    "startingPoint": "शुरुआत: ${amount}"
+    "startingPoint": "शुरुआत: ${amount}",
+    "periodDay": "1दि",
+    "copiedPositionsTitle": "सक्रिय कॉपी की गई पोज़िशन",
+    "tableSymbol": "सिंबल",
+    "tableSide": "प्रकार",
+    "tableEntry": "प्रवेश मूल्य",
+    "tableMarket": "बाज़ार मूल्य",
+    "tablePnl": "लाभ/हानि",
+    "closeTrade": "बंद करें",
+    "closeTradeConfirm": "क्या आप अभी इस पोज़िशन को मौजूदा बाज़ार मूल्य पर बंद करना चाहते हैं?",
+    "noCopiedPositions": "अभी कोई ओपन कॉपी की गई पोज़िशन नहीं है।",
+    "riskProtectionLabel": "नुकसान से बैलेंस सुरक्षा",
+    "riskProtectionUsed": "{maxPct}% में से {pct}%",
+    "stopCopying": "कॉपी करना बंद करें",
+    "stopCopyingConfirm": "क्या आप इस ट्रेडर को कॉपी करना बंद करना चाहते हैं?"
   },
   "Common": {
     "level": "लेवल {level}",
@@ -892,6 +906,9 @@
       "copyAmountBelowMinimum": "कॉपी राशि इस ट्रेडर के लिए न्यूनतम से कम है ({amount})।",
       "copyFailed": "इस ट्रेडर को कॉपी नहीं किया जा सका। कृपया फिर से प्रयास करें।",
       "stopCopyBlocked": "अभी कॉपी करना बंद नहीं किया जा सकता: इस खाते पर आपके पास खुले ट्रेड हैं, और आपका बैलेंस वर्तमान में उन्हें कवर करने के लिए मार्जिन के रूप में रखा गया है। सभी खुले ट्रेड बंद होने के बाद फिर से प्रयास करें।"
+    },
+    "dashboard": {
+      "closeFailed": "पोज़िशन बंद नहीं हो सकी। कृपया पुनः प्रयास करें।"
     }
   },
   "FollowEmail": {

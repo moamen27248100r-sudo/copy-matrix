@@ -298,7 +298,21 @@
     "periodYear": "Năm",
     "periodAll": "Tất cả",
     "noEnoughClosedTrades": "Không đủ giao dịch đã đóng trong khoảng thời gian này để hiển thị biểu đồ.",
-    "startingPoint": "Bắt đầu: ${amount}"
+    "startingPoint": "Bắt đầu: ${amount}",
+    "periodDay": "1N",
+    "copiedPositionsTitle": "Vị thế sao chép đang mở",
+    "tableSymbol": "Mã",
+    "tableSide": "Loại",
+    "tableEntry": "Giá vào",
+    "tableMarket": "Giá thị trường",
+    "tablePnl": "Lãi/Lỗ",
+    "closeTrade": "Đóng",
+    "closeTradeConfirm": "Đóng vị thế này ngay bây giờ theo giá thị trường hiện tại?",
+    "noCopiedPositions": "Hiện không có vị thế sao chép nào đang mở.",
+    "riskProtectionLabel": "Bảo vệ số dư khỏi thua lỗ",
+    "riskProtectionUsed": "{pct}% trên {maxPct}%",
+    "stopCopying": "Dừng sao chép",
+    "stopCopyingConfirm": "Dừng sao chép nhà giao dịch này?"
   },
   "Common": {
     "level": "Cấp độ {level}",
@@ -892,6 +906,9 @@
       "copyAmountBelowMinimum": "Số tiền sao chép thấp hơn mức tối thiểu đối với nhà giao dịch này ({amount}).",
       "copyFailed": "Không thể sao chép nhà giao dịch này. Vui lòng thử lại.",
       "stopCopyBlocked": "Hiện không thể dừng sao chép: bạn có giao dịch đang mở trên tài khoản này, và số dư của bạn hiện đang được giữ làm ký quỹ để bù đắp cho chúng. Vui lòng thử lại sau khi tất cả các giao dịch đang mở đóng lại."
+    },
+    "dashboard": {
+      "closeFailed": "Không thể đóng vị thế. Vui lòng thử lại."
     }
   },
   "FollowEmail": {

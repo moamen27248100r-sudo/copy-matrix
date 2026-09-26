@@ -298,7 +298,21 @@
     "periodYear": "Mwaka",
     "periodAll": "Zote",
     "noEnoughClosedTrades": "Hakuna biashara za kutosha zilizofungwa katika kipindi hiki kuonyesha chati.",
-    "startingPoint": "Mwanzo: ${amount}"
+    "startingPoint": "Mwanzo: ${amount}",
+    "periodDay": "1S",
+    "copiedPositionsTitle": "Nafasi Zinazonakiliwa Sasa",
+    "tableSymbol": "Alama",
+    "tableSide": "Aina",
+    "tableEntry": "Bei ya Kuingia",
+    "tableMarket": "Bei ya Soko",
+    "tablePnl": "Faida/Hasara",
+    "closeTrade": "Funga",
+    "closeTradeConfirm": "Funga nafasi hii sasa kwa bei ya sasa ya soko?",
+    "noCopiedPositions": "Hakuna nafasi zilizonakiliwa zilizo wazi kwa sasa.",
+    "riskProtectionLabel": "Ulinzi wa salio dhidi ya hasara",
+    "riskProtectionUsed": "{pct}% kati ya {maxPct}%",
+    "stopCopying": "Acha Kunakili",
+    "stopCopyingConfirm": "Acha kunakili mfanyabiashara huyu?"
   },
   "Common": {
     "level": "Kiwango {level}",
@@ -892,6 +906,9 @@
       "copyAmountBelowMinimum": "Kiasi cha kunakili ni chini ya kiwango cha chini kwa mfanyabiashara huyu ({amount}).",
       "copyFailed": "Imeshindwa kumnakili mfanyabiashara huyu. Tafadhali jaribu tena.",
       "stopCopyBlocked": "Imeshindwa kuacha kunakili kwa sasa: una biashara zilizo wazi kwenye akaunti hii, na salio lako kwa sasa limehifadhiwa kama dhamana kuzifidia. Tafadhali jaribu tena baada ya biashara zote zilizo wazi kufungwa."
+    },
+    "dashboard": {
+      "closeFailed": "Imeshindwa kufunga nafasi. Tafadhali jaribu tena."
     }
   },
   "FollowEmail": {

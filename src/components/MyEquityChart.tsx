@@ -11,13 +11,14 @@ type ClosedPosition = {
 export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
   const t = useTranslations("Dashboard");
   const PERIODS: { label: string; days: number | null }[] = [
+    { label: t("periodDay"), days: 1 },
     { label: t("periodWeek"), days: 7 },
     { label: t("periodMonth"), days: 30 },
     { label: t("period3Months"), days: 90 },
     { label: t("periodYear"), days: 365 },
     { label: t("periodAll"), days: null },
   ];
-  const [periodIdx, setPeriodIdx] = useState(1);
+  const [periodIdx, setPeriodIdx] = useState(2);
 
   const points = useMemo(() => {
     const period = PERIODS[periodIdx];

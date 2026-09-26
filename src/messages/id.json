@@ -298,7 +298,21 @@
     "periodYear": "Tahun",
     "periodAll": "Semua",
     "noEnoughClosedTrades": "Transaksi tertutup tidak cukup pada periode ini untuk menampilkan grafik.",
-    "startingPoint": "Mulai: ${amount}"
+    "startingPoint": "Mulai: ${amount}",
+    "periodDay": "1H",
+    "copiedPositionsTitle": "Posisi Salinan Aktif",
+    "tableSymbol": "Simbol",
+    "tableSide": "Jenis",
+    "tableEntry": "Harga Masuk",
+    "tableMarket": "Harga Pasar",
+    "tablePnl": "Untung/Rugi",
+    "closeTrade": "Tutup",
+    "closeTradeConfirm": "Tutup posisi ini sekarang pada harga pasar saat ini?",
+    "noCopiedPositions": "Tidak ada posisi salinan yang terbuka saat ini.",
+    "riskProtectionLabel": "Perlindungan saldo dari kerugian",
+    "riskProtectionUsed": "{pct}% dari {maxPct}%",
+    "stopCopying": "Hentikan Menyalin",
+    "stopCopyingConfirm": "Berhenti menyalin trader ini?"
   },
   "Common": {
     "level": "Level {level}",
@@ -892,6 +906,9 @@
       "copyAmountBelowMinimum": "Jumlah salinan di bawah minimum untuk trader ini ({amount}).",
       "copyFailed": "Tidak dapat menyalin trader ini. Silakan coba lagi.",
       "stopCopyBlocked": "Tidak dapat menghentikan penyalinan saat ini: Anda memiliki trade terbuka pada akun ini, dan saldo Anda saat ini ditahan sebagai margin untuk menutupinya. Silakan coba lagi setelah semua trade terbuka ditutup."
+    },
+    "dashboard": {
+      "closeFailed": "Tidak dapat menutup posisi. Silakan coba lagi."
     }
   },
   "FollowEmail": {

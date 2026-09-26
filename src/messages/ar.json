@@ -310,7 +310,21 @@
     "periodYear": "سنة",
     "periodAll": "الكل",
     "noEnoughClosedTrades": "لا توجد صفقات مغلقة كافية في هذه الفترة لعرض الرسم البياني.",
-    "startingPoint": "البداية: ${amount}"
+    "startingPoint": "البداية: ${amount}",
+    "periodDay": "يوم",
+    "copiedPositionsTitle": "الصفقات المنسوخة النشطة",
+    "tableSymbol": "الرمز",
+    "tableSide": "النوع",
+    "tableEntry": "سعر الدخول",
+    "tableMarket": "سعر السوق",
+    "tablePnl": "الربح/الخسارة",
+    "closeTrade": "إغلاق",
+    "closeTradeConfirm": "هل أنت متأكد من إغلاق هذه الصفقة الآن بسعر السوق الحالي؟",
+    "noCopiedPositions": "لا توجد صفقات منسوخة مفتوحة حاليًا.",
+    "riskProtectionLabel": "حماية الرصيد من الخسارة",
+    "riskProtectionUsed": "{pct}% من {maxPct}%",
+    "stopCopying": "إيقاف النسخ",
+    "stopCopyingConfirm": "هل أنت متأكد من إيقاف نسخ هذا المتداول؟"
   },
   "Common": {
     "level": "المستوى {level}",
@@ -904,6 +918,9 @@
       "copyAmountBelowMinimum": "مبلغ النسخ أقل من الحد الأدنى لهذا المتداول ({amount}).",
       "copyFailed": "تعذّر نسخ المتداول. حاول مرة أخرى.",
       "stopCopyBlocked": "تعذّر إيقاف النسخ حاليًا: لديك صفقات مفتوحة على هذا الحساب، ورصيدك محجوز حاليًا كهامش لتغطيتها. يُرجى إعادة المحاولة بعد إغلاق جميع الصفقات المفتوحة."
+    },
+    "dashboard": {
+      "closeFailed": "تعذّر إغلاق الصفقة. حاول مرة أخرى."
     }
   },
   "FollowEmail": {

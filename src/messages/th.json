@@ -298,7 +298,21 @@
     "periodYear": "ปี",
     "periodAll": "ทั้งหมด",
     "noEnoughClosedTrades": "มีการเทรดที่ปิดไม่เพียงพอในช่วงเวลานี้สำหรับแสดงกราฟ",
-    "startingPoint": "เริ่มต้น: ${amount}"
+    "startingPoint": "เริ่มต้น: ${amount}",
+    "periodDay": "1ว",
+    "copiedPositionsTitle": "โพซิชันคัดลอกที่เปิดอยู่",
+    "tableSymbol": "สัญลักษณ์",
+    "tableSide": "ประเภท",
+    "tableEntry": "ราคาเปิด",
+    "tableMarket": "ราคาตลาด",
+    "tablePnl": "กำไร/ขาดทุน",
+    "closeTrade": "ปิด",
+    "closeTradeConfirm": "ปิดโพซิชันนี้ตอนนี้ที่ราคาตลาดปัจจุบันหรือไม่?",
+    "noCopiedPositions": "ไม่มีโพซิชันคัดลอกที่เปิดอยู่ในขณะนี้",
+    "riskProtectionLabel": "การปกป้องยอดคงเหลือจากการขาดทุน",
+    "riskProtectionUsed": "{pct}% จาก {maxPct}%",
+    "stopCopying": "หยุดคัดลอก",
+    "stopCopyingConfirm": "หยุดคัดลอกเทรดเดอร์รายนี้หรือไม่?"
   },
   "Common": {
     "level": "ระดับ {level}",
@@ -892,6 +906,9 @@
       "copyAmountBelowMinimum": "จำนวนเงินคัดลอกต่ำกว่าขั้นต่ำสำหรับเทรดเดอร์รายนี้ ({amount})",
       "copyFailed": "ไม่สามารถคัดลอกเทรดเดอร์รายนี้ได้ โปรดลองอีกครั้ง",
       "stopCopyBlocked": "ไม่สามารถหยุดคัดลอกได้ในขณะนี้: คุณมีออเดอร์ที่เปิดอยู่ในบัญชีนี้ และยอดเงินของคุณถูกกันไว้เป็นมาร์จิ้นเพื่อรองรับในขณะนี้ โปรดลองอีกครั้งหลังจากออเดอร์ที่เปิดอยู่ทั้งหมดปิดแล้ว"
+    },
+    "dashboard": {
+      "closeFailed": "ไม่สามารถปิดโพซิชันได้ กรุณาลองใหม่อีกครั้ง"
     }
   },
   "FollowEmail": {

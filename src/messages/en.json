@@ -298,7 +298,21 @@
     "periodYear": "Year",
     "periodAll": "All",
     "noEnoughClosedTrades": "Not enough closed trades in this period to show the chart.",
-    "startingPoint": "Start: ${amount}"
+    "startingPoint": "Start: ${amount}",
+    "periodDay": "1D",
+    "copiedPositionsTitle": "Active Copied Positions",
+    "tableSymbol": "Symbol",
+    "tableSide": "Side",
+    "tableEntry": "Entry Price",
+    "tableMarket": "Market Price",
+    "tablePnl": "PnL",
+    "closeTrade": "Close",
+    "closeTradeConfirm": "Close this position now at the current market price?",
+    "noCopiedPositions": "No open copied positions right now.",
+    "riskProtectionLabel": "Balance loss protection",
+    "riskProtectionUsed": "{pct}% of {maxPct}%",
+    "stopCopying": "Stop Copying",
+    "stopCopyingConfirm": "Stop copying this trader?"
   },
   "Common": {
     "level": "Level {level}",
@@ -892,6 +906,9 @@
       "copyAmountBelowMinimum": "The copy amount is below the minimum for this trader ({amount}).",
       "copyFailed": "Could not copy this trader. Please try again.",
       "stopCopyBlocked": "Could not stop copying right now: you have open trades on this account, and your balance is currently held as margin to cover them. Please try again after all open trades close."
+    },
+    "dashboard": {
+      "closeFailed": "Couldn't close the position. Please try again."
     }
   },
   "FollowEmail": {

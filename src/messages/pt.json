@@ -298,7 +298,21 @@
     "periodYear": "Ano",
     "periodAll": "Tudo",
     "noEnoughClosedTrades": "Não há operações fechadas suficientes neste período para mostrar o gráfico.",
-    "startingPoint": "Início: ${amount}"
+    "startingPoint": "Início: ${amount}",
+    "periodDay": "1D",
+    "copiedPositionsTitle": "Posições copiadas ativas",
+    "tableSymbol": "Símbolo",
+    "tableSide": "Tipo",
+    "tableEntry": "Preço de entrada",
+    "tableMarket": "Preço de mercado",
+    "tablePnl": "Lucro/Prejuízo",
+    "closeTrade": "Fechar",
+    "closeTradeConfirm": "Fechar esta posição agora pelo preço de mercado atual?",
+    "noCopiedPositions": "Nenhuma posição copiada aberta no momento.",
+    "riskProtectionLabel": "Proteção do saldo contra perdas",
+    "riskProtectionUsed": "{pct}% de {maxPct}%",
+    "stopCopying": "Parar de copiar",
+    "stopCopyingConfirm": "Parar de copiar este trader?"
   },
   "Common": {
     "level": "Nível {level}",
@@ -892,6 +906,9 @@
       "copyAmountBelowMinimum": "O valor da cópia é menor que o mínimo para este trader ({amount}).",
       "copyFailed": "Não foi possível copiar este trader. Tente novamente.",
       "stopCopyBlocked": "Não foi possível parar de copiar no momento: você tem operações abertas nesta conta, e seu saldo está atualmente retido como margem para cobri-las. Tente novamente depois que todas as operações abertas forem fechadas."
+    },
+    "dashboard": {
+      "closeFailed": "Não foi possível fechar a posição. Tente novamente."
     }
   },
   "FollowEmail": {

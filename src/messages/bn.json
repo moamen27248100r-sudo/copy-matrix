@@ -298,7 +298,21 @@
     "periodYear": "বছর",
     "periodAll": "সব",
     "noEnoughClosedTrades": "চার্ট দেখানোর জন্য এই সময়ের মধ্যে পর্যাপ্ত বন্ধ ট্রেড নেই।",
-    "startingPoint": "শুরু: ${amount}"
+    "startingPoint": "শুরু: ${amount}",
+    "periodDay": "১দি",
+    "copiedPositionsTitle": "সক্রিয় কপি করা পজিশন",
+    "tableSymbol": "সিম্বল",
+    "tableSide": "ধরন",
+    "tableEntry": "এন্ট্রি মূল্য",
+    "tableMarket": "বাজার মূল্য",
+    "tablePnl": "লাভ/ক্ষতি",
+    "closeTrade": "বন্ধ করুন",
+    "closeTradeConfirm": "বর্তমান বাজার মূল্যে এখনই এই পজিশন বন্ধ করতে চান?",
+    "noCopiedPositions": "বর্তমানে কোনো খোলা কপি করা পজিশন নেই।",
+    "riskProtectionLabel": "ক্ষতি থেকে ব্যালেন্স সুরক্ষা",
+    "riskProtectionUsed": "{maxPct}% এর মধ্যে {pct}%",
+    "stopCopying": "কপি করা বন্ধ করুন",
+    "stopCopyingConfirm": "এই ট্রেডারকে কপি করা বন্ধ করতে চান?"
   },
   "Common": {
     "level": "লেভেল {level}",
@@ -892,6 +906,9 @@
       "copyAmountBelowMinimum": "কপির পরিমাণ এই ট্রেডারের জন্য ন্যূনতমের চেয়ে কম ({amount})।",
       "copyFailed": "এই ট্রেডারকে কপি করা যায়নি। আবার চেষ্টা করুন।",
       "stopCopyBlocked": "এই মুহূর্তে কপি করা বন্ধ করা যাচ্ছে না: এই অ্যাকাউন্টে আপনার খোলা ট্রেড রয়েছে, এবং আপনার ব্যালেন্স বর্তমানে সেগুলো কভার করার জন্য মার্জিন হিসেবে ধরে রাখা হয়েছে। সমস্ত খোলা ট্রেড বন্ধ হওয়ার পর আবার চেষ্টা করুন।"
+    },
+    "dashboard": {
+      "closeFailed": "পজিশন বন্ধ করা যায়নি। আবার চেষ্টা করুন।"
     }
   },
   "FollowEmail": {
