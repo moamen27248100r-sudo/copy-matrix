@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { Locale } from "@/i18n/locales";
 
 type FeaturesText = {
@@ -102,25 +103,52 @@ const TEXT: Record<Locale, FeaturesText> = {
   },
 };
 
-const MARKET_ICONS: { symbol: string; glyph: string; classes: string }[] = [
-  { symbol: "BTC", glyph: "₿", classes: "text-orange-400 bg-orange-500/10 border-orange-500/20" },
-  { symbol: "EUR/USD", glyph: "€$", classes: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20" },
-  { symbol: "GOLD", glyph: "Au", classes: "text-amber-400 bg-amber-500/10 border-amber-500/20" },
-  { symbol: "US100", glyph: "📈", classes: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20" },
+const MARKET_ICONS: { symbol: string; glyph: string; classes: string; shadow: string }[] = [
+  { symbol: "BTC", glyph: "₿", classes: "text-orange-400 bg-orange-500/15 border-orange-500/30", shadow: "shadow-orange-500/10" },
+  { symbol: "EUR/USD", glyph: "€$", classes: "text-cyan-400 bg-cyan-500/15 border-cyan-500/30", shadow: "shadow-cyan-500/10" },
+  { symbol: "GOLD", glyph: "Au", classes: "text-amber-400 bg-amber-500/15 border-amber-500/30", shadow: "shadow-amber-500/10" },
 ];
 
+// US100 gets its own dynamic up/down treatment (green + red) instead of a
+// single flat accent, since an index tile is meant to read as "live
+// market movement" rather than one fixed brand color.
+const US100_TILE = { symbol: "US100", glyph: "📈" };
+
+function CardIcon({ name, className }: { name: "zap" | "globe" | "settings"; className?: string }) {
+  const paths: Record<typeof name, ReactNode> = {
+    zap: <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" />,
+    globe: (
+      <>
+        <circle cx="12" cy="12" r="10" />
+        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z" />
+      </>
+    ),
+    settings: (
+      <>
+        <circle cx="12" cy="12" r="3" />
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+      </>
+    ),
+  };
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {paths[name]}
+    </svg>
+  );
+}
+
 const CARD_BASE =
-  "flex h-full flex-col justify-between rounded-xl border border-slate-800 bg-[#0e1626]/90 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-500/30 sm:p-8";
+  "flex h-full flex-col justify-between rounded-xl border border-white/5 bg-[#111827]/40 p-6 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-500/30 sm:p-8";
 
 export function FeaturesGrid({ locale }: { locale: Locale }) {
   const t = TEXT[locale] ?? TEXT.en;
 
   return (
-    <section className="px-6 py-16">
+    <section className="bg-[#0a0f1d] px-6 py-16">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-8">
         <div className="mx-auto flex flex-col items-center gap-1.5 text-center">
-          <h2 className="line-clamp-1 text-2xl font-semibold text-slate-100 sm:text-3xl">{t.title}</h2>
-          <p className="line-clamp-2 text-sm text-slate-400">{t.subtitle}</p>
+          <h2 className="line-clamp-1 text-2xl font-bold text-white sm:text-3xl">{t.title}</h2>
+          <p className="line-clamp-2 text-sm leading-relaxed text-slate-300/80">{t.subtitle}</p>
         </div>
 
         {/* Asymmetrical bento layout: the markets card is the wide hero
@@ -129,41 +157,58 @@ export function FeaturesGrid({ locale }: { locale: Locale }) {
           {/* Card 1 */}
           <div className={`${CARD_BASE} md:col-start-3 md:row-start-1`}>
             <div className="flex flex-col gap-3">
-              <span className="inline-flex w-fit shrink-0 items-center gap-1.5 rounded-md border border-cyan-400/40 bg-cyan-500/20 px-2 py-0.5 text-[11px] font-medium text-cyan-300 shadow-sm">
-                {t.card1.badge}
-              </span>
-              <h3 className="line-clamp-1 text-lg font-semibold text-slate-100">{t.card1.title}</h3>
-              <p className="line-clamp-2 text-sm leading-relaxed text-slate-400">{t.card1.desc}</p>
+              <div className="flex items-center justify-between">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-cyan-500/30 bg-cyan-500/15 text-cyan-400">
+                  <CardIcon name="zap" className="h-4 w-4" />
+                </span>
+                <span className="inline-flex w-fit shrink-0 items-center gap-1.5 rounded-md border border-cyan-400/40 bg-cyan-500/20 px-2 py-0.5 text-[11px] font-medium text-cyan-300 shadow-sm shadow-cyan-500/20">
+                  {t.card1.badge}
+                </span>
+              </div>
+              <h3 className="line-clamp-1 text-lg font-bold text-white">{t.card1.title}</h3>
+              <p className="line-clamp-2 text-sm leading-relaxed text-slate-300/80">{t.card1.desc}</p>
             </div>
             <div className="relative mt-4 h-1 w-full overflow-hidden rounded-full bg-white/5">
-              <div className="h-full w-2/3 rounded-full bg-emerald-500/70" />
+              <div className="h-full w-2/3 rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400" />
             </div>
           </div>
 
           {/* Card 2 */}
           <div className={`${CARD_BASE} md:col-start-1 md:row-start-1 md:col-span-2 md:row-span-2`}>
             <div className="flex flex-col gap-3">
-              <h3 className="line-clamp-1 text-lg font-semibold text-slate-100">{t.card2.title}</h3>
-              <p className="line-clamp-2 text-sm leading-relaxed text-slate-400">{t.card2.desc}</p>
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-cyan-500/30 bg-cyan-500/15 text-cyan-400">
+                <CardIcon name="globe" className="h-4 w-4" />
+              </span>
+              <h3 className="line-clamp-1 text-lg font-bold text-white">{t.card2.title}</h3>
+              <p className="line-clamp-2 text-sm leading-relaxed text-slate-300/80">{t.card2.desc}</p>
             </div>
             <div className="relative mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
               {MARKET_ICONS.map((m) => (
                 <div
                   key={m.symbol}
-                  className={`flex flex-col items-center gap-1 rounded-lg border py-3 ${m.classes}`}
+                  className={`flex flex-col items-center gap-1 rounded-lg border py-3 shadow-lg ${m.classes} ${m.shadow}`}
                 >
                   <span className="text-sm font-semibold">{m.glyph}</span>
                   <span className="line-clamp-1 text-[10px] text-slate-400">{m.symbol}</span>
                 </div>
               ))}
+              <div className="flex flex-col items-center gap-1 rounded-lg border border-emerald-500/20 bg-gradient-to-br from-emerald-500/15 to-red-500/10 py-3 shadow-lg shadow-emerald-500/10">
+                <span className="flex items-center gap-0.5 text-sm font-semibold">
+                  <span className="text-emerald-400">{US100_TILE.glyph}</span>
+                </span>
+                <span className="line-clamp-1 text-[10px] text-slate-400">{US100_TILE.symbol}</span>
+              </div>
             </div>
           </div>
 
           {/* Card 3 */}
           <div className={`${CARD_BASE} md:col-start-3 md:row-start-2`}>
             <div className="flex flex-col gap-3">
-              <h3 className="line-clamp-1 text-lg font-semibold text-slate-100">{t.card3.title}</h3>
-              <p className="line-clamp-2 text-sm leading-relaxed text-slate-400">{t.card3.desc}</p>
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-emerald-500/30 bg-emerald-500/15 text-emerald-400">
+                <CardIcon name="settings" className="h-4 w-4" />
+              </span>
+              <h3 className="line-clamp-1 text-lg font-bold text-white">{t.card3.title}</h3>
+              <p className="line-clamp-2 text-sm leading-relaxed text-slate-300/80">{t.card3.desc}</p>
             </div>
             <div className="relative mt-4 rounded-lg border border-white/5 bg-[#131c31]/60 p-3">
               <div className="flex items-center justify-between text-[11px] text-slate-400">
