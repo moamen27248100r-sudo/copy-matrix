@@ -81,18 +81,32 @@ function Ring({ value, size, tier }: { value: number; size: number; tier: ColorT
 const ROW_H = 40;
 const ROW_GAP = 14;
 
-// A single hairline vertical spine with a short horizontal tick into each
-// of the 3 stacked rows -- exactly Exness's shape: one continuous line
-// touching every node in the column, not a branching tree with a fork.
-function Spine({ rows }: { rows: number }) {
-  const total = rows * ROW_H + (rows - 1) * ROW_GAP;
+// A bracket connector, not a straight spine: a short stub exits the main
+// node, then a vertical arc forks down to the top and bottom sub-nodes
+// only -- the main node's own tick sits one step further out than the
+// two sub-ticks, so the shape reads as a fork instead of one flat line
+// with three evenly-spaced ticks on it.
+function BracketConnector() {
+  const mainCenter = ROW_H / 2;
+  const sub1Center = ROW_H + ROW_GAP + ROW_H / 2;
+  const sub2Center = 2 * (ROW_H + ROW_GAP) + ROW_H / 2;
+  const total = 3 * ROW_H + 2 * ROW_GAP;
+  const stubW = 8;
+  const innerInset = 8;
+
   return (
-    <div className="relative w-4 shrink-0" style={{ height: total }}>
-      <div className="absolute inset-y-0 end-0 w-px bg-slate-700/50" />
-      {Array.from({ length: rows }).map((_, i) => {
-        const centerY = i * (ROW_H + ROW_GAP) + ROW_H / 2;
-        return <div key={i} className="absolute end-0 h-px w-4 bg-slate-700/50" style={{ top: centerY }} />;
-      })}
+    <div className="relative w-5 shrink-0" style={{ height: total }}>
+      {/* stub from the main node, at the outer edge */}
+      <div className="absolute h-px bg-slate-700/50" style={{ insetInlineEnd: 0, width: stubW, top: mainCenter }} />
+      {/* the fork: vertical arc from the main node's height down to the
+          bottom sub-node, offset inward from the main stub */}
+      <div
+        className="absolute w-px bg-slate-700/50"
+        style={{ insetInlineEnd: innerInset, top: mainCenter, height: sub2Center - mainCenter }}
+      />
+      {/* ticks into each sub-node */}
+      <div className="absolute h-px bg-slate-700/50" style={{ insetInlineEnd: 0, width: innerInset, top: sub1Center }} />
+      <div className="absolute h-px bg-slate-700/50" style={{ insetInlineEnd: 0, width: innerInset, top: sub2Center }} />
     </div>
   );
 }
@@ -185,11 +199,11 @@ export function ExnessReliabilitySection({
     <div className="flex flex-col gap-5">
       <h2 className="font-display text-base font-extrabold">{t("reliabilitySectionTitle")}</h2>
 
-      <div className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
+      <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:gap-x-6">
         {/* First in DOM = right column under RTL: the main reliability node. */}
         <div className="flex items-start gap-0">
-          <Spine rows={3} />
-          <div className="flex flex-col" style={{ gap: ROW_GAP }}>
+          <BracketConnector />
+          <div className="flex min-w-0 flex-col" style={{ gap: ROW_GAP }}>
             <MainRing value={reliabilityScore} status={reliabilityStatus} tier={mainTier} size={40} />
             <SubRing value={safetyScore} label={t("gaugeSafety")} />
             <SubRing value={riskExposureScore} label={t("gaugeRiskExposure")} inverted />
@@ -198,8 +212,8 @@ export function ExnessReliabilitySection({
 
         {/* Second in DOM = left column under RTL: trading-activity node. */}
         <div className="flex items-start gap-0">
-          <Spine rows={3} />
-          <div className="flex flex-col" style={{ gap: ROW_GAP }}>
+          <BracketConnector />
+          <div className="flex min-w-0 flex-col" style={{ gap: ROW_GAP }}>
             <MainBadge label={t("importantBadgeLabel")} />
             <SubNumber value={limitScore} label={t("gaugeLimitScore")} />
             <SubNumber value={activeTradingDays} label={t("gaugeTradingDays")} />
