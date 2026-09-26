@@ -105,11 +105,14 @@ const TEXT: Record<Locale, FeaturesText> = {
   },
 };
 
-const MARKETS: { symbol: string; glyph: string; colorClass: string }[] = [
-  { symbol: "BTC", glyph: "₿", colorClass: "text-orange-400" },
-  { symbol: "EUR/USD", glyph: "€$", colorClass: "text-blue-400" },
-  { symbol: "GOLD", glyph: "Au", colorClass: "text-amber-400" },
-  { symbol: "US100", glyph: "📈", colorClass: "text-emerald-400" },
+// Illustrative quotes for the marketing marquee only — not live prices.
+// iconClasses gives each asset its own tiny glass badge; changePct drives
+// the up/down color of the percentage the same way a real ticker would.
+const MARKETS: { symbol: string; glyph: string; iconClasses: string; price: string; changePct: number }[] = [
+  { symbol: "BTC", glyph: "₿", iconClasses: "text-orange-400 bg-orange-500/10", price: "$64,250", changePct: 2.1 },
+  { symbol: "GOLD", glyph: "Au", iconClasses: "text-amber-400 bg-amber-500/10", price: "$2,650", changePct: 0.8 },
+  { symbol: "EUR/USD", glyph: "€$", iconClasses: "text-blue-400 bg-blue-500/10", price: "1.0842", changePct: 0.3 },
+  { symbol: "US100", glyph: "📈", iconClasses: "text-emerald-400 bg-emerald-500/10", price: "19,845", changePct: -0.4 },
 ];
 
 function CardIcon({ name, className }: { name: "zap" | "globe" | "settings"; className?: string }) {
@@ -190,20 +193,38 @@ export function FeaturesGrid({ locale }: { locale: Locale }) {
             <p className="line-clamp-2 max-w-xl text-sm leading-relaxed text-slate-400">{t.card1.desc}</p>
           </div>
 
-          {/* Feature 2: markets, as inline badges instead of boxed tiles */}
+          {/* Feature 2: markets, as a live-style ticker instead of boxed
+              tiles — two copies back to back so the loop point is
+              invisible, paused on hover so it's readable. */}
           <div className="flex flex-col gap-3 py-8">
             <IconBadge name="globe" />
             <h3 className="line-clamp-1 text-lg font-bold text-white">{t.card2.title}</h3>
             <p className="line-clamp-2 max-w-xl text-sm leading-relaxed text-slate-400">{t.card2.desc}</p>
-            <div className="mt-1 flex flex-wrap items-center gap-x-6 gap-y-3">
-              {MARKETS.map((m) => (
-                <div key={m.symbol} className="flex items-center gap-2">
-                  <span className={`flex h-7 w-7 items-center justify-center rounded-md bg-white/5 text-xs font-bold ${m.colorClass}`}>
-                    {m.glyph}
-                  </span>
-                  <span className="text-sm text-slate-300">{m.symbol}</span>
-                </div>
-              ))}
+            <div className="relative mt-1 -mx-6 overflow-hidden px-6 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)] sm:-mx-8 sm:px-8">
+              <div className="flex w-max animate-[ticker-scroll_28s_linear_infinite] gap-3 hover:[animation-play-state:paused]">
+                {[0, 1].map((copy) => (
+                  <div key={copy} className="flex shrink-0 items-center gap-3" aria-hidden={copy === 1}>
+                    {MARKETS.map((m) => (
+                      <div
+                        key={m.symbol}
+                        className="flex shrink-0 items-center gap-2 rounded-full border border-white/5 bg-slate-900/40 px-3 py-1"
+                      >
+                        <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold ${m.iconClasses}`}>
+                          {m.glyph}
+                        </span>
+                        <span className="text-xs font-medium text-slate-300">{m.symbol}</span>
+                        <span dir="ltr" className="text-xs font-semibold text-white">
+                          {m.price}
+                        </span>
+                        <span dir="ltr" className={`text-xs font-medium ${m.changePct >= 0 ? "text-emerald-400" : "text-red-400"}`}>
+                          {m.changePct >= 0 ? "+" : ""}
+                          {m.changePct}%
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
