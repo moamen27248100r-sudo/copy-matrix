@@ -104,31 +104,32 @@ function IconCircle({ tier, size, children }: { tier: ColorTier; size: number; c
 const ROW_H = 40;
 const ROW_GAP = 16;
 
-// Smooth curved SVG brackets -- two cubic-bezier "S" paths, both starting
-// at the main node's height and curving out then back in to land on each
-// sub-node's height, instead of hard right-angle lines.
-function CurvedConnector() {
+// Straight orthogonal bracket -- a short horizontal stub off the main
+// node, a straight vertical line spanning down to the bottom sub-node,
+// and a short horizontal tick into each sub-node. Plain right angles,
+// not curves.
+function BracketConnector() {
   const mainY = ROW_H / 2;
   const sub1Y = ROW_H + ROW_GAP + ROW_H / 2;
   const sub2Y = 2 * (ROW_H + ROW_GAP) + ROW_H / 2;
   const total = 3 * ROW_H + 2 * ROW_GAP;
-  const width = 28;
+  const stubW = 8;
+  const innerInset = 8;
 
   return (
-    <svg width={width} height={total} className="shrink-0" viewBox={`0 0 ${width} ${total}`}>
-      <path
-        d={`M0,${mainY} C${width},${mainY} ${width},${sub1Y} 0,${sub1Y}`}
-        fill="none"
-        stroke="var(--border)"
-        strokeWidth={1.5}
+    <div className="relative w-5 shrink-0" style={{ height: total }}>
+      {/* stub from the main node, at the outer edge */}
+      <div className="absolute h-px bg-slate-700/60" style={{ insetInlineEnd: 0, width: stubW, top: mainY }} />
+      {/* the vertical run from the main node's height down to the bottom
+          sub-node, offset inward from the main stub */}
+      <div
+        className="absolute w-px bg-slate-700/60"
+        style={{ insetInlineEnd: innerInset, top: mainY, height: sub2Y - mainY }}
       />
-      <path
-        d={`M0,${mainY} C${width},${mainY} ${width},${sub2Y} 0,${sub2Y}`}
-        fill="none"
-        stroke="var(--border)"
-        strokeWidth={1.5}
-      />
-    </svg>
+      {/* ticks into each sub-node */}
+      <div className="absolute h-px bg-slate-700/60" style={{ insetInlineEnd: 0, width: innerInset, top: sub1Y }} />
+      <div className="absolute h-px bg-slate-700/60" style={{ insetInlineEnd: 0, width: innerInset, top: sub2Y }} />
+    </div>
   );
 }
 
@@ -227,7 +228,7 @@ export function ExnessReliabilitySection({
       <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:gap-x-8">
         {/* First in DOM = right column under RTL: the main reliability node. */}
         <div className="flex items-start gap-0">
-          <CurvedConnector />
+          <BracketConnector />
           <div className="flex min-w-0 flex-col" style={{ gap: ROW_GAP }}>
             <MainRing value={reliabilityScore} status={reliabilityStatus} tier={mainTier} icon={<ShieldIcon className="h-4 w-4" />} />
             <SubRing value={safetyScore} label={t("gaugeSafety")} icon={<LockIcon className="h-3.5 w-3.5" />} />
@@ -237,7 +238,7 @@ export function ExnessReliabilitySection({
 
         {/* Second in DOM = left column under RTL: trading-activity node. */}
         <div className="flex items-start gap-0">
-          <CurvedConnector />
+          <BracketConnector />
           <div className="flex min-w-0 flex-col" style={{ gap: ROW_GAP }}>
             <MainBadge label={t("importantBadgeLabel")} />
             <SubNumber value={limitScore} label={t("gaugeLimitScore")} icon={<CheckIcon className="h-3.5 w-3.5" />} />
