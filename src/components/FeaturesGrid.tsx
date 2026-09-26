@@ -103,16 +103,12 @@ const TEXT: Record<Locale, FeaturesText> = {
   },
 };
 
-const MARKET_ICONS: { symbol: string; glyph: string; classes: string; shadow: string }[] = [
-  { symbol: "BTC", glyph: "₿", classes: "text-orange-400 bg-orange-500/15 border-orange-500/30", shadow: "shadow-orange-500/10" },
-  { symbol: "EUR/USD", glyph: "€$", classes: "text-cyan-400 bg-cyan-500/15 border-cyan-500/30", shadow: "shadow-cyan-500/10" },
-  { symbol: "GOLD", glyph: "Au", classes: "text-amber-400 bg-amber-500/15 border-amber-500/30", shadow: "shadow-amber-500/10" },
+const MARKETS: { symbol: string; glyph: string; colorClass: string }[] = [
+  { symbol: "BTC", glyph: "₿", colorClass: "text-orange-400" },
+  { symbol: "EUR/USD", glyph: "€$", colorClass: "text-cyan-400" },
+  { symbol: "GOLD", glyph: "Au", colorClass: "text-amber-400" },
+  { symbol: "US100", glyph: "📈", colorClass: "text-emerald-400" },
 ];
-
-// US100 gets its own dynamic up/down treatment (green + red) instead of a
-// single flat accent, since an index tile is meant to read as "live
-// market movement" rather than one fixed brand color.
-const US100_TILE = { symbol: "US100", glyph: "📈" };
 
 function CardIcon({ name, className }: { name: "zap" | "globe" | "settings"; className?: string }) {
   const paths: Record<typeof name, ReactNode> = {
@@ -137,87 +133,66 @@ function CardIcon({ name, className }: { name: "zap" | "globe" | "settings"; cla
   );
 }
 
-const CARD_BASE =
-  "flex h-full flex-col justify-between rounded-xl border border-white/5 bg-[#111827]/40 p-6 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-500/30 sm:p-8";
+function IconBadge({ name }: { name: "zap" | "globe" | "settings" }) {
+  return (
+    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-cyan-500/20 bg-cyan-500/10 text-cyan-400">
+      <CardIcon name={name} className="h-4 w-4" />
+    </span>
+  );
+}
 
 export function FeaturesGrid({ locale }: { locale: Locale }) {
   const t = TEXT[locale] ?? TEXT.en;
 
   return (
-    <section className="bg-[#0a0f1d] px-6 py-16">
-      <div className="mx-auto flex w-full max-w-5xl flex-col gap-8">
+    <section className="bg-transparent px-6 py-16">
+      <div className="mx-auto flex w-full max-w-4xl flex-col gap-10">
         <div className="mx-auto flex flex-col items-center gap-1.5 text-center">
           <h2 className="line-clamp-1 text-2xl font-bold text-white sm:text-3xl">{t.title}</h2>
-          <p className="line-clamp-2 text-sm leading-relaxed text-slate-300/80">{t.subtitle}</p>
+          <p className="line-clamp-2 text-sm leading-relaxed text-slate-400">{t.subtitle}</p>
         </div>
 
-        {/* Asymmetrical bento layout: the markets card is the wide hero
-            cell, the instant-execution and risk cards stack beside it. */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:grid-rows-2">
-          {/* Card 1 */}
-          <div className={`${CARD_BASE} md:col-start-3 md:row-start-1`}>
-            <div className="flex flex-col gap-3">
-              <div className="flex items-center justify-between">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-cyan-500/30 bg-cyan-500/15 text-cyan-400">
-                  <CardIcon name="zap" className="h-4 w-4" />
-                </span>
-                <span className="inline-flex w-fit shrink-0 items-center gap-1.5 rounded-md border border-cyan-400/40 bg-cyan-500/20 px-2 py-0.5 text-[11px] font-medium text-cyan-300 shadow-sm shadow-cyan-500/20">
-                  {t.card1.badge}
-                </span>
-              </div>
+        {/* No cards, no fills — features are separated by a hairline and
+            generous spacing so the section reads as one open surface. */}
+        <div className="flex flex-col divide-y divide-slate-800/50">
+          {/* Feature 1: instant execution */}
+          <div className="flex flex-col gap-3 py-8 first:pt-0">
+            <IconBadge name="zap" />
+            <div className="flex flex-wrap items-center gap-2">
               <h3 className="line-clamp-1 text-lg font-bold text-white">{t.card1.title}</h3>
-              <p className="line-clamp-2 text-sm leading-relaxed text-slate-300/80">{t.card1.desc}</p>
+              <span className="text-xs font-medium text-slate-400">· {t.card1.badge}</span>
             </div>
-            <div className="relative mt-4 h-1 w-full overflow-hidden rounded-full bg-white/5">
-              <div className="h-full w-2/3 rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400" />
-            </div>
+            <p className="line-clamp-2 max-w-xl text-sm leading-relaxed text-slate-400">{t.card1.desc}</p>
           </div>
 
-          {/* Card 2 */}
-          <div className={`${CARD_BASE} md:col-start-1 md:row-start-1 md:col-span-2 md:row-span-2`}>
-            <div className="flex flex-col gap-3">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-cyan-500/30 bg-cyan-500/15 text-cyan-400">
-                <CardIcon name="globe" className="h-4 w-4" />
-              </span>
-              <h3 className="line-clamp-1 text-lg font-bold text-white">{t.card2.title}</h3>
-              <p className="line-clamp-2 text-sm leading-relaxed text-slate-300/80">{t.card2.desc}</p>
-            </div>
-            <div className="relative mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-              {MARKET_ICONS.map((m) => (
-                <div
-                  key={m.symbol}
-                  className={`flex flex-col items-center gap-1 rounded-lg border py-3 shadow-lg ${m.classes} ${m.shadow}`}
-                >
-                  <span className="text-sm font-semibold">{m.glyph}</span>
-                  <span className="line-clamp-1 text-[10px] text-slate-400">{m.symbol}</span>
+          {/* Feature 2: markets, as inline badges instead of boxed tiles */}
+          <div className="flex flex-col gap-3 py-8">
+            <IconBadge name="globe" />
+            <h3 className="line-clamp-1 text-lg font-bold text-white">{t.card2.title}</h3>
+            <p className="line-clamp-2 max-w-xl text-sm leading-relaxed text-slate-400">{t.card2.desc}</p>
+            <div className="mt-1 flex flex-wrap items-center gap-x-6 gap-y-3">
+              {MARKETS.map((m) => (
+                <div key={m.symbol} className="flex items-center gap-2">
+                  <span className={`flex h-7 w-7 items-center justify-center rounded-md bg-white/5 text-xs font-bold ${m.colorClass}`}>
+                    {m.glyph}
+                  </span>
+                  <span className="text-sm text-slate-300">{m.symbol}</span>
                 </div>
               ))}
-              <div className="flex flex-col items-center gap-1 rounded-lg border border-emerald-500/20 bg-gradient-to-br from-emerald-500/15 to-red-500/10 py-3 shadow-lg shadow-emerald-500/10">
-                <span className="flex items-center gap-0.5 text-sm font-semibold">
-                  <span className="text-emerald-400">{US100_TILE.glyph}</span>
-                </span>
-                <span className="line-clamp-1 text-[10px] text-slate-400">{US100_TILE.symbol}</span>
-              </div>
             </div>
           </div>
 
-          {/* Card 3 */}
-          <div className={`${CARD_BASE} md:col-start-3 md:row-start-2`}>
-            <div className="flex flex-col gap-3">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-emerald-500/30 bg-emerald-500/15 text-emerald-400">
-                <CardIcon name="settings" className="h-4 w-4" />
-              </span>
-              <h3 className="line-clamp-1 text-lg font-bold text-white">{t.card3.title}</h3>
-              <p className="line-clamp-2 text-sm leading-relaxed text-slate-300/80">{t.card3.desc}</p>
+          {/* Feature 3: smart control & risk gauge */}
+          <div className="flex flex-col gap-3 py-8 last:pb-0">
+            <IconBadge name="settings" />
+            <h3 className="line-clamp-1 text-lg font-bold text-white">{t.card3.title}</h3>
+            <p className="line-clamp-2 max-w-xl text-sm leading-relaxed text-slate-400">{t.card3.desc}</p>
+            <div className="mt-1 flex max-w-xs items-center justify-between text-xs text-slate-400">
+              <span>{t.card3.riskLabel}</span>
+              <span className="font-semibold text-slate-300">{t.card3.riskValue}</span>
             </div>
-            <div className="relative mt-4 rounded-lg border border-white/5 bg-[#131c31]/60 p-3">
-              <div className="flex items-center justify-between text-[11px] text-slate-400">
-                <span className="line-clamp-1">{t.card3.riskLabel}</span>
-                <span className="line-clamp-1 font-semibold text-emerald-400">{t.card3.riskValue}</span>
-              </div>
-              <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-white/5">
-                <div className="h-full w-1/4 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400" />
-              </div>
+            <div className="h-1 max-w-xs overflow-hidden rounded-full bg-white/5">
+              <div className="h-full w-1/4 rounded-full bg-slate-500" />
             </div>
           </div>
         </div>
