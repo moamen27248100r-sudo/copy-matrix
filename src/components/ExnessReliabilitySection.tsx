@@ -9,10 +9,10 @@ import type { ReliabilityPoint } from "@/lib/reliability";
 
 type ColorTier = "bad" | "medium" | "good";
 
-const TIER_COLOR: Record<ColorTier, { text: string; stroke: string; bg: string; border: string }> = {
-  bad: { text: "text-rose-500", stroke: "stroke-rose-500", bg: "bg-rose-500/10", border: "border-rose-500/30" },
-  medium: { text: "text-amber-400", stroke: "stroke-amber-500", bg: "bg-amber-500/10", border: "border-amber-500/30" },
-  good: { text: "text-emerald-400", stroke: "stroke-emerald-500", bg: "bg-emerald-500/10", border: "border-emerald-500/30" },
+const TIER_COLOR: Record<ColorTier, { text: string; stroke: string; border: string }> = {
+  bad: { text: "text-rose-500", stroke: "stroke-rose-500", border: "border-rose-500/30" },
+  medium: { text: "text-amber-400", stroke: "stroke-amber-500", border: "border-amber-500/30" },
+  good: { text: "text-emerald-400", stroke: "stroke-emerald-500", border: "border-emerald-500/30" },
 };
 
 // Risk reads inverted -- a low score is the good outcome -- so its color
@@ -23,14 +23,6 @@ function colorTierFor(value: number, inverted: boolean): ColorTier {
   const raw: GaugeTier = getGaugeTier(value, inverted ? "risk" : "reliability");
   if (!inverted) return raw === "low" ? "bad" : raw === "medium" ? "medium" : "good";
   return raw === "low" ? "good" : raw === "medium" ? "medium" : "bad";
-}
-
-function ShieldIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-    </svg>
-  );
 }
 
 function BoltIcon({ className }: { className?: string }) {
@@ -50,16 +42,21 @@ function CheckCircleIcon({ className }: { className?: string }) {
   );
 }
 
+// A clean, unfilled SVG ring -- no icon, no colored background card, just
+// a thin track + a thin colored progress arc, with the plain percentage
+// number set directly inside it in bright white/tier-colored text.
 function Ring({
   value,
   size,
   strokeWidth,
   tier,
+  showFraction,
 }: {
   value: number;
   size: number;
   strokeWidth: number;
   tier: ColorTier;
+  showFraction?: boolean;
 }) {
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -70,7 +67,7 @@ function Ring({
   return (
     <div className="relative shrink-0" style={{ width: size, height: size }}>
       <svg width={size} height={size} className="-rotate-90">
-        <circle cx={size / 2} cy={size / 2} r={radius} stroke="var(--border)" strokeWidth={strokeWidth} fill="none" />
+        <circle cx={size / 2} cy={size / 2} r={radius} stroke="var(--border)" strokeOpacity={0.4} strokeWidth={strokeWidth} fill="none" />
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -83,49 +80,47 @@ function Ring({
           strokeDashoffset={offset}
         />
       </svg>
-      <div className="absolute inset-0 flex items-center justify-center">
-        <span className={`flex items-center justify-center rounded-full ${colors.bg} ${colors.text}`} style={{ width: size * 0.5, height: size * 0.5 }}>
-          <ShieldIcon className="h-1/2 w-1/2" />
-        </span>
-      </div>
+      {showFraction && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center leading-none" dir="ltr">
+          <span className="text-[13px] font-bold text-white">{clamped}</span>
+        </div>
+      )}
     </div>
   );
 }
 
-// A vertical stem down to a horizontal bar connecting two children --
-// the right-angle "tree" connector look, done with plain borders instead
-// of hand-plotted SVG paths so it stays correct at any width.
+// A single hairline stem down to a hairline horizontal bar connecting two
+// children -- the thin right-angle "tree" connector, kept compact so the
+// whole tree reads as one tight cluster instead of a tall spread.
 function TreeConnector() {
   return (
-    <div className="relative h-8 w-full">
-      <div className="absolute start-1/2 top-0 h-4 w-px -translate-x-1/2 rtl:translate-x-1/2 bg-slate-700" />
-      <div className="absolute start-1/4 top-4 end-1/4 h-px bg-slate-700" />
-      <div className="absolute start-1/4 top-4 h-4 w-px bg-slate-700" />
-      <div className="absolute end-1/4 top-4 h-4 w-px bg-slate-700" />
+    <div className="relative h-5 w-full">
+      <div className="absolute start-1/2 top-0 h-2.5 w-px -translate-x-1/2 rtl:translate-x-1/2 bg-slate-700/60" />
+      <div className="absolute start-1/4 top-2.5 end-1/4 h-px bg-slate-700/60" />
+      <div className="absolute start-1/4 top-2.5 h-2.5 w-px bg-slate-700/60" />
+      <div className="absolute end-1/4 top-2.5 h-2.5 w-px bg-slate-700/60" />
     </div>
   );
 }
 
 function SubRingNode({ value, label, inverted }: { value: number; label: string; inverted?: boolean }) {
   const tier = colorTierFor(value, !!inverted);
-  const colors = TIER_COLOR[tier];
   return (
-    <div className="flex flex-1 flex-col items-center gap-2">
-      <Ring value={value} size={64} strokeWidth={5} tier={tier} />
-      <p className={`text-sm font-bold ${colors.text}`}>{Math.max(0, Math.min(100, Math.round(value)))}/100</p>
-      <p className="text-center text-[11px] leading-tight text-muted">{label}</p>
+    <div className="flex flex-1 flex-col items-center gap-1.5">
+      <Ring value={value} size={48} strokeWidth={3} tier={tier} showFraction />
+      <p className="text-center text-[11px] leading-tight text-slate-400">{label}</p>
     </div>
   );
 }
 
 function SubNumberNode({ value, label }: { value: number; label: string }) {
   return (
-    <div className="flex flex-1 flex-col items-center gap-2">
-      <span className="flex h-11 w-11 items-center justify-center rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400">
-        <CheckCircleIcon className="h-5 w-5" />
+    <div className="flex flex-1 flex-col items-center gap-1.5">
+      <span className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-700 text-emerald-400">
+        <CheckCircleIcon className="h-4 w-4" />
       </span>
-      <p className="text-sm font-bold text-foreground">{value}</p>
-      <p className="text-center text-[11px] leading-tight text-muted">{label}</p>
+      <p className="text-sm font-bold text-white" dir="ltr">{value}</p>
+      <p className="text-center text-[11px] leading-tight text-slate-400">{label}</p>
     </div>
   );
 }
@@ -175,7 +170,7 @@ function ReliabilityHistoryChart({ history }: { history: ReliabilityPoint[] }) {
   };
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-2.5">
       <h3 className="font-display text-sm font-extrabold">{tprof("reliabilityHistoryTitle")}</h3>
       <div className="flex flex-wrap gap-1.5">
         {PERIODS.map((p, i) => (
@@ -288,36 +283,36 @@ export function ExnessReliabilitySection({
   const mainColors = TIER_COLOR[mainTier];
 
   return (
-    <section className="flex flex-col gap-6 rounded-2xl border border-slate-800 bg-[#0b1222] p-5 sm:p-6">
-      <h2 className="font-display text-lg font-extrabold">{t("reliabilitySectionTitle")}</h2>
+    <section className="flex flex-col gap-5 rounded-2xl border border-slate-800 bg-[#0b1222] p-4 sm:p-5">
+      <h2 className="font-display text-base font-extrabold">{t("reliabilitySectionTitle")}</h2>
 
-      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {/* First in DOM = right column under RTL: the main reliability node. */}
         <div className="flex flex-col items-center">
-          <div className="flex w-full items-center justify-center gap-4">
-            <Ring value={reliabilityScore} size={96} strokeWidth={7} tier={mainTier} />
-            <div className="flex flex-col items-start gap-1">
-              <span className={`w-fit rounded-full border px-2.5 py-0.5 text-[11px] font-semibold ${mainColors.border} ${mainColors.bg} ${mainColors.text}`}>
+          <div className="flex w-full items-center justify-center gap-3">
+            <Ring value={reliabilityScore} size={64} strokeWidth={4} tier={mainTier} />
+            <div className="flex flex-col items-start gap-0.5">
+              <span className={`w-fit rounded-full border px-2 py-0.5 text-[10px] font-semibold ${mainColors.border} ${mainColors.text}`}>
                 {reliabilityStatus}
               </span>
-              <p className={`text-2xl font-extrabold ${mainColors.text}`} dir="ltr">
+              <p className={`text-xl font-extrabold ${mainColors.text}`} dir="ltr">
                 {Math.max(0, Math.min(100, Math.round(reliabilityScore)))}/100
               </p>
             </div>
           </div>
           <TreeConnector />
           <div className="flex w-full items-start justify-center gap-6">
-            <SubRingNode value={safetyScore} label={safetyStatus ? `${t("gaugeSafety")} · ${safetyStatus}` : t("gaugeSafety")} />
-            <SubRingNode value={riskExposureScore} label={riskStatus ? `${t("gaugeRiskExposure")} · ${riskStatus}` : t("gaugeRiskExposure")} inverted />
+            <SubRingNode value={safetyScore} label={t("gaugeSafety")} />
+            <SubRingNode value={riskExposureScore} label={t("gaugeRiskExposure")} inverted />
           </div>
         </div>
 
         {/* Second in DOM = left column under RTL: trading-activity node. */}
         <div className="flex flex-col items-center">
-          <span className="flex h-16 w-16 items-center justify-center rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400">
-            <BoltIcon className="h-7 w-7" />
+          <span className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-700 text-emerald-400">
+            <BoltIcon className="h-4 w-4" />
           </span>
-          <p className="mt-2 text-xs font-semibold text-muted">{t("importantBadgeLabel")}</p>
+          <p className="mt-1 text-[11px] font-semibold text-slate-400">{t("importantBadgeLabel")}</p>
           <TreeConnector />
           <div className="flex w-full items-start justify-center gap-6">
             <SubNumberNode value={limitScore} label={t("gaugeLimitScore")} />
@@ -326,7 +321,7 @@ export function ExnessReliabilitySection({
         </div>
       </div>
 
-      <div className="border-t border-slate-800 pt-5">
+      <div className="border-t border-slate-800 pt-4">
         <ReliabilityHistoryChart history={history} />
       </div>
     </section>
