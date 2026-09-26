@@ -252,7 +252,7 @@ export default async function TraderPage({
       <div className="flex flex-col gap-4 rounded-2xl border border-slate-800/60 bg-[#0b1222] p-4 sm:p-5">
         <div className="flex items-center gap-4">
           <TraderAvatar providerId={id} name={provider.display_name} avatarUrl={provider.avatar_url} ratingScore={provider.rating_score} size={64} priority />
-          <div className="flex-1">
+          <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
               <h1 className="text-xl font-semibold">{provider.display_name}</h1>
               <form action={isWatching ? unfollowTrader : followTrader}>
@@ -269,54 +269,55 @@ export default async function TraderPage({
                 </button>
               </form>
             </div>
-            <p className="text-xs text-muted">
-              {t("memberSince", {
-                date: formatDate(provider.joined_at, locale, { year: "numeric", month: "long", timeZone: "UTC" }),
-              })}
-              {countryDisplay(provider.country) && (
-                <span className="inline-flex items-center gap-1 align-text-bottom">
-                  {" · "}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={`https://flagcdn.com/16x12/${provider.country!.toLowerCase()}.png`}
-                    alt=""
-                    width={16}
-                    height={12}
-                    className="inline-block rounded-[1px]"
-                  />
-                  {tc(provider.country as never)}
-                </span>
-              )}
-            </p>
             {isWatching && (
               <p className="mt-0.5 text-[11px] text-muted">
                 {t("followNotifyNote")}
               </p>
             )}
           </div>
+          {isStopped ? (
+            <span className="shrink-0 cursor-not-allowed rounded-lg bg-border px-4 py-2 text-sm font-semibold text-muted">
+              {t("copyCta")}
+            </span>
+          ) : (
+            <Link
+              href={user ? "#copy" : `/signup?next=${encodeURIComponent(`/trader/${id}#copy`)}`}
+              className="shrink-0 rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground shadow-md shadow-accent/20 transition hover:bg-accent-hover"
+            >
+              {t("copyCta")}
+            </Link>
+          )}
         </div>
 
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap items-center gap-2">
           <TierBadge tier={provider.tier} />
           <RiskBadge level={provider.risk_level} />
+          <span className="inline-flex items-center gap-1 rounded-full border border-border bg-foreground/5 px-2 py-0.5 text-xs font-medium text-muted">
+            {countryDisplay(provider.country) && (
+              <>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`https://flagcdn.com/16x12/${provider.country!.toLowerCase()}.png`}
+                  alt=""
+                  width={16}
+                  height={12}
+                  className="inline-block rounded-[1px]"
+                />
+                {tc(provider.country as never)}
+                {" · "}
+              </>
+            )}
+            {t("memberSince", {
+              date: formatDate(provider.joined_at, locale, { year: "numeric", month: "long", timeZone: "UTC" }),
+            })}
+          </span>
         </div>
 
         {provider.bio && <p className="text-sm text-muted">{translateBio(provider.bio)}</p>}
 
+        {user && (
         <div id="copy" className="flex flex-col gap-3 rounded-lg border border-border bg-background p-3 scroll-mt-20">
-          {!user ? (
-            <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-sm text-muted">
-                {t("signupPrompt", { name: provider.display_name })}
-              </p>
-              <Link
-                href={`/signup?next=${encodeURIComponent(`/trader/${id}#copy`)}`}
-                className="w-full shrink-0 rounded bg-accent px-4 py-1.5 text-center text-sm font-medium text-accent-foreground transition hover:bg-accent-hover sm:w-fit"
-              >
-                {t("signupCta")}
-              </Link>
-            </div>
-          ) : isStopped ? (
+          {isStopped ? (
             <div className="flex flex-col gap-2 rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
               <p>
                 {t("stoppedTradingNotice", { name: provider.display_name })}
@@ -377,8 +378,9 @@ export default async function TraderPage({
             </form>
           )}
         </div>
+        )}
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <span className="rounded-full border border-accent/40 bg-accent/10 px-2.5 py-1 text-xs font-semibold text-accent">
+          <span className="rounded-full border border-slate-700/50 bg-slate-800/80 px-2.5 py-1 text-xs font-semibold text-foreground">
             {t("minCopyBadgeLabel")} <span dir="ltr">${Number(provider.min_copy_amount).toLocaleString("en-US")}</span>
           </span>
           {user && (
