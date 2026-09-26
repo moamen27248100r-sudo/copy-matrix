@@ -334,7 +334,9 @@
     "walletApprovedBody": "تم تنفيذ طلبك بمبلغ {amount}$.",
     "walletDepositRejectedTitle": "تم رفض طلب الإيداع",
     "walletWithdrawalRejectedTitle": "تم رفض طلب السحب",
-    "walletRejectedBody": "تم رفض طلبك. يرجى التواصل مع الدعم لمعرفة السبب."
+    "walletRejectedBody": "تم رفض طلبك. يرجى التواصل مع الدعم لمعرفة السبب.",
+    "followedTradeOpenedTitle": "فتح صفقة جديدة | {providerName}",
+    "followedTradeOpenedBody": "قام {providerName} بفتح صفقة {side, select, sell {بيع} other {شراء}} على زوج {symbol}. يمكنك مراجعة التفاصيل الآن."
   },
   "Portfolio": {
     "title": "محفظتي",
@@ -520,7 +522,10 @@
     "gaugeLimitScore": "درجة الحد",
     "gaugeTradingDays": "أيام التداول الفعلية",
     "importantBadgeLabel": "مهم",
-    "reliabilityHistoryTitle": "سجل موثوقية التداول"
+    "reliabilityHistoryTitle": "سجل موثوقية التداول",
+    "followingLabel": "تمت المتابعة",
+    "followToastTitle": "تمت المتابعة بنجاح",
+    "followToastBody": "ستتلقى الآن إشعارات فورية بكل الصفقات والتحديثات الجديدة الخاصة بـ {name}."
   },
   "Discover": {
     "title": "اكتشاف المتداولين",

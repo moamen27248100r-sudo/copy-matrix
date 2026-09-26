@@ -322,7 +322,9 @@
     "walletApprovedBody": "คำขอมูลค่า {amount}$ ของคุณได้รับการดำเนินการแล้ว",
     "walletDepositRejectedTitle": "คำขอฝากเงินถูกปฏิเสธ",
     "walletWithdrawalRejectedTitle": "คำขอถอนเงินถูกปฏิเสธ",
-    "walletRejectedBody": "คำขอของคุณถูกปฏิเสธ กรุณาติดต่อฝ่ายสนับสนุนเพื่อทราบสาเหตุ"
+    "walletRejectedBody": "คำขอของคุณถูกปฏิเสธ กรุณาติดต่อฝ่ายสนับสนุนเพื่อทราบสาเหตุ",
+    "followedTradeOpenedTitle": "เปิดการเทรดใหม่ | {providerName}",
+    "followedTradeOpenedBody": "{providerName} เปิดการเทรด{side, select, sell {ขาย} other {ซื้อ}}บน {symbol} คุณสามารถตรวจสอบรายละเอียดได้ตอนนี้"
   },
   "Portfolio": {
     "title": "พอร์ตของฉัน",
@@ -508,7 +510,10 @@
     "gaugeLimitScore": "คะแนนขีดจำกัด",
     "gaugeTradingDays": "วันเทรดที่มีการใช้งาน",
     "importantBadgeLabel": "สำคัญ",
-    "reliabilityHistoryTitle": "ประวัติความน่าเชื่อถือในการเทรด"
+    "reliabilityHistoryTitle": "ประวัติความน่าเชื่อถือในการเทรด",
+    "followingLabel": "กำลังติดตาม",
+    "followToastTitle": "ติดตามสำเร็จ",
+    "followToastBody": "ตอนนี้คุณจะได้รับการแจ้งเตือนทันทีสำหรับทุกการเทรดและอัปเดตใหม่จาก {name}"
   },
   "Discover": {
     "title": "ค้นหาเทรดเดอร์",

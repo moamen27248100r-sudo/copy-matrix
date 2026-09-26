@@ -322,7 +322,9 @@
     "walletApprovedBody": "Yêu cầu {amount}$ của bạn đã được xử lý.",
     "walletDepositRejectedTitle": "Yêu cầu nạp tiền bị từ chối",
     "walletWithdrawalRejectedTitle": "Yêu cầu rút tiền bị từ chối",
-    "walletRejectedBody": "Yêu cầu của bạn đã bị từ chối. Vui lòng liên hệ hỗ trợ để biết lý do."
+    "walletRejectedBody": "Yêu cầu của bạn đã bị từ chối. Vui lòng liên hệ hỗ trợ để biết lý do.",
+    "followedTradeOpenedTitle": "Đã mở giao dịch mới | {providerName}",
+    "followedTradeOpenedBody": "{providerName} đã mở giao dịch {side, select, sell {bán} other {mua}} trên {symbol}. Bạn có thể xem chi tiết ngay bây giờ."
   },
   "Portfolio": {
     "title": "Danh mục của tôi",
@@ -508,7 +510,10 @@
     "gaugeLimitScore": "Điểm giới hạn",
     "gaugeTradingDays": "Số ngày giao dịch hoạt động",
     "importantBadgeLabel": "Quan trọng",
-    "reliabilityHistoryTitle": "Lịch sử độ tin cậy giao dịch"
+    "reliabilityHistoryTitle": "Lịch sử độ tin cậy giao dịch",
+    "followingLabel": "Đang theo dõi",
+    "followToastTitle": "Theo dõi thành công",
+    "followToastBody": "Bạn sẽ nhận được thông báo tức thì cho mỗi giao dịch và cập nhật mới từ {name}."
   },
   "Discover": {
     "title": "Khám phá nhà giao dịch",

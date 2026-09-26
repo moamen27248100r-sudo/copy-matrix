@@ -322,7 +322,9 @@
     "walletApprovedBody": "您金额为 {amount} 美元的申请已处理。",
     "walletDepositRejectedTitle": "存款申请被拒绝",
     "walletWithdrawalRejectedTitle": "提款申请被拒绝",
-    "walletRejectedBody": "您的申请被拒绝。请联系客服了解原因。"
+    "walletRejectedBody": "您的申请被拒绝。请联系客服了解原因。",
+    "followedTradeOpenedTitle": "开仓新交易 | {providerName}",
+    "followedTradeOpenedBody": "{providerName} 开了一笔 {symbol} 的{side, select, sell {卖出} other {买入}}交易。您现在可以查看详情。"
   },
   "Portfolio": {
     "title": "我的资产",
@@ -508,7 +510,10 @@
     "gaugeLimitScore": "限额评分",
     "gaugeTradingDays": "活跃交易天数",
     "importantBadgeLabel": "重要",
-    "reliabilityHistoryTitle": "交易可靠性历史"
+    "reliabilityHistoryTitle": "交易可靠性历史",
+    "followingLabel": "已关注",
+    "followToastTitle": "关注成功",
+    "followToastBody": "您现在将即时收到来自 {name} 的每笔新交易和更新通知。"
   },
   "Discover": {
     "title": "发现交易员",

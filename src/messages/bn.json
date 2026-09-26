@@ -322,7 +322,9 @@
     "walletApprovedBody": "আপনার {amount}$ এর অনুরোধ প্রক্রিয়া করা হয়েছে।",
     "walletDepositRejectedTitle": "জমার অনুরোধ প্রত্যাখ্যাত",
     "walletWithdrawalRejectedTitle": "উত্তোলনের অনুরোধ প্রত্যাখ্যাত",
-    "walletRejectedBody": "আপনার অনুরোধ প্রত্যাখ্যাত হয়েছে। কারণ জানতে সহায়তার সাথে যোগাযোগ করুন।"
+    "walletRejectedBody": "আপনার অনুরোধ প্রত্যাখ্যাত হয়েছে। কারণ জানতে সহায়তার সাথে যোগাযোগ করুন।",
+    "followedTradeOpenedTitle": "নতুন ট্রেড খোলা হয়েছে | {providerName}",
+    "followedTradeOpenedBody": "{providerName} {symbol} তে একটি {side, select, sell {বিক্রয়} other {ক্রয়}} ট্রেড খুলেছে। আপনি এখন বিস্তারিত দেখতে পারেন।"
   },
   "Portfolio": {
     "title": "আমার পোর্টফোলিও",
@@ -508,7 +510,10 @@
     "gaugeLimitScore": "লিমিট স্কোর",
     "gaugeTradingDays": "সক্রিয় ট্রেডিং দিন",
     "importantBadgeLabel": "গুরুত্বপূর্ণ",
-    "reliabilityHistoryTitle": "ট্রেডিং নির্ভরযোগ্যতার ইতিহাস"
+    "reliabilityHistoryTitle": "ট্রেডিং নির্ভরযোগ্যতার ইতিহাস",
+    "followingLabel": "অনুসরণ করা হচ্ছে",
+    "followToastTitle": "সফলভাবে অনুসরণ করা হয়েছে",
+    "followToastBody": "এখন থেকে আপনি {name} এর প্রতিটি নতুন ট্রেড ও আপডেটের তাৎক্ষণিক নোটিফিকেশন পাবেন।"
   },
   "Discover": {
     "title": "ট্রেডার খুঁজুন",

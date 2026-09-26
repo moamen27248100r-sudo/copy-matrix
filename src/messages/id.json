@@ -322,7 +322,9 @@
     "walletApprovedBody": "Permintaan Anda sebesar {amount}$ telah diproses.",
     "walletDepositRejectedTitle": "Permintaan setor ditolak",
     "walletWithdrawalRejectedTitle": "Permintaan tarik ditolak",
-    "walletRejectedBody": "Permintaan Anda ditolak. Silakan hubungi dukungan untuk mengetahui alasannya."
+    "walletRejectedBody": "Permintaan Anda ditolak. Silakan hubungi dukungan untuk mengetahui alasannya.",
+    "followedTradeOpenedTitle": "Transaksi baru dibuka | {providerName}",
+    "followedTradeOpenedBody": "{providerName} membuka transaksi {side, select, sell {jual} other {beli}} pada {symbol}. Anda dapat meninjau detailnya sekarang."
   },
   "Portfolio": {
     "title": "Portofolio Saya",
@@ -508,7 +510,10 @@
     "gaugeLimitScore": "Skor Batas",
     "gaugeTradingDays": "Hari Trading Aktif",
     "importantBadgeLabel": "Penting",
-    "reliabilityHistoryTitle": "Riwayat Keandalan Trading"
+    "reliabilityHistoryTitle": "Riwayat Keandalan Trading",
+    "followingLabel": "Mengikuti",
+    "followToastTitle": "Berhasil mengikuti",
+    "followToastBody": "Anda kini akan menerima notifikasi instan untuk setiap transaksi dan pembaruan baru dari {name}."
   },
   "Discover": {
     "title": "Temukan trader",

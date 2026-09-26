@@ -322,7 +322,9 @@
     "walletApprovedBody": "Ombi lako la {amount}$ limeshughulikiwa.",
     "walletDepositRejectedTitle": "Ombi la kuweka pesa limekataliwa",
     "walletWithdrawalRejectedTitle": "Ombi la kutoa pesa limekataliwa",
-    "walletRejectedBody": "Ombi lako limekataliwa. Tafadhali wasiliana na msaada ili kujua sababu."
+    "walletRejectedBody": "Ombi lako limekataliwa. Tafadhali wasiliana na msaada ili kujua sababu.",
+    "followedTradeOpenedTitle": "Biashara mpya imefunguliwa | {providerName}",
+    "followedTradeOpenedBody": "{providerName} amefungua biashara ya {side, select, sell {kuuza} other {kununua}} kwenye {symbol}. Unaweza kukagua maelezo sasa."
   },
   "Portfolio": {
     "title": "Jalada Langu",
@@ -508,7 +510,10 @@
     "gaugeLimitScore": "Alama ya Kikomo",
     "gaugeTradingDays": "Siku za Biashara Zilizo Hai",
     "importantBadgeLabel": "Muhimu",
-    "reliabilityHistoryTitle": "Historia ya Kuaminika kwa Biashara"
+    "reliabilityHistoryTitle": "Historia ya Kuaminika kwa Biashara",
+    "followingLabel": "Unafuata",
+    "followToastTitle": "Umefuata kwa mafanikio",
+    "followToastBody": "Sasa utapokea arifa za papo hapo za kila biashara na sasisho jipya kutoka kwa {name}."
   },
   "Discover": {
     "title": "Gundua wafanyabiashara",

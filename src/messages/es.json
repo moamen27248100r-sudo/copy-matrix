@@ -322,7 +322,9 @@
     "walletApprovedBody": "Tu solicitud de {amount}$ ha sido procesada.",
     "walletDepositRejectedTitle": "Solicitud de depósito rechazada",
     "walletWithdrawalRejectedTitle": "Solicitud de retiro rechazada",
-    "walletRejectedBody": "Tu solicitud fue rechazada. Contacta con soporte para conocer el motivo."
+    "walletRejectedBody": "Tu solicitud fue rechazada. Contacta con soporte para conocer el motivo.",
+    "followedTradeOpenedTitle": "Nueva operación abierta | {providerName}",
+    "followedTradeOpenedBody": "{providerName} abrió una operación de {side, select, sell {venta} other {compra}} en {symbol}. Puedes revisar los detalles ahora."
   },
   "Portfolio": {
     "title": "Mi cartera",
@@ -508,7 +510,10 @@
     "gaugeLimitScore": "Puntuación de límite",
     "gaugeTradingDays": "Días de trading activos",
     "importantBadgeLabel": "Importante",
-    "reliabilityHistoryTitle": "Historial de fiabilidad de trading"
+    "reliabilityHistoryTitle": "Historial de fiabilidad de trading",
+    "followingLabel": "Siguiendo",
+    "followToastTitle": "Siguiendo con éxito",
+    "followToastBody": "Ahora recibirás notificaciones instantáneas de cada nueva operación y actualización de {name}."
   },
   "Discover": {
     "title": "Descubrir traders",

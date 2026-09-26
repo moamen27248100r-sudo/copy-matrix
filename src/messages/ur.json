@@ -322,7 +322,9 @@
     "walletApprovedBody": "آپ کی {amount}$ کی درخواست پر عمل کر دیا گیا ہے۔",
     "walletDepositRejectedTitle": "جمع کرنے کی درخواست مسترد",
     "walletWithdrawalRejectedTitle": "نکالنے کی درخواست مسترد",
-    "walletRejectedBody": "آپ کی درخواست مسترد کر دی گئی۔ وجہ جاننے کے لیے براہ کرم سپورٹ سے رابطہ کریں۔"
+    "walletRejectedBody": "آپ کی درخواست مسترد کر دی گئی۔ وجہ جاننے کے لیے براہ کرم سپورٹ سے رابطہ کریں۔",
+    "followedTradeOpenedTitle": "نئی ٹریڈ کھولی گئی | {providerName}",
+    "followedTradeOpenedBody": "{providerName} نے {symbol} پر {side, select, sell {فروخت} other {خرید}} ٹریڈ کھولی۔ اب آپ تفصیلات دیکھ سکتے ہیں۔"
   },
   "Portfolio": {
     "title": "میرا پورٹ فولیو",
@@ -508,7 +510,10 @@
     "gaugeLimitScore": "حد اسکور",
     "gaugeTradingDays": "فعال ٹریڈنگ دن",
     "importantBadgeLabel": "اہم",
-    "reliabilityHistoryTitle": "ٹریڈنگ اعتباریت کی تاریخ"
+    "reliabilityHistoryTitle": "ٹریڈنگ اعتباریت کی تاریخ",
+    "followingLabel": "فالو کیا گیا",
+    "followToastTitle": "کامیابی سے فالو کیا گیا",
+    "followToastBody": "اب آپ کو {name} کی ہر نئی ٹریڈ اور اپڈیٹ کا فوری نوٹیفکیشن ملے گا۔"
   },
   "Discover": {
     "title": "ٹریڈرز دریافت کریں",

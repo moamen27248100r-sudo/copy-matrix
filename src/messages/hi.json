@@ -322,7 +322,9 @@
     "walletApprovedBody": "आपका {amount}$ का अनुरोध संसाधित कर दिया गया है।",
     "walletDepositRejectedTitle": "जमा अनुरोध अस्वीकृत",
     "walletWithdrawalRejectedTitle": "निकासी अनुरोध अस्वीकृत",
-    "walletRejectedBody": "आपका अनुरोध अस्वीकृत कर दिया गया। कारण जानने के लिए कृपया सहायता से संपर्क करें।"
+    "walletRejectedBody": "आपका अनुरोध अस्वीकृत कर दिया गया। कारण जानने के लिए कृपया सहायता से संपर्क करें।",
+    "followedTradeOpenedTitle": "नया ट्रेड खोला गया | {providerName}",
+    "followedTradeOpenedBody": "{providerName} ने {symbol} पर {side, select, sell {बिक्री} other {खरीद}} ट्रेड खोला। अब आप विवरण देख सकते हैं।"
   },
   "Portfolio": {
     "title": "मेरा पोर्टफोलियो",
@@ -508,7 +510,10 @@
     "gaugeLimitScore": "लिमिट स्कोर",
     "gaugeTradingDays": "सक्रिय ट्रेडिंग दिन",
     "importantBadgeLabel": "महत्वपूर्ण",
-    "reliabilityHistoryTitle": "ट्रेडिंग विश्वसनीयता इतिहास"
+    "reliabilityHistoryTitle": "ट्रेडिंग विश्वसनीयता इतिहास",
+    "followingLabel": "फॉलो किया गया",
+    "followToastTitle": "सफलतापूर्वक फॉलो किया गया",
+    "followToastBody": "अब आपको {name} की हर नई ट्रेड और अपडेट की तुरंत सूचना मिलेगी।"
   },
   "Discover": {
     "title": "ट्रेडर खोजें",

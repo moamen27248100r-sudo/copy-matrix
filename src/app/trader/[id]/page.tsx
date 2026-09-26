@@ -2,7 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
-import { followProvider, unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/actions";
+import { followProvider, unfollowProvider } from "@/app/discover/actions";
+import { FollowButton } from "@/components/FollowButton";
 import { AppNav } from "@/components/AppNav";
 import { TradeHistory } from "@/components/TradeHistory";
 import { getGaugeTier } from "@/components/CircularGauge";
@@ -264,19 +265,16 @@ export default async function TraderPage({
                   className="inline-block rounded-[2px]"
                 />
               )}
-              <form action={isWatching ? unfollowTrader : followTrader}>
-                <input type="hidden" name="providerId" value={id} />
-                <button
-                  type="submit"
-                  className={
-                    isWatching
-                      ? "rounded-full border border-border px-3 py-0.5 text-xs text-muted"
-                      : "rounded-full border border-accent px-3 py-0.5 text-xs text-accent"
-                  }
+              {user ? (
+                <FollowButton providerId={id} providerName={provider.display_name} initialWatching={isWatching} />
+              ) : (
+                <Link
+                  href={`/signup?next=${encodeURIComponent(`/trader/${id}`)}`}
+                  className="rounded-full border border-accent px-3 py-0.5 text-xs text-accent"
                 >
-                  {isWatching ? t("unfollow") : t("follow")}
-                </button>
-              </form>
+                  {t("follow")}
+                </Link>
+              )}
             </div>
             {isWatching && (
               <p className="mt-0.5 text-[11px] text-muted">
