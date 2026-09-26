@@ -102,15 +102,15 @@ const TEXT: Record<Locale, FeaturesText> = {
   },
 };
 
-const MARKET_ICONS: { symbol: string; glyph: string }[] = [
-  { symbol: "BTC", glyph: "₿" },
-  { symbol: "EUR/USD", glyph: "€$" },
-  { symbol: "GOLD", glyph: "Au" },
-  { symbol: "US100", glyph: "📈" },
+const MARKET_ICONS: { symbol: string; glyph: string; classes: string }[] = [
+  { symbol: "BTC", glyph: "₿", classes: "text-orange-400 bg-orange-500/10 border-orange-500/20" },
+  { symbol: "EUR/USD", glyph: "€$", classes: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20" },
+  { symbol: "GOLD", glyph: "Au", classes: "text-amber-400 bg-amber-500/10 border-amber-500/20" },
+  { symbol: "US100", glyph: "📈", classes: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20" },
 ];
 
 const CARD_BASE =
-  "flex h-full flex-col justify-between rounded-xl border border-white/[0.06] bg-[#111827]/60 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-700 sm:p-8";
+  "flex h-full flex-col justify-between rounded-xl border border-slate-800 bg-[#0e1626]/90 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-500/30 sm:p-8";
 
 export function FeaturesGrid({ locale }: { locale: Locale }) {
   const t = TEXT[locale] ?? TEXT.en;
@@ -129,7 +129,7 @@ export function FeaturesGrid({ locale }: { locale: Locale }) {
           {/* Card 1 */}
           <div className={`${CARD_BASE} md:col-start-3 md:row-start-1`}>
             <div className="flex flex-col gap-3">
-              <span className="inline-flex w-fit shrink-0 items-center gap-1.5 rounded-md border border-slate-700/50 bg-slate-800/60 px-2 py-0.5 text-[11px] font-medium text-slate-300">
+              <span className="inline-flex w-fit shrink-0 items-center gap-1.5 rounded-md border border-cyan-400/40 bg-cyan-500/20 px-2 py-0.5 text-[11px] font-medium text-cyan-300 shadow-sm">
                 {t.card1.badge}
               </span>
               <h3 className="line-clamp-1 text-lg font-semibold text-slate-100">{t.card1.title}</h3>
@@ -150,9 +150,9 @@ export function FeaturesGrid({ locale }: { locale: Locale }) {
               {MARKET_ICONS.map((m) => (
                 <div
                   key={m.symbol}
-                  className="flex flex-col items-center gap-1 rounded-lg border border-white/5 bg-[#131c31]/60 py-3 text-slate-200"
+                  className={`flex flex-col items-center gap-1 rounded-lg border py-3 ${m.classes}`}
                 >
-                  <span className="text-sm font-semibold text-slate-200">{m.glyph}</span>
+                  <span className="text-sm font-semibold">{m.glyph}</span>
                   <span className="line-clamp-1 text-[10px] text-slate-400">{m.symbol}</span>
                 </div>
               ))}
@@ -171,7 +171,7 @@ export function FeaturesGrid({ locale }: { locale: Locale }) {
                 <span className="line-clamp-1 font-semibold text-emerald-400">{t.card3.riskValue}</span>
               </div>
               <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-white/5">
-                <div className="h-full w-1/4 rounded-full bg-emerald-500/70" />
+                <div className="h-full w-1/4 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400" />
               </div>
             </div>
           </div>
