@@ -4,7 +4,6 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { followProvider, unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
-import { TierBadge, RiskBadge } from "@/components/TraderBadges";
 import { TradeHistory } from "@/components/TradeHistory";
 import { getGaugeTier } from "@/components/CircularGauge";
 import { ExnessReliabilitySection } from "@/components/ExnessReliabilitySection";
@@ -300,16 +299,6 @@ export default async function TraderPage({
             ))}
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
-          <TierBadge tier={provider.tier} />
-          <RiskBadge level={provider.risk_level} />
-          <span className="inline-flex items-center gap-1 rounded-full border border-border bg-foreground/5 px-2 py-0.5 text-xs font-medium text-muted">
-            {t("memberSince", {
-              date: formatDate(provider.joined_at, locale, { year: "numeric", month: "long", timeZone: "UTC" }),
-            })}
-          </span>
-        </div>
-
         {provider.bio && <p className="text-sm text-muted">{translateBio(provider.bio)}</p>}
 
         {user && (
@@ -343,10 +332,10 @@ export default async function TraderPage({
               })}
             </p>
           ) : (
-          <form action={followProvider} className="flex items-center gap-3">
+          <form action={followProvider} className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
             <input type="hidden" name="providerId" value={id} />
             <label className="text-sm text-muted">{t("copyAmountLabel")}</label>
-            <div className="inline-flex w-fit overflow-hidden rounded-lg border border-border">
+            <div className="flex overflow-hidden rounded-lg border border-border sm:w-fit">
               <input
                 name="allocatedAmount"
                 type="number"
@@ -354,11 +343,11 @@ export default async function TraderPage({
                 min={0}
                 defaultValue={myProfile?.balance ?? provider.min_copy_amount}
                 required
-                className="w-24 bg-surface px-2 py-1.5 text-sm text-foreground focus:outline-none"
+                className="w-full min-w-0 flex-1 bg-surface px-2 py-2 text-sm text-foreground focus:outline-none sm:w-24 sm:flex-none"
               />
               <button
                 type="submit"
-                className="shrink-0 bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
+                className="shrink-0 bg-accent px-5 py-2 text-sm font-semibold text-accent-foreground transition hover:bg-accent-hover"
               >
                 {t("copyCta")}
               </button>
@@ -392,7 +381,7 @@ export default async function TraderPage({
           )}
         </div>
 
-        <div className="grid grid-cols-2 gap-3 border-t border-slate-800/40 pt-4 text-center text-sm sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 border-t border-slate-700/70 pt-4 text-center text-sm sm:grid-cols-3">
           <div>
             <p className="font-semibold">{provider.followers_count}</p>
             <p className="text-xs text-muted">{t("statCopiers")}</p>
@@ -430,7 +419,7 @@ export default async function TraderPage({
           </div>
         </div>
 
-        <div className="border-t border-slate-800/40 pt-4">
+        <div className="border-t border-slate-700/70 pt-4">
           <ExnessReliabilitySection
             reliabilityScore={reliabilityScore}
             reliabilityStatus={reliabilityStatus}
@@ -484,7 +473,14 @@ export default async function TraderPage({
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">{t("tradeHistorySectionTitle")}</h2>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h2 className="font-medium">{t("tradeHistorySectionTitle")}</h2>
+          <p className="text-xs text-slate-500">
+            {t("memberSince", {
+              date: formatDate(provider.joined_at, locale, { year: "numeric", month: "long", timeZone: "UTC" }),
+            })}
+          </p>
+        </div>
         {closedHistory.length === 0 ? (
           <p className="text-sm text-muted">{t("noClosedTrades")}</p>
         ) : (
