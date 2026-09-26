@@ -40,7 +40,7 @@ export function Header({
 
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-2 text-xs text-muted sm:gap-x-6 sm:pt-3 sm:text-sm">
           {navLinks.map((l) => (
-            <a key={l.href} href={l.href} className="line-clamp-1 hover:text-neon-cyan">
+            <a key={l.href} href={l.href} className="line-clamp-1 hover:text-foreground">
               {l.label}
             </a>
           ))}

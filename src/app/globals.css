@@ -23,9 +23,6 @@
   --glass-surface: rgba(15, 23, 35, 0.6);
   --glass-surface-soft: rgba(30, 41, 59, 0.4);
   --glass-border: rgba(255, 255, 255, 0.1);
-  --neon-cyan: #00f2fe;
-  --neon-emerald: #10b981;
-  --neon-blue: #3b82f6;
 }
 
 @theme inline {
@@ -46,9 +43,6 @@
   --color-glass-surface: var(--glass-surface);
   --color-glass-surface-soft: var(--glass-surface-soft);
   --color-glass-border: var(--glass-border);
-  --color-neon-cyan: var(--neon-cyan);
-  --color-neon-emerald: var(--neon-emerald);
-  --color-neon-blue: var(--neon-blue);
   --font-sans: var(--font-plex-sans-arabic), sans-serif;
   --font-mono: var(--font-plex-mono), monospace;
 }

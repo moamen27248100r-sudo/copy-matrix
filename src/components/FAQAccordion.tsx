@@ -146,17 +146,17 @@ export function FAQAccordion({ locale }: { locale: Locale }) {
         <h2 className="line-clamp-1 text-2xl font-semibold sm:text-3xl">{t.title}</h2>
         <p className="line-clamp-2 text-sm text-muted">{t.subtitle}</p>
       </div>
-      <div className="mx-auto w-full max-w-3xl divide-y divide-glass-border overflow-hidden rounded-2xl border border-glass-border bg-glass-surface shadow-[0_0_30px_-10px_rgba(34,211,238,0.25)] backdrop-blur-xl">
+      <div className="mx-auto w-full max-w-3xl divide-y divide-glass-border overflow-hidden rounded-2xl border border-glass-border bg-glass-surface backdrop-blur-xl">
         {t.items.map((f) => (
-          <details key={f.q} className="group open:bg-neon-cyan/[0.04]">
+          <details key={f.q} className="group open:bg-blue-500/[0.04]">
             <summary className="flex cursor-pointer list-none items-start gap-4 px-5 py-5 marker:content-none sm:px-6 sm:py-6">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-neon-cyan/30 bg-neon-cyan/10 text-sm font-bold text-neon-cyan">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-blue-500/20 bg-blue-500/10 text-sm font-bold text-blue-400">
                 {isRtl ? "؟" : "?"}
               </span>
               <span className="line-clamp-1 flex-1 pt-1.5 text-[15px] font-semibold leading-snug sm:text-base">
                 {f.q}
               </span>
-              <span className="mt-1.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-glass-border text-muted transition-all group-open:rotate-180 group-open:border-neon-cyan/50 group-open:bg-neon-cyan/10 group-open:text-neon-cyan">
+              <span className="mt-1.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-glass-border text-muted transition-all group-open:rotate-180 group-open:border-blue-500/30 group-open:bg-blue-500/10 group-open:text-blue-400">
                 <svg
                   viewBox="0 0 24 24"
                   className="h-4 w-4"

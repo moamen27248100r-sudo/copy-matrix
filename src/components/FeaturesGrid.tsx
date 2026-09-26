@@ -105,7 +105,7 @@ const TEXT: Record<Locale, FeaturesText> = {
 
 const MARKETS: { symbol: string; glyph: string; colorClass: string }[] = [
   { symbol: "BTC", glyph: "₿", colorClass: "text-orange-400" },
-  { symbol: "EUR/USD", glyph: "€$", colorClass: "text-cyan-400" },
+  { symbol: "EUR/USD", glyph: "€$", colorClass: "text-blue-400" },
   { symbol: "GOLD", glyph: "Au", colorClass: "text-amber-400" },
   { symbol: "US100", glyph: "📈", colorClass: "text-emerald-400" },
 ];
@@ -133,9 +133,18 @@ function CardIcon({ name, className }: { name: "zap" | "globe" | "settings"; cla
   );
 }
 
+const ICON_BADGE_CLASSES: Record<"zap" | "globe" | "settings", string> = {
+  // Amber for instant execution (speed), blue for markets (standard
+  // financial blue), neutral slate for settings/control — no cyan/teal
+  // anywhere, each icon uses the color its meaning actually calls for.
+  zap: "text-amber-400 bg-amber-500/10 border-amber-500/20",
+  globe: "text-blue-400 bg-blue-500/10 border-blue-500/20",
+  settings: "text-slate-300 bg-slate-800/80 border-slate-700/50",
+};
+
 function IconBadge({ name }: { name: "zap" | "globe" | "settings" }) {
   return (
-    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-cyan-500/20 bg-cyan-500/10 text-cyan-400">
+    <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border ${ICON_BADGE_CLASSES[name]}`}>
       <CardIcon name={name} className="h-4 w-4" />
     </span>
   );

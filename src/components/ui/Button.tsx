@@ -10,11 +10,10 @@ const SIZE_CLASSES: Record<Size, string> = {
 };
 
 const VARIANT_CLASSES: Record<Variant, string> = {
-  primary:
-    "bg-accent text-accent-foreground hover:bg-accent-hover shadow-[0_0_20px_-4px_var(--accent)]",
+  primary: "bg-accent text-accent-foreground hover:bg-accent-hover",
   glass:
-    "border border-glass-border bg-glass-surface text-foreground backdrop-blur-xl hover:border-neon-cyan/50 hover:shadow-[0_0_16px_-4px_rgba(34,211,238,0.5)]",
-  outline: "border border-border text-foreground hover:border-neon-cyan/40 hover:bg-white/5",
+    "border border-glass-border bg-glass-surface text-foreground backdrop-blur-xl hover:border-slate-600",
+  outline: "border border-border text-foreground hover:border-slate-600 hover:bg-white/5",
 };
 
 const BASE =
