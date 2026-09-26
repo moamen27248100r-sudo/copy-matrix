@@ -63,15 +63,22 @@ function computeMaxDrawdown(signals: SignalRow[]) {
 
   if (closed.length === 0) return null;
 
-  let cumulative = 0;
-  let peak = 0;
+  // Compounds each trade's % return against a running equity multiplier
+  // instead of naively summing percentages -- the additive version could
+  // (and, checked live, regularly did) report an impossible >100% or
+  // even >1000% drawdown once per-trade swings got large enough (a
+  // string of double-digit losses adds up past -100% on paper even
+  // though real equity can only ever asymptotically approach zero,
+  // never cross it). This can never mathematically exceed 100%.
+  let equity = 1;
+  let peak = 1;
   let maxDrawdown = 0;
   for (const s of closed) {
     const raw = (s.exit_price! - s.entry_price) / s.entry_price;
     const signed = s.side === "sell" ? -raw : raw;
-    cumulative += signed * 100;
-    if (cumulative > peak) peak = cumulative;
-    const drawdown = peak - cumulative;
+    equity *= 1 + signed;
+    if (equity > peak) peak = equity;
+    const drawdown = peak > 0 ? ((peak - equity) / peak) * 100 : 0;
     if (drawdown > maxDrawdown) maxDrawdown = drawdown;
   }
   return Math.round(maxDrawdown * 100) / 100;
