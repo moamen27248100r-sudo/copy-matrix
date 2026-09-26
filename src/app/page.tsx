@@ -4,8 +4,7 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { MarketOverview } from "@/components/MarketOverview";
 import { MarketNewsFeed } from "@/components/MarketNewsFeed";
-import { TraderAvatar } from "@/components/TraderAvatar";
-import { Sparkline } from "@/components/Sparkline";
+import { LeaderCard } from "@/components/LeaderCard";
 import {
   LiveStatsProvider,
   LiveActiveTraders,
@@ -238,7 +237,11 @@ export default async function Home() {
       <Header locale={locale} dir={dir} navLinks={navLinks} loginLabel={t("nav.login")} signupLabel={t("nav.signup")} />
 
       <section className="flex flex-col items-center gap-5 px-6 py-20 text-center">
-        <h1 className="max-w-2xl text-4xl font-semibold leading-tight sm:text-5xl">{t("hero.title")}</h1>
+        <h1 className="max-w-2xl font-display text-4xl font-extrabold leading-tight sm:text-5xl">
+          {t.rich("hero.title", {
+            accent: (chunks) => <span className="text-accent">{chunks}</span>,
+          })}
+        </h1>
         <p className="max-w-md text-muted">{t("hero.subtitle")}</p>
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           <Link
@@ -330,7 +333,7 @@ export default async function Home() {
       {topProviders && topProviders.length > 0 && (
         <section id="traders" className="flex flex-col gap-6 border-t border-border px-6 py-16">
           <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-2 text-center">
-            <h2 className="text-2xl font-semibold sm:text-3xl">{t("traders.title")}</h2>
+            <h2 className="font-display text-2xl font-extrabold sm:text-3xl">{t("traders.title")}</h2>
             <p className="max-w-xl text-sm text-muted">{t("traders.subtitle")}</p>
           </div>
           <div className="mx-auto grid w-full max-w-5xl grid-cols-1 gap-5 md:grid-cols-3">
@@ -339,83 +342,13 @@ export default async function Home() {
                 ? `/trader/${p.provider_id}#copy`
                 : `/signup?next=${encodeURIComponent(`/trader/${p.provider_id}#copy`)}`;
               return (
-                <div
+                <LeaderCard
                   key={p.provider_id}
-                  className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] shadow-lg shadow-black/20 backdrop-blur-sm transition hover:border-success/40 hover:bg-white/[0.06]"
-                >
-                  <div className="flex flex-col gap-4 p-5 pb-0">
-                    <Link href={`/trader/${p.provider_id}`} className="flex items-center gap-3">
-                      <TraderAvatar
-                        providerId={p.provider_id}
-                        name={p.display_name}
-                        avatarUrl={p.avatar_url}
-                        ratingScore={p.rating_score}
-                        size={50}
-                        showLevel={false}
-                        priority
-                      />
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate text-base font-semibold">{p.display_name}</p>
-                        {p.bio && <p className="line-clamp-2 text-xs leading-relaxed text-muted">{translateBio(p.bio)}</p>}
-                      </div>
-                    </Link>
-                    {(() => {
-                      const series = sparkSeries[String(p.provider_id)] ?? [];
-                      if (series.length < 3) return null;
-                      const total = series[series.length - 1];
-                      return (
-                        <div className="rounded-xl border border-white/5 bg-black/20 p-3">
-                          <div className="flex items-center justify-between text-[11px] text-muted">
-                            <span>{t.has("traders.recentTrades") ? t("traders.recentTrades") : ""}</span>
-                            <span dir="ltr" className={`font-semibold ${total >= 0 ? "text-success" : "text-danger"}`}>
-                              {total >= 0 ? "+" : ""}
-                              {total.toFixed(1)}%
-                            </span>
-                          </div>
-                          <Sparkline
-                            id={`spark-${p.provider_id}`}
-                            values={series}
-                            className={`mt-2 h-14 w-full ${total >= 0 ? "text-success" : "text-danger"}`}
-                          />
-                        </div>
-                      );
-                    })()}
-                  </div>
-                  <div className="flex flex-col gap-3 p-4">
-                    <div className="grid grid-cols-2 gap-2.5">
-                      <div className="rounded-xl border border-white/10 bg-white/5 p-3 text-center">
-                        <p className="text-base font-semibold">{p.followers_count}</p>
-                        <p className="text-[11px] text-muted">{t("traders.copiers")}</p>
-                      </div>
-                      <div className="rounded-xl border border-white/10 bg-white/5 p-3 text-center">
-                        <p
-                          className={
-                            p.avg_daily_return_pct != null && p.avg_daily_return_pct < 0
-                              ? "text-base font-semibold text-danger"
-                              : "text-base font-semibold text-success"
-                          }
-                        >
-                          {p.avg_daily_return_pct != null ? `${p.avg_daily_return_pct}%` : "—"}
-                        </p>
-                        <p className="text-[11px] text-muted">{t("traders.avgReturn")}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Link
-                        href={copyHref}
-                        className="flex-1 rounded-lg bg-accent px-3 py-2.5 text-center text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
-                      >
-                        {t("traders.copy")}
-                      </Link>
-                      <Link
-                        href={`/trader/${p.provider_id}`}
-                        className="shrink-0 text-xs text-muted underline-offset-2 transition hover:text-foreground hover:underline"
-                      >
-                        {t("traders.viewProfile")}
-                      </Link>
-                    </div>
-                  </div>
-                </div>
+                  provider={p}
+                  copyHref={copyHref}
+                  bio={p.bio ? translateBio(p.bio) : null}
+                  sparkline={sparkSeries[String(p.provider_id)]}
+                />
               );
             })}
           </div>
@@ -430,7 +363,7 @@ export default async function Home() {
 
       <section id="markets" className="flex flex-col gap-4 border-t border-border px-6 py-16">
         <div className="mx-auto flex w-full max-w-5xl flex-col gap-1">
-          <h2 className="text-2xl font-semibold">{t("markets.toolsTitle")}</h2>
+          <h2 className="font-display text-2xl font-extrabold">{t("markets.toolsTitle")}</h2>
           <p className="text-sm text-muted">{t("markets.toolsDesc")}</p>
         </div>
         <div className="mx-auto w-full max-w-5xl overflow-hidden rounded-lg border border-border">
@@ -440,7 +373,7 @@ export default async function Home() {
 
       <section id="market-news" className="flex flex-col gap-4 border-t border-border px-6 py-16">
         <div className="mx-auto flex w-full max-w-5xl flex-col gap-1">
-          <h2 className="text-2xl font-semibold">{t("marketNews.title")}</h2>
+          <h2 className="font-display text-2xl font-extrabold">{t("marketNews.title")}</h2>
           <p className="text-sm text-muted">{t("marketNews.subtitle")}</p>
         </div>
         <MarketNewsFeed />
@@ -451,7 +384,7 @@ export default async function Home() {
       <section className="px-6 py-12">
         <div className="mx-auto flex max-w-5xl flex-col gap-6">
           <div className="mx-auto flex flex-col items-center gap-2 text-center">
-            <h2 className="text-2xl font-semibold sm:text-3xl">{t("stats.title")}</h2>
+            <h2 className="font-display text-2xl font-extrabold sm:text-3xl">{t("stats.title")}</h2>
             <div className="flex items-center gap-2 text-xs text-muted">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
@@ -471,7 +404,7 @@ export default async function Home() {
                   <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                 </svg>
               </div>
-              <LiveActiveTraders className="text-xl font-semibold sm:text-3xl" />
+              <LiveActiveTraders className="font-display text-xl font-extrabold sm:text-3xl" />
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 {t("stats.activeTraders")}
               </p>
@@ -486,7 +419,7 @@ export default async function Home() {
                   <path d="M21 13v2a4 4 0 0 1-4 4H3" />
                 </svg>
               </div>
-              <LiveCopyUsers className="text-xl font-semibold sm:text-3xl" />
+              <LiveCopyUsers className="font-display text-xl font-extrabold sm:text-3xl" />
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 {t("stats.copyUsers")}
               </p>
@@ -499,7 +432,7 @@ export default async function Home() {
                   <path d="M17 6h6v6" />
                 </svg>
               </div>
-              <LiveWinRate className="text-xl font-semibold text-success sm:text-3xl" />
+              <LiveWinRate className="font-display text-xl font-extrabold text-success sm:text-3xl" />
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 {t("stats.avgWinRate")}
               </p>
@@ -512,7 +445,7 @@ export default async function Home() {
                   <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                 </svg>
               </div>
-              <LiveTotalVolume className="text-xl font-semibold sm:text-3xl" />
+              <LiveTotalVolume className="font-display text-xl font-extrabold sm:text-3xl" />
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 {t("stats.totalVolume")}
               </p>
@@ -525,7 +458,7 @@ export default async function Home() {
                   <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
                 </svg>
               </div>
-              <LiveBestReturn className="text-xl font-semibold text-success sm:text-3xl" />
+              <LiveBestReturn className="font-display text-xl font-extrabold text-success sm:text-3xl" />
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 {t("stats.bestReturn")}
               </p>
@@ -539,7 +472,7 @@ export default async function Home() {
                   <line x1="6" y1="20" x2="6" y2="14" />
                 </svg>
               </div>
-              <LiveTotalTrades className="text-xl font-semibold sm:text-3xl" />
+              <LiveTotalTrades className="font-display text-xl font-extrabold sm:text-3xl" />
               <p className="mt-1 text-[10px] text-muted sm:text-xs">
                 {t("stats.totalTrades")}
               </p>
@@ -562,7 +495,7 @@ export default async function Home() {
 
       <section className="border-t border-border px-6 py-16">
         <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-4 rounded-2xl border border-border bg-surface px-6 py-14 text-center">
-          <h2 className="text-2xl font-semibold sm:text-3xl">{t("cta.title")}</h2>
+          <h2 className="font-display text-2xl font-extrabold sm:text-3xl">{t("cta.title")}</h2>
           <p className="max-w-sm text-sm text-muted">{t("cta.subtitle")}</p>
           <Link
             href="/signup"
