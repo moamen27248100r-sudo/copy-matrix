@@ -15,12 +15,15 @@ type SignalRow = {
   closed_at: string | null;
 };
 
-type ColorTier = "bad" | "medium" | "good";
+type ColorTier = "bad" | "medium" | "good" | "neutral";
 
 const TIER_COLOR: Record<ColorTier, { text: string; stroke: string }> = {
   bad: { text: "text-rose-500", stroke: "stroke-rose-500" },
   medium: { text: "text-amber-400", stroke: "stroke-amber-500" },
   good: { text: "text-emerald-400", stroke: "stroke-emerald-500" },
+  // The activity column (limit score / trading days) isn't a good/bad
+  // judgment, just a count -- muted slate instead of a traffic-light color.
+  neutral: { text: "text-slate-500", stroke: "stroke-slate-500" },
 };
 
 // Risk reads inverted -- a low score is the good outcome -- so its color
@@ -37,15 +40,6 @@ function BoltIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" />
-    </svg>
-  );
-}
-
-function CheckCircleIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <circle cx="12" cy="12" r="9" />
-      <path d="m9 12 2 2 4-4" />
     </svg>
   );
 }
@@ -139,7 +133,7 @@ function SubRing({ value, label, inverted }: { value: number; label: string; inv
   const colors = TIER_COLOR[tier];
   return (
     <Row>
-      <Ring value={value} size={32} tier={tier} />
+      <Ring value={value} size={24} tier={tier} />
       <div className="flex flex-col items-start leading-tight">
         <span className="text-[11px] text-slate-400">{label}</span>
         <span className={`text-sm font-bold ${colors.text}`} dir="ltr">
@@ -153,23 +147,24 @@ function SubRing({ value, label, inverted }: { value: number; label: string; inv
 function MainBadge({ label }: { label: string }) {
   return (
     <Row>
-      <span className="flex h-8 w-8 shrink-0 items-center justify-center text-emerald-400">
-        <BoltIcon className="h-5 w-5" />
+      <span className="flex h-6 w-6 shrink-0 items-center justify-center text-emerald-400">
+        <BoltIcon className="h-4 w-4" />
       </span>
       <span className="text-sm font-bold text-white">{label}</span>
     </Row>
   );
 }
 
+// Not a score against 0-100 in the same sense as the reliability column
+// -- a plain muted-slate ring, no checkmark icon, matching the reference
+// design's cleaner "ring only" look for this side.
 function SubNumber({ value, label }: { value: number; label: string }) {
   return (
     <Row>
-      <span className="flex h-8 w-8 shrink-0 items-center justify-center text-emerald-400">
-        <CheckCircleIcon className="h-5 w-5" />
-      </span>
+      <Ring value={value} size={24} tier="neutral" />
       <div className="flex flex-col items-start leading-tight">
         <span className="text-[11px] text-slate-400">{label}</span>
-        <span className="text-sm font-bold text-white" dir="ltr">{value}</span>
+        <span className="text-sm font-bold text-slate-500" dir="ltr">{value}</span>
       </div>
     </Row>
   );
@@ -204,7 +199,7 @@ export function ExnessReliabilitySection({
         <div className="flex items-start gap-0">
           <BracketConnector />
           <div className="flex min-w-0 flex-col" style={{ gap: ROW_GAP }}>
-            <MainRing value={reliabilityScore} status={reliabilityStatus} tier={mainTier} size={40} />
+            <MainRing value={reliabilityScore} status={reliabilityStatus} tier={mainTier} size={28} />
             <SubRing value={safetyScore} label={t("gaugeSafety")} />
             <SubRing value={riskExposureScore} label={t("gaugeRiskExposure")} inverted />
           </div>
