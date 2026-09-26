@@ -396,7 +396,7 @@
     "enterDepositAmount": "أدخل مبلغ الإيداع",
     "enterWithdrawAmount": "أدخل مبلغ السحب",
     "continue": "متابعة",
-    "maxAvailable": "Max {amount} USD",
+    "maxAvailable": "الحد الأقصى {amount} دولار",
     "backEditAmount": "→ رجوع لتعديل المبلغ",
     "chooseNetwork": "اختر الشبكة",
     "walletAddressLabel": "عنوان المحفظة",
