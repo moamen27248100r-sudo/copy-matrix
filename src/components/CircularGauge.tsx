@@ -18,12 +18,19 @@ export function getGaugeTier(value: number, variant: GaugeVariant): GaugeTier {
   return "low";
 }
 
-const TIER_COLOR: Record<GaugeVariant, Record<GaugeTier, string>> = {
-  risk: { low: "var(--success)", medium: "var(--warning)", high: "var(--danger)" },
-  safety: { low: "var(--danger)", medium: "var(--warning)", high: "var(--success)" },
-  // Reliability's top tier is the platform's financial blue (--accent)
-  // rather than green, so it reads distinctly from "safety" at a glance.
-  reliability: { low: "var(--danger)", medium: "var(--warning)", high: "var(--accent)" },
+// One traffic-light scheme (emerald/amber/rose) shared by all three
+// gauges — only which tier counts as "good" differs (risk is inverted:
+// a low score is the good outcome; safety/reliability the normal way).
+const TRAFFIC_LIGHT = {
+  good: { text: "text-emerald-400", stroke: "stroke-emerald-500", bg: "bg-emerald-500/10" },
+  medium: { text: "text-amber-400", stroke: "stroke-amber-500", bg: "bg-amber-500/10" },
+  bad: { text: "text-rose-500", stroke: "stroke-rose-500", bg: "bg-rose-500/10" },
+};
+
+const TIER_SEMANTIC: Record<GaugeVariant, Record<GaugeTier, keyof typeof TRAFFIC_LIGHT>> = {
+  risk: { low: "good", medium: "medium", high: "bad" },
+  safety: { low: "bad", medium: "medium", high: "good" },
+  reliability: { low: "bad", medium: "medium", high: "good" },
 };
 
 function ShieldAlertIcon({ className }: { className?: string }) {
@@ -65,7 +72,7 @@ export function CircularGauge({
   label,
   statusText,
   variant = "reliability",
-  size = 84,
+  size = 96,
 }: {
   value: number;
   label: string;
@@ -79,7 +86,8 @@ export function CircularGauge({
   const circumference = 2 * Math.PI * radius;
   const offset = circumference * (1 - clamped / 100);
   const tier = getGaugeTier(clamped, variant);
-  const color = TIER_COLOR[variant][tier];
+  const semantic = TIER_SEMANTIC[variant][tier];
+  const { text, stroke: strokeClass, bg } = TRAFFIC_LIGHT[semantic];
   const Icon = VARIANT_ICON[variant];
 
   return (
@@ -91,7 +99,7 @@ export function CircularGauge({
             cx={size / 2}
             cy={size / 2}
             r={radius}
-            stroke={color}
+            className={strokeClass}
             strokeWidth={stroke}
             fill="none"
             strokeLinecap="round"
@@ -99,20 +107,16 @@ export function CircularGauge({
             strokeDashoffset={offset}
           />
         </svg>
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-0.5">
-          <Icon className="h-3.5 w-3.5" />
-          <span style={{ color }} className="text-base font-bold">
-            {clamped}
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-1">
+          <span className={`flex h-9 w-9 items-center justify-center rounded-full ${bg} ${text}`}>
+            <Icon className="h-7 w-7" />
           </span>
+          <span className={`text-sm font-bold ${text}`}>{clamped}</span>
         </div>
       </div>
       <div className="flex flex-col items-center gap-0.5">
         <p className="text-center text-xs text-muted">{label}</p>
-        {statusText && (
-          <p style={{ color }} className="text-center text-[11px] font-medium">
-            {statusText}
-          </p>
-        )}
+        {statusText && <p className={`text-center text-[11px] font-medium ${text}`}>{statusText}</p>}
       </div>
     </div>
   );

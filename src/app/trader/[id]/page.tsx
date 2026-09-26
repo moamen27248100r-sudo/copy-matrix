@@ -10,7 +10,6 @@ import { TradeHistory } from "@/components/TradeHistory";
 import { CircularGauge, getGaugeTier } from "@/components/CircularGauge";
 import { AssetAllocationBar } from "@/components/AssetAllocationBar";
 import { OpenOrdersTable } from "@/components/OpenOrdersTable";
-import { RecentCopiersList } from "@/components/RecentCopiersList";
 import { TraderAvatar } from "@/components/TraderAvatar";
 import { countryDisplay } from "@/lib/country-metadata";
 import { formatDate } from "@/lib/locale-format";
@@ -97,7 +96,7 @@ export default async function TraderPage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  let [{ data: provider }, { data: signals }, { data: recentCopiers }, { data: mySub }, { data: myProfile }, { data: otherSub }, { data: myFollow }] = await Promise.all([
+  let [{ data: provider }, { data: signals }, { data: mySub }, { data: myProfile }, { data: otherSub }, { data: myFollow }] = await Promise.all([
     supabase.from("provider_cards").select("*").eq("provider_id", id).single(),
     supabase
       .from("signals")
@@ -109,13 +108,6 @@ export default async function TraderPage({
       // track record.
       .eq("created_by_admin", false)
       .order("opened_at", { ascending: false }),
-    supabase
-      .from("synthetic_customers")
-      .select("id, display_name, joined_at, current_capital, starting_capital, total_deposited")
-      .eq("provider_id", id)
-      .neq("copy_status", "left")
-      .order("current_capital", { ascending: false })
-      .limit(20),
     user
       ? supabase
           .from("subscriptions")
@@ -303,28 +295,6 @@ export default async function TraderPage({
         </div>
 
         {provider.bio && <p className="text-sm text-muted">{translateBio(provider.bio)}</p>}
-
-        {recentCopiers && recentCopiers.length > 0 && (
-          <details className="group rounded-lg border border-accent/40 bg-accent/10">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-semibold text-accent transition hover:bg-accent/15 [&::-webkit-details-marker]:hidden">
-              <span className="flex items-center gap-2">
-                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                  <circle cx="9" cy="7" r="4" />
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                </svg>
-                {t("copiersListLabel", { count: provider.followers_count })}
-              </span>
-              <svg viewBox="0 0 24 24" className="h-4 w-4 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M6 9l6 6 6-6" />
-              </svg>
-            </summary>
-            <div className="border-t border-accent/30 p-3">
-              <RecentCopiersList copiers={recentCopiers} providerId={id} />
-            </div>
-          </details>
-        )}
 
         <div id="copy" className="flex flex-col gap-3 rounded-lg border border-border bg-background p-3 scroll-mt-20">
           {!user ? (
