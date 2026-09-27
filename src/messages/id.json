@@ -1060,7 +1060,7 @@
           "saya rugi",
           "mengapa saya rugi"
         ],
-        "answer": "Wajar jika hasil trade Anda sedikit berbeda dari trader asli, tetapi perbedaan besar (seperti kerugian bagi Anda dibandingkan keuntungan bagi mereka) biasanya disebabkan oleh salah satu alasan spesifik: ukuran lot yang dialokasikan untuk trade Anda mungkin relatif lebih besar dibandingkan modal Anda dibanding rasio trader terhadap modalnya sendiri, trade mungkin tidak memiliki stop loss sehingga margin volatilitas melebar, atau sedikit perbedaan waktu antara saat mereka membuka trade dan saat tercermin di akun Anda. Untuk meninjau detail trade spesifik Anda dan mengetahui alasan pastinya, silakan hubungi perwakilan dukungan kami di support@copy-matrix.test, sebutkan nomor trade jika memungkinkan."
+        "answer": "Wajar jika hasil trade Anda sedikit berbeda dari trader asli, tetapi perbedaan besar (seperti kerugian bagi Anda dibandingkan keuntungan bagi mereka) biasanya disebabkan oleh salah satu alasan spesifik: ukuran lot yang dialokasikan untuk trade Anda mungkin relatif lebih besar dibandingkan modal Anda dibanding rasio trader terhadap modalnya sendiri, trade mungkin tidak memiliki stop loss sehingga margin volatilitas melebar, atau sedikit perbedaan waktu antara saat mereka membuka trade dan saat tercermin di akun Anda. Untuk meninjau detail trade spesifik Anda dan mengetahui alasan pastinya, silakan hubungi perwakilan dukungan kami di support@copy-matrix.com, sebutkan nomor trade jika memungkinkan."
       },
       {
         "id": "copy-trading",
@@ -1209,7 +1209,7 @@
           "tangguhkan akun",
           "tutup akun"
         ],
-        "answer": "Untuk menangguhkan atau menghapus akun Anda, silakan hubungi tim dukungan kami di support@copy-matrix.test dengan menjelaskan alasannya, dan Anda akan dipandu untuk menyelesaikan prosedur yang diperlukan."
+        "answer": "Untuk menangguhkan atau menghapus akun Anda, silakan hubungi tim dukungan kami di support@copy-matrix.com dengan menjelaskan alasannya, dan Anda akan dipandu untuk menyelesaikan prosedur yang diperlukan."
       },
       {
         "id": "support-contact",
@@ -1219,7 +1219,7 @@
           "dukungan manusia",
           "layanan pelanggan"
         ],
-        "answer": "Kami senang mendengar dari Anda kapan saja di support@copy-matrix.test, dan tim kami akan menanggapi pertanyaan Anda sesegera mungkin."
+        "answer": "Kami senang mendengar dari Anda kapan saja di support@copy-matrix.com, dan tim kami akan menanggapi pertanyaan Anda sesegera mungkin."
       }
     ],
     "smallTalk": [
@@ -1244,10 +1244,10 @@
       }
     ],
     "noMatchIntro": "Kami belum bisa memahami pertanyaan Anda dengan baik. Anda dapat mencoba menyusun ulang, atau memeriksa salah satu topik umum berikut:",
-    "noMatchOutro": "Jika Anda perlu menghubungi perwakilan dukungan manusia secara langsung, silakan hubungi kami di support@copy-matrix.test.",
+    "noMatchOutro": "Jika Anda perlu menghubungi perwakilan dukungan manusia secara langsung, silakan hubungi kami di support@copy-matrix.com.",
     "topicsHeading": "Topik umum",
     "askAnything": "Atau ketik pertanyaan Anda secara bebas di bawah",
-    "aiTempError": "Maaf, terjadi kesalahan sementara pada layanan dukungan cerdas. Silakan coba lagi sebentar lagi, atau hubungi kami di support@copy-matrix.test.",
+    "aiTempError": "Maaf, terjadi kesalahan sementara pada layanan dukungan cerdas. Silakan coba lagi sebentar lagi, atau hubungi kami di support@copy-matrix.com.",
     "aiNoClearAnswer": "Kami belum memiliki jawaban yang jelas untuk pertanyaan ini saat ini. Silakan coba susun ulang, atau hubungi tim dukungan kami.",
     "searchTopics": "Cari topik umum...",
     "noSearchResults": "Tidak ada topik yang cocok dengan pencarian Anda."

@@ -1060,7 +1060,7 @@
           "nimepoteza fedha",
           "kwa nini nimepata hasara"
         ],
-        "answer": "Ni kawaida kwa matokeo ya biashara yako kutofautiana kidogo na mfanyabiashara wa asili, lakini tofauti kubwa (kama hasara kwako dhidi ya faida kwake) kwa kawaida hutokana na sababu maalum: ukubwa wa loti uliotengwa kwa biashara yako unaweza kuwa mkubwa zaidi ikilinganishwa na mtaji wako kuliko uwiano wa mfanyabiashara mwenyewe kwa mtaji wake, biashara inaweza kuwa haikuwa na kikomo cha hasara (Stop Loss) hivyo kupanua wigo wa kuyumba, au tofauti ndogo ya muda kati ya wakati alipofungua biashara na wakati ilipoonekana kwenye akaunti yako. Kuangalia maelezo ya biashara yako mahususi na kujua sababu halisi, tafadhali wasiliana na mwakilishi wetu wa msaada kupitia support@copy-matrix.test, ukitaja namba ya biashara ikiwezekana."
+        "answer": "Ni kawaida kwa matokeo ya biashara yako kutofautiana kidogo na mfanyabiashara wa asili, lakini tofauti kubwa (kama hasara kwako dhidi ya faida kwake) kwa kawaida hutokana na sababu maalum: ukubwa wa loti uliotengwa kwa biashara yako unaweza kuwa mkubwa zaidi ikilinganishwa na mtaji wako kuliko uwiano wa mfanyabiashara mwenyewe kwa mtaji wake, biashara inaweza kuwa haikuwa na kikomo cha hasara (Stop Loss) hivyo kupanua wigo wa kuyumba, au tofauti ndogo ya muda kati ya wakati alipofungua biashara na wakati ilipoonekana kwenye akaunti yako. Kuangalia maelezo ya biashara yako mahususi na kujua sababu halisi, tafadhali wasiliana na mwakilishi wetu wa msaada kupitia support@copy-matrix.com, ukitaja namba ya biashara ikiwezekana."
       },
       {
         "id": "copy-trading",
@@ -1209,7 +1209,7 @@
           "simamisha akaunti",
           "funga akaunti"
         ],
-        "answer": "Ili kusimamisha au kufuta akaunti yako, tafadhali wasiliana na timu yetu ya msaada kupitia support@copy-matrix.test ukieleza sababu, nawe utaelekezwa kukamilisha utaratibu unaohitajika."
+        "answer": "Ili kusimamisha au kufuta akaunti yako, tafadhali wasiliana na timu yetu ya msaada kupitia support@copy-matrix.com ukieleza sababu, nawe utaelekezwa kukamilisha utaratibu unaohitajika."
       },
       {
         "id": "support-contact",
@@ -1219,7 +1219,7 @@
           "msaada wa kibinadamu",
           "huduma kwa wateja"
         ],
-        "answer": "Tunafurahi kusikia kutoka kwako wakati wowote kupitia support@copy-matrix.test, na timu yetu itajibu maswali yako haraka iwezekanavyo."
+        "answer": "Tunafurahi kusikia kutoka kwako wakati wowote kupitia support@copy-matrix.com, na timu yetu itajibu maswali yako haraka iwezekanavyo."
       }
     ],
     "smallTalk": [
@@ -1244,10 +1244,10 @@
       }
     ],
     "noMatchIntro": "Bado hatujaelewa swali lako vizuri. Unaweza kujaribu kuliandika upya, au kuangalia mojawapo ya mada hizi za kawaida:",
-    "noMatchOutro": "Ikiwa unahitaji kuwasiliana moja kwa moja na mwakilishi wa msaada wa kibinadamu, tafadhali wasiliana nasi kupitia support@copy-matrix.test.",
+    "noMatchOutro": "Ikiwa unahitaji kuwasiliana moja kwa moja na mwakilishi wa msaada wa kibinadamu, tafadhali wasiliana nasi kupitia support@copy-matrix.com.",
     "topicsHeading": "Mada za kawaida",
     "askAnything": "Au andika swali lako kwa uhuru hapa chini",
-    "aiTempError": "Samahani, hitilafu ya muda imetokea kwenye huduma ya msaada wa akili. Tafadhali jaribu tena baada ya muda mfupi, au wasiliana nasi kupitia support@copy-matrix.test.",
+    "aiTempError": "Samahani, hitilafu ya muda imetokea kwenye huduma ya msaada wa akili. Tafadhali jaribu tena baada ya muda mfupi, au wasiliana nasi kupitia support@copy-matrix.com.",
     "aiNoClearAnswer": "Kwa sasa hatuna jibu wazi kwa swali hili. Tafadhali jaribu kuliandika upya, au wasiliana na timu yetu ya msaada.",
     "searchTopics": "Tafuta mada za kawaida...",
     "noSearchResults": "Hakuna mada zinazolingana na utafutaji wako."

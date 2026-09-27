@@ -1060,7 +1060,7 @@
           "i lost money",
           "why did i lose"
         ],
-        "answer": "It's normal for your trade result to differ slightly from the original trader, but a large difference (like a loss for you against a profit for them) usually comes down to a specific reason: the lot size allocated to your trade may be relatively larger compared to your capital versus the trader's own ratio to theirs, the trade may have had no stop loss set so the volatility margin widened, or a small timing gap between when they opened the trade and when it was mirrored to your account. To review your specific trade's details and find the exact reason, please contact one of our support representatives at support@copy-matrix.test, mentioning the trade number if possible."
+        "answer": "It's normal for your trade result to differ slightly from the original trader, but a large difference (like a loss for you against a profit for them) usually comes down to a specific reason: the lot size allocated to your trade may be relatively larger compared to your capital versus the trader's own ratio to theirs, the trade may have had no stop loss set so the volatility margin widened, or a small timing gap between when they opened the trade and when it was mirrored to your account. To review your specific trade's details and find the exact reason, please contact one of our support representatives at support@copy-matrix.com, mentioning the trade number if possible."
       },
       {
         "id": "copy-trading",
@@ -1210,7 +1210,7 @@
           "suspend account",
           "close account"
         ],
-        "answer": "To suspend or delete your account, please contact our support team at support@copy-matrix.test explaining the reason, and you'll be guided through the necessary steps."
+        "answer": "To suspend or delete your account, please contact our support team at support@copy-matrix.com explaining the reason, and you'll be guided through the necessary steps."
       },
       {
         "id": "support-contact",
@@ -1220,7 +1220,7 @@
           "human support",
           "customer service"
         ],
-        "answer": "We're happy to hear from you anytime at support@copy-matrix.test, and our team will respond to your inquiries as soon as possible."
+        "answer": "We're happy to hear from you anytime at support@copy-matrix.com, and our team will respond to your inquiries as soon as possible."
       }
     ],
     "smallTalk": [
@@ -1248,10 +1248,10 @@
       }
     ],
     "noMatchIntro": "We couldn't quite understand your question yet. You can try rephrasing it, or check one of these common topics:",
-    "noMatchOutro": "If you need to reach a human support representative directly, please contact us at support@copy-matrix.test.",
+    "noMatchOutro": "If you need to reach a human support representative directly, please contact us at support@copy-matrix.com.",
     "topicsHeading": "Common topics",
     "askAnything": "Or type your question freely below",
-    "aiTempError": "Sorry, a temporary error occurred in the smart support service. Please try again shortly, or contact us at support@copy-matrix.test.",
+    "aiTempError": "Sorry, a temporary error occurred in the smart support service. Please try again shortly, or contact us at support@copy-matrix.com.",
     "aiNoClearAnswer": "We don't have a clear answer for this question right now. Please try rephrasing it, or contact our support team.",
     "searchTopics": "Search common topics...",
     "noSearchResults": "No topics match your search."

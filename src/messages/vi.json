@@ -1060,7 +1060,7 @@
           "tôi bị lỗ",
           "tại sao tôi bị lỗ"
         ],
-        "answer": "Việc kết quả giao dịch của bạn hơi khác so với nhà giao dịch gốc là điều bình thường, nhưng sự khác biệt lớn (như bạn lỗ trong khi họ lãi) thường xuất phát từ một trong các lý do cụ thể: kích thước lot phân bổ cho giao dịch của bạn có thể tương đối lớn hơn so với vốn của bạn so với tỷ lệ của chính nhà giao dịch với vốn của họ, giao dịch có thể không có mức dừng lỗ (Stop Loss) khiến biên độ biến động nới rộng, hoặc có sự chênh lệch nhỏ về thời gian giữa lúc họ mở giao dịch và lúc nó được phản ánh vào tài khoản của bạn. Để xem chi tiết giao dịch cụ thể của bạn và biết lý do chính xác, vui lòng liên hệ với đại diện hỗ trợ của chúng tôi qua support@copy-matrix.test, nêu rõ số giao dịch nếu có thể."
+        "answer": "Việc kết quả giao dịch của bạn hơi khác so với nhà giao dịch gốc là điều bình thường, nhưng sự khác biệt lớn (như bạn lỗ trong khi họ lãi) thường xuất phát từ một trong các lý do cụ thể: kích thước lot phân bổ cho giao dịch của bạn có thể tương đối lớn hơn so với vốn của bạn so với tỷ lệ của chính nhà giao dịch với vốn của họ, giao dịch có thể không có mức dừng lỗ (Stop Loss) khiến biên độ biến động nới rộng, hoặc có sự chênh lệch nhỏ về thời gian giữa lúc họ mở giao dịch và lúc nó được phản ánh vào tài khoản của bạn. Để xem chi tiết giao dịch cụ thể của bạn và biết lý do chính xác, vui lòng liên hệ với đại diện hỗ trợ của chúng tôi qua support@copy-matrix.com, nêu rõ số giao dịch nếu có thể."
       },
       {
         "id": "copy-trading",
@@ -1209,7 +1209,7 @@
           "tạm ngừng tài khoản",
           "đóng tài khoản"
         ],
-        "answer": "Để tạm ngừng hoặc xóa tài khoản của bạn, vui lòng liên hệ đội ngũ hỗ trợ của chúng tôi tại support@copy-matrix.test giải thích lý do, và bạn sẽ được hướng dẫn hoàn tất thủ tục cần thiết."
+        "answer": "Để tạm ngừng hoặc xóa tài khoản của bạn, vui lòng liên hệ đội ngũ hỗ trợ của chúng tôi tại support@copy-matrix.com giải thích lý do, và bạn sẽ được hướng dẫn hoàn tất thủ tục cần thiết."
       },
       {
         "id": "support-contact",
@@ -1219,7 +1219,7 @@
           "hỗ trợ con người",
           "dịch vụ khách hàng"
         ],
-        "answer": "Chúng tôi rất vui được nghe từ bạn bất cứ lúc nào tại support@copy-matrix.test, và đội ngũ của chúng tôi sẽ phản hồi các thắc mắc của bạn sớm nhất có thể."
+        "answer": "Chúng tôi rất vui được nghe từ bạn bất cứ lúc nào tại support@copy-matrix.com, và đội ngũ của chúng tôi sẽ phản hồi các thắc mắc của bạn sớm nhất có thể."
       }
     ],
     "smallTalk": [
@@ -1244,10 +1244,10 @@
       }
     ],
     "noMatchIntro": "Chúng tôi chưa hiểu rõ câu hỏi của bạn. Bạn có thể thử diễn đạt lại, hoặc xem một trong các chủ đề phổ biến sau:",
-    "noMatchOutro": "Nếu bạn cần liên hệ trực tiếp với đại diện hỗ trợ con người, vui lòng liên hệ chúng tôi qua support@copy-matrix.test.",
+    "noMatchOutro": "Nếu bạn cần liên hệ trực tiếp với đại diện hỗ trợ con người, vui lòng liên hệ chúng tôi qua support@copy-matrix.com.",
     "topicsHeading": "Chủ đề phổ biến",
     "askAnything": "Hoặc nhập câu hỏi của bạn tự do bên dưới",
-    "aiTempError": "Xin lỗi, đã xảy ra lỗi tạm thời trong dịch vụ hỗ trợ thông minh. Vui lòng thử lại sau một chút, hoặc liên hệ chúng tôi tại support@copy-matrix.test.",
+    "aiTempError": "Xin lỗi, đã xảy ra lỗi tạm thời trong dịch vụ hỗ trợ thông minh. Vui lòng thử lại sau một chút, hoặc liên hệ chúng tôi tại support@copy-matrix.com.",
     "aiNoClearAnswer": "Hiện tại chúng tôi chưa có câu trả lời rõ ràng cho câu hỏi này. Vui lòng thử diễn đạt lại, hoặc liên hệ đội ngũ hỗ trợ của chúng tôi.",
     "searchTopics": "Tìm kiếm chủ đề phổ biến...",
     "noSearchResults": "Không có chủ đề nào khớp với tìm kiếm của bạn."

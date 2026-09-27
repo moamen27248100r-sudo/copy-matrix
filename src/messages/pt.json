@@ -1060,7 +1060,7 @@
           "perdi dinheiro",
           "por que perdi"
         ],
-        "answer": "É normal que o resultado da sua operação difira ligeiramente do trader original, mas uma diferença grande (uma perda para você contra um lucro para ele) geralmente se deve a um motivo específico: o tamanho do lote alocado à sua operação pode ser relativamente maior em comparação ao seu capital do que a proporção do trader em relação ao dele, a operação pode não ter tido stop loss definido o que ampliou a margem de volatilidade, ou uma pequena diferença de tempo entre quando ele abriu a operação e quando ela foi refletida na sua conta. Para revisar os detalhes específicos da sua operação e saber o motivo exato, entre em contato com um representante de suporte em support@copy-matrix.test, mencionando o número da operação se possível."
+        "answer": "É normal que o resultado da sua operação difira ligeiramente do trader original, mas uma diferença grande (uma perda para você contra um lucro para ele) geralmente se deve a um motivo específico: o tamanho do lote alocado à sua operação pode ser relativamente maior em comparação ao seu capital do que a proporção do trader em relação ao dele, a operação pode não ter tido stop loss definido o que ampliou a margem de volatilidade, ou uma pequena diferença de tempo entre quando ele abriu a operação e quando ela foi refletida na sua conta. Para revisar os detalhes específicos da sua operação e saber o motivo exato, entre em contato com um representante de suporte em support@copy-matrix.com, mencionando o número da operação se possível."
       },
       {
         "id": "copy-trading",
@@ -1210,7 +1210,7 @@
           "suspender conta",
           "fechar conta"
         ],
-        "answer": "Para suspender ou excluir sua conta, entre em contato com nossa equipe de suporte em support@copy-matrix.test explicando o motivo, e você será orientado a concluir o procedimento necessário."
+        "answer": "Para suspender ou excluir sua conta, entre em contato com nossa equipe de suporte em support@copy-matrix.com explicando o motivo, e você será orientado a concluir o procedimento necessário."
       },
       {
         "id": "support-contact",
@@ -1220,7 +1220,7 @@
           "suporte humano",
           "atendimento ao cliente"
         ],
-        "answer": "Ficamos felizes em ouvir você a qualquer momento em support@copy-matrix.test, e nossa equipe responderá suas dúvidas o mais breve possível."
+        "answer": "Ficamos felizes em ouvir você a qualquer momento em support@copy-matrix.com, e nossa equipe responderá suas dúvidas o mais breve possível."
       }
     ],
     "smallTalk": [
@@ -1247,10 +1247,10 @@
       }
     ],
     "noMatchIntro": "Ainda não conseguimos entender bem sua pergunta. Você pode tentar reformulá-la, ou conferir um destes tópicos comuns:",
-    "noMatchOutro": "Se precisar falar diretamente com um representante de suporte humano, entre em contato em support@copy-matrix.test.",
+    "noMatchOutro": "Se precisar falar diretamente com um representante de suporte humano, entre em contato em support@copy-matrix.com.",
     "topicsHeading": "Tópicos comuns",
     "askAnything": "Ou digite sua pergunta livremente abaixo",
-    "aiTempError": "Desculpe, ocorreu um erro temporário no serviço de suporte inteligente. Tente novamente em breve, ou entre em contato em support@copy-matrix.test.",
+    "aiTempError": "Desculpe, ocorreu um erro temporário no serviço de suporte inteligente. Tente novamente em breve, ou entre em contato em support@copy-matrix.com.",
     "aiNoClearAnswer": "Não temos uma resposta clara para esta pergunta no momento. Tente reformulá-la, ou entre em contato com nossa equipe de suporte.",
     "searchTopics": "Pesquisar tópicos comuns...",
     "noSearchResults": "Nenhum tópico corresponde à sua busca."
