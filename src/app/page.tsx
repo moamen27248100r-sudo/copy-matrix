@@ -17,6 +17,7 @@ import { simulatedCopyUsers, simulatedActiveTraders } from "@/lib/simulated-grow
 import { INTERNATIONAL_COUNTRY_CODES } from "@/lib/country-metadata";
 import { TryCopySection } from "@/components/TryCopySection";
 import { Header } from "@/components/Header";
+import { HeroPhoneMockup } from "@/components/HeroPhoneMockup";
 import { FeaturesGrid } from "@/components/FeaturesGrid";
 import { HowItWorks } from "@/components/HowItWorks";
 import { FAQAccordion } from "@/components/FAQAccordion";
@@ -263,86 +264,7 @@ export default async function Home() {
             </span>
           ))}
         </div>
-        <div className="relative mx-auto w-full max-w-2xl px-4 pb-24 pt-10" style={{ perspective: "1400px" }}>
-          <div
-            className="pointer-events-none absolute inset-x-0 top-0 -z-10 mx-auto h-[420px] w-[420px] rounded-full blur-3xl"
-            style={{ background: "radial-gradient(circle, rgba(34,211,238,0.28), rgba(30,64,175,0.18) 45%, transparent 72%)" }}
-          />
-
-          <div
-            className="relative mx-auto w-[250px] sm:w-[290px]"
-            style={{
-              maskImage: "linear-gradient(to bottom, black 86%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to bottom, black 86%, transparent 100%)",
-            }}
-          >
-            <div
-              className="relative rounded-[2.75rem] border-[6px] border-slate-800 bg-slate-950 shadow-2xl shadow-cyan-500/10"
-              style={{ transform: "rotateY(-15deg) rotateX(4deg)", transformStyle: "preserve-3d" }}
-            >
-              <span className="absolute inset-x-0 top-2 z-10 mx-auto block h-5 w-24 rounded-full bg-slate-800" />
-              <div className="overflow-hidden rounded-[2.2rem] bg-[#070b14] p-3.5 pt-9">
-                <div className="rounded-xl border border-white/10 bg-white/[0.05] p-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] text-muted">صفقة منسوخة</span>
-                    <span className="rounded-full bg-success/15 px-2 py-0.5 text-[10px] font-bold text-success">+24.8%</span>
-                  </div>
-                  <p className="mt-1 text-lg font-extrabold text-white" dir="ltr">XAUUSD</p>
-                </div>
-
-                <svg viewBox="0 0 220 100" className="mt-4 h-24 w-full" preserveAspectRatio="none">
-                  <defs>
-                    <linearGradient id="heroNeonFill" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#4ade80" stopOpacity="0.35" />
-                      <stop offset="100%" stopColor="#4ade80" stopOpacity="0" />
-                    </linearGradient>
-                    <filter id="heroNeonGlow" x="-20%" y="-20%" width="140%" height="140%">
-                      <feGaussianBlur stdDeviation="2.4" result="blur" />
-                      <feMerge>
-                        <feMergeNode in="blur" />
-                        <feMergeNode in="SourceGraphic" />
-                      </feMerge>
-                    </filter>
-                  </defs>
-                  <polygon points="0,100 0,70 25,74 50,55 75,60 100,35 125,42 150,20 175,28 200,10 220,15 220,100" fill="url(#heroNeonFill)" />
-                  <polyline
-                    points="0,70 25,74 50,55 75,60 100,35 125,42 150,20 175,28 200,10 220,15"
-                    fill="none"
-                    stroke="#4ade80"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    filter="url(#heroNeonGlow)"
-                  />
-                </svg>
-
-                <div className="mt-3.5 space-y-2">
-                  {[
-                    { sym: "BTCUSDT", pct: "+3.1%" },
-                    { sym: "EURUSD", pct: "+0.6%" },
-                  ].map((row) => (
-                    <div key={row.sym} className="flex items-center justify-between rounded-lg border border-white/[0.06] bg-white/[0.03] px-2.5 py-1.5">
-                      <span className="text-[11px] text-muted" dir="ltr">{row.sym}</span>
-                      <span className="text-xs font-semibold text-success" dir="ltr">{row.pct}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="absolute start-0 top-16 w-36 -rotate-3 rounded-xl border border-white/10 bg-white/[0.07] p-3 shadow-xl shadow-black/40 backdrop-blur-xl sm:start-2 sm:w-40">
-            <div className="flex items-center gap-2">
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-400/15 text-sm">🥇</span>
-              <p className="text-[11px] leading-tight text-white">تم فتح صفقة ذهب XAUUSD</p>
-            </div>
-          </div>
-
-          <div className="absolute end-0 bottom-16 w-36 rotate-3 rounded-xl border border-white/10 bg-white/[0.07] p-3 shadow-xl shadow-black/40 backdrop-blur-xl sm:end-2 sm:w-40">
-            <p className="text-[11px] text-muted">أرباح اليوم</p>
-            <p className="text-base font-extrabold text-success" dir="ltr">+$320</p>
-          </div>
-        </div>
+        <HeroPhoneMockup />
       </section>
 
       <section className="overflow-hidden py-6">
