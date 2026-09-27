@@ -17,7 +17,7 @@ import { simulatedCopyUsers, simulatedActiveTraders } from "@/lib/simulated-grow
 import { INTERNATIONAL_COUNTRY_CODES } from "@/lib/country-metadata";
 import { TryCopySection } from "@/components/TryCopySection";
 import { Header } from "@/components/Header";
-import { HeroPhoneMockup } from "@/components/HeroPhoneMockup";
+import { ProductShowcase } from "@/components/showcase/ProductShowcase";
 import { FeaturesGrid } from "@/components/FeaturesGrid";
 import { HowItWorks } from "@/components/HowItWorks";
 import { FAQAccordion } from "@/components/FAQAccordion";
@@ -264,8 +264,9 @@ export default async function Home() {
             </span>
           ))}
         </div>
-        <HeroPhoneMockup />
       </section>
+
+      <ProductShowcase />
 
       <section className="overflow-hidden py-6">
         <div className="flex w-max animate-[ticker-scroll_40s_linear_infinite] hover:[animation-play-state:paused]">
