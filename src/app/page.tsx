@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { MarketOverview } from "@/components/MarketOverview";
@@ -237,9 +236,9 @@ export default async function Home() {
       <Header locale={locale} dir={dir} navLinks={navLinks} loginLabel={t("nav.login")} signupLabel={t("nav.signup")} />
 
       <section className="flex flex-col items-center gap-5 px-6 py-20 text-center">
-        <h1 className="max-w-2xl font-display text-4xl font-extrabold leading-tight sm:text-5xl">
+        <h1 className="max-w-2xl font-display text-4xl font-extrabold leading-tight text-white sm:text-5xl">
           {t.rich("hero.title", {
-            accent: (chunks) => <span className="text-accent">{chunks}</span>,
+            accent: (chunks) => <span className="text-white">{chunks}</span>,
           })}
         </h1>
         <p className="max-w-md text-muted">{t("hero.subtitle")}</p>
@@ -264,23 +263,72 @@ export default async function Home() {
             </span>
           ))}
         </div>
-        <div className="mx-auto w-full max-w-4xl">
-          <Image
-            src="/hero-app-preview.png"
-            alt={t("hero.imageAlt")}
-            width={1376}
-            height={768}
-            priority
-            className="h-auto w-full object-cover"
+        <div className="relative mx-auto w-full max-w-4xl px-4 pb-16 pt-4">
+          <div className="pointer-events-none absolute inset-x-0 top-8 -z-10 h-72 bg-gradient-to-b from-blue-600/20 to-transparent blur-3xl" />
+
+          <div
+            className="relative mx-auto max-w-3xl overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-5 shadow-2xl shadow-black/40 backdrop-blur-xl sm:p-6"
             style={{
-              maskImage:
-                "linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%), linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)",
-              maskComposite: "intersect",
-              WebkitMaskImage:
-                "linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%), linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)",
-              WebkitMaskComposite: "source-in",
+              maskImage: "linear-gradient(to bottom, black 70%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(to bottom, black 70%, transparent 100%)",
             }}
-          />
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent/15 text-sm font-bold text-accent">م</span>
+                <div className="text-start">
+                  <p className="text-sm font-semibold text-white">محفظة منسوخة</p>
+                  <p className="text-xs text-success">+12.4% اليوم</p>
+                </div>
+              </div>
+              <span className="flex items-center gap-1 rounded-full bg-success/10 px-2.5 py-1 text-[11px] font-medium text-success">
+                <span className="h-1.5 w-1.5 rounded-full bg-success" />
+                مباشر
+              </span>
+            </div>
+
+            <svg viewBox="0 0 400 110" className="mt-4 h-28 w-full text-accent" preserveAspectRatio="none">
+              <polyline
+                points="0,85 40,72 80,78 120,48 160,58 200,28 240,42 280,18 320,32 360,8 400,20"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+
+            <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+              {[
+                { sym: "BTCUSDT", pct: "+3.1%" },
+                { sym: "XAUUSD", pct: "+1.8%" },
+                { sym: "EURUSD", pct: "+0.6%" },
+                { sym: "ETHUSDT", pct: "+2.4%" },
+              ].map((row) => (
+                <div key={row.sym} className="rounded-lg border border-white/[0.06] bg-white/[0.03] px-2.5 py-2 text-start">
+                  <p className="text-[11px] text-muted" dir="ltr">{row.sym}</p>
+                  <p className="text-sm font-semibold text-success" dir="ltr">{row.pct}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="absolute -bottom-6 end-6 w-32 rotate-6 rounded-[1.4rem] border border-white/10 bg-slate-900/90 p-2 shadow-2xl shadow-black/50 backdrop-blur-xl sm:end-10 sm:w-40">
+            <div className="rounded-[1rem] bg-slate-950 p-3">
+              <p className="text-[10px] text-muted" dir="ltr">ETHUSDT</p>
+              <p className="text-base font-bold text-success" dir="ltr">+2.4%</p>
+              <svg viewBox="0 0 100 36" className="mt-1.5 h-9 w-full text-success" preserveAspectRatio="none">
+                <polyline
+                  points="0,30 15,24 30,26 45,14 60,18 75,6 100,10"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+          </div>
         </div>
       </section>
 
