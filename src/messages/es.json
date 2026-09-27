@@ -10,7 +10,7 @@
       "signup": "Registrarse"
     },
     "hero": {
-      "title": "Copia automáticamente las operaciones de los mejores traders",
+      "title": "Copia automáticamente las operaciones de los <accent>mejores traders</accent>",
       "subtitle": "Explora historiales de rendimiento reales y verificados de cientos de traders, y elige en quién confías para copiar sus operaciones.",
       "start": "Comenzar",
       "browse": "Explorar traders",
@@ -298,7 +298,21 @@
     "periodYear": "Año",
     "periodAll": "Todo",
     "noEnoughClosedTrades": "No hay suficientes operaciones cerradas en este período para mostrar el gráfico.",
-    "startingPoint": "Inicio: ${amount}"
+    "startingPoint": "Inicio: ${amount}",
+    "periodDay": "1D",
+    "copiedPositionsTitle": "Posiciones copiadas activas",
+    "tableSymbol": "Símbolo",
+    "tableSide": "Tipo",
+    "tableEntry": "Precio de entrada",
+    "tableMarket": "Precio de mercado",
+    "tablePnl": "Ganancia/Pérdida",
+    "closeTrade": "Cerrar",
+    "closeTradeConfirm": "¿Cerrar esta posición ahora al precio de mercado actual?",
+    "noCopiedPositions": "No hay posiciones copiadas abiertas actualmente.",
+    "riskProtectionLabel": "Protección del saldo contra pérdidas",
+    "riskProtectionUsed": "{pct}% de {maxPct}%",
+    "stopCopying": "Dejar de copiar",
+    "stopCopyingConfirm": "¿Dejar de copiar a este trader?"
   },
   "Common": {
     "level": "Nivel {level}",
@@ -322,7 +336,9 @@
     "walletApprovedBody": "Tu solicitud de {amount}$ ha sido procesada.",
     "walletDepositRejectedTitle": "Solicitud de depósito rechazada",
     "walletWithdrawalRejectedTitle": "Solicitud de retiro rechazada",
-    "walletRejectedBody": "Tu solicitud fue rechazada. Contacta con soporte para conocer el motivo."
+    "walletRejectedBody": "Tu solicitud fue rechazada. Contacta con soporte para conocer el motivo.",
+    "followedTradeOpenedTitle": "Nueva operación abierta | {providerName}",
+    "followedTradeOpenedBody": "{providerName} abrió una operación de {side, select, sell {venta} other {compra}} en {symbol}. Puedes revisar los detalles ahora."
   },
   "Portfolio": {
     "title": "Mi cartera",
@@ -504,7 +520,14 @@
     "safetyStatusLow": "Seguridad baja",
     "reliabilityStatusHigh": "Fiabilidad excelente",
     "reliabilityStatusMedium": "Buena fiabilidad",
-    "reliabilityStatusLow": "Fiabilidad baja"
+    "reliabilityStatusLow": "Fiabilidad baja",
+    "gaugeLimitScore": "Puntuación de límite",
+    "gaugeTradingDays": "Días de trading activos",
+    "importantBadgeLabel": "Importante",
+    "reliabilityHistoryTitle": "Historial de fiabilidad de trading",
+    "followingLabel": "Siguiendo",
+    "followToastTitle": "Siguiendo con éxito",
+    "followToastBody": "Ahora recibirás notificaciones instantáneas de cada nueva operación y actualización de {name}."
   },
   "Discover": {
     "title": "Descubrir traders",
@@ -884,6 +907,9 @@
       "copyAmountBelowMinimum": "El monto a copiar es menor que el mínimo para este trader ({amount}).",
       "copyFailed": "No se pudo copiar a este trader. Inténtalo de nuevo.",
       "stopCopyBlocked": "No se pudo detener la copia en este momento: tienes operaciones abiertas en esta cuenta, y tu saldo está actualmente retenido como margen para cubrirlas. Inténtalo de nuevo después de que se cierren todas las operaciones abiertas."
+    },
+    "dashboard": {
+      "closeFailed": "No se pudo cerrar la posición. Inténtalo de nuevo."
     }
   },
   "FollowEmail": {
@@ -1035,7 +1061,7 @@
           "perdí dinero",
           "por qué perdí"
         ],
-        "answer": "Es normal que el resultado de tu operación difiera ligeramente del trader original, pero una diferencia grande (una pérdida para ti frente a una ganancia para él) suele deberse a una razón específica: el tamaño del lote asignado a tu operación puede ser relativamente mayor en comparación con tu capital que la proporción propia del trader respecto al suyo, la operación pudo no tener stop loss lo que amplió el margen de volatilidad, o un pequeño desfase de tiempo entre cuando él abrió la operación y cuando se reflejó en tu cuenta. Para revisar los detalles específicos de tu operación y conocer la razón exacta, contacta a un representante de soporte en support@copy-matrix.test, mencionando el número de la operación si es posible."
+        "answer": "Es normal que el resultado de tu operación difiera ligeramente del trader original, pero una diferencia grande (una pérdida para ti frente a una ganancia para él) suele deberse a una razón específica: el tamaño del lote asignado a tu operación puede ser relativamente mayor en comparación con tu capital que la proporción propia del trader respecto al suyo, la operación pudo no tener stop loss lo que amplió el margen de volatilidad, o un pequeño desfase de tiempo entre cuando él abrió la operación y cuando se reflejó en tu cuenta. Para revisar los detalles específicos de tu operación y conocer la razón exacta, contacta a un representante de soporte en support@copy-matrix.com, mencionando el número de la operación si es posible."
       },
       {
         "id": "copy-trading",
@@ -1185,7 +1211,7 @@
           "suspender cuenta",
           "cerrar cuenta"
         ],
-        "answer": "Para suspender o eliminar tu cuenta, contacta a nuestro equipo de soporte en support@copy-matrix.test explicando el motivo, y te guiaremos para completar el procedimiento necesario."
+        "answer": "Para suspender o eliminar tu cuenta, contacta a nuestro equipo de soporte en support@copy-matrix.com explicando el motivo, y te guiaremos para completar el procedimiento necesario."
       },
       {
         "id": "support-contact",
@@ -1195,7 +1221,7 @@
           "soporte humano",
           "atención al cliente"
         ],
-        "answer": "Nos encanta saber de ti en cualquier momento en support@copy-matrix.test, y nuestro equipo responderá tus consultas lo antes posible."
+        "answer": "Nos encanta saber de ti en cualquier momento en support@copy-matrix.com, y nuestro equipo responderá tus consultas lo antes posible."
       }
     ],
     "smallTalk": [
@@ -1220,10 +1246,10 @@
       }
     ],
     "noMatchIntro": "Todavía no logramos entender bien tu pregunta. Puedes intentar reformularla, o consultar uno de estos temas comunes:",
-    "noMatchOutro": "Si necesitas contactar directamente a un representante de soporte humano, escríbenos a support@copy-matrix.test.",
+    "noMatchOutro": "Si necesitas contactar directamente a un representante de soporte humano, escríbenos a support@copy-matrix.com.",
     "topicsHeading": "Temas comunes",
     "askAnything": "O escribe tu pregunta libremente abajo",
-    "aiTempError": "Lo sentimos, ocurrió un error temporal en el servicio de soporte inteligente. Inténtalo de nuevo en breve, o contáctanos en support@copy-matrix.test.",
+    "aiTempError": "Lo sentimos, ocurrió un error temporal en el servicio de soporte inteligente. Inténtalo de nuevo en breve, o contáctanos en support@copy-matrix.com.",
     "aiNoClearAnswer": "No tenemos una respuesta clara para esta pregunta en este momento. Intenta reformularla, o contacta a nuestro equipo de soporte.",
     "searchTopics": "Buscar en temas comunes...",
     "noSearchResults": "No hay temas que coincidan con tu búsqueda."

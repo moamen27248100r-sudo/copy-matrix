@@ -3,8 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
-import { TierBadge, RiskBadge, StoppedBadge } from "@/components/TraderBadges";
-import { TraderAvatar } from "@/components/TraderAvatar";
+import { LeaderCard } from "@/components/LeaderCard";
 import { DiscoverFilterSheet } from "@/components/DiscoverFilterSheet";
 
 const SORT_OPTIONS = {
@@ -248,130 +247,16 @@ export default async function DiscoverPage({
             const copyHref = user
               ? `/trader/${p.provider_id}#copy`
               : `/signup?next=${encodeURIComponent(`/trader/${p.provider_id}#copy`)}`;
-            const isDown = p.avg_daily_return_pct != null && p.avg_daily_return_pct < 0;
             return (
-              <div
+              <LeaderCard
                 key={p.provider_id}
-                className="group relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-white/[0.08] bg-surface/70 p-4 shadow-lg shadow-black/20 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/10"
-              >
-                <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-accent/[0.07] to-transparent" />
-
-                <Link
-                  href={`/trader/${p.provider_id}`}
-                  aria-label={p.display_name ?? ""}
-                  className="absolute inset-0 z-0"
-                />
-
-                <div className="flex items-start justify-between gap-2">
-                  <div className="flex min-w-0 items-center gap-2">
-                  <TraderAvatar
-                    providerId={p.provider_id}
-                    name={p.display_name}
-                    avatarUrl={p.avatar_url}
-                    ratingScore={p.rating_score}
-                    size={48}
-                    showLevel
-                  />
-                  <div className="min-w-0">
-                    <div className="flex min-w-0 items-center gap-1">
-                      <p className="min-w-0 truncate text-base font-semibold tracking-tight">
-                        {p.display_name}
-                      </p>
-                    </div>
-                    <div className="mt-0.5 flex flex-wrap items-center gap-1.5">
-                      <TierBadge tier={p.tier} />
-                      <RiskBadge level={p.risk_level} />
-                      <StoppedBadge stopped={isStopped} />
-                    </div>
-                  </div>
-                </div>
-
-                  <form action={isWatching ? unfollowTrader : followTrader} className="relative z-10 shrink-0">
-                    <input type="hidden" name="providerId" value={p.provider_id} />
-                    <button
-                      type="submit"
-                      className={
-                        isWatching
-                          ? "rounded-full border border-border px-3 py-1.5 text-xs text-muted transition hover:border-muted hover:text-foreground"
-                          : "rounded-full border border-accent/40 bg-accent/10 px-3 py-1.5 text-xs font-medium text-accent transition hover:bg-accent/15"
-                      }
-                    >
-                      {isWatching ? t("unfollow") : t("follow")}
-                    </button>
-                  </form>
-                </div>
-
-                <div className="flex items-center overflow-hidden rounded-xl border border-white/[0.06] bg-background/60">
-                  <div className="flex-1 border-e border-white/10 px-2 py-2.5 text-center">
-                    <p className="text-sm font-semibold text-success">
-                      {p.win_rate_pct != null ? `${p.win_rate_pct}%` : "—"}
-                    </p>
-                    <p className="text-[11px] text-muted">{t("winRate")}</p>
-                  </div>
-                  <div className="flex-1 border-e border-white/10 px-2 py-2.5 text-center">
-                    <p className={isDown ? "text-sm font-semibold text-danger" : "text-sm font-semibold text-success"}>
-                      {p.avg_daily_return_pct != null ? `${p.avg_daily_return_pct}%` : "—"}
-                    </p>
-                    <p className="text-[11px] text-muted">{t("avgDailyReturn")}</p>
-                  </div>
-                  <div className="flex-1 px-2 py-2.5 text-center">
-                    <p className="text-sm font-semibold">{p.followers_count}</p>
-                    <p className="text-[11px] text-muted">{t("copiersLabel")}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between text-xs text-muted">
-                  <span>
-                    {t("minCopyAmountLabel")}{" "}
-                    <span dir="ltr">${Number(p.min_copy_amount).toLocaleString("en-US")}</span>
-                  </span>
-                  <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 shrink-0 rtl:rotate-180" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M9 18l6-6-6-6" />
-                  </svg>
-                </div>
-                <div className="relative z-10 flex flex-col gap-2">
-                  <Link
-                    href={`/trader/${p.provider_id}`}
-                    className="rounded-lg border border-border bg-transparent px-3 py-2.5 text-center text-sm font-medium text-foreground transition hover:border-accent/50 hover:bg-accent/5"
-                  >
-                    {t("viewProfile")}
-                  </Link>
-                  {isFollowing ? (
-                    <form action={unfollowProvider}>
-                      <input type="hidden" name="providerId" value={p.provider_id} />
-                      <input type="hidden" name="returnTo" value="/discover" />
-                      <button type="submit" className="w-full rounded-lg border border-border px-3 py-2.5 text-sm transition hover:border-muted">
-                        {t("stopCopying")}
-                      </button>
-                    </form>
-                  ) : isStopped ? (
-                    <button
-                      type="button"
-                      disabled
-                      title={t("stoppedTooltip")}
-                      className="w-full cursor-not-allowed rounded-lg bg-border px-3 py-2.5 text-sm font-medium text-muted"
-                    >
-                      {t("copy")}
-                    </button>
-                  ) : isBlocked ? (
-                    <button
-                      type="button"
-                      disabled
-                      title={t("blockedTooltip")}
-                      className="w-full cursor-not-allowed rounded-lg bg-border px-3 py-2.5 text-sm font-medium text-muted"
-                    >
-                      {t("copy")}
-                    </button>
-                  ) : (
-                    <Link
-                      href={copyHref}
-                      className="w-full rounded-lg bg-accent px-3 py-2.5 text-center text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
-                    >
-                      {t("copy")}
-                    </Link>
-                  )}
-                </div>
-              </div>
+                provider={p}
+                copyHref={copyHref}
+                isWatching={isWatching}
+                onFollowAction={isWatching ? unfollowTrader : followTrader}
+                copyState={isFollowing ? "stopCopying" : isStopped ? "stoppedDisabled" : isBlocked ? "blockedDisabled" : "copy"}
+                onStopCopyingAction={unfollowProvider}
+              />
             );
           })}
         </div>

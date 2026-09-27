@@ -71,7 +71,7 @@ export async function DashboardHero({
       </div>
 
       <div>
-        <p className="text-4xl font-bold tracking-tight">
+        <p className="font-display text-4xl font-extrabold tracking-tight">
           <span dir="ltr" className="inline-block">
             ${money(totalValue)}
           </span>

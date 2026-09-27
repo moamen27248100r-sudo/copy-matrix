@@ -10,7 +10,7 @@
       "signup": "注册"
     },
     "hero": {
-      "title": "自动复制顶尖交易员的交易",
+      "title": "自动复制<accent>顶尖交易员</accent>的交易",
       "subtitle": "浏览数百名交易员真实且经过验证的业绩记录，选择您信任的交易员来复制其交易。",
       "start": "立即开始",
       "browse": "浏览交易员",
@@ -298,7 +298,21 @@
     "periodYear": "年",
     "periodAll": "全部",
     "noEnoughClosedTrades": "此期间已平仓交易不足，无法显示图表。",
-    "startingPoint": "起点：${amount}"
+    "startingPoint": "起点：${amount}",
+    "periodDay": "1天",
+    "copiedPositionsTitle": "当前跟单仓位",
+    "tableSymbol": "品种",
+    "tableSide": "方向",
+    "tableEntry": "开仓价",
+    "tableMarket": "市场价",
+    "tablePnl": "盈亏",
+    "closeTrade": "平仓",
+    "closeTradeConfirm": "确定要以当前市场价格立即平掉此仓位吗？",
+    "noCopiedPositions": "目前没有未平仓的跟单仓位。",
+    "riskProtectionLabel": "余额亏损保护",
+    "riskProtectionUsed": "已用 {pct}%，上限 {maxPct}%",
+    "stopCopying": "停止跟单",
+    "stopCopyingConfirm": "确定要停止跟单该交易者吗？"
   },
   "Common": {
     "level": "等级 {level}",
@@ -322,7 +336,9 @@
     "walletApprovedBody": "您金额为 {amount} 美元的申请已处理。",
     "walletDepositRejectedTitle": "存款申请被拒绝",
     "walletWithdrawalRejectedTitle": "提款申请被拒绝",
-    "walletRejectedBody": "您的申请被拒绝。请联系客服了解原因。"
+    "walletRejectedBody": "您的申请被拒绝。请联系客服了解原因。",
+    "followedTradeOpenedTitle": "开仓新交易 | {providerName}",
+    "followedTradeOpenedBody": "{providerName} 开了一笔 {symbol} 的{side, select, sell {卖出} other {买入}}交易。您现在可以查看详情。"
   },
   "Portfolio": {
     "title": "我的资产",
@@ -504,7 +520,14 @@
     "safetyStatusLow": "安全性低",
     "reliabilityStatusHigh": "可靠性极佳",
     "reliabilityStatusMedium": "可靠性良好",
-    "reliabilityStatusLow": "可靠性较低"
+    "reliabilityStatusLow": "可靠性较低",
+    "gaugeLimitScore": "限额评分",
+    "gaugeTradingDays": "活跃交易天数",
+    "importantBadgeLabel": "重要",
+    "reliabilityHistoryTitle": "交易可靠性历史",
+    "followingLabel": "已关注",
+    "followToastTitle": "关注成功",
+    "followToastBody": "您现在将即时收到来自 {name} 的每笔新交易和更新通知。"
   },
   "Discover": {
     "title": "发现交易员",
@@ -884,6 +907,9 @@
       "copyAmountBelowMinimum": "跟单金额低于该交易员的最低要求（{amount}）。",
       "copyFailed": "无法跟单该交易员，请重试。",
       "stopCopyBlocked": "当前无法停止跟单：您在此账户上有持仓中的交易，您的余额目前被作为保证金锁定以覆盖这些交易。请等所有持仓交易平仓后再试。"
+    },
+    "dashboard": {
+      "closeFailed": "无法平仓，请重试。"
     }
   },
   "FollowEmail": {
@@ -1035,7 +1061,7 @@
           "我亏损了",
           "为什么我亏损了"
         ],
-        "answer": "您的交易结果与原交易员略有不同是正常的，但较大的差异（比如您亏损而对方盈利）通常源于以下具体原因之一：您交易分配的手数相对于您的资金可能比交易员自身资金的比例更大；该交易可能未设置止损，导致波动幅度加大；或者交易员开仓与其镜像到您账户之间存在轻微的时间差。如需查看您具体交易的详情并了解确切原因，请通过 support@copy-matrix.test 联系我们的客服代表，并尽可能提供交易编号。"
+        "answer": "您的交易结果与原交易员略有不同是正常的，但较大的差异（比如您亏损而对方盈利）通常源于以下具体原因之一：您交易分配的手数相对于您的资金可能比交易员自身资金的比例更大；该交易可能未设置止损，导致波动幅度加大；或者交易员开仓与其镜像到您账户之间存在轻微的时间差。如需查看您具体交易的详情并了解确切原因，请通过 support@copy-matrix.com 联系我们的客服代表，并尽可能提供交易编号。"
       },
       {
         "id": "copy-trading",
@@ -1184,7 +1210,7 @@
           "暂停账户",
           "关闭账户"
         ],
-        "answer": "如需暂停或删除账户，请通过 support@copy-matrix.test 联系我们的客服团队并说明原因，我们会指导您完成所需步骤。"
+        "answer": "如需暂停或删除账户，请通过 support@copy-matrix.com 联系我们的客服团队并说明原因，我们会指导您完成所需步骤。"
       },
       {
         "id": "support-contact",
@@ -1194,7 +1220,7 @@
           "人工客服",
           "客户服务"
         ],
-        "answer": "欢迎随时通过 support@copy-matrix.test 联系我们，我们的团队会尽快回复您的咨询。"
+        "answer": "欢迎随时通过 support@copy-matrix.com 联系我们，我们的团队会尽快回复您的咨询。"
       }
     ],
     "smallTalk": [
@@ -1220,10 +1246,10 @@
       }
     ],
     "noMatchIntro": "我们暂时还不太明白您的问题。您可以尝试换一种说法，或者查看以下常见主题：",
-    "noMatchOutro": "如需直接联系人工客服代表，请通过 support@copy-matrix.test 与我们联系。",
+    "noMatchOutro": "如需直接联系人工客服代表，请通过 support@copy-matrix.com 与我们联系。",
     "topicsHeading": "常见主题",
     "askAnything": "或在下方自由输入您的问题",
-    "aiTempError": "抱歉，智能客服服务暂时出错。请稍后重试，或通过 support@copy-matrix.test 联系我们。",
+    "aiTempError": "抱歉，智能客服服务暂时出错。请稍后重试，或通过 support@copy-matrix.com 联系我们。",
     "aiNoClearAnswer": "我们目前没有针对此问题的明确答案。请尝试换一种方式提问，或联系我们的客服团队。",
     "searchTopics": "搜索常见主题...",
     "noSearchResults": "没有符合您搜索条件的主题。"

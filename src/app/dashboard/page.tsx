@@ -4,8 +4,10 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
 import { DashboardHero } from "@/components/DashboardHero";
-import { TraderAvatar } from "@/components/TraderAvatar";
 import { MyEquityChart } from "@/components/MyEquityChart";
+import { MarketTicker } from "@/components/MarketTicker";
+import { CopiedPositionsTable } from "@/components/CopiedPositionsTable";
+import { ActiveCopyControlPanel } from "@/components/ActiveCopyControlPanel";
 
 const QUICK_LINK_ICONS = {
   discover: (
@@ -34,7 +36,12 @@ const QUICK_LINK_ICONS = {
   ),
 };
 
-export default async function DashboardPage() {
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
+  const { error } = await searchParams;
   const t = await getTranslations("Dashboard");
   const tNav = await getTranslations("Nav");
   const supabase = await createClient();
@@ -46,21 +53,29 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  const [{ data: profile }, { data: kyc }, { data: subscriptions }, { data: positions }] = await Promise.all([
-    supabase.from("profiles").select("display_name, account_type, balance").eq("id", user.id).single(),
-    supabase
-      .from("kyc_submissions")
-      .select("status")
-      .eq("user_id", user.id)
-      .order("submitted_at", { ascending: false })
-      .limit(1)
-      .maybeSingle(),
-    supabase.from("subscriptions").select("provider_id, allocated_amount").eq("follower_id", user.id).eq("is_active", true),
-    supabase
-      .from("simulated_positions")
-      .select("status, pnl, entry_price, size, closed_at, signals(symbol, side)")
-      .eq("follower_id", user.id),
-  ]);
+  const [{ data: profile }, { data: kyc }, { data: subscriptions }, { data: positions }, { data: tickerPrices }] =
+    await Promise.all([
+      supabase.from("profiles").select("display_name, account_type, balance").eq("id", user.id).single(),
+      supabase
+        .from("kyc_submissions")
+        .select("status")
+        .eq("user_id", user.id)
+        .order("submitted_at", { ascending: false })
+        .limit(1)
+        .maybeSingle(),
+      supabase
+        .from("subscriptions")
+        .select("id, provider_id, allocated_amount, max_drawdown_pct")
+        .eq("follower_id", user.id)
+        .eq("is_active", true),
+      supabase
+        .from("simulated_positions")
+        .select("id, subscription_id, status, pnl, entry_price, size, closed_at, signals(symbol, side)")
+        .eq("follower_id", user.id),
+      supabase.from("market_prices").select("symbol, price").in("symbol", ["BTCUSDT", "XAUUSD", "EURUSD"]),
+    ]);
+
+  const tickerInitialPrices = Object.fromEntries((tickerPrices ?? []).map((p) => [p.symbol, Number(p.price)]));
 
   const providerIds = (subscriptions ?? []).map((s) => s.provider_id);
   const allocationByProvider = new Map((subscriptions ?? []).map((s) => [s.provider_id, s.allocated_amount]));
@@ -72,11 +87,12 @@ export default async function DashboardPage() {
           .from("provider_cards")
           .select("provider_id, display_name, win_rate_pct, avg_daily_return_pct, avatar_url, rating_score")
           .in("provider_id", providerIds)
-          .limit(3)
       : { data: [] as never[] };
 
   type PositionSignal = { symbol: string; side: string };
   type DashPosition = {
+    id: string;
+    subscription_id: string;
     status: string;
     pnl: number | null;
     entry_price: number;
@@ -92,6 +108,29 @@ export default async function DashboardPage() {
   const closedPositions = allPositions.filter((p) => p.status === "closed");
   const openPositionsCount = openPositions.length;
   const netPnl = closedPositions.reduce((sum, p) => sum + (p.pnl ?? 0), 0);
+
+  // Same threshold auto_stop_copy checks server-side (0168): cumulative
+  // closed pnl per subscription vs -(allocated * maxDrawdownPct / 100).
+  const cumulativePnlBySubscription = new Map<string, number>();
+  for (const p of closedPositions) {
+    cumulativePnlBySubscription.set(p.subscription_id, (cumulativePnlBySubscription.get(p.subscription_id) ?? 0) + (p.pnl ?? 0));
+  }
+  const activeSubscription = (subscriptions ?? [])[0];
+  const activeProviderCard = activeSubscription
+    ? (followedProviders ?? []).find((p) => p.provider_id === activeSubscription.provider_id)
+    : undefined;
+  const copiedProvider =
+    activeSubscription && activeProviderCard
+      ? {
+          providerId: activeSubscription.provider_id,
+          displayName: activeProviderCard.display_name,
+          avatarUrl: activeProviderCard.avatar_url,
+          ratingScore: activeProviderCard.rating_score,
+          allocatedAmount: Number(activeSubscription.allocated_amount),
+          maxDrawdownPct: Number(activeSubscription.max_drawdown_pct),
+          cumulativePnl: cumulativePnlBySubscription.get(activeSubscription.id) ?? 0,
+        }
+      : null;
 
   const openSymbols = Array.from(
     new Set(openPositions.map((p) => positionSignal(p)?.symbol).filter((s): s is string => !!s)),
@@ -131,6 +170,8 @@ export default async function DashboardPage() {
     <>
       <AppNav />
       <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6">
+        <MarketTicker initialPrices={tickerInitialPrices} />
+
         <div className="flex flex-wrap items-center gap-3">
           <div>
             <h1 className="text-xl font-semibold">
@@ -150,6 +191,10 @@ export default async function DashboardPage() {
             </span>
           )}
         </div>
+
+        {error && (
+          <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>
+        )}
 
         {kycCopy && (
           <div className="flex flex-col gap-4 rounded-2xl border border-warning/30 bg-warning/10 p-4 sm:flex-row sm:items-center sm:justify-between">
@@ -239,15 +284,15 @@ export default async function DashboardPage() {
         <section className="flex flex-col gap-3">
           <div className="flex items-center justify-between">
             <h2 className="text-base font-semibold">{t("traderYouCopy")}</h2>
-            {providerIds.length > 0 && (
+            {copiedProvider && (
               <Link href="/portfolio" className="text-sm text-accent hover:underline">
                 {tNav("viewAll")}
               </Link>
             )}
           </div>
 
-          {(followedProviders ?? []).length === 0 ? (
-            <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-border bg-surface/50 p-6 text-center">
+          {!copiedProvider ? (
+            <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-slate-800 bg-surface/50 p-6 text-center">
               <p className="text-sm text-muted">{t("noCopyYet")}</p>
               <Link
                 href="/discover"
@@ -257,45 +302,29 @@ export default async function DashboardPage() {
               </Link>
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-              {followedProviders!.map((p) => (
-                <Link
-                  key={p.provider_id}
-                  href={`/trader/${p.provider_id}`}
-                  className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4 transition hover:border-accent/40 hover:shadow-lg"
-                >
-                  <div className="flex items-center gap-3">
-                    <TraderAvatar providerId={p.provider_id} name={p.display_name} avatarUrl={p.avatar_url} ratingScore={p.rating_score} size={44} />
-                    <div className="min-w-0">
-                      <p className="truncate text-sm font-medium">{p.display_name}</p>
-                      <p className="text-xs text-muted">
-                        {t("startedWith", { amount: Number(allocationByProvider.get(p.provider_id) ?? 0).toLocaleString("en-US") })}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2 border-t border-border pt-3 text-center text-sm">
-                    <div>
-                      <p className="font-semibold">{p.win_rate_pct != null ? `${p.win_rate_pct}%` : "—"}</p>
-                      <p className="text-xs text-muted">{t("winRate")}</p>
-                    </div>
-                    <div>
-                      <p
-                        className={
-                          p.avg_daily_return_pct != null && p.avg_daily_return_pct < 0
-                            ? "font-semibold text-danger"
-                            : "font-semibold text-success"
-                        }
-                      >
-                        {p.avg_daily_return_pct != null ? `${p.avg_daily_return_pct}%` : "—"}
-                      </p>
-                      <p className="text-xs text-muted">{t("avgDailyReturn")}</p>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
+            <ActiveCopyControlPanel provider={copiedProvider} />
           )}
         </section>
+
+        {copiedProvider && (
+          <section className="flex flex-col gap-3">
+            <h2 className="text-base font-semibold">{t("copiedPositionsTitle")}</h2>
+            <div className="rounded-2xl border border-slate-800 bg-surface p-5">
+              <CopiedPositionsTable
+                positions={openPositions.map((p) => {
+                  const signal = positionSignal(p);
+                  return {
+                    id: p.id,
+                    symbol: signal?.symbol ?? "",
+                    side: signal?.side ?? "buy",
+                    entry_price: p.entry_price,
+                    size: p.size,
+                  };
+                })}
+              />
+            </div>
+          </section>
+        )}
 
         <section className="flex flex-col gap-3">
           <h2 className="text-base font-semibold">{t("portfolioPerformance")}</h2>

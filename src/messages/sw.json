@@ -10,7 +10,7 @@
       "signup": "Jisajili"
     },
     "hero": {
-      "title": "Nakili biashara za wafanyabiashara bora kiotomatiki",
+      "title": "Nakili biashara za <accent>wafanyabiashara bora</accent> kiotomatiki",
       "subtitle": "Vinjari rekodi za utendaji halisi na zilizothibitishwa za mamia ya wafanyabiashara, na uchague unayemwamini kunakili biashara zake.",
       "start": "Anza sasa",
       "browse": "Vinjari wafanyabiashara",
@@ -298,7 +298,21 @@
     "periodYear": "Mwaka",
     "periodAll": "Zote",
     "noEnoughClosedTrades": "Hakuna biashara za kutosha zilizofungwa katika kipindi hiki kuonyesha chati.",
-    "startingPoint": "Mwanzo: ${amount}"
+    "startingPoint": "Mwanzo: ${amount}",
+    "periodDay": "1S",
+    "copiedPositionsTitle": "Nafasi Zinazonakiliwa Sasa",
+    "tableSymbol": "Alama",
+    "tableSide": "Aina",
+    "tableEntry": "Bei ya Kuingia",
+    "tableMarket": "Bei ya Soko",
+    "tablePnl": "Faida/Hasara",
+    "closeTrade": "Funga",
+    "closeTradeConfirm": "Funga nafasi hii sasa kwa bei ya sasa ya soko?",
+    "noCopiedPositions": "Hakuna nafasi zilizonakiliwa zilizo wazi kwa sasa.",
+    "riskProtectionLabel": "Ulinzi wa salio dhidi ya hasara",
+    "riskProtectionUsed": "{pct}% kati ya {maxPct}%",
+    "stopCopying": "Acha Kunakili",
+    "stopCopyingConfirm": "Acha kunakili mfanyabiashara huyu?"
   },
   "Common": {
     "level": "Kiwango {level}",
@@ -322,7 +336,9 @@
     "walletApprovedBody": "Ombi lako la {amount}$ limeshughulikiwa.",
     "walletDepositRejectedTitle": "Ombi la kuweka pesa limekataliwa",
     "walletWithdrawalRejectedTitle": "Ombi la kutoa pesa limekataliwa",
-    "walletRejectedBody": "Ombi lako limekataliwa. Tafadhali wasiliana na msaada ili kujua sababu."
+    "walletRejectedBody": "Ombi lako limekataliwa. Tafadhali wasiliana na msaada ili kujua sababu.",
+    "followedTradeOpenedTitle": "Biashara mpya imefunguliwa | {providerName}",
+    "followedTradeOpenedBody": "{providerName} amefungua biashara ya {side, select, sell {kuuza} other {kununua}} kwenye {symbol}. Unaweza kukagua maelezo sasa."
   },
   "Portfolio": {
     "title": "Jalada Langu",
@@ -504,7 +520,14 @@
     "safetyStatusLow": "Usalama wa chini",
     "reliabilityStatusHigh": "Kuaminika bora",
     "reliabilityStatusMedium": "Kuaminika vizuri",
-    "reliabilityStatusLow": "Kuaminika chini"
+    "reliabilityStatusLow": "Kuaminika chini",
+    "gaugeLimitScore": "Alama ya Kikomo",
+    "gaugeTradingDays": "Siku za Biashara Zilizo Hai",
+    "importantBadgeLabel": "Muhimu",
+    "reliabilityHistoryTitle": "Historia ya Kuaminika kwa Biashara",
+    "followingLabel": "Unafuata",
+    "followToastTitle": "Umefuata kwa mafanikio",
+    "followToastBody": "Sasa utapokea arifa za papo hapo za kila biashara na sasisho jipya kutoka kwa {name}."
   },
   "Discover": {
     "title": "Gundua wafanyabiashara",
@@ -884,6 +907,9 @@
       "copyAmountBelowMinimum": "Kiasi cha kunakili ni chini ya kiwango cha chini kwa mfanyabiashara huyu ({amount}).",
       "copyFailed": "Imeshindwa kumnakili mfanyabiashara huyu. Tafadhali jaribu tena.",
       "stopCopyBlocked": "Imeshindwa kuacha kunakili kwa sasa: una biashara zilizo wazi kwenye akaunti hii, na salio lako kwa sasa limehifadhiwa kama dhamana kuzifidia. Tafadhali jaribu tena baada ya biashara zote zilizo wazi kufungwa."
+    },
+    "dashboard": {
+      "closeFailed": "Imeshindwa kufunga nafasi. Tafadhali jaribu tena."
     }
   },
   "FollowEmail": {
@@ -1035,7 +1061,7 @@
           "nimepoteza fedha",
           "kwa nini nimepata hasara"
         ],
-        "answer": "Ni kawaida kwa matokeo ya biashara yako kutofautiana kidogo na mfanyabiashara wa asili, lakini tofauti kubwa (kama hasara kwako dhidi ya faida kwake) kwa kawaida hutokana na sababu maalum: ukubwa wa loti uliotengwa kwa biashara yako unaweza kuwa mkubwa zaidi ikilinganishwa na mtaji wako kuliko uwiano wa mfanyabiashara mwenyewe kwa mtaji wake, biashara inaweza kuwa haikuwa na kikomo cha hasara (Stop Loss) hivyo kupanua wigo wa kuyumba, au tofauti ndogo ya muda kati ya wakati alipofungua biashara na wakati ilipoonekana kwenye akaunti yako. Kuangalia maelezo ya biashara yako mahususi na kujua sababu halisi, tafadhali wasiliana na mwakilishi wetu wa msaada kupitia support@copy-matrix.test, ukitaja namba ya biashara ikiwezekana."
+        "answer": "Ni kawaida kwa matokeo ya biashara yako kutofautiana kidogo na mfanyabiashara wa asili, lakini tofauti kubwa (kama hasara kwako dhidi ya faida kwake) kwa kawaida hutokana na sababu maalum: ukubwa wa loti uliotengwa kwa biashara yako unaweza kuwa mkubwa zaidi ikilinganishwa na mtaji wako kuliko uwiano wa mfanyabiashara mwenyewe kwa mtaji wake, biashara inaweza kuwa haikuwa na kikomo cha hasara (Stop Loss) hivyo kupanua wigo wa kuyumba, au tofauti ndogo ya muda kati ya wakati alipofungua biashara na wakati ilipoonekana kwenye akaunti yako. Kuangalia maelezo ya biashara yako mahususi na kujua sababu halisi, tafadhali wasiliana na mwakilishi wetu wa msaada kupitia support@copy-matrix.com, ukitaja namba ya biashara ikiwezekana."
       },
       {
         "id": "copy-trading",
@@ -1184,7 +1210,7 @@
           "simamisha akaunti",
           "funga akaunti"
         ],
-        "answer": "Ili kusimamisha au kufuta akaunti yako, tafadhali wasiliana na timu yetu ya msaada kupitia support@copy-matrix.test ukieleza sababu, nawe utaelekezwa kukamilisha utaratibu unaohitajika."
+        "answer": "Ili kusimamisha au kufuta akaunti yako, tafadhali wasiliana na timu yetu ya msaada kupitia support@copy-matrix.com ukieleza sababu, nawe utaelekezwa kukamilisha utaratibu unaohitajika."
       },
       {
         "id": "support-contact",
@@ -1194,7 +1220,7 @@
           "msaada wa kibinadamu",
           "huduma kwa wateja"
         ],
-        "answer": "Tunafurahi kusikia kutoka kwako wakati wowote kupitia support@copy-matrix.test, na timu yetu itajibu maswali yako haraka iwezekanavyo."
+        "answer": "Tunafurahi kusikia kutoka kwako wakati wowote kupitia support@copy-matrix.com, na timu yetu itajibu maswali yako haraka iwezekanavyo."
       }
     ],
     "smallTalk": [
@@ -1219,10 +1245,10 @@
       }
     ],
     "noMatchIntro": "Bado hatujaelewa swali lako vizuri. Unaweza kujaribu kuliandika upya, au kuangalia mojawapo ya mada hizi za kawaida:",
-    "noMatchOutro": "Ikiwa unahitaji kuwasiliana moja kwa moja na mwakilishi wa msaada wa kibinadamu, tafadhali wasiliana nasi kupitia support@copy-matrix.test.",
+    "noMatchOutro": "Ikiwa unahitaji kuwasiliana moja kwa moja na mwakilishi wa msaada wa kibinadamu, tafadhali wasiliana nasi kupitia support@copy-matrix.com.",
     "topicsHeading": "Mada za kawaida",
     "askAnything": "Au andika swali lako kwa uhuru hapa chini",
-    "aiTempError": "Samahani, hitilafu ya muda imetokea kwenye huduma ya msaada wa akili. Tafadhali jaribu tena baada ya muda mfupi, au wasiliana nasi kupitia support@copy-matrix.test.",
+    "aiTempError": "Samahani, hitilafu ya muda imetokea kwenye huduma ya msaada wa akili. Tafadhali jaribu tena baada ya muda mfupi, au wasiliana nasi kupitia support@copy-matrix.com.",
     "aiNoClearAnswer": "Kwa sasa hatuna jibu wazi kwa swali hili. Tafadhali jaribu kuliandika upya, au wasiliana na timu yetu ya msaada.",
     "searchTopics": "Tafuta mada za kawaida...",
     "noSearchResults": "Hakuna mada zinazolingana na utafutaji wako."

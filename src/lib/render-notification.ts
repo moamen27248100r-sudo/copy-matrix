@@ -50,6 +50,11 @@ export function renderNotification(t: Translator, n: NotificationRow): { title: 
         title: t("followedTradeClosedTitle"),
         body: t("followedTradeClosedBody", { providerName: String(d.providerName ?? ""), symbol: String(d.symbol ?? ""), pct: Number(d.pct ?? 0), positive: sign(d.positive) }),
       };
+    case "followed_trade_opened":
+      return {
+        title: t("followedTradeOpenedTitle", { providerName: String(d.providerName ?? "") }),
+        body: t("followedTradeOpenedBody", { providerName: String(d.providerName ?? ""), symbol: String(d.symbol ?? ""), side: String(d.side ?? "buy") }),
+      };
     case "kyc_approved":
       return { title: t("kycApprovedTitle"), body: t("kycApprovedBody") };
     case "kyc_rejected":

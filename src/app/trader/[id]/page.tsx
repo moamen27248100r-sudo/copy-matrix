@@ -2,12 +2,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
-import { followProvider, unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/actions";
+import { followProvider, unfollowProvider } from "@/app/discover/actions";
+import { FollowButton } from "@/components/FollowButton";
 import { AppNav } from "@/components/AppNav";
-import { TierBadge, RiskBadge } from "@/components/TraderBadges";
-import { TraderEquityChart } from "@/components/TraderEquityChart";
 import { TradeHistory } from "@/components/TradeHistory";
-import { CircularGauge, getGaugeTier } from "@/components/CircularGauge";
+import { getGaugeTier } from "@/components/CircularGauge";
+import { ExnessReliabilitySection } from "@/components/ExnessReliabilitySection";
+import { computeReliabilityTimeline, computeActiveTradingDays } from "@/lib/reliability";
 import { AssetAllocationBar } from "@/components/AssetAllocationBar";
 import { OpenOrdersTable } from "@/components/OpenOrdersTable";
 import { TraderAvatar } from "@/components/TraderAvatar";
@@ -27,6 +28,7 @@ type SignalRow = {
   status: string;
   opened_at: string;
   closed_at: string | null;
+  close_trigger: string | null;
 };
 
 function periodStats(signals: SignalRow[], days: number) {
@@ -63,15 +65,22 @@ function computeMaxDrawdown(signals: SignalRow[]) {
 
   if (closed.length === 0) return null;
 
-  let cumulative = 0;
-  let peak = 0;
+  // Compounds each trade's % return against a running equity multiplier
+  // instead of naively summing percentages -- the additive version could
+  // (and, checked live, regularly did) report an impossible >100% or
+  // even >1000% drawdown once per-trade swings got large enough (a
+  // string of double-digit losses adds up past -100% on paper even
+  // though real equity can only ever asymptotically approach zero,
+  // never cross it). This can never mathematically exceed 100%.
+  let equity = 1;
+  let peak = 1;
   let maxDrawdown = 0;
   for (const s of closed) {
     const raw = (s.exit_price! - s.entry_price) / s.entry_price;
     const signed = s.side === "sell" ? -raw : raw;
-    cumulative += signed * 100;
-    if (cumulative > peak) peak = cumulative;
-    const drawdown = peak - cumulative;
+    equity *= 1 + signed;
+    if (equity > peak) peak = equity;
+    const drawdown = peak > 0 ? ((peak - equity) / peak) * 100 : 0;
     if (drawdown > maxDrawdown) maxDrawdown = drawdown;
   }
   return Math.round(maxDrawdown * 100) / 100;
@@ -100,7 +109,7 @@ export default async function TraderPage({
     supabase.from("provider_cards").select("*").eq("provider_id", id).single(),
     supabase
       .from("signals")
-      .select("id, symbol, side, entry_price, exit_price, stop_loss, take_profit, status, opened_at, closed_at")
+      .select("id, symbol, side, entry_price, exit_price, stop_loss, take_profit, status, opened_at, closed_at, close_trigger")
       .eq("provider_id", id)
       // created_by_admin signals are per-customer trades (manual corrections,
       // margin calls, and the density-mechanic phantom positions below) --
@@ -184,24 +193,22 @@ export default async function TraderPage({
     (livePrices ?? []).map((p) => [p.symbol, Number(p.price)]),
   );
 
-  const reliabilityScore = Number(provider.rating_score ?? 50);
-  const safetyScore = Math.max(0, Math.min(100, Math.round(100 - Number(provider.return_volatility ?? 2) * 15)));
+  const reliabilityTimeline = computeReliabilityTimeline(allSignals);
+  const latestReliabilityPoint = reliabilityTimeline[reliabilityTimeline.length - 1];
+  const reliabilityScore = latestReliabilityPoint?.reliability ?? Number(provider.rating_score ?? 50);
+  const safetyScore =
+    latestReliabilityPoint?.safety ??
+    Math.max(0, Math.min(100, Math.round(100 - Number(provider.return_volatility ?? 2) * 15)));
   const riskExposureScore =
-    maxDrawdown != null ? Math.max(0, Math.min(100, Math.round(maxDrawdown * 8))) : 20;
+    latestReliabilityPoint?.risk ??
+    (maxDrawdown != null ? Math.max(0, Math.min(100, Math.round(maxDrawdown * 8))) : 20);
+  const limitScore = latestReliabilityPoint?.limitScore ?? 0;
+  const activeTradingDays = computeActiveTradingDays(allSignals);
 
   const STATUS_KEYS = {
     reliability: { low: "reliabilityStatusLow", medium: "reliabilityStatusMedium", high: "reliabilityStatusHigh" },
-    safety: { low: "safetyStatusLow", medium: "safetyStatusMedium", high: "safetyStatusHigh" },
-    risk: { low: "riskStatusLow", medium: "riskStatusMedium", high: "riskStatusHigh" },
   } as const;
   const reliabilityStatus = t(STATUS_KEYS.reliability[getGaugeTier(reliabilityScore, "reliability")]);
-  const safetyStatus = t(STATUS_KEYS.safety[getGaugeTier(safetyScore, "safety")]);
-  const riskStatus = t(STATUS_KEYS.risk[getGaugeTier(riskExposureScore, "risk")]);
-
-  const daysAsMember = Math.max(
-    0,
-    Math.floor((Date.now() - new Date(provider.joined_at).getTime()) / (24 * 60 * 60 * 1000)),
-  );
 
   let otherProviderName: string | null = null;
   if (otherSub) {
@@ -226,7 +233,7 @@ export default async function TraderPage({
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6">
+      <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6 pb-28 sm:pb-6">
         {error && (
           <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
             {error}
@@ -242,45 +249,33 @@ export default async function TraderPage({
           </p>
         )}
 
-      <div className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-4">
+      <div className="flex flex-col gap-6">
         <div className="flex items-center gap-4">
           <TraderAvatar providerId={id} name={provider.display_name} avatarUrl={provider.avatar_url} ratingScore={provider.rating_score} size={64} priority />
-          <div className="flex-1">
+          <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
               <h1 className="text-xl font-semibold">{provider.display_name}</h1>
-              <form action={isWatching ? unfollowTrader : followTrader}>
-                <input type="hidden" name="providerId" value={id} />
-                <button
-                  type="submit"
-                  className={
-                    isWatching
-                      ? "rounded-full border border-border px-3 py-0.5 text-xs text-muted"
-                      : "rounded-full border border-accent px-3 py-0.5 text-xs text-accent"
-                  }
-                >
-                  {isWatching ? t("unfollow") : t("follow")}
-                </button>
-              </form>
-            </div>
-            <p className="text-xs text-muted">
-              {t("memberSince", {
-                date: formatDate(provider.joined_at, locale, { year: "numeric", month: "long", timeZone: "UTC" }),
-              })}
               {countryDisplay(provider.country) && (
-                <span className="inline-flex items-center gap-1 align-text-bottom">
-                  {" · "}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={`https://flagcdn.com/16x12/${provider.country!.toLowerCase()}.png`}
-                    alt=""
-                    width={16}
-                    height={12}
-                    className="inline-block rounded-[1px]"
-                  />
-                  {tc(provider.country as never)}
-                </span>
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={`https://flagcdn.com/20x15/${provider.country!.toLowerCase()}.png`}
+                  alt={tc(provider.country as never)}
+                  width={20}
+                  height={15}
+                  className="inline-block rounded-[2px]"
+                />
               )}
-            </p>
+              {user ? (
+                <FollowButton providerId={id} providerName={provider.display_name} initialWatching={isWatching} />
+              ) : (
+                <Link
+                  href={`/signup?next=${encodeURIComponent(`/trader/${id}`)}`}
+                  className="rounded-full border border-accent px-3 py-0.5 text-xs text-accent"
+                >
+                  {t("follow")}
+                </Link>
+              )}
+            </div>
             {isWatching && (
               <p className="mt-0.5 text-[11px] text-muted">
                 {t("followNotifyNote")}
@@ -289,104 +284,91 @@ export default async function TraderPage({
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-1.5">
-          <TierBadge tier={provider.tier} />
-          <RiskBadge level={provider.risk_level} />
-        </div>
-
         {provider.bio && <p className="text-sm text-muted">{translateBio(provider.bio)}</p>}
 
-        <div id="copy" className="flex flex-col gap-3 rounded-lg border border-border bg-background p-3 scroll-mt-20">
-          {!user ? (
-            <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-sm text-muted">
-                {t("signupPrompt", { name: provider.display_name })}
-              </p>
+        {/* The primary copy action -- amount input + "نسخ" button. Fixed
+            to the bottom of the viewport on phones so it's always
+            reachable while scrolling; a normal inline bar right here,
+            under the bio, from sm up. */}
+        <div
+          id="copy"
+          className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-700/70 bg-[#0b0f17]/95 p-3 backdrop-blur scroll-mt-20 sm:static sm:inset-auto sm:z-auto sm:border-0 sm:bg-transparent sm:p-0 sm:backdrop-blur-0"
+        >
+          {isStopped ? (
+            <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-3 text-center text-sm text-danger">
+              {t("stoppedTradingNotice", { name: provider.display_name })}
+            </p>
+          ) : !user ? (
+            <div className="flex flex-col gap-1.5">
               <Link
                 href={`/signup?next=${encodeURIComponent(`/trader/${id}#copy`)}`}
-                className="w-full shrink-0 rounded bg-accent px-4 py-1.5 text-center text-sm font-medium text-accent-foreground transition hover:bg-accent-hover sm:w-fit"
+                className="block rounded-lg bg-accent px-5 py-3 text-center text-base font-bold text-accent-foreground shadow-md shadow-accent/20 transition hover:bg-accent-hover"
               >
-                {t("signupCta")}
+                {t("copyCta")}
               </Link>
-            </div>
-          ) : isStopped ? (
-            <div className="flex flex-col gap-2 rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
-              <p>
-                {t("stoppedTradingNotice", { name: provider.display_name })}
+              <p className="text-center text-xs text-muted">
+                {t("minCopyBadgeLabel")} <span dir="ltr">${Number(provider.min_copy_amount).toLocaleString("en-US")}</span>
               </p>
             </div>
           ) : isBlocked ? (
-            <div className="flex flex-col gap-2 rounded border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-warning">
-              <p>
-                {t.rich("blockedNotice", {
-                  otherName: otherProviderName ?? t("anotherTraderFallback"),
-                  name: provider.display_name,
-                  strong: (chunks) => <strong>{chunks}</strong>,
-                  link: (chunks) => (
-                    <Link href="/portfolio" className="underline">
-                      {chunks}
-                    </Link>
-                  ),
-                })}
-              </p>
-            </div>
-          ) : isFollowing ? (
-            <p className="flex items-center gap-2 text-sm">
-              <span className="h-2 w-2 shrink-0 rounded-full bg-success" aria-hidden="true" />
-              {t("currentlyCopyingAmount", {
-                amount: `$${Number(mySub?.allocated_amount ?? 0).toLocaleString("en-US")}`,
+            <p className="rounded-lg border border-warning/30 bg-warning/10 px-3 py-3 text-center text-sm text-warning">
+              {t.rich("blockedNotice", {
+                otherName: otherProviderName ?? t("anotherTraderFallback"),
+                name: provider.display_name,
+                strong: (chunks) => <strong>{chunks}</strong>,
+                link: (chunks) => (
+                  <Link href="/portfolio" className="underline">
+                    {chunks}
+                  </Link>
+                ),
               })}
             </p>
+          ) : isFollowing ? (
+            <div className="flex items-center justify-between gap-3">
+              <p className="flex min-w-0 items-center gap-2 text-sm">
+                <span className="h-2 w-2 shrink-0 rounded-full bg-success" aria-hidden="true" />
+                <span className="truncate">
+                  {t("currentlyCopyingAmount", {
+                    amount: `$${Number(mySub?.allocated_amount ?? 0).toLocaleString("en-US")}`,
+                  })}
+                </span>
+              </p>
+              <form action={unfollowProvider}>
+                <input type="hidden" name="providerId" value={id} />
+                <input type="hidden" name="returnTo" value={`/trader/${id}`} />
+                <button type="submit" className="shrink-0 rounded-lg border border-border px-4 py-2 text-sm">
+                  {t("stopCopyingCta")}
+                </button>
+              </form>
+            </div>
           ) : (
-          <form action={followProvider} className="flex flex-wrap items-center gap-3">
-            <input type="hidden" name="providerId" value={id} />
-            <label className="flex items-center gap-2 text-sm text-muted">
-              {t("copyAmountLabel")}
-              <input
-                name="allocatedAmount"
-                type="number"
-                step="any"
-                min={0}
-                defaultValue={myProfile?.balance ?? provider.min_copy_amount}
-                required
-                className="w-28 rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground"
-              />
-            </label>
-            <button
-              type="submit"
-              className="rounded bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
-            >
-              {t("copyCta")}
-            </button>
-          </form>
-          )}
-          {isFollowing && (
-            <form action={unfollowProvider}>
-              <input type="hidden" name="providerId" value={id} />
-              <input type="hidden" name="returnTo" value={`/trader/${id}`} />
-              <button type="submit" className="rounded border border-border px-4 py-1.5 text-sm">
-                {t("stopCopyingCta")}
-              </button>
-            </form>
-          )}
-        </div>
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <span className="rounded-full border border-accent/40 bg-accent/10 px-2.5 py-1 text-xs font-semibold text-accent">
-            {t("minCopyBadgeLabel")} <span dir="ltr">${Number(provider.min_copy_amount).toLocaleString("en-US")}</span>
-          </span>
-          {user && (
-            <span className="text-xs text-muted">
-              {t("availableBalanceLabel")}{" "}
-              <span dir="ltr">
-                {myProfile?.balance != null
-                  ? `$${Number(myProfile.balance).toLocaleString("en-US", { maximumFractionDigits: 2 })}`
-                  : "—"}
-              </span>
-            </span>
+            <div className="flex flex-col gap-1.5">
+              <form action={followProvider} className="flex items-center gap-2">
+                <input type="hidden" name="providerId" value={id} />
+                <input
+                  name="allocatedAmount"
+                  type="number"
+                  step="any"
+                  min={0}
+                  defaultValue={myProfile?.balance ?? provider.min_copy_amount}
+                  required
+                  className="w-0 min-w-0 flex-1 rounded-lg border border-border bg-surface px-3 py-3 text-sm text-foreground focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  className="shrink-0 rounded-lg bg-accent px-6 py-3 text-base font-bold text-accent-foreground shadow-md shadow-accent/20 transition hover:bg-accent-hover"
+                >
+                  {t("copyCta")}
+                </button>
+              </form>
+              <p className="text-center text-xs text-muted">
+                {t("minCopyBadgeLabel")} <span dir="ltr">${Number(provider.min_copy_amount).toLocaleString("en-US")}</span>
+              </p>
+            </div>
           )}
         </div>
 
-        <div className="grid grid-cols-2 gap-3 text-center text-sm sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 border-t border-slate-700/70 pt-4 text-center text-sm sm:grid-cols-3">
           <div>
             <p className="font-semibold">{provider.followers_count}</p>
             <p className="text-xs text-muted">{t("statCopiers")}</p>
@@ -423,43 +405,19 @@ export default async function TraderPage({
             <p className="text-xs text-muted">{t("statMaxDrawdown")}</p>
           </div>
         </div>
+
+        <div className="border-t border-slate-700/70 pt-4">
+          <ExnessReliabilitySection
+            reliabilityScore={reliabilityScore}
+            reliabilityStatus={reliabilityStatus}
+            safetyScore={safetyScore}
+            riskExposureScore={riskExposureScore}
+            limitScore={limitScore}
+            activeTradingDays={activeTradingDays}
+            signals={allSignals}
+          />
+        </div>
       </div>
-
-      <section className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-4">
-        <h2 className="font-medium">{t("reliabilitySectionTitle")}</h2>
-        <div className="grid grid-cols-3 gap-3">
-          <CircularGauge value={reliabilityScore} label={t("gaugeReliability")} statusText={reliabilityStatus} variant="reliability" />
-          <CircularGauge value={safetyScore} label={t("gaugeSafety")} statusText={safetyStatus} variant="safety" />
-          <CircularGauge value={riskExposureScore} label={t("gaugeRiskExposure")} statusText={riskStatus} variant="risk" />
-        </div>
-        <div className="flex flex-wrap gap-2 border-t border-border pt-4">
-          <div className="flex flex-1 items-center gap-2 rounded-lg border border-border bg-background px-3 py-2">
-            <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-success" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M9 12l2 2 4-4" />
-              <circle cx="12" cy="12" r="9" />
-            </svg>
-            <div>
-              <p className="text-sm font-semibold">{closedHistory.length}</p>
-              <p className="text-[11px] text-muted">{t("closedTradesStat")}</p>
-            </div>
-          </div>
-          <div className="flex flex-1 items-center gap-2 rounded-lg border border-border bg-background px-3 py-2">
-            <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-accent" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <rect x="3" y="4" width="18" height="18" rx="2" />
-              <path d="M16 2v4M8 2v4M3 10h18" />
-            </svg>
-            <div>
-              <p className="text-sm font-semibold">{daysAsMember}</p>
-              <p className="text-[11px] text-muted">{t("daysMemberStat")}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="flex flex-col gap-2">
-        <h2 className="font-medium">{t("equityChartTitle")}</h2>
-        <TraderEquityChart signals={allSignals} />
-      </section>
 
       <section className="flex flex-col gap-3">
         <h2 className="font-medium">{t("periodsPerformanceTitle")}</h2>
@@ -502,7 +460,14 @@ export default async function TraderPage({
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">{t("tradeHistorySectionTitle")}</h2>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h2 className="font-medium">{t("tradeHistorySectionTitle")}</h2>
+          <p className="text-xs text-slate-500">
+            {t("memberSince", {
+              date: formatDate(provider.joined_at, locale, { year: "numeric", month: "long", timeZone: "UTC" }),
+            })}
+          </p>
+        </div>
         {closedHistory.length === 0 ? (
           <p className="text-sm text-muted">{t("noClosedTrades")}</p>
         ) : (

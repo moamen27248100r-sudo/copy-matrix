@@ -62,12 +62,19 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
       cumulative += signed * 100;
       pts.push({ value: cumulative, date: s.closed_at });
     }
+    // A period with too few (or zero) closed trades still gets a real
+    // chart, not a "not enough data" placeholder: pad with a second,
+    // identical-value point so the line renders flat/straight instead
+    // of needing at least two real trades to have anything to draw.
+    if (pts.length < 2) {
+      pts.push({ value: pts[0].value, date: null });
+    }
     return pts;
   }, [signals, periodIdx]);
 
   const width = 600;
   const height = 180;
-  const hasData = points.length >= 3;
+  const hasData = points.length >= 2;
   const values = points.map((p) => p.value);
   const min = Math.min(...values, 0);
   const max = Math.max(...values, 0);
@@ -78,7 +85,6 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
   const zeroY = yFor(0);
   const last = values[values.length - 1] ?? 0;
   const color = "var(--brand)";
-  const areaPoints = hasData ? `0,${height} ${coords} ${width},${height}` : "";
   const hovered = hoverIdx != null ? points[hoverIdx] : null;
 
   const handlePointer = (clientX: number, svgEl: SVGSVGElement) => {
@@ -108,10 +114,7 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
         ))}
       </div>
 
-      {!hasData ? (
-        <p className="text-sm text-muted">{t("notEnoughData")}</p>
-      ) : (
-        <div className="rounded-lg border border-border bg-background p-3">
+      <div className="rounded-lg border border-border/50 p-3">
           <svg
             viewBox={`0 0 ${width} ${height}`}
             className="h-44 w-full touch-none"
@@ -123,12 +126,6 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
             }}
             onTouchEnd={() => setHoverIdx(null)}
           >
-            <defs>
-              <linearGradient id="equity-fill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor={color} stopOpacity="0.25" />
-                <stop offset="100%" stopColor={color} stopOpacity="0" />
-              </linearGradient>
-            </defs>
             {[0.25, 0.5, 0.75].map((f) => (
               <line
                 key={f}
@@ -141,11 +138,10 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
               />
             ))}
             <line x1={0} y1={zeroY} x2={width} y2={zeroY} stroke="var(--border)" strokeDasharray="4" />
-            <polygon points={areaPoints} fill="url(#equity-fill)" />
             <polyline
               fill="none"
               stroke={color}
-              strokeWidth={2}
+              strokeWidth={1.5}
               strokeLinecap="round"
               strokeLinejoin="round"
               points={coords}
@@ -192,7 +188,6 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
             </span>
           </div>
         </div>
-      )}
     </div>
   );
 }

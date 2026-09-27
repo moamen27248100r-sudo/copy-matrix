@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans_Arabic, IBM_Plex_Mono } from "next/font/google";
+import { IBM_Plex_Sans_Arabic, IBM_Plex_Mono, Cairo } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
@@ -21,6 +21,17 @@ const plexMono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
+});
+
+// A second, much heavier family reserved for headlines and hero text --
+// IBM Plex Sans Arabic only goes up to 700 (Bold), and a big headline
+// set at 700 doesn't read as boldly as one set at Cairo's 800/900
+// (ExtraBold/Black). Body copy, buttons and everything else stays on
+// plexSansArabic at its normal 400-500 weight.
+const cairo = Cairo({
+  variable: "--font-cairo",
+  subsets: ["arabic", "latin"],
+  weight: ["700", "800", "900"],
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -61,7 +72,7 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={dir}
-      className={`${plexSansArabic.variable} ${plexMono.variable} h-full antialiased`}
+      className={`${plexSansArabic.variable} ${plexMono.variable} ${cairo.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <script

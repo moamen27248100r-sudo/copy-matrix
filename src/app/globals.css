@@ -45,6 +45,7 @@
   --color-glass-border: var(--glass-border);
   --font-sans: var(--font-plex-sans-arabic), sans-serif;
   --font-mono: var(--font-plex-mono), monospace;
+  --font-display: var(--font-cairo), var(--font-plex-sans-arabic), sans-serif;
 }
 
 html {

@@ -10,7 +10,7 @@
       "signup": "Daftar"
     },
     "hero": {
-      "title": "Salin transaksi trader terbaik secara otomatis",
+      "title": "Salin transaksi <accent>trader terbaik</accent> secara otomatis",
       "subtitle": "Jelajahi rekam jejak performa yang nyata dan terverifikasi dari ratusan trader, dan pilih siapa yang Anda percaya untuk disalin transaksinya.",
       "start": "Mulai sekarang",
       "browse": "Jelajahi trader",
@@ -298,7 +298,21 @@
     "periodYear": "Tahun",
     "periodAll": "Semua",
     "noEnoughClosedTrades": "Transaksi tertutup tidak cukup pada periode ini untuk menampilkan grafik.",
-    "startingPoint": "Mulai: ${amount}"
+    "startingPoint": "Mulai: ${amount}",
+    "periodDay": "1H",
+    "copiedPositionsTitle": "Posisi Salinan Aktif",
+    "tableSymbol": "Simbol",
+    "tableSide": "Jenis",
+    "tableEntry": "Harga Masuk",
+    "tableMarket": "Harga Pasar",
+    "tablePnl": "Untung/Rugi",
+    "closeTrade": "Tutup",
+    "closeTradeConfirm": "Tutup posisi ini sekarang pada harga pasar saat ini?",
+    "noCopiedPositions": "Tidak ada posisi salinan yang terbuka saat ini.",
+    "riskProtectionLabel": "Perlindungan saldo dari kerugian",
+    "riskProtectionUsed": "{pct}% dari {maxPct}%",
+    "stopCopying": "Hentikan Menyalin",
+    "stopCopyingConfirm": "Berhenti menyalin trader ini?"
   },
   "Common": {
     "level": "Level {level}",
@@ -322,7 +336,9 @@
     "walletApprovedBody": "Permintaan Anda sebesar {amount}$ telah diproses.",
     "walletDepositRejectedTitle": "Permintaan setor ditolak",
     "walletWithdrawalRejectedTitle": "Permintaan tarik ditolak",
-    "walletRejectedBody": "Permintaan Anda ditolak. Silakan hubungi dukungan untuk mengetahui alasannya."
+    "walletRejectedBody": "Permintaan Anda ditolak. Silakan hubungi dukungan untuk mengetahui alasannya.",
+    "followedTradeOpenedTitle": "Transaksi baru dibuka | {providerName}",
+    "followedTradeOpenedBody": "{providerName} membuka transaksi {side, select, sell {jual} other {beli}} pada {symbol}. Anda dapat meninjau detailnya sekarang."
   },
   "Portfolio": {
     "title": "Portofolio Saya",
@@ -504,7 +520,14 @@
     "safetyStatusLow": "Keamanan rendah",
     "reliabilityStatusHigh": "Keandalan sangat baik",
     "reliabilityStatusMedium": "Keandalan baik",
-    "reliabilityStatusLow": "Keandalan rendah"
+    "reliabilityStatusLow": "Keandalan rendah",
+    "gaugeLimitScore": "Skor Batas",
+    "gaugeTradingDays": "Hari Trading Aktif",
+    "importantBadgeLabel": "Penting",
+    "reliabilityHistoryTitle": "Riwayat Keandalan Trading",
+    "followingLabel": "Mengikuti",
+    "followToastTitle": "Berhasil mengikuti",
+    "followToastBody": "Anda kini akan menerima notifikasi instan untuk setiap transaksi dan pembaruan baru dari {name}."
   },
   "Discover": {
     "title": "Temukan trader",
@@ -884,6 +907,9 @@
       "copyAmountBelowMinimum": "Jumlah salinan di bawah minimum untuk trader ini ({amount}).",
       "copyFailed": "Tidak dapat menyalin trader ini. Silakan coba lagi.",
       "stopCopyBlocked": "Tidak dapat menghentikan penyalinan saat ini: Anda memiliki trade terbuka pada akun ini, dan saldo Anda saat ini ditahan sebagai margin untuk menutupinya. Silakan coba lagi setelah semua trade terbuka ditutup."
+    },
+    "dashboard": {
+      "closeFailed": "Tidak dapat menutup posisi. Silakan coba lagi."
     }
   },
   "FollowEmail": {
@@ -1035,7 +1061,7 @@
           "saya rugi",
           "mengapa saya rugi"
         ],
-        "answer": "Wajar jika hasil trade Anda sedikit berbeda dari trader asli, tetapi perbedaan besar (seperti kerugian bagi Anda dibandingkan keuntungan bagi mereka) biasanya disebabkan oleh salah satu alasan spesifik: ukuran lot yang dialokasikan untuk trade Anda mungkin relatif lebih besar dibandingkan modal Anda dibanding rasio trader terhadap modalnya sendiri, trade mungkin tidak memiliki stop loss sehingga margin volatilitas melebar, atau sedikit perbedaan waktu antara saat mereka membuka trade dan saat tercermin di akun Anda. Untuk meninjau detail trade spesifik Anda dan mengetahui alasan pastinya, silakan hubungi perwakilan dukungan kami di support@copy-matrix.test, sebutkan nomor trade jika memungkinkan."
+        "answer": "Wajar jika hasil trade Anda sedikit berbeda dari trader asli, tetapi perbedaan besar (seperti kerugian bagi Anda dibandingkan keuntungan bagi mereka) biasanya disebabkan oleh salah satu alasan spesifik: ukuran lot yang dialokasikan untuk trade Anda mungkin relatif lebih besar dibandingkan modal Anda dibanding rasio trader terhadap modalnya sendiri, trade mungkin tidak memiliki stop loss sehingga margin volatilitas melebar, atau sedikit perbedaan waktu antara saat mereka membuka trade dan saat tercermin di akun Anda. Untuk meninjau detail trade spesifik Anda dan mengetahui alasan pastinya, silakan hubungi perwakilan dukungan kami di support@copy-matrix.com, sebutkan nomor trade jika memungkinkan."
       },
       {
         "id": "copy-trading",
@@ -1184,7 +1210,7 @@
           "tangguhkan akun",
           "tutup akun"
         ],
-        "answer": "Untuk menangguhkan atau menghapus akun Anda, silakan hubungi tim dukungan kami di support@copy-matrix.test dengan menjelaskan alasannya, dan Anda akan dipandu untuk menyelesaikan prosedur yang diperlukan."
+        "answer": "Untuk menangguhkan atau menghapus akun Anda, silakan hubungi tim dukungan kami di support@copy-matrix.com dengan menjelaskan alasannya, dan Anda akan dipandu untuk menyelesaikan prosedur yang diperlukan."
       },
       {
         "id": "support-contact",
@@ -1194,7 +1220,7 @@
           "dukungan manusia",
           "layanan pelanggan"
         ],
-        "answer": "Kami senang mendengar dari Anda kapan saja di support@copy-matrix.test, dan tim kami akan menanggapi pertanyaan Anda sesegera mungkin."
+        "answer": "Kami senang mendengar dari Anda kapan saja di support@copy-matrix.com, dan tim kami akan menanggapi pertanyaan Anda sesegera mungkin."
       }
     ],
     "smallTalk": [
@@ -1219,10 +1245,10 @@
       }
     ],
     "noMatchIntro": "Kami belum bisa memahami pertanyaan Anda dengan baik. Anda dapat mencoba menyusun ulang, atau memeriksa salah satu topik umum berikut:",
-    "noMatchOutro": "Jika Anda perlu menghubungi perwakilan dukungan manusia secara langsung, silakan hubungi kami di support@copy-matrix.test.",
+    "noMatchOutro": "Jika Anda perlu menghubungi perwakilan dukungan manusia secara langsung, silakan hubungi kami di support@copy-matrix.com.",
     "topicsHeading": "Topik umum",
     "askAnything": "Atau ketik pertanyaan Anda secara bebas di bawah",
-    "aiTempError": "Maaf, terjadi kesalahan sementara pada layanan dukungan cerdas. Silakan coba lagi sebentar lagi, atau hubungi kami di support@copy-matrix.test.",
+    "aiTempError": "Maaf, terjadi kesalahan sementara pada layanan dukungan cerdas. Silakan coba lagi sebentar lagi, atau hubungi kami di support@copy-matrix.com.",
     "aiNoClearAnswer": "Kami belum memiliki jawaban yang jelas untuk pertanyaan ini saat ini. Silakan coba susun ulang, atau hubungi tim dukungan kami.",
     "searchTopics": "Cari topik umum...",
     "noSearchResults": "Tidak ada topik yang cocok dengan pencarian Anda."
