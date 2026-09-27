@@ -263,71 +263,84 @@ export default async function Home() {
             </span>
           ))}
         </div>
-        <div className="relative mx-auto w-full max-w-4xl px-4 pb-16 pt-4">
-          <div className="pointer-events-none absolute inset-x-0 top-8 -z-10 h-72 bg-gradient-to-b from-blue-600/20 to-transparent blur-3xl" />
+        <div className="relative mx-auto w-full max-w-2xl px-4 pb-24 pt-10" style={{ perspective: "1400px" }}>
+          <div
+            className="pointer-events-none absolute inset-x-0 top-0 -z-10 mx-auto h-[420px] w-[420px] rounded-full blur-3xl"
+            style={{ background: "radial-gradient(circle, rgba(34,211,238,0.28), rgba(30,64,175,0.18) 45%, transparent 72%)" }}
+          />
 
           <div
-            className="relative mx-auto max-w-3xl overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-5 shadow-2xl shadow-black/40 backdrop-blur-xl sm:p-6"
+            className="relative mx-auto w-[250px] sm:w-[290px]"
             style={{
-              maskImage: "linear-gradient(to bottom, black 70%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to bottom, black 70%, transparent 100%)",
+              maskImage: "linear-gradient(to bottom, black 86%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(to bottom, black 86%, transparent 100%)",
             }}
           >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent/15 text-sm font-bold text-accent">م</span>
-                <div className="text-start">
-                  <p className="text-sm font-semibold text-white">محفظة منسوخة</p>
-                  <p className="text-xs text-success">+12.4% اليوم</p>
+            <div
+              className="relative rounded-[2.75rem] border-[6px] border-slate-800 bg-slate-950 shadow-2xl shadow-cyan-500/10"
+              style={{ transform: "rotateY(-15deg) rotateX(4deg)", transformStyle: "preserve-3d" }}
+            >
+              <span className="absolute inset-x-0 top-2 z-10 mx-auto block h-5 w-24 rounded-full bg-slate-800" />
+              <div className="overflow-hidden rounded-[2.2rem] bg-[#070b14] p-3.5 pt-9">
+                <div className="rounded-xl border border-white/10 bg-white/[0.05] p-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] text-muted">صفقة منسوخة</span>
+                    <span className="rounded-full bg-success/15 px-2 py-0.5 text-[10px] font-bold text-success">+24.8%</span>
+                  </div>
+                  <p className="mt-1 text-lg font-extrabold text-white" dir="ltr">XAUUSD</p>
+                </div>
+
+                <svg viewBox="0 0 220 100" className="mt-4 h-24 w-full" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="heroNeonFill" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#4ade80" stopOpacity="0.35" />
+                      <stop offset="100%" stopColor="#4ade80" stopOpacity="0" />
+                    </linearGradient>
+                    <filter id="heroNeonGlow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="2.4" result="blur" />
+                      <feMerge>
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  <polygon points="0,100 0,70 25,74 50,55 75,60 100,35 125,42 150,20 175,28 200,10 220,15 220,100" fill="url(#heroNeonFill)" />
+                  <polyline
+                    points="0,70 25,74 50,55 75,60 100,35 125,42 150,20 175,28 200,10 220,15"
+                    fill="none"
+                    stroke="#4ade80"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    filter="url(#heroNeonGlow)"
+                  />
+                </svg>
+
+                <div className="mt-3.5 space-y-2">
+                  {[
+                    { sym: "BTCUSDT", pct: "+3.1%" },
+                    { sym: "EURUSD", pct: "+0.6%" },
+                  ].map((row) => (
+                    <div key={row.sym} className="flex items-center justify-between rounded-lg border border-white/[0.06] bg-white/[0.03] px-2.5 py-1.5">
+                      <span className="text-[11px] text-muted" dir="ltr">{row.sym}</span>
+                      <span className="text-xs font-semibold text-success" dir="ltr">{row.pct}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-              <span className="flex items-center gap-1 rounded-full bg-success/10 px-2.5 py-1 text-[11px] font-medium text-success">
-                <span className="h-1.5 w-1.5 rounded-full bg-success" />
-                مباشر
-              </span>
-            </div>
-
-            <svg viewBox="0 0 400 110" className="mt-4 h-28 w-full text-accent" preserveAspectRatio="none">
-              <polyline
-                points="0,85 40,72 80,78 120,48 160,58 200,28 240,42 280,18 320,32 360,8 400,20"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-
-            <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
-              {[
-                { sym: "BTCUSDT", pct: "+3.1%" },
-                { sym: "XAUUSD", pct: "+1.8%" },
-                { sym: "EURUSD", pct: "+0.6%" },
-                { sym: "ETHUSDT", pct: "+2.4%" },
-              ].map((row) => (
-                <div key={row.sym} className="rounded-lg border border-white/[0.06] bg-white/[0.03] px-2.5 py-2 text-start">
-                  <p className="text-[11px] text-muted" dir="ltr">{row.sym}</p>
-                  <p className="text-sm font-semibold text-success" dir="ltr">{row.pct}</p>
-                </div>
-              ))}
             </div>
           </div>
 
-          <div className="absolute -bottom-6 end-6 w-32 rotate-6 rounded-[1.4rem] border border-white/10 bg-slate-900/90 p-2 shadow-2xl shadow-black/50 backdrop-blur-xl sm:end-10 sm:w-40">
-            <div className="rounded-[1rem] bg-slate-950 p-3">
-              <p className="text-[10px] text-muted" dir="ltr">ETHUSDT</p>
-              <p className="text-base font-bold text-success" dir="ltr">+2.4%</p>
-              <svg viewBox="0 0 100 36" className="mt-1.5 h-9 w-full text-success" preserveAspectRatio="none">
-                <polyline
-                  points="0,30 15,24 30,26 45,14 60,18 75,6 100,10"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+          <div className="absolute start-0 top-16 w-36 -rotate-3 rounded-xl border border-white/10 bg-white/[0.07] p-3 shadow-xl shadow-black/40 backdrop-blur-xl sm:start-2 sm:w-40">
+            <div className="flex items-center gap-2">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-400/15 text-sm">🥇</span>
+              <p className="text-[11px] leading-tight text-white">تم فتح صفقة ذهب XAUUSD</p>
             </div>
+          </div>
+
+          <div className="absolute end-0 bottom-16 w-36 rotate-3 rounded-xl border border-white/10 bg-white/[0.07] p-3 shadow-xl shadow-black/40 backdrop-blur-xl sm:end-2 sm:w-40">
+            <p className="text-[11px] text-muted">أرباح اليوم</p>
+            <p className="text-base font-extrabold text-success" dir="ltr">+$320</p>
           </div>
         </div>
       </section>
