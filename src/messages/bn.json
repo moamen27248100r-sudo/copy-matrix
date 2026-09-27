@@ -747,6 +747,7 @@
   "Legal": {
     "backToHome": "হোমে ফিরে যান",
     "lastUpdated": "সর্বশেষ আপডেট: {date}",
+    "contactLine": "এই পৃষ্ঠা সম্পর্কে যেকোনো প্রশ্নের জন্য {email}-এ আমাদের সাথে যোগাযোগ করুন।",
     "termsMetaTitle": "শর্তাবলী | Copy Matrix",
     "termsTitle": "শর্তাবলী",
     "termsSections": [

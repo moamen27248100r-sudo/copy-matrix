@@ -747,6 +747,7 @@
   "Legal": {
     "backToHome": "Kembali ke beranda",
     "lastUpdated": "Terakhir diperbarui: {date}",
+    "contactLine": "Untuk pertanyaan seputar halaman ini, hubungi kami di {email}.",
     "termsMetaTitle": "Syarat & Ketentuan | Copy Matrix",
     "termsTitle": "Syarat & Ketentuan",
     "termsSections": [

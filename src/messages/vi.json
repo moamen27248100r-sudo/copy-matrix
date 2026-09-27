@@ -747,6 +747,7 @@
   "Legal": {
     "backToHome": "Về trang chủ",
     "lastUpdated": "Cập nhật lần cuối: {date}",
+    "contactLine": "Nếu có bất kỳ câu hỏi nào về trang này, vui lòng liên hệ chúng tôi qua {email}.",
     "termsMetaTitle": "Điều khoản & Điều kiện | Copy Matrix",
     "termsTitle": "Điều khoản & Điều kiện",
     "termsSections": [

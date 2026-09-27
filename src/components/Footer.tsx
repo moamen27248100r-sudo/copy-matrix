@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import type { Locale } from "@/i18n/locales";
+import { PLATFORM_NAME, SUPPORT_EMAIL, SECURITY_BADGE } from "@/config/platform";
 
 type NavLink = { href: string; label: string };
 
@@ -240,13 +241,24 @@ export function Footer({ locale, dir, navLinks }: { locale: Locale; dir: "rtl" |
               <Link href="/legal/privacy" className="line-clamp-1 text-muted hover:text-foreground">
                 {t.privacy}
               </Link>
+              <a href={`mailto:${SUPPORT_EMAIL}`} dir="ltr" className="line-clamp-1 text-start text-muted hover:text-foreground">
+                {SUPPORT_EMAIL}
+              </a>
             </div>
           </div>
+        </div>
+
+        <div className="flex items-center gap-1.5 text-[11px] text-muted">
+          <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 shrink-0 text-success" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            <path d="M9.5 12l1.8 1.8L15 10" />
+          </svg>
+          <span dir="ltr">{SECURITY_BADGE}</span>
         </div>
       </div>
 
       <p className="mx-auto mt-8 w-full max-w-5xl border-t border-glass-border pt-6 text-center text-xs text-muted">
-        © {new Date().getFullYear()} Copy Matrix. {t.rights}
+        © {new Date().getFullYear()} {PLATFORM_NAME}. {t.rights}
       </p>
     </footer>
   );

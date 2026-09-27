@@ -6,6 +6,7 @@ import QRCode from "qrcode";
 import { requestDeposit } from "@/app/portfolio/actions";
 import { CRYPTO_CURRENCIES, networksForCurrency, type DepositNetwork } from "@/lib/deposit-networks";
 import { CryptoIcon } from "@/components/CryptoIcon";
+import { SECURITY_BADGE } from "@/config/platform";
 
 export function DepositGateway() {
   const t = useTranslations("Portfolio");
@@ -44,24 +45,51 @@ export function DepositGateway() {
   const currency = CRYPTO_CURRENCIES.find((c) => c.id === currencyId) ?? null;
   const networks = currencyId ? networksForCurrency(currencyId) : [];
 
-  // Step 1: currency grid
+  // Step 1: payment method cards — one per currency, each showing its
+  // cheapest network fee and fastest confirmation time so the choice is
+  // informed up front rather than only revealed after tapping in.
   if (!currency) {
     return (
       <div className="flex flex-col gap-3">
         <p className="text-sm text-muted">{t("chooseCurrency")}</p>
-        <div className="grid grid-cols-3 gap-2.5">
-          {CRYPTO_CURRENCIES.map((c) => (
-            <button
-              key={c.id}
-              type="button"
-              onClick={() => setCurrencyId(c.id)}
-              className="flex flex-col items-center gap-2 rounded-2xl border border-white/[0.08] bg-white/[0.03] px-2 py-4 backdrop-blur-md transition hover:border-accent/40 hover:bg-white/[0.06]"
-            >
-              <CryptoIcon symbol={c.symbol} color={c.color} size={40} />
-              <span className="text-sm font-semibold text-foreground">{c.symbol}</span>
-              <span className="text-[11px] text-muted">{c.name}</span>
-            </button>
-          ))}
+        <div className="grid grid-cols-2 gap-2.5">
+          {CRYPTO_CURRENCIES.map((c) => {
+            const nets = networksForCurrency(c.id);
+            const cheapest = Math.min(...nets.map((n) => n.feeUsd));
+            const fastest = Math.min(...nets.map((n) => n.estMinutes));
+            const hasRecommended = nets.some((n) => n.recommended);
+            return (
+              <button
+                key={c.id}
+                type="button"
+                onClick={() => setCurrencyId(c.id)}
+                className="relative flex flex-col items-center gap-2 rounded-2xl border border-white/[0.08] bg-white/[0.03] px-3 py-4 text-center backdrop-blur-md transition hover:border-accent/40 hover:bg-white/[0.06]"
+              >
+                {hasRecommended && (
+                  <span className="absolute end-2 top-2 rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-bold text-accent">★</span>
+                )}
+                <CryptoIcon symbol={c.symbol} color={c.color} size={40} />
+                <div>
+                  <p className="text-sm font-semibold text-foreground">{c.symbol}</p>
+                  <p className="text-[11px] text-muted">{c.name}</p>
+                </div>
+                <p className="text-[11px] text-muted">
+                  <span dir="ltr">
+                    ~{fastest} {t("minutesShort")}
+                  </span>
+                  {" · "}
+                  {t("networkFeeLabel")} <span dir="ltr">${cheapest}</span>
+                </p>
+              </button>
+            );
+          })}
+        </div>
+        <div className="flex items-center justify-center gap-1.5 pt-1 text-[11px] text-muted">
+          <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 shrink-0 text-success" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            <path d="M9.5 12l1.8 1.8L15 10" />
+          </svg>
+          <span dir="ltr">{SECURITY_BADGE}</span>
         </div>
       </div>
     );

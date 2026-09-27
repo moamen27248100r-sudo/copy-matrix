@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
+import { SUPPORT_EMAIL } from "@/config/platform";
 
 type ChatMessage = {
   role: "user" | "assistant";
@@ -248,7 +249,7 @@ export function SupportChatPage() {
             </div>
           )}
 
-          <div className="pt-1 text-center">
+          <div className="flex flex-col items-center gap-1.5 pt-1 text-center">
             <button
               type="button"
               onClick={() => setTab("chat")}
@@ -256,6 +257,9 @@ export function SupportChatPage() {
             >
               {tf("askAnything")}
             </button>
+            <a href={`mailto:${SUPPORT_EMAIL}`} dir="ltr" className="text-xs text-muted hover:text-foreground">
+              {SUPPORT_EMAIL}
+            </a>
           </div>
         </div>
       ) : (

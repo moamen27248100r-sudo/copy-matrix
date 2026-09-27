@@ -747,6 +747,7 @@
   "Legal": {
     "backToHome": "Retour à l'accueil",
     "lastUpdated": "Dernière mise à jour : {date}",
+    "contactLine": "Pour toute question concernant cette page, contactez-nous à {email}.",
     "termsMetaTitle": "Conditions générales | Copy Matrix",
     "termsTitle": "Conditions générales",
     "termsSections": [

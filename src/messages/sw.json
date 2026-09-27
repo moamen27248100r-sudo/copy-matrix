@@ -747,6 +747,7 @@
   "Legal": {
     "backToHome": "Rudi mwanzo",
     "lastUpdated": "Ilisasishwa mwisho: {date}",
+    "contactLine": "Kwa swali lolote kuhusu ukurasa huu, wasiliana nasi kupitia {email}.",
     "termsMetaTitle": "Sheria na Masharti | Copy Matrix",
     "termsTitle": "Sheria na Masharti",
     "termsSections": [

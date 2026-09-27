@@ -747,6 +747,7 @@
   "Legal": {
     "backToHome": "กลับสู่หน้าแรก",
     "lastUpdated": "อัปเดตล่าสุด: {date}",
+    "contactLine": "หากมีคำถามเกี่ยวกับหน้านี้ โปรดติดต่อเราที่ {email}",
     "termsMetaTitle": "ข้อกำหนดและเงื่อนไข | Copy Matrix",
     "termsTitle": "ข้อกำหนดและเงื่อนไข",
     "termsSections": [

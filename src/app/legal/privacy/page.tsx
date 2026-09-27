@@ -2,6 +2,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { LegalNav } from "@/components/LegalNav";
 import { formatDate } from "@/lib/locale-format";
 import type { Locale } from "@/i18n/locales";
+import { SUPPORT_EMAIL } from "@/config/platform";
 
 export async function generateMetadata() {
   const t = await getTranslations("Legal");
@@ -30,6 +31,8 @@ export default async function PrivacyPage() {
             </section>
           ))}
         </div>
+
+        <p className="text-sm text-muted">{t("contactLine", { email: SUPPORT_EMAIL })}</p>
       </main>
     </>
   );

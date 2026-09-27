@@ -759,6 +759,7 @@
   "Legal": {
     "backToHome": "العودة إلى الرئيسية",
     "lastUpdated": "آخر تحديث: {date}",
+    "contactLine": "لأي استفسار بخصوص هذه الصفحة، تواصل معنا عبر {email}.",
     "termsMetaTitle": "الشروط والأحكام | Copy Matrix",
     "termsTitle": "الشروط والأحكام",
     "termsSections": [

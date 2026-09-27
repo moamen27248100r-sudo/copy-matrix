@@ -747,6 +747,7 @@
   "Legal": {
     "backToHome": "ہوم پیج پر واپس جائیں",
     "lastUpdated": "آخری تازہ کاری: {date}",
+    "contactLine": "اس صفحے سے متعلق کسی بھی سوال کے لیے {email} پر ہم سے رابطہ کریں۔",
     "termsMetaTitle": "شرائط و ضوابط | Copy Matrix",
     "termsTitle": "شرائط و ضوابط",
     "termsSections": [
