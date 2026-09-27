@@ -4,15 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { MarketOverview } from "@/components/MarketOverview";
 import { MarketNewsFeed } from "@/components/MarketNewsFeed";
 import { LeaderCard } from "@/components/LeaderCard";
-import {
-  LiveStatsProvider,
-  LiveActiveTraders,
-  LiveCopyUsers,
-  LiveTotalTrades,
-  LiveTotalVolume,
-  LiveWinRate,
-  LiveBestReturn,
-} from "@/components/LiveHomeStats";
+import { LiveStatsProvider, LiveActiveTraders, LiveCopyUsers, LiveTotalTrades } from "@/components/LiveHomeStats";
 import { simulatedCopyUsers, simulatedActiveTraders } from "@/lib/simulated-growth";
 import { INTERNATIONAL_COUNTRY_CODES } from "@/lib/country-metadata";
 import { TryCopySection } from "@/components/TryCopySection";
@@ -366,116 +358,6 @@ export default async function Home() {
       </section>
 
       <HowItWorks locale={locale} />
-
-      <section className="px-6 py-12">
-        <div className="mx-auto flex max-w-5xl flex-col gap-6">
-          <div className="mx-auto flex flex-col items-center gap-2 text-center">
-            <h2 className="font-display text-2xl font-extrabold sm:text-3xl">{t("stats.title")}</h2>
-            <div className="flex items-center gap-2 text-xs text-muted">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
-              </span>
-              {t("stats.live")}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
-            <div className="rounded-lg border border-border p-3 text-center sm:p-6">
-              <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-foreground/5 sm:mb-3 sm:h-10 sm:w-10">
-                <svg viewBox="0 0 24 24" className="h-4 w-4 text-foreground sm:h-5 sm:w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                  <circle cx="9" cy="7" r="4" />
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                </svg>
-              </div>
-              <LiveActiveTraders className="font-display text-xl font-extrabold sm:text-3xl" />
-              <p className="mt-1 text-[10px] text-muted sm:text-xs">
-                {t("stats.activeTraders")}
-              </p>
-            </div>
-
-            <div className="rounded-lg border border-border p-3 text-center sm:p-6">
-              <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-foreground/5 sm:mb-3 sm:h-10 sm:w-10">
-                <svg viewBox="0 0 24 24" className="h-4 w-4 text-foreground sm:h-5 sm:w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M17 1l4 4-4 4" />
-                  <path d="M3 11V9a4 4 0 0 1 4-4h14" />
-                  <path d="M7 23l-4-4 4-4" />
-                  <path d="M21 13v2a4 4 0 0 1-4 4H3" />
-                </svg>
-              </div>
-              <LiveCopyUsers className="font-display text-xl font-extrabold sm:text-3xl" />
-              <p className="mt-1 text-[10px] text-muted sm:text-xs">
-                {t("stats.copyUsers")}
-              </p>
-            </div>
-
-            <div className="rounded-lg border border-border p-3 text-center sm:p-6">
-              <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-success/10 sm:mb-3 sm:h-10 sm:w-10">
-                <svg viewBox="0 0 24 24" className="h-4 w-4 text-success sm:h-5 sm:w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M23 6l-9.5 9.5-5-5L1 18" />
-                  <path d="M17 6h6v6" />
-                </svg>
-              </div>
-              <LiveWinRate className="font-display text-xl font-extrabold text-success sm:text-3xl" />
-              <p className="mt-1 text-[10px] text-muted sm:text-xs">
-                {t("stats.avgWinRate")}
-              </p>
-            </div>
-
-            <div className="rounded-lg border border-border p-3 text-center sm:p-6">
-              <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-foreground/5 sm:mb-3 sm:h-10 sm:w-10">
-                <svg viewBox="0 0 24 24" className="h-4 w-4 text-foreground sm:h-5 sm:w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <line x1="12" y1="1" x2="12" y2="23" />
-                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                </svg>
-              </div>
-              <LiveTotalVolume className="font-display text-xl font-extrabold sm:text-3xl" />
-              <p className="mt-1 text-[10px] text-muted sm:text-xs">
-                {t("stats.totalVolume")}
-              </p>
-            </div>
-
-            <div className="rounded-lg border border-border p-3 text-center sm:p-6">
-              <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-success/10 sm:mb-3 sm:h-10 sm:w-10">
-                <svg viewBox="0 0 24 24" className="h-4 w-4 text-success sm:h-5 sm:w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <circle cx="12" cy="8" r="7" />
-                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
-                </svg>
-              </div>
-              <LiveBestReturn className="font-display text-xl font-extrabold text-success sm:text-3xl" />
-              <p className="mt-1 text-[10px] text-muted sm:text-xs">
-                {t("stats.bestReturn")}
-              </p>
-            </div>
-
-            <div className="rounded-lg border border-border p-3 text-center sm:p-6">
-              <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-foreground/5 sm:mb-3 sm:h-10 sm:w-10">
-                <svg viewBox="0 0 24 24" className="h-4 w-4 text-foreground sm:h-5 sm:w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <line x1="18" y1="20" x2="18" y2="10" />
-                  <line x1="12" y1="20" x2="12" y2="4" />
-                  <line x1="6" y1="20" x2="6" y2="14" />
-                </svg>
-              </div>
-              <LiveTotalTrades className="font-display text-xl font-extrabold sm:text-3xl" />
-              <p className="mt-1 text-[10px] text-muted sm:text-xs">
-                {t("stats.totalTrades")}
-              </p>
-            </div>
-          </div>
-
-          <div className="mx-auto flex max-w-2xl flex-col gap-2 text-center text-xs leading-relaxed text-muted">
-            <p>
-              {t("stats.disclaimer")}{" "}
-              <Link href="/legal/terms" className="underline">
-                {t("stats.termsLink")}
-              </Link>{" "}
-              {t("stats.disclaimerEnd")}
-            </p>
-          </div>
-        </div>
-      </section>
 
       <FAQAccordion locale={locale} />
 
