@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
+import { SecurityBadges } from "@/components/SecurityBadges";
 import type { Locale } from "@/i18n/locales";
 
 type NavLink = { href: string; label: string };
@@ -269,6 +270,8 @@ export function Footer({ locale, dir, navLinks }: { locale: Locale; dir: "rtl" |
             </div>
           </div>
         </div>
+
+        <SecurityBadges locale={locale} />
       </div>
 
       <div className="mx-auto mt-8 w-full max-w-5xl border-t border-glass-border pt-6 text-center">

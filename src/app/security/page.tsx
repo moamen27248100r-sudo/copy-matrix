@@ -1,5 +1,6 @@
 import { getLocale } from "next-intl/server";
 import { LegalNav } from "@/components/LegalNav";
+import { SecurityBadges } from "@/components/SecurityBadges";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
 
 type Section = { title: string; body: string };
@@ -142,6 +143,8 @@ export default async function SecurityPage() {
           <h1 className="text-2xl font-semibold">{t.title}</h1>
           <p className="text-sm leading-relaxed text-muted">{t.intro}</p>
         </div>
+
+        <SecurityBadges locale={locale} />
 
         <div className="flex flex-col gap-5">
           {t.sections.map((s) => (
