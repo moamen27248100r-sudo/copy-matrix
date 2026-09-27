@@ -236,37 +236,39 @@ export default async function Home() {
     <LiveStatsProvider initial={initialStats}>
       <Header locale={locale} dir={dir} navLinks={navLinks} loginLabel={t("nav.login")} signupLabel={t("nav.signup")} />
 
-      <section className="flex flex-col items-center gap-5 px-6 py-20 text-center">
-        <h1 className="max-w-2xl font-display text-4xl font-extrabold leading-tight text-white sm:text-5xl">
-          {t.rich("hero.title", {
-            accent: (chunks) => <span className="text-white">{chunks}</span>,
-          })}
-        </h1>
-        <p className="max-w-md text-muted">{t("hero.subtitle")}</p>
-        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-          <Link
-            href="/signup"
-            className="rounded bg-accent px-6 py-3 font-medium text-accent-foreground transition hover:bg-accent-hover"
-          >
-            {t("hero.start")}
-          </Link>
-          <a href="#traders" className="rounded border border-border px-6 py-3 font-medium text-foreground">
-            {t("hero.browse")}
-          </a>
+      <section className="mx-auto w-full max-w-6xl px-6 py-20 lg:grid lg:grid-cols-2 lg:items-center lg:gap-12">
+        <div className="flex flex-col items-center gap-5 text-center lg:items-start lg:text-right">
+          <h1 className="max-w-2xl font-display text-4xl font-extrabold leading-tight text-white sm:text-5xl">
+            {t.rich("hero.title", {
+              accent: (chunks) => <span className="text-white">{chunks}</span>,
+            })}
+          </h1>
+          <p className="max-w-md text-muted">{t("hero.subtitle")}</p>
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-2 lg:justify-start">
+            <Link
+              href="/signup"
+              className="rounded bg-accent px-6 py-3 font-medium text-accent-foreground transition hover:bg-accent-hover"
+            >
+              {t("hero.start")}
+            </Link>
+            <a href="#traders" className="rounded border border-border px-6 py-3 font-medium text-foreground">
+              {t("hero.browse")}
+            </a>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-4 text-xs text-muted lg:justify-start">
+            {[t("hero.trust0"), t("hero.trust1"), t("hero.trust2")].map((trustText) => (
+              <span key={trustText} className="flex items-center gap-1.5">
+                <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 shrink-0 text-success" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg>
+                {trustText}
+              </span>
+            ))}
+          </div>
         </div>
-        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-4 text-xs text-muted">
-          {[t("hero.trust0"), t("hero.trust1"), t("hero.trust2")].map((trustText) => (
-            <span key={trustText} className="flex items-center gap-1.5">
-              <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 shrink-0 text-success" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M20 6L9 17l-5-5" />
-              </svg>
-              {trustText}
-            </span>
-          ))}
-        </div>
-      </section>
 
-      <ProductShowcase />
+        <ProductShowcase />
+      </section>
 
       <section className="overflow-hidden py-6">
         <div className="flex w-max animate-[ticker-scroll_40s_linear_infinite] hover:[animation-play-state:paused]">

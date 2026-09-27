@@ -48,6 +48,7 @@ export const showcasePortfolio = {
   monthlyChangePct: 8.6,
   // last 6 months, one negative for realism
   monthlyBars: [4.2, 6.8, -3.1, 9.4, 7.2, 8.6],
+  monthlyBarLabels: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو"],
 };
 
 export const showcaseCopiedTraders: CopiedTrader[] = [

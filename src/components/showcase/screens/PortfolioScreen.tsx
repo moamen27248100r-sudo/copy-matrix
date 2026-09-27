@@ -1,19 +1,28 @@
 import { StatusBar, BottomNav } from "../ScreenChrome";
 import { showcasePortfolio, showcaseCopiedTraders } from "@/data/showcase-data";
 
-function MonthlyBars({ values }: { values: number[] }) {
+// The bars used to sit inside a row with `items-end`, which never
+// stretches its flex children to the row's own height -- so each bar's
+// percentage `height` had no real basis to resolve against and
+// collapsed to ~0, leaving a big empty gap instead of a chart. Switching
+// to the (default) stretch alignment gives every column the row's full
+// height to size its bar's percentage against.
+function MonthlyBars({ values, labels }: { values: number[]; labels: string[] }) {
   const max = Math.max(...values.map(Math.abs));
   return (
-    <div className="flex h-16 items-end gap-2" aria-hidden="true">
+    <div className="flex h-full w-full gap-2.5" aria-hidden="true">
       {values.map((v, i) => {
         const up = v >= 0;
-        const heightPct = Math.max(12, (Math.abs(v) / max) * 100);
+        const heightPct = Math.max(10, (Math.abs(v) / max) * 100);
         return (
-          <div key={i} className="flex flex-1 flex-col items-center justify-end gap-1">
-            <div
-              className={"w-full rounded-sm " + (up ? "bg-[#22C55E]" : "bg-[#EF4444]")}
-              style={{ height: `${heightPct}%` }}
-            />
+          <div key={i} className="flex flex-1 flex-col items-center justify-end gap-2">
+            <div className="flex w-full flex-1 items-end">
+              <div
+                className={"w-full rounded-md " + (up ? "bg-[#22C55E]" : "bg-[#EF4444]")}
+                style={{ height: `${heightPct}%` }}
+              />
+            </div>
+            <p className="text-[10px] text-muted">{labels[i]}</p>
           </div>
         );
       })}
@@ -35,30 +44,32 @@ export function PortfolioScreen() {
   return (
     <div className="flex h-full flex-col" dir="rtl" aria-hidden="true">
       <StatusBar />
-      <div className="flex flex-1 flex-col gap-4 px-4 pt-4">
+      <div className="flex flex-1 flex-col gap-5 px-5 pt-5">
         <div>
-          <p className="text-[11px] text-muted">الرصيد الإجمالي</p>
-          <p className="text-2xl font-extrabold tabular-nums text-white" dir="ltr">
+          <p className="text-[13px] text-muted">الرصيد الإجمالي</p>
+          <p className="text-[32px] font-extrabold tabular-nums leading-tight text-white" dir="ltr">
             ${p.balance.toLocaleString("en-US", { minimumFractionDigits: 2 })}
           </p>
-          <p className={"text-[11px] font-semibold tabular-nums " + (up ? "text-[#22C55E]" : "text-[#EF4444]")} dir="ltr">
+          <p className={"text-[13px] font-semibold tabular-nums " + (up ? "text-[#22C55E]" : "text-[#EF4444]")} dir="ltr">
             {up ? "+" : ""}
             {p.monthlyChangePct}%
           </p>
         </div>
 
-        <MonthlyBars values={p.monthlyBars} />
+        <div className="h-28 w-full">
+          <MonthlyBars values={p.monthlyBars} labels={p.monthlyBarLabels} />
+        </div>
 
-        <div className="flex flex-col gap-2">
-          <p className="text-[11px] font-medium text-white">المتداولون الذين تنسخهم</p>
+        <div className="flex flex-1 flex-col justify-end gap-2.5 pb-2">
+          <p className="text-sm font-medium text-white">المتداولون الذين تنسخهم</p>
           {showcaseCopiedTraders.map((c) => (
-            <div key={c.name} className="flex items-center gap-2 rounded-lg border border-white/[0.06] bg-white/[0.03] px-2.5 py-2">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sky-400 to-blue-600 text-[10px] font-bold text-white">
+            <div key={c.name} className="flex items-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.03] px-3.5 py-3">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sky-400 to-blue-600 text-[13px] font-bold text-white">
                 {initialsOf(c.name)}
               </span>
               <div className="min-w-0 flex-1">
-                <p className="truncate text-[11px] font-medium text-white">{c.name}</p>
-                <p className="text-[9px] text-muted" dir="ltr">
+                <p className="truncate text-[14px] font-medium text-white">{c.name}</p>
+                <p className="text-[12px] text-muted" dir="ltr">
                   {c.allocationPct}% ·{" "}
                   <span className={c.returnPct >= 0 ? "text-[#22C55E]" : "text-[#EF4444]"}>
                     {c.returnPct >= 0 ? "+" : ""}
@@ -68,13 +79,13 @@ export function PortfolioScreen() {
               </div>
               <span
                 className={
-                  "relative h-4 w-7 shrink-0 rounded-full transition-colors " + (c.active ? "bg-accent" : "bg-white/10")
+                  "relative h-5 w-9 shrink-0 rounded-full transition-colors " + (c.active ? "bg-accent" : "bg-white/10")
                 }
               >
                 <span
                   className={
-                    "absolute top-0.5 h-3 w-3 rounded-full bg-white transition-all " +
-                    (c.active ? "start-3.5" : "start-0.5")
+                    "absolute top-0.5 h-4 w-4 rounded-full bg-white transition-all " +
+                    (c.active ? "start-4.5" : "start-0.5")
                   }
                 />
               </span>

@@ -10,72 +10,47 @@ const STACK_STYLE = [
   { scale: 0.92, opacity: 0.5 },
 ];
 
-export function TradeNotificationStack({
-  tick,
-  count,
-  compact = false,
-}: {
-  tick: number;
-  count: 2 | 3;
-  compact?: boolean;
-}) {
+function NotificationCard({ symbol, pnl, style }: { symbol: string; pnl: number; style?: { scale: number; opacity: number } }) {
+  const up = pnl >= 0;
+  return (
+    <div
+      className="showcase-notif-in flex w-[210px] min-w-[210px] shrink-0 origin-top items-stretch overflow-hidden rounded-xl border border-white/10 bg-[#0b0e14]/90 shadow-xl shadow-black/40 backdrop-blur-xl transition-[transform,opacity] duration-500 lg:w-[260px] lg:min-w-[260px]"
+      style={style ? { transform: `scale(${style.scale})`, opacity: style.opacity } : undefined}
+    >
+      <span className={"w-1 shrink-0 " + (up ? "bg-[#22C55E]" : "bg-[#EF4444]")} />
+      <div className="flex min-w-0 flex-1 items-center gap-2.5 p-2.5">
+        <span
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-base"
+          style={{ backgroundColor: `${symbolColor(symbol)}22` }}
+        >
+          <SymbolIcon symbol={symbol} />
+        </span>
+        <div className="min-w-0 flex-1">
+          <p className="overflow-hidden text-ellipsis whitespace-nowrap text-[12px] font-medium text-white">
+            تم إغلاق صفقة <span dir="ltr">{symbol}</span>
+          </p>
+          <p className="text-[10px] text-muted">الآن</p>
+        </div>
+        <span className={"shrink-0 text-[12px] font-bold tabular-nums " + (up ? "text-[#22C55E]" : "text-[#EF4444]")} dir="ltr">
+          {up ? "▲" : "▼"} {up ? "+" : ""}
+          {pnl}$
+        </span>
+      </div>
+    </div>
+  );
+}
+
+export function TradeNotificationStack({ tick, count }: { tick: number; count: 1 | 3 }) {
   const generation = Math.floor(tick / TICKS_PER_NOTIFICATION);
   const items = Array.from({ length: count }, (_, i) => generation - i)
     .filter((g) => g >= 0)
     .map((g) => ({ gen: g, note: showcaseNotifications[g % showcaseNotifications.length] }));
 
   return (
-    <div className="flex flex-col gap-2" aria-hidden="true">
-      {items.map(({ gen, note }, i) => {
-        const style = STACK_STYLE[i] ?? STACK_STYLE[STACK_STYLE.length - 1];
-        const up = note.pnl >= 0;
-        return (
-          <div
-            key={gen}
-            className="showcase-notif-in origin-top overflow-hidden rounded-xl border border-white/10 bg-white/[0.06] shadow-xl shadow-black/40 backdrop-blur-xl transition-[transform,opacity] duration-500"
-            style={{ transform: `scale(${style.scale})`, opacity: style.opacity }}
-          >
-            <div className="flex items-stretch">
-              <span className={"w-1 shrink-0 " + (up ? "bg-[#22C55E]" : "bg-[#EF4444]")} />
-              {compact ? (
-                <div className="flex flex-1 flex-col items-center gap-0.5 p-1.5 text-center">
-                  <span
-                    className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px]"
-                    style={{ backgroundColor: `${symbolColor(note.symbol)}22` }}
-                  >
-                    <SymbolIcon symbol={note.symbol} />
-                  </span>
-                  <span className={"text-[9px] font-bold tabular-nums leading-none " + (up ? "text-[#22C55E]" : "text-[#EF4444]")} dir="ltr">
-                    {up ? "+" : ""}
-                    {note.pnl}$
-                  </span>
-                </div>
-              ) : (
-                <div className="flex flex-1 items-center gap-2 p-2.5">
-                  <span
-                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm"
-                    style={{ backgroundColor: `${symbolColor(note.symbol)}22` }}
-                  >
-                    <SymbolIcon symbol={note.symbol} />
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-[11px] font-medium text-white">
-                      تم إغلاق صفقة <span dir="ltr">{note.symbol}</span>
-                    </p>
-                    <div className="flex items-center gap-1.5">
-                      <span className={"text-[11px] font-bold tabular-nums " + (up ? "text-[#22C55E]" : "text-[#EF4444]")} dir="ltr">
-                        {up ? "▲" : "▼"} {up ? "+" : ""}
-                        {note.pnl}$
-                      </span>
-                      <span className="text-[9px] text-muted">الآن</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        );
-      })}
+    <div className="flex flex-col gap-2.5" aria-hidden="true">
+      {items.map(({ gen, note }, i) => (
+        <NotificationCard key={gen} symbol={note.symbol} pnl={note.pnl} style={count > 1 ? STACK_STYLE[i] : undefined} />
+      ))}
 
       <style>{`
         @keyframes showcaseNotifIn {
