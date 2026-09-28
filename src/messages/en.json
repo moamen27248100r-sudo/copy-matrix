@@ -576,7 +576,10 @@
     "tab_openTrades": "Open trades",
     "tab_history": "History",
     "tab_allocation": "Asset allocation",
-    "monthlyReturnsTitle": "Monthly returns"
+    "monthlyReturnsTitle": "Monthly returns",
+    "statSharpe": "Sharpe ratio",
+    "statAvgDuration": "Avg. trade duration",
+    "hoursShort": "{hours}h"
   },
   "Discover": {
     "title": "Discover traders",

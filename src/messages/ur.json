@@ -576,7 +576,10 @@
     "tab_openTrades": "کھلے ٹریڈز",
     "tab_history": "تاریخ",
     "tab_allocation": "اثاثوں کی تقسیم",
-    "monthlyReturnsTitle": "ماہانہ منافع"
+    "monthlyReturnsTitle": "ماہانہ منافع",
+    "statSharpe": "Sharpe ratio",
+    "statAvgDuration": "Avg. trade duration",
+    "hoursShort": "{hours}h"
   },
   "Discover": {
     "title": "ٹریڈرز دریافت کریں",

@@ -576,7 +576,10 @@
     "tab_openTrades": "Biashara zilizo wazi",
     "tab_history": "Historia",
     "tab_allocation": "Mgawanyo wa mali",
-    "monthlyReturnsTitle": "Mapato ya kila mwezi"
+    "monthlyReturnsTitle": "Mapato ya kila mwezi",
+    "statSharpe": "Sharpe ratio",
+    "statAvgDuration": "Avg. trade duration",
+    "hoursShort": "{hours}h"
   },
   "Discover": {
     "title": "Gundua wafanyabiashara",

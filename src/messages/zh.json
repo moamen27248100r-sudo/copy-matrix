@@ -576,7 +576,10 @@
     "tab_openTrades": "持仓交易",
     "tab_history": "历史记录",
     "tab_allocation": "资产配置",
-    "monthlyReturnsTitle": "月度回报"
+    "monthlyReturnsTitle": "月度回报",
+    "statSharpe": "Sharpe ratio",
+    "statAvgDuration": "Avg. trade duration",
+    "hoursShort": "{hours}h"
   },
   "Discover": {
     "title": "发现交易员",

@@ -15,6 +15,7 @@ import { OpenOrdersTable } from "@/components/OpenOrdersTable";
 import { TraderAvatar } from "@/components/TraderAvatar";
 import { countryDisplay } from "@/lib/country-metadata";
 import { formatDate } from "@/lib/locale-format";
+import { computeStats } from "@/lib/provider-stats";
 import { getBioTranslator } from "@/lib/bio-translations";
 import type { Locale } from "@/i18n/locales";
 
@@ -156,6 +157,13 @@ export default async function TraderPage({
   const isFollowing = !!mySub;
   const isWatching = !!myFollow;
   const maxDrawdown = computeMaxDrawdown(allSignals);
+  const extraStats = computeStats(
+    allSignals.flatMap((s) =>
+      s.status === "closed" && s.exit_price != null && s.closed_at
+        ? [{ provider_id: id, side: s.side, entry_price: s.entry_price, exit_price: s.exit_price, opened_at: s.opened_at, closed_at: s.closed_at }]
+        : [],
+    ),
+  );
 
   const closedHistory = allSignals
     .filter((s) => s.status === "closed" && s.exit_price != null)
@@ -374,6 +382,18 @@ export default async function TraderPage({
               {maxDrawdown != null ? `-${maxDrawdown}%` : "—"}
             </p>
             <p className="text-xs text-muted">{t("statMaxDrawdown")}</p>
+          </div>
+          <div>
+            <p className="font-semibold tabular-nums" dir="ltr">
+              {extraStats.sharpe ?? "—"}
+            </p>
+            <p className="text-xs text-muted">{t("statSharpe")}</p>
+          </div>
+          <div>
+            <p className="font-semibold tabular-nums" dir="ltr">
+              {extraStats.avgDurationHours != null ? t("hoursShort", { hours: extraStats.avgDurationHours }) : "—"}
+            </p>
+            <p className="text-xs text-muted">{t("statAvgDuration")}</p>
           </div>
         </div>
 

@@ -576,7 +576,10 @@
     "tab_openTrades": "Giao dịch đang mở",
     "tab_history": "Lịch sử",
     "tab_allocation": "Phân bổ tài sản",
-    "monthlyReturnsTitle": "Lợi nhuận hàng tháng"
+    "monthlyReturnsTitle": "Lợi nhuận hàng tháng",
+    "statSharpe": "Sharpe ratio",
+    "statAvgDuration": "Avg. trade duration",
+    "hoursShort": "{hours}h"
   },
   "Discover": {
     "title": "Khám phá nhà giao dịch",

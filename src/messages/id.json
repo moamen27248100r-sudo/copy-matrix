@@ -576,7 +576,10 @@
     "tab_openTrades": "Trading terbuka",
     "tab_history": "Riwayat",
     "tab_allocation": "Alokasi aset",
-    "monthlyReturnsTitle": "Pengembalian bulanan"
+    "monthlyReturnsTitle": "Pengembalian bulanan",
+    "statSharpe": "Sharpe ratio",
+    "statAvgDuration": "Avg. trade duration",
+    "hoursShort": "{hours}h"
   },
   "Discover": {
     "title": "Temukan trader",

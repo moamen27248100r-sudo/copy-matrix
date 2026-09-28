@@ -588,7 +588,10 @@
     "tab_openTrades": "الصفقات المفتوحة",
     "tab_history": "السجل",
     "tab_allocation": "توزيع الأصول",
-    "monthlyReturnsTitle": "العوائد الشهرية"
+    "monthlyReturnsTitle": "العوائد الشهرية",
+    "statSharpe": "نسبة شارب",
+    "statAvgDuration": "متوسط مدة الصفقة",
+    "hoursShort": "{hours} ساعة"
   },
   "Discover": {
     "title": "اكتشاف المتداولين",

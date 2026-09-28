@@ -576,7 +576,10 @@
     "tab_openTrades": "खुले ट्रेड",
     "tab_history": "इतिहास",
     "tab_allocation": "संपत्ति आवंटन",
-    "monthlyReturnsTitle": "मासिक रिटर्न"
+    "monthlyReturnsTitle": "मासिक रिटर्न",
+    "statSharpe": "Sharpe ratio",
+    "statAvgDuration": "Avg. trade duration",
+    "hoursShort": "{hours}h"
   },
   "Discover": {
     "title": "ट्रेडर खोजें",

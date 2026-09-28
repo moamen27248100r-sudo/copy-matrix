@@ -576,7 +576,10 @@
     "tab_openTrades": "খোলা ট্রেড",
     "tab_history": "ইতিহাস",
     "tab_allocation": "সম্পদ বরাদ্দ",
-    "monthlyReturnsTitle": "মাসিক রিটার্ন"
+    "monthlyReturnsTitle": "মাসিক রিটার্ন",
+    "statSharpe": "Sharpe ratio",
+    "statAvgDuration": "Avg. trade duration",
+    "hoursShort": "{hours}h"
   },
   "Discover": {
     "title": "ট্রেডার খুঁজুন",
