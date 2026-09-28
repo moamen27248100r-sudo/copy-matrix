@@ -569,7 +569,12 @@
     "reliabilityHistoryTitle": "ٹریڈنگ اعتباریت کی تاریخ",
     "followingLabel": "فالو کیا گیا",
     "followToastTitle": "کامیابی سے فالو کیا گیا",
-    "followToastBody": "اب آپ کو {name} کی ہر نئی ٹریڈ اور اپڈیٹ کا فوری نوٹیفکیشن ملے گا۔"
+    "followToastBody": "اب آپ کو {name} کی ہر نئی ٹریڈ اور اپڈیٹ کا فوری نوٹیفکیشن ملے گا۔",
+    "tab_performance": "کارکردگی",
+    "tab_openTrades": "کھلے ٹریڈز",
+    "tab_history": "تاریخ",
+    "tab_allocation": "اثاثوں کی تقسیم",
+    "monthlyReturnsTitle": "ماہانہ منافع"
   },
   "Discover": {
     "title": "ٹریڈرز دریافت کریں",

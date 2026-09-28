@@ -10,6 +10,7 @@ import { getGaugeTier } from "@/components/CircularGauge";
 import { ExnessReliabilitySection } from "@/components/ExnessReliabilitySection";
 import { computeReliabilityTimeline, computeActiveTradingDays } from "@/lib/reliability";
 import { AssetAllocationBar } from "@/components/AssetAllocationBar";
+import { MonthlyReturnsCalendar } from "@/components/MonthlyReturnsCalendar";
 import { OpenOrdersTable } from "@/components/OpenOrdersTable";
 import { TraderAvatar } from "@/components/TraderAvatar";
 import { countryDisplay } from "@/lib/country-metadata";
@@ -91,10 +92,12 @@ export default async function TraderPage({
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ error?: string; success?: string }>;
+  searchParams: Promise<{ error?: string; success?: string; tab?: string }>;
 }) {
   const { id } = await params;
-  const { error, success } = await searchParams;
+  const { error, success, tab } = await searchParams;
+  const TABS = ["performance", "openTrades", "history", "allocation"] as const;
+  const activeTab: (typeof TABS)[number] = (TABS as readonly string[]).includes(tab ?? "") ? (tab as (typeof TABS)[number]) : "performance";
   const locale = (await getLocale()) as Locale;
   const t = await getTranslations("TraderProfile");
   const tp = await getTranslations("TradeHistory");
@@ -387,61 +390,96 @@ export default async function TraderPage({
         </div>
       </div>
 
-      <section className="flex flex-col gap-3">
-        <h2 className="font-medium">{t("periodsPerformanceTitle")}</h2>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
-          {periods.map((p) => {
-            const stats = periodStats(allSignals, p.days);
-            return (
-              <div key={p.labelKey} className="rounded-lg border border-border bg-surface p-3 text-center">
-                <p className="text-xs text-muted">{tp(p.labelKey)}</p>
-                <p
-                  className={
-                    stats.totalReturn != null && stats.totalReturn < 0
-                      ? "text-lg font-semibold text-danger"
-                      : "text-lg font-semibold text-success"
-                  }
-                >
-                  {stats.totalReturn != null
-                    ? `${stats.totalReturn > 0 ? "+" : ""}${stats.totalReturn}%`
-                    : "—"}
-                </p>
-                <p className="text-xs text-muted">
-                  {stats.winRate != null ? t("winRateInline", { pct: stats.winRate }) : t("noTradesLabel")}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+      <div className="flex gap-1 overflow-x-auto rounded-full border border-border bg-surface p-1">
+        {TABS.map((key) => (
+          <Link
+            key={key}
+            href={`/trader/${id}?tab=${key}`}
+            className={
+              activeTab === key
+                ? "shrink-0 rounded-full bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground"
+                : "shrink-0 rounded-full px-4 py-1.5 text-sm text-muted transition hover:text-foreground"
+            }
+          >
+            {
+              {
+                performance: t("tab_performance"),
+                openTrades: t("tab_openTrades"),
+                history: t("tab_history"),
+                allocation: t("tab_allocation"),
+              }[key]
+            }
+          </Link>
+        ))}
+      </div>
 
-      {allSignals.length > 0 && (
-        <section className="flex flex-col gap-3">
-          <h2 className="font-medium">{t("assetsSectionTitle")}</h2>
-          <AssetAllocationBar signals={allSignals} />
+      {activeTab === "performance" && (
+        <section className="flex flex-col gap-6">
+          <div className="flex flex-col gap-3">
+            <h2 className="font-medium">{t("periodsPerformanceTitle")}</h2>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+              {periods.map((p) => {
+                const stats = periodStats(allSignals, p.days);
+                return (
+                  <div key={p.labelKey} className="rounded-lg border border-border bg-surface p-3 text-center">
+                    <p className="text-xs text-muted">{tp(p.labelKey)}</p>
+                    <p
+                      className={
+                        stats.totalReturn != null && stats.totalReturn < 0
+                          ? "text-lg font-semibold text-danger"
+                          : "text-lg font-semibold text-success"
+                      }
+                    >
+                      {stats.totalReturn != null
+                        ? `${stats.totalReturn > 0 ? "+" : ""}${stats.totalReturn}%`
+                        : "—"}
+                    </p>
+                    <p className="text-xs text-muted">
+                      {stats.winRate != null ? t("winRateInline", { pct: stats.winRate }) : t("noTradesLabel")}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <h2 className="font-medium">{t("monthlyReturnsTitle")}</h2>
+            <MonthlyReturnsCalendar signals={allSignals} locale={locale} />
+          </div>
         </section>
       )}
 
-      <section className="flex flex-col gap-3">
-        <h2 className="font-medium">{t("openOrdersSectionTitle")}</h2>
-        <OpenOrdersTable orders={openOrders} initialPrices={initialPrices} />
-      </section>
+      {activeTab === "openTrades" && (
+        <section className="flex flex-col gap-3">
+          <OpenOrdersTable orders={openOrders} initialPrices={initialPrices} />
+        </section>
+      )}
 
-      <section className="flex flex-col gap-3">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <h2 className="font-medium">{t("tradeHistorySectionTitle")}</h2>
-          <p className="text-xs text-slate-500">
+      {activeTab === "history" && (
+        <section className="flex flex-col gap-3">
+          <p className="text-end text-xs text-slate-500">
             {t("memberSince", {
               date: formatDate(provider.joined_at, locale, { year: "numeric", month: "long", timeZone: "UTC" }),
             })}
           </p>
-        </div>
-        {closedHistory.length === 0 ? (
-          <p className="text-sm text-muted">{t("noClosedTrades")}</p>
-        ) : (
-          <TradeHistory trades={closedHistory} />
-        )}
-      </section>
+          {closedHistory.length === 0 ? (
+            <p className="text-sm text-muted">{t("noClosedTrades")}</p>
+          ) : (
+            <TradeHistory trades={closedHistory} />
+          )}
+        </section>
+      )}
+
+      {activeTab === "allocation" && (
+        <section className="flex flex-col gap-3">
+          {allSignals.length === 0 ? (
+            <p className="text-sm text-muted">{t("noClosedTrades")}</p>
+          ) : (
+            <AssetAllocationBar signals={allSignals} />
+          )}
+        </section>
+      )}
       </main>
     </>
   );

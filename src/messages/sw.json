@@ -569,7 +569,12 @@
     "reliabilityHistoryTitle": "Historia ya Kuaminika kwa Biashara",
     "followingLabel": "Unafuata",
     "followToastTitle": "Umefuata kwa mafanikio",
-    "followToastBody": "Sasa utapokea arifa za papo hapo za kila biashara na sasisho jipya kutoka kwa {name}."
+    "followToastBody": "Sasa utapokea arifa za papo hapo za kila biashara na sasisho jipya kutoka kwa {name}.",
+    "tab_performance": "Utendaji",
+    "tab_openTrades": "Biashara zilizo wazi",
+    "tab_history": "Historia",
+    "tab_allocation": "Mgawanyo wa mali",
+    "monthlyReturnsTitle": "Mapato ya kila mwezi"
   },
   "Discover": {
     "title": "Gundua wafanyabiashara",

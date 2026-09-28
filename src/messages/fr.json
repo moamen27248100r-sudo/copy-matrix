@@ -569,7 +569,12 @@
     "reliabilityHistoryTitle": "Historique de fiabilité du trading",
     "followingLabel": "Suivi",
     "followToastTitle": "Suivi avec succès",
-    "followToastBody": "Vous recevrez désormais des notifications instantanées pour chaque nouveau trade et mise à jour de {name}."
+    "followToastBody": "Vous recevrez désormais des notifications instantanées pour chaque nouveau trade et mise à jour de {name}.",
+    "tab_performance": "Performance",
+    "tab_openTrades": "Trades ouverts",
+    "tab_history": "Historique",
+    "tab_allocation": "Répartition des actifs",
+    "monthlyReturnsTitle": "Rendements mensuels"
   },
   "Discover": {
     "title": "Découvrir les traders",

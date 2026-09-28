@@ -569,7 +569,12 @@
     "reliabilityHistoryTitle": "Riwayat Keandalan Trading",
     "followingLabel": "Mengikuti",
     "followToastTitle": "Berhasil mengikuti",
-    "followToastBody": "Anda kini akan menerima notifikasi instan untuk setiap transaksi dan pembaruan baru dari {name}."
+    "followToastBody": "Anda kini akan menerima notifikasi instan untuk setiap transaksi dan pembaruan baru dari {name}.",
+    "tab_performance": "Kinerja",
+    "tab_openTrades": "Trading terbuka",
+    "tab_history": "Riwayat",
+    "tab_allocation": "Alokasi aset",
+    "monthlyReturnsTitle": "Pengembalian bulanan"
   },
   "Discover": {
     "title": "Temukan trader",

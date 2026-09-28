@@ -569,7 +569,12 @@
     "reliabilityHistoryTitle": "Trading Reliability History",
     "followingLabel": "Following",
     "followToastTitle": "Followed successfully",
-    "followToastBody": "You'll now get instant notifications for every new trade and update from {name}."
+    "followToastBody": "You'll now get instant notifications for every new trade and update from {name}.",
+    "tab_performance": "Performance",
+    "tab_openTrades": "Open trades",
+    "tab_history": "History",
+    "tab_allocation": "Asset allocation",
+    "monthlyReturnsTitle": "Monthly returns"
   },
   "Discover": {
     "title": "Discover traders",

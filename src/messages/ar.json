@@ -581,7 +581,12 @@
     "reliabilityHistoryTitle": "سجل موثوقية التداول",
     "followingLabel": "تمت المتابعة",
     "followToastTitle": "تمت المتابعة بنجاح",
-    "followToastBody": "ستتلقى الآن إشعارات فورية بكل الصفقات والتحديثات الجديدة الخاصة بـ {name}."
+    "followToastBody": "ستتلقى الآن إشعارات فورية بكل الصفقات والتحديثات الجديدة الخاصة بـ {name}.",
+    "tab_performance": "الأداء",
+    "tab_openTrades": "الصفقات المفتوحة",
+    "tab_history": "السجل",
+    "tab_allocation": "توزيع الأصول",
+    "monthlyReturnsTitle": "العوائد الشهرية"
   },
   "Discover": {
     "title": "اكتشاف المتداولين",

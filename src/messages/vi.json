@@ -569,7 +569,12 @@
     "reliabilityHistoryTitle": "Lịch sử độ tin cậy giao dịch",
     "followingLabel": "Đang theo dõi",
     "followToastTitle": "Theo dõi thành công",
-    "followToastBody": "Bạn sẽ nhận được thông báo tức thì cho mỗi giao dịch và cập nhật mới từ {name}."
+    "followToastBody": "Bạn sẽ nhận được thông báo tức thì cho mỗi giao dịch và cập nhật mới từ {name}.",
+    "tab_performance": "Hiệu suất",
+    "tab_openTrades": "Giao dịch đang mở",
+    "tab_history": "Lịch sử",
+    "tab_allocation": "Phân bổ tài sản",
+    "monthlyReturnsTitle": "Lợi nhuận hàng tháng"
   },
   "Discover": {
     "title": "Khám phá nhà giao dịch",

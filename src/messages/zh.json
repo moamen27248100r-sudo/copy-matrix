@@ -569,7 +569,12 @@
     "reliabilityHistoryTitle": "交易可靠性历史",
     "followingLabel": "已关注",
     "followToastTitle": "关注成功",
-    "followToastBody": "您现在将即时收到来自 {name} 的每笔新交易和更新通知。"
+    "followToastBody": "您现在将即时收到来自 {name} 的每笔新交易和更新通知。",
+    "tab_performance": "业绩",
+    "tab_openTrades": "持仓交易",
+    "tab_history": "历史记录",
+    "tab_allocation": "资产配置",
+    "monthlyReturnsTitle": "月度回报"
   },
   "Discover": {
     "title": "发现交易员",

@@ -569,7 +569,12 @@
     "reliabilityHistoryTitle": "ประวัติความน่าเชื่อถือในการเทรด",
     "followingLabel": "กำลังติดตาม",
     "followToastTitle": "ติดตามสำเร็จ",
-    "followToastBody": "ตอนนี้คุณจะได้รับการแจ้งเตือนทันทีสำหรับทุกการเทรดและอัปเดตใหม่จาก {name}"
+    "followToastBody": "ตอนนี้คุณจะได้รับการแจ้งเตือนทันทีสำหรับทุกการเทรดและอัปเดตใหม่จาก {name}",
+    "tab_performance": "ผลงาน",
+    "tab_openTrades": "การเทรดที่เปิดอยู่",
+    "tab_history": "ประวัติ",
+    "tab_allocation": "การจัดสรรสินทรัพย์",
+    "monthlyReturnsTitle": "ผลตอบแทนรายเดือน"
   },
   "Discover": {
     "title": "ค้นหาเทรดเดอร์",

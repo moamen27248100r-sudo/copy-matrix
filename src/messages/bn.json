@@ -569,7 +569,12 @@
     "reliabilityHistoryTitle": "ট্রেডিং নির্ভরযোগ্যতার ইতিহাস",
     "followingLabel": "অনুসরণ করা হচ্ছে",
     "followToastTitle": "সফলভাবে অনুসরণ করা হয়েছে",
-    "followToastBody": "এখন থেকে আপনি {name} এর প্রতিটি নতুন ট্রেড ও আপডেটের তাৎক্ষণিক নোটিফিকেশন পাবেন।"
+    "followToastBody": "এখন থেকে আপনি {name} এর প্রতিটি নতুন ট্রেড ও আপডেটের তাৎক্ষণিক নোটিফিকেশন পাবেন।",
+    "tab_performance": "পারফরম্যান্স",
+    "tab_openTrades": "খোলা ট্রেড",
+    "tab_history": "ইতিহাস",
+    "tab_allocation": "সম্পদ বরাদ্দ",
+    "monthlyReturnsTitle": "মাসিক রিটার্ন"
   },
   "Discover": {
     "title": "ট্রেডার খুঁজুন",
