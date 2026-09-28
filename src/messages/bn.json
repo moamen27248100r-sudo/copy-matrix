@@ -350,7 +350,9 @@
     "portfolioAllocationTitle": "পোর্টফোলিও বরাদ্দ",
     "allocationAvailableCash": "উপলব্ধ নগদ",
     "mostCopiedThisWeekTitle": "এই সপ্তাহে সবচেয়ে বেশি কপি হয়েছে",
-    "copiersThisWeek": "এই সপ্তাহে {count} জন নতুন কপিয়ার"
+    "copiersThisWeek": "এই সপ্তাহে {count} জন নতুন কপিয়ার",
+    "tableTrader": "Trader",
+    "viewAllPositions": "View all {count} positions"
   },
   "Common": {
     "level": "লেভেল {level}",

@@ -350,7 +350,9 @@
     "portfolioAllocationTitle": "Phân bổ danh mục",
     "allocationAvailableCash": "Tiền mặt khả dụng",
     "mostCopiedThisWeekTitle": "Được sao chép nhiều nhất tuần này",
-    "copiersThisWeek": "{count} người sao chép mới tuần này"
+    "copiersThisWeek": "{count} người sao chép mới tuần này",
+    "tableTrader": "Trader",
+    "viewAllPositions": "View all {count} positions"
   },
   "Common": {
     "level": "Cấp độ {level}",

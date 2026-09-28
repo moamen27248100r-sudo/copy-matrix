@@ -384,8 +384,11 @@ export default async function DashboardPage({
                     side: signal?.side ?? "buy",
                     entry_price: p.entry_price,
                     size: p.size,
+                    traderName: providerNameBySubscription.get(p.subscription_id) ?? "",
                   };
                 })}
+                limit={5}
+                viewAllHref="/portfolio?tab=positions"
               />
             </div>
           </section>

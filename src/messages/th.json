@@ -350,7 +350,9 @@
     "portfolioAllocationTitle": "การจัดสรรพอร์ตโฟลิโอ",
     "allocationAvailableCash": "เงินสดที่พร้อมใช้",
     "mostCopiedThisWeekTitle": "คัดลอกมากที่สุดในสัปดาห์นี้",
-    "copiersThisWeek": "ผู้คัดลอกใหม่ {count} คนในสัปดาห์นี้"
+    "copiersThisWeek": "ผู้คัดลอกใหม่ {count} คนในสัปดาห์นี้",
+    "tableTrader": "Trader",
+    "viewAllPositions": "View all {count} positions"
   },
   "Common": {
     "level": "ระดับ {level}",

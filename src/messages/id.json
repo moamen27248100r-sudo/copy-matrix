@@ -350,7 +350,9 @@
     "portfolioAllocationTitle": "Alokasi portofolio",
     "allocationAvailableCash": "Kas tersedia",
     "mostCopiedThisWeekTitle": "Paling banyak disalin minggu ini",
-    "copiersThisWeek": "{count} penyalin baru minggu ini"
+    "copiersThisWeek": "{count} penyalin baru minggu ini",
+    "tableTrader": "Trader",
+    "viewAllPositions": "View all {count} positions"
   },
   "Common": {
     "level": "Level {level}",

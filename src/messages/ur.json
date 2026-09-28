@@ -350,7 +350,9 @@
     "portfolioAllocationTitle": "پورٹ فولیو کی تقسیم",
     "allocationAvailableCash": "دستیاب نقدی",
     "mostCopiedThisWeekTitle": "اس ہفتے سب سے زیادہ کاپی کیے گئے",
-    "copiersThisWeek": "اس ہفتے {count} نئے کاپی کرنے والے"
+    "copiersThisWeek": "اس ہفتے {count} نئے کاپی کرنے والے",
+    "tableTrader": "Trader",
+    "viewAllPositions": "View all {count} positions"
   },
   "Common": {
     "level": "لیول {level}",

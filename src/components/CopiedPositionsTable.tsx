@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { SymbolIcon } from "@/lib/symbol-icons";
 import { useLivePrices } from "@/lib/use-live-prices";
@@ -12,6 +13,7 @@ type Position = {
   side: string;
   entry_price: number;
   size: number;
+  traderName?: string;
 };
 
 function formatPrice(value: number) {
@@ -36,6 +38,9 @@ function PositionRow({ pos, current }: { pos: Position; current: number | undefi
           </span>
         </div>
       </td>
+      {pos.traderName !== undefined && (
+        <td className="max-w-[120px] truncate py-3 pe-2 text-sm text-muted">{pos.traderName || "—"}</td>
+      )}
       <td className="py-3">
         <span
           className={
@@ -82,9 +87,19 @@ function PositionRow({ pos, current }: { pos: Position; current: number | undefi
   );
 }
 
-export function CopiedPositionsTable({ positions }: { positions: Position[] }) {
+export function CopiedPositionsTable({
+  positions,
+  limit,
+  viewAllHref,
+}: {
+  positions: Position[];
+  limit?: number;
+  viewAllHref?: string;
+}) {
   const t = useTranslations("Dashboard");
-  const symbols = Array.from(new Set(positions.map((p) => p.symbol)));
+  const shown = limit ? positions.slice(0, limit) : positions;
+  const showTrader = shown.some((p) => p.traderName !== undefined);
+  const symbols = Array.from(new Set(shown.map((p) => p.symbol)));
   const prices = useLivePrices(symbols, {});
 
   if (positions.length === 0) {
@@ -97,6 +112,7 @@ export function CopiedPositionsTable({ positions }: { positions: Position[] }) {
         <thead>
           <tr className="border-b border-slate-800 text-start text-xs text-muted">
             <th className="py-2 ps-1 text-start font-normal">{t("tableSymbol")}</th>
+            {showTrader && <th className="py-2 text-start font-normal">{t("tableTrader")}</th>}
             <th className="py-2 text-start font-normal">{t("tableSide")}</th>
             <th className="py-2 text-start font-normal">{t("tableEntry")}</th>
             <th className="py-2 text-start font-normal">{t("tableMarket")}</th>
@@ -105,11 +121,16 @@ export function CopiedPositionsTable({ positions }: { positions: Position[] }) {
           </tr>
         </thead>
         <tbody>
-          {positions.map((pos) => (
+          {shown.map((pos) => (
             <PositionRow key={pos.id} pos={pos} current={prices[pos.symbol]} />
           ))}
         </tbody>
       </table>
+      {viewAllHref && positions.length > shown.length && (
+        <Link href={viewAllHref} className="mt-3 block text-center text-sm text-accent hover:underline">
+          {t("viewAllPositions", { count: positions.length })}
+        </Link>
+      )}
     </div>
   );
 }

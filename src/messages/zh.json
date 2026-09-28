@@ -350,7 +350,9 @@
     "portfolioAllocationTitle": "投资组合分配",
     "allocationAvailableCash": "可用现金",
     "mostCopiedThisWeekTitle": "本周最多人跟单",
-    "copiersThisWeek": "本周新增 {count} 位跟单者"
+    "copiersThisWeek": "本周新增 {count} 位跟单者",
+    "tableTrader": "Trader",
+    "viewAllPositions": "View all {count} positions"
   },
   "Common": {
     "level": "等级 {level}",

@@ -30,7 +30,7 @@ original prompts' own section order.
 - [x] و) Portfolio allocation donut (hand-rolled SVG, no chart library existed)
 - [x] و) Recent activity timeline
 - [ ] و) Active-copy card's "pause" action (only permanent stop exists, no pause)
-- [ ] و) Open-positions table limited to latest 5 + "view all" + source-trader column (currently shows all, no trader column)
+- [x] و) Open-positions table limited to latest 5 + "view all" + source-trader column
 - [x] ز) "Most copied this week" (everyone, bottom of page)
 - [x] ح) "Quick access" grid removed
 - [x] ط) Risk disclaimer line at the bottom

@@ -350,7 +350,9 @@
     "portfolioAllocationTitle": "Répartition du portefeuille",
     "allocationAvailableCash": "Liquidités disponibles",
     "mostCopiedThisWeekTitle": "Les plus copiés cette semaine",
-    "copiersThisWeek": "{count} nouveaux copieurs cette semaine"
+    "copiersThisWeek": "{count} nouveaux copieurs cette semaine",
+    "tableTrader": "Trader",
+    "viewAllPositions": "View all {count} positions"
   },
   "Common": {
     "level": "Niveau {level}",

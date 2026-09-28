@@ -350,7 +350,9 @@
     "portfolioAllocationTitle": "Mgawanyo wa kwingi la uwekezaji",
     "allocationAvailableCash": "Fedha taslimu zinazopatikana",
     "mostCopiedThisWeekTitle": "Waliyonakiliwa zaidi wiki hii",
-    "copiersThisWeek": "Wanakili {count} wapya wiki hii"
+    "copiersThisWeek": "Wanakili {count} wapya wiki hii",
+    "tableTrader": "Trader",
+    "viewAllPositions": "View all {count} positions"
   },
   "Common": {
     "level": "Kiwango {level}",

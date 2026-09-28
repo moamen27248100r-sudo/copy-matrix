@@ -362,7 +362,9 @@
     "portfolioAllocationTitle": "توزيع المحفظة",
     "allocationAvailableCash": "نقدي متاح",
     "mostCopiedThisWeekTitle": "الأكثر نسخًا هذا الأسبوع",
-    "copiersThisWeek": "{count} ناسخ جديد هذا الأسبوع"
+    "copiersThisWeek": "{count} ناسخ جديد هذا الأسبوع",
+    "tableTrader": "المتداول",
+    "viewAllPositions": "عرض كل الصفقات ({count})"
   },
   "Common": {
     "level": "المستوى {level}",

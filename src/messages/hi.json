@@ -350,7 +350,9 @@
     "portfolioAllocationTitle": "पोर्टफोलियो आवंटन",
     "allocationAvailableCash": "उपलब्ध नकद",
     "mostCopiedThisWeekTitle": "इस सप्ताह सबसे ज़्यादा कॉपी किए गए",
-    "copiersThisWeek": "इस सप्ताह {count} नए कॉपियर"
+    "copiersThisWeek": "इस सप्ताह {count} नए कॉपियर",
+    "tableTrader": "Trader",
+    "viewAllPositions": "View all {count} positions"
   },
   "Common": {
     "level": "लेवल {level}",

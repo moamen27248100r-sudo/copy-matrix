@@ -350,7 +350,9 @@
     "portfolioAllocationTitle": "Portfolio allocation",
     "allocationAvailableCash": "Available cash",
     "mostCopiedThisWeekTitle": "Most copied this week",
-    "copiersThisWeek": "{count} new copiers this week"
+    "copiersThisWeek": "{count} new copiers this week",
+    "tableTrader": "Trader",
+    "viewAllPositions": "View all {count} positions"
   },
   "Common": {
     "level": "Level {level}",
