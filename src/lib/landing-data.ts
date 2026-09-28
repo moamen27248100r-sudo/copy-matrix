@@ -22,10 +22,11 @@ export type LandingTraders = {
   return: LandingTrader[];
 };
 
-// Arabic-named leaders sit in these countries; every other locale shows the
+// Arabic-named leaders sit in these countries (MA is left out: it also holds
+// Latin-named international identities, see country-metadata.ts); every other locale shows the
 // international roster (same split the homepage used before).
 const ARAB_COUNTRY_CODES = [
-  "SA", "EG", "AE", "KW", "QA", "BH", "OM", "JO", "LB", "IQ", "DZ", "TN", "LY", "SD", "YE", "PS", "SY", "MR", "SO", "DJ", "MA",
+  "SA", "EG", "AE", "KW", "QA", "BH", "OM", "JO", "LB", "IQ", "DZ", "TN", "LY", "SD", "YE", "PS", "SY", "MR", "SO", "DJ",
 ];
 
 // Risk score 1-10: one point per 3 percentage points of max drawdown (12 months).
@@ -49,8 +50,8 @@ async function fetchLandingTraders(arabic: boolean): Promise<LandingTraders> {
     p_limit: 9,
     p_max_return: 150,
   });
-  const empty: LandingTraders = { followers: [], risk: [], return: [] };
-  if (error || !data) return empty;
+  // Throw (rather than return an empty list) so a failed call is never cached.
+  if (error || !data) throw new Error(`landing_top_traders failed: ${error?.message ?? "no data"}`);
 
   const map = data.traders as Record<
     string,
@@ -65,8 +66,16 @@ async function fetchLandingTraders(arabic: boolean): Promise<LandingTraders> {
   return { followers: build(data.followers), risk: build(data.risk), return: build(data.return) };
 }
 
-export const getLandingTraders = (arabic: boolean) =>
-  unstable_cache(() => fetchLandingTraders(arabic), ["landing-traders", arabic ? "ar" : "intl"], { revalidate: 3600 })();
+export const getLandingTraders = async (arabic: boolean): Promise<LandingTraders> => {
+  try {
+    return await unstable_cache(() => fetchLandingTraders(arabic), ["landing-traders-v3", arabic ? "ar" : "intl"], {
+      revalidate: 3600,
+    })();
+  } catch (e) {
+    console.error(e);
+    return { followers: [], risk: [], return: [] };
+  }
+};
 
 // Lowest minimum copy amount across active traders, for the facts strip.
 async function fetchMinCopy(): Promise<number | null> {

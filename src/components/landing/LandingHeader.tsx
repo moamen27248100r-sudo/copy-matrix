@@ -47,9 +47,9 @@ export function LandingHeader({
         scrolled || open ? "border-b border-border" : "border-b border-transparent"
       }`}
     >
-      <div className="mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between gap-4 px-4 sm:px-6">
+      <div className="mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between gap-2 px-4 sm:gap-4 sm:px-6">
         <Link href="/" aria-label="Copy Matrix" className="shrink-0">
-          <Logo iconClassName="h-4 w-4" textClassName="text-lg" />
+          <Logo iconClassName="h-3.5 w-3.5 sm:h-4 sm:w-4" textClassName="text-[15px] min-[380px]:text-base sm:text-lg" />
         </Link>
 
         <nav className="hidden items-center gap-7 text-sm text-muted md:flex" aria-label={menuLabel}>
@@ -60,19 +60,19 @@ export function LandingHeader({
           ))}
         </nav>
 
-        <div className="flex items-center gap-3 sm:gap-4">
-          <Link href="/login" className="text-sm text-muted transition-colors hover:text-foreground">
+        <div className="flex items-center gap-1.5 min-[380px]:gap-2.5 sm:gap-4">
+          <Link href="/login" className="whitespace-nowrap text-xs text-muted transition-colors hover:text-foreground min-[380px]:text-[13px] sm:text-sm">
             {loginLabel}
           </Link>
           <Link
             href="/signup"
-            className="rounded-xl bg-primary px-3.5 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
+            className="whitespace-nowrap rounded-xl bg-primary px-2.5 py-2 text-xs font-medium text-white min-[380px]:px-3 min-[380px]:text-[13px] transition-colors hover:bg-accent-hover sm:px-3.5 sm:text-sm"
           >
             {signupLabel}
           </Link>
           <button
             type="button"
-            className="-me-1 flex h-10 w-10 items-center justify-center rounded-xl text-muted hover:text-foreground md:hidden"
+            className="-me-1 flex h-10 w-8 min-[380px]:w-9 items-center justify-center rounded-xl text-muted hover:text-foreground md:hidden"
             aria-label={open ? closeLabel : menuLabel}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}

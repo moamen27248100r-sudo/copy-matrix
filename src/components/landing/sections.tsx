@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { getTranslations } from "next-intl/server";
-import { MiniSpark, pct, type TraderCardData } from "@/components/landing/TradersTabs";
+import { MiniSpark, pct } from "@/components/landing/MiniSpark";
+import type { TraderCardData } from "@/components/landing/TradersTabs";
 import { Reveal } from "@/components/landing/Reveal";
 import { MarketOverview } from "@/components/MarketOverview";
 import { DEMO_START_BALANCE, SUBSCRIPTION_FEE_TEXT, TRADABLE_SYMBOL_COUNT } from "@/config/platform";
@@ -80,10 +81,9 @@ export async function Hero({ trader }: { trader: TraderCardData | null }) {
               {t("heroBrowse")}
             </a>
           </div>
-          <ul className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
-            {[t("trust1"), t("trust2"), t("trust3")].map((s, i) => (
-              <li key={s} className="flex items-center gap-3">
-                {i > 0 && <span aria-hidden="true" className="text-text-3">·</span>}
+          <ul className="flex flex-wrap items-center gap-y-1 text-sm text-muted">
+            {[t("trust1"), t("trust2"), t("trust3")].map((s) => (
+              <li key={s} className="after:mx-3 after:text-text-3 after:content-['·'] last:after:hidden">
                 {s}
               </li>
             ))}

@@ -197,7 +197,6 @@ export function SignupForm({ next }: { next?: string | null }) {
           name="displayName"
           type="text"
           autoComplete="name"
-          placeholder={t("fullNamePlaceholder")}
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -222,7 +221,7 @@ export function SignupForm({ next }: { next?: string | null }) {
           name="email"
           type="email"
           autoComplete="email"
-          placeholder={t("emailPlaceholder")}
+          placeholder="name@gmail.com"
           required
           dir="ltr"
           value={email}
@@ -303,7 +302,7 @@ export function SignupForm({ next }: { next?: string | null }) {
         <PasswordInput
           id="su-confirm"
           name="passwordConfirm"
-          placeholder={t("confirmPasswordPlaceholder")}
+          placeholder=""
           value={confirm}
           onChange={setConfirm}
           invalid={mismatch}

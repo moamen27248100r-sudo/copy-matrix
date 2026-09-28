@@ -16,7 +16,9 @@ if (process.cwd() !== configDir) {
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Pin the workspace root to this project (a stray package-lock.json higher up
+  // the tree otherwise triggers a warning on every build).
+  turbopack: { root: configDir },
 };
 
 export default withNextIntl(nextConfig);
