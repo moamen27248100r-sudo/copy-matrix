@@ -333,7 +333,13 @@
     "riskDisclaimerLine": "Copy Matrix ni jukwaa la programu kwa ajili ya kunakili ishara za biashara — si taasisi ya kifedha, benki, au wakala wa udalali wenye leseni. Biashara na kunakili biashara hubeba hatari kubwa na inaweza kusababisha hasara kamili ya mtaji uliowekezwa; utendaji wa zamani hauhakikishi matokeo ya baadaye.",
     "todayProfit": "Faida ya leo",
     "totalProfit": "Faida jumla",
-    "resetBalance": "Weka upya salio"
+    "resetBalance": "Weka upya salio",
+    "onboardingCardTitle": "Anza kwa hatua 4",
+    "stepProfile": "Kamilisha wasifu wako",
+    "stepFirstCopy": "Nakili mfanyabiashara wako wa kwanza",
+    "stepProtection": "Washa ulinzi wa kunakili",
+    "stepNotifications": "Washa arifa",
+    "suggestedTradersTitle": "Wafanyabiashara waliopendekezwa kwako"
   },
   "Common": {
     "level": "Kiwango {level}",

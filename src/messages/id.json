@@ -333,7 +333,13 @@
     "riskDisclaimerLine": "Copy Matrix adalah platform perangkat lunak untuk menyalin sinyal trading — bukan lembaga keuangan, bank, atau pialang berlisensi. Trading dan copy trading mengandung risiko tinggi dan dapat mengakibatkan kerugian total modal yang diinvestasikan; kinerja masa lalu tidak menjamin hasil di masa depan.",
     "todayProfit": "Untung hari ini",
     "totalProfit": "Total untung",
-    "resetBalance": "Atur ulang saldo"
+    "resetBalance": "Atur ulang saldo",
+    "onboardingCardTitle": "Mulai dalam 4 langkah",
+    "stepProfile": "Lengkapi profil Anda",
+    "stepFirstCopy": "Salin trader pertama Anda",
+    "stepProtection": "Aktifkan proteksi copy",
+    "stepNotifications": "Aktifkan notifikasi",
+    "suggestedTradersTitle": "Trader yang disarankan untuk Anda"
   },
   "Common": {
     "level": "Level {level}",

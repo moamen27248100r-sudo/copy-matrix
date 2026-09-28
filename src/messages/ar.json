@@ -345,7 +345,13 @@
     "riskDisclaimerLine": "Copy Matrix منصة برمجية لنسخ إشارات التداول وليست مؤسسة مالية أو بنكاً أو وسيط تداول مرخّصاً. التداول ونسخ الصفقات ينطويان على مخاطرة عالية قد تؤدي إلى خسارة كامل رأس المال المستثمر، والأداء السابق لا يضمن نتائج مستقبلية.",
     "todayProfit": "ربح اليوم",
     "totalProfit": "إجمالي الربح",
-    "resetBalance": "إعادة تعيين الرصيد"
+    "resetBalance": "إعادة تعيين الرصيد",
+    "onboardingCardTitle": "ابدأ في 4 خطوات",
+    "stepProfile": "أكمل ملفك الشخصي",
+    "stepFirstCopy": "انسخ أول متداول",
+    "stepProtection": "فعّل حماية النسخ",
+    "stepNotifications": "فعّل التنبيهات",
+    "suggestedTradersTitle": "متداولون مقترحون لك"
   },
   "Common": {
     "level": "المستوى {level}",

@@ -8,6 +8,8 @@ import { MarketTicker } from "@/components/MarketTicker";
 import { CopiedPositionsTable } from "@/components/CopiedPositionsTable";
 import { ActiveCopyControlPanel } from "@/components/ActiveCopyControlPanel";
 import { ConfirmButton } from "@/components/ConfirmButton";
+import { OnboardingStepsCard } from "@/components/OnboardingStepsCard";
+import { SuggestedTraders } from "@/components/SuggestedTraders";
 import { chooseAccountType } from "@/app/auth/actions";
 
 export default async function DashboardPage({
@@ -29,7 +31,7 @@ export default async function DashboardPage({
 
   const [{ data: profile }, { data: kyc }, { data: subscriptions }, { data: positions }, { data: tickerPrices }] =
     await Promise.all([
-      supabase.from("profiles").select("display_name, account_type, balance").eq("id", user.id).single(),
+      supabase.from("profiles").select("display_name, account_type, balance, country").eq("id", user.id).single(),
       supabase
         .from("kyc_submissions")
         .select("status")
@@ -289,25 +291,20 @@ export default async function DashboardPage({
         </section>
 
         <section id="my-copies" className="flex flex-col gap-3 scroll-mt-20">
-          <div className="flex items-center justify-between">
-            <h2 className="text-base font-semibold">{t("traderYouCopy")}</h2>
-            {copiedProviders.length > 0 && (
+          {copiedProviders.length > 0 && (
+            <div className="flex items-center justify-between">
+              <h2 className="text-base font-semibold">{t("traderYouCopy")}</h2>
               <Link href="/portfolio" className="text-sm text-accent hover:underline">
                 {tNav("viewAll")}
               </Link>
-            )}
-          </div>
+            </div>
+          )}
 
           {copiedProviders.length === 0 ? (
-            <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-slate-800 bg-surface/50 p-6 text-center">
-              <p className="text-sm text-muted">{t("noCopyYet")}</p>
-              <Link
-                href="/discover"
-                className="rounded-lg bg-accent px-5 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
-              >
-                {t("browseTraders")}
-              </Link>
-            </div>
+            <OnboardingStepsCard
+              profileComplete={!!profile?.country}
+              protectionReady={accountType === "demo" || kycStatus === "approved"}
+            />
           ) : (
             <div className="flex flex-col gap-3">
               {copiedProviders.map((provider) => (
@@ -316,6 +313,8 @@ export default async function DashboardPage({
             </div>
           )}
         </section>
+
+        {copiedProviders.length === 0 && <SuggestedTraders excludeProviderIds={providerIds} />}
 
         {copiedProviders.length > 0 && (
           <section className="flex flex-col gap-3">

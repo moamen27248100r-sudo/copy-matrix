@@ -333,7 +333,13 @@
     "riskDisclaimerLine": "Copy Matrix là nền tảng phần mềm để sao chép tín hiệu giao dịch — không phải là tổ chức tài chính, ngân hàng hay công ty môi giới được cấp phép. Giao dịch và sao chép giao dịch tiềm ẩn rủi ro cao và có thể dẫn đến mất toàn bộ vốn đầu tư; hiệu suất trong quá khứ không đảm bảo kết quả trong tương lai.",
     "todayProfit": "Lợi nhuận hôm nay",
     "totalProfit": "Tổng lợi nhuận",
-    "resetBalance": "Đặt lại số dư"
+    "resetBalance": "Đặt lại số dư",
+    "onboardingCardTitle": "Bắt đầu trong 4 bước",
+    "stepProfile": "Hoàn thiện hồ sơ của bạn",
+    "stepFirstCopy": "Sao chép nhà giao dịch đầu tiên",
+    "stepProtection": "Bật bảo vệ sao chép",
+    "stepNotifications": "Bật thông báo",
+    "suggestedTradersTitle": "Nhà giao dịch được đề xuất cho bạn"
   },
   "Common": {
     "level": "Cấp độ {level}",

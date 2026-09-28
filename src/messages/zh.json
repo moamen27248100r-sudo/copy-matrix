@@ -333,7 +333,13 @@
     "riskDisclaimerLine": "Copy Matrix 是一个用于复制交易信号的软件平台，并非金融机构、银行或持牌经纪商。交易和跟单交易涉及高风险，可能导致投资本金全部损失；过往表现不保证未来结果。",
     "todayProfit": "今日盈利",
     "totalProfit": "总盈利",
-    "resetBalance": "重置余额"
+    "resetBalance": "重置余额",
+    "onboardingCardTitle": "四步开始",
+    "stepProfile": "完善个人资料",
+    "stepFirstCopy": "复制你的第一位交易者",
+    "stepProtection": "启用跟单保护",
+    "stepNotifications": "开启通知",
+    "suggestedTradersTitle": "为你推荐的交易者"
   },
   "Common": {
     "level": "等级 {level}",

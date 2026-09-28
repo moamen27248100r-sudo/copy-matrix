@@ -333,7 +333,13 @@
     "riskDisclaimerLine": "Copy Matrix é uma plataforma de software para copiar sinais de negociação — não é uma instituição financeira, banco ou corretora licenciada. Negociar e copiar operações envolve alto risco e pode resultar na perda total do capital investido; desempenho passado não garante resultados futuros.",
     "todayProfit": "Lucro de hoje",
     "totalProfit": "Lucro total",
-    "resetBalance": "Redefinir saldo"
+    "resetBalance": "Redefinir saldo",
+    "onboardingCardTitle": "Comece em 4 passos",
+    "stepProfile": "Complete seu perfil",
+    "stepFirstCopy": "Copie seu primeiro trader",
+    "stepProtection": "Ative a proteção de cópia",
+    "stepNotifications": "Ative as notificações",
+    "suggestedTradersTitle": "Traders sugeridos para você"
   },
   "Common": {
     "level": "Nível {level}",
