@@ -5,49 +5,20 @@ import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { logout } from "@/app/auth/actions";
-import { AccountTypeSwitcher } from "@/components/AccountTypeSwitcher";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useNavDrawer } from "@/components/nav-drawer-context";
 import { useBodyScrollLock } from "@/lib/use-body-scroll-lock";
-
-type AccountType = "real" | "demo";
+import type { Locale } from "@/i18n/locales";
 
 // neverActive: never highlight this entry as the current page (it can share
 // a href with another entry).
 type NavItem = { href: string; label: string; icon: ReactNode; neverActive?: boolean; badge?: "live" | "new" };
 
-const MAIN_ICONS = {
-  home: (
-    <>
-      <path d="M3 11l9-8 9 8" />
-      <path d="M5 10v10h14V10" />
-    </>
-  ),
-  discover: (
-    <>
-      <circle cx="11" cy="11" r="7" />
-      <line x1="21" y1="21" x2="16.65" y2="16.65" />
-    </>
-  ),
+const ICONS = {
   markets: (
     <>
       <path d="M3 3v18h18" />
       <path d="M7 15l4-5 3 3 5-7" />
-    </>
-  ),
-};
-
-const ACTIVE_COPY_ICON = (
-  <>
-    <rect x="9" y="9" width="12" height="12" rx="2" />
-    <path d="M5 15V5a2 2 0 0 1 2-2h10" />
-  </>
-);
-
-const WALLET_ICONS = {
-  myTrades: (
-    <>
-      <path d="M9 11l3 3L22 4" />
-      <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
     </>
   ),
   history: (
@@ -57,21 +28,6 @@ const WALLET_ICONS = {
       <path d="M9 12h6" />
     </>
   ),
-  deposit: (
-    <>
-      <path d="M12 5v14" />
-      <path d="M5 12l7 7 7-7" />
-    </>
-  ),
-  withdraw: (
-    <>
-      <path d="M12 19V5" />
-      <path d="M5 12l7-7 7 7" />
-    </>
-  ),
-};
-
-const ACCOUNT_ICONS = {
   kyc: (
     <>
       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -92,6 +48,13 @@ const ACCOUNT_ICONS = {
       <line x1="14.83" y1="14.83" x2="19.07" y2="19.07" />
       <line x1="14.83" y1="9.17" x2="19.07" y2="4.93" />
       <line x1="4.93" y1="19.07" x2="9.17" y2="14.83" />
+    </>
+  ),
+  language: (
+    <>
+      <circle cx="12" cy="12" r="10" />
+      <line x1="2" y1="12" x2="22" y2="12" />
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
     </>
   ),
 };
@@ -115,12 +78,6 @@ function avatarGradient(seed: string) {
   return AVATAR_GRADIENTS[hash % AVATAR_GRADIENTS.length];
 }
 
-function SectionLabel({ children }: { children: string }) {
-  return <p className="px-4 pt-5 pb-1.5 text-xs font-semibold uppercase tracking-wide text-muted/70">{children}</p>;
-}
-
-// Thin fading gradient line instead of a flat solid border -- reads
-// softer against the glass panel background than a hard edge-to-edge rule.
 function SectionDivider() {
   return <div className="mx-4 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" aria-hidden="true" />;
 }
@@ -134,14 +91,6 @@ function LiveDot() {
   );
 }
 
-function NewBadge({ text }: { text: string }) {
-  return (
-    <span className="shrink-0 rounded-full bg-gradient-to-r from-accent to-brand px-1.5 py-0.5 text-[10px] font-bold leading-none text-white">
-      {text}
-    </span>
-  );
-}
-
 // Masks the local part of an email for privacy: "delta126@gmail.com" -> "d****6@gmail.com".
 function maskEmail(email: string): string {
   const [local, domain] = email.split("@");
@@ -150,20 +99,27 @@ function maskEmail(email: string): string {
   return `${local[0]}****${local[local.length - 1]}@${domain}`;
 }
 
+const KYC_BADGE_TONE: Record<string, string> = {
+  none: "border-warning/40 bg-warning/10 text-warning",
+  pending: "border-warning/40 bg-warning/10 text-warning",
+  approved: "border-success/40 bg-success/10 text-success",
+  rejected: "border-danger/40 bg-danger/10 text-danger",
+};
+
 export function MainMenu({
-  balance,
   isAdmin,
   displayName,
   email,
-  accountType,
-  activeCopyProviderId,
+  locale,
+  kycStatus,
+  kycStatusLabels,
 }: {
-  balance: number | null;
   isAdmin: boolean;
   displayName?: string | null;
   email?: string | null;
-  accountType?: AccountType | null;
-  activeCopyProviderId?: string | null;
+  locale: Locale;
+  kycStatus: string;
+  kycStatusLabels: { none: string; pending: string; approved: string; rejected: string };
 }) {
   const t = useTranslations("Nav");
   const { open, toggle, close } = useNavDrawer("menu");
@@ -189,37 +145,17 @@ export function MainMenu({
     return () => window.removeEventListener("hashchange", onHashChange);
   }, [pathname]);
 
-  const accountTypeOptions: { key: AccountType; label: string }[] = [
-    { key: "demo", label: t("accountTypeDemo") },
-    { key: "real", label: t("accountTypeReal") },
+  // This is now a profile menu, not the primary navigation -- the main
+  // sections (home/discover/my-copies/trades/portfolio) live in the
+  // persistent bottom nav / sidebar instead.
+  const items: NavItem[] = [
+    { href: "/markets", label: t("menuMarkets"), icon: ICONS.markets },
+    { href: "/portfolio?tab=activity", label: t("menuTransactionHistory"), icon: ICONS.history },
+    { href: "/kyc", label: t("menuKyc"), icon: ICONS.kyc },
+    { href: "/settings", label: t("menuSettings"), icon: ICONS.settings },
+    { href: "/support", label: t("menuSupport"), icon: ICONS.support },
+    ...(isAdmin ? [{ href: "/admin", label: t("menuAdmin"), icon: ADMIN_ICON }] : []),
   ];
-
-  // Always present: opens the leader being copied, or -- with no active
-  // copy -- sends the customer to browse leaders so they can start one.
-  const mainItems: NavItem[] = [
-    { href: "/dashboard", label: t("menuMain"), icon: MAIN_ICONS.home },
-    {
-      href: activeCopyProviderId ? `/trader/${activeCopyProviderId}` : "/discover",
-      label: t("menuActiveCopy"),
-      icon: ACTIVE_COPY_ICON,
-      neverActive: !activeCopyProviderId,
-      badge: activeCopyProviderId ? "live" : undefined,
-    },
-    { href: "/discover", label: t("menuDiscover"), icon: MAIN_ICONS.discover, badge: "new" },
-    { href: "/markets", label: t("menuMarkets"), icon: MAIN_ICONS.markets },
-  ];
-  const walletItems: NavItem[] = [
-    { href: "/portfolio?tab=positions", label: t("menuMyTrades"), icon: WALLET_ICONS.myTrades },
-    { href: "/portfolio?tab=activity", label: t("menuTransactionHistory"), icon: WALLET_ICONS.history },
-  ];
-  const baseAccountItems: NavItem[] = [
-    { href: "/kyc", label: t("menuKyc"), icon: ACCOUNT_ICONS.kyc },
-    { href: "/settings", label: t("menuSettings"), icon: ACCOUNT_ICONS.settings },
-    { href: "/support", label: t("menuSupport"), icon: ACCOUNT_ICONS.support },
-  ];
-  const accountItems = isAdmin
-    ? [...baseAccountItems, { href: "/admin", label: t("menuAdmin"), icon: ADMIN_ICON }]
-    : baseAccountItems;
 
   const isActive = (href: string) => {
     const [pathAndQuery, hashPart] = href.split("#");
@@ -230,52 +166,8 @@ export function MainMenu({
     return !hash && !search;
   };
 
-  const renderItems = (items: NavItem[]) => (
-    <div className="flex flex-col gap-0.5 px-2 pb-1">
-      {items.map((item) => {
-        const active = !item.neverActive && isActive(item.href);
-        return (
-          <Link
-            key={item.label}
-            href={item.href}
-            onClick={close}
-            className={
-              active
-                ? "relative flex items-center gap-3 overflow-hidden rounded-xl bg-gradient-to-r from-accent/25 to-brand/10 px-3 py-2 text-[15px] font-semibold text-accent"
-                : "relative flex items-center gap-3 rounded-xl px-3 py-2 text-[15px] font-medium text-foreground/90 transition hover:bg-white/5"
-            }
-          >
-            {active && (
-              <span className="absolute inset-y-1 start-0 w-[3px] rounded-full bg-gradient-to-b from-accent to-brand shadow-[0_0_8px_theme(colors.accent)]" aria-hidden="true" />
-            )}
-            <span
-              className={
-                active
-                  ? "flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-accent/20 text-accent shadow-[0_0_10px_rgba(56,189,248,0.35)]"
-                  : "flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white/5 text-foreground/70"
-              }
-            >
-              <svg
-                viewBox="0 0 24 24"
-                className="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                {item.icon}
-              </svg>
-            </span>
-            <span className="flex-1">{item.label}</span>
-            {item.badge === "live" && <LiveDot />}
-            {item.badge === "new" && <NewBadge text={t("badgeNew")} />}
-          </Link>
-        );
-      })}
-    </div>
-  );
+  const kycLabel = (kycStatusLabels as Record<string, string>)[kycStatus] ?? kycStatusLabels.none;
+  const kycTone = KYC_BADGE_TONE[kycStatus] ?? KYC_BADGE_TONE.none;
 
   return (
     <>
@@ -283,13 +175,13 @@ export function MainMenu({
         type="button"
         onClick={toggle}
         aria-label={t("menuAriaLabel")}
-        className="flex h-9 w-9 shrink-0 items-center justify-center rounded border border-border text-foreground"
+        className="relative flex h-9 w-9 shrink-0 items-center justify-center"
       >
-        <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <line x1="3" y1="12" x2="21" y2="12" />
-          <line x1="3" y1="18" x2="21" y2="18" />
-        </svg>
+        <span
+          className={`flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br ${avatarGradient(email ?? displayName ?? "u")} text-sm font-bold text-white`}
+        >
+          {(displayName ?? email ?? "?").charAt(0).toUpperCase()}
+        </span>
       </button>
 
       <div
@@ -309,7 +201,8 @@ export function MainMenu({
             : "fixed top-14 bottom-0 start-0 z-40 flex w-[78%] max-w-xs -translate-x-full flex-col overflow-y-auto border-e border-white/[0.06] bg-[#0B132B]/90 shadow-2xl shadow-black/50 backdrop-blur-xl transition-transform duration-300 ease-out rtl:translate-x-full sm:top-16"
         }
       >
-        {/* Account identity -- avatar with a live-status pulse dot */}
+        {/* Account identity -- avatar with a live-status pulse dot, masked
+            email, display name, and a KYC-status badge. */}
         <div className="flex items-center gap-3 px-4 py-4">
           <span className="relative flex h-10 w-10 shrink-0 items-center justify-center">
             <span
@@ -321,92 +214,65 @@ export function MainMenu({
               <LiveDot />
             </span>
           </span>
-          <div className="min-w-0 text-start">
-            <p className="truncate text-sm font-medium" dir="ltr">
+          <div className="min-w-0 flex-1 text-start">
+            {displayName && <p className="truncate text-sm font-medium">{displayName}</p>}
+            <p className="truncate text-xs text-muted" dir="ltr">
               {email ? maskEmail(email) : "—"}
             </p>
-            {displayName && <p className="truncate text-xs text-muted">{displayName}</p>}
+          </div>
+          <span className={`shrink-0 rounded-full border px-2 py-1 text-[10px] font-semibold ${kycTone}`}>
+            {kycLabel}
+          </span>
+        </div>
+
+        <SectionDivider />
+
+        <div className="flex flex-col gap-0.5 px-2 py-2">
+          {items.map((item) => {
+            const active = !item.neverActive && isActive(item.href);
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                onClick={close}
+                className={
+                  active
+                    ? "relative flex items-center gap-3 overflow-hidden rounded-xl bg-gradient-to-r from-accent/25 to-brand/10 px-3 py-2 text-[15px] font-semibold text-accent"
+                    : "relative flex items-center gap-3 rounded-xl px-3 py-2 text-[15px] font-medium text-foreground/90 transition hover:bg-white/5"
+                }
+              >
+                {active && (
+                  <span className="absolute inset-y-1 start-0 w-[3px] rounded-full bg-gradient-to-b from-accent to-brand shadow-[0_0_8px_theme(colors.accent)]" aria-hidden="true" />
+                )}
+                <span
+                  className={
+                    active
+                      ? "flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-accent/20 text-accent shadow-[0_0_10px_rgba(56,189,248,0.35)]"
+                      : "flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white/5 text-foreground/70"
+                  }
+                >
+                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    {item.icon}
+                  </svg>
+                </span>
+                <span className="flex-1">{item.label}</span>
+              </Link>
+            );
+          })}
+
+          {/* Language -- moved here from the header per the nav redesign. */}
+          <div className="flex items-center justify-between gap-3 rounded-xl px-3 py-2">
+            <span className="flex items-center gap-3 text-[15px] font-medium text-foreground/90">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white/5 text-foreground/70">
+                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  {ICONS.language}
+                </svg>
+              </span>
+              {t("langSectionLabel")}
+            </span>
+            <LanguageSwitcher currentLocale={locale} />
           </div>
         </div>
-
-        <SectionDivider />
-
-        {/* Balance widget -- glass gradient card with an inline account-type
-            switch and a quick-deposit shortcut, both right where the
-            customer is already looking at their money. */}
-        <div className="mx-4 mt-3 flex flex-col gap-3 rounded-2xl border border-blue-500/30 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 p-4">
-          <div className="flex items-center justify-between gap-2">
-            <Link href="/portfolio" onClick={close} className="min-w-0">
-              <p className="text-xl font-bold text-foreground" dir="ltr">
-                {balance != null
-                  ? `USD ${Number(balance).toLocaleString("en-US", { maximumFractionDigits: 2 })}`
-                  : "—"}
-              </p>
-              <p className="text-xs text-muted">{t("availableBalance")}</p>
-            </Link>
-            <Link
-              href="/portfolio/deposit"
-              onClick={close}
-              className="flex shrink-0 items-center gap-1.5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 px-3 py-2 text-xs font-bold text-white shadow-lg shadow-emerald-900/30 transition active:scale-95"
-            >
-              <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M12 5v14" />
-                <path d="M5 12l7 7 7-7" />
-              </svg>
-              {t("menuDeposit")}
-            </Link>
-          </div>
-
-          {accountType && (
-            <AccountTypeSwitcher
-              accountType={accountType}
-              next={pathname}
-              variant="pill"
-              ariaLabel={t("switchAccountAriaLabel")}
-              options={accountTypeOptions}
-              confirmTitle={t("switchAccountConfirmTitle")}
-              confirmText={t("switchAccountWarning")}
-              confirmCta={t("switchAccountConfirmCta")}
-              cancelCta={t("switchAccountCancelCta")}
-              onSwitch={close}
-            />
-          )}
-        </div>
-
-        {/* Quick action grid -- deposit / withdraw as two glass buttons
-            side by side instead of buried in a plain list row. */}
-        <div className="mx-4 mt-3 grid grid-cols-2 gap-2">
-          <Link
-            href="/portfolio/deposit"
-            onClick={close}
-            className="flex flex-col items-center gap-1.5 rounded-2xl border border-emerald-500/25 bg-gradient-to-b from-emerald-500/15 to-emerald-600/5 py-3 text-emerald-300 transition active:scale-95"
-          >
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              {WALLET_ICONS.deposit}
-            </svg>
-            <span className="text-xs font-semibold">{t("menuDeposit")}</span>
-          </Link>
-          <Link
-            href="/portfolio/withdraw"
-            onClick={close}
-            className="flex flex-col items-center gap-1.5 rounded-2xl border border-white/[0.08] bg-white/[0.04] py-3 text-foreground/80 transition active:scale-95"
-          >
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              {WALLET_ICONS.withdraw}
-            </svg>
-            <span className="text-xs font-semibold">{t("menuWithdraw")}</span>
-          </Link>
-        </div>
-
-        <div className="pt-3">{renderItems(mainItems)}</div>
-
-        <SectionDivider />
-        <SectionLabel>{t("walletSectionLabel")}</SectionLabel>
-        {renderItems(walletItems)}
-
-        <SectionDivider />
-        <SectionLabel>{t("accountSectionLabel")}</SectionLabel>
-        {renderItems(accountItems)}
 
         <div className="mt-auto">
           <SectionDivider />

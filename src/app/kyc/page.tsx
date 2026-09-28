@@ -34,7 +34,7 @@ export default async function KycPage({
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-sm flex-col justify-center gap-4 p-6">
+      <main className="mx-auto flex w-full max-w-sm flex-col justify-center gap-4 p-6 pb-24 lg:ms-64 lg:me-0 lg:pb-6">
         <h1 className="text-2xl font-semibold">{t("title")}</h1>
 
       {submission ? (

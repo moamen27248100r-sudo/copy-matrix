@@ -214,7 +214,7 @@ export default async function TraderPage({
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6 pb-28 sm:pb-6">
+      <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6 pb-40 sm:pb-6 lg:ms-64 lg:me-0">
         {error && (
           <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
             {error}
@@ -273,7 +273,7 @@ export default async function TraderPage({
             under the bio, from sm up. */}
         <div
           id="copy"
-          className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-700/70 bg-[#0b0f17]/95 p-3 backdrop-blur scroll-mt-20 sm:static sm:inset-auto sm:z-auto sm:border-0 sm:bg-transparent sm:p-0 sm:backdrop-blur-0"
+          className="fixed inset-x-0 bottom-16 z-40 border-t border-slate-700/70 bg-[#0b0f17]/95 p-3 backdrop-blur scroll-mt-20 sm:static sm:inset-auto sm:bottom-auto sm:z-auto sm:border-0 sm:bg-transparent sm:p-0 sm:backdrop-blur-0"
         >
           {isStopped ? (
             <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-3 text-center text-sm text-danger">

@@ -171,7 +171,7 @@ export default async function DashboardPage({
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6">
+      <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6 pb-24 lg:ms-64 lg:me-0 lg:pb-6">
         <MarketTicker initialPrices={tickerInitialPrices} />
 
         <div className="flex flex-wrap items-center gap-3">
@@ -283,7 +283,7 @@ export default async function DashboardPage({
           ))}
         </section>
 
-        <section className="flex flex-col gap-3">
+        <section id="my-copies" className="flex flex-col gap-3 scroll-mt-20">
           <div className="flex items-center justify-between">
             <h2 className="text-base font-semibold">{t("traderYouCopy")}</h2>
             {copiedProviders.length > 0 && (

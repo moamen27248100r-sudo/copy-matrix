@@ -4,6 +4,9 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { MainMenu } from "@/components/MainMenu";
 import { NotificationsMenu } from "@/components/NotificationsMenu";
+import { AccountTypeSwitcher } from "@/components/AccountTypeSwitcher";
+import { SidebarNav } from "@/components/SidebarNav";
+import { BottomNav } from "@/components/BottomNav";
 import { NavDrawerProvider } from "@/components/nav-drawer-context";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/Logo";
@@ -12,21 +15,22 @@ import type { Locale } from "@/i18n/locales";
 export async function AppNav() {
   const supabase = await createClient();
   const t = await getTranslations("Nav");
+  const tKyc = await getTranslations("Kyc");
+  const tDash = await getTranslations("Dashboard");
   const locale = (await getLocale()) as Locale;
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   let isAdmin = false;
-  let balance: number | null = null;
   let displayName: string | null = null;
   let email: string | null = null;
   let accountType: "real" | "demo" | null = null;
   let notifications: { id: string; type: string; title: string; body: string | null; data: Record<string, unknown> | null; is_read: boolean; created_at: string }[] = [];
-  let activeCopyProviderId: string | null = null;
+  let kycStatus: string = "none";
   if (user) {
-    const [{ data: profile }, { data: notificationRows }, { data: activeSub }] = await Promise.all([
-      supabase.from("profiles").select("is_admin, balance, is_suspended, display_name, email, account_type").eq("id", user.id).single(),
+    const [{ data: profile }, { data: notificationRows }, { data: kyc }] = await Promise.all([
+      supabase.from("profiles").select("is_admin, is_suspended, display_name, email, account_type").eq("id", user.id).single(),
       supabase
         .from("notifications")
         .select("id, type, title, body, data, is_read, created_at")
@@ -34,36 +38,41 @@ export async function AppNav() {
         .order("created_at", { ascending: false })
         .limit(10),
       supabase
-        .from("subscriptions")
-        .select("provider_id")
-        .eq("follower_id", user.id)
-        .eq("is_active", true)
+        .from("kyc_submissions")
+        .select("status")
+        .eq("user_id", user.id)
+        .order("submitted_at", { ascending: false })
         .limit(1)
         .maybeSingle(),
     ]);
     if (profile?.is_suspended) redirect("/suspended");
     isAdmin = !!profile?.is_admin;
-    balance = profile?.balance ?? null;
     displayName = profile?.display_name ?? null;
     email = profile?.email ?? user.email ?? null;
     accountType = (profile?.account_type as "real" | "demo") ?? "demo";
     notifications = notificationRows ?? [];
-    activeCopyProviderId = activeSub?.provider_id ?? null;
+    kycStatus = kyc?.status ?? "none";
   }
 
   return (
+    <>
     <nav className="sticky top-0 z-[9999] w-full border-b border-border bg-[#0b1726]">
       <NavDrawerProvider>
       <div className="mx-auto grid h-14 max-w-5xl grid-cols-[auto_1fr_auto] items-center gap-1 px-2 sm:h-16 sm:gap-2 sm:px-6">
         <div className="flex min-w-0 justify-start">
           {user ? (
             <MainMenu
-              balance={balance}
               isAdmin={isAdmin}
               displayName={displayName}
               email={email}
-              accountType={accountType}
-              activeCopyProviderId={activeCopyProviderId}
+              locale={locale}
+              kycStatus={kycStatus}
+              kycStatusLabels={{
+                none: tKyc("statusNone"),
+                pending: tKyc("statusPending"),
+                approved: tKyc("statusApproved"),
+                rejected: tKyc("statusRejected"),
+              }}
             />
           ) : (
             <Link
@@ -82,7 +91,22 @@ export async function AppNav() {
         <div className="flex min-w-0 items-center justify-end gap-0.5 sm:gap-3">
           {user ? (
             <>
-              <LanguageSwitcher currentLocale={locale} />
+              {accountType && (
+                <AccountTypeSwitcher
+                  accountType={accountType}
+                  next="/dashboard"
+                  variant="card"
+                  ariaLabel={t("switchAccountAriaLabel")}
+                  options={[
+                    { key: "real", label: tDash("accountTypeShortReal") },
+                    { key: "demo", label: tDash("accountTypeShortDemo") },
+                  ]}
+                  confirmTitle={t("switchAccountConfirmTitle")}
+                  confirmText={t("switchAccountWarning")}
+                  confirmCta={t("switchAccountConfirmCta")}
+                  cancelCta={t("switchAccountCancelCta")}
+                />
+              )}
               <NotificationsMenu notifications={notifications} />
             </>
           ) : (
@@ -100,5 +124,12 @@ export async function AppNav() {
       </div>
       </NavDrawerProvider>
     </nav>
+    {user && (
+      <>
+        <SidebarNav isAdmin={isAdmin} />
+        <BottomNav />
+      </>
+    )}
+    </>
   );
 }

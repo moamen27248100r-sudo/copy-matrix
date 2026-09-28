@@ -444,7 +444,7 @@ export default async function PortfolioPage({
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6">
+      <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6 pb-24 lg:ms-64 lg:me-0 lg:pb-6">
         <h1 className="text-2xl font-semibold">{t("title")}</h1>
 
         {error && (
