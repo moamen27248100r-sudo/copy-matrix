@@ -1,8 +1,19 @@
 import { redirect } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { cookies } from "next/headers";
+import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { updateProfile, updateAccountType, changePassword } from "@/app/settings/actions";
 import { AppNav } from "@/components/AppNav";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { setTimezone } from "@/app/actions/locale";
+import type { Locale } from "@/i18n/locales";
+
+const TIMEZONES = [
+  "UTC", "Africa/Cairo", "Africa/Lagos", "Africa/Nairobi", "Asia/Riyadh", "Asia/Dubai", "Asia/Karachi",
+  "Asia/Kolkata", "Asia/Dhaka", "Asia/Bangkok", "Asia/Jakarta", "Asia/Ho_Chi_Minh", "Asia/Shanghai",
+  "Europe/London", "Europe/Paris", "Europe/Istanbul", "America/Sao_Paulo", "America/New_York",
+  "America/Chicago", "America/Los_Angeles",
+];
 
 export default async function SettingsPage({
   searchParams,
@@ -11,6 +22,9 @@ export default async function SettingsPage({
 }) {
   const { error, success } = await searchParams;
   const t = await getTranslations("Settings");
+  const locale = (await getLocale()) as Locale;
+  const tz = (await cookies()).get("tz")?.value ?? "UTC";
+  const tzOptions = TIMEZONES.includes(tz) ? TIMEZONES : [tz, ...TIMEZONES];
   const supabase = await createClient();
   const {
     data: { user },
@@ -122,6 +136,52 @@ export default async function SettingsPage({
               {t("updatePassword")}
             </button>
           </form>
+        </section>
+
+        <section className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
+          <h2 className="font-medium">{t("languageTimezoneTitle")}</h2>
+          <div className="flex items-center justify-between gap-3 text-sm">
+            <span className="text-muted">{t("languageLabel")}</span>
+            <LanguageSwitcher currentLocale={locale} />
+          </div>
+          <form action={setTimezone} className="flex flex-col gap-2">
+            <label className="text-sm text-muted" htmlFor="timezone">
+              {t("timezoneLabel")}
+            </label>
+            <select
+              id="timezone"
+              name="timezone"
+              defaultValue={tz}
+              className="rounded border border-border bg-background px-3 py-2 text-sm"
+            >
+              {tzOptions.map((z) => (
+                <option key={z} value={z}>
+                  {z}
+                </option>
+              ))}
+            </select>
+            <button type="submit" className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground">
+              {t("saveTimezone")}
+            </button>
+          </form>
+        </section>
+
+        <section className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
+          <h2 className="font-medium">{t("securityTitle")}</h2>
+          {(["twoFactor", "sessions"] as const).map((k) => (
+            <div key={k} className="flex flex-col gap-2 rounded border border-border bg-background p-3">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-sm font-medium">{t(`${k}Title`)}</span>
+                <span className="rounded-full border border-warning/40 bg-warning/10 px-2 py-0.5 text-[10px] font-semibold text-warning">
+                  {t("comingSoon")}
+                </span>
+              </div>
+              <p className="text-xs text-muted">{t(`${k}Desc`)}</p>
+              <button type="button" disabled className="cursor-not-allowed rounded border border-border px-3 py-2 text-sm opacity-50">
+                {k === "twoFactor" ? t("twoFactorEnable") : t("sessionsSignOutOthers")}
+              </button>
+            </div>
+          ))}
         </section>
       </main>
     </>

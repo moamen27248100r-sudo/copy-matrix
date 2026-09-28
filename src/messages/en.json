@@ -718,7 +718,19 @@
     "saveAccountType": "Save account type",
     "changePasswordTitle": "Change password",
     "newPasswordPlaceholder": "New password (at least 6 characters)",
-    "updatePassword": "Update password"
+    "updatePassword": "Update password",
+    "languageTimezoneTitle": "Language & timezone",
+    "languageLabel": "Language",
+    "timezoneLabel": "Timezone",
+    "saveTimezone": "Save timezone",
+    "securityTitle": "Security",
+    "comingSoon": "Coming soon",
+    "twoFactorTitle": "Two-factor authentication (2FA)",
+    "twoFactorDesc": "Add a second verification step when you sign in.",
+    "twoFactorEnable": "Enable 2FA",
+    "sessionsTitle": "Active sessions",
+    "sessionsDesc": "See the devices signed in to your account and sign them out.",
+    "sessionsSignOutOthers": "Sign out other devices"
   },
   "Kyc": {
     "title": "Identity Verification",

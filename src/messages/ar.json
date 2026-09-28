@@ -730,7 +730,19 @@
     "saveAccountType": "حفظ نوع الحساب",
     "changePasswordTitle": "تغيير كلمة المرور",
     "newPasswordPlaceholder": "كلمة المرور الجديدة (٦ أحرف على الأقل)",
-    "updatePassword": "تحديث كلمة المرور"
+    "updatePassword": "تحديث كلمة المرور",
+    "languageTimezoneTitle": "اللغة والمنطقة الزمنية",
+    "languageLabel": "اللغة",
+    "timezoneLabel": "المنطقة الزمنية",
+    "saveTimezone": "حفظ المنطقة الزمنية",
+    "securityTitle": "الأمان",
+    "comingSoon": "قريبًا",
+    "twoFactorTitle": "المصادقة الثنائية (2FA)",
+    "twoFactorDesc": "أضف خطوة تحقق ثانية عند تسجيل الدخول.",
+    "twoFactorEnable": "تفعيل المصادقة الثنائية",
+    "sessionsTitle": "الجلسات النشطة",
+    "sessionsDesc": "اطّلع على الأجهزة المسجّلة الدخول وسجّل خروجها.",
+    "sessionsSignOutOthers": "تسجيل الخروج من الأجهزة الأخرى"
   },
   "Kyc": {
     "title": "توثيق الهوية",

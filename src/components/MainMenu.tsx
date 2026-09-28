@@ -130,6 +130,19 @@ export function MainMenu({
 
   useBodyScrollLock(open);
 
+  // Swipe toward the panel's own edge (left in LTR, right in RTL) to close.
+  const touchStartX = useRef<number | null>(null);
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    touchStartX.current = null;
+    const rtl = document.documentElement.dir === "rtl";
+    if ((rtl && dx > 60) || (!rtl && dx < -60)) close();
+  };
+
   // The panel can otherwise open already scrolled a few hundred pixels down
   // (the browser's scroll-anchoring kicking in during the slide-in
   // transition) instead of showing its content from the top.
@@ -195,6 +208,8 @@ export function MainMenu({
       />
       <div
         ref={panelRef}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
         className={
           open
             ? "fixed top-14 bottom-0 start-0 z-40 flex w-[78%] max-w-xs translate-x-0 flex-col overflow-y-auto border-e border-white/[0.06] bg-[#0B132B]/90 shadow-2xl shadow-black/50 backdrop-blur-xl transition-transform duration-300 ease-out sm:top-16"

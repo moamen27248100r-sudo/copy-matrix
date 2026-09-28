@@ -718,7 +718,19 @@
     "saveAccountType": "اکاؤنٹ کی قسم محفوظ کریں",
     "changePasswordTitle": "پاس ورڈ تبدیل کریں",
     "newPasswordPlaceholder": "نیا پاس ورڈ (کم از کم 6 حروف)",
-    "updatePassword": "پاس ورڈ اپ ڈیٹ کریں"
+    "updatePassword": "پاس ورڈ اپ ڈیٹ کریں",
+    "languageTimezoneTitle": "Language & timezone",
+    "languageLabel": "Language",
+    "timezoneLabel": "Timezone",
+    "saveTimezone": "Save timezone",
+    "securityTitle": "Security",
+    "comingSoon": "Coming soon",
+    "twoFactorTitle": "Two-factor authentication (2FA)",
+    "twoFactorDesc": "Add a second verification step when you sign in.",
+    "twoFactorEnable": "Enable 2FA",
+    "sessionsTitle": "Active sessions",
+    "sessionsDesc": "See the devices signed in to your account and sign them out.",
+    "sessionsSignOutOthers": "Sign out other devices"
   },
   "Kyc": {
     "title": "شناخت کی تصدیق",

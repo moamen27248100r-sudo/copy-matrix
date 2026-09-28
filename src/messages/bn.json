@@ -718,7 +718,19 @@
     "saveAccountType": "অ্যাকাউন্টের ধরন সংরক্ষণ করুন",
     "changePasswordTitle": "পাসওয়ার্ড পরিবর্তন করুন",
     "newPasswordPlaceholder": "নতুন পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)",
-    "updatePassword": "পাসওয়ার্ড আপডেট করুন"
+    "updatePassword": "পাসওয়ার্ড আপডেট করুন",
+    "languageTimezoneTitle": "Language & timezone",
+    "languageLabel": "Language",
+    "timezoneLabel": "Timezone",
+    "saveTimezone": "Save timezone",
+    "securityTitle": "Security",
+    "comingSoon": "Coming soon",
+    "twoFactorTitle": "Two-factor authentication (2FA)",
+    "twoFactorDesc": "Add a second verification step when you sign in.",
+    "twoFactorEnable": "Enable 2FA",
+    "sessionsTitle": "Active sessions",
+    "sessionsDesc": "See the devices signed in to your account and sign them out.",
+    "sessionsSignOutOthers": "Sign out other devices"
   },
   "Kyc": {
     "title": "পরিচয় যাচাইকরণ",

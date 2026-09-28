@@ -12,9 +12,9 @@ original prompts' own section order.
 - [x] Header: logo, account-type pill, notifications bell, avatar (opens profile drawer)
 - [x] Profile drawer cleaned up: balance card/deposit/withdraw/account-switcher removed, name+masked email+KYC badge added
 - [x] Drawer slides from the side with a dim backdrop, closes on outside click
-- [ ] Drawer closes on swipe gesture (not implemented, click-outside only)
+- [x] Drawer closes on swipe gesture (and click-outside)
 - [x] Language switcher moved into the drawer
-- [ ] Language switcher inside Settings itself (not added there yet)
+- [x] Language switcher inside Settings itself
 - [x] All 13 locales are effectively fully translated already — no filtering needed, reported the completeness % back to the user instead
 
 ## 2) Dashboard home (أ–ط)
@@ -53,8 +53,8 @@ original prompts' own section order.
 - [ ] Portfolio: short monthly report (balances + transaction history already existed before this work)
 - [ ] Notifications: categories (trades/copy/account/security)
 - [ ] Notifications: per-type preferences page (in-app/email/Telegram)
-- [ ] Settings: security section (2FA, active sessions) — **on hold, pending a decision on real TOTP vs. UI-only vs. skip**
-- [ ] Settings: language + timezone section
+- [x] Settings: security section (2FA + active sessions) — UI only, "coming soon" badge, disabled buttons; real implementation deferred
+- [x] Settings: language + timezone section (tz saved in cookie)
 - [ ] Settings: risk questionnaire that feeds "suggested traders"
 
 ## 4) Design system

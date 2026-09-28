@@ -718,7 +718,19 @@
     "saveAccountType": "保存账户类型",
     "changePasswordTitle": "修改密码",
     "newPasswordPlaceholder": "新密码（至少6个字符）",
-    "updatePassword": "更新密码"
+    "updatePassword": "更新密码",
+    "languageTimezoneTitle": "Language & timezone",
+    "languageLabel": "Language",
+    "timezoneLabel": "Timezone",
+    "saveTimezone": "Save timezone",
+    "securityTitle": "Security",
+    "comingSoon": "Coming soon",
+    "twoFactorTitle": "Two-factor authentication (2FA)",
+    "twoFactorDesc": "Add a second verification step when you sign in.",
+    "twoFactorEnable": "Enable 2FA",
+    "sessionsTitle": "Active sessions",
+    "sessionsDesc": "See the devices signed in to your account and sign them out.",
+    "sessionsSignOutOthers": "Sign out other devices"
   },
   "Kyc": {
     "title": "身份验证",

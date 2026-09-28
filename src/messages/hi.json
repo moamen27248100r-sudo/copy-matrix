@@ -718,7 +718,19 @@
     "saveAccountType": "खाता प्रकार सहेजें",
     "changePasswordTitle": "पासवर्ड बदलें",
     "newPasswordPlaceholder": "नया पासवर्ड (कम से कम 6 अक्षर)",
-    "updatePassword": "पासवर्ड अपडेट करें"
+    "updatePassword": "पासवर्ड अपडेट करें",
+    "languageTimezoneTitle": "Language & timezone",
+    "languageLabel": "Language",
+    "timezoneLabel": "Timezone",
+    "saveTimezone": "Save timezone",
+    "securityTitle": "Security",
+    "comingSoon": "Coming soon",
+    "twoFactorTitle": "Two-factor authentication (2FA)",
+    "twoFactorDesc": "Add a second verification step when you sign in.",
+    "twoFactorEnable": "Enable 2FA",
+    "sessionsTitle": "Active sessions",
+    "sessionsDesc": "See the devices signed in to your account and sign them out.",
+    "sessionsSignOutOthers": "Sign out other devices"
   },
   "Kyc": {
     "title": "पहचान सत्यापन",
