@@ -239,6 +239,9 @@
     "accountTypeReal": "บัญชีจริง",
     "accountTypeDemo": "บัญชีทดลอง",
     "switchAccountWarning": "การสลับระหว่างบัญชีจริงและบัญชีทดลองจะรีเซ็ตยอดคงเหลือและหยุดการคัดลอกปัจจุบัน ต้องการดำเนินการต่อหรือไม่?",
+    "switchAccountConfirmTitle": "ยืนยันการสลับบัญชี",
+    "switchAccountConfirmCta": "สลับ",
+    "switchAccountCancelCta": "ยกเลิก",
     "notificationsAriaLabel": "การแจ้งเตือน",
     "notificationsTitle": "การแจ้งเตือน",
     "notificationsEmpty": "ยังไม่มีการแจ้งเตือน",
@@ -265,6 +268,9 @@
     "accountTypeShortReal": "จริง",
     "accountTypeShortDemo": "ทดลอง",
     "accountTypeAriaLabel": "ประเภทบัญชี",
+    "switchAccountConfirmTitle": "ยืนยันการสลับบัญชี",
+    "switchAccountConfirmCta": "สลับ",
+    "switchAccountCancelCta": "ยกเลิก",
     "unrealizedPnl": "กำไร/ขาดทุนที่ยังไม่รับรู้",
     "availableCash": "เงินสดที่พร้อมถอน",
     "reservedForCopy": "สงวนไว้สำหรับการคัดลอกที่ใช้งานอยู่",
@@ -420,7 +426,11 @@
     "depositGuidelinesTitle": "แนวทางการฝากเงิน",
     "depositWarning": "ตรวจสอบให้แน่ใจว่าเลือกเครือข่ายที่ถูกต้องก่อนส่ง — การส่งผิดเครือข่ายอาจทำให้สูญเสียเงินถาวร",
     "txIdLabel": "รหัสธุรกรรม (TxID) — ไม่บังคับ",
-    "txIdPlaceholder": "วาง TxID จากกระเป๋าเงินของคุณหลังจากส่ง"
+    "txIdPlaceholder": "วาง TxID จากกระเป๋าเงินของคุณหลังจากส่ง",
+    "proofOfPaymentLabel": "แนบหลักฐานการชำระเงิน (รูปภาพใบเสร็จการโอน)",
+    "proofOfPaymentRemove": "ลบ",
+    "proofOfPaymentHelp": "โปรดแนบรูปภาพการโอนที่ชัดเจนเพื่อยืนยันการฝากเงินของคุณอย่างรวดเร็ว",
+    "confirmProofOfPayment": "ยืนยันและส่งหลักฐานการฝากเงิน"
   },
   "TradeHistory": {
     "periodToday": "วันนี้",

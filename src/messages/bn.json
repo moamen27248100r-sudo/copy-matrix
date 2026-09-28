@@ -239,6 +239,9 @@
     "accountTypeReal": "রিয়েল অ্যাকাউন্ট",
     "accountTypeDemo": "ডেমো অ্যাকাউন্ট",
     "switchAccountWarning": "রিয়েল এবং ডেমো অ্যাকাউন্টের মধ্যে পরিবর্তন করলে ব্যালেন্স রিসেট হবে এবং বর্তমান কপি বন্ধ হয়ে যাবে। চালিয়ে যাবেন?",
+    "switchAccountConfirmTitle": "অ্যাকাউন্ট পরিবর্তন নিশ্চিত করুন",
+    "switchAccountConfirmCta": "পরিবর্তন করুন",
+    "switchAccountCancelCta": "বাতিল করুন",
     "notificationsAriaLabel": "বিজ্ঞপ্তি",
     "notificationsTitle": "বিজ্ঞপ্তি",
     "notificationsEmpty": "এখনও কোনো বিজ্ঞপ্তি নেই।",
@@ -265,6 +268,9 @@
     "accountTypeShortReal": "রিয়েল",
     "accountTypeShortDemo": "ডেমো",
     "accountTypeAriaLabel": "অ্যাকাউন্টের ধরন",
+    "switchAccountConfirmTitle": "অ্যাকাউন্ট পরিবর্তন নিশ্চিত করুন",
+    "switchAccountConfirmCta": "পরিবর্তন করুন",
+    "switchAccountCancelCta": "বাতিল করুন",
     "unrealizedPnl": "অবাস্তবায়িত লাভ/ক্ষতি",
     "availableCash": "উত্তোলনের জন্য উপলব্ধ নগদ",
     "reservedForCopy": "সক্রিয় কপির জন্য সংরক্ষিত",
@@ -420,7 +426,11 @@
     "depositGuidelinesTitle": "জমার নির্দেশিকা",
     "depositWarning": "পাঠানোর আগে সঠিক নেটওয়ার্ক নিশ্চিত করুন — ভুল নেটওয়ার্কে পাঠালে অর্থ হারাতে পারেন।",
     "txIdLabel": "TxID — ঐচ্ছিক",
-    "txIdPlaceholder": "পাঠানোর পর আপনার ওয়ালেট থেকে TxID পেস্ট করুন"
+    "txIdPlaceholder": "পাঠানোর পর আপনার ওয়ালেট থেকে TxID পেস্ট করুন",
+    "proofOfPaymentLabel": "পেমেন্টের প্রমাণ সংযুক্ত করুন (ট্রান্সফার রসিদের ছবি)",
+    "proofOfPaymentRemove": "সরান",
+    "proofOfPaymentHelp": "আপনার জমা দ্রুত নিশ্চিত করতে অনুগ্রহ করে একটি স্পষ্ট ট্রান্সফার ছবি সংযুক্ত করুন",
+    "confirmProofOfPayment": "জমার প্রমাণ নিশ্চিত করুন এবং পাঠান"
   },
   "TradeHistory": {
     "periodToday": "আজ",

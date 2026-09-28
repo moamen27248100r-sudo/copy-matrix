@@ -239,6 +239,9 @@
     "accountTypeReal": "Compte réel",
     "accountTypeDemo": "Compte démo",
     "switchAccountWarning": "Passer d'un compte réel à un compte démo réinitialise le solde et arrête la copie en cours. Continuer ?",
+    "switchAccountConfirmTitle": "Confirmer le changement de compte",
+    "switchAccountConfirmCta": "Changer",
+    "switchAccountCancelCta": "Annuler",
     "notificationsAriaLabel": "Notifications",
     "notificationsTitle": "Notifications",
     "notificationsEmpty": "Aucune notification pour le moment.",
@@ -265,6 +268,9 @@
     "accountTypeShortReal": "Réel",
     "accountTypeShortDemo": "Démo",
     "accountTypeAriaLabel": "Type de compte",
+    "switchAccountConfirmTitle": "Confirmer le changement de compte",
+    "switchAccountConfirmCta": "Changer",
+    "switchAccountCancelCta": "Annuler",
     "unrealizedPnl": "Profit/perte latent(e)",
     "availableCash": "Liquidités disponibles à retirer",
     "reservedForCopy": "Réservé à la copie active",
@@ -420,7 +426,11 @@
     "depositGuidelinesTitle": "Consignes de dépôt",
     "depositWarning": "Assurez-vous de choisir le bon réseau avant d’envoyer — envoyer sur un réseau non pris en charge peut entraîner une perte définitive de fonds.",
     "txIdLabel": "ID de transaction (TxID) — facultatif",
-    "txIdPlaceholder": "Collez le TxID de votre portefeuille après envoi"
+    "txIdPlaceholder": "Collez le TxID de votre portefeuille après envoi",
+    "proofOfPaymentLabel": "Joindre une preuve de paiement (image du reçu de virement)",
+    "proofOfPaymentRemove": "Retirer",
+    "proofOfPaymentHelp": "Veuillez joindre une image claire du virement pour confirmer rapidement votre dépôt",
+    "confirmProofOfPayment": "Confirmer et envoyer la preuve de dépôt"
   },
   "TradeHistory": {
     "periodToday": "Aujourd'hui",

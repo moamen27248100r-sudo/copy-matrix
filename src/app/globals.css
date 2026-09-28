@@ -115,6 +115,56 @@ body {
   }
 }
 
+/* Animated gradient flowing along the HowItWorks step connector. */
+@keyframes pulse-line {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% 200%;
+  }
+}
+
+.pulse-line {
+  background-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--accent) 35%,
+    var(--accent) 45%,
+    transparent 80%
+  );
+  background-size: 100% 50%;
+  animation: pulse-line 2.4s linear infinite;
+}
+
+.pulse-line-horizontal {
+  background-image: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--accent) 35%,
+    var(--accent) 45%,
+    transparent 80%
+  );
+  background-size: 200% 100%;
+  animation: pulse-line-horizontal 2.4s linear infinite;
+}
+
+@keyframes pulse-line-horizontal {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 0%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-line,
+  .pulse-line-horizontal {
+    animation: none;
+  }
+}
+
 @keyframes sort-dropdown-in {
   from {
     opacity: 0;

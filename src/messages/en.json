@@ -239,6 +239,9 @@
     "accountTypeReal": "Real account",
     "accountTypeDemo": "Demo account",
     "switchAccountWarning": "Switching between real and demo resets the balance and stops current copying. Continue?",
+    "switchAccountConfirmTitle": "Confirm account switch",
+    "switchAccountConfirmCta": "Switch",
+    "switchAccountCancelCta": "Cancel",
     "notificationsAriaLabel": "Notifications",
     "notificationsTitle": "Notifications",
     "notificationsEmpty": "No notifications yet.",
@@ -265,6 +268,9 @@
     "accountTypeShortReal": "Real",
     "accountTypeShortDemo": "Demo",
     "accountTypeAriaLabel": "Account type",
+    "switchAccountConfirmTitle": "Confirm account switch",
+    "switchAccountConfirmCta": "Switch",
+    "switchAccountCancelCta": "Cancel",
     "unrealizedPnl": "Unrealized profit/loss",
     "availableCash": "Available cash to withdraw",
     "reservedForCopy": "Reserved for active copying",
@@ -420,7 +426,11 @@
     "depositGuidelinesTitle": "Deposit guidelines",
     "depositWarning": "Make sure you pick the correct network before sending — sending on an unsupported network can result in permanent loss of funds.",
     "txIdLabel": "Transaction ID (TxID) — optional",
-    "txIdPlaceholder": "Paste the TxID from your wallet after sending"
+    "txIdPlaceholder": "Paste the TxID from your wallet after sending",
+    "proofOfPaymentLabel": "Attach proof of payment (transfer receipt image)",
+    "proofOfPaymentRemove": "Remove",
+    "proofOfPaymentHelp": "Please attach a clear transfer image to ensure your deposit is confirmed quickly",
+    "confirmProofOfPayment": "Confirm and send deposit proof"
   },
   "TradeHistory": {
     "periodToday": "Today",

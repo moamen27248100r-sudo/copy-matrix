@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { chooseAccountType } from "@/app/auth/actions";
-import { ConfirmButton } from "@/components/ConfirmButton";
+import { AccountTypeSwitcher } from "@/components/AccountTypeSwitcher";
 
 type AccountType = "real" | "demo";
 
@@ -48,26 +47,19 @@ export async function DashboardHero({
       <div className="flex items-center justify-between gap-3">
         <span className="text-sm text-muted">{t("portfolioValue")}</span>
 
-        <div className="flex gap-1 rounded-lg border border-border bg-background p-0.5 text-xs" role="group" aria-label={t("accountTypeAriaLabel")}>
-          {(["real", "demo"] as const).map((opt) =>
-            opt === accountType ? (
-              <span key={opt} className="rounded-md bg-accent px-3 py-1.5 font-medium text-accent-foreground">
-                {accountTypeShort(opt)}
-              </span>
-            ) : (
-              <form key={opt} action={chooseAccountType}>
-                <input type="hidden" name="accountType" value={opt} />
-                <input type="hidden" name="next" value="/dashboard" />
-                <ConfirmButton
-                  confirmText={tNav("switchAccountWarning")}
-                  className="rounded-md px-3 py-1.5 text-muted transition hover:text-foreground"
-                >
-                  {accountTypeShort(opt)}
-                </ConfirmButton>
-              </form>
-            ),
-          )}
-        </div>
+        <AccountTypeSwitcher
+          accountType={accountType}
+          next="/dashboard"
+          ariaLabel={t("accountTypeAriaLabel")}
+          options={[
+            { key: "real", label: accountTypeShort("real") },
+            { key: "demo", label: accountTypeShort("demo") },
+          ]}
+          confirmTitle={t("switchAccountConfirmTitle")}
+          confirmText={tNav("switchAccountWarning")}
+          confirmCta={t("switchAccountConfirmCta")}
+          cancelCta={t("switchAccountCancelCta")}
+        />
       </div>
 
       <div>

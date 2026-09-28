@@ -239,6 +239,9 @@
     "accountTypeReal": "حقیقی اکاؤنٹ",
     "accountTypeDemo": "ڈیمو اکاؤنٹ",
     "switchAccountWarning": "حقیقی اور ڈیمو اکاؤنٹ کے درمیان تبدیل کرنے سے بیلنس ری سیٹ ہو جائے گا اور موجودہ کاپی رک جائے گی۔ جاری رکھیں؟",
+    "switchAccountConfirmTitle": "اکاؤنٹ سوئچ کی تصدیق کریں",
+    "switchAccountConfirmCta": "سوئچ کریں",
+    "switchAccountCancelCta": "منسوخ کریں",
     "notificationsAriaLabel": "اطلاعات",
     "notificationsTitle": "اطلاعات",
     "notificationsEmpty": "ابھی تک کوئی اطلاع نہیں۔",
@@ -265,6 +268,9 @@
     "accountTypeShortReal": "حقیقی",
     "accountTypeShortDemo": "ڈیمو",
     "accountTypeAriaLabel": "اکاؤنٹ کی قسم",
+    "switchAccountConfirmTitle": "اکاؤنٹ سوئچ کی تصدیق کریں",
+    "switchAccountConfirmCta": "سوئچ کریں",
+    "switchAccountCancelCta": "منسوخ کریں",
     "unrealizedPnl": "غیر حقیقی منافع/نقصان",
     "availableCash": "نکالنے کے لیے دستیاب رقم",
     "reservedForCopy": "فعال کاپی کے لیے مخصوص",
@@ -420,7 +426,11 @@
     "depositGuidelinesTitle": "جمع کروانے کی ہدایات",
     "depositWarning": "بھیجنے سے پہلے درست نیٹ ورک منتخب کرنا یقینی بنائیں — غلط نیٹ ورک پر بھیجنے سے رقم مستقل طور پر ضائع ہو سکتی ہے۔",
     "txIdLabel": "ٹرانزیکشن آئی ڈی (TxID) — اختیاری",
-    "txIdPlaceholder": "بھیجنے کے بعد اپنے والٹ سے TxID پیسٹ کریں"
+    "txIdPlaceholder": "بھیجنے کے بعد اپنے والٹ سے TxID پیسٹ کریں",
+    "proofOfPaymentLabel": "ادائیگی کا ثبوت منسلک کریں (ٹرانسفر رسید کی تصویر)",
+    "proofOfPaymentRemove": "ہٹائیں",
+    "proofOfPaymentHelp": "اپنی ڈپازٹ کی جلد تصدیق کے لیے براہ کرم ٹرانسفر کی واضح تصویر منسلک کریں",
+    "confirmProofOfPayment": "ڈپازٹ کا ثبوت تصدیق کریں اور بھیجیں"
   },
   "TradeHistory": {
     "periodToday": "آج",

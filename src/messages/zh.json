@@ -239,6 +239,9 @@
     "accountTypeReal": "真实账户",
     "accountTypeDemo": "模拟账户",
     "switchAccountWarning": "在真实账户和模拟账户之间切换会重置余额并停止当前跟单。是否继续？",
+    "switchAccountConfirmTitle": "确认切换账户",
+    "switchAccountConfirmCta": "切换",
+    "switchAccountCancelCta": "取消",
     "notificationsAriaLabel": "通知",
     "notificationsTitle": "通知",
     "notificationsEmpty": "暂无通知。",
@@ -265,6 +268,9 @@
     "accountTypeShortReal": "真实",
     "accountTypeShortDemo": "模拟",
     "accountTypeAriaLabel": "账户类型",
+    "switchAccountConfirmTitle": "确认切换账户",
+    "switchAccountConfirmCta": "切换",
+    "switchAccountCancelCta": "取消",
     "unrealizedPnl": "未实现盈亏",
     "availableCash": "可提现的现金",
     "reservedForCopy": "为当前跟单预留",
@@ -420,7 +426,11 @@
     "depositGuidelinesTitle": "充值须知",
     "depositWarning": "发送前请确保选择正确的网络——通过不支持的网络发送可能导致资金永久丢失。",
     "txIdLabel": "交易号（TxID）——选填",
-    "txIdPlaceholder": "发送后请粘贴钱包中的 TxID"
+    "txIdPlaceholder": "发送后请粘贴钱包中的 TxID",
+    "proofOfPaymentLabel": "上传付款凭证（转账截图）",
+    "proofOfPaymentRemove": "移除",
+    "proofOfPaymentHelp": "请上传清晰的转账截图，以便快速确认您的存款",
+    "confirmProofOfPayment": "确认并发送存款凭证"
   },
   "TradeHistory": {
     "periodToday": "今天",

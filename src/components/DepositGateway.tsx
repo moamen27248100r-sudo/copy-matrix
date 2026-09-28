@@ -6,6 +6,7 @@ import QRCode from "qrcode";
 import { requestDeposit } from "@/app/portfolio/actions";
 import { CRYPTO_CURRENCIES, networksForCurrency, type DepositNetwork } from "@/lib/deposit-networks";
 import { CryptoIcon } from "@/components/CryptoIcon";
+import { NetworkIcon } from "@/components/NetworkIcon";
 import { SECURITY_BADGE } from "@/config/platform";
 
 export function DepositGateway() {
@@ -15,7 +16,23 @@ export function DepositGateway() {
   const [qrDataUrl, setQrDataUrl] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [amount, setAmount] = useState("");
-  const [txId, setTxId] = useState("");
+  const [proofFile, setProofFile] = useState<File | null>(null);
+  const [proofPreview, setProofPreview] = useState<string | null>(null);
+  const [dragOver, setDragOver] = useState(false);
+
+  useEffect(() => {
+    if (!proofFile) {
+      setProofPreview(null);
+      return;
+    }
+    const url = URL.createObjectURL(proofFile);
+    setProofPreview(url);
+    return () => URL.revokeObjectURL(url);
+  }, [proofFile]);
+
+  function handleProofFile(file: File | null | undefined) {
+    if (file && file.type.startsWith("image/")) setProofFile(file);
+  }
 
   useEffect(() => {
     if (!selected) {
@@ -116,17 +133,20 @@ export function DepositGateway() {
               key={n.id}
               type="button"
               onClick={() => setSelected(n)}
-              className="relative flex items-center justify-between rounded-2xl border border-white/[0.08] bg-white/[0.03] px-4 py-3 text-start backdrop-blur-md transition hover:border-accent/40 hover:bg-white/[0.06]"
+              className="relative flex items-center gap-3 justify-between rounded-2xl border border-white/[0.08] bg-white/[0.03] px-4 py-3 text-start backdrop-blur-md transition hover:border-accent/40 hover:bg-white/[0.06]"
             >
-              <div>
-                <p className="text-sm font-medium text-foreground">{n.network}</p>
-                <p className="mt-0.5 text-[11px] text-muted">
-                  <span dir="ltr">
-                    ~{n.estMinutes} {t("minutesShort")}
-                  </span>
-                  {" · "}
-                  {t("networkFeeLabel")} <span dir="ltr">${n.feeUsd}</span>
-                </p>
+              <div className="flex items-center gap-3">
+                <NetworkIcon network={n.network} size={32} />
+                <div>
+                  <p className="text-sm font-medium text-foreground">{n.network}</p>
+                  <p className="mt-0.5 text-[11px] text-muted">
+                    <span dir="ltr">
+                      ~{n.estMinutes} {t("minutesShort")}
+                    </span>
+                    {" · "}
+                    {t("networkFeeLabel")} <span dir="ltr">${n.feeUsd}</span>
+                  </p>
+                </div>
               </div>
               {n.recommended && (
                 <span className="rounded-full bg-accent/15 px-2 py-1 text-[10px] font-bold text-accent">★</span>
@@ -215,26 +235,59 @@ export function DepositGateway() {
         />
       </div>
 
-      <label className="flex flex-col gap-1 text-sm">
-        {t("txIdLabel")}
-        <input
-          name="txId"
-          type="text"
-          value={txId}
-          onChange={(e) => setTxId(e.target.value)}
-          placeholder={t("txIdPlaceholder")}
-          dir="ltr"
-          className="rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2.5 text-xs text-foreground backdrop-blur-md"
-        />
-      </label>
-
-      <p className="text-xs text-muted">{t("afterSendingNote")}</p>
+      <div className="flex flex-col gap-1.5 text-sm">
+        <span>{t("proofOfPaymentLabel")}</span>
+        {proofPreview ? (
+          <div className="relative flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-2.5 backdrop-blur-md">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={proofPreview} alt={t("proofOfPaymentLabel")} className="h-16 w-16 rounded-lg object-cover" />
+            <span className="flex-1 truncate text-xs text-muted">{proofFile?.name}</span>
+            <button
+              type="button"
+              onClick={() => setProofFile(null)}
+              className="shrink-0 rounded-lg border border-white/10 px-3 py-1.5 text-[11px] font-medium text-muted transition hover:text-foreground"
+            >
+              {t("proofOfPaymentRemove")}
+            </button>
+          </div>
+        ) : (
+          <label
+            onDragOver={(e) => {
+              e.preventDefault();
+              setDragOver(true);
+            }}
+            onDragLeave={() => setDragOver(false)}
+            onDrop={(e) => {
+              e.preventDefault();
+              setDragOver(false);
+              handleProofFile(e.dataTransfer.files?.[0]);
+            }}
+            className={`flex cursor-pointer flex-col items-center gap-2 rounded-xl border border-dashed px-4 py-6 text-center backdrop-blur-md transition ${
+              dragOver ? "border-accent bg-accent/5" : "border-white/15 bg-white/[0.03] hover:border-accent/40"
+            }`}
+          >
+            <svg viewBox="0 0 24 24" className="h-6 w-6 text-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 16V4M12 4l-4 4M12 4l4 4" />
+              <path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" />
+            </svg>
+            <span className="text-xs text-muted">{t("proofOfPaymentLabel")}</span>
+            <input
+              name="proofOfPayment"
+              type="file"
+              accept="image/png,image/jpeg"
+              className="hidden"
+              onChange={(e) => handleProofFile(e.target.files?.[0])}
+            />
+          </label>
+        )}
+        <p className="text-xs text-muted">{t("proofOfPaymentHelp")}</p>
+      </div>
 
       <button
         type="submit"
         className="rounded-xl bg-gradient-to-r from-accent to-brand px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-accent/20 transition hover:brightness-110"
       >
-        {t("iSentAmount")}
+        {t("confirmProofOfPayment")}
       </button>
     </form>
   );

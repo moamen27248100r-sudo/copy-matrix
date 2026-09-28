@@ -13,7 +13,6 @@ import { ProductShowcase } from "@/components/showcase/ProductShowcase";
 import { FeaturesGrid } from "@/components/FeaturesGrid";
 import { HowItWorks } from "@/components/HowItWorks";
 import { FAQAccordion } from "@/components/FAQAccordion";
-import { DemoBanner } from "@/components/DemoBanner";
 import { Footer } from "@/components/Footer";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
 import { getBioTranslator } from "@/lib/bio-translations";
@@ -373,8 +372,6 @@ export default async function Home() {
           </Link>
         </div>
       </section>
-
-      <DemoBanner locale={locale} />
 
       <Footer locale={locale} dir={dir} navLinks={navLinks} />
     </LiveStatsProvider>

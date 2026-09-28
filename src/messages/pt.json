@@ -239,6 +239,9 @@
     "accountTypeReal": "Conta real",
     "accountTypeDemo": "Conta demo",
     "switchAccountWarning": "Alternar entre conta real e demo reinicia o saldo e interrompe a cópia atual. Continuar?",
+    "switchAccountConfirmTitle": "Confirmar troca de conta",
+    "switchAccountConfirmCta": "Trocar",
+    "switchAccountCancelCta": "Cancelar",
     "notificationsAriaLabel": "Notificações",
     "notificationsTitle": "Notificações",
     "notificationsEmpty": "Ainda não há notificações.",
@@ -265,6 +268,9 @@
     "accountTypeShortReal": "Real",
     "accountTypeShortDemo": "Demo",
     "accountTypeAriaLabel": "Tipo de conta",
+    "switchAccountConfirmTitle": "Confirmar troca de conta",
+    "switchAccountConfirmCta": "Trocar",
+    "switchAccountCancelCta": "Cancelar",
     "unrealizedPnl": "Lucro/prejuízo não realizado",
     "availableCash": "Dinheiro disponível para saque",
     "reservedForCopy": "Reservado para cópia ativa",
@@ -420,7 +426,11 @@
     "depositGuidelinesTitle": "Diretrizes de depósito",
     "depositWarning": "Certifique-se de escolher a rede correta antes de enviar — enviar por uma rede não suportada pode causar perda permanente de fundos.",
     "txIdLabel": "ID da transação (TxID) — opcional",
-    "txIdPlaceholder": "Cole o TxID da sua carteira após enviar"
+    "txIdPlaceholder": "Cole o TxID da sua carteira após enviar",
+    "proofOfPaymentLabel": "Anexar comprovante de pagamento (imagem do recibo)",
+    "proofOfPaymentRemove": "Remover",
+    "proofOfPaymentHelp": "Anexe uma imagem clara da transferência para confirmar seu depósito rapidamente",
+    "confirmProofOfPayment": "Confirmar e enviar comprovante de depósito"
   },
   "TradeHistory": {
     "periodToday": "Hoje",

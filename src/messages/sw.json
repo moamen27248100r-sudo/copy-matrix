@@ -239,6 +239,9 @@
     "accountTypeReal": "Akaunti halisi",
     "accountTypeDemo": "Akaunti ya majaribio",
     "switchAccountWarning": "Kubadilisha kati ya akaunti halisi na ya majaribio kutaweka upya salio na kusitisha unakili wa sasa. Endelea?",
+    "switchAccountConfirmTitle": "Thibitisha kubadili akaunti",
+    "switchAccountConfirmCta": "Badilisha",
+    "switchAccountCancelCta": "Ghairi",
     "notificationsAriaLabel": "Arifa",
     "notificationsTitle": "Arifa",
     "notificationsEmpty": "Hakuna arifa bado.",
@@ -265,6 +268,9 @@
     "accountTypeShortReal": "Halisi",
     "accountTypeShortDemo": "Majaribio",
     "accountTypeAriaLabel": "Aina ya akaunti",
+    "switchAccountConfirmTitle": "Thibitisha kubadili akaunti",
+    "switchAccountConfirmCta": "Badilisha",
+    "switchAccountCancelCta": "Ghairi",
     "unrealizedPnl": "Faida/hasara isiyotambuliwa",
     "availableCash": "Pesa taslimu zinazopatikana kutolewa",
     "reservedForCopy": "Imehifadhiwa kwa unakili unaoendelea",
@@ -420,7 +426,11 @@
     "depositGuidelinesTitle": "Miongozo ya amana",
     "depositWarning": "Hakikisha umechagua mtandao sahihi kabla ya kutuma — kutuma kwa mtandao usiosaidiwa kunaweza kusababisha upotevu wa kudumu wa fedha.",
     "txIdLabel": "Kitambulisho cha muamala (TxID) — hiari",
-    "txIdPlaceholder": "Bandika TxID kutoka kwa pochi yako baada ya kutuma"
+    "txIdPlaceholder": "Bandika TxID kutoka kwa pochi yako baada ya kutuma",
+    "proofOfPaymentLabel": "Ambatanisha uthibitisho wa malipo (picha ya risiti ya uhamisho)",
+    "proofOfPaymentRemove": "Ondoa",
+    "proofOfPaymentHelp": "Tafadhali ambatanisha picha wazi ya uhamisho ili amana yako ithibitishwe haraka",
+    "confirmProofOfPayment": "Thibitisha na tuma uthibitisho wa amana"
   },
   "TradeHistory": {
     "periodToday": "Leo",

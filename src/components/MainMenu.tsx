@@ -4,8 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { logout, chooseAccountType } from "@/app/auth/actions";
-import { ConfirmButton } from "@/components/ConfirmButton";
+import { logout } from "@/app/auth/actions";
+import { AccountTypeSwitcher } from "@/components/AccountTypeSwitcher";
 import { useNavDrawer } from "@/components/nav-drawer-context";
 import { useBodyScrollLock } from "@/lib/use-body-scroll-lock";
 
@@ -358,29 +358,18 @@ export function MainMenu({
           </div>
 
           {accountType && (
-            <div className="flex rounded-full bg-black/25 p-1">
-              {accountTypeOptions.map((opt) =>
-                accountType === opt.key ? (
-                  <span
-                    key={opt.key}
-                    className="flex-1 rounded-full bg-white/10 px-3 py-1.5 text-center text-xs font-semibold text-foreground"
-                  >
-                    {opt.label}
-                  </span>
-                ) : (
-                  <form key={opt.key} action={chooseAccountType} className="flex-1">
-                    <input type="hidden" name="accountType" value={opt.key} />
-                    <input type="hidden" name="next" value={pathname} />
-                    <ConfirmButton
-                      confirmText={t("switchAccountWarning")}
-                      className="w-full rounded-full px-3 py-1.5 text-center text-xs font-medium text-muted transition hover:text-foreground"
-                    >
-                      {opt.label}
-                    </ConfirmButton>
-                  </form>
-                ),
-              )}
-            </div>
+            <AccountTypeSwitcher
+              accountType={accountType}
+              next={pathname}
+              variant="pill"
+              ariaLabel={t("switchAccountAriaLabel")}
+              options={accountTypeOptions}
+              confirmTitle={t("switchAccountConfirmTitle")}
+              confirmText={t("switchAccountWarning")}
+              confirmCta={t("switchAccountConfirmCta")}
+              cancelCta={t("switchAccountCancelCta")}
+              onSwitch={close}
+            />
           )}
         </div>
 

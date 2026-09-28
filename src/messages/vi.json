@@ -239,6 +239,9 @@
     "accountTypeReal": "Tài khoản thực",
     "accountTypeDemo": "Tài khoản demo",
     "switchAccountWarning": "Chuyển đổi giữa tài khoản thực và demo sẽ đặt lại số dư và dừng việc sao chép hiện tại. Tiếp tục?",
+    "switchAccountConfirmTitle": "Xác nhận chuyển tài khoản",
+    "switchAccountConfirmCta": "Chuyển",
+    "switchAccountCancelCta": "Hủy",
     "notificationsAriaLabel": "Thông báo",
     "notificationsTitle": "Thông báo",
     "notificationsEmpty": "Chưa có thông báo nào.",
@@ -265,6 +268,9 @@
     "accountTypeShortReal": "Thực",
     "accountTypeShortDemo": "Demo",
     "accountTypeAriaLabel": "Loại tài khoản",
+    "switchAccountConfirmTitle": "Xác nhận chuyển tài khoản",
+    "switchAccountConfirmCta": "Chuyển",
+    "switchAccountCancelCta": "Hủy",
     "unrealizedPnl": "Lãi/lỗ chưa thực hiện",
     "availableCash": "Tiền mặt khả dụng để rút",
     "reservedForCopy": "Dành riêng cho việc sao chép đang hoạt động",
@@ -420,7 +426,11 @@
     "depositGuidelinesTitle": "Hướng dẫn nạp tiền",
     "depositWarning": "Đảm bảo chọn đúng mạng lưới trước khi gửi — gửi sai mạng lưới có thể khiến mất tiền vĩnh viễn.",
     "txIdLabel": "Mã giao dịch (TxID) — tùy chọn",
-    "txIdPlaceholder": "Dán TxID từ ví của bạn sau khi gửi"
+    "txIdPlaceholder": "Dán TxID từ ví của bạn sau khi gửi",
+    "proofOfPaymentLabel": "Đính kèm bằng chứng thanh toán (ảnh biên lai chuyển khoản)",
+    "proofOfPaymentRemove": "Xóa",
+    "proofOfPaymentHelp": "Vui lòng đính kèm ảnh chuyển khoản rõ ràng để xác nhận khoản nạp nhanh chóng",
+    "confirmProofOfPayment": "Xác nhận và gửi bằng chứng nạp tiền"
   },
   "TradeHistory": {
     "periodToday": "Hôm nay",

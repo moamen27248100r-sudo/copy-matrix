@@ -251,6 +251,9 @@
     "accountTypeReal": "الحساب الحقيقي",
     "accountTypeDemo": "الحساب التجريبي",
     "switchAccountWarning": "التبديل بين الحساب الحقيقي والتجريبي يعيد ضبط الرصيد ويوقف النسخ الحالي. هل تريد المتابعة؟",
+    "switchAccountConfirmTitle": "تأكيد تبديل الحساب",
+    "switchAccountConfirmCta": "تبديل",
+    "switchAccountCancelCta": "إلغاء",
     "notificationsAriaLabel": "الإشعارات",
     "notificationsTitle": "الإشعارات",
     "notificationsEmpty": "لا توجد إشعارات حتى الآن.",
@@ -277,6 +280,9 @@
     "accountTypeShortReal": "حقيقي",
     "accountTypeShortDemo": "تجريبي",
     "accountTypeAriaLabel": "نوع الحساب",
+    "switchAccountConfirmTitle": "تأكيد تبديل الحساب",
+    "switchAccountConfirmCta": "تبديل",
+    "switchAccountCancelCta": "إلغاء",
     "unrealizedPnl": "ربح/خسارة غير محققة",
     "availableCash": "نقدي متاح للسحب",
     "reservedForCopy": "محجوز لحساب النسخ النشط",
@@ -432,7 +438,11 @@
     "depositGuidelinesTitle": "إرشادات الإيداع",
     "depositWarning": "تأكد من اختيار الشبكة الصحيحة قبل الإرسال — إرسال العملة عبر شبكة غير مدعومة قد يؤدي لفقدان الأموال.",
     "txIdLabel": "رقم العملية (TxID) — اختياري",
-    "txIdPlaceholder": "الصق رقم العملية من محفظتك بعد الإرسال"
+    "txIdPlaceholder": "الصق رقم العملية من محفظتك بعد الإرسال",
+    "proofOfPaymentLabel": "إرفاق إثبات الدفع (صورة الإشعار/التحويل)",
+    "proofOfPaymentRemove": "إزالة",
+    "proofOfPaymentHelp": "يرجى إرفاق صورة تحويل المبلغ واضحة لضمان تأكيد الإيداع بسرعة",
+    "confirmProofOfPayment": "تأكيد وإرسال إثبات الإيداع"
   },
   "TradeHistory": {
     "periodToday": "اليوم",

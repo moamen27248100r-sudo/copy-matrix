@@ -239,6 +239,9 @@
     "accountTypeReal": "असली खाता",
     "accountTypeDemo": "डेमो खाता",
     "switchAccountWarning": "असली और डेमो खाते के बीच स्विच करने से बैलेंस रीसेट होगा और मौजूदा कॉपी रुक जाएगी। जारी रखें?",
+    "switchAccountConfirmTitle": "खाता स्विच की पुष्टि करें",
+    "switchAccountConfirmCta": "स्विच करें",
+    "switchAccountCancelCta": "रद्द करें",
     "notificationsAriaLabel": "सूचनाएं",
     "notificationsTitle": "सूचनाएं",
     "notificationsEmpty": "अभी तक कोई सूचना नहीं।",
@@ -265,6 +268,9 @@
     "accountTypeShortReal": "रियल",
     "accountTypeShortDemo": "डेमो",
     "accountTypeAriaLabel": "खाता प्रकार",
+    "switchAccountConfirmTitle": "खाता स्विच की पुष्टि करें",
+    "switchAccountConfirmCta": "स्विच करें",
+    "switchAccountCancelCta": "रद्द करें",
     "unrealizedPnl": "अवास्तविक लाभ/हानि",
     "availableCash": "निकासी के लिए उपलब्ध नकदी",
     "reservedForCopy": "सक्रिय कॉपी के लिए आरक्षित",
@@ -420,7 +426,11 @@
     "depositGuidelinesTitle": "जमा दिशानिर्देश",
     "depositWarning": "भेजने से पहले सही नेटवर्क चुनना सुनिश्चित करें — गलत नेटवर्क पर भेजने से धनराशि स्थायी रूप से खो सकती है।",
     "txIdLabel": "लेन-देन आईडी (TxID) — वैकल्पिक",
-    "txIdPlaceholder": "भेजने के बाद अपने वॉलेट से TxID पेस्ट करें"
+    "txIdPlaceholder": "भेजने के बाद अपने वॉलेट से TxID पेस्ट करें",
+    "proofOfPaymentLabel": "भुगतान प्रमाण संलग्न करें (ट्रांसफर रसीद की छवि)",
+    "proofOfPaymentRemove": "हटाएं",
+    "proofOfPaymentHelp": "अपनी जमा राशि की जल्द पुष्टि के लिए कृपया ट्रांसफर की स्पष्ट तस्वीर संलग्न करें",
+    "confirmProofOfPayment": "जमा प्रमाण की पुष्टि करें और भेजें"
   },
   "TradeHistory": {
     "periodToday": "आज",
