@@ -103,3 +103,29 @@ export function computeStats(signals: ClosedSignal[]): ProviderStats {
     avgDurationHours: n ? Math.round((durationMs / n / 3600000) * 10) / 10 : null,
   };
 }
+
+// Bulk variant for the discover page: computed in the database
+// (provider_period_stats, 0196, returns one jsonb map) instead of paging every
+// signal through the API.
+export async function fetchBulkProviderStats(
+  supabase: SupabaseClient,
+  days?: number,
+): Promise<Map<string, ProviderStats>> {
+  const out = new Map<string, ProviderStats>();
+  const { data } = await supabase.rpc("provider_period_stats", { p_days: days ?? null });
+  const map = (data ?? {}) as Record<
+    string,
+    { trades: number; win_rate: number | string; total_return: number | string; max_drawdown: number | string }
+  >;
+  for (const [id, r] of Object.entries(map)) {
+    out.set(id, {
+      trades: r.trades,
+      winRate: Number(r.win_rate),
+      totalReturn: Number(r.total_return),
+      maxDrawdown: Number(r.max_drawdown),
+      sharpe: null,
+      avgDurationHours: null,
+    });
+  }
+  return out;
+}

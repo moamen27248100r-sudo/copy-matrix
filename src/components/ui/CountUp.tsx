@@ -2,16 +2,22 @@
 
 import { useEffect, useRef, useState } from "react";
 
-// Animates a number from 0 (first paint) or from its previous value to the
-// new one, and flashes the background briefly when it changes afterwards.
+// Renders the real value immediately (so server HTML and first paint are never
+// a misleading "0"), then animates smoothly from the previous value to the new
+// one whenever it changes, with a brief background flash.
 export function CountUp({ value, prefix = "" }: { value: number; prefix?: string }) {
-  const [shown, setShown] = useState(0);
+  const [shown, setShown] = useState(value);
   const [flash, setFlash] = useState(0);
-  const from = useRef(0);
+  const from = useRef(value);
   const first = useRef(true);
 
   useEffect(() => {
+    if (first.current) {
+      first.current = false;
+      return;
+    }
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      from.current = value;
       setShown(value);
       return;
     }
@@ -26,8 +32,7 @@ export function CountUp({ value, prefix = "" }: { value: number; prefix?: string
       else from.current = value;
     };
     raf = requestAnimationFrame(tick);
-    if (!first.current) setFlash((n) => n + 1);
-    first.current = false;
+    setFlash((n) => n + 1);
     return () => cancelAnimationFrame(raf);
   }, [value]);
 

@@ -681,7 +681,9 @@
     "compareTotalReturn": "إجمالي العائد",
     "compareMaxDrawdown": "أقصى تراجع",
     "compareSharpe": "نسبة شارب (لكل صفقة)",
-    "compareTrades": "الصفقات المغلقة"
+    "compareTrades": "الصفقات المغلقة",
+    "showingOf": "عرض {shown} من {total}",
+    "showMore": "عرض المزيد"
   },
   "Countries": {
     "US": "الولايات المتحدة",

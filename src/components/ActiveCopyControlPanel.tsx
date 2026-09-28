@@ -17,7 +17,13 @@ type CopiedProvider = {
 // Cumulative closed pnl for this subscription vs. -(allocated * maxDrawdownPct / 100)
 // is the exact same threshold check auto_stop_copy uses server-side (0168) --
 // this bar just shows the customer how much of that budget is left, live.
-export async function ActiveCopyControlPanel({ provider }: { provider: CopiedProvider }) {
+export async function ActiveCopyControlPanel({
+  provider,
+  returnTo = "/dashboard",
+}: {
+  provider: CopiedProvider;
+  returnTo?: string;
+}) {
   const t = await getTranslations("Dashboard");
   const lossBudget = provider.allocatedAmount * (provider.maxDrawdownPct / 100);
   const lossUsed = Math.max(0, -provider.cumulativePnl);
@@ -44,7 +50,7 @@ export async function ActiveCopyControlPanel({ provider }: { provider: CopiedPro
         </Link>
         <form action={unfollowProvider}>
           <input type="hidden" name="providerId" value={provider.providerId} />
-          <input type="hidden" name="returnTo" value="/dashboard" />
+          <input type="hidden" name="returnTo" value={returnTo} />
           <ConfirmButton
             confirmText={t("stopCopyingConfirm")}
             className="shrink-0 rounded-lg border border-slate-700 px-3 py-1.5 text-xs font-medium text-muted transition hover:border-danger/50 hover:text-danger"

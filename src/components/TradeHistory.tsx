@@ -109,7 +109,7 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
             <>
               {" · "}
               <span className={netResult >= 0 ? "text-success" : "text-danger"} dir="ltr">
-                {netResult >= 0 ? "+" : ""}${netResult.toFixed(2)}
+                {netResult >= 0 ? "+" : "-"}${Math.abs(netResult).toFixed(2)}
               </span>
             </>
           )}

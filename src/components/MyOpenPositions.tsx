@@ -76,7 +76,7 @@ function PositionRow({ pos, current }: { pos: Position; current: number | undefi
           dir="ltr"
         >
           {unrealizedPnl != null
-            ? `${unrealizedPnl >= 0 ? "+" : ""}$${unrealizedPnl.toLocaleString("en-US", { maximumFractionDigits: 2 })}`
+            ? `${unrealizedPnl >= 0 ? "+" : "-"}${Math.abs(unrealizedPnl).toLocaleString("en-US", { maximumFractionDigits: 2 })}`
             : "—"}
         </p>
         <p className="text-xs text-muted" dir="ltr">
@@ -122,8 +122,7 @@ export function MyOpenPositions({
             className={totalUnrealizedPnl >= 0 ? "text-sm font-semibold text-success" : "text-sm font-semibold text-danger"}
             dir="ltr"
           >
-            {totalUnrealizedPnl >= 0 ? "+" : ""}
-            ${totalUnrealizedPnl.toLocaleString("en-US", { maximumFractionDigits: 2 })}
+            {totalUnrealizedPnl >= 0 ? "+" : "-"}${Math.abs(totalUnrealizedPnl).toLocaleString("en-US", { maximumFractionDigits: 2 })}
           </span>
         )}
       </div>

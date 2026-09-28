@@ -49,8 +49,8 @@ export async function PortfolioValueBreakdown({
         <div>
           <p className={totalUnrealizedPnl >= 0 ? "font-semibold text-success" : "font-semibold text-danger"}>
             <span dir="ltr" className="inline-block">
-              {totalUnrealizedPnl >= 0 ? "+" : ""}
-              ${money(totalUnrealizedPnl)}
+              {totalUnrealizedPnl >= 0 ? "+" : "-"}
+              ${money(Math.abs(totalUnrealizedPnl))}
             </span>
           </p>
           <p className="text-xs text-muted">{t("unrealizedPnl")}</p>

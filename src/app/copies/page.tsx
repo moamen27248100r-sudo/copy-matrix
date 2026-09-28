@@ -5,7 +5,8 @@ import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
 import { ActiveCopyControlPanel } from "@/components/ActiveCopyControlPanel";
 
-export default async function CopiesPage() {
+export default async function CopiesPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
+  const { error } = await searchParams;
   const t = await getTranslations("Copies");
   const supabase = await createClient();
   const {
@@ -54,6 +55,7 @@ export default async function CopiesPage() {
       <AppNav />
       <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6 pb-24 lg:ms-64 lg:me-0 lg:pb-6">
         <h1 className="text-page-title">{t("title")}</h1>
+        {error && <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>}
 
         {copies.length === 0 ? (
           <EmptyState message={t("empty")} actionHref="/discover" actionLabel={t("discover")} />
@@ -72,14 +74,14 @@ export default async function CopiesPage() {
               </div>
               <div className="border-s border-border p-4">
                 <p className={`text-lg font-semibold tabular-nums ${totalPnl >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
-                  {totalPnl >= 0 ? "+" : "-"}${Math.abs(totalPnl).toLocaleString("en-US", { maximumFractionDigits: 2 })}
+                  {totalPnl >= 0 ? "+" : "-"}${Math.abs(totalPnl).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </p>
                 <p className="text-xs text-muted">{t("realizedPnl")}</p>
               </div>
             </section>
             <div className="flex flex-col gap-3">
               {copies.map((c) => (
-                <ActiveCopyControlPanel key={c.subscriptionId} provider={c} />
+                <ActiveCopyControlPanel key={c.subscriptionId} provider={c} returnTo="/copies" />
               ))}
             </div>
           </>

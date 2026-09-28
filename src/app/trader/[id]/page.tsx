@@ -380,6 +380,20 @@ export default async function TraderPage({
             <p className="text-xs text-muted">{t("statMaxDrawdown")}</p>
           </div>
           <div>
+            <p className="font-semibold" dir="ltr">
+              {aum > 0 ? `$${aum.toLocaleString("en-US", { maximumFractionDigits: 0 })}` : "—"}
+            </p>
+            <p className="text-xs text-muted">{t("statAum")}</p>
+          </div>
+          {profitShare != null && (
+            <div>
+              <p className="font-semibold" dir="ltr">
+                {profitShare}%
+              </p>
+              <p className="text-xs text-muted">{t("statProfitShare")}</p>
+            </div>
+          )}
+          <div>
             <p className="font-semibold tabular-nums" dir="ltr">
               {extraStats.sharpe ?? "—"}
             </p>

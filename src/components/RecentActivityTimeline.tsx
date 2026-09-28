@@ -1,4 +1,6 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
+import { formatDate } from "@/lib/locale-format";
+import type { Locale } from "@/i18n/locales";
 
 export type ActivityEvent = {
   id: string;
@@ -42,6 +44,7 @@ function EventIcon({ type }: { type: ActivityEvent["type"] }) {
 
 export async function RecentActivityTimeline({ events }: { events: ActivityEvent[] }) {
   const t = await getTranslations("Dashboard");
+  const locale = (await getLocale()) as Locale;
   if (events.length === 0) return null;
 
   const label = (e: ActivityEvent) => {
@@ -72,7 +75,7 @@ export async function RecentActivityTimeline({ events }: { events: ActivityEvent
               <p className="truncate text-sm">{label(e)}</p>
             </div>
             <span className="shrink-0 text-xs text-muted" dir="ltr">
-              {new Date(e.at).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+              {formatDate(e.at, locale, { month: "short", day: "numeric" })}
             </span>
           </div>
         ))}

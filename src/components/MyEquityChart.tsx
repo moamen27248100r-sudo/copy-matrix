@@ -95,7 +95,7 @@ export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
           <div className="flex items-center justify-between text-xs text-muted">
             <span>{t("startingPoint", { amount: "0" })}</span>
             <span className={last >= 0 ? "text-success" : "text-danger"} dir="ltr">
-              {last >= 0 ? "+" : ""}${last.toLocaleString("en-US", { maximumFractionDigits: 2 })}
+              {last >= 0 ? "+" : "-"}${Math.abs(last).toLocaleString("en-US", { maximumFractionDigits: 2 })}
             </span>
           </div>
         </div>

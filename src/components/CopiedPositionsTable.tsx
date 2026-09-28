@@ -69,7 +69,7 @@ function PositionRow({ pos, current }: { pos: Position; current: number | undefi
           }
           dir="ltr"
         >
-          {pnl != null ? `${pnl >= 0 ? "+" : ""}$${pnl.toLocaleString("en-US", { maximumFractionDigits: 2 })}` : "—"}
+          {pnl != null ? `${pnl >= 0 ? "+" : "-"}${Math.abs(pnl).toLocaleString("en-US", { maximumFractionDigits: 2 })}` : "—"}
         </span>
       </td>
       <td className="py-3 pe-1 text-end">

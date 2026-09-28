@@ -669,7 +669,9 @@
     "compareTotalReturn": "Total return",
     "compareMaxDrawdown": "Max drawdown",
     "compareSharpe": "Sharpe ratio (per trade)",
-    "compareTrades": "Closed trades"
+    "compareTrades": "Closed trades",
+    "showingOf": "Showing {shown} of {total}",
+    "showMore": "Show more"
   },
   "Countries": {
     "US": "Estados Unidos",

@@ -147,6 +147,8 @@ export async function unfollowProvider(formData: FormData) {
   revalidatePath("/discover");
   revalidatePath("/dashboard");
   revalidatePath("/portfolio");
+  revalidatePath("/copies");
+  revalidatePath("/trades");
   revalidatePath(`/trader/${providerId}`);
 }
 

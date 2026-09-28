@@ -5,7 +5,7 @@ import { unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/a
 import { AppNav } from "@/components/AppNav";
 import { LeaderCard } from "@/components/LeaderCard";
 import { DiscoverFilterSheet } from "@/components/DiscoverFilterSheet";
-import { fetchProviderStats } from "@/lib/provider-stats";
+import { fetchBulkProviderStats } from "@/lib/provider-stats";
 
 const SORT_OPTIONS = {
   best: { column: "rating_score", ascending: false, labelKey: "sortBest" },
@@ -54,13 +54,17 @@ export default async function DiscoverPage({
     period?: string;
     dd?: string;
     compare?: string;
+    limit?: string;
   }>;
 }) {
-  const { q, sort, error, pill, risk, minEntry, assetClass, trackRecord, view, favorites, period, dd, compare } =
+  const { q, sort, error, pill, risk, minEntry, assetClass, trackRecord, view, favorites, period, dd, compare, limit } =
     await searchParams;
   const periodDays = ["7", "30", "90", "180"].includes(period ?? "") ? Number(period) : null;
   const ddMax = ["10", "20", "30"].includes(dd ?? "") ? Number(dd) : null;
   const sortByDrawdown = sort === "drawdown";
+  // Rendering all ~1400 leaders at once took tens of seconds, so show a page
+  // at a time (24 by default, "show more" adds 24).
+  const pageSize = Math.min(240, Math.max(24, Number(limit) || 24));
   const compareIds = (compare ?? "").split(",").filter(Boolean).slice(0, 4);
   const viewMode = view === "table" ? "table" : "cards";
   const favoritesOnly = favorites === "1";
@@ -135,11 +139,7 @@ export default async function DiscoverPage({
   // only runs when one of them is actually requested.
   const statsById =
     providers && (periodDays || ddMax || sortByDrawdown)
-      ? await fetchProviderStats(
-          supabase,
-          providers.map((p) => p.provider_id),
-          periodDays ?? undefined,
-        )
+      ? await fetchBulkProviderStats(supabase, periodDays ?? undefined)
       : null;
   if (providers && statsById) {
     if (ddMax) {
@@ -163,6 +163,17 @@ export default async function DiscoverPage({
       );
     }
   }
+
+  const totalMatches = providers?.length ?? 0;
+  const visibleProviders = providers?.slice(0, pageSize) ?? null;
+  const moreHref = (() => {
+    const params = new URLSearchParams();
+    for (const [k, v] of Object.entries({ q, sort, pill, risk, minEntry, assetClass, trackRecord, view, favorites, period, dd, compare })) {
+      if (v) params.set(k, v);
+    }
+    params.set("limit", String(pageSize + 24));
+    return `/discover?${params.toString()}`;
+  })();
 
   const compareHref = (id: string) => {
     const next = compareIds.includes(id) ? compareIds.filter((c) => c !== id) : [...compareIds, id].slice(0, 4);
@@ -379,7 +390,7 @@ export default async function DiscoverPage({
               </tr>
             </thead>
             <tbody>
-              {providers.map((p) => {
+              {visibleProviders!.map((p) => {
                 const isDown = p.avg_daily_return_pct != null && p.avg_daily_return_pct < 0;
                 return (
                   <tr key={p.provider_id} className="border-b border-border last:border-b-0 hover:bg-surface/60">
@@ -414,7 +425,7 @@ export default async function DiscoverPage({
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {providers.map((p) => {
+          {visibleProviders!.map((p) => {
             const isFollowing = followingIds.has(p.provider_id);
             const isStopped = p.trading_status === "stopped";
             const isWatching = watchingIds.has(p.provider_id);
@@ -444,6 +455,15 @@ export default async function DiscoverPage({
               </div>
             );
           })}
+        </div>
+      )}
+
+      {totalMatches > pageSize && (
+        <div className="flex flex-col items-center gap-2 text-center">
+          <p className="text-xs text-muted">{t("showingOf", { shown: pageSize, total: totalMatches })}</p>
+          <Link href={moreHref} className="rounded-full border border-border px-5 py-2 text-sm font-medium hover:border-accent/40">
+            {t("showMore")}
+          </Link>
         </div>
       )}
       </main>
