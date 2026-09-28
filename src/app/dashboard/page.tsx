@@ -213,7 +213,7 @@ export default async function DashboardPage({
         <MarketTicker initialPrices={tickerInitialPrices} />
 
         <div className="flex flex-wrap items-center gap-3">
-          <h1 className="text-xl font-semibold">{greeting}</h1>
+          <h1 className="text-page-title">{greeting}</h1>
           {profile?.account_type && (
             <span
               className={

@@ -264,7 +264,8 @@
     "notificationsTitle": "الإشعارات",
     "notificationsEmpty": "لا توجد إشعارات حتى الآن.",
     "viewAll": "عرض الكل",
-    "markAllRead": "تحديد الكل كمقروء"
+    "markAllRead": "تحديد الكل كمقروء",
+    "demoStrip": "أنت في الوضع التجريبي — أموال افتراضية فقط."
   },
   "LangSwitcher": {
     "label": "اللغة"
@@ -368,7 +369,9 @@
   },
   "Common": {
     "level": "المستوى {level}",
-    "other": "أخرى"
+    "other": "أخرى",
+    "errorGeneric": "حدث خطأ ما.",
+    "retry": "إعادة المحاولة"
   },
   "Notifications": {
     "copyOpenedTitle": "تم نسخ صفقة جديدة",

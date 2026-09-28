@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { AccountTypeSwitcher } from "@/components/AccountTypeSwitcher";
 import { ConfirmButton } from "@/components/ConfirmButton";
 import { MyEquityChart } from "@/components/MyEquityChart";
+import { CountUp } from "@/components/ui/CountUp";
 import { chooseAccountType } from "@/app/auth/actions";
 
 type AccountType = "real" | "demo";
@@ -92,7 +93,7 @@ export async function DashboardHero({
       <div className="flex flex-col gap-1.5">
         <p className="font-display text-4xl font-extrabold tracking-tight" dir="ltr">
           <span dir="ltr" className="inline-block">
-            ${money(totalValue)}
+            <CountUp value={totalValue} prefix="$" />
           </span>
         </p>
         <ProfitRow label={t("todayProfit")} amount={todayPnl} pct={todayPct} />

@@ -252,7 +252,8 @@
     "notificationsTitle": "通知",
     "notificationsEmpty": "暂无通知。",
     "viewAll": "查看全部",
-    "markAllRead": "全部标记为已读"
+    "markAllRead": "全部标记为已读",
+    "demoStrip": "You're in demo mode — virtual funds only."
   },
   "LangSwitcher": {
     "label": "语言"
@@ -356,7 +357,9 @@
   },
   "Common": {
     "level": "等级 {level}",
-    "other": "其他"
+    "other": "其他",
+    "errorGeneric": "Something went wrong.",
+    "retry": "Try again"
   },
   "Notifications": {
     "copyOpenedTitle": "已复制新交易",

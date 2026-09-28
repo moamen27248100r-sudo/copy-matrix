@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { EmptyState } from "@/components/ui/EmptyState";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
@@ -53,15 +53,10 @@ export default async function CopiesPage() {
     <>
       <AppNav />
       <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6 pb-24 lg:ms-64 lg:me-0 lg:pb-6">
-        <h1 className="text-2xl font-semibold">{t("title")}</h1>
+        <h1 className="text-page-title">{t("title")}</h1>
 
         {copies.length === 0 ? (
-          <div className="flex flex-col items-center gap-3 rounded-2xl border border-border bg-surface p-8 text-center">
-            <p className="text-sm text-muted">{t("empty")}</p>
-            <Link href="/discover" className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground">
-              {t("discover")}
-            </Link>
-          </div>
+          <EmptyState message={t("empty")} actionHref="/discover" actionLabel={t("discover")} />
         ) : (
           <>
             <section className="grid grid-cols-3 rounded-2xl border border-border bg-surface text-center">

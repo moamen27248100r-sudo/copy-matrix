@@ -252,7 +252,8 @@
     "notificationsTitle": "Notificaciones",
     "notificationsEmpty": "Aún no hay notificaciones.",
     "viewAll": "Ver todo",
-    "markAllRead": "Marcar todo como leído"
+    "markAllRead": "Marcar todo como leído",
+    "demoStrip": "You're in demo mode — virtual funds only."
   },
   "LangSwitcher": {
     "label": "Idioma"
@@ -356,7 +357,9 @@
   },
   "Common": {
     "level": "Nivel {level}",
-    "other": "Otro"
+    "other": "Otro",
+    "errorGeneric": "Something went wrong.",
+    "retry": "Try again"
   },
   "Notifications": {
     "copyOpenedTitle": "Nueva operación copiada",

@@ -252,7 +252,8 @@
     "notificationsTitle": "اطلاعات",
     "notificationsEmpty": "ابھی تک کوئی اطلاع نہیں۔",
     "viewAll": "سب دیکھیں",
-    "markAllRead": "سب کو پڑھا ہوا نشان زد کریں"
+    "markAllRead": "سب کو پڑھا ہوا نشان زد کریں",
+    "demoStrip": "You're in demo mode — virtual funds only."
   },
   "LangSwitcher": {
     "label": "زبان"
@@ -356,7 +357,9 @@
   },
   "Common": {
     "level": "لیول {level}",
-    "other": "دیگر"
+    "other": "دیگر",
+    "errorGeneric": "Something went wrong.",
+    "retry": "Try again"
   },
   "Notifications": {
     "copyOpenedTitle": "نئی ٹریڈ کاپی ہوگئی",

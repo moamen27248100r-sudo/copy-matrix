@@ -22,7 +22,7 @@ export default async function NotificationPreferencesPage() {
       <AppNav />
       <main className="mx-auto flex w-full max-w-lg flex-col gap-4 p-6 pb-24 lg:ms-64 lg:me-0 lg:pb-6">
         <div className="flex items-center justify-between gap-2">
-          <h1 className="text-2xl font-semibold">{t("prefsTitle")}</h1>
+          <h1 className="text-page-title">{t("prefsTitle")}</h1>
           <span className="rounded-full border border-warning/40 bg-warning/10 px-2 py-0.5 text-[10px] font-semibold text-warning">
             {t("comingSoon")}
           </span>

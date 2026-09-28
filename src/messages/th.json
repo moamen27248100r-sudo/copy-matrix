@@ -252,7 +252,8 @@
     "notificationsTitle": "การแจ้งเตือน",
     "notificationsEmpty": "ยังไม่มีการแจ้งเตือน",
     "viewAll": "ดูทั้งหมด",
-    "markAllRead": "ทำเครื่องหมายว่าอ่านแล้วทั้งหมด"
+    "markAllRead": "ทำเครื่องหมายว่าอ่านแล้วทั้งหมด",
+    "demoStrip": "You're in demo mode — virtual funds only."
   },
   "LangSwitcher": {
     "label": "ภาษา"
@@ -356,7 +357,9 @@
   },
   "Common": {
     "level": "ระดับ {level}",
-    "other": "อื่นๆ"
+    "other": "อื่นๆ",
+    "errorGeneric": "Something went wrong.",
+    "retry": "Try again"
   },
   "Notifications": {
     "copyOpenedTitle": "คัดลอกออเดอร์ใหม่แล้ว",

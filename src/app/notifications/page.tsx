@@ -148,7 +148,7 @@ export default async function NotificationsPage({ searchParams }: { searchParams
       <AppNav />
       <main className="mx-auto flex w-full max-w-lg flex-col gap-4 p-6 pb-24 lg:ms-64 lg:me-0 lg:pb-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-semibold">{t("notificationsTitle")}</h1>
+          <h1 className="text-page-title">{t("notificationsTitle")}</h1>
           {hasUnread && (
             <form action={markAllRead}>
               <button type="submit" className="text-sm text-muted underline">

@@ -252,7 +252,8 @@
     "notificationsTitle": "Thông báo",
     "notificationsEmpty": "Chưa có thông báo nào.",
     "viewAll": "Xem tất cả",
-    "markAllRead": "Đánh dấu tất cả đã đọc"
+    "markAllRead": "Đánh dấu tất cả đã đọc",
+    "demoStrip": "You're in demo mode — virtual funds only."
   },
   "LangSwitcher": {
     "label": "Ngôn ngữ"
@@ -356,7 +357,9 @@
   },
   "Common": {
     "level": "Cấp độ {level}",
-    "other": "Khác"
+    "other": "Khác",
+    "errorGeneric": "Something went wrong.",
+    "retry": "Try again"
   },
   "Notifications": {
     "copyOpenedTitle": "Đã sao chép giao dịch mới",

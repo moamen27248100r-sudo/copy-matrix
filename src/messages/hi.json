@@ -252,7 +252,8 @@
     "notificationsTitle": "सूचनाएं",
     "notificationsEmpty": "अभी तक कोई सूचना नहीं।",
     "viewAll": "सभी देखें",
-    "markAllRead": "सभी को पढ़ा हुआ चिह्नित करें"
+    "markAllRead": "सभी को पढ़ा हुआ चिह्नित करें",
+    "demoStrip": "You're in demo mode — virtual funds only."
   },
   "LangSwitcher": {
     "label": "भाषा"
@@ -356,7 +357,9 @@
   },
   "Common": {
     "level": "लेवल {level}",
-    "other": "अन्य"
+    "other": "अन्य",
+    "errorGeneric": "Something went wrong.",
+    "retry": "Try again"
   },
   "Notifications": {
     "copyOpenedTitle": "नया ट्रेड कॉपी हुआ",

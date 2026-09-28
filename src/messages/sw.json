@@ -252,7 +252,8 @@
     "notificationsTitle": "Arifa",
     "notificationsEmpty": "Hakuna arifa bado.",
     "viewAll": "Ona zote",
-    "markAllRead": "Weka alama zote kama zimesomwa"
+    "markAllRead": "Weka alama zote kama zimesomwa",
+    "demoStrip": "You're in demo mode — virtual funds only."
   },
   "LangSwitcher": {
     "label": "Lugha"
@@ -356,7 +357,9 @@
   },
   "Common": {
     "level": "Kiwango {level}",
-    "other": "Nyingine"
+    "other": "Nyingine",
+    "errorGeneric": "Something went wrong.",
+    "retry": "Try again"
   },
   "Notifications": {
     "copyOpenedTitle": "Biashara mpya imenakiliwa",

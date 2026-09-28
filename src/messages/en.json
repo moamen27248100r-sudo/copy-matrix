@@ -252,7 +252,8 @@
     "notificationsTitle": "Notifications",
     "notificationsEmpty": "No notifications yet.",
     "viewAll": "View all",
-    "markAllRead": "Mark all as read"
+    "markAllRead": "Mark all as read",
+    "demoStrip": "You're in demo mode — virtual funds only."
   },
   "LangSwitcher": {
     "label": "Language"
@@ -356,7 +357,9 @@
   },
   "Common": {
     "level": "Level {level}",
-    "other": "Other"
+    "other": "Other",
+    "errorGeneric": "Something went wrong.",
+    "retry": "Try again"
   },
   "Notifications": {
     "copyOpenedTitle": "New trade copied",

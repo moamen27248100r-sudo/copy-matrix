@@ -26,7 +26,7 @@ export default async function MarketsPage({
       <AppNav />
       <main className="mx-auto flex w-full max-w-5xl flex-col gap-4 p-6 pb-24 lg:ms-64 lg:me-0 lg:pb-6">
         <div>
-          <h1 className="text-2xl font-semibold">{t("title")}</h1>
+          <h1 className="text-page-title">{t("title")}</h1>
           <p className="mt-1 text-sm text-muted">{t("subtitle")}</p>
         </div>
         <div className="overflow-hidden rounded-lg border border-border">

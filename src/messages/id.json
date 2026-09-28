@@ -252,7 +252,8 @@
     "notificationsTitle": "Notifikasi",
     "notificationsEmpty": "Belum ada notifikasi.",
     "viewAll": "Lihat semua",
-    "markAllRead": "Tandai semua sebagai dibaca"
+    "markAllRead": "Tandai semua sebagai dibaca",
+    "demoStrip": "You're in demo mode — virtual funds only."
   },
   "LangSwitcher": {
     "label": "Bahasa"
@@ -356,7 +357,9 @@
   },
   "Common": {
     "level": "Level {level}",
-    "other": "Lainnya"
+    "other": "Lainnya",
+    "errorGeneric": "Something went wrong.",
+    "retry": "Try again"
   },
   "Notifications": {
     "copyOpenedTitle": "Trade baru disalin",

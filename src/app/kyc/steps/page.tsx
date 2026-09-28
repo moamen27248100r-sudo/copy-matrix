@@ -49,7 +49,7 @@ export default async function KycStepsPage() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-semibold">{t("stepsTitle")}</h1>
+        <h1 className="text-page-title">{t("stepsTitle")}</h1>
         <p className="text-sm text-muted">{t("stepsSubtitle")}</p>
       </div>
 

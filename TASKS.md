@@ -61,14 +61,14 @@ original prompts' own section order.
 ## 4) Design system
 
 - [x] Green profit / red loss with arrow convention — already existed, preserved throughout
-- [ ] Unified 4/8px spacing scale
-- [ ] Unified type scale (page title / section title / body / secondary)
-- [ ] `tabular-nums` on numeric displays
-- [ ] Shared Skeleton loading component
-- [ ] Shared Empty-state component
-- [ ] Shared Error-state-with-retry component
-- [ ] Thin amber "you're in demo mode" strip at the top of the page
-- [ ] Light animations (number count-up, flash on change)
+- [x] Unified 4/8px spacing scale (documented tokens in globals.css)
+- [x] Unified type scale (text-page-title/section-title/body/secondary utilities; page titles migrated)
+- [x] `tabular-nums` on numeric displays (global rule for dir=ltr, td, th)
+- [x] Shared Skeleton loading component (+ loading.tsx on main pages)
+- [x] Shared Empty-state component
+- [x] Shared Error-state-with-retry component (+ app/error.tsx)
+- [x] Thin amber "you're in demo mode" strip at the top of the page
+- [x] Light animations (hero value count-up, flash on change)
 
 ## Data & backend (added scope, not in the original prompts)
 

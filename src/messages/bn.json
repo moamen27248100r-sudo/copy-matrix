@@ -252,7 +252,8 @@
     "notificationsTitle": "বিজ্ঞপ্তি",
     "notificationsEmpty": "এখনও কোনো বিজ্ঞপ্তি নেই।",
     "viewAll": "সব দেখুন",
-    "markAllRead": "সব পঠিত হিসেবে চিহ্নিত করুন"
+    "markAllRead": "সব পঠিত হিসেবে চিহ্নিত করুন",
+    "demoStrip": "You're in demo mode — virtual funds only."
   },
   "LangSwitcher": {
     "label": "ভাষা"
@@ -356,7 +357,9 @@
   },
   "Common": {
     "level": "লেভেল {level}",
-    "other": "অন্যান্য"
+    "other": "অন্যান্য",
+    "errorGeneric": "Something went wrong.",
+    "retry": "Try again"
   },
   "Notifications": {
     "copyOpenedTitle": "নতুন ট্রেড কপি হয়েছে",
