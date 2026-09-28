@@ -246,3 +246,94 @@ th {
     animation: none;
   }
 }
+
+/* ---- Landing / auth design system ----------------------------------------
+   Scoped to `.landing` so the customer dashboard keeps its own palette until
+   it is migrated. Inside `.landing` the existing Tailwind tokens
+   (bg-background, bg-surface, text-muted, border-border, bg-accent,
+   text-success/danger/warning) resolve to the values below, so components
+   only need the standard utilities.
+     --primary: the platform's current blue (single colour for buttons /
+     selection). --up / --down: profit / loss only. --warning: warnings only. */
+.landing {
+  --background: #0b0e14;
+  --surface: #12161f;
+  --surface-2: #181d28;
+  --border: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --foreground: #e8eaf0;
+  --muted: #9aa3b2;
+  --text-3: #6b7280;
+  --primary: #2f6fed;
+  --accent: var(--primary);
+  --accent-hover: #4d84f0;
+  --accent-foreground: #ffffff;
+  --up: #16c784;
+  --down: #ea3943;
+  --success: var(--up);
+  --danger: var(--down);
+  --warning: #f5a524;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-plex-sans-arabic), sans-serif;
+}
+@theme inline {
+  --color-surface-2: var(--surface-2);
+  --color-border-strong: var(--border-strong);
+  --color-text-3: var(--text-3);
+  --color-up: var(--up);
+  --color-down: var(--down);
+  --color-primary: var(--primary);
+}
+/* Numbers: Inter with tabular figures, always isolated from surrounding Arabic. */
+.num {
+  font-family: var(--font-inter), var(--font-plex-sans-arabic), sans-serif;
+  font-variant-numeric: tabular-nums;
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
+}
+.landing-section {
+  padding-block: 64px;
+}
+@media (min-width: 768px) {
+  .landing-section {
+    padding-block: 96px;
+  }
+}
+.landing-h1 {
+  font-size: 40px;
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.landing-h2 {
+  font-size: 28px;
+  line-height: 1.3;
+  font-weight: 600;
+}
+@media (min-width: 768px) {
+  .landing-h1 {
+    font-size: 56px;
+    line-height: 1.15;
+  }
+  .landing-h2 {
+    font-size: 36px;
+  }
+}
+.reveal {
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+.reveal[data-reveal="hidden"] {
+  opacity: 0;
+  transform: translateY(8px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none;
+  }
+  .reveal[data-reveal="hidden"] {
+    opacity: 1;
+    transform: none;
+  }
+}

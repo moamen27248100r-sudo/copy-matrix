@@ -22,7 +22,7 @@ export function GoogleSignInButton({ next, label, loadingLabel }: { next?: strin
       type="button"
       onClick={handleClick}
       disabled={loading}
-      className="flex items-center justify-center gap-2 rounded border border-border bg-background px-3 py-2 font-medium text-foreground transition hover:border-accent disabled:opacity-60"
+      className="flex items-center justify-center gap-2 rounded-xl border border-border-strong bg-surface px-4 py-3 text-base font-medium text-foreground transition-colors hover:bg-surface-2 disabled:opacity-60"
     >
       <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" aria-hidden="true">
         <path fill="#4285F4" d="M23.52 12.27c0-.85-.08-1.67-.22-2.45H12v4.64h6.47a5.53 5.53 0 0 1-2.4 3.63v3h3.88c2.27-2.09 3.57-5.17 3.57-8.82z" />

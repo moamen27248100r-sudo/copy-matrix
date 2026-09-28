@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans_Arabic, IBM_Plex_Mono, Cairo } from "next/font/google";
+import { IBM_Plex_Sans_Arabic, IBM_Plex_Mono, Cairo, Inter } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
@@ -32,6 +32,13 @@ const cairo = Cairo({
   variable: "--font-cairo",
   subsets: ["arabic", "latin"],
   weight: ["700", "800", "900"],
+});
+
+// Numbers on the landing / auth pages use Inter (tabular figures).
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -72,7 +79,7 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={dir}
-      className={`${plexSansArabic.variable} ${plexMono.variable} ${cairo.variable} h-full antialiased`}
+      className={`${plexSansArabic.variable} ${plexMono.variable} ${cairo.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <script

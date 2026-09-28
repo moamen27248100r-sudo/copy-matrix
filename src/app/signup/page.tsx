@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { SignupForm } from "@/components/SignupForm";
+import { AuthShell } from "@/components/auth/AuthShell";
 import { safeNextPath } from "@/lib/safe-next";
 import { GoogleSignInButton } from "@/components/GoogleSignInButton";
 
@@ -15,36 +16,28 @@ export default async function SignupPage({
   const t = await getTranslations("Auth");
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col justify-center gap-5 p-6">
-      <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-lg font-semibold">{t("signupTitle")}</h1>
-        <p className="text-sm text-muted">{t("signupSubtitle")}</p>
-      </div>
-
+    <AuthShell title={t("signupTitle")} subtitle={t("signupSubtitle")}>
       {error && (
-        <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
+        <p role="alert" className="rounded-xl border border-down/40 bg-down/10 px-4 py-3 text-sm text-foreground">
           {error}
         </p>
       )}
 
       <GoogleSignInButton next={next} label={t("signupWithGoogle")} loadingLabel={t("googleRedirecting")} />
 
-      <div className="flex items-center gap-3 text-xs text-muted">
+      <div className="flex items-center gap-3 text-sm text-muted">
         <span className="h-px flex-1 bg-border" />
         {t("or")}
         <span className="h-px flex-1 bg-border" />
       </div>
 
-      <div className="rounded-xl border border-border bg-surface p-5 shadow-lg">
-        <SignupForm next={next} />
-      </div>
+      <SignupForm next={next} />
 
-      <Link
-        href={loginHref}
-        className="rounded border border-border px-3 py-2 text-center font-medium text-foreground transition hover:border-accent hover:text-accent"
-      >
-        {t("alreadyHaveAccount")}
-      </Link>
-    </main>
+      <p className="text-center text-sm">
+        <Link href={loginHref} className="font-medium text-foreground underline underline-offset-4">
+          {t("alreadyHaveAccount")}
+        </Link>
+      </p>
+    </AuthShell>
   );
 }

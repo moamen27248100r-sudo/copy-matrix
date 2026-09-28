@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import type { Locale } from "@/i18n/locales";
 import { TRADINGVIEW_LOCALES } from "@/lib/tradingview-locale";
+import { TRADABLE_SYMBOLS } from "@/config/platform";
 
 export function MarketOverview() {
   const locale = useLocale() as Locale;
@@ -37,29 +38,9 @@ export function MarketOverview() {
       belowLineFillColorFallingBottom: "rgba(47, 111, 237, 0)",
       symbolActiveColor: "rgba(47, 111, 237, 0.12)",
       tabs: [
-        {
-          title: t("crypto"),
-          symbols: [
-            { s: "BINANCE:BTCUSDT" },
-            { s: "BINANCE:ETHUSDT" },
-            { s: "BINANCE:SOLUSDT" },
-            { s: "BINANCE:BNBUSDT" },
-            { s: "BINANCE:XRPUSDT" },
-          ],
-        },
-        {
-          title: t("forex"),
-          symbols: [
-            { s: "OANDA:XAUUSD" },
-            { s: "OANDA:EURUSD" },
-            { s: "OANDA:GBPUSD" },
-            { s: "OANDA:USDJPY" },
-          ],
-        },
-        {
-          title: t("indices"),
-          symbols: [{ s: "FOREXCOM:US30" }],
-        },
+        { title: t("crypto"), symbols: TRADABLE_SYMBOLS.crypto.slice(0, 5).map((s) => ({ s })) },
+        { title: t("forex"), symbols: TRADABLE_SYMBOLS.forex.slice(0, 5).map((s) => ({ s })) },
+        { title: t("indices"), symbols: TRADABLE_SYMBOLS.indices.slice(0, 5).map((s) => ({ s })) },
       ],
       support_host: "https://www.tradingview.com",
     });

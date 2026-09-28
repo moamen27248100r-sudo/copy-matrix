@@ -23,7 +23,8 @@ const BCP47: Record<Locale, string> = {
 };
 
 export function localeTag(locale: Locale): string {
-  return BCP47[locale] ?? "en-US";
+  // -u-nu-latn: always 0-9 digits, even in Arabic / Hindi / Bengali locales.
+  return `${BCP47[locale] ?? "en-US"}-u-nu-latn`;
 }
 
 export function formatDate(iso: string | null | undefined, locale: Locale, options?: Intl.DateTimeFormatOptions): string {

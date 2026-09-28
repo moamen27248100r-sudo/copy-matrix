@@ -16,7 +16,7 @@ export function PasswordStrength({ value }: { value: string }) {
     (/[^A-Za-z0-9]/.test(value) ? 1 : 0);
   const level = score <= 1 ? 0 : score <= 3 ? 1 : 2;
   const labels = [t("passwordStrengthWeak"), t("passwordStrengthMedium"), t("passwordStrengthStrong")];
-  const colors = ["bg-danger", "bg-warning", "bg-success"];
+  const colors = ["bg-warning", "bg-primary", "bg-primary"];
 
   return (
     <div className="flex items-center gap-2">
