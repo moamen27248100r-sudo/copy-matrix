@@ -1,7 +1,26 @@
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { getTranslations } from "next-intl/server";
-import { PhoneFrame, BrowserFrame } from "@/components/landing/frames";
+import dynamic from "next/dynamic";
+import { PhoneShell, BrowserShell } from "@/components/landing/demo/shells";
+import { MyCopiesScreen, MiniDashboard } from "@/components/landing/demo/screens";
+import type { SimTrader } from "@/components/landing/demo/CopySimulator";
+
+// Everything below the first screen is a separate chunk (loaded with the page
+// HTML for SEO, hydrated on demand).
+const placeholder = (h: number) => () => <div style={{ minHeight: h }} aria-hidden="true" />;
+const LiveCopyDemo = dynamic(() => import("@/components/landing/demo/LiveCopyDemo").then((m) => m.LiveCopyDemo), {
+  loading: placeholder(420),
+});
+const StepsScroll = dynamic(() => import("@/components/landing/demo/StepsScroll").then((m) => m.StepsScroll), {
+  loading: placeholder(600),
+});
+const CopySimulator = dynamic(() => import("@/components/landing/demo/CopySimulator").then((m) => m.CopySimulator), {
+  loading: placeholder(420),
+});
+const ProtectionDemo = dynamic(() => import("@/components/landing/demo/ProtectionDemo").then((m) => m.ProtectionDemo), {
+  loading: placeholder(320),
+});
 import { CountOnView } from "@/components/landing/CountOnView";
 import { Reveal } from "@/components/landing/Reveal";
 import { MarketOverview } from "@/components/MarketOverview";
@@ -14,15 +33,13 @@ type T = Awaited<ReturnType<typeof getTranslations>>;
 
 // ---------------------------------------------------------------- hero ----
 
-const IMG = "/images/product";
-
-export async function Hero({ videoSrc }: { videoSrc: string | null }) {
+export async function Hero() {
   const t = await getTranslations("Landing");
   return (
     <section className="relative overflow-hidden">
       <div aria-hidden="true" className="hero-grid pointer-events-none absolute inset-0" />
       <div className={`${wrap} relative pb-16 pt-12 md:pb-24 md:pt-20`}>
-        <div className="grid items-center gap-14 lg:grid-cols-[1fr_1.1fr] lg:gap-10">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-14">
           <div className="flex flex-col items-start gap-6">
             <h1 className="landing-h1 max-w-xl">{t("heroTitle")}</h1>
             <p className="max-w-lg text-base leading-7 text-muted">{t("heroDesc")}</p>
@@ -42,50 +59,11 @@ export async function Hero({ videoSrc }: { videoSrc: string | null }) {
               ))}
             </ul>
           </div>
-
-          {/* Mobile: a single phone under the buttons. */}
-          <div className="flex justify-center lg:hidden">
-            <PhoneFrame src={`${IMG}/mobile-dashboard.webp`} alt={t("altDashboardMobile")} width={260} priority sizes="260px" videoSrc={videoSrc} />
-          </div>
-
-          {/* Desktop: browser window with a phone overlapping its lower edge. */}
-          <div className="relative hidden pb-16 lg:block">
-            <BrowserFrame src={`${IMG}/desktop-dashboard.webp`} alt={t("altDashboardDesktop")} priority sizes="620px" />
-            <div className="absolute -bottom-2 start-6">
-              <PhoneFrame src={`${IMG}/mobile-trader.webp`} alt={t("altTraderMobile")} width={190} priority sizes="190px" videoSrc={videoSrc} className="bg-background" />
-            </div>
+          <div className="flex justify-center lg:order-first">
+            <LiveCopyDemo />
           </div>
         </div>
-        <p className="mt-8 text-center text-xs text-muted lg:text-start">{t("demoShotNote")}</p>
       </div>
-    </section>
-  );
-}
-
-// One showcase row: text on one side, a product screenshot on the other. The
-// image side alternates from row to row; on mobile the image sits under the text.
-export function ShowcaseRow({
-  id,
-  title,
-  desc,
-  flip = false,
-  children,
-}: {
-  id?: string;
-  title: string;
-  desc: string;
-  flip?: boolean;
-  children: React.ReactNode;
-}) {
-  return (
-    <section id={id} className={`${wrap} landing-section scroll-mt-16`}>
-      <Reveal className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
-        <div className={`flex flex-col gap-4 ${flip ? "md:order-2" : ""}`}>
-          <h2 className="landing-h2">{title}</h2>
-          <p className="max-w-lg text-base leading-7 text-muted">{desc}</p>
-        </div>
-        <div className={`flex justify-center ${flip ? "md:order-1" : ""}`}>{children}</div>
-      </Reveal>
     </section>
   );
 }
@@ -138,28 +116,34 @@ export async function SectionHeading({ id, title, action }: { id?: string; title
 export async function HowItWorks() {
   const t = await getTranslations("Landing");
   const steps = [
-    { n: "1", title: t("how1t"), desc: t("how1d"), img: "mobile-dashboard", alt: t("altDashboardMobile") },
-    { n: "2", title: t("how2t"), desc: t("how2d"), img: "mobile-trader", alt: t("altTraderMobile") },
-    { n: "3", title: t("how3t"), desc: t("how3d"), img: "mobile-copy-dialog", alt: t("altCopyDialog") },
+    { title: t("st1t"), desc: t("st1d"), alt: t("altStep1") },
+    { title: t("st2t"), desc: t("st2d"), alt: t("altStep2") },
+    { title: t("st3t"), desc: t("st3d"), alt: t("altStep3") },
   ];
   return (
     <section id="how-it-works" className={`${wrap} landing-section scroll-mt-16`}>
-      <Reveal className="flex flex-col gap-10">
+      <div className="flex flex-col gap-10">
         <SectionHeading title={t("howTitle")} />
-        <ol className="grid gap-12 md:grid-cols-3 md:gap-8">
-          {steps.map((s) => (
-            <li key={s.n} className="flex flex-col gap-6 border-t border-border pt-6">
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex min-w-0 flex-col gap-3">
-                  <span className="num text-5xl font-semibold text-text-3">{s.n}</span>
-                  <h3 className="text-lg font-semibold">{s.title}</h3>
-                  <p className="text-base leading-7 text-muted">{s.desc}</p>
-                </div>
-              </div>
-              <PhoneFrame src={`${IMG}/${s.img}.webp`} alt={s.alt} width={150} crop sizes="150px" className="self-start" />
-            </li>
-          ))}
-        </ol>
+        <StepsScroll steps={steps} />
+        <p className="text-center text-xs text-muted lg:text-start">{t("demoDataNote")}</p>
+      </div>
+    </section>
+  );
+}
+
+// ------------------------------------------------------------ simulator ----
+
+export async function SimulatorSection({ traders }: { traders: SimTrader[] }) {
+  const t = await getTranslations("Landing");
+  if (traders.length === 0) return null;
+  return (
+    <section className={`${wrap} landing-section`}>
+      <Reveal className="flex flex-col gap-8">
+        <div className="flex flex-col gap-2">
+          <h2 className="landing-h2">{t("simTitle")}</h2>
+          <p className="max-w-2xl text-base leading-7 text-muted">{t("simDesc")}</p>
+        </div>
+        <CopySimulator traders={traders} />
       </Reveal>
     </section>
   );
@@ -180,7 +164,7 @@ export async function Protection() {
   return (
     <section className="border-y border-border bg-surface/40">
       <div className={`${wrap} landing-section`}>
-        <Reveal className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
+        <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
           <div className="flex flex-col gap-6">
             <h2 className="landing-h2">{t("protectTitle")}</h2>
             <p className="text-base leading-7 text-muted">{t("protectIntro")}</p>
@@ -193,26 +177,10 @@ export async function Protection() {
               ))}
             </ul>
           </div>
-          <div className="flex justify-center">
-            <PhoneFrame src={`${IMG}/mobile-copy-dialog.webp`} alt={t("altCopyDialog")} width={280} sizes="280px" />
-          </div>
-        </Reveal>
+          <ProtectionDemo />
+        </div>
       </div>
     </section>
-  );
-}
-
-// ---------------------------------------------------------- follow trades ----
-
-export async function FollowTrades() {
-  const t = await getTranslations("Landing");
-  return (
-    <ShowcaseRow title={t("followTitle")} desc={t("followDesc")} flip>
-      <div className="flex items-start justify-center gap-4">
-        <PhoneFrame src={`${IMG}/mobile-trades-open.webp`} alt={t("altTradesMobile")} width={190} sizes="190px" />
-        <PhoneFrame src={`${IMG}/mobile-copies.webp`} alt={t("altCopiesMobile")} width={190} sizes="190px" className="mt-10" />
-      </div>
-    </ShowcaseRow>
   );
 }
 
@@ -363,12 +331,30 @@ export async function FinalCta() {
   const t = await getTranslations("Landing");
   return (
     <section className={`${wrap} landing-section`}>
-      <div className="flex flex-col items-center gap-5 rounded-2xl border border-border bg-surface px-6 py-14 text-center">
-        <h2 className="landing-h2">{t("ctaTitle")}</h2>
-        <p className="max-w-md text-base leading-7 text-muted">{t("ctaDesc")}</p>
-        <Link href="/signup" className="rounded-xl bg-primary px-6 py-3 text-base font-medium text-white transition-colors hover:bg-accent-hover">
-          {t("heroStart")}
-        </Link>
+      <div className="grid items-center gap-10 rounded-2xl border border-border bg-surface px-6 py-12 md:px-10 lg:grid-cols-2">
+        <div className="flex flex-col items-start gap-5">
+          <h2 className="landing-h2">{t("ctaTitle")}</h2>
+          <p className="max-w-md text-base leading-7 text-muted">{t("ctaDesc")}</p>
+          <Link href="/signup" className="rounded-xl bg-primary px-6 py-3 text-base font-medium text-white transition-colors hover:bg-accent-hover">
+            {t("heroStart")}
+          </Link>
+        </div>
+        {/* Desktop: browser window with a phone overlapping its lower edge. Mobile: the phone only. */}
+        <div className="flex justify-center lg:hidden">
+          <PhoneShell width={250} label={t("altStep3")}>
+            <MyCopiesScreen />
+          </PhoneShell>
+        </div>
+        <div className="relative hidden pb-14 lg:block">
+          <BrowserShell width={520}>
+            <MiniDashboard />
+          </BrowserShell>
+          <div className="absolute -bottom-2 start-6">
+            <PhoneShell width={190} label={t("altStep3")}>
+              <MyCopiesScreen />
+            </PhoneShell>
+          </div>
+        </div>
       </div>
     </section>
   );

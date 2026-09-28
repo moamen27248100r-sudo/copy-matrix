@@ -350,7 +350,8 @@ th {
 .landing-marquee {
   animation: landing-marquee 45s linear infinite;
 }
-.landing-marquee:hover {
+.landing-marquee:hover,
+.landing-marquee:active {
   animation-play-state: paused;
 }
 .spark-line {
@@ -378,4 +379,35 @@ th {
   background-size: 56px 56px;
   -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 20%, transparent 100%);
   mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 20%, transparent 100%);
+}
+
+/* Range slider (copy simulator): flat track, primary thumb. */
+.landing-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 9999px;
+  background: var(--surface-2);
+  outline: none;
+}
+.landing-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 9999px;
+  background: var(--primary);
+  border: 2px solid var(--background);
+  cursor: pointer;
+}
+.landing-range::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 9999px;
+  background: var(--primary);
+  border: 2px solid var(--background);
+  cursor: pointer;
+}
+.landing-range:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 4px;
 }
