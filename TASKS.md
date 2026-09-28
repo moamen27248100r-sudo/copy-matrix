@@ -48,7 +48,7 @@ original prompts' own section order.
 - [x] Trader page: colored monthly-returns calendar (12-month heatmap)
 - [x] Trader page: Sharpe ratio + avg. trade duration (computed from signals)
 - [ ] Trader page: AUM and profit-share % (no data source; needs a decision)
-- [ ] Copy modal: proper dialog with copy mode (fixed-ratio/fixed-amount), copy-open-trades toggle, collapsible advanced settings (max per trade, copy stop-loss, trailing stop, per-trade TP/SL), risk acknowledgment — still a bare inline form (amount only)
+- [x] Copy modal: dialog with amount + risk acknowledgment (functional); copy mode, copy-open-trades and advanced settings shown disabled "coming soon" — backend (money-mirroring) pending your go-ahead
 - [ ] Dedicated "My Copies" page (bottom nav currently links to the dashboard's active-copies section, not a real page)
 - [ ] Dedicated "Trades" page: open tab (edit TP/SL, close all) + history tab (filters, CSV export) — bottom nav links to `/portfolio?tab=positions` which doesn't have these yet
 - [ ] Portfolio: short monthly report (balances + transaction history already existed before this work)

@@ -1338,5 +1338,24 @@
     "aiNoClearAnswer": "Hiện tại chúng tôi chưa có câu trả lời rõ ràng cho câu hỏi này. Vui lòng thử diễn đạt lại, hoặc liên hệ đội ngũ hỗ trợ của chúng tôi.",
     "searchTopics": "Tìm kiếm chủ đề phổ biến...",
     "noSearchResults": "Không có chủ đề nào khớp với tìm kiếm của bạn."
+  },
+  "CopyDialog": {
+    "comingSoon": "Coming soon",
+    "open": "Copy",
+    "title": "Copy {name}",
+    "close": "Close",
+    "amountLabel": "Amount to allocate ($)",
+    "minAmount": "Minimum:",
+    "modeLabel": "Copy mode",
+    "modeRatio": "Fixed ratio",
+    "modeFixed": "Fixed amount per trade",
+    "copyOpenTrades": "Also copy currently open trades",
+    "advanced": "Advanced settings",
+    "maxPerTrade": "Max amount per trade",
+    "copyStopLoss": "Copy stop-loss",
+    "trailingStop": "Trailing stop",
+    "perTradeTpSl": "Per-trade take-profit / stop-loss",
+    "riskAck": "I understand that copy trading involves risk and I may lose part or all of the allocated amount.",
+    "confirm": "Start copying"
   }
 }

@@ -16,6 +16,7 @@ import { TraderAvatar } from "@/components/TraderAvatar";
 import { countryDisplay } from "@/lib/country-metadata";
 import { formatDate } from "@/lib/locale-format";
 import { computeStats } from "@/lib/provider-stats";
+import { CopyDialog } from "@/components/CopyDialog";
 import { getBioTranslator } from "@/lib/bio-translations";
 import type { Locale } from "@/i18n/locales";
 
@@ -322,24 +323,13 @@ export default async function TraderPage({
             </div>
           ) : (
             <div className="flex flex-col gap-1.5">
-              <form action={followProvider} className="flex items-center gap-2">
-                <input type="hidden" name="providerId" value={id} />
-                <input
-                  name="allocatedAmount"
-                  type="number"
-                  step="any"
-                  min={0}
-                  defaultValue={myProfile?.balance ?? provider.min_copy_amount}
-                  required
-                  className="w-0 min-w-0 flex-1 rounded-lg border border-border bg-surface px-3 py-3 text-sm text-foreground focus:outline-none"
-                />
-                <button
-                  type="submit"
-                  className="shrink-0 rounded-lg bg-accent px-6 py-3 text-base font-bold text-accent-foreground shadow-md shadow-accent/20 transition hover:bg-accent-hover"
-                >
-                  {t("copyCta")}
-                </button>
-              </form>
+              <CopyDialog
+                action={followProvider}
+                providerId={id}
+                providerName={provider.display_name}
+                defaultAmount={Number(myProfile?.balance ?? provider.min_copy_amount)}
+                minAmount={Number(provider.min_copy_amount)}
+              />
               <p className="text-center text-xs text-muted">
                 {t("minCopyBadgeLabel")} <span dir="ltr">${Number(provider.min_copy_amount).toLocaleString("en-US")}</span>
               </p>

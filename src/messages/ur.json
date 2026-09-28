@@ -1338,5 +1338,24 @@
     "aiNoClearAnswer": "فی الحال ہمارے پاس اس سوال کا واضح جواب دستیاب نہیں۔ براہ کرم اسے دوبارہ لکھنے کی کوشش کریں، یا ہماری سپورٹ ٹیم سے رابطہ کریں۔",
     "searchTopics": "عام موضوعات میں تلاش کریں...",
     "noSearchResults": "آپ کی تلاش سے مماثل کوئی موضوع نہیں۔"
+  },
+  "CopyDialog": {
+    "comingSoon": "Coming soon",
+    "open": "Copy",
+    "title": "Copy {name}",
+    "close": "Close",
+    "amountLabel": "Amount to allocate ($)",
+    "minAmount": "Minimum:",
+    "modeLabel": "Copy mode",
+    "modeRatio": "Fixed ratio",
+    "modeFixed": "Fixed amount per trade",
+    "copyOpenTrades": "Also copy currently open trades",
+    "advanced": "Advanced settings",
+    "maxPerTrade": "Max amount per trade",
+    "copyStopLoss": "Copy stop-loss",
+    "trailingStop": "Trailing stop",
+    "perTradeTpSl": "Per-trade take-profit / stop-loss",
+    "riskAck": "I understand that copy trading involves risk and I may lose part or all of the allocated amount.",
+    "confirm": "Start copying"
   }
 }

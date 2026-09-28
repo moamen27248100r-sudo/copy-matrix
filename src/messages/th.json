@@ -1338,5 +1338,24 @@
     "aiNoClearAnswer": "ขณะนี้เรายังไม่มีคำตอบที่ชัดเจนสำหรับคำถามนี้ โปรดลองเรียบเรียงใหม่ หรือติดต่อทีมสนับสนุนของเรา",
     "searchTopics": "ค้นหาหัวข้อทั่วไป...",
     "noSearchResults": "ไม่มีหัวข้อที่ตรงกับการค้นหาของคุณ"
+  },
+  "CopyDialog": {
+    "comingSoon": "Coming soon",
+    "open": "Copy",
+    "title": "Copy {name}",
+    "close": "Close",
+    "amountLabel": "Amount to allocate ($)",
+    "minAmount": "Minimum:",
+    "modeLabel": "Copy mode",
+    "modeRatio": "Fixed ratio",
+    "modeFixed": "Fixed amount per trade",
+    "copyOpenTrades": "Also copy currently open trades",
+    "advanced": "Advanced settings",
+    "maxPerTrade": "Max amount per trade",
+    "copyStopLoss": "Copy stop-loss",
+    "trailingStop": "Trailing stop",
+    "perTradeTpSl": "Per-trade take-profit / stop-loss",
+    "riskAck": "I understand that copy trading involves risk and I may lose part or all of the allocated amount.",
+    "confirm": "Start copying"
   }
 }
