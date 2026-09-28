@@ -378,7 +378,20 @@
     "walletWithdrawalRejectedTitle": "คำขอถอนเงินถูกปฏิเสธ",
     "walletRejectedBody": "คำขอของคุณถูกปฏิเสธ กรุณาติดต่อฝ่ายสนับสนุนเพื่อทราบสาเหตุ",
     "followedTradeOpenedTitle": "เปิดการเทรดใหม่ | {providerName}",
-    "followedTradeOpenedBody": "{providerName} เปิดการเทรด{side, select, sell {ขาย} other {ซื้อ}}บน {symbol} คุณสามารถตรวจสอบรายละเอียดได้ตอนนี้"
+    "followedTradeOpenedBody": "{providerName} เปิดการเทรด{side, select, sell {ขาย} other {ซื้อ}}บน {symbol} คุณสามารถตรวจสอบรายละเอียดได้ตอนนี้",
+    "comingSoon": "Coming soon",
+    "prefsTitle": "Notification preferences",
+    "prefsDesc": "Choose how you want to be notified for each type of event.",
+    "channel_inApp": "In-app",
+    "channel_email": "Email",
+    "channel_telegram": "Telegram",
+    "cat_all": "All",
+    "cat_trades": "Trades",
+    "cat_copy": "Copy",
+    "cat_account": "Account",
+    "cat_security": "Security",
+    "backToNotifications": "Back to notifications",
+    "prefsLink": "Preferences"
   },
   "Portfolio": {
     "title": "พอร์ตของฉัน",
@@ -464,7 +477,9 @@
     "proofOfPaymentLabel": "แนบหลักฐานการชำระเงิน (รูปภาพใบเสร็จการโอน)",
     "proofOfPaymentRemove": "ลบ",
     "proofOfPaymentHelp": "โปรดแนบรูปภาพการโอนที่ชัดเจนเพื่อยืนยันการฝากเงินของคุณอย่างรวดเร็ว",
-    "confirmProofOfPayment": "ยืนยันและส่งหลักฐานการฝากเงิน"
+    "confirmProofOfPayment": "ยืนยันและส่งหลักฐานการฝากเงิน",
+    "monthlyReportTitle": "Monthly report",
+    "monthlyReportEmpty": "No activity yet."
   },
   "TradeHistory": {
     "periodToday": "วันนี้",

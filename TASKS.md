@@ -51,9 +51,9 @@ original prompts' own section order.
 - [x] Copy modal: dialog with amount + risk acknowledgment (functional); copy mode, copy-open-trades and advanced settings shown disabled "coming soon" — backend (money-mirroring) pending your go-ahead
 - [x] Dedicated "My Copies" page (/copies)
 - [x] Dedicated "Trades" page (/trades): open tab (close all; TP/SL editing shown as coming soon) + history tab (filters, CSV export)
-- [ ] Portfolio: short monthly report (balances + transaction history already existed before this work)
-- [ ] Notifications: categories (trades/copy/account/security)
-- [ ] Notifications: per-type preferences page (in-app/email/Telegram)
+- [x] Portfolio: monthly report (last 6 months: trades, win rate, P&L, deposits/withdrawals)
+- [x] Notifications: categories (all/trades/copy/account/security filter)
+- [x] Notifications: per-type preferences page — UI only, "coming soon" (needs storage + email/Telegram senders)
 - [x] Settings: security section (2FA + active sessions) — UI only, "coming soon" badge, disabled buttons; real implementation deferred
 - [x] Settings: language + timezone section (tz saved in cookie)
 - [ ] Settings: risk questionnaire that feeds "suggested traders"

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
@@ -107,7 +108,21 @@ function formatNotificationTime(iso: string, locale: Locale) {
   return `${date} · ${time}`;
 }
 
-export default async function NotificationsPage() {
+const CATEGORY_TYPES: Record<string, string[]> = {
+  trades: ["followed_trade_closed"],
+  copy: ["copy_opened", "copy_closed", "auto_stop_copy"],
+  account: ["wallet_deposit_approved", "wallet_withdrawal_approved", "kyc_approved", "kyc_rejected"],
+};
+const CATEGORY_KEYS = ["all", "trades", "copy", "account", "security"] as const;
+
+function categoryOf(type: string): string {
+  for (const [cat, types] of Object.entries(CATEGORY_TYPES)) if (types.includes(type)) return cat;
+  return type.startsWith("kyc") || type.startsWith("wallet") ? "account" : "security";
+}
+
+export default async function NotificationsPage({ searchParams }: { searchParams: Promise<{ cat?: string }> }) {
+  const { cat } = await searchParams;
+  const activeCat = (CATEGORY_KEYS as readonly string[]).includes(cat ?? "") ? (cat as string) : "all";
   const locale = (await getLocale()) as Locale;
   const t = await getTranslations("Nav");
   const tn = await getTranslations("Notifications");
@@ -126,6 +141,7 @@ export default async function NotificationsPage() {
     .limit(50);
 
   const hasUnread = (notifications ?? []).some((n) => !n.is_read);
+  const visible = (notifications ?? []).filter((n) => activeCat === "all" || categoryOf(n.type) === activeCat);
 
   return (
     <>
@@ -142,11 +158,30 @@ export default async function NotificationsPage() {
           )}
         </div>
 
-        {(notifications ?? []).length === 0 ? (
+        <div className="flex flex-wrap items-center gap-1.5">
+          {CATEGORY_KEYS.map((k) => (
+            <Link
+              key={k}
+              href={k === "all" ? "/notifications" : `/notifications?cat=${k}`}
+              className={
+                activeCat === k
+                  ? "rounded-full border border-accent bg-accent/10 px-3 py-1 text-xs font-medium text-accent"
+                  : "rounded-full border border-border px-3 py-1 text-xs text-muted hover:border-accent/40"
+              }
+            >
+              {tn(`cat_${k}`)}
+            </Link>
+          ))}
+          <Link href="/notifications/preferences" className="ms-auto text-xs text-accent hover:underline">
+            {tn("prefsLink")}
+          </Link>
+        </div>
+
+        {visible.length === 0 ? (
           <p className="text-sm text-muted">{t("notificationsEmpty")}</p>
         ) : (
           <div className="flex flex-col gap-2">
-            {notifications!.map((n) => {
+            {visible.map((n) => {
               const { title, body } = renderNotification(tn, n);
               return (
                 <form key={n.id} action={markOneRead}>

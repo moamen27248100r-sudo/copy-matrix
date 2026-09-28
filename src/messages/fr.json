@@ -378,7 +378,20 @@
     "walletWithdrawalRejectedTitle": "Demande de retrait rejetée",
     "walletRejectedBody": "Votre demande a été rejetée. Veuillez contacter le support pour en connaître la raison.",
     "followedTradeOpenedTitle": "Nouvelle position ouverte | {providerName}",
-    "followedTradeOpenedBody": "{providerName} a ouvert une position {side, select, sell {vente} other {achat}} sur {symbol}. Vous pouvez consulter les détails maintenant."
+    "followedTradeOpenedBody": "{providerName} a ouvert une position {side, select, sell {vente} other {achat}} sur {symbol}. Vous pouvez consulter les détails maintenant.",
+    "comingSoon": "Coming soon",
+    "prefsTitle": "Notification preferences",
+    "prefsDesc": "Choose how you want to be notified for each type of event.",
+    "channel_inApp": "In-app",
+    "channel_email": "Email",
+    "channel_telegram": "Telegram",
+    "cat_all": "All",
+    "cat_trades": "Trades",
+    "cat_copy": "Copy",
+    "cat_account": "Account",
+    "cat_security": "Security",
+    "backToNotifications": "Back to notifications",
+    "prefsLink": "Preferences"
   },
   "Portfolio": {
     "title": "Mon portefeuille",
@@ -464,7 +477,9 @@
     "proofOfPaymentLabel": "Joindre une preuve de paiement (image du reçu de virement)",
     "proofOfPaymentRemove": "Retirer",
     "proofOfPaymentHelp": "Veuillez joindre une image claire du virement pour confirmer rapidement votre dépôt",
-    "confirmProofOfPayment": "Confirmer et envoyer la preuve de dépôt"
+    "confirmProofOfPayment": "Confirmer et envoyer la preuve de dépôt",
+    "monthlyReportTitle": "Monthly report",
+    "monthlyReportEmpty": "No activity yet."
   },
   "TradeHistory": {
     "periodToday": "Aujourd'hui",

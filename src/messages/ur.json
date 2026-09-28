@@ -378,7 +378,20 @@
     "walletWithdrawalRejectedTitle": "نکالنے کی درخواست مسترد",
     "walletRejectedBody": "آپ کی درخواست مسترد کر دی گئی۔ وجہ جاننے کے لیے براہ کرم سپورٹ سے رابطہ کریں۔",
     "followedTradeOpenedTitle": "نئی ٹریڈ کھولی گئی | {providerName}",
-    "followedTradeOpenedBody": "{providerName} نے {symbol} پر {side, select, sell {فروخت} other {خرید}} ٹریڈ کھولی۔ اب آپ تفصیلات دیکھ سکتے ہیں۔"
+    "followedTradeOpenedBody": "{providerName} نے {symbol} پر {side, select, sell {فروخت} other {خرید}} ٹریڈ کھولی۔ اب آپ تفصیلات دیکھ سکتے ہیں۔",
+    "comingSoon": "Coming soon",
+    "prefsTitle": "Notification preferences",
+    "prefsDesc": "Choose how you want to be notified for each type of event.",
+    "channel_inApp": "In-app",
+    "channel_email": "Email",
+    "channel_telegram": "Telegram",
+    "cat_all": "All",
+    "cat_trades": "Trades",
+    "cat_copy": "Copy",
+    "cat_account": "Account",
+    "cat_security": "Security",
+    "backToNotifications": "Back to notifications",
+    "prefsLink": "Preferences"
   },
   "Portfolio": {
     "title": "میرا پورٹ فولیو",
@@ -464,7 +477,9 @@
     "proofOfPaymentLabel": "ادائیگی کا ثبوت منسلک کریں (ٹرانسفر رسید کی تصویر)",
     "proofOfPaymentRemove": "ہٹائیں",
     "proofOfPaymentHelp": "اپنی ڈپازٹ کی جلد تصدیق کے لیے براہ کرم ٹرانسفر کی واضح تصویر منسلک کریں",
-    "confirmProofOfPayment": "ڈپازٹ کا ثبوت تصدیق کریں اور بھیجیں"
+    "confirmProofOfPayment": "ڈپازٹ کا ثبوت تصدیق کریں اور بھیجیں",
+    "monthlyReportTitle": "Monthly report",
+    "monthlyReportEmpty": "No activity yet."
   },
   "TradeHistory": {
     "periodToday": "آج",

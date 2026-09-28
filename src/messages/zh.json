@@ -378,7 +378,20 @@
     "walletWithdrawalRejectedTitle": "提款申请被拒绝",
     "walletRejectedBody": "您的申请被拒绝。请联系客服了解原因。",
     "followedTradeOpenedTitle": "开仓新交易 | {providerName}",
-    "followedTradeOpenedBody": "{providerName} 开了一笔 {symbol} 的{side, select, sell {卖出} other {买入}}交易。您现在可以查看详情。"
+    "followedTradeOpenedBody": "{providerName} 开了一笔 {symbol} 的{side, select, sell {卖出} other {买入}}交易。您现在可以查看详情。",
+    "comingSoon": "Coming soon",
+    "prefsTitle": "Notification preferences",
+    "prefsDesc": "Choose how you want to be notified for each type of event.",
+    "channel_inApp": "In-app",
+    "channel_email": "Email",
+    "channel_telegram": "Telegram",
+    "cat_all": "All",
+    "cat_trades": "Trades",
+    "cat_copy": "Copy",
+    "cat_account": "Account",
+    "cat_security": "Security",
+    "backToNotifications": "Back to notifications",
+    "prefsLink": "Preferences"
   },
   "Portfolio": {
     "title": "我的资产",
@@ -464,7 +477,9 @@
     "proofOfPaymentLabel": "上传付款凭证（转账截图）",
     "proofOfPaymentRemove": "移除",
     "proofOfPaymentHelp": "请上传清晰的转账截图，以便快速确认您的存款",
-    "confirmProofOfPayment": "确认并发送存款凭证"
+    "confirmProofOfPayment": "确认并发送存款凭证",
+    "monthlyReportTitle": "Monthly report",
+    "monthlyReportEmpty": "No activity yet."
   },
   "TradeHistory": {
     "periodToday": "今天",

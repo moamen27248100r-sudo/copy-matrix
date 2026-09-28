@@ -378,7 +378,20 @@
     "walletWithdrawalRejectedTitle": "Permintaan tarik ditolak",
     "walletRejectedBody": "Permintaan Anda ditolak. Silakan hubungi dukungan untuk mengetahui alasannya.",
     "followedTradeOpenedTitle": "Transaksi baru dibuka | {providerName}",
-    "followedTradeOpenedBody": "{providerName} membuka transaksi {side, select, sell {jual} other {beli}} pada {symbol}. Anda dapat meninjau detailnya sekarang."
+    "followedTradeOpenedBody": "{providerName} membuka transaksi {side, select, sell {jual} other {beli}} pada {symbol}. Anda dapat meninjau detailnya sekarang.",
+    "comingSoon": "Coming soon",
+    "prefsTitle": "Notification preferences",
+    "prefsDesc": "Choose how you want to be notified for each type of event.",
+    "channel_inApp": "In-app",
+    "channel_email": "Email",
+    "channel_telegram": "Telegram",
+    "cat_all": "All",
+    "cat_trades": "Trades",
+    "cat_copy": "Copy",
+    "cat_account": "Account",
+    "cat_security": "Security",
+    "backToNotifications": "Back to notifications",
+    "prefsLink": "Preferences"
   },
   "Portfolio": {
     "title": "Portofolio Saya",
@@ -464,7 +477,9 @@
     "proofOfPaymentLabel": "Lampirkan bukti pembayaran (gambar bukti transfer)",
     "proofOfPaymentRemove": "Hapus",
     "proofOfPaymentHelp": "Harap lampirkan gambar transfer yang jelas agar setoran Anda cepat dikonfirmasi",
-    "confirmProofOfPayment": "Konfirmasi dan kirim bukti setoran"
+    "confirmProofOfPayment": "Konfirmasi dan kirim bukti setoran",
+    "monthlyReportTitle": "Monthly report",
+    "monthlyReportEmpty": "No activity yet."
   },
   "TradeHistory": {
     "periodToday": "Hari ini",

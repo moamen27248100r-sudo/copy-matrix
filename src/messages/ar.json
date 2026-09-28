@@ -390,7 +390,20 @@
     "walletWithdrawalRejectedTitle": "تم رفض طلب السحب",
     "walletRejectedBody": "تم رفض طلبك. يرجى التواصل مع الدعم لمعرفة السبب.",
     "followedTradeOpenedTitle": "فتح صفقة جديدة | {providerName}",
-    "followedTradeOpenedBody": "قام {providerName} بفتح صفقة {side, select, sell {بيع} other {شراء}} على زوج {symbol}. يمكنك مراجعة التفاصيل الآن."
+    "followedTradeOpenedBody": "قام {providerName} بفتح صفقة {side, select, sell {بيع} other {شراء}} على زوج {symbol}. يمكنك مراجعة التفاصيل الآن.",
+    "comingSoon": "قريبًا",
+    "prefsTitle": "تفضيلات الإشعارات",
+    "prefsDesc": "اختر كيف تريد أن يتم إشعارك بكل نوع من الأحداث.",
+    "channel_inApp": "داخل التطبيق",
+    "channel_email": "البريد",
+    "channel_telegram": "تيليجرام",
+    "cat_all": "الكل",
+    "cat_trades": "الصفقات",
+    "cat_copy": "النسخ",
+    "cat_account": "الحساب",
+    "cat_security": "الأمان",
+    "backToNotifications": "العودة إلى الإشعارات",
+    "prefsLink": "التفضيلات"
   },
   "Portfolio": {
     "title": "محفظتي",
@@ -476,7 +489,9 @@
     "proofOfPaymentLabel": "إرفاق إثبات الدفع (صورة الإشعار/التحويل)",
     "proofOfPaymentRemove": "إزالة",
     "proofOfPaymentHelp": "يرجى إرفاق صورة تحويل المبلغ واضحة لضمان تأكيد الإيداع بسرعة",
-    "confirmProofOfPayment": "تأكيد وإرسال إثبات الإيداع"
+    "confirmProofOfPayment": "تأكيد وإرسال إثبات الإيداع",
+    "monthlyReportTitle": "التقرير الشهري",
+    "monthlyReportEmpty": "لا يوجد نشاط بعد."
   },
   "TradeHistory": {
     "periodToday": "اليوم",

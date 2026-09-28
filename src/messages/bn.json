@@ -378,7 +378,20 @@
     "walletWithdrawalRejectedTitle": "উত্তোলনের অনুরোধ প্রত্যাখ্যাত",
     "walletRejectedBody": "আপনার অনুরোধ প্রত্যাখ্যাত হয়েছে। কারণ জানতে সহায়তার সাথে যোগাযোগ করুন।",
     "followedTradeOpenedTitle": "নতুন ট্রেড খোলা হয়েছে | {providerName}",
-    "followedTradeOpenedBody": "{providerName} {symbol} তে একটি {side, select, sell {বিক্রয়} other {ক্রয়}} ট্রেড খুলেছে। আপনি এখন বিস্তারিত দেখতে পারেন।"
+    "followedTradeOpenedBody": "{providerName} {symbol} তে একটি {side, select, sell {বিক্রয়} other {ক্রয়}} ট্রেড খুলেছে। আপনি এখন বিস্তারিত দেখতে পারেন।",
+    "comingSoon": "Coming soon",
+    "prefsTitle": "Notification preferences",
+    "prefsDesc": "Choose how you want to be notified for each type of event.",
+    "channel_inApp": "In-app",
+    "channel_email": "Email",
+    "channel_telegram": "Telegram",
+    "cat_all": "All",
+    "cat_trades": "Trades",
+    "cat_copy": "Copy",
+    "cat_account": "Account",
+    "cat_security": "Security",
+    "backToNotifications": "Back to notifications",
+    "prefsLink": "Preferences"
   },
   "Portfolio": {
     "title": "আমার পোর্টফোলিও",
@@ -464,7 +477,9 @@
     "proofOfPaymentLabel": "পেমেন্টের প্রমাণ সংযুক্ত করুন (ট্রান্সফার রসিদের ছবি)",
     "proofOfPaymentRemove": "সরান",
     "proofOfPaymentHelp": "আপনার জমা দ্রুত নিশ্চিত করতে অনুগ্রহ করে একটি স্পষ্ট ট্রান্সফার ছবি সংযুক্ত করুন",
-    "confirmProofOfPayment": "জমার প্রমাণ নিশ্চিত করুন এবং পাঠান"
+    "confirmProofOfPayment": "জমার প্রমাণ নিশ্চিত করুন এবং পাঠান",
+    "monthlyReportTitle": "Monthly report",
+    "monthlyReportEmpty": "No activity yet."
   },
   "TradeHistory": {
     "periodToday": "আজ",

@@ -378,7 +378,20 @@
     "walletWithdrawalRejectedTitle": "Ombi la kutoa pesa limekataliwa",
     "walletRejectedBody": "Ombi lako limekataliwa. Tafadhali wasiliana na msaada ili kujua sababu.",
     "followedTradeOpenedTitle": "Biashara mpya imefunguliwa | {providerName}",
-    "followedTradeOpenedBody": "{providerName} amefungua biashara ya {side, select, sell {kuuza} other {kununua}} kwenye {symbol}. Unaweza kukagua maelezo sasa."
+    "followedTradeOpenedBody": "{providerName} amefungua biashara ya {side, select, sell {kuuza} other {kununua}} kwenye {symbol}. Unaweza kukagua maelezo sasa.",
+    "comingSoon": "Coming soon",
+    "prefsTitle": "Notification preferences",
+    "prefsDesc": "Choose how you want to be notified for each type of event.",
+    "channel_inApp": "In-app",
+    "channel_email": "Email",
+    "channel_telegram": "Telegram",
+    "cat_all": "All",
+    "cat_trades": "Trades",
+    "cat_copy": "Copy",
+    "cat_account": "Account",
+    "cat_security": "Security",
+    "backToNotifications": "Back to notifications",
+    "prefsLink": "Preferences"
   },
   "Portfolio": {
     "title": "Jalada Langu",
@@ -464,7 +477,9 @@
     "proofOfPaymentLabel": "Ambatanisha uthibitisho wa malipo (picha ya risiti ya uhamisho)",
     "proofOfPaymentRemove": "Ondoa",
     "proofOfPaymentHelp": "Tafadhali ambatanisha picha wazi ya uhamisho ili amana yako ithibitishwe haraka",
-    "confirmProofOfPayment": "Thibitisha na tuma uthibitisho wa amana"
+    "confirmProofOfPayment": "Thibitisha na tuma uthibitisho wa amana",
+    "monthlyReportTitle": "Monthly report",
+    "monthlyReportEmpty": "No activity yet."
   },
   "TradeHistory": {
     "periodToday": "Leo",

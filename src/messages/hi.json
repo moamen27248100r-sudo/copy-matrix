@@ -378,7 +378,20 @@
     "walletWithdrawalRejectedTitle": "निकासी अनुरोध अस्वीकृत",
     "walletRejectedBody": "आपका अनुरोध अस्वीकृत कर दिया गया। कारण जानने के लिए कृपया सहायता से संपर्क करें।",
     "followedTradeOpenedTitle": "नया ट्रेड खोला गया | {providerName}",
-    "followedTradeOpenedBody": "{providerName} ने {symbol} पर {side, select, sell {बिक्री} other {खरीद}} ट्रेड खोला। अब आप विवरण देख सकते हैं।"
+    "followedTradeOpenedBody": "{providerName} ने {symbol} पर {side, select, sell {बिक्री} other {खरीद}} ट्रेड खोला। अब आप विवरण देख सकते हैं।",
+    "comingSoon": "Coming soon",
+    "prefsTitle": "Notification preferences",
+    "prefsDesc": "Choose how you want to be notified for each type of event.",
+    "channel_inApp": "In-app",
+    "channel_email": "Email",
+    "channel_telegram": "Telegram",
+    "cat_all": "All",
+    "cat_trades": "Trades",
+    "cat_copy": "Copy",
+    "cat_account": "Account",
+    "cat_security": "Security",
+    "backToNotifications": "Back to notifications",
+    "prefsLink": "Preferences"
   },
   "Portfolio": {
     "title": "मेरा पोर्टफोलियो",
@@ -464,7 +477,9 @@
     "proofOfPaymentLabel": "भुगतान प्रमाण संलग्न करें (ट्रांसफर रसीद की छवि)",
     "proofOfPaymentRemove": "हटाएं",
     "proofOfPaymentHelp": "अपनी जमा राशि की जल्द पुष्टि के लिए कृपया ट्रांसफर की स्पष्ट तस्वीर संलग्न करें",
-    "confirmProofOfPayment": "जमा प्रमाण की पुष्टि करें और भेजें"
+    "confirmProofOfPayment": "जमा प्रमाण की पुष्टि करें और भेजें",
+    "monthlyReportTitle": "Monthly report",
+    "monthlyReportEmpty": "No activity yet."
   },
   "TradeHistory": {
     "periodToday": "आज",

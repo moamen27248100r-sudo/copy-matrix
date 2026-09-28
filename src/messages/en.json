@@ -378,7 +378,20 @@
     "walletWithdrawalRejectedTitle": "Withdrawal request rejected",
     "walletRejectedBody": "Your request was rejected. Please contact support to find out why.",
     "followedTradeOpenedTitle": "New trade opened | {providerName}",
-    "followedTradeOpenedBody": "{providerName} opened a {side, select, sell {sell} other {buy}} trade on {symbol}. You can review the details now."
+    "followedTradeOpenedBody": "{providerName} opened a {side, select, sell {sell} other {buy}} trade on {symbol}. You can review the details now.",
+    "comingSoon": "Coming soon",
+    "prefsTitle": "Notification preferences",
+    "prefsDesc": "Choose how you want to be notified for each type of event.",
+    "channel_inApp": "In-app",
+    "channel_email": "Email",
+    "channel_telegram": "Telegram",
+    "cat_all": "All",
+    "cat_trades": "Trades",
+    "cat_copy": "Copy",
+    "cat_account": "Account",
+    "cat_security": "Security",
+    "backToNotifications": "Back to notifications",
+    "prefsLink": "Preferences"
   },
   "Portfolio": {
     "title": "My Portfolio",
@@ -464,7 +477,9 @@
     "proofOfPaymentLabel": "Attach proof of payment (transfer receipt image)",
     "proofOfPaymentRemove": "Remove",
     "proofOfPaymentHelp": "Please attach a clear transfer image to ensure your deposit is confirmed quickly",
-    "confirmProofOfPayment": "Confirm and send deposit proof"
+    "confirmProofOfPayment": "Confirm and send deposit proof",
+    "monthlyReportTitle": "Monthly report",
+    "monthlyReportEmpty": "No activity yet."
   },
   "TradeHistory": {
     "periodToday": "Today",

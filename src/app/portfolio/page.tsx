@@ -200,6 +200,30 @@ export default async function PortfolioPage({
     };
   });
 
+  // Last 6 months (UTC), newest first: closed-trade results plus wallet
+  // deposits/withdrawals from the recent-transactions window already loaded.
+  const monthBuckets = new Map<string, { key: string; trades: number; wins: number; pnl: number; deposits: number; withdrawals: number }>();
+  const bucket = (iso: string) => {
+    const key = iso.slice(0, 7);
+    let b = monthBuckets.get(key);
+    if (!b) monthBuckets.set(key, (b = { key, trades: 0, wins: 0, pnl: 0, deposits: 0, withdrawals: 0 }));
+    return b;
+  };
+  for (const p of closedPositions) {
+    if (!p.closed_at) continue;
+    const b = bucket(p.closed_at);
+    b.trades++;
+    if ((p.pnl ?? 0) >= 0) b.wins++;
+    b.pnl += p.pnl ?? 0;
+  }
+  for (const tx of transactions ?? []) {
+    if (tx.type === "deposit") bucket(tx.created_at).deposits += Math.abs(Number(tx.amount));
+    else if (tx.type === "withdrawal") bucket(tx.created_at).withdrawals += Math.abs(Number(tx.amount));
+  }
+  const monthlyReport = Array.from(monthBuckets.values())
+    .sort((a, b) => b.key.localeCompare(a.key))
+    .slice(0, 6);
+
   const overview = (
     <div className="flex flex-col gap-6">
       <section id="wallet" className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-4 scroll-mt-20">
@@ -292,6 +316,44 @@ export default async function PortfolioPage({
             <p className="text-xs text-muted">{t("closedTradesCount")}</p>
           </div>
         </div>
+      </section>
+
+      <section className="flex flex-col gap-3">
+        <h2 className="font-medium">{t("monthlyReportTitle")}</h2>
+        {monthlyReport.length === 0 ? (
+          <p className="text-sm text-muted">{t("monthlyReportEmpty")}</p>
+        ) : (
+          <div className="overflow-x-auto rounded-lg border border-border bg-surface">
+            <table className="w-full min-w-[420px] text-sm tabular-nums">
+              <thead>
+                <tr className="border-b border-border text-xs text-muted">
+                  <th className="px-3 py-2 text-start font-normal">{t("date")}</th>
+                  <th className="px-3 py-2 text-start font-normal">{t("closedTradesCount")}</th>
+                  <th className="px-3 py-2 text-start font-normal">{t("myWinRate")}</th>
+                  <th className="px-3 py-2 text-start font-normal">{t("txPnl")}</th>
+                  <th className="px-3 py-2 text-start font-normal">{t("txDeposit")} / {t("txWithdrawal")}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {monthlyReport.map((m) => (
+                  <tr key={m.key} className="border-b border-border/60 last:border-b-0">
+                    <td className="px-3 py-2 whitespace-nowrap">
+                      {formatDate(`${m.key}-01T00:00:00Z`, locale, { month: "long", year: "numeric", timeZone: "UTC" })}
+                    </td>
+                    <td className="px-3 py-2">{m.trades}</td>
+                    <td className="px-3 py-2">{m.trades ? `${Math.round((m.wins / m.trades) * 100)}%` : "—"}</td>
+                    <td className={`px-3 py-2 ${m.pnl >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
+                      {m.pnl >= 0 ? "+" : "-"}${Math.abs(m.pnl).toFixed(2)}
+                    </td>
+                    <td className="px-3 py-2 whitespace-nowrap" dir="ltr">
+                      +${m.deposits.toLocaleString("en-US")} / -${m.withdrawals.toLocaleString("en-US")}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </section>
 
       <section className="flex flex-col gap-3">

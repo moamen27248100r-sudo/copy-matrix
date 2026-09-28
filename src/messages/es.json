@@ -378,7 +378,20 @@
     "walletWithdrawalRejectedTitle": "Solicitud de retiro rechazada",
     "walletRejectedBody": "Tu solicitud fue rechazada. Contacta con soporte para conocer el motivo.",
     "followedTradeOpenedTitle": "Nueva operación abierta | {providerName}",
-    "followedTradeOpenedBody": "{providerName} abrió una operación de {side, select, sell {venta} other {compra}} en {symbol}. Puedes revisar los detalles ahora."
+    "followedTradeOpenedBody": "{providerName} abrió una operación de {side, select, sell {venta} other {compra}} en {symbol}. Puedes revisar los detalles ahora.",
+    "comingSoon": "Coming soon",
+    "prefsTitle": "Notification preferences",
+    "prefsDesc": "Choose how you want to be notified for each type of event.",
+    "channel_inApp": "In-app",
+    "channel_email": "Email",
+    "channel_telegram": "Telegram",
+    "cat_all": "All",
+    "cat_trades": "Trades",
+    "cat_copy": "Copy",
+    "cat_account": "Account",
+    "cat_security": "Security",
+    "backToNotifications": "Back to notifications",
+    "prefsLink": "Preferences"
   },
   "Portfolio": {
     "title": "Mi cartera",
@@ -464,7 +477,9 @@
     "proofOfPaymentLabel": "Adjuntar comprobante de pago (imagen del recibo)",
     "proofOfPaymentRemove": "Quitar",
     "proofOfPaymentHelp": "Adjunte una imagen clara de la transferencia para confirmar su depósito rápidamente",
-    "confirmProofOfPayment": "Confirmar y enviar comprobante de depósito"
+    "confirmProofOfPayment": "Confirmar y enviar comprobante de depósito",
+    "monthlyReportTitle": "Monthly report",
+    "monthlyReportEmpty": "No activity yet."
   },
   "TradeHistory": {
     "periodToday": "Hoy",
