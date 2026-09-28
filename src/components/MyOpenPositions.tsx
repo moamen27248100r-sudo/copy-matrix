@@ -76,7 +76,7 @@ function PositionRow({ pos, current }: { pos: Position; current: number | undefi
           dir="ltr"
         >
           {unrealizedPnl != null
-            ? `${unrealizedPnl >= 0 ? "+" : "-"}${Math.abs(unrealizedPnl).toLocaleString("en-US", { maximumFractionDigits: 2 })}`
+            ? `${unrealizedPnl >= 0 ? "+" : "-"}$${Math.abs(unrealizedPnl).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
             : "—"}
         </p>
         <p className="text-xs text-muted" dir="ltr">

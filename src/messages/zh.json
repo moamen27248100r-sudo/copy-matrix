@@ -1554,6 +1554,18 @@
     "footPrivacy": "Privacy policy",
     "footRisk": "Risk disclosure",
     "riskWarning": "Copy Matrix is a software platform for copying trading signals. It is not a financial institution, a bank or a licensed broker. Trading and copy trading involve a high level of risk and may result in the loss of all of your invested capital. Past performance does not guarantee future results.",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "tickerLabel": "Live prices",
+    "altDashboardMobile": "Copy Matrix dashboard on a phone",
+    "altDashboardDesktop": "Copy Matrix dashboard in a browser",
+    "altTraderMobile": "A trader profile page with return, drawdown and reliability",
+    "altCopyDialog": "The copy settings window",
+    "altTradesMobile": "Open trades with profit and loss",
+    "altCopiesMobile": "The My copies page",
+    "demoShotNote": "Screenshots are from a demo account. Past performance does not guarantee future results.",
+    "showTradersTitle": "A clear profile for every trader",
+    "showTradersDesc": "Each profile shows the return, maximum drawdown, win rate and reliability level before you copy.",
+    "followTitle": "Follow every trade",
+    "followDesc": "See open trades with their profit and loss, and review all your copies from one place."
   }
 }

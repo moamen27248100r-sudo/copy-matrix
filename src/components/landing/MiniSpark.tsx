@@ -1,5 +1,5 @@
 // Mini line chart of cumulative return by month: one stroke, no fill, no glow.
-export function MiniSpark({ series, className = "" }: { series: number[]; className?: string }) {
+export function MiniSpark({ series, className = "", drawn }: { series: number[]; className?: string; drawn?: boolean }) {
   const pts = [0, ...series];
   if (pts.length < 2) return null;
   const min = Math.min(...pts);
@@ -13,7 +13,7 @@ export function MiniSpark({ series, className = "" }: { series: number[]; classN
   const up = pts[pts.length - 1] >= 0;
   return (
     <svg viewBox={`0 0 ${w} ${h}`} className={className} preserveAspectRatio="none" aria-hidden="true" style={{ direction: "ltr" }}>
-      <path d={d} fill="none" stroke={up ? "var(--up)" : "var(--down)"} strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+      <path d={d} pathLength={1} className={drawn === undefined ? undefined : "spark-line"} data-drawn={drawn === undefined ? undefined : drawn} fill="none" stroke={up ? "var(--up)" : "var(--down)"} strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
     </svg>
   );
 }

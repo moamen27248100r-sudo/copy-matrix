@@ -1,9 +1,17 @@
+import { existsSync } from "node:fs";
+import path from "node:path";
+import { unstable_cache } from "next/cache";
+import { createClient } from "@supabase/supabase-js";
 import { getTranslations, getLocale } from "next-intl/server";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { TradersTabs, type TraderCardData } from "@/components/landing/TradersTabs";
+import { LandingTicker } from "@/components/landing/LandingTicker";
+import { PhoneFrame } from "@/components/landing/frames";
 import { Reveal } from "@/components/landing/Reveal";
 import {
   Hero,
+  ShowcaseRow,
+  FollowTrades,
   FactsStrip,
   SectionHeading,
   HowItWorks,
@@ -27,12 +35,34 @@ function marketKey(symbol: string | null): "marketCrypto" | "marketForex" | "mar
   return "marketForex";
 }
 
+// Prices for the ticker's first paint (it polls market_prices itself afterwards).
+const getTickerPrices = unstable_cache(
+  async () => {
+    const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!, {
+      auth: { persistSession: false },
+    });
+    const { data } = await supabase
+      .from("market_prices")
+      .select("symbol, price")
+      .in("symbol", ["BTCUSDT", "ETHUSDT", "XAUUSD", "EURUSD", "SOLUSDT", "BNBUSDT", "XRPUSDT"]);
+    return Object.fromEntries((data ?? []).map((r) => [r.symbol as string, Number(r.price)]));
+  },
+  ["landing-ticker-prices"],
+  { revalidate: 30 },
+);
+
 export default async function Home() {
   const t = await getTranslations("Landing");
   const tc = await getTranslations("Countries");
   const locale = (await getLocale()) as Locale;
 
-  const [traders, minCopy] = await Promise.all([getLandingTraders(locale === "ar"), getMinCopyAmount()]);
+  const [traders, minCopy, tickerPrices] = await Promise.all([
+    getLandingTraders(locale === "ar"),
+    getMinCopyAmount(),
+    getTickerPrices().catch(() => ({}) as Record<string, number>),
+  ]);
+  // Optional product video: shown inside the phone frame when the file exists.
+  const videoSrc = existsSync(path.join(process.cwd(), "public", "videos", "hero.mp4")) ? "/videos/hero.mp4" : null;
 
   const decorate = (x: LandingTrader): TraderCardData => ({
     ...x,
@@ -50,7 +80,6 @@ export default async function Home() {
     { key: "risk", label: t("tabRisk"), items: traders.risk.map(decorate) },
     { key: "return", label: t("tabReturn"), items: traders.return.map(decorate) },
   ].filter((tab) => tab.items.length >= 3);
-  const heroTrader = tabs.flatMap((tab) => tab.items).find((x) => x.ret > 0) ?? null;
 
   const navLinks = [
     { href: "#traders", label: t("navTraders") },
@@ -71,8 +100,9 @@ export default async function Home() {
         closeLabel={t("closeMenu")}
         languageLabel={t("language")}
       />
-      <main>
-        <Hero trader={heroTrader} />
+      <main className="pt-16">
+        <LandingTicker initialPrices={tickerPrices} label={t("tickerLabel")} />
+        <Hero videoSrc={videoSrc} />
         <FactsStrip minCopy={minCopy} />
 
         {tabs.length > 0 && (
@@ -94,8 +124,14 @@ export default async function Home() {
           </section>
         )}
 
+        {tabs.length > 0 && (
+          <ShowcaseRow title={t("showTradersTitle")} desc={t("showTradersDesc")} flip>
+            <PhoneFrame src="/images/product/mobile-trader.webp" alt={t("altTraderMobile")} width={280} sizes="280px" />
+          </ShowcaseRow>
+        )}
         <HowItWorks />
         <Protection />
+        <FollowTrades />
         <Transparency />
         <Fees />
         <DemoSection />

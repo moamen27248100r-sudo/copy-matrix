@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { MiniSpark, pct } from "@/components/landing/MiniSpark";
+import { MiniSpark } from "@/components/landing/MiniSpark";
+import { CountOnView } from "@/components/landing/CountOnView";
+import { useInView } from "@/components/landing/useInView";
 import type { LandingTrader } from "@/lib/landing-data";
 
 export type TraderCardLabels = {
@@ -29,8 +31,9 @@ function initials(name: string) {
 }
 
 function TraderCard({ t, labels }: { t: TraderCardData; labels: TraderCardLabels }) {
+  const { ref, inView } = useInView<HTMLElement>();
   return (
-    <article className="relative flex min-h-[260px] w-[280px] shrink-0 snap-start flex-col gap-4 rounded-2xl border border-border bg-surface p-5 transition-colors hover:border-border-strong md:w-auto">
+    <article ref={ref} className="relative flex min-h-[260px] w-[280px] shrink-0 snap-start flex-col gap-4 rounded-2xl border border-border bg-surface p-5 transition-colors hover:border-border-strong md:w-auto">
       <div className="flex items-center gap-3">
         <span
           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-surface-2 text-sm font-semibold text-foreground"
@@ -52,10 +55,12 @@ function TraderCard({ t, labels }: { t: TraderCardData; labels: TraderCardLabels
 
       <div className="flex items-end justify-between gap-3">
         <div>
-          <p className={`num text-3xl font-semibold ${t.ret >= 0 ? "text-up" : "text-down"}`}>{pct(t.ret)}</p>
+          <p className={`num text-3xl font-semibold ${t.ret >= 0 ? "text-up" : "text-down"}`}>
+            <CountOnView value={t.ret} decimals={1} suffix="%" signed />
+          </p>
           <p className="text-sm text-muted">{labels.return12}</p>
         </div>
-        <MiniSpark series={t.series} className="h-9 w-24 shrink-0" />
+        <MiniSpark series={t.series} drawn={inView} className="h-9 w-24 shrink-0" />
       </div>
 
       <dl className="grid grid-cols-3 gap-2 border-t border-border pt-3 text-sm">

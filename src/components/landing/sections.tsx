@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { getTranslations } from "next-intl/server";
-import { MiniSpark, pct } from "@/components/landing/MiniSpark";
-import type { TraderCardData } from "@/components/landing/TradersTabs";
+import { PhoneFrame, BrowserFrame } from "@/components/landing/frames";
+import { CountOnView } from "@/components/landing/CountOnView";
 import { Reveal } from "@/components/landing/Reveal";
 import { MarketOverview } from "@/components/MarketOverview";
 import { LazyMount } from "@/components/landing/LazyMount";
@@ -14,84 +14,78 @@ type T = Awaited<ReturnType<typeof getTranslations>>;
 
 // ---------------------------------------------------------------- hero ----
 
-function HeroMockup({ trader, t }: { trader: TraderCardData; t: T }) {
+const IMG = "/images/product";
+
+export async function Hero({ videoSrc }: { videoSrc: string | null }) {
+  const t = await getTranslations("Landing");
   return (
-    <div className="mx-auto w-full max-w-[440px]">
-      <div className="rounded-2xl border border-border bg-surface p-5">
-        <div className="flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-surface-2 text-sm font-semibold" aria-hidden="true">
-            {trader.name.trim()[0]}
-          </span>
-          <div className="min-w-0">
-            <p className="truncate text-base font-semibold">{trader.name}</p>
-            <p className="truncate text-sm text-muted">
-              {trader.countryLabel}
-              {trader.countryLabel && trader.marketLabel ? " · " : ""}
-              {trader.marketLabel}
-            </p>
-          </div>
-        </div>
-        <div className="mt-5">
-          <p className={`num text-4xl font-semibold ${trader.ret >= 0 ? "text-up" : "text-down"}`}>{pct(trader.ret)}</p>
-          <p className="text-sm text-muted">{t("return12")}</p>
-        </div>
-        <MiniSpark series={trader.series} className="mt-4 h-28 w-full" />
-        <dl className="mt-4 grid grid-cols-3 gap-3 border-t border-border pt-4 text-sm">
-          <div>
-            <dt className="text-xs text-muted">{t("maxDd")}</dt>
-            <dd className="num font-medium">-{trader.dd.toFixed(1)}%</dd>
-          </div>
-          <div>
-            <dt className="text-xs text-muted">{t("riskLabel")}</dt>
-            <dd className="num font-medium">{trader.risk}/10</dd>
-          </div>
-          {trader.followers >= 5 && (
-            <div>
-              <dt className="text-xs text-muted">{t("copiers")}</dt>
-              <dd className="num font-medium">{trader.followers.toLocaleString("en-US")}</dd>
+    <section className="relative overflow-hidden">
+      <div aria-hidden="true" className="hero-grid pointer-events-none absolute inset-0" />
+      <div className={`${wrap} relative pb-16 pt-12 md:pb-24 md:pt-20`}>
+        <div className="grid items-center gap-14 lg:grid-cols-[1fr_1.1fr] lg:gap-10">
+          <div className="flex flex-col items-start gap-6">
+            <h1 className="landing-h1 max-w-xl">{t("heroTitle")}</h1>
+            <p className="max-w-lg text-base leading-7 text-muted">{t("heroDesc")}</p>
+            <div className="flex flex-wrap gap-3">
+              <Link href="/signup" className="rounded-xl bg-primary px-6 py-3 text-base font-medium text-white transition-colors hover:bg-accent-hover">
+                {t("heroStart")}
+              </Link>
+              <a href="#traders" className="rounded-xl border border-border-strong px-6 py-3 text-base font-medium text-foreground transition-colors hover:bg-surface">
+                {t("heroBrowse")}
+              </a>
             </div>
-          )}
-        </dl>
-        <Link
-          href={trader.profileHref}
-          className="mt-5 block rounded-xl bg-primary py-2.5 text-center text-sm font-medium text-white transition-colors hover:bg-accent-hover"
-        >
-          {t("copy")}
-        </Link>
+            <ul className="flex flex-wrap items-center gap-y-1 text-sm text-muted">
+              {[t("trust1"), t("trust2"), t("trust3")].map((s) => (
+                <li key={s} className="after:mx-3 after:text-text-3 after:content-['·'] last:after:hidden">
+                  {s}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Mobile: a single phone under the buttons. */}
+          <div className="flex justify-center lg:hidden">
+            <PhoneFrame src={`${IMG}/mobile-dashboard.webp`} alt={t("altDashboardMobile")} width={260} priority sizes="260px" videoSrc={videoSrc} />
+          </div>
+
+          {/* Desktop: browser window with a phone overlapping its lower edge. */}
+          <div className="relative hidden pb-16 lg:block">
+            <BrowserFrame src={`${IMG}/desktop-dashboard.webp`} alt={t("altDashboardDesktop")} priority sizes="620px" />
+            <div className="absolute -bottom-2 start-6">
+              <PhoneFrame src={`${IMG}/mobile-trader.webp`} alt={t("altTraderMobile")} width={190} priority sizes="190px" videoSrc={videoSrc} className="bg-background" />
+            </div>
+          </div>
+        </div>
+        <p className="mt-8 text-center text-xs text-muted lg:text-start">{t("demoShotNote")}</p>
       </div>
-      <p className="mt-3 text-center text-xs leading-5 text-muted">
-        {t("mockupCaption")}. {t("pastPerf")}
-      </p>
-    </div>
+    </section>
   );
 }
 
-export async function Hero({ trader }: { trader: TraderCardData | null }) {
-  const t = await getTranslations("Landing");
+// One showcase row: text on one side, a product screenshot on the other. The
+// image side alternates from row to row; on mobile the image sits under the text.
+export function ShowcaseRow({
+  id,
+  title,
+  desc,
+  flip = false,
+  children,
+}: {
+  id?: string;
+  title: string;
+  desc: string;
+  flip?: boolean;
+  children: React.ReactNode;
+}) {
   return (
-    <section className={`${wrap} pt-32 pb-16 md:pt-40 md:pb-24`}>
-      <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-        <div className="flex flex-col items-start gap-6">
-          <h1 className="landing-h1 max-w-xl">{t("heroTitle")}</h1>
-          <p className="max-w-lg text-base leading-7 text-muted">{t("heroDesc")}</p>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/signup" className="rounded-xl bg-primary px-6 py-3 text-base font-medium text-white transition-colors hover:bg-accent-hover">
-              {t("heroStart")}
-            </Link>
-            <a href="#traders" className="rounded-xl border border-border-strong px-6 py-3 text-base font-medium text-foreground transition-colors hover:bg-surface">
-              {t("heroBrowse")}
-            </a>
-          </div>
-          <ul className="flex flex-wrap items-center gap-y-1 text-sm text-muted">
-            {[t("trust1"), t("trust2"), t("trust3")].map((s) => (
-              <li key={s} className="after:mx-3 after:text-text-3 after:content-['·'] last:after:hidden">
-                {s}
-              </li>
-            ))}
-          </ul>
+    <section id={id} className={`${wrap} landing-section scroll-mt-16`}>
+      <Reveal className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
+        <div className={`flex flex-col gap-4 ${flip ? "md:order-2" : ""}`}>
+          <h2 className="landing-h2">{title}</h2>
+          <p className="max-w-lg text-base leading-7 text-muted">{desc}</p>
         </div>
-        {trader && <HeroMockup trader={trader} t={t} />}
-      </div>
+        <div className={`flex justify-center ${flip ? "md:order-1" : ""}`}>{children}</div>
+      </Reveal>
     </section>
   );
 }
@@ -100,12 +94,12 @@ export async function Hero({ trader }: { trader: TraderCardData | null }) {
 
 export async function FactsStrip({ minCopy }: { minCopy: number | null }) {
   const t = await getTranslations("Landing");
-  const facts: { value: string; label: string; ltr: boolean }[] = [
+  const facts: { value: string; label: string; ltr: boolean; count?: number }[] = [
     { value: String(TRADABLE_SYMBOL_COUNT), label: t("factMarketsLabel"), ltr: true },
     ...(minCopy != null ? [{ value: `$${minCopy.toLocaleString("en-US")}`, label: t("factMinLabel"), ltr: true }] : []),
     // TODO(owner): SUBSCRIPTION_FEE_TEXT (config/platform.ts) is not defined yet; the fact is hidden until it is.
     ...(SUBSCRIPTION_FEE_TEXT ? [{ value: SUBSCRIPTION_FEE_TEXT, label: t("factFeeLabel"), ltr: true }] : []),
-    { value: `$${DEMO_START_BALANCE.toLocaleString("en-US")}`, label: t("factDemoLabel"), ltr: true },
+    { value: `$${DEMO_START_BALANCE.toLocaleString("en-US")}`, label: t("factDemoLabel"), ltr: true, count: DEMO_START_BALANCE },
     { value: t("factSignupValue"), label: t("factSignupLabel"), ltr: false },
   ];
   return (
@@ -113,7 +107,9 @@ export async function FactsStrip({ minCopy }: { minCopy: number | null }) {
       <dl className={`${wrap} grid grid-cols-2 gap-x-6 gap-y-8 py-10 lg:grid-cols-4`}>
         {facts.slice(0, 4).map((f) => (
           <div key={f.label} className="flex flex-col gap-1">
-            <dd className={`text-2xl font-semibold ${f.ltr ? "num" : ""}`}>{f.value}</dd>
+            <dd className={`text-2xl font-semibold ${f.ltr ? "num" : ""}`}>
+              {f.count != null ? <CountOnView value={f.count} prefix="$" /> : f.value}
+            </dd>
             <dt className="text-sm text-muted">{f.label}</dt>
           </div>
         ))}
@@ -142,20 +138,25 @@ export async function SectionHeading({ id, title, action }: { id?: string; title
 export async function HowItWorks() {
   const t = await getTranslations("Landing");
   const steps = [
-    { n: "1", title: t("how1t"), desc: t("how1d") },
-    { n: "2", title: t("how2t"), desc: t("how2d") },
-    { n: "3", title: t("how3t"), desc: t("how3d") },
+    { n: "1", title: t("how1t"), desc: t("how1d"), img: "mobile-dashboard", alt: t("altDashboardMobile") },
+    { n: "2", title: t("how2t"), desc: t("how2d"), img: "mobile-trader", alt: t("altTraderMobile") },
+    { n: "3", title: t("how3t"), desc: t("how3d"), img: "mobile-copy-dialog", alt: t("altCopyDialog") },
   ];
   return (
     <section id="how-it-works" className={`${wrap} landing-section scroll-mt-16`}>
       <Reveal className="flex flex-col gap-10">
         <SectionHeading title={t("howTitle")} />
-        <ol className="grid gap-10 md:grid-cols-3 md:gap-8">
+        <ol className="grid gap-12 md:grid-cols-3 md:gap-8">
           {steps.map((s) => (
-            <li key={s.n} className="flex flex-col gap-3 border-t border-border pt-6">
-              <span className="num text-5xl font-semibold text-text-3">{s.n}</span>
-              <h3 className="text-lg font-semibold">{s.title}</h3>
-              <p className="text-base leading-7 text-muted">{s.desc}</p>
+            <li key={s.n} className="flex flex-col gap-6 border-t border-border pt-6">
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex min-w-0 flex-col gap-3">
+                  <span className="num text-5xl font-semibold text-text-3">{s.n}</span>
+                  <h3 className="text-lg font-semibold">{s.title}</h3>
+                  <p className="text-base leading-7 text-muted">{s.desc}</p>
+                </div>
+              </div>
+              <PhoneFrame src={`${IMG}/${s.img}.webp`} alt={s.alt} width={150} crop sizes="150px" className="self-start" />
             </li>
           ))}
         </ol>
@@ -176,11 +177,10 @@ export async function Protection() {
     { text: t("protect4"), soon: false },
   ];
   const soon = <span className="ms-2 rounded-md border border-border-strong px-1.5 py-0.5 align-middle text-xs text-muted">{t("soon")}</span>;
-  const row = "flex items-center justify-between gap-4 border-b border-border py-3 text-sm last:border-b-0";
   return (
     <section className="border-y border-border bg-surface/40">
       <div className={`${wrap} landing-section`}>
-        <Reveal className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <Reveal className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
           <div className="flex flex-col gap-6">
             <h2 className="landing-h2">{t("protectTitle")}</h2>
             <p className="text-base leading-7 text-muted">{t("protectIntro")}</p>
@@ -193,36 +193,26 @@ export async function Protection() {
               ))}
             </ul>
           </div>
-
-          {/* Static, non-interactive picture of the copy-settings dialog. */}
-          <div aria-hidden="true" className="mx-auto w-full max-w-[420px] select-none">
-            <div className="rounded-2xl border border-border bg-surface p-5">
-              <p className="mb-2 text-base font-semibold">{t("mockTitle")}</p>
-              <div>
-                <div className={row}>
-                  <span className="text-muted">{t("mockAmount")}</span>
-                  <span className="num font-medium">$1,000</span>
-                </div>
-                <div className={row}>
-                  <span className="text-muted">{t("mockLossLimit")}</span>
-                  <span className="num font-medium">50%</span>
-                </div>
-                <div className={row}>
-                  <span className="text-muted">{t("mockMaxTrade")}</span>
-                  <span className="num font-medium">$200</span>
-                </div>
-                <div className={row}>
-                  <span className="text-muted">{t("mockMode")}</span>
-                  <span className="font-medium">{t("mockModeNew")}</span>
-                </div>
-              </div>
-              <div className="mt-4 rounded-xl border border-border-strong py-2.5 text-center text-sm text-muted">{t("mockStop")}</div>
-            </div>
-            <p className="mt-3 text-center text-xs text-muted">{t("mockNote")}</p>
+          <div className="flex justify-center">
+            <PhoneFrame src={`${IMG}/mobile-copy-dialog.webp`} alt={t("altCopyDialog")} width={280} sizes="280px" />
           </div>
         </Reveal>
       </div>
     </section>
+  );
+}
+
+// ---------------------------------------------------------- follow trades ----
+
+export async function FollowTrades() {
+  const t = await getTranslations("Landing");
+  return (
+    <ShowcaseRow title={t("followTitle")} desc={t("followDesc")} flip>
+      <div className="flex items-start justify-center gap-4">
+        <PhoneFrame src={`${IMG}/mobile-trades-open.webp`} alt={t("altTradesMobile")} width={190} sizes="190px" />
+        <PhoneFrame src={`${IMG}/mobile-copies.webp`} alt={t("altCopiesMobile")} width={190} sizes="190px" className="mt-10" />
+      </div>
+    </ShowcaseRow>
   );
 }
 
