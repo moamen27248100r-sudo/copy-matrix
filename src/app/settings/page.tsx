@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { updateProfile, updateAccountType, changePassword } from "@/app/settings/actions";
 import { AppNav } from "@/components/AppNav";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { RiskQuestionnaire } from "@/components/RiskQuestionnaire";
 import { setTimezone } from "@/app/actions/locale";
 import type { Locale } from "@/i18n/locales";
 
@@ -137,6 +138,8 @@ export default async function SettingsPage({
             </button>
           </form>
         </section>
+
+        <RiskQuestionnaire current={(await cookies()).get("risk_profile")?.value} />
 
         <section className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
           <h2 className="font-medium">{t("languageTimezoneTitle")}</h2>

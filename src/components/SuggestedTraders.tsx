@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import { getTranslations } from "next-intl/server";
 import { LeaderCard } from "@/components/LeaderCard";
@@ -12,13 +13,20 @@ export async function SuggestedTraders({ excludeProviderIds }: { excludeProvider
   const t = await getTranslations("Dashboard");
   const supabase = await createClient();
 
-  const { data: rawProviders } = await supabase
+  // The settings risk questionnaire stores low/medium/high; provider_cards
+  // risk_level uses the Arabic labels.
+  const riskProfile = (await cookies()).get("risk_profile")?.value;
+  const riskLevel = ({ low: "منخفضة", medium: "متوسطة", high: "مرتفعة" } as Record<string, string>)[riskProfile ?? ""];
+
+  let query = supabase
     .from("provider_cards")
     .select("*")
     .eq("is_archived", false)
     .neq("trading_status", "stopped")
     .gt("avg_daily_return_pct", 0)
-    .gte("win_rate_pct", 60)
+    .gte("win_rate_pct", 60);
+  if (riskLevel) query = query.eq("risk_level", riskLevel);
+  const { data: rawProviders } = await query
     .order("rating_score", { ascending: false, nullsFirst: false })
     .limit(8 + excludeProviderIds.length);
 

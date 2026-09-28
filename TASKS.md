@@ -56,7 +56,7 @@ original prompts' own section order.
 - [x] Notifications: per-type preferences page — UI only, "coming soon" (needs storage + email/Telegram senders)
 - [x] Settings: security section (2FA + active sessions) — UI only, "coming soon" badge, disabled buttons; real implementation deferred
 - [x] Settings: language + timezone section (tz saved in cookie)
-- [ ] Settings: risk questionnaire that feeds "suggested traders"
+- [x] Settings: risk questionnaire that feeds "suggested traders" (cookie-based)
 
 ## 4) Design system
 

@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
@@ -89,5 +90,24 @@ export async function changePassword(formData: FormData) {
     redirect("/settings?error=" + encodeURIComponent(translateAuthError(error.message, ta)));
   }
 
+  redirect("/settings?success=1");
+}
+
+// Risk questionnaire: three 1-3 answers -> a profile stored in a cookie that
+// the dashboard's "suggested traders" reads (low / medium / high risk).
+export async function saveRiskProfile(formData: FormData) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  const score = ["q1", "q2", "q3"].reduce((sum, k) => {
+    const v = Number(formData.get(k));
+    return sum + (v >= 1 && v <= 3 ? v : 2);
+  }, 0);
+  const profile = score <= 4 ? "low" : score <= 7 ? "medium" : "high";
+  (await cookies()).set("risk_profile", profile, { maxAge: 60 * 60 * 24 * 365, path: "/", sameSite: "lax" });
+  revalidatePath("/dashboard");
   redirect("/settings?success=1");
 }
