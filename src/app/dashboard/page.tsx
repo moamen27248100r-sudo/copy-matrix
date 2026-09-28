@@ -4,37 +4,11 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
 import { DashboardHero } from "@/components/DashboardHero";
-import { MyEquityChart } from "@/components/MyEquityChart";
 import { MarketTicker } from "@/components/MarketTicker";
 import { CopiedPositionsTable } from "@/components/CopiedPositionsTable";
 import { ActiveCopyControlPanel } from "@/components/ActiveCopyControlPanel";
-
-const QUICK_LINK_ICONS = {
-  discover: (
-    <>
-      <circle cx="12" cy="12" r="10" />
-      <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
-    </>
-  ),
-  portfolio: (
-    <>
-      <rect x="2" y="7" width="20" height="14" rx="2" />
-      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-    </>
-  ),
-  kyc: (
-    <>
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-      <path d="M9 12l2 2 4-4" />
-    </>
-  ),
-  settings: (
-    <>
-      <circle cx="12" cy="12" r="3" />
-      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
-    </>
-  ),
-};
+import { ConfirmButton } from "@/components/ConfirmButton";
+import { chooseAccountType } from "@/app/auth/actions";
 
 export default async function DashboardPage({
   searchParams,
@@ -108,6 +82,11 @@ export default async function DashboardPage({
   const closedPositions = allPositions.filter((p) => p.status === "closed");
   const openPositionsCount = openPositions.length;
   const netPnl = closedPositions.reduce((sum, p) => sum + (p.pnl ?? 0), 0);
+  const now = new Date();
+  const todayUtcStart = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+  const todayPnl = closedPositions
+    .filter((p) => p.closed_at && new Date(p.closed_at).getTime() >= todayUtcStart)
+    .reduce((sum, p) => sum + (p.pnl ?? 0), 0);
 
   // Same threshold auto_stop_copy checks server-side (0168): cumulative
   // closed pnl per subscription vs -(allocated * maxDrawdownPct / 100).
@@ -156,17 +135,19 @@ export default async function DashboardPage({
     pending: { title: t("kycPendingTitle"), desc: t("kycPendingDesc") },
     rejected: { title: t("kycRejectedTitle"), desc: t("kycRejectedDesc"), action: t("kycRejectedAction") },
   };
-  const quickLinks = [
-    { href: "/discover", title: t("quickLinkDiscoverTitle"), desc: t("quickLinkDiscoverDesc"), icon: QUICK_LINK_ICONS.discover },
-    { href: "/portfolio", title: t("quickLinkPortfolioTitle"), desc: t("quickLinkPortfolioDesc"), icon: QUICK_LINK_ICONS.portfolio },
-    { href: "/kyc", title: t("quickLinkKycTitle"), desc: t("quickLinkKycDesc"), icon: QUICK_LINK_ICONS.kyc },
-    { href: "/settings", title: t("quickLinkSettingsTitle"), desc: t("quickLinkSettingsDesc"), icon: QUICK_LINK_ICONS.settings },
-  ];
 
   const kycStatus = kyc?.status ?? "none";
-  const kycCopy = kycStatus === "approved" ? null : kycCopyByStatus[kycStatus] ?? kycCopyByStatus.none;
-  // Once verified, the identity-verification tile is just noise.
-  const visibleQuickLinks = quickLinks.filter((l) => !(l.href === "/kyc" && kycStatus === "approved"));
+  const accountType: "real" | "demo" = profile?.account_type === "real" ? "real" : "demo";
+  // One smart banner at a time: the demo account gets a "switch to real"
+  // nudge instead of the KYC banner, which only makes sense for real
+  // accounts (demo money never needs identity verification).
+  const kycCopy =
+    accountType === "real" && kycStatus !== "approved" ? kycCopyByStatus[kycStatus] ?? kycCopyByStatus.none : null;
+  const showDemoBanner = accountType === "demo";
+
+  const hour = new Date().getHours();
+  const greetingName = profile?.display_name ?? user.email ?? "";
+  const greeting = hour >= 5 && hour < 18 ? t("greetingMorning", { name: greetingName }) : t("greetingEvening", { name: greetingName });
 
   return (
     <>
@@ -175,12 +156,7 @@ export default async function DashboardPage({
         <MarketTicker initialPrices={tickerInitialPrices} />
 
         <div className="flex flex-wrap items-center gap-3">
-          <div>
-            <h1 className="text-xl font-semibold">
-              {t("greeting", { name: profile?.display_name ?? user.email ?? "" })}
-            </h1>
-            <p className="text-sm text-muted">{user.email}</p>
-          </div>
+          <h1 className="text-xl font-semibold">{greeting}</h1>
           {profile?.account_type && (
             <span
               className={
@@ -196,6 +172,32 @@ export default async function DashboardPage({
 
         {error && (
           <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>
+        )}
+
+        {showDemoBanner && (
+          <div className="flex flex-col gap-4 rounded-2xl border border-accent/30 bg-accent/10 p-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent/15">
+                <svg viewBox="0 0 24 24" className="h-5 w-5 text-accent" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-sm font-medium">{t("demoBannerTitle")}</p>
+                <p className="mt-0.5 text-xs text-muted">{t("demoBannerDesc")}</p>
+              </div>
+            </div>
+            <form action={chooseAccountType} className="shrink-0">
+              <input type="hidden" name="accountType" value="real" />
+              <input type="hidden" name="next" value="/dashboard" />
+              <ConfirmButton
+                confirmText={tNav("switchAccountWarning")}
+                className="rounded-lg bg-accent px-4 py-2 text-center text-sm font-semibold text-accent-foreground transition hover:bg-accent-hover"
+              >
+                {t("demoBannerAction")}
+              </ConfirmButton>
+            </form>
+          </div>
         )}
 
         {kycCopy && (
@@ -232,10 +234,13 @@ export default async function DashboardPage({
         )}
 
         <DashboardHero
-          accountType={(profile?.account_type as "real" | "demo") ?? "demo"}
+          accountType={accountType}
           balance={Number(profile?.balance ?? 0)}
           totalAllocated={totalAllocated}
           totalUnrealizedPnl={totalUnrealizedPnl}
+          totalRealizedPnl={netPnl}
+          todayPnl={todayPnl}
+          closedPositions={closedPositions.map((p) => ({ pnl: p.pnl, closed_at: p.closed_at }))}
         />
 
         <section className="grid grid-cols-3 rounded-2xl border border-border bg-surface">
@@ -332,38 +337,7 @@ export default async function DashboardPage({
           </section>
         )}
 
-        <section className="flex flex-col gap-3">
-          <h2 className="text-base font-semibold">{t("portfolioPerformance")}</h2>
-          <div className="rounded-2xl border border-border bg-surface p-5">
-            {closedPositions.length === 0 ? (
-              <div className="flex flex-col items-center gap-1 py-6 text-center">
-                <p className="text-sm font-medium">{t("noClosedTrades")}</p>
-                <p className="text-xs text-muted">{t("equityWillAppear")}</p>
-              </div>
-            ) : (
-              <MyEquityChart positions={closedPositions.map((p) => ({ pnl: p.pnl, closed_at: p.closed_at }))} />
-            )}
-          </div>
-        </section>
-
-        <section className="flex flex-col gap-3">
-          <h2 className="text-base font-semibold">{t("quickAccess")}</h2>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {visibleQuickLinks.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="flex flex-col gap-2 rounded-2xl border border-border bg-surface p-4 transition hover:border-accent/40 hover:shadow-lg"
-              >
-                <svg viewBox="0 0 24 24" className="h-5 w-5 text-accent" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  {l.icon}
-                </svg>
-                <p className="text-sm font-medium">{l.title}</p>
-                <p className="text-xs leading-relaxed text-muted">{l.desc}</p>
-              </Link>
-            ))}
-          </div>
-        </section>
+        <p className="text-center text-xs text-muted">{t("riskDisclaimerLine")}</p>
       </main>
     </>
   );

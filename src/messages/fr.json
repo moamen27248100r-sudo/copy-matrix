@@ -324,7 +324,16 @@
     "riskProtectionLabel": "Protection du solde contre les pertes",
     "riskProtectionUsed": "{pct}% sur {maxPct}%",
     "stopCopying": "Arrêter la copie",
-    "stopCopyingConfirm": "Arrêter de copier ce trader ?"
+    "stopCopyingConfirm": "Arrêter de copier ce trader ?",
+    "greetingMorning": "Bonjour, {name}",
+    "greetingEvening": "Bonsoir, {name}",
+    "demoBannerTitle": "Vous avez assez essayé ?",
+    "demoBannerDesc": "Passez dès maintenant à votre compte réel et commencez à copier des trades pour de vrai.",
+    "demoBannerAction": "Passer au compte réel",
+    "riskDisclaimerLine": "Copy Matrix est une plateforme logicielle de copie de signaux de trading — ce n'est ni un établissement financier, ni une banque, ni un courtier agréé. Le trading et le copy trading comportent un niveau de risque élevé pouvant entraîner la perte totale du capital investi ; les performances passées ne garantissent pas les résultats futurs.",
+    "todayProfit": "Profit du jour",
+    "totalProfit": "Profit total",
+    "resetBalance": "Réinitialiser le solde"
   },
   "Common": {
     "level": "Niveau {level}",

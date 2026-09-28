@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { AccountTypeSwitcher } from "@/components/AccountTypeSwitcher";
+import { ConfirmButton } from "@/components/ConfirmButton";
+import { MyEquityChart } from "@/components/MyEquityChart";
+import { chooseAccountType } from "@/app/auth/actions";
 
 type AccountType = "real" | "demo";
 
@@ -16,20 +19,41 @@ function ActionIcon({ children }: { children: React.ReactNode }) {
   );
 }
 
+function ProfitRow({ label, amount, pct }: { label: string; amount: number; pct: number }) {
+  const positive = amount >= 0;
+  return (
+    <div className="flex items-center justify-between text-sm">
+      <span className="text-muted">{label}</span>
+      <span dir="ltr" className={positive ? "text-success" : "text-danger"}>
+        {positive ? "+" : "-"}${money(Math.abs(amount))} ({positive ? "+" : "-"}
+        {Math.abs(pct).toFixed(2)}%)
+      </span>
+    </div>
+  );
+}
+
 // One consolidated balance card for the customer dashboard: total value,
-// the account switch, the cash / reserved / floating-P&L breakdown, and the
-// three primary money actions -- replacing what used to be two separate
-// cards that repeated the same balance three times.
+// today's/total profit, a mini equity chart with period buttons, the
+// account switch, the cash / reserved breakdown, and account-type-specific
+// actions -- replacing what used to be several separate cards/sections
+// that repeated the same balance and pushed the equity chart to its own
+// section further down the page.
 export async function DashboardHero({
   accountType,
   balance,
   totalAllocated,
   totalUnrealizedPnl,
+  totalRealizedPnl,
+  todayPnl,
+  closedPositions,
 }: {
   accountType: AccountType;
   balance: number;
   totalAllocated: number;
   totalUnrealizedPnl: number;
+  totalRealizedPnl: number;
+  todayPnl: number;
+  closedPositions: { pnl: number | null; closed_at: string | null }[];
 }) {
   const t = await getTranslations("Dashboard");
   const tNav = await getTranslations("Nav");
@@ -41,6 +65,9 @@ export async function DashboardHero({
   const pnlPct = balance > 0 ? (totalUnrealizedPnl / balance) * 100 : 0;
   const pnlPositive = totalUnrealizedPnl >= 0;
   const accountTypeShort = (v: AccountType) => (v === "real" ? t("accountTypeShortReal") : t("accountTypeShortDemo"));
+  const totalProfit = totalRealizedPnl + totalUnrealizedPnl;
+  const totalProfitPct = balance > 0 ? (totalProfit / balance) * 100 : 0;
+  const todayPct = balance > 0 ? (todayPnl / balance) * 100 : 0;
 
   return (
     <section className="flex flex-col gap-5 rounded-2xl border border-border bg-surface p-5">
@@ -62,20 +89,24 @@ export async function DashboardHero({
         />
       </div>
 
-      <div>
-        <p className="font-display text-4xl font-extrabold tracking-tight">
+      <div className="flex flex-col gap-1.5">
+        <p className="font-display text-4xl font-extrabold tracking-tight" dir="ltr">
           <span dir="ltr" className="inline-block">
             ${money(totalValue)}
           </span>
         </p>
-        <p className="mt-1 text-sm">
-          <span dir="ltr" className={`inline-block ${pnlPositive ? "text-success" : "text-danger"}`}>
+        <ProfitRow label={t("todayProfit")} amount={todayPnl} pct={todayPct} />
+        <ProfitRow label={t("totalProfit")} amount={totalProfit} pct={totalProfitPct} />
+        <p className="text-xs text-muted">
+          <span dir="ltr" className={pnlPositive ? "text-success" : "text-danger"}>
             {pnlPositive ? "+" : "-"}${money(Math.abs(totalUnrealizedPnl))} ({pnlPositive ? "+" : "-"}
             {Math.abs(pnlPct).toFixed(2)}%)
-          </span>
-          <span className="ms-2 text-xs text-muted">{t("unrealizedPnl")}</span>
+          </span>{" "}
+          {t("unrealizedPnl")}
         </p>
       </div>
+
+      <MyEquityChart positions={closedPositions} />
 
       <div className="grid grid-cols-2 gap-3 border-t border-border pt-4">
         <div>
@@ -96,38 +127,80 @@ export async function DashboardHero({
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-2">
-        <Link
-          href="/portfolio/deposit"
-          className="flex items-center justify-center gap-1.5 rounded-lg bg-accent px-3 py-2.5 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
-        >
-          <ActionIcon>
-            <path d="M12 5v14" />
-            <path d="M5 12l7 7 7-7" />
-          </ActionIcon>
-          {t("deposit")}
-        </Link>
-        <Link
-          href="/portfolio/withdraw"
-          className="flex items-center justify-center gap-1.5 rounded-lg border border-border bg-background px-3 py-2.5 text-sm font-medium transition hover:border-accent/50"
-        >
-          <ActionIcon>
-            <path d="M5 12l7-7 7 7" />
-            <path d="M12 5v14" />
-          </ActionIcon>
-          {t("withdraw")}
-        </Link>
-        <Link
-          href="/discover"
-          className="flex items-center justify-center gap-1.5 rounded-lg border border-border bg-background px-3 py-2.5 text-sm font-medium transition hover:border-accent/50"
-        >
-          <ActionIcon>
-            <circle cx="12" cy="12" r="10" />
-            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
-          </ActionIcon>
-          {t("copy")}
-        </Link>
-      </div>
+      {accountType === "real" ? (
+        <div className="grid grid-cols-3 gap-2">
+          <Link
+            href="/portfolio/deposit"
+            className="flex items-center justify-center gap-1.5 rounded-lg bg-accent px-3 py-2.5 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
+          >
+            <ActionIcon>
+              <path d="M12 5v14" />
+              <path d="M5 12l7 7 7-7" />
+            </ActionIcon>
+            {t("deposit")}
+          </Link>
+          <Link
+            href="/portfolio/withdraw"
+            className="flex items-center justify-center gap-1.5 rounded-lg border border-border bg-background px-3 py-2.5 text-sm font-medium transition hover:border-accent/50"
+          >
+            <ActionIcon>
+              <path d="M5 12l7-7 7 7" />
+              <path d="M12 5v14" />
+            </ActionIcon>
+            {t("withdraw")}
+          </Link>
+          <Link
+            href="/discover"
+            className="flex items-center justify-center gap-1.5 rounded-lg border border-border bg-background px-3 py-2.5 text-sm font-medium transition hover:border-accent/50"
+          >
+            <ActionIcon>
+              <circle cx="12" cy="12" r="10" />
+              <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+            </ActionIcon>
+            {t("copy")}
+          </Link>
+        </div>
+      ) : (
+        <div className="grid grid-cols-3 gap-2">
+          <form action={chooseAccountType}>
+            <input type="hidden" name="accountType" value="demo" />
+            <input type="hidden" name="next" value="/dashboard" />
+            <ConfirmButton
+              confirmText={tNav("switchAccountWarning")}
+              className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-border bg-background px-3 py-2.5 text-sm font-medium transition hover:border-accent/50"
+            >
+              <ActionIcon>
+                <path d="M3 12a9 9 0 1 0 3-6.7" />
+                <path d="M3 4v5h5" />
+              </ActionIcon>
+              {t("resetBalance")}
+            </ConfirmButton>
+          </form>
+          <Link
+            href="/discover"
+            className="flex items-center justify-center gap-1.5 rounded-lg border border-border bg-background px-3 py-2.5 text-sm font-medium transition hover:border-accent/50"
+          >
+            <ActionIcon>
+              <circle cx="12" cy="12" r="10" />
+              <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+            </ActionIcon>
+            {t("copy")}
+          </Link>
+          <form action={chooseAccountType}>
+            <input type="hidden" name="accountType" value="real" />
+            <input type="hidden" name="next" value="/dashboard" />
+            <ConfirmButton
+              confirmText={tNav("switchAccountWarning")}
+              className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-accent px-3 py-2.5 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
+            >
+              <ActionIcon>
+                <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" />
+              </ActionIcon>
+              {t("demoBannerAction")}
+            </ConfirmButton>
+          </form>
+        </div>
+      )}
     </section>
   );
 }

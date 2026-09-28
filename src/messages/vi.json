@@ -324,7 +324,16 @@
     "riskProtectionLabel": "Bảo vệ số dư khỏi thua lỗ",
     "riskProtectionUsed": "{pct}% trên {maxPct}%",
     "stopCopying": "Dừng sao chép",
-    "stopCopyingConfirm": "Dừng sao chép nhà giao dịch này?"
+    "stopCopyingConfirm": "Dừng sao chép nhà giao dịch này?",
+    "greetingMorning": "Chào buổi sáng, {name}",
+    "greetingEvening": "Chào buổi tối, {name}",
+    "demoBannerTitle": "Đã thử đủ chưa?",
+    "demoBannerDesc": "Chuyển sang tài khoản thật ngay bây giờ và bắt đầu sao chép giao dịch thực sự.",
+    "demoBannerAction": "Chuyển sang tài khoản thật",
+    "riskDisclaimerLine": "Copy Matrix là nền tảng phần mềm để sao chép tín hiệu giao dịch — không phải là tổ chức tài chính, ngân hàng hay công ty môi giới được cấp phép. Giao dịch và sao chép giao dịch tiềm ẩn rủi ro cao và có thể dẫn đến mất toàn bộ vốn đầu tư; hiệu suất trong quá khứ không đảm bảo kết quả trong tương lai.",
+    "todayProfit": "Lợi nhuận hôm nay",
+    "totalProfit": "Tổng lợi nhuận",
+    "resetBalance": "Đặt lại số dư"
   },
   "Common": {
     "level": "Cấp độ {level}",

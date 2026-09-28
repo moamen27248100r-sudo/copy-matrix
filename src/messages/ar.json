@@ -336,7 +336,16 @@
     "riskProtectionLabel": "حماية الرصيد من الخسارة",
     "riskProtectionUsed": "{pct}% من {maxPct}%",
     "stopCopying": "إيقاف النسخ",
-    "stopCopyingConfirm": "هل أنت متأكد من إيقاف نسخ هذا المتداول؟"
+    "stopCopyingConfirm": "هل أنت متأكد من إيقاف نسخ هذا المتداول؟",
+    "greetingMorning": "صباح الخير، {name}",
+    "greetingEvening": "مساء الخير، {name}",
+    "demoBannerTitle": "جرّبت بما يكفي؟",
+    "demoBannerDesc": "انتقل الآن إلى الحساب الحقيقي وابدأ نسخ الصفقات فعليًا.",
+    "demoBannerAction": "الانتقال للحساب الحقيقي",
+    "riskDisclaimerLine": "Copy Matrix منصة برمجية لنسخ إشارات التداول وليست مؤسسة مالية أو بنكاً أو وسيط تداول مرخّصاً. التداول ونسخ الصفقات ينطويان على مخاطرة عالية قد تؤدي إلى خسارة كامل رأس المال المستثمر، والأداء السابق لا يضمن نتائج مستقبلية.",
+    "todayProfit": "ربح اليوم",
+    "totalProfit": "إجمالي الربح",
+    "resetBalance": "إعادة تعيين الرصيد"
   },
   "Common": {
     "level": "المستوى {level}",
