@@ -618,7 +618,12 @@
     "closeFilters": "बंद करें",
     "filterButtonLabel": "फ़िल्टर",
     "quickCategoriesLabel": "त्वरित श्रेणियाँ",
-    "sortSectionLabel": "परिणाम क्रमबद्ध करें"
+    "sortSectionLabel": "परिणाम क्रमबद्ध करें",
+    "sortProfit": "कुल लाभ",
+    "favoritesOnly": "केवल पसंदीदा",
+    "viewCards": "कार्ड",
+    "viewTable": "तालिका",
+    "tableName": "ट्रेडर"
   },
   "Countries": {
     "US": "संयुक्त राज्य अमेरिका",

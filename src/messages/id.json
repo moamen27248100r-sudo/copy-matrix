@@ -618,7 +618,12 @@
     "closeFilters": "Tutup",
     "filterButtonLabel": "Filter",
     "quickCategoriesLabel": "Kategori cepat",
-    "sortSectionLabel": "Urutkan hasil"
+    "sortSectionLabel": "Urutkan hasil",
+    "sortProfit": "Total untung",
+    "favoritesOnly": "Hanya favorit",
+    "viewCards": "Kartu",
+    "viewTable": "Tabel",
+    "tableName": "Trader"
   },
   "Countries": {
     "US": "Amerika Serikat",

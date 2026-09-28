@@ -618,7 +618,12 @@
     "closeFilters": "বন্ধ করুন",
     "filterButtonLabel": "ফিল্টার",
     "quickCategoriesLabel": "দ্রুত বিভাগ",
-    "sortSectionLabel": "ফলাফল সাজান"
+    "sortSectionLabel": "ফলাফল সাজান",
+    "sortProfit": "মোট লাভ",
+    "favoritesOnly": "শুধু পছন্দের",
+    "viewCards": "কার্ড",
+    "viewTable": "টেবিল",
+    "tableName": "ট্রেডার"
   },
   "Countries": {
     "US": "যুক্তরাষ্ট্র",

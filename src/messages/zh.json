@@ -618,7 +618,12 @@
     "closeFilters": "关闭",
     "filterButtonLabel": "筛选",
     "quickCategoriesLabel": "快速分类",
-    "sortSectionLabel": "结果排序"
+    "sortSectionLabel": "结果排序",
+    "sortProfit": "总盈利",
+    "favoritesOnly": "仅收藏",
+    "viewCards": "卡片",
+    "viewTable": "表格",
+    "tableName": "交易者"
   },
   "Countries": {
     "US": "美国",

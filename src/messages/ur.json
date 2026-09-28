@@ -618,7 +618,12 @@
     "closeFilters": "بند کریں",
     "filterButtonLabel": "فلٹر",
     "quickCategoriesLabel": "فوری زمرے",
-    "sortSectionLabel": "نتائج ترتیب دیں"
+    "sortSectionLabel": "نتائج ترتیب دیں",
+    "sortProfit": "کل منافع",
+    "favoritesOnly": "صرف پسندیدہ",
+    "viewCards": "کارڈز",
+    "viewTable": "جدول",
+    "tableName": "ٹریڈر"
   },
   "Countries": {
     "US": "امریکا",

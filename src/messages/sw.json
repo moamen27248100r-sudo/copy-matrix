@@ -618,7 +618,12 @@
     "closeFilters": "Funga",
     "filterButtonLabel": "Chuja",
     "quickCategoriesLabel": "Jamii za haraka",
-    "sortSectionLabel": "Panga matokeo"
+    "sortSectionLabel": "Panga matokeo",
+    "sortProfit": "Faida jumla",
+    "favoritesOnly": "Vipendwa tu",
+    "viewCards": "Kadi",
+    "viewTable": "Jedwali",
+    "tableName": "Mfanyabiashara"
   },
   "Countries": {
     "US": "Marekani",

@@ -618,7 +618,12 @@
     "closeFilters": "Đóng",
     "filterButtonLabel": "Bộ lọc",
     "quickCategoriesLabel": "Danh mục nhanh",
-    "sortSectionLabel": "Sắp xếp kết quả"
+    "sortSectionLabel": "Sắp xếp kết quả",
+    "sortProfit": "Tổng lợi nhuận",
+    "favoritesOnly": "Chỉ mục yêu thích",
+    "viewCards": "Thẻ",
+    "viewTable": "Bảng",
+    "tableName": "Nhà giao dịch"
   },
   "Countries": {
     "US": "Hoa Kỳ",

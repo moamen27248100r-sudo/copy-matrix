@@ -630,7 +630,12 @@
     "closeFilters": "إغلاق",
     "filterButtonLabel": "تصفية",
     "quickCategoriesLabel": "فئات سريعة",
-    "sortSectionLabel": "ترتيب النتائج"
+    "sortSectionLabel": "ترتيب النتائج",
+    "sortProfit": "الربح الإجمالي",
+    "favoritesOnly": "المفضلة فقط",
+    "viewCards": "بطاقات",
+    "viewTable": "جدول",
+    "tableName": "المتداول"
   },
   "Countries": {
     "US": "الولايات المتحدة",

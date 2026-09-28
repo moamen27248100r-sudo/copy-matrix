@@ -9,6 +9,7 @@ import { DiscoverFilterSheet } from "@/components/DiscoverFilterSheet";
 const SORT_OPTIONS = {
   best: { column: "rating_score", ascending: false, labelKey: "sortBest" },
   return: { column: "avg_daily_return_pct", ascending: false, labelKey: "sortReturn" },
+  profit: { column: "total_profit", ascending: false, labelKey: "sortProfit" },
   winrate: { column: "win_rate_pct", ascending: false, labelKey: "sortWinrate" },
   followers: { column: "followers_count", ascending: false, labelKey: "sortFollowers" },
 } as const;
@@ -47,9 +48,13 @@ export default async function DiscoverPage({
     minEntry?: string;
     assetClass?: string;
     trackRecord?: string;
+    view?: string;
+    favorites?: string;
   }>;
 }) {
-  const { q, sort, error, pill, risk, minEntry, assetClass, trackRecord } = await searchParams;
+  const { q, sort, error, pill, risk, minEntry, assetClass, trackRecord, view, favorites } = await searchParams;
+  const viewMode = view === "table" ? "table" : "cards";
+  const favoritesOnly = favorites === "1";
   const pillKey = pill && (PILL_KEYS as readonly string[]).includes(pill) ? (pill as PillKey) : null;
   // "roi"/"trusted" pills force their matching sort; an explicit ?sort=
   // still wins if the customer also picked one directly.
@@ -114,13 +119,12 @@ export default async function DiscoverPage({
       : Promise.resolve({ data: [] as { provider_id: string }[] }),
   ]);
 
-  const providers = rawProviders;
+  const watchingIds = new Set((myFollows ?? []).map((f) => f.provider_id));
+  const providers = favoritesOnly ? (rawProviders ?? []).filter((p) => watchingIds.has(p.provider_id)) : rawProviders;
 
   const followingIds = new Set(
     (mySubscriptions ?? []).map((s) => s.provider_id),
   );
-  const followingProviderId = (mySubscriptions ?? [])[0]?.provider_id ?? null;
-  const watchingIds = new Set((myFollows ?? []).map((f) => f.provider_id));
 
   return (
     <>
@@ -233,15 +237,85 @@ export default async function DiscoverPage({
           />
         </div>
 
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <Link
+          href={`/discover?${new URLSearchParams({ ...(q ? { q } : {}), sort: sortKey, ...(favoritesOnly ? {} : { favorites: "1" }), ...(viewMode === "table" ? { view: "table" } : {}) }).toString()}`}
+          className={
+            favoritesOnly
+              ? "rounded-full border border-accent bg-accent/10 px-3 py-1.5 text-xs font-medium text-accent"
+              : "rounded-full border border-border px-3 py-1.5 text-xs font-medium text-muted transition hover:border-accent/40"
+          }
+        >
+          {t("favoritesOnly")}
+        </Link>
+        <div className="flex items-center gap-1 rounded-full border border-border p-0.5">
+          <Link
+            href={`/discover?${new URLSearchParams({ ...(q ? { q } : {}), sort: sortKey, ...(favoritesOnly ? { favorites: "1" } : {}) }).toString()}`}
+            className={viewMode === "cards" ? "rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground" : "rounded-full px-3 py-1 text-xs text-muted"}
+          >
+            {t("viewCards")}
+          </Link>
+          <Link
+            href={`/discover?${new URLSearchParams({ ...(q ? { q } : {}), sort: sortKey, ...(favoritesOnly ? { favorites: "1" } : {}), view: "table" }).toString()}`}
+            className={viewMode === "table" ? "rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground" : "rounded-full px-3 py-1 text-xs text-muted"}
+          >
+            {t("viewTable")}
+          </Link>
+        </div>
+      </div>
+
       {!providers || providers.length === 0 ? (
         <p className="text-sm text-muted">
           {t("noMatches")}
         </p>
+      ) : viewMode === "table" ? (
+        <div className="overflow-x-auto rounded-2xl border border-border">
+          <table className="w-full min-w-[640px] border-collapse text-start">
+            <thead>
+              <tr className="border-b border-border bg-surface text-xs text-muted">
+                <th className="px-4 py-3 text-start font-normal">{t("tableName")}</th>
+                <th className="px-4 py-3 text-start font-normal">{t("avgDailyReturn")}</th>
+                <th className="px-4 py-3 text-start font-normal">{t("winRate")}</th>
+                <th className="px-4 py-3 text-start font-normal">{t("copiersLabel")}</th>
+                <th className="px-4 py-3 text-start font-normal">{t("minCopyAmountLabel")}</th>
+                <th className="px-4 py-3"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {providers.map((p) => {
+                const isDown = p.avg_daily_return_pct != null && p.avg_daily_return_pct < 0;
+                return (
+                  <tr key={p.provider_id} className="border-b border-border last:border-b-0 hover:bg-surface/60">
+                    <td className="px-4 py-3">
+                      <Link href={`/trader/${p.provider_id}`} className="text-sm font-medium hover:text-accent">
+                        {p.display_name}
+                      </Link>
+                    </td>
+                    <td className={`px-4 py-3 text-sm ${isDown ? "text-danger" : "text-success"}`} dir="ltr">
+                      {p.avg_daily_return_pct != null ? `${p.avg_daily_return_pct}%` : "—"}
+                    </td>
+                    <td className="px-4 py-3 text-sm text-success" dir="ltr">
+                      {p.win_rate_pct != null ? `${p.win_rate_pct}%` : "—"}
+                    </td>
+                    <td className="px-4 py-3 text-sm">{p.followers_count}</td>
+                    <td className="px-4 py-3 text-sm" dir="ltr">
+                      ${Number(p.min_copy_amount).toLocaleString("en-US")}
+                    </td>
+                    <td className="px-4 py-3 text-end">
+                      <Link href={`/trader/${p.provider_id}#copy`} className="text-sm font-medium text-accent hover:underline">
+                        {t("viewProfile")}
+                      </Link>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       ) : (
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {providers.map((p) => {
             const isFollowing = followingIds.has(p.provider_id);
-            const isBlocked = followingProviderId != null && !isFollowing;
             const isStopped = p.trading_status === "stopped";
             const isWatching = watchingIds.has(p.provider_id);
             const copyHref = user
@@ -254,7 +328,7 @@ export default async function DiscoverPage({
                 copyHref={copyHref}
                 isWatching={isWatching}
                 onFollowAction={isWatching ? unfollowTrader : followTrader}
-                copyState={isFollowing ? "stopCopying" : isStopped ? "stoppedDisabled" : isBlocked ? "blockedDisabled" : "copy"}
+                copyState={isFollowing ? "stopCopying" : isStopped ? "stoppedDisabled" : "copy"}
                 onStopCopyingAction={unfollowProvider}
               />
             );

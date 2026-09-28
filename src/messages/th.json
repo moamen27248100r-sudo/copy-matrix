@@ -618,7 +618,12 @@
     "closeFilters": "ปิด",
     "filterButtonLabel": "ตัวกรอง",
     "quickCategoriesLabel": "หมวดหมู่ด่วน",
-    "sortSectionLabel": "เรียงผลลัพธ์"
+    "sortSectionLabel": "เรียงผลลัพธ์",
+    "sortProfit": "กำไรรวม",
+    "favoritesOnly": "รายการโปรดเท่านั้น",
+    "viewCards": "การ์ด",
+    "viewTable": "ตาราง",
+    "tableName": "เทรดเดอร์"
   },
   "Countries": {
     "US": "สหรัฐอเมริกา",

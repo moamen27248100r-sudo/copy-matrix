@@ -618,7 +618,12 @@
     "closeFilters": "Fermer",
     "filterButtonLabel": "Filtrer",
     "quickCategoriesLabel": "Catégories rapides",
-    "sortSectionLabel": "Trier les résultats"
+    "sortSectionLabel": "Trier les résultats",
+    "sortProfit": "Profit total",
+    "favoritesOnly": "Favoris uniquement",
+    "viewCards": "Cartes",
+    "viewTable": "Tableau",
+    "tableName": "Trader"
   },
   "Countries": {
     "US": "États-Unis",
