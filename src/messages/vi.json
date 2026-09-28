@@ -339,7 +339,18 @@
     "stepFirstCopy": "Sao chép nhà giao dịch đầu tiên",
     "stepProtection": "Bật bảo vệ sao chép",
     "stepNotifications": "Bật thông báo",
-    "suggestedTradersTitle": "Nhà giao dịch được đề xuất cho bạn"
+    "suggestedTradersTitle": "Nhà giao dịch được đề xuất cho bạn",
+    "recentActivityTitle": "Hoạt động gần đây",
+    "activityPositionOpened": "Đã mở giao dịch {symbol}",
+    "activityPositionClosedWin": "Đã đóng giao dịch {symbol} có lãi",
+    "activityPositionClosedLoss": "Đã đóng giao dịch {symbol} bị lỗ",
+    "activityCopyStarted": "Đã bắt đầu sao chép {name}",
+    "activityDeposit": "Đã nạp {amount}",
+    "activityWithdrawal": "Đã rút {amount}",
+    "portfolioAllocationTitle": "Phân bổ danh mục",
+    "allocationAvailableCash": "Tiền mặt khả dụng",
+    "mostCopiedThisWeekTitle": "Được sao chép nhiều nhất tuần này",
+    "copiersThisWeek": "{count} người sao chép mới tuần này"
   },
   "Common": {
     "level": "Cấp độ {level}",

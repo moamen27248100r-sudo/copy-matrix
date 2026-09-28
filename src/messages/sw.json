@@ -339,7 +339,18 @@
     "stepFirstCopy": "Nakili mfanyabiashara wako wa kwanza",
     "stepProtection": "Washa ulinzi wa kunakili",
     "stepNotifications": "Washa arifa",
-    "suggestedTradersTitle": "Wafanyabiashara waliopendekezwa kwako"
+    "suggestedTradersTitle": "Wafanyabiashara waliopendekezwa kwako",
+    "recentActivityTitle": "Shughuli za hivi karibuni",
+    "activityPositionOpened": "Ilifungua biashara ya {symbol}",
+    "activityPositionClosedWin": "Ilifunga biashara ya {symbol} kwa faida",
+    "activityPositionClosedLoss": "Ilifunga biashara ya {symbol} kwa hasara",
+    "activityCopyStarted": "Ilianza kunakili {name}",
+    "activityDeposit": "Iliweka {amount}",
+    "activityWithdrawal": "Iliondoa {amount}",
+    "portfolioAllocationTitle": "Mgawanyo wa kwingi la uwekezaji",
+    "allocationAvailableCash": "Fedha taslimu zinazopatikana",
+    "mostCopiedThisWeekTitle": "Waliyonakiliwa zaidi wiki hii",
+    "copiersThisWeek": "Wanakili {count} wapya wiki hii"
   },
   "Common": {
     "level": "Kiwango {level}",

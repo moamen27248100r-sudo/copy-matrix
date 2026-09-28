@@ -339,7 +339,18 @@
     "stepFirstCopy": "اپنا پہلا ٹریڈر کاپی کریں",
     "stepProtection": "کاپی پروٹیکشن فعال کریں",
     "stepNotifications": "اطلاعات آن کریں",
-    "suggestedTradersTitle": "آپ کے لیے تجویز کردہ ٹریڈرز"
+    "suggestedTradersTitle": "آپ کے لیے تجویز کردہ ٹریڈرز",
+    "recentActivityTitle": "حالیہ سرگرمی",
+    "activityPositionOpened": "{symbol} ٹریڈ کھولا گیا",
+    "activityPositionClosedWin": "{symbol} ٹریڈ منافع میں بند ہوا",
+    "activityPositionClosedLoss": "{symbol} ٹریڈ نقصان میں بند ہوا",
+    "activityCopyStarted": "{name} کو کاپی کرنا شروع کیا",
+    "activityDeposit": "{amount} جمع کیا گیا",
+    "activityWithdrawal": "{amount} نکالا گیا",
+    "portfolioAllocationTitle": "پورٹ فولیو کی تقسیم",
+    "allocationAvailableCash": "دستیاب نقدی",
+    "mostCopiedThisWeekTitle": "اس ہفتے سب سے زیادہ کاپی کیے گئے",
+    "copiersThisWeek": "اس ہفتے {count} نئے کاپی کرنے والے"
   },
   "Common": {
     "level": "لیول {level}",

@@ -351,7 +351,18 @@
     "stepFirstCopy": "انسخ أول متداول",
     "stepProtection": "فعّل حماية النسخ",
     "stepNotifications": "فعّل التنبيهات",
-    "suggestedTradersTitle": "متداولون مقترحون لك"
+    "suggestedTradersTitle": "متداولون مقترحون لك",
+    "recentActivityTitle": "النشاط الأخير",
+    "activityPositionOpened": "فُتحت صفقة {symbol}",
+    "activityPositionClosedWin": "أُغلقت صفقة {symbol} بربح",
+    "activityPositionClosedLoss": "أُغلقت صفقة {symbol} بخسارة",
+    "activityCopyStarted": "بدأت نسخ {name}",
+    "activityDeposit": "إيداع بمبلغ {amount}",
+    "activityWithdrawal": "سحب بمبلغ {amount}",
+    "portfolioAllocationTitle": "توزيع المحفظة",
+    "allocationAvailableCash": "نقدي متاح",
+    "mostCopiedThisWeekTitle": "الأكثر نسخًا هذا الأسبوع",
+    "copiersThisWeek": "{count} ناسخ جديد هذا الأسبوع"
   },
   "Common": {
     "level": "المستوى {level}",

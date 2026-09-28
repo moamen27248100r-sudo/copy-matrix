@@ -339,7 +339,18 @@
     "stepFirstCopy": "คัดลอกเทรดเดอร์คนแรกของคุณ",
     "stepProtection": "เปิดใช้การป้องกันการคัดลอก",
     "stepNotifications": "เปิดการแจ้งเตือน",
-    "suggestedTradersTitle": "เทรดเดอร์ที่แนะนำสำหรับคุณ"
+    "suggestedTradersTitle": "เทรดเดอร์ที่แนะนำสำหรับคุณ",
+    "recentActivityTitle": "กิจกรรมล่าสุด",
+    "activityPositionOpened": "เปิดการเทรด {symbol}",
+    "activityPositionClosedWin": "ปิดการเทรด {symbol} ด้วยกำไร",
+    "activityPositionClosedLoss": "ปิดการเทรด {symbol} ด้วยการขาดทุน",
+    "activityCopyStarted": "เริ่มคัดลอก {name}",
+    "activityDeposit": "ฝากเงิน {amount}",
+    "activityWithdrawal": "ถอนเงิน {amount}",
+    "portfolioAllocationTitle": "การจัดสรรพอร์ตโฟลิโอ",
+    "allocationAvailableCash": "เงินสดที่พร้อมใช้",
+    "mostCopiedThisWeekTitle": "คัดลอกมากที่สุดในสัปดาห์นี้",
+    "copiersThisWeek": "ผู้คัดลอกใหม่ {count} คนในสัปดาห์นี้"
   },
   "Common": {
     "level": "ระดับ {level}",

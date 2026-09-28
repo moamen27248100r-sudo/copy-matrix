@@ -339,7 +339,18 @@
     "stepFirstCopy": "अपना पहला ट्रेडर कॉपी करें",
     "stepProtection": "कॉपी सुरक्षा सक्षम करें",
     "stepNotifications": "सूचनाएं चालू करें",
-    "suggestedTradersTitle": "आपके लिए सुझाए गए ट्रेडर"
+    "suggestedTradersTitle": "आपके लिए सुझाए गए ट्रेडर",
+    "recentActivityTitle": "हाल की गतिविधि",
+    "activityPositionOpened": "{symbol} ट्रेड खोला गया",
+    "activityPositionClosedWin": "{symbol} ट्रेड लाभ में बंद हुआ",
+    "activityPositionClosedLoss": "{symbol} ट्रेड हानि में बंद हुआ",
+    "activityCopyStarted": "{name} को कॉपी करना शुरू किया",
+    "activityDeposit": "{amount} जमा किया गया",
+    "activityWithdrawal": "{amount} निकाला गया",
+    "portfolioAllocationTitle": "पोर्टफोलियो आवंटन",
+    "allocationAvailableCash": "उपलब्ध नकद",
+    "mostCopiedThisWeekTitle": "इस सप्ताह सबसे ज़्यादा कॉपी किए गए",
+    "copiersThisWeek": "इस सप्ताह {count} नए कॉपियर"
   },
   "Common": {
     "level": "लेवल {level}",

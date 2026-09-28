@@ -339,7 +339,18 @@
     "stepFirstCopy": "Salin trader pertama Anda",
     "stepProtection": "Aktifkan proteksi copy",
     "stepNotifications": "Aktifkan notifikasi",
-    "suggestedTradersTitle": "Trader yang disarankan untuk Anda"
+    "suggestedTradersTitle": "Trader yang disarankan untuk Anda",
+    "recentActivityTitle": "Aktivitas terbaru",
+    "activityPositionOpened": "Membuka trading {symbol}",
+    "activityPositionClosedWin": "Menutup trading {symbol} dengan untung",
+    "activityPositionClosedLoss": "Menutup trading {symbol} dengan rugi",
+    "activityCopyStarted": "Mulai menyalin {name}",
+    "activityDeposit": "Menyetor {amount}",
+    "activityWithdrawal": "Menarik {amount}",
+    "portfolioAllocationTitle": "Alokasi portofolio",
+    "allocationAvailableCash": "Kas tersedia",
+    "mostCopiedThisWeekTitle": "Paling banyak disalin minggu ini",
+    "copiersThisWeek": "{count} penyalin baru minggu ini"
   },
   "Common": {
     "level": "Level {level}",

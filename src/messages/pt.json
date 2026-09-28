@@ -339,7 +339,18 @@
     "stepFirstCopy": "Copie seu primeiro trader",
     "stepProtection": "Ative a proteção de cópia",
     "stepNotifications": "Ative as notificações",
-    "suggestedTradersTitle": "Traders sugeridos para você"
+    "suggestedTradersTitle": "Traders sugeridos para você",
+    "recentActivityTitle": "Atividade recente",
+    "activityPositionOpened": "Abriu uma operação de {symbol}",
+    "activityPositionClosedWin": "Fechou uma operação de {symbol} com lucro",
+    "activityPositionClosedLoss": "Fechou uma operação de {symbol} com prejuízo",
+    "activityCopyStarted": "Começou a copiar {name}",
+    "activityDeposit": "Depósito de {amount}",
+    "activityWithdrawal": "Saque de {amount}",
+    "portfolioAllocationTitle": "Distribuição da carteira",
+    "allocationAvailableCash": "Dinheiro disponível",
+    "mostCopiedThisWeekTitle": "Mais copiados esta semana",
+    "copiersThisWeek": "{count} novos copiadores esta semana"
   },
   "Common": {
     "level": "Nível {level}",

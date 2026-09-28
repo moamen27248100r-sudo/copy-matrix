@@ -339,7 +339,18 @@
     "stepFirstCopy": "复制你的第一位交易者",
     "stepProtection": "启用跟单保护",
     "stepNotifications": "开启通知",
-    "suggestedTradersTitle": "为你推荐的交易者"
+    "suggestedTradersTitle": "为你推荐的交易者",
+    "recentActivityTitle": "最近动态",
+    "activityPositionOpened": "开了一笔 {symbol} 交易",
+    "activityPositionClosedWin": "以盈利平仓 {symbol}",
+    "activityPositionClosedLoss": "以亏损平仓 {symbol}",
+    "activityCopyStarted": "开始跟单 {name}",
+    "activityDeposit": "存入 {amount}",
+    "activityWithdrawal": "提取 {amount}",
+    "portfolioAllocationTitle": "投资组合分配",
+    "allocationAvailableCash": "可用现金",
+    "mostCopiedThisWeekTitle": "本周最多人跟单",
+    "copiersThisWeek": "本周新增 {count} 位跟单者"
   },
   "Common": {
     "level": "等级 {level}",

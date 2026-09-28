@@ -10,6 +10,9 @@ import { ActiveCopyControlPanel } from "@/components/ActiveCopyControlPanel";
 import { ConfirmButton } from "@/components/ConfirmButton";
 import { OnboardingStepsCard } from "@/components/OnboardingStepsCard";
 import { SuggestedTraders } from "@/components/SuggestedTraders";
+import { RecentActivityTimeline, type ActivityEvent } from "@/components/RecentActivityTimeline";
+import { PortfolioAllocationDonut } from "@/components/PortfolioAllocationDonut";
+import { MostCopiedThisWeek } from "@/components/MostCopiedThisWeek";
 import { chooseAccountType } from "@/app/auth/actions";
 
 export default async function DashboardPage({
@@ -29,7 +32,7 @@ export default async function DashboardPage({
     redirect("/login");
   }
 
-  const [{ data: profile }, { data: kyc }, { data: subscriptions }, { data: positions }, { data: tickerPrices }] =
+  const [{ data: profile }, { data: kyc }, { data: subscriptions }, { data: positions }, { data: tickerPrices }, { data: walletRequests }] =
     await Promise.all([
       supabase.from("profiles").select("display_name, account_type, balance, country").eq("id", user.id).single(),
       supabase
@@ -41,14 +44,21 @@ export default async function DashboardPage({
         .maybeSingle(),
       supabase
         .from("subscriptions")
-        .select("id, provider_id, allocated_amount, max_drawdown_pct")
+        .select("id, provider_id, allocated_amount, max_drawdown_pct, copy_started_at")
         .eq("follower_id", user.id)
         .eq("is_active", true),
       supabase
         .from("simulated_positions")
-        .select("id, subscription_id, status, pnl, entry_price, size, closed_at, signals(symbol, side)")
+        .select("id, subscription_id, status, pnl, entry_price, size, opened_at, closed_at, signals(symbol, side)")
         .eq("follower_id", user.id),
       supabase.from("market_prices").select("symbol, price").in("symbol", ["BTCUSDT", "XAUUSD", "EURUSD"]),
+      supabase
+        .from("wallet_requests")
+        .select("id, type, amount, status, requested_at")
+        .eq("user_id", user.id)
+        .eq("status", "approved")
+        .order("requested_at", { ascending: false })
+        .limit(5),
     ]);
 
   const tickerInitialPrices = Object.fromEntries((tickerPrices ?? []).map((p) => [p.symbol, Number(p.price)]));
@@ -73,6 +83,7 @@ export default async function DashboardPage({
     pnl: number | null;
     entry_price: number;
     size: number;
+    opened_at: string;
     closed_at: string | null;
     signals: PositionSignal | PositionSignal[] | null;
   };
@@ -131,6 +142,50 @@ export default async function DashboardPage({
     const pct = ((current - pos.entry_price) / pos.entry_price) * (signal.side === "sell" ? -1 : 1);
     return sum + pct * Number(pos.size);
   }, 0);
+
+  // Merges positions/copy-starts/wallet activity into one feed, newest
+  // first, for the "recent activity" timeline -- provider names come from
+  // the customer's own currently-active copies (good enough for a demo
+  // feed of recent events; a copy stopped since then just shows without a
+  // name rather than a wrong or stale one).
+  const providerNameBySubscription = new Map(copiedProviders.map((p) => [p.subscriptionId, p.displayName]));
+  const activityEvents: ActivityEvent[] = [
+    ...openPositions.map((p) => ({
+      id: `open-${p.id}`,
+      type: "position_opened" as const,
+      at: p.opened_at,
+      symbol: positionSignal(p)?.symbol,
+    })),
+    ...closedPositions
+      .filter((p) => p.closed_at)
+      .map((p) => ({
+        id: `close-${p.id}`,
+        type: (p.pnl ?? 0) >= 0 ? ("position_closed_win" as const) : ("position_closed_loss" as const),
+        at: p.closed_at as string,
+        symbol: positionSignal(p)?.symbol,
+      })),
+    ...(subscriptions ?? [])
+      .filter((s) => s.copy_started_at)
+      .map((s) => ({
+        id: `copy-${s.id}`,
+        type: "copy_started" as const,
+        at: s.copy_started_at as string,
+        providerName: providerNameBySubscription.get(s.id),
+      })),
+    ...(walletRequests ?? []).map((w) => ({
+      id: `wallet-${w.id}`,
+      type: w.type === "deposit" ? ("deposit" as const) : ("withdrawal" as const),
+      at: w.requested_at,
+      amount: Number(w.amount),
+    })),
+  ]
+    .sort((a, b) => new Date(b.at).getTime() - new Date(a.at).getTime())
+    .slice(0, 8);
+
+  const allocationSlices = [
+    ...copiedProviders.map((p) => ({ label: p.displayName, value: p.allocatedAmount })),
+    { label: t("allocationAvailableCash"), value: Math.max(0, Number(profile?.balance ?? 0) - totalAllocated) },
+  ];
 
   const kycCopyByStatus: Record<string, { title: string; desc: string; action?: string }> = {
     none: { title: t("kycNoneTitle"), desc: t("kycNoneDesc"), action: t("kycNoneAction") },
@@ -335,6 +390,23 @@ export default async function DashboardPage({
             </div>
           </section>
         )}
+
+        {copiedProviders.length > 0 && (
+          <section className="flex flex-col gap-3">
+            <h2 className="text-base font-semibold">{t("portfolioAllocationTitle")}</h2>
+            <div className="rounded-2xl border border-border bg-surface p-5">
+              <PortfolioAllocationDonut
+                slices={allocationSlices}
+                totalLabel={t("portfolioValue")}
+                totalValue={Number(profile?.balance ?? 0)}
+              />
+            </div>
+          </section>
+        )}
+
+        {copiedProviders.length > 0 && <RecentActivityTimeline events={activityEvents} />}
+
+        <MostCopiedThisWeek />
 
         <p className="text-center text-xs text-muted">{t("riskDisclaimerLine")}</p>
       </main>
