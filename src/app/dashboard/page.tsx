@@ -115,22 +115,24 @@ export default async function DashboardPage({
   for (const p of closedPositions) {
     cumulativePnlBySubscription.set(p.subscription_id, (cumulativePnlBySubscription.get(p.subscription_id) ?? 0) + (p.pnl ?? 0));
   }
-  const activeSubscription = (subscriptions ?? [])[0];
-  const activeProviderCard = activeSubscription
-    ? (followedProviders ?? []).find((p) => p.provider_id === activeSubscription.provider_id)
-    : undefined;
-  const copiedProvider =
-    activeSubscription && activeProviderCard
-      ? {
-          providerId: activeSubscription.provider_id,
-          displayName: activeProviderCard.display_name,
-          avatarUrl: activeProviderCard.avatar_url,
-          ratingScore: activeProviderCard.rating_score,
-          allocatedAmount: Number(activeSubscription.allocated_amount),
-          maxDrawdownPct: Number(activeSubscription.max_drawdown_pct),
-          cumulativePnl: cumulativePnlBySubscription.get(activeSubscription.id) ?? 0,
-        }
-      : null;
+  // A customer can copy several traders at once now, so this is a list
+  // (was a single "activeSubscription" before multi-copy support).
+  const copiedProviders = (subscriptions ?? []).flatMap((sub) => {
+    const providerCard = (followedProviders ?? []).find((p) => p.provider_id === sub.provider_id);
+    if (!providerCard) return [];
+    return [
+      {
+        subscriptionId: sub.id,
+        providerId: sub.provider_id,
+        displayName: providerCard.display_name,
+        avatarUrl: providerCard.avatar_url,
+        ratingScore: providerCard.rating_score,
+        allocatedAmount: Number(sub.allocated_amount),
+        maxDrawdownPct: Number(sub.max_drawdown_pct),
+        cumulativePnl: cumulativePnlBySubscription.get(sub.id) ?? 0,
+      },
+    ];
+  });
 
   const openSymbols = Array.from(
     new Set(openPositions.map((p) => positionSignal(p)?.symbol).filter((s): s is string => !!s)),
@@ -284,14 +286,14 @@ export default async function DashboardPage({
         <section className="flex flex-col gap-3">
           <div className="flex items-center justify-between">
             <h2 className="text-base font-semibold">{t("traderYouCopy")}</h2>
-            {copiedProvider && (
+            {copiedProviders.length > 0 && (
               <Link href="/portfolio" className="text-sm text-accent hover:underline">
                 {tNav("viewAll")}
               </Link>
             )}
           </div>
 
-          {!copiedProvider ? (
+          {copiedProviders.length === 0 ? (
             <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-slate-800 bg-surface/50 p-6 text-center">
               <p className="text-sm text-muted">{t("noCopyYet")}</p>
               <Link
@@ -302,11 +304,15 @@ export default async function DashboardPage({
               </Link>
             </div>
           ) : (
-            <ActiveCopyControlPanel provider={copiedProvider} />
+            <div className="flex flex-col gap-3">
+              {copiedProviders.map((provider) => (
+                <ActiveCopyControlPanel key={provider.subscriptionId} provider={provider} />
+              ))}
+            </div>
           )}
         </section>
 
-        {copiedProvider && (
+        {copiedProviders.length > 0 && (
           <section className="flex flex-col gap-3">
             <h2 className="text-base font-semibold">{t("copiedPositionsTitle")}</h2>
             <div className="rounded-2xl border border-slate-800 bg-surface p-5">

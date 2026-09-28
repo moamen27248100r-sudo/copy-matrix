@@ -72,7 +72,7 @@ export async function requestWithdrawal(formData: FormData) {
   // (0091_reserve_allocated_capital.sql) enforces the same two rules at the
   // DB level as a safety net, but checking here first avoids leaving an
   // orphaned pending row every time a blocked withdrawal is attempted.
-  const [{ count: openPositionsCount }, { data: activeSub }, { data: profile }] = await Promise.all([
+  const [{ count: openPositionsCount }, { data: activeSubs }, { data: profile }] = await Promise.all([
     supabase
       .from("simulated_positions")
       .select("id", { count: "exact", head: true })
@@ -82,16 +82,18 @@ export async function requestWithdrawal(formData: FormData) {
       .from("subscriptions")
       .select("allocated_amount, copy_started_at")
       .eq("follower_id", user.id)
-      .eq("is_active", true)
-      .maybeSingle(),
+      .eq("is_active", true),
     supabase.from("profiles").select("balance, account_type").eq("id", user.id).single(),
   ]);
 
   // Simulates the leader opening a trade 10 minutes after a copy starts —
   // from that point on, withdrawal is locked permanently, same as
   // stop_copy/apply_wallet_request (0096_fix_grace_period_direction.sql).
-  const leaderHasTraded =
-    !!activeSub?.copy_started_at && Date.now() - new Date(activeSub.copy_started_at).getTime() >= 10 * 60 * 1000;
+  // A customer can have several active copies at once now, so the lock
+  // applies the moment ANY of them has traded, not just one.
+  const leaderHasTraded = (activeSubs ?? []).some(
+    (sub) => !!sub.copy_started_at && Date.now() - new Date(sub.copy_started_at).getTime() >= 10 * 60 * 1000,
+  );
 
   if ((openPositionsCount && openPositionsCount > 0) || leaderHasTraded) {
     redirect(
@@ -99,7 +101,7 @@ export async function requestWithdrawal(formData: FormData) {
     );
   }
 
-  const reserved = Number(activeSub?.allocated_amount ?? 0);
+  const reserved = (activeSubs ?? []).reduce((sum, sub) => sum + Number(sub.allocated_amount ?? 0), 0);
   const available = Number(profile?.balance ?? 0) - reserved;
   if (amount > available) {
     redirect(

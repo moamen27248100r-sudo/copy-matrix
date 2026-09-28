@@ -105,7 +105,7 @@ export default async function TraderPage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  let [{ data: provider }, { data: signals }, { data: mySub }, { data: myProfile }, { data: otherSub }, { data: myFollow }] = await Promise.all([
+  let [{ data: provider }, { data: signals }, { data: mySub }, { data: myProfile }, { data: myFollow }] = await Promise.all([
     supabase.from("provider_cards").select("*").eq("provider_id", id).single(),
     supabase
       .from("signals")
@@ -128,15 +128,6 @@ export default async function TraderPage({
       : Promise.resolve({ data: null }),
     user
       ? supabase.from("profiles").select("balance").eq("id", user.id).single()
-      : Promise.resolve({ data: null }),
-    user
-      ? supabase
-          .from("subscriptions")
-          .select("provider_id")
-          .eq("follower_id", user.id)
-          .eq("is_active", true)
-          .neq("provider_id", id)
-          .maybeSingle()
       : Promise.resolve({ data: null }),
     user
       ? supabase.from("follows").select("provider_id").eq("follower_id", user.id).eq("provider_id", id).maybeSingle()
@@ -210,16 +201,6 @@ export default async function TraderPage({
   } as const;
   const reliabilityStatus = t(STATUS_KEYS.reliability[getGaugeTier(reliabilityScore, "reliability")]);
 
-  let otherProviderName: string | null = null;
-  if (otherSub) {
-    const { data: otherProvider } = await supabase
-      .from("provider_cards")
-      .select("display_name")
-      .eq("provider_id", otherSub.provider_id)
-      .single();
-    otherProviderName = otherProvider?.display_name ?? t("anotherTraderFallback");
-  }
-  const isBlocked = !!otherSub;
   const isStopped = provider.trading_status === "stopped";
 
   const periods = [
@@ -310,19 +291,6 @@ export default async function TraderPage({
                 {t("minCopyBadgeLabel")} <span dir="ltr">${Number(provider.min_copy_amount).toLocaleString("en-US")}</span>
               </p>
             </div>
-          ) : isBlocked ? (
-            <p className="rounded-lg border border-warning/30 bg-warning/10 px-3 py-3 text-center text-sm text-warning">
-              {t.rich("blockedNotice", {
-                otherName: otherProviderName ?? t("anotherTraderFallback"),
-                name: provider.display_name,
-                strong: (chunks) => <strong>{chunks}</strong>,
-                link: (chunks) => (
-                  <Link href="/portfolio" className="underline">
-                    {chunks}
-                  </Link>
-                ),
-              })}
-            </p>
           ) : isFollowing ? (
             <div className="flex items-center justify-between gap-3">
               <p className="flex min-w-0 items-center gap-2 text-sm">

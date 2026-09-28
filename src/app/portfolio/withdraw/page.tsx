@@ -38,7 +38,7 @@ export default async function WithdrawPage({
 
   if (!user) redirect("/login");
 
-  const [{ count: openPositionsCount }, { data: activeSub }, { data: profile }] = await Promise.all([
+  const [{ count: openPositionsCount }, { data: activeSubs }, { data: profile }] = await Promise.all([
     supabase
       .from("simulated_positions")
       .select("id", { count: "exact", head: true })
@@ -48,17 +48,19 @@ export default async function WithdrawPage({
       .from("subscriptions")
       .select("allocated_amount, copy_started_at")
       .eq("follower_id", user.id)
-      .eq("is_active", true)
-      .maybeSingle(),
+      .eq("is_active", true),
     supabase.from("profiles").select("balance, account_type").eq("id", user.id).single(),
   ]);
 
   // Same rule as requestWithdrawal's pre-check and the stop_copy/
   // apply_wallet_request DB functions (0096_fix_grace_period_direction.sql):
   // the leader is treated as having opened a trade once 10 minutes have
-  // passed since the copy started, locking withdrawal from then on.
-  const leaderHasTraded =
-    !!activeSub?.copy_started_at && Date.now() - new Date(activeSub.copy_started_at).getTime() >= 10 * 60 * 1000;
+  // passed since the copy started, locking withdrawal from then on. A
+  // customer can have several active copies now, so the lock applies the
+  // moment ANY of them has traded, not just one.
+  const leaderHasTraded = (activeSubs ?? []).some(
+    (sub) => !!sub.copy_started_at && Date.now() - new Date(sub.copy_started_at).getTime() >= 10 * 60 * 1000,
+  );
   const blocked = (openPositionsCount ?? 0) > 0 || leaderHasTraded;
 
   if (blocked) {
@@ -71,7 +73,7 @@ export default async function WithdrawPage({
     );
   }
 
-  const reserved = Number(activeSub?.allocated_amount ?? 0);
+  const reserved = (activeSubs ?? []).reduce((sum, sub) => sum + Number(sub.allocated_amount ?? 0), 0);
   const available = Math.max(0, Number(profile?.balance ?? 0) - reserved);
   const accountType: "real" | "demo" = profile?.account_type === "real" ? "real" : "demo";
 

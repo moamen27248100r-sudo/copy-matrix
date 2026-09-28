@@ -74,9 +74,9 @@ export async function followProvider(formData: FormData) {
 
   // Whether this call is starting a brand-new copy or editing an existing
   // one, purely for the success-redirect message below -- every actual
-  // business rule (balance, minimum, single-active-copy, grace period,
-  // stopped leader) is re-validated inside start_or_update_copy() itself
-  // (security definer, uses auth.uid() internally), not trusted from here.
+  // business rule (balance, minimum, grace period, stopped leader) is
+  // re-validated inside start_or_update_copy() itself (security definer,
+  // uses auth.uid() internally), not trusted from here.
   const { data: existingSub } = await supabase
     .from("subscriptions")
     .select("id")
@@ -97,23 +97,6 @@ export async function followProvider(formData: FormData) {
     }
     if (error.code === "CM004") {
       redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copyAmountUpdateBlocked"))}`);
-    }
-    if (error.code === "CM005") {
-      const { data: otherSub } = await supabase
-        .from("subscriptions")
-        .select("provider_id")
-        .eq("follower_id", user.id)
-        .eq("is_active", true)
-        .neq("provider_id", providerId)
-        .maybeSingle();
-      const { data: otherProvider } = otherSub
-        ? await supabase.from("provider_cards").select("display_name").eq("provider_id", otherSub.provider_id).single()
-        : { data: null };
-      redirect(
-        `/trader/${providerId}?error=${encodeURIComponent(
-          td("alreadyCopyingOther", { name: otherProvider?.display_name ?? td("anotherTraderFallback") }),
-        )}`,
-      );
     }
     if (error.code === "CM006") {
       redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copyAmountExceedsBalance"))}`);
