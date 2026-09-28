@@ -41,11 +41,11 @@ export function BottomNav() {
   const t = useTranslations("Nav");
   const pathname = usePathname();
 
-  const items = [
+  const items: { href: string; label: string; icon: React.ReactNode; matchPath?: string }[] = [
     { href: "/dashboard", label: t("navHome"), icon: ICONS.home },
     { href: "/discover", label: t("navDiscover"), icon: ICONS.discover },
-    { href: "/dashboard#my-copies", label: t("navMyCopies"), icon: ICONS.myCopies, matchPath: "/dashboard" },
-    { href: "/portfolio?tab=positions", label: t("navTrades"), icon: ICONS.trades },
+    { href: "/copies", label: t("navMyCopies"), icon: ICONS.myCopies },
+    { href: "/trades", label: t("navTrades"), icon: ICONS.trades },
     { href: "/portfolio", label: t("navPortfolio"), icon: ICONS.portfolio },
   ];
 

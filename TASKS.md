@@ -49,8 +49,8 @@ original prompts' own section order.
 - [x] Trader page: Sharpe ratio + avg. trade duration (computed from signals)
 - [ ] Trader page: AUM and profit-share % (no data source; needs a decision)
 - [x] Copy modal: dialog with amount + risk acknowledgment (functional); copy mode, copy-open-trades and advanced settings shown disabled "coming soon" — backend (money-mirroring) pending your go-ahead
-- [ ] Dedicated "My Copies" page (bottom nav currently links to the dashboard's active-copies section, not a real page)
-- [ ] Dedicated "Trades" page: open tab (edit TP/SL, close all) + history tab (filters, CSV export) — bottom nav links to `/portfolio?tab=positions` which doesn't have these yet
+- [x] Dedicated "My Copies" page (/copies)
+- [x] Dedicated "Trades" page (/trades): open tab (close all; TP/SL editing shown as coming soon) + history tab (filters, CSV export)
 - [ ] Portfolio: short monthly report (balances + transaction history already existed before this work)
 - [ ] Notifications: categories (trades/copy/account/security)
 - [ ] Notifications: per-type preferences page (in-app/email/Telegram)

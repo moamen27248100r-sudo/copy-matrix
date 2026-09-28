@@ -1434,5 +1434,31 @@
     "perTradeTpSl": "جني الأرباح / وقف الخسارة لكل صفقة",
     "riskAck": "أدرك أن النسخ ينطوي على مخاطر وأنني قد أخسر جزءًا من المبلغ المخصص أو كله.",
     "confirm": "ابدأ النسخ"
+  },
+  "Trades": {
+    "title": "الصفقات",
+    "tabOpen": "المفتوحة",
+    "tabHistory": "السجل",
+    "editTpSlSoon": "تعديل جني الأرباح / وقف الخسارة قريبًا.",
+    "closeAll": "إغلاق الكل",
+    "closeAllConfirm": "إغلاق كل الصفقات المفتوحة ({count}) بسعر السوق الحالي؟",
+    "filterSymbol": "الرمز",
+    "filterTrader": "المتداول",
+    "filterResult": "النتيجة",
+    "resultWin": "ربح",
+    "resultLoss": "خسارة",
+    "filterPeriod": "الفترة",
+    "lastDays": "آخر {days} يوم",
+    "apply": "تطبيق",
+    "exportCsv": "تصدير CSV",
+    "noHistory": "لا توجد صفقات مغلقة مطابقة."
+  },
+  "Copies": {
+    "title": "نسخي",
+    "empty": "أنت لا تنسخ أي متداول حاليًا.",
+    "discover": "استكشف المتداولين",
+    "activeCopies": "النسخ النشطة",
+    "totalAllocated": "المبلغ المخصص",
+    "realizedPnl": "الربح المحقق"
   }
 }

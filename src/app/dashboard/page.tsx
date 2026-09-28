@@ -349,7 +349,7 @@ export default async function DashboardPage({
           {copiedProviders.length > 0 && (
             <div className="flex items-center justify-between">
               <h2 className="text-base font-semibold">{t("traderYouCopy")}</h2>
-              <Link href="/portfolio" className="text-sm text-accent hover:underline">
+              <Link href="/copies" className="text-sm text-accent hover:underline">
                 {tNav("viewAll")}
               </Link>
             </div>
@@ -388,7 +388,7 @@ export default async function DashboardPage({
                   };
                 })}
                 limit={5}
-                viewAllHref="/portfolio?tab=positions"
+                viewAllHref="/trades"
               />
             </div>
           </section>
