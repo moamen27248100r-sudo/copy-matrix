@@ -205,7 +205,7 @@ export async function Protection() {
                 </div>
                 <div className={row}>
                   <span className="text-muted">{t("mockLossLimit")}</span>
-                  <span className="num font-medium">20%</span>
+                  <span className="num font-medium">50%</span>
                 </div>
                 <div className={row}>
                   <span className="text-muted">{t("mockMaxTrade")}</span>

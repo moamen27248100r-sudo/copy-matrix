@@ -55,18 +55,30 @@ async function fetchLandingTraders(arabic: boolean): Promise<LandingTraders> {
     string,
     { name: string; country: string | null; symbol: string | null; followers: number; trades: number; ret: number; dd: number; series: number[]; minCopy: number }
   >;
+  // The SQL "followers" figure includes the seeded base_followers_count, which
+  // must not be shown. Replace it with the real copier count from the
+  // provider_followers view (read only) and re-rank the most-copied tab by it.
+  const { data: real } = await supabase
+    .from("provider_followers")
+    .select("provider_id, followers_count")
+    .in("provider_id", Object.keys(map));
+  const realCount = new Map((real ?? []).map((r) => [String(r.provider_id), Number(r.followers_count)]));
   const build = (ids: string[]): LandingTrader[] =>
     ids.flatMap((id) => {
       const x = map[id];
       if (!x) return [];
-      return [{ id, ...x, ret: Number(x.ret), dd: Number(x.dd), risk: riskScore(Number(x.dd)), minCopy: Number(x.minCopy) }];
+      return [{ id, ...x, followers: realCount.get(id) ?? 0, ret: Number(x.ret), dd: Number(x.dd), risk: riskScore(Number(x.dd)), minCopy: Number(x.minCopy) }];
     });
-  return { followers: build(data.followers), risk: build(data.risk), return: build(data.return) };
+  return {
+    followers: build(data.followers).sort((a, b) => b.followers - a.followers),
+    risk: build(data.risk),
+    return: build(data.return),
+  };
 }
 
 export const getLandingTraders = async (arabic: boolean): Promise<LandingTraders> => {
   try {
-    return await unstable_cache(() => fetchLandingTraders(arabic), ["landing-traders-v3", arabic ? "ar" : "intl"], {
+    return await unstable_cache(() => fetchLandingTraders(arabic), ["landing-traders-v4", arabic ? "ar" : "intl"], {
       revalidate: 3600,
     })();
   } catch (e) {

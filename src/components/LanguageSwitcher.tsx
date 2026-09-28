@@ -100,7 +100,7 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: Locale }) {
           className="fixed z-30 max-h-64 overflow-y-auto rounded border border-border bg-surface shadow-lg"
           style={{ top: panelPos.top, left: panelPos.left, width: PANEL_WIDTH }}
         >
-          {SUPPORTED_LOCALES.map((locale) => (
+          {SUPPORTED_LOCALES.filter((l) => l === "ar" || l === "en").map((locale) => (
             <form key={locale} action={setLocale}>
               <input type="hidden" name="locale" value={locale} />
               <input type="hidden" name="path" value={pathname} />
