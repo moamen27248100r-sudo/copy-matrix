@@ -75,3 +75,10 @@ original prompts' own section order.
 - [x] Mirrored position size capped at each copy's own `allocated_amount`, never the customer's whole balance
 - [x] Per-subscription exposure cap: a new trade only mirrors up to remaining headroom, skipped once a copy's allocation is fully used
 - [x] Migrations 0192–0194 applied live and verified against a disposable test account
+
+## Landing redesign (Sep 2026)
+
+- [x] New landing page (design tokens scoped to `.landing`, sections under `src/components/landing`, data via `landing_top_traders()` migration 0197)
+- [x] Login / sign-up restyled (per-field errors, auto country code, disabled-state hint)
+- [ ] Landing TODOs needing owner input: subscription fee, trader acceptance criteria, About page, translations of `Landing.*` for 11 non-ar/en locales (currently English fallback)
+- [ ] Lighthouse mobile performance is 78-81 locally (accessibility/best-practices/SEO 100); target 90

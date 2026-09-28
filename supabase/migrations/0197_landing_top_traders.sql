@@ -61,11 +61,17 @@ AS $$
     select provider_id, jsonb_agg(round((lgm * 100)::numeric, 2) order by m) as series
     from monthly group by provider_id
   ), x as (
+    -- providers + provider_followers directly (same follower formula as the
+    -- provider_cards view) instead of the whole view: much cheaper, which
+    -- matters because PostgREST enforces a statement timeout.
     select a.provider_id, a.n, a.ret, a.dd, s.series,
-           pc.display_name, pc.country, pc.followers_count, pc.primary_symbol, pc.min_copy_amount
+           pr.display_name, pr.country,
+           coalesce(pf.followers_count, 0) + pr.base_followers_count as followers_count,
+           pr.symbol_bias[1] as primary_symbol, pr.min_copy_amount
     from agg a
     join ser s using (provider_id)
-    join public.provider_cards pc on pc.provider_id = a.provider_id
+    join public.providers pr on pr.id = a.provider_id
+    left join public.provider_followers pf on pf.provider_id = a.provider_id
   ), f as (select provider_id from x order by followers_count desc limit p_limit),
      rk as (select provider_id from x where ret > 0 order by dd asc, ret desc limit p_limit),
      rt as (select provider_id from x order by ret desc limit p_limit),

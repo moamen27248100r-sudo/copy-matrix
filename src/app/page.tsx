@@ -1,5 +1,4 @@
 import { getTranslations, getLocale } from "next-intl/server";
-import { createClient } from "@/lib/supabase/server";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { TradersTabs, type TraderCardData } from "@/components/landing/TradersTabs";
 import { Reveal } from "@/components/landing/Reveal";
@@ -20,8 +19,6 @@ import { Footer } from "@/components/Footer";
 import { getLandingTraders, getMinCopyAmount, type LandingTrader } from "@/lib/landing-data";
 import type { Locale } from "@/i18n/locales";
 
-export const dynamic = "force-dynamic";
-
 function marketKey(symbol: string | null): "marketCrypto" | "marketForex" | "marketGold" | "marketIndex" {
   if (!symbol) return "marketForex";
   if (symbol.endsWith("USDT")) return "marketCrypto";
@@ -31,11 +28,6 @@ function marketKey(symbol: string | null): "marketCrypto" | "marketForex" | "mar
 }
 
 export default async function Home() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
   const t = await getTranslations("Landing");
   const tc = await getTranslations("Countries");
   const locale = (await getLocale()) as Locale;
@@ -47,7 +39,8 @@ export default async function Home() {
     countryLabel: x.country && tc.has(x.country) ? tc(x.country) : "",
     marketLabel: t(marketKey(x.symbol)),
     profileHref: `/trader/${x.id}`,
-    copyHref: user ? `/trader/${x.id}#copy` : `/signup?next=${encodeURIComponent(`/trader/${x.id}#copy`)}`,
+    // The trader page itself sends visitors who are not signed in to sign-up.
+    copyHref: `/trader/${x.id}#copy`,
   });
 
   // Tabs with fewer than 3 traders are hidden; with none left, the whole

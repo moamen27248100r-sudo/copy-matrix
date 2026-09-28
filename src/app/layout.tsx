@@ -21,6 +21,7 @@ const plexMono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
+  preload: false, // only a few customer pages use it: load on demand, not on every page
 });
 
 // A second, much heavier family reserved for headlines and hero text --
@@ -32,6 +33,7 @@ const cairo = Cairo({
   variable: "--font-cairo",
   subsets: ["arabic", "latin"],
   weight: ["700", "800", "900"],
+  preload: false, // dashboard headlines only; the landing / auth pages use Plex Sans Arabic
 });
 
 // Numbers on the landing / auth pages use Inter (tabular figures).

@@ -5,6 +5,7 @@ import { MiniSpark, pct } from "@/components/landing/MiniSpark";
 import type { TraderCardData } from "@/components/landing/TradersTabs";
 import { Reveal } from "@/components/landing/Reveal";
 import { MarketOverview } from "@/components/MarketOverview";
+import { LazyMount } from "@/components/landing/LazyMount";
 import { DEMO_START_BALANCE, SUBSCRIPTION_FEE_TEXT, TRADABLE_SYMBOL_COUNT } from "@/config/platform";
 
 const wrap = "mx-auto w-full max-w-[1200px] px-4 sm:px-6";
@@ -322,7 +323,9 @@ export async function Markets() {
         <SectionHeading title={t("marketsTitle")} action={{ href: "/markets", label: t("marketsViewAll") }} />
         <p className="-mt-3 text-base text-muted">{t("marketsDesc")}</p>
         <div className="overflow-hidden rounded-2xl border border-border">
-          <MarketOverview />
+          <LazyMount minHeight={420}>
+            <MarketOverview />
+          </LazyMount>
         </div>
       </Reveal>
     </section>

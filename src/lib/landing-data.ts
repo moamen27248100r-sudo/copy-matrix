@@ -1,5 +1,6 @@
 import { unstable_cache } from "next/cache";
 import { createClient } from "@supabase/supabase-js";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { INTERNATIONAL_COUNTRY_CODES } from "@/lib/country-metadata";
 
 export type LandingTrader = {
@@ -35,14 +36,11 @@ export function riskScore(dd: number) {
 }
 
 async function fetchLandingTraders(arabic: boolean): Promise<LandingTraders> {
-  // Cookie-less client: this data is public and identical for every visitor, so
-  // it can sit in the shared cache (landing_top_traders is a read-only SQL
-  // function, migration 0197).
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
-    { auth: { persistSession: false } },
-  );
+  // Public, identical for every visitor, so it sits in the shared cache. The
+  // service-role client is used because the scan over a year of signals can take
+  // several seconds, longer than the anon role's 3s statement timeout; the SQL
+  // function (0197) is read-only and only ever returns aggregates.
+  const supabase = createAdminClient();
   const { data, error } = await supabase.rpc("landing_top_traders", {
     p_days: 365,
     p_min_trades: 30,
