@@ -5,6 +5,7 @@ import { unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/a
 import { AppNav } from "@/components/AppNav";
 import { LeaderCard } from "@/components/LeaderCard";
 import { DiscoverFilterSheet } from "@/components/DiscoverFilterSheet";
+import { fetchProviderStats } from "@/lib/provider-stats";
 
 const SORT_OPTIONS = {
   best: { column: "rating_score", ascending: false, labelKey: "sortBest" },
@@ -50,9 +51,17 @@ export default async function DiscoverPage({
     trackRecord?: string;
     view?: string;
     favorites?: string;
+    period?: string;
+    dd?: string;
+    compare?: string;
   }>;
 }) {
-  const { q, sort, error, pill, risk, minEntry, assetClass, trackRecord, view, favorites } = await searchParams;
+  const { q, sort, error, pill, risk, minEntry, assetClass, trackRecord, view, favorites, period, dd, compare } =
+    await searchParams;
+  const periodDays = ["7", "30", "90", "180"].includes(period ?? "") ? Number(period) : null;
+  const ddMax = ["10", "20", "30"].includes(dd ?? "") ? Number(dd) : null;
+  const sortByDrawdown = sort === "drawdown";
+  const compareIds = (compare ?? "").split(",").filter(Boolean).slice(0, 4);
   const viewMode = view === "table" ? "table" : "cards";
   const favoritesOnly = favorites === "1";
   const pillKey = pill && (PILL_KEYS as readonly string[]).includes(pill) ? (pill as PillKey) : null;
@@ -120,7 +129,50 @@ export default async function DiscoverPage({
   ]);
 
   const watchingIds = new Set((myFollows ?? []).map((f) => f.provider_id));
-  const providers = favoritesOnly ? (rawProviders ?? []).filter((p) => watchingIds.has(p.provider_id)) : rawProviders;
+  let providers = favoritesOnly ? (rawProviders ?? []).filter((p) => watchingIds.has(p.provider_id)) : rawProviders;
+
+  // Period / drawdown views need per-trade data, so the (heavier) signals scan
+  // only runs when one of them is actually requested.
+  const statsById =
+    providers && (periodDays || ddMax || sortByDrawdown)
+      ? await fetchProviderStats(
+          supabase,
+          providers.map((p) => p.provider_id),
+          periodDays ?? undefined,
+        )
+      : null;
+  if (providers && statsById) {
+    if (ddMax) {
+      providers = providers.filter((p) => {
+        const dd0 = statsById.get(p.provider_id)?.maxDrawdown;
+        return dd0 != null && dd0 <= ddMax;
+      });
+    }
+    if (periodDays) {
+      providers = providers.map((p) => {
+        const s = statsById.get(p.provider_id);
+        return s
+          ? { ...p, win_rate_pct: s.winRate, avg_daily_return_pct: Math.round((s.totalReturn / periodDays) * 100) / 100 }
+          : { ...p, win_rate_pct: null, avg_daily_return_pct: null };
+      });
+    }
+    if (sortByDrawdown) {
+      providers = [...providers].sort(
+        (a, b) =>
+          (statsById.get(a.provider_id)?.maxDrawdown ?? Infinity) - (statsById.get(b.provider_id)?.maxDrawdown ?? Infinity),
+      );
+    }
+  }
+
+  const compareHref = (id: string) => {
+    const next = compareIds.includes(id) ? compareIds.filter((c) => c !== id) : [...compareIds, id].slice(0, 4);
+    const params = new URLSearchParams();
+    for (const [k, v] of Object.entries({ q, sort, pill, risk, minEntry, assetClass, trackRecord, view, favorites, period, dd })) {
+      if (v) params.set(k, v);
+    }
+    if (next.length) params.set("compare", next.join(","));
+    return `/discover?${params.toString()}`;
+  };
 
   const followingIds = new Set(
     (mySubscriptions ?? []).map((s) => s.provider_id),
@@ -167,7 +219,7 @@ export default async function DiscoverPage({
             resetLabel={t("filterReset")}
             closeLabel={t("closeFilters")}
             activeCount={
-              [pillKey, sortKey !== "best" ? sortKey : null, risk, minEntry, assetClass, trackRecord].filter(Boolean).length
+              [pillKey, sortKey !== "best" || sortByDrawdown ? "s" : null, risk, minEntry, assetClass, trackRecord, periodDays, ddMax].filter(Boolean).length
             }
             q={q}
             resetHref={q ? `/discover?q=${encodeURIComponent(q)}` : "/discover"}
@@ -184,11 +236,37 @@ export default async function DiscoverPage({
               {
                 name: "sort",
                 label: t("sortSectionLabel"),
-                current: sortKey,
-                options: (Object.keys(SORT_OPTIONS) as SortKey[]).map((key) => ({
-                  value: key,
-                  label: t(SORT_OPTIONS[key].labelKey),
-                })),
+                current: sortByDrawdown ? "drawdown" : sortKey,
+                options: [
+                  ...(Object.keys(SORT_OPTIONS) as SortKey[]).map((key) => ({
+                    value: key,
+                    label: t(SORT_OPTIONS[key].labelKey),
+                  })),
+                  { value: "drawdown", label: t("sortDrawdown") },
+                ],
+              },
+              {
+                name: "period",
+                label: t("filterPeriod"),
+                current: period ?? "",
+                options: [
+                  { value: "", label: t("periodAllTime") },
+                  { value: "7", label: t("periodDays", { days: 7 }) },
+                  { value: "30", label: t("periodDays", { days: 30 }) },
+                  { value: "90", label: t("periodDays", { days: 90 }) },
+                  { value: "180", label: t("periodDays", { days: 180 }) },
+                ],
+              },
+              {
+                name: "dd",
+                label: t("filterMaxDrawdown"),
+                current: dd ?? "",
+                options: [
+                  { value: "", label: t("filterAny") },
+                  { value: "10", label: "≤ 10%" },
+                  { value: "20", label: "≤ 20%" },
+                  { value: "30", label: "≤ 30%" },
+                ],
               },
               {
                 name: "risk",
@@ -264,6 +342,25 @@ export default async function DiscoverPage({
         </div>
       </div>
 
+      {compareIds.length > 0 && (
+        <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-accent/30 bg-accent/10 px-4 py-2 text-sm">
+          <span>{t("compareSelected", { count: compareIds.length })}</span>
+          <div className="flex gap-2">
+            <Link href={compareHref("").replace(/[?&]compare=[^&]*/, "")} className="text-muted hover:text-foreground">
+              {t("compareClear")}
+            </Link>
+            {compareIds.length >= 2 && (
+              <Link
+                href={`/discover/compare?ids=${compareIds.join(",")}`}
+                className="rounded-full bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground"
+              >
+                {t("compareNow")}
+              </Link>
+            )}
+          </div>
+        </div>
+      )}
+
       {!providers || providers.length === 0 ? (
         <p className="text-sm text-muted">
           {t("noMatches")}
@@ -302,6 +399,9 @@ export default async function DiscoverPage({
                       ${Number(p.min_copy_amount).toLocaleString("en-US")}
                     </td>
                     <td className="px-4 py-3 text-end">
+                      <Link href={compareHref(p.provider_id)} className="me-3 text-xs text-muted hover:text-accent">
+                        {compareIds.includes(p.provider_id) ? t("compareRemove") : t("compareAdd")}
+                      </Link>
                       <Link href={`/trader/${p.provider_id}#copy`} className="text-sm font-medium text-accent hover:underline">
                         {t("viewProfile")}
                       </Link>
@@ -322,15 +422,26 @@ export default async function DiscoverPage({
               ? `/trader/${p.provider_id}#copy`
               : `/signup?next=${encodeURIComponent(`/trader/${p.provider_id}#copy`)}`;
             return (
-              <LeaderCard
-                key={p.provider_id}
-                provider={p}
-                copyHref={copyHref}
-                isWatching={isWatching}
-                onFollowAction={isWatching ? unfollowTrader : followTrader}
-                copyState={isFollowing ? "stopCopying" : isStopped ? "stoppedDisabled" : "copy"}
-                onStopCopyingAction={unfollowProvider}
-              />
+              <div key={p.provider_id} className="flex flex-col gap-1">
+                <LeaderCard
+                  provider={p}
+                  copyHref={copyHref}
+                  isWatching={isWatching}
+                  onFollowAction={isWatching ? unfollowTrader : followTrader}
+                  copyState={isFollowing ? "stopCopying" : isStopped ? "stoppedDisabled" : "copy"}
+                  onStopCopyingAction={unfollowProvider}
+                />
+                <Link
+                  href={compareHref(p.provider_id)}
+                  className={
+                    compareIds.includes(p.provider_id)
+                      ? "self-end px-2 text-xs font-medium text-accent"
+                      : "self-end px-2 text-xs text-muted hover:text-accent"
+                  }
+                >
+                  {compareIds.includes(p.provider_id) ? t("compareRemove") : t("compareAdd")}
+                </Link>
+              </div>
             );
           })}
         </div>

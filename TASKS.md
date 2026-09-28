@@ -41,9 +41,9 @@ original prompts' own section order.
 - [x] Discover: card/table view toggle
 - [x] Discover: "favorites only" filter
 - [x] Discover: fixed a real bug — stale single-copy block was still disabling the copy button after multi-copy shipped
-- [ ] Discover: sort/filter by max drawdown (no precomputed column, would need a per-provider signals scan)
-- [ ] Discover: period filter (7/30/90/180 days) that changes displayed stats
-- [ ] Discover: compare up to 4 traders
+- [x] Discover: sort/filter by max drawdown (computed from signals only when requested)
+- [x] Discover: period filter (7/30/90/180 days) that changes displayed stats
+- [x] Discover: compare up to 4 traders (/discover/compare)
 - [x] Trader page: tabs (performance / open trades / history / asset allocation)
 - [x] Trader page: colored monthly-returns calendar (12-month heatmap)
 - [ ] Trader page: AUM, Sharpe ratio, avg. trade duration, profit-share % (no data source for any of these yet)
