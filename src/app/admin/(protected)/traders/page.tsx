@@ -31,7 +31,7 @@ export default async function AdminTradersPage({
   let leaderQuery = supabase
     .from("providers")
     .select(
-      "id, display_name, bio, skill, min_copy_amount, base_followers_count, total_profit, total_withdrawals, created_at, user_id, avatar_url",
+      "id, display_name, bio, skill, min_copy_amount, base_followers_count, total_profit, total_withdrawals, created_at, user_id, avatar_url, profit_share_pct",
       { count: "exact" },
     )
     .order("created_at", { ascending: false })
@@ -238,6 +238,18 @@ export default async function AdminTradersPage({
                         type="number"
                         min={1}
                         defaultValue={l.min_copy_amount}
+                        className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground"
+                      />
+                    </label>
+                    <label className="flex flex-col gap-1 text-xs text-muted">
+                      نسبة مشاركة الأرباح % (0–50، اتركه فارغًا للإخفاء — عرض فقط)
+                      <input
+                        name="profitSharePct"
+                        type="number"
+                        min={0}
+                        max={50}
+                        step="any"
+                        defaultValue={l.profit_share_pct ?? ""}
                         className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground"
                       />
                     </label>

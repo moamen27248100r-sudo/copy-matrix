@@ -597,7 +597,9 @@
     "monthlyReturnsTitle": "Rendements mensuels",
     "statSharpe": "Sharpe ratio",
     "statAvgDuration": "Avg. trade duration",
-    "hoursShort": "{hours}h"
+    "hoursShort": "{hours}h",
+    "statAum": "AUM (real accounts)",
+    "statProfitShare": "Profit share"
   },
   "Discover": {
     "title": "Découvrir les traders",
@@ -1394,7 +1396,8 @@
     "trailingStop": "Trailing stop",
     "perTradeTpSl": "Per-trade take-profit / stop-loss",
     "riskAck": "I understand that copy trading involves risk and I may lose part or all of the allocated amount.",
-    "confirm": "Start copying"
+    "confirm": "Start copying",
+    "profitShare": "Profit share (display only):"
   },
   "Trades": {
     "title": "Trades",

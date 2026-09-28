@@ -158,6 +158,11 @@ export default async function TraderPage({
   const isFollowing = !!mySub;
   const isWatching = !!myFollow;
   const maxDrawdown = computeMaxDrawdown(allSignals);
+  // AUM = allocated amount of active copies on REAL accounts only, computed
+  // in the database (provider_aum, 0195); 0 is shown as "—".
+  const { data: aumRaw } = await supabase.rpc("provider_aum", { p_provider_id: id });
+  const aum = Number(aumRaw ?? 0);
+  const profitShare = provider.profit_share_pct != null ? Number(provider.profit_share_pct) : null;
   const extraStats = computeStats(
     allSignals.flatMap((s) =>
       s.status === "closed" && s.exit_price != null && s.closed_at
@@ -329,6 +334,7 @@ export default async function TraderPage({
                 providerName={provider.display_name}
                 defaultAmount={Number(myProfile?.balance ?? provider.min_copy_amount)}
                 minAmount={Number(provider.min_copy_amount)}
+                profitSharePct={profitShare}
               />
               <p className="text-center text-xs text-muted">
                 {t("minCopyBadgeLabel")} <span dir="ltr">${Number(provider.min_copy_amount).toLocaleString("en-US")}</span>

@@ -12,12 +12,14 @@ export function CopyDialog({
   providerName,
   defaultAmount,
   minAmount,
+  profitSharePct,
 }: {
   action: (formData: FormData) => void | Promise<void>;
   providerId: string;
   providerName: string;
   defaultAmount: number;
   minAmount: number;
+  profitSharePct?: number | null;
 }) {
   const t = useTranslations("CopyDialog");
   const [open, setOpen] = useState(false);
@@ -70,6 +72,12 @@ export function CopyDialog({
                 {t("minAmount")} <span dir="ltr">${minAmount.toLocaleString("en-US")}</span>
               </span>
             </label>
+
+            {profitSharePct != null && (
+              <p className="rounded-lg border border-border bg-surface px-3 py-2 text-xs text-muted">
+                {t("profitShare")} <span dir="ltr" className="font-semibold text-foreground">{profitSharePct}%</span>
+              </p>
+            )}
 
             <fieldset className="flex flex-col gap-2" disabled>
               <legend className="flex w-full items-center justify-between pb-1 text-sm text-muted">

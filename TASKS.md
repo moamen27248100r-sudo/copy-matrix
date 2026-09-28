@@ -29,7 +29,6 @@ original prompts' own section order.
 - [x] و) Open positions table
 - [x] و) Portfolio allocation donut (hand-rolled SVG, no chart library existed)
 - [x] و) Recent activity timeline
-- [ ] و) Active-copy card's "pause" action (only permanent stop exists, no pause)
 - [x] و) Open-positions table limited to latest 5 + "view all" + source-trader column
 - [x] ز) "Most copied this week" (everyone, bottom of page)
 - [x] ح) "Quick access" grid removed
@@ -47,7 +46,7 @@ original prompts' own section order.
 - [x] Trader page: tabs (performance / open trades / history / asset allocation)
 - [x] Trader page: colored monthly-returns calendar (12-month heatmap)
 - [x] Trader page: Sharpe ratio + avg. trade duration (computed from signals)
-- [ ] Trader page: AUM and profit-share % (no data source; needs a decision)
+- [x] Trader page: AUM (real-account active copies, via provider_aum()) and profit-share % (providers.profit_share_pct 0-50, display only, admin-editable; migration 0195)
 - [x] Copy modal: dialog with amount + risk acknowledgment (functional); copy mode, copy-open-trades and advanced settings shown disabled "coming soon" — backend (money-mirroring) pending your go-ahead
 - [x] Dedicated "My Copies" page (/copies)
 - [x] Dedicated "Trades" page (/trades): open tab (close all; TP/SL editing shown as coming soon) + history tab (filters, CSV export)

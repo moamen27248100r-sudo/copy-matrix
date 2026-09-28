@@ -609,7 +609,9 @@
     "monthlyReturnsTitle": "العوائد الشهرية",
     "statSharpe": "نسبة شارب",
     "statAvgDuration": "متوسط مدة الصفقة",
-    "hoursShort": "{hours} ساعة"
+    "hoursShort": "{hours} ساعة",
+    "statAum": "الأصول المُدارة (حسابات حقيقية)",
+    "statProfitShare": "مشاركة الأرباح"
   },
   "Discover": {
     "title": "اكتشاف المتداولين",
@@ -1470,7 +1472,8 @@
     "trailingStop": "وقف خسارة متحرك",
     "perTradeTpSl": "جني الأرباح / وقف الخسارة لكل صفقة",
     "riskAck": "أدرك أن النسخ ينطوي على مخاطر وأنني قد أخسر جزءًا من المبلغ المخصص أو كله.",
-    "confirm": "ابدأ النسخ"
+    "confirm": "ابدأ النسخ",
+    "profitShare": "نسبة مشاركة الأرباح (للعرض فقط):"
   },
   "Trades": {
     "title": "الصفقات",

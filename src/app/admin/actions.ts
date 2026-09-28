@@ -308,6 +308,10 @@ function readLeaderFields(formData: FormData) {
   const skillPct = Number(formData.get("skill"));
   const minCopyAmount = Number(formData.get("minCopyAmount"));
   const baseFollowers = Number(formData.get("baseFollowers"));
+  const shareRaw = ((formData.get("profitSharePct") as string) ?? "").trim();
+  const shareNum = shareRaw === "" ? NaN : Number(shareRaw);
+  // Display-only 0-50; blank / invalid / out of range -> NULL (not shown).
+  const profitSharePct = Number.isFinite(shareNum) && shareNum >= 0 && shareNum <= 50 ? shareNum : null;
 
   return {
     display_name: displayName,
@@ -315,6 +319,7 @@ function readLeaderFields(formData: FormData) {
     skill: Math.min(0.85, Math.max(0.3, (Number.isFinite(skillPct) ? skillPct : 55) / 100)),
     min_copy_amount: Number.isFinite(minCopyAmount) && minCopyAmount > 0 ? minCopyAmount : 50,
     base_followers_count: Number.isFinite(baseFollowers) && baseFollowers >= 0 ? baseFollowers : 0,
+    profit_share_pct: profitSharePct,
   };
 }
 
