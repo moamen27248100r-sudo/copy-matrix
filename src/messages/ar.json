@@ -1738,6 +1738,41 @@
       "minInvestmentLabel": "الحد الأدنى المقترح للاستثمار ($)",
       "agreeLabel": "أوافق على اتفاقية المتداول القائد.",
       "submit": "إرسال الطلب"
+    },
+    "nav": {
+      "overview": "نظرة عامة",
+      "trades": "الصفقات",
+      "followers": "المتابعون",
+      "settlements": "التسويات",
+      "tasks": "المهام",
+      "settings": "الإعدادات"
+    },
+    "overview": {
+      "title": "مركز المتداول القائد",
+      "tier_beginner": "مبتدئ",
+      "tier_bronze": "برونزي",
+      "tier_silver": "فضي",
+      "tier_gold": "ذهبي",
+      "nextTier": "المستوى التالي: {tier}",
+      "progressDays": "أيام التداول",
+      "progressAum": "الأموال المُدارة",
+      "progressFollowerProfit": "ربح المتابعين",
+      "leaderBalance": "رصيد الحساب القائد",
+      "aum": "الأموال المُدارة (AUM)",
+      "followers": "المتابعون",
+      "followerProfit": "ربح المتابعين الإجمالي",
+      "shareRealized": "مشاركة الأرباح المحققة",
+      "shareUnrealized": "مشاركة الأرباح غير المحققة",
+      "shareWeek": "مشاركة أرباح الأسبوع",
+      "sharePct": "نسبة مشاركة الأرباح",
+      "shareEstimateNote": "أرقام مشاركة الأرباح تقديرية حيّة؛ لا يُخصم شيء فعليًا بعد (راجع صفحة التسويات).",
+      "periodReturns": "العائد عبر الفترات",
+      "period7": "7 أيام",
+      "period30": "30 يومًا",
+      "period90": "90 يومًا",
+      "period180": "180 يومًا",
+      "tradesCount": "عدد الصفقات",
+      "activeDays": "أيام التداول الفعلية"
     }
   }
 }

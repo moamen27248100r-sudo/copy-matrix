@@ -1665,6 +1665,41 @@
       "minInvestmentLabel": "Suggested minimum investment ($)",
       "agreeLabel": "I agree to the lead trader agreement.",
       "submit": "Submit application"
+    },
+    "nav": {
+      "overview": "Overview",
+      "trades": "Trades",
+      "followers": "Followers",
+      "settlements": "Settlements",
+      "tasks": "Tasks",
+      "settings": "Settings"
+    },
+    "overview": {
+      "title": "Lead trader center",
+      "tier_beginner": "Beginner",
+      "tier_bronze": "Bronze",
+      "tier_silver": "Silver",
+      "tier_gold": "Gold",
+      "nextTier": "Next tier: {tier}",
+      "progressDays": "Active days",
+      "progressAum": "AUM",
+      "progressFollowerProfit": "Follower profit",
+      "leaderBalance": "Leader account balance",
+      "aum": "Assets under management",
+      "followers": "Followers",
+      "followerProfit": "Total follower profit",
+      "shareRealized": "Realized profit share",
+      "shareUnrealized": "Unrealized profit share",
+      "shareWeek": "This week's profit share",
+      "sharePct": "Profit-share rate",
+      "shareEstimateNote": "Profit-share figures are a live estimate; nothing is deducted yet (see Settlements).",
+      "periodReturns": "Return over time",
+      "period7": "7 days",
+      "period30": "30 days",
+      "period90": "90 days",
+      "period180": "180 days",
+      "tradesCount": "Closed trades",
+      "activeDays": "Active trading days"
     }
   }
 }
