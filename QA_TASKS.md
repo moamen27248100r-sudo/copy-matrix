@@ -106,12 +106,12 @@ Screenshot only broken pages.
 - [x] No secret keys in client-side code — verified: `src/lib/supabase/admin.ts` is the only file referencing
       `SUPABASE_SECRET_KEY` (service-role key), is server-only (no `"use client"`, no `NEXT_PUBLIC_` prefix, not
       imported by any client component), so it's never bundled to the browser.
-- [ ] User cannot access another user's data by changing an ID in the URL — not re-verified this pass (would
+- [ ] User cannot access another user's data by changing an ID in the URL — TESTED (2 disposable accounts, deleted after): URL/ID tampering on /admin/users/[id], /trader/[id], ?id= params leaks nothing, and RLS hides notifications/wallet/KYC/subscriptions/etc. **BUT FAILED for `profiles`: policy `profiles_select` is `USING (true)` for `authenticated` with all columns granted, so any logged-in user can read every user's email, phone, balance, signup/last-login IP, is_admin via the API. Needs DB decision (restrict columns/policy or move to a safe view) — not changed per no-schema-change rule.** Old note: not re-verified this pass (would
       need two disposable test accounts and live testing of e.g. `/trader/[id]`, admin `/users/[id]`).
-- [ ] No console errors on any page — not exhaustively re-verified; one pre-existing `Cannot read properties of
+- [ ] No console errors on any page — `/discover` querySelector error does NOT reproduce in the production build (`next build` + `next start`, logged in, 375px): dev-mode-only, no fix needed. (Old note: one pre-existing `Cannot read properties of
       null (reading 'querySelector')` console error was observed on `/discover` in dev mode during this pass,
       unrelated to any file touched this pass (no discover client-logic was changed, only className/search-input
-      sizing and a new `generateMetadata`) — flagged for a follow-up look, not investigated further given scope.
+      sizing and a new `generateMetadata`) — flagged for a follow-up look, not investigated further given scope.)
 
 ## Delivery
 - [x] Fix every found issue, re-test (see "Needs DB / decision" below for items intentionally left open, and note on scope)
@@ -139,3 +139,6 @@ pass should still walk section 1/3/4/5/6 live per-page if a large QA budget is a
   toast/loading-state audit per action, tap-target measurement, and the "can't access another user's data via
   URL ID" security check were not live-tested this pass (would need disposable test accounts + a larger time
   budget); see the per-item notes above for what was and wasn't checked.
+
+- **`profiles` table readable by every authenticated user (PII leak)** — see section 8. Needs DB decision.
+- Horizontal scroll re-checked at 375px on ~29 routes (logged in, prod build): `scrollWidth == clientWidth` everywhere; only off-canvas fixed drawer/carousel children flagged, which are clipped/intended.
