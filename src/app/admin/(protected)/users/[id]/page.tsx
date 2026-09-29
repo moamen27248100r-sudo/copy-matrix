@@ -221,7 +221,7 @@ export default async function AdminUserDetailPage({
               step="0.01"
               required
               placeholder="مثال: 50 أو -50-"
-              className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground"
+              className="rounded border border-border bg-background px-3 py-2 text-base text-foreground"
             />
           </label>
           <label className="flex flex-[2] flex-col gap-1 text-xs text-muted">
@@ -231,7 +231,7 @@ export default async function AdminUserDetailPage({
               type="text"
               required
               placeholder="مثال: تصحيح خطأ في رصيد تجريبي"
-              className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground"
+              className="rounded border border-border bg-background px-3 py-2 text-base text-foreground"
             />
           </label>
           <button
@@ -400,7 +400,7 @@ export default async function AdminUserDetailPage({
           <summary className="cursor-pointer text-sm font-medium">+ صفقة فردية جديدة</summary>
           <form action={addClientTrade} className="mt-4 flex flex-col gap-3">
             <input type="hidden" name="followerId" value={id} />
-            <select name="providerId" required className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground">
+            <select name="providerId" required className="rounded border border-border bg-background px-3 py-2 text-base text-foreground">
               <option value="">اختر المتداول المنسوب له</option>
               {(allProviders ?? []).map((pr) => (
                 <option key={pr.id} value={pr.id}>
@@ -409,14 +409,14 @@ export default async function AdminUserDetailPage({
               ))}
             </select>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <select name="symbol" required className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground">
+              <select name="symbol" required className="rounded border border-border bg-background px-3 py-2 text-base text-foreground">
                 {SYMBOLS.map((sym) => (
                   <option key={sym} value={sym}>
                     {sym} — {symbolFullName(sym)}
                   </option>
                 ))}
               </select>
-              <select name="side" required className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground">
+              <select name="side" required className="rounded border border-border bg-background px-3 py-2 text-base text-foreground">
                 <option value="buy">شراء</option>
                 <option value="sell">بيع</option>
               </select>
@@ -424,11 +424,11 @@ export default async function AdminUserDetailPage({
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <label className="flex flex-col gap-1 text-xs text-muted">
                 سعر الدخول
-                <input name="entryPrice" type="number" step="any" required className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground" />
+                <input name="entryPrice" type="number" step="any" required className="rounded border border-border bg-background px-3 py-2 text-base text-foreground" />
               </label>
               <label className="flex flex-col gap-1 text-xs text-muted">
                 حجم الصفقة ($)
-                <input name="size" type="number" step="any" required className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground" />
+                <input name="size" type="number" step="any" required className="rounded border border-border bg-background px-3 py-2 text-base text-foreground" />
               </label>
             </div>
             <button

@@ -186,7 +186,7 @@ export function SupportChatPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={tf("searchTopics")}
-            className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted focus:border-brand focus:outline-none"
+            className="w-full rounded-lg border border-border bg-background px-3 py-2 text-base text-foreground placeholder:text-muted focus:border-brand focus:outline-none"
           />
 
           {filteredTopics.length === 0 ? (
@@ -299,7 +299,7 @@ export function SupportChatPage() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder={t("inputPlaceholder")}
-              className="min-w-0 flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted focus:border-brand focus:outline-none"
+              className="min-w-0 flex-1 rounded-lg border border-border bg-background px-3 py-2 text-base text-foreground placeholder:text-muted focus:border-brand focus:outline-none"
             />
             <button
               type="submit"

@@ -34,7 +34,7 @@ export function MarginCallForm({
         name="providerId"
         required
         defaultValue={followedProviders[0].id}
-        className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground"
+        className="rounded border border-border bg-background px-3 py-2 text-base text-foreground"
       >
         {followedProviders.map((pr) => (
           <option key={pr.id} value={pr.id}>
@@ -43,7 +43,7 @@ export function MarginCallForm({
         ))}
       </select>
 
-      <select name="symbol" required className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground">
+      <select name="symbol" required className="rounded border border-border bg-background px-3 py-2 text-base text-foreground">
         {symbols.map((sym) => (
           <option key={sym} value={sym}>
             {sym} — {symbolFullName(sym)}
@@ -61,7 +61,7 @@ export function MarginCallForm({
           required
           value={lossAmount}
           onChange={(e) => setLossAmount(Number(e.target.value) || 0)}
-          className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground"
+          className="rounded border border-border bg-background px-3 py-2 text-base text-foreground"
         />
       </label>
 

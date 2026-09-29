@@ -231,7 +231,7 @@ export function DepositGateway() {
           onChange={(e) => setAmount(e.target.value)}
           placeholder={t("amountSentPlaceholder")}
           required
-          className="flex-1 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2.5 text-sm backdrop-blur-md"
+          className="flex-1 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2.5 text-base backdrop-blur-md"
         />
       </div>
 

@@ -319,22 +319,22 @@ export default async function AdminTradersPage({
                     <form action={createTraderTrade} className="mt-2 flex flex-col gap-2">
                       <input type="hidden" name="providerId" value={l.id} />
                       <div className="grid grid-cols-2 gap-2">
-                        <select name="symbol" required className="rounded border border-border bg-background px-2 py-1.5 text-xs text-foreground">
+                        <select name="symbol" required className="rounded border border-border bg-background px-2 py-1.5 text-base text-foreground">
                           {SYMBOLS.map((sym) => (
                             <option key={sym} value={sym}>
                               {sym} — {symbolFullName(sym)}
                             </option>
                           ))}
                         </select>
-                        <select name="side" required className="rounded border border-border bg-background px-2 py-1.5 text-xs text-foreground">
+                        <select name="side" required className="rounded border border-border bg-background px-2 py-1.5 text-base text-foreground">
                           <option value="buy">شراء</option>
                           <option value="sell">بيع</option>
                         </select>
                       </div>
                       <div className="grid grid-cols-3 gap-2">
-                        <input name="entryPrice" type="number" step="any" required placeholder="سعر الدخول" className="rounded border border-border bg-background px-2 py-1.5 text-xs text-foreground" />
-                        <input name="stopLoss" type="number" step="any" placeholder="وقف الخسارة (اختياري)" className="rounded border border-border bg-background px-2 py-1.5 text-xs text-foreground" />
-                        <input name="takeProfit" type="number" step="any" placeholder="جني الأرباح (اختياري)" className="rounded border border-border bg-background px-2 py-1.5 text-xs text-foreground" />
+                        <input name="entryPrice" type="number" step="any" required placeholder="سعر الدخول" className="rounded border border-border bg-background px-2 py-1.5 text-base text-foreground" />
+                        <input name="stopLoss" type="number" step="any" placeholder="وقف الخسارة (اختياري)" className="rounded border border-border bg-background px-2 py-1.5 text-base text-foreground" />
+                        <input name="takeProfit" type="number" step="any" placeholder="جني الأرباح (اختياري)" className="rounded border border-border bg-background px-2 py-1.5 text-base text-foreground" />
                       </div>
                       <button type="submit" className="w-fit rounded bg-accent px-3 py-1.5 text-xs font-medium text-accent-foreground transition hover:bg-accent-hover">
                         إنشاء الصفقة
