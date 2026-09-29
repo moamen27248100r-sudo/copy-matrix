@@ -1078,7 +1078,13 @@
       "submitFailed": "تعذّر إرسال الطلب. حاول مرة أخرى.",
       "orderInvalid": "تحقق من الرمز والاتجاه والحجم.",
       "orderFailed": "تعذّر تنفيذ الأمر",
-      "closeFailed": "تعذّر إغلاق الأمر."
+      "closeFailed": "تعذّر إغلاق الأمر.",
+      "removeFailed": "تعذّرت إزالة المتابع.",
+      "removeLimitReached": "يمكنك إزالة 10 متابعين كحد أقصى يوميًا.",
+      "removeHasOpenPositions": "لدى هذا المتابع صفقات منسوخة مفتوحة؛ يجب إغلاقها أولًا.",
+      "inviteFailed": "تعذّر إنشاء الدعوة.",
+      "announcementEmpty": "اكتب رسالة أولًا.",
+      "announcementFailed": "تعذّر إرسال الإعلان."
     }
   },
   "FollowEmail": {
@@ -1810,6 +1816,31 @@
       "side": "الاتجاه",
       "entryExit": "الدخول ← الخروج",
       "result": "النتيجة"
+    },
+    "followers": {
+      "title": "المتابعون",
+      "seats": "{current} من {max} مقعد متابع مستخدَم",
+      "inviteLinkLabel": "رابط الدعوة الخاص بك",
+      "noFollowers": "لا يوجد متابعون بعد.",
+      "follower": "المتابع",
+      "invested": "المستثمر",
+      "balance": "الرصيد",
+      "profit": "الربح",
+      "shareFromThem": "المشاركة منه",
+      "daysFollowing": "أيام المتابعة",
+      "status": "الحالة",
+      "active": "نشط",
+      "stopped": "متوقف",
+      "reasonPlaceholder": "السبب (اختياري)",
+      "remove": "إزالة",
+      "invitesTitle": "الدعوات",
+      "invitedEmailPlaceholder": "بريد المدعو (اختياري)",
+      "createInvite": "إنشاء دعوة",
+      "inviteUsed": "مُستخدَمة",
+      "invitePending": "بانتظار الاستخدام",
+      "announcementTitle": "إعلان للمتابعين",
+      "announcementPlaceholder": "رسالة قصيرة لمتابعيك...",
+      "sendAnnouncement": "إرسال"
     }
   }
 }

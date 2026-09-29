@@ -1066,7 +1066,13 @@
       "submitFailed": "Could not submit the application. Try again.",
       "orderInvalid": "Check the symbol, side and size.",
       "orderFailed": "Could not place the order",
-      "closeFailed": "Could not close the order."
+      "closeFailed": "Could not close the order.",
+      "removeFailed": "Could not remove the follower.",
+      "removeLimitReached": "You can remove up to 10 followers per day.",
+      "removeHasOpenPositions": "This follower has open copied positions; they must close first.",
+      "inviteFailed": "Could not create the invite.",
+      "announcementEmpty": "Write a message first.",
+      "announcementFailed": "Could not send the announcement."
     }
   },
   "FollowEmail": {
@@ -1736,6 +1742,31 @@
       "side": "Side",
       "entryExit": "Entry → Exit",
       "result": "Result"
+    },
+    "followers": {
+      "title": "Followers",
+      "seats": "{current} of {max} follower seats used",
+      "inviteLinkLabel": "Your invite link",
+      "noFollowers": "No followers yet.",
+      "follower": "Follower",
+      "invested": "Invested",
+      "balance": "Balance",
+      "profit": "Profit",
+      "shareFromThem": "Share from them",
+      "daysFollowing": "Days following",
+      "status": "Status",
+      "active": "Active",
+      "stopped": "Stopped",
+      "reasonPlaceholder": "Reason (optional)",
+      "remove": "Remove",
+      "invitesTitle": "Invites",
+      "invitedEmailPlaceholder": "Invitee's email (optional)",
+      "createInvite": "Create invite",
+      "inviteUsed": "Used",
+      "invitePending": "Pending",
+      "announcementTitle": "Announcement to followers",
+      "announcementPlaceholder": "A short message for your followers...",
+      "sendAnnouncement": "Send"
     }
   }
 }
