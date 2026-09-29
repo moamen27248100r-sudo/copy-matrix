@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { MainMenu } from "@/components/MainMenu";
 import { NotificationsMenu } from "@/components/NotificationsMenu";
 import { AccountTypeSwitcher } from "@/components/AccountTypeSwitcher";
+import { LeadModeSwitcher } from "@/components/LeadModeSwitcher";
 import { SidebarNav } from "@/components/SidebarNav";
 import { BottomNav } from "@/components/BottomNav";
 import { NavDrawerProvider } from "@/components/nav-drawer-context";
@@ -26,11 +27,12 @@ export async function AppNav() {
   let displayName: string | null = null;
   let email: string | null = null;
   let accountType: "real" | "demo" | null = null;
+  let isLeadTrader = false;
   let notifications: { id: string; type: string; title: string; body: string | null; data: Record<string, unknown> | null; is_read: boolean; created_at: string }[] = [];
   let kycStatus: string = "none";
   if (user) {
     const [{ data: profile }, { data: notificationRows }, { data: kyc }] = await Promise.all([
-      supabase.from("profiles").select("is_admin, is_suspended, display_name, email, account_type").eq("id", user.id).single(),
+      supabase.from("profiles").select("is_admin, is_suspended, display_name, email, account_type, is_lead_trader").eq("id", user.id).single(),
       supabase
         .from("notifications")
         .select("id, type, title, body, data, is_read, created_at")
@@ -50,6 +52,7 @@ export async function AppNav() {
     displayName = profile?.display_name ?? null;
     email = profile?.email ?? user.email ?? null;
     accountType = (profile?.account_type as "real" | "demo") ?? "demo";
+    isLeadTrader = !!profile?.is_lead_trader;
     notifications = notificationRows ?? [];
     kycStatus = kyc?.status ?? "none";
   }
@@ -63,6 +66,7 @@ export async function AppNav() {
           {user ? (
             <MainMenu
               isAdmin={isAdmin}
+              isLeadTrader={isLeadTrader}
               displayName={displayName}
               email={email}
               locale={locale}
@@ -91,6 +95,7 @@ export async function AppNav() {
         <div className="flex min-w-0 items-center justify-end gap-0.5 sm:gap-3">
           {user ? (
             <>
+              {isLeadTrader && <LeadModeSwitcher />}
               {accountType && (
                 <AccountTypeSwitcher
                   accountType={accountType}

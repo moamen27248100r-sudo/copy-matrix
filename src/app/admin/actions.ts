@@ -889,3 +889,72 @@ export async function addMarginCallTrade(formData: FormData) {
     revalidatePath(`/trader/${providerId}`);
   }
 }
+
+// ---- Lead trader applications (see LEADER_TASKS.md Phase 1) -----------------
+
+export async function approveLeadTraderApplication(formData: FormData) {
+  const { supabase, adminId } = await assertAdmin();
+  const applicationId = formData.get("applicationId") as string;
+
+  const { data: app } = await supabase
+    .from("lead_trader_applications")
+    .select("id, user_id, display_name, bio, requested_min_investment, status")
+    .eq("id", applicationId)
+    .single();
+
+  if (!app || app.status !== "pending") {
+    redirect("/admin/lead-trader-applications?error=" + encodeURIComponent("الطلب غير موجود أو تمت مراجعته بالفعل."));
+  }
+
+  // One provider row per approved leader, linked back via user_id -- the same
+  // column providers already has, just used for a real applicant instead of a
+  // platform-generated leader (see 0180's comment: previously always null).
+  const minCopy = Number(app!.requested_min_investment);
+  const { data: provider, error: providerError } = await supabase
+    .from("providers")
+    .insert({
+      user_id: app!.user_id,
+      display_name: app!.display_name,
+      bio: app!.bio,
+      min_copy_amount: Number.isFinite(minCopy) && minCopy > 0 ? minCopy : 100,
+      skill: 0.55,
+      base_followers_count: 0,
+    })
+    .select("id")
+    .single();
+
+  if (providerError || !provider) {
+    redirect("/admin/lead-trader-applications?error=" + encodeURIComponent("تعذّر إنشاء حساب المتداول: " + (providerError?.message ?? "")));
+  }
+
+  await supabase
+    .from("lead_trader_applications")
+    .update({ status: "approved", reviewed_at: new Date().toISOString(), reviewer_admin_id: adminId, provider_id: provider!.id })
+    .eq("id", applicationId);
+
+  // is_lead_trader is locked down like is_admin/is_suspended (0180) -- only the
+  // service-role client may set it.
+  await createAdminClient().from("profiles").update({ is_lead_trader: true }).eq("id", app!.user_id);
+
+  await logAdminAction(supabase, adminId, "approve_lead_trader_application", "lead_trader_application", applicationId, {
+    provider_id: provider!.id,
+  });
+
+  revalidatePath("/admin/lead-trader-applications");
+}
+
+export async function rejectLeadTraderApplication(formData: FormData) {
+  const { supabase, adminId } = await assertAdmin();
+  const applicationId = formData.get("applicationId") as string;
+  const reason = ((formData.get("reason") as string) ?? "").trim();
+
+  await supabase
+    .from("lead_trader_applications")
+    .update({ status: "rejected", reviewed_at: new Date().toISOString(), reviewer_admin_id: adminId, rejection_reason: reason || null })
+    .eq("id", applicationId)
+    .eq("status", "pending");
+
+  await logAdminAction(supabase, adminId, "reject_lead_trader_application", "lead_trader_application", applicationId, { reason });
+
+  revalidatePath("/admin/lead-trader-applications");
+}

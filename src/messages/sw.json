@@ -253,7 +253,11 @@
     "notificationsEmpty": "Hakuna arifa bado.",
     "viewAll": "Ona zote",
     "markAllRead": "Weka alama zote kama zimesomwa",
-    "demoStrip": "You're in demo mode — virtual funds only."
+    "demoStrip": "You're in demo mode — virtual funds only.",
+    "switchToLeaderMode": "Lead trader center",
+    "switchToCopierMode": "Copier dashboard",
+    "menuLeadCenter": "Lead trader center",
+    "menuBecomeLeader": "Become a lead trader"
   },
   "LangSwitcher": {
     "label": "Lugha"
@@ -1051,6 +1055,15 @@
     },
     "dashboard": {
       "closeFailed": "Imeshindwa kufunga nafasi. Tafadhali jaribu tena."
+    },
+    "leadTrader": {
+      "rateLimit": "Too many attempts. Try again later.",
+      "alreadyLeader": "You are already an approved lead trader.",
+      "stillCopying": "Stop copying every trader first, then apply.",
+      "openPositions": "Close your open copied positions first, then apply.",
+      "missingFields": "Fill in your name, bio, at least one market, and accept the agreement.",
+      "alreadyPending": "You already have a pending application.",
+      "submitFailed": "Could not submit the application. Try again."
     }
   },
   "FollowEmail": {
@@ -1613,5 +1626,41 @@
     "simNoLoss": "No losing month",
     "simChartAlt": "Monthly growth of the amount over the last 12 months",
     "simNote": "A simulation based on past performance; it does not include fees. Past performance does not guarantee future results."
+  },
+  "LeadTrader": {
+    "apply": {
+      "title": "Become a lead trader",
+      "subtitle": "Trade with your own strategy and let others copy you, with profit-sharing you control.",
+      "benefit1": "Followers copy your trades into their own accounts automatically.",
+      "benefit2": "Set your own profit-share percentage, up to your tier's limit.",
+      "benefit3": "A dedicated center: performance, followers, settlements and tasks.",
+      "benefit4": "Grow through tiers as your track record and AUM grow.",
+      "requirementsTitle": "Requirements",
+      "req1": "You must not currently be copying any trader.",
+      "req2": "No open copied positions at the time of applying.",
+      "req3": "Agreement to the lead trader terms.",
+      "goToCenter": "Go to my lead trader center",
+      "pendingNotice": "Your application is under review. We will notify you once it's decided.",
+      "rejectedNotice": "Your previous application was rejected. You can apply again.",
+      "submitted": "Your application has been submitted.",
+      "displayNameLabel": "Display name",
+      "bioLabel": "Bio",
+      "marketsLabel": "Markets you trade",
+      "market_crypto": "Crypto",
+      "market_forex": "Forex",
+      "market_gold": "Gold",
+      "market_indices": "Indices",
+      "styleLabel": "Trading style",
+      "styleAny": "Not specified",
+      "style_scalper": "Scalper",
+      "style_session_trader": "Session trader",
+      "style_moderate": "Moderate",
+      "style_sporadic": "Occasional",
+      "contactLabel": "Contact method (private, admin only)",
+      "contactPlaceholder": "Telegram, WhatsApp, email...",
+      "minInvestmentLabel": "Suggested minimum investment ($)",
+      "agreeLabel": "I agree to the lead trader agreement.",
+      "submit": "Submit application"
+    }
   }
 }

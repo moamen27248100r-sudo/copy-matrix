@@ -55,6 +55,12 @@ const ICONS: Record<string, ReactNode> = {
       <path d="M12 6v6l4 2" />
     </>
   ),
+  leadTrader: (
+    <>
+      <path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" />
+      <path d="M9 12l2 2 4-4" />
+    </>
+  ),
 };
 
 const NAV_ITEMS = [
@@ -62,6 +68,7 @@ const NAV_ITEMS = [
   { href: "/admin/users", label: "المستخدمون", icon: "users" },
   { href: "/admin/traders", label: "المتداولون", icon: "traders" },
   { href: "/admin/kyc", label: "طلبات التوثيق", icon: "kyc" },
+  { href: "/admin/lead-trader-applications", label: "طلبات المتداول القائد", icon: "leadTrader" },
   { href: "/admin/wallet-requests", label: "طلبات المحفظة", icon: "wallet" },
   { href: "/admin/subscriptions", label: "نشاط النسخ", icon: "copy" },
   { href: "/admin/audit-log", label: "سجل الإجراءات", icon: "log" },

@@ -108,6 +108,7 @@ const KYC_BADGE_TONE: Record<string, string> = {
 
 export function MainMenu({
   isAdmin,
+  isLeadTrader = false,
   displayName,
   email,
   locale,
@@ -115,6 +116,7 @@ export function MainMenu({
   kycStatusLabels,
 }: {
   isAdmin: boolean;
+  isLeadTrader?: boolean;
   displayName?: string | null;
   email?: string | null;
   locale: Locale;
@@ -165,6 +167,9 @@ export function MainMenu({
     { href: "/markets", label: t("menuMarkets"), icon: ICONS.markets },
     { href: "/portfolio?tab=activity", label: t("menuTransactionHistory"), icon: ICONS.history },
     { href: "/kyc", label: t("menuKyc"), icon: ICONS.kyc },
+    isLeadTrader
+      ? { href: "/lead", label: t("menuLeadCenter"), icon: ICONS.kyc }
+      : { href: "/become-lead-trader", label: t("menuBecomeLeader"), icon: ICONS.kyc },
     { href: "/settings", label: t("menuSettings"), icon: ICONS.settings },
     { href: "/support", label: t("menuSupport"), icon: ICONS.support },
     ...(isAdmin ? [{ href: "/admin", label: t("menuAdmin"), icon: ADMIN_ICON }] : []),
