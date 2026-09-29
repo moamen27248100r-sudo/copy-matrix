@@ -205,9 +205,9 @@
     },
     "tryCopy": {
       "badge": "Dùng thử miễn phí rủi ro",
-      "title": "Dùng thử copy trading miễn phí rủi ro",
-      "description": "Bạn muốn thử theo dõi và sao chép các nhà giao dịch hàng đầu thị trường? Mở tài khoản demo miễn phí với số dư ảo, và khám phá hiệu suất cũng như biến động lợi nhuận một cách tự do trước khi sao chép bằng tiền thật.",
-      "cta": "Bắt đầu sao chép ngay",
+      "title": "Try it with a demo account",
+      "description": "Start with $10,000 in virtual funds and practice copying before using your own money.",
+      "cta": "Open a demo account",
       "cardWelcome": "Tài khoản demo miễn phí của bạn",
       "cardPortfolioLabel": "Giá trị danh mục demo",
       "cardTopLabel": "Nhà giao dịch hàng đầu theo lợi nhuận",

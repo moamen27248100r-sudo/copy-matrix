@@ -2,9 +2,9 @@
   "Home": {
     "tryCopy": {
       "badge": "Try it risk-free",
-      "title": "Try copy trading with no risk",
-      "description": "Want to see what it is like to follow and copy top traders? Open a free demo account with virtual funds and explore performance and profit movement freely before copying with real money.",
-      "cta": "Start copying now",
+      "title": "Try it with a demo account",
+      "description": "Start with $10,000 in virtual funds and practice copying before using your own money.",
+      "cta": "Open a demo account",
       "cardWelcome": "Your free demo account",
       "cardPortfolioLabel": "Demo portfolio value",
       "cardTopLabel": "Top traders by return",

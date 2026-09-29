@@ -1,0 +1,262 @@
+"use client";
+
+import type { Locale } from "@/i18n/locales";
+import { useInView } from "@/components/showcase/hooks";
+
+type Step = { title: string; desc: string };
+type HowItWorksText = { badge: string; title: string; subtitle: string; steps: Step[] };
+
+const TEXT: Record<Locale, HowItWorksText> = {
+  ar: {
+    badge: "آلية العمل",
+    title: "أربع خطوات لتبدأ النسخ",
+    subtitle: "مسار واحد متصل من التسجيل إلى التنفيذ اللحظي",
+    steps: [
+      { title: "ربط الحساب وإدارة المحفظة", desc: "أنشئ حسابك واربط محفظتك بأمان في دقائق." },
+      { title: "تخصيص ورأس المال المرن", desc: "حدد رأس المال المخصص لكل قائد تنسخه بحرية." },
+      { title: "تحليل وتصفية قادة Matrix", desc: "قارن الأداء والمخاطرة واختر القادة الأنسب لك." },
+      { title: "التنفيذ اللحظي والتحكم التلقائي", desc: "صفقاتك تُنسخ لحظياً مع تحكم كامل بالإيقاف والفك." },
+    ],
+  },
+  en: {
+    badge: "How it works",
+    title: "Four steps to start copying",
+    subtitle: "One connected path from sign-up to instant execution",
+    steps: [
+      { title: "Connect your account & wallet", desc: "Create your account and link your wallet securely in minutes." },
+      { title: "Flexible allocation & capital", desc: "Choose how much capital to allocate to each leader you copy." },
+      { title: "Analyze & filter Matrix leaders", desc: "Compare performance and risk to pick the leaders that fit you." },
+      { title: "Instant execution & auto control", desc: "Trades copy instantly, with full control to pause or unfollow." },
+    ],
+  },
+  fr: {
+    badge: "Comment ça marche",
+    title: "Quatre étapes pour commencer à copier",
+    subtitle: "Un seul parcours connecté, de l'inscription à l'exécution instantanée",
+    steps: [
+      { title: "Connectez votre compte et votre portefeuille", desc: "Créez votre compte et liez votre portefeuille en toute sécurité en quelques minutes." },
+      { title: "Allocation et capital flexibles", desc: "Choisissez le capital à allouer à chaque leader que vous copiez." },
+      { title: "Analysez et filtrez les leaders Matrix", desc: "Comparez performance et risque pour choisir les leaders qui vous conviennent." },
+      { title: "Exécution instantanée et contrôle automatique", desc: "Les trades sont copiés instantanément, avec un contrôle total pour suspendre ou vous désabonner." },
+    ],
+  },
+  es: {
+    badge: "Cómo funciona",
+    title: "Cuatro pasos para empezar a copiar",
+    subtitle: "Un solo camino conectado, desde el registro hasta la ejecución instantánea",
+    steps: [
+      { title: "Conecta tu cuenta y billetera", desc: "Crea tu cuenta y vincula tu billetera de forma segura en minutos." },
+      { title: "Asignación y capital flexibles", desc: "Elige cuánto capital asignar a cada líder que copias." },
+      { title: "Analiza y filtra líderes de Matrix", desc: "Compara rendimiento y riesgo para elegir los líderes que más te convienen." },
+      { title: "Ejecución instantánea y control automático", desc: "Las operaciones se copian al instante, con control total para pausar o dejar de seguir." },
+    ],
+  },
+  pt: {
+    badge: "Como funciona",
+    title: "Quatro passos para começar a copiar",
+    subtitle: "Um único caminho conectado, do cadastro à execução instantânea",
+    steps: [
+      { title: "Conecte sua conta e carteira", desc: "Crie sua conta e vincule sua carteira com segurança em minutos." },
+      { title: "Alocação e capital flexíveis", desc: "Escolha quanto capital alocar para cada líder que você copia." },
+      { title: "Analise e filtre líderes Matrix", desc: "Compare desempenho e risco para escolher os líderes certos para você." },
+      { title: "Execução instantânea e controle automático", desc: "As operações são copiadas instantaneamente, com controle total para pausar ou deixar de seguir." },
+    ],
+  },
+  zh: {
+    badge: "工作原理",
+    title: "四步开始跟单",
+    subtitle: "从注册到即时执行的一条完整路径",
+    steps: [
+      { title: "连接账户与钱包", desc: "几分钟内安全创建账户并绑定钱包。" },
+      { title: "灵活的资金分配", desc: "自由选择为每位跟单领导者分配的资金。" },
+      { title: "分析并筛选 Matrix 领导者", desc: "比较业绩与风险，挑选最适合您的领导者。" },
+      { title: "即时执行与自动控制", desc: "交易即时复制，并可完全控制暂停或取消关注。" },
+    ],
+  },
+  hi: {
+    badge: "यह कैसे काम करता है",
+    title: "कॉपी शुरू करने के लिए चार चरण",
+    subtitle: "साइन-अप से लेकर तुरंत निष्पादन तक एक जुड़ा हुआ रास्ता",
+    steps: [
+      { title: "खाता और वॉलेट कनेक्ट करें", desc: "मिनटों में सुरक्षित रूप से खाता बनाएं और वॉलेट लिंक करें।" },
+      { title: "लचीला आवंटन और पूंजी", desc: "हर लीडर के लिए आवंटित पूंजी स्वतंत्र रूप से चुनें।" },
+      { title: "Matrix लीडर्स का विश्लेषण और फ़िल्टर करें", desc: "प्रदर्शन और जोखिम की तुलना करें और सही लीडर चुनें।" },
+      { title: "तुरंत निष्पादन और स्वचालित नियंत्रण", desc: "ट्रेड तुरंत कॉपी होते हैं, रोकने या अनफॉलो करने पर पूर्ण नियंत्रण के साथ।" },
+    ],
+  },
+  ur: {
+    badge: "یہ کیسے کام کرتا ہے",
+    title: "کاپی شروع کرنے کے لیے چار مراحل",
+    subtitle: "سائن اپ سے لے کر فوری عملدرآمد تک ایک منسلک راستہ",
+    steps: [
+      { title: "اکاؤنٹ اور والیٹ منسلک کریں", desc: "منٹوں میں محفوظ طریقے سے اکاؤنٹ بنائیں اور والیٹ منسلک کریں۔" },
+      { title: "لچکدار مختص اور سرمایہ", desc: "ہر لیڈر کے لیے مختص سرمایہ آزادانہ طور پر منتخب کریں۔" },
+      { title: "Matrix لیڈرز کا تجزیہ اور فلٹر", desc: "کارکردگی اور خطرے کا موازنہ کر کے موزوں ترین لیڈرز منتخب کریں۔" },
+      { title: "فوری عملدرآمد اور خودکار کنٹرول", desc: "ٹریڈز فوری طور پر کاپی ہوتے ہیں، روکنے یا ان فالو کرنے پر مکمل کنٹرول کے ساتھ۔" },
+    ],
+  },
+  id: {
+    badge: "Cara kerja",
+    title: "Empat langkah untuk mulai menyalin",
+    subtitle: "Satu alur terhubung dari pendaftaran hingga eksekusi instan",
+    steps: [
+      { title: "Hubungkan akun & dompet", desc: "Buat akun dan tautkan dompet Anda dengan aman dalam hitungan menit." },
+      { title: "Alokasi & modal fleksibel", desc: "Pilih modal yang dialokasikan untuk setiap leader yang Anda ikuti." },
+      { title: "Analisis & saring leader Matrix", desc: "Bandingkan performa dan risiko untuk memilih leader yang tepat untuk Anda." },
+      { title: "Eksekusi instan & kontrol otomatis", desc: "Transaksi disalin secara instan, dengan kontrol penuh untuk jeda atau berhenti mengikuti." },
+    ],
+  },
+  vi: {
+    badge: "Cách hoạt động",
+    title: "Bốn bước để bắt đầu sao chép",
+    subtitle: "Một hành trình liền mạch từ đăng ký đến thực thi tức thì",
+    steps: [
+      { title: "Kết nối tài khoản và ví", desc: "Tạo tài khoản và liên kết ví của bạn an toàn chỉ trong vài phút." },
+      { title: "Phân bổ vốn linh hoạt", desc: "Chọn số vốn phân bổ cho mỗi leader bạn sao chép." },
+      { title: "Phân tích và lọc leader Matrix", desc: "So sánh hiệu suất và rủi ro để chọn leader phù hợp nhất." },
+      { title: "Thực thi tức thì và kiểm soát tự động", desc: "Giao dịch được sao chép ngay lập tức, với toàn quyền tạm dừng hoặc hủy theo dõi." },
+    ],
+  },
+  th: {
+    badge: "วิธีการทำงาน",
+    title: "สี่ขั้นตอนเพื่อเริ่มคัดลอก",
+    subtitle: "เส้นทางเดียวที่เชื่อมต่อกันตั้งแต่สมัครสมาชิกจนถึงการดำเนินการทันที",
+    steps: [
+      { title: "เชื่อมต่อบัญชีและกระเป๋าเงิน", desc: "สร้างบัญชีและเชื่อมโยงกระเป๋าเงินของคุณอย่างปลอดภัยในไม่กี่นาที" },
+      { title: "การจัดสรรและเงินทุนที่ยืดหยุ่น", desc: "เลือกเงินทุนที่จะจัดสรรให้กับผู้นำแต่ละคนที่คุณคัดลอกได้อย่างอิสระ" },
+      { title: "วิเคราะห์และคัดกรองผู้นำ Matrix", desc: "เปรียบเทียบผลงานและความเสี่ยงเพื่อเลือกผู้นำที่เหมาะกับคุณ" },
+      { title: "การดำเนินการทันทีและการควบคุมอัตโนมัติ", desc: "การเทรดถูกคัดลอกทันที พร้อมการควบคุมเต็มรูปแบบในการหยุดชั่วคราวหรือเลิกติดตาม" },
+    ],
+  },
+  bn: {
+    badge: "এটি কীভাবে কাজ করে",
+    title: "কপি শুরু করার জন্য চারটি ধাপ",
+    subtitle: "সাইন-আপ থেকে তাৎক্ষণিক এক্সিকিউশন পর্যন্ত একটি সংযুক্ত পথ",
+    steps: [
+      { title: "অ্যাকাউন্ট এবং ওয়ালেট সংযুক্ত করুন", desc: "মিনিটের মধ্যে নিরাপদে অ্যাকাউন্ট তৈরি করুন এবং ওয়ালেট লিঙ্ক করুন।" },
+      { title: "নমনীয় বরাদ্দ এবং মূলধন", desc: "প্রতিটি লিডারের জন্য বরাদ্দকৃত মূলধন স্বাধীনভাবে বেছে নিন।" },
+      { title: "Matrix লিডারদের বিশ্লেষণ ও ফিল্টার করুন", desc: "পারফরম্যান্স এবং ঝুঁকি তুলনা করে উপযুক্ত লিডার বেছে নিন।" },
+      { title: "তাৎক্ষণিক এক্সিকিউশন এবং স্বয়ংক্রিয় নিয়ন্ত্রণ", desc: "ট্রেড তাৎক্ষণিকভাবে কপি হয়, থামানো বা আনফলো করার সম্পূর্ণ নিয়ন্ত্রণসহ।" },
+    ],
+  },
+  sw: {
+    badge: "Jinsi inavyofanya kazi",
+    title: "Hatua nne za kuanza kunakili",
+    subtitle: "Njia moja iliyounganishwa kutoka usajili hadi utekelezaji wa papo hapo",
+    steps: [
+      { title: "Unganisha akaunti na pochi", desc: "Unda akaunti yako na uunganishe pochi yako kwa usalama ndani ya dakika." },
+      { title: "Ugavi na mtaji unaonyumbulika", desc: "Chagua mtaji wa kutenga kwa kila kiongozi unayenakili." },
+      { title: "Changanua na chuja viongozi wa Matrix", desc: "Linganisha utendaji na hatari kuchagua viongozi wanaokufaa." },
+      { title: "Utekelezaji wa papo hapo na udhibiti wa kiotomatiki", desc: "Biashara zinanakiliwa papo hapo, ukiwa na udhibiti kamili wa kusitisha au kuacha kufuata." },
+    ],
+  },
+};
+
+const STEP_ICON_PATHS = [
+  // wallet -- connect account
+  <>
+    <rect x="3" y="6" width="18" height="13" rx="2" />
+    <path d="M3 10h18" />
+    <circle cx="16" cy="14.5" r="1" />
+  </>,
+  // dollar / slider -- flexible allocation
+  <>
+    <line x1="12" y1="2" x2="12" y2="22" />
+    <path d="M17 6.5c0-1.4-1.6-2.5-5-2.5s-5 1.1-5 2.5S8.6 9 12 9s5 1.1 5 2.5-1.6 2.5-5 2.5-5-1.1-5-2.5" />
+  </>,
+  // analytics / chart -- analyze & filter leaders
+  <>
+    <path d="M4 19h16" />
+    <rect x="6" y="12" width="3" height="7" />
+    <rect x="11" y="8" width="3" height="11" />
+    <rect x="16" y="4" width="3" height="15" />
+  </>,
+  // lightning -- instant execution
+  <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" />,
+];
+
+function StepIcon({ index }: { index: number }) {
+  return (
+    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {STEP_ICON_PATHS[index]}
+    </svg>
+  );
+}
+
+function StepBadge({ index }: { index: number }) {
+  return (
+    <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-accent/40 bg-accent/10 text-accent shadow-[0_0_18px_-3px_var(--accent)]">
+      <StepIcon index={index} />
+      <span className="absolute -bottom-1 -end-1 flex h-5 w-5 items-center justify-center rounded-full border-2 border-background bg-accent text-[10px] font-bold text-accent-foreground">
+        {index + 1}
+      </span>
+    </div>
+  );
+}
+
+const CARD_BASE =
+  "rounded-xl border bg-white/[0.03] backdrop-blur-xl p-5 transition-all duration-300 hover:-translate-y-0.5";
+const CARD_GLOW = "border-accent/40 shadow-[0_0_28px_-10px_var(--accent)]";
+const CARD_IDLE = "border-white/[0.06] hover:border-accent/40 hover:shadow-[0_0_28px_-10px_var(--accent)]";
+
+function StepCard({ title, desc, horizontal = false }: { title: string; desc: string; horizontal?: boolean }) {
+  const { ref, inView } = useInView<HTMLDivElement>(0.4);
+  return (
+    <div
+      ref={ref}
+      className={`${CARD_BASE} ${inView ? CARD_GLOW : CARD_IDLE} ${horizontal ? "flex h-full flex-col gap-1 text-center" : ""}`}
+    >
+      <p className="line-clamp-2 text-sm font-semibold text-slate-100">{title}</p>
+      <p className={`line-clamp-2 text-sm leading-relaxed text-slate-400 ${horizontal ? "" : "mt-1"}`}>{desc}</p>
+    </div>
+  );
+}
+
+export function HowItWorks({ locale }: { locale: Locale }) {
+  const t = TEXT[locale] ?? TEXT.en;
+  const lastIndex = t.steps.length - 1;
+
+  return (
+    <section id="how-it-works" className="flex flex-col gap-10 px-6 py-16">
+      <div className="mx-auto flex max-w-xl flex-col items-center gap-2 text-center">
+        <span className="line-clamp-1 inline-flex w-fit items-center rounded-md border border-slate-700/50 bg-slate-800/60 px-2 py-0.5 text-[11px] font-medium text-slate-300">
+          {t.badge}
+        </span>
+        <h2 className="line-clamp-1 text-2xl font-semibold text-slate-100 sm:text-3xl">{t.title}</h2>
+        <p className="line-clamp-2 text-sm text-slate-400">{t.subtitle}</p>
+      </div>
+
+      {/* Mobile / tablet: vertical stepper, a glowing icon badge fused
+          beside each card and linked by an animated pulse line. */}
+      <div className="mx-auto flex w-full max-w-md flex-col md:hidden">
+        {t.steps.map((s, i) => (
+          <div key={s.title} className="flex gap-4">
+            <div className="flex flex-col items-center">
+              <StepBadge index={i} />
+              {i < lastIndex && <div className="pulse-line my-1 w-[2px] flex-1 rounded-full" aria-hidden="true" />}
+            </div>
+            <div className={`flex-1 ${i < lastIndex ? "pb-4" : ""}`}>
+              <StepCard title={s.title} desc={s.desc} />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop: horizontal 4-column grid, icon badges linked by one
+          animated pulse line running through the row. */}
+      <div className="relative mx-auto hidden w-full max-w-5xl md:block">
+        <div className="pulse-line-horizontal absolute top-[22px] right-7 left-7 h-[2px] rounded-full" aria-hidden="true" />
+        <div className="grid grid-cols-4 gap-4 lg:gap-6">
+          {t.steps.map((s, i) => (
+            <div key={s.title} className="relative flex h-full flex-col gap-3">
+              <div className="relative z-10 flex justify-center">
+                <StepBadge index={i} />
+              </div>
+              <StepCard title={s.title} desc={s.desc} horizontal />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

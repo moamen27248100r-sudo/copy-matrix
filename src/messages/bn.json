@@ -205,9 +205,9 @@
     },
     "tryCopy": {
       "badge": "ঝুঁকিহীনভাবে চেষ্টা করুন",
-      "title": "ঝুঁকিহীনভাবে কপি ট্রেডিং চেষ্টা করুন",
-      "description": "বাজারের শীর্ষ ট্রেডারদের অনুসরণ ও কপি করে দেখতে চান? ভার্চুয়াল ব্যালেন্সসহ একটি ফ্রি ডেমো অ্যাকাউন্ট খুলুন, এবং আসল টাকায় কপি করার আগে সম্পূর্ণ স্বাধীনতার সাথে পারফরম্যান্স ও মুনাফার গতিবিধি দেখুন।",
-      "cta": "এখনই কপি করা শুরু করুন",
+      "title": "Try it with a demo account",
+      "description": "Start with $10,000 in virtual funds and practice copying before using your own money.",
+      "cta": "Open a demo account",
       "cardWelcome": "আপনার ফ্রি ডেমো অ্যাকাউন্ট",
       "cardPortfolioLabel": "ডেমো পোর্টফোলিও মূল্য",
       "cardTopLabel": "রিটার্ন অনুযায়ী শীর্ষ ট্রেডার",

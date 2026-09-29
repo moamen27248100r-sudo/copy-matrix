@@ -205,9 +205,9 @@
     },
     "tryCopy": {
       "badge": "Coba tanpa risiko",
-      "title": "Coba copy trading tanpa risiko",
-      "description": "Ingin mencoba mengikuti dan menyalin trader terbaik di pasar? Buka akun demo gratis dengan saldo virtual, dan jelajahi performa serta pergerakan keuntungan dengan bebas sebelum menyalin dengan uang sungguhan.",
-      "cta": "Mulai menyalin sekarang",
+      "title": "Try it with a demo account",
+      "description": "Start with $10,000 in virtual funds and practice copying before using your own money.",
+      "cta": "Open a demo account",
       "cardWelcome": "Akun demo gratis Anda",
       "cardPortfolioLabel": "Nilai portofolio demo",
       "cardTopLabel": "Trader teratas berdasarkan return",

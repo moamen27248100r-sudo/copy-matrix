@@ -205,9 +205,9 @@
     },
     "tryCopy": {
       "badge": "ลองใช้แบบไร้ความเสี่ยง",
-      "title": "ลองใช้ copy trading แบบไร้ความเสี่ยง",
-      "description": "อยากลองติดตามและคัดลอกเทรดเดอร์ชั้นนำของตลาดไหม? เปิดบัญชีทดลองฟรีพร้อมยอดเงินเสมือน แล้วสำรวจผลงานและการเคลื่อนไหวของกำไรได้อย่างอิสระก่อนคัดลอกด้วยเงินจริง",
-      "cta": "เริ่มคัดลอกตอนนี้",
+      "title": "Try it with a demo account",
+      "description": "Start with $10,000 in virtual funds and practice copying before using your own money.",
+      "cta": "Open a demo account",
       "cardWelcome": "บัญชีทดลองฟรีของคุณ",
       "cardPortfolioLabel": "มูลค่าพอร์ตทดลอง",
       "cardTopLabel": "เทรดเดอร์ยอดเยี่ยมตามผลตอบแทน",

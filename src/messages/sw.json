@@ -205,9 +205,9 @@
     },
     "tryCopy": {
       "badge": "Jaribu bila hatari",
-      "title": "Jaribu copy trading bila hatari",
-      "description": "Unataka kujaribu kufuata na kunakili wafanyabiashara bora wa soko? Fungua akaunti ya majaribio ya bure yenye salio la kidhahania, na chunguza utendaji na mwenendo wa faida kwa uhuru kamili kabla ya kunakili kwa pesa halisi.",
-      "cta": "Anza kunakili sasa",
+      "title": "Try it with a demo account",
+      "description": "Start with $10,000 in virtual funds and practice copying before using your own money.",
+      "cta": "Open a demo account",
       "cardWelcome": "Akaunti yako ya bure ya majaribio",
       "cardPortfolioLabel": "Thamani ya jalada la majaribio",
       "cardTopLabel": "Wafanyabiashara bora kwa faida",

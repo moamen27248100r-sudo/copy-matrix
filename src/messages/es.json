@@ -205,9 +205,9 @@
     },
     "tryCopy": {
       "badge": "Pruébalo sin riesgo",
-      "title": "Prueba el copy trading sin riesgo",
-      "description": "¿Quieres probar a seguir y copiar a los mejores traders del mercado? Abre una cuenta demo gratuita con saldo virtual y explora el rendimiento y la evolución de las ganancias con total libertad antes de copiar con dinero real.",
-      "cta": "Empezar a copiar ahora",
+      "title": "Try it with a demo account",
+      "description": "Start with $10,000 in virtual funds and practice copying before using your own money.",
+      "cta": "Open a demo account",
       "cardWelcome": "Tu cuenta demo gratuita",
       "cardPortfolioLabel": "Valor de la cartera demo",
       "cardTopLabel": "Mejores traders por rendimiento",

@@ -247,12 +247,12 @@ th {
   }
 }
 
-/* ---- Landing / auth design system ----------------------------------------
-   Scoped to `.landing` so the customer dashboard keeps its own palette until
-   it is migrated. Inside `.landing` the existing Tailwind tokens
-   (bg-background, bg-surface, text-muted, border-border, bg-accent,
-   text-success/danger/warning) resolve to the values below, so components
-   only need the standard utilities.
+/* ---- Auth (signup/login) design system ------------------------------------
+   Scoped to `.landing` (name kept as-is; used by AuthShell for the signup and
+   login pages, which stay at their current design). Inside `.landing` the
+   existing Tailwind tokens (bg-background, bg-surface, text-muted,
+   border-border, bg-accent, text-success/danger/warning) resolve to the
+   values below, so components only need the standard utilities.
      --primary: the platform's current blue (single colour for buttons /
      selection). --up / --down: profit / loss only. --warning: warnings only. */
 .landing {
@@ -285,129 +285,12 @@ th {
   --color-down: var(--down);
   --color-primary: var(--primary);
 }
-/* Numbers: Inter with tabular figures, always isolated from surrounding Arabic. */
+/* Numbers: Inter with tabular figures, always isolated from surrounding Arabic.
+   Also used by the lead trader center and settlement pages. */
 .num {
   font-family: var(--font-inter), var(--font-plex-sans-arabic), sans-serif;
   font-variant-numeric: tabular-nums;
   direction: ltr;
   unicode-bidi: isolate;
   display: inline-block;
-}
-.landing-section {
-  padding-block: 64px;
-}
-@media (min-width: 768px) {
-  .landing-section {
-    padding-block: 96px;
-  }
-}
-.landing-h1 {
-  font-size: 40px;
-  line-height: 1.25;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-}
-.landing-h2 {
-  font-size: 28px;
-  line-height: 1.3;
-  font-weight: 600;
-}
-@media (min-width: 768px) {
-  .landing-h1 {
-    font-size: 56px;
-    line-height: 1.15;
-  }
-  .landing-h2 {
-    font-size: 36px;
-  }
-}
-.reveal {
-  transition: opacity 300ms ease, transform 300ms ease;
-}
-.reveal[data-reveal="hidden"] {
-  opacity: 0;
-  transform: translateY(-8px);
-}
-@media (prefers-reduced-motion: reduce) {
-  .reveal {
-    transition: none;
-  }
-  .reveal[data-reveal="hidden"] {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* Landing marquee (price ticker) and small draw-in animation for sparklines. */
-@keyframes landing-marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-.landing-marquee {
-  animation: landing-marquee 45s linear infinite;
-}
-.landing-marquee:hover,
-.landing-marquee:active {
-  animation-play-state: paused;
-}
-.spark-line {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  transition: stroke-dashoffset 900ms ease-out;
-}
-.spark-line[data-drawn="true"] {
-  stroke-dashoffset: 0;
-}
-@media (prefers-reduced-motion: reduce) {
-  .landing-marquee {
-    animation: none;
-  }
-  .spark-line {
-    stroke-dashoffset: 0;
-    transition: none;
-  }
-}
-/* Hero background: very faint grid that fades out toward the edges. */
-.hero-grid {
-  background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
-  background-size: 56px 56px;
-  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 20%, transparent 100%);
-  mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 20%, transparent 100%);
-}
-
-/* Range slider (copy simulator): flat track, primary thumb. */
-.landing-range {
-  -webkit-appearance: none;
-  appearance: none;
-  height: 4px;
-  border-radius: 9999px;
-  background: var(--surface-2);
-  outline: none;
-}
-.landing-range::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  height: 20px;
-  width: 20px;
-  border-radius: 9999px;
-  background: var(--primary);
-  border: 2px solid var(--background);
-  cursor: pointer;
-}
-.landing-range::-moz-range-thumb {
-  height: 20px;
-  width: 20px;
-  border-radius: 9999px;
-  background: var(--primary);
-  border: 2px solid var(--background);
-  cursor: pointer;
-}
-.landing-range:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 4px;
 }

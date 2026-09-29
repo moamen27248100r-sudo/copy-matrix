@@ -205,9 +205,9 @@
     },
     "tryCopy": {
       "badge": "免费试用",
-      "title": "免费无风险体验跟单交易",
-      "description": "想试试跟踪并复制市场顶级交易员吗？开设一个带虚拟余额的免费模拟账户，在用真实资金跟单之前，自由探索业绩和收益变化。",
-      "cta": "立即开始跟单",
+      "title": "Try it with a demo account",
+      "description": "Start with $10,000 in virtual funds and practice copying before using your own money.",
+      "cta": "Open a demo account",
       "cardWelcome": "您的免费模拟账户",
       "cardPortfolioLabel": "模拟账户组合价值",
       "cardTopLabel": "按收益排名的顶级交易员",
