@@ -86,6 +86,17 @@ export async function followProvider(formData: FormData) {
     .maybeSingle();
   const isStarting = !existingSub;
 
+  // A self-service lead trader can pause new followers (Phase 6 settings).
+  // Enforced only here, not inside start_or_update_copy() -- unlike the
+  // whitelist gate, this is a preference toggle rather than a security
+  // boundary, so a UI-layer check is enough.
+  if (isStarting) {
+    const { data: ltProfile } = await supabase.from("lead_trader_profiles").select("accepting_followers").eq("provider_id", providerId).maybeSingle();
+    if (ltProfile && ltProfile.accepting_followers === false) {
+      redirect(`/trader/${providerId}?error=${encodeURIComponent(td("notAcceptingFollowers"))}`);
+    }
+  }
+
   const { error } = await supabase.rpc("start_or_update_copy", {
     p_provider_id: providerId,
     p_allocated_amount: allocatedAmount,

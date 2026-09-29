@@ -1053,7 +1053,8 @@
       "copyAmountBelowMinimum": "Số tiền sao chép thấp hơn mức tối thiểu đối với nhà giao dịch này ({amount}).",
       "copyFailed": "Không thể sao chép nhà giao dịch này. Vui lòng thử lại.",
       "stopCopyBlocked": "Hiện không thể dừng sao chép: bạn có giao dịch đang mở trên tài khoản này, và số dư của bạn hiện đang được giữ làm ký quỹ để bù đắp cho chúng. Vui lòng thử lại sau khi tất cả các giao dịch đang mở đóng lại.",
-      "copyRequiresInvite": "This trader only accepts followers by invitation. Ask them for an invite link."
+      "copyRequiresInvite": "This trader only accepts followers by invitation. Ask them for an invite link.",
+      "notAcceptingFollowers": "This trader is not accepting new followers right now."
     },
     "dashboard": {
       "closeFailed": "Không thể đóng vị thế. Vui lòng thử lại."
@@ -1074,7 +1075,10 @@
       "removeHasOpenPositions": "This follower has open copied positions; they must close first.",
       "inviteFailed": "Could not create the invite.",
       "announcementEmpty": "Write a message first.",
-      "announcementFailed": "Could not send the announcement."
+      "announcementFailed": "Could not send the announcement.",
+      "settingsSaveFailed": "Could not save settings.",
+      "endRoleFailed": "Could not end your role.",
+      "endRoleHasOpenTrades": "Close all your open trades first."
     }
   },
   "FollowEmail": {
@@ -1797,6 +1801,44 @@
       "status_pending": "Pending",
       "status_settled": "Deducted",
       "status_waived": "Waived"
+    },
+    "settings": {
+      "title": "Settings",
+      "saved": "Saved successfully.",
+      "accountInfo": "Account information",
+      "displayNameLabel": "Display name",
+      "bioLabel": "Bio",
+      "marketsLabel": "Markets",
+      "market_crypto": "Crypto",
+      "market_forex": "Forex",
+      "market_gold": "Gold",
+      "market_indices": "Indices",
+      "contactLabel": "Contact method (private)",
+      "followerSettings": "Follower settings",
+      "minInvestmentLabel": "Minimum investment ($)",
+      "minCopyAmountLabel": "Minimum copy amount ($)",
+      "profitSharePctLabel": "Profit-share rate (max {max}% at your tier)",
+      "acceptingFollowersLabel": "Accepting new followers",
+      "whitelistNote": "Invite-only mode is managed from",
+      "whitelistLink": "the Followers page.",
+      "privacy": "Privacy",
+      "hideCountryLabel": "Hide my country on my public profile",
+      "tradeProtectionLabel": "Open-trade protection",
+      "tradeProtectionNone": "Show to everyone",
+      "tradeProtectionHidden": "Hide from non-followers",
+      "tradeProtectionDelayed": "Show to non-followers with a delay",
+      "save": "Save settings",
+      "endRoleTitle": "End lead trader role",
+      "endRoleDesc": "This closes your lead trader profile, stops new followers, and notifies your current followers. You must close all your open trades first.",
+      "endRoleButton": "End my role as a lead trader",
+      "endRoleConfirm": "Are you sure you want to end your lead trader role? This cannot be undone.",
+      "tradingStyleNote": "Trading style (set at application)",
+      "styleAny": "Not specified",
+      "style_scalper": "Scalper",
+      "style_session_trader": "Session trader",
+      "style_moderate": "Moderate",
+      "style_sporadic": "Occasional",
+      "endRoleHasOpenTrades": "You have open trades; close them all before ending your role."
     }
   }
 }

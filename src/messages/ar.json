@@ -1065,7 +1065,8 @@
       "copyAmountBelowMinimum": "مبلغ النسخ أقل من الحد الأدنى لهذا المتداول ({amount}).",
       "copyFailed": "تعذّر نسخ المتداول. حاول مرة أخرى.",
       "stopCopyBlocked": "تعذّر إيقاف النسخ حاليًا: لديك صفقات مفتوحة على هذا الحساب، ورصيدك محجوز حاليًا كهامش لتغطيتها. يُرجى إعادة المحاولة بعد إغلاق جميع الصفقات المفتوحة.",
-      "copyRequiresInvite": "هذا المتداول يقبل المتابعين بدعوة فقط. اطلب منه رابط دعوة."
+      "copyRequiresInvite": "هذا المتداول يقبل المتابعين بدعوة فقط. اطلب منه رابط دعوة.",
+      "notAcceptingFollowers": "هذا المتداول لا يستقبل متابعين جدد حاليًا."
     },
     "dashboard": {
       "closeFailed": "تعذّر إغلاق الصفقة. حاول مرة أخرى."
@@ -1086,7 +1087,10 @@
       "removeHasOpenPositions": "لدى هذا المتابع صفقات منسوخة مفتوحة؛ يجب إغلاقها أولًا.",
       "inviteFailed": "تعذّر إنشاء الدعوة.",
       "announcementEmpty": "اكتب رسالة أولًا.",
-      "announcementFailed": "تعذّر إرسال الإعلان."
+      "announcementFailed": "تعذّر إرسال الإعلان.",
+      "settingsSaveFailed": "تعذّر حفظ الإعدادات.",
+      "endRoleFailed": "تعذّر إنهاء الدور.",
+      "endRoleHasOpenTrades": "أغلق كل صفقاتك المفتوحة أولًا."
     }
   },
   "FollowEmail": {
@@ -1874,6 +1878,44 @@
       "status_pending": "بانتظار",
       "status_settled": "مخصوم",
       "status_waived": "مُعفاة"
+    },
+    "settings": {
+      "title": "الإعدادات",
+      "saved": "تم الحفظ بنجاح.",
+      "accountInfo": "معلومات الحساب",
+      "displayNameLabel": "الاسم المعروض",
+      "bioLabel": "النبذة",
+      "marketsLabel": "الأسواق",
+      "market_crypto": "عملات رقمية",
+      "market_forex": "فوركس",
+      "market_gold": "ذهب",
+      "market_indices": "مؤشرات",
+      "contactLabel": "وسيلة التواصل (خاصة)",
+      "followerSettings": "إعدادات المتابعين",
+      "minInvestmentLabel": "الحد الأدنى للاستثمار ($)",
+      "minCopyAmountLabel": "الحد الأدنى للنسخ ($)",
+      "profitSharePctLabel": "نسبة مشاركة الأرباح (الحد الأقصى {max}% لمستواك)",
+      "acceptingFollowersLabel": "استقبال متابعين جدد",
+      "whitelistNote": "وضع الدعوة فقط يُدار من صفحة",
+      "whitelistLink": "المتابعين.",
+      "privacy": "الخصوصية",
+      "hideCountryLabel": "إخفاء دولتي في ملفي العام",
+      "tradeProtectionLabel": "حماية الصفقات المفتوحة",
+      "tradeProtectionNone": "إظهارها للجميع",
+      "tradeProtectionHidden": "إخفاؤها عن غير المتابعين",
+      "tradeProtectionDelayed": "إظهارها لغير المتابعين بتأخير",
+      "save": "حفظ الإعدادات",
+      "endRoleTitle": "إنهاء دور المتداول القائد",
+      "endRoleDesc": "هذا يوقف ملفك كمتداول قائد ويمنع متابعين جدد ويُخطر متابعيك الحاليين. يجب إغلاق كل صفقاتك المفتوحة أولًا.",
+      "endRoleButton": "إنهاء دوري كمتداول قائد",
+      "endRoleConfirm": "هل أنت متأكد من إنهاء دورك كمتداول قائد؟ لا يمكن التراجع عن هذا.",
+      "tradingStyleNote": "أسلوب التداول (محدد عند التقديم)",
+      "styleAny": "غير محدد",
+      "style_scalper": "سكالبينج",
+      "style_session_trader": "متداول جلسات",
+      "style_moderate": "معتدل",
+      "style_sporadic": "متقطّع",
+      "endRoleHasOpenTrades": "لديك صفقات مفتوحة؛ أغلقها جميعًا قبل إنهاء دورك."
     }
   }
 }
