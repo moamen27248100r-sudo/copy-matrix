@@ -12,7 +12,7 @@ export default async function DepositPage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) redirect("/login");
+  if (!user) redirect("/login?next=%2Fportfolio%2Fdeposit");
 
   const { data: profile } = await supabase.from("profiles").select("account_type").eq("id", user.id).single();
   const isDemo = profile?.account_type !== "real";

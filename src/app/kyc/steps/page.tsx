@@ -9,7 +9,7 @@ export default async function KycStepsPage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) redirect("/login");
+  if (!user) redirect("/login?next=%2Fkyc%2Fsteps");
 
   const t = await getTranslations("Kyc");
 

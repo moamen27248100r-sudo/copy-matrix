@@ -36,7 +36,7 @@ export default async function WithdrawPage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) redirect("/login");
+  if (!user) redirect("/login?next=%2Fportfolio%2Fwithdraw");
 
   const [{ count: openPositionsCount }, { data: activeSubs }, { data: profile }] = await Promise.all([
     supabase

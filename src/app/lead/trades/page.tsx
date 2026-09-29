@@ -30,7 +30,7 @@ export default async function LeadTradesPage({
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
+  if (!user) redirect("/login?next=%2Flead%2Ftrades");
 
   const providerId = await getOwnProviderId(supabase, user.id);
   if (!providerId) redirect("/become-lead-trader");

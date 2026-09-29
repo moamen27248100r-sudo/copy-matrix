@@ -20,7 +20,7 @@ export default async function KycPage({
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/login");
+    redirect("/login?next=%2Fkyc");
   }
 
   const { data: submission } = await supabase

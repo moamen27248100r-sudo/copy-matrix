@@ -18,7 +18,7 @@ export default async function LeadSettingsPage({
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
+  if (!user) redirect("/login?next=%2Flead%2Fsettings");
 
   const providerId = await getOwnProviderId(supabase, user.id);
   if (!providerId) redirect("/become-lead-trader");

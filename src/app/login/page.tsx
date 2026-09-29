@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { login } from "@/app/auth/actions";
 import { AuthShell, inputClass } from "@/components/auth/AuthShell";
 import { PasswordInput } from "@/components/auth/PasswordInput";
 import { safeNextPath } from "@/lib/safe-next";
 import { GoogleSignInButton } from "@/components/GoogleSignInButton";
+import { createClient } from "@/lib/supabase/server";
 
 export default async function LoginPage({
   searchParams,
@@ -13,6 +15,15 @@ export default async function LoginPage({
 }) {
   const { error, next: rawNext } = await searchParams;
   const next = safeNextPath(rawNext);
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (user) {
+    redirect(next ?? "/dashboard");
+  }
+
   const signupHref = next ? `/signup?next=${encodeURIComponent(next)}` : "/signup";
   const t = await getTranslations("Auth");
 

@@ -131,7 +131,7 @@ export default async function NotificationsPage({ searchParams }: { searchParams
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) redirect("/login");
+  if (!user) redirect("/login?next=%2Fnotifications");
 
   const { data: notifications } = await supabase
     .from("notifications")

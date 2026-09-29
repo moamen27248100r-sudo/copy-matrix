@@ -12,7 +12,7 @@ export default async function ProfitShareHistoryPage() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
+  if (!user) redirect("/login?next=%2Fprofit-share-history");
 
   const { data: rows } = await supabase
     .from("profit_share_ledger")

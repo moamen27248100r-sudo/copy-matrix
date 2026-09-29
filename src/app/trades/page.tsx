@@ -23,7 +23,7 @@ export default async function TradesPage({
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
+  if (!user) redirect("/login?next=%2Ftrades");
 
   const daysNum = Number(days);
   const { data: openRows } = await supabase

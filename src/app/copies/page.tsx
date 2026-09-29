@@ -12,7 +12,7 @@ export default async function CopiesPage({ searchParams }: { searchParams: Promi
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
+  if (!user) redirect("/login?next=%2Fcopies");
 
   const [{ data: subs }, { data: closed }] = await Promise.all([
     supabase

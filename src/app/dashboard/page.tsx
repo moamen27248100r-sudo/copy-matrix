@@ -29,7 +29,7 @@ export default async function DashboardPage({
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/login");
+    redirect("/login?next=%2Fdashboard");
   }
 
   const [{ data: profile }, { data: kyc }, { data: subscriptions }, { data: positions }, { data: tickerPrices }, { data: walletRequests }] =

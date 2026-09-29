@@ -31,7 +31,7 @@ export default async function SettingsPage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) redirect("/login");
+  if (!user) redirect("/login?next=%2Fsettings");
 
   const { data: profile } = await supabase
     .from("profiles")

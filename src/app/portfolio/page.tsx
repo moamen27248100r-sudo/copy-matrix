@@ -71,7 +71,7 @@ export default async function PortfolioPage({
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/login");
+    redirect("/login?next=%2Fportfolio");
   }
 
   const { data: subscriptions } = await supabase

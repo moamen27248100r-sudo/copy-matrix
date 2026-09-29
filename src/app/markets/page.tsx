@@ -18,7 +18,7 @@ export default async function MarketsPage({
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/login");
+    redirect("/login?next=%2Fmarkets");
   }
 
   return (
