@@ -1843,6 +1843,22 @@
       "style_moderate": "Moderate",
       "style_sporadic": "Occasional",
       "endRoleHasOpenTrades": "You have open trades; close them all before ending your role."
+    },
+    "tasks": {
+      "title": "Task center",
+      "subtitle": "Complete these to appear in Discover for new followers.",
+      "eligibleNotice": "You're all set — you appear in Discover.",
+      "notEligibleNotice": "Complete the tasks below to appear in Discover.",
+      "done": "Done",
+      "notDone": "Not done",
+      "task_profile_title": "Complete your profile",
+      "task_profile_desc": "Add a bio and choose at least one market in Settings.",
+      "task_tradingStyle_title": "State your trading style",
+      "task_tradingStyle_desc": "Set in your application; contact support to update it.",
+      "task_firstTenTrades_title": "Complete your first 10 trades",
+      "task_firstTenTrades_desc": "Close at least 10 trades to build a track record.",
+      "tierNote": "Your tier and its limits are shown on",
+      "tierLink": "your overview page."
     }
   }
 }

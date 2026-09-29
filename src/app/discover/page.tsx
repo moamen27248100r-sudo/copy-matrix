@@ -6,6 +6,7 @@ import { AppNav } from "@/components/AppNav";
 import { LeaderCard } from "@/components/LeaderCard";
 import { DiscoverFilterSheet } from "@/components/DiscoverFilterSheet";
 import { fetchBulkProviderStats } from "@/lib/provider-stats";
+import { isSelfServiceLeadTraderEligible } from "@/lib/lead-trader-tasks";
 
 const SORT_OPTIONS = {
   best: { column: "rating_score", ascending: false, labelKey: "sortBest" },
@@ -134,6 +135,21 @@ export default async function DiscoverPage({
 
   const watchingIds = new Set((myFollows ?? []).map((f) => f.provider_id));
   let providers = favoritesOnly ? (rawProviders ?? []).filter((p) => watchingIds.has(p.provider_id)) : rawProviders;
+
+  // Self-service lead traders (Phase 7) only appear here once their task
+  // checklist is complete; the pre-existing, platform-generated roster
+  // (user_id null) is entirely unaffected. Checked only for the ids
+  // actually on this page, not the whole table.
+  if (providers && providers.length > 0) {
+    const { data: ownerRows } = await supabase.from("providers").select("id, user_id").in("id", providers.map((p) => p.provider_id));
+    const selfServiceIds = (ownerRows ?? []).filter((r) => r.user_id).map((r) => r.id);
+    if (selfServiceIds.length > 0) {
+      const eligibility = new Map(
+        await Promise.all(selfServiceIds.map(async (id) => [id, await isSelfServiceLeadTraderEligible(supabase, id)] as const)),
+      );
+      providers = providers.filter((p) => eligibility.get(p.provider_id) ?? true);
+    }
+  }
 
   // Period / drawdown views need per-trade data, so the (heavier) signals scan
   // only runs when one of them is actually requested.
