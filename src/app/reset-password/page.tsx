@@ -1,6 +1,11 @@
 import { getTranslations } from "next-intl/server";
 import { ResetPasswordForm } from "@/components/ResetPasswordForm";
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("resetPasswordTitle"), description: t("resetPasswordDesc") };
+}
+
 export default async function ResetPasswordPage({
   searchParams,
 }: {

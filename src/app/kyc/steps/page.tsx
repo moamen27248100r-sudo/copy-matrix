@@ -3,6 +3,11 @@ import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("kycStepsTitle"), description: t("kycStepsDesc") };
+}
+
 export default async function KycStepsPage() {
   const supabase = await createClient();
   const {

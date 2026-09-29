@@ -120,6 +120,11 @@ function categoryOf(type: string): string {
   return type.startsWith("kyc") || type.startsWith("wallet") ? "account" : "security";
 }
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("notificationsTitle"), description: t("notificationsDesc") };
+}
+
 export default async function NotificationsPage({ searchParams }: { searchParams: Promise<{ cat?: string }> }) {
   const { cat } = await searchParams;
   const activeCat = (CATEGORY_KEYS as readonly string[]).includes(cat ?? "") ? (cat as string) : "all";

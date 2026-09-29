@@ -89,6 +89,11 @@ function computeMaxDrawdown(signals: SignalRow[]) {
   return Math.round(maxDrawdown * 100) / 100;
 }
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("traderProfileTitle"), description: t("traderProfileDesc") };
+}
+
 export default async function TraderPage({
   params,
   searchParams,

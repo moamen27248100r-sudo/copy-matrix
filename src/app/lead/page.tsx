@@ -32,6 +32,11 @@ function StatCard({ label, value, tone }: { label: string; value: string; tone?:
   );
 }
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("leadCenterTitle"), description: t("leadCenterDesc") };
+}
+
 export default async function LeadOverviewPage() {
   const t = await getTranslations("LeadTrader.overview");
   const tp = await getTranslations("TraderProfile");

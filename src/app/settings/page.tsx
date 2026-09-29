@@ -16,6 +16,11 @@ const TIMEZONES = [
   "America/Chicago", "America/Los_Angeles",
 ];
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("settingsTitle"), description: t("settingsDesc") };
+}
+
 export default async function SettingsPage({
   searchParams,
 }: {
@@ -155,7 +160,7 @@ export default async function SettingsPage({
               id="timezone"
               name="timezone"
               defaultValue={tz}
-              className="rounded border border-border bg-background px-3 py-2 text-sm"
+              className="rounded border border-border bg-background px-3 py-2 text-base"
             >
               {tzOptions.map((z) => (
                 <option key={z} value={z}>

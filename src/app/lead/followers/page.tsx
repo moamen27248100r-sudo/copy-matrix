@@ -15,6 +15,11 @@ function maskId(email: string | null, id: string) {
   return `${id.slice(0, 4)}****${id.slice(-4)}`;
 }
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("leadFollowersTitle"), description: t("leadFollowersDesc") };
+}
+
 export default async function LeadFollowersPage({
   searchParams,
 }: {
@@ -155,7 +160,7 @@ export default async function LeadFollowersPage({
                       {s.is_active && (
                         <form action={removeFollower} className="flex items-center gap-1.5">
                           <input type="hidden" name="subscriptionId" value={s.id} />
-                          <input name="reason" type="text" placeholder={t("reasonPlaceholder")} className="w-28 rounded border border-border bg-background px-1.5 py-1 text-xs" />
+                          <input name="reason" type="text" placeholder={t("reasonPlaceholder")} className="w-28 rounded border border-border bg-background px-1.5 py-1 text-base" />
                           <button
                             type="submit"
                             disabled={(openCountBySub.get(s.id) ?? 0) > 0}
@@ -178,7 +183,7 @@ export default async function LeadFollowersPage({
       <section className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4">
         <h2 className="text-section-title">{t("invitesTitle")}</h2>
         <form action={createFollowerInvite} className="flex flex-wrap gap-2">
-          <input name="email" type="email" placeholder={t("invitedEmailPlaceholder")} className="min-w-0 flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm" />
+          <input name="email" type="email" placeholder={t("invitedEmailPlaceholder")} className="min-w-0 flex-1 rounded-lg border border-border bg-background px-3 py-2 text-base" />
           <button type="submit" className="rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-accent-foreground">
             {t("createInvite")}
           </button>
@@ -198,7 +203,7 @@ export default async function LeadFollowersPage({
       <section className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4">
         <h2 className="text-section-title">{t("announcementTitle")}</h2>
         <form action={postAnnouncement} className="flex flex-col gap-2">
-          <textarea name="body" rows={2} maxLength={280} placeholder={t("announcementPlaceholder")} className="rounded-lg border border-border bg-background px-3 py-2 text-sm" />
+          <textarea name="body" rows={2} maxLength={280} placeholder={t("announcementPlaceholder")} className="rounded-lg border border-border bg-background px-3 py-2 text-base" />
           <button type="submit" className="self-start rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-accent-foreground">
             {t("sendAnnouncement")}
           </button>

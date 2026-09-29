@@ -4,6 +4,11 @@ import { createClient } from "@/lib/supabase/server";
 import { getOwnProviderId } from "@/lib/lead-trader";
 import { fetchLeadTraderHistory } from "@/lib/lead-trader-history";
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("leadTradesHistoryTitle"), description: t("leadTradesHistoryDesc") };
+}
+
 export default async function LeadTradesHistoryPage({
   searchParams,
 }: {

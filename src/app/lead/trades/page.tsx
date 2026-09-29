@@ -18,6 +18,11 @@ type OpenSignal = {
   opened_at: string;
 };
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("leadTradesTitle"), description: t("leadTradesDesc") };
+}
+
 export default async function LeadTradesPage({
   searchParams,
 }: {
@@ -85,20 +90,20 @@ export default async function LeadTradesPage({
       <section className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-5">
         <p className="text-sm text-muted">{t("copiedToFollowers", { count: activeFollowers ?? 0 })}</p>
         <form action={placeLeadOrder} className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-          <select name="symbol" required className="rounded-lg border border-border bg-background px-3 py-2 text-sm" defaultValue={SYMBOLS[0]}>
+          <select name="symbol" required className="rounded-lg border border-border bg-background px-3 py-2 text-base" defaultValue={SYMBOLS[0]}>
             {SYMBOLS.map((s) => (
               <option key={s} value={s}>
                 {s}
               </option>
             ))}
           </select>
-          <select name="side" required className="rounded-lg border border-border bg-background px-3 py-2 text-sm">
+          <select name="side" required className="rounded-lg border border-border bg-background px-3 py-2 text-base">
             <option value="buy">{t("buy")}</option>
             <option value="sell">{t("sell")}</option>
           </select>
-          <input name="size" type="number" step="any" min={0} placeholder={t("size")} required className="rounded-lg border border-border bg-background px-3 py-2 text-sm" />
-          <input name="takeProfit" type="number" step="any" placeholder={t("takeProfit")} className="rounded-lg border border-border bg-background px-3 py-2 text-sm" />
-          <input name="stopLoss" type="number" step="any" placeholder={t("stopLoss")} className="rounded-lg border border-border bg-background px-3 py-2 text-sm" />
+          <input name="size" type="number" step="any" min={0} placeholder={t("size")} required className="rounded-lg border border-border bg-background px-3 py-2 text-base" />
+          <input name="takeProfit" type="number" step="any" placeholder={t("takeProfit")} className="rounded-lg border border-border bg-background px-3 py-2 text-base" />
+          <input name="stopLoss" type="number" step="any" placeholder={t("stopLoss")} className="rounded-lg border border-border bg-background px-3 py-2 text-base" />
           <button type="submit" className="rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-accent-foreground">
             {t("submitOrder")}
           </button>

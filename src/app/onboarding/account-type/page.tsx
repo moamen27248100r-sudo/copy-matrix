@@ -4,6 +4,11 @@ import { createClient } from "@/lib/supabase/server";
 import { chooseAccountType } from "@/app/auth/actions";
 import { safeNextPath } from "@/lib/safe-next";
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("onboardingAccountTypeTitle"), description: t("onboardingAccountTypeDesc") };
+}
+
 export default async function ChooseAccountTypePage({
   searchParams,
 }: {

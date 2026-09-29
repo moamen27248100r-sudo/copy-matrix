@@ -6,6 +6,11 @@ import { AppNav } from "@/components/AppNav";
 import { formatDate } from "@/lib/locale-format";
 import type { Locale } from "@/i18n/locales";
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("kycTitle"), description: t("kycDesc") };
+}
+
 export default async function KycPage({
   searchParams,
 }: {

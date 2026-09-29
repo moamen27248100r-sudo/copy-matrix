@@ -4,6 +4,11 @@ import { createClient } from "@/lib/supabase/server";
 import { getOwnProviderId } from "@/lib/lead-trader";
 import { computeLeadTraderTasks } from "@/lib/lead-trader-tasks";
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("leadTasksTitle"), description: t("leadTasksDesc") };
+}
+
 export default async function LeadTasksPage() {
   const t = await getTranslations("LeadTrader.tasks");
   const supabase = await createClient();

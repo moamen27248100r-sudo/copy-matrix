@@ -2,6 +2,11 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { VerifyCodeForm } from "@/components/VerifyCodeForm";
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("verifyCodeTitle"), description: t("verifyCodeDesc") };
+}
+
 export default async function VerifyCodePage({
   searchParams,
 }: {

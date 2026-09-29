@@ -24,6 +24,11 @@ async function PageShell({ children }: { children: React.ReactNode }) {
   );
 }
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("portfolioWithdrawTitle"), description: t("portfolioWithdrawDesc") };
+}
+
 export default async function WithdrawPage({
   searchParams,
 }: {

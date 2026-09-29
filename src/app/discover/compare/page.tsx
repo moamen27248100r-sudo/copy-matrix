@@ -5,6 +5,11 @@ import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
 import { fetchProviderStats } from "@/lib/provider-stats";
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("discoverCompareTitle"), description: t("discoverCompareDesc") };
+}
+
 export default async function ComparePage({ searchParams }: { searchParams: Promise<{ ids?: string }> }) {
   const { ids } = await searchParams;
   const idList = (ids ?? "").split(",").filter(Boolean).slice(0, 4);

@@ -8,6 +8,11 @@ import { safeNextPath } from "@/lib/safe-next";
 import { GoogleSignInButton } from "@/components/GoogleSignInButton";
 import { createClient } from "@/lib/supabase/server";
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("loginTitle"), description: t("loginDesc") };
+}
+
 export default async function LoginPage({
   searchParams,
 }: {

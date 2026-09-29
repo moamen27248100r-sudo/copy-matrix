@@ -5,6 +5,11 @@ import { AuthShell } from "@/components/auth/AuthShell";
 import { safeNextPath } from "@/lib/safe-next";
 import { GoogleSignInButton } from "@/components/GoogleSignInButton";
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("signupTitle"), description: t("signupDesc") };
+}
+
 export default async function SignupPage({
   searchParams,
 }: {

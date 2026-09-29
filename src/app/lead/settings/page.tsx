@@ -7,6 +7,11 @@ import { LEAD_TRADER_MARKETS, LEAD_TRADER_STYLES } from "@/config/lead-trader";
 import { updateLeadTraderSettings, endLeadTraderRole } from "@/app/lead/settings/actions";
 import { ConfirmButton } from "@/components/ConfirmButton";
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("leadSettingsTitle"), description: t("leadSettingsDesc") };
+}
+
 export default async function LeadSettingsPage({
   searchParams,
 }: {

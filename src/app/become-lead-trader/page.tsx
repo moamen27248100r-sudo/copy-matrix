@@ -4,6 +4,11 @@ import { AppNav } from "@/components/AppNav";
 import { submitLeadTraderApplication } from "@/app/become-lead-trader/actions";
 import { LEAD_TRADER_MARKETS, LEAD_TRADER_STYLES, LEAD_TRADER_MIN_INVESTMENT_DEFAULT } from "@/config/lead-trader";
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("becomeLeadTraderTitle"), description: t("becomeLeadTraderDesc") };
+}
+
 export default async function BecomeLeadTraderPage({
   searchParams,
 }: {

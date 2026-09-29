@@ -1,6 +1,11 @@
 import { getTranslations } from "next-intl/server";
 import { logout } from "@/app/auth/actions";
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("suspendedTitle"), description: t("suspendedDesc") };
+}
+
 export default async function SuspendedPage() {
   const t = await getTranslations("General");
   return (

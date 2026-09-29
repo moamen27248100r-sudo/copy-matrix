@@ -5,6 +5,11 @@ import { createClient } from "@/lib/supabase/server";
 import { DepositGateway } from "@/components/DepositGateway";
 import { SimpleDepositForm } from "@/components/SimpleDepositForm";
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("portfolioDepositTitle"), description: t("portfolioDepositDesc") };
+}
+
 export default async function DepositPage() {
   const t = await getTranslations("Portfolio");
   const supabase = await createClient();

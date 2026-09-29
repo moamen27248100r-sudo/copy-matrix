@@ -1,5 +1,10 @@
 import { getTranslations } from "next-intl/server";
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("signupCheckEmailTitle"), description: t("signupCheckEmailDesc") };
+}
+
 export default async function CheckEmailPage() {
   const t = await getTranslations("Auth");
   return (

@@ -5,6 +5,11 @@ import { AppNav } from "@/components/AppNav";
 import { TradingViewChart } from "@/components/TradingViewChart";
 import { symbolTradingViewTicker } from "@/lib/symbol-icons";
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("marketsTitle"), description: t("marketsDesc") };
+}
+
 export default async function MarketsPage({
   searchParams,
 }: {

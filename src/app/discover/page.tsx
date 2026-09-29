@@ -38,6 +38,11 @@ const ASSET_GROUPS: Record<string, string[]> = {
 };
 const RISK_VALUES = ["منخفضة", "متوسطة", "مرتفعة"] as const;
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("discoverTitle"), description: t("discoverDesc") };
+}
+
 export default async function DiscoverPage({
   searchParams,
 }: {
@@ -236,7 +241,7 @@ export default async function DiscoverPage({
               name="q"
               defaultValue={q}
               placeholder={t("searchPlaceholder")}
-              className="w-full rounded-full border border-white/[0.08] bg-surface/80 py-2 ps-9 pe-3 text-sm text-foreground backdrop-blur-md placeholder:text-muted focus:border-accent/40 focus:outline-none"
+              className="w-full rounded-full border border-white/[0.08] bg-surface/80 py-2 ps-9 pe-3 text-base text-foreground backdrop-blur-md placeholder:text-muted focus:border-accent/40 focus:outline-none"
             />
             <input type="hidden" name="sort" value={sortKey} />
           </form>

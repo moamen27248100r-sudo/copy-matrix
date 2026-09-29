@@ -15,6 +15,11 @@ import { PortfolioAllocationDonut } from "@/components/PortfolioAllocationDonut"
 import { MostCopiedThisWeek } from "@/components/MostCopiedThisWeek";
 import { chooseAccountType } from "@/app/auth/actions";
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("dashboardTitle"), description: t("dashboardDesc") };
+}
+
 export default async function DashboardPage({
   searchParams,
 }: {

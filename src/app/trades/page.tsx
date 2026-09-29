@@ -11,6 +11,11 @@ import { fetchClosedTrades } from "@/lib/my-trades";
 
 type PositionSignal = { symbol: string; side: string; stop_loss: number | null; take_profit: number | null };
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("tradesTitle"), description: t("tradesDesc") };
+}
+
 export default async function TradesPage({
   searchParams,
 }: {

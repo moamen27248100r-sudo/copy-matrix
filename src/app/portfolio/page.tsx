@@ -46,6 +46,11 @@ function signedReturnPct(pos: Position) {
   return (signal.side === "sell" ? -raw : raw) * 100;
 }
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("portfolioTitle"), description: t("portfolioDesc") };
+}
+
 export default async function PortfolioPage({
   searchParams,
 }: {

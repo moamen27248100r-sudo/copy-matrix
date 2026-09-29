@@ -9,6 +9,11 @@ const CHANNELS = ["inApp", "email", "telegram"] as const;
 
 // UI only for now: delivery preferences need a stored table plus email /
 // Telegram senders, which don't exist yet.
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("notificationPreferencesTitle"), description: t("notificationPreferencesDesc") };
+}
+
 export default async function NotificationPreferencesPage() {
   const t = await getTranslations("Notifications");
   const supabase = await createClient();

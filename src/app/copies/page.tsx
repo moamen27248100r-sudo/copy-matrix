@@ -5,6 +5,11 @@ import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
 import { ActiveCopyControlPanel } from "@/components/ActiveCopyControlPanel";
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("copiesTitle"), description: t("copiesDesc") };
+}
+
 export default async function CopiesPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
   const { error } = await searchParams;
   const t = await getTranslations("Copies");

@@ -2,6 +2,11 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { ForgotPasswordForm } from "@/components/ForgotPasswordForm";
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("forgotPasswordTitle"), description: t("forgotPasswordDesc") };
+}
+
 export default async function ForgotPasswordPage({
   searchParams,
 }: {

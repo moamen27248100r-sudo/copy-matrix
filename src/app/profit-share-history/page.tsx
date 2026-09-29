@@ -6,6 +6,11 @@ import { AppNav } from "@/components/AppNav";
 // A new page for the copier dashboard (Phase 5): their own profit-share
 // deductions/refunds across every trader they copy. Purely additive --
 // nothing on the existing dashboard/portfolio pages changes.
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("profitShareHistoryTitle"), description: t("profitShareHistoryDesc") };
+}
+
 export default async function ProfitShareHistoryPage() {
   const t = await getTranslations("LeadTrader.followerLedger");
   const supabase = await createClient();

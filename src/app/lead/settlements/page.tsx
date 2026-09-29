@@ -12,6 +12,11 @@ function maskEmail(email: string | null, id: string) {
   return local.length <= 2 ? `${local[0]}****@${domain}` : `${local[0]}****${local[local.length - 1]}@${domain}`;
 }
 
+export async function generateMetadata() {
+  const t = await getTranslations("Metadata");
+  return { title: t("leadSettlementsTitle"), description: t("leadSettlementsDesc") };
+}
+
 export default async function LeadSettlementsPage() {
   const t = await getTranslations("LeadTrader.settlements");
   const supabase = await createClient();
