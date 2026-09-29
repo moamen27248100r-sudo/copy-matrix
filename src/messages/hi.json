@@ -1051,7 +1051,8 @@
       "copyAmountExceedsBalance": "कॉपी राशि आपके उपलब्ध बैलेंस से अधिक है।",
       "copyAmountBelowMinimum": "कॉपी राशि इस ट्रेडर के लिए न्यूनतम से कम है ({amount})।",
       "copyFailed": "इस ट्रेडर को कॉपी नहीं किया जा सका। कृपया फिर से प्रयास करें।",
-      "stopCopyBlocked": "अभी कॉपी करना बंद नहीं किया जा सकता: इस खाते पर आपके पास खुले ट्रेड हैं, और आपका बैलेंस वर्तमान में उन्हें कवर करने के लिए मार्जिन के रूप में रखा गया है। सभी खुले ट्रेड बंद होने के बाद फिर से प्रयास करें।"
+      "stopCopyBlocked": "अभी कॉपी करना बंद नहीं किया जा सकता: इस खाते पर आपके पास खुले ट्रेड हैं, और आपका बैलेंस वर्तमान में उन्हें कवर करने के लिए मार्जिन के रूप में रखा गया है। सभी खुले ट्रेड बंद होने के बाद फिर से प्रयास करें।",
+      "copyRequiresInvite": "This trader only accepts followers by invitation. Ask them for an invite link."
     },
     "dashboard": {
       "closeFailed": "पोज़िशन बंद नहीं हो सकी। कृपया पुनः प्रयास करें।"
@@ -1763,7 +1764,11 @@
       "invitePending": "Pending",
       "announcementTitle": "Announcement to followers",
       "announcementPlaceholder": "A short message for your followers...",
-      "sendAnnouncement": "Send"
+      "sendAnnouncement": "Send",
+      "whitelistTitle": "Invite-only",
+      "whitelistDesc": "When on, only people who used your invite link can start copying you.",
+      "whitelistOn": "On",
+      "whitelistOff": "Off"
     }
   }
 }

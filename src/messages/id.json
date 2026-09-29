@@ -1051,7 +1051,8 @@
       "copyAmountExceedsBalance": "Jumlah salinan lebih besar dari saldo tersedia Anda.",
       "copyAmountBelowMinimum": "Jumlah salinan di bawah minimum untuk trader ini ({amount}).",
       "copyFailed": "Tidak dapat menyalin trader ini. Silakan coba lagi.",
-      "stopCopyBlocked": "Tidak dapat menghentikan penyalinan saat ini: Anda memiliki trade terbuka pada akun ini, dan saldo Anda saat ini ditahan sebagai margin untuk menutupinya. Silakan coba lagi setelah semua trade terbuka ditutup."
+      "stopCopyBlocked": "Tidak dapat menghentikan penyalinan saat ini: Anda memiliki trade terbuka pada akun ini, dan saldo Anda saat ini ditahan sebagai margin untuk menutupinya. Silakan coba lagi setelah semua trade terbuka ditutup.",
+      "copyRequiresInvite": "This trader only accepts followers by invitation. Ask them for an invite link."
     },
     "dashboard": {
       "closeFailed": "Tidak dapat menutup posisi. Silakan coba lagi."
@@ -1763,7 +1764,11 @@
       "invitePending": "Pending",
       "announcementTitle": "Announcement to followers",
       "announcementPlaceholder": "A short message for your followers...",
-      "sendAnnouncement": "Send"
+      "sendAnnouncement": "Send",
+      "whitelistTitle": "Invite-only",
+      "whitelistDesc": "When on, only people who used your invite link can start copying you.",
+      "whitelistOn": "On",
+      "whitelistOff": "Off"
     }
   }
 }

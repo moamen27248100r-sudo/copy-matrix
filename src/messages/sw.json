@@ -1051,7 +1051,8 @@
       "copyAmountExceedsBalance": "Kiasi cha kunakili ni kikubwa kuliko salio lako linalopatikana.",
       "copyAmountBelowMinimum": "Kiasi cha kunakili ni chini ya kiwango cha chini kwa mfanyabiashara huyu ({amount}).",
       "copyFailed": "Imeshindwa kumnakili mfanyabiashara huyu. Tafadhali jaribu tena.",
-      "stopCopyBlocked": "Imeshindwa kuacha kunakili kwa sasa: una biashara zilizo wazi kwenye akaunti hii, na salio lako kwa sasa limehifadhiwa kama dhamana kuzifidia. Tafadhali jaribu tena baada ya biashara zote zilizo wazi kufungwa."
+      "stopCopyBlocked": "Imeshindwa kuacha kunakili kwa sasa: una biashara zilizo wazi kwenye akaunti hii, na salio lako kwa sasa limehifadhiwa kama dhamana kuzifidia. Tafadhali jaribu tena baada ya biashara zote zilizo wazi kufungwa.",
+      "copyRequiresInvite": "This trader only accepts followers by invitation. Ask them for an invite link."
     },
     "dashboard": {
       "closeFailed": "Imeshindwa kufunga nafasi. Tafadhali jaribu tena."
@@ -1763,7 +1764,11 @@
       "invitePending": "Pending",
       "announcementTitle": "Announcement to followers",
       "announcementPlaceholder": "A short message for your followers...",
-      "sendAnnouncement": "Send"
+      "sendAnnouncement": "Send",
+      "whitelistTitle": "Invite-only",
+      "whitelistDesc": "When on, only people who used your invite link can start copying you.",
+      "whitelistOn": "On",
+      "whitelistOff": "Off"
     }
   }
 }

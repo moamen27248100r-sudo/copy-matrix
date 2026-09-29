@@ -1051,7 +1051,8 @@
       "copyAmountExceedsBalance": "کاپی کی رقم آپ کے دستیاب بیلنس سے زیادہ ہے۔",
       "copyAmountBelowMinimum": "کاپی کی رقم اس ٹریڈر کے کم از کم سے کم ہے ({amount})۔",
       "copyFailed": "اس ٹریڈر کو کاپی نہیں کیا جا سکا۔ دوبارہ کوشش کریں۔",
-      "stopCopyBlocked": "فی الحال کاپی کرنا بند نہیں ہو سکتا: اس اکاؤنٹ پر آپ کے پاس کھلی ٹریڈز ہیں، اور آپ کا بیلنس فی الحال انہیں پورا کرنے کے لیے مارجن کے طور پر رکھا گیا ہے۔ تمام کھلی ٹریڈز بند ہونے کے بعد دوبارہ کوشش کریں۔"
+      "stopCopyBlocked": "فی الحال کاپی کرنا بند نہیں ہو سکتا: اس اکاؤنٹ پر آپ کے پاس کھلی ٹریڈز ہیں، اور آپ کا بیلنس فی الحال انہیں پورا کرنے کے لیے مارجن کے طور پر رکھا گیا ہے۔ تمام کھلی ٹریڈز بند ہونے کے بعد دوبارہ کوشش کریں۔",
+      "copyRequiresInvite": "This trader only accepts followers by invitation. Ask them for an invite link."
     },
     "dashboard": {
       "closeFailed": "پوزیشن بند نہیں ہو سکی۔ دوبارہ کوشش کریں۔"
@@ -1763,7 +1764,11 @@
       "invitePending": "Pending",
       "announcementTitle": "Announcement to followers",
       "announcementPlaceholder": "A short message for your followers...",
-      "sendAnnouncement": "Send"
+      "sendAnnouncement": "Send",
+      "whitelistTitle": "Invite-only",
+      "whitelistDesc": "When on, only people who used your invite link can start copying you.",
+      "whitelistOn": "On",
+      "whitelistOff": "Off"
     }
   }
 }

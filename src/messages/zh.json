@@ -1051,7 +1051,8 @@
       "copyAmountExceedsBalance": "跟单金额超过您的可用余额。",
       "copyAmountBelowMinimum": "跟单金额低于该交易员的最低要求（{amount}）。",
       "copyFailed": "无法跟单该交易员，请重试。",
-      "stopCopyBlocked": "当前无法停止跟单：您在此账户上有持仓中的交易，您的余额目前被作为保证金锁定以覆盖这些交易。请等所有持仓交易平仓后再试。"
+      "stopCopyBlocked": "当前无法停止跟单：您在此账户上有持仓中的交易，您的余额目前被作为保证金锁定以覆盖这些交易。请等所有持仓交易平仓后再试。",
+      "copyRequiresInvite": "This trader only accepts followers by invitation. Ask them for an invite link."
     },
     "dashboard": {
       "closeFailed": "无法平仓，请重试。"
@@ -1764,7 +1765,11 @@
       "invitePending": "Pending",
       "announcementTitle": "Announcement to followers",
       "announcementPlaceholder": "A short message for your followers...",
-      "sendAnnouncement": "Send"
+      "sendAnnouncement": "Send",
+      "whitelistTitle": "Invite-only",
+      "whitelistDesc": "When on, only people who used your invite link can start copying you.",
+      "whitelistOn": "On",
+      "whitelistOff": "Off"
     }
   }
 }

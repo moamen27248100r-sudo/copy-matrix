@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getOwnProviderId, currentTier } from "@/lib/lead-trader";
 import { computeActiveTradingDays } from "@/lib/reliability";
 import { removeFollower, createFollowerInvite, postAnnouncement } from "@/app/lead/followers/actions";
+import { setWhitelistEnabled } from "@/app/lead/followers/toggle-whitelist";
 
 function maskId(email: string | null, id: string) {
   if (email) {
@@ -30,7 +31,7 @@ export default async function LeadFollowersPage({
   const providerId = await getOwnProviderId(supabase, user.id);
   if (!providerId) redirect("/become-lead-trader");
 
-  const [{ data: subs }, { data: allSignals }, { data: invites }, inviteCodeRes] = await Promise.all([
+  const [{ data: subs }, { data: allSignals }, { data: invites }, inviteCodeRes, { data: ltProfile }] = await Promise.all([
     supabase
       .from("subscriptions")
       .select("id, follower_id, allocated_amount, is_active, copy_started_at, max_drawdown_pct")
@@ -39,6 +40,7 @@ export default async function LeadFollowersPage({
     supabase.from("signals").select("opened_at").eq("provider_id", providerId).eq("created_by_admin", false),
     supabase.from("follower_invites").select("id, code, invited_email, used_by, used_at, created_at").eq("provider_id", providerId).order("created_at", { ascending: false }),
     supabase.rpc("lead_trader_get_or_create_invite_code"),
+    supabase.from("lead_trader_profiles").select("whitelist_enabled").eq("provider_id", providerId).maybeSingle(),
   ]);
 
   const subscriptions = subs ?? [];
@@ -78,6 +80,23 @@ export default async function LeadFollowersPage({
 
       <section className="rounded-2xl border border-border bg-surface p-4">
         <p className="text-sm font-medium">{t("seats", { current: activeSubs.length, max: tier.maxFollowers })}</p>
+        <form action={setWhitelistEnabled} className="mt-3 flex items-center justify-between gap-3 border-t border-border pt-3">
+          <div>
+            <p className="text-sm font-medium">{t("whitelistTitle")}</p>
+            <p className="text-xs text-muted">{t("whitelistDesc")}</p>
+          </div>
+          <input type="hidden" name="enabled" value={ltProfile?.whitelist_enabled ? "false" : "true"} />
+          <button
+            type="submit"
+            className={
+              ltProfile?.whitelist_enabled
+                ? "shrink-0 rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-accent-foreground"
+                : "shrink-0 rounded-full border border-border px-3 py-1.5 text-xs text-muted"
+            }
+          >
+            {ltProfile?.whitelist_enabled ? t("whitelistOn") : t("whitelistOff")}
+          </button>
+        </form>
         {inviteCode && (
           <div className="mt-2 flex flex-col gap-1">
             <p className="text-xs text-muted">{t("inviteLinkLabel")}</p>

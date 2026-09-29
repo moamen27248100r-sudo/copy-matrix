@@ -1051,7 +1051,8 @@
       "copyAmountExceedsBalance": "The copy amount is greater than your available balance.",
       "copyAmountBelowMinimum": "The copy amount is below the minimum for this trader ({amount}).",
       "copyFailed": "Could not copy this trader. Please try again.",
-      "stopCopyBlocked": "Could not stop copying right now: you have open trades on this account, and your balance is currently held as margin to cover them. Please try again after all open trades close."
+      "stopCopyBlocked": "Could not stop copying right now: you have open trades on this account, and your balance is currently held as margin to cover them. Please try again after all open trades close.",
+      "copyRequiresInvite": "This trader only accepts followers by invitation. Ask them for an invite link."
     },
     "dashboard": {
       "closeFailed": "Couldn't close the position. Please try again."
@@ -1767,7 +1768,11 @@
       "invitePending": "Pending",
       "announcementTitle": "Announcement to followers",
       "announcementPlaceholder": "A short message for your followers...",
-      "sendAnnouncement": "Send"
+      "sendAnnouncement": "Send",
+      "whitelistTitle": "Invite-only",
+      "whitelistDesc": "When on, only people who used your invite link can start copying you.",
+      "whitelistOn": "On",
+      "whitelistOff": "Off"
     }
   }
 }

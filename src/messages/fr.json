@@ -1051,7 +1051,8 @@
       "copyAmountExceedsBalance": "Le montant à copier dépasse votre solde disponible.",
       "copyAmountBelowMinimum": "Le montant à copier est inférieur au minimum pour ce trader ({amount}).",
       "copyFailed": "Impossible de copier ce trader. Veuillez réessayer.",
-      "stopCopyBlocked": "Impossible d'arrêter de copier pour le moment : vous avez des positions ouvertes sur ce compte, et votre solde est actuellement retenu comme marge pour les couvrir. Veuillez réessayer une fois toutes les positions ouvertes clôturées."
+      "stopCopyBlocked": "Impossible d'arrêter de copier pour le moment : vous avez des positions ouvertes sur ce compte, et votre solde est actuellement retenu comme marge pour les couvrir. Veuillez réessayer une fois toutes les positions ouvertes clôturées.",
+      "copyRequiresInvite": "This trader only accepts followers by invitation. Ask them for an invite link."
     },
     "dashboard": {
       "closeFailed": "Impossible de fermer la position. Réessayez."
@@ -1764,7 +1765,11 @@
       "invitePending": "Pending",
       "announcementTitle": "Announcement to followers",
       "announcementPlaceholder": "A short message for your followers...",
-      "sendAnnouncement": "Send"
+      "sendAnnouncement": "Send",
+      "whitelistTitle": "Invite-only",
+      "whitelistDesc": "When on, only people who used your invite link can start copying you.",
+      "whitelistOn": "On",
+      "whitelistOff": "Off"
     }
   }
 }
