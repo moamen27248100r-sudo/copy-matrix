@@ -1063,7 +1063,10 @@
       "openPositions": "Close your open copied positions first, then apply.",
       "missingFields": "Fill in your name, bio, at least one market, and accept the agreement.",
       "alreadyPending": "You already have a pending application.",
-      "submitFailed": "Could not submit the application. Try again."
+      "submitFailed": "Could not submit the application. Try again.",
+      "orderInvalid": "Check the symbol, side and size.",
+      "orderFailed": "Could not place the order",
+      "closeFailed": "Could not close the order."
     }
   },
   "FollowEmail": {
@@ -1700,6 +1703,40 @@
       "period180": "180 days",
       "tradesCount": "Closed trades",
       "activeDays": "Active trading days"
+    },
+    "trades": {
+      "title": "Trades",
+      "copiedToFollowers": "This order will be copied to {count} active followers.",
+      "buy": "Buy",
+      "sell": "Sell",
+      "size": "Size",
+      "takeProfit": "Take profit",
+      "stopLoss": "Stop loss",
+      "submitOrder": "Place order",
+      "byOrder": "By order",
+      "byAsset": "By asset",
+      "history": "History",
+      "noOpenOrders": "No open orders.",
+      "asset": "Asset",
+      "count": "Count",
+      "margin": "Margin",
+      "avgEntry": "Avg. entry",
+      "unrealized": "Unrealized P&L",
+      "copiers": "Copiers",
+      "closeOrder": "Close",
+      "historyTitle": "Order history",
+      "allSymbols": "All symbols",
+      "allResults": "All results",
+      "resultWin": "Profit",
+      "resultLoss": "Loss",
+      "allTime": "All time",
+      "lastDays": "Last {days} days",
+      "apply": "Apply",
+      "exportCsv": "Export CSV",
+      "noHistory": "No closed orders match.",
+      "side": "Side",
+      "entryExit": "Entry → Exit",
+      "result": "Result"
     }
   }
 }

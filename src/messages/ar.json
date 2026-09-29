@@ -1075,7 +1075,10 @@
       "openPositions": "أغلق صفقاتك المنسوخة المفتوحة أولًا ثم قدّم الطلب.",
       "missingFields": "اكتب الاسم والنبذة واختر سوقًا واحدًا على الأقل ووافق على الاتفاقية.",
       "alreadyPending": "لديك طلب قيد المراجعة بالفعل.",
-      "submitFailed": "تعذّر إرسال الطلب. حاول مرة أخرى."
+      "submitFailed": "تعذّر إرسال الطلب. حاول مرة أخرى.",
+      "orderInvalid": "تحقق من الرمز والاتجاه والحجم.",
+      "orderFailed": "تعذّر تنفيذ الأمر",
+      "closeFailed": "تعذّر إغلاق الأمر."
     }
   },
   "FollowEmail": {
@@ -1773,6 +1776,40 @@
       "period180": "180 يومًا",
       "tradesCount": "عدد الصفقات",
       "activeDays": "أيام التداول الفعلية"
+    },
+    "trades": {
+      "title": "الصفقات",
+      "copiedToFollowers": "ستُنسخ هذه الصفقة إلى {count} متابع نشط.",
+      "buy": "شراء",
+      "sell": "بيع",
+      "size": "الحجم",
+      "takeProfit": "جني الربح",
+      "stopLoss": "وقف الخسارة",
+      "submitOrder": "تنفيذ الأمر",
+      "byOrder": "حسب الأمر",
+      "byAsset": "حسب الأصل",
+      "history": "السجل",
+      "noOpenOrders": "لا توجد أوامر مفتوحة.",
+      "asset": "الأصل",
+      "count": "العدد",
+      "margin": "الهامش",
+      "avgEntry": "متوسط سعر الدخول",
+      "unrealized": "الربح/الخسارة غير المحققة",
+      "copiers": "النسّاخ",
+      "closeOrder": "إغلاق",
+      "historyTitle": "سجل الأوامر",
+      "allSymbols": "كل الرموز",
+      "allResults": "كل النتائج",
+      "resultWin": "ربح",
+      "resultLoss": "خسارة",
+      "allTime": "كل الوقت",
+      "lastDays": "آخر {days} يوم",
+      "apply": "تطبيق",
+      "exportCsv": "تصدير CSV",
+      "noHistory": "لا توجد أوامر مغلقة مطابقة.",
+      "side": "الاتجاه",
+      "entryExit": "الدخول ← الخروج",
+      "result": "النتيجة"
     }
   }
 }
