@@ -5,11 +5,8 @@ import { getOwnProviderId } from "@/lib/lead-trader";
 import { LEAD_TRADER_MONEY_ENABLED } from "@/config/lead-trader";
 import { runOwnSettlement } from "@/app/lead/settlements/actions";
 
-function maskEmail(email: string | null, id: string) {
-  if (!email) return `${id.slice(0, 4)}****`;
-  const [local, domain] = email.split("@");
-  if (!domain) return email;
-  return local.length <= 2 ? `${local[0]}****@${domain}` : `${local[0]}****${local[local.length - 1]}@${domain}`;
+function maskEmail(name: string | null, id: string) {
+  return name ?? `${id.slice(0, 4)}****`;
 }
 
 export async function generateMetadata() {
@@ -42,9 +39,9 @@ export default async function LeadSettlementsPage() {
   const rows = ledger ?? [];
   const followerIds = Array.from(new Set(rows.map((r) => r.follower_id)));
   const { data: followerProfiles } = followerIds.length
-    ? await supabase.from("profiles").select("id, email").in("id", followerIds)
-    : { data: [] as { id: string; email: string | null }[] };
-  const emailById = new Map((followerProfiles ?? []).map((p) => [p.id, p.email]));
+    ? await supabase.rpc("lead_trader_follower_labels", { p_ids: followerIds })
+    : { data: [] as { id: string; display_name: string | null }[] };
+  const emailById = new Map(((followerProfiles ?? []) as { id: string; display_name: string | null }[]).map((p) => [p.id, p.display_name] as const));
 
   const realized = rows.reduce((sum, r) => sum + Number(r.profit_share_amount), 0);
   const settled = rows.filter((r) => r.status === "settled").reduce((sum, r) => sum + Number(r.profit_share_amount), 0);

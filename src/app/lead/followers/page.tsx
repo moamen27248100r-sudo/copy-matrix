@@ -6,12 +6,8 @@ import { computeActiveTradingDays } from "@/lib/reliability";
 import { removeFollower, createFollowerInvite, postAnnouncement } from "@/app/lead/followers/actions";
 import { setWhitelistEnabled } from "@/app/lead/followers/toggle-whitelist";
 
-function maskId(email: string | null, id: string) {
-  if (email) {
-    const [local, domain] = email.split("@");
-    if (!domain) return email;
-    return local.length <= 2 ? `${local[0]}****@${domain}` : `${local[0]}****${local[local.length - 1]}@${domain}`;
-  }
+function maskId(name: string | null, id: string) {
+  if (name) return name;
   return `${id.slice(0, 4)}****${id.slice(-4)}`;
 }
 
@@ -53,13 +49,13 @@ export default async function LeadFollowersPage({
   const followerIds = Array.from(new Set(subscriptions.map((s) => s.follower_id)));
 
   const [{ data: followerProfiles }, { data: positions }] = await Promise.all([
-    followerIds.length ? supabase.from("profiles").select("id, email, balance").in("id", followerIds) : Promise.resolve({ data: [] as { id: string; email: string | null; balance: number }[] }),
+    followerIds.length ? supabase.rpc("lead_trader_follower_labels", { p_ids: followerIds }) : Promise.resolve({ data: [] as { id: string; display_name: string | null }[] }),
     subIds.length
       ? supabase.from("simulated_positions").select("subscription_id, status, pnl").in("subscription_id", subIds)
       : Promise.resolve({ data: [] as { subscription_id: string; status: string; pnl: number | null }[] }),
   ]);
 
-  const profileById = new Map((followerProfiles ?? []).map((p) => [p.id, p]));
+  const profileById = new Map(((followerProfiles ?? []) as { id: string; display_name: string | null }[]).map((p) => [p.id, p]));
   const pnlBySub = new Map<string, number>();
   const openCountBySub = new Map<string, number>();
   for (const p of positions ?? []) {
@@ -121,7 +117,6 @@ export default async function LeadFollowersPage({
               <tr className="border-b border-border text-xs text-muted">
                 <th className="px-3 py-2 text-start font-normal">{t("follower")}</th>
                 <th className="px-3 py-2 text-start font-normal">{t("invested")}</th>
-                <th className="px-3 py-2 text-start font-normal">{t("balance")}</th>
                 <th className="px-3 py-2 text-start font-normal">{t("profit")}</th>
                 <th className="px-3 py-2 text-start font-normal">{t("shareFromThem")}</th>
                 <th className="px-3 py-2 text-start font-normal">{t("daysFollowing")}</th>
@@ -138,13 +133,10 @@ export default async function LeadFollowersPage({
                 return (
                   <tr key={s.id} className="border-b border-border last:border-b-0">
                     <td className="px-3 py-2" dir="ltr">
-                      {maskId(profile?.email ?? null, s.follower_id)}
+                      {maskId(profile?.display_name ?? null, s.follower_id)}
                     </td>
                     <td className="px-3 py-2 tabular-nums" dir="ltr">
                       ${Number(s.allocated_amount).toLocaleString("en-US")}
-                    </td>
-                    <td className="px-3 py-2 tabular-nums" dir="ltr">
-                      ${Number(profile?.balance ?? 0).toLocaleString("en-US")}
                     </td>
                     <td className={`px-3 py-2 tabular-nums ${profit >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
                       {profit >= 0 ? "+" : "-"}${Math.abs(profit).toFixed(2)}

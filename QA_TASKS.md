@@ -142,3 +142,9 @@ pass should still walk section 1/3/4/5/6 live per-page if a large QA budget is a
 
 - **`profiles` table readable by every authenticated user (PII leak)** — see section 8. Needs DB decision.
 - Horizontal scroll re-checked at 375px on ~29 routes (logged in, prod build): `scrollWidth == clientWidth` everywhere; only off-canvas fixed drawer/carousel children flagged, which are clipped/intended.
+
+## Follow-up: profiles RLS fix (migration 0208, applied to live DB)
+- `profiles_select` changed from USING (true) to `auth.uid() = id OR current_user_is_admin()` (new SECURITY DEFINER helper, avoids policy recursion). Rollback: `supabase/rollback/0208_profiles_rls.sql`.
+- New `lead_trader_follower_labels(uuid[])` returns display_name only, only for the caller's own followers. `/lead/followers` and `/lead/settlements` use it; the follower balance column was removed (private data).
+- Verified with disposable accounts (deleted): a user reads only their own row; lead trader sees follower name but not email/balance; admin still sees all; dashboard, discover, trader page, portfolio, settings, copies, lead pages and admin pages all load.
+- **Other tables with USING (true) — NOT changed, for your review:** `follower_invites` (`follower_invites_select_by_code`: every authenticated user can read all invites incl. `invited_email`, `code`, `used_by` — recommend restricting), `lead_trader_profiles` (public incl. anon: exposes every lead trader's `invite_code`, undermining whitelist gating — recommend hiding that column), `providers` (public leader data; `user_id` links leader to account id, low risk), `signals`, `market_prices`, `price_history`, `trader_posts` (public market/leader data, OK). Wallet/KYC/notifications/subscriptions are properly restricted.
