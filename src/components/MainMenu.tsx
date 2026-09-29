@@ -166,6 +166,7 @@ export function MainMenu({
   const items: NavItem[] = [
     { href: "/markets", label: t("menuMarkets"), icon: ICONS.markets },
     { href: "/portfolio?tab=activity", label: t("menuTransactionHistory"), icon: ICONS.history },
+    { href: "/profit-share-history", label: t("menuProfitShareHistory"), icon: ICONS.history },
     { href: "/kyc", label: t("menuKyc"), icon: ICONS.kyc },
     isLeadTrader
       ? { href: "/lead", label: t("menuLeadCenter"), icon: ICONS.kyc }

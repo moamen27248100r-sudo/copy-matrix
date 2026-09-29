@@ -257,7 +257,8 @@
     "switchToLeaderMode": "Lead trader center",
     "switchToCopierMode": "Copier dashboard",
     "menuLeadCenter": "Lead trader center",
-    "menuBecomeLeader": "Become a lead trader"
+    "menuBecomeLeader": "Become a lead trader",
+    "menuProfitShareHistory": "Profit-share history"
   },
   "LangSwitcher": {
     "label": "زبان"
@@ -1769,6 +1770,33 @@
       "whitelistDesc": "When on, only people who used your invite link can start copying you.",
       "whitelistOn": "On",
       "whitelistOff": "Off"
+    },
+    "settlements": {
+      "title": "Settlements",
+      "runNow": "Run settlement now",
+      "flagOffNotice": "Profit-share amounts below are estimates and records only; no money moves until the platform enables real settlement.",
+      "realized": "Realized (all-time)",
+      "settled": "Settled",
+      "pending": "Pending",
+      "unrealized": "Unrealized (estimate)",
+      "noRecords": "No settlement records yet.",
+      "follower": "Follower",
+      "period": "Period",
+      "grossPnl": "Profit above high-water mark",
+      "rate": "Rate",
+      "amount": "Amount",
+      "status": "Status",
+      "status_pending": "Pending",
+      "status_settled": "Settled",
+      "status_waived": "Waived"
+    },
+    "followerLedger": {
+      "title": "Profit-share history",
+      "totalDeducted": "Total deducted so far",
+      "empty": "No profit-share deductions yet.",
+      "status_pending": "Pending",
+      "status_settled": "Deducted",
+      "status_waived": "Waived"
     }
   }
 }

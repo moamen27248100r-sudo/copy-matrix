@@ -269,7 +269,8 @@
     "switchToLeaderMode": "لوحة القائد",
     "switchToCopierMode": "لوحة الناسخ",
     "menuLeadCenter": "لوحة المتداول القائد",
-    "menuBecomeLeader": "كن متداولًا قائدًا"
+    "menuBecomeLeader": "كن متداولًا قائدًا",
+    "menuProfitShareHistory": "سجل مشاركة الأرباح"
   },
   "LangSwitcher": {
     "label": "اللغة"
@@ -1846,6 +1847,33 @@
       "whitelistDesc": "عند التفعيل، لا يمكن نسخك إلا لمن استخدم رابط دعوتك.",
       "whitelistOn": "مفعّلة",
       "whitelistOff": "معطّلة"
+    },
+    "settlements": {
+      "title": "التسويات",
+      "runNow": "تشغيل التسوية الآن",
+      "flagOffNotice": "المبالغ أدناه تقديرية وسجل فقط؛ لا يُخصم أو يُحوَّل أي مال حاليًا حتى تُفعَّل المنصة التسوية الفعلية.",
+      "realized": "المحقق (الإجمالي)",
+      "settled": "تمت تسويته",
+      "pending": "بانتظار التسوية",
+      "unrealized": "غير محقق (تقديري)",
+      "noRecords": "لا توجد سجلات تسوية بعد.",
+      "follower": "المتابع",
+      "period": "الفترة",
+      "grossPnl": "الربح فوق أعلى نقطة سابقة",
+      "rate": "النسبة",
+      "amount": "المبلغ",
+      "status": "الحالة",
+      "status_pending": "بانتظار",
+      "status_settled": "تمت التسوية",
+      "status_waived": "مُعفاة"
+    },
+    "followerLedger": {
+      "title": "سجل مشاركة الأرباح",
+      "totalDeducted": "إجمالي المخصوم حتى الآن",
+      "empty": "لا توجد خصومات مشاركة أرباح بعد.",
+      "status_pending": "بانتظار",
+      "status_settled": "مخصوم",
+      "status_waived": "مُعفاة"
     }
   }
 }

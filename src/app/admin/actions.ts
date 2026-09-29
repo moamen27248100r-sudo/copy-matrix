@@ -958,3 +958,55 @@ export async function rejectLeadTraderApplication(formData: FormData) {
 
   revalidatePath("/admin/lead-trader-applications");
 }
+
+// ---- Profit-share settlement apply (Phase 5) --------------------------------
+// Actually moves money for 'pending' profit_share_ledger rows -- gated by
+// LEAD_TRADER_MONEY_ENABLED (off by default) AND demo accounts only, per the
+// approved plan. lead_trader_run_own_settlement()/admin_run_all_lead_trader_settlements()
+// (0206) only ever compute and record; this is the one place that debits/credits
+// balances, and only through the service-role client (profiles.balance is
+// locked down to it, same as adjustBalance()).
+export async function applyLeadTraderSettlements(formData: FormData) {
+  const { supabase, adminId } = await assertAdmin();
+  const providerId = formData.get("providerId") as string;
+
+  const { LEAD_TRADER_MONEY_ENABLED } = await import("@/config/lead-trader");
+  if (!LEAD_TRADER_MONEY_ENABLED) {
+    redirect("/admin/traders?error=" + encodeURIComponent("ميزة تحويل مشاركة الأرباح الفعلية معطّلة حاليًا (feature flag)."));
+  }
+
+  const { data: pending } = await supabase
+    .from("profit_share_ledger")
+    .select("id, follower_id, profit_share_amount, provider_id")
+    .eq("provider_id", providerId)
+    .eq("status", "pending");
+
+  const admin = createAdminClient();
+  const { data: provider } = await supabase.from("providers").select("user_id").eq("id", providerId).single();
+  let settledCount = 0;
+
+  for (const row of pending ?? []) {
+    const { data: followerProfile } = await admin.from("profiles").select("balance, account_type").eq("id", row.follower_id).single();
+    if (!followerProfile || followerProfile.account_type !== "demo") continue; // real accounts excluded regardless of the flag
+
+    const amount = Number(row.profit_share_amount);
+    const newFollowerBalance = Number(followerProfile.balance) - amount;
+    await admin.from("profiles").update({ balance: newFollowerBalance }).eq("id", row.follower_id);
+    await admin.from("wallet_transactions").insert({ user_id: row.follower_id, type: "fee", amount: -amount, balance_after: newFollowerBalance, note: "مشاركة أرباح للمتداول القائد" });
+
+    if (provider?.user_id) {
+      const { data: leaderProfile } = await admin.from("profiles").select("balance").eq("id", provider.user_id).single();
+      if (leaderProfile) {
+        const newLeaderBalance = Number(leaderProfile.balance) + amount;
+        await admin.from("profiles").update({ balance: newLeaderBalance }).eq("id", provider.user_id);
+        await admin.from("wallet_transactions").insert({ user_id: provider.user_id, type: "admin_adjustment", amount, balance_after: newLeaderBalance, note: "مشاركة أرباح من متابع" });
+      }
+    }
+
+    await admin.from("profit_share_ledger").update({ status: "settled", settled_at: new Date().toISOString() }).eq("id", row.id);
+    settledCount += 1;
+  }
+
+  await logAdminAction(supabase, adminId, "apply_lead_trader_settlements", "provider", providerId, { settledCount });
+  revalidatePath("/admin/traders");
+}
