@@ -396,7 +396,17 @@
     "prefsLink": "التفضيلات",
     "leadPayoutApprovedTitle": "تمت الموافقة على السحب",
     "leadPayoutRejectedTitle": "تم رفض السحب",
-    "leadPayoutBody": "تمت مراجعة طلب سحب أرباحك بقيمة ${amount}."
+    "leadPayoutBody": "تمت مراجعة طلب سحب أرباحك بقيمة ${amount}.",
+    "leadNewCopierTitle": "نسّاخ جديد",
+    "leadNewCopierBody": "بدأ شخص نسخ صفقاتك بمبلغ ${amount}.",
+    "leadCopierStoppedTitle": "نسّاخ أوقف النسخ",
+    "leadCopierStoppedBody": "أوقف ناسخ بمبلغ ${amount} نسخ صفقاتك.",
+    "leadProfitPaidTitle": "دفعة أرباح جديدة",
+    "leadProfitPaidBody": "تمت تسوية ${amount} من مشاركة الأرباح إلى رصيدك.",
+    "leadStatusChangedTitle": "تغيّرت حالة حسابك",
+    "leadStatusChanged_active": "حسابك كقائد نشط الآن.",
+    "leadStatusChanged_stopped": "تم إيقاف التداول على حسابك كقائد.",
+    "leadStatusChanged_suspended": "تم إيقاف حسابك. تواصل مع الدعم."
   },
   "Portfolio": {
     "title": "محفظتي",
@@ -601,7 +611,9 @@
     "statAvgDuration": "متوسط مدة الصفقة",
     "hoursShort": "{hours} ساعة",
     "statAum": "الأصول المُدارة (حسابات حقيقية)",
-    "statProfitShare": "مشاركة الأرباح"
+    "statProfitShare": "مشاركة الأرباح",
+    "strategyTitle": "الاستراتيجية",
+    "riskDisclosureTitle": "إفصاح المخاطر"
   },
   "Discover": {
     "title": "اكتشاف المتداولين",
@@ -1748,7 +1760,9 @@
       "tasks": "المهام",
       "settings": "الإعدادات",
       "performance": "الأداء",
-      "earnings": "الأرباح"
+      "earnings": "الأرباح",
+      "profile": "الملف العام",
+      "announcements": "الإعلانات"
     },
     "overview": {
       "title": "مركز المتداول القائد",
@@ -1860,7 +1874,9 @@
       "joined": "تاريخ الانضمام",
       "prev": "السابق",
       "next": "التالي",
-      "removeHasOpenPositions": "لا يمكن إزالة النسّاخ وله صفقات مفتوحة."
+      "removeHasOpenPositions": "لا يمكن إزالة النسّاخ وله صفقات مفتوحة.",
+      "announcementsLink": "أرسل إعلانًا لنسّاخيك ←",
+      "invitesStats": "استُخدمت {used} من {total} دعوات"
     },
     "settlements": {
       "title": "التسويات",
@@ -1950,7 +1966,13 @@
       "style_session_trader": "متداول جلسات",
       "style_moderate": "معتدل",
       "style_sporadic": "متقطّع",
-      "endRoleHasOpenTrades": "لديك صفقات مفتوحة؛ أغلقها جميعًا قبل إنهاء دورك."
+      "endRoleHasOpenTrades": "لديك صفقات مفتوحة؛ أغلقها جميعًا قبل إنهاء دورك.",
+      "securityTitle": "الأمان",
+      "securityLastSeen": "آخر نشاط",
+      "securityLogins": "مرات الدخول",
+      "securityAccount": "تغيير كلمة المرور وبيانات الحساب",
+      "securityNotifications": "تفضيلات الإشعارات",
+      "securityNote": "تُراجَع طلبات السحب دائمًا من الفريق قبل أي تحويل."
     },
     "tasks": {
       "title": "مركز المهام",
@@ -1987,6 +2009,45 @@
       "monthlyTitle": "العوائد الشهرية",
       "month": "الشهر",
       "monthReturn": "العائد"
+    },
+    "profile": {
+      "title": "الملف العام",
+      "viewPublic": "عرض الصفحة العامة",
+      "err_saveFailed": "تعذّر الحفظ. حاول مرة أخرى.",
+      "err_tooLong": "النص طويل جدًا.",
+      "err_avatarMissing": "اختر صورة أولًا.",
+      "err_avatarType": "صيغ PNG أو JPG أو WebP فقط.",
+      "err_avatarSize": "يجب ألا تتجاوز الصورة 1 ميجابايت.",
+      "saved": "تم الحفظ.",
+      "avatar": "الصورة الشخصية",
+      "avatarHint": "PNG أو JPG أو WebP حتى 1 ميجابايت.",
+      "upload": "رفع",
+      "bio": "نبذة عنك",
+      "strategy": "وصف الاستراتيجية",
+      "strategyPlaceholder": "كيف تختار صفقاتك وتديرها؟",
+      "risk": "إفصاح المخاطر",
+      "riskPlaceholder": "أخبر النسّاخين بالمخاطر المتوقعة (التراجعات، الرافعة، سلاسل الخسارة).",
+      "accepting": "استقبال نسّاخين جدد",
+      "acceptingHint": "أوقفه لمنع بدء نسّاخين جدد. لا يتأثر النسّاخون الحاليون.",
+      "save": "حفظ التغييرات",
+      "publicFacts": "يظهر في صفحتك العامة",
+      "assets": "الأصول",
+      "minCopy": "أقل مبلغ نسخ",
+      "profitShare": "نسبة الأرباح",
+      "editInSettings": "عدّل الأصول والمبالغ والنسب من الإعدادات"
+    },
+    "announcements": {
+      "title": "الإعلانات",
+      "err_empty": "اكتب رسالة أولًا.",
+      "err_failed": "تعذّر إرسال الإعلان.",
+      "sent": "تم إرسال الإعلان لنسّاخيك.",
+      "placeholder": "رسالة قصيرة لنسّاخيك (280 حرفًا كحد أقصى)",
+      "audience": "سيُرسل إلى {count} من النسّاخين النشطين.",
+      "send": "إرسال",
+      "history": "الإعلانات السابقة",
+      "empty": "لا توجد إعلانات بعد.",
+      "deleteConfirm": "حذف هذا الإعلان من السجل؟",
+      "delete": "حذف"
     }
   },
   "Metadata": {
@@ -2055,7 +2116,11 @@
     "tradesTitle": "الصفقات | Copy Matrix",
     "tradesDesc": "عرض صفقاتك المفتوحة والمغلقة.",
     "leadPerformanceTitle": "الأداء | مركز القائد",
-    "leadPerformanceDesc": "العائد وأقصى تراجع ونسبة الربح ومؤشر المخاطرة لحسابك كقائد."
+    "leadPerformanceDesc": "العائد وأقصى تراجع ونسبة الربح ومؤشر المخاطرة لحسابك كقائد.",
+    "leadProfileTitle": "الملف العام | مركز القائد",
+    "leadProfileDesc": "عدّل ما يراه النسّاخون في صفحتك العامة.",
+    "leadAnnouncementsTitle": "الإعلانات | مركز القائد",
+    "leadAnnouncementsDesc": "أرسل تحديثات قصيرة لنسّاخيك النشطين."
   },
   "HomeFaq": {
     "title": "الأسئلة الشائعة",

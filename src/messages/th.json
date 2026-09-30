@@ -384,7 +384,17 @@
     "prefsLink": "Preferences",
     "leadPayoutApprovedTitle": "อนุมัติการถอนแล้ว",
     "leadPayoutRejectedTitle": "ปฏิเสธการถอน",
-    "leadPayoutBody": "คำขอถอน ${amount} ของคุณได้รับการตรวจสอบแล้ว"
+    "leadPayoutBody": "คำขอถอน ${amount} ของคุณได้รับการตรวจสอบแล้ว",
+    "leadNewCopierTitle": "ผู้คัดลอกใหม่",
+    "leadNewCopierBody": "มีคนเริ่มคัดลอกคุณด้วยเงิน ${amount}",
+    "leadCopierStoppedTitle": "ผู้คัดลอกรายหนึ่งหยุดแล้ว",
+    "leadCopierStoppedBody": "ผู้คัดลอก ${amount} หยุดคัดลอกคุณแล้ว",
+    "leadProfitPaidTitle": "การจ่ายส่วนแบ่งกำไร",
+    "leadProfitPaidBody": "ส่วนแบ่งกำไร ${amount} ถูกชำระเข้ายอดคงเหลือของคุณแล้ว",
+    "leadStatusChangedTitle": "สถานะบัญชีเปลี่ยนแปลง",
+    "leadStatusChanged_active": "บัญชีเทรดเดอร์ผู้นำของคุณใช้งานได้",
+    "leadStatusChanged_stopped": "การเทรดบนบัญชีเทรดเดอร์ผู้นำของคุณถูกหยุด",
+    "leadStatusChanged_suspended": "บัญชีของคุณถูกระงับ โปรดติดต่อฝ่ายสนับสนุน"
   },
   "Portfolio": {
     "title": "พอร์ตของฉัน",
@@ -589,7 +599,9 @@
     "statAvgDuration": "Avg. trade duration",
     "hoursShort": "{hours}h",
     "statAum": "AUM (real accounts)",
-    "statProfitShare": "Profit share"
+    "statProfitShare": "Profit share",
+    "strategyTitle": "กลยุทธ์",
+    "riskDisclosureTitle": "การเปิดเผยความเสี่ยง"
   },
   "Discover": {
     "title": "ค้นหาเทรดเดอร์",
@@ -1671,7 +1683,9 @@
       "tasks": "Tasks",
       "settings": "Settings",
       "performance": "ผลงาน",
-      "earnings": "รายได้"
+      "earnings": "รายได้",
+      "profile": "โปรไฟล์สาธารณะ",
+      "announcements": "ประกาศ"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1783,7 +1797,9 @@
       "joined": "วันที่เข้าร่วม",
       "prev": "ก่อนหน้า",
       "next": "ถัดไป",
-      "removeHasOpenPositions": "ลบไม่ได้ขณะที่ยังมีออเดอร์เปิดอยู่"
+      "removeHasOpenPositions": "ลบไม่ได้ขณะที่ยังมีออเดอร์เปิดอยู่",
+      "announcementsLink": "ส่งประกาศถึงผู้คัดลอก →",
+      "invitesStats": "ใช้คำเชิญแล้ว {used} จาก {total}"
     },
     "settlements": {
       "title": "Settlements",
@@ -1873,7 +1889,13 @@
       "style_session_trader": "Session trader",
       "style_moderate": "Moderate",
       "style_sporadic": "Occasional",
-      "endRoleHasOpenTrades": "You have open trades; close them all before ending your role."
+      "endRoleHasOpenTrades": "You have open trades; close them all before ending your role.",
+      "securityTitle": "ความปลอดภัย",
+      "securityLastSeen": "กิจกรรมล่าสุด",
+      "securityLogins": "จำนวนการเข้าสู่ระบบ",
+      "securityAccount": "เปลี่ยนรหัสผ่านและข้อมูลบัญชี",
+      "securityNotifications": "การตั้งค่าการแจ้งเตือน",
+      "securityNote": "คำขอถอนจะได้รับการตรวจสอบจากทีมงานก่อนมีการโอนเงินเสมอ"
     },
     "tasks": {
       "title": "Task center",
@@ -1910,6 +1932,45 @@
       "monthlyTitle": "ผลตอบแทนรายเดือน",
       "month": "เดือน",
       "monthReturn": "ผลตอบแทน"
+    },
+    "profile": {
+      "title": "โปรไฟล์สาธารณะ",
+      "viewPublic": "ดูหน้าสาธารณะ",
+      "err_saveFailed": "บันทึกไม่สำเร็จ โปรดลองอีกครั้ง",
+      "err_tooLong": "ข้อความยาวเกินไป",
+      "err_avatarMissing": "เลือกรูปภาพก่อน",
+      "err_avatarType": "รองรับเฉพาะ PNG, JPG หรือ WebP",
+      "err_avatarSize": "รูปภาพต้องมีขนาดไม่เกิน 1 MB",
+      "saved": "บันทึกแล้ว",
+      "avatar": "รูปโปรไฟล์",
+      "avatarHint": "PNG, JPG หรือ WebP ไม่เกิน 1 MB",
+      "upload": "อัปโหลด",
+      "bio": "เกี่ยวกับคุณ",
+      "strategy": "คำอธิบายกลยุทธ์",
+      "strategyPlaceholder": "คุณเลือกและจัดการออเดอร์อย่างไร",
+      "risk": "การเปิดเผยความเสี่ยง",
+      "riskPlaceholder": "แจ้งผู้คัดลอกถึงความเสี่ยงที่ควรคาดไว้ (ดรอว์ดาวน์ เลเวอเรจ ขาดทุนต่อเนื่อง)",
+      "accepting": "เปิดรับผู้คัดลอกใหม่",
+      "acceptingHint": "ปิดเพื่อไม่ให้มีผู้เริ่มคัดลอกใหม่ ผู้คัดลอกเดิมไม่ได้รับผลกระทบ",
+      "save": "บันทึกการเปลี่ยนแปลง",
+      "publicFacts": "แสดงบนหน้าสาธารณะของคุณ",
+      "assets": "สินทรัพย์",
+      "minCopy": "จำนวนคัดลอกขั้นต่ำ",
+      "profitShare": "แบ่งกำไร",
+      "editInSettings": "แก้ไขสินทรัพย์ จำนวน และอัตราได้ในการตั้งค่า"
+    },
+    "announcements": {
+      "title": "ประกาศ",
+      "err_empty": "เขียนข้อความก่อน",
+      "err_failed": "ส่งประกาศไม่สำเร็จ",
+      "sent": "ส่งประกาศถึงผู้คัดลอกแล้ว",
+      "placeholder": "ข้อความสั้นถึงผู้คัดลอก (สูงสุด 280 ตัวอักษร)",
+      "audience": "จะส่งถึงผู้คัดลอกที่ใช้งานอยู่ {count} ราย",
+      "send": "ส่ง",
+      "history": "ประกาศก่อนหน้า",
+      "empty": "ยังไม่มีประกาศ",
+      "deleteConfirm": "ลบประกาศนี้ออกจากประวัติ?",
+      "delete": "ลบ"
     }
   },
   "Metadata": {
@@ -1978,7 +2039,11 @@
     "tradesTitle": "Trades | Copy Matrix",
     "tradesDesc": "View your open and closed trades.",
     "leadPerformanceTitle": "ผลงาน | ศูนย์เทรดเดอร์ผู้นำ",
-    "leadPerformanceDesc": "ผลตอบแทน ดรอว์ดาวน์ อัตราชนะ และคะแนนความเสี่ยงของบัญชี"
+    "leadPerformanceDesc": "ผลตอบแทน ดรอว์ดาวน์ อัตราชนะ และคะแนนความเสี่ยงของบัญชี",
+    "leadProfileTitle": "โปรไฟล์สาธารณะ | ศูนย์เทรดเดอร์ผู้นำ",
+    "leadProfileDesc": "แก้ไขสิ่งที่ผู้คัดลอกเห็นบนหน้าสาธารณะของคุณ",
+    "leadAnnouncementsTitle": "ประกาศ | ศูนย์เทรดเดอร์ผู้นำ",
+    "leadAnnouncementsDesc": "ส่งอัปเดตสั้น ๆ ถึงผู้คัดลอกที่ใช้งานอยู่"
   },
   "HomeFaq": {
     "title": "คำถามที่พบบ่อย",

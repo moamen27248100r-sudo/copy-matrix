@@ -384,7 +384,17 @@
     "prefsLink": "Preferences",
     "leadPayoutApprovedTitle": "提现已批准",
     "leadPayoutRejectedTitle": "提现被拒绝",
-    "leadPayoutBody": "您 ${amount} 的收益提现申请已审核。"
+    "leadPayoutBody": "您 ${amount} 的收益提现申请已审核。",
+    "leadNewCopierTitle": "新跟单者",
+    "leadNewCopierBody": "有人以 ${amount} 开始跟单您。",
+    "leadCopierStoppedTitle": "有跟单者已停止",
+    "leadCopierStoppedBody": "一位 ${amount} 的跟单者已停止跟单。",
+    "leadProfitPaidTitle": "分润到账",
+    "leadProfitPaidBody": "${amount} 分润已结算到您的余额。",
+    "leadStatusChangedTitle": "账户状态已变更",
+    "leadStatusChanged_active": "您的领导者账户已恢复正常。",
+    "leadStatusChanged_stopped": "您的领导者账户交易已被停止。",
+    "leadStatusChanged_suspended": "您的账户已被暂停，请联系客服。"
   },
   "Portfolio": {
     "title": "我的资产",
@@ -589,7 +599,9 @@
     "statAvgDuration": "Avg. trade duration",
     "hoursShort": "{hours}h",
     "statAum": "AUM (real accounts)",
-    "statProfitShare": "Profit share"
+    "statProfitShare": "Profit share",
+    "strategyTitle": "策略",
+    "riskDisclosureTitle": "风险披露"
   },
   "Discover": {
     "title": "发现交易员",
@@ -1672,7 +1684,9 @@
       "tasks": "Tasks",
       "settings": "Settings",
       "performance": "业绩",
-      "earnings": "收益"
+      "earnings": "收益",
+      "profile": "公开资料",
+      "announcements": "公告"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1784,7 +1798,9 @@
       "joined": "加入日期",
       "prev": "上一页",
       "next": "下一页",
-      "removeHasOpenPositions": "该跟单者有未平仓位时无法移除。"
+      "removeHasOpenPositions": "该跟单者有未平仓位时无法移除。",
+      "announcementsLink": "向跟单者发送公告 →",
+      "invitesStats": "已使用 {used}/{total} 个邀请"
     },
     "settlements": {
       "title": "Settlements",
@@ -1874,7 +1890,13 @@
       "style_session_trader": "Session trader",
       "style_moderate": "Moderate",
       "style_sporadic": "Occasional",
-      "endRoleHasOpenTrades": "You have open trades; close them all before ending your role."
+      "endRoleHasOpenTrades": "You have open trades; close them all before ending your role.",
+      "securityTitle": "安全",
+      "securityLastSeen": "最近活动",
+      "securityLogins": "登录次数",
+      "securityAccount": "修改密码和账户信息",
+      "securityNotifications": "通知偏好",
+      "securityNote": "任何资金变动前，提现申请都会由团队审核。"
     },
     "tasks": {
       "title": "Task center",
@@ -1911,6 +1933,45 @@
       "monthlyTitle": "月度收益",
       "month": "月份",
       "monthReturn": "收益"
+    },
+    "profile": {
+      "title": "公开资料",
+      "viewPublic": "查看公开页面",
+      "err_saveFailed": "保存失败，请重试。",
+      "err_tooLong": "文字过长。",
+      "err_avatarMissing": "请先选择图片。",
+      "err_avatarType": "仅支持 PNG、JPG 或 WebP。",
+      "err_avatarSize": "图片不得超过 1 MB。",
+      "saved": "已保存。",
+      "avatar": "头像",
+      "avatarHint": "PNG、JPG 或 WebP，最大 1 MB。",
+      "upload": "上传",
+      "bio": "个人简介",
+      "strategy": "策略说明",
+      "strategyPlaceholder": "您如何选择和管理交易？",
+      "risk": "风险披露",
+      "riskPlaceholder": "告知跟单者可能的风险（回撤、杠杆、连续亏损）。",
+      "accepting": "接受新跟单者",
+      "acceptingHint": "关闭后不再接受新跟单者，现有跟单者不受影响。",
+      "save": "保存更改",
+      "publicFacts": "显示在您的公开页面",
+      "assets": "交易品种",
+      "minCopy": "最低跟单金额",
+      "profitShare": "分润比例",
+      "editInSettings": "在设置中编辑品种、金额和比例"
+    },
+    "announcements": {
+      "title": "公告",
+      "err_empty": "请先输入内容。",
+      "err_failed": "公告发送失败。",
+      "sent": "公告已发送给您的跟单者。",
+      "placeholder": "给跟单者的简短消息（最多280字）",
+      "audience": "将发送给 {count} 位活跃跟单者。",
+      "send": "发送",
+      "history": "历史公告",
+      "empty": "暂无公告。",
+      "deleteConfirm": "从历史中删除此公告？",
+      "delete": "删除"
     }
   },
   "Metadata": {
@@ -1979,7 +2040,11 @@
     "tradesTitle": "Trades | Copy Matrix",
     "tradesDesc": "View your open and closed trades.",
     "leadPerformanceTitle": "业绩 | 领导者中心",
-    "leadPerformanceDesc": "您账户的收益、最大回撤、胜率和风险评分。"
+    "leadPerformanceDesc": "您账户的收益、最大回撤、胜率和风险评分。",
+    "leadProfileTitle": "公开资料 | 领导者中心",
+    "leadProfileDesc": "编辑跟单者在您公开页面上看到的内容。",
+    "leadAnnouncementsTitle": "公告 | 领导者中心",
+    "leadAnnouncementsDesc": "向您的活跃跟单者发送简短通知。"
   },
   "HomeFaq": {
     "title": "常见问题",

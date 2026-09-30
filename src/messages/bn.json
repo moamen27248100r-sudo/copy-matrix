@@ -384,7 +384,17 @@
     "prefsLink": "Preferences",
     "leadPayoutApprovedTitle": "উত্তোলন অনুমোদিত",
     "leadPayoutRejectedTitle": "উত্তোলন প্রত্যাখ্যাত",
-    "leadPayoutBody": "আপনার ${amount} উত্তোলনের অনুরোধ পর্যালোচিত হয়েছে।"
+    "leadPayoutBody": "আপনার ${amount} উত্তোলনের অনুরোধ পর্যালোচিত হয়েছে।",
+    "leadNewCopierTitle": "নতুন কপিকারী",
+    "leadNewCopierBody": "কেউ ${amount} দিয়ে আপনাকে কপি শুরু করেছেন।",
+    "leadCopierStoppedTitle": "একজন কপিকারী বন্ধ করেছেন",
+    "leadCopierStoppedBody": "${amount} এর একজন কপিকারী কপি বন্ধ করেছেন।",
+    "leadProfitPaidTitle": "মুনাফা ভাগের পেমেন্ট",
+    "leadProfitPaidBody": "${amount} মুনাফা ভাগ আপনার ব্যালেন্সে জমা হয়েছে।",
+    "leadStatusChangedTitle": "অ্যাকাউন্টের অবস্থা বদলেছে",
+    "leadStatusChanged_active": "আপনার লিড ট্রেডার অ্যাকাউন্ট সক্রিয়।",
+    "leadStatusChanged_stopped": "আপনার লিড ট্রেডার অ্যাকাউন্টে ট্রেডিং বন্ধ করা হয়েছে।",
+    "leadStatusChanged_suspended": "আপনার অ্যাকাউন্ট স্থগিত করা হয়েছে। সহায়তার সঙ্গে যোগাযোগ করুন।"
   },
   "Portfolio": {
     "title": "আমার পোর্টফোলিও",
@@ -589,7 +599,9 @@
     "statAvgDuration": "Avg. trade duration",
     "hoursShort": "{hours}h",
     "statAum": "AUM (real accounts)",
-    "statProfitShare": "Profit share"
+    "statProfitShare": "Profit share",
+    "strategyTitle": "কৌশল",
+    "riskDisclosureTitle": "ঝুঁকির প্রকাশ"
   },
   "Discover": {
     "title": "ট্রেডার খুঁজুন",
@@ -1671,7 +1683,9 @@
       "tasks": "Tasks",
       "settings": "Settings",
       "performance": "পারফরম্যান্স",
-      "earnings": "আয়"
+      "earnings": "আয়",
+      "profile": "পাবলিক প্রোফাইল",
+      "announcements": "ঘোষণা"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1783,7 +1797,9 @@
       "joined": "যোগদানের তারিখ",
       "prev": "আগের",
       "next": "পরের",
-      "removeHasOpenPositions": "খোলা পজিশন থাকলে সরানো যাবে না।"
+      "removeHasOpenPositions": "খোলা পজিশন থাকলে সরানো যাবে না।",
+      "announcementsLink": "কপিকারীদের ঘোষণা পাঠান →",
+      "invitesStats": "{total}টির মধ্যে {used}টি আমন্ত্রণ ব্যবহৃত"
     },
     "settlements": {
       "title": "Settlements",
@@ -1873,7 +1889,13 @@
       "style_session_trader": "Session trader",
       "style_moderate": "Moderate",
       "style_sporadic": "Occasional",
-      "endRoleHasOpenTrades": "You have open trades; close them all before ending your role."
+      "endRoleHasOpenTrades": "You have open trades; close them all before ending your role.",
+      "securityTitle": "নিরাপত্তা",
+      "securityLastSeen": "সর্বশেষ কার্যকলাপ",
+      "securityLogins": "সাইন-ইন",
+      "securityAccount": "পাসওয়ার্ড ও অ্যাকাউন্টের তথ্য বদলান",
+      "securityNotifications": "বিজ্ঞপ্তির পছন্দ",
+      "securityNote": "অর্থ স্থানান্তরের আগে উত্তোলনের অনুরোধ সবসময় টিম পর্যালোচনা করে।"
     },
     "tasks": {
       "title": "Task center",
@@ -1910,6 +1932,45 @@
       "monthlyTitle": "মাসিক রিটার্ন",
       "month": "মাস",
       "monthReturn": "রিটার্ন"
+    },
+    "profile": {
+      "title": "পাবলিক প্রোফাইল",
+      "viewPublic": "পাবলিক পেজ দেখুন",
+      "err_saveFailed": "সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।",
+      "err_tooLong": "লেখা অনেক দীর্ঘ।",
+      "err_avatarMissing": "আগে একটি ছবি বেছে নিন।",
+      "err_avatarType": "শুধু PNG, JPG বা WebP ছবি।",
+      "err_avatarSize": "ছবি ১ MB বা কম হতে হবে।",
+      "saved": "সংরক্ষিত হয়েছে।",
+      "avatar": "প্রোফাইল ছবি",
+      "avatarHint": "PNG, JPG বা WebP, সর্বোচ্চ ১ MB।",
+      "upload": "আপলোড",
+      "bio": "আপনার সম্পর্কে",
+      "strategy": "কৌশলের বিবরণ",
+      "strategyPlaceholder": "আপনি কীভাবে ট্রেড বেছে নেন ও পরিচালনা করেন?",
+      "risk": "ঝুঁকির প্রকাশ",
+      "riskPlaceholder": "কপিকারীদের সম্ভাব্য ঝুঁকি জানান (ড্রডাউন, লিভারেজ, টানা লোকসান)।",
+      "accepting": "নতুন কপিকারী গ্রহণ",
+      "acceptingHint": "বন্ধ করলে নতুন কেউ কপি শুরু করতে পারবে না। বর্তমান কপিকারীরা প্রভাবিত হবেন না।",
+      "save": "পরিবর্তন সংরক্ষণ",
+      "publicFacts": "আপনার পাবলিক পেজে দেখানো হয়",
+      "assets": "সম্পদ",
+      "minCopy": "সর্বনিম্ন কপির পরিমাণ",
+      "profitShare": "মুনাফা ভাগ",
+      "editInSettings": "সেটিংসে সম্পদ, পরিমাণ ও হার সম্পাদনা করুন"
+    },
+    "announcements": {
+      "title": "ঘোষণা",
+      "err_empty": "আগে একটি বার্তা লিখুন।",
+      "err_failed": "ঘোষণা পাঠানো যায়নি।",
+      "sent": "ঘোষণা কপিকারীদের পাঠানো হয়েছে।",
+      "placeholder": "কপিকারীদের জন্য সংক্ষিপ্ত বার্তা (সর্বোচ্চ ২৮০ অক্ষর)",
+      "audience": "{count} জন সক্রিয় কপিকারীকে পাঠানো হবে।",
+      "send": "পাঠান",
+      "history": "আগের ঘোষণা",
+      "empty": "এখনও কোনো ঘোষণা নেই।",
+      "deleteConfirm": "ইতিহাস থেকে এই ঘোষণা মুছবেন?",
+      "delete": "মুছুন"
     }
   },
   "Metadata": {
@@ -1978,7 +2039,11 @@
     "tradesTitle": "Trades | Copy Matrix",
     "tradesDesc": "View your open and closed trades.",
     "leadPerformanceTitle": "পারফরম্যান্স | লিড ট্রেডার কেন্দ্র",
-    "leadPerformanceDesc": "আপনার অ্যাকাউন্টের রিটার্ন, সর্বোচ্চ ড্রডাউন, জয়ের হার ও ঝুঁকি স্কোর।"
+    "leadPerformanceDesc": "আপনার অ্যাকাউন্টের রিটার্ন, সর্বোচ্চ ড্রডাউন, জয়ের হার ও ঝুঁকি স্কোর।",
+    "leadProfileTitle": "পাবলিক প্রোফাইল | লিড ট্রেডার কেন্দ্র",
+    "leadProfileDesc": "কপিকারীরা আপনার পাবলিক পেজে যা দেখে তা সম্পাদনা করুন।",
+    "leadAnnouncementsTitle": "ঘোষণা | লিড ট্রেডার কেন্দ্র",
+    "leadAnnouncementsDesc": "সক্রিয় কপিকারীদের সংক্ষিপ্ত আপডেট পাঠান।"
   },
   "HomeFaq": {
     "title": "প্রায়শই জিজ্ঞাসিত প্রশ্ন",

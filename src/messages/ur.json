@@ -384,7 +384,17 @@
     "prefsLink": "Preferences",
     "leadPayoutApprovedTitle": "نکالنا منظور",
     "leadPayoutRejectedTitle": "نکالنا مسترد",
-    "leadPayoutBody": "آپ کی ${amount} کی نکالنے کی درخواست کا جائزہ لیا گیا۔"
+    "leadPayoutBody": "آپ کی ${amount} کی نکالنے کی درخواست کا جائزہ لیا گیا۔",
+    "leadNewCopierTitle": "نیا کاپی کرنے والا",
+    "leadNewCopierBody": "کسی نے ${amount} سے آپ کو کاپی کرنا شروع کیا۔",
+    "leadCopierStoppedTitle": "ایک کاپی کرنے والے نے روک دیا",
+    "leadCopierStoppedBody": "${amount} والے ایک کاپی کرنے والے نے کاپی بند کر دی۔",
+    "leadProfitPaidTitle": "منافع کی ادائیگی",
+    "leadProfitPaidBody": "${amount} منافع کا حصہ آپ کے بیلنس میں جمع ہوا۔",
+    "leadStatusChangedTitle": "اکاؤنٹ کی حالت بدل گئی",
+    "leadStatusChanged_active": "آپ کا لیڈ ٹریڈر اکاؤنٹ فعال ہے۔",
+    "leadStatusChanged_stopped": "آپ کے لیڈ ٹریڈر اکاؤنٹ پر ٹریڈنگ روک دی گئی ہے۔",
+    "leadStatusChanged_suspended": "آپ کا اکاؤنٹ معطل کر دیا گیا ہے۔ سپورٹ سے رابطہ کریں۔"
   },
   "Portfolio": {
     "title": "میرا پورٹ فولیو",
@@ -589,7 +599,9 @@
     "statAvgDuration": "Avg. trade duration",
     "hoursShort": "{hours}h",
     "statAum": "AUM (real accounts)",
-    "statProfitShare": "Profit share"
+    "statProfitShare": "Profit share",
+    "strategyTitle": "حکمت عملی",
+    "riskDisclosureTitle": "خطرے کا انکشاف"
   },
   "Discover": {
     "title": "ٹریڈرز دریافت کریں",
@@ -1671,7 +1683,9 @@
       "tasks": "Tasks",
       "settings": "Settings",
       "performance": "کارکردگی",
-      "earnings": "کمائی"
+      "earnings": "کمائی",
+      "profile": "عوامی پروفائل",
+      "announcements": "اعلانات"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1783,7 +1797,9 @@
       "joined": "شمولیت کی تاریخ",
       "prev": "پچھلا",
       "next": "اگلا",
-      "removeHasOpenPositions": "کھلی پوزیشنز ہونے پر ہٹایا نہیں جا سکتا۔"
+      "removeHasOpenPositions": "کھلی پوزیشنز ہونے پر ہٹایا نہیں جا سکتا۔",
+      "announcementsLink": "اپنے کاپی کرنے والوں کو اعلان بھیجیں ←",
+      "invitesStats": "{total} میں سے {used} دعوتیں استعمال ہوئیں"
     },
     "settlements": {
       "title": "Settlements",
@@ -1873,7 +1889,13 @@
       "style_session_trader": "Session trader",
       "style_moderate": "Moderate",
       "style_sporadic": "Occasional",
-      "endRoleHasOpenTrades": "You have open trades; close them all before ending your role."
+      "endRoleHasOpenTrades": "You have open trades; close them all before ending your role.",
+      "securityTitle": "سیکیورٹی",
+      "securityLastSeen": "آخری سرگرمی",
+      "securityLogins": "سائن اِن",
+      "securityAccount": "پاس ورڈ اور اکاؤنٹ کی تفصیل بدلیں",
+      "securityNotifications": "اطلاعات کی ترجیحات",
+      "securityNote": "رقم منتقل ہونے سے پہلے نکالنے کی درخواستوں کا جائزہ ہمیشہ ٹیم لیتی ہے۔"
     },
     "tasks": {
       "title": "Task center",
@@ -1910,6 +1932,45 @@
       "monthlyTitle": "ماہانہ منافع",
       "month": "مہینہ",
       "monthReturn": "منافع"
+    },
+    "profile": {
+      "title": "عوامی پروفائل",
+      "viewPublic": "عوامی صفحہ دیکھیں",
+      "err_saveFailed": "محفوظ نہیں ہو سکا۔ دوبارہ کوشش کریں۔",
+      "err_tooLong": "متن بہت لمبا ہے۔",
+      "err_avatarMissing": "پہلے تصویر منتخب کریں۔",
+      "err_avatarType": "صرف PNG، JPG یا WebP تصاویر۔",
+      "err_avatarSize": "تصویر 1 MB یا اس سے کم ہونی چاہیے۔",
+      "saved": "محفوظ ہو گیا۔",
+      "avatar": "پروفائل تصویر",
+      "avatarHint": "PNG، JPG یا WebP، زیادہ سے زیادہ 1 MB۔",
+      "upload": "اپ لوڈ",
+      "bio": "آپ کے بارے میں",
+      "strategy": "حکمت عملی کی تفصیل",
+      "strategyPlaceholder": "آپ ٹریڈز کیسے چنتے اور سنبھالتے ہیں؟",
+      "risk": "خطرے کا انکشاف",
+      "riskPlaceholder": "کاپی کرنے والوں کو بتائیں کہ کن خطرات کی توقع رکھیں (کمی، لیوریج، نقصان کا سلسلہ)۔",
+      "accepting": "نئے کاپی کرنے والے قبول کریں",
+      "acceptingHint": "نئے لوگوں کو کاپی شروع کرنے سے روکنے کے لیے بند کریں۔ موجودہ کاپی کرنے والے متاثر نہیں ہوتے۔",
+      "save": "تبدیلیاں محفوظ کریں",
+      "publicFacts": "آپ کے عوامی صفحے پر دکھایا جاتا ہے",
+      "assets": "اثاثے",
+      "minCopy": "کاپی کی کم از کم رقم",
+      "profitShare": "منافع میں حصہ",
+      "editInSettings": "اثاثے، رقوم اور شرحیں سیٹنگز میں بدلیں"
+    },
+    "announcements": {
+      "title": "اعلانات",
+      "err_empty": "پہلے پیغام لکھیں۔",
+      "err_failed": "اعلان نہیں بھیجا جا سکا۔",
+      "sent": "اعلان آپ کے کاپی کرنے والوں کو بھیج دیا گیا۔",
+      "placeholder": "اپنے کاپی کرنے والوں کے لیے مختصر پیغام (زیادہ سے زیادہ 280 حروف)",
+      "audience": "{count} فعال کاپی کرنے والوں کو بھیجا جائے گا۔",
+      "send": "بھیجیں",
+      "history": "پچھلے اعلانات",
+      "empty": "ابھی کوئی اعلان نہیں۔",
+      "deleteConfirm": "یہ اعلان ہسٹری سے حذف کریں؟",
+      "delete": "حذف کریں"
     }
   },
   "Metadata": {
@@ -1978,7 +2039,11 @@
     "tradesTitle": "Trades | Copy Matrix",
     "tradesDesc": "View your open and closed trades.",
     "leadPerformanceTitle": "کارکردگی | لیڈ ٹریڈر مرکز",
-    "leadPerformanceDesc": "آپ کے اکاؤنٹ کا منافع، زیادہ سے زیادہ کمی، کامیابی کی شرح اور خطرے کا اسکور۔"
+    "leadPerformanceDesc": "آپ کے اکاؤنٹ کا منافع، زیادہ سے زیادہ کمی، کامیابی کی شرح اور خطرے کا اسکور۔",
+    "leadProfileTitle": "عوامی پروفائل | لیڈ ٹریڈر مرکز",
+    "leadProfileDesc": "وہ مواد ایڈیٹ کریں جو کاپی کرنے والے آپ کے عوامی صفحے پر دیکھتے ہیں۔",
+    "leadAnnouncementsTitle": "اعلانات | لیڈ ٹریڈر مرکز",
+    "leadAnnouncementsDesc": "اپنے فعال کاپی کرنے والوں کو مختصر اطلاعات بھیجیں۔"
   },
   "HomeFaq": {
     "title": "اکثر پوچھے گئے سوالات",

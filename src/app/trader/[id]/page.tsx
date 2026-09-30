@@ -167,6 +167,9 @@ export default async function TraderPage({
   // in the database (provider_aum, 0195); 0 is shown as "—".
   const { data: aumRaw } = await supabase.rpc("provider_aum", { p_provider_id: id });
   const aum = Number(aumRaw ?? 0);
+  // Leader-written strategy / risk text (lead_trader_profiles, 0213); only
+  // self-service lead traders have a row, so this is null for everyone else.
+  const { data: ltPublic } = await supabase.from("lead_trader_profiles").select("strategy_description, risk_disclosure").eq("provider_id", id).maybeSingle();
   const profitShare = provider.profit_share_pct != null ? Number(provider.profit_share_pct) : null;
   const extraStats = computeStats(
     allSignals.flatMap((s) =>
@@ -288,6 +291,18 @@ export default async function TraderPage({
         </div>
 
         {provider.bio && <p className="text-sm text-muted">{translateBio(provider.bio)}</p>}
+        {ltPublic?.strategy_description && (
+          <div className="rounded-xl border border-border bg-surface p-3">
+            <p className="mb-1 text-xs font-semibold">{t("strategyTitle")}</p>
+            <p className="whitespace-pre-line text-sm text-muted">{ltPublic.strategy_description}</p>
+          </div>
+        )}
+        {ltPublic?.risk_disclosure && (
+          <div className="rounded-xl border border-warning/30 bg-warning/5 p-3">
+            <p className="mb-1 text-xs font-semibold text-warning">{t("riskDisclosureTitle")}</p>
+            <p className="whitespace-pre-line text-sm text-muted">{ltPublic.risk_disclosure}</p>
+          </div>
+        )}
 
         {/* The primary copy action -- amount input + "نسخ" button. Fixed
             to the bottom of the viewport on phones so it's always

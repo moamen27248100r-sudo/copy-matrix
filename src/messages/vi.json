@@ -384,7 +384,17 @@
     "prefsLink": "Preferences",
     "leadPayoutApprovedTitle": "Đã duyệt rút tiền",
     "leadPayoutRejectedTitle": "Rút tiền bị từ chối",
-    "leadPayoutBody": "Yêu cầu rút ${amount} của bạn đã được xem xét."
+    "leadPayoutBody": "Yêu cầu rút ${amount} của bạn đã được xem xét.",
+    "leadNewCopierTitle": "Người sao chép mới",
+    "leadNewCopierBody": "Có người bắt đầu sao chép bạn với ${amount}.",
+    "leadCopierStoppedTitle": "Một người đã ngừng sao chép",
+    "leadCopierStoppedBody": "Một người với ${amount} đã ngừng sao chép bạn.",
+    "leadProfitPaidTitle": "Thanh toán chia sẻ lợi nhuận",
+    "leadProfitPaidBody": "${amount} chia sẻ lợi nhuận đã được quyết toán vào số dư.",
+    "leadStatusChangedTitle": "Trạng thái tài khoản đã đổi",
+    "leadStatusChanged_active": "Tài khoản lead trader của bạn đang hoạt động.",
+    "leadStatusChanged_stopped": "Giao dịch trên tài khoản lead trader đã bị dừng.",
+    "leadStatusChanged_suspended": "Tài khoản của bạn đã bị đình chỉ. Hãy liên hệ hỗ trợ."
   },
   "Portfolio": {
     "title": "Danh mục của tôi",
@@ -589,7 +599,9 @@
     "statAvgDuration": "Avg. trade duration",
     "hoursShort": "{hours}h",
     "statAum": "AUM (real accounts)",
-    "statProfitShare": "Profit share"
+    "statProfitShare": "Profit share",
+    "strategyTitle": "Chiến lược",
+    "riskDisclosureTitle": "Công bố rủi ro"
   },
   "Discover": {
     "title": "Khám phá nhà giao dịch",
@@ -1671,7 +1683,9 @@
       "tasks": "Tasks",
       "settings": "Settings",
       "performance": "Hiệu suất",
-      "earnings": "Thu nhập"
+      "earnings": "Thu nhập",
+      "profile": "Hồ sơ công khai",
+      "announcements": "Thông báo"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1783,7 +1797,9 @@
       "joined": "Ngày tham gia",
       "prev": "Trước",
       "next": "Sau",
-      "removeHasOpenPositions": "Không thể xóa khi còn vị thế đang mở."
+      "removeHasOpenPositions": "Không thể xóa khi còn vị thế đang mở.",
+      "announcementsLink": "Gửi thông báo cho người sao chép →",
+      "invitesStats": "Đã dùng {used}/{total} lời mời"
     },
     "settlements": {
       "title": "Settlements",
@@ -1873,7 +1889,13 @@
       "style_session_trader": "Session trader",
       "style_moderate": "Moderate",
       "style_sporadic": "Occasional",
-      "endRoleHasOpenTrades": "You have open trades; close them all before ending your role."
+      "endRoleHasOpenTrades": "You have open trades; close them all before ending your role.",
+      "securityTitle": "Bảo mật",
+      "securityLastSeen": "Hoạt động gần nhất",
+      "securityLogins": "Lần đăng nhập",
+      "securityAccount": "Đổi mật khẩu và thông tin tài khoản",
+      "securityNotifications": "Tùy chọn thông báo",
+      "securityNote": "Yêu cầu rút luôn được đội ngũ xem xét trước khi tiền được chuyển."
     },
     "tasks": {
       "title": "Task center",
@@ -1910,6 +1932,45 @@
       "monthlyTitle": "Lợi nhuận hàng tháng",
       "month": "Tháng",
       "monthReturn": "Lợi nhuận"
+    },
+    "profile": {
+      "title": "Hồ sơ công khai",
+      "viewPublic": "Xem trang công khai",
+      "err_saveFailed": "Không lưu được. Hãy thử lại.",
+      "err_tooLong": "Văn bản quá dài.",
+      "err_avatarMissing": "Hãy chọn ảnh trước.",
+      "err_avatarType": "Chỉ hỗ trợ ảnh PNG, JPG hoặc WebP.",
+      "err_avatarSize": "Ảnh phải từ 1 MB trở xuống.",
+      "saved": "Đã lưu.",
+      "avatar": "Ảnh đại diện",
+      "avatarHint": "PNG, JPG hoặc WebP, tối đa 1 MB.",
+      "upload": "Tải lên",
+      "bio": "Giới thiệu",
+      "strategy": "Mô tả chiến lược",
+      "strategyPlaceholder": "Bạn chọn và quản lý giao dịch thế nào?",
+      "risk": "Công bố rủi ro",
+      "riskPlaceholder": "Cho người sao chép biết rủi ro cần lường trước (sụt giảm, đòn bẩy, chuỗi thua).",
+      "accepting": "Nhận người sao chép mới",
+      "acceptingHint": "Tắt để ngăn người mới bắt đầu sao chép. Người đang sao chép không bị ảnh hưởng.",
+      "save": "Lưu thay đổi",
+      "publicFacts": "Hiển thị trên trang công khai",
+      "assets": "Tài sản",
+      "minCopy": "Số tiền sao chép tối thiểu",
+      "profitShare": "Chia sẻ lợi nhuận",
+      "editInSettings": "Chỉnh sửa tài sản, số tiền và tỷ lệ trong Cài đặt"
+    },
+    "announcements": {
+      "title": "Thông báo",
+      "err_empty": "Hãy viết nội dung trước.",
+      "err_failed": "Không gửi được thông báo.",
+      "sent": "Đã gửi thông báo cho người sao chép.",
+      "placeholder": "Tin nhắn ngắn cho người sao chép (tối đa 280 ký tự)",
+      "audience": "Sẽ gửi tới {count} người sao chép đang hoạt động.",
+      "send": "Gửi",
+      "history": "Thông báo trước đây",
+      "empty": "Chưa có thông báo nào.",
+      "deleteConfirm": "Xóa thông báo này khỏi lịch sử?",
+      "delete": "Xóa"
     }
   },
   "Metadata": {
@@ -1978,7 +2039,11 @@
     "tradesTitle": "Trades | Copy Matrix",
     "tradesDesc": "View your open and closed trades.",
     "leadPerformanceTitle": "Hiệu suất | Trung tâm Lead Trader",
-    "leadPerformanceDesc": "Lợi nhuận, mức sụt giảm tối đa, tỷ lệ thắng và điểm rủi ro của tài khoản."
+    "leadPerformanceDesc": "Lợi nhuận, mức sụt giảm tối đa, tỷ lệ thắng và điểm rủi ro của tài khoản.",
+    "leadProfileTitle": "Hồ sơ công khai | Trung tâm Lead Trader",
+    "leadProfileDesc": "Chỉnh sửa nội dung người sao chép thấy trên trang công khai của bạn.",
+    "leadAnnouncementsTitle": "Thông báo | Trung tâm Lead Trader",
+    "leadAnnouncementsDesc": "Gửi cập nhật ngắn cho người sao chép đang hoạt động."
   },
   "HomeFaq": {
     "title": "Câu hỏi thường gặp",

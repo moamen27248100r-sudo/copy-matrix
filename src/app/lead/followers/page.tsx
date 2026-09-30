@@ -4,7 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { getOwnProviderId, currentTier } from "@/lib/lead-trader";
 import { computeActiveTradingDays } from "@/lib/reliability";
-import { removeFollower, createFollowerInvite, postAnnouncement } from "@/app/lead/followers/actions";
+import { removeFollower, createFollowerInvite } from "@/app/lead/followers/actions";
 import { setWhitelistEnabled } from "@/app/lead/followers/toggle-whitelist";
 
 const PAGE_SIZE = 20;
@@ -202,6 +202,7 @@ export default async function LeadFollowersPage({
 
       <section className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4">
         <h2 className="text-section-title">{t("invitesTitle")}</h2>
+        <p className="text-xs text-muted">{t("invitesStats", { used: (invites ?? []).filter((i) => i.used_by).length, total: (invites ?? []).length })}</p>
         <form action={createFollowerInvite} className="flex flex-wrap gap-2">
           <input name="email" type="email" placeholder={t("invitedEmailPlaceholder")} className="min-w-0 flex-1 rounded-lg border border-border bg-background px-3 py-2 text-base" />
           <button type="submit" className="rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-accent-foreground">
@@ -220,15 +221,9 @@ export default async function LeadFollowersPage({
         )}
       </section>
 
-      <section className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4">
-        <h2 className="text-section-title">{t("announcementTitle")}</h2>
-        <form action={postAnnouncement} className="flex flex-col gap-2">
-          <textarea name="body" rows={2} maxLength={280} placeholder={t("announcementPlaceholder")} className="rounded-lg border border-border bg-background px-3 py-2 text-base" />
-          <button type="submit" className="self-start rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-accent-foreground">
-            {t("sendAnnouncement")}
-          </button>
-        </form>
-      </section>
+      <Link href="/lead/announcements" className="text-sm text-accent hover:underline">
+        {t("announcementsLink")}
+      </Link>
     </div>
   );
 }

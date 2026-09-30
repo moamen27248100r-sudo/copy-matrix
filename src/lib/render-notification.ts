@@ -67,6 +67,14 @@ export function renderNotification(t: Translator, n: NotificationRow): { title: 
       return { title: t("walletDepositRejectedTitle"), body: t("walletRejectedBody") };
     case "wallet_withdrawal_rejected":
       return { title: t("walletWithdrawalRejectedTitle"), body: t("walletRejectedBody") };
+    case "lead_new_copier":
+      return { title: t("leadNewCopierTitle"), body: t("leadNewCopierBody", { amount: Number(d.amount ?? 0) }) };
+    case "lead_copier_stopped":
+      return { title: t("leadCopierStoppedTitle"), body: t("leadCopierStoppedBody", { amount: Number(d.amount ?? 0) }) };
+    case "lead_profit_paid":
+      return { title: t("leadProfitPaidTitle"), body: t("leadProfitPaidBody", { amount: Number(d.amount ?? 0) }) };
+    case "lead_status_changed":
+      return { title: t("leadStatusChangedTitle"), body: t(`leadStatusChanged_${String(d.status ?? "active")}`) };
     case "lead_payout_reviewed":
       return { title: t(d.approved ? "leadPayoutApprovedTitle" : "leadPayoutRejectedTitle"), body: t("leadPayoutBody", { amount: Number(d.amount ?? 0) }) };
     default:

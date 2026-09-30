@@ -384,7 +384,17 @@
     "prefsLink": "Preferences",
     "leadPayoutApprovedTitle": "Saque aprovado",
     "leadPayoutRejectedTitle": "Saque recusado",
-    "leadPayoutBody": "Seu pedido de saque de US${amount} foi analisado."
+    "leadPayoutBody": "Seu pedido de saque de US${amount} foi analisado.",
+    "leadNewCopierTitle": "Novo copiador",
+    "leadNewCopierBody": "Alguém começou a copiar você com US${amount}.",
+    "leadCopierStoppedTitle": "Um copiador parou",
+    "leadCopierStoppedBody": "Um copiador com US${amount} parou de copiar você.",
+    "leadProfitPaidTitle": "Pagamento de participação",
+    "leadProfitPaidBody": "US${amount} de participação foram creditados no seu saldo.",
+    "leadStatusChangedTitle": "Status da conta alterado",
+    "leadStatusChanged_active": "Sua conta de líder está ativa.",
+    "leadStatusChanged_stopped": "A negociação da sua conta de líder foi interrompida.",
+    "leadStatusChanged_suspended": "Sua conta foi suspensa. Fale com o suporte."
   },
   "Portfolio": {
     "title": "Minha carteira",
@@ -589,7 +599,9 @@
     "statAvgDuration": "Avg. trade duration",
     "hoursShort": "{hours}h",
     "statAum": "AUM (real accounts)",
-    "statProfitShare": "Profit share"
+    "statProfitShare": "Profit share",
+    "strategyTitle": "Estratégia",
+    "riskDisclosureTitle": "Aviso de risco"
   },
   "Discover": {
     "title": "Descobrir traders",
@@ -1674,7 +1686,9 @@
       "tasks": "Tasks",
       "settings": "Settings",
       "performance": "Desempenho",
-      "earnings": "Ganhos"
+      "earnings": "Ganhos",
+      "profile": "Perfil público",
+      "announcements": "Anúncios"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1786,7 +1800,9 @@
       "joined": "Entrou em",
       "prev": "Anterior",
       "next": "Próxima",
-      "removeHasOpenPositions": "Não é possível remover enquanto houver posições abertas."
+      "removeHasOpenPositions": "Não é possível remover enquanto houver posições abertas.",
+      "announcementsLink": "Enviar um anúncio aos seus copiadores →",
+      "invitesStats": "{used} de {total} convites usados"
     },
     "settlements": {
       "title": "Settlements",
@@ -1876,7 +1892,13 @@
       "style_session_trader": "Session trader",
       "style_moderate": "Moderate",
       "style_sporadic": "Occasional",
-      "endRoleHasOpenTrades": "You have open trades; close them all before ending your role."
+      "endRoleHasOpenTrades": "You have open trades; close them all before ending your role.",
+      "securityTitle": "Segurança",
+      "securityLastSeen": "Última atividade",
+      "securityLogins": "Logins",
+      "securityAccount": "Alterar senha e dados da conta",
+      "securityNotifications": "Preferências de notificação",
+      "securityNote": "Os pedidos de saque são sempre revisados pela equipe antes de qualquer movimentação."
     },
     "tasks": {
       "title": "Task center",
@@ -1913,6 +1935,45 @@
       "monthlyTitle": "Retornos mensais",
       "month": "Mês",
       "monthReturn": "Retorno"
+    },
+    "profile": {
+      "title": "Perfil público",
+      "viewPublic": "Ver página pública",
+      "err_saveFailed": "Não foi possível salvar. Tente novamente.",
+      "err_tooLong": "O texto é muito longo.",
+      "err_avatarMissing": "Escolha uma imagem primeiro.",
+      "err_avatarType": "Somente imagens PNG, JPG ou WebP.",
+      "err_avatarSize": "A imagem deve ter no máximo 1 MB.",
+      "saved": "Salvo.",
+      "avatar": "Foto de perfil",
+      "avatarHint": "PNG, JPG ou WebP, até 1 MB.",
+      "upload": "Enviar",
+      "bio": "Sobre você",
+      "strategy": "Descrição da estratégia",
+      "strategyPlaceholder": "Como você escolhe e gerencia suas operações?",
+      "risk": "Aviso de risco",
+      "riskPlaceholder": "Diga aos copiadores quais riscos esperar (quedas, alavancagem, sequências de perdas).",
+      "accepting": "Aceitando novos copiadores",
+      "acceptingHint": "Desative para impedir novos copiadores. Os atuais não são afetados.",
+      "save": "Salvar alterações",
+      "publicFacts": "Exibido na sua página pública",
+      "assets": "Ativos",
+      "minCopy": "Valor mínimo de cópia",
+      "profitShare": "Participação nos lucros",
+      "editInSettings": "Edite ativos, valores e taxas em Configurações"
+    },
+    "announcements": {
+      "title": "Anúncios",
+      "err_empty": "Escreva uma mensagem primeiro.",
+      "err_failed": "Não foi possível enviar o anúncio.",
+      "sent": "Anúncio enviado aos seus copiadores.",
+      "placeholder": "Uma mensagem curta para seus copiadores (máx. 280 caracteres)",
+      "audience": "Será enviado a {count} copiadores ativos.",
+      "send": "Enviar",
+      "history": "Anúncios anteriores",
+      "empty": "Ainda não há anúncios.",
+      "deleteConfirm": "Excluir este anúncio do histórico?",
+      "delete": "Excluir"
     }
   },
   "Metadata": {
@@ -1981,7 +2042,11 @@
     "tradesTitle": "Trades | Copy Matrix",
     "tradesDesc": "View your open and closed trades.",
     "leadPerformanceTitle": "Desempenho | Centro do líder",
-    "leadPerformanceDesc": "Retorno, drawdown, taxa de acerto e nível de risco da sua conta."
+    "leadPerformanceDesc": "Retorno, drawdown, taxa de acerto e nível de risco da sua conta.",
+    "leadProfileTitle": "Perfil público | Centro do líder",
+    "leadProfileDesc": "Edite o que os copiadores veem na sua página pública.",
+    "leadAnnouncementsTitle": "Anúncios | Centro do líder",
+    "leadAnnouncementsDesc": "Envie avisos curtos aos seus copiadores ativos."
   },
   "HomeFaq": {
     "title": "Perguntas frequentes",

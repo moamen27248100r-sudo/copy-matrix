@@ -984,6 +984,7 @@ export async function applyLeadTraderSettlements(formData: FormData) {
   const admin = createAdminClient();
   const { data: provider } = await supabase.from("providers").select("user_id").eq("id", providerId).single();
   let settledCount = 0;
+  let settledTotal = 0;
 
   for (const row of pending ?? []) {
     const { data: followerProfile } = await admin.from("profiles").select("balance, account_type").eq("id", row.follower_id).single();
@@ -1005,6 +1006,11 @@ export async function applyLeadTraderSettlements(formData: FormData) {
 
     await admin.from("profit_share_ledger").update({ status: "settled", settled_at: new Date().toISOString() }).eq("id", row.id);
     settledCount += 1;
+    settledTotal += amount;
+  }
+
+  if (settledCount > 0 && provider?.user_id) {
+    await admin.from("notifications").insert({ user_id: provider.user_id, type: "lead_profit_paid", title: "دفعة أرباح جديدة", body: null, data: { amount: Math.round(settledTotal * 100) / 100 } });
   }
 
   await logAdminAction(supabase, adminId, "apply_lead_trader_settlements", "provider", providerId, { settledCount });

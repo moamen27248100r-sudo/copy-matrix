@@ -19,6 +19,9 @@ const nextConfig: NextConfig = {
   // Pin the workspace root to this project (a stray package-lock.json higher up
   // the tree otherwise triggers a warning on every build).
   turbopack: { root: configDir },
+  // Leader avatars are capped at 1 MB; the default 1 MB action body limit
+  // would reject a file near that size once multipart overhead is added.
+  experimental: { serverActions: { bodySizeLimit: "2mb" } },
 };
 
 export default withNextIntl(nextConfig);

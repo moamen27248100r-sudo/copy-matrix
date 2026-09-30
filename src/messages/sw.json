@@ -384,7 +384,17 @@
     "prefsLink": "Preferences",
     "leadPayoutApprovedTitle": "Utoaji umeidhinishwa",
     "leadPayoutRejectedTitle": "Utoaji umekataliwa",
-    "leadPayoutBody": "Ombi lako la kutoa ${amount} limekaguliwa."
+    "leadPayoutBody": "Ombi lako la kutoa ${amount} limekaguliwa.",
+    "leadNewCopierTitle": "Mnakili mpya",
+    "leadNewCopierBody": "Mtu ameanza kukunakili kwa ${amount}.",
+    "leadCopierStoppedTitle": "Mnakili ameacha",
+    "leadCopierStoppedBody": "Mnakili mwenye ${amount} ameacha kukunakili.",
+    "leadProfitPaidTitle": "Malipo ya mgao wa faida",
+    "leadProfitPaidBody": "Mgao wa faida wa ${amount} umewekwa kwenye salio lako.",
+    "leadStatusChangedTitle": "Hali ya akaunti imebadilika",
+    "leadStatusChanged_active": "Akaunti yako ya kiongozi inatumika.",
+    "leadStatusChanged_stopped": "Biashara kwenye akaunti yako ya kiongozi imesimamishwa.",
+    "leadStatusChanged_suspended": "Akaunti yako imesimamishwa. Wasiliana na msaada."
   },
   "Portfolio": {
     "title": "Jalada Langu",
@@ -589,7 +599,9 @@
     "statAvgDuration": "Avg. trade duration",
     "hoursShort": "{hours}h",
     "statAum": "AUM (real accounts)",
-    "statProfitShare": "Profit share"
+    "statProfitShare": "Profit share",
+    "strategyTitle": "Mkakati",
+    "riskDisclosureTitle": "Ufichuzi wa hatari"
   },
   "Discover": {
     "title": "Gundua wafanyabiashara",
@@ -1671,7 +1683,9 @@
       "tasks": "Tasks",
       "settings": "Settings",
       "performance": "Utendaji",
-      "earnings": "Mapato"
+      "earnings": "Mapato",
+      "profile": "Wasifu wa umma",
+      "announcements": "Matangazo"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1783,7 +1797,9 @@
       "joined": "Alijiunga",
       "prev": "Iliyopita",
       "next": "Inayofuata",
-      "removeHasOpenPositions": "Haiwezi kuondolewa ikiwa ana nafasi wazi."
+      "removeHasOpenPositions": "Haiwezi kuondolewa ikiwa ana nafasi wazi.",
+      "announcementsLink": "Tuma tangazo kwa wanakili wako →",
+      "invitesStats": "Mialiko {used} kati ya {total} imetumika"
     },
     "settlements": {
       "title": "Settlements",
@@ -1873,7 +1889,13 @@
       "style_session_trader": "Session trader",
       "style_moderate": "Moderate",
       "style_sporadic": "Occasional",
-      "endRoleHasOpenTrades": "You have open trades; close them all before ending your role."
+      "endRoleHasOpenTrades": "You have open trades; close them all before ending your role.",
+      "securityTitle": "Usalama",
+      "securityLastSeen": "Shughuli ya mwisho",
+      "securityLogins": "Uingiaji",
+      "securityAccount": "Badilisha nenosiri na maelezo ya akaunti",
+      "securityNotifications": "Mapendeleo ya arifa",
+      "securityNote": "Maombi ya kutoa hukaguliwa na timu kabla ya pesa kuhamishwa."
     },
     "tasks": {
       "title": "Task center",
@@ -1910,6 +1932,45 @@
       "monthlyTitle": "Faida ya kila mwezi",
       "month": "Mwezi",
       "monthReturn": "Faida"
+    },
+    "profile": {
+      "title": "Wasifu wa umma",
+      "viewPublic": "Tazama ukurasa wa umma",
+      "err_saveFailed": "Imeshindwa kuhifadhi. Jaribu tena.",
+      "err_tooLong": "Maandishi ni marefu sana.",
+      "err_avatarMissing": "Chagua picha kwanza.",
+      "err_avatarType": "Picha za PNG, JPG au WebP pekee.",
+      "err_avatarSize": "Picha iwe MB 1 au chini.",
+      "saved": "Imehifadhiwa.",
+      "avatar": "Picha ya wasifu",
+      "avatarHint": "PNG, JPG au WebP, hadi MB 1.",
+      "upload": "Pakia",
+      "bio": "Kukuhusu",
+      "strategy": "Maelezo ya mkakati",
+      "strategyPlaceholder": "Unachaguaje na kusimamia biashara?",
+      "risk": "Ufichuzi wa hatari",
+      "riskPlaceholder": "Waambie wanakili hatari za kutarajia (upungufu, mkopo, mfululizo wa hasara).",
+      "accepting": "Kupokea wanakili wapya",
+      "acceptingHint": "Zima ili kuzuia wapya kuanza kukunakili. Wanakili wa sasa hawaathiriwi.",
+      "save": "Hifadhi mabadiliko",
+      "publicFacts": "Huonyeshwa kwenye ukurasa wako wa umma",
+      "assets": "Mali",
+      "minCopy": "Kiwango cha chini cha kunakili",
+      "profitShare": "Mgao wa faida",
+      "editInSettings": "Hariri mali, kiasi na viwango kwenye Mipangilio"
+    },
+    "announcements": {
+      "title": "Matangazo",
+      "err_empty": "Andika ujumbe kwanza.",
+      "err_failed": "Imeshindwa kutuma tangazo.",
+      "sent": "Tangazo limetumwa kwa wanakili wako.",
+      "placeholder": "Ujumbe mfupi kwa wanakili wako (herufi 280 juu)",
+      "audience": "Itatumwa kwa wanakili {count} hai.",
+      "send": "Tuma",
+      "history": "Matangazo ya awali",
+      "empty": "Hakuna matangazo bado.",
+      "deleteConfirm": "Futa tangazo hili kwenye historia?",
+      "delete": "Futa"
     }
   },
   "Metadata": {
@@ -1978,7 +2039,11 @@
     "tradesTitle": "Trades | Copy Matrix",
     "tradesDesc": "View your open and closed trades.",
     "leadPerformanceTitle": "Utendaji | Kituo cha Kiongozi",
-    "leadPerformanceDesc": "Faida, upungufu mkubwa, kiwango cha ushindi na alama ya hatari ya akaunti yako."
+    "leadPerformanceDesc": "Faida, upungufu mkubwa, kiwango cha ushindi na alama ya hatari ya akaunti yako.",
+    "leadProfileTitle": "Wasifu wa umma | Kituo cha Kiongozi",
+    "leadProfileDesc": "Hariri wanachoona wanakili kwenye ukurasa wako wa umma.",
+    "leadAnnouncementsTitle": "Matangazo | Kituo cha Kiongozi",
+    "leadAnnouncementsDesc": "Tuma taarifa fupi kwa wanakili wako hai."
   },
   "HomeFaq": {
     "title": "Maswali yanayoulizwa mara kwa mara",

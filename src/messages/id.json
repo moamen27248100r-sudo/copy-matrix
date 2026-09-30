@@ -384,7 +384,17 @@
     "prefsLink": "Preferences",
     "leadPayoutApprovedTitle": "Penarikan disetujui",
     "leadPayoutRejectedTitle": "Penarikan ditolak",
-    "leadPayoutBody": "Permintaan penarikan ${amount} Anda telah ditinjau."
+    "leadPayoutBody": "Permintaan penarikan ${amount} Anda telah ditinjau.",
+    "leadNewCopierTitle": "Peniru baru",
+    "leadNewCopierBody": "Seseorang mulai meniru Anda dengan ${amount}.",
+    "leadCopierStoppedTitle": "Seorang peniru berhenti",
+    "leadCopierStoppedBody": "Peniru dengan ${amount} berhenti meniru Anda.",
+    "leadProfitPaidTitle": "Pembayaran bagi hasil",
+    "leadProfitPaidBody": "Bagi hasil ${amount} telah masuk ke saldo Anda.",
+    "leadStatusChangedTitle": "Status akun berubah",
+    "leadStatusChanged_active": "Akun lead trader Anda aktif.",
+    "leadStatusChanged_stopped": "Trading pada akun lead trader Anda dihentikan.",
+    "leadStatusChanged_suspended": "Akun Anda ditangguhkan. Hubungi dukungan."
   },
   "Portfolio": {
     "title": "Portofolio Saya",
@@ -589,7 +599,9 @@
     "statAvgDuration": "Avg. trade duration",
     "hoursShort": "{hours}h",
     "statAum": "AUM (real accounts)",
-    "statProfitShare": "Profit share"
+    "statProfitShare": "Profit share",
+    "strategyTitle": "Strategi",
+    "riskDisclosureTitle": "Pengungkapan risiko"
   },
   "Discover": {
     "title": "Temukan trader",
@@ -1671,7 +1683,9 @@
       "tasks": "Tasks",
       "settings": "Settings",
       "performance": "Kinerja",
-      "earnings": "Pendapatan"
+      "earnings": "Pendapatan",
+      "profile": "Profil publik",
+      "announcements": "Pengumuman"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1783,7 +1797,9 @@
       "joined": "Bergabung",
       "prev": "Sebelumnya",
       "next": "Berikutnya",
-      "removeHasOpenPositions": "Tidak dapat dihapus selama masih ada posisi terbuka."
+      "removeHasOpenPositions": "Tidak dapat dihapus selama masih ada posisi terbuka.",
+      "announcementsLink": "Kirim pengumuman ke peniru Anda →",
+      "invitesStats": "{used} dari {total} undangan terpakai"
     },
     "settlements": {
       "title": "Settlements",
@@ -1873,7 +1889,13 @@
       "style_session_trader": "Session trader",
       "style_moderate": "Moderate",
       "style_sporadic": "Occasional",
-      "endRoleHasOpenTrades": "You have open trades; close them all before ending your role."
+      "endRoleHasOpenTrades": "You have open trades; close them all before ending your role.",
+      "securityTitle": "Keamanan",
+      "securityLastSeen": "Aktivitas terakhir",
+      "securityLogins": "Masuk",
+      "securityAccount": "Ubah kata sandi & detail akun",
+      "securityNotifications": "Preferensi notifikasi",
+      "securityNote": "Permintaan penarikan selalu ditinjau tim sebelum dana berpindah."
     },
     "tasks": {
       "title": "Task center",
@@ -1910,6 +1932,45 @@
       "monthlyTitle": "Imbal hasil bulanan",
       "month": "Bulan",
       "monthReturn": "Imbal hasil"
+    },
+    "profile": {
+      "title": "Profil publik",
+      "viewPublic": "Lihat halaman publik",
+      "err_saveFailed": "Gagal menyimpan. Coba lagi.",
+      "err_tooLong": "Teks terlalu panjang.",
+      "err_avatarMissing": "Pilih gambar terlebih dahulu.",
+      "err_avatarType": "Hanya gambar PNG, JPG, atau WebP.",
+      "err_avatarSize": "Ukuran gambar maksimal 1 MB.",
+      "saved": "Tersimpan.",
+      "avatar": "Foto profil",
+      "avatarHint": "PNG, JPG, atau WebP, maks. 1 MB.",
+      "upload": "Unggah",
+      "bio": "Tentang Anda",
+      "strategy": "Deskripsi strategi",
+      "strategyPlaceholder": "Bagaimana Anda memilih dan mengelola transaksi?",
+      "risk": "Pengungkapan risiko",
+      "riskPlaceholder": "Beri tahu peniru risiko yang mungkin terjadi (drawdown, leverage, rentetan kerugian).",
+      "accepting": "Menerima peniru baru",
+      "acceptingHint": "Matikan agar tidak ada peniru baru. Peniru saat ini tidak terpengaruh.",
+      "save": "Simpan perubahan",
+      "publicFacts": "Ditampilkan di halaman publik Anda",
+      "assets": "Aset",
+      "minCopy": "Jumlah salin minimum",
+      "profitShare": "Bagi hasil",
+      "editInSettings": "Ubah aset, jumlah, dan persentase di Pengaturan"
+    },
+    "announcements": {
+      "title": "Pengumuman",
+      "err_empty": "Tulis pesan terlebih dahulu.",
+      "err_failed": "Gagal mengirim pengumuman.",
+      "sent": "Pengumuman terkirim ke peniru Anda.",
+      "placeholder": "Pesan singkat untuk peniru Anda (maks. 280 karakter)",
+      "audience": "Akan dikirim ke {count} peniru aktif.",
+      "send": "Kirim",
+      "history": "Pengumuman sebelumnya",
+      "empty": "Belum ada pengumuman.",
+      "deleteConfirm": "Hapus pengumuman ini dari riwayat?",
+      "delete": "Hapus"
     }
   },
   "Metadata": {
@@ -1978,7 +2039,11 @@
     "tradesTitle": "Trades | Copy Matrix",
     "tradesDesc": "View your open and closed trades.",
     "leadPerformanceTitle": "Kinerja | Pusat Lead Trader",
-    "leadPerformanceDesc": "Imbal hasil, drawdown, rasio menang, dan skor risiko akun Anda."
+    "leadPerformanceDesc": "Imbal hasil, drawdown, rasio menang, dan skor risiko akun Anda.",
+    "leadProfileTitle": "Profil publik | Pusat Lead Trader",
+    "leadProfileDesc": "Ubah apa yang dilihat peniru di halaman publik Anda.",
+    "leadAnnouncementsTitle": "Pengumuman | Pusat Lead Trader",
+    "leadAnnouncementsDesc": "Kirim pembaruan singkat ke peniru aktif Anda."
   },
   "HomeFaq": {
     "title": "Pertanyaan yang sering diajukan",

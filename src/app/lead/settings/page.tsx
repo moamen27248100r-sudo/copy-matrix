@@ -6,6 +6,10 @@ import { computeActiveTradingDays } from "@/lib/reliability";
 import { LEAD_TRADER_MARKETS, LEAD_TRADER_STYLES } from "@/config/lead-trader";
 import { updateLeadTraderSettings, endLeadTraderRole } from "@/app/lead/settings/actions";
 import { ConfirmButton } from "@/components/ConfirmButton";
+import Link from "next/link";
+import { getLocale } from "next-intl/server";
+import { formatDateTime } from "@/lib/locale-format";
+import type { Locale } from "@/i18n/locales";
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
@@ -28,12 +32,14 @@ export default async function LeadSettingsPage({
   const providerId = await getOwnProviderId(supabase, user.id);
   if (!providerId) redirect("/become-lead-trader");
 
-  const [{ data: provider }, { data: ltProfile }, { data: application }, { data: subs }, { data: signals }] = await Promise.all([
+  const locale = (await getLocale()) as Locale;
+  const [{ data: provider }, { data: ltProfile }, { data: application }, { data: subs }, { data: signals }, { data: me }] = await Promise.all([
     supabase.from("providers").select("display_name, bio, symbol_bias, min_copy_amount, profit_share_pct").eq("id", providerId).single(),
     supabase.from("lead_trader_profiles").select("min_investment, hide_country, trade_protection, accepting_followers").eq("provider_id", providerId).maybeSingle(),
     supabase.from("lead_trader_applications").select("contact_info, trading_style").eq("user_id", user.id).eq("status", "approved").order("submitted_at", { ascending: false }).limit(1).maybeSingle(),
     supabase.from("subscriptions").select("allocated_amount, is_active").eq("provider_id", providerId),
     supabase.from("signals").select("opened_at, status").eq("provider_id", providerId).eq("created_by_admin", false),
+    supabase.from("profiles").select("last_seen_at, login_count").eq("id", user.id).single(),
   ]);
 
   const aum = (subs ?? []).filter((s) => s.is_active).reduce((sum, s) => sum + Number(s.allocated_amount), 0);
@@ -114,6 +120,22 @@ export default async function LeadSettingsPage({
           {t("save")}
         </button>
       </form>
+
+      <section className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-5">
+        <h2 className="text-section-title">{t("securityTitle")}</h2>
+        <p className="text-sm text-muted">
+          {t("securityLastSeen")}: {me?.last_seen_at ? formatDateTime(me.last_seen_at, locale) : "—"} · {t("securityLogins")}: {me?.login_count ?? 0}
+        </p>
+        <div className="flex flex-wrap gap-3 text-sm">
+          <Link href="/settings" className="text-accent hover:underline">
+            {t("securityAccount")}
+          </Link>
+          <Link href="/notifications/preferences" className="text-accent hover:underline">
+            {t("securityNotifications")}
+          </Link>
+        </div>
+        <p className="text-xs text-muted">{t("securityNote")}</p>
+      </section>
 
       <section className="flex flex-col gap-3 rounded-2xl border border-danger/30 bg-danger/5 p-5">
         <h2 className="text-section-title text-danger">{t("endRoleTitle")}</h2>
