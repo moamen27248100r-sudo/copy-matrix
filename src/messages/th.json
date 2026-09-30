@@ -8,20 +8,20 @@
       "faq": "คำถามที่พบบ่อย",
       "login": "เข้าสู่ระบบ",
       "signup": "สมัครสมาชิก",
-      "menu": "Menu"
+      "menu": "เมนู"
     },
     "hero": {
       "title": "คัดลอกการเทรดของ<accent>เทรดเดอร์ที่ดีที่สุด</accent>โดยอัตโนมัติ",
-      "subtitle": "Browse traders' performance records and pick the one you trust to copy.",
+      "subtitle": "ดูประวัติผลงานของเทรดเดอร์ แล้วเลือกคนที่คุณไว้ใจเพื่อคัดลอกการเทรด",
       "start": "เริ่มเลย",
       "browse": "เรียกดูเทรดเดอร์",
-      "trust0": "No subscription fees or hidden commissions",
+      "trust0": "ไม่มีค่าสมัครสมาชิกหรือค่าคอมมิชชันแอบแฝง",
       "trust1": "หยุดคัดลอกเทรดเดอร์คนใดก็ได้ทันที ทุกเมื่อ",
-      "trust2": "An automatic loss limit on every copy",
+      "trust2": "ขีดจำกัดการขาดทุนอัตโนมัติในทุกการคัดลอก",
       "imageAlt": "ภาพหน้าจอแอป Copy Matrix แสดงการเทรดสดและฟีเจอร์ต่างๆ ของแพลตฟอร์ม",
-      "trustShort0": "No hidden fees",
-      "trustShort1": "Stop anytime",
-      "trustShort2": "Auto loss limit"
+      "trustShort0": "ไม่มีค่าธรรมเนียมแอบแฝง",
+      "trustShort1": "หยุดได้ทุกเมื่อ",
+      "trustShort2": "ขีดจำกัดขาดทุนอัตโนมัติ"
     },
     "highlights": [
       {
@@ -175,10 +175,10 @@
       "card3Desc": "ทุกการเทรดและทุกผลลัพธ์ของเทรดเดอร์แต่ละคนถูกบันทึกไว้อย่างชัดเจนต่อหน้าคุณ — ตรวจสอบประวัติทั้งหมดก่อนคัดลอก"
     },
     "trustStrip": {
-      "demoTitle": "Free demo account",
-      "demoDesc": "No real risk at all",
-      "stopLossTitle": "Automatic loss limit on every copy",
-      "stopLossDesc": "Copying stops when the loss limit is reached"
+      "demoTitle": "บัญชีทดลองฟรี",
+      "demoDesc": "ไม่มีความเสี่ยงจริงเลย",
+      "stopLossTitle": "ขีดจำกัดการขาดทุนอัตโนมัติในทุกการคัดลอก",
+      "stopLossDesc": "การคัดลอกจะหยุดเมื่อถึงขีดจำกัดการขาดทุน"
     },
     "traderPosts": {
       "title": "อัปเดตล่าสุดจากเทรดเดอร์",
@@ -191,10 +191,10 @@
       "cta": "Open a demo account",
       "cardWelcome": "บัญชีทดลองฟรีของคุณ",
       "cardPortfolioLabel": "มูลค่าพอร์ตทดลอง",
-      "cardTopLabel": "Top traders by return (daily average)",
+      "cardTopLabel": "เทรดเดอร์ผลตอบแทนสูงสุด (เฉลี่ยรายวัน)",
       "live": "ข้อมูลสด"
     },
-    "metaTitle": "Copy Matrix — Automatically copy the best traders' trades"
+    "metaTitle": "Copy Matrix — คัดลอกการเทรดของเทรดเดอร์ชั้นนำโดยอัตโนมัติ"
   },
   "Nav": {
     "createAccount": "สมัครสมาชิก",
@@ -312,7 +312,7 @@
     "riskProtectionLabel": "การปกป้องยอดคงเหลือจากการขาดทุน",
     "riskProtectionUsed": "{pct}% จาก {maxPct}%",
     "stopCopying": "หยุดคัดลอก",
-    "stopCopyingConfirm": "Open trades for this copy will be closed and copying will stop immediately.",
+    "stopCopyingConfirm": "ออเดอร์ที่เปิดอยู่ของการคัดลอกนี้จะถูกปิดและหยุดคัดลอกทันที",
     "greetingMorning": "อรุณสวัสดิ์ {name}",
     "greetingEvening": "สวัสดีตอนเย็น {name}",
     "demoBannerTitle": "ลองมามากพอหรือยัง?",
@@ -659,7 +659,7 @@
     "compareTrades": "Closed trades",
     "showingOf": "Showing {shown} of {total}",
     "showMore": "Show more",
-    "maxDrawdown": "Max drawdown"
+    "maxDrawdown": "ดรอว์ดาวน์สูงสุด"
   },
   "Countries": {
     "US": "สหรัฐอเมริกา",
@@ -1253,7 +1253,7 @@
           "ยกเลิกการคัดลอก",
           "หยุดการคัดลอก"
         ],
-        "answer": "Open “My copies” and press “Stop copying”. Open trades are closed and copying stops immediately."
+        "answer": "เปิด «การคัดลอกของฉัน» แล้วกด «หยุดคัดลอก» ออเดอร์ที่เปิดอยู่จะถูกปิดและหยุดคัดลอกทันที"
       },
       {
         "id": "risk-level",

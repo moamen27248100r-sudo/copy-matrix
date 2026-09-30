@@ -8,20 +8,20 @@
       "faq": "Preguntas frecuentes",
       "login": "Iniciar sesión",
       "signup": "Registrarse",
-      "menu": "Menu"
+      "menu": "Menú"
     },
     "hero": {
       "title": "Copia automáticamente las operaciones de los <accent>mejores traders</accent>",
-      "subtitle": "Browse traders' performance records and pick the one you trust to copy.",
+      "subtitle": "Explora los historiales de rendimiento de los traders y elige en quién confías para copiar sus operaciones.",
       "start": "Comenzar",
       "browse": "Explorar traders",
-      "trust0": "No subscription fees or hidden commissions",
+      "trust0": "Sin cuotas de suscripción ni comisiones ocultas",
       "trust1": "Deja de copiar a cualquier trader al instante, en cualquier momento",
-      "trust2": "An automatic loss limit on every copy",
+      "trust2": "Un límite de pérdida automático en cada copia",
       "imageAlt": "Captura de pantalla de la app Copy Matrix mostrando una operación en vivo y las funciones de la plataforma",
-      "trustShort0": "No hidden fees",
-      "trustShort1": "Stop anytime",
-      "trustShort2": "Auto loss limit"
+      "trustShort0": "Sin cargos ocultos",
+      "trustShort1": "Detén cuando quieras",
+      "trustShort2": "Límite de pérdida auto"
     },
     "highlights": [
       {
@@ -175,10 +175,10 @@
       "card3Desc": "Cada operación y cada resultado de cada trader están documentados y claramente visibles: revisa todo su historial antes de copiarlo."
     },
     "trustStrip": {
-      "demoTitle": "Free demo account",
-      "demoDesc": "No real risk at all",
-      "stopLossTitle": "Automatic loss limit on every copy",
-      "stopLossDesc": "Copying stops when the loss limit is reached"
+      "demoTitle": "Cuenta demo gratis",
+      "demoDesc": "Sin ningún riesgo real",
+      "stopLossTitle": "Límite de pérdida automático en cada copia",
+      "stopLossDesc": "La copia se detiene al alcanzar el límite de pérdida"
     },
     "traderPosts": {
       "title": "Últimas actualizaciones de traders",
@@ -191,10 +191,10 @@
       "cta": "Open a demo account",
       "cardWelcome": "Tu cuenta demo gratuita",
       "cardPortfolioLabel": "Valor de la cartera demo",
-      "cardTopLabel": "Top traders by return (daily average)",
+      "cardTopLabel": "Mejores traders por rentabilidad (promedio diario)",
       "live": "Datos en vivo"
     },
-    "metaTitle": "Copy Matrix — Automatically copy the best traders' trades"
+    "metaTitle": "Copy Matrix — Copia automáticamente las operaciones de los mejores traders"
   },
   "Nav": {
     "createAccount": "Registrarse",
@@ -312,7 +312,7 @@
     "riskProtectionLabel": "Protección del saldo contra pérdidas",
     "riskProtectionUsed": "{pct}% de {maxPct}%",
     "stopCopying": "Dejar de copiar",
-    "stopCopyingConfirm": "Open trades for this copy will be closed and copying will stop immediately.",
+    "stopCopyingConfirm": "Se cerrarán las operaciones abiertas de esta copia y la copia se detendrá de inmediato.",
     "greetingMorning": "Buenos días, {name}",
     "greetingEvening": "Buenas tardes, {name}",
     "demoBannerTitle": "¿Ya probaste suficiente?",
@@ -659,7 +659,7 @@
     "compareTrades": "Closed trades",
     "showingOf": "Showing {shown} of {total}",
     "showMore": "Show more",
-    "maxDrawdown": "Max drawdown"
+    "maxDrawdown": "Reducción máxima"
   },
   "Countries": {
     "US": "Estados Unidos",
@@ -1253,7 +1253,7 @@
           "cancelar copia",
           "detener copia"
         ],
-        "answer": "Open “My copies” and press “Stop copying”. Open trades are closed and copying stops immediately."
+        "answer": "Abre «Mis copias» y pulsa «Detener copia». Las operaciones abiertas se cierran y la copia se detiene de inmediato."
       },
       {
         "id": "risk-level",

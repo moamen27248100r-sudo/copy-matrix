@@ -8,20 +8,20 @@
       "faq": "সাধারণ জিজ্ঞাসা",
       "login": "লগ ইন",
       "signup": "সাইন আপ",
-      "menu": "Menu"
+      "menu": "মেনু"
     },
     "hero": {
       "title": "<accent>সেরা ট্রেডারদের</accent> ট্রেড স্বয়ংক্রিয়ভাবে কপি করুন",
-      "subtitle": "Browse traders' performance records and pick the one you trust to copy.",
+      "subtitle": "ট্রেডারদের পারফরম্যান্স রেকর্ড দেখুন এবং যাঁকে বিশ্বাস করেন তাঁকে বেছে নিয়ে তাঁর ট্রেড কপি করুন।",
       "start": "শুরু করুন",
       "browse": "ট্রেডার ব্রাউজ করুন",
-      "trust0": "No subscription fees or hidden commissions",
+      "trust0": "কোনো সাবস্ক্রিপশন ফি বা গোপন কমিশন নেই",
       "trust1": "যেকোনো সময় তাৎক্ষণিকভাবে যেকোনো ট্রেডার কপি করা বন্ধ করুন",
-      "trust2": "An automatic loss limit on every copy",
+      "trust2": "প্রতিটি কপিতে স্বয়ংক্রিয় ক্ষতির সীমা",
       "imageAlt": "Copy Matrix অ্যাপের স্ক্রিনশট, একটি লাইভ ট্রেড এবং প্ল্যাটফর্মের বৈশিষ্ট্য প্রদর্শন করছে",
-      "trustShort0": "No hidden fees",
-      "trustShort1": "Stop anytime",
-      "trustShort2": "Auto loss limit"
+      "trustShort0": "কোনো গোপন ফি নেই",
+      "trustShort1": "যেকোনো সময় থামান",
+      "trustShort2": "স্বয়ংক্রিয় ক্ষতির সীমা"
     },
     "highlights": [
       {
@@ -175,10 +175,10 @@
       "card3Desc": "প্রতিটি ট্রেডারের প্রতিটি ট্রেড ও প্রতিটি ফলাফল নথিভুক্ত এবং আপনার সামনে স্পষ্টভাবে দৃশ্যমান — কপি করার আগে তার সম্পূর্ণ রেকর্ড দেখে নিন।"
     },
     "trustStrip": {
-      "demoTitle": "Free demo account",
-      "demoDesc": "No real risk at all",
-      "stopLossTitle": "Automatic loss limit on every copy",
-      "stopLossDesc": "Copying stops when the loss limit is reached"
+      "demoTitle": "বিনামূল্যে ডেমো অ্যাকাউন্ট",
+      "demoDesc": "কোনো প্রকৃত ঝুঁকি নেই",
+      "stopLossTitle": "প্রতিটি কপিতে স্বয়ংক্রিয় ক্ষতির সীমা",
+      "stopLossDesc": "ক্ষতির সীমায় পৌঁছালে কপি থেমে যায়"
     },
     "traderPosts": {
       "title": "ট্রেডারদের সাম্প্রতিক আপডেট",
@@ -191,10 +191,10 @@
       "cta": "Open a demo account",
       "cardWelcome": "আপনার ফ্রি ডেমো অ্যাকাউন্ট",
       "cardPortfolioLabel": "ডেমো পোর্টফোলিও মূল্য",
-      "cardTopLabel": "Top traders by return (daily average)",
+      "cardTopLabel": "রিটার্নে শীর্ষ ট্রেডার (দৈনিক গড়)",
       "live": "লাইভ ডেটা"
     },
-    "metaTitle": "Copy Matrix — Automatically copy the best traders' trades"
+    "metaTitle": "Copy Matrix — সেরা ট্রেডারদের ট্রেড স্বয়ংক্রিয়ভাবে কপি করুন"
   },
   "Nav": {
     "createAccount": "সাইন আপ",
@@ -312,7 +312,7 @@
     "riskProtectionLabel": "ক্ষতি থেকে ব্যালেন্স সুরক্ষা",
     "riskProtectionUsed": "{maxPct}% এর মধ্যে {pct}%",
     "stopCopying": "কপি করা বন্ধ করুন",
-    "stopCopyingConfirm": "Open trades for this copy will be closed and copying will stop immediately.",
+    "stopCopyingConfirm": "এই কপির খোলা ট্রেডগুলো বন্ধ হবে এবং কপি সঙ্গে সঙ্গে থেমে যাবে।",
     "greetingMorning": "শুভ সকাল, {name}",
     "greetingEvening": "শুভ সন্ধ্যা, {name}",
     "demoBannerTitle": "যথেষ্ট চেষ্টা করেছেন?",
@@ -659,7 +659,7 @@
     "compareTrades": "Closed trades",
     "showingOf": "Showing {shown} of {total}",
     "showMore": "Show more",
-    "maxDrawdown": "Max drawdown"
+    "maxDrawdown": "সর্বোচ্চ ড্রডাউন"
   },
   "Countries": {
     "US": "যুক্তরাষ্ট্র",
@@ -1253,7 +1253,7 @@
           "কপি বাতিল করুন",
           "কপি থামান"
         ],
-        "answer": "Open “My copies” and press “Stop copying”. Open trades are closed and copying stops immediately."
+        "answer": "«আমার কপি» খুলে «কপি বন্ধ করুন» চাপুন। খোলা ট্রেডগুলো বন্ধ হয় এবং কপি সঙ্গে সঙ্গে থেমে যায়।"
       },
       {
         "id": "risk-level",

@@ -12,16 +12,16 @@
     },
     "hero": {
       "title": "Salin transaksi <accent>trader terbaik</accent> secara otomatis",
-      "subtitle": "Browse traders' performance records and pick the one you trust to copy.",
+      "subtitle": "Telusuri rekam kinerja para trader dan pilih yang Anda percaya untuk disalin transaksinya.",
       "start": "Mulai sekarang",
       "browse": "Jelajahi trader",
-      "trust0": "No subscription fees or hidden commissions",
+      "trust0": "Tanpa biaya langganan atau komisi tersembunyi",
       "trust1": "Hentikan menyalin trader mana pun secara instan, kapan saja",
-      "trust2": "An automatic loss limit on every copy",
+      "trust2": "Batas kerugian otomatis pada setiap salinan",
       "imageAlt": "Tangkapan layar aplikasi Copy Matrix yang menampilkan transaksi langsung dan fitur-fitur platform",
-      "trustShort0": "No hidden fees",
-      "trustShort1": "Stop anytime",
-      "trustShort2": "Auto loss limit"
+      "trustShort0": "Tanpa biaya tersembunyi",
+      "trustShort1": "Berhenti kapan saja",
+      "trustShort2": "Batas rugi otomatis"
     },
     "highlights": [
       {
@@ -175,10 +175,10 @@
       "card3Desc": "Setiap transaksi dan setiap hasil dari setiap trader terdokumentasi dan jelas di hadapan Anda — tinjau rekam jejak lengkapnya sebelum Anda menyalinnya."
     },
     "trustStrip": {
-      "demoTitle": "Free demo account",
-      "demoDesc": "No real risk at all",
-      "stopLossTitle": "Automatic loss limit on every copy",
-      "stopLossDesc": "Copying stops when the loss limit is reached"
+      "demoTitle": "Akun demo gratis",
+      "demoDesc": "Tanpa risiko nyata sama sekali",
+      "stopLossTitle": "Batas kerugian otomatis pada setiap salinan",
+      "stopLossDesc": "Penyalinan berhenti saat batas kerugian tercapai"
     },
     "traderPosts": {
       "title": "Pembaruan trader terbaru",
@@ -191,10 +191,10 @@
       "cta": "Open a demo account",
       "cardWelcome": "Akun demo gratis Anda",
       "cardPortfolioLabel": "Nilai portofolio demo",
-      "cardTopLabel": "Top traders by return (daily average)",
+      "cardTopLabel": "Trader teratas berdasarkan imbal hasil (rata-rata harian)",
       "live": "Data langsung"
     },
-    "metaTitle": "Copy Matrix — Automatically copy the best traders' trades"
+    "metaTitle": "Copy Matrix — Salin transaksi trader terbaik secara otomatis"
   },
   "Nav": {
     "createAccount": "Daftar",
@@ -312,7 +312,7 @@
     "riskProtectionLabel": "Perlindungan saldo dari kerugian",
     "riskProtectionUsed": "{pct}% dari {maxPct}%",
     "stopCopying": "Hentikan Menyalin",
-    "stopCopyingConfirm": "Open trades for this copy will be closed and copying will stop immediately.",
+    "stopCopyingConfirm": "Posisi terbuka untuk salinan ini akan ditutup dan penyalinan berhenti seketika.",
     "greetingMorning": "Selamat pagi, {name}",
     "greetingEvening": "Selamat sore, {name}",
     "demoBannerTitle": "Sudah cukup mencoba?",
@@ -659,7 +659,7 @@
     "compareTrades": "Closed trades",
     "showingOf": "Showing {shown} of {total}",
     "showMore": "Show more",
-    "maxDrawdown": "Max drawdown"
+    "maxDrawdown": "Penurunan maksimum"
   },
   "Countries": {
     "US": "Amerika Serikat",
@@ -1253,7 +1253,7 @@
           "batalkan salinan",
           "hentikan salin"
         ],
-        "answer": "Open “My copies” and press “Stop copying”. Open trades are closed and copying stops immediately."
+        "answer": "Buka «Salinan saya» lalu tekan «Hentikan salinan». Posisi terbuka ditutup dan penyalinan berhenti seketika."
       },
       {
         "id": "risk-level",

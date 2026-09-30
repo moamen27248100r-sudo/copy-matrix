@@ -8,20 +8,20 @@
       "faq": "Maswali yanayoulizwa mara kwa mara",
       "login": "Ingia",
       "signup": "Jisajili",
-      "menu": "Menu"
+      "menu": "Menyu"
     },
     "hero": {
       "title": "Nakili biashara za <accent>wafanyabiashara bora</accent> kiotomatiki",
-      "subtitle": "Browse traders' performance records and pick the one you trust to copy.",
+      "subtitle": "Pitia rekodi za utendaji za wafanyabiashara na uchague unayemwamini ili unakili biashara zake.",
       "start": "Anza sasa",
       "browse": "Vinjari wafanyabiashara",
-      "trust0": "No subscription fees or hidden commissions",
+      "trust0": "Bila ada ya usajili wala kamisheni fiche",
       "trust1": "Acha kunakili mfanyabiashara yeyote papo hapo, wakati wowote",
-      "trust2": "An automatic loss limit on every copy",
+      "trust2": "Kikomo cha hasara kiotomatiki kwa kila nakala",
       "imageAlt": "Picha ya skrini ya programu ya Copy Matrix ikionyesha biashara ya moja kwa moja na vipengele vya jukwaa",
-      "trustShort0": "No hidden fees",
-      "trustShort1": "Stop anytime",
-      "trustShort2": "Auto loss limit"
+      "trustShort0": "Bila ada fiche",
+      "trustShort1": "Simamisha wakati wowote",
+      "trustShort2": "Kikomo cha hasara kiotomatiki"
     },
     "highlights": [
       {
@@ -175,10 +175,10 @@
       "card3Desc": "Kila biashara na kila matokeo ya kila mfanyabiashara yameandikwa na kuonyeshwa wazi mbele yako — kagua rekodi yake kamili kabla ya kumnakili."
     },
     "trustStrip": {
-      "demoTitle": "Free demo account",
-      "demoDesc": "No real risk at all",
-      "stopLossTitle": "Automatic loss limit on every copy",
-      "stopLossDesc": "Copying stops when the loss limit is reached"
+      "demoTitle": "Akaunti ya majaribio bila malipo",
+      "demoDesc": "Bila hatari yoyote halisi",
+      "stopLossTitle": "Kikomo cha hasara kiotomatiki kwa kila nakala",
+      "stopLossDesc": "Kunakili kunasimama kikomo cha hasara kikifikiwa"
     },
     "traderPosts": {
       "title": "Sasisho la hivi karibuni la wafanyabiashara",
@@ -191,10 +191,10 @@
       "cta": "Open a demo account",
       "cardWelcome": "Akaunti yako ya bure ya majaribio",
       "cardPortfolioLabel": "Thamani ya jalada la majaribio",
-      "cardTopLabel": "Top traders by return (daily average)",
+      "cardTopLabel": "Wafanyabiashara bora kwa faida (wastani wa kila siku)",
       "live": "Data ya moja kwa moja"
     },
-    "metaTitle": "Copy Matrix — Automatically copy the best traders' trades"
+    "metaTitle": "Copy Matrix — Nakili biashara za wafanyabiashara bora kiotomatiki"
   },
   "Nav": {
     "createAccount": "Jisajili",
@@ -312,7 +312,7 @@
     "riskProtectionLabel": "Ulinzi wa salio dhidi ya hasara",
     "riskProtectionUsed": "{pct}% kati ya {maxPct}%",
     "stopCopying": "Acha Kunakili",
-    "stopCopyingConfirm": "Open trades for this copy will be closed and copying will stop immediately.",
+    "stopCopyingConfirm": "Biashara zilizo wazi za nakala hii zitafungwa na kunakili kutasimama mara moja.",
     "greetingMorning": "Habari za asubuhi, {name}",
     "greetingEvening": "Habari za jioni, {name}",
     "demoBannerTitle": "Umejaribu vya kutosha?",
@@ -659,7 +659,7 @@
     "compareTrades": "Closed trades",
     "showingOf": "Showing {shown} of {total}",
     "showMore": "Show more",
-    "maxDrawdown": "Max drawdown"
+    "maxDrawdown": "Upungufu wa juu zaidi"
   },
   "Countries": {
     "US": "Marekani",
@@ -1253,7 +1253,7 @@
           "ghairi unakili",
           "simamisha unakili"
         ],
-        "answer": "Open “My copies” and press “Stop copying”. Open trades are closed and copying stops immediately."
+        "answer": "Fungua «Nakala zangu» kisha bonyeza «Acha kunakili». Biashara zilizo wazi hufungwa na kunakili husimama mara moja."
       },
       {
         "id": "risk-level",

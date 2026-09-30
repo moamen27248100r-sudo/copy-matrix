@@ -8,20 +8,20 @@
       "faq": "常见问题",
       "login": "登录",
       "signup": "注册",
-      "menu": "Menu"
+      "menu": "菜单"
     },
     "hero": {
       "title": "自动复制<accent>顶尖交易员</accent>的交易",
-      "subtitle": "Browse traders' performance records and pick the one you trust to copy.",
+      "subtitle": "浏览交易员的业绩记录，选择你信任的交易员来跟单。",
       "start": "立即开始",
       "browse": "浏览交易员",
-      "trust0": "No subscription fees or hidden commissions",
+      "trust0": "无订阅费，无隐藏佣金",
       "trust1": "随时立即停止跟单任何交易员",
-      "trust2": "An automatic loss limit on every copy",
+      "trust2": "每笔跟单都有自动止损上限",
       "imageAlt": "Copy Matrix 应用截图，展示实时交易与平台功能",
-      "trustShort0": "No hidden fees",
-      "trustShort1": "Stop anytime",
-      "trustShort2": "Auto loss limit"
+      "trustShort0": "无隐藏费用",
+      "trustShort1": "随时停止",
+      "trustShort2": "自动止损上限"
     },
     "highlights": [
       {
@@ -175,10 +175,10 @@
       "card3Desc": "每位交易员的每一笔交易和每一个结果都有据可查、清晰可见——复制前请查看其完整历史记录。"
     },
     "trustStrip": {
-      "demoTitle": "Free demo account",
-      "demoDesc": "No real risk at all",
-      "stopLossTitle": "Automatic loss limit on every copy",
-      "stopLossDesc": "Copying stops when the loss limit is reached"
+      "demoTitle": "免费模拟账户",
+      "demoDesc": "完全没有真实风险",
+      "stopLossTitle": "每笔跟单的自动止损上限",
+      "stopLossDesc": "达到止损上限时跟单自动停止"
     },
     "traderPosts": {
       "title": "交易员最新动态",
@@ -191,10 +191,10 @@
       "cta": "Open a demo account",
       "cardWelcome": "您的免费模拟账户",
       "cardPortfolioLabel": "模拟账户组合价值",
-      "cardTopLabel": "Top traders by return (daily average)",
+      "cardTopLabel": "收益最高的交易员（日均）",
       "live": "实时数据"
     },
-    "metaTitle": "Copy Matrix — Automatically copy the best traders' trades"
+    "metaTitle": "Copy Matrix — 自动跟单顶尖交易员的交易"
   },
   "Nav": {
     "createAccount": "注册",
@@ -312,7 +312,7 @@
     "riskProtectionLabel": "余额亏损保护",
     "riskProtectionUsed": "已用 {pct}%，上限 {maxPct}%",
     "stopCopying": "停止跟单",
-    "stopCopyingConfirm": "Open trades for this copy will be closed and copying will stop immediately.",
+    "stopCopyingConfirm": "此跟单的未平仓交易将被平仓，并立即停止跟单。",
     "greetingMorning": "早上好，{name}",
     "greetingEvening": "晚上好，{name}",
     "demoBannerTitle": "体验够了吗？",
@@ -659,7 +659,7 @@
     "compareTrades": "Closed trades",
     "showingOf": "Showing {shown} of {total}",
     "showMore": "Show more",
-    "maxDrawdown": "Max drawdown"
+    "maxDrawdown": "最大回撤"
   },
   "Countries": {
     "US": "美国",
@@ -1253,7 +1253,7 @@
           "取消跟单",
           "停止复制"
         ],
-        "answer": "Open “My copies” and press “Stop copying”. Open trades are closed and copying stops immediately."
+        "answer": "打开“我的跟单”并点击“停止跟单”。未平仓交易将被平仓，跟单立即停止。"
       },
       {
         "id": "risk-level",

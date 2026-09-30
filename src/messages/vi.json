@@ -12,16 +12,16 @@
     },
     "hero": {
       "title": "Tự động sao chép giao dịch của <accent>các nhà giao dịch giỏi nhất</accent>",
-      "subtitle": "Browse traders' performance records and pick the one you trust to copy.",
+      "subtitle": "Xem hồ sơ hiệu suất của các trader và chọn người bạn tin tưởng để sao chép giao dịch.",
       "start": "Bắt đầu ngay",
       "browse": "Duyệt nhà giao dịch",
-      "trust0": "No subscription fees or hidden commissions",
+      "trust0": "Không phí đăng ký, không hoa hồng ẩn",
       "trust1": "Dừng sao chép bất kỳ nhà giao dịch nào ngay lập tức, bất cứ lúc nào",
-      "trust2": "An automatic loss limit on every copy",
+      "trust2": "Giới hạn lỗ tự động cho mỗi lệnh sao chép",
       "imageAlt": "Ảnh chụp màn hình ứng dụng Copy Matrix hiển thị một giao dịch trực tiếp và các tính năng của nền tảng",
-      "trustShort0": "No hidden fees",
-      "trustShort1": "Stop anytime",
-      "trustShort2": "Auto loss limit"
+      "trustShort0": "Không phí ẩn",
+      "trustShort1": "Dừng bất cứ lúc nào",
+      "trustShort2": "Giới hạn lỗ tự động"
     },
     "highlights": [
       {
@@ -175,10 +175,10 @@
       "card3Desc": "Mọi giao dịch và mọi kết quả của từng nhà giao dịch đều được ghi lại và hiển thị rõ ràng trước mắt bạn — hãy xem toàn bộ lịch sử của họ trước khi sao chép."
     },
     "trustStrip": {
-      "demoTitle": "Free demo account",
-      "demoDesc": "No real risk at all",
-      "stopLossTitle": "Automatic loss limit on every copy",
-      "stopLossDesc": "Copying stops when the loss limit is reached"
+      "demoTitle": "Tài khoản demo miễn phí",
+      "demoDesc": "Hoàn toàn không có rủi ro thực",
+      "stopLossTitle": "Giới hạn lỗ tự động cho mỗi lệnh sao chép",
+      "stopLossDesc": "Việc sao chép dừng khi chạm giới hạn lỗ"
     },
     "traderPosts": {
       "title": "Cập nhật mới nhất từ nhà giao dịch",
@@ -191,10 +191,10 @@
       "cta": "Open a demo account",
       "cardWelcome": "Tài khoản demo miễn phí của bạn",
       "cardPortfolioLabel": "Giá trị danh mục demo",
-      "cardTopLabel": "Top traders by return (daily average)",
+      "cardTopLabel": "Trader có lợi nhuận cao nhất (trung bình ngày)",
       "live": "Dữ liệu trực tiếp"
     },
-    "metaTitle": "Copy Matrix — Automatically copy the best traders' trades"
+    "metaTitle": "Copy Matrix — Tự động sao chép giao dịch của những trader hàng đầu"
   },
   "Nav": {
     "createAccount": "Đăng ký",
@@ -312,7 +312,7 @@
     "riskProtectionLabel": "Bảo vệ số dư khỏi thua lỗ",
     "riskProtectionUsed": "{pct}% trên {maxPct}%",
     "stopCopying": "Dừng sao chép",
-    "stopCopyingConfirm": "Open trades for this copy will be closed and copying will stop immediately.",
+    "stopCopyingConfirm": "Các lệnh đang mở của lượt sao chép này sẽ được đóng và việc sao chép dừng ngay lập tức.",
     "greetingMorning": "Chào buổi sáng, {name}",
     "greetingEvening": "Chào buổi tối, {name}",
     "demoBannerTitle": "Đã thử đủ chưa?",
@@ -659,7 +659,7 @@
     "compareTrades": "Closed trades",
     "showingOf": "Showing {shown} of {total}",
     "showMore": "Show more",
-    "maxDrawdown": "Max drawdown"
+    "maxDrawdown": "Mức sụt giảm tối đa"
   },
   "Countries": {
     "US": "Hoa Kỳ",
@@ -1253,7 +1253,7 @@
           "hủy sao chép",
           "ngừng sao chép"
         ],
-        "answer": "Open “My copies” and press “Stop copying”. Open trades are closed and copying stops immediately."
+        "answer": "Mở «Bản sao của tôi» và nhấn «Dừng sao chép». Các lệnh đang mở được đóng và việc sao chép dừng ngay lập tức."
       },
       {
         "id": "risk-level",

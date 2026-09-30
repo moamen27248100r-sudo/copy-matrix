@@ -8,20 +8,20 @@
       "faq": "اکثر پوچھے گئے سوالات",
       "login": "لاگ ان کریں",
       "signup": "سائن اپ کریں",
-      "menu": "Menu"
+      "menu": "مینو"
     },
     "hero": {
       "title": "<accent>بہترین ٹریڈرز</accent> کے ٹریڈز خودکار طور پر کاپی کریں",
-      "subtitle": "Browse traders' performance records and pick the one you trust to copy.",
+      "subtitle": "ٹریڈرز کے کارکردگی ریکارڈ دیکھیں اور جس پر بھروسا ہو اس کے ٹریڈز کاپی کرنے کے لیے اسے منتخب کریں۔",
       "start": "ابھی شروع کریں",
       "browse": "ٹریڈرز دیکھیں",
-      "trust0": "No subscription fees or hidden commissions",
+      "trust0": "کوئی سبسکرپشن فیس یا پوشیدہ کمیشن نہیں",
       "trust1": "کسی بھی ٹریڈر کی کاپیئنگ کبھی بھی فوری طور پر روکیں",
-      "trust2": "An automatic loss limit on every copy",
+      "trust2": "ہر کاپی پر خودکار نقصان کی حد",
       "imageAlt": "Copy Matrix ایپ کا اسکرین شاٹ جس میں ایک لائیو ٹریڈ اور پلیٹ فارم کی خصوصیات دکھائی گئی ہیں",
-      "trustShort0": "No hidden fees",
-      "trustShort1": "Stop anytime",
-      "trustShort2": "Auto loss limit"
+      "trustShort0": "کوئی پوشیدہ فیس نہیں",
+      "trustShort1": "کسی بھی وقت روکیں",
+      "trustShort2": "خودکار نقصان کی حد"
     },
     "highlights": [
       {
@@ -175,10 +175,10 @@
       "card3Desc": "ہر ٹریڈر کی ہر ٹریڈ اور ہر نتیجہ درج اور واضح طور پر آپ کے سامنے ہے — کاپی کرنے سے پہلے اس کا مکمل ریکارڈ دیکھیں۔"
     },
     "trustStrip": {
-      "demoTitle": "Free demo account",
-      "demoDesc": "No real risk at all",
-      "stopLossTitle": "Automatic loss limit on every copy",
-      "stopLossDesc": "Copying stops when the loss limit is reached"
+      "demoTitle": "مفت ڈیمو اکاؤنٹ",
+      "demoDesc": "بغیر کسی حقیقی خطرے کے",
+      "stopLossTitle": "ہر کاپی پر خودکار نقصان کی حد",
+      "stopLossDesc": "نقصان کی حد پوری ہوتے ہی کاپی رک جاتی ہے"
     },
     "traderPosts": {
       "title": "ٹریڈرز کی تازہ ترین اپڈیٹس",
@@ -191,10 +191,10 @@
       "cta": "Open a demo account",
       "cardWelcome": "آپ کا مفت ڈیمو اکاؤنٹ",
       "cardPortfolioLabel": "ڈیمو پورٹ فولیو ویلیو",
-      "cardTopLabel": "Top traders by return (daily average)",
+      "cardTopLabel": "منافع کے لحاظ سے سرفہرست ٹریڈرز (روزانہ اوسط)",
       "live": "لائیو ڈیٹا"
     },
-    "metaTitle": "Copy Matrix — Automatically copy the best traders' trades"
+    "metaTitle": "Copy Matrix — بہترین ٹریڈرز کے ٹریڈز خودکار طور پر کاپی کریں"
   },
   "Nav": {
     "createAccount": "سائن اپ کریں",
@@ -312,7 +312,7 @@
     "riskProtectionLabel": "نقصان سے بیلنس کا تحفظ",
     "riskProtectionUsed": "{maxPct}% میں سے {pct}%",
     "stopCopying": "کاپی کرنا بند کریں",
-    "stopCopyingConfirm": "Open trades for this copy will be closed and copying will stop immediately.",
+    "stopCopyingConfirm": "اس کاپی کے کھلے ٹریڈز بند کر دیے جائیں گے اور کاپی فوراً رک جائے گی۔",
     "greetingMorning": "صبح بخیر، {name}",
     "greetingEvening": "شام بخیر، {name}",
     "demoBannerTitle": "کیا آپ نے کافی آزما لیا؟",
@@ -659,7 +659,7 @@
     "compareTrades": "Closed trades",
     "showingOf": "Showing {shown} of {total}",
     "showMore": "Show more",
-    "maxDrawdown": "Max drawdown"
+    "maxDrawdown": "زیادہ سے زیادہ ڈرا ڈاؤن"
   },
   "Countries": {
     "US": "امریکا",
@@ -1253,7 +1253,7 @@
           "کاپی منسوخ کریں",
           "کاپی روکیں"
         ],
-        "answer": "Open “My copies” and press “Stop copying”. Open trades are closed and copying stops immediately."
+        "answer": "«میری کاپیاں» کھولیں اور «کاپی روکیں» دبائیں۔ کھلے ٹریڈز بند ہو جاتے ہیں اور کاپی فوراً رک جاتی ہے۔"
       },
       {
         "id": "risk-level",
