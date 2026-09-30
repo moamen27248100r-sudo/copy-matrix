@@ -1909,5 +1909,151 @@
     "traderProfileDesc": "View this trader's performance and trading history.",
     "tradesTitle": "Trades | Copy Matrix",
     "tradesDesc": "View your open and closed trades."
+  },
+  "HomeFaq": {
+    "title": "Frequently asked questions",
+    "subtitle": "Everything you need to know before you start",
+    "items": [
+      {
+        "q": "How does copying work?",
+        "a": "You choose a trader and set an amount. When the trader opens a trade, a matching trade opens in your account, sized to the amount you allocated."
+      },
+      {
+        "q": "Can I lose my money?",
+        "a": "Yes. Trading involves risk and you may lose part or all of the amount you allocate. Past performance does not guarantee future results. Copying stops automatically when the loss reaches 50% of the allocated amount."
+      },
+      {
+        "q": "What is the minimum amount?",
+        "a": "It differs from trader to trader, and the actual minimum is shown on each trader's profile before you copy them."
+      },
+      {
+        "q": "What are the fees?",
+        "a": "There is no subscription fee. A trader may take a share of profits only if they set one, shown before you start copying."
+      },
+      {
+        "q": "How do I stop copying?",
+        "a": "Open “My copies” and press “Stop copying”. Open trades are closed and copying stops immediately."
+      },
+      {
+        "q": "How do you choose traders?",
+        "a": "A trader is listed when their account is active and not suspended, with a real trade history you can review before copying."
+      },
+      {
+        "q": "How do I withdraw my money?",
+        "a": "Submit a withdrawal request from the Wallet page. Withdrawals require identity verification and requests are reviewed before processing."
+      },
+      {
+        "q": "Is there a demo account?",
+        "a": "Yes. A demo account starts with $10,000 in virtual funds, letting you practice without risking your own money."
+      }
+    ]
+  },
+  "HomeFeatures": {
+    "title": "Why Copy Matrix",
+    "subtitle": "Everything you need to copy trades with confidence",
+    "card1": {
+      "title": "Automatic trade execution",
+      "desc": "The trader's trades are copied to your account automatically, sized in proportion to the amount you set."
+    },
+    "card2": {
+      "title": "Full coverage across 4 global markets",
+      "desc": "Trade crypto, forex, gold and indices from a single account."
+    },
+    "card3": {
+      "title": "A risk indicator for every trader",
+      "desc": "A clear view of each trader's risk level before you copy them.",
+      "riskLabel": "Risk level",
+      "riskValue": "Low"
+    }
+  },
+  "HomeHowItWorks": {
+    "badge": "How it works",
+    "title": "Four steps to start copying",
+    "subtitle": "From sign-up to your first copied trade in minutes",
+    "steps": [
+      {
+        "title": "Create your account",
+        "desc": "Sign up with your email and start with a free demo account."
+      },
+      {
+        "title": "Choose a trader",
+        "desc": "Compare performance and risk and pick the trader that suits you."
+      },
+      {
+        "title": "Set your amount",
+        "desc": "Set the amount you want to use to copy each trader."
+      },
+      {
+        "title": "Follow your trades",
+        "desc": "Your trades are copied automatically, and you can stop copying instantly at any time."
+      }
+    ]
+  },
+  "SiteFooter": {
+    "tagline": "A global platform for copying traders' trades across 4 markets.",
+    "platform": "Platform",
+    "about": "About us",
+    "security": "Security & transparency",
+    "securityCenter": "Security center",
+    "riskDisclosure": "Risk disclosure",
+    "support": "Support & terms",
+    "supportLink": "Support",
+    "terms": "Terms & conditions",
+    "privacy": "Privacy policy",
+    "rights": "All rights reserved.",
+    "riskDisclaimer": "Copy Matrix is a software platform for copying trading signals — it is not a financial institution, a bank, or a licensed brokerage. Trading and copy trading carry a high level of risk and may result in the loss of your entire invested capital; past performance does not guarantee future results."
+  },
+  "AccountSecurity": {
+    "title": "Your account security",
+    "items": [
+      "Identity verification",
+      "Withdrawal requests are reviewed before they are processed",
+      "An automatic loss limit on every copy",
+      "Full separation between demo and real accounts",
+      "Your data is visible only to you"
+    ]
+  },
+  "About": {
+    "metaTitle": "Copy Matrix — About us",
+    "title": "About us",
+    "intro": "Copy Matrix is a global platform for copying traders' trades across 4 markets: crypto, forex, gold and indices.",
+    "sections": [
+      {
+        "title": "Our vision",
+        "body": "We believe copy trading should be clear to everyone: verifiable performance, disclosed risk, and full control in your hands. Our goal is to help you pick who to copy based on a real track record, not promises."
+      },
+      {
+        "title": "How the platform works",
+        "body": "You sign up with your email and start with a free demo account, then compare traders' performance and risk, choose a trader and set the amount you want to copy them with. The trader's trades are copied to your account automatically, sized in proportion to that amount, and you can stop copying instantly at any time."
+      },
+      {
+        "title": "Our commitment to transparency",
+        "body": "Every trader has a trade history you can review before copying, and there are no subscription fees or hidden commissions. Withdrawal requests are reviewed before they are processed, and every copy has an automatic loss limit that stops it once reached."
+      },
+      {
+        "title": "Risk warning",
+        "body": "Copy Matrix is a software platform for copying trading signals — not a financial institution, a bank, or a licensed brokerage. Trading and copy trading carry a high level of risk and may result in the loss of part or all of your capital; past performance does not guarantee future results."
+      }
+    ],
+    "riskLink": "Read the full risk disclosure",
+    "contactTitle": "Contact us",
+    "contactBody": "For any question, write to us at"
+  },
+  "HomeShowcase": {
+    "topTrader": "Trader of the month",
+    "aria": "Illustrative preview of the platform interface",
+    "disclaimer": "Illustrative image of the platform. Trading involves risk, and past performance does not guarantee future results.",
+    "tradeClosed": "Trade closed {symbol}",
+    "now": "Now",
+    "buy": "Buy",
+    "sell": "Sell",
+    "yourCopied": "Your copied trades",
+    "live": "Live",
+    "totalBalance": "Total balance",
+    "tradersYouCopy": "Traders you copy",
+    "return12m": "12-month return",
+    "activeCopiers": "active copiers",
+    "copyTrader": "Copy trader",
+    "bio": "Specializes in gold and currencies"
   }
 }

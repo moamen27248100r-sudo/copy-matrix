@@ -1,4 +1,5 @@
 import { StatusBar, BottomNav } from "../ScreenChrome";
+import { useTranslations } from "next-intl";
 import { SymbolIcon, symbolColor } from "@/lib/symbol-icons";
 import { showcaseOpenTrades, type OpenTrade } from "@/data/showcase-data";
 
@@ -14,6 +15,7 @@ function seedOf(symbol: string) {
 }
 
 function TradeRow({ trade, tick }: { trade: OpenTrade; tick: number }) {
+  const t = useTranslations("HomeShowcase");
   const seed = seedOf(trade.symbol);
   const pnl = jitter(trade.pnl, seed, tick);
   const up = pnl >= 0;
@@ -44,7 +46,7 @@ function TradeRow({ trade, tick }: { trade: OpenTrade; tick: number }) {
                 (trade.side === "buy" ? "bg-accent/15 text-accent" : "bg-[#EF4444]/15 text-[#EF4444]")
               }
             >
-              {trade.side === "buy" ? "شراء" : "بيع"}
+              {trade.side === "buy" ? t("buy") : t("sell")}
             </span>
             <span className="text-[11px] text-muted" dir="ltr">
               {trade.lot}
@@ -61,6 +63,7 @@ function TradeRow({ trade, tick }: { trade: OpenTrade; tick: number }) {
 }
 
 export function LiveTradesScreen({ tick }: { tick: number }) {
+  const t = useTranslations("HomeShowcase");
   const total = showcaseOpenTrades.reduce((sum, tr) => sum + jitter(tr.pnl, seedOf(tr.symbol), tick), 0);
   const up = total >= 0;
 
@@ -69,10 +72,10 @@ export function LiveTradesScreen({ tick }: { tick: number }) {
       <StatusBar />
       <div className="flex flex-1 flex-col gap-4 px-5 pt-5">
         <div className="flex items-center justify-between">
-          <p className="text-lg font-semibold text-white">صفقاتك المنسوخة</p>
+          <p className="text-lg font-semibold text-white">{t("yourCopied")}</p>
           <span className="flex items-center gap-1.5 rounded-full bg-[#22C55E]/10 px-2.5 py-1.5 text-xs font-semibold text-[#22C55E]">
             <span className="h-2 w-2 animate-pulse rounded-full bg-[#22C55E]" />
-            مباشر
+            {t("live")}
           </span>
         </div>
 

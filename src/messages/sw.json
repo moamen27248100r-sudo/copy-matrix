@@ -1905,5 +1905,151 @@
     "traderProfileDesc": "View this trader's performance and trading history.",
     "tradesTitle": "Trades | Copy Matrix",
     "tradesDesc": "View your open and closed trades."
+  },
+  "HomeFaq": {
+    "title": "Maswali yanayoulizwa mara kwa mara",
+    "subtitle": "Kila kitu unachohitaji kujua kabla ya kuanza",
+    "items": [
+      {
+        "q": "Kunakili hufanyaje kazi?",
+        "a": "Unachagua mfanyabiashara na kuweka kiasi. Mfanyabiashara anapofungua biashara, biashara inayolingana inafunguka kwenye akaunti yako, kwa ukubwa unaolingana na kiasi ulichotenga."
+      },
+      {
+        "q": "Je, naweza kupoteza pesa zangu?",
+        "a": "Ndiyo. Biashara ina hatari na unaweza kupoteza sehemu au kiasi chote ulichotenga. Utendaji wa zamani hauhakikishi matokeo ya baadaye. Kunakili husimama kiotomatiki hasara inapofikia 50% ya kiasi ulichotenga."
+      },
+      {
+        "q": "Kiasi cha chini ni kipi?",
+        "a": "Hutofautiana kati ya mfanyabiashara na mwingine, na kiwango halisi cha chini huonyeshwa kwenye wasifu wa kila mfanyabiashara kabla ya kumnakili."
+      },
+      {
+        "q": "Ada ni zipi?",
+        "a": "Hakuna ada ya usajili. Mfanyabiashara anaweza kuchukua sehemu ya faida tu ikiwa ameiweka, na huonyeshwa kabla ya kuanza kunakili."
+      },
+      {
+        "q": "Nasimamishaje kunakili?",
+        "a": "Fungua «Nakala zangu» kisha bonyeza «Acha kunakili». Biashara zilizo wazi hufungwa na kunakili husimama mara moja."
+      },
+      {
+        "q": "Mnachaguaje wafanyabiashara?",
+        "a": "Mfanyabiashara huorodheshwa akaunti yake ikiwa hai na haijasimamishwa, akiwa na historia halisi ya biashara unayoweza kuikagua kabla ya kunakili."
+      },
+      {
+        "q": "Natoaje pesa zangu?",
+        "a": "Tuma ombi la kutoa pesa kutoka ukurasa wa Pochi. Utoaji unahitaji uthibitishaji wa utambulisho na maombi hukaguliwa kabla ya kushughulikiwa."
+      },
+      {
+        "q": "Je, kuna akaunti ya majaribio?",
+        "a": "Ndiyo. Akaunti ya majaribio huanza na fedha pepe za $10,000, ikikuwezesha kujizoeza bila kuhatarisha pesa zako."
+      }
+    ]
+  },
+  "HomeFeatures": {
+    "title": "Kwa nini Copy Matrix",
+    "subtitle": "Kila unachohitaji ili kunakili biashara kwa uhakika",
+    "card1": {
+      "title": "Utekelezaji wa biashara kiotomatiki",
+      "desc": "Biashara za mfanyabiashara hunakiliwa kwenye akaunti yako kiotomatiki, kwa ukubwa unaolingana na kiasi unachoweka."
+    },
+    "card2": {
+      "title": "Ufikiaji kamili wa masoko 4 ya kimataifa",
+      "desc": "Fanya biashara ya crypto, forex, dhahabu na fahirisi kutoka akaunti moja."
+    },
+    "card3": {
+      "title": "Kiashiria cha hatari kwa kila mfanyabiashara",
+      "desc": "Mtazamo wazi wa kiwango cha hatari kabla ya kumnakili mfanyabiashara.",
+      "riskLabel": "Kiwango cha hatari",
+      "riskValue": "Chini"
+    }
+  },
+  "HomeHowItWorks": {
+    "badge": "Jinsi inavyofanya kazi",
+    "title": "Hatua nne za kuanza kunakili",
+    "subtitle": "Kutoka kujisajili hadi biashara yako ya kwanza iliyonakiliwa kwa dakika chache",
+    "steps": [
+      {
+        "title": "Fungua akaunti yako",
+        "desc": "Jisajili kwa barua pepe yako na uanze na akaunti ya majaribio bila malipo."
+      },
+      {
+        "title": "Chagua mfanyabiashara",
+        "desc": "Linganisha utendaji na hatari kisha uchague mfanyabiashara anayekufaa."
+      },
+      {
+        "title": "Weka kiasi",
+        "desc": "Weka kiasi unachotaka kutumia kumnakili kila mfanyabiashara."
+      },
+      {
+        "title": "Fuatilia biashara zako",
+        "desc": "Biashara zako hunakiliwa kiotomatiki, na unaweza kusimamisha kunakili mara moja wakati wowote."
+      }
+    ]
+  },
+  "SiteFooter": {
+    "tagline": "Jukwaa la kimataifa la kunakili biashara za wafanyabiashara katika masoko 4.",
+    "platform": "Jukwaa",
+    "about": "Kuhusu sisi",
+    "security": "Usalama na uwazi",
+    "securityCenter": "Kituo cha usalama",
+    "riskDisclosure": "Ufichuzi wa hatari",
+    "support": "Msaada na masharti",
+    "supportLink": "Msaada",
+    "terms": "Masharti na vigezo",
+    "privacy": "Sera ya faragha",
+    "rights": "Haki zote zimehifadhiwa.",
+    "riskDisclaimer": "Copy Matrix ni jukwaa la programu kwa ajili ya kunakili ishara za biashara — si taasisi ya kifedha, benki, au wakala wa udalali wenye leseni. Biashara na kunakili biashara hubeba hatari kubwa na inaweza kusababisha hasara kamili ya mtaji uliowekezwa; utendaji wa zamani hauhakikishi matokeo ya baadaye."
+  },
+  "AccountSecurity": {
+    "title": "Usalama wa akaunti yako",
+    "items": [
+      "Uthibitishaji wa utambulisho",
+      "Maombi ya kutoa pesa hukaguliwa kabla ya kushughulikiwa",
+      "Kikomo cha hasara kiotomatiki kwa kila nakala",
+      "Utengano kamili kati ya akaunti ya majaribio na halisi",
+      "Data yako haionekani kwa mtu mwingine yeyote ila wewe"
+    ]
+  },
+  "About": {
+    "metaTitle": "Copy Matrix — Kuhusu sisi",
+    "title": "Kuhusu sisi",
+    "intro": "Copy Matrix ni jukwaa la kimataifa la kunakili biashara za wafanyabiashara katika masoko 4: sarafu za kidijitali, forex, dhahabu na fahirisi.",
+    "sections": [
+      {
+        "title": "Maono yetu",
+        "body": "Tunaamini biashara ya kunakili inapaswa kuwa wazi kwa kila mtu: utendaji unaothibitishwa, hatari iliyotangazwa, na udhibiti kamili mikononi mwako. Lengo letu ni kukusaidia kuchagua nani wa kumnakili kwa kuzingatia rekodi halisi, si ahadi."
+      },
+      {
+        "title": "Jinsi jukwaa linavyofanya kazi",
+        "body": "Unajisajili kwa barua pepe yako na kuanza na akaunti ya majaribio bila malipo, kisha unalinganisha utendaji na hatari ya wafanyabiashara, kuchagua mmoja na kuweka kiasi cha kumnakili. Biashara zake hunakiliwa kwenye akaunti yako kiotomatiki kwa ukubwa unaolingana na kiasi hicho, na unaweza kusimamisha kunakili mara moja wakati wowote."
+      },
+      {
+        "title": "Ahadi yetu ya uwazi",
+        "body": "Kila mfanyabiashara ana historia ya biashara unayoweza kuikagua kabla ya kunakili, na hakuna ada ya usajili wala kamisheni fiche. Maombi ya kutoa pesa hukaguliwa kabla ya kushughulikiwa, na kila nakala ina kikomo cha hasara kiotomatiki kinachoisimamisha kikifikiwa."
+      },
+      {
+        "title": "Onyo la hatari",
+        "body": "Copy Matrix ni jukwaa la programu la kunakili ishara za biashara — si taasisi ya kifedha, benki, au wakala wa udalali wenye leseni. Biashara na kunakili biashara hubeba hatari kubwa na inaweza kusababisha kupoteza sehemu au mtaji wako wote; utendaji wa zamani hauhakikishi matokeo ya baadaye."
+      }
+    ],
+    "riskLink": "Soma onyo kamili la hatari",
+    "contactTitle": "Wasiliana nasi",
+    "contactBody": "Kwa swali lolote, tuandikie kwa"
+  },
+  "HomeShowcase": {
+    "topTrader": "Mfanyabiashara wa mwezi",
+    "aria": "Mwonekano wa mfano wa kiolesura cha jukwaa",
+    "disclaimer": "Picha ya mfano ya jukwaa. Biashara ina hatari na utendaji wa zamani hauhakikishi matokeo ya baadaye.",
+    "tradeClosed": "Biashara ya {symbol} imefungwa",
+    "now": "Sasa hivi",
+    "buy": "Nunua",
+    "sell": "Uza",
+    "yourCopied": "Biashara zako zilizonakiliwa",
+    "live": "Moja kwa moja",
+    "totalBalance": "Salio jumla",
+    "tradersYouCopy": "Wafanyabiashara unaowanakili",
+    "return12m": "Faida ya miezi 12",
+    "activeCopiers": "wanakili hai",
+    "copyTrader": "Nakili mfanyabiashara",
+    "bio": "Mtaalamu wa dhahabu na sarafu"
   }
 }

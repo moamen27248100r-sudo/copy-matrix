@@ -208,7 +208,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <FeaturesGrid locale={locale} />
+      <FeaturesGrid />
 
       {t.has("tryCopy.title") && tryCopyLeaders.length >= 3 && (
         <TryCopySection
@@ -268,9 +268,9 @@ export default async function Home() {
         </div>
       </section>
 
-      <HowItWorks locale={locale} />
+      <HowItWorks />
 
-      <FAQAccordion locale={locale} />
+      <FAQAccordion />
 
       <section className="border-t border-border px-6 py-16">
         <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-4 rounded-2xl border border-border bg-surface px-6 py-14 text-center">
@@ -285,7 +285,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <Footer locale={locale} dir={dir} navLinks={navLinks} />
+      <Footer dir={dir} navLinks={navLinks} />
     </main>
   );
 }

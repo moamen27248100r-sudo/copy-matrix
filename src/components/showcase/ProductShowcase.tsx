@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { PhoneFrame } from "./PhoneFrame";
 import { ScaledScreenContent } from "./ScaledScreenContent";
 import { TraderProfileScreen } from "./screens/TraderProfileScreen";
@@ -8,7 +9,7 @@ import { PortfolioScreen } from "./screens/PortfolioScreen";
 import { FloatingStatCard } from "./FloatingStatCard";
 import { TradeNotificationStack } from "./TradeNotificationStack";
 import { usePrefersReducedMotion, useIsDesktop, useInView, useShowcaseTick } from "./hooks";
-import { showcaseFloatingStats, showcaseDisclaimer } from "@/data/showcase-data";
+import { showcaseFloatingStats } from "@/data/showcase-data";
 
 const TICKS_PER_SCREEN = 6; // 6s per screen off the 1s central tick
 const SCREEN_COUNT = 3;
@@ -34,6 +35,7 @@ function ScreenSlide({ diff, children }: { diff: number; children: React.ReactNo
 }
 
 function TopTraderCard({ reducedMotion }: { reducedMotion: boolean }) {
+  const t = useTranslations("HomeShowcase");
   return (
     <FloatingStatCard delaySeconds={0} reducedMotion={reducedMotion} className="w-[170px]">
       <div className="flex items-center gap-2.5">
@@ -41,7 +43,7 @@ function TopTraderCard({ reducedMotion }: { reducedMotion: boolean }) {
           {showcaseFloatingStats.topTrader.name[0]}
         </span>
         <div className="min-w-0">
-          <p className="truncate text-[11px] font-medium text-white">متداول الشهر</p>
+          <p className="truncate text-[11px] font-medium text-white">{t("topTrader")}</p>
           <p className="text-[13px] font-bold text-[#22C55E]" dir="ltr">
             +{showcaseFloatingStats.topTrader.monthlyReturnPct}%
           </p>
@@ -64,6 +66,7 @@ function FrontPhoneScreens({ tick, activeScreen, reducedMotion }: { tick: number
 }
 
 export function ProductShowcase() {
+  const t = useTranslations("HomeShowcase");
   const { ref, inView } = useInView<HTMLElement>();
   const reducedMotion = usePrefersReducedMotion();
   const isTabletUp = useIsDesktop(768);
@@ -75,7 +78,7 @@ export function ProductShowcase() {
     <section
       ref={ref}
       role="img"
-      aria-label="عرض توضيحي لواجهة المنصة"
+      aria-label={t("aria")}
       className="relative w-full overflow-x-hidden px-3 py-4 md:py-10 lg:py-0"
     >
       <div
@@ -123,7 +126,7 @@ export function ProductShowcase() {
         </div>
       )}
 
-      <p className="mx-auto mt-3 max-w-sm md:mt-6 text-center text-[11px] text-muted">{showcaseDisclaimer}</p>
+      <p className="mx-auto mt-3 max-w-sm md:mt-6 text-center text-[11px] text-muted">{t("disclaimer")}</p>
 
       <style>{`
         @keyframes showcaseGlowPulse { 0%, 100% { opacity: 0.714; } 50% { opacity: 1; } }

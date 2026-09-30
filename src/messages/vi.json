@@ -1905,5 +1905,151 @@
     "traderProfileDesc": "View this trader's performance and trading history.",
     "tradesTitle": "Trades | Copy Matrix",
     "tradesDesc": "View your open and closed trades."
+  },
+  "HomeFaq": {
+    "title": "Câu hỏi thường gặp",
+    "subtitle": "Mọi thứ bạn cần biết trước khi bắt đầu",
+    "items": [
+      {
+        "q": "Sao chép hoạt động như thế nào?",
+        "a": "Bạn chọn một trader và đặt số tiền. Khi trader mở lệnh, một lệnh tương ứng sẽ mở trong tài khoản của bạn, với quy mô theo số tiền bạn đã phân bổ."
+      },
+      {
+        "q": "Tôi có thể mất tiền không?",
+        "a": "Có. Giao dịch luôn có rủi ro và bạn có thể mất một phần hoặc toàn bộ số tiền đã phân bổ. Hiệu suất trong quá khứ không đảm bảo kết quả tương lai. Việc sao chép tự động dừng khi khoản lỗ đạt 50% số tiền đã phân bổ."
+      },
+      {
+        "q": "Số tiền tối thiểu là bao nhiêu?",
+        "a": "Mức này khác nhau tùy trader, và mức tối thiểu thực tế hiển thị trên hồ sơ của từng trader trước khi bạn sao chép."
+      },
+      {
+        "q": "Các khoản phí là gì?",
+        "a": "Không có phí đăng ký. Trader chỉ có thể lấy một phần lợi nhuận nếu họ đã thiết lập, và mức này được hiển thị trước khi bạn bắt đầu sao chép."
+      },
+      {
+        "q": "Làm sao để dừng sao chép?",
+        "a": "Mở «Bản sao của tôi» và nhấn «Dừng sao chép». Các lệnh đang mở được đóng và việc sao chép dừng ngay lập tức."
+      },
+      {
+        "q": "Các bạn chọn trader như thế nào?",
+        "a": "Trader được liệt kê khi tài khoản đang hoạt động và không bị đình chỉ, có lịch sử giao dịch thực mà bạn có thể xem trước khi sao chép."
+      },
+      {
+        "q": "Làm sao để rút tiền?",
+        "a": "Gửi yêu cầu rút tiền từ trang Ví. Việc rút tiền cần xác minh danh tính và các yêu cầu được xem xét trước khi xử lý."
+      },
+      {
+        "q": "Có tài khoản demo không?",
+        "a": "Có. Tài khoản demo bắt đầu với 10.000 USD tiền ảo, giúp bạn luyện tập mà không mạo hiểm tiền của mình."
+      }
+    ]
+  },
+  "HomeFeatures": {
+    "title": "Tại sao chọn Copy Matrix",
+    "subtitle": "Mọi thứ bạn cần để sao chép giao dịch một cách tự tin",
+    "card1": {
+      "title": "Tự động thực hiện giao dịch",
+      "desc": "Giao dịch của trader được tự động sao chép vào tài khoản của bạn, với quy mô tương ứng số tiền bạn đặt."
+    },
+    "card2": {
+      "title": "Bao phủ đầy đủ 4 thị trường toàn cầu",
+      "desc": "Giao dịch tiền điện tử, forex, vàng và chỉ số chỉ từ một tài khoản."
+    },
+    "card3": {
+      "title": "Chỉ báo rủi ro cho từng trader",
+      "desc": "Cái nhìn rõ ràng về mức rủi ro trước khi bạn sao chép một trader.",
+      "riskLabel": "Mức độ rủi ro",
+      "riskValue": "Thấp"
+    }
+  },
+  "HomeHowItWorks": {
+    "badge": "Cách hoạt động",
+    "title": "Bốn bước để bắt đầu sao chép",
+    "subtitle": "Từ đăng ký đến lệnh sao chép đầu tiên chỉ trong vài phút",
+    "steps": [
+      {
+        "title": "Tạo tài khoản",
+        "desc": "Đăng ký bằng email và bắt đầu với tài khoản demo miễn phí."
+      },
+      {
+        "title": "Chọn một trader",
+        "desc": "So sánh hiệu suất và rủi ro rồi chọn trader phù hợp nhất với bạn."
+      },
+      {
+        "title": "Đặt số tiền",
+        "desc": "Đặt số tiền bạn muốn dùng để sao chép từng trader."
+      },
+      {
+        "title": "Theo dõi giao dịch của bạn",
+        "desc": "Giao dịch của bạn được sao chép tự động, và bạn có thể dừng sao chép ngay lập tức bất cứ lúc nào."
+      }
+    ]
+  },
+  "SiteFooter": {
+    "tagline": "Nền tảng toàn cầu để sao chép giao dịch của trader trên 4 thị trường.",
+    "platform": "Nền tảng",
+    "about": "Giới thiệu",
+    "security": "Bảo mật & minh bạch",
+    "securityCenter": "Trung tâm bảo mật",
+    "riskDisclosure": "Công bố rủi ro",
+    "support": "Hỗ trợ & điều khoản",
+    "supportLink": "Hỗ trợ",
+    "terms": "Điều khoản & điều kiện",
+    "privacy": "Chính sách bảo mật",
+    "rights": "Đã đăng ký bản quyền.",
+    "riskDisclaimer": "Copy Matrix là nền tảng phần mềm để sao chép tín hiệu giao dịch — không phải là tổ chức tài chính, ngân hàng hay công ty môi giới được cấp phép. Giao dịch và sao chép giao dịch tiềm ẩn rủi ro cao và có thể dẫn đến mất toàn bộ vốn đầu tư; hiệu suất trong quá khứ không đảm bảo kết quả trong tương lai."
+  },
+  "AccountSecurity": {
+    "title": "Bảo mật tài khoản của bạn",
+    "items": [
+      "Xác minh danh tính",
+      "Yêu cầu rút tiền được xem xét trước khi xử lý",
+      "Giới hạn lỗ tự động cho mỗi lệnh sao chép",
+      "Tách biệt hoàn toàn giữa tài khoản demo và tài khoản thực",
+      "Dữ liệu của bạn chỉ mình bạn xem được"
+    ]
+  },
+  "About": {
+    "metaTitle": "Copy Matrix — Giới thiệu",
+    "title": "Giới thiệu",
+    "intro": "Copy Matrix là nền tảng toàn cầu để sao chép giao dịch của các trader trên 4 thị trường: tiền mã hóa, ngoại hối, vàng và chỉ số.",
+    "sections": [
+      {
+        "title": "Tầm nhìn của chúng tôi",
+        "body": "Chúng tôi tin rằng copy trading cần rõ ràng với mọi người: hiệu suất có thể kiểm chứng, rủi ro được công bố và toàn quyền kiểm soát trong tay bạn. Mục tiêu của chúng tôi là giúp bạn chọn người để sao chép dựa trên thành tích thực, không phải lời hứa."
+      },
+      {
+        "title": "Nền tảng hoạt động như thế nào",
+        "body": "Bạn đăng ký bằng email và bắt đầu với tài khoản demo miễn phí, sau đó so sánh hiệu suất và rủi ro của các trader, chọn một trader và đặt số tiền để sao chép. Giao dịch của họ được tự động sao chép vào tài khoản của bạn với quy mô tương ứng số tiền đó, và bạn có thể dừng sao chép ngay lập tức bất cứ lúc nào."
+      },
+      {
+        "title": "Cam kết minh bạch của chúng tôi",
+        "body": "Mỗi trader có lịch sử giao dịch để bạn xem trước khi sao chép, không có phí đăng ký hay hoa hồng ẩn. Yêu cầu rút tiền được xem xét trước khi xử lý, và mỗi lệnh sao chép có giới hạn lỗ tự động sẽ dừng việc sao chép khi chạm mức đó."
+      },
+      {
+        "title": "Cảnh báo rủi ro",
+        "body": "Copy Matrix là nền tảng phần mềm để sao chép tín hiệu giao dịch — không phải tổ chức tài chính, ngân hàng hay công ty môi giới được cấp phép. Giao dịch và sao chép giao dịch có rủi ro cao và có thể dẫn đến mất một phần hoặc toàn bộ vốn; hiệu suất trong quá khứ không đảm bảo kết quả tương lai."
+      }
+    ],
+    "riskLink": "Đọc đầy đủ cảnh báo rủi ro",
+    "contactTitle": "Liên hệ chúng tôi",
+    "contactBody": "Mọi thắc mắc, vui lòng viết cho chúng tôi tại"
+  },
+  "HomeShowcase": {
+    "topTrader": "Trader của tháng",
+    "aria": "Hình minh họa giao diện nền tảng",
+    "disclaimer": "Hình ảnh minh họa nền tảng. Giao dịch có rủi ro và hiệu suất trong quá khứ không đảm bảo kết quả tương lai.",
+    "tradeClosed": "Đã đóng lệnh {symbol}",
+    "now": "Vừa xong",
+    "buy": "Mua",
+    "sell": "Bán",
+    "yourCopied": "Giao dịch sao chép của bạn",
+    "live": "Trực tiếp",
+    "totalBalance": "Tổng số dư",
+    "tradersYouCopy": "Trader bạn đang sao chép",
+    "return12m": "Lợi nhuận 12 tháng",
+    "activeCopiers": "người sao chép đang hoạt động",
+    "copyTrader": "Sao chép trader",
+    "bio": "Chuyên về vàng và ngoại tệ"
   }
 }

@@ -1905,5 +1905,151 @@
     "traderProfileDesc": "View this trader's performance and trading history.",
     "tradesTitle": "Trades | Copy Matrix",
     "tradesDesc": "View your open and closed trades."
+  },
+  "HomeFaq": {
+    "title": "Pertanyaan yang sering diajukan",
+    "subtitle": "Semua yang perlu Anda ketahui sebelum memulai",
+    "items": [
+      {
+        "q": "Bagaimana cara kerja penyalinan?",
+        "a": "Anda memilih trader dan menentukan jumlah. Saat trader membuka transaksi, transaksi yang sama terbuka di akun Anda dengan ukuran sesuai jumlah yang Anda alokasikan."
+      },
+      {
+        "q": "Apakah saya bisa kehilangan uang?",
+        "a": "Ya. Trading mengandung risiko dan Anda bisa kehilangan sebagian atau seluruh jumlah yang dialokasikan. Kinerja masa lalu tidak menjamin hasil di masa depan. Penyalinan berhenti otomatis saat kerugian mencapai 50% dari jumlah yang dialokasikan."
+      },
+      {
+        "q": "Berapa jumlah minimumnya?",
+        "a": "Berbeda untuk tiap trader, dan jumlah minimum sebenarnya ditampilkan di profil masing-masing trader sebelum Anda menyalinnya."
+      },
+      {
+        "q": "Apa saja biayanya?",
+        "a": "Tidak ada biaya langganan. Trader hanya dapat mengambil bagian keuntungan jika ia menetapkannya, dan ditampilkan sebelum Anda mulai menyalin."
+      },
+      {
+        "q": "Bagaimana cara berhenti menyalin?",
+        "a": "Buka «Salinan saya» lalu tekan «Hentikan salinan». Posisi terbuka ditutup dan penyalinan berhenti seketika."
+      },
+      {
+        "q": "Bagaimana Anda memilih trader?",
+        "a": "Trader ditampilkan jika akunnya aktif dan tidak ditangguhkan, dengan riwayat transaksi nyata yang dapat Anda tinjau sebelum menyalin."
+      },
+      {
+        "q": "Bagaimana cara menarik dana?",
+        "a": "Ajukan permintaan penarikan dari halaman Dompet. Penarikan memerlukan verifikasi identitas dan permintaan ditinjau sebelum diproses."
+      },
+      {
+        "q": "Apakah ada akun demo?",
+        "a": "Ya. Akun demo dimulai dengan dana virtual $10.000, sehingga Anda bisa berlatih tanpa mempertaruhkan uang sendiri."
+      }
+    ]
+  },
+  "HomeFeatures": {
+    "title": "Mengapa Copy Matrix",
+    "subtitle": "Semua yang Anda butuhkan untuk menyalin transaksi dengan percaya diri",
+    "card1": {
+      "title": "Eksekusi transaksi otomatis",
+      "desc": "Transaksi trader disalin ke akun Anda secara otomatis dengan ukuran sebanding dengan jumlah yang Anda tetapkan."
+    },
+    "card2": {
+      "title": "Cakupan penuh di 4 pasar global",
+      "desc": "Trading kripto, forex, emas, dan indeks dari satu akun."
+    },
+    "card3": {
+      "title": "Indikator risiko untuk setiap trader",
+      "desc": "Gambaran jelas tingkat risiko sebelum Anda menyalin seorang trader.",
+      "riskLabel": "Tingkat risiko",
+      "riskValue": "Rendah"
+    }
+  },
+  "HomeHowItWorks": {
+    "badge": "Cara kerja",
+    "title": "Empat langkah untuk mulai menyalin",
+    "subtitle": "Dari pendaftaran hingga transaksi salinan pertama dalam hitungan menit",
+    "steps": [
+      {
+        "title": "Buat akun Anda",
+        "desc": "Daftar dengan email Anda dan mulai dengan akun demo gratis."
+      },
+      {
+        "title": "Pilih trader",
+        "desc": "Bandingkan kinerja dan risiko lalu pilih trader yang paling cocok untuk Anda."
+      },
+      {
+        "title": "Tentukan jumlah",
+        "desc": "Tentukan jumlah yang ingin digunakan untuk menyalin setiap trader."
+      },
+      {
+        "title": "Pantau transaksi Anda",
+        "desc": "Transaksi Anda disalin secara otomatis, dan Anda dapat menghentikan penyalinan seketika kapan saja."
+      }
+    ]
+  },
+  "SiteFooter": {
+    "tagline": "Platform global untuk menyalin transaksi trader di 4 pasar.",
+    "platform": "Platform",
+    "about": "Tentang kami",
+    "security": "Keamanan & transparansi",
+    "securityCenter": "Pusat keamanan",
+    "riskDisclosure": "Pengungkapan risiko",
+    "support": "Dukungan & ketentuan",
+    "supportLink": "Dukungan",
+    "terms": "Syarat & ketentuan",
+    "privacy": "Kebijakan privasi",
+    "rights": "Seluruh hak dilindungi.",
+    "riskDisclaimer": "Copy Matrix adalah platform perangkat lunak untuk menyalin sinyal trading — bukan lembaga keuangan, bank, atau pialang berlisensi. Trading dan copy trading mengandung risiko tinggi dan dapat mengakibatkan kerugian total modal yang diinvestasikan; kinerja masa lalu tidak menjamin hasil di masa depan."
+  },
+  "AccountSecurity": {
+    "title": "Keamanan akun Anda",
+    "items": [
+      "Verifikasi identitas",
+      "Permintaan penarikan ditinjau sebelum diproses",
+      "Batas kerugian otomatis pada setiap salinan",
+      "Pemisahan penuh antara akun demo dan akun riil",
+      "Data Anda tidak dapat dilihat siapa pun selain Anda"
+    ]
+  },
+  "About": {
+    "metaTitle": "Copy Matrix — Tentang kami",
+    "title": "Tentang kami",
+    "intro": "Copy Matrix adalah platform global untuk menyalin transaksi trader di 4 pasar: kripto, forex, emas, dan indeks.",
+    "sections": [
+      {
+        "title": "Visi kami",
+        "body": "Kami percaya copy trading harus jelas bagi semua orang: kinerja yang dapat diverifikasi, risiko yang terbuka, dan kendali penuh di tangan Anda. Tujuan kami membantu Anda memilih siapa yang disalin berdasarkan rekam jejak nyata, bukan janji."
+      },
+      {
+        "title": "Cara kerja platform",
+        "body": "Anda mendaftar dengan email dan memulai dengan akun demo gratis, lalu membandingkan kinerja dan risiko trader, memilih satu trader, dan menentukan jumlah untuk menyalinnya. Transaksinya disalin otomatis ke akun Anda dengan ukuran sebanding dengan jumlah itu, dan Anda dapat menghentikan penyalinan seketika kapan saja."
+      },
+      {
+        "title": "Komitmen kami pada transparansi",
+        "body": "Setiap trader memiliki riwayat transaksi yang dapat ditinjau sebelum menyalin, tanpa biaya langganan atau komisi tersembunyi. Permintaan penarikan ditinjau sebelum diproses, dan setiap salinan memiliki batas kerugian otomatis yang menghentikannya saat tercapai."
+      },
+      {
+        "title": "Peringatan risiko",
+        "body": "Copy Matrix adalah platform perangkat lunak untuk menyalin sinyal trading — bukan lembaga keuangan, bank, atau pialang berlisensi. Trading dan copy trading berisiko tinggi dan dapat menyebabkan kehilangan sebagian atau seluruh modal Anda; kinerja masa lalu tidak menjamin hasil di masa depan."
+      }
+    ],
+    "riskLink": "Baca peringatan risiko lengkap",
+    "contactTitle": "Hubungi kami",
+    "contactBody": "Untuk pertanyaan apa pun, tulis kepada kami di"
+  },
+  "HomeShowcase": {
+    "topTrader": "Trader bulan ini",
+    "aria": "Pratinjau ilustrasi antarmuka platform",
+    "disclaimer": "Gambar ilustrasi platform. Trading mengandung risiko dan kinerja masa lalu tidak menjamin hasil di masa depan.",
+    "tradeClosed": "Transaksi {symbol} ditutup",
+    "now": "Sekarang",
+    "buy": "Beli",
+    "sell": "Jual",
+    "yourCopied": "Transaksi salinan Anda",
+    "live": "Langsung",
+    "totalBalance": "Total saldo",
+    "tradersYouCopy": "Trader yang Anda salin",
+    "return12m": "Imbal hasil 12 bulan",
+    "activeCopiers": "penyalin aktif",
+    "copyTrader": "Salin trader",
+    "bio": "Spesialis emas dan mata uang"
   }
 }

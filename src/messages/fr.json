@@ -1906,5 +1906,151 @@
     "traderProfileDesc": "View this trader's performance and trading history.",
     "tradesTitle": "Trades | Copy Matrix",
     "tradesDesc": "View your open and closed trades."
+  },
+  "HomeFaq": {
+    "title": "Questions fréquentes",
+    "subtitle": "Tout ce qu'il faut savoir avant de commencer",
+    "items": [
+      {
+        "q": "Comment fonctionne la copie ?",
+        "a": "Vous choisissez un trader et fixez un montant. Quand le trader ouvre un trade, un trade identique s'ouvre sur votre compte, dimensionné selon le montant alloué."
+      },
+      {
+        "q": "Puis-je perdre mon argent ?",
+        "a": "Oui. Le trading comporte des risques et vous pouvez perdre tout ou partie du montant alloué. Les performances passées ne garantissent pas les résultats futurs. La copie s'arrête automatiquement lorsque la perte atteint 50 % du montant alloué."
+      },
+      {
+        "q": "Quel est le montant minimum ?",
+        "a": "Il varie selon le trader, et le minimum réel est affiché sur le profil de chaque trader avant de le copier."
+      },
+      {
+        "q": "Quels sont les frais ?",
+        "a": "Il n'y a pas de frais d'abonnement. Un trader peut prélever une part des profits uniquement s'il en a défini une, affichée avant de commencer à copier."
+      },
+      {
+        "q": "Comment arrêter de copier ?",
+        "a": "Ouvrez « Mes copies » et appuyez sur « Arrêter la copie ». Les trades ouverts sont clôturés et la copie s'arrête immédiatement."
+      },
+      {
+        "q": "Comment choisissez-vous les traders ?",
+        "a": "Un trader est listé lorsque son compte est actif et non suspendu, avec un historique de trades réel que vous pouvez consulter avant de copier."
+      },
+      {
+        "q": "Comment retirer mon argent ?",
+        "a": "Envoyez une demande de retrait depuis la page Portefeuille. Les retraits exigent une vérification d'identité et les demandes sont examinées avant traitement."
+      },
+      {
+        "q": "Existe-t-il un compte démo ?",
+        "a": "Oui. Un compte démo démarre avec 10 000 $ de fonds virtuels, pour vous entraîner sans risquer votre propre argent."
+      }
+    ]
+  },
+  "HomeFeatures": {
+    "title": "Pourquoi Copy Matrix",
+    "subtitle": "Tout ce qu'il faut pour copier des trades en toute confiance",
+    "card1": {
+      "title": "Exécution automatique des trades",
+      "desc": "Les trades du trader sont copiés automatiquement sur votre compte, dans une taille proportionnelle au montant que vous définissez."
+    },
+    "card2": {
+      "title": "Couverture complète sur 4 marchés mondiaux",
+      "desc": "Tradez crypto, forex, or et indices depuis un seul compte."
+    },
+    "card3": {
+      "title": "Un indicateur de risque pour chaque trader",
+      "desc": "Une vue claire du niveau de risque avant de copier un trader.",
+      "riskLabel": "Niveau de risque",
+      "riskValue": "Faible"
+    }
+  },
+  "HomeHowItWorks": {
+    "badge": "Comment ça marche",
+    "title": "Quatre étapes pour commencer à copier",
+    "subtitle": "De l'inscription à votre premier trade copié en quelques minutes",
+    "steps": [
+      {
+        "title": "Créez votre compte",
+        "desc": "Inscrivez-vous avec votre e-mail et commencez avec un compte démo gratuit."
+      },
+      {
+        "title": "Choisissez un trader",
+        "desc": "Comparez performance et risque et choisissez le trader qui vous convient."
+      },
+      {
+        "title": "Définissez le montant",
+        "desc": "Définissez le montant avec lequel copier chaque trader."
+      },
+      {
+        "title": "Suivez vos trades",
+        "desc": "Vos trades sont copiés automatiquement et vous pouvez arrêter la copie instantanément à tout moment."
+      }
+    ]
+  },
+  "SiteFooter": {
+    "tagline": "Une plateforme mondiale pour copier les trades des traders sur 4 marchés.",
+    "platform": "Plateforme",
+    "about": "À propos",
+    "security": "Sécurité et transparence",
+    "securityCenter": "Centre de sécurité",
+    "riskDisclosure": "Avertissement sur les risques",
+    "support": "Support et conditions",
+    "supportLink": "Support",
+    "terms": "Conditions générales",
+    "privacy": "Politique de confidentialité",
+    "rights": "Tous droits réservés.",
+    "riskDisclaimer": "Copy Matrix est une plateforme logicielle de copie de signaux de trading — ce n'est ni un établissement financier, ni une banque, ni un courtier agréé. Le trading et le copy trading comportent un niveau de risque élevé pouvant entraîner la perte totale du capital investi ; les performances passées ne garantissent pas les résultats futurs."
+  },
+  "AccountSecurity": {
+    "title": "Sécurité de votre compte",
+    "items": [
+      "Vérification d'identité",
+      "Demandes de retrait examinées avant traitement",
+      "Limite de perte automatique sur chaque copie",
+      "Séparation totale entre compte démo et compte réel",
+      "Vos données ne sont visibles que par vous"
+    ]
+  },
+  "About": {
+    "metaTitle": "Copy Matrix — À propos",
+    "title": "À propos",
+    "intro": "Copy Matrix est une plateforme mondiale de copie des trades de traders sur 4 marchés : crypto, forex, or et indices.",
+    "sections": [
+      {
+        "title": "Notre vision",
+        "body": "Nous pensons que le copy trading doit être clair pour tous : des performances vérifiables, un risque affiché et un contrôle total entre vos mains. Notre but est de vous aider à choisir qui copier sur la base d'un historique réel, pas de promesses."
+      },
+      {
+        "title": "Comment fonctionne la plateforme",
+        "body": "Vous vous inscrivez avec votre e-mail et commencez avec un compte démo gratuit, puis vous comparez la performance et le risque des traders, choisissez un trader et fixez le montant avec lequel le copier. Ses trades sont copiés automatiquement sur votre compte, dans une taille proportionnelle à ce montant, et vous pouvez arrêter la copie instantanément à tout moment."
+      },
+      {
+        "title": "Notre engagement de transparence",
+        "body": "Chaque trader a un historique de trades consultable avant de copier, sans frais d'abonnement ni commissions cachées. Les demandes de retrait sont examinées avant traitement, et chaque copie a une limite de perte automatique qui l'arrête une fois atteinte."
+      },
+      {
+        "title": "Avertissement sur les risques",
+        "body": "Copy Matrix est une plateforme logicielle de copie de signaux de trading — ni un établissement financier, ni une banque, ni un courtier agréé. Le trading et le copy trading comportent un risque élevé pouvant entraîner la perte d'une partie ou de la totalité de votre capital ; les performances passées ne garantissent pas les résultats futurs."
+      }
+    ],
+    "riskLink": "Lire l'avertissement complet sur les risques",
+    "contactTitle": "Contactez-nous",
+    "contactBody": "Pour toute question, écrivez-nous à"
+  },
+  "HomeShowcase": {
+    "topTrader": "Trader du mois",
+    "aria": "Aperçu illustratif de l'interface de la plateforme",
+    "disclaimer": "Image illustrative de la plateforme. Le trading comporte des risques et les performances passées ne garantissent pas les résultats futurs.",
+    "tradeClosed": "Trade clôturé {symbol}",
+    "now": "Maintenant",
+    "buy": "Achat",
+    "sell": "Vente",
+    "yourCopied": "Vos trades copiés",
+    "live": "En direct",
+    "totalBalance": "Solde total",
+    "tradersYouCopy": "Traders que vous copiez",
+    "return12m": "Rendement sur 12 mois",
+    "activeCopiers": "copieurs actifs",
+    "copyTrader": "Copier le trader",
+    "bio": "Spécialisé dans l'or et les devises"
   }
 }

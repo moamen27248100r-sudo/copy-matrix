@@ -1,6 +1,7 @@
 import { ChevronRight, BadgeCheck } from "lucide-react";
 import { StatusBar, BottomNav } from "../ScreenChrome";
 import { PerformanceChart } from "../PerformanceChart";
+import { useTranslations } from "next-intl";
 import { Logo } from "@/components/Logo";
 import { showcaseTrader } from "@/data/showcase-data";
 
@@ -15,6 +16,9 @@ const initials = showcaseTrader.name
 // phone's actual rendered width is, so it never needs its own
 // per-breakpoint font tuning.
 export function TraderProfileScreen({ active, reducedMotion }: { active: boolean; reducedMotion: boolean }) {
+  const ts = useTranslations("HomeShowcase");
+  const td = useTranslations("Discover");
+  const tb = useTranslations("TraderBadges");
   const t = showcaseTrader;
   return (
     <div className="flex h-full flex-col" dir="rtl" aria-hidden="true">
@@ -34,7 +38,7 @@ export function TraderProfileScreen({ active, reducedMotion }: { active: boolean
               <p className="truncate text-base font-semibold text-white">{t.name}</p>
               <BadgeCheck className="h-4 w-4 shrink-0 text-accent" />
             </div>
-            <p className="truncate text-[13px] text-muted">{t.bio}</p>
+            <p className="truncate text-[13px] text-muted">{ts("bio")}</p>
           </div>
         </div>
 
@@ -43,19 +47,19 @@ export function TraderProfileScreen({ active, reducedMotion }: { active: boolean
             <p className="text-[17px] font-bold tabular-nums text-[#22C55E]" dir="ltr">
               +{t.return12mPct}%
             </p>
-            <p className="text-[11px] text-muted">العائد 12 شهر</p>
+            <p className="text-[11px] text-muted">{ts("return12m")}</p>
           </div>
           <div className="flex flex-col items-center gap-1 border-e border-white/[0.06] py-3.5 text-center">
             <p className="text-[17px] font-bold tabular-nums text-white" dir="ltr">
               {t.winRatePct}%
             </p>
-            <p className="text-[11px] text-muted">نسبة النجاح</p>
+            <p className="text-[11px] text-muted">{td("winRate")}</p>
           </div>
           <div className="flex flex-col items-center gap-1 py-3.5 text-center">
             <p className="text-[17px] font-bold tabular-nums text-[#EF4444]" dir="ltr">
               {t.maxDrawdownPct}%
             </p>
-            <p className="text-[11px] text-muted">أقصى تراجع</p>
+            <p className="text-[11px] text-muted">{td("maxDrawdown")}</p>
           </div>
         </div>
 
@@ -67,11 +71,11 @@ export function TraderProfileScreen({ active, reducedMotion }: { active: boolean
           <span className="font-medium text-white" dir="ltr">
             {t.activeCopiers.toLocaleString("en-US")}
           </span>{" "}
-          ناسخ نشط • مستوى مخاطرة {t.riskLevel}
+          {ts("activeCopiers")} • {tb("riskLabel", { level: tb("riskMedium") })}
         </p>
 
         <span className="mb-2 block w-full rounded-xl bg-accent py-3.5 text-center text-[15px] font-bold text-accent-foreground shadow-lg shadow-accent/40">
-          نسخ المتداول
+          {ts("copyTrader")}
         </span>
       </div>
 

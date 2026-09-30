@@ -1,4 +1,6 @@
 import { StatusBar, BottomNav } from "../ScreenChrome";
+import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import { showcasePortfolio, showcaseCopiedTraders } from "@/data/showcase-data";
 
 // The bars used to sit inside a row with `items-end`, which never
@@ -39,6 +41,9 @@ function initialsOf(name: string) {
 }
 
 export function PortfolioScreen() {
+  const t = useTranslations("HomeShowcase");
+  const locale = useLocale();
+  const monthLabels = Array.from({ length: 6 }, (_, i) => new Intl.DateTimeFormat(locale, { month: "short" }).format(new Date(2025, i, 1)));
   const p = showcasePortfolio;
   const up = p.monthlyChangePct >= 0;
   return (
@@ -46,7 +51,7 @@ export function PortfolioScreen() {
       <StatusBar />
       <div className="flex flex-1 flex-col gap-5 px-5 pt-5">
         <div>
-          <p className="text-[13px] text-muted">الرصيد الإجمالي</p>
+          <p className="text-[13px] text-muted">{t("totalBalance")}</p>
           <p className="text-[32px] font-extrabold tabular-nums leading-tight text-white" dir="ltr">
             ${p.balance.toLocaleString("en-US", { minimumFractionDigits: 2 })}
           </p>
@@ -57,11 +62,11 @@ export function PortfolioScreen() {
         </div>
 
         <div className="h-28 w-full">
-          <MonthlyBars values={p.monthlyBars} labels={p.monthlyBarLabels} />
+          <MonthlyBars values={p.monthlyBars} labels={monthLabels} />
         </div>
 
         <div className="flex flex-1 flex-col justify-end gap-2.5 pb-2">
-          <p className="text-sm font-medium text-white">المتداولون الذين تنسخهم</p>
+          <p className="text-sm font-medium text-white">{t("tradersYouCopy")}</p>
           {showcaseCopiedTraders.map((c) => (
             <div key={c.name} className="flex items-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.03] px-3.5 py-3">
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sky-400 to-blue-600 text-[13px] font-bold text-white">

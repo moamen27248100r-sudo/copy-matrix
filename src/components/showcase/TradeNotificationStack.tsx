@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { SymbolIcon, symbolColor } from "@/lib/symbol-icons";
 import { showcaseNotifications } from "@/data/showcase-data";
 
@@ -11,6 +12,7 @@ const STACK_STYLE = [
 ];
 
 function NotificationCard({ symbol, pnl, style }: { symbol: string; pnl: number; style?: { scale: number; opacity: number } }) {
+  const t = useTranslations("HomeShowcase");
   const up = pnl >= 0;
   return (
     <div
@@ -27,9 +29,9 @@ function NotificationCard({ symbol, pnl, style }: { symbol: string; pnl: number;
         </span>
         <div className="min-w-0 flex-1">
           <p className="overflow-hidden text-ellipsis whitespace-nowrap text-[12px] font-medium text-white">
-            تم إغلاق صفقة <span dir="ltr">{symbol}</span>
+            {t("tradeClosed", { symbol: `\u2066${symbol}\u2069` })}
           </p>
-          <p className="text-[10px] text-muted">الآن</p>
+          <p className="text-[10px] text-muted">{t("now")}</p>
         </div>
         <span className={"shrink-0 text-[12px] font-bold tabular-nums " + (up ? "text-[#22C55E]" : "text-[#EF4444]")} dir="ltr">
           {up ? "▲" : "▼"} {up ? "+" : ""}

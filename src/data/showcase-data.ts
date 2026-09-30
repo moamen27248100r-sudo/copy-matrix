@@ -25,13 +25,11 @@ export type TradeNotificationSeed = {
 
 export const showcaseTrader = {
   name: "أحمد الشمري",
-  bio: "متخصص في الذهب والعملات",
   verified: true,
   return12mPct: 86.4,
   winRatePct: 72,
   maxDrawdownPct: -11.2,
   activeCopiers: 1284,
-  riskLevel: "متوسطة" as const,
   // 12 monthly equity points, normalized 0-100 for the SVG chart.
   monthlyEquity: [22, 28, 26, 34, 31, 40, 46, 42, 55, 60, 58, 72],
 };
@@ -48,7 +46,6 @@ export const showcasePortfolio = {
   monthlyChangePct: 8.6,
   // last 6 months, one negative for realism
   monthlyBars: [4.2, 6.8, -3.1, 9.4, 7.2, 8.6],
-  monthlyBarLabels: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو"],
 };
 
 export const showcaseCopiedTraders: CopiedTrader[] = [
@@ -74,5 +71,3 @@ export const showcaseNotifications: TradeNotificationSeed[] = [
   { symbol: "NAS100", pnl: 190 },
 ];
 
-export const showcaseDisclaimer =
-  "صورة توضيحية للمنصة. التداول ينطوي على مخاطر، والأداء السابق لا يضمن النتائج المستقبلية.";
