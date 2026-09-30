@@ -16,6 +16,7 @@ import { TraderAvatar } from "@/components/TraderAvatar";
 import { countryDisplay } from "@/lib/country-metadata";
 import { formatDate } from "@/lib/locale-format";
 import { computeStats } from "@/lib/provider-stats";
+import { CopyBar } from "@/components/CopyBar";
 import { CopyDialog } from "@/components/CopyDialog";
 import { getBioTranslator } from "@/lib/bio-translations";
 import type { Locale } from "@/i18n/locales";
@@ -239,7 +240,7 @@ export default async function TraderPage({
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6 pb-40 sm:pb-6 lg:ms-64 lg:me-0">
+      <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+var(--copy-bar-h,7rem)+1rem)] lg:pb-6 lg:ms-64 lg:me-0">
         {error && (
           <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
             {error}
@@ -308,10 +309,7 @@ export default async function TraderPage({
             to the bottom of the viewport on phones so it's always
             reachable while scrolling; a normal inline bar right here,
             under the bio, from sm up. */}
-        <div
-          id="copy"
-          className="fixed inset-x-0 bottom-16 z-40 border-t border-slate-700/70 bg-[#0b0f17]/95 p-3 backdrop-blur scroll-mt-20 sm:static sm:inset-auto sm:bottom-auto sm:z-auto sm:border-0 sm:bg-transparent sm:p-0 sm:backdrop-blur-0"
-        >
+        <CopyBar>
           {isStopped ? (
             <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-3 text-center text-sm text-danger">
               {t("stoppedTradingNotice", { name: provider.display_name })}
@@ -361,7 +359,7 @@ export default async function TraderPage({
               </p>
             </div>
           )}
-        </div>
+        </CopyBar>
 
         <div className="grid grid-cols-2 gap-3 border-t border-slate-700/70 pt-4 text-center text-sm sm:grid-cols-3">
           <div>

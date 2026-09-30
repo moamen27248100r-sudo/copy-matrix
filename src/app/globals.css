@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  --bottom-nav-h: 0px;
   --background: #0b0f17;
   --foreground: #ffffff;
   --surface: #1a2234;
@@ -303,4 +304,26 @@ th {
   direction: ltr;
   unicode-bidi: isolate;
   display: inline-block;
+}
+
+/* Trader equity chart: soft left-to-right reveal when the period filter changes. */
+@keyframes equity-chart-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0.4;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+.equity-chart-reveal {
+  animation: equity-chart-reveal 0.6s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .equity-chart-reveal {
+    animation: none;
+  }
 }

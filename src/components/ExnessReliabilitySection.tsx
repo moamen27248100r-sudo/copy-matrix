@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { getGaugeTier, type GaugeTier } from "@/components/CircularGauge";
 import { TraderEquityChart } from "@/components/TraderEquityChart";
@@ -17,11 +18,14 @@ type SignalRow = {
 
 type ColorTier = "bad" | "medium" | "good" | "neutral";
 
-const TIER_COLOR: Record<ColorTier, { text: string; border: string; bg: string }> = {
-  bad: { text: "text-rose-500", border: "border-rose-500", bg: "bg-rose-500/10" },
-  medium: { text: "text-amber-400", border: "border-amber-400", bg: "bg-amber-400/10" },
-  good: { text: "text-emerald-400", border: "border-emerald-400", bg: "bg-emerald-400/10" },
-  neutral: { text: "text-slate-500", border: "border-slate-500", bg: "bg-slate-500/10" },
+// Calm pastel palette (soft green / amber / soft red) instead of saturated
+// traffic-light colors. Text colors are lighter tints of the same hue so they
+// stay readable on the dark surface.
+const TIER_COLOR: Record<ColorTier, { text: string; ring: string }> = {
+  bad: { text: "text-[#f0a3ab]", ring: "#e88a94" },
+  medium: { text: "text-[#ecd08a]", ring: "#e3bd6a" },
+  good: { text: "text-[#9bdcb8]", ring: "#7ccfa3" },
+  neutral: { text: "text-slate-400", ring: "#64748b" },
 };
 
 // Risk reads inverted -- a low score is the good outcome -- so its color
@@ -86,20 +90,42 @@ function CalendarIcon({ className }: { className?: string }) {
   );
 }
 
-// A medium, thin-bordered colored circle with one icon centered inside --
-// no progress arc, just a tier-colored badge, matching the reference's
-// filled icon-circle look (green/amber/red) instead of a thin SVG ring.
-function IconCircle({ tier, size, children }: { tier: ColorTier; size: number; children: React.ReactNode }) {
+// A real progress ring: the arc fills to value/100 (74/100 = 74%) and
+// animates in once it scrolls into view (instantly under reduced motion).
+// Without a value it is a plain tier-colored icon badge.
+function IconCircle({ tier, size, value, animate, children }: { tier: ColorTier; size: number; value?: number; animate: boolean; children: React.ReactNode }) {
   const colors = TIER_COLOR[tier];
+  const stroke = size >= 34 ? 3.5 : 3;
+  const r = (size - stroke) / 2;
+  const circ = 2 * Math.PI * r;
+  const pct = value == null ? 1 : Math.max(0, Math.min(100, value)) / 100;
+  const offset = circ * (1 - (animate ? pct : 0));
   return (
-    <span
-      className={`flex shrink-0 items-center justify-center rounded-full border-2 ${colors.border} ${colors.bg} ${colors.text}`}
-      style={{ width: size, height: size }}
-    >
+    <span className={`relative flex shrink-0 items-center justify-center ${colors.text}`} style={{ width: size, height: size }}>
+      <svg width={size} height={size} className="absolute inset-0 -rotate-90 rtl:scale-x-[-1]" aria-hidden="true">
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={colors.ring} strokeOpacity={0.18} strokeWidth={stroke} />
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={r}
+          fill="none"
+          stroke={colors.ring}
+          strokeWidth={stroke}
+          strokeLinecap="round"
+          strokeDasharray={circ}
+          strokeDashoffset={offset}
+          className="transition-[stroke-dashoffset] duration-1000 ease-out motion-reduce:transition-none"
+        />
+      </svg>
       {children}
     </span>
   );
 }
+
+// Info tooltip trigger: hover/focus on desktop, tap on touch. The bubble is
+// rendered by the section (see Tip) so it can never overflow a half-width column.
+type TipKey = "reliability" | "safety" | "risk" | "limit" | "days" | "badge";
+type TipState = { key: TipKey; top: number } | null;
 
 const ROW_H = 40;
 const ROW_GAP = 16;
@@ -133,53 +159,73 @@ function BracketConnector() {
   );
 }
 
-function Row({ children }: { children: React.ReactNode }) {
+type TipHandlers = {
+  animate: boolean;
+  activeTip: TipKey | null;
+  showTip: (key: TipKey, el: HTMLElement) => void;
+  hideTip: () => void;
+  toggleTip: (key: TipKey, el: HTMLElement) => void;
+};
+
+function Row({ tipKey, tip, children }: { tipKey: TipKey; tip: TipHandlers; children: React.ReactNode }) {
   return (
-    <div className="flex items-center gap-2.5" style={{ height: ROW_H }}>
+    <button
+      type="button"
+      aria-expanded={tip.activeTip === tipKey}
+      onMouseEnter={(e) => tip.showTip(tipKey, e.currentTarget)}
+      onMouseLeave={tip.hideTip}
+      onFocus={(e) => tip.showTip(tipKey, e.currentTarget)}
+      onBlur={tip.hideTip}
+      onClick={(e) => tip.toggleTip(tipKey, e.currentTarget)}
+      className="flex w-full min-w-0 cursor-help items-center gap-2.5 rounded-lg text-start outline-none focus-visible:ring-2 focus-visible:ring-brand/60"
+      style={{ height: ROW_H }}
+    >
       {children}
-    </div>
+    </button>
   );
 }
 
-function MainRing({ value, status, tier, icon }: { value: number; status: string; tier: ColorTier; icon: React.ReactNode }) {
+const clampScore = (v: number) => Math.max(0, Math.min(100, Math.round(v)));
+
+function MainRing({ value, status, tier, icon, tip }: { value: number; status: string; tier: ColorTier; icon: React.ReactNode; tip: TipHandlers }) {
   const colors = TIER_COLOR[tier];
   return (
-    <Row>
-      <IconCircle tier={tier} size={36}>
+    <Row tipKey="reliability" tip={tip}>
+      <IconCircle tier={tier} size={36} value={clampScore(value)} animate={tip.animate}>
         {icon}
       </IconCircle>
-      <div className="flex flex-col items-start leading-tight">
+      <div className="flex min-w-0 flex-col items-start leading-tight">
         <span className={`text-[11px] font-semibold ${colors.text}`}>{status}</span>
         <span className={`text-base font-extrabold ${colors.text}`} dir="ltr">
-          {Math.max(0, Math.min(100, Math.round(value)))}/100
+          {clampScore(value)}/100
         </span>
       </div>
     </Row>
   );
 }
 
-function SubRing({ value, label, icon, inverted }: { value: number; label: string; icon: React.ReactNode; inverted?: boolean }) {
+function SubRing({ tipKey, value, label, icon, inverted, tip }: { tipKey: TipKey; value: number; label: string; icon: React.ReactNode; inverted?: boolean; tip: TipHandlers }) {
   const tier = colorTierFor(value, !!inverted);
   const colors = TIER_COLOR[tier];
   return (
-    <Row>
-      <IconCircle tier={tier} size={30}>
+    <Row tipKey={tipKey} tip={tip}>
+      <IconCircle tier={tier} size={30} value={clampScore(value)} animate={tip.animate}>
         {icon}
       </IconCircle>
-      <div className="flex flex-col items-start leading-tight">
+      <div className="flex min-w-0 flex-col items-start leading-tight">
         <span className="text-[11px] text-slate-400">{label}</span>
         <span className={`text-sm font-bold ${colors.text}`} dir="ltr">
-          {Math.max(0, Math.min(100, Math.round(value)))}/100
+          {clampScore(value)}/100
         </span>
       </div>
     </Row>
   );
 }
 
-function MainBadge({ label }: { label: string }) {
+function MainBadge({ label, tip }: { label: string; tip: TipHandlers }) {
   return (
-    <Row>
-      <IconCircle tier="good" size={36}>
+    <Row tipKey="badge" tip={tip}>
+      <IconCircle tier="good" size={36} animate={tip.animate}>
         <BoltIcon className="h-4 w-4" />
       </IconCircle>
       <span className="text-sm font-bold text-white">{label}</span>
@@ -187,15 +233,15 @@ function MainBadge({ label }: { label: string }) {
   );
 }
 
-function SubNumber({ value, label, icon }: { value: number; label: string; icon: React.ReactNode }) {
+function SubNumber({ tipKey, value, label, icon, tip }: { tipKey: TipKey; value: number; label: string; icon: React.ReactNode; tip: TipHandlers }) {
   return (
-    <Row>
-      <IconCircle tier="good" size={30}>
+    <Row tipKey={tipKey} tip={tip}>
+      <IconCircle tier="good" size={30} animate={tip.animate}>
         {icon}
       </IconCircle>
-      <div className="flex flex-col items-start leading-tight">
+      <div className="flex min-w-0 flex-col items-start leading-tight">
         <span className="text-[11px] text-slate-400">{label}</span>
-        <span className="text-sm font-bold text-emerald-400" dir="ltr">{value}</span>
+        <span className="text-sm font-bold text-[#9bdcb8]" dir="ltr">{value}</span>
       </div>
     </Row>
   );
@@ -220,31 +266,119 @@ export function ExnessReliabilitySection({
 }) {
   const t = useTranslations("TraderProfile");
   const mainTier = colorTierFor(reliabilityScore, false);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [animate, setAnimate] = useState(false);
+  const [tipState, setTipState] = useState<TipState>(null);
+  const pinned = useRef(false);
+
+  // Rings fill once, the first time the grid scrolls into view.
+  useEffect(() => {
+    const el = gridRef.current;
+    if (!el) return;
+    if (typeof IntersectionObserver === "undefined") {
+      const raf = requestAnimationFrame(() => setAnimate(true));
+      return () => cancelAnimationFrame(raf);
+    }
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setAnimate(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.3 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  // A tapped (pinned) tooltip closes on any outside tap or Escape.
+  useEffect(() => {
+    if (!tipState) return;
+    const close = (e: Event) => {
+      if (e instanceof KeyboardEvent && e.key !== "Escape") return;
+      if (e instanceof PointerEvent && (e.target as HTMLElement).closest?.("[data-tip-row]")) return;
+      pinned.current = false;
+      setTipState(null);
+    };
+    document.addEventListener("pointerdown", close);
+    document.addEventListener("keydown", close);
+    return () => {
+      document.removeEventListener("pointerdown", close);
+      document.removeEventListener("keydown", close);
+    };
+  }, [tipState]);
+
+  const place = (key: TipKey, el: HTMLElement) => {
+    const grid = gridRef.current;
+    if (!grid) return;
+    const top = el.getBoundingClientRect().bottom - grid.getBoundingClientRect().top + 6;
+    setTipState({ key, top });
+  };
+
+  const tip: TipHandlers = {
+    animate,
+    activeTip: tipState?.key ?? null,
+    showTip: (key, el) => {
+      if (!pinned.current) place(key, el);
+    },
+    hideTip: () => {
+      if (!pinned.current) setTipState(null);
+    },
+    toggleTip: (key, el) => {
+      if (pinned.current && tipState?.key === key) {
+        pinned.current = false;
+        setTipState(null);
+      } else {
+        pinned.current = true;
+        place(key, el);
+      }
+    },
+  };
+
+  const TIP_TEXT: Record<TipKey, string> = {
+    reliability: t("gaugeTipReliability"),
+    safety: t("gaugeTipSafety"),
+    risk: t("gaugeTipRisk"),
+    limit: t("gaugeTipLimit"),
+    days: t("gaugeTipTradingDays"),
+    badge: t("gaugeTipBadge"),
+  };
 
   return (
     <div className="flex flex-col gap-5">
       <h2 className="font-display text-base font-extrabold">{t("reliabilitySectionTitle")}</h2>
 
-      <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:gap-x-8">
+      <div ref={gridRef} className="relative grid grid-cols-2 gap-x-2 gap-y-6 sm:gap-x-8">
         {/* First in DOM = right column under RTL: the main reliability node. */}
-        <div className="flex items-start gap-0">
+        <div className="flex items-start gap-0" data-tip-row>
           <BracketConnector />
-          <div className="flex min-w-0 flex-col" style={{ gap: ROW_GAP }}>
-            <MainRing value={reliabilityScore} status={reliabilityStatus} tier={mainTier} icon={<ShieldIcon className="h-4 w-4" />} />
-            <SubRing value={safetyScore} label={t("gaugeSafety")} icon={<LockIcon className="h-3.5 w-3.5" />} />
-            <SubRing value={riskExposureScore} label={t("gaugeRiskExposure")} icon={<AlertTriangleIcon className="h-3.5 w-3.5" />} inverted />
+          <div className="flex min-w-0 flex-1 flex-col" style={{ gap: ROW_GAP }}>
+            <MainRing value={reliabilityScore} status={reliabilityStatus} tier={mainTier} icon={<ShieldIcon className="h-4 w-4" />} tip={tip} />
+            <SubRing tipKey="safety" value={safetyScore} label={t("gaugeSafety")} icon={<LockIcon className="h-3.5 w-3.5" />} tip={tip} />
+            <SubRing tipKey="risk" value={riskExposureScore} label={t("gaugeRiskExposure")} icon={<AlertTriangleIcon className="h-3.5 w-3.5" />} inverted tip={tip} />
           </div>
         </div>
 
         {/* Second in DOM = left column under RTL: trading-activity node. */}
-        <div className="flex items-start gap-0">
+        <div className="flex items-start gap-0" data-tip-row>
           <BracketConnector />
-          <div className="flex min-w-0 flex-col" style={{ gap: ROW_GAP }}>
-            <MainBadge label={t("importantBadgeLabel")} />
-            <SubNumber value={limitScore} label={t("gaugeLimitScore")} icon={<CheckIcon className="h-3.5 w-3.5" />} />
-            <SubNumber value={activeTradingDays} label={t("gaugeTradingDays")} icon={<CalendarIcon className="h-3.5 w-3.5" />} />
+          <div className="flex min-w-0 flex-1 flex-col" style={{ gap: ROW_GAP }}>
+            <MainBadge label={t("importantBadgeLabel")} tip={tip} />
+            <SubNumber tipKey="limit" value={limitScore} label={t("gaugeLimitScore")} icon={<CheckIcon className="h-3.5 w-3.5" />} tip={tip} />
+            <SubNumber tipKey="days" value={activeTradingDays} label={t("gaugeTradingDays")} icon={<CalendarIcon className="h-3.5 w-3.5" />} tip={tip} />
           </div>
         </div>
+
+        {tipState && (
+          <div
+            role="tooltip"
+            className="pointer-events-none absolute inset-x-0 z-20 mx-auto w-full max-w-xs rounded-lg border border-border bg-surface px-3 py-2 text-xs leading-relaxed text-foreground shadow-lg shadow-black/40"
+            style={{ top: tipState.top }}
+          >
+            {TIP_TEXT[tipState.key]}
+          </div>
+        )}
       </div>
 
       <div className="flex flex-col gap-2.5 border-t border-slate-700/70 pt-4">
