@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { getOwnProviderId, currentTier } from "@/lib/lead-trader";
 import { computeActiveTradingDays } from "@/lib/reliability";
-import { LEAD_TRADER_MARKETS, LEAD_TRADER_STYLES } from "@/config/lead-trader";
+import { LEAD_TRADER_MARKETS } from "@/config/lead-trader";
 import { updateLeadTraderSettings, endLeadTraderRole } from "@/app/lead/settings/actions";
 import { ConfirmButton } from "@/components/ConfirmButton";
 import Link from "next/link";

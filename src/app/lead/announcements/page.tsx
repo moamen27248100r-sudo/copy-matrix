@@ -33,7 +33,7 @@ export default async function LeadAnnouncementsPage({ searchParams }: { searchPa
   return (
     <div className="flex flex-col gap-6">
       <h1 className="text-page-title">{t("title")}</h1>
-      {err && <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{t(`err_${err}`)}</p>}
+      {err && <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{t(err === "empty" ? "err_empty" : "err_failed")}</p>}
       {ok && <p className="rounded-lg border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">{t("sent")}</p>}
 
       <form action={sendAnnouncement} className="flex flex-col gap-2 rounded-2xl border border-border bg-surface p-4">

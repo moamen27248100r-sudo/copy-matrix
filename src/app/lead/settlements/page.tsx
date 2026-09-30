@@ -97,7 +97,7 @@ export default async function LeadSettlementsPage({ searchParams }: { searchPara
 
       {!LEAD_TRADER_MONEY_ENABLED && <p className="rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-warning">{t("flagOffNotice")}</p>}
 
-      {err && <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{t(err.startsWith("payoutErr") ? err : "payoutErrGeneric")}</p>}
+      {err && <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{t(["payoutErrMin", "payoutErrDestination", "payoutErrPending", "payoutErrAvailable"].includes(err) ? err : "payoutErrGeneric")}</p>}
       {ok && <p className="rounded-lg border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">{t("payoutRequested")}</p>}
 
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -114,7 +114,7 @@ export default async function LeadSettlementsPage({ searchParams }: { searchPara
         ) : (
           <form action={requestPayout} className="flex flex-wrap gap-2">
             <input name="amount" type="number" min={10} step="any" max={Number(earnings?.available ?? 0)} required placeholder={t("payoutAmount")} className="w-32 rounded-lg border border-border bg-background px-3 py-2 text-base" dir="ltr" />
-            <input name="destination" type="text" minLength={3} maxLength={300} required placeholder={t("payoutDestination")} className="min-w-0 flex-1 rounded-lg border border-border bg-background px-3 py-2 text-base" dir="ltr" />
+            <input name="destination" type="text" minLength={3} maxLength={300} required placeholder={t("payoutDestination")} className="min-w-0 flex-1 rounded-lg border border-border bg-background px-3 py-2 text-base" dir="auto" />
             <button type="submit" disabled={Number(earnings?.available ?? 0) < 10} className="rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-accent-foreground disabled:cursor-not-allowed disabled:opacity-40">
               {t("payoutRequest")}
             </button>

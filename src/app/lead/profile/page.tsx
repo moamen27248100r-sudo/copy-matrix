@@ -6,6 +6,8 @@ import { getOwnProviderId } from "@/lib/lead-trader";
 import { saveLeadPublicProfile, uploadLeadAvatar } from "@/app/lead/profile/actions";
 import { TraderAvatar } from "@/components/TraderAvatar";
 
+const PROFILE_ERRORS = ["saveFailed", "tooLong", "avatarMissing", "avatarType", "avatarSize"];
+
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
   return { title: t("leadProfileTitle"), description: t("leadProfileDesc") };
@@ -39,7 +41,7 @@ export default async function LeadProfilePage({ searchParams }: { searchParams: 
           {t("viewPublic")}
         </Link>
       </div>
-      {err && <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{t(`err_${err}`)}</p>}
+      {err && <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{t(PROFILE_ERRORS.includes(err) ? `err_${err}` : "err_saveFailed")}</p>}
       {ok && <p className="rounded-lg border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">{t("saved")}</p>}
 
       <form action={uploadLeadAvatar} className="flex flex-wrap items-center gap-4 rounded-2xl border border-border bg-surface p-4">
