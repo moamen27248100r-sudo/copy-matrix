@@ -3,7 +3,8 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { getOwnProviderId } from "@/lib/lead-trader";
 import { LEAD_TRADER_MONEY_ENABLED } from "@/config/lead-trader";
-import { runOwnSettlement } from "@/app/lead/settlements/actions";
+import { runOwnSettlement, requestPayout, cancelPayout } from "@/app/lead/settlements/actions";
+import { ConfirmButton } from "@/components/ConfirmButton";
 
 function maskEmail(name: string | null, id: string) {
   return name ?? `${id.slice(0, 4)}****`;
@@ -14,7 +15,19 @@ export async function generateMetadata() {
   return { title: t("leadSettlementsTitle"), description: t("leadSettlementsDesc") };
 }
 
-export default async function LeadSettlementsPage() {
+type Earnings = {
+  rate: number;
+  settled_total: number;
+  pending_total: number;
+  available: number;
+  hwm_total: number;
+  monthly: { month: string; new_profit_above_hwm: number; share: number; settled: number | null; pending: number | null }[];
+};
+
+type Payout = { id: string; amount: number; destination: string; status: string; admin_note: string | null; created_at: string };
+
+export default async function LeadSettlementsPage({ searchParams }: { searchParams: Promise<{ err?: string; ok?: string }> }) {
+  const { err, ok } = await searchParams;
   const t = await getTranslations("LeadTrader.settlements");
   const supabase = await createClient();
   const {
@@ -25,7 +38,7 @@ export default async function LeadSettlementsPage() {
   const providerId = await getOwnProviderId(supabase, user.id);
   if (!providerId) redirect("/become-lead-trader");
 
-  const [{ data: ledger }, { data: provider }, { data: subs }] = await Promise.all([
+  const [{ data: ledger }, { data: provider }, { data: subs }, { data: earningsData }, { data: payoutRows }] = await Promise.all([
     supabase
       .from("profit_share_ledger")
       .select("id, follower_id, period_start, period_end, gross_pnl, profit_share_pct, profit_share_amount, status, settled_at")
@@ -34,7 +47,12 @@ export default async function LeadSettlementsPage() {
       .limit(100),
     supabase.from("providers").select("profit_share_pct").eq("id", providerId).single(),
     supabase.from("subscriptions").select("id, follower_id, is_active").eq("provider_id", providerId).eq("is_active", true),
+    supabase.rpc("lead_dashboard_earnings"),
+    supabase.from("lead_trader_payout_requests").select("id, amount, destination, status, admin_note, created_at").order("created_at", { ascending: false }).limit(20),
   ]);
+  const earnings = earningsData as Earnings | null;
+  const payouts = (payoutRows ?? []) as Payout[];
+  const hasPending = payouts.some((p) => p.status === "pending");
 
   const rows = ledger ?? [];
   const followerIds = Array.from(new Set(rows.map((r) => r.follower_id)));
@@ -78,6 +96,85 @@ export default async function LeadSettlementsPage() {
       </div>
 
       {!LEAD_TRADER_MONEY_ENABLED && <p className="rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-warning">{t("flagOffNotice")}</p>}
+
+      {err && <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{t(err.startsWith("payoutErr") ? err : "payoutErrGeneric")}</p>}
+      {ok && <p className="rounded-lg border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">{t("payoutRequested")}</p>}
+
+      <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <Stat label={t("availableToWithdraw")} value={Number(earnings?.available ?? 0)} />
+        <Stat label={t("profitShareRate")} value={Number(earnings?.rate ?? 0)} suffix="%" />
+        <Stat label={t("hwmTotal")} value={Number(earnings?.hwm_total ?? 0)} />
+      </section>
+      <p className="-mt-4 text-xs text-muted">{t("hwmNote")}</p>
+
+      <section className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4">
+        <h2 className="text-section-title">{t("payoutTitle")}</h2>
+        {hasPending ? (
+          <p className="text-sm text-muted">{t("payoutPendingNotice")}</p>
+        ) : (
+          <form action={requestPayout} className="flex flex-wrap gap-2">
+            <input name="amount" type="number" min={10} step="any" max={Number(earnings?.available ?? 0)} required placeholder={t("payoutAmount")} className="w-32 rounded-lg border border-border bg-background px-3 py-2 text-base" dir="ltr" />
+            <input name="destination" type="text" minLength={3} maxLength={300} required placeholder={t("payoutDestination")} className="min-w-0 flex-1 rounded-lg border border-border bg-background px-3 py-2 text-base" dir="ltr" />
+            <button type="submit" disabled={Number(earnings?.available ?? 0) < 10} className="rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-accent-foreground disabled:cursor-not-allowed disabled:opacity-40">
+              {t("payoutRequest")}
+            </button>
+          </form>
+        )}
+        <p className="text-xs text-muted">{t("payoutMinNote")}</p>
+        {payouts.length > 0 && (
+          <div className="flex flex-col gap-1.5">
+            {payouts.map((p) => (
+              <div key={p.id} className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-border bg-background px-3 py-2 text-xs">
+                <span className="tabular-nums" dir="ltr">
+                  ${Number(p.amount).toFixed(2)} · {new Date(p.created_at).toLocaleDateString("en-US")}
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className={p.status === "approved" ? "text-success" : p.status === "pending" ? "text-warning" : "text-muted"}>{t(`payout_${p.status}`)}</span>
+                  {p.status === "pending" && (
+                    <form action={cancelPayout}>
+                      <input type="hidden" name="id" value={p.id} />
+                      <ConfirmButton confirmText={t("payoutCancelConfirm")} className="text-danger hover:underline">
+                        {t("payoutCancel")}
+                      </ConfirmButton>
+                    </form>
+                  )}
+                </span>
+                {p.admin_note && <span className="w-full text-muted">{p.admin_note}</span>}
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+
+      {earnings && earnings.monthly.length > 0 && (
+        <section className="flex flex-col gap-3">
+          <h2 className="text-section-title">{t("monthlyTitle")}</h2>
+          <div className="overflow-x-auto rounded-2xl border border-border">
+            <table className="w-full min-w-[480px] text-sm">
+              <thead>
+                <tr className="border-b border-border text-xs text-muted">
+                  <th className="px-3 py-2 text-start font-normal">{t("month")}</th>
+                  <th className="px-3 py-2 text-start font-normal">{t("newProfit")}</th>
+                  <th className="px-3 py-2 text-start font-normal">{t("amount")}</th>
+                  <th className="px-3 py-2 text-start font-normal">{t("settled")}</th>
+                  <th className="px-3 py-2 text-start font-normal">{t("pending")}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {earnings.monthly.map((m) => (
+                  <tr key={m.month} className="border-b border-border last:border-b-0 tabular-nums" dir="ltr">
+                    <td className="px-3 py-2 text-start">{m.month}</td>
+                    <td className="px-3 py-2 text-start">${Number(m.new_profit_above_hwm).toFixed(2)}</td>
+                    <td className="px-3 py-2 text-start">${Number(m.share).toFixed(2)}</td>
+                    <td className="px-3 py-2 text-start">${Number(m.settled ?? 0).toFixed(2)}</td>
+                    <td className="px-3 py-2 text-start">${Number(m.pending ?? 0).toFixed(2)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
 
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Stat label={t("realized")} value={realized} />
@@ -130,12 +227,12 @@ export default async function LeadSettlementsPage() {
   );
 }
 
-function Stat({ label, value }: { label: string; value: number }) {
+function Stat({ label, value, suffix }: { label: string; value: number; suffix?: string }) {
   return (
     <div className="flex flex-col gap-1 rounded-xl border border-border bg-surface p-4">
       <p className="text-xs text-muted">{label}</p>
       <p className="num text-lg font-semibold" dir="ltr">
-        ${value.toFixed(2)}
+        {suffix ? `${value}${suffix}` : `$${value.toFixed(2)}`}
       </p>
     </div>
   );

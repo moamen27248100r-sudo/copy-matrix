@@ -381,7 +381,10 @@
     "cat_account": "Account",
     "cat_security": "Security",
     "backToNotifications": "Back to notifications",
-    "prefsLink": "Preferences"
+    "prefsLink": "Preferences",
+    "leadPayoutApprovedTitle": "提现已批准",
+    "leadPayoutRejectedTitle": "提现被拒绝",
+    "leadPayoutBody": "您 ${amount} 的收益提现申请已审核。"
   },
   "Portfolio": {
     "title": "我的资产",
@@ -1668,7 +1671,8 @@
       "settlements": "Settlements",
       "tasks": "Tasks",
       "settings": "Settings",
-      "performance": "业绩"
+      "performance": "业绩",
+      "earnings": "收益"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1799,7 +1803,32 @@
       "status": "Status",
       "status_pending": "Pending",
       "status_settled": "Settled",
-      "status_waived": "Waived"
+      "status_waived": "Waived",
+      "availableToWithdraw": "可提现金额",
+      "profitShareRate": "分润比例",
+      "hwmTotal": "当前高水位线 (HWM)",
+      "hwmNote": "仅对每位跟单者超过此前峰值的新增利润分成，亏损须先弥补。",
+      "payoutTitle": "提取收益",
+      "payoutAmount": "金额 (USD)",
+      "payoutDestination": "钱包地址 / 收款信息",
+      "payoutRequest": "申请提现",
+      "payoutMinNote": "最低10美元。仅已结算收益可提现，申请由团队审核。",
+      "payoutPendingNotice": "您有一笔提现申请正在审核中。",
+      "payoutRequested": "提现申请已提交。",
+      "payoutCancel": "取消",
+      "payoutCancelConfirm": "取消此提现申请？",
+      "payout_pending": "审核中",
+      "payout_approved": "已批准",
+      "payout_rejected": "已拒绝",
+      "payout_cancelled": "已取消",
+      "payoutErrMin": "最低提现金额为10美元。",
+      "payoutErrDestination": "请输入钱包地址或收款信息。",
+      "payoutErrPending": "您已有一笔申请在审核中。",
+      "payoutErrAvailable": "金额超过可用收益。",
+      "payoutErrGeneric": "无法提交申请，请重试。",
+      "monthlyTitle": "月度收益（高水位线）",
+      "month": "月份",
+      "newProfit": "超过峰值的新增利润"
     },
     "followerLedger": {
       "title": "Profit-share history",

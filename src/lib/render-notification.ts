@@ -67,6 +67,8 @@ export function renderNotification(t: Translator, n: NotificationRow): { title: 
       return { title: t("walletDepositRejectedTitle"), body: t("walletRejectedBody") };
     case "wallet_withdrawal_rejected":
       return { title: t("walletWithdrawalRejectedTitle"), body: t("walletRejectedBody") };
+    case "lead_payout_reviewed":
+      return { title: t(d.approved ? "leadPayoutApprovedTitle" : "leadPayoutRejectedTitle"), body: t("leadPayoutBody", { amount: Number(d.amount ?? 0) }) };
     default:
       return { title: n.title, body: n.body };
   }

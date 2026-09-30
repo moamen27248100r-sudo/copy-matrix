@@ -381,7 +381,10 @@
     "cat_account": "Account",
     "cat_security": "Security",
     "backToNotifications": "Back to notifications",
-    "prefsLink": "Preferences"
+    "prefsLink": "Preferences",
+    "leadPayoutApprovedTitle": "Penarikan disetujui",
+    "leadPayoutRejectedTitle": "Penarikan ditolak",
+    "leadPayoutBody": "Permintaan penarikan ${amount} Anda telah ditinjau."
   },
   "Portfolio": {
     "title": "Portofolio Saya",
@@ -1667,7 +1670,8 @@
       "settlements": "Settlements",
       "tasks": "Tasks",
       "settings": "Settings",
-      "performance": "Kinerja"
+      "performance": "Kinerja",
+      "earnings": "Pendapatan"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1798,7 +1802,32 @@
       "status": "Status",
       "status_pending": "Pending",
       "status_settled": "Settled",
-      "status_waived": "Waived"
+      "status_waived": "Waived",
+      "availableToWithdraw": "Tersedia untuk ditarik",
+      "profitShareRate": "Persentase bagi hasil",
+      "hwmTotal": "High-water mark saat ini",
+      "hwmNote": "Anda hanya dibayar dari laba baru di atas puncak sebelumnya tiap peniru; kerugian harus dipulihkan dulu.",
+      "payoutTitle": "Tarik pendapatan",
+      "payoutAmount": "Jumlah (USD)",
+      "payoutDestination": "Alamat dompet / detail pembayaran",
+      "payoutRequest": "Ajukan penarikan",
+      "payoutMinNote": "Minimum $10. Hanya pendapatan yang sudah diselesaikan yang dapat ditarik; permintaan ditinjau tim.",
+      "payoutPendingNotice": "Anda memiliki permintaan penarikan yang sedang ditinjau.",
+      "payoutRequested": "Permintaan penarikan terkirim.",
+      "payoutCancel": "Batalkan",
+      "payoutCancelConfirm": "Batalkan permintaan penarikan ini?",
+      "payout_pending": "Ditinjau",
+      "payout_approved": "Disetujui",
+      "payout_rejected": "Ditolak",
+      "payout_cancelled": "Dibatalkan",
+      "payoutErrMin": "Penarikan minimum $10.",
+      "payoutErrDestination": "Masukkan alamat dompet atau detail pembayaran.",
+      "payoutErrPending": "Anda sudah memiliki permintaan yang sedang ditinjau.",
+      "payoutErrAvailable": "Jumlah melebihi pendapatan yang tersedia.",
+      "payoutErrGeneric": "Gagal mengirim permintaan. Coba lagi.",
+      "monthlyTitle": "Pendapatan bulanan (high-water mark)",
+      "month": "Bulan",
+      "newProfit": "Laba baru di atas puncak"
     },
     "followerLedger": {
       "title": "Profit-share history",

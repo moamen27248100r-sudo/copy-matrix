@@ -381,7 +381,10 @@
     "cat_account": "Account",
     "cat_security": "Security",
     "backToNotifications": "Back to notifications",
-    "prefsLink": "Preferences"
+    "prefsLink": "Preferences",
+    "leadPayoutApprovedTitle": "উত্তোলন অনুমোদিত",
+    "leadPayoutRejectedTitle": "উত্তোলন প্রত্যাখ্যাত",
+    "leadPayoutBody": "আপনার ${amount} উত্তোলনের অনুরোধ পর্যালোচিত হয়েছে।"
   },
   "Portfolio": {
     "title": "আমার পোর্টফোলিও",
@@ -1667,7 +1670,8 @@
       "settlements": "Settlements",
       "tasks": "Tasks",
       "settings": "Settings",
-      "performance": "পারফরম্যান্স"
+      "performance": "পারফরম্যান্স",
+      "earnings": "আয়"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1798,7 +1802,32 @@
       "status": "Status",
       "status_pending": "Pending",
       "status_settled": "Settled",
-      "status_waived": "Waived"
+      "status_waived": "Waived",
+      "availableToWithdraw": "উত্তোলনযোগ্য",
+      "profitShareRate": "মুনাফা ভাগের হার",
+      "hwmTotal": "বর্তমান হাই-ওয়াটার মার্ক",
+      "hwmNote": "প্রতিটি কপিকারীর আগের সর্বোচ্চ সীমার ওপরের নতুন মুনাফার অংশই পাবেন; আগে লোকসান পূরণ করতে হবে।",
+      "payoutTitle": "আয় উত্তোলন",
+      "payoutAmount": "পরিমাণ (USD)",
+      "payoutDestination": "ওয়ালেট ঠিকানা / পেআউট তথ্য",
+      "payoutRequest": "উত্তোলনের অনুরোধ",
+      "payoutMinNote": "ন্যূনতম $10। শুধু নিষ্পন্ন আয় তোলা যাবে; অনুরোধ টিম পর্যালোচনা করে।",
+      "payoutPendingNotice": "আপনার একটি উত্তোলনের অনুরোধ পর্যালোচনায় আছে।",
+      "payoutRequested": "উত্তোলনের অনুরোধ জমা হয়েছে।",
+      "payoutCancel": "বাতিল",
+      "payoutCancelConfirm": "এই উত্তোলনের অনুরোধ বাতিল করবেন?",
+      "payout_pending": "পর্যালোচনায়",
+      "payout_approved": "অনুমোদিত",
+      "payout_rejected": "প্রত্যাখ্যাত",
+      "payout_cancelled": "বাতিল",
+      "payoutErrMin": "ন্যূনতম উত্তোলন $10।",
+      "payoutErrDestination": "ওয়ালেট ঠিকানা বা পেআউট তথ্য দিন।",
+      "payoutErrPending": "আপনার একটি অনুরোধ ইতিমধ্যে পর্যালোচনায় আছে।",
+      "payoutErrAvailable": "পরিমাণ উপলব্ধ আয়ের চেয়ে বেশি।",
+      "payoutErrGeneric": "অনুরোধ জমা দেওয়া যায়নি। আবার চেষ্টা করুন।",
+      "monthlyTitle": "মাসিক আয় (হাই-ওয়াটার মার্ক)",
+      "month": "মাস",
+      "newProfit": "শীর্ষের ওপরে নতুন মুনাফা"
     },
     "followerLedger": {
       "title": "Profit-share history",

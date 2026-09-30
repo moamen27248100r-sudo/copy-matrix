@@ -393,7 +393,10 @@
     "cat_account": "الحساب",
     "cat_security": "الأمان",
     "backToNotifications": "العودة إلى الإشعارات",
-    "prefsLink": "التفضيلات"
+    "prefsLink": "التفضيلات",
+    "leadPayoutApprovedTitle": "تمت الموافقة على السحب",
+    "leadPayoutRejectedTitle": "تم رفض السحب",
+    "leadPayoutBody": "تمت مراجعة طلب سحب أرباحك بقيمة ${amount}."
   },
   "Portfolio": {
     "title": "محفظتي",
@@ -1744,7 +1747,8 @@
       "settlements": "التسويات",
       "tasks": "المهام",
       "settings": "الإعدادات",
-      "performance": "الأداء"
+      "performance": "الأداء",
+      "earnings": "الأرباح"
     },
     "overview": {
       "title": "مركز المتداول القائد",
@@ -1875,7 +1879,32 @@
       "status": "الحالة",
       "status_pending": "بانتظار",
       "status_settled": "تمت التسوية",
-      "status_waived": "مُعفاة"
+      "status_waived": "مُعفاة",
+      "availableToWithdraw": "المتاح للسحب",
+      "profitShareRate": "نسبة مشاركة الأرباح",
+      "hwmTotal": "مستوى القمة الحالي (HWM)",
+      "hwmNote": "تحصل فقط على نسبة من الربح الجديد فوق أعلى قمة سابقة لكل ناسخ، ويجب تعويض أي خسارة أولاً.",
+      "payoutTitle": "سحب الأرباح",
+      "payoutAmount": "المبلغ (USD)",
+      "payoutDestination": "عنوان المحفظة / بيانات الاستلام",
+      "payoutRequest": "طلب سحب",
+      "payoutMinNote": "الحد الأدنى 10$. يمكن سحب الأرباح المسوّاة فقط، وتُراجَع الطلبات من الفريق.",
+      "payoutPendingNotice": "لديك طلب سحب قيد المراجعة.",
+      "payoutRequested": "تم إرسال طلب السحب.",
+      "payoutCancel": "إلغاء",
+      "payoutCancelConfirm": "إلغاء طلب السحب هذا؟",
+      "payout_pending": "قيد المراجعة",
+      "payout_approved": "تمت الموافقة",
+      "payout_rejected": "مرفوض",
+      "payout_cancelled": "ملغى",
+      "payoutErrMin": "الحد الأدنى للسحب 10$.",
+      "payoutErrDestination": "أدخل عنوان المحفظة أو بيانات الاستلام.",
+      "payoutErrPending": "لديك طلب قيد المراجعة بالفعل.",
+      "payoutErrAvailable": "المبلغ أكبر من أرباحك المتاحة.",
+      "payoutErrGeneric": "تعذّر إرسال الطلب. حاول مرة أخرى.",
+      "monthlyTitle": "الأرباح الشهرية (High-Water Mark)",
+      "month": "الشهر",
+      "newProfit": "ربح جديد فوق القمة"
     },
     "followerLedger": {
       "title": "سجل مشاركة الأرباح",

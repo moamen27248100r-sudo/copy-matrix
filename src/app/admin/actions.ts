@@ -1010,3 +1010,76 @@ export async function applyLeadTraderSettlements(formData: FormData) {
   await logAdminAction(supabase, adminId, "apply_lead_trader_settlements", "provider", providerId, { settledCount });
   revalidatePath("/admin/traders");
 }
+
+// ---- Lead trader payout requests (leader dashboard phase 3) ------------------
+// A request is only creatable for amounts <= the leader's settled profit-share
+// earnings (enforced in lead_dashboard_request_payout, 0212). Approving it
+// debits the leader's balance (service role -- profiles.balance is locked to
+// it) and logs a wallet transaction; the transfer itself happens off-platform.
+export async function approveLeadPayout(formData: FormData) {
+  const { supabase, adminId } = await assertAdmin();
+  const id = formData.get("requestId") as string;
+  const note = ((formData.get("note") as string) || "").trim() || null;
+
+  const { data: req } = await supabase.from("lead_trader_payout_requests").select("id, user_id, amount, status").eq("id", id).single();
+  if (!req || req.status !== "pending") redirect("/admin/lead-payouts?error=" + encodeURIComponent("الطلب غير موجود أو تمت مراجعته."));
+
+  const admin = createAdminClient();
+  const { data: leader } = await admin.from("profiles").select("balance").eq("id", req.user_id).single();
+  const amount = Number(req.amount);
+  if (!leader || Number(leader.balance) < amount) {
+    redirect("/admin/lead-payouts?error=" + encodeURIComponent("رصيد القائد لا يكفي لهذا السحب."));
+  }
+
+  const { data: claimed } = await admin
+    .from("lead_trader_payout_requests")
+    .update({ status: "approved", admin_note: note, reviewed_at: new Date().toISOString() })
+    .eq("id", id)
+    .eq("status", "pending")
+    .select("id");
+  if (!claimed?.length) redirect("/admin/lead-payouts?error=" + encodeURIComponent("تمت مراجعة الطلب بالفعل."));
+
+  const newBalance = Number(leader.balance) - amount;
+  const { data: debited } = await admin.from("profiles").update({ balance: newBalance }).eq("id", req.user_id).eq("balance", leader.balance).select("id");
+  if (!debited?.length) {
+    await admin.from("lead_trader_payout_requests").update({ status: "pending", reviewed_at: null }).eq("id", id);
+    redirect("/admin/lead-payouts?error=" + encodeURIComponent("تغيّر رصيد القائد أثناء المعالجة، أعد المحاولة."));
+  }
+  await admin.from("wallet_transactions").insert({ user_id: req.user_id, type: "withdrawal", amount: -amount, balance_after: newBalance, note: "سحب أرباح المتداول القائد" });
+  await admin.from("notifications").insert({
+    user_id: req.user_id,
+    type: "lead_payout_reviewed",
+    title: "تمت الموافقة على طلب سحب الأرباح",
+    body: null,
+    data: { amount, approved: true },
+  });
+
+  await logAdminAction(supabase, adminId, "approve_lead_payout", "lead_trader_payout_request", id, { amount });
+  revalidatePath("/admin/lead-payouts");
+}
+
+export async function rejectLeadPayout(formData: FormData) {
+  const { supabase, adminId } = await assertAdmin();
+  const id = formData.get("requestId") as string;
+  const note = ((formData.get("note") as string) || "").trim() || null;
+
+  const admin = createAdminClient();
+  const { data: rejected } = await admin
+    .from("lead_trader_payout_requests")
+    .update({ status: "rejected", admin_note: note, reviewed_at: new Date().toISOString() })
+    .eq("id", id)
+    .eq("status", "pending")
+    .select("user_id, amount");
+  if (rejected?.length) {
+    await admin.from("notifications").insert({
+      user_id: rejected[0].user_id,
+      type: "lead_payout_reviewed",
+      title: "تم رفض طلب سحب الأرباح",
+      body: null,
+      data: { amount: Number(rejected[0].amount), approved: false },
+    });
+  }
+
+  await logAdminAction(supabase, adminId, "reject_lead_payout", "lead_trader_payout_request", id, { note });
+  revalidatePath("/admin/lead-payouts");
+}

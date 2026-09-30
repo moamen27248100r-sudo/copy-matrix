@@ -381,7 +381,10 @@
     "cat_account": "Account",
     "cat_security": "Security",
     "backToNotifications": "Back to notifications",
-    "prefsLink": "Preferences"
+    "prefsLink": "Preferences",
+    "leadPayoutApprovedTitle": "نکالنا منظور",
+    "leadPayoutRejectedTitle": "نکالنا مسترد",
+    "leadPayoutBody": "آپ کی ${amount} کی نکالنے کی درخواست کا جائزہ لیا گیا۔"
   },
   "Portfolio": {
     "title": "میرا پورٹ فولیو",
@@ -1667,7 +1670,8 @@
       "settlements": "Settlements",
       "tasks": "Tasks",
       "settings": "Settings",
-      "performance": "کارکردگی"
+      "performance": "کارکردگی",
+      "earnings": "کمائی"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1798,7 +1802,32 @@
       "status": "Status",
       "status_pending": "Pending",
       "status_settled": "Settled",
-      "status_waived": "Waived"
+      "status_waived": "Waived",
+      "availableToWithdraw": "نکالنے کے لیے دستیاب",
+      "profitShareRate": "منافع میں حصے کی شرح",
+      "hwmTotal": "موجودہ ہائی واٹر مارک",
+      "hwmNote": "آپ کو ہر کاپی کرنے والے کی پچھلی بلند ترین سطح سے اوپر کے نئے منافع پر ہی حصہ ملتا ہے؛ پہلے نقصان پورا ہونا چاہیے۔",
+      "payoutTitle": "کمائی نکالیں",
+      "payoutAmount": "رقم (USD)",
+      "payoutDestination": "والٹ ایڈریس / ادائیگی کی تفصیل",
+      "payoutRequest": "نکالنے کی درخواست",
+      "payoutMinNote": "کم از کم 10$۔ صرف طے شدہ کمائی نکالی جا سکتی ہے؛ درخواستوں کا جائزہ ٹیم لیتی ہے۔",
+      "payoutPendingNotice": "آپ کی ایک نکالنے کی درخواست زیر جائزہ ہے۔",
+      "payoutRequested": "نکالنے کی درخواست بھیج دی گئی۔",
+      "payoutCancel": "منسوخ کریں",
+      "payoutCancelConfirm": "یہ نکالنے کی درخواست منسوخ کریں؟",
+      "payout_pending": "زیر جائزہ",
+      "payout_approved": "منظور",
+      "payout_rejected": "مسترد",
+      "payout_cancelled": "منسوخ",
+      "payoutErrMin": "کم از کم نکالنا 10$ ہے۔",
+      "payoutErrDestination": "والٹ ایڈریس یا ادائیگی کی تفصیل درج کریں۔",
+      "payoutErrPending": "آپ کی ایک درخواست پہلے سے زیر جائزہ ہے۔",
+      "payoutErrAvailable": "رقم دستیاب کمائی سے زیادہ ہے۔",
+      "payoutErrGeneric": "درخواست نہیں بھیجی جا سکی۔ دوبارہ کوشش کریں۔",
+      "monthlyTitle": "ماہانہ کمائی (ہائی واٹر مارک)",
+      "month": "مہینہ",
+      "newProfit": "چوٹی سے اوپر نیا منافع"
     },
     "followerLedger": {
       "title": "Profit-share history",

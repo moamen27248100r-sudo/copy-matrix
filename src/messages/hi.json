@@ -381,7 +381,10 @@
     "cat_account": "Account",
     "cat_security": "Security",
     "backToNotifications": "Back to notifications",
-    "prefsLink": "Preferences"
+    "prefsLink": "Preferences",
+    "leadPayoutApprovedTitle": "निकासी स्वीकृत",
+    "leadPayoutRejectedTitle": "निकासी अस्वीकृत",
+    "leadPayoutBody": "आपके ${amount} के निकासी अनुरोध की समीक्षा हुई।"
   },
   "Portfolio": {
     "title": "मेरा पोर्टफोलियो",
@@ -1667,7 +1670,8 @@
       "settlements": "Settlements",
       "tasks": "Tasks",
       "settings": "Settings",
-      "performance": "प्रदर्शन"
+      "performance": "प्रदर्शन",
+      "earnings": "कमाई"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1798,7 +1802,32 @@
       "status": "Status",
       "status_pending": "Pending",
       "status_settled": "Settled",
-      "status_waived": "Waived"
+      "status_waived": "Waived",
+      "availableToWithdraw": "निकासी योग्य राशि",
+      "profitShareRate": "लाभ-साझेदारी दर",
+      "hwmTotal": "वर्तमान हाई-वॉटर मार्क",
+      "hwmNote": "आपको हर कॉपीकर्ता के पिछले शिखर से ऊपर के नए मुनाफे पर ही हिस्सा मिलता है; पहले घाटा पूरा होना चाहिए।",
+      "payoutTitle": "कमाई निकालें",
+      "payoutAmount": "राशि (USD)",
+      "payoutDestination": "वॉलेट पता / भुगतान विवरण",
+      "payoutRequest": "निकासी का अनुरोध",
+      "payoutMinNote": "न्यूनतम $10। केवल निपटाई गई कमाई निकाली जा सकती है; अनुरोधों की समीक्षा टीम करती है।",
+      "payoutPendingNotice": "आपका एक निकासी अनुरोध समीक्षा में है।",
+      "payoutRequested": "निकासी अनुरोध भेज दिया गया।",
+      "payoutCancel": "रद्द करें",
+      "payoutCancelConfirm": "यह निकासी अनुरोध रद्द करें?",
+      "payout_pending": "समीक्षा में",
+      "payout_approved": "स्वीकृत",
+      "payout_rejected": "अस्वीकृत",
+      "payout_cancelled": "रद्द",
+      "payoutErrMin": "न्यूनतम निकासी $10 है।",
+      "payoutErrDestination": "वॉलेट पता या भुगतान विवरण दर्ज करें।",
+      "payoutErrPending": "आपका एक अनुरोध पहले से समीक्षा में है।",
+      "payoutErrAvailable": "राशि आपकी उपलब्ध कमाई से अधिक है।",
+      "payoutErrGeneric": "अनुरोध नहीं भेजा जा सका। फिर कोशिश करें।",
+      "monthlyTitle": "मासिक कमाई (हाई-वॉटर मार्क)",
+      "month": "माह",
+      "newProfit": "शिखर से ऊपर का नया मुनाफा"
     },
     "followerLedger": {
       "title": "Profit-share history",

@@ -381,7 +381,10 @@
     "cat_account": "Account",
     "cat_security": "Security",
     "backToNotifications": "Back to notifications",
-    "prefsLink": "Preferences"
+    "prefsLink": "Preferences",
+    "leadPayoutApprovedTitle": "Retrait approuvé",
+    "leadPayoutRejectedTitle": "Retrait refusé",
+    "leadPayoutBody": "Votre demande de retrait de {amount} $ a été examinée."
   },
   "Portfolio": {
     "title": "Mon portefeuille",
@@ -1668,7 +1671,8 @@
       "settlements": "Settlements",
       "tasks": "Tasks",
       "settings": "Settings",
-      "performance": "Performance"
+      "performance": "Performance",
+      "earnings": "Gains"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1799,7 +1803,32 @@
       "status": "Status",
       "status_pending": "Pending",
       "status_settled": "Settled",
-      "status_waived": "Waived"
+      "status_waived": "Waived",
+      "availableToWithdraw": "Disponible au retrait",
+      "profitShareRate": "Taux de partage des profits",
+      "hwmTotal": "Plus haut historique (HWM)",
+      "hwmNote": "Vous n'êtes rémunéré que sur le nouveau profit au-dessus du précédent sommet de chaque copieur ; les pertes doivent d'abord être récupérées.",
+      "payoutTitle": "Retirer les gains",
+      "payoutAmount": "Montant (USD)",
+      "payoutDestination": "Adresse du portefeuille / détails",
+      "payoutRequest": "Demander le retrait",
+      "payoutMinNote": "Minimum 10 $. Seuls les gains réglés sont retirables ; les demandes sont examinées par l'équipe.",
+      "payoutPendingNotice": "Vous avez une demande de retrait en cours d'examen.",
+      "payoutRequested": "Demande de retrait envoyée.",
+      "payoutCancel": "Annuler",
+      "payoutCancelConfirm": "Annuler cette demande de retrait ?",
+      "payout_pending": "En cours d'examen",
+      "payout_approved": "Approuvée",
+      "payout_rejected": "Refusée",
+      "payout_cancelled": "Annulée",
+      "payoutErrMin": "Le retrait minimum est de 10 $.",
+      "payoutErrDestination": "Saisissez l'adresse du portefeuille ou les détails.",
+      "payoutErrPending": "Vous avez déjà une demande en cours.",
+      "payoutErrAvailable": "Le montant dépasse vos gains disponibles.",
+      "payoutErrGeneric": "Impossible d'envoyer la demande. Réessayez.",
+      "monthlyTitle": "Gains mensuels (high-water mark)",
+      "month": "Mois",
+      "newProfit": "Nouveau profit au-dessus du sommet"
     },
     "followerLedger": {
       "title": "Profit-share history",

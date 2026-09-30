@@ -381,7 +381,10 @@
     "cat_account": "Account",
     "cat_security": "Security",
     "backToNotifications": "Back to notifications",
-    "prefsLink": "Preferences"
+    "prefsLink": "Preferences",
+    "leadPayoutApprovedTitle": "Đã duyệt rút tiền",
+    "leadPayoutRejectedTitle": "Rút tiền bị từ chối",
+    "leadPayoutBody": "Yêu cầu rút ${amount} của bạn đã được xem xét."
   },
   "Portfolio": {
     "title": "Danh mục của tôi",
@@ -1667,7 +1670,8 @@
       "settlements": "Settlements",
       "tasks": "Tasks",
       "settings": "Settings",
-      "performance": "Hiệu suất"
+      "performance": "Hiệu suất",
+      "earnings": "Thu nhập"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1798,7 +1802,32 @@
       "status": "Status",
       "status_pending": "Pending",
       "status_settled": "Settled",
-      "status_waived": "Waived"
+      "status_waived": "Waived",
+      "availableToWithdraw": "Có thể rút",
+      "profitShareRate": "Tỷ lệ chia sẻ lợi nhuận",
+      "hwmTotal": "Mốc đỉnh hiện tại (HWM)",
+      "hwmNote": "Bạn chỉ nhận phần lợi nhuận mới vượt đỉnh trước đó của mỗi người sao chép; khoản lỗ phải được bù trước.",
+      "payoutTitle": "Rút thu nhập",
+      "payoutAmount": "Số tiền (USD)",
+      "payoutDestination": "Địa chỉ ví / thông tin nhận",
+      "payoutRequest": "Yêu cầu rút",
+      "payoutMinNote": "Tối thiểu $10. Chỉ rút được thu nhập đã quyết toán; yêu cầu do đội ngũ xem xét.",
+      "payoutPendingNotice": "Bạn có một yêu cầu rút tiền đang được xem xét.",
+      "payoutRequested": "Đã gửi yêu cầu rút tiền.",
+      "payoutCancel": "Hủy",
+      "payoutCancelConfirm": "Hủy yêu cầu rút tiền này?",
+      "payout_pending": "Đang xem xét",
+      "payout_approved": "Đã duyệt",
+      "payout_rejected": "Bị từ chối",
+      "payout_cancelled": "Đã hủy",
+      "payoutErrMin": "Số tiền rút tối thiểu là $10.",
+      "payoutErrDestination": "Nhập địa chỉ ví hoặc thông tin nhận tiền.",
+      "payoutErrPending": "Bạn đã có một yêu cầu đang được xem xét.",
+      "payoutErrAvailable": "Số tiền vượt quá thu nhập khả dụng.",
+      "payoutErrGeneric": "Không gửi được yêu cầu. Hãy thử lại.",
+      "monthlyTitle": "Thu nhập hàng tháng (high-water mark)",
+      "month": "Tháng",
+      "newProfit": "Lợi nhuận mới vượt đỉnh"
     },
     "followerLedger": {
       "title": "Profit-share history",

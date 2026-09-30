@@ -381,7 +381,10 @@
     "cat_account": "Account",
     "cat_security": "Security",
     "backToNotifications": "Back to notifications",
-    "prefsLink": "Preferences"
+    "prefsLink": "Preferences",
+    "leadPayoutApprovedTitle": "Saque aprovado",
+    "leadPayoutRejectedTitle": "Saque recusado",
+    "leadPayoutBody": "Seu pedido de saque de US${amount} foi analisado."
   },
   "Portfolio": {
     "title": "Minha carteira",
@@ -1670,7 +1673,8 @@
       "settlements": "Settlements",
       "tasks": "Tasks",
       "settings": "Settings",
-      "performance": "Desempenho"
+      "performance": "Desempenho",
+      "earnings": "Ganhos"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1801,7 +1805,32 @@
       "status": "Status",
       "status_pending": "Pending",
       "status_settled": "Settled",
-      "status_waived": "Waived"
+      "status_waived": "Waived",
+      "availableToWithdraw": "Disponível para saque",
+      "profitShareRate": "Taxa de participação nos lucros",
+      "hwmTotal": "Máxima histórica (HWM)",
+      "hwmNote": "Você só recebe sobre o novo lucro acima do pico anterior de cada copiador; as perdas devem ser recuperadas antes.",
+      "payoutTitle": "Sacar ganhos",
+      "payoutAmount": "Valor (USD)",
+      "payoutDestination": "Endereço da carteira / dados de pagamento",
+      "payoutRequest": "Solicitar saque",
+      "payoutMinNote": "Mínimo US$ 10. Só ganhos liquidados podem ser sacados; a equipe revisa os pedidos.",
+      "payoutPendingNotice": "Você tem um pedido de saque em análise.",
+      "payoutRequested": "Pedido de saque enviado.",
+      "payoutCancel": "Cancelar",
+      "payoutCancelConfirm": "Cancelar este pedido de saque?",
+      "payout_pending": "Em análise",
+      "payout_approved": "Aprovado",
+      "payout_rejected": "Recusado",
+      "payout_cancelled": "Cancelado",
+      "payoutErrMin": "O saque mínimo é US$ 10.",
+      "payoutErrDestination": "Informe o endereço da carteira ou os dados de pagamento.",
+      "payoutErrPending": "Você já tem um pedido em análise.",
+      "payoutErrAvailable": "O valor excede seus ganhos disponíveis.",
+      "payoutErrGeneric": "Não foi possível enviar o pedido. Tente novamente.",
+      "monthlyTitle": "Ganhos mensais (high-water mark)",
+      "month": "Mês",
+      "newProfit": "Novo lucro acima do pico"
     },
     "followerLedger": {
       "title": "Profit-share history",

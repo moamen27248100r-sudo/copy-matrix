@@ -381,7 +381,10 @@
     "cat_account": "Account",
     "cat_security": "Security",
     "backToNotifications": "Back to notifications",
-    "prefsLink": "Preferences"
+    "prefsLink": "Preferences",
+    "leadPayoutApprovedTitle": "Withdrawal approved",
+    "leadPayoutRejectedTitle": "Withdrawal rejected",
+    "leadPayoutBody": "Your earnings withdrawal request for ${amount} was reviewed."
   },
   "Portfolio": {
     "title": "My Portfolio",
@@ -1671,7 +1674,8 @@
       "settlements": "Settlements",
       "tasks": "Tasks",
       "settings": "Settings",
-      "performance": "Performance"
+      "performance": "Performance",
+      "earnings": "Earnings"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1802,7 +1806,32 @@
       "status": "Status",
       "status_pending": "Pending",
       "status_settled": "Settled",
-      "status_waived": "Waived"
+      "status_waived": "Waived",
+      "availableToWithdraw": "Available to withdraw",
+      "profitShareRate": "Profit-share rate",
+      "hwmTotal": "Current high-water mark",
+      "hwmNote": "You are only paid on new profit above each copier's previous peak; losses must be recovered first.",
+      "payoutTitle": "Withdraw earnings",
+      "payoutAmount": "Amount (USD)",
+      "payoutDestination": "Wallet address / payout details",
+      "payoutRequest": "Request withdrawal",
+      "payoutMinNote": "Minimum $10. Only settled earnings can be withdrawn; requests are reviewed by the team.",
+      "payoutPendingNotice": "You have a withdrawal request under review.",
+      "payoutRequested": "Withdrawal request submitted.",
+      "payoutCancel": "Cancel",
+      "payoutCancelConfirm": "Cancel this withdrawal request?",
+      "payout_pending": "Under review",
+      "payout_approved": "Approved",
+      "payout_rejected": "Rejected",
+      "payout_cancelled": "Cancelled",
+      "payoutErrMin": "Minimum withdrawal is $10.",
+      "payoutErrDestination": "Enter a wallet address or payout details.",
+      "payoutErrPending": "You already have a request under review.",
+      "payoutErrAvailable": "Amount exceeds your available earnings.",
+      "payoutErrGeneric": "Couldn't submit the request. Try again.",
+      "monthlyTitle": "Monthly earnings (high-water mark)",
+      "month": "Month",
+      "newProfit": "New profit above peak"
     },
     "followerLedger": {
       "title": "Profit-share history",

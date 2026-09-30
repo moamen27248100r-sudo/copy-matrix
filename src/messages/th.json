@@ -381,7 +381,10 @@
     "cat_account": "Account",
     "cat_security": "Security",
     "backToNotifications": "Back to notifications",
-    "prefsLink": "Preferences"
+    "prefsLink": "Preferences",
+    "leadPayoutApprovedTitle": "อนุมัติการถอนแล้ว",
+    "leadPayoutRejectedTitle": "ปฏิเสธการถอน",
+    "leadPayoutBody": "คำขอถอน ${amount} ของคุณได้รับการตรวจสอบแล้ว"
   },
   "Portfolio": {
     "title": "พอร์ตของฉัน",
@@ -1667,7 +1670,8 @@
       "settlements": "Settlements",
       "tasks": "Tasks",
       "settings": "Settings",
-      "performance": "ผลงาน"
+      "performance": "ผลงาน",
+      "earnings": "รายได้"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1798,7 +1802,32 @@
       "status": "Status",
       "status_pending": "Pending",
       "status_settled": "Settled",
-      "status_waived": "Waived"
+      "status_waived": "Waived",
+      "availableToWithdraw": "ถอนได้",
+      "profitShareRate": "สัดส่วนแบ่งกำไร",
+      "hwmTotal": "จุดสูงสุดสะสม (HWM)",
+      "hwmNote": "ได้รับส่วนแบ่งเฉพาะกำไรใหม่ที่สูงกว่าจุดสูงสุดเดิมของผู้คัดลอกแต่ละราย และต้องชดเชยขาดทุนก่อน",
+      "payoutTitle": "ถอนรายได้",
+      "payoutAmount": "จำนวน (USD)",
+      "payoutDestination": "ที่อยู่กระเป๋า / รายละเอียดการรับเงิน",
+      "payoutRequest": "ขอถอน",
+      "payoutMinNote": "ขั้นต่ำ $10 ถอนได้เฉพาะรายได้ที่ชำระแล้ว ทีมงานจะตรวจสอบคำขอ",
+      "payoutPendingNotice": "คุณมีคำขอถอนที่กำลังตรวจสอบ",
+      "payoutRequested": "ส่งคำขอถอนแล้ว",
+      "payoutCancel": "ยกเลิก",
+      "payoutCancelConfirm": "ยกเลิกคำขอถอนนี้?",
+      "payout_pending": "กำลังตรวจสอบ",
+      "payout_approved": "อนุมัติแล้ว",
+      "payout_rejected": "ถูกปฏิเสธ",
+      "payout_cancelled": "ยกเลิกแล้ว",
+      "payoutErrMin": "ถอนขั้นต่ำ $10",
+      "payoutErrDestination": "กรอกที่อยู่กระเป๋าหรือรายละเอียดการรับเงิน",
+      "payoutErrPending": "คุณมีคำขอที่กำลังตรวจสอบอยู่แล้ว",
+      "payoutErrAvailable": "จำนวนเกินรายได้ที่ถอนได้",
+      "payoutErrGeneric": "ส่งคำขอไม่สำเร็จ โปรดลองอีกครั้ง",
+      "monthlyTitle": "รายได้รายเดือน (high-water mark)",
+      "month": "เดือน",
+      "newProfit": "กำไรใหม่เหนือจุดสูงสุด"
     },
     "followerLedger": {
       "title": "Profit-share history",

@@ -69,6 +69,7 @@ const NAV_ITEMS = [
   { href: "/admin/traders", label: "المتداولون", icon: "traders" },
   { href: "/admin/kyc", label: "طلبات التوثيق", icon: "kyc" },
   { href: "/admin/lead-trader-applications", label: "طلبات المتداول القائد", icon: "leadTrader" },
+  { href: "/admin/lead-payouts", label: "سحب أرباح القادة", icon: "wallet" },
   { href: "/admin/wallet-requests", label: "طلبات المحفظة", icon: "wallet" },
   { href: "/admin/subscriptions", label: "نشاط النسخ", icon: "copy" },
   { href: "/admin/audit-log", label: "سجل الإجراءات", icon: "log" },
