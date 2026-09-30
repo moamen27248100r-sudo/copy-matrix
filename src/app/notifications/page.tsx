@@ -151,7 +151,7 @@ export default async function NotificationsPage({ searchParams }: { searchParams
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-lg flex-col gap-4 p-6 pb-24 lg:ms-64 lg:me-0 lg:pb-6">
+      <main className="mx-auto flex w-full max-w-lg flex-col gap-4 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-64 lg:me-0 lg:pb-6">
         <div className="flex items-center justify-between">
           <h1 className="text-page-title">{t("notificationsTitle")}</h1>
           {hasUnread && (
