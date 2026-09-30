@@ -1847,7 +1847,8 @@
       "payoutErrGeneric": "Couldn't submit the request. Try again.",
       "monthlyTitle": "Monthly earnings (high-water mark)",
       "month": "Month",
-      "newProfit": "New profit above peak"
+      "newProfit": "New profit above peak",
+      "payoutDisabledReason": "Withdrawal is unavailable: you have ${available} of settled earnings, and the minimum is $10."
     },
     "followerLedger": {
       "title": "Profit-share history",

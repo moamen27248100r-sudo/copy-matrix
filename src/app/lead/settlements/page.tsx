@@ -112,13 +112,16 @@ export default async function LeadSettlementsPage({ searchParams }: { searchPara
         {hasPending ? (
           <p className="text-sm text-muted">{t("payoutPendingNotice")}</p>
         ) : (
-          <form action={requestPayout} className="flex flex-wrap gap-2">
-            <input name="amount" type="number" min={10} step="any" max={Number(earnings?.available ?? 0)} required placeholder={t("payoutAmount")} className="w-32 rounded-lg border border-border bg-background px-3 py-2 text-base" dir="ltr" />
+          <form action={requestPayout} className="flex flex-col gap-2 sm:flex-row">
+            <input name="amount" type="number" min={10} step="any" max={Number(earnings?.available ?? 0)} required placeholder={t("payoutAmount")} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-base sm:w-32" dir="ltr" />
             <input name="destination" type="text" minLength={3} maxLength={300} required placeholder={t("payoutDestination")} className="min-w-0 flex-1 rounded-lg border border-border bg-background px-3 py-2 text-base" dir="auto" />
             <button type="submit" disabled={Number(earnings?.available ?? 0) < 10} className="rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-accent-foreground disabled:cursor-not-allowed disabled:opacity-40">
               {t("payoutRequest")}
             </button>
           </form>
+        )}
+        {!hasPending && Number(earnings?.available ?? 0) < 10 && (
+          <p className="rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-warning">{t("payoutDisabledReason", { available: Number(earnings?.available ?? 0).toFixed(2) })}</p>
         )}
         <p className="text-xs text-muted">{t("payoutMinNote")}</p>
         {payouts.length > 0 && (

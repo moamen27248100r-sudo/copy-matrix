@@ -1920,7 +1920,8 @@
       "payoutErrGeneric": "تعذّر إرسال الطلب. حاول مرة أخرى.",
       "monthlyTitle": "الأرباح الشهرية (High-Water Mark)",
       "month": "الشهر",
-      "newProfit": "ربح جديد فوق القمة"
+      "newProfit": "ربح جديد فوق القمة",
+      "payoutDisabledReason": "السحب غير متاح: لديك ${available} من الأرباح المسوّاة والحد الأدنى 10$."
     },
     "followerLedger": {
       "title": "سجل مشاركة الأرباح",

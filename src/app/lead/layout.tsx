@@ -19,7 +19,7 @@ export default async function LeadLayout({ children }: { children: ReactNode }) 
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6 pb-24 lg:ms-64 lg:me-0 lg:pb-6">
+      <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 p-6 pb-24 lg:ms-64 lg:me-0 lg:pb-6">
         <LeadCenterNav />
         {children}
       </main>
