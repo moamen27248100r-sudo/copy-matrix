@@ -7,17 +7,21 @@
       "features": "বৈশিষ্ট্য",
       "faq": "সাধারণ জিজ্ঞাসা",
       "login": "লগ ইন",
-      "signup": "সাইন আপ"
+      "signup": "সাইন আপ",
+      "menu": "Menu"
     },
     "hero": {
       "title": "<accent>সেরা ট্রেডারদের</accent> ট্রেড স্বয়ংক্রিয়ভাবে কপি করুন",
-      "subtitle": "শত শত ট্রেডারের প্রকৃত ও যাচাইকৃত পারফরম্যান্স রেকর্ড দেখুন, এবং যাকে বিশ্বাস করেন তার ট্রেড কপি করুন।",
+      "subtitle": "Browse traders' performance records and pick the one you trust to copy.",
       "start": "শুরু করুন",
       "browse": "ট্রেডার ব্রাউজ করুন",
-      "trust0": "কপি করা বা মুনাফায় কোনো লুকানো ফি নেই",
+      "trust0": "No subscription fees or hidden commissions",
       "trust1": "যেকোনো সময় তাৎক্ষণিকভাবে যেকোনো ট্রেডার কপি করা বন্ধ করুন",
-      "trust2": "আপনার ডেটা সম্পূর্ণভাবে সুরক্ষিত ও এনক্রিপ্টেড",
-      "imageAlt": "Copy Matrix অ্যাপের স্ক্রিনশট, একটি লাইভ ট্রেড এবং প্ল্যাটফর্মের বৈশিষ্ট্য প্রদর্শন করছে"
+      "trust2": "An automatic loss limit on every copy",
+      "imageAlt": "Copy Matrix অ্যাপের স্ক্রিনশট, একটি লাইভ ট্রেড এবং প্ল্যাটফর্মের বৈশিষ্ট্য প্রদর্শন করছে",
+      "trustShort0": "No hidden fees",
+      "trustShort1": "Stop anytime",
+      "trustShort2": "Auto loss limit"
     },
     "highlights": [
       {
@@ -106,21 +110,6 @@
       "subtitle": "নির্ভরযোগ্য, যাচাইকৃত ফলাফলসহ সেরা ট্রেডারদের খুঁজুন। সঠিক ট্রেডার বেছে নিন এবং এক ক্লিকে তার কৌশল কপি করুন।",
       "recentTrades": "সাম্প্রতিক ট্রেডের পারফরম্যান্স"
     },
-    "stats": {
-      "title": "পরিসংখ্যান",
-      "live": "লাইভ ডেটা, রিয়েল-টাইমে আপডেট হয়",
-      "activeTraders": "সক্রিয় ট্রেডার",
-      "copyUsers": "কপি করা ব্যবহারকারী",
-      "avgWinRate": "গড় জয়ের হার",
-      "totalVolume": "মোট ট্রেডিং ভলিউম",
-      "bestReturn": "সেরা গড় দৈনিক রিটার্ন",
-      "totalTrades": "মোট সম্পাদিত ট্রেড",
-      "footnote1": "প্ল্যাটফর্মে লাইভ কার্যকলাপ প্রতিফলিত করতে প্রতিটি পেজ রিফ্রেশের সাথে এই সংখ্যাটি স্বাভাবিকভাবে তার প্রকৃত মানের চারপাশে ওঠানামা করে।",
-      "footnote2": "প্ল্যাটফর্মে ট্রেডারদের বন্ধ হওয়া ট্রেডের ফলাফল থেকে সরাসরি গণনা করা একটি প্রকৃত সংখ্যা, কোনো রাউন্ডিং বা সমন্বয় ছাড়াই।",
-      "disclaimer": "অতীত পারফরম্যান্স ভবিষ্যতের ফলাফলের নিশ্চয়তা দেয় না। কপি ট্রেডিংয়ে ঝুঁকি জড়িত যা আপনার মূলধনের কিছু অংশ বা সম্পূর্ণ ক্ষতির কারণ হতে পারে — অনুগ্রহ করে",
-      "termsLink": "শর্তাবলী",
-      "disclaimerEnd": "শুরু করার আগে পর্যালোচনা করুন।"
-    },
     "faq": {
       "title": "সাধারণ জিজ্ঞাসা",
       "subtitle": "ট্রেড কপি করা শুরু করার আগে আপনার যা জানা দরকার",
@@ -186,22 +175,14 @@
       "card3Desc": "প্রতিটি ট্রেডারের প্রতিটি ট্রেড ও প্রতিটি ফলাফল নথিভুক্ত এবং আপনার সামনে স্পষ্টভাবে দৃশ্যমান — কপি করার আগে তার সম্পূর্ণ রেকর্ড দেখে নিন।"
     },
     "trustStrip": {
-      "instantTitle": "তাৎক্ষণিক জমা ও উত্তোলন",
-      "instantDesc": "প্রতিটি অনুরোধের স্বয়ংক্রিয় রিয়েল-টাইম প্রক্রিয়াকরণ",
-      "encryptionTitle": "সম্পূর্ণ এনক্রিপশন",
-      "encryptionDesc": "সমস্ত অ্যাকাউন্ট ডেটার জন্য",
-      "demoTitle": "ডেমো অ্যাকাউন্ট",
-      "demoDesc": "কোনো প্রকৃত ঝুঁকি ছাড়াই",
-      "supportTitle": "কারিগরি সহায়তা",
-      "supportDesc": "২৪ ঘণ্টা উপলব্ধ"
+      "demoTitle": "Free demo account",
+      "demoDesc": "No real risk at all",
+      "stopLossTitle": "Automatic loss limit on every copy",
+      "stopLossDesc": "Copying stops when the loss limit is reached"
     },
     "traderPosts": {
       "title": "ট্রেডারদের সাম্প্রতিক আপডেট",
       "subtitle": "প্ল্যাটফর্মের ট্রেডারদের তাদের প্রকৃত ট্রেড নিয়ে দৈনিক মন্তব্য।"
-    },
-    "marketNews": {
-      "title": "বাজারের খবর",
-      "subtitle": "সরাসরি উৎস থেকে সর্বশেষ প্রকৃত আর্থিক সংবাদ, ক্রমাগত আপডেট হয়।"
     },
     "tryCopy": {
       "badge": "ঝুঁকিহীনভাবে চেষ্টা করুন",
@@ -210,9 +191,10 @@
       "cta": "Open a demo account",
       "cardWelcome": "আপনার ফ্রি ডেমো অ্যাকাউন্ট",
       "cardPortfolioLabel": "ডেমো পোর্টফোলিও মূল্য",
-      "cardTopLabel": "রিটার্ন অনুযায়ী শীর্ষ ট্রেডার",
+      "cardTopLabel": "Top traders by return (daily average)",
       "live": "লাইভ ডেটা"
-    }
+    },
+    "metaTitle": "Copy Matrix — Automatically copy the best traders' trades"
   },
   "Nav": {
     "createAccount": "সাইন আপ",
@@ -330,7 +312,7 @@
     "riskProtectionLabel": "ক্ষতি থেকে ব্যালেন্স সুরক্ষা",
     "riskProtectionUsed": "{maxPct}% এর মধ্যে {pct}%",
     "stopCopying": "কপি করা বন্ধ করুন",
-    "stopCopyingConfirm": "এই ট্রেডারকে কপি করা বন্ধ করতে চান?",
+    "stopCopyingConfirm": "Open trades for this copy will be closed and copying will stop immediately.",
     "greetingMorning": "শুভ সকাল, {name}",
     "greetingEvening": "শুভ সন্ধ্যা, {name}",
     "demoBannerTitle": "যথেষ্ট চেষ্টা করেছেন?",
@@ -676,7 +658,8 @@
     "compareSharpe": "Sharpe ratio (per trade)",
     "compareTrades": "Closed trades",
     "showingOf": "Showing {shown} of {total}",
-    "showMore": "Show more"
+    "showMore": "Show more",
+    "maxDrawdown": "Max drawdown"
   },
   "Countries": {
     "US": "যুক্তরাষ্ট্র",
@@ -1270,7 +1253,7 @@
           "কপি বাতিল করুন",
           "কপি থামান"
         ],
-        "answer": "একজন ট্রেডারকে কপি করা বন্ধ করতে, তার প্রোফাইল পৃষ্ঠায় যান এবং \"কপি করা বন্ধ করুন\"-এ ক্লিক করুন। বর্তমানে খোলা ট্রেডগুলো স্বাভাবিকভাবে চলতে থাকবে যতক্ষণ না ট্রেডার সেগুলো বন্ধ করেন, এবং এরপর আপনার জন্য কোনো নতুন ট্রেড খোলা হবে না।"
+        "answer": "Open “My copies” and press “Stop copying”. Open trades are closed and copying stops immediately."
       },
       {
         "id": "risk-level",

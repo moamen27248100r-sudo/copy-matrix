@@ -7,17 +7,21 @@
       "features": "功能",
       "faq": "常见问题",
       "login": "登录",
-      "signup": "注册"
+      "signup": "注册",
+      "menu": "Menu"
     },
     "hero": {
       "title": "自动复制<accent>顶尖交易员</accent>的交易",
-      "subtitle": "浏览数百名交易员真实且经过验证的业绩记录，选择您信任的交易员来复制其交易。",
+      "subtitle": "Browse traders' performance records and pick the one you trust to copy.",
       "start": "立即开始",
       "browse": "浏览交易员",
-      "trust0": "跟单和盈利均无隐藏费用",
+      "trust0": "No subscription fees or hidden commissions",
       "trust1": "随时立即停止跟单任何交易员",
-      "trust2": "您的数据受到全面保护和加密",
-      "imageAlt": "Copy Matrix 应用截图，展示实时交易与平台功能"
+      "trust2": "An automatic loss limit on every copy",
+      "imageAlt": "Copy Matrix 应用截图，展示实时交易与平台功能",
+      "trustShort0": "No hidden fees",
+      "trustShort1": "Stop anytime",
+      "trustShort2": "Auto loss limit"
     },
     "highlights": [
       {
@@ -106,21 +110,6 @@
       "subtitle": "寻找业绩可靠、经过验证的精英交易员。选择合适的交易员，一键复制其策略。",
       "recentTrades": "近期交易表现"
     },
-    "stats": {
-      "title": "统计数据",
-      "live": "实时数据，即时更新",
-      "activeTraders": "活跃交易员",
-      "copyUsers": "跟单用户",
-      "avgWinRate": "平均胜率",
-      "totalVolume": "总交易量",
-      "bestReturn": "最佳日均收益",
-      "totalTrades": "已执行交易总数",
-      "footnote1": "此数字会随每次页面刷新在真实值附近自然波动，以反映平台上的实时活动。",
-      "footnote2": "该数字是根据平台上交易员已平仓交易的实际结果直接计算得出的真实数字，未经任何四舍五入或调整。",
-      "disclaimer": "过往表现不保证未来结果。跟单交易涉及风险，可能导致部分或全部本金损失——请在开始前查看",
-      "termsLink": "条款与条件",
-      "disclaimerEnd": "。"
-    },
     "faq": {
       "title": "常见问题",
       "subtitle": "开始跟单交易前您需要了解的一切",
@@ -186,22 +175,14 @@
       "card3Desc": "每位交易员的每一笔交易和每一个结果都有据可查、清晰可见——复制前请查看其完整历史记录。"
     },
     "trustStrip": {
-      "instantTitle": "即时存取款",
-      "instantDesc": "每笔请求均自动实时处理",
-      "encryptionTitle": "全面加密",
-      "encryptionDesc": "保护所有账户数据",
-      "demoTitle": "模拟账户",
-      "demoDesc": "没有任何真实风险",
-      "supportTitle": "技术支持",
-      "supportDesc": "全天 24 小时提供"
+      "demoTitle": "Free demo account",
+      "demoDesc": "No real risk at all",
+      "stopLossTitle": "Automatic loss limit on every copy",
+      "stopLossDesc": "Copying stops when the loss limit is reached"
     },
     "traderPosts": {
       "title": "交易员最新动态",
       "subtitle": "平台交易员关于其实际交易的每日点评。"
-    },
-    "marketNews": {
-      "title": "市场资讯",
-      "subtitle": "来自原始来源的最新真实财经新闻，持续更新。"
     },
     "tryCopy": {
       "badge": "免费试用",
@@ -210,9 +191,10 @@
       "cta": "Open a demo account",
       "cardWelcome": "您的免费模拟账户",
       "cardPortfolioLabel": "模拟账户组合价值",
-      "cardTopLabel": "按收益排名的顶级交易员",
+      "cardTopLabel": "Top traders by return (daily average)",
       "live": "实时数据"
-    }
+    },
+    "metaTitle": "Copy Matrix — Automatically copy the best traders' trades"
   },
   "Nav": {
     "createAccount": "注册",
@@ -330,7 +312,7 @@
     "riskProtectionLabel": "余额亏损保护",
     "riskProtectionUsed": "已用 {pct}%，上限 {maxPct}%",
     "stopCopying": "停止跟单",
-    "stopCopyingConfirm": "确定要停止跟单该交易者吗？",
+    "stopCopyingConfirm": "Open trades for this copy will be closed and copying will stop immediately.",
     "greetingMorning": "早上好，{name}",
     "greetingEvening": "晚上好，{name}",
     "demoBannerTitle": "体验够了吗？",
@@ -676,7 +658,8 @@
     "compareSharpe": "Sharpe ratio (per trade)",
     "compareTrades": "Closed trades",
     "showingOf": "Showing {shown} of {total}",
-    "showMore": "Show more"
+    "showMore": "Show more",
+    "maxDrawdown": "Max drawdown"
   },
   "Countries": {
     "US": "美国",
@@ -1270,7 +1253,7 @@
           "取消跟单",
           "停止复制"
         ],
-        "answer": "如需停止跟单某位交易员，请进入其个人主页并点击「停止跟单」。当前已开仓的交易将正常持续，直到该交易员平仓为止，此后不会再为您开立新交易。"
+        "answer": "Open “My copies” and press “Stop copying”. Open trades are closed and copying stops immediately."
       },
       {
         "id": "risk-level",

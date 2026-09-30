@@ -7,17 +7,21 @@
       "features": "Fonctionnalités",
       "faq": "FAQ",
       "login": "Connexion",
-      "signup": "S'inscrire"
+      "signup": "S'inscrire",
+      "menu": "Menu"
     },
     "hero": {
       "title": "Copiez automatiquement les trades des <accent>meilleurs traders</accent>",
-      "subtitle": "Parcourez des historiques de performance réels et vérifiés pour des centaines de traders, et choisissez celui en qui vous avez confiance pour copier ses trades.",
+      "subtitle": "Browse traders' performance records and pick the one you trust to copy.",
       "start": "Commencer",
       "browse": "Parcourir les traders",
-      "trust0": "Aucuns frais cachés sur la copie ou les profits",
+      "trust0": "No subscription fees or hidden commissions",
       "trust1": "Arrêtez de copier n'importe quel trader instantanément, à tout moment",
-      "trust2": "Vos données sont entièrement protégées et chiffrées",
-      "imageAlt": "Capture d'écran de l'application Copy Matrix montrant un trade en direct et les fonctionnalités de la plateforme"
+      "trust2": "An automatic loss limit on every copy",
+      "imageAlt": "Capture d'écran de l'application Copy Matrix montrant un trade en direct et les fonctionnalités de la plateforme",
+      "trustShort0": "No hidden fees",
+      "trustShort1": "Stop anytime",
+      "trustShort2": "Auto loss limit"
     },
     "highlights": [
       {
@@ -106,21 +110,6 @@
       "subtitle": "Trouvez des traders d'élite aux résultats fiables et vérifiés. Choisissez le bon trader et copiez sa stratégie en un clic.",
       "recentTrades": "Performance des trades récents"
     },
-    "stats": {
-      "title": "Statistiques",
-      "live": "Données en direct, mises à jour en temps réel",
-      "activeTraders": "Traders actifs",
-      "copyUsers": "Utilisateurs copieurs",
-      "avgWinRate": "Taux de réussite moyen",
-      "totalVolume": "Volume total échangé",
-      "bestReturn": "Meilleur rendement quotidien moyen",
-      "totalTrades": "Total des trades exécutés",
-      "footnote1": "Ce chiffre fluctue naturellement autour de sa valeur réelle à chaque actualisation de la page pour refléter l'activité en direct sur la plateforme.",
-      "footnote2": "Un chiffre réel calculé directement à partir des résultats des trades clôturés des traders sur la plateforme, sans aucun arrondi ni ajustement.",
-      "disclaimer": "Les performances passées ne garantissent pas les résultats futurs. La copie de trading comporte des risques pouvant entraîner la perte d'une partie ou de la totalité de votre capital — veuillez consulter les",
-      "termsLink": "Conditions générales",
-      "disclaimerEnd": "avant de commencer."
-    },
     "faq": {
       "title": "Questions fréquentes",
       "subtitle": "Tout ce que vous devez savoir avant de commencer à copier des trades",
@@ -186,22 +175,14 @@
       "card3Desc": "Chaque trade et chaque résultat de chaque trader sont documentés et clairement visibles — consultez tout son historique avant de le copier."
     },
     "trustStrip": {
-      "instantTitle": "Dépôt et retrait instantanés",
-      "instantDesc": "Traitement automatique en temps réel de chaque demande",
-      "encryptionTitle": "Chiffrement complet",
-      "encryptionDesc": "Pour toutes les données de compte",
-      "demoTitle": "Compte démo",
-      "demoDesc": "Sans aucun risque réel",
-      "supportTitle": "Support technique",
-      "supportDesc": "Disponible 24h/24"
+      "demoTitle": "Free demo account",
+      "demoDesc": "No real risk at all",
+      "stopLossTitle": "Automatic loss limit on every copy",
+      "stopLossDesc": "Copying stops when the loss limit is reached"
     },
     "traderPosts": {
       "title": "Dernières mises à jour des traders",
       "subtitle": "Commentaires quotidiens des traders de la plateforme sur leurs trades réels."
-    },
-    "marketNews": {
-      "title": "Actualités du marché",
-      "subtitle": "Les dernières actualités financières réelles, directement de leurs sources, mises à jour en continu."
     },
     "tryCopy": {
       "badge": "Essayez sans risque",
@@ -210,9 +191,10 @@
       "cta": "Open a demo account",
       "cardWelcome": "Votre compte démo gratuit",
       "cardPortfolioLabel": "Valeur du portefeuille démo",
-      "cardTopLabel": "Meilleurs traders par rendement",
+      "cardTopLabel": "Top traders by return (daily average)",
       "live": "Données en direct"
-    }
+    },
+    "metaTitle": "Copy Matrix — Automatically copy the best traders' trades"
   },
   "Nav": {
     "createAccount": "S'inscrire",
@@ -330,7 +312,7 @@
     "riskProtectionLabel": "Protection du solde contre les pertes",
     "riskProtectionUsed": "{pct}% sur {maxPct}%",
     "stopCopying": "Arrêter la copie",
-    "stopCopyingConfirm": "Arrêter de copier ce trader ?",
+    "stopCopyingConfirm": "Open trades for this copy will be closed and copying will stop immediately.",
     "greetingMorning": "Bonjour, {name}",
     "greetingEvening": "Bonsoir, {name}",
     "demoBannerTitle": "Vous avez assez essayé ?",
@@ -676,7 +658,8 @@
     "compareSharpe": "Sharpe ratio (per trade)",
     "compareTrades": "Closed trades",
     "showingOf": "Showing {shown} of {total}",
-    "showMore": "Show more"
+    "showMore": "Show more",
+    "maxDrawdown": "Max drawdown"
   },
   "Countries": {
     "US": "États-Unis",
@@ -1270,7 +1253,7 @@
           "annuler la copie",
           "stopper la copie"
         ],
-        "answer": "Pour arrêter de copier un trader, rendez-vous sur sa page de profil et cliquez sur « Arrêter de copier ». Les trades actuellement ouverts continuent normalement jusqu'à ce que le trader les ferme, et aucun nouveau trade ne s'ouvrira pour vous par la suite."
+        "answer": "Open “My copies” and press “Stop copying”. Open trades are closed and copying stops immediately."
       },
       {
         "id": "risk-level",

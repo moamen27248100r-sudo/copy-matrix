@@ -7,17 +7,21 @@
       "features": "Tính năng",
       "faq": "Câu hỏi thường gặp",
       "login": "Đăng nhập",
-      "signup": "Đăng ký"
+      "signup": "Đăng ký",
+      "menu": "Menu"
     },
     "hero": {
       "title": "Tự động sao chép giao dịch của <accent>các nhà giao dịch giỏi nhất</accent>",
-      "subtitle": "Duyệt qua hồ sơ hiệu suất thực và đã được xác minh của hàng trăm nhà giao dịch, và chọn người bạn tin tưởng để sao chép.",
+      "subtitle": "Browse traders' performance records and pick the one you trust to copy.",
       "start": "Bắt đầu ngay",
       "browse": "Duyệt nhà giao dịch",
-      "trust0": "Không phí ẩn khi sao chép hoặc trên lợi nhuận",
+      "trust0": "No subscription fees or hidden commissions",
       "trust1": "Dừng sao chép bất kỳ nhà giao dịch nào ngay lập tức, bất cứ lúc nào",
-      "trust2": "Dữ liệu của bạn được bảo vệ và mã hóa hoàn toàn",
-      "imageAlt": "Ảnh chụp màn hình ứng dụng Copy Matrix hiển thị một giao dịch trực tiếp và các tính năng của nền tảng"
+      "trust2": "An automatic loss limit on every copy",
+      "imageAlt": "Ảnh chụp màn hình ứng dụng Copy Matrix hiển thị một giao dịch trực tiếp và các tính năng của nền tảng",
+      "trustShort0": "No hidden fees",
+      "trustShort1": "Stop anytime",
+      "trustShort2": "Auto loss limit"
     },
     "highlights": [
       {
@@ -106,21 +110,6 @@
       "subtitle": "Tìm những nhà giao dịch hàng đầu với kết quả đáng tin cậy, đã được xác minh. Chọn người phù hợp và sao chép chiến lược của họ chỉ với một cú nhấp chuột.",
       "recentTrades": "Hiệu suất giao dịch gần đây"
     },
-    "stats": {
-      "title": "Thống kê",
-      "live": "Dữ liệu trực tiếp, cập nhật theo thời gian thực",
-      "activeTraders": "Nhà giao dịch đang hoạt động",
-      "copyUsers": "Người dùng sao chép",
-      "avgWinRate": "Tỷ lệ thắng trung bình",
-      "totalVolume": "Tổng khối lượng giao dịch",
-      "bestReturn": "Lợi nhuận trung bình hàng ngày tốt nhất",
-      "totalTrades": "Tổng số giao dịch đã thực hiện",
-      "footnote1": "Con số này tự nhiên dao động quanh giá trị thực của nó với mỗi lần làm mới trang để phản ánh hoạt động trực tiếp trên nền tảng.",
-      "footnote2": "Một con số thực được tính trực tiếp từ kết quả các giao dịch đã đóng của các nhà giao dịch trên nền tảng, không làm tròn hay điều chỉnh.",
-      "disclaimer": "Hiệu suất trong quá khứ không đảm bảo kết quả trong tương lai. Sao chép giao dịch tiềm ẩn rủi ro có thể dẫn đến mất một phần hoặc toàn bộ vốn của bạn — vui lòng xem",
-      "termsLink": "Điều khoản & Điều kiện",
-      "disclaimerEnd": "trước khi bắt đầu."
-    },
     "faq": {
       "title": "Câu hỏi thường gặp",
       "subtitle": "Mọi thứ bạn cần biết trước khi bắt đầu sao chép giao dịch",
@@ -186,22 +175,14 @@
       "card3Desc": "Mọi giao dịch và mọi kết quả của từng nhà giao dịch đều được ghi lại và hiển thị rõ ràng trước mắt bạn — hãy xem toàn bộ lịch sử của họ trước khi sao chép."
     },
     "trustStrip": {
-      "instantTitle": "Nạp & rút tức thì",
-      "instantDesc": "Xử lý tự động theo thời gian thực cho mọi yêu cầu",
-      "encryptionTitle": "Mã hóa toàn diện",
-      "encryptionDesc": "Cho mọi dữ liệu tài khoản",
-      "demoTitle": "Tài khoản demo",
-      "demoDesc": "Không có rủi ro thực sự nào",
-      "supportTitle": "Hỗ trợ kỹ thuật",
-      "supportDesc": "Sẵn sàng 24 giờ mỗi ngày"
+      "demoTitle": "Free demo account",
+      "demoDesc": "No real risk at all",
+      "stopLossTitle": "Automatic loss limit on every copy",
+      "stopLossDesc": "Copying stops when the loss limit is reached"
     },
     "traderPosts": {
       "title": "Cập nhật mới nhất từ nhà giao dịch",
       "subtitle": "Bình luận hằng ngày từ các nhà giao dịch trên nền tảng về các giao dịch thực tế của họ."
-    },
-    "marketNews": {
-      "title": "Tin tức thị trường",
-      "subtitle": "Tin tức tài chính thực mới nhất trực tiếp từ nguồn, được cập nhật liên tục."
     },
     "tryCopy": {
       "badge": "Dùng thử miễn phí rủi ro",
@@ -210,9 +191,10 @@
       "cta": "Open a demo account",
       "cardWelcome": "Tài khoản demo miễn phí của bạn",
       "cardPortfolioLabel": "Giá trị danh mục demo",
-      "cardTopLabel": "Nhà giao dịch hàng đầu theo lợi nhuận",
+      "cardTopLabel": "Top traders by return (daily average)",
       "live": "Dữ liệu trực tiếp"
-    }
+    },
+    "metaTitle": "Copy Matrix — Automatically copy the best traders' trades"
   },
   "Nav": {
     "createAccount": "Đăng ký",
@@ -330,7 +312,7 @@
     "riskProtectionLabel": "Bảo vệ số dư khỏi thua lỗ",
     "riskProtectionUsed": "{pct}% trên {maxPct}%",
     "stopCopying": "Dừng sao chép",
-    "stopCopyingConfirm": "Dừng sao chép nhà giao dịch này?",
+    "stopCopyingConfirm": "Open trades for this copy will be closed and copying will stop immediately.",
     "greetingMorning": "Chào buổi sáng, {name}",
     "greetingEvening": "Chào buổi tối, {name}",
     "demoBannerTitle": "Đã thử đủ chưa?",
@@ -676,7 +658,8 @@
     "compareSharpe": "Sharpe ratio (per trade)",
     "compareTrades": "Closed trades",
     "showingOf": "Showing {shown} of {total}",
-    "showMore": "Show more"
+    "showMore": "Show more",
+    "maxDrawdown": "Max drawdown"
   },
   "Countries": {
     "US": "Hoa Kỳ",
@@ -1270,7 +1253,7 @@
           "hủy sao chép",
           "ngừng sao chép"
         ],
-        "answer": "Để dừng sao chép một nhà giao dịch, hãy vào trang hồ sơ của họ và nhấp vào \"Dừng sao chép\". Các giao dịch hiện đang mở sẽ tiếp tục hoạt động bình thường cho đến khi nhà giao dịch đóng chúng, và sẽ không có giao dịch mới nào được mở cho bạn sau đó."
+        "answer": "Open “My copies” and press “Stop copying”. Open trades are closed and copying stops immediately."
       },
       {
         "id": "risk-level",

@@ -29,6 +29,7 @@ export async function LeaderCard({
   copyHref,
   bio,
   sparkline,
+  maxDrawdownPct,
   isWatching,
   onFollowAction,
   followFormField = "providerId",
@@ -39,6 +40,8 @@ export async function LeaderCard({
   copyHref: string;
   bio?: string | null;
   sparkline?: number[];
+  /** When passed (even as null), the middle stat shows max drawdown instead of the average daily return. */
+  maxDrawdownPct?: number | null;
   /** When provided (i.e. the viewer is logged in), renders a small
    * bookmark-icon follow toggle in the header instead of a full text
    * pill -- keeps the header uncluttered. */
@@ -127,14 +130,23 @@ export async function LeaderCard({
           lighter muted label underneath). */}
       <div className="flex items-center overflow-hidden rounded-xl border border-white/[0.06] bg-background/60">
         <div className="flex-1 border-e border-white/10 px-2 py-2.5 text-center">
-          <p className="text-sm font-semibold text-success">{p.win_rate_pct != null ? `${p.win_rate_pct}%` : "—"}</p>
+          <p className="text-sm font-semibold text-success">{p.win_rate_pct != null ? `${Number(p.win_rate_pct).toFixed(1)}%` : "—"}</p>
           <p className="text-[11px] font-normal text-muted">{t("winRate")}</p>
         </div>
         <div className="flex-1 border-e border-white/10 px-2 py-2.5 text-center">
-          <p className={isDown ? "text-sm font-semibold text-danger" : "text-sm font-semibold text-success"}>
-            {p.avg_daily_return_pct != null ? `${p.avg_daily_return_pct}%` : "—"}
-          </p>
-          <p className="text-[11px] font-normal text-muted">{t("avgDailyReturn")}</p>
+          {maxDrawdownPct !== undefined ? (
+            <>
+              <p className="text-sm font-semibold text-foreground">{maxDrawdownPct != null ? `${maxDrawdownPct.toFixed(1)}%` : "—"}</p>
+              <p className="text-[11px] font-normal text-muted">{t("maxDrawdown")}</p>
+            </>
+          ) : (
+            <>
+              <p className={isDown ? "text-sm font-semibold text-danger" : "text-sm font-semibold text-success"}>
+                {p.avg_daily_return_pct != null ? `${Number(p.avg_daily_return_pct).toFixed(1)}%` : "—"}
+              </p>
+              <p className="text-[11px] font-normal text-muted">{t("avgDailyReturn")}</p>
+            </>
+          )}
         </div>
         <div className="flex-1 px-2 py-2.5 text-center">
           <p className="text-sm font-semibold">{p.followers_count}</p>

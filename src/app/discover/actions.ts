@@ -134,6 +134,56 @@ export async function followProvider(formData: FormData) {
   redirect(isStarting ? `/trader/${providerId}?success=started` : `/trader/${providerId}`);
 }
 
+// Dashboard "stop copying": closes every open copied position of this
+// subscription (close_my_position, one call per position) and only then stops
+// the copy (stop_copy, which refuses while a position is still open). Uses the
+// existing RPCs only. Not a single DB transaction: if a close fails the copy
+// is left running and the customer sees the same blocked-stop error.
+export async function stopCopyingNow(formData: FormData) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return;
+
+  const providerId = formData.get("providerId") as string;
+  const returnTo = (formData.get("returnTo") as string) || "/portfolio";
+  const td = await getTranslations("Actions.discover");
+
+  const { data: sub } = await supabase
+    .from("subscriptions")
+    .select("id")
+    .eq("follower_id", user.id)
+    .eq("provider_id", providerId)
+    .eq("is_active", true)
+    .maybeSingle();
+
+  if (sub) {
+    const { data: openPositions } = await supabase
+      .from("simulated_positions")
+      .select("id")
+      .eq("follower_id", user.id)
+      .eq("subscription_id", sub.id)
+      .eq("status", "open");
+
+    for (const pos of openPositions ?? []) {
+      const { error } = await supabase.rpc("close_my_position", { p_position_id: pos.id });
+      if (error) redirect(`${returnTo}?error=${encodeURIComponent(td("stopCopyBlocked"))}`);
+    }
+  }
+
+  const { error } = await supabase.rpc("stop_copy", { p_provider_id: providerId });
+  if (error) redirect(`${returnTo}?error=${encodeURIComponent(td("stopCopyBlocked"))}`);
+
+  revalidatePath("/discover");
+  revalidatePath("/dashboard");
+  revalidatePath("/portfolio");
+  revalidatePath("/copies");
+  revalidatePath("/trades");
+  revalidatePath(`/trader/${providerId}`);
+}
+
 export async function unfollowProvider(formData: FormData) {
   const supabase = await createClient();
   const {

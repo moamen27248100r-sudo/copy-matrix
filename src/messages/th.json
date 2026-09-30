@@ -7,17 +7,21 @@
       "features": "ฟีเจอร์",
       "faq": "คำถามที่พบบ่อย",
       "login": "เข้าสู่ระบบ",
-      "signup": "สมัครสมาชิก"
+      "signup": "สมัครสมาชิก",
+      "menu": "Menu"
     },
     "hero": {
       "title": "คัดลอกการเทรดของ<accent>เทรดเดอร์ที่ดีที่สุด</accent>โดยอัตโนมัติ",
-      "subtitle": "เรียกดูประวัติผลงานจริงที่ผ่านการยืนยันของเทรดเดอร์หลายร้อยคน และเลือกคนที่คุณไว้วางใจเพื่อคัดลอกการเทรด",
+      "subtitle": "Browse traders' performance records and pick the one you trust to copy.",
       "start": "เริ่มเลย",
       "browse": "เรียกดูเทรดเดอร์",
-      "trust0": "ไม่มีค่าธรรมเนียมแอบแฝงในการคัดลอกหรือกำไร",
+      "trust0": "No subscription fees or hidden commissions",
       "trust1": "หยุดคัดลอกเทรดเดอร์คนใดก็ได้ทันที ทุกเมื่อ",
-      "trust2": "ข้อมูลของคุณได้รับการปกป้องและเข้ารหัสอย่างเต็มที่",
-      "imageAlt": "ภาพหน้าจอแอป Copy Matrix แสดงการเทรดสดและฟีเจอร์ต่างๆ ของแพลตฟอร์ม"
+      "trust2": "An automatic loss limit on every copy",
+      "imageAlt": "ภาพหน้าจอแอป Copy Matrix แสดงการเทรดสดและฟีเจอร์ต่างๆ ของแพลตฟอร์ม",
+      "trustShort0": "No hidden fees",
+      "trustShort1": "Stop anytime",
+      "trustShort2": "Auto loss limit"
     },
     "highlights": [
       {
@@ -106,21 +110,6 @@
       "subtitle": "ค้นหาเทรดเดอร์ชั้นนำที่มีผลงานน่าเชื่อถือและได้รับการยืนยัน เลือกเทรดเดอร์ที่ใช่แล้วคัดลอกกลยุทธ์ของเขาได้ในคลิกเดียว",
       "recentTrades": "ผลงานการเทรดล่าสุด"
     },
-    "stats": {
-      "title": "สถิติ",
-      "live": "ข้อมูลสด อัปเดตแบบเรียลไทม์",
-      "activeTraders": "เทรดเดอร์ที่ใช้งานอยู่",
-      "copyUsers": "ผู้ใช้ที่คัดลอก",
-      "avgWinRate": "อัตราชนะเฉลี่ย",
-      "totalVolume": "ปริมาณการซื้อขายรวม",
-      "bestReturn": "ผลตอบแทนเฉลี่ยรายวันที่ดีที่สุด",
-      "totalTrades": "จำนวนการเทรดที่ดำเนินการทั้งหมด",
-      "footnote1": "ตัวเลขนี้จะผันผวนตามธรรมชาติรอบค่าจริงทุกครั้งที่รีเฟรชหน้าเพจ เพื่อสะท้อนกิจกรรมสดบนแพลตฟอร์ม",
-      "footnote2": "ตัวเลขจริงที่คำนวณโดยตรงจากผลลัพธ์การเทรดที่ปิดแล้วของเทรดเดอร์บนแพลตฟอร์ม โดยไม่มีการปัดเศษหรือปรับแต่งใดๆ",
-      "disclaimer": "ผลงานในอดีตไม่รับประกันผลลัพธ์ในอนาคต การคัดลอกการเทรดมีความเสี่ยงที่อาจนำไปสู่การสูญเสียเงินทุนบางส่วนหรือทั้งหมดของคุณ — โปรดตรวจสอบ",
-      "termsLink": "ข้อกำหนดและเงื่อนไข",
-      "disclaimerEnd": "ก่อนเริ่มต้น"
-    },
     "faq": {
       "title": "คำถามที่พบบ่อย",
       "subtitle": "ทุกสิ่งที่คุณต้องรู้ก่อนเริ่มคัดลอกการเทรด",
@@ -186,22 +175,14 @@
       "card3Desc": "ทุกการเทรดและทุกผลลัพธ์ของเทรดเดอร์แต่ละคนถูกบันทึกไว้อย่างชัดเจนต่อหน้าคุณ — ตรวจสอบประวัติทั้งหมดก่อนคัดลอก"
     },
     "trustStrip": {
-      "instantTitle": "ฝาก-ถอนทันที",
-      "instantDesc": "ประมวลผลอัตโนมัติแบบเรียลไทม์สำหรับทุกคำขอ",
-      "encryptionTitle": "เข้ารหัสเต็มรูปแบบ",
-      "encryptionDesc": "สำหรับข้อมูลบัญชีทั้งหมด",
-      "demoTitle": "บัญชีทดลอง",
-      "demoDesc": "ไม่มีความเสี่ยงจริงเลย",
-      "supportTitle": "ฝ่ายสนับสนุน",
-      "supportDesc": "พร้อมให้บริการตลอด 24 ชั่วโมง"
+      "demoTitle": "Free demo account",
+      "demoDesc": "No real risk at all",
+      "stopLossTitle": "Automatic loss limit on every copy",
+      "stopLossDesc": "Copying stops when the loss limit is reached"
     },
     "traderPosts": {
       "title": "อัปเดตล่าสุดจากเทรดเดอร์",
       "subtitle": "ความคิดเห็นประจำวันจากเทรดเดอร์บนแพลตฟอร์มเกี่ยวกับการเทรดจริงของพวกเขา"
-    },
-    "marketNews": {
-      "title": "ข่าวตลาด",
-      "subtitle": "ข่าวการเงินจริงล่าสุดจากแหล่งข่าวโดยตรง อัปเดตอย่างต่อเนื่อง"
     },
     "tryCopy": {
       "badge": "ลองใช้แบบไร้ความเสี่ยง",
@@ -210,9 +191,10 @@
       "cta": "Open a demo account",
       "cardWelcome": "บัญชีทดลองฟรีของคุณ",
       "cardPortfolioLabel": "มูลค่าพอร์ตทดลอง",
-      "cardTopLabel": "เทรดเดอร์ยอดเยี่ยมตามผลตอบแทน",
+      "cardTopLabel": "Top traders by return (daily average)",
       "live": "ข้อมูลสด"
-    }
+    },
+    "metaTitle": "Copy Matrix — Automatically copy the best traders' trades"
   },
   "Nav": {
     "createAccount": "สมัครสมาชิก",
@@ -330,7 +312,7 @@
     "riskProtectionLabel": "การปกป้องยอดคงเหลือจากการขาดทุน",
     "riskProtectionUsed": "{pct}% จาก {maxPct}%",
     "stopCopying": "หยุดคัดลอก",
-    "stopCopyingConfirm": "หยุดคัดลอกเทรดเดอร์รายนี้หรือไม่?",
+    "stopCopyingConfirm": "Open trades for this copy will be closed and copying will stop immediately.",
     "greetingMorning": "อรุณสวัสดิ์ {name}",
     "greetingEvening": "สวัสดีตอนเย็น {name}",
     "demoBannerTitle": "ลองมามากพอหรือยัง?",
@@ -676,7 +658,8 @@
     "compareSharpe": "Sharpe ratio (per trade)",
     "compareTrades": "Closed trades",
     "showingOf": "Showing {shown} of {total}",
-    "showMore": "Show more"
+    "showMore": "Show more",
+    "maxDrawdown": "Max drawdown"
   },
   "Countries": {
     "US": "สหรัฐอเมริกา",
@@ -1270,7 +1253,7 @@
           "ยกเลิกการคัดลอก",
           "หยุดการคัดลอก"
         ],
-        "answer": "หากต้องการหยุดคัดลอกเทรดเดอร์ ให้ไปที่หน้าโปรไฟล์ของพวกเขาและคลิก \"หยุดคัดลอก\" ออเดอร์ที่เปิดอยู่ในปัจจุบันจะดำเนินการต่อไปตามปกติจนกว่าเทรดเดอร์จะปิด และจะไม่มีการเปิดออเดอร์ใหม่ให้คุณอีกหลังจากนั้น"
+        "answer": "Open “My copies” and press “Stop copying”. Open trades are closed and copying stops immediately."
       },
       {
         "id": "risk-level",

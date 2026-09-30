@@ -2,10 +2,7 @@ import Link from "next/link";
 import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { MarketOverview } from "@/components/MarketOverview";
-import { MarketNewsFeed } from "@/components/MarketNewsFeed";
 import { LeaderCard } from "@/components/LeaderCard";
-import { LiveStatsProvider, LiveActiveTraders, LiveCopyUsers, LiveTotalTrades } from "@/components/LiveHomeStats";
-import { simulatedCopyUsers, simulatedActiveTraders } from "@/lib/simulated-growth";
 import { INTERNATIONAL_COUNTRY_CODES } from "@/lib/country-metadata";
 import { TryCopySection } from "@/components/TryCopySection";
 import { Header } from "@/components/Header";
@@ -16,79 +13,36 @@ import { FAQAccordion } from "@/components/FAQAccordion";
 import { Footer } from "@/components/Footer";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
 import { getBioTranslator } from "@/lib/bio-translations";
-import type { ReactNode } from "react";
+import { fetchBulkProviderStats } from "@/lib/provider-stats";
 
 export const dynamic = "force-dynamic";
 
-const STAT_ICONS = {
-  people: (
-    <>
-      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-      <circle cx="9" cy="7" r="4" />
-      <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-    </>
-  ),
-  swap: (
-    <>
-      <path d="M17 1l4 4-4 4" />
-      <path d="M3 11V9a4 4 0 0 1 4-4h14" />
-      <path d="M7 23l-4-4 4-4" />
-      <path d="M21 13v2a4 4 0 0 1-4 4H3" />
-    </>
-  ),
-  bars: (
-    <>
-      <line x1="18" y1="20" x2="18" y2="10" />
-      <line x1="12" y1="20" x2="12" y2="4" />
-      <line x1="6" y1="20" x2="6" y2="14" />
-    </>
-  ),
-  shield: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />,
-  lock: (
-    <>
-      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-    </>
-  ),
+export async function generateMetadata() {
+  const t = await getTranslations("Home");
+  return { title: t("metaTitle") };
+}
+
+const TRUST_ICONS = {
   check: (
     <>
       <circle cx="12" cy="12" r="10" />
       <path d="M9 12l2 2 4-4" />
     </>
   ),
-  bolt: <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />,
-  headset: (
-    <>
-      <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
-      <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
-    </>
-  ),
+  shield: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />,
 };
 
-type TrustBadge = {
-  icon: keyof typeof STAT_ICONS;
-  colorClass: string;
-  bgClass: string;
-  value?: ReactNode;
-  titleKey?: string;
-  labelKey: string;
-};
+// Only claims that are true for every account: a free demo account exists
+// (src/app/auth/actions.ts chooseAccountType) and every copy carries an
+// automatic loss limit (subscriptions.max_drawdown_pct / auto_stop_copy).
+const TRUST_ITEMS = [
+  { icon: "check", colorClass: "text-accent", bgClass: "bg-accent/10", titleKey: "trustStrip.demoTitle", descKey: "trustStrip.demoDesc" },
+  { icon: "shield", colorClass: "text-success", bgClass: "bg-success/10", titleKey: "trustStrip.stopLossTitle", descKey: "trustStrip.stopLossDesc" },
+] as const;
 
-// Same idea as eToro's trust-badge strip (real live platform numbers mixed
-// with policy/security assurances) — but every claim here is genuinely true
-// for Copy Matrix specifically. Deliberately excludes eToro's own facts
-// (founding year, stock-exchange listing, regulatory status) since those
-// would be false claims about this platform.
-const TRUST_BADGES: TrustBadge[] = [
-  { icon: "people", colorClass: "text-accent", bgClass: "bg-accent/10", value: <LiveActiveTraders className="text-sm font-semibold" />, labelKey: "stats.activeTraders" },
-  { icon: "swap", colorClass: "text-success", bgClass: "bg-success/10", value: <LiveCopyUsers className="text-sm font-semibold" />, labelKey: "stats.copyUsers" },
-  { icon: "bars", colorClass: "text-brand", bgClass: "bg-brand/10", value: <LiveTotalTrades className="text-sm font-semibold" />, labelKey: "stats.totalTrades" },
-  { icon: "bolt", colorClass: "text-warning", bgClass: "bg-warning/10", titleKey: "trustStrip.instantTitle", labelKey: "trustStrip.instantDesc" },
-  { icon: "lock", colorClass: "text-success", bgClass: "bg-success/10", titleKey: "trustStrip.encryptionTitle", labelKey: "trustStrip.encryptionDesc" },
-  { icon: "check", colorClass: "text-accent", bgClass: "bg-accent/10", titleKey: "trustStrip.demoTitle", labelKey: "trustStrip.demoDesc" },
-  { icon: "headset", colorClass: "text-brand", bgClass: "bg-brand/10", titleKey: "trustStrip.supportTitle", labelKey: "trustStrip.supportDesc" },
-];
+// Bios that describe an aggressive style. A leader whose own bio says this
+// must never be shown under a "low risk" badge on the landing page.
+const HIGH_RISK_BIO = /عالي المخاطرة|مخاطر(?:ة)? (?:عالية|مرتفعة)|المخاطرة عندي أعلى|رافعة (?:مالية )?مرتفعة|عدوانية|جريء|مضاربة|شديدة التقلب|تقلبًا أكبر|high[- ]risk|high leverage|aggressive/i;
 
 // Matches the balance every new demo account actually starts with
 // (src/app/auth/actions.ts chooseAccountType).
@@ -138,7 +92,8 @@ export default async function Home() {
       .order("avg_daily_return_pct", { ascending: false, nullsFirst: false })
       .limit(10);
     if (!error) {
-      rawTopProviders = data;
+      // Keep the badge (risk_level, from trade data) and the bio consistent.
+      rawTopProviders = (data ?? []).filter((p) => !(p.bio && HIGH_RISK_BIO.test(String(p.bio))));
       break;
     }
     console.error(`provider_cards fetch attempt ${attempt} failed:`, error.message);
@@ -149,6 +104,7 @@ export default async function Home() {
   // Cumulative return (%) over each featured leader's last closed trades, for
   // the sparkline on the card -- same per-trade move TraderEquityChart uses.
   const sparkSeries: Record<string, number[]> = {};
+  const bulkStats = await fetchBulkProviderStats(supabase);
   await Promise.all(
     (topProviders ?? []).map(async (p) => {
       const { data: rows } = await supabase
@@ -183,73 +139,48 @@ export default async function Home() {
       returnPct: Number(p.avg_daily_return_pct),
     }));
 
-  // Aggregated entirely in SQL across the full table — a plain
-  // select() from provider_cards caps at Supabase's default 1,000-row
-  // REST limit, which would silently undercount every stat below now
-  // that the roster is in the thousands.
-  const { data: statsRow } = (await supabase.rpc("homepage_platform_stats").single()) as {
-    data: {
-      traders_with_followers: number;
-      total_followers: number;
-      total_trades: number;
-      total_volume: number;
-      best_daily_return: number | null;
-      weighted_win_rate: number | null;
-    } | null;
-  };
-
-  // إجمالي حجم التداول and إجمالي الصفقات المنفذة are real cumulative
-  // counters — LiveStatsProvider (client-side) polls the real
-  // homepage_platform_stats() aggregate every 20s so they only ever grow,
-  // honestly, because the underlying data only ever grows. مستخدم ناسخ
-  // and متداول نشط are a deliberately simulated growth curve starting at
-  // 73,000 (see simulated-growth.ts) — the real per-leader follower sum
-  // had grown to ~300,000, too large a headline figure, and unlike a
-  // trade counter this one has no single real "true" value to poll for
-  // in the first place, only the sum of many synthetic per-leader
-  // baselines — so it's simulated forward from a controlled starting
-  // point instead, recomputed from wall-clock time client-side.
-  const now = Date.now();
-  const initialStats = {
-    totalTraders: simulatedActiveTraders(now),
-    totalCopiers: simulatedCopyUsers(now),
-    totalTrades: Number(statsRow?.total_trades ?? 0),
-    totalVolume: Number(statsRow?.total_volume ?? 0),
-    bestReturn: statsRow?.best_daily_return ?? null,
-    avgWinRate: statsRow?.weighted_win_rate != null ? Math.round(statsRow.weighted_win_rate) : null,
-  };
-
   const navLinks = NAV_HASHES.map((h) => ({ href: `#${h}`, label: t(`nav.${h === "how-it-works" ? "howItWorks" : h}`) }));
   const dir = isRtlLocale(locale) ? "rtl" : "ltr";
 
   return (
     <main className="flex min-h-screen flex-col">
-    <LiveStatsProvider initial={initialStats}>
-      <Header locale={locale} dir={dir} navLinks={navLinks} loginLabel={t("nav.login")} signupLabel={t("nav.signup")} />
+      <Header locale={locale} dir={dir} navLinks={navLinks} loginLabel={t("nav.login")} signupLabel={t("nav.signup")} menuLabel={t("nav.menu")} />
 
-      <section className="mx-auto w-full max-w-6xl px-6 py-20 lg:grid lg:grid-cols-2 lg:items-center lg:gap-12">
-        <div className="flex flex-col items-center gap-5 text-center lg:items-start lg:text-right">
-          <h1 className="max-w-2xl font-display text-4xl font-extrabold leading-tight text-white sm:text-5xl">
+      <section className="mx-auto w-full max-w-6xl px-6 pb-10 pt-5 md:py-20 lg:grid lg:grid-cols-2 lg:items-center lg:gap-12">
+        <div className="flex flex-col items-center gap-3 text-center md:gap-5 lg:items-start lg:text-right">
+          <h1 className="max-w-2xl font-display text-3xl font-extrabold leading-tight text-white sm:text-5xl">
             {t.rich("hero.title", {
               accent: (chunks) => <span className="text-white">{chunks}</span>,
             })}
           </h1>
           <p className="max-w-md text-muted">{t("hero.subtitle")}</p>
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2 lg:justify-start">
+          <div className="flex w-full flex-col items-center gap-3 pt-2 md:w-auto md:flex-row md:flex-wrap md:justify-center lg:justify-start">
             <Link
               href="/signup"
-              className="rounded bg-accent px-6 py-3 font-medium text-accent-foreground transition hover:bg-accent-hover"
+              className="w-full rounded bg-accent px-6 py-3 text-center font-medium text-accent-foreground transition hover:bg-accent-hover md:w-auto"
             >
               {t("hero.start")}
             </Link>
-            <a href="#traders" className="rounded border border-border px-6 py-3 font-medium text-foreground">
-              {t("hero.browse")}
+            <a href="#traders" className="text-sm font-medium text-muted md:rounded md:border md:border-border md:px-6 md:py-3 md:text-base md:text-foreground">
+              {t("hero.browse")} <span className="md:hidden">{dir === "rtl" ? "←" : "→"}</span>
             </a>
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-4 text-xs text-muted lg:justify-start">
+          {/* Desktop: three marks with their full text. */}
+          <div className="hidden flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-4 text-xs text-muted md:flex lg:justify-start">
             {[t("hero.trust0"), t("hero.trust1"), t("hero.trust2")].map((trustText) => (
               <span key={trustText} className="flex items-center gap-1.5">
                 <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 shrink-0 text-success" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg>
+                {trustText}
+              </span>
+            ))}
+          </div>
+          {/* Phones: the same marks, short, on one small line. */}
+          <div className="flex items-center justify-center gap-x-2.5 whitespace-nowrap text-[10px] text-muted md:hidden">
+            {[t("hero.trustShort0"), t("hero.trustShort1"), t("hero.trustShort2")].map((trustText) => (
+              <span key={trustText} className="flex items-center gap-1">
+                <svg viewBox="0 0 24 24" className="h-3 w-3 shrink-0 text-success" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M20 6L9 17l-5-5" />
                 </svg>
                 {trustText}
@@ -261,29 +192,17 @@ export default async function Home() {
         <ProductShowcase />
       </section>
 
-      <section className="overflow-hidden py-6">
-        <div className="flex w-max animate-[ticker-scroll_40s_linear_infinite] hover:[animation-play-state:paused]">
-          {[0, 1].map((copy) => (
-            <div key={copy} className="flex shrink-0 items-stretch" aria-hidden={copy === 1}>
-              {TRUST_BADGES.map((badge, i) => (
-                // Fixed width is load-bearing, not cosmetic: badge.value can be a
-                // live-updating counter (LiveActiveTraders etc.) that reflows
-                // whenever its digit count changes. If that were left to
-                // auto-size, the two marquee copies could drift out of sync in
-                // width and break the translateX(-50%) seamless-loop math,
-                // which is what caused the strip to render blank on refresh.
-                <div key={i} className="flex w-40 shrink-0 flex-col items-center justify-center gap-1 overflow-hidden px-1.5 text-center">
-                  <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${badge.bgClass}`}>
-                    <svg viewBox="0 0 24 24" className={`h-4 w-4 ${badge.colorClass}`} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      {STAT_ICONS[badge.icon]}
-                    </svg>
-                  </span>
-                  <div className="min-w-0 whitespace-nowrap">
-                    {badge.value ?? <p className="text-sm font-semibold">{t(badge.titleKey!)}</p>}
-                    <p className="truncate text-xs text-muted">{t(badge.labelKey)}</p>
-                  </div>
-                </div>
-              ))}
+      <section className="px-6 py-6">
+        <div className="mx-auto flex w-full max-w-2xl flex-wrap items-start justify-center gap-x-10 gap-y-4">
+          {TRUST_ITEMS.map((item) => (
+            <div key={item.icon} className="flex flex-col items-center gap-1 text-center">
+              <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${item.bgClass}`}>
+                <svg viewBox="0 0 24 24" className={`h-4 w-4 ${item.colorClass}`} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  {TRUST_ICONS[item.icon]}
+                </svg>
+              </span>
+              <p className="text-sm font-semibold">{t(item.titleKey)}</p>
+              <p className="text-xs text-muted">{t(item.descKey)}</p>
             </div>
           ))}
         </div>
@@ -325,6 +244,7 @@ export default async function Home() {
                   copyHref={copyHref}
                   bio={p.bio ? translateBio(p.bio) : null}
                   sparkline={sparkSeries[String(p.provider_id)]}
+                  maxDrawdownPct={bulkStats.get(String(p.provider_id))?.maxDrawdown ?? null}
                 />
               );
             })}
@@ -348,14 +268,6 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="market-news" className="flex flex-col gap-4 border-t border-border px-6 py-16">
-        <div className="mx-auto flex w-full max-w-5xl flex-col gap-1">
-          <h2 className="font-display text-2xl font-extrabold">{t("marketNews.title")}</h2>
-          <p className="text-sm text-muted">{t("marketNews.subtitle")}</p>
-        </div>
-        <MarketNewsFeed />
-      </section>
-
       <HowItWorks locale={locale} />
 
       <FAQAccordion locale={locale} />
@@ -374,7 +286,6 @@ export default async function Home() {
       </section>
 
       <Footer locale={locale} dir={dir} navLinks={navLinks} />
-    </LiveStatsProvider>
     </main>
   );
 }

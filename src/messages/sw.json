@@ -7,17 +7,21 @@
       "features": "Vipengele",
       "faq": "Maswali yanayoulizwa mara kwa mara",
       "login": "Ingia",
-      "signup": "Jisajili"
+      "signup": "Jisajili",
+      "menu": "Menu"
     },
     "hero": {
       "title": "Nakili biashara za <accent>wafanyabiashara bora</accent> kiotomatiki",
-      "subtitle": "Vinjari rekodi za utendaji halisi na zilizothibitishwa za mamia ya wafanyabiashara, na uchague unayemwamini kunakili biashara zake.",
+      "subtitle": "Browse traders' performance records and pick the one you trust to copy.",
       "start": "Anza sasa",
       "browse": "Vinjari wafanyabiashara",
-      "trust0": "Hakuna ada zilizofichwa kwenye kunakili au faida",
+      "trust0": "No subscription fees or hidden commissions",
       "trust1": "Acha kunakili mfanyabiashara yeyote papo hapo, wakati wowote",
-      "trust2": "Data yako imelindwa na kusimbwa kwa usiri kikamilifu",
-      "imageAlt": "Picha ya skrini ya programu ya Copy Matrix ikionyesha biashara ya moja kwa moja na vipengele vya jukwaa"
+      "trust2": "An automatic loss limit on every copy",
+      "imageAlt": "Picha ya skrini ya programu ya Copy Matrix ikionyesha biashara ya moja kwa moja na vipengele vya jukwaa",
+      "trustShort0": "No hidden fees",
+      "trustShort1": "Stop anytime",
+      "trustShort2": "Auto loss limit"
     },
     "highlights": [
       {
@@ -106,21 +110,6 @@
       "subtitle": "Pata wafanyabiashara bora wenye matokeo ya kuaminika na yaliyothibitishwa. Chagua mfanyabiashara sahihi na nakili mkakati wake kwa mbofyo mmoja.",
       "recentTrades": "Utendaji wa biashara za hivi karibuni"
     },
-    "stats": {
-      "title": "Takwimu",
-      "live": "Data ya moja kwa moja, inasasishwa kwa wakati halisi",
-      "activeTraders": "Wafanyabiashara hai",
-      "copyUsers": "Watumiaji wanaonakili",
-      "avgWinRate": "Wastani wa kiwango cha ushindi",
-      "totalVolume": "Jumla ya kiasi cha biashara",
-      "bestReturn": "Wastani bora wa mapato ya kila siku",
-      "totalTrades": "Jumla ya biashara zilizotekelezwa",
-      "footnote1": "Nambari hii inabadilika kiasili kuzunguka thamani yake halisi kwa kila kuonyesha upya ukurasa ili kuakisi shughuli za moja kwa moja kwenye jukwaa.",
-      "footnote2": "Nambari halisi iliyohesabiwa moja kwa moja kutoka kwa matokeo ya biashara zilizofungwa za wafanyabiashara kwenye jukwaa, bila mzunguko au marekebisho yoyote.",
-      "disclaimer": "Utendaji wa zamani hauhakikishi matokeo ya baadaye. Unakili wa biashara unahusisha hatari zinazoweza kusababisha kupoteza sehemu au mtaji wako wote — tafadhali kagua",
-      "termsLink": "Masharti na Vigezo",
-      "disclaimerEnd": "kabla ya kuanza."
-    },
     "faq": {
       "title": "Maswali Yanayoulizwa Mara kwa Mara",
       "subtitle": "Kila kitu unachohitaji kujua kabla ya kuanza kunakili biashara",
@@ -186,22 +175,14 @@
       "card3Desc": "Kila biashara na kila matokeo ya kila mfanyabiashara yameandikwa na kuonyeshwa wazi mbele yako — kagua rekodi yake kamili kabla ya kumnakili."
     },
     "trustStrip": {
-      "instantTitle": "Uwekaji na utoaji wa papo hapo",
-      "instantDesc": "Uchakataji wa kiotomatiki wa papo hapo kwa kila ombi",
-      "encryptionTitle": "Usimbaji kamili",
-      "encryptionDesc": "Kwa data zote za akaunti",
-      "demoTitle": "Akaunti ya majaribio",
-      "demoDesc": "Bila hatari yoyote halisi",
-      "supportTitle": "Msaada wa kiufundi",
-      "supportDesc": "Inapatikana saa 24"
+      "demoTitle": "Free demo account",
+      "demoDesc": "No real risk at all",
+      "stopLossTitle": "Automatic loss limit on every copy",
+      "stopLossDesc": "Copying stops when the loss limit is reached"
     },
     "traderPosts": {
       "title": "Sasisho la hivi karibuni la wafanyabiashara",
       "subtitle": "Maoni ya kila siku kutoka kwa wafanyabiashara wa jukwaa kuhusu biashara zao halisi."
-    },
-    "marketNews": {
-      "title": "Habari za soko",
-      "subtitle": "Habari za hivi karibuni za kifedha halisi moja kwa moja kutoka vyanzo vyake, zinasasishwa mfululizo."
     },
     "tryCopy": {
       "badge": "Jaribu bila hatari",
@@ -210,9 +191,10 @@
       "cta": "Open a demo account",
       "cardWelcome": "Akaunti yako ya bure ya majaribio",
       "cardPortfolioLabel": "Thamani ya jalada la majaribio",
-      "cardTopLabel": "Wafanyabiashara bora kwa faida",
+      "cardTopLabel": "Top traders by return (daily average)",
       "live": "Data ya moja kwa moja"
-    }
+    },
+    "metaTitle": "Copy Matrix — Automatically copy the best traders' trades"
   },
   "Nav": {
     "createAccount": "Jisajili",
@@ -330,7 +312,7 @@
     "riskProtectionLabel": "Ulinzi wa salio dhidi ya hasara",
     "riskProtectionUsed": "{pct}% kati ya {maxPct}%",
     "stopCopying": "Acha Kunakili",
-    "stopCopyingConfirm": "Acha kunakili mfanyabiashara huyu?",
+    "stopCopyingConfirm": "Open trades for this copy will be closed and copying will stop immediately.",
     "greetingMorning": "Habari za asubuhi, {name}",
     "greetingEvening": "Habari za jioni, {name}",
     "demoBannerTitle": "Umejaribu vya kutosha?",
@@ -676,7 +658,8 @@
     "compareSharpe": "Sharpe ratio (per trade)",
     "compareTrades": "Closed trades",
     "showingOf": "Showing {shown} of {total}",
-    "showMore": "Show more"
+    "showMore": "Show more",
+    "maxDrawdown": "Max drawdown"
   },
   "Countries": {
     "US": "Marekani",
@@ -1270,7 +1253,7 @@
           "ghairi unakili",
           "simamisha unakili"
         ],
-        "answer": "Ili kuacha kumnakili mfanyabiashara, nenda kwenye ukurasa wake wa wasifu na ubofye \"Acha Kunakili\". Biashara zilizo wazi kwa sasa zitaendelea kwa kawaida hadi mfanyabiashara azifunge, na hakuna biashara mpya zitakazofunguliwa kwako baada ya hapo."
+        "answer": "Open “My copies” and press “Stop copying”. Open trades are closed and copying stops immediately."
       },
       {
         "id": "risk-level",

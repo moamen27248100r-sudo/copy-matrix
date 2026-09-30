@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { TraderAvatar } from "@/components/TraderAvatar";
 import { ConfirmButton } from "@/components/ConfirmButton";
-import { unfollowProvider } from "@/app/discover/actions";
+import { stopCopyingNow } from "@/app/discover/actions";
 
 type CopiedProvider = {
   providerId: string;
@@ -48,7 +48,7 @@ export async function ActiveCopyControlPanel({
             </p>
           </div>
         </Link>
-        <form action={unfollowProvider}>
+        <form action={stopCopyingNow}>
           <input type="hidden" name="providerId" value={provider.providerId} />
           <input type="hidden" name="returnTo" value={returnTo} />
           <ConfirmButton

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
-import { SecurityBadges } from "@/components/SecurityBadges";
+import { AccountSecurity } from "@/components/AccountSecurity";
 import type { Locale } from "@/i18n/locales";
 import { PLATFORM_NAME, SUPPORT_EMAIL } from "@/config/platform";
 
@@ -9,7 +9,7 @@ type NavLink = { href: string; label: string };
 type FooterText = {
   tagline: string;
   platform: string;
-  wallet: string;
+  about: string;
   security: string;
   securityCenter: string;
   riskDisclosure: string;
@@ -23,9 +23,9 @@ type FooterText = {
 
 const TEXT: Record<Locale, FooterText> = {
   ar: {
-    tagline: "منصة نسخ التداول الذكية عبر 4 أسواق عالمية.",
+    tagline: "منصة عالمية لنسخ صفقات المتداولين عبر 4 أسواق.",
     platform: "المنصة",
-    wallet: "بوابة السحب والإيداع",
+    about: "من نحن",
     security: "الأمان والشفافية",
     securityCenter: "مركز الأمان",
     riskDisclosure: "تحذير المخاطر",
@@ -38,9 +38,9 @@ const TEXT: Record<Locale, FooterText> = {
       "Copy Matrix منصة برمجية لنسخ إشارات التداول وليست مؤسسة مالية أو بنكاً أو وسيط تداول مرخّصاً. التداول ونسخ الصفقات ينطويان على مخاطرة عالية قد تؤدي إلى خسارة كامل رأس المال المستثمر، والأداء السابق لا يضمن نتائج مستقبلية.",
   },
   en: {
-    tagline: "A smart copy trading platform across 4 global markets.",
+    tagline: "A global platform for copying traders' trades across 4 markets.",
     platform: "Platform",
-    wallet: "Deposit & withdraw gateway",
+    about: "About us",
     security: "Security & transparency",
     securityCenter: "Security center",
     riskDisclosure: "Risk disclosure",
@@ -55,7 +55,7 @@ const TEXT: Record<Locale, FooterText> = {
   fr: {
     tagline: "Une plateforme intelligente de copy trading sur 4 marchés mondiaux.",
     platform: "Plateforme",
-    wallet: "Passerelle de dépôt et retrait",
+    about: "À propos",
     security: "Sécurité et transparence",
     securityCenter: "Centre de sécurité",
     riskDisclosure: "Avertissement sur les risques",
@@ -70,7 +70,7 @@ const TEXT: Record<Locale, FooterText> = {
   es: {
     tagline: "Una plataforma inteligente de copy trading en 4 mercados globales.",
     platform: "Plataforma",
-    wallet: "Pasarela de depósito y retiro",
+    about: "Quiénes somos",
     security: "Seguridad y transparencia",
     securityCenter: "Centro de seguridad",
     riskDisclosure: "Aviso de riesgo",
@@ -85,7 +85,7 @@ const TEXT: Record<Locale, FooterText> = {
   pt: {
     tagline: "Uma plataforma inteligente de copy trading em 4 mercados globais.",
     platform: "Plataforma",
-    wallet: "Gateway de depósito e saque",
+    about: "Sobre nós",
     security: "Segurança e transparência",
     securityCenter: "Central de segurança",
     riskDisclosure: "Aviso de risco",
@@ -100,7 +100,7 @@ const TEXT: Record<Locale, FooterText> = {
   zh: {
     tagline: "覆盖4大全球市场的智能跟单交易平台。",
     platform: "平台",
-    wallet: "充值与提现网关",
+    about: "关于我们",
     security: "安全与透明",
     securityCenter: "安全中心",
     riskDisclosure: "风险披露",
@@ -114,7 +114,7 @@ const TEXT: Record<Locale, FooterText> = {
   hi: {
     tagline: "4 वैश्विक बाजारों में एक स्मार्ट कॉपी ट्रेडिंग प्लेटफ़ॉर्म।",
     platform: "प्लेटफ़ॉर्म",
-    wallet: "जमा और निकासी गेटवे",
+    about: "हमारे बारे में",
     security: "सुरक्षा और पारदर्शिता",
     securityCenter: "सुरक्षा केंद्र",
     riskDisclosure: "जोखिम प्रकटीकरण",
@@ -129,7 +129,7 @@ const TEXT: Record<Locale, FooterText> = {
   ur: {
     tagline: "4 عالمی مارکیٹوں میں ایک ذہین کاپی ٹریڈنگ پلیٹ فارم۔",
     platform: "پلیٹ فارم",
-    wallet: "جمع اور نکاسی گیٹ وے",
+    about: "ہمارے بارے میں",
     security: "سیکیورٹی اور شفافیت",
     securityCenter: "سیکیورٹی سینٹر",
     riskDisclosure: "خطرے کا انکشاف",
@@ -144,7 +144,7 @@ const TEXT: Record<Locale, FooterText> = {
   id: {
     tagline: "Platform copy trading cerdas di 4 pasar global.",
     platform: "Platform",
-    wallet: "Gateway setor & tarik",
+    about: "Tentang kami",
     security: "Keamanan & transparansi",
     securityCenter: "Pusat keamanan",
     riskDisclosure: "Pengungkapan risiko",
@@ -159,7 +159,7 @@ const TEXT: Record<Locale, FooterText> = {
   vi: {
     tagline: "Nền tảng copy trading thông minh trên 4 thị trường toàn cầu.",
     platform: "Nền tảng",
-    wallet: "Cổng nạp & rút tiền",
+    about: "Giới thiệu",
     security: "Bảo mật & minh bạch",
     securityCenter: "Trung tâm bảo mật",
     riskDisclosure: "Công bố rủi ro",
@@ -174,7 +174,7 @@ const TEXT: Record<Locale, FooterText> = {
   th: {
     tagline: "แพลตฟอร์มคัดลอกการเทรดอัจฉริยะใน 4 ตลาดโลก",
     platform: "แพลตฟอร์ม",
-    wallet: "เกตเวย์ฝากและถอน",
+    about: "เกี่ยวกับเรา",
     security: "ความปลอดภัยและความโปร่งใส",
     securityCenter: "ศูนย์ความปลอดภัย",
     riskDisclosure: "การเปิดเผยความเสี่ยง",
@@ -189,7 +189,7 @@ const TEXT: Record<Locale, FooterText> = {
   bn: {
     tagline: "৪টি বৈশ্বিক বাজারে একটি স্মার্ট কপি ট্রেডিং প্ল্যাটফর্ম।",
     platform: "প্ল্যাটফর্ম",
-    wallet: "জমা ও উত্তোলন গেটওয়ে",
+    about: "আমাদের সম্পর্কে",
     security: "নিরাপত্তা ও স্বচ্ছতা",
     securityCenter: "নিরাপত্তা কেন্দ্র",
     riskDisclosure: "ঝুঁকি প্রকাশ",
@@ -204,7 +204,7 @@ const TEXT: Record<Locale, FooterText> = {
   sw: {
     tagline: "Jukwaa la busara la biashara ya kunakili katika masoko 4 ya kimataifa.",
     platform: "Jukwaa",
-    wallet: "Lango la kuweka na kutoa",
+    about: "Kuhusu sisi",
     security: "Usalama na uwazi",
     securityCenter: "Kituo cha usalama",
     riskDisclosure: "Ufichuzi wa hatari",
@@ -238,8 +238,8 @@ export function Footer({ locale, dir, navLinks }: { locale: Locale; dir: "rtl" |
                   {l.label}
                 </a>
               ))}
-              <Link href="/portfolio/deposit" className="line-clamp-1 text-muted hover:text-foreground">
-                {t.wallet}
+              <Link href="/about" className="line-clamp-1 text-muted hover:text-foreground">
+                {t.about}
               </Link>
             </div>
           </div>
@@ -275,7 +275,7 @@ export function Footer({ locale, dir, navLinks }: { locale: Locale; dir: "rtl" |
           </div>
         </div>
 
-        <SecurityBadges locale={locale} />
+        <AccountSecurity locale={locale} />
       </div>
 
       <div className="mx-auto mt-8 w-full max-w-5xl border-t border-glass-border pt-6 text-center">

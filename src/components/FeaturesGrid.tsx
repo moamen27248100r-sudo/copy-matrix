@@ -1,7 +1,5 @@
 import type { ReactNode } from "react";
 import type { Locale } from "@/i18n/locales";
-import { createClient } from "@/lib/supabase/server";
-import { MarketTicker } from "@/components/MarketTicker";
 
 type RiskLevel = "low" | "medium" | "high";
 
@@ -16,17 +14,17 @@ type FeaturesText = {
 const TEXT: Record<Locale, FeaturesText> = {
   ar: {
     title: "لماذا Copy Matrix",
-    subtitle: "شبكة قوة كاملة لنسخ التداول بثقة",
-    card1: { badge: "لحظي", title: "تنفيذ لحظي بـ 0% عمولة خفية", desc: "أوامر تُنفَّذ في نفس اللحظة بدون أي رسوم مخفية على الصفقات." },
+    subtitle: "كل ما تحتاجه لنسخ التداول بثقة",
+    card1: { badge: "", title: "تنفيذ تلقائي للصفقات", desc: "تُنسخ صفقات المتداول في حسابك تلقائيًا بحجم يتناسب مع المبلغ الذي تحدده." },
     card2: { title: "تغطية كاملة لـ 4 أسواق عالمية", desc: "تداول العملات الرقمية والفوركس والذهب والمؤشرات من حساب واحد." },
-    card3: { title: "تحكم ذكي ومؤشرات موثوقة", desc: "مؤشر مخاطرة حي يوضح مستوى التعرض لكل قائد تنسخه.", riskLabel: "مستوى المخاطرة", riskValue: "منخفض", riskLevel: "low" },
+    card3: { title: "مؤشر مخاطرة لكل متداول", desc: "تقييم واضح لمستوى المخاطرة قبل أن تنسخ أي متداول.", riskLabel: "مستوى المخاطرة", riskValue: "منخفض", riskLevel: "low" },
   },
   en: {
     title: "Why Copy Matrix",
-    subtitle: "A full power grid for copy trading with confidence",
-    card1: { badge: "Instant", title: "Instant execution, 0% hidden commission", desc: "Orders fill the moment they're placed, with no hidden trade fees." },
+    subtitle: "Everything you need to copy trades with confidence",
+    card1: { badge: "", title: "Automatic trade execution", desc: "The trader's trades are copied to your account automatically, sized in proportion to the amount you set." },
     card2: { title: "Full coverage across 4 global markets", desc: "Trade crypto, forex, gold and indices from a single account." },
-    card3: { title: "Smart control, trusted indicators", desc: "A live risk gauge shows your exposure to every leader you copy.", riskLabel: "Risk level", riskValue: "Low", riskLevel: "low" },
+    card3: { title: "A risk indicator for every trader", desc: "A clear view of each trader's risk level before you copy them.", riskLabel: "Risk level", riskValue: "Low", riskLevel: "low" },
   },
   fr: {
     title: "Pourquoi Copy Matrix",
@@ -161,19 +159,8 @@ function IconBadge({ name }: { name: "zap" | "globe" | "settings" }) {
   );
 }
 
-const TICKER_SYMBOLS = ["BTCUSDT", "XAUUSD", "EURUSD"];
-
-export async function FeaturesGrid({ locale }: { locale: Locale }) {
+export function FeaturesGrid({ locale }: { locale: Locale }) {
   const t = TEXT[locale] ?? TEXT.en;
-
-  const supabase = await createClient();
-  const { data: priceRows } = await supabase
-    .from("market_prices")
-    .select("symbol, price")
-    .in("symbol", TICKER_SYMBOLS);
-  const initialPrices = Object.fromEntries(
-    (priceRows ?? []).map((row) => [row.symbol, Number(row.price)]),
-  );
 
   return (
     <section className="bg-transparent px-6 py-16">
@@ -191,7 +178,7 @@ export async function FeaturesGrid({ locale }: { locale: Locale }) {
             <IconBadge name="zap" />
             <div className="flex flex-wrap items-center gap-2">
               <h3 className="line-clamp-1 text-lg font-bold text-white">{t.card1.title}</h3>
-              <span className="text-xs font-medium text-slate-400">· {t.card1.badge}</span>
+              {t.card1.badge && <span className="text-xs font-medium text-slate-400">· {t.card1.badge}</span>}
             </div>
             <p className="line-clamp-2 max-w-xl text-sm leading-relaxed text-slate-400">{t.card1.desc}</p>
           </div>
@@ -202,7 +189,6 @@ export async function FeaturesGrid({ locale }: { locale: Locale }) {
             <IconBadge name="globe" />
             <h3 className="line-clamp-1 text-lg font-bold text-white">{t.card2.title}</h3>
             <p className="line-clamp-2 max-w-xl text-sm leading-relaxed text-slate-400">{t.card2.desc}</p>
-            <MarketTicker initialPrices={initialPrices} />
           </div>
 
           {/* Feature 3: smart control & risk gauge */}

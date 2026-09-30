@@ -7,17 +7,21 @@
       "features": "Fitur",
       "faq": "FAQ",
       "login": "Masuk",
-      "signup": "Daftar"
+      "signup": "Daftar",
+      "menu": "Menu"
     },
     "hero": {
       "title": "Salin transaksi <accent>trader terbaik</accent> secara otomatis",
-      "subtitle": "Jelajahi rekam jejak performa yang nyata dan terverifikasi dari ratusan trader, dan pilih siapa yang Anda percaya untuk disalin transaksinya.",
+      "subtitle": "Browse traders' performance records and pick the one you trust to copy.",
       "start": "Mulai sekarang",
       "browse": "Jelajahi trader",
-      "trust0": "Tanpa biaya tersembunyi untuk menyalin atau keuntungan",
+      "trust0": "No subscription fees or hidden commissions",
       "trust1": "Hentikan menyalin trader mana pun secara instan, kapan saja",
-      "trust2": "Data Anda sepenuhnya dilindungi dan dienkripsi",
-      "imageAlt": "Tangkapan layar aplikasi Copy Matrix yang menampilkan transaksi langsung dan fitur-fitur platform"
+      "trust2": "An automatic loss limit on every copy",
+      "imageAlt": "Tangkapan layar aplikasi Copy Matrix yang menampilkan transaksi langsung dan fitur-fitur platform",
+      "trustShort0": "No hidden fees",
+      "trustShort1": "Stop anytime",
+      "trustShort2": "Auto loss limit"
     },
     "highlights": [
       {
@@ -106,21 +110,6 @@
       "subtitle": "Temukan trader elite dengan hasil yang tepercaya dan terverifikasi. Pilih trader yang tepat dan salin strateginya dengan satu klik.",
       "recentTrades": "Performa transaksi terbaru"
     },
-    "stats": {
-      "title": "Statistik",
-      "live": "Data langsung, diperbarui secara real-time",
-      "activeTraders": "Trader aktif",
-      "copyUsers": "Pengguna penyalin",
-      "avgWinRate": "Rata-rata tingkat kemenangan",
-      "totalVolume": "Total volume trading",
-      "bestReturn": "Rata-rata imbal hasil harian terbaik",
-      "totalTrades": "Total transaksi yang dieksekusi",
-      "footnote1": "Angka ini secara alami berfluktuasi di sekitar nilai sebenarnya dengan setiap penyegaran halaman untuk mencerminkan aktivitas langsung di platform.",
-      "footnote2": "Angka aktual yang dihitung langsung dari hasil transaksi trader yang telah ditutup di platform, tanpa pembulatan atau penyesuaian apa pun.",
-      "disclaimer": "Kinerja masa lalu tidak menjamin hasil di masa depan. Copy trading melibatkan risiko yang dapat menyebabkan kehilangan sebagian atau seluruh modal Anda — harap tinjau",
-      "termsLink": "Syarat & Ketentuan",
-      "disclaimerEnd": "sebelum memulai."
-    },
     "faq": {
       "title": "Pertanyaan yang Sering Diajukan",
       "subtitle": "Semua yang perlu Anda ketahui sebelum mulai menyalin transaksi",
@@ -186,22 +175,14 @@
       "card3Desc": "Setiap transaksi dan setiap hasil dari setiap trader terdokumentasi dan jelas di hadapan Anda — tinjau rekam jejak lengkapnya sebelum Anda menyalinnya."
     },
     "trustStrip": {
-      "instantTitle": "Setor & tarik instan",
-      "instantDesc": "Pemrosesan otomatis secara real-time untuk setiap permintaan",
-      "encryptionTitle": "Enkripsi penuh",
-      "encryptionDesc": "Untuk semua data akun",
-      "demoTitle": "Akun demo",
-      "demoDesc": "Tanpa risiko nyata sama sekali",
-      "supportTitle": "Dukungan teknis",
-      "supportDesc": "Tersedia 24 jam"
+      "demoTitle": "Free demo account",
+      "demoDesc": "No real risk at all",
+      "stopLossTitle": "Automatic loss limit on every copy",
+      "stopLossDesc": "Copying stops when the loss limit is reached"
     },
     "traderPosts": {
       "title": "Pembaruan trader terbaru",
       "subtitle": "Komentar harian dari trader platform tentang transaksi nyata mereka."
-    },
-    "marketNews": {
-      "title": "Berita pasar",
-      "subtitle": "Berita keuangan nyata terbaru langsung dari sumbernya, diperbarui terus-menerus."
     },
     "tryCopy": {
       "badge": "Coba tanpa risiko",
@@ -210,9 +191,10 @@
       "cta": "Open a demo account",
       "cardWelcome": "Akun demo gratis Anda",
       "cardPortfolioLabel": "Nilai portofolio demo",
-      "cardTopLabel": "Trader teratas berdasarkan return",
+      "cardTopLabel": "Top traders by return (daily average)",
       "live": "Data langsung"
-    }
+    },
+    "metaTitle": "Copy Matrix — Automatically copy the best traders' trades"
   },
   "Nav": {
     "createAccount": "Daftar",
@@ -330,7 +312,7 @@
     "riskProtectionLabel": "Perlindungan saldo dari kerugian",
     "riskProtectionUsed": "{pct}% dari {maxPct}%",
     "stopCopying": "Hentikan Menyalin",
-    "stopCopyingConfirm": "Berhenti menyalin trader ini?",
+    "stopCopyingConfirm": "Open trades for this copy will be closed and copying will stop immediately.",
     "greetingMorning": "Selamat pagi, {name}",
     "greetingEvening": "Selamat sore, {name}",
     "demoBannerTitle": "Sudah cukup mencoba?",
@@ -676,7 +658,8 @@
     "compareSharpe": "Sharpe ratio (per trade)",
     "compareTrades": "Closed trades",
     "showingOf": "Showing {shown} of {total}",
-    "showMore": "Show more"
+    "showMore": "Show more",
+    "maxDrawdown": "Max drawdown"
   },
   "Countries": {
     "US": "Amerika Serikat",
@@ -1270,7 +1253,7 @@
           "batalkan salinan",
           "hentikan salin"
         ],
-        "answer": "Untuk berhenti menyalin trader, buka halaman profil mereka dan klik \"Berhenti Menyalin\". Trade yang saat ini terbuka akan terus berjalan normal hingga trader menutupnya, dan tidak ada trade baru yang akan dibuka untuk Anda setelahnya."
+        "answer": "Open “My copies” and press “Stop copying”. Open trades are closed and copying stops immediately."
       },
       {
         "id": "risk-level",

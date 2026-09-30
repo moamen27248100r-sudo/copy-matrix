@@ -7,17 +7,21 @@
       "features": "خصوصیات",
       "faq": "اکثر پوچھے گئے سوالات",
       "login": "لاگ ان کریں",
-      "signup": "سائن اپ کریں"
+      "signup": "سائن اپ کریں",
+      "menu": "Menu"
     },
     "hero": {
       "title": "<accent>بہترین ٹریڈرز</accent> کے ٹریڈز خودکار طور پر کاپی کریں",
-      "subtitle": "سینکڑوں ٹریڈرز کے حقیقی اور تصدیق شدہ کارکردگی کے ریکارڈز دیکھیں، اور جس پر بھروسہ ہو اسے منتخب کریں۔",
+      "subtitle": "Browse traders' performance records and pick the one you trust to copy.",
       "start": "ابھی شروع کریں",
       "browse": "ٹریڈرز دیکھیں",
-      "trust0": "کاپی کرنے یا منافع پر کوئی چھپی ہوئی فیس نہیں",
+      "trust0": "No subscription fees or hidden commissions",
       "trust1": "کسی بھی ٹریڈر کی کاپیئنگ کبھی بھی فوری طور پر روکیں",
-      "trust2": "آپ کا ڈیٹا مکمل طور پر محفوظ اور خفیہ کردہ ہے",
-      "imageAlt": "Copy Matrix ایپ کا اسکرین شاٹ جس میں ایک لائیو ٹریڈ اور پلیٹ فارم کی خصوصیات دکھائی گئی ہیں"
+      "trust2": "An automatic loss limit on every copy",
+      "imageAlt": "Copy Matrix ایپ کا اسکرین شاٹ جس میں ایک لائیو ٹریڈ اور پلیٹ فارم کی خصوصیات دکھائی گئی ہیں",
+      "trustShort0": "No hidden fees",
+      "trustShort1": "Stop anytime",
+      "trustShort2": "Auto loss limit"
     },
     "highlights": [
       {
@@ -106,21 +110,6 @@
       "subtitle": "قابلِ اعتماد، تصدیق شدہ نتائج رکھنے والے بہترین ٹریڈرز تلاش کریں۔ صحیح ٹریڈر چنیں اور ایک کلک میں اس کی حکمتِ عملی کاپی کریں۔",
       "recentTrades": "حالیہ ٹریڈز کی کارکردگی"
     },
-    "stats": {
-      "title": "اعداد و شمار",
-      "live": "لائیو ڈیٹا، حقیقی وقت میں اپ ڈیٹ",
-      "activeTraders": "فعال ٹریڈرز",
-      "copyUsers": "کاپی کرنے والے صارفین",
-      "avgWinRate": "اوسط جیت کی شرح",
-      "totalVolume": "کل ٹریڈنگ حجم",
-      "bestReturn": "بہترین اوسط یومیہ منافع",
-      "totalTrades": "کل مکمل شدہ ٹریڈز",
-      "footnote1": "یہ عدد پلیٹ فارم پر لائیو سرگرمی ظاہر کرنے کے لیے ہر پیج ریفریش پر اپنی حقیقی قدر کے ارد گرد قدرتی طور پر بدلتا ہے۔",
-      "footnote2": "یہ ایک حقیقی عدد ہے جو پلیٹ فارم پر ٹریڈرز کے بند ہونے والے ٹریڈز کے نتائج سے براہ راست شمار کیا گیا ہے، بغیر کسی گول یا تبدیلی کے۔",
-      "disclaimer": "ماضی کی کارکردگی مستقبل کے نتائج کی ضمانت نہیں دیتی۔ کاپی ٹریڈنگ میں خطرات شامل ہیں جو آپ کے سرمائے کے کچھ یا پورے حصے کے نقصان کا سبب بن سکتے ہیں — براہ کرم شروع کرنے سے پہلے",
-      "termsLink": "شرائط و ضوابط",
-      "disclaimerEnd": "کا جائزہ لیں۔"
-    },
     "faq": {
       "title": "اکثر پوچھے گئے سوالات",
       "subtitle": "ٹریڈز کاپی کرنا شروع کرنے سے پہلے آپ کو جو کچھ جاننا چاہیے",
@@ -186,22 +175,14 @@
       "card3Desc": "ہر ٹریڈر کی ہر ٹریڈ اور ہر نتیجہ درج اور واضح طور پر آپ کے سامنے ہے — کاپی کرنے سے پہلے اس کا مکمل ریکارڈ دیکھیں۔"
     },
     "trustStrip": {
-      "instantTitle": "فوری جمع اور نکالنا",
-      "instantDesc": "ہر درخواست کی خودکار ریئل ٹائم پروسیسنگ",
-      "encryptionTitle": "مکمل خفیہ کاری",
-      "encryptionDesc": "تمام اکاؤنٹ ڈیٹا کے لیے",
-      "demoTitle": "ڈیمو اکاؤنٹ",
-      "demoDesc": "بغیر کسی حقیقی خطرے کے",
-      "supportTitle": "تکنیکی معاونت",
-      "supportDesc": "24 گھنٹے دستیاب"
+      "demoTitle": "Free demo account",
+      "demoDesc": "No real risk at all",
+      "stopLossTitle": "Automatic loss limit on every copy",
+      "stopLossDesc": "Copying stops when the loss limit is reached"
     },
     "traderPosts": {
       "title": "ٹریڈرز کی تازہ ترین اپڈیٹس",
       "subtitle": "پلیٹ فارم کے ٹریڈرز کی اپنی حقیقی ٹریڈز پر روزانہ تبصرے۔"
-    },
-    "marketNews": {
-      "title": "مارکیٹ کی خبریں",
-      "subtitle": "ذرائع سے تازہ ترین حقیقی مالیاتی خبریں، مسلسل اپڈیٹ ہوتی رہتی ہیں۔"
     },
     "tryCopy": {
       "badge": "بلا خطرہ آزمائیں",
@@ -210,9 +191,10 @@
       "cta": "Open a demo account",
       "cardWelcome": "آپ کا مفت ڈیمو اکاؤنٹ",
       "cardPortfolioLabel": "ڈیمو پورٹ فولیو ویلیو",
-      "cardTopLabel": "منافع کے لحاظ سے سرکردہ ٹریڈرز",
+      "cardTopLabel": "Top traders by return (daily average)",
       "live": "لائیو ڈیٹا"
-    }
+    },
+    "metaTitle": "Copy Matrix — Automatically copy the best traders' trades"
   },
   "Nav": {
     "createAccount": "سائن اپ کریں",
@@ -330,7 +312,7 @@
     "riskProtectionLabel": "نقصان سے بیلنس کا تحفظ",
     "riskProtectionUsed": "{maxPct}% میں سے {pct}%",
     "stopCopying": "کاپی کرنا بند کریں",
-    "stopCopyingConfirm": "کیا آپ اس ٹریڈر کی کاپی کرنا بند کرنا چاہتے ہیں؟",
+    "stopCopyingConfirm": "Open trades for this copy will be closed and copying will stop immediately.",
     "greetingMorning": "صبح بخیر، {name}",
     "greetingEvening": "شام بخیر، {name}",
     "demoBannerTitle": "کیا آپ نے کافی آزما لیا؟",
@@ -676,7 +658,8 @@
     "compareSharpe": "Sharpe ratio (per trade)",
     "compareTrades": "Closed trades",
     "showingOf": "Showing {shown} of {total}",
-    "showMore": "Show more"
+    "showMore": "Show more",
+    "maxDrawdown": "Max drawdown"
   },
   "Countries": {
     "US": "امریکا",
@@ -1270,7 +1253,7 @@
           "کاپی منسوخ کریں",
           "کاپی روکیں"
         ],
-        "answer": "کسی ٹریڈر کو کاپی کرنا بند کرنے کے لیے، ان کے پروفائل پیج پر جائیں اور \"کاپی کرنا بند کریں\" پر کلک کریں۔ فی الحال کھلی ٹریڈز معمول کے مطابق جاری رہتی ہیں جب تک ٹریڈر انہیں بند نہیں کرتا، اور اس کے بعد آپ کے لیے کوئی نئی ٹریڈ نہیں کھلے گی۔"
+        "answer": "Open “My copies” and press “Stop copying”. Open trades are closed and copying stops immediately."
       },
       {
         "id": "risk-level",

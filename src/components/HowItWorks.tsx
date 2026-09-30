@@ -10,23 +10,23 @@ const TEXT: Record<Locale, HowItWorksText> = {
   ar: {
     badge: "آلية العمل",
     title: "أربع خطوات لتبدأ النسخ",
-    subtitle: "مسار واحد متصل من التسجيل إلى التنفيذ اللحظي",
+    subtitle: "من التسجيل إلى أول صفقة منسوخة في دقائق",
     steps: [
-      { title: "ربط الحساب وإدارة المحفظة", desc: "أنشئ حسابك واربط محفظتك بأمان في دقائق." },
-      { title: "تخصيص ورأس المال المرن", desc: "حدد رأس المال المخصص لكل قائد تنسخه بحرية." },
-      { title: "تحليل وتصفية قادة Matrix", desc: "قارن الأداء والمخاطرة واختر القادة الأنسب لك." },
-      { title: "التنفيذ اللحظي والتحكم التلقائي", desc: "صفقاتك تُنسخ لحظياً مع تحكم كامل بالإيقاف والفك." },
+      { title: "أنشئ حسابك", desc: "سجّل ببريدك الإلكتروني وابدأ بحساب تجريبي مجاني." },
+      { title: "اختر متداولًا", desc: "قارن الأداء والمخاطرة واختر المتداول الأنسب لك." },
+      { title: "حدد المبلغ", desc: "خصص المبلغ الذي تريد نسخ كل متداول به." },
+      { title: "تابع صفقاتك", desc: "صفقاتك تُنسخ تلقائيًا، ويمكنك إيقاف النسخ فورًا في أي وقت." },
     ],
   },
   en: {
     badge: "How it works",
     title: "Four steps to start copying",
-    subtitle: "One connected path from sign-up to instant execution",
+    subtitle: "From sign-up to your first copied trade in minutes",
     steps: [
-      { title: "Connect your account & wallet", desc: "Create your account and link your wallet securely in minutes." },
-      { title: "Flexible allocation & capital", desc: "Choose how much capital to allocate to each leader you copy." },
-      { title: "Analyze & filter Matrix leaders", desc: "Compare performance and risk to pick the leaders that fit you." },
-      { title: "Instant execution & auto control", desc: "Trades copy instantly, with full control to pause or unfollow." },
+      { title: "Create your account", desc: "Sign up with your email and start with a free demo account." },
+      { title: "Choose a trader", desc: "Compare performance and risk and pick the trader that suits you." },
+      { title: "Set your amount", desc: "Set the amount you want to use to copy each trader." },
+      { title: "Follow your trades", desc: "Your trades are copied automatically, and you can stop copying instantly at any time." },
     ],
   },
   fr: {
@@ -159,17 +159,17 @@ const STEP_ICON_PATHS = [
     <path d="M3 10h18" />
     <circle cx="16" cy="14.5" r="1" />
   </>,
-  // dollar / slider -- flexible allocation
-  <>
-    <line x1="12" y1="2" x2="12" y2="22" />
-    <path d="M17 6.5c0-1.4-1.6-2.5-5-2.5s-5 1.1-5 2.5S8.6 9 12 9s5 1.1 5 2.5-1.6 2.5-5 2.5-5-1.1-5-2.5" />
-  </>,
   // analytics / chart -- analyze & filter leaders
   <>
     <path d="M4 19h16" />
     <rect x="6" y="12" width="3" height="7" />
     <rect x="11" y="8" width="3" height="11" />
     <rect x="16" y="4" width="3" height="15" />
+  </>,
+  // dollar / slider -- flexible allocation
+  <>
+    <line x1="12" y1="2" x2="12" y2="22" />
+    <path d="M17 6.5c0-1.4-1.6-2.5-5-2.5s-5 1.1-5 2.5S8.6 9 12 9s5 1.1 5 2.5-1.6 2.5-5 2.5-5-1.1-5-2.5" />
   </>,
   // lightning -- instant execution
   <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" />,

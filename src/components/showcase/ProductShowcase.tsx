@@ -1,12 +1,11 @@
 "use client";
 
-import { Users } from "lucide-react";
 import { PhoneFrame } from "./PhoneFrame";
 import { ScaledScreenContent } from "./ScaledScreenContent";
 import { TraderProfileScreen } from "./screens/TraderProfileScreen";
 import { LiveTradesScreen } from "./screens/LiveTradesScreen";
 import { PortfolioScreen } from "./screens/PortfolioScreen";
-import { FloatingStatCard, CountUpNumber } from "./FloatingStatCard";
+import { FloatingStatCard } from "./FloatingStatCard";
 import { TradeNotificationStack } from "./TradeNotificationStack";
 import { usePrefersReducedMotion, useIsDesktop, useInView, useShowcaseTick } from "./hooks";
 import { showcaseFloatingStats, showcaseDisclaimer } from "@/data/showcase-data";
@@ -52,22 +51,6 @@ function TopTraderCard({ reducedMotion }: { reducedMotion: boolean }) {
   );
 }
 
-function ActiveCopiersCard({ inView, reducedMotion }: { inView: boolean; reducedMotion: boolean }) {
-  return (
-    <FloatingStatCard delaySeconds={1.5} reducedMotion={reducedMotion} className="w-[170px]">
-      <div className="flex items-center gap-2.5">
-        <Users className="h-5 w-5 shrink-0 text-accent" />
-        <div>
-          <p className="text-[15px] font-bold text-white">
-            <CountUpNumber value={showcaseFloatingStats.activeCopiers} start={inView} />
-          </p>
-          <p className="text-[11px] text-muted">ناسخ نشط</p>
-        </div>
-      </div>
-    </FloatingStatCard>
-  );
-}
-
 function FrontPhoneScreens({ tick, activeScreen, reducedMotion }: { tick: number; activeScreen: number; reducedMotion: boolean }) {
   return Array.from({ length: SCREEN_COUNT }, (_, i) => (i - activeScreen + SCREEN_COUNT) % SCREEN_COUNT).map((diff, i) => (
     <ScreenSlide key={i} diff={diff}>
@@ -93,7 +76,7 @@ export function ProductShowcase() {
       ref={ref}
       role="img"
       aria-label="عرض توضيحي لواجهة المنصة"
-      className="relative w-full overflow-x-hidden px-3 py-10 lg:py-0"
+      className="relative w-full overflow-x-hidden px-3 py-4 md:py-10 lg:py-0"
     >
       <div
         className={"pointer-events-none absolute left-1/2 top-1/2 -z-10 -translate-x-1/2 -translate-y-1/2 rounded-full " + (reducedMotion ? "" : "showcase-glow-pulse")}
@@ -109,9 +92,6 @@ export function ProductShowcase() {
                 <LiveTradesScreen tick={tick} />
               </ScaledScreenContent>
             </PhoneFrame>
-            <div className="absolute left-0 top-0" style={{ transform: "translate(-35%, -50%)" }}>
-              <ActiveCopiersCard inView={inView} reducedMotion={reducedMotion} />
-            </div>
           </div>
 
           {/* front phone: static trader-profile screen, sits above the back one */}
@@ -133,22 +113,17 @@ export function ProductShowcase() {
           </div>
         </div>
       ) : (
-        <div className="relative mx-auto flex h-[480px] w-full max-w-[360px] items-center justify-center">
-          <div className="relative">
-            <PhoneFrame widthClassName={FRONT_WIDTH}>
-              <FrontPhoneScreens tick={tick} activeScreen={activeScreen} reducedMotion={reducedMotion} />
-            </PhoneFrame>
-            <div className="absolute right-0 top-0" style={{ transform: "translate(30%, -45%)" }}>
-              <TopTraderCard reducedMotion={reducedMotion} />
-            </div>
-            <div className="absolute bottom-0 left-0" style={{ transform: "translate(-30%, 40%)" }}>
-              <TradeNotificationStack tick={tick} count={1} />
-            </div>
-          </div>
+        // Phones-on-phones: only the top half of the phone is shown so the
+        // hero doesn't push the CTA far below the fold; no floating cards.
+        <div className="relative mx-auto flex h-[250px] w-full max-w-[360px] items-start justify-center overflow-hidden">
+          <PhoneFrame widthClassName={FRONT_WIDTH}>
+            <FrontPhoneScreens tick={tick} activeScreen={activeScreen} reducedMotion={reducedMotion} />
+          </PhoneFrame>
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background to-transparent" />
         </div>
       )}
 
-      <p className="mx-auto mt-6 max-w-sm text-center text-[11px] text-muted">{showcaseDisclaimer}</p>
+      <p className="mx-auto mt-3 max-w-sm md:mt-6 text-center text-[11px] text-muted">{showcaseDisclaimer}</p>
 
       <style>{`
         @keyframes showcaseGlowPulse { 0%, 100% { opacity: 0.714; } 50% { opacity: 1; } }
