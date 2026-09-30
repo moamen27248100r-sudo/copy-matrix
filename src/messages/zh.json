@@ -1667,7 +1667,8 @@
       "followers": "Followers",
       "settlements": "Settlements",
       "tasks": "Tasks",
-      "settings": "Settings"
+      "settings": "Settings",
+      "performance": "业绩"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1694,7 +1695,19 @@
       "period90": "90 days",
       "period180": "180 days",
       "tradesCount": "Closed trades",
-      "activeDays": "Active trading days"
+      "activeDays": "Active trading days",
+      "accountStatus": "账户状态",
+      "status_active": "正常",
+      "status_closed": "暂不接受新跟单者",
+      "status_stopped": "交易已停止",
+      "status_suspended": "已暂停",
+      "copiersTotal": "跟单者总数",
+      "copiersActive": "活跃跟单者",
+      "copiersNewMonth": "本月新增",
+      "copiersStopped": "已停止跟单",
+      "earningsMonth": "本月收益",
+      "earningsTotal": "总收益",
+      "earningsPending": "待结算收益"
     },
     "trades": {
       "title": "Trades",
@@ -1839,6 +1852,26 @@
       "task_firstTenTrades_desc": "Close at least 10 trades to build a track record.",
       "tierNote": "Your tier and its limits are shown on",
       "tierLink": "your overview page."
+    },
+    "performance": {
+      "title": "业绩",
+      "range_1m": "1个月",
+      "range_3m": "3个月",
+      "range_6m": "6个月",
+      "range_1y": "1年",
+      "range_all": "全部",
+      "noData": "该时间段内暂无已平仓交易。",
+      "roi": "收益率 (ROI)",
+      "maxDrawdown": "最大回撤",
+      "winRate": "胜率",
+      "tradesCount": "交易笔数",
+      "avgDuration": "平均持仓时长",
+      "riskScore": "风险评分",
+      "equityCurve": "余额曲线",
+      "curveNote": "所选时间段内已平仓交易的累计收益。",
+      "monthlyTitle": "月度收益",
+      "month": "月份",
+      "monthReturn": "收益"
     }
   },
   "Metadata": {
@@ -1905,7 +1938,9 @@
     "traderProfileTitle": "Trader Profile | Copy Matrix",
     "traderProfileDesc": "View this trader's performance and trading history.",
     "tradesTitle": "Trades | Copy Matrix",
-    "tradesDesc": "View your open and closed trades."
+    "tradesDesc": "View your open and closed trades.",
+    "leadPerformanceTitle": "业绩 | 领导者中心",
+    "leadPerformanceDesc": "您账户的收益、最大回撤、胜率和风险评分。"
   },
   "HomeFaq": {
     "title": "常见问题",

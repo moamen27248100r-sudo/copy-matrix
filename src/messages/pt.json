@@ -1669,7 +1669,8 @@
       "followers": "Followers",
       "settlements": "Settlements",
       "tasks": "Tasks",
-      "settings": "Settings"
+      "settings": "Settings",
+      "performance": "Desempenho"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1696,7 +1697,19 @@
       "period90": "90 days",
       "period180": "180 days",
       "tradesCount": "Closed trades",
-      "activeDays": "Active trading days"
+      "activeDays": "Active trading days",
+      "accountStatus": "Status da conta",
+      "status_active": "Ativa",
+      "status_closed": "Fechada a novos copiadores",
+      "status_stopped": "Negociação parada",
+      "status_suspended": "Suspensa",
+      "copiersTotal": "Total de copiadores",
+      "copiersActive": "Copiadores ativos",
+      "copiersNewMonth": "Novos este mês",
+      "copiersStopped": "Pararam de copiar",
+      "earningsMonth": "Ganhos este mês",
+      "earningsTotal": "Ganhos totais",
+      "earningsPending": "Ganhos pendentes"
     },
     "trades": {
       "title": "Trades",
@@ -1841,6 +1854,26 @@
       "task_firstTenTrades_desc": "Close at least 10 trades to build a track record.",
       "tierNote": "Your tier and its limits are shown on",
       "tierLink": "your overview page."
+    },
+    "performance": {
+      "title": "Desempenho",
+      "range_1m": "1 m",
+      "range_3m": "3 m",
+      "range_6m": "6 m",
+      "range_1y": "1 ano",
+      "range_all": "Tudo",
+      "noData": "Ainda não há operações fechadas neste período.",
+      "roi": "Retorno (ROI)",
+      "maxDrawdown": "Drawdown máximo",
+      "winRate": "Taxa de acerto",
+      "tradesCount": "Operações",
+      "avgDuration": "Duração média da operação",
+      "riskScore": "Nível de risco",
+      "equityCurve": "Curva de saldo",
+      "curveNote": "Retorno acumulado das operações fechadas no período escolhido.",
+      "monthlyTitle": "Retornos mensais",
+      "month": "Mês",
+      "monthReturn": "Retorno"
     }
   },
   "Metadata": {
@@ -1907,7 +1940,9 @@
     "traderProfileTitle": "Trader Profile | Copy Matrix",
     "traderProfileDesc": "View this trader's performance and trading history.",
     "tradesTitle": "Trades | Copy Matrix",
-    "tradesDesc": "View your open and closed trades."
+    "tradesDesc": "View your open and closed trades.",
+    "leadPerformanceTitle": "Desempenho | Centro do líder",
+    "leadPerformanceDesc": "Retorno, drawdown, taxa de acerto e nível de risco da sua conta."
   },
   "HomeFaq": {
     "title": "Perguntas frequentes",

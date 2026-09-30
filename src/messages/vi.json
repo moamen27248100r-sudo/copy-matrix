@@ -1666,7 +1666,8 @@
       "followers": "Followers",
       "settlements": "Settlements",
       "tasks": "Tasks",
-      "settings": "Settings"
+      "settings": "Settings",
+      "performance": "Hiệu suất"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1693,7 +1694,19 @@
       "period90": "90 days",
       "period180": "180 days",
       "tradesCount": "Closed trades",
-      "activeDays": "Active trading days"
+      "activeDays": "Active trading days",
+      "accountStatus": "Trạng thái tài khoản",
+      "status_active": "Hoạt động",
+      "status_closed": "Đóng với người sao chép mới",
+      "status_stopped": "Đã dừng giao dịch",
+      "status_suspended": "Bị đình chỉ",
+      "copiersTotal": "Tổng người sao chép",
+      "copiersActive": "Người sao chép đang hoạt động",
+      "copiersNewMonth": "Mới trong tháng",
+      "copiersStopped": "Đã ngừng sao chép",
+      "earningsMonth": "Thu nhập tháng này",
+      "earningsTotal": "Tổng thu nhập",
+      "earningsPending": "Thu nhập chờ xử lý"
     },
     "trades": {
       "title": "Trades",
@@ -1838,6 +1851,26 @@
       "task_firstTenTrades_desc": "Close at least 10 trades to build a track record.",
       "tierNote": "Your tier and its limits are shown on",
       "tierLink": "your overview page."
+    },
+    "performance": {
+      "title": "Hiệu suất",
+      "range_1m": "1 th",
+      "range_3m": "3 th",
+      "range_6m": "6 th",
+      "range_1y": "1 năm",
+      "range_all": "Tất cả",
+      "noData": "Chưa có giao dịch đã đóng trong giai đoạn này.",
+      "roi": "Lợi nhuận (ROI)",
+      "maxDrawdown": "Mức sụt giảm tối đa",
+      "winRate": "Tỷ lệ thắng",
+      "tradesCount": "Số giao dịch",
+      "avgDuration": "Thời lượng giao dịch TB",
+      "riskScore": "Điểm rủi ro",
+      "equityCurve": "Đường cong số dư",
+      "curveNote": "Lợi nhuận tích lũy của các giao dịch đã đóng trong giai đoạn đã chọn.",
+      "monthlyTitle": "Lợi nhuận hàng tháng",
+      "month": "Tháng",
+      "monthReturn": "Lợi nhuận"
     }
   },
   "Metadata": {
@@ -1904,7 +1937,9 @@
     "traderProfileTitle": "Trader Profile | Copy Matrix",
     "traderProfileDesc": "View this trader's performance and trading history.",
     "tradesTitle": "Trades | Copy Matrix",
-    "tradesDesc": "View your open and closed trades."
+    "tradesDesc": "View your open and closed trades.",
+    "leadPerformanceTitle": "Hiệu suất | Trung tâm Lead Trader",
+    "leadPerformanceDesc": "Lợi nhuận, mức sụt giảm tối đa, tỷ lệ thắng và điểm rủi ro của tài khoản."
   },
   "HomeFaq": {
     "title": "Câu hỏi thường gặp",

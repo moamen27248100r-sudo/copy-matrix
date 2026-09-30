@@ -1743,7 +1743,8 @@
       "followers": "المتابعون",
       "settlements": "التسويات",
       "tasks": "المهام",
-      "settings": "الإعدادات"
+      "settings": "الإعدادات",
+      "performance": "الأداء"
     },
     "overview": {
       "title": "مركز المتداول القائد",
@@ -1770,7 +1771,19 @@
       "period90": "90 يومًا",
       "period180": "180 يومًا",
       "tradesCount": "عدد الصفقات",
-      "activeDays": "أيام التداول الفعلية"
+      "activeDays": "أيام التداول الفعلية",
+      "accountStatus": "حالة الحساب",
+      "status_active": "نشط",
+      "status_closed": "مغلق أمام نسّاخين جدد",
+      "status_stopped": "التداول متوقف",
+      "status_suspended": "موقوف",
+      "copiersTotal": "إجمالي النسّاخين",
+      "copiersActive": "النسّاخون النشطون",
+      "copiersNewMonth": "جدد هذا الشهر",
+      "copiersStopped": "أوقفوا النسخ",
+      "earningsMonth": "أرباحك هذا الشهر",
+      "earningsTotal": "إجمالي الأرباح",
+      "earningsPending": "أرباح معلقة"
     },
     "trades": {
       "title": "الصفقات",
@@ -1915,6 +1928,26 @@
       "task_firstTenTrades_desc": "أغلق 10 صفقات على الأقل لبناء سجل أداء.",
       "tierNote": "مستواك وحدوده تظهر في",
       "tierLink": "صفحة نظرتك العامة."
+    },
+    "performance": {
+      "title": "الأداء",
+      "range_1m": "شهر",
+      "range_3m": "3 أشهر",
+      "range_6m": "6 أشهر",
+      "range_1y": "سنة",
+      "range_all": "الكل",
+      "noData": "لا توجد صفقات مغلقة في هذه الفترة بعد.",
+      "roi": "العائد (ROI)",
+      "maxDrawdown": "أقصى تراجع",
+      "winRate": "نسبة الربح",
+      "tradesCount": "عدد الصفقات",
+      "avgDuration": "متوسط مدة الصفقة",
+      "riskScore": "مؤشر المخاطرة",
+      "equityCurve": "منحنى الرصيد",
+      "curveNote": "العائد التراكمي للصفقات المغلقة خلال الفترة المحددة.",
+      "monthlyTitle": "العوائد الشهرية",
+      "month": "الشهر",
+      "monthReturn": "العائد"
     }
   },
   "Metadata": {
@@ -1981,7 +2014,9 @@
     "traderProfileTitle": "الملف الشخصي للمتداول | Copy Matrix",
     "traderProfileDesc": "عرض أداء هذا المتداول وسجل صفقاته.",
     "tradesTitle": "الصفقات | Copy Matrix",
-    "tradesDesc": "عرض صفقاتك المفتوحة والمغلقة."
+    "tradesDesc": "عرض صفقاتك المفتوحة والمغلقة.",
+    "leadPerformanceTitle": "الأداء | مركز القائد",
+    "leadPerformanceDesc": "العائد وأقصى تراجع ونسبة الربح ومؤشر المخاطرة لحسابك كقائد."
   },
   "HomeFaq": {
     "title": "الأسئلة الشائعة",

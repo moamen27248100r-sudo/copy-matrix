@@ -1666,7 +1666,8 @@
       "followers": "Followers",
       "settlements": "Settlements",
       "tasks": "Tasks",
-      "settings": "Settings"
+      "settings": "Settings",
+      "performance": "Utendaji"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1693,7 +1694,19 @@
       "period90": "90 days",
       "period180": "180 days",
       "tradesCount": "Closed trades",
-      "activeDays": "Active trading days"
+      "activeDays": "Active trading days",
+      "accountStatus": "Hali ya akaunti",
+      "status_active": "Inatumika",
+      "status_closed": "Imefungwa kwa wanakili wapya",
+      "status_stopped": "Biashara imesimamishwa",
+      "status_suspended": "Imesimamishwa",
+      "copiersTotal": "Jumla ya wanakili",
+      "copiersActive": "Wanakili hai",
+      "copiersNewMonth": "Wapya mwezi huu",
+      "copiersStopped": "Waliacha kunakili",
+      "earningsMonth": "Mapato ya mwezi huu",
+      "earningsTotal": "Jumla ya mapato",
+      "earningsPending": "Mapato yanayosubiri"
     },
     "trades": {
       "title": "Trades",
@@ -1838,6 +1851,26 @@
       "task_firstTenTrades_desc": "Close at least 10 trades to build a track record.",
       "tierNote": "Your tier and its limits are shown on",
       "tierLink": "your overview page."
+    },
+    "performance": {
+      "title": "Utendaji",
+      "range_1m": "Mwezi 1",
+      "range_3m": "Miezi 3",
+      "range_6m": "Miezi 6",
+      "range_1y": "Mwaka 1",
+      "range_all": "Yote",
+      "noData": "Hakuna biashara zilizofungwa katika kipindi hiki bado.",
+      "roi": "Faida (ROI)",
+      "maxDrawdown": "Upungufu mkubwa",
+      "winRate": "Kiwango cha ushindi",
+      "tradesCount": "Biashara",
+      "avgDuration": "Wastani wa muda wa biashara",
+      "riskScore": "Alama ya hatari",
+      "equityCurve": "Mstari wa salio",
+      "curveNote": "Faida ya jumla ya biashara zilizofungwa katika kipindi kilichochaguliwa.",
+      "monthlyTitle": "Faida ya kila mwezi",
+      "month": "Mwezi",
+      "monthReturn": "Faida"
     }
   },
   "Metadata": {
@@ -1904,7 +1937,9 @@
     "traderProfileTitle": "Trader Profile | Copy Matrix",
     "traderProfileDesc": "View this trader's performance and trading history.",
     "tradesTitle": "Trades | Copy Matrix",
-    "tradesDesc": "View your open and closed trades."
+    "tradesDesc": "View your open and closed trades.",
+    "leadPerformanceTitle": "Utendaji | Kituo cha Kiongozi",
+    "leadPerformanceDesc": "Faida, upungufu mkubwa, kiwango cha ushindi na alama ya hatari ya akaunti yako."
   },
   "HomeFaq": {
     "title": "Maswali yanayoulizwa mara kwa mara",

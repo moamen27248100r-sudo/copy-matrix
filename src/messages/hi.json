@@ -1666,7 +1666,8 @@
       "followers": "Followers",
       "settlements": "Settlements",
       "tasks": "Tasks",
-      "settings": "Settings"
+      "settings": "Settings",
+      "performance": "प्रदर्शन"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1693,7 +1694,19 @@
       "period90": "90 days",
       "period180": "180 days",
       "tradesCount": "Closed trades",
-      "activeDays": "Active trading days"
+      "activeDays": "Active trading days",
+      "accountStatus": "खाता स्थिति",
+      "status_active": "सक्रिय",
+      "status_closed": "नए कॉपीकर्ताओं के लिए बंद",
+      "status_stopped": "ट्रेडिंग रुकी हुई",
+      "status_suspended": "निलंबित",
+      "copiersTotal": "कुल कॉपीकर्ता",
+      "copiersActive": "सक्रिय कॉपीकर्ता",
+      "copiersNewMonth": "इस माह नए",
+      "copiersStopped": "कॉपी करना बंद किया",
+      "earningsMonth": "इस माह की कमाई",
+      "earningsTotal": "कुल कमाई",
+      "earningsPending": "लंबित कमाई"
     },
     "trades": {
       "title": "Trades",
@@ -1838,6 +1851,26 @@
       "task_firstTenTrades_desc": "Close at least 10 trades to build a track record.",
       "tierNote": "Your tier and its limits are shown on",
       "tierLink": "your overview page."
+    },
+    "performance": {
+      "title": "प्रदर्शन",
+      "range_1m": "1 माह",
+      "range_3m": "3 माह",
+      "range_6m": "6 माह",
+      "range_1y": "1 वर्ष",
+      "range_all": "सभी",
+      "noData": "इस अवधि में अभी कोई बंद ट्रेड नहीं है।",
+      "roi": "रिटर्न (ROI)",
+      "maxDrawdown": "अधिकतम ड्रॉडाउन",
+      "winRate": "जीत दर",
+      "tradesCount": "ट्रेड",
+      "avgDuration": "औसत ट्रेड अवधि",
+      "riskScore": "जोखिम स्कोर",
+      "equityCurve": "बैलेंस कर्व",
+      "curveNote": "चुनी गई अवधि में बंद ट्रेडों का संचयी रिटर्न।",
+      "monthlyTitle": "मासिक रिटर्न",
+      "month": "माह",
+      "monthReturn": "रिटर्न"
     }
   },
   "Metadata": {
@@ -1904,7 +1937,9 @@
     "traderProfileTitle": "Trader Profile | Copy Matrix",
     "traderProfileDesc": "View this trader's performance and trading history.",
     "tradesTitle": "Trades | Copy Matrix",
-    "tradesDesc": "View your open and closed trades."
+    "tradesDesc": "View your open and closed trades.",
+    "leadPerformanceTitle": "प्रदर्शन | लीड ट्रेडर केंद्र",
+    "leadPerformanceDesc": "आपके खाते का रिटर्न, ड्रॉडाउन, जीत दर और जोखिम स्कोर।"
   },
   "HomeFaq": {
     "title": "अक्सर पूछे जाने वाले प्रश्न",

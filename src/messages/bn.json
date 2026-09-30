@@ -1666,7 +1666,8 @@
       "followers": "Followers",
       "settlements": "Settlements",
       "tasks": "Tasks",
-      "settings": "Settings"
+      "settings": "Settings",
+      "performance": "পারফরম্যান্স"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1693,7 +1694,19 @@
       "period90": "90 days",
       "period180": "180 days",
       "tradesCount": "Closed trades",
-      "activeDays": "Active trading days"
+      "activeDays": "Active trading days",
+      "accountStatus": "অ্যাকাউন্টের অবস্থা",
+      "status_active": "সক্রিয়",
+      "status_closed": "নতুন কপিকারীর জন্য বন্ধ",
+      "status_stopped": "ট্রেডিং বন্ধ",
+      "status_suspended": "স্থগিত",
+      "copiersTotal": "মোট কপিকারী",
+      "copiersActive": "সক্রিয় কপিকারী",
+      "copiersNewMonth": "এই মাসে নতুন",
+      "copiersStopped": "কপি বন্ধ করেছে",
+      "earningsMonth": "এই মাসের আয়",
+      "earningsTotal": "মোট আয়",
+      "earningsPending": "অপেক্ষমাণ আয়"
     },
     "trades": {
       "title": "Trades",
@@ -1838,6 +1851,26 @@
       "task_firstTenTrades_desc": "Close at least 10 trades to build a track record.",
       "tierNote": "Your tier and its limits are shown on",
       "tierLink": "your overview page."
+    },
+    "performance": {
+      "title": "পারফরম্যান্স",
+      "range_1m": "১ মাস",
+      "range_3m": "৩ মাস",
+      "range_6m": "৬ মাস",
+      "range_1y": "১ বছর",
+      "range_all": "সব",
+      "noData": "এই সময়ে এখনও কোনো বন্ধ ট্রেড নেই।",
+      "roi": "রিটার্ন (ROI)",
+      "maxDrawdown": "সর্বোচ্চ ড্রডাউন",
+      "winRate": "জয়ের হার",
+      "tradesCount": "ট্রেড",
+      "avgDuration": "গড় ট্রেডের সময়কাল",
+      "riskScore": "ঝুঁকি স্কোর",
+      "equityCurve": "ব্যালেন্স কার্ভ",
+      "curveNote": "নির্বাচিত সময়ে বন্ধ ট্রেডের ক্রমযোজিত রিটার্ন।",
+      "monthlyTitle": "মাসিক রিটার্ন",
+      "month": "মাস",
+      "monthReturn": "রিটার্ন"
     }
   },
   "Metadata": {
@@ -1904,7 +1937,9 @@
     "traderProfileTitle": "Trader Profile | Copy Matrix",
     "traderProfileDesc": "View this trader's performance and trading history.",
     "tradesTitle": "Trades | Copy Matrix",
-    "tradesDesc": "View your open and closed trades."
+    "tradesDesc": "View your open and closed trades.",
+    "leadPerformanceTitle": "পারফরম্যান্স | লিড ট্রেডার কেন্দ্র",
+    "leadPerformanceDesc": "আপনার অ্যাকাউন্টের রিটার্ন, সর্বোচ্চ ড্রডাউন, জয়ের হার ও ঝুঁকি স্কোর।"
   },
   "HomeFaq": {
     "title": "প্রায়শই জিজ্ঞাসিত প্রশ্ন",

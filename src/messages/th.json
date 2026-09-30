@@ -1666,7 +1666,8 @@
       "followers": "Followers",
       "settlements": "Settlements",
       "tasks": "Tasks",
-      "settings": "Settings"
+      "settings": "Settings",
+      "performance": "ผลงาน"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1693,7 +1694,19 @@
       "period90": "90 days",
       "period180": "180 days",
       "tradesCount": "Closed trades",
-      "activeDays": "Active trading days"
+      "activeDays": "Active trading days",
+      "accountStatus": "สถานะบัญชี",
+      "status_active": "ใช้งานอยู่",
+      "status_closed": "ปิดรับผู้คัดลอกใหม่",
+      "status_stopped": "หยุดเทรดแล้ว",
+      "status_suspended": "ถูกระงับ",
+      "copiersTotal": "ผู้คัดลอกทั้งหมด",
+      "copiersActive": "ผู้คัดลอกที่ใช้งานอยู่",
+      "copiersNewMonth": "ใหม่เดือนนี้",
+      "copiersStopped": "หยุดคัดลอกแล้ว",
+      "earningsMonth": "รายได้เดือนนี้",
+      "earningsTotal": "รายได้รวม",
+      "earningsPending": "รายได้ที่รอดำเนินการ"
     },
     "trades": {
       "title": "Trades",
@@ -1838,6 +1851,26 @@
       "task_firstTenTrades_desc": "Close at least 10 trades to build a track record.",
       "tierNote": "Your tier and its limits are shown on",
       "tierLink": "your overview page."
+    },
+    "performance": {
+      "title": "ผลงาน",
+      "range_1m": "1 ด.",
+      "range_3m": "3 ด.",
+      "range_6m": "6 ด.",
+      "range_1y": "1 ปี",
+      "range_all": "ทั้งหมด",
+      "noData": "ยังไม่มีออเดอร์ที่ปิดในช่วงนี้",
+      "roi": "ผลตอบแทน (ROI)",
+      "maxDrawdown": "ดรอว์ดาวน์สูงสุด",
+      "winRate": "อัตราชนะ",
+      "tradesCount": "จำนวนออเดอร์",
+      "avgDuration": "ระยะเวลาเฉลี่ยต่อออเดอร์",
+      "riskScore": "คะแนนความเสี่ยง",
+      "equityCurve": "กราฟยอดคงเหลือ",
+      "curveNote": "ผลตอบแทนสะสมของออเดอร์ที่ปิดในช่วงที่เลือก",
+      "monthlyTitle": "ผลตอบแทนรายเดือน",
+      "month": "เดือน",
+      "monthReturn": "ผลตอบแทน"
     }
   },
   "Metadata": {
@@ -1904,7 +1937,9 @@
     "traderProfileTitle": "Trader Profile | Copy Matrix",
     "traderProfileDesc": "View this trader's performance and trading history.",
     "tradesTitle": "Trades | Copy Matrix",
-    "tradesDesc": "View your open and closed trades."
+    "tradesDesc": "View your open and closed trades.",
+    "leadPerformanceTitle": "ผลงาน | ศูนย์เทรดเดอร์ผู้นำ",
+    "leadPerformanceDesc": "ผลตอบแทน ดรอว์ดาวน์ อัตราชนะ และคะแนนความเสี่ยงของบัญชี"
   },
   "HomeFaq": {
     "title": "คำถามที่พบบ่อย",

@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 
 const TABS = [
   { href: "/lead", key: "overview" },
+  { href: "/lead/performance", key: "performance" },
   { href: "/lead/trades", key: "trades" },
   { href: "/lead/followers", key: "followers" },
   { href: "/lead/settlements", key: "settlements" },

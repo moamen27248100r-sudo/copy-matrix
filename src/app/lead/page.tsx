@@ -7,6 +7,7 @@ import { computeReliabilityTimeline, computeActiveTradingDays } from "@/lib/reli
 import { getGaugeTier } from "@/components/CircularGauge";
 import { ExnessReliabilitySection } from "@/components/ExnessReliabilitySection";
 import { MonthlyReturnsCalendar } from "@/components/MonthlyReturnsCalendar";
+import { fetchLeadOverview } from "@/lib/lead-dashboard";
 import type { Locale } from "@/i18n/locales";
 
 type SignalRow = {
@@ -50,9 +51,9 @@ export default async function LeadOverviewPage() {
   const providerId = await getOwnProviderId(supabase, user.id);
   if (!providerId) redirect("/become-lead-trader");
 
-  const [{ data: provider }, { data: profile }, { data: allSignals }, { data: subs }, periodStats] = await Promise.all([
-    supabase.from("providers").select("display_name, profit_share_pct, min_copy_amount").eq("id", providerId).single(),
-    supabase.from("profiles").select("balance").eq("id", user.id).single(),
+  const [{ data: provider }, { data: profile }, { data: allSignals }, { data: subs }, periodStats, overview, { data: ltProfile }] = await Promise.all([
+    supabase.from("providers").select("display_name, profit_share_pct, min_copy_amount, trading_status").eq("id", providerId).single(),
+    supabase.from("profiles").select("balance, is_suspended").eq("id", user.id).single(),
     supabase
       .from("signals")
       .select("id, symbol, side, entry_price, exit_price, status, opened_at, closed_at, close_trigger")
@@ -61,7 +62,10 @@ export default async function LeadOverviewPage() {
       .order("opened_at", { ascending: false }),
     supabase.from("subscriptions").select("id, allocated_amount, is_active, copy_started_at").eq("provider_id", providerId),
     Promise.all([7, 30, 90, 180].map((d) => fetchProviderStats(supabase, [providerId], d))),
+    fetchLeadOverview(supabase),
+    supabase.from("lead_trader_profiles").select("accepting_followers").eq("provider_id", providerId).maybeSingle(),
   ]);
+  const accountStatus = profile?.is_suspended ? "suspended" : provider?.trading_status === "stopped" ? "stopped" : ltProfile?.accepting_followers === false ? "closed" : "active";
 
   const signals = (allSignals ?? []) as SignalRow[];
   const activeSubs = (subs ?? []).filter((s) => s.is_active);
@@ -139,6 +143,18 @@ export default async function LeadOverviewPage() {
         <span className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-sm font-semibold text-accent">{tierLabel(tier.key, t)}</span>
       </div>
 
+      <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <StatCard label={t("accountStatus")} value={t(`status_${accountStatus}`)} tone={accountStatus === "active" ? "up" : accountStatus === "closed" ? undefined : "down"} />
+        <StatCard label={t("aum")} value={money(overview?.aum ?? aum)} />
+        <StatCard label={t("copiersTotal")} value={String(overview?.followers_total ?? 0)} />
+        <StatCard label={t("copiersActive")} value={String(overview?.followers_active ?? 0)} />
+        <StatCard label={t("copiersNewMonth")} value={String(overview?.followers_new_month ?? 0)} />
+        <StatCard label={t("copiersStopped")} value={String(overview?.followers_stopped ?? 0)} />
+        <StatCard label={t("earningsMonth")} value={money(overview?.earnings_month ?? 0)} />
+        <StatCard label={t("earningsTotal")} value={money(overview?.earnings_total ?? 0)} />
+        <StatCard label={t("earningsPending")} value={money(overview?.earnings_pending ?? 0)} />
+      </section>
+
       {next && (
         <div className="rounded-xl border border-border bg-surface p-4">
           <p className="mb-2 text-sm font-medium">{t("nextTier", { tier: tierLabel(next.key, t) })}</p>
@@ -152,7 +168,6 @@ export default async function LeadOverviewPage() {
 
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <StatCard label={t("leaderBalance")} value={money(Number(profile?.balance ?? 0))} />
-        <StatCard label={t("aum")} value={money(aum)} />
         <StatCard label={t("followers")} value={`${followerCount} / ${tier.maxFollowers}`} />
         <StatCard label={t("followerProfit")} value={money(realizedFollowerProfit)} tone={realizedFollowerProfit >= 0 ? "up" : "down"} />
         <StatCard label={t("shareRealized")} value={money(shareRealized)} />

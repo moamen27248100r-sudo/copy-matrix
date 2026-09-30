@@ -1670,7 +1670,8 @@
       "followers": "Followers",
       "settlements": "Settlements",
       "tasks": "Tasks",
-      "settings": "Settings"
+      "settings": "Settings",
+      "performance": "Performance"
     },
     "overview": {
       "title": "Lead trader center",
@@ -1697,7 +1698,19 @@
       "period90": "90 days",
       "period180": "180 days",
       "tradesCount": "Closed trades",
-      "activeDays": "Active trading days"
+      "activeDays": "Active trading days",
+      "accountStatus": "Account status",
+      "status_active": "Active",
+      "status_closed": "Closed to new copiers",
+      "status_stopped": "Trading stopped",
+      "status_suspended": "Suspended",
+      "copiersTotal": "Total copiers",
+      "copiersActive": "Active copiers",
+      "copiersNewMonth": "New this month",
+      "copiersStopped": "Stopped copying",
+      "earningsMonth": "Earnings this month",
+      "earningsTotal": "Total earnings",
+      "earningsPending": "Pending earnings"
     },
     "trades": {
       "title": "Trades",
@@ -1842,6 +1855,26 @@
       "task_firstTenTrades_desc": "Close at least 10 trades to build a track record.",
       "tierNote": "Your tier and its limits are shown on",
       "tierLink": "your overview page."
+    },
+    "performance": {
+      "title": "Performance",
+      "range_1m": "1M",
+      "range_3m": "3M",
+      "range_6m": "6M",
+      "range_1y": "1Y",
+      "range_all": "All",
+      "noData": "No closed trades in this period yet.",
+      "roi": "Return (ROI)",
+      "maxDrawdown": "Max drawdown",
+      "winRate": "Win rate",
+      "tradesCount": "Trades",
+      "avgDuration": "Avg. trade duration",
+      "riskScore": "Risk score",
+      "equityCurve": "Balance curve",
+      "curveNote": "Cumulative return of closed trades over the selected period.",
+      "monthlyTitle": "Monthly returns",
+      "month": "Month",
+      "monthReturn": "Return"
     }
   },
   "Metadata": {
@@ -1908,7 +1941,9 @@
     "traderProfileTitle": "Trader Profile | Copy Matrix",
     "traderProfileDesc": "View this trader's performance and trading history.",
     "tradesTitle": "Trades | Copy Matrix",
-    "tradesDesc": "View your open and closed trades."
+    "tradesDesc": "View your open and closed trades.",
+    "leadPerformanceTitle": "Performance | Lead Trader Center",
+    "leadPerformanceDesc": "Returns, drawdown, win rate and risk score for your lead trader account."
   },
   "HomeFaq": {
     "title": "Frequently asked questions",
