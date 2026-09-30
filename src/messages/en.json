@@ -1744,7 +1744,9 @@
       "noHistory": "No closed orders match.",
       "side": "Side",
       "entryExit": "Entry → Exit",
-      "result": "Result"
+      "result": "Result",
+      "closedAt": "Closed",
+      "duration": "Duration"
     },
     "followers": {
       "title": "Followers",
@@ -1773,7 +1775,15 @@
       "whitelistTitle": "Invite-only",
       "whitelistDesc": "When on, only people who used your invite link can start copying you.",
       "whitelistOn": "On",
-      "whitelistOff": "Off"
+      "whitelistOff": "Off",
+      "searchPlaceholder": "Search copiers",
+      "filterAll": "All statuses",
+      "apply": "Apply",
+      "noMatches": "No copiers match your search.",
+      "joined": "Joined",
+      "prev": "Previous",
+      "next": "Next",
+      "removeHasOpenPositions": "Can't remove while this copier has open positions."
     },
     "settlements": {
       "title": "Settlements",

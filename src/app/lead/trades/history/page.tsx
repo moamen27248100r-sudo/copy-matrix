@@ -69,19 +69,24 @@ export default async function LeadTradesHistoryPage({
         <p className="text-sm text-muted">{t("noHistory")}</p>
       ) : (
         <div className="overflow-x-auto rounded-2xl border border-border">
-          <table className="w-full min-w-[560px] text-sm">
+          <table className="w-full min-w-[680px] text-sm">
             <thead>
               <tr className="border-b border-border text-xs text-muted">
+                <th className="px-3 py-2 text-start font-normal">{t("closedAt")}</th>
                 <th className="px-3 py-2 text-start font-normal">{t("asset")}</th>
                 <th className="px-3 py-2 text-start font-normal">{t("side")}</th>
                 <th className="px-3 py-2 text-start font-normal">{t("entryExit")}</th>
                 <th className="px-3 py-2 text-start font-normal">{t("result")}</th>
+                <th className="px-3 py-2 text-start font-normal">{t("duration")}</th>
                 <th className="px-3 py-2 text-start font-normal">{t("copiers")}</th>
               </tr>
             </thead>
             <tbody>
               {rows.map((r) => (
                 <tr key={r.id} className="border-b border-border last:border-b-0">
+                  <td className="px-3 py-2 text-xs text-muted tabular-nums" dir="ltr">
+                    {r.closedAt ? new Date(r.closedAt).toLocaleDateString("en-US") : "—"}
+                  </td>
                   <td className="px-3 py-2 font-medium" dir="ltr">
                     {r.symbol}
                   </td>
@@ -92,6 +97,9 @@ export default async function LeadTradesHistoryPage({
                   <td className={`px-3 py-2 tabular-nums ${r.pct >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
                     {r.pct >= 0 ? "+" : ""}
                     {r.pct.toFixed(2)}%
+                  </td>
+                  <td className="px-3 py-2 tabular-nums" dir="ltr">
+                    {r.closedAt ? `${Math.round(((new Date(r.closedAt).getTime() - new Date(r.openedAt).getTime()) / 3600000) * 10) / 10}h` : "—"}
                   </td>
                   <td className="px-3 py-2 tabular-nums">{r.copiers}</td>
                 </tr>

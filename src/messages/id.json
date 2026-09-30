@@ -1740,7 +1740,9 @@
       "noHistory": "No closed orders match.",
       "side": "Side",
       "entryExit": "Entry → Exit",
-      "result": "Result"
+      "result": "Result",
+      "closedAt": "Ditutup",
+      "duration": "Durasi"
     },
     "followers": {
       "title": "Followers",
@@ -1769,7 +1771,15 @@
       "whitelistTitle": "Invite-only",
       "whitelistDesc": "When on, only people who used your invite link can start copying you.",
       "whitelistOn": "On",
-      "whitelistOff": "Off"
+      "whitelistOff": "Off",
+      "searchPlaceholder": "Cari peniru",
+      "filterAll": "Semua status",
+      "apply": "Terapkan",
+      "noMatches": "Tidak ada peniru yang cocok.",
+      "joined": "Bergabung",
+      "prev": "Sebelumnya",
+      "next": "Berikutnya",
+      "removeHasOpenPositions": "Tidak dapat dihapus selama masih ada posisi terbuka."
     },
     "settlements": {
       "title": "Settlements",

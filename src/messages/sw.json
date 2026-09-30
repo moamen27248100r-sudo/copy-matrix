@@ -1740,7 +1740,9 @@
       "noHistory": "No closed orders match.",
       "side": "Side",
       "entryExit": "Entry → Exit",
-      "result": "Result"
+      "result": "Result",
+      "closedAt": "Ilifungwa",
+      "duration": "Muda"
     },
     "followers": {
       "title": "Followers",
@@ -1769,7 +1771,15 @@
       "whitelistTitle": "Invite-only",
       "whitelistDesc": "When on, only people who used your invite link can start copying you.",
       "whitelistOn": "On",
-      "whitelistOff": "Off"
+      "whitelistOff": "Off",
+      "searchPlaceholder": "Tafuta wanakili",
+      "filterAll": "Hali zote",
+      "apply": "Tumia",
+      "noMatches": "Hakuna wanakili wanaolingana.",
+      "joined": "Alijiunga",
+      "prev": "Iliyopita",
+      "next": "Inayofuata",
+      "removeHasOpenPositions": "Haiwezi kuondolewa ikiwa ana nafasi wazi."
     },
     "settlements": {
       "title": "Settlements",

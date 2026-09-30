@@ -1817,7 +1817,9 @@
       "noHistory": "لا توجد أوامر مغلقة مطابقة.",
       "side": "الاتجاه",
       "entryExit": "الدخول ← الخروج",
-      "result": "النتيجة"
+      "result": "النتيجة",
+      "closedAt": "تاريخ الإغلاق",
+      "duration": "المدة"
     },
     "followers": {
       "title": "المتابعون",
@@ -1846,7 +1848,15 @@
       "whitelistTitle": "المتابعة بدعوة فقط",
       "whitelistDesc": "عند التفعيل، لا يمكن نسخك إلا لمن استخدم رابط دعوتك.",
       "whitelistOn": "مفعّلة",
-      "whitelistOff": "معطّلة"
+      "whitelistOff": "معطّلة",
+      "searchPlaceholder": "ابحث عن نسّاخ",
+      "filterAll": "كل الحالات",
+      "apply": "تطبيق",
+      "noMatches": "لا يوجد نسّاخون مطابقون للبحث.",
+      "joined": "تاريخ الانضمام",
+      "prev": "السابق",
+      "next": "التالي",
+      "removeHasOpenPositions": "لا يمكن إزالة النسّاخ وله صفقات مفتوحة."
     },
     "settlements": {
       "title": "التسويات",

@@ -1741,7 +1741,9 @@
       "noHistory": "No closed orders match.",
       "side": "Side",
       "entryExit": "Entry → Exit",
-      "result": "Result"
+      "result": "Result",
+      "closedAt": "Cierre",
+      "duration": "Duración"
     },
     "followers": {
       "title": "Followers",
@@ -1770,7 +1772,15 @@
       "whitelistTitle": "Invite-only",
       "whitelistDesc": "When on, only people who used your invite link can start copying you.",
       "whitelistOn": "On",
-      "whitelistOff": "Off"
+      "whitelistOff": "Off",
+      "searchPlaceholder": "Buscar copiadores",
+      "filterAll": "Todos los estados",
+      "apply": "Aplicar",
+      "noMatches": "Ningún copiador coincide con la búsqueda.",
+      "joined": "Se unió",
+      "prev": "Anterior",
+      "next": "Siguiente",
+      "removeHasOpenPositions": "No se puede quitar mientras tenga posiciones abiertas."
     },
     "settlements": {
       "title": "Settlements",

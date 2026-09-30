@@ -1740,7 +1740,9 @@
       "noHistory": "No closed orders match.",
       "side": "Side",
       "entryExit": "Entry → Exit",
-      "result": "Result"
+      "result": "Result",
+      "closedAt": "Ngày đóng",
+      "duration": "Thời lượng"
     },
     "followers": {
       "title": "Followers",
@@ -1769,7 +1771,15 @@
       "whitelistTitle": "Invite-only",
       "whitelistDesc": "When on, only people who used your invite link can start copying you.",
       "whitelistOn": "On",
-      "whitelistOff": "Off"
+      "whitelistOff": "Off",
+      "searchPlaceholder": "Tìm người sao chép",
+      "filterAll": "Mọi trạng thái",
+      "apply": "Áp dụng",
+      "noMatches": "Không có người sao chép phù hợp.",
+      "joined": "Ngày tham gia",
+      "prev": "Trước",
+      "next": "Sau",
+      "removeHasOpenPositions": "Không thể xóa khi còn vị thế đang mở."
     },
     "settlements": {
       "title": "Settlements",

@@ -1740,7 +1740,9 @@
       "noHistory": "No closed orders match.",
       "side": "Side",
       "entryExit": "Entry → Exit",
-      "result": "Result"
+      "result": "Result",
+      "closedAt": "बंद होने की तारीख",
+      "duration": "अवधि"
     },
     "followers": {
       "title": "Followers",
@@ -1769,7 +1771,15 @@
       "whitelistTitle": "Invite-only",
       "whitelistDesc": "When on, only people who used your invite link can start copying you.",
       "whitelistOn": "On",
-      "whitelistOff": "Off"
+      "whitelistOff": "Off",
+      "searchPlaceholder": "कॉपीकर्ता खोजें",
+      "filterAll": "सभी स्थितियाँ",
+      "apply": "लागू करें",
+      "noMatches": "खोज से कोई कॉपीकर्ता मेल नहीं खाता।",
+      "joined": "जुड़ने की तारीख",
+      "prev": "पिछला",
+      "next": "अगला",
+      "removeHasOpenPositions": "खुली पोज़ीशन रहते हटाया नहीं जा सकता।"
     },
     "settlements": {
       "title": "Settlements",

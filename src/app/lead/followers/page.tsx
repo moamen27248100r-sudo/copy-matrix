@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
@@ -6,10 +7,9 @@ import { computeActiveTradingDays } from "@/lib/reliability";
 import { removeFollower, createFollowerInvite, postAnnouncement } from "@/app/lead/followers/actions";
 import { setWhitelistEnabled } from "@/app/lead/followers/toggle-whitelist";
 
-function maskId(name: string | null, id: string) {
-  if (name) return name;
-  return `${id.slice(0, 4)}****${id.slice(-4)}`;
-}
+const PAGE_SIZE = 20;
+
+type CopierRow = { id: string; alias: string; allocated_amount: number; pnl: number; joined_at: string | null; is_active: boolean; open_positions: number };
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
@@ -19,9 +19,10 @@ export async function generateMetadata() {
 export default async function LeadFollowersPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; q?: string; status?: string; page?: string }>;
 }) {
-  const { error } = await searchParams;
+  const { error, q, status, page } = await searchParams;
+  const pageNum = Math.max(1, Number(page) || 1);
   const t = await getTranslations("LeadTrader.followers");
   const supabase = await createClient();
   const {
@@ -46,16 +47,17 @@ export default async function LeadFollowersPage({
 
   const subscriptions = subs ?? [];
   const subIds = subscriptions.map((s) => s.id);
-  const followerIds = Array.from(new Set(subscriptions.map((s) => s.follower_id)));
 
-  const [{ data: followerProfiles }, { data: positions }] = await Promise.all([
-    followerIds.length ? supabase.rpc("lead_trader_follower_labels", { p_ids: followerIds }) : Promise.resolve({ data: [] as { id: string; display_name: string | null }[] }),
+  const [{ data: copiersData }, { data: positions }] = await Promise.all([
+    supabase.rpc("lead_dashboard_copiers", { p_search: q ?? null, p_status: status ?? null, p_limit: PAGE_SIZE, p_offset: (pageNum - 1) * PAGE_SIZE }),
     subIds.length
       ? supabase.from("simulated_positions").select("subscription_id, status, pnl").in("subscription_id", subIds)
       : Promise.resolve({ data: [] as { subscription_id: string; status: string; pnl: number | null }[] }),
   ]);
 
-  const profileById = new Map(((followerProfiles ?? []) as { id: string; display_name: string | null }[]).map((p) => [p.id, p]));
+  const copiers = (copiersData ?? { total: 0, rows: [] }) as { total: number; rows: CopierRow[] };
+  const totalPages = Math.max(1, Math.ceil(copiers.total / PAGE_SIZE));
+  const pageHref = (n: number) => `/lead/followers?${new URLSearchParams({ ...(q ? { q } : {}), ...(status ? { status } : {}), page: String(n) })}`;
   const pnlBySub = new Map<string, number>();
   const openCountBySub = new Map<string, number>();
   for (const p of positions ?? []) {
@@ -67,9 +69,7 @@ export default async function LeadFollowersPage({
   const aum = activeSubs.reduce((sum, s) => sum + Number(s.allocated_amount), 0);
   const realizedFollowerProfit = Array.from(pnlBySub.values()).reduce((a, b) => a + b, 0);
   const activeDays = computeActiveTradingDays((allSignals ?? []).map((s) => ({ opened_at: s.opened_at })));
-  const { data: providerRow } = await supabase.from("providers").select("profit_share_pct").eq("id", providerId).single();
   const tier = currentTier({ activeDays, aum, followerProfit: realizedFollowerProfit, maxDrawdownPct: null });
-  const sharePct = Number(providerRow?.profit_share_pct ?? 0);
 
   const origin = process.env.NEXT_PUBLIC_SITE_URL ?? "";
   const inviteCode = inviteCodeRes.data as string | null;
@@ -108,56 +108,63 @@ export default async function LeadFollowersPage({
         )}
       </section>
 
-      {subscriptions.length === 0 ? (
-        <p className="text-sm text-muted">{t("noFollowers")}</p>
+      <form method="get" className="flex flex-wrap items-end gap-2">
+        <input name="q" defaultValue={q ?? ""} placeholder={t("searchPlaceholder")} className="min-w-0 flex-1 rounded-lg border border-border bg-background px-3 py-2 text-base" />
+        <select name="status" defaultValue={status ?? ""} className="rounded-lg border border-border bg-background px-2 py-2 text-base">
+          <option value="">{t("filterAll")}</option>
+          <option value="active">{t("active")}</option>
+          <option value="stopped">{t("stopped")}</option>
+        </select>
+        <button type="submit" className="rounded-lg bg-accent px-3 py-2 text-sm font-medium text-accent-foreground">
+          {t("apply")}
+        </button>
+      </form>
+
+      {copiers.rows.length === 0 ? (
+        <p className="text-sm text-muted">{q || status ? t("noMatches") : t("noFollowers")}</p>
       ) : (
         <div className="overflow-x-auto rounded-2xl border border-border">
-          <table className="w-full min-w-[680px] text-sm">
+          <table className="w-full min-w-[560px] text-sm">
             <thead>
               <tr className="border-b border-border text-xs text-muted">
                 <th className="px-3 py-2 text-start font-normal">{t("follower")}</th>
                 <th className="px-3 py-2 text-start font-normal">{t("invested")}</th>
                 <th className="px-3 py-2 text-start font-normal">{t("profit")}</th>
-                <th className="px-3 py-2 text-start font-normal">{t("shareFromThem")}</th>
-                <th className="px-3 py-2 text-start font-normal">{t("daysFollowing")}</th>
+                <th className="px-3 py-2 text-start font-normal">{t("joined")}</th>
                 <th className="px-3 py-2 text-start font-normal">{t("status")}</th>
                 <th className="px-3 py-2" />
               </tr>
             </thead>
             <tbody>
-              {subscriptions.map((s) => {
-                const profile = profileById.get(s.follower_id);
-                const profit = pnlBySub.get(s.id) ?? 0;
-                const share = Math.max(0, profit) * (sharePct / 100);
-                const days = s.copy_started_at ? Math.max(0, Math.floor((Date.now() - new Date(s.copy_started_at).getTime()) / 86400000)) : 0;
+              {copiers.rows.map((c) => {
+                const profit = Number(c.pnl);
                 return (
-                  <tr key={s.id} className="border-b border-border last:border-b-0">
+                  <tr key={c.id} className="border-b border-border last:border-b-0">
                     <td className="px-3 py-2" dir="ltr">
-                      {maskId(profile?.display_name ?? null, s.follower_id)}
+                      {c.alias}
                     </td>
                     <td className="px-3 py-2 tabular-nums" dir="ltr">
-                      ${Number(s.allocated_amount).toLocaleString("en-US")}
+                      ${Number(c.allocated_amount).toLocaleString("en-US")}
                     </td>
                     <td className={`px-3 py-2 tabular-nums ${profit >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
                       {profit >= 0 ? "+" : "-"}${Math.abs(profit).toFixed(2)}
                     </td>
-                    <td className="px-3 py-2 tabular-nums" dir="ltr">
-                      ${share.toFixed(2)}
-                    </td>
-                    <td className="px-3 py-2 tabular-nums">{days}</td>
-                    <td className="px-3 py-2">
-                      <span className={s.is_active ? "text-success" : "text-muted"}>{s.is_active ? t("active") : t("stopped")}</span>
+                    <td className="px-3 py-2 text-xs text-muted tabular-nums" dir="ltr">
+                      {c.joined_at ? new Date(c.joined_at).toLocaleDateString("en-US") : "—"}
                     </td>
                     <td className="px-3 py-2">
-                      {s.is_active && (
+                      <span className={c.is_active ? "text-success" : "text-muted"}>{c.is_active ? t("active") : t("stopped")}</span>
+                    </td>
+                    <td className="px-3 py-2">
+                      {c.is_active && (
                         <form action={removeFollower} className="flex items-center gap-1.5">
-                          <input type="hidden" name="subscriptionId" value={s.id} />
+                          <input type="hidden" name="subscriptionId" value={c.id} />
                           <input name="reason" type="text" placeholder={t("reasonPlaceholder")} className="w-28 rounded border border-border bg-background px-1.5 py-1 text-base" />
                           <button
                             type="submit"
-                            disabled={(openCountBySub.get(s.id) ?? 0) > 0}
+                            disabled={c.open_positions > 0}
                             className="rounded border border-border px-2 py-1 text-xs text-foreground hover:border-danger/50 hover:text-danger disabled:cursor-not-allowed disabled:opacity-40"
-                            title={(openCountBySub.get(s.id) ?? 0) > 0 ? t("removeHasOpenPositions") : undefined}
+                            title={c.open_positions > 0 ? t("removeHasOpenPositions") : undefined}
                           >
                             {t("remove")}
                           </button>
@@ -169,6 +176,27 @@ export default async function LeadFollowersPage({
               })}
             </tbody>
           </table>
+        </div>
+      )}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between text-sm">
+          {pageNum > 1 ? (
+            <Link href={pageHref(pageNum - 1)} className="text-accent hover:underline">
+              {t("prev")}
+            </Link>
+          ) : (
+            <span />
+          )}
+          <span className="text-muted tabular-nums">
+            {pageNum} / {totalPages}
+          </span>
+          {pageNum < totalPages ? (
+            <Link href={pageHref(pageNum + 1)} className="text-accent hover:underline">
+              {t("next")}
+            </Link>
+          ) : (
+            <span />
+          )}
         </div>
       )}
 

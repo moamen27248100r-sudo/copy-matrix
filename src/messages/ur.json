@@ -1740,7 +1740,9 @@
       "noHistory": "No closed orders match.",
       "side": "Side",
       "entryExit": "Entry → Exit",
-      "result": "Result"
+      "result": "Result",
+      "closedAt": "بند ہونے کی تاریخ",
+      "duration": "دورانیہ"
     },
     "followers": {
       "title": "Followers",
@@ -1769,7 +1771,15 @@
       "whitelistTitle": "Invite-only",
       "whitelistDesc": "When on, only people who used your invite link can start copying you.",
       "whitelistOn": "On",
-      "whitelistOff": "Off"
+      "whitelistOff": "Off",
+      "searchPlaceholder": "کاپی کرنے والے تلاش کریں",
+      "filterAll": "تمام حالتیں",
+      "apply": "لاگو کریں",
+      "noMatches": "تلاش سے کوئی کاپی کرنے والا نہیں ملا۔",
+      "joined": "شمولیت کی تاریخ",
+      "prev": "پچھلا",
+      "next": "اگلا",
+      "removeHasOpenPositions": "کھلی پوزیشنز ہونے پر ہٹایا نہیں جا سکتا۔"
     },
     "settlements": {
       "title": "Settlements",

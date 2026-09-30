@@ -1740,7 +1740,9 @@
       "noHistory": "No closed orders match.",
       "side": "Side",
       "entryExit": "Entry → Exit",
-      "result": "Result"
+      "result": "Result",
+      "closedAt": "วันที่ปิด",
+      "duration": "ระยะเวลา"
     },
     "followers": {
       "title": "Followers",
@@ -1769,7 +1771,15 @@
       "whitelistTitle": "Invite-only",
       "whitelistDesc": "When on, only people who used your invite link can start copying you.",
       "whitelistOn": "On",
-      "whitelistOff": "Off"
+      "whitelistOff": "Off",
+      "searchPlaceholder": "ค้นหาผู้คัดลอก",
+      "filterAll": "ทุกสถานะ",
+      "apply": "ใช้",
+      "noMatches": "ไม่พบผู้คัดลอกที่ตรงกับการค้นหา",
+      "joined": "วันที่เข้าร่วม",
+      "prev": "ก่อนหน้า",
+      "next": "ถัดไป",
+      "removeHasOpenPositions": "ลบไม่ได้ขณะที่ยังมีออเดอร์เปิดอยู่"
     },
     "settlements": {
       "title": "Settlements",
