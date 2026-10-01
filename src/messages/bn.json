@@ -2197,5 +2197,22 @@
     "activeCopiers": "সক্রিয় কপিকারী",
     "copyTrader": "ট্রেডারকে কপি করুন",
     "bio": "স্বর্ণ ও মুদ্রায় বিশেষজ্ঞ"
+  },
+  "TraderHistory": {
+    "sheetTitle": "সময়কাল",
+    "close": "বন্ধ করুন",
+    "symbolLabel": "সিম্বল",
+    "allSymbols": "সব সিম্বল",
+    "custom": "কাস্টম",
+    "from": "থেকে",
+    "to": "পর্যন্ত",
+    "apply": "প্রয়োগ করুন",
+    "invalidRange": "একটি বৈধ তারিখের পরিসর বেছে নিন।",
+    "charges": "চার্জ",
+    "summaryProfit": "মোট মুনাফা",
+    "summarySwap": "সোয়াপ",
+    "summaryCommission": "কমিশন",
+    "summaryTrades": "ট্রেড",
+    "goldVsUsd": "স্বর্ণ বনাম মার্কিন ডলার"
   }
 }

@@ -2197,5 +2197,22 @@
     "activeCopiers": "सक्रिय कॉपीकर्ता",
     "copyTrader": "ट्रेडर को कॉपी करें",
     "bio": "सोने और मुद्राओं में विशेषज्ञ"
+  },
+  "TraderHistory": {
+    "sheetTitle": "अवधि",
+    "close": "बंद करें",
+    "symbolLabel": "सिंबल",
+    "allSymbols": "सभी सिंबल",
+    "custom": "कस्टम",
+    "from": "से",
+    "to": "तक",
+    "apply": "लागू करें",
+    "invalidRange": "एक मान्य तिथि सीमा चुनें।",
+    "charges": "शुल्क",
+    "summaryProfit": "कुल लाभ",
+    "summarySwap": "स्वैप",
+    "summaryCommission": "कमीशन",
+    "summaryTrades": "ट्रेड",
+    "goldVsUsd": "सोना बनाम अमेरिकी डॉलर"
   }
 }

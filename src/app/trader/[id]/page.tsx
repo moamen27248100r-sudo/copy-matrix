@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { followProvider, unfollowProvider } from "@/app/discover/actions";
 import { FollowButton } from "@/components/FollowButton";
 import { AppNav } from "@/components/AppNav";
-import { TradeHistory } from "@/components/TradeHistory";
+import { TraderTradeHistory, type HistoryTrade } from "@/components/TraderTradeHistory";
 import { getGaugeTier } from "@/components/CircularGauge";
 import { ExnessReliabilitySection } from "@/components/ExnessReliabilitySection";
 import { computeReliabilityTimeline, computeActiveTradingDays } from "@/lib/reliability";
@@ -16,6 +16,7 @@ import { TraderAvatar } from "@/components/TraderAvatar";
 import { countryDisplay } from "@/lib/country-metadata";
 import { formatDate } from "@/lib/locale-format";
 import { computeStats } from "@/lib/provider-stats";
+import { resolveLevels, tradeProfitUsd } from "@/lib/pip-specs";
 import { CopyBar } from "@/components/CopyBar";
 import { CopyDialog } from "@/components/CopyDialog";
 import { getBioTranslator } from "@/lib/bio-translations";
@@ -33,6 +34,7 @@ type SignalRow = {
   opened_at: string;
   closed_at: string | null;
   close_trigger: string | null;
+  lot_size: number | null;
 };
 
 function periodStats(signals: SignalRow[], days: number) {
@@ -104,8 +106,8 @@ export default async function TraderPage({
 }) {
   const { id } = await params;
   const { error, success, tab } = await searchParams;
-  const TABS = ["performance", "openTrades", "history", "allocation"] as const;
-  const activeTab: (typeof TABS)[number] = (TABS as readonly string[]).includes(tab ?? "") ? (tab as (typeof TABS)[number]) : "performance";
+  const TABS = ["history", "performance", "openTrades", "allocation"] as const;
+  const activeTab: (typeof TABS)[number] = (TABS as readonly string[]).includes(tab ?? "") ? (tab as (typeof TABS)[number]) : "history";
   const locale = (await getLocale()) as Locale;
   const t = await getTranslations("TraderProfile");
   const tp = await getTranslations("TradeHistory");
@@ -120,7 +122,7 @@ export default async function TraderPage({
     supabase.from("provider_cards").select("*").eq("provider_id", id).single(),
     supabase
       .from("signals")
-      .select("id, symbol, side, entry_price, exit_price, stop_loss, take_profit, status, opened_at, closed_at, close_trigger")
+      .select("id, symbol, side, entry_price, exit_price, stop_loss, take_profit, status, opened_at, closed_at, close_trigger, lot_size")
       .eq("provider_id", id)
       // created_by_admin signals are per-customer trades (manual corrections,
       // margin calls, and the density-mechanic phantom positions below) --
@@ -180,22 +182,35 @@ export default async function TraderPage({
     ),
   );
 
-  const closedHistory = allSignals
+  const closedHistory: HistoryTrade[] = allSignals
     .filter((s) => s.status === "closed" && s.exit_price != null)
     .map((s) => {
-      const raw = (s.exit_price! - s.entry_price) / s.entry_price;
-      const pct = (s.side === "sell" ? -raw : raw) * 100;
+      const entry = Number(s.entry_price);
+      const exit = Number(s.exit_price);
+      const raw = (exit - entry) / entry;
+      const lot = s.lot_size != null ? Number(s.lot_size) : null;
+      const { stopLoss, takeProfit } = resolveLevels(
+        s.side,
+        entry,
+        s.stop_loss != null ? Number(s.stop_loss) : null,
+        s.take_profit != null ? Number(s.take_profit) : null,
+      );
       return {
         id: s.id,
         symbol: s.symbol,
         side: s.side,
-        entry: Number(s.entry_price),
-        exit: Number(s.exit_price),
-        pct,
+        lot,
+        entry,
+        exit,
+        pnl: tradeProfitUsd(s.symbol, s.side, entry, exit, lot),
+        pct: (s.side === "sell" ? -raw : raw) * 100,
         openedAt: s.opened_at,
         closedAt: s.closed_at,
-        stopLoss: s.stop_loss,
-        takeProfit: s.take_profit,
+        stopLoss,
+        takeProfit,
+        // No per-trade swap / commission is recorded; shown as "-".
+        swap: null,
+        commission: null,
         copyHref: "#copy",
       };
     });
@@ -438,15 +453,15 @@ export default async function TraderPage({
         </div>
       </div>
 
-      <div className="flex gap-1 overflow-x-auto rounded-full border border-border bg-surface p-1">
+      <div className="flex gap-1 overflow-x-auto rounded-full border border-border bg-surface p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {TABS.map((key) => (
           <Link
             key={key}
             href={`/trader/${id}?tab=${key}`}
             className={
               activeTab === key
-                ? "shrink-0 rounded-full bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground"
-                : "shrink-0 rounded-full px-4 py-1.5 text-sm text-muted transition hover:text-foreground"
+                ? "min-w-fit flex-1 whitespace-nowrap rounded-full bg-accent px-3 py-1.5 text-center text-sm font-medium text-accent-foreground"
+                : "min-w-fit flex-1 whitespace-nowrap rounded-full px-3 py-1.5 text-center text-sm text-muted transition hover:text-foreground"
             }
           >
             {
@@ -514,7 +529,7 @@ export default async function TraderPage({
           {closedHistory.length === 0 ? (
             <p className="text-sm text-muted">{t("noClosedTrades")}</p>
           ) : (
-            <TradeHistory trades={closedHistory} />
+            <TraderTradeHistory trades={closedHistory} />
           )}
         </section>
       )}

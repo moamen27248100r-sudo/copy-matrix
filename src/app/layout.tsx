@@ -1,47 +1,76 @@
-import type { Metadata } from "next";
-import { IBM_Plex_Sans_Arabic, IBM_Plex_Mono, Cairo, Inter } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import {
+  IBM_Plex_Sans_Arabic,
+  Inter,
+  Noto_Sans_SC,
+  Noto_Sans_Devanagari,
+  Noto_Sans_Thai,
+  Noto_Sans_Bengali,
+} from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
 import { ImpersonationBanner } from "@/components/ImpersonationBanner";
 import "./globals.css";
 
-// One professional typeface for the whole platform (client pages and the
-// admin panel alike): IBM Plex Sans Arabic covers both Arabic and Latin
-// glyphs in a single family, so Arabic text and Latin/numeric text (prices,
-// the brand name) share the same design instead of visibly mismatched
-// fonts stitched together at a script boundary.
+// Platform typography (applied centrally in globals.css via :lang()):
+//   Arabic / Urdu  -> IBM Plex Sans Arabic
+//   Latin + digits -> Inter (first in every stack, so numerals are always Inter)
+//   zh / hi / th / bn -> the matching Noto Sans family
+// The Noto families are not preloaded: the browser fetches a face only when
+// its script is actually rendered.
 const plexSansArabic = IBM_Plex_Sans_Arabic({
   variable: "--font-plex-sans-arabic",
   subsets: ["arabic", "latin"],
   weight: ["400", "500", "600", "700"],
-});
-
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-plex-mono",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  preload: false, // only a few customer pages use it: load on demand, not on every page
-});
-
-// A second, much heavier family reserved for headlines and hero text --
-// IBM Plex Sans Arabic only goes up to 700 (Bold), and a big headline
-// set at 700 doesn't read as boldly as one set at Cairo's 800/900
-// (ExtraBold/Black). Body copy, buttons and everything else stays on
-// plexSansArabic at its normal 400-500 weight.
-const cairo = Cairo({
-  variable: "--font-cairo",
-  subsets: ["arabic", "latin"],
-  weight: ["700", "800", "900"],
-  preload: false, // dashboard headlines only; the landing / auth pages use Plex Sans Arabic
-});
-
-// Numbers on the landing / auth pages use Inter (tabular figures).
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
   display: "swap",
 });
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const notoSC = Noto_Sans_SC({
+  variable: "--font-noto-sc",
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  preload: false,
+});
+
+const notoDevanagari = Noto_Sans_Devanagari({
+  variable: "--font-noto-devanagari",
+  subsets: ["devanagari", "latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  preload: false,
+});
+
+const notoThai = Noto_Sans_Thai({
+  variable: "--font-noto-thai",
+  subsets: ["thai", "latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  preload: false,
+});
+
+const notoBengali = Noto_Sans_Bengali({
+  variable: "--font-noto-bengali",
+  subsets: ["bengali", "latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  preload: false,
+});
+
+// viewport-fit=cover makes env(safe-area-inset-*) real on iOS Safari / Chrome,
+// which the floating bottom nav relies on.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("General");
@@ -81,7 +110,7 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={dir}
-      className={`${plexSansArabic.variable} ${plexMono.variable} ${cairo.variable} ${inter.variable} h-full antialiased`}
+      className={`${plexSansArabic.variable} ${inter.variable} ${notoSC.variable} ${notoDevanagari.variable} ${notoThai.variable} ${notoBengali.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <script

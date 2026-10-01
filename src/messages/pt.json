@@ -2200,5 +2200,22 @@
     "activeCopiers": "copiadores ativos",
     "copyTrader": "Copiar trader",
     "bio": "Especialista em ouro e moedas"
+  },
+  "TraderHistory": {
+    "sheetTitle": "Período",
+    "close": "Fechar",
+    "symbolLabel": "Símbolo",
+    "allSymbols": "Todos os símbolos",
+    "custom": "Personalizado",
+    "from": "De",
+    "to": "Até",
+    "apply": "Aplicar",
+    "invalidRange": "Escolha um intervalo de datas válido.",
+    "charges": "Encargos",
+    "summaryProfit": "Lucro total",
+    "summarySwap": "Swap",
+    "summaryCommission": "Comissão",
+    "summaryTrades": "Negociações",
+    "goldVsUsd": "Ouro vs Dólar americano"
   }
 }

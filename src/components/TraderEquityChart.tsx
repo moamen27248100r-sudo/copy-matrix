@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { localeTag } from "@/lib/locale-format";
 import type { Locale } from "@/i18n/locales";
@@ -25,21 +25,33 @@ const PERIODS: { labelKey: string; days: number | null }[] = [
 ];
 
 const DAY = 24 * 60 * 60 * 1000;
-const CHART_H = 200;
-const PAD = { top: 12, right: 46, bottom: 24, left: 8 };
-const BRAND = "#2f6fed";
-const DOWN = "#f6465d";
+const CHART_H = 180;
+const PAD_Y = 12;
+const SAMPLES = 96;
+const MORPH_MS = 450;
+const COLOR = "var(--brand)";
 
-type ChartPoint = { value: number; time: number | null };
+type ChartPoint = { value: number; time: number };
 
-function niceStep(rawStep: number) {
-  const pow = Math.pow(10, Math.floor(Math.log10(rawStep)));
-  const n = rawStep / pow;
-  return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10) * pow;
+function fmtPct(v: number) {
+  return `${v > 0 ? "+" : ""}${v.toFixed(2)}%`;
 }
 
-function fmtPct(v: number, digits = 2) {
-  return `${v > 0 ? "+" : ""}${v.toFixed(digits)}%`;
+// Samples the cumulative curve at SAMPLES evenly spaced times so two different
+// periods can be morphed into each other value by value.
+function resample(points: ChartPoint[], startT: number, endT: number): number[] {
+  const out: number[] = [];
+  let j = 0;
+  for (let i = 0; i < SAMPLES; i++) {
+    const t = startT + ((endT - startT) * i) / (SAMPLES - 1);
+    while (j < points.length - 2 && points[j + 1].time <= t) j++;
+    const a = points[j];
+    const b = points[Math.min(j + 1, points.length - 1)];
+    if (t <= a.time || b.time === a.time) out.push(t >= b.time ? b.value : a.value);
+    else if (t >= b.time) out.push(b.value);
+    else out.push(a.value + ((b.value - a.value) * (t - a.time)) / (b.time - a.time));
+  }
+  return out;
 }
 
 export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
@@ -47,7 +59,6 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
   const tp = useTranslations("TradeHistory");
   const locale = useLocale() as Locale;
   const tag = localeTag(locale);
-  const gradId = useId().replace(/:/g, "");
   const [periodIdx, setPeriodIdx] = useState(1);
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
   const [width, setWidth] = useState(0);
@@ -84,68 +95,81 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
       )
       .sort((a, b) => new Date(a.closed_at!).getTime() - new Date(b.closed_at!).getTime());
 
+    const end = todayUtcStart + DAY;
+    const firstTrade = closed.length > 0 ? new Date(closed[0].closed_at!).getTime() : end - 30 * DAY;
+    const start = period.days != null ? cutoff : Math.min(firstTrade - DAY, end - DAY);
+
     let cumulative = 0;
-    const pts: ChartPoint[] = [{ value: 0, time: null }];
+    const pts: ChartPoint[] = [{ value: 0, time: start }];
     for (const s of closed) {
       const raw = (s.exit_price! - s.entry_price) / s.entry_price;
       const signed = s.side === "sell" ? -raw : raw;
       cumulative += signed * 100;
       pts.push({ value: cumulative, time: new Date(s.closed_at!).getTime() });
     }
-
-    // Time axis: fixed window for a bounded period; for "all", from the
-    // first closed trade. The start point sits at the window start.
-    const end = todayUtcStart + DAY;
-    const firstTrade = pts.length > 1 ? (pts[1].time as number) : end - 30 * DAY;
-    const start = period.days != null ? cutoff : Math.min(firstTrade - DAY, end - DAY);
-    pts[0].time = start;
     // A period with no closed trades still gets a flat line across the window.
     if (pts.length < 2) pts.push({ value: 0, time: end });
     return { points: pts, startT: start, endT: end };
   }, [signals, periodIdx]);
 
-  const plotW = Math.max(width - PAD.left - PAD.right, 1);
-  const plotH = CHART_H - PAD.top - PAD.bottom;
-  const values = points.map((p) => p.value);
-  const rawMin = Math.min(...values, 0);
-  const rawMax = Math.max(...values, 0);
+  const target = useMemo(() => resample(points, startT, endT), [points, startT, endT]);
+
+  // Morph the drawn curve toward the new period's curve instead of snapping.
+  const [display, setDisplay] = useState<number[]>(target);
+  const displayRef = useRef<number[]>(target);
+  const [animating, setAnimating] = useState(false);
+  useEffect(() => {
+    const from = displayRef.current;
+    const reduce = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let raf = 0;
+    const set = (v: number[]) => {
+      displayRef.current = v;
+      setDisplay(v);
+    };
+    if (reduce) {
+      raf = requestAnimationFrame(() => set(target));
+      return () => cancelAnimationFrame(raf);
+    }
+    const t0 = performance.now();
+    const step = (now: number) => {
+      const p = Math.min((now - t0) / MORPH_MS, 1);
+      const e = 1 - Math.pow(1 - p, 3);
+      set(target.map((v, i) => from[i] + (v - from[i]) * e));
+      if (p < 1) raf = requestAnimationFrame(step);
+      else setAnimating(false);
+    };
+    raf = requestAnimationFrame((now) => {
+      setAnimating(true);
+      step(now);
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [target]);
+
+  const plotW = Math.max(width, 1);
+  const plotH = CHART_H - PAD_Y * 2;
+  const rawMin = Math.min(...display, 0);
+  const rawMax = Math.max(...display, 0);
   const span = rawMax - rawMin || 1;
-  const step = niceStep(span / 3);
-  const yMin = Math.floor((rawMin - span * 0.08) / step) * step;
-  const yMax = Math.ceil((rawMax + span * 0.08) / step) * step;
-  const yTicks: number[] = [];
-  for (let v = yMin; v <= yMax + step / 2; v += step) yTicks.push(Number(v.toFixed(6)));
+  const yMin = rawMin - span * 0.1;
+  const yMax = rawMax + span * 0.1;
+  const yFor = (v: number) => PAD_Y + (1 - (v - yMin) / (yMax - yMin || 1)) * plotH;
+  const xForTime = (time: number) => ((time - startT) / (endT - startT || 1)) * plotW;
 
-  const xFor = (time: number) => PAD.left + ((time - startT) / (endT - startT || 1)) * plotW;
-  const yFor = (v: number) => PAD.top + (1 - (v - yMin) / (yMax - yMin || 1)) * plotH;
-
-  const last = values[values.length - 1] ?? 0;
+  const last = points[points.length - 1].value;
   const negative = last < 0;
-  const color = negative ? DOWN : BRAND;
+  const linePath = display
+    .map((v, i) => `${i === 0 ? "M" : "L"}${((i / (SAMPLES - 1)) * plotW).toFixed(1)},${yFor(v).toFixed(1)}`)
+    .join(" ");
+  const zeroY = yFor(0);
 
-  // Step the line to "now" so the curve visibly extends across the window.
-  const linePts = points.map((p) => [xFor(p.time as number), yFor(p.value)] as const);
-  const lastPt = linePts[linePts.length - 1];
-  const extended = lastPt[0] < PAD.left + plotW ? [...linePts, [PAD.left + plotW, lastPt[1]] as const] : linePts;
-  const linePath = extended.map(([x, y], i) => `${i === 0 ? "M" : "L"}${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
-  const baseY = yFor(Math.max(yMin, Math.min(0, yMax)));
-  const areaPath = `${linePath} L${extended[extended.length - 1][0].toFixed(1)},${baseY.toFixed(1)} L${extended[0][0].toFixed(1)},${baseY.toFixed(1)} Z`;
-
-  const longRange = PERIODS[periodIdx].days == null || (PERIODS[periodIdx].days ?? 0) > 120;
-  const xTickCount = width < 420 ? 3 : 5;
-  const xTicks = Array.from({ length: xTickCount }, (_, i) => startT + ((endT - startT) * i) / (xTickCount - 1));
-  const fmtAxisDate = (ms: number) =>
-    new Date(ms).toLocaleDateString(tag, longRange ? { month: "short", year: "numeric", timeZone: "UTC" } : { day: "numeric", month: "short", timeZone: "UTC" });
-
-  const hovered = hoverIdx != null ? points[hoverIdx] : null;
+  const hovered = hoverIdx != null && !animating ? points[hoverIdx] : null;
 
   const handlePointer = (clientX: number, el: HTMLElement) => {
-    const rect = el.getBoundingClientRect();
-    const x = clientX - rect.left;
+    const x = clientX - el.getBoundingClientRect().left;
     let best = 0;
     let bestDist = Infinity;
-    linePts.forEach(([px], i) => {
-      const d = Math.abs(px - x);
+    points.forEach((p, i) => {
+      const d = Math.abs(xForTime(p.time) - x);
       if (d < bestDist) {
         bestDist = d;
         best = i;
@@ -155,10 +179,10 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
   };
 
   const tipW = 116;
-  const hx = hovered ? xFor(hovered.time as number) : 0;
+  const hx = hovered ? xForTime(hovered.time) : 0;
   const hy = hovered ? yFor(hovered.value) : 0;
   const tipLeft = Math.min(Math.max(hx - tipW / 2, 2), Math.max(width - tipW - 2, 2));
-  const tipTop = hy > CHART_H / 2 ? hy - 54 : hy + 14;
+  const tipTop = hy > CHART_H / 2 ? hy - 56 : hy + 14;
 
   return (
     <div className="flex flex-col gap-3">
@@ -181,7 +205,7 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
         ))}
       </div>
 
-      <div className="rounded-lg border border-border/50 bg-surface/40 p-2 sm:p-3">
+      <div className="rounded-lg border border-border/50 p-3">
         <div
           ref={boxRef}
           dir="ltr"
@@ -194,62 +218,18 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
           }}
         >
           {width > 0 && (
-            <svg
-              width={width}
-              height={CHART_H}
-              role="img"
-              aria-label={`${t("current")}: ${fmtPct(last)}`}
-              className="block"
-            >
-              <defs>
-                <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor={color} stopOpacity={0.4} />
-                  <stop offset="100%" stopColor={color} stopOpacity={0} />
-                </linearGradient>
-              </defs>
-
-              {yTicks.map((v) => (
-                <g key={v}>
-                  <line
-                    x1={PAD.left}
-                    x2={PAD.left + plotW}
-                    y1={yFor(v)}
-                    y2={yFor(v)}
-                    stroke="var(--border)"
-                    strokeOpacity={v === 0 ? 0.9 : 0.35}
-                    strokeDasharray={v === 0 ? "4 4" : undefined}
-                    strokeWidth={1}
-                  />
-                  <text x={PAD.left + plotW + 6} y={yFor(v) + 3.5} fontSize="10" fill="var(--muted)">
-                    {Math.abs(v) >= 100 ? v.toFixed(0) : v.toFixed(step < 1 ? 1 : 0)}%
-                  </text>
-                </g>
+            <svg width={width} height={CHART_H} role="img" aria-label={`${t("current")}: ${fmtPct(last)}`} className="block">
+              {[0.25, 0.5, 0.75].map((f) => (
+                <line key={f} x1={0} x2={plotW} y1={CHART_H * f} y2={CHART_H * f} stroke="var(--border)" strokeWidth={0.5} />
               ))}
-
-              {xTicks.map((ms, i) => (
-                <text
-                  key={i}
-                  x={xFor(ms)}
-                  y={CHART_H - 6}
-                  fontSize="10"
-                  fill="var(--muted)"
-                  textAnchor={i === 0 ? "start" : i === xTicks.length - 1 ? "end" : "middle"}
-                >
-                  {fmtAxisDate(ms)}
-                </text>
-              ))}
-
-              {/* keyed by period so the curve re-draws with a soft reveal on filter change */}
-              <g key={`${periodIdx}-${width}`} className="equity-chart-reveal">
-                <path d={areaPath} fill={`url(#${gradId})`} />
-                <path d={linePath} fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-              </g>
+              <line x1={0} x2={plotW} y1={zeroY} y2={zeroY} stroke="var(--border)" strokeDasharray="4" />
+              <path d={linePath} fill="none" stroke={COLOR} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
 
               {hovered && (
                 <g pointerEvents="none">
-                  <line x1={hx} x2={hx} y1={PAD.top} y2={PAD.top + plotH} stroke="var(--muted)" strokeOpacity={0.6} strokeDasharray="3 3" />
-                  <line x1={PAD.left} x2={PAD.left + plotW} y1={hy} y2={hy} stroke="var(--muted)" strokeOpacity={0.35} strokeDasharray="3 3" />
-                  <circle cx={hx} cy={hy} r={5} fill={color} stroke="var(--background)" strokeWidth={2} />
+                  <line x1={hx} x2={hx} y1={0} y2={CHART_H} stroke="var(--muted)" strokeOpacity={0.6} strokeDasharray="3 3" />
+                  <line x1={0} x2={plotW} y1={hy} y2={hy} stroke="var(--muted)" strokeOpacity={0.35} strokeDasharray="3 3" />
+                  <circle cx={hx} cy={hy} r={4.5} fill={COLOR} stroke="var(--background)" strokeWidth={2} />
                 </g>
               )}
             </svg>
@@ -260,17 +240,19 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
               className="pointer-events-none absolute z-10 rounded-md border border-border bg-background px-2.5 py-1.5 text-center shadow-lg shadow-black/40"
               style={{ left: tipLeft, top: tipTop, width: tipW }}
             >
-              <p className="text-[10px] text-muted">
+              <p className="text-[11px] text-muted" dir="auto">
                 {hoverIdx === 0
                   ? t("start")
-                  : new Date(hovered.time as number).toLocaleDateString(tag, { day: "numeric", month: "short", year: "numeric" })}
+                  : new Date(hovered.time).toLocaleDateString(tag, { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" })}
               </p>
               <p className={`text-sm font-semibold ${hovered.value < 0 ? "text-danger" : "text-foreground"}`}>{fmtPct(hovered.value)}</p>
             </div>
           )}
         </div>
         <div className="mt-1 flex items-center justify-between text-xs text-muted">
-          <span>{t("start")}: 0%</span>
+          <span>
+            {t("start")}: <bdi dir="ltr">0%</bdi>
+          </span>
           <span className={negative ? "text-danger" : "text-foreground"}>
             {t("current")}: <bdi dir="ltr">{fmtPct(last)}</bdi>
           </span>

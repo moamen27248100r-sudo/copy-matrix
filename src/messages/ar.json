@@ -2274,5 +2274,22 @@
     "activeCopiers": "ناسخ نشط",
     "copyTrader": "نسخ المتداول",
     "bio": "متخصص في الذهب والعملات"
+  },
+  "TraderHistory": {
+    "sheetTitle": "الفترة",
+    "close": "إغلاق",
+    "symbolLabel": "الرمز",
+    "allSymbols": "كل الرموز",
+    "custom": "مخصص",
+    "from": "من",
+    "to": "إلى",
+    "apply": "تطبيق",
+    "invalidRange": "اختر نطاق تاريخ صحيح.",
+    "charges": "الرسوم",
+    "summaryProfit": "إجمالي الربح",
+    "summarySwap": "Swap",
+    "summaryCommission": "العمولة",
+    "summaryTrades": "عدد الصفقات",
+    "goldVsUsd": "الذهب مقابل الدولار الأمريكي"
   }
 }

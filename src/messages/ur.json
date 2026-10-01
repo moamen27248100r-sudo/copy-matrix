@@ -2197,5 +2197,22 @@
     "activeCopiers": "فعال کاپی کرنے والے",
     "copyTrader": "ٹریڈر کو کاپی کریں",
     "bio": "سونے اور کرنسیوں میں مہارت"
+  },
+  "TraderHistory": {
+    "sheetTitle": "مدت",
+    "close": "بند کریں",
+    "symbolLabel": "علامت",
+    "allSymbols": "تمام علامات",
+    "custom": "حسب ضرورت",
+    "from": "از",
+    "to": "تک",
+    "apply": "لاگو کریں",
+    "invalidRange": "درست تاریخ کی حد منتخب کریں۔",
+    "charges": "چارجز",
+    "summaryProfit": "کل منافع",
+    "summarySwap": "سواپ",
+    "summaryCommission": "کمیشن",
+    "summaryTrades": "ٹریڈز",
+    "goldVsUsd": "سونا بمقابلہ امریکی ڈالر"
   }
 }

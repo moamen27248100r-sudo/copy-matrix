@@ -44,9 +44,50 @@
   --color-glass-surface: var(--glass-surface);
   --color-glass-surface-soft: var(--glass-surface-soft);
   --color-glass-border: var(--glass-border);
-  --font-sans: var(--font-plex-sans-arabic), sans-serif;
-  --font-mono: var(--font-plex-mono), monospace;
-  --font-display: var(--font-cairo), var(--font-plex-sans-arabic), sans-serif;
+  --font-sans: var(--font-stack);
+  --font-display: var(--font-stack);
+}
+
+/* ---- Typography -----------------------------------------------------------
+   Inter leads every stack (Latin letters and all digits), then the script's
+   own face. Tailwind's font-sans / font-display resolve to this same stack,
+   so the per-locale overrides below reach the whole app. */
+html {
+  --font-stack: var(--font-inter), var(--font-plex-sans-arabic), system-ui, sans-serif;
+  font-family: var(--font-stack);
+  font-variant-numeric: tabular-nums;
+}
+html:lang(zh) {
+  --font-stack: var(--font-inter), var(--font-noto-sc), "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+html:lang(hi) {
+  --font-stack: var(--font-inter), var(--font-noto-devanagari), sans-serif;
+}
+html:lang(th) {
+  --font-stack: var(--font-inter), var(--font-noto-thai), sans-serif;
+}
+html:lang(bn) {
+  --font-stack: var(--font-inter), var(--font-noto-bengali), sans-serif;
+}
+html:lang(ar),
+html:lang(ur) {
+  --font-stack: var(--font-inter), var(--font-plex-sans-arabic), sans-serif;
+}
+html:lang(ar) body,
+html:lang(ur) body {
+  line-height: 1.6;
+}
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+/* 15px minimum body text on phones. */
+@media (max-width: 639px) {
+  body {
+    font-size: 15px;
+  }
 }
 
 html {
@@ -286,7 +327,7 @@ th {
   --warning: #f5a524;
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-plex-sans-arabic), sans-serif;
+  font-family: var(--font-stack);
 }
 @theme inline {
   --color-surface-2: var(--surface-2);

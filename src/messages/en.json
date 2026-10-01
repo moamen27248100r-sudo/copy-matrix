@@ -2201,5 +2201,22 @@
     "activeCopiers": "active copiers",
     "copyTrader": "Copy trader",
     "bio": "Specializes in gold and currencies"
+  },
+  "TraderHistory": {
+    "sheetTitle": "Period",
+    "close": "Close",
+    "symbolLabel": "Symbol",
+    "allSymbols": "All symbols",
+    "custom": "Custom",
+    "from": "From",
+    "to": "To",
+    "apply": "Apply",
+    "invalidRange": "Choose a valid date range.",
+    "charges": "Charges",
+    "summaryProfit": "Total profit",
+    "summarySwap": "Swap",
+    "summaryCommission": "Commission",
+    "summaryTrades": "Trades",
+    "goldVsUsd": "Gold vs US Dollar"
   }
 }

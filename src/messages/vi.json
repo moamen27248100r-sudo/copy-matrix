@@ -2197,5 +2197,22 @@
     "activeCopiers": "người sao chép đang hoạt động",
     "copyTrader": "Sao chép trader",
     "bio": "Chuyên về vàng và ngoại tệ"
+  },
+  "TraderHistory": {
+    "sheetTitle": "Khoảng thời gian",
+    "close": "Đóng",
+    "symbolLabel": "Mã giao dịch",
+    "allSymbols": "Tất cả mã",
+    "custom": "Tùy chỉnh",
+    "from": "Từ",
+    "to": "Đến",
+    "apply": "Áp dụng",
+    "invalidRange": "Hãy chọn khoảng ngày hợp lệ.",
+    "charges": "Phí",
+    "summaryProfit": "Tổng lợi nhuận",
+    "summarySwap": "Swap",
+    "summaryCommission": "Hoa hồng",
+    "summaryTrades": "Số lệnh",
+    "goldVsUsd": "Vàng so với Đô la Mỹ"
   }
 }

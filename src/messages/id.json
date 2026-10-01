@@ -2197,5 +2197,22 @@
     "activeCopiers": "penyalin aktif",
     "copyTrader": "Salin trader",
     "bio": "Spesialis emas dan mata uang"
+  },
+  "TraderHistory": {
+    "sheetTitle": "Periode",
+    "close": "Tutup",
+    "symbolLabel": "Simbol",
+    "allSymbols": "Semua simbol",
+    "custom": "Kustom",
+    "from": "Dari",
+    "to": "Sampai",
+    "apply": "Terapkan",
+    "invalidRange": "Pilih rentang tanggal yang valid.",
+    "charges": "Biaya",
+    "summaryProfit": "Total profit",
+    "summarySwap": "Swap",
+    "summaryCommission": "Komisi",
+    "summaryTrades": "Transaksi",
+    "goldVsUsd": "Emas vs Dolar AS"
   }
 }

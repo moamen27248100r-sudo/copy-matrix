@@ -2198,5 +2198,22 @@
     "activeCopiers": "活跃跟单者",
     "copyTrader": "跟单该交易员",
     "bio": "专注于黄金和外汇"
+  },
+  "TraderHistory": {
+    "sheetTitle": "时间段",
+    "close": "关闭",
+    "symbolLabel": "品种",
+    "allSymbols": "所有品种",
+    "custom": "自定义",
+    "from": "从",
+    "to": "至",
+    "apply": "应用",
+    "invalidRange": "请选择有效的日期范围。",
+    "charges": "费用",
+    "summaryProfit": "总盈亏",
+    "summarySwap": "隔夜利息",
+    "summaryCommission": "佣金",
+    "summaryTrades": "交易笔数",
+    "goldVsUsd": "黄金兑美元"
   }
 }

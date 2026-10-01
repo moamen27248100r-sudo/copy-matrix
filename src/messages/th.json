@@ -2197,5 +2197,22 @@
     "activeCopiers": "ผู้คัดลอกที่ใช้งานอยู่",
     "copyTrader": "คัดลอกเทรดเดอร์",
     "bio": "เชี่ยวชาญด้านทองคำและสกุลเงิน"
+  },
+  "TraderHistory": {
+    "sheetTitle": "ช่วงเวลา",
+    "close": "ปิด",
+    "symbolLabel": "สัญลักษณ์",
+    "allSymbols": "ทุกสัญลักษณ์",
+    "custom": "กำหนดเอง",
+    "from": "จาก",
+    "to": "ถึง",
+    "apply": "ใช้",
+    "invalidRange": "โปรดเลือกช่วงวันที่ที่ถูกต้อง",
+    "charges": "ค่าธรรมเนียม",
+    "summaryProfit": "กำไรรวม",
+    "summarySwap": "สวอป",
+    "summaryCommission": "ค่าคอมมิชชัน",
+    "summaryTrades": "จำนวนเทรด",
+    "goldVsUsd": "ทองคำเทียบดอลลาร์สหรัฐ"
   }
 }

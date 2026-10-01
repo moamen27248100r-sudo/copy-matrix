@@ -33,3 +33,31 @@ export function computeLotSize(symbol: string, pips: number, targetLossUsd: numb
   const sizeDollars = (lotSize * spec.pipValuePerLot * entryPrice) / spec.pipSize;
   return { lotSize, actualLossUsd, sizeDollars, pipSize: spec.pipSize };
 }
+
+// Realized dollar result of a closed trade, from the same pip / lot
+// conventions the signals were generated with (pips x pip value x lot,
+// signed by direction). null when the lot size or symbol spec is unknown.
+export function tradeProfitUsd(symbol: string, side: string, entry: number, exit: number, lotSize: number | null | undefined): number | null {
+  const spec = PIP_SPECS[symbol];
+  if (!spec || lotSize == null || !(lotSize > 0)) return null;
+  const dir = side === "sell" ? -1 : 1;
+  const pnl = (((exit - entry) * dir) / spec.pipSize) * spec.pipValuePerLot * lotSize;
+  return Math.round(pnl * 100) / 100;
+}
+
+// S/L and T/P are classified by where they sit relative to the entry, not
+// by which column they were stored in: a buy's stop is below entry and its
+// target above; a sell is the reverse. This keeps the two from ever being
+// shown swapped.
+export function resolveLevels(side: string, entry: number, a: number | null, b: number | null) {
+  let stopLoss: number | null = null;
+  let takeProfit: number | null = null;
+  for (const v of [a, b]) {
+    if (v == null) continue;
+    const below = Number(v) < entry;
+    const isStop = side === "sell" ? !below : below;
+    if (isStop) stopLoss ??= Number(v);
+    else takeProfit ??= Number(v);
+  }
+  return { stopLoss, takeProfit };
+}

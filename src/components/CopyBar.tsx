@@ -33,7 +33,7 @@ export function CopyBar({ children }: { children: React.ReactNode }) {
     <div
       ref={ref}
       id="copy"
-      className="fixed inset-x-0 bottom-[var(--bottom-nav-h)] z-40 border-t border-border bg-background px-4 py-3 shadow-[0_-6px_16px_rgba(0,0,0,0.35)] scroll-mt-20 lg:static lg:z-auto lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none"
+      className="fixed inset-x-0 bottom-[calc(var(--bottom-nav-h)-8px)] z-40 border-t border-border bg-background px-4 py-3 shadow-[0_-6px_16px_rgba(0,0,0,0.35)] scroll-mt-20 lg:static lg:z-auto lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none"
     >
       <div className="mx-auto w-full max-w-3xl">{children}</div>
     </div>

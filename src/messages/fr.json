@@ -2198,5 +2198,22 @@
     "activeCopiers": "copieurs actifs",
     "copyTrader": "Copier le trader",
     "bio": "Spécialisé dans l'or et les devises"
+  },
+  "TraderHistory": {
+    "sheetTitle": "Période",
+    "close": "Fermer",
+    "symbolLabel": "Symbole",
+    "allSymbols": "Tous les symboles",
+    "custom": "Personnalisé",
+    "from": "Du",
+    "to": "Au",
+    "apply": "Appliquer",
+    "invalidRange": "Choisissez une plage de dates valide.",
+    "charges": "Frais",
+    "summaryProfit": "Profit total",
+    "summarySwap": "Swap",
+    "summaryCommission": "Commission",
+    "summaryTrades": "Transactions",
+    "goldVsUsd": "Or vs Dollar américain"
   }
 }

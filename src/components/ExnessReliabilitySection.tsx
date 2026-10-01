@@ -18,15 +18,17 @@ type SignalRow = {
 
 type ColorTier = "bad" | "medium" | "good" | "neutral";
 
-// Calm pastel palette (soft green / amber / soft red) instead of saturated
-// traffic-light colors. Text colors are lighter tints of the same hue so they
-// stay readable on the dark surface.
+// The platform's original traffic-light colors (emerald / amber / rose).
 const TIER_COLOR: Record<ColorTier, { text: string; ring: string }> = {
-  bad: { text: "text-[#f0a3ab]", ring: "#e88a94" },
-  medium: { text: "text-[#ecd08a]", ring: "#e3bd6a" },
-  good: { text: "text-[#9bdcb8]", ring: "#7ccfa3" },
-  neutral: { text: "text-slate-400", ring: "#64748b" },
+  bad: { text: "text-rose-500", ring: "#f43f5e" },
+  medium: { text: "text-amber-400", ring: "#fbbf24" },
+  good: { text: "text-emerald-400", ring: "#34d399" },
+  neutral: { text: "text-slate-500", ring: "#64748b" },
 };
+
+// Every ring is the same size, with a slightly thinner stroke.
+const RING_SIZE = 44;
+const RING_STROKE = 2.5;
 
 // Risk reads inverted -- a low score is the good outcome -- so its color
 // tier is flipped relative to reliability/safety/limit: raw "low" (risk
@@ -95,7 +97,7 @@ function CalendarIcon({ className }: { className?: string }) {
 // Without a value it is a plain tier-colored icon badge.
 function IconCircle({ tier, size, value, animate, children }: { tier: ColorTier; size: number; value?: number; animate: boolean; children: React.ReactNode }) {
   const colors = TIER_COLOR[tier];
-  const stroke = size >= 34 ? 3.5 : 3;
+  const stroke = RING_STROKE;
   const r = (size - stroke) / 2;
   const circ = 2 * Math.PI * r;
   const pct = value == null ? 1 : Math.max(0, Math.min(100, value)) / 100;
@@ -127,7 +129,7 @@ function IconCircle({ tier, size, value, animate, children }: { tier: ColorTier;
 type TipKey = "reliability" | "safety" | "risk" | "limit" | "days" | "badge";
 type TipState = { key: TipKey; top: number } | null;
 
-const ROW_H = 40;
+const ROW_H = 48;
 const ROW_GAP = 16;
 
 // Straight orthogonal bracket -- a short horizontal stub off the main
@@ -191,11 +193,11 @@ function MainRing({ value, status, tier, icon, tip }: { value: number; status: s
   const colors = TIER_COLOR[tier];
   return (
     <Row tipKey="reliability" tip={tip}>
-      <IconCircle tier={tier} size={36} value={clampScore(value)} animate={tip.animate}>
+      <IconCircle tier={tier} size={RING_SIZE} value={clampScore(value)} animate={tip.animate}>
         {icon}
       </IconCircle>
       <div className="flex min-w-0 flex-col items-start leading-tight">
-        <span className={`text-[11px] font-semibold ${colors.text}`}>{status}</span>
+        <span className={`text-xs font-semibold ${colors.text}`}>{status}</span>
         <span className={`text-base font-extrabold ${colors.text}`} dir="ltr">
           {clampScore(value)}/100
         </span>
@@ -209,11 +211,11 @@ function SubRing({ tipKey, value, label, icon, inverted, tip }: { tipKey: TipKey
   const colors = TIER_COLOR[tier];
   return (
     <Row tipKey={tipKey} tip={tip}>
-      <IconCircle tier={tier} size={30} value={clampScore(value)} animate={tip.animate}>
+      <IconCircle tier={tier} size={RING_SIZE} value={clampScore(value)} animate={tip.animate}>
         {icon}
       </IconCircle>
       <div className="flex min-w-0 flex-col items-start leading-tight">
-        <span className="text-[11px] text-slate-400">{label}</span>
+        <span className="text-xs text-slate-400">{label}</span>
         <span className={`text-sm font-bold ${colors.text}`} dir="ltr">
           {clampScore(value)}/100
         </span>
@@ -225,8 +227,8 @@ function SubRing({ tipKey, value, label, icon, inverted, tip }: { tipKey: TipKey
 function MainBadge({ label, tip }: { label: string; tip: TipHandlers }) {
   return (
     <Row tipKey="badge" tip={tip}>
-      <IconCircle tier="good" size={36} animate={tip.animate}>
-        <BoltIcon className="h-4 w-4" />
+      <IconCircle tier="good" size={RING_SIZE} animate={tip.animate}>
+        <BoltIcon className="h-5 w-5" />
       </IconCircle>
       <span className="text-sm font-bold text-white">{label}</span>
     </Row>
@@ -236,12 +238,12 @@ function MainBadge({ label, tip }: { label: string; tip: TipHandlers }) {
 function SubNumber({ tipKey, value, label, icon, tip }: { tipKey: TipKey; value: number; label: string; icon: React.ReactNode; tip: TipHandlers }) {
   return (
     <Row tipKey={tipKey} tip={tip}>
-      <IconCircle tier="good" size={30} animate={tip.animate}>
+      <IconCircle tier="good" size={RING_SIZE} animate={tip.animate}>
         {icon}
       </IconCircle>
       <div className="flex min-w-0 flex-col items-start leading-tight">
-        <span className="text-[11px] text-slate-400">{label}</span>
-        <span className="text-sm font-bold text-[#9bdcb8]" dir="ltr">{value}</span>
+        <span className="text-xs text-slate-400">{label}</span>
+        <span className="text-sm font-bold text-emerald-400" dir="ltr">{value}</span>
       </div>
     </Row>
   );
@@ -354,9 +356,9 @@ export function ExnessReliabilitySection({
         <div className="flex items-start gap-0" data-tip-row>
           <BracketConnector />
           <div className="flex min-w-0 flex-1 flex-col" style={{ gap: ROW_GAP }}>
-            <MainRing value={reliabilityScore} status={reliabilityStatus} tier={mainTier} icon={<ShieldIcon className="h-4 w-4" />} tip={tip} />
-            <SubRing tipKey="safety" value={safetyScore} label={t("gaugeSafety")} icon={<LockIcon className="h-3.5 w-3.5" />} tip={tip} />
-            <SubRing tipKey="risk" value={riskExposureScore} label={t("gaugeRiskExposure")} icon={<AlertTriangleIcon className="h-3.5 w-3.5" />} inverted tip={tip} />
+            <MainRing value={reliabilityScore} status={reliabilityStatus} tier={mainTier} icon={<ShieldIcon className="h-5 w-5" />} tip={tip} />
+            <SubRing tipKey="safety" value={safetyScore} label={t("gaugeSafety")} icon={<LockIcon className="h-[18px] w-[18px]" />} tip={tip} />
+            <SubRing tipKey="risk" value={riskExposureScore} label={t("gaugeRiskExposure")} icon={<AlertTriangleIcon className="h-[18px] w-[18px]" />} inverted tip={tip} />
           </div>
         </div>
 
@@ -365,8 +367,8 @@ export function ExnessReliabilitySection({
           <BracketConnector />
           <div className="flex min-w-0 flex-1 flex-col" style={{ gap: ROW_GAP }}>
             <MainBadge label={t("importantBadgeLabel")} tip={tip} />
-            <SubNumber tipKey="limit" value={limitScore} label={t("gaugeLimitScore")} icon={<CheckIcon className="h-3.5 w-3.5" />} tip={tip} />
-            <SubNumber tipKey="days" value={activeTradingDays} label={t("gaugeTradingDays")} icon={<CalendarIcon className="h-3.5 w-3.5" />} tip={tip} />
+            <SubNumber tipKey="limit" value={limitScore} label={t("gaugeLimitScore")} icon={<CheckIcon className="h-[18px] w-[18px]" />} tip={tip} />
+            <SubNumber tipKey="days" value={activeTradingDays} label={t("gaugeTradingDays")} icon={<CalendarIcon className="h-[18px] w-[18px]" />} tip={tip} />
           </div>
         </div>
 

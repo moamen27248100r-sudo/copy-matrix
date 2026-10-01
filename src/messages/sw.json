@@ -2197,5 +2197,22 @@
     "activeCopiers": "wanakili hai",
     "copyTrader": "Nakili mfanyabiashara",
     "bio": "Mtaalamu wa dhahabu na sarafu"
+  },
+  "TraderHistory": {
+    "sheetTitle": "Kipindi",
+    "close": "Funga",
+    "symbolLabel": "Alama",
+    "allSymbols": "Alama zote",
+    "custom": "Maalum",
+    "from": "Kuanzia",
+    "to": "Hadi",
+    "apply": "Tumia",
+    "invalidRange": "Chagua kipindi sahihi cha tarehe.",
+    "charges": "Ada",
+    "summaryProfit": "Faida jumla",
+    "summarySwap": "Swap",
+    "summaryCommission": "Kamisheni",
+    "summaryTrades": "Biashara",
+    "goldVsUsd": "Dhahabu dhidi ya Dola ya Marekani"
   }
 }

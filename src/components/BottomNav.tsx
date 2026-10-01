@@ -56,15 +56,19 @@ export function BottomNav() {
 
   return (
     <>
-      {/* Publishes the nav height so sticky page bars (e.g. the trader copy
-          bar) can sit directly on top of it; 0 from lg up, where it's hidden. */}
-      <style>{`:root{--bottom-nav-h:calc(57px + env(safe-area-inset-bottom,0px))}@media(min-width:1024px){:root{--bottom-nav-h:0px}}`}</style>
-      <nav
-        className="fixed inset-x-0 bottom-0 z-[9998] border-t border-white/[0.08] bg-[#0b1726] lg:hidden"
-        style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
-        aria-label={t("menuAriaLabel")}
+      {/* Publishes the nav's full footprint (capsule + its offset from the
+          screen bottom + the safe area + a small gap) so every page's bottom
+          padding and the sticky copy bar track it; 0 from lg up, where the
+          nav is hidden. Capsule is 58px tall, floats 12px above the bottom. */}
+      <style>{`:root{--bottom-nav-h:calc(58px + 12px + 8px + env(safe-area-inset-bottom,0px))}@media(min-width:1024px){:root{--bottom-nav-h:0px}}`}</style>
+      <div
+        className="pointer-events-none fixed inset-x-0 bottom-0 z-[9998] px-3 lg:hidden"
+        style={{ paddingBottom: "calc(12px + env(safe-area-inset-bottom, 0px))" }}
       >
-        <div className="mx-auto flex h-14 max-w-5xl items-stretch">
+        <nav
+          className="pointer-events-auto mx-auto flex h-[58px] max-w-md items-stretch gap-1 rounded-full border border-border bg-surface p-1 shadow-lg shadow-black/40"
+          aria-label={t("menuAriaLabel")}
+        >
           {items.map((item) => {
             const active = isActive(item.href);
             return (
@@ -72,22 +76,16 @@ export function BottomNav() {
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`group relative flex min-h-[44px] min-w-0 flex-1 flex-col items-center justify-center gap-0.5 px-1 text-[11px] font-medium transition-colors duration-200 motion-reduce:transition-none ${
-                  active ? "text-brand" : "text-muted active:text-foreground"
+                className={`flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-full px-1 text-[11px] font-medium transition-colors duration-200 motion-reduce:transition-none ${
+                  active ? "bg-accent text-accent-foreground" : "text-muted active:text-foreground"
                 }`}
               >
-                <span
-                  aria-hidden="true"
-                  className={`absolute top-0 h-[3px] rounded-b-full bg-brand transition-all duration-200 motion-reduce:transition-none ${
-                    active ? "w-8 opacity-100" : "w-0 opacity-0"
-                  }`}
-                />
                 <svg
                   viewBox="0 0 24 24"
-                  className={`h-6 w-6 transition-transform duration-200 motion-reduce:transition-none ${active ? "scale-105" : ""}`}
+                  className="h-[22px] w-[22px] shrink-0"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth={active ? 2 : 1.75}
+                  strokeWidth={1.75}
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   aria-hidden="true"
@@ -98,8 +96,8 @@ export function BottomNav() {
               </Link>
             );
           })}
-        </div>
-      </nav>
+        </nav>
+      </div>
     </>
   );
 }
