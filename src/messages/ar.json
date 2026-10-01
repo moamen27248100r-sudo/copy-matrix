@@ -406,7 +406,9 @@
     "leadStatusChangedTitle": "تغيّرت حالة حسابك",
     "leadStatusChanged_active": "حسابك كقائد نشط الآن.",
     "leadStatusChanged_stopped": "تم إيقاف التداول على حسابك كقائد.",
-    "leadStatusChanged_suspended": "تم إيقاف حسابك. تواصل مع الدعم."
+    "leadStatusChanged_suspended": "تم إيقاف حسابك. تواصل مع الدعم.",
+    "tradeIntegrityAlertTitle": "تنبيه سلامة الصفقات",
+    "tradeIntegrityAlertBody": "الفحص اليومي وجد {issues} صفقة بها أخطاء."
   },
   "Portfolio": {
     "title": "محفظتي",
@@ -2292,5 +2294,17 @@
     "summaryCommission": "العمولة",
     "summaryTrades": "عدد الصفقات",
     "goldVsUsd": "الذهب مقابل الدولار الأمريكي"
+  },
+  "AdminIntegrity": {
+    "navLabel": "سلامة الصفقات",
+    "title": "الفحص اليومي لسلامة الصفقات",
+    "subtitle": "صفقات آخر 24 ساعة (فتح أو إغلاق) تُفحص بقواعد سلامة الصفقات. الأخطاء تُسجَّل فقط ولا تُصحَّح تلقائيًا. آخر 30 تقريرًا.",
+    "empty": "لم يُجرَ أي فحص بعد.",
+    "statusOk": "سليم",
+    "statusIssues": "{count} بها أخطاء",
+    "checked": "فُحصت {signals} صفقة و{positions} صفقة منسوخة",
+    "showIssues": "عرض الصفقات المتأثرة",
+    "bannerIssues": "آخر فحص يومي للصفقات وجد {count} صفقة بها أخطاء.",
+    "bannerLink": "عرض التقرير"
   }
 }

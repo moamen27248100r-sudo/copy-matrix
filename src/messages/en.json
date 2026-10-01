@@ -394,7 +394,9 @@
     "leadStatusChangedTitle": "Account status changed",
     "leadStatusChanged_active": "Your lead trader account is active.",
     "leadStatusChanged_stopped": "Trading on your lead trader account has been stopped.",
-    "leadStatusChanged_suspended": "Your account has been suspended. Contact support."
+    "leadStatusChanged_suspended": "Your account has been suspended. Contact support.",
+    "tradeIntegrityAlertTitle": "Trade integrity alert",
+    "tradeIntegrityAlertBody": "The daily check found {issues} trades with errors."
   },
   "Portfolio": {
     "title": "My Portfolio",
@@ -2219,5 +2221,17 @@
     "summaryCommission": "Commission",
     "summaryTrades": "Trades",
     "goldVsUsd": "Gold vs US Dollar"
+  },
+  "AdminIntegrity": {
+    "navLabel": "Trade integrity",
+    "title": "Daily trade integrity check",
+    "subtitle": "Trades opened or closed in the previous 24 hours, checked against the trade-integrity rules. Issues are only reported, never auto-corrected. Last 30 runs.",
+    "empty": "No checks have run yet.",
+    "statusOk": "Healthy",
+    "statusIssues": "{count} with errors",
+    "checked": "{signals} trades · {positions} copied positions checked",
+    "showIssues": "Show affected trades",
+    "bannerIssues": "The latest daily trade check found {count} trades with errors.",
+    "bannerLink": "View report"
   }
 }

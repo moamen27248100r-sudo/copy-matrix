@@ -394,7 +394,9 @@
     "leadStatusChangedTitle": "Status akun berubah",
     "leadStatusChanged_active": "Akun lead trader Anda aktif.",
     "leadStatusChanged_stopped": "Trading pada akun lead trader Anda dihentikan.",
-    "leadStatusChanged_suspended": "Akun Anda ditangguhkan. Hubungi dukungan."
+    "leadStatusChanged_suspended": "Akun Anda ditangguhkan. Hubungi dukungan.",
+    "tradeIntegrityAlertTitle": "Peringatan integritas trade",
+    "tradeIntegrityAlertBody": "Pemeriksaan harian menemukan {issues} trade bermasalah."
   },
   "Portfolio": {
     "title": "Portofolio Saya",
@@ -2215,5 +2217,17 @@
     "summaryCommission": "Komisi",
     "summaryTrades": "Transaksi",
     "goldVsUsd": "Emas vs Dolar AS"
+  },
+  "AdminIntegrity": {
+    "navLabel": "Integritas trade",
+    "title": "Pemeriksaan harian trade",
+    "subtitle": "Trade yang dibuka atau ditutup dalam 24 jam terakhir diperiksa dengan aturan integritas. Masalah hanya dilaporkan, tidak dikoreksi otomatis. 30 pemeriksaan terakhir.",
+    "empty": "Belum ada pemeriksaan.",
+    "statusOk": "Sehat",
+    "statusIssues": "{count} bermasalah",
+    "checked": "{signals} trade · {positions} posisi salinan diperiksa",
+    "showIssues": "Lihat trade terdampak",
+    "bannerIssues": "Pemeriksaan harian terakhir menemukan {count} trade bermasalah.",
+    "bannerLink": "Lihat laporan"
   }
 }

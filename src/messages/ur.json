@@ -394,7 +394,9 @@
     "leadStatusChangedTitle": "اکاؤنٹ کی حالت بدل گئی",
     "leadStatusChanged_active": "آپ کا لیڈ ٹریڈر اکاؤنٹ فعال ہے۔",
     "leadStatusChanged_stopped": "آپ کے لیڈ ٹریڈر اکاؤنٹ پر ٹریڈنگ روک دی گئی ہے۔",
-    "leadStatusChanged_suspended": "آپ کا اکاؤنٹ معطل کر دیا گیا ہے۔ سپورٹ سے رابطہ کریں۔"
+    "leadStatusChanged_suspended": "آپ کا اکاؤنٹ معطل کر دیا گیا ہے۔ سپورٹ سے رابطہ کریں۔",
+    "tradeIntegrityAlertTitle": "ٹریڈ درستگی الرٹ",
+    "tradeIntegrityAlertBody": "روزانہ جانچ میں {issues} ٹریڈز میں غلطیاں ملیں۔"
   },
   "Portfolio": {
     "title": "میرا پورٹ فولیو",
@@ -2215,5 +2217,17 @@
     "summaryCommission": "کمیشن",
     "summaryTrades": "ٹریڈز",
     "goldVsUsd": "سونا بمقابلہ امریکی ڈالر"
+  },
+  "AdminIntegrity": {
+    "navLabel": "ٹریڈ کی درستگی",
+    "title": "روزانہ ٹریڈ کی جانچ",
+    "subtitle": "پچھلے 24 گھنٹوں میں کھلنے یا بند ہونے والی ٹریڈز کی جانچ۔ غلطیاں صرف درج ہوتی ہیں، خود بخود درست نہیں ہوتیں۔ آخری 30 رپورٹس۔",
+    "empty": "ابھی تک کوئی جانچ نہیں ہوئی۔",
+    "statusOk": "درست",
+    "statusIssues": "{count} میں غلطیاں",
+    "checked": "{signals} ٹریڈز · {positions} کاپی پوزیشنز جانچی گئیں",
+    "showIssues": "متاثرہ ٹریڈز دیکھیں",
+    "bannerIssues": "آخری روزانہ جانچ میں {count} ٹریڈز میں غلطیاں ملیں۔",
+    "bannerLink": "رپورٹ دیکھیں"
   }
 }

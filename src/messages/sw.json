@@ -394,7 +394,9 @@
     "leadStatusChangedTitle": "Hali ya akaunti imebadilika",
     "leadStatusChanged_active": "Akaunti yako ya kiongozi inatumika.",
     "leadStatusChanged_stopped": "Biashara kwenye akaunti yako ya kiongozi imesimamishwa.",
-    "leadStatusChanged_suspended": "Akaunti yako imesimamishwa. Wasiliana na msaada."
+    "leadStatusChanged_suspended": "Akaunti yako imesimamishwa. Wasiliana na msaada.",
+    "tradeIntegrityAlertTitle": "Tahadhari ya usahihi wa biashara",
+    "tradeIntegrityAlertBody": "Ukaguzi wa kila siku umepata biashara {issues} zenye makosa."
   },
   "Portfolio": {
     "title": "Jalada Langu",
@@ -2215,5 +2217,17 @@
     "summaryCommission": "Kamisheni",
     "summaryTrades": "Biashara",
     "goldVsUsd": "Dhahabu dhidi ya Dola ya Marekani"
+  },
+  "AdminIntegrity": {
+    "navLabel": "Usahihi wa biashara",
+    "title": "Ukaguzi wa kila siku wa biashara",
+    "subtitle": "Biashara zilizofunguliwa au kufungwa saa 24 zilizopita hukaguliwa kwa kanuni. Makosa huripotiwa tu, hayarekebishwi kiotomatiki. Ukaguzi 30 wa mwisho.",
+    "empty": "Bado hakuna ukaguzi.",
+    "statusOk": "Salama",
+    "statusIssues": "{count} zenye makosa",
+    "checked": "Biashara {signals} · nafasi {positions} zilizonakiliwa zimekaguliwa",
+    "showIssues": "Onyesha biashara zilizoathirika",
+    "bannerIssues": "Ukaguzi wa mwisho umepata biashara {count} zenye makosa.",
+    "bannerLink": "Tazama ripoti"
   }
 }

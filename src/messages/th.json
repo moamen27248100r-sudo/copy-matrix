@@ -394,7 +394,9 @@
     "leadStatusChangedTitle": "สถานะบัญชีเปลี่ยนแปลง",
     "leadStatusChanged_active": "บัญชีเทรดเดอร์ผู้นำของคุณใช้งานได้",
     "leadStatusChanged_stopped": "การเทรดบนบัญชีเทรดเดอร์ผู้นำของคุณถูกหยุด",
-    "leadStatusChanged_suspended": "บัญชีของคุณถูกระงับ โปรดติดต่อฝ่ายสนับสนุน"
+    "leadStatusChanged_suspended": "บัญชีของคุณถูกระงับ โปรดติดต่อฝ่ายสนับสนุน",
+    "tradeIntegrityAlertTitle": "แจ้งเตือนความถูกต้องของเทรด",
+    "tradeIntegrityAlertBody": "การตรวจรายวันพบ {issues} เทรดที่มีข้อผิดพลาด"
   },
   "Portfolio": {
     "title": "พอร์ตของฉัน",
@@ -2215,5 +2217,17 @@
     "summaryCommission": "ค่าคอมมิชชัน",
     "summaryTrades": "จำนวนเทรด",
     "goldVsUsd": "ทองคำเทียบดอลลาร์สหรัฐ"
+  },
+  "AdminIntegrity": {
+    "navLabel": "ความถูกต้องของเทรด",
+    "title": "การตรวจเทรดรายวัน",
+    "subtitle": "เทรดที่เปิดหรือปิดใน 24 ชั่วโมงล่าสุดถูกตรวจตามกฎ ข้อผิดพลาดจะถูกรายงานเท่านั้น ไม่แก้อัตโนมัติ 30 ครั้งล่าสุด",
+    "empty": "ยังไม่มีการตรวจ",
+    "statusOk": "ปกติ",
+    "statusIssues": "{count} มีข้อผิดพลาด",
+    "checked": "ตรวจ {signals} เทรด · {positions} สถานะที่คัดลอก",
+    "showIssues": "ดูเทรดที่ได้รับผลกระทบ",
+    "bannerIssues": "การตรวจล่าสุดพบ {count} เทรดที่มีข้อผิดพลาด",
+    "bannerLink": "ดูรายงาน"
   }
 }

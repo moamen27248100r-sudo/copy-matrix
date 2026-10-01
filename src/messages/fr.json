@@ -394,7 +394,9 @@
     "leadStatusChangedTitle": "Statut du compte modifié",
     "leadStatusChanged_active": "Votre compte de trader leader est actif.",
     "leadStatusChanged_stopped": "Le trading de votre compte leader a été arrêté.",
-    "leadStatusChanged_suspended": "Votre compte a été suspendu. Contactez le support."
+    "leadStatusChanged_suspended": "Votre compte a été suspendu. Contactez le support.",
+    "tradeIntegrityAlertTitle": "Alerte d’intégrité des trades",
+    "tradeIntegrityAlertBody": "Le contrôle quotidien a trouvé {issues} trades en erreur."
   },
   "Portfolio": {
     "title": "Mon portefeuille",
@@ -2216,5 +2218,17 @@
     "summaryCommission": "Commission",
     "summaryTrades": "Transactions",
     "goldVsUsd": "Or vs Dollar américain"
+  },
+  "AdminIntegrity": {
+    "navLabel": "Intégrité des trades",
+    "title": "Contrôle quotidien des trades",
+    "subtitle": "Trades ouverts ou clôturés sur les 24 dernières heures, vérifiés selon les règles d’intégrité. Les erreurs sont signalées, jamais corrigées automatiquement. 30 derniers contrôles.",
+    "empty": "Aucun contrôle pour l’instant.",
+    "statusOk": "Sain",
+    "statusIssues": "{count} en erreur",
+    "checked": "{signals} trades · {positions} positions copiées vérifiés",
+    "showIssues": "Voir les trades concernés",
+    "bannerIssues": "Le dernier contrôle quotidien a trouvé {count} trades en erreur.",
+    "bannerLink": "Voir le rapport"
   }
 }

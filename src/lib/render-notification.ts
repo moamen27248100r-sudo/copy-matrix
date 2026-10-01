@@ -77,6 +77,8 @@ export function renderNotification(t: Translator, n: NotificationRow): { title: 
       return { title: t("leadStatusChangedTitle"), body: t(`leadStatusChanged_${String(d.status ?? "active")}`) };
     case "lead_payout_reviewed":
       return { title: t(d.approved ? "leadPayoutApprovedTitle" : "leadPayoutRejectedTitle"), body: t("leadPayoutBody", { amount: Number(d.amount ?? 0) }) };
+    case "trade_integrity_alert":
+      return { title: t("tradeIntegrityAlertTitle"), body: t("tradeIntegrityAlertBody", { issues: Number(d.issues ?? 0) }) };
     default:
       return { title: n.title, body: n.body };
   }

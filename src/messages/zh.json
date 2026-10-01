@@ -394,7 +394,9 @@
     "leadStatusChangedTitle": "账户状态已变更",
     "leadStatusChanged_active": "您的领导者账户已恢复正常。",
     "leadStatusChanged_stopped": "您的领导者账户交易已被停止。",
-    "leadStatusChanged_suspended": "您的账户已被暂停，请联系客服。"
+    "leadStatusChanged_suspended": "您的账户已被暂停，请联系客服。",
+    "tradeIntegrityAlertTitle": "交易完整性警报",
+    "tradeIntegrityAlertBody": "每日检查发现 {issues} 笔交易有错误。"
   },
   "Portfolio": {
     "title": "我的资产",
@@ -2216,5 +2218,17 @@
     "summaryCommission": "佣金",
     "summaryTrades": "交易笔数",
     "goldVsUsd": "黄金兑美元"
+  },
+  "AdminIntegrity": {
+    "navLabel": "交易完整性",
+    "title": "每日交易完整性检查",
+    "subtitle": "检查过去24小时内开仓或平仓的交易。问题仅报告，不会自动修正。最近30次。",
+    "empty": "尚无检查记录。",
+    "statusOk": "正常",
+    "statusIssues": "{count} 笔有错误",
+    "checked": "已检查 {signals} 笔交易 · {positions} 笔跟单持仓",
+    "showIssues": "查看受影响的交易",
+    "bannerIssues": "最近一次每日检查发现 {count} 笔交易有错误。",
+    "bannerLink": "查看报告"
   }
 }

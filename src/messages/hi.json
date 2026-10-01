@@ -394,7 +394,9 @@
     "leadStatusChangedTitle": "खाता स्थिति बदली",
     "leadStatusChanged_active": "आपका लीड ट्रेडर खाता सक्रिय है।",
     "leadStatusChanged_stopped": "आपके लीड ट्रेडर खाते पर ट्रेडिंग रोक दी गई है।",
-    "leadStatusChanged_suspended": "आपका खाता निलंबित कर दिया गया है। सहायता से संपर्क करें।"
+    "leadStatusChanged_suspended": "आपका खाता निलंबित कर दिया गया है। सहायता से संपर्क करें।",
+    "tradeIntegrityAlertTitle": "ट्रेड अखंडता चेतावनी",
+    "tradeIntegrityAlertBody": "दैनिक जाँच में {issues} ट्रेड में त्रुटियाँ मिलीं।"
   },
   "Portfolio": {
     "title": "मेरा पोर्टफोलियो",
@@ -2215,5 +2217,17 @@
     "summaryCommission": "कमीशन",
     "summaryTrades": "ट्रेड",
     "goldVsUsd": "सोना बनाम अमेरिकी डॉलर"
+  },
+  "AdminIntegrity": {
+    "navLabel": "ट्रेड अखंडता",
+    "title": "दैनिक ट्रेड अखंडता जाँच",
+    "subtitle": "पिछले 24 घंटों में खुले या बंद हुए ट्रेड अखंडता नियमों से जाँचे जाते हैं। त्रुटियाँ केवल दर्ज होती हैं, अपने-आप ठीक नहीं होतीं। पिछले 30 रन।",
+    "empty": "अभी तक कोई जाँच नहीं हुई।",
+    "statusOk": "ठीक",
+    "statusIssues": "{count} में त्रुटियाँ",
+    "checked": "{signals} ट्रेड · {positions} कॉपी पोज़िशन जाँची गईं",
+    "showIssues": "प्रभावित ट्रेड देखें",
+    "bannerIssues": "पिछली दैनिक जाँच में {count} ट्रेड में त्रुटियाँ मिलीं।",
+    "bannerLink": "रिपोर्ट देखें"
   }
 }

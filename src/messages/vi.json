@@ -394,7 +394,9 @@
     "leadStatusChangedTitle": "Trạng thái tài khoản đã đổi",
     "leadStatusChanged_active": "Tài khoản lead trader của bạn đang hoạt động.",
     "leadStatusChanged_stopped": "Giao dịch trên tài khoản lead trader đã bị dừng.",
-    "leadStatusChanged_suspended": "Tài khoản của bạn đã bị đình chỉ. Hãy liên hệ hỗ trợ."
+    "leadStatusChanged_suspended": "Tài khoản của bạn đã bị đình chỉ. Hãy liên hệ hỗ trợ.",
+    "tradeIntegrityAlertTitle": "Cảnh báo giao dịch",
+    "tradeIntegrityAlertBody": "Kiểm tra hằng ngày phát hiện {issues} giao dịch có lỗi."
   },
   "Portfolio": {
     "title": "Danh mục của tôi",
@@ -2215,5 +2217,17 @@
     "summaryCommission": "Hoa hồng",
     "summaryTrades": "Số lệnh",
     "goldVsUsd": "Vàng so với Đô la Mỹ"
+  },
+  "AdminIntegrity": {
+    "navLabel": "Tính toàn vẹn giao dịch",
+    "title": "Kiểm tra giao dịch hằng ngày",
+    "subtitle": "Giao dịch mở hoặc đóng trong 24 giờ qua được kiểm tra theo quy tắc. Lỗi chỉ được báo cáo, không tự sửa. 30 lần gần nhất.",
+    "empty": "Chưa có lần kiểm tra nào.",
+    "statusOk": "Ổn",
+    "statusIssues": "{count} có lỗi",
+    "checked": "Đã kiểm tra {signals} giao dịch · {positions} vị thế sao chép",
+    "showIssues": "Xem giao dịch bị ảnh hưởng",
+    "bannerIssues": "Lần kiểm tra gần nhất phát hiện {count} giao dịch có lỗi.",
+    "bannerLink": "Xem báo cáo"
   }
 }

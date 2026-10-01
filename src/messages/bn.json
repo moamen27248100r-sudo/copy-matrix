@@ -394,7 +394,9 @@
     "leadStatusChangedTitle": "অ্যাকাউন্টের অবস্থা বদলেছে",
     "leadStatusChanged_active": "আপনার লিড ট্রেডার অ্যাকাউন্ট সক্রিয়।",
     "leadStatusChanged_stopped": "আপনার লিড ট্রেডার অ্যাকাউন্টে ট্রেডিং বন্ধ করা হয়েছে।",
-    "leadStatusChanged_suspended": "আপনার অ্যাকাউন্ট স্থগিত করা হয়েছে। সহায়তার সঙ্গে যোগাযোগ করুন।"
+    "leadStatusChanged_suspended": "আপনার অ্যাকাউন্ট স্থগিত করা হয়েছে। সহায়তার সঙ্গে যোগাযোগ করুন।",
+    "tradeIntegrityAlertTitle": "ট্রেড সঠিকতা সতর্কতা",
+    "tradeIntegrityAlertBody": "দৈনিক যাচাইয়ে {issues}টি ট্রেডে ত্রুটি পাওয়া গেছে।"
   },
   "Portfolio": {
     "title": "আমার পোর্টফোলিও",
@@ -2215,5 +2217,17 @@
     "summaryCommission": "কমিশন",
     "summaryTrades": "ট্রেড",
     "goldVsUsd": "স্বর্ণ বনাম মার্কিন ডলার"
+  },
+  "AdminIntegrity": {
+    "navLabel": "ট্রেডের সঠিকতা",
+    "title": "দৈনিক ট্রেড যাচাই",
+    "subtitle": "গত ২৪ ঘণ্টায় খোলা বা বন্ধ হওয়া ট্রেড নিয়ম অনুযায়ী যাচাই হয়। ত্রুটি শুধু রিপোর্ট হয়, স্বয়ংক্রিয়ভাবে ঠিক হয় না। শেষ ৩০টি।",
+    "empty": "এখনো কোনো যাচাই হয়নি।",
+    "statusOk": "ঠিক আছে",
+    "statusIssues": "{count}টিতে ত্রুটি",
+    "checked": "{signals}টি ট্রেড · {positions}টি কপি পজিশন যাচাই",
+    "showIssues": "প্রভাবিত ট্রেড দেখুন",
+    "bannerIssues": "শেষ দৈনিক যাচাইয়ে {count}টি ট্রেডে ত্রুটি পাওয়া গেছে।",
+    "bannerLink": "রিপোর্ট দেখুন"
   }
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 
 type StatsView = "activity" | "financial";
@@ -41,6 +42,15 @@ export default async function AdminOverviewPage({
     supabase.from("wallet_transactions").select("amount").eq("type", "withdrawal"),
   ]);
 
+  // Latest daily trade-integrity run (0219); flagged here when it found errors.
+  const ti = await getTranslations("AdminIntegrity");
+  const { data: latestIntegrity } = await supabase
+    .from("trade_integrity_reports")
+    .select("status, issue_count")
+    .order("run_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
   const totalBalance = (balances ?? []).reduce((sum, p) => sum + Number(p.balance ?? 0), 0);
   const totalDeposits = (deposits ?? []).reduce((sum, t) => sum + Number(t.amount ?? 0), 0);
   const totalWithdrawals = Math.abs(
@@ -77,6 +87,15 @@ export default async function AdminOverviewPage({
   return (
     <>
       <h1 className="text-2xl font-semibold">نظرة عامة</h1>
+
+      {latestIntegrity?.status === "issues" && (
+        <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-red-500/40 bg-red-500/10 p-3 text-sm text-red-300">
+          <span>{ti("bannerIssues", { count: latestIntegrity.issue_count })}</span>
+          <Link href="/admin/integrity" className="font-medium underline">
+            {ti("bannerLink")}
+          </Link>
+        </div>
+      )}
 
       <section className="flex flex-col gap-3">
         <h2 className="font-medium">إحصائيات المنصة</h2>

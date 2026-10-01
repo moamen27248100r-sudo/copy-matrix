@@ -394,7 +394,9 @@
     "leadStatusChangedTitle": "Estado de la cuenta cambiado",
     "leadStatusChanged_active": "Tu cuenta de líder está activa.",
     "leadStatusChanged_stopped": "Se detuvo el trading de tu cuenta de líder.",
-    "leadStatusChanged_suspended": "Tu cuenta fue suspendida. Contacta con soporte."
+    "leadStatusChanged_suspended": "Tu cuenta fue suspendida. Contacta con soporte.",
+    "tradeIntegrityAlertTitle": "Alerta de integridad de operaciones",
+    "tradeIntegrityAlertBody": "La revisión diaria encontró {issues} operaciones con errores."
   },
   "Portfolio": {
     "title": "Mi cartera",
@@ -2216,5 +2218,17 @@
     "summaryCommission": "Comisión",
     "summaryTrades": "Operaciones",
     "goldVsUsd": "Oro vs Dólar estadounidense"
+  },
+  "AdminIntegrity": {
+    "navLabel": "Integridad de operaciones",
+    "title": "Revisión diaria de operaciones",
+    "subtitle": "Operaciones abiertas o cerradas en las últimas 24 horas, revisadas con las reglas de integridad. Los errores solo se reportan, nunca se corrigen automáticamente. Últimas 30 ejecuciones.",
+    "empty": "Aún no hay revisiones.",
+    "statusOk": "Correcto",
+    "statusIssues": "{count} con errores",
+    "checked": "{signals} operaciones · {positions} posiciones copiadas revisadas",
+    "showIssues": "Ver operaciones afectadas",
+    "bannerIssues": "La última revisión diaria encontró {count} operaciones con errores.",
+    "bannerLink": "Ver informe"
   }
 }

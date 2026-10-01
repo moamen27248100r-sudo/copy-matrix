@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useTranslations } from "next-intl";
 import { useBodyScrollLock } from "@/lib/use-body-scroll-lock";
 
 const ICONS: Record<string, ReactNode> = {
@@ -49,6 +50,13 @@ const ICONS: Record<string, ReactNode> = {
       <path d="M21 13v2a4 4 0 0 1-4 4H3" />
     </>
   ),
+  integrity: (
+    <>
+      <path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" />
+      <path d="M12 8v4" />
+      <path d="M12 16h.01" />
+    </>
+  ),
   log: (
     <>
       <circle cx="12" cy="12" r="10" />
@@ -63,7 +71,9 @@ const ICONS: Record<string, ReactNode> = {
   ),
 };
 
-const NAV_ITEMS = [
+type NavItem = { href: string; icon: string } & ({ label: string } | { labelKey: "navLabel" });
+
+const NAV_ITEMS: readonly NavItem[] = [
   { href: "/admin", label: "نظرة عامة", icon: "overview" },
   { href: "/admin/users", label: "المستخدمون", icon: "users" },
   { href: "/admin/traders", label: "المتداولون", icon: "traders" },
@@ -72,8 +82,9 @@ const NAV_ITEMS = [
   { href: "/admin/lead-payouts", label: "سحب أرباح القادة", icon: "wallet" },
   { href: "/admin/wallet-requests", label: "طلبات المحفظة", icon: "wallet" },
   { href: "/admin/subscriptions", label: "نشاط النسخ", icon: "copy" },
+  { href: "/admin/integrity", labelKey: "navLabel", icon: "integrity" },
   { href: "/admin/audit-log", label: "سجل الإجراءات", icon: "log" },
-] as const;
+];
 
 function ItemIcon({ name }: { name: string }) {
   return (
@@ -97,6 +108,7 @@ function isItemActive(pathname: string | null, href: string) {
 }
 
 function NavList({ pathname, onNavigate }: { pathname: string | null; onNavigate?: () => void }) {
+  const t = useTranslations("AdminIntegrity");
   return (
     <nav className="flex flex-col gap-1">
       {NAV_ITEMS.map((item) => {
@@ -113,7 +125,7 @@ function NavList({ pathname, onNavigate }: { pathname: string | null; onNavigate
             }
           >
             <ItemIcon name={item.icon} />
-            {item.label}
+            {"labelKey" in item ? t(item.labelKey) : item.label}
           </Link>
         );
       })}
