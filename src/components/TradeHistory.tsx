@@ -162,7 +162,7 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
           {filtered.map((t) => {
             const isExpanded = expandedId === t.id;
             const isProfit = (t.pnl ?? t.pct) >= 0;
-            const deltaPoints = t.exit != null ? t.exit - t.entry : null;
+            const deltaPoints = t.exit != null ? (t.exit - t.entry) * (t.side === "sell" ? -1 : 1) : null;
 
             return (
               <div key={t.id} className="overflow-hidden rounded-lg border border-border bg-surface">
