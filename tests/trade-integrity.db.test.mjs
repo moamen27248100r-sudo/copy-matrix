@@ -185,6 +185,41 @@ test("hidden can't be self-set and total_profit follows visible trades (0218)", 
   assert.equal(Math.round((after - before) * 100) / 100, 1000);
 });
 
+test("margin call closing several trades at once records lot and full data on each (0220)", async () => {
+  // a mix: no levels, a stop far away, a stop closer than the margin-call loss
+  const ids = [
+    (await openTrade({ side: "buy", entry: 4002 })).id,
+    (await openTrade({ side: "sell", entry: 4003, sl: 4900, tp: 3900 })).id,
+    (await openTrade({ side: "buy", entry: 4004, sl: 3950, tp: 4100, openedAgo: "3 days" })).id,
+  ];
+  await db.query("update public.signals set lot_size = null where id = any($1)", [ids]);
+  const { rows: [{ n }] } = await db.query("select public.sim_margin_call_close($1, 150, false) as n", [providerId]);
+  assert.ok(n >= 3);
+  const { rows } = await db.query(
+    `select id, status, exit_price, closed_at, close_trigger, lot_size, commission, swap,
+            (exit_price - entry_price) * public.trade_dir(side) as d, stop_loss
+     from public.signals where id = any($1)`,
+    [ids],
+  );
+  assert.equal(rows.length, 3);
+  for (const r of rows) {
+    assert.equal(r.status, "closed");
+    assert.ok(Number(r.lot_size) > 0, `lot on ${r.id}`);
+    assert.ok(r.exit_price != null && r.closed_at != null && r.commission != null && r.swap != null);
+    assert.ok(Number(r.d) < 0, "margin call is a loss");
+    assert.ok(["margin_call", "sl"].includes(r.close_trigger));
+  }
+  // the close stop (3950) is hit before the 10-25% margin-call loss
+  const stopped = rows.find((r) => Number(r.stop_loss) === 3950);
+  assert.equal(Number(stopped.exit_price), 3950);
+  assert.equal(stopped.close_trigger, "sl");
+  const { rows: issues } = await db.query(
+    "select detail from public.trade_integrity_issues(now() - interval '5 days') where row_id = any($1) and not flagged",
+    [ids],
+  );
+  assert.deepEqual(issues, []);
+});
+
 test("live engine run writes only consistent trades", async () => {
   await db.query("select public.run_market_simulation()");
   const { rows } = await db.query(
