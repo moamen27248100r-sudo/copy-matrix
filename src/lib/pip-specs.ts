@@ -61,3 +61,49 @@ export function resolveLevels(side: string, entry: number, a: number | null, b: 
   }
   return { stopLoss, takeProfit };
 }
+
+// +1 for buy, -1 for sell. Every result below is signed by this, so a
+// losing trade is negative in $, %, and Δ points alike.
+export function tradeDirection(side: string): 1 | -1 {
+  return side === "sell" ? -1 : 1;
+}
+
+// Price move in the trade's favour (exit - entry for a buy, entry - exit
+// for a sell).
+export function tradeDeltaPoints(side: string, entry: number, exit: number): number {
+  return (exit - entry) * tradeDirection(side);
+}
+
+export function tradeReturnPct(side: string, entry: number, exit: number): number {
+  return (tradeDeltaPoints(side, entry, exit) / entry) * 100;
+}
+
+// Close reason derived from the prices — same rule as the database's
+// trade_close_trigger() (0215): at the target in profit = "tp", at the
+// stop in loss = "sl", flat = "breakeven", otherwise the requested
+// timeout/margin-call/manual reason.
+export function deriveCloseTrigger(
+  side: string,
+  entry: number,
+  exit: number,
+  stopLoss: number | null,
+  takeProfit: number | null,
+  requested: string | null = null,
+): string {
+  const d = tradeDeltaPoints(side, entry, exit);
+  const tol = (level: number) => Math.max(Math.abs(level - entry) * 0.05, entry * 0.0001);
+  if (takeProfit != null && d > 0 && Math.abs(exit - takeProfit) <= tol(takeProfit)) return "tp";
+  if (stopLoss != null && d < 0 && Math.abs(exit - stopLoss) <= tol(stopLoss)) return "sl";
+  if (requested === "margin_call" && d < 0) return "margin_call";
+  if (Math.abs(d) <= entry * 0.0002) return "breakeven";
+  return requested === "timeout" ? "timeout" : "manual";
+}
+
+// True when each given level is positive and on its correct side of
+// entry (buy: stop below, target above; sell: the reverse).
+export function levelsValid(side: string, entry: number, stopLoss: number | null, takeProfit: number | null): boolean {
+  const dir = tradeDirection(side);
+  if (stopLoss != null && !(stopLoss > 0 && (stopLoss - entry) * dir < 0)) return false;
+  if (takeProfit != null && !(takeProfit > 0 && (takeProfit - entry) * dir > 0)) return false;
+  return true;
+}

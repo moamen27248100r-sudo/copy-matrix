@@ -1082,7 +1082,8 @@
       "announcementFailed": "Não foi possível enviar o anúncio.",
       "settingsSaveFailed": "Não foi possível salvar as configurações.",
       "endRoleFailed": "Não foi possível encerrar seu papel.",
-      "endRoleHasOpenTrades": "Feche primeiro todas as suas operações abertas."
+      "endRoleHasOpenTrades": "Feche primeiro todas as suas operações abertas.",
+      "orderLevelsInvalid": "Na compra, o stop loss deve ficar abaixo do preço e o take profit acima; na venda, o contrário."
     }
   },
   "FollowEmail": {

@@ -1094,7 +1094,8 @@
       "announcementFailed": "تعذّر إرسال الإعلان.",
       "settingsSaveFailed": "تعذّر حفظ الإعدادات.",
       "endRoleFailed": "تعذّر إنهاء الدور.",
-      "endRoleHasOpenTrades": "أغلق كل صفقاتك المفتوحة أولًا."
+      "endRoleHasOpenTrades": "أغلق كل صفقاتك المفتوحة أولًا.",
+      "orderLevelsInvalid": "في الشراء يجب أن يكون وقف الخسارة أقل من السعر وجني الربح أعلى منه، وفي البيع العكس."
     }
   },
   "FollowEmail": {

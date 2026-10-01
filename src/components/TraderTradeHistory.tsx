@@ -9,6 +9,7 @@ import {
   type HistoryPeriod,
   periodLabelKey,
 } from "@/components/HistoryPeriodSheet";
+import { tradeDeltaPoints } from "@/lib/pip-specs";
 
 export type HistoryTrade = {
   id: string;
@@ -169,7 +170,7 @@ export function TraderTradeHistory({ trades }: { trades: HistoryTrade[] }) {
             const gain = (x.pnl ?? x.pct) >= 0;
             const tone = gain ? GAIN : LOSS;
             const dirTone = x.side === "buy" ? GAIN : LOSS;
-            const delta = (x.exit - x.entry) * (x.side === "sell" ? -1 : 1);
+            const delta = tradeDeltaPoints(x.side, x.entry, x.exit);
             const desc = describe(x.symbol);
             const pnlText = x.pnl != null ? signed(x.pnl, `$${formatUsd(Math.abs(x.pnl))}`) : null;
             const detailId = `trade-detail-${x.id}`;

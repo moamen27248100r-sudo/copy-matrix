@@ -1082,7 +1082,8 @@
       "announcementFailed": "Imeshindwa kutuma tangazo.",
       "settingsSaveFailed": "Imeshindwa kuhifadhi mipangilio.",
       "endRoleFailed": "Imeshindwa kumaliza jukumu lako.",
-      "endRoleHasOpenTrades": "Funga biashara zako zote wazi kwanza."
+      "endRoleHasOpenTrades": "Funga biashara zako zote wazi kwanza.",
+      "orderLevelsInvalid": "Kwa kununua, stop loss iwe chini ya bei na take profit juu yake; kwa kuuza ni kinyume."
     }
   },
   "FollowEmail": {

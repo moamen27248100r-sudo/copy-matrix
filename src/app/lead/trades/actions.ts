@@ -34,7 +34,8 @@ export async function placeLeadOrder(formData: FormData) {
   });
 
   if (error) {
-    redirect("/lead/trades?error=" + encodeURIComponent(t("orderFailed") + ": " + error.message));
+    const message = error.code === "LT006" ? t("orderLevelsInvalid") : t("orderFailed") + ": " + error.message;
+    redirect("/lead/trades?error=" + encodeURIComponent(message));
   }
 
   revalidatePath("/lead/trades");

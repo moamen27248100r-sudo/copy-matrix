@@ -1082,7 +1082,8 @@
       "announcementFailed": "Could not send the announcement.",
       "settingsSaveFailed": "Could not save settings.",
       "endRoleFailed": "Could not end your role.",
-      "endRoleHasOpenTrades": "Close all your open trades first."
+      "endRoleHasOpenTrades": "Close all your open trades first.",
+      "orderLevelsInvalid": "Stop loss must be below the price for a buy and above it for a sell; take profit the opposite."
     }
   },
   "FollowEmail": {

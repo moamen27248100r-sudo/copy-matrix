@@ -1082,7 +1082,8 @@
       "announcementFailed": "Không gửi được thông báo.",
       "settingsSaveFailed": "Không lưu được cài đặt.",
       "endRoleFailed": "Không thể kết thúc vai trò của bạn.",
-      "endRoleHasOpenTrades": "Hãy đóng tất cả giao dịch đang mở trước."
+      "endRoleHasOpenTrades": "Hãy đóng tất cả giao dịch đang mở trước.",
+      "orderLevelsInvalid": "Với lệnh mua, cắt lỗ phải thấp hơn giá và chốt lời cao hơn; lệnh bán thì ngược lại."
     }
   },
   "FollowEmail": {

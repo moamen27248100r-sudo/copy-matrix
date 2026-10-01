@@ -16,7 +16,7 @@ import { TraderAvatar } from "@/components/TraderAvatar";
 import { countryDisplay } from "@/lib/country-metadata";
 import { formatDate } from "@/lib/locale-format";
 import { computeStats } from "@/lib/provider-stats";
-import { resolveLevels, tradeProfitUsd } from "@/lib/pip-specs";
+import { resolveLevels, tradeProfitUsd, tradeReturnPct } from "@/lib/pip-specs";
 import { CopyBar } from "@/components/CopyBar";
 import { CopyDialog } from "@/components/CopyDialog";
 import { getBioTranslator } from "@/lib/bio-translations";
@@ -187,7 +187,6 @@ export default async function TraderPage({
     .map((s) => {
       const entry = Number(s.entry_price);
       const exit = Number(s.exit_price);
-      const raw = (exit - entry) / entry;
       const lot = s.lot_size != null ? Number(s.lot_size) : null;
       const { stopLoss, takeProfit } = resolveLevels(
         s.side,
@@ -203,7 +202,7 @@ export default async function TraderPage({
         entry,
         exit,
         pnl: tradeProfitUsd(s.symbol, s.side, entry, exit, lot),
-        pct: (s.side === "sell" ? -raw : raw) * 100,
+        pct: tradeReturnPct(s.side, entry, exit),
         openedAt: s.opened_at,
         closedAt: s.closed_at,
         stopLoss,

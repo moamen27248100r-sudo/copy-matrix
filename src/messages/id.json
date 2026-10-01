@@ -1082,7 +1082,8 @@
       "announcementFailed": "Gagal mengirim pengumuman.",
       "settingsSaveFailed": "Gagal menyimpan pengaturan.",
       "endRoleFailed": "Gagal mengakhiri peran Anda.",
-      "endRoleHasOpenTrades": "Tutup semua transaksi terbuka Anda terlebih dahulu."
+      "endRoleHasOpenTrades": "Tutup semua transaksi terbuka Anda terlebih dahulu.",
+      "orderLevelsInvalid": "Untuk beli, stop loss harus di bawah harga dan take profit di atasnya; untuk jual sebaliknya."
     }
   },
   "FollowEmail": {

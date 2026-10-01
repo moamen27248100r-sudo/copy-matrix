@@ -1082,7 +1082,8 @@
       "announcementFailed": "اعلان نہیں بھیجا جا سکا۔",
       "settingsSaveFailed": "سیٹنگز محفوظ نہیں ہو سکیں۔",
       "endRoleFailed": "آپ کا کردار ختم نہیں کیا جا سکا۔",
-      "endRoleHasOpenTrades": "پہلے اپنے تمام کھلے ٹریڈز بند کریں۔"
+      "endRoleHasOpenTrades": "پہلے اپنے تمام کھلے ٹریڈز بند کریں۔",
+      "orderLevelsInvalid": "خرید میں اسٹاپ لاس قیمت سے نیچے اور ٹیک پرافٹ اوپر ہونا چاہیے؛ فروخت میں اس کے برعکس۔"
     }
   },
   "FollowEmail": {

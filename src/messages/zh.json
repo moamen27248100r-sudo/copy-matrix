@@ -1082,7 +1082,8 @@
       "announcementFailed": "公告发送失败。",
       "settingsSaveFailed": "无法保存设置。",
       "endRoleFailed": "无法结束您的角色。",
-      "endRoleHasOpenTrades": "请先平掉所有未平仓交易。"
+      "endRoleHasOpenTrades": "请先平掉所有未平仓交易。",
+      "orderLevelsInvalid": "买入时止损须低于价格、止盈须高于价格；卖出时相反。"
     }
   },
   "FollowEmail": {

@@ -1082,7 +1082,8 @@
       "announcementFailed": "घोषणा नहीं भेजी जा सकी।",
       "settingsSaveFailed": "सेटिंग्स सहेजी नहीं जा सकीं।",
       "endRoleFailed": "आपकी भूमिका समाप्त नहीं की जा सकी।",
-      "endRoleHasOpenTrades": "पहले अपने सभी खुले ट्रेड बंद करें।"
+      "endRoleHasOpenTrades": "पहले अपने सभी खुले ट्रेड बंद करें।",
+      "orderLevelsInvalid": "खरीद में स्टॉप लॉस कीमत से नीचे और टेक प्रॉफिट ऊपर होना चाहिए; बिक्री में इसका उल्टा।"
     }
   },
   "FollowEmail": {

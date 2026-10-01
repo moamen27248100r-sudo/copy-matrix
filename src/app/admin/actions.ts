@@ -654,8 +654,12 @@ export async function editClosedClientPosition(formData: FormData) {
 
   const side = Array.isArray(position!.signals) ? position!.signals[0]?.side : position!.signals?.side;
   const sign = side === "sell" ? -1 : 1;
+  // Rounded to cents exactly like trade_position_pnl(), which the
+  // simulated_positions guard stores — so the balance delta matches it.
   const newPnl =
-    ((newExitPrice - Number(position!.entry_price)) / Number(position!.entry_price)) * Number(position!.size) * sign;
+    Math.round(
+      ((newExitPrice - Number(position!.entry_price)) / Number(position!.entry_price)) * Number(position!.size) * sign * 100,
+    ) / 100;
   const delta = newPnl - Number(position!.pnl ?? 0);
 
   const { error: posError } = await supabase

@@ -1082,7 +1082,8 @@
       "announcementFailed": "ঘোষণা পাঠানো যায়নি।",
       "settingsSaveFailed": "সেটিংস সংরক্ষণ করা যায়নি।",
       "endRoleFailed": "আপনার ভূমিকা শেষ করা যায়নি।",
-      "endRoleHasOpenTrades": "আগে আপনার সব খোলা ট্রেড বন্ধ করুন।"
+      "endRoleHasOpenTrades": "আগে আপনার সব খোলা ট্রেড বন্ধ করুন।",
+      "orderLevelsInvalid": "কেনার ক্ষেত্রে স্টপ লস দামের নিচে ও টেক প্রফিট উপরে থাকতে হবে; বিক্রিতে উল্টো।"
     }
   },
   "FollowEmail": {
