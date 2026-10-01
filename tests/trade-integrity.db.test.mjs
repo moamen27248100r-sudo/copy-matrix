@@ -172,13 +172,26 @@ test("copied position: result is derived from side + prices", async () => {
   assert.equal(Number(rows[0].pnl), -10); // sell, price rose 1% on $1000
 });
 
+test("hidden can't be self-set and total_profit follows visible trades (0218)", async () => {
+  const before = Number((await db.query("select total_profit from public.providers where id = $1", [providerId])).rows[0].total_profit);
+  const { rows } = await db.query(
+    `insert into public.signals (provider_id, symbol, side, entry_price, status, opened_at, lot_size, hidden)
+     values ($1, 'XAUUSD', 'buy', 4001, 'open', now() - interval '1 hour', 1, true) returning id, hidden`,
+    [providerId],
+  );
+  assert.equal(rows[0].hidden, false);
+  await closeTrade(rows[0].id, 4011); // +100 pips x $10 x 1 lot
+  const after = Number((await db.query("select total_profit from public.providers where id = $1", [providerId])).rows[0].total_profit);
+  assert.equal(Math.round((after - before) * 100) / 100, 1000);
+});
+
 test("live engine run writes only consistent trades", async () => {
   await db.query("select public.run_market_simulation()");
   const { rows } = await db.query(
-    `select count(*)::int as n from public.trade_integrity_issues() i
+    `select i.detail, s.id from public.trade_integrity_issues() i
      join public.signals s on s.id = i.row_id
      where not i.flagged and not s.created_by_admin
        and (s.closed_at >= now() or s.opened_at >= now() - interval '1 second')`,
   );
-  assert.equal(rows[0].n, 0);
+  assert.deepEqual(rows, []);
 });
