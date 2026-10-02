@@ -2318,6 +2318,7 @@
     "errTooManyAttempts": "Trop de tentatives. Veuillez patienter quelques minutes puis réessayer.",
     "errAlreadyEnabled": "L’authentification à deux facteurs est déjà activée.",
     "errNotEnabled": "L’authentification à deux facteurs n’est pas activée sur ce compte.",
-    "errGeneric": "Une erreur s’est produite. Veuillez réessayer."
+    "errGeneric": "Une erreur s’est produite. Veuillez réessayer.",
+    "impersonationRequires2fa": "Pour consulter le compte d’un client, activez d’abord l’authentification à deux facteurs sur votre propre compte administrateur (Compte → Sécurité) et connectez-vous avec."
   }
 }

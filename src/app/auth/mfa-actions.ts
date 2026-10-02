@@ -2,11 +2,14 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import type { AuthError, SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { safeNextPath } from "@/lib/safe-next";
+import { MFA_PENDING_LOGIN_COOKIE } from "@/lib/mfa";
+import { getRequestIpAndCountry } from "@/lib/request-ip";
 
 // Two-factor authentication via Supabase Auth's built-in TOTP MFA. Supabase
 // generates the secret, checks every code and stamps aal2 on the session;
@@ -79,6 +82,13 @@ export async function verifyMfaLogin(_prev: MfaFormState, formData: FormData): P
 
   const { error } = await supabase.auth.mfa.challengeAndVerify({ factorId, code });
   if (error) return { error: t(verifyErrorKey(error)) };
+
+  const cookieStore = await cookies();
+  if (cookieStore.has(MFA_PENDING_LOGIN_COOKIE)) {
+    cookieStore.delete(MFA_PENDING_LOGIN_COOKIE);
+    const { ip, country } = await getRequestIpAndCountry();
+    await supabase.rpc("record_login", { p_ip: ip, p_country: country });
+  }
 
   redirect(next ?? "/dashboard");
 }

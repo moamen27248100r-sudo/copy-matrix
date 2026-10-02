@@ -2318,6 +2318,7 @@
     "errTooManyAttempts": "尝试次数过多，请等待几分钟后再试。",
     "errAlreadyEnabled": "双重验证已启用。",
     "errNotEnabled": "此账户未启用双重验证。",
-    "errGeneric": "出现问题，请重试。"
+    "errGeneric": "出现问题，请重试。",
+    "impersonationRequires2fa": "如需查看客户账户，请先为您自己的管理员账户启用双重验证（账户 → 安全），并使用双重验证登录。"
   }
 }

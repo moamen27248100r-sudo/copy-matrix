@@ -2318,6 +2318,7 @@
     "errTooManyAttempts": "Demasiados intentos. Espera unos minutos e inténtalo de nuevo.",
     "errAlreadyEnabled": "La autenticación de dos factores ya está activada.",
     "errNotEnabled": "La autenticación de dos factores no está activada en esta cuenta.",
-    "errGeneric": "Algo salió mal. Inténtalo de nuevo."
+    "errGeneric": "Algo salió mal. Inténtalo de nuevo.",
+    "impersonationRequires2fa": "Para ver la cuenta de un cliente, primero activa la autenticación de dos factores en tu propia cuenta de administrador (Cuenta → Seguridad) e inicia sesión con ella."
   }
 }

@@ -2317,6 +2317,7 @@
     "errTooManyAttempts": "Majaribio mengi mno. Tafadhali subiri dakika chache kisha ujaribu tena.",
     "errAlreadyEnabled": "Uthibitishaji wa hatua mbili tayari umewashwa.",
     "errNotEnabled": "Uthibitishaji wa hatua mbili haujawashwa kwenye akaunti hii.",
-    "errGeneric": "Hitilafu imetokea. Tafadhali jaribu tena."
+    "errGeneric": "Hitilafu imetokea. Tafadhali jaribu tena.",
+    "impersonationRequires2fa": "Ili kuona akaunti ya mteja, kwanza washa uthibitishaji wa hatua mbili kwenye akaunti yako ya msimamizi (Akaunti → Usalama) kisha uingie ukitumia."
   }
 }

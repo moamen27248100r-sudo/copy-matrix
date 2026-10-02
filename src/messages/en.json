@@ -2321,6 +2321,7 @@
     "errTooManyAttempts": "Too many attempts. Please wait a few minutes and try again.",
     "errAlreadyEnabled": "Two-factor authentication is already on.",
     "errNotEnabled": "Two-factor authentication isn’t on for this account.",
-    "errGeneric": "Something went wrong. Please try again."
+    "errGeneric": "Something went wrong. Please try again.",
+    "impersonationRequires2fa": "To view a customer’s account, first enable two-factor authentication on your own admin account (Account → Security) and sign in with it."
   }
 }

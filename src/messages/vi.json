@@ -2317,6 +2317,7 @@
     "errTooManyAttempts": "Quá nhiều lần thử. Vui lòng đợi vài phút rồi thử lại.",
     "errAlreadyEnabled": "Xác thực hai yếu tố đã được bật.",
     "errNotEnabled": "Tài khoản này chưa bật xác thực hai yếu tố.",
-    "errGeneric": "Đã xảy ra lỗi. Vui lòng thử lại."
+    "errGeneric": "Đã xảy ra lỗi. Vui lòng thử lại.",
+    "impersonationRequires2fa": "Để xem tài khoản của khách hàng, trước tiên hãy bật xác thực hai yếu tố cho tài khoản quản trị của bạn (Tài khoản → Bảo mật) và đăng nhập bằng nó."
   }
 }

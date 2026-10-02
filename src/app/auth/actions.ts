@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -10,19 +10,8 @@ import { checkRateLimit } from "@/lib/rate-limit";
 import { isValidEmailFormat, isValidPhoneForCountry, stripTrunkZero } from "@/lib/validate-signup";
 import { domainCanReceiveEmail, likelyTypoOfKnownProvider } from "@/lib/email-domain-check";
 import { safeNextPath } from "@/lib/safe-next";
-import { getPendingMfa, MFA_CHALLENGE_PATH } from "@/lib/mfa";
-
-// Vercel sets both of these at the edge on every request that reaches the
-// app through its network -- x-forwarded-for can carry a proxy chain, so
-// only the first (client-nearest) address is the real one; x-vercel-ip-country
-// needs no third-party GeoIP call. Both are absent in local dev.
-async function getRequestIpAndCountry() {
-  const headersList = await headers();
-  const forwardedFor = headersList.get("x-forwarded-for");
-  const ip = forwardedFor ? forwardedFor.split(",")[0].trim() : null;
-  const country = headersList.get("x-vercel-ip-country");
-  return { ip: ip || null, country: country || null };
-}
+import { getPendingMfa, MFA_CHALLENGE_PATH, MFA_PENDING_LOGIN_COOKIE } from "@/lib/mfa";
+import { getRequestIpAndCountry } from "@/lib/request-ip";
 
 async function getSiteUrl() {
   if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
@@ -53,14 +42,17 @@ export async function login(formData: FormData) {
     redirect(`/login?error=${encodeURIComponent(translateAuthError(error.message, ta))}${nextParam}`);
   }
 
-  const { ip, country } = await getRequestIpAndCountry();
-  await supabase.rpc("record_login", { p_ip: ip, p_country: country });
-
   // 2FA on: the password only gets an aal1 session -- the proxy holds every
   // page until the authenticator code on /login/mfa steps it up to aal2.
+  // record_login writes the profile, which RLS only allows at aal2 for these
+  // accounts, so verifyMfaLogin records the login once the code is accepted.
   if ((await getPendingMfa(supabase, data.user)).pending) {
+    (await cookies()).set(MFA_PENDING_LOGIN_COOKIE, "1", { httpOnly: true, path: "/", maxAge: 600, sameSite: "lax" });
     redirect(next ? `${MFA_CHALLENGE_PATH}?next=${encodeURIComponent(next)}` : MFA_CHALLENGE_PATH);
   }
+
+  const { ip, country } = await getRequestIpAndCountry();
+  await supabase.rpc("record_login", { p_ip: ip, p_country: country });
 
   redirect(next ?? "/dashboard");
 }

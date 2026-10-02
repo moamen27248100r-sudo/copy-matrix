@@ -3,11 +3,11 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import { getTranslations } from "next-intl/server";
 import { defaultAvatarUrl } from "@/lib/avatar-url";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { IMPERSONATION_COOKIE } from "@/lib/impersonation";
-import { IMPERSONATION_MFA_COOKIE, impersonationMfaSignature } from "@/lib/impersonation-mfa";
 import { decodeJwtClaims } from "@/lib/mfa";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { computeLotSize } from "@/lib/pip-specs";
@@ -209,6 +209,13 @@ export async function impersonateUser(formData: FormData) {
 
   if (!adminSession) redirect("/admin/login");
 
+  // Viewing someone else's account is only allowed from an admin session
+  // that itself passed 2FA (aal2) -- an admin without 2FA must enable it first.
+  if (decodeJwtClaims(adminSession.access_token)?.aal !== "aal2") {
+    const t = await getTranslations("TwoFactor");
+    redirect(`/admin/users/${targetId}?error=` + encodeURIComponent(t("impersonationRequires2fa")));
+  }
+
   // Logged while auth.uid() is still the admin, matching
   // admin_audit_log's insert policy (admin_id = auth.uid() AND is_admin).
   await logAdminAction(supabase, adminId, "impersonate_start", "user", targetId, {
@@ -245,15 +252,17 @@ export async function impersonateUser(formData: FormData) {
     { httpOnly: true, path: "/", maxAge: 60 * 60 * 4, sameSite: "lax" },
   );
 
-  // Lets this one magic-link session past the proxy's 2FA gate when the
-  // customer has 2FA on (see lib/impersonation-mfa.ts).
+  // The magic-link session is only aal1. Registering it (service role only)
+  // lets it past the 2FA rule in both the proxy and the database's RLS
+  // (session_mfa_ok, migration 0224) when the customer has 2FA on.
   const sessionId = verifyData.session ? decodeJwtClaims(verifyData.session.access_token)?.session_id : null;
   if (typeof sessionId === "string") {
-    cookieStore.set(IMPERSONATION_MFA_COOKIE, await impersonationMfaSignature(targetId, sessionId), {
-      httpOnly: true,
-      path: "/",
-      maxAge: 60 * 60 * 4,
-      sameSite: "lax",
+    await adminClient.from("impersonation_sessions").delete().lt("expires_at", new Date().toISOString());
+    await adminClient.from("impersonation_sessions").insert({
+      session_id: sessionId,
+      user_id: targetId,
+      admin_id: adminId,
+      expires_at: new Date(Date.now() + 4 * 60 * 60 * 1000).toISOString(),
     });
   }
 
@@ -268,9 +277,15 @@ export async function returnToAdmin() {
 
   const { access_token, refresh_token } = JSON.parse(raw) as { access_token: string; refresh_token: string };
   const supabase = await createClient();
+  const {
+    data: { session: impersonatedSession },
+  } = await supabase.auth.getSession();
+  const impersonatedSessionId = impersonatedSession ? decodeJwtClaims(impersonatedSession.access_token)?.session_id : null;
+  if (typeof impersonatedSessionId === "string") {
+    await createAdminClient().from("impersonation_sessions").delete().eq("session_id", impersonatedSessionId);
+  }
   await supabase.auth.setSession({ access_token, refresh_token });
   cookieStore.delete(IMPERSONATION_COOKIE);
-  cookieStore.delete(IMPERSONATION_MFA_COOKIE);
 
   redirect("/admin/users");
 }

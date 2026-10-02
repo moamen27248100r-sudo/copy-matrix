@@ -2317,6 +2317,7 @@
     "errTooManyAttempts": "Terlalu banyak percobaan. Silakan tunggu beberapa menit lalu coba lagi.",
     "errAlreadyEnabled": "Autentikasi dua faktor sudah aktif.",
     "errNotEnabled": "Autentikasi dua faktor tidak aktif di akun ini.",
-    "errGeneric": "Terjadi kesalahan. Silakan coba lagi."
+    "errGeneric": "Terjadi kesalahan. Silakan coba lagi.",
+    "impersonationRequires2fa": "Untuk melihat akun pelanggan, aktifkan dulu autentikasi dua faktor di akun admin Anda sendiri (Akun → Keamanan) lalu masuk dengannya."
   }
 }

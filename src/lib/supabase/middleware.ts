@@ -1,7 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { getPendingMfa, MFA_CHALLENGE_PATH } from "@/lib/mfa";
-import { IMPERSONATION_MFA_COOKIE, impersonationMfaSignature } from "@/lib/impersonation-mfa";
 
 // Paths a signed-in user who still owes their 2FA code may reach: the
 // challenge page itself (its form + sign-out post back to it), the Supabase
@@ -72,12 +71,13 @@ export async function updateSession(request: NextRequest) {
   // session (aal1) can't reach anything but the code prompt until Supabase
   // has stepped it up to aal2.
   if (user && !isMfaExempt(request.nextUrl.pathname)) {
-    const { pending, sessionId } = await getPendingMfa(supabase, user);
-    const impersonationMac = request.cookies.get(IMPERSONATION_MFA_COOKIE)?.value;
-    const impersonating =
-      pending && !!impersonationMac && !!sessionId && impersonationMac === (await impersonationMfaSignature(user.id, sessionId));
+    const { pending } = await getPendingMfa(supabase, user);
+    // An admin "view as user" session is magic-link aal1; the database's own
+    // rule (session_mfa_ok, migration 0224) knows which of those were
+    // started by an aal2 admin. Only asked on this rare path.
+    const allowed = pending && (await supabase.rpc("session_mfa_ok")).data === true;
 
-    if (pending && !impersonating) {
+    if (pending && !allowed) {
       const blocked = request.nextUrl.pathname.startsWith("/api/")
         ? NextResponse.json({ error: "mfa_required" }, { status: 401 })
         : NextResponse.redirect(mfaRedirectUrl(request));
