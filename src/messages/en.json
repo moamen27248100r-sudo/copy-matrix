@@ -402,11 +402,9 @@
   "Portfolio": {
     "title": "My Portfolio",
     "close": "Close",
-    "successMessage": "The operation was completed successfully.",
     "tabOverview": "Overview",
     "tabPositions": "Positions",
     "tabActivity": "Activity",
-    "instantProcessingNote": "Deposit and withdrawal requests are processed instantly and reflected in your balance right away.",
     "pendingRequestsLabel": "Requests under review",
     "statusPending": "Under review",
     "statusApproved": "Approved",
@@ -485,7 +483,9 @@
     "proofOfPaymentHelp": "Please attach a clear transfer image to ensure your deposit is confirmed quickly",
     "confirmProofOfPayment": "Confirm and send deposit proof",
     "monthlyReportTitle": "Monthly report",
-    "monthlyReportEmpty": "No activity yet."
+    "monthlyReportEmpty": "No activity yet.",
+    "reviewProcessingNote": "Deposit and withdrawal requests are reviewed by our team. They're reflected in your balance once approved.",
+    "requestSubmittedMessage": "Your request was submitted and is pending review. Your balance will update once it's approved."
   },
   "TradeHistory": {
     "periodToday": "Today",
@@ -779,13 +779,11 @@
     "timezoneLabel": "Timezone",
     "saveTimezone": "Save timezone",
     "securityTitle": "Security",
-    "comingSoon": "Coming soon",
     "twoFactorTitle": "Two-factor authentication (2FA)",
     "twoFactorDesc": "Add a second verification step when you sign in.",
     "twoFactorEnable": "Enable 2FA",
     "sessionsTitle": "Active sessions",
     "sessionsDesc": "See the devices signed in to your account and sign them out.",
-    "sessionsSignOutOthers": "Sign out other devices",
     "riskTitle": "Risk profile",
     "riskDesc": "Answer three quick questions and we'll suggest traders that fit your risk appetite.",
     "riskCurrent": "Your profile:",
@@ -806,7 +804,8 @@
     "risk_q3_3": "More than a year",
     "riskSave": "Save risk profile",
     "twoFactorOn": "Enabled",
-    "twoFactorManage": "Manage 2FA"
+    "twoFactorManage": "Manage 2FA",
+    "sessionsManage": "Manage devices"
   },
   "Kyc": {
     "title": "Identity Verification",
@@ -1200,7 +1199,7 @@
           "add funds",
           "top up"
         ],
-        "answer": "You can deposit funds by choosing \"Deposit\" from the wallet section in the side menu, then entering the amount and payment method and confirming the request. Demo account deposits are instant with virtual funds, while real account deposits go through a brief review before being approved."
+        "answer": "You can deposit funds by choosing \"Deposit\" from the wallet section in the side menu, then entering the amount and payment method and confirming the request. All deposit requests, for demo and real accounts, are reviewed by our team and credited to your balance once approved."
       },
       {
         "id": "withdraw",

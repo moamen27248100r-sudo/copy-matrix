@@ -87,6 +87,7 @@ export default async function WithdrawPage({
       {error && (
         <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>
       )}
+      <p className="text-sm text-muted">{t("reviewProcessingNote")}</p>
       <WithdrawFlow accountType={accountType} maxAvailable={available} />
     </PageShell>
   );

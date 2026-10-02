@@ -402,11 +402,9 @@
   "Portfolio": {
     "title": "मेरा पोर्टफोलियो",
     "close": "बंद करें",
-    "successMessage": "ऑपरेशन सफलतापूर्वक पूरा हुआ।",
     "tabOverview": "अवलोकन",
     "tabPositions": "पोज़िशन",
     "tabActivity": "गतिविधि",
-    "instantProcessingNote": "जमा और निकासी अनुरोध तुरंत संसाधित होते हैं और तुरंत आपके बैलेंस में दिखाई देते हैं।",
     "pendingRequestsLabel": "समीक्षाधीन अनुरोध",
     "statusPending": "समीक्षाधीन",
     "statusApproved": "स्वीकृत",
@@ -485,7 +483,9 @@
     "proofOfPaymentHelp": "अपनी जमा राशि की जल्द पुष्टि के लिए कृपया ट्रांसफर की स्पष्ट तस्वीर संलग्न करें",
     "confirmProofOfPayment": "जमा प्रमाण की पुष्टि करें और भेजें",
     "monthlyReportTitle": "Monthly report",
-    "monthlyReportEmpty": "No activity yet."
+    "monthlyReportEmpty": "No activity yet.",
+    "reviewProcessingNote": "जमा और निकासी के अनुरोधों की समीक्षा हमारी टीम करती है। मंज़ूरी के बाद वे आपके बैलेंस में दिखाई देते हैं।",
+    "requestSubmittedMessage": "आपका अनुरोध भेज दिया गया है और समीक्षा में है। मंज़ूरी मिलने पर आपका बैलेंस अपडेट हो जाएगा।"
   },
   "TradeHistory": {
     "periodToday": "आज",
@@ -779,13 +779,11 @@
     "timezoneLabel": "Timezone",
     "saveTimezone": "Save timezone",
     "securityTitle": "Security",
-    "comingSoon": "Coming soon",
     "twoFactorTitle": "Two-factor authentication (2FA)",
     "twoFactorDesc": "Add a second verification step when you sign in.",
     "twoFactorEnable": "Enable 2FA",
     "sessionsTitle": "Active sessions",
     "sessionsDesc": "See the devices signed in to your account and sign them out.",
-    "sessionsSignOutOthers": "Sign out other devices",
     "riskTitle": "Risk profile",
     "riskDesc": "Answer three quick questions and we'll suggest traders that fit your risk appetite.",
     "riskCurrent": "Your profile:",
@@ -806,7 +804,8 @@
     "risk_q3_3": "More than a year",
     "riskSave": "Save risk profile",
     "twoFactorOn": "चालू",
-    "twoFactorManage": "2FA प्रबंधित करें"
+    "twoFactorManage": "2FA प्रबंधित करें",
+    "sessionsManage": "डिवाइस प्रबंधित करें"
   },
   "Kyc": {
     "title": "पहचान सत्यापन",
@@ -1200,7 +1199,7 @@
           "फंड जोड़ें",
           "रिचार्ज"
         ],
-        "answer": "आप साइड मेनू के वॉलेट सेक्शन से \"जमा करें\" चुनकर, राशि और भुगतान विधि दर्ज करके, और अनुरोध की पुष्टि करके धनराशि जमा कर सकते हैं। डेमो खाते में जमा तुरंत वर्चुअल फंड के साथ होती है, जबकि रियल खाते में जमा अनुमोदन से पहले संक्षिप्त समीक्षा से गुजरती है।"
+        "answer": "आप साइड मेनू के वॉलेट सेक्शन में \"जमा करें\" चुनकर, राशि और भुगतान का तरीका बताकर और अनुरोध की पुष्टि करके धनराशि जमा कर सकते हैं। डेमो और रियल दोनों खातों के सभी जमा अनुरोधों की समीक्षा हमारी टीम करती है और मंज़ूरी के बाद राशि आपके बैलेंस में जोड़ दी जाती है।"
       },
       {
         "id": "withdraw",

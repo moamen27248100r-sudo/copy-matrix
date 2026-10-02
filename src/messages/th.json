@@ -402,11 +402,9 @@
   "Portfolio": {
     "title": "พอร์ตของฉัน",
     "close": "ปิด",
-    "successMessage": "ดำเนินการสำเร็จแล้ว",
     "tabOverview": "ภาพรวม",
     "tabPositions": "โพซิชัน",
     "tabActivity": "กิจกรรม",
-    "instantProcessingNote": "คำขอฝากและถอนเงินจะได้รับการดำเนินการทันทีและแสดงผลในยอดคงเหลือของคุณทันที",
     "pendingRequestsLabel": "คำขอที่อยู่ระหว่างตรวจสอบ",
     "statusPending": "อยู่ระหว่างตรวจสอบ",
     "statusApproved": "อนุมัติแล้ว",
@@ -485,7 +483,9 @@
     "proofOfPaymentHelp": "โปรดแนบรูปภาพการโอนที่ชัดเจนเพื่อยืนยันการฝากเงินของคุณอย่างรวดเร็ว",
     "confirmProofOfPayment": "ยืนยันและส่งหลักฐานการฝากเงิน",
     "monthlyReportTitle": "Monthly report",
-    "monthlyReportEmpty": "No activity yet."
+    "monthlyReportEmpty": "No activity yet.",
+    "reviewProcessingNote": "คำขอฝากและถอนเงินจะได้รับการตรวจสอบโดยทีมงานของเรา และจะแสดงในยอดคงเหลือของคุณหลังได้รับการอนุมัติ",
+    "requestSubmittedMessage": "ส่งคำขอของคุณแล้วและอยู่ระหว่างการตรวจสอบ ยอดคงเหลือของคุณจะอัปเดตเมื่อได้รับการอนุมัติ"
   },
   "TradeHistory": {
     "periodToday": "วันนี้",
@@ -779,13 +779,11 @@
     "timezoneLabel": "Timezone",
     "saveTimezone": "Save timezone",
     "securityTitle": "Security",
-    "comingSoon": "Coming soon",
     "twoFactorTitle": "Two-factor authentication (2FA)",
     "twoFactorDesc": "Add a second verification step when you sign in.",
     "twoFactorEnable": "Enable 2FA",
     "sessionsTitle": "Active sessions",
     "sessionsDesc": "See the devices signed in to your account and sign them out.",
-    "sessionsSignOutOthers": "Sign out other devices",
     "riskTitle": "Risk profile",
     "riskDesc": "Answer three quick questions and we'll suggest traders that fit your risk appetite.",
     "riskCurrent": "Your profile:",
@@ -806,7 +804,8 @@
     "risk_q3_3": "More than a year",
     "riskSave": "Save risk profile",
     "twoFactorOn": "เปิดใช้งาน",
-    "twoFactorManage": "จัดการ 2FA"
+    "twoFactorManage": "จัดการ 2FA",
+    "sessionsManage": "จัดการอุปกรณ์"
   },
   "Kyc": {
     "title": "การยืนยันตัวตน",
@@ -1200,7 +1199,7 @@
           "เพิ่มเงิน",
           "เติมเงิน"
         ],
-        "answer": "คุณสามารถฝากเงินได้โดยเลือก \"ฝากเงิน\" ในส่วนกระเป๋าเงินของเมนูด้านข้าง จากนั้นกรอกจำนวนเงินและวิธีการชำระเงิน แล้วยืนยันคำขอ การฝากเงินในบัญชีทดลองจะได้รับทันทีด้วยเงินสมมติ ในขณะที่การฝากเงินในบัญชีจริงจะผ่านการตรวจสอบสั้นๆ ก่อนได้รับการอนุมัติ"
+        "answer": "คุณสามารถฝากเงินได้โดยเลือก \"ฝากเงิน\" ในส่วนกระเป๋าเงินของเมนูด้านข้าง จากนั้นระบุจำนวนเงินและวิธีชำระเงิน แล้วยืนยันคำขอ คำขอฝากเงินทั้งหมด ทั้งบัญชีทดลองและบัญชีจริง จะได้รับการตรวจสอบโดยทีมงานของเรา และเครดิตเข้ายอดคงเหลือของคุณหลังได้รับการอนุมัติ"
       },
       {
         "id": "withdraw",

@@ -402,11 +402,9 @@
   "Portfolio": {
     "title": "میرا پورٹ فولیو",
     "close": "بند کریں",
-    "successMessage": "آپریشن کامیابی سے مکمل ہوا۔",
     "tabOverview": "جائزہ",
     "tabPositions": "پوزیشنز",
     "tabActivity": "سرگرمی",
-    "instantProcessingNote": "جمع اور نکالنے کی درخواستیں فوری طور پر پروسیس ہوتی ہیں اور فوراً آپ کے بیلنس میں ظاہر ہوتی ہیں۔",
     "pendingRequestsLabel": "زیرِ جائزہ درخواستیں",
     "statusPending": "زیرِ جائزہ",
     "statusApproved": "منظور شدہ",
@@ -485,7 +483,9 @@
     "proofOfPaymentHelp": "اپنی ڈپازٹ کی جلد تصدیق کے لیے براہ کرم ٹرانسفر کی واضح تصویر منسلک کریں",
     "confirmProofOfPayment": "ڈپازٹ کا ثبوت تصدیق کریں اور بھیجیں",
     "monthlyReportTitle": "Monthly report",
-    "monthlyReportEmpty": "No activity yet."
+    "monthlyReportEmpty": "No activity yet.",
+    "reviewProcessingNote": "ڈپازٹ اور نکلوانے کی درخواستوں کا جائزہ ہماری ٹیم لیتی ہے۔ منظوری کے بعد یہ آپ کے بیلنس میں ظاہر ہو جاتی ہیں۔",
+    "requestSubmittedMessage": "آپ کی درخواست بھیج دی گئی ہے اور زیرِ جائزہ ہے۔ منظوری کے بعد آپ کا بیلنس اپ ڈیٹ ہو جائے گا۔"
   },
   "TradeHistory": {
     "periodToday": "آج",
@@ -779,13 +779,11 @@
     "timezoneLabel": "Timezone",
     "saveTimezone": "Save timezone",
     "securityTitle": "Security",
-    "comingSoon": "Coming soon",
     "twoFactorTitle": "Two-factor authentication (2FA)",
     "twoFactorDesc": "Add a second verification step when you sign in.",
     "twoFactorEnable": "Enable 2FA",
     "sessionsTitle": "Active sessions",
     "sessionsDesc": "See the devices signed in to your account and sign them out.",
-    "sessionsSignOutOthers": "Sign out other devices",
     "riskTitle": "Risk profile",
     "riskDesc": "Answer three quick questions and we'll suggest traders that fit your risk appetite.",
     "riskCurrent": "Your profile:",
@@ -806,7 +804,8 @@
     "risk_q3_3": "More than a year",
     "riskSave": "Save risk profile",
     "twoFactorOn": "فعال",
-    "twoFactorManage": "2FA کا انتظام کریں"
+    "twoFactorManage": "2FA کا انتظام کریں",
+    "sessionsManage": "آلات کا نظم کریں"
   },
   "Kyc": {
     "title": "شناخت کی تصدیق",
@@ -1200,7 +1199,7 @@
           "فنڈز شامل کریں",
           "ریچارج"
         ],
-        "answer": "آپ سائیڈ مینو کے والٹ سیکشن سے \"جمع کریں\" منتخب کر کے، رقم اور ادائیگی کا طریقہ درج کر کے، اور درخواست کی تصدیق کر کے رقم جمع کر سکتے ہیں۔ ڈیمو اکاؤنٹ میں جمع فوری طور پر ورچوئل فنڈز کے ساتھ ہوتی ہے، جبکہ ریئل اکاؤنٹ میں جمع منظوری سے پہلے مختصر جائزے سے گزرتی ہے۔"
+        "answer": "آپ سائیڈ مینو کے والٹ سیکشن میں \"ڈپازٹ\" منتخب کر کے، رقم اور ادائیگی کا طریقہ درج کر کے اور درخواست کی تصدیق کر کے رقم جمع کروا سکتے ہیں۔ ڈیمو اور حقیقی دونوں اکاؤنٹس کی تمام ڈپازٹ درخواستوں کا جائزہ ہماری ٹیم لیتی ہے اور منظوری کے بعد رقم آپ کے بیلنس میں شامل کر دی جاتی ہے۔"
       },
       {
         "id": "withdraw",

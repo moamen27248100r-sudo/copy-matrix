@@ -198,20 +198,13 @@ export default async function SettingsPage({
               {hasVerifiedTotp(user) ? t("twoFactorManage") : t("twoFactorEnable")}
             </Link>
           </div>
-          {(["sessions"] as const).map((k) => (
-            <div key={k} className="flex flex-col gap-2 rounded border border-border bg-background p-3">
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-sm font-medium">{t(`${k}Title`)}</span>
-                <span className="rounded-full border border-warning/40 bg-warning/10 px-2 py-0.5 text-[10px] font-semibold text-warning">
-                  {t("comingSoon")}
-                </span>
-              </div>
-              <p className="text-xs text-muted">{t(`${k}Desc`)}</p>
-              <button type="button" disabled className="cursor-not-allowed rounded border border-border px-3 py-2 text-sm opacity-50">
-                {t("sessionsSignOutOthers")}
-              </button>
-            </div>
-          ))}
+          <div className="flex flex-col gap-2 rounded border border-border bg-background p-3">
+            <span className="text-sm font-medium">{t("sessionsTitle")}</span>
+            <p className="text-xs text-muted">{t("sessionsDesc")}</p>
+            <Link href="/account/sessions" className="rounded border border-border px-3 py-2 text-center text-sm transition hover:bg-white/5">
+              {t("sessionsManage")}
+            </Link>
+          </div>
         </section>
       </main>
     </>

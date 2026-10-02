@@ -402,11 +402,9 @@
   "Portfolio": {
     "title": "Mon portefeuille",
     "close": "Fermer",
-    "successMessage": "L'opération a été effectuée avec succès.",
     "tabOverview": "Aperçu",
     "tabPositions": "Positions",
     "tabActivity": "Activité",
-    "instantProcessingNote": "Les demandes de dépôt et de retrait sont traitées instantanément et se reflètent immédiatement sur votre solde.",
     "pendingRequestsLabel": "Demandes en cours d'examen",
     "statusPending": "En cours d'examen",
     "statusApproved": "Approuvée",
@@ -485,7 +483,9 @@
     "proofOfPaymentHelp": "Veuillez joindre une image claire du virement pour confirmer rapidement votre dépôt",
     "confirmProofOfPayment": "Confirmer et envoyer la preuve de dépôt",
     "monthlyReportTitle": "Monthly report",
-    "monthlyReportEmpty": "No activity yet."
+    "monthlyReportEmpty": "No activity yet.",
+    "reviewProcessingNote": "Les demandes de dépôt et de retrait sont examinées par notre équipe. Elles apparaissent dans votre solde une fois approuvées.",
+    "requestSubmittedMessage": "Votre demande a été envoyée et est en cours d'examen. Votre solde sera mis à jour une fois la demande approuvée."
   },
   "TradeHistory": {
     "periodToday": "Aujourd'hui",
@@ -779,13 +779,11 @@
     "timezoneLabel": "Timezone",
     "saveTimezone": "Save timezone",
     "securityTitle": "Security",
-    "comingSoon": "Coming soon",
     "twoFactorTitle": "Two-factor authentication (2FA)",
     "twoFactorDesc": "Add a second verification step when you sign in.",
     "twoFactorEnable": "Enable 2FA",
     "sessionsTitle": "Active sessions",
     "sessionsDesc": "See the devices signed in to your account and sign them out.",
-    "sessionsSignOutOthers": "Sign out other devices",
     "riskTitle": "Risk profile",
     "riskDesc": "Answer three quick questions and we'll suggest traders that fit your risk appetite.",
     "riskCurrent": "Your profile:",
@@ -806,7 +804,8 @@
     "risk_q3_3": "More than a year",
     "riskSave": "Save risk profile",
     "twoFactorOn": "Activée",
-    "twoFactorManage": "Gérer la 2FA"
+    "twoFactorManage": "Gérer la 2FA",
+    "sessionsManage": "Gérer les appareils"
   },
   "Kyc": {
     "title": "Vérification d'identité",
@@ -1200,7 +1199,7 @@
           "ajouter des fonds",
           "recharger"
         ],
-        "answer": "Vous pouvez déposer des fonds en choisissant « Dépôt » dans la section portefeuille du menu latéral, puis en indiquant le montant et le mode de paiement et en confirmant la demande. Les dépôts sur compte démo sont instantanés avec des fonds virtuels, tandis que les dépôts sur compte réel font l'objet d'une brève vérification avant approbation."
+        "answer": "Vous pouvez déposer des fonds en choisissant « Dépôt » dans la section portefeuille du menu latéral, puis en indiquant le montant et le mode de paiement et en confirmant la demande. Toutes les demandes de dépôt, sur compte démo comme sur compte réel, sont examinées par notre équipe et créditées sur votre solde une fois approuvées."
       },
       {
         "id": "withdraw",

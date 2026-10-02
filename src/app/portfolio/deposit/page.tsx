@@ -35,10 +35,11 @@ export default async function DepositPage() {
 
       <h1 className="text-2xl font-semibold">{t("depositTitle")}</h1>
 
+      <p className="text-sm text-muted">{t("reviewProcessingNote")}</p>
+
       {isDemo ? (
         // Demo money doesn't need a real network/address — one field, one
-        // tap, credited instantly, same simplification already made for
-        // demo withdrawals.
+        // tap. Still goes through admin review like any other deposit.
         <SimpleDepositForm />
       ) : (
         <DepositGateway />

@@ -402,11 +402,9 @@
   "Portfolio": {
     "title": "Mi cartera",
     "close": "Cerrar",
-    "successMessage": "La operación se completó correctamente.",
     "tabOverview": "Resumen",
     "tabPositions": "Posiciones",
     "tabActivity": "Actividad",
-    "instantProcessingNote": "Las solicitudes de depósito y retiro se procesan al instante y se reflejan de inmediato en tu saldo.",
     "pendingRequestsLabel": "Solicitudes en revisión",
     "statusPending": "En revisión",
     "statusApproved": "Aprobada",
@@ -485,7 +483,9 @@
     "proofOfPaymentHelp": "Adjunte una imagen clara de la transferencia para confirmar su depósito rápidamente",
     "confirmProofOfPayment": "Confirmar y enviar comprobante de depósito",
     "monthlyReportTitle": "Monthly report",
-    "monthlyReportEmpty": "No activity yet."
+    "monthlyReportEmpty": "No activity yet.",
+    "reviewProcessingNote": "Las solicitudes de depósito y retiro son revisadas por nuestro equipo y se reflejan en tu saldo una vez aprobadas.",
+    "requestSubmittedMessage": "Tu solicitud se envió y está pendiente de revisión. Tu saldo se actualizará cuando sea aprobada."
   },
   "TradeHistory": {
     "periodToday": "Hoy",
@@ -779,13 +779,11 @@
     "timezoneLabel": "Timezone",
     "saveTimezone": "Save timezone",
     "securityTitle": "Security",
-    "comingSoon": "Coming soon",
     "twoFactorTitle": "Two-factor authentication (2FA)",
     "twoFactorDesc": "Add a second verification step when you sign in.",
     "twoFactorEnable": "Enable 2FA",
     "sessionsTitle": "Active sessions",
     "sessionsDesc": "See the devices signed in to your account and sign them out.",
-    "sessionsSignOutOthers": "Sign out other devices",
     "riskTitle": "Risk profile",
     "riskDesc": "Answer three quick questions and we'll suggest traders that fit your risk appetite.",
     "riskCurrent": "Your profile:",
@@ -806,7 +804,8 @@
     "risk_q3_3": "More than a year",
     "riskSave": "Save risk profile",
     "twoFactorOn": "Activada",
-    "twoFactorManage": "Gestionar 2FA"
+    "twoFactorManage": "Gestionar 2FA",
+    "sessionsManage": "Administrar dispositivos"
   },
   "Kyc": {
     "title": "Verificación de identidad",
@@ -1200,7 +1199,7 @@
           "añadir fondos",
           "recargar"
         ],
-        "answer": "Puedes depositar fondos eligiendo «Depositar» en la sección de billetera del menú lateral, indicando el monto y método de pago, y confirmando la solicitud. Los depósitos en cuenta demo son instantáneos con fondos virtuales, mientras que los de cuenta real pasan por una breve revisión antes de aprobarse."
+        "answer": "Puedes depositar fondos eligiendo «Depositar» en la sección de billetera del menú lateral, indicando el monto y método de pago, y confirmando la solicitud. Todas las solicitudes de depósito, tanto de cuentas demo como reales, son revisadas por nuestro equipo y se acreditan en tu saldo una vez aprobadas."
       },
       {
         "id": "withdraw",

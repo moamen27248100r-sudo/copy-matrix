@@ -402,11 +402,9 @@
   "Portfolio": {
     "title": "আমার পোর্টফোলিও",
     "close": "বন্ধ করুন",
-    "successMessage": "অপারেশন সফলভাবে সম্পন্ন হয়েছে।",
     "tabOverview": "সংক্ষিপ্ত বিবরণ",
     "tabPositions": "পজিশন",
     "tabActivity": "কার্যকলাপ",
-    "instantProcessingNote": "জমা ও উত্তোলনের অনুরোধ তাৎক্ষণিকভাবে প্রক্রিয়া করা হয় এবং সাথে সাথে আপনার ব্যালেন্সে প্রতিফলিত হয়।",
     "pendingRequestsLabel": "পর্যালোচনাধীন অনুরোধ",
     "statusPending": "পর্যালোচনাধীন",
     "statusApproved": "অনুমোদিত",
@@ -485,7 +483,9 @@
     "proofOfPaymentHelp": "আপনার জমা দ্রুত নিশ্চিত করতে অনুগ্রহ করে একটি স্পষ্ট ট্রান্সফার ছবি সংযুক্ত করুন",
     "confirmProofOfPayment": "জমার প্রমাণ নিশ্চিত করুন এবং পাঠান",
     "monthlyReportTitle": "Monthly report",
-    "monthlyReportEmpty": "No activity yet."
+    "monthlyReportEmpty": "No activity yet.",
+    "reviewProcessingNote": "জমা ও উত্তোলনের অনুরোধ আমাদের টিম পর্যালোচনা করে। অনুমোদনের পর তা আপনার ব্যালেন্সে প্রতিফলিত হয়।",
+    "requestSubmittedMessage": "আপনার অনুরোধ জমা দেওয়া হয়েছে এবং পর্যালোচনাধীন। অনুমোদনের পর আপনার ব্যালেন্স আপডেট হবে।"
   },
   "TradeHistory": {
     "periodToday": "আজ",
@@ -779,13 +779,11 @@
     "timezoneLabel": "Timezone",
     "saveTimezone": "Save timezone",
     "securityTitle": "Security",
-    "comingSoon": "Coming soon",
     "twoFactorTitle": "Two-factor authentication (2FA)",
     "twoFactorDesc": "Add a second verification step when you sign in.",
     "twoFactorEnable": "Enable 2FA",
     "sessionsTitle": "Active sessions",
     "sessionsDesc": "See the devices signed in to your account and sign them out.",
-    "sessionsSignOutOthers": "Sign out other devices",
     "riskTitle": "Risk profile",
     "riskDesc": "Answer three quick questions and we'll suggest traders that fit your risk appetite.",
     "riskCurrent": "Your profile:",
@@ -806,7 +804,8 @@
     "risk_q3_3": "More than a year",
     "riskSave": "Save risk profile",
     "twoFactorOn": "চালু",
-    "twoFactorManage": "2FA পরিচালনা করুন"
+    "twoFactorManage": "2FA পরিচালনা করুন",
+    "sessionsManage": "ডিভাইস পরিচালনা করুন"
   },
   "Kyc": {
     "title": "পরিচয় যাচাইকরণ",
@@ -1200,7 +1199,7 @@
           "তহবিল যোগ করুন",
           "রিচার্জ"
         ],
-        "answer": "আপনি সাইড মেনুর ওয়ালেট বিভাগ থেকে \"জমা\" নির্বাচন করে, পরিমাণ এবং পেমেন্ট পদ্ধতি লিখে, এবং অনুরোধ নিশ্চিত করে তহবিল জমা করতে পারেন। ডেমো অ্যাকাউন্টে জমা তাৎক্ষণিকভাবে ভার্চুয়াল তহবিলের সাথে হয়, যেখানে রিয়েল অ্যাকাউন্টে জমা অনুমোদনের আগে একটি সংক্ষিপ্ত পর্যালোচনার মধ্য দিয়ে যায়।"
+        "answer": "সাইড মেনুর ওয়ালেট বিভাগে \"জমা\" নির্বাচন করে, পরিমাণ ও পেমেন্ট পদ্ধতি দিয়ে অনুরোধ নিশ্চিত করে আপনি অর্থ জমা দিতে পারেন। ডেমো ও রিয়াল উভয় অ্যাকাউন্টের সব জমার অনুরোধ আমাদের টিম পর্যালোচনা করে এবং অনুমোদনের পর অর্থ আপনার ব্যালেন্সে যোগ করা হয়।"
       },
       {
         "id": "withdraw",

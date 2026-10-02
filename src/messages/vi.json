@@ -402,11 +402,9 @@
   "Portfolio": {
     "title": "Danh mục của tôi",
     "close": "Đóng",
-    "successMessage": "Thao tác đã hoàn tất thành công.",
     "tabOverview": "Tổng quan",
     "tabPositions": "Vị thế",
     "tabActivity": "Hoạt động",
-    "instantProcessingNote": "Yêu cầu nạp và rút tiền được xử lý ngay lập tức và phản ánh ngay vào số dư của bạn.",
     "pendingRequestsLabel": "Yêu cầu đang xem xét",
     "statusPending": "Đang xem xét",
     "statusApproved": "Đã duyệt",
@@ -485,7 +483,9 @@
     "proofOfPaymentHelp": "Vui lòng đính kèm ảnh chuyển khoản rõ ràng để xác nhận khoản nạp nhanh chóng",
     "confirmProofOfPayment": "Xác nhận và gửi bằng chứng nạp tiền",
     "monthlyReportTitle": "Monthly report",
-    "monthlyReportEmpty": "No activity yet."
+    "monthlyReportEmpty": "No activity yet.",
+    "reviewProcessingNote": "Yêu cầu nạp và rút tiền được đội ngũ của chúng tôi xem xét và sẽ phản ánh vào số dư của bạn sau khi được duyệt.",
+    "requestSubmittedMessage": "Yêu cầu của bạn đã được gửi và đang chờ xem xét. Số dư của bạn sẽ được cập nhật sau khi được duyệt."
   },
   "TradeHistory": {
     "periodToday": "Hôm nay",
@@ -779,13 +779,11 @@
     "timezoneLabel": "Timezone",
     "saveTimezone": "Save timezone",
     "securityTitle": "Security",
-    "comingSoon": "Coming soon",
     "twoFactorTitle": "Two-factor authentication (2FA)",
     "twoFactorDesc": "Add a second verification step when you sign in.",
     "twoFactorEnable": "Enable 2FA",
     "sessionsTitle": "Active sessions",
     "sessionsDesc": "See the devices signed in to your account and sign them out.",
-    "sessionsSignOutOthers": "Sign out other devices",
     "riskTitle": "Risk profile",
     "riskDesc": "Answer three quick questions and we'll suggest traders that fit your risk appetite.",
     "riskCurrent": "Your profile:",
@@ -806,7 +804,8 @@
     "risk_q3_3": "More than a year",
     "riskSave": "Save risk profile",
     "twoFactorOn": "Đã bật",
-    "twoFactorManage": "Quản lý 2FA"
+    "twoFactorManage": "Quản lý 2FA",
+    "sessionsManage": "Quản lý thiết bị"
   },
   "Kyc": {
     "title": "Xác minh danh tính",
@@ -1200,7 +1199,7 @@
           "thêm tiền",
           "nạp thêm"
         ],
-        "answer": "Bạn có thể nạp tiền bằng cách chọn \"Nạp tiền\" trong phần ví ở menu bên, sau đó nhập số tiền và phương thức thanh toán rồi xác nhận yêu cầu. Nạp tiền vào tài khoản demo diễn ra ngay lập tức với tiền ảo, trong khi nạp tiền vào tài khoản thực phải qua một quá trình xem xét ngắn trước khi được duyệt."
+        "answer": "Bạn có thể nạp tiền bằng cách chọn \"Nạp tiền\" trong phần ví của menu bên, sau đó nhập số tiền và phương thức thanh toán rồi xác nhận yêu cầu. Mọi yêu cầu nạp tiền, cho cả tài khoản demo và tài khoản thật, đều được đội ngũ của chúng tôi xem xét và cộng vào số dư của bạn sau khi được duyệt."
       },
       {
         "id": "withdraw",

@@ -26,26 +26,15 @@ export async function requestDeposit(formData: FormData) {
   const network = findDepositNetwork(networkId);
   const note = network ? `الشبكة: ${network.label} — العنوان: ${network.address}` : null;
 
-  // Deposits and withdrawals are processed instantly, not held for manual
-  // admin review — insert then immediately approve in the same request, so
-  // the existing balance-crediting trigger (apply_wallet_request, fires on
-  // the pending -> approved transition) runs right away.
-  const { data: inserted, error: insertError } = await supabase
+  // Deposits stay 'pending' until an admin approves them; only then does the
+  // apply_wallet_request trigger credit the balance. Users have no way to
+  // approve their own request (0225).
+  const { error: insertError } = await supabase
     .from("wallet_requests")
-    .insert({ user_id: user.id, type: "deposit", amount, note })
-    .select("id")
-    .single();
+    .insert({ user_id: user.id, type: "deposit", amount, note });
 
-  if (insertError || !inserted) {
+  if (insertError) {
     redirect("/portfolio?error=" + encodeURIComponent(tp("depositRequestFailed")));
-  }
-
-  const { error: approveError } = await supabase.rpc("self_approve_wallet_request", {
-    p_request_id: inserted.id,
-  });
-
-  if (approveError) {
-    redirect("/portfolio?error=" + encodeURIComponent(tp("depositCompleteFailed")));
   }
 
   revalidatePath("/portfolio");
@@ -124,30 +113,12 @@ export async function requestWithdrawal(formData: FormData) {
     note = `السحب إلى: ${network.label} — العنوان: ${walletAddress}`;
   }
 
-  const { data: inserted, error: insertError } = await supabase
+  const { error: insertError } = await supabase
     .from("wallet_requests")
-    .insert({ user_id: user.id, type: "withdrawal", amount, note })
-    .select("id")
-    .single();
+    .insert({ user_id: user.id, type: "withdrawal", amount, note });
 
-  if (insertError || !inserted) {
+  if (insertError) {
     redirect("/portfolio/withdraw?error=" + encodeURIComponent(tp("withdrawRequestFailed")));
-  }
-
-  const { error: approveError } = await supabase.rpc("self_approve_wallet_request", {
-    p_request_id: inserted.id,
-  });
-
-  if (approveError) {
-    // apply_wallet_request() re-checks the same two conditions already
-    // pre-checked above (as a race-condition safety net) and raises its own
-    // Arabic-only exception message -- rather than surfacing that raw DB
-    // text (which can't follow the viewer's locale), always show our own
-    // translated fallback; the pre-checks above mean this DB-level path is
-    // only ever hit on a genuine race, not the common case.
-    redirect(
-      "/portfolio/withdraw?error=" + encodeURIComponent(tp("withdrawCompleteFailed")),
-    );
   }
 
   revalidatePath("/portfolio");

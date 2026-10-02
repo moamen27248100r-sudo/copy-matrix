@@ -402,11 +402,9 @@
   "Portfolio": {
     "title": "Portofolio Saya",
     "close": "Tutup",
-    "successMessage": "Operasi berhasil diselesaikan.",
     "tabOverview": "Ikhtisar",
     "tabPositions": "Posisi",
     "tabActivity": "Aktivitas",
-    "instantProcessingNote": "Permintaan setor dan tarik diproses secara instan dan langsung tercermin di saldo Anda.",
     "pendingRequestsLabel": "Permintaan sedang ditinjau",
     "statusPending": "Sedang ditinjau",
     "statusApproved": "Disetujui",
@@ -485,7 +483,9 @@
     "proofOfPaymentHelp": "Harap lampirkan gambar transfer yang jelas agar setoran Anda cepat dikonfirmasi",
     "confirmProofOfPayment": "Konfirmasi dan kirim bukti setoran",
     "monthlyReportTitle": "Monthly report",
-    "monthlyReportEmpty": "No activity yet."
+    "monthlyReportEmpty": "No activity yet.",
+    "reviewProcessingNote": "Permintaan setoran dan penarikan ditinjau oleh tim kami dan akan tercermin di saldo Anda setelah disetujui.",
+    "requestSubmittedMessage": "Permintaan Anda telah dikirim dan sedang ditinjau. Saldo Anda akan diperbarui setelah disetujui."
   },
   "TradeHistory": {
     "periodToday": "Hari ini",
@@ -779,13 +779,11 @@
     "timezoneLabel": "Timezone",
     "saveTimezone": "Save timezone",
     "securityTitle": "Security",
-    "comingSoon": "Coming soon",
     "twoFactorTitle": "Two-factor authentication (2FA)",
     "twoFactorDesc": "Add a second verification step when you sign in.",
     "twoFactorEnable": "Enable 2FA",
     "sessionsTitle": "Active sessions",
     "sessionsDesc": "See the devices signed in to your account and sign them out.",
-    "sessionsSignOutOthers": "Sign out other devices",
     "riskTitle": "Risk profile",
     "riskDesc": "Answer three quick questions and we'll suggest traders that fit your risk appetite.",
     "riskCurrent": "Your profile:",
@@ -806,7 +804,8 @@
     "risk_q3_3": "More than a year",
     "riskSave": "Save risk profile",
     "twoFactorOn": "Aktif",
-    "twoFactorManage": "Kelola 2FA"
+    "twoFactorManage": "Kelola 2FA",
+    "sessionsManage": "Kelola perangkat"
   },
   "Kyc": {
     "title": "Verifikasi Identitas",
@@ -1200,7 +1199,7 @@
           "tambah dana",
           "isi ulang"
         ],
-        "answer": "Anda dapat menyetor dana dengan memilih \"Setor\" dari bagian dompet di menu samping, lalu memasukkan jumlah dan metode pembayaran serta mengonfirmasi permintaan. Setoran akun demo bersifat instan dengan dana virtual, sedangkan setoran akun nyata melalui peninjauan singkat sebelum disetujui."
+        "answer": "Anda dapat menyetor dana dengan memilih \"Setor\" di bagian dompet pada menu samping, lalu memasukkan jumlah dan metode pembayaran dan mengonfirmasi permintaan. Semua permintaan setoran, baik akun demo maupun akun riil, ditinjau oleh tim kami dan dikreditkan ke saldo Anda setelah disetujui."
       },
       {
         "id": "withdraw",

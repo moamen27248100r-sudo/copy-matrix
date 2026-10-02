@@ -402,11 +402,9 @@
   "Portfolio": {
     "title": "我的资产",
     "close": "关闭",
-    "successMessage": "操作已成功完成。",
     "tabOverview": "概览",
     "tabPositions": "持仓",
     "tabActivity": "动态",
-    "instantProcessingNote": "存款和提款申请会即时处理，并立即反映在您的余额中。",
     "pendingRequestsLabel": "审核中的申请",
     "statusPending": "审核中",
     "statusApproved": "已批准",
@@ -485,7 +483,9 @@
     "proofOfPaymentHelp": "请上传清晰的转账截图，以便快速确认您的存款",
     "confirmProofOfPayment": "确认并发送存款凭证",
     "monthlyReportTitle": "Monthly report",
-    "monthlyReportEmpty": "No activity yet."
+    "monthlyReportEmpty": "No activity yet.",
+    "reviewProcessingNote": "充值和提现申请由我们的团队审核，批准后将反映在您的余额中。",
+    "requestSubmittedMessage": "您的申请已提交，正在审核中。批准后您的余额将更新。"
   },
   "TradeHistory": {
     "periodToday": "今天",
@@ -779,13 +779,11 @@
     "timezoneLabel": "Timezone",
     "saveTimezone": "Save timezone",
     "securityTitle": "Security",
-    "comingSoon": "Coming soon",
     "twoFactorTitle": "Two-factor authentication (2FA)",
     "twoFactorDesc": "Add a second verification step when you sign in.",
     "twoFactorEnable": "Enable 2FA",
     "sessionsTitle": "Active sessions",
     "sessionsDesc": "See the devices signed in to your account and sign them out.",
-    "sessionsSignOutOthers": "Sign out other devices",
     "riskTitle": "Risk profile",
     "riskDesc": "Answer three quick questions and we'll suggest traders that fit your risk appetite.",
     "riskCurrent": "Your profile:",
@@ -806,7 +804,8 @@
     "risk_q3_3": "More than a year",
     "riskSave": "Save risk profile",
     "twoFactorOn": "已启用",
-    "twoFactorManage": "管理双重验证"
+    "twoFactorManage": "管理双重验证",
+    "sessionsManage": "管理设备"
   },
   "Kyc": {
     "title": "身份验证",
@@ -1200,7 +1199,7 @@
           "充值",
           "添加资金"
         ],
-        "answer": "您可以在侧边菜单的钱包部分选择「存款」，输入金额和付款方式并确认请求。模拟账户存款为即时到账的虚拟资金，而真实账户存款在批准前会经过简短审核。"
+        "answer": "您可以在侧边菜单的钱包部分选择“充值”，输入金额和支付方式并确认申请。所有充值申请（无论模拟账户还是真实账户）都会由我们的团队审核，批准后金额将计入您的余额。"
       },
       {
         "id": "withdraw",

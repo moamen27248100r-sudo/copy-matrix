@@ -266,7 +266,7 @@ export default async function PortfolioPage({
             <span className="text-sm text-foreground">{td("copy")}</span>
           </Link>
         </div>
-        <p className="text-xs text-muted">{t("instantProcessingNote")}</p>
+        <p className="text-xs text-muted">{t("reviewProcessingNote")}</p>
 
         {pendingRequests.length > 0 && (
           <div className="flex flex-col gap-2">
@@ -524,7 +524,7 @@ export default async function PortfolioPage({
             className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success"
             clearParams={["success"]}
           >
-            {t("successMessage")}
+            {t("requestSubmittedMessage")}
           </AutoDismissMessage>
         )}
 

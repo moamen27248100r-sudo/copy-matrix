@@ -402,11 +402,9 @@
   "Portfolio": {
     "title": "Jalada Langu",
     "close": "Funga",
-    "successMessage": "Operesheni imekamilika kwa mafanikio.",
     "tabOverview": "Muhtasari",
     "tabPositions": "Nafasi",
     "tabActivity": "Shughuli",
-    "instantProcessingNote": "Maombi ya kuweka na kutoa pesa yanachakatwa papo hapo na kuonekana kwenye salio lako mara moja.",
     "pendingRequestsLabel": "Maombi yanayokaguliwa",
     "statusPending": "Yanakaguliwa",
     "statusApproved": "Yameidhinishwa",
@@ -485,7 +483,9 @@
     "proofOfPaymentHelp": "Tafadhali ambatanisha picha wazi ya uhamisho ili amana yako ithibitishwe haraka",
     "confirmProofOfPayment": "Thibitisha na tuma uthibitisho wa amana",
     "monthlyReportTitle": "Monthly report",
-    "monthlyReportEmpty": "No activity yet."
+    "monthlyReportEmpty": "No activity yet.",
+    "reviewProcessingNote": "Maombi ya kuweka na kutoa pesa hukaguliwa na timu yetu na huonekana kwenye salio lako baada ya kuidhinishwa.",
+    "requestSubmittedMessage": "Ombi lako limetumwa na linakaguliwa. Salio lako litasasishwa litakapoidhinishwa."
   },
   "TradeHistory": {
     "periodToday": "Leo",
@@ -779,13 +779,11 @@
     "timezoneLabel": "Timezone",
     "saveTimezone": "Save timezone",
     "securityTitle": "Security",
-    "comingSoon": "Coming soon",
     "twoFactorTitle": "Two-factor authentication (2FA)",
     "twoFactorDesc": "Add a second verification step when you sign in.",
     "twoFactorEnable": "Enable 2FA",
     "sessionsTitle": "Active sessions",
     "sessionsDesc": "See the devices signed in to your account and sign them out.",
-    "sessionsSignOutOthers": "Sign out other devices",
     "riskTitle": "Risk profile",
     "riskDesc": "Answer three quick questions and we'll suggest traders that fit your risk appetite.",
     "riskCurrent": "Your profile:",
@@ -806,7 +804,8 @@
     "risk_q3_3": "More than a year",
     "riskSave": "Save risk profile",
     "twoFactorOn": "Imewashwa",
-    "twoFactorManage": "Dhibiti 2FA"
+    "twoFactorManage": "Dhibiti 2FA",
+    "sessionsManage": "Simamia vifaa"
   },
   "Kyc": {
     "title": "Uthibitishaji wa Utambulisho",
@@ -1200,7 +1199,7 @@
           "ongeza fedha",
           "jaza upya"
         ],
-        "answer": "Unaweza kuweka fedha kwa kuchagua \"Weka Amana\" katika sehemu ya pochi kwenye menyu ya pembeni, kisha kuingiza kiasi na njia ya malipo na kuthibitisha ombi. Amana za akaunti ya majaribio ni za papo hapo kwa fedha za dhahania, wakati amana za akaunti halisi hupitia ukaguzi mfupi kabla ya kuidhinishwa."
+        "answer": "Unaweza kuweka pesa kwa kuchagua \"Weka pesa\" katika sehemu ya pochi kwenye menyu ya pembeni, kisha kuingiza kiasi na njia ya malipo na kuthibitisha ombi. Maombi yote ya kuweka pesa, kwa akaunti ya majaribio na halisi, hukaguliwa na timu yetu na kiasi huongezwa kwenye salio lako baada ya kuidhinishwa."
       },
       {
         "id": "withdraw",
