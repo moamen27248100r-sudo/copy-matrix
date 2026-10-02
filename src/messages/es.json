@@ -804,7 +804,9 @@
     "risk_q3_1": "Less than 3 months",
     "risk_q3_2": "3 to 12 months",
     "risk_q3_3": "More than a year",
-    "riskSave": "Save risk profile"
+    "riskSave": "Save risk profile",
+    "twoFactorOn": "Activada",
+    "twoFactorManage": "Gestionar 2FA"
   },
   "Kyc": {
     "title": "Verificación de identidad",
@@ -2260,8 +2262,6 @@
   "AccountSecurityPage": {
     "title": "Seguridad",
     "subtitle": "Protege tu cuenta y gestiona dónde has iniciado sesión.",
-    "twoFactorTitle": "Autenticación de dos factores",
-    "comingSoon": "Próximamente",
     "changePassword": "Cambiar contraseña",
     "devices": "Dispositivos y sesiones activas"
   },
@@ -2281,5 +2281,43 @@
     "forexDailyNoDate": "Tasa diaria",
     "lots": "{lots} lote",
     "entryLabel": "Entrada"
+  },
+  "TwoFactor": {
+    "title": "Autenticación de dos factores",
+    "statusOn": "Activada",
+    "statusOff": "Desactivada",
+    "descOff": "Añade un segundo paso al iniciar sesión: un código de 6 dígitos de una app de autenticación como Google Authenticator o Microsoft Authenticator, además de tu contraseña.",
+    "descOn": "Cada inicio de sesión requiere tu contraseña y un código de 6 dígitos de tu app de autenticación.",
+    "enable": "Activar la autenticación de dos factores",
+    "preparing": "Preparando…",
+    "stepScan": "Escanea este código QR con tu app de autenticación.",
+    "qrAlt": "Código QR para tu app de autenticación",
+    "openInApp": "Abrir en la app de autenticación",
+    "stepManual": "¿No puedes escanearlo? Introduce esta clave manualmente en la app:",
+    "copyKey": "Copiar clave",
+    "copied": "Copiado",
+    "stepConfirm": "Introduce el código de 6 dígitos que muestra la app para terminar.",
+    "codeLabel": "Código de 6 dígitos",
+    "confirmEnable": "Confirmar y activar",
+    "verifying": "Verificando…",
+    "cancel": "Cancelar",
+    "enabledSuccess": "La autenticación de dos factores está activada.",
+    "disable": "Desactivar la autenticación de dos factores",
+    "disablePrompt": "Introduce un código actual de tu app de autenticación para desactivar la autenticación de dos factores.",
+    "confirmDisable": "Confirmar y desactivar",
+    "disabledSuccess": "Se ha desactivado la autenticación de dos factores.",
+    "challengeTitle": "Verificación en dos pasos",
+    "challengeSubtitle": "Introduce el código de 6 dígitos de tu app de autenticación para terminar de iniciar sesión.",
+    "verify": "Verificar",
+    "lostDevice": "¿Perdiste el acceso a tu app de autenticación? Contacta con soporte para recuperar tu cuenta.",
+    "useDifferentAccount": "Cerrar sesión y usar otra cuenta",
+    "errCodeFormat": "Introduce el código de 6 dígitos de tu app.",
+    "errCodeInvalid": "El código es incorrecto o ha caducado. Los códigos cambian cada 30 segundos: introduce el que muestra la app ahora.",
+    "errChallengeExpired": "La solicitud de verificación caducó. Inténtalo de nuevo.",
+    "errEnrollmentExpired": "Esta sesión de configuración caducó. Cancela y empieza de nuevo.",
+    "errTooManyAttempts": "Demasiados intentos. Espera unos minutos e inténtalo de nuevo.",
+    "errAlreadyEnabled": "La autenticación de dos factores ya está activada.",
+    "errNotEnabled": "La autenticación de dos factores no está activada en esta cuenta.",
+    "errGeneric": "Algo salió mal. Inténtalo de nuevo."
   }
 }

@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { getPendingMfa, MFA_CHALLENGE_PATH } from "@/lib/mfa";
 
 const RATE_LIMIT_MESSAGE = "محاولات كثيرة جدًا. يرجى الانتظار قليلًا قبل إعادة المحاولة.";
 const DENIED_MESSAGE = "هذا الحساب لا يملك صلاحية الوصول إلى لوحة الإدارة.";
@@ -33,6 +34,10 @@ export async function adminLogin(formData: FormData) {
   if (!profile?.is_admin) {
     await supabase.auth.signOut();
     redirect(`/admin/login?error=${encodeURIComponent(DENIED_MESSAGE)}`);
+  }
+
+  if ((await getPendingMfa(supabase, data.user)).pending) {
+    redirect(`${MFA_CHALLENGE_PATH}?next=${encodeURIComponent("/admin")}`);
   }
 
   redirect("/admin");

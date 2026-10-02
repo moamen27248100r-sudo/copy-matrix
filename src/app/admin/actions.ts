@@ -7,6 +7,8 @@ import { defaultAvatarUrl } from "@/lib/avatar-url";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { IMPERSONATION_COOKIE } from "@/lib/impersonation";
+import { IMPERSONATION_MFA_COOKIE, impersonationMfaSignature } from "@/lib/impersonation-mfa";
+import { decodeJwtClaims } from "@/lib/mfa";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { computeLotSize } from "@/lib/pip-specs";
 
@@ -223,7 +225,7 @@ export async function impersonateUser(formData: FormData) {
     redirect(`/admin/users/${targetId}?error=` + encodeURIComponent("تعذّر الدخول كهذا المستخدم. حاول مرة أخرى."));
   }
 
-  const { error: verifyError } = await supabase.auth.verifyOtp({
+  const { data: verifyData, error: verifyError } = await supabase.auth.verifyOtp({
     type: "magiclink",
     token_hash: linkData.properties.hashed_token,
   });
@@ -243,6 +245,18 @@ export async function impersonateUser(formData: FormData) {
     { httpOnly: true, path: "/", maxAge: 60 * 60 * 4, sameSite: "lax" },
   );
 
+  // Lets this one magic-link session past the proxy's 2FA gate when the
+  // customer has 2FA on (see lib/impersonation-mfa.ts).
+  const sessionId = verifyData.session ? decodeJwtClaims(verifyData.session.access_token)?.session_id : null;
+  if (typeof sessionId === "string") {
+    cookieStore.set(IMPERSONATION_MFA_COOKIE, await impersonationMfaSignature(targetId, sessionId), {
+      httpOnly: true,
+      path: "/",
+      maxAge: 60 * 60 * 4,
+      sameSite: "lax",
+    });
+  }
+
   redirect("/dashboard");
 }
 
@@ -256,6 +270,7 @@ export async function returnToAdmin() {
   const supabase = await createClient();
   await supabase.auth.setSession({ access_token, refresh_token });
   cookieStore.delete(IMPERSONATION_COOKIE);
+  cookieStore.delete(IMPERSONATION_MFA_COOKIE);
 
   redirect("/admin/users");
 }

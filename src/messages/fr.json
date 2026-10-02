@@ -804,7 +804,9 @@
     "risk_q3_1": "Less than 3 months",
     "risk_q3_2": "3 to 12 months",
     "risk_q3_3": "More than a year",
-    "riskSave": "Save risk profile"
+    "riskSave": "Save risk profile",
+    "twoFactorOn": "Activée",
+    "twoFactorManage": "Gérer la 2FA"
   },
   "Kyc": {
     "title": "Vérification d'identité",
@@ -2260,8 +2262,6 @@
   "AccountSecurityPage": {
     "title": "Sécurité",
     "subtitle": "Protégez votre compte et gérez vos connexions.",
-    "twoFactorTitle": "Authentification à deux facteurs",
-    "comingSoon": "Bientôt",
     "changePassword": "Changer le mot de passe",
     "devices": "Appareils et sessions actives"
   },
@@ -2281,5 +2281,43 @@
     "forexDailyNoDate": "Taux quotidien",
     "lots": "{lots} lot",
     "entryLabel": "Entrée"
+  },
+  "TwoFactor": {
+    "title": "Authentification à deux facteurs",
+    "statusOn": "Activée",
+    "statusOff": "Désactivée",
+    "descOff": "Ajoutez une seconde étape à la connexion : un code à 6 chiffres issu d’une application d’authentification comme Google Authenticator ou Microsoft Authenticator, en plus de votre mot de passe.",
+    "descOn": "Chaque connexion exige votre mot de passe et un code à 6 chiffres de votre application d’authentification.",
+    "enable": "Activer l’authentification à deux facteurs",
+    "preparing": "Préparation…",
+    "stepScan": "Scannez ce QR code avec votre application d’authentification.",
+    "qrAlt": "QR code pour votre application d’authentification",
+    "openInApp": "Ouvrir dans l’application d’authentification",
+    "stepManual": "Impossible de scanner ? Saisissez cette clé manuellement dans l’application :",
+    "copyKey": "Copier la clé",
+    "copied": "Copié",
+    "stepConfirm": "Saisissez le code à 6 chiffres affiché par l’application pour terminer.",
+    "codeLabel": "Code à 6 chiffres",
+    "confirmEnable": "Confirmer et activer",
+    "verifying": "Vérification…",
+    "cancel": "Annuler",
+    "enabledSuccess": "L’authentification à deux facteurs est activée.",
+    "disable": "Désactiver l’authentification à deux facteurs",
+    "disablePrompt": "Saisissez un code actuel de votre application d’authentification pour désactiver l’authentification à deux facteurs.",
+    "confirmDisable": "Confirmer et désactiver",
+    "disabledSuccess": "L’authentification à deux facteurs a été désactivée.",
+    "challengeTitle": "Vérification en deux étapes",
+    "challengeSubtitle": "Saisissez le code à 6 chiffres de votre application d’authentification pour terminer la connexion.",
+    "verify": "Vérifier",
+    "lostDevice": "Vous n’avez plus accès à votre application d’authentification ? Contactez notre support pour récupérer votre compte.",
+    "useDifferentAccount": "Se déconnecter et utiliser un autre compte",
+    "errCodeFormat": "Saisissez le code à 6 chiffres de votre application.",
+    "errCodeInvalid": "Ce code est incorrect ou a expiré. Les codes changent toutes les 30 secondes — saisissez celui affiché maintenant.",
+    "errChallengeExpired": "La demande de vérification a expiré. Veuillez réessayer.",
+    "errEnrollmentExpired": "Cette session de configuration a expiré. Annulez et recommencez.",
+    "errTooManyAttempts": "Trop de tentatives. Veuillez patienter quelques minutes puis réessayer.",
+    "errAlreadyEnabled": "L’authentification à deux facteurs est déjà activée.",
+    "errNotEnabled": "L’authentification à deux facteurs n’est pas activée sur ce compte.",
+    "errGeneric": "Une erreur s’est produite. Veuillez réessayer."
   }
 }

@@ -10,6 +10,7 @@ import { checkRateLimit } from "@/lib/rate-limit";
 import { isValidEmailFormat, isValidPhoneForCountry, stripTrunkZero } from "@/lib/validate-signup";
 import { domainCanReceiveEmail, likelyTypoOfKnownProvider } from "@/lib/email-domain-check";
 import { safeNextPath } from "@/lib/safe-next";
+import { getPendingMfa, MFA_CHALLENGE_PATH } from "@/lib/mfa";
 
 // Vercel sets both of these at the edge on every request that reaches the
 // app through its network -- x-forwarded-for can carry a proxy chain, so
@@ -43,7 +44,7 @@ export async function login(formData: FormData) {
 
   const supabase = await createClient();
 
-  const { error } = await supabase.auth.signInWithPassword({
+  const { data, error } = await supabase.auth.signInWithPassword({
     email: formData.get("email") as string,
     password: formData.get("password") as string,
   });
@@ -54,6 +55,12 @@ export async function login(formData: FormData) {
 
   const { ip, country } = await getRequestIpAndCountry();
   await supabase.rpc("record_login", { p_ip: ip, p_country: country });
+
+  // 2FA on: the password only gets an aal1 session -- the proxy holds every
+  // page until the authenticator code on /login/mfa steps it up to aal2.
+  if ((await getPendingMfa(supabase, data.user)).pending) {
+    redirect(next ? `${MFA_CHALLENGE_PATH}?next=${encodeURIComponent(next)}` : MFA_CHALLENGE_PATH);
+  }
 
   redirect(next ?? "/dashboard");
 }

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -8,6 +9,7 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { RiskQuestionnaire } from "@/components/RiskQuestionnaire";
 import { setTimezone } from "@/app/actions/locale";
 import type { Locale } from "@/i18n/locales";
+import { hasVerifiedTotp } from "@/lib/mfa";
 
 const TIMEZONES = [
   "UTC", "Africa/Cairo", "Africa/Lagos", "Africa/Nairobi", "Asia/Riyadh", "Asia/Dubai", "Asia/Karachi",
@@ -182,7 +184,21 @@ export default async function SettingsPage({
 
         <section className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
           <h2 className="font-medium">{t("securityTitle")}</h2>
-          {(["twoFactor", "sessions"] as const).map((k) => (
+          <div className="flex flex-col gap-2 rounded border border-border bg-background p-3">
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-sm font-medium">{t("twoFactorTitle")}</span>
+              {hasVerifiedTotp(user) && (
+                <span className="rounded-full border border-up/40 bg-up/10 px-2 py-0.5 text-[10px] font-semibold text-up">
+                  {t("twoFactorOn")}
+                </span>
+              )}
+            </div>
+            <p className="text-xs text-muted">{t("twoFactorDesc")}</p>
+            <Link href="/account/security" className="rounded border border-border px-3 py-2 text-center text-sm transition hover:bg-white/5">
+              {hasVerifiedTotp(user) ? t("twoFactorManage") : t("twoFactorEnable")}
+            </Link>
+          </div>
+          {(["sessions"] as const).map((k) => (
             <div key={k} className="flex flex-col gap-2 rounded border border-border bg-background p-3">
               <div className="flex items-center justify-between gap-2">
                 <span className="text-sm font-medium">{t(`${k}Title`)}</span>
@@ -192,7 +208,7 @@ export default async function SettingsPage({
               </div>
               <p className="text-xs text-muted">{t(`${k}Desc`)}</p>
               <button type="button" disabled className="cursor-not-allowed rounded border border-border px-3 py-2 text-sm opacity-50">
-                {k === "twoFactor" ? t("twoFactorEnable") : t("sessionsSignOutOthers")}
+                {t("sessionsSignOutOthers")}
               </button>
             </div>
           ))}

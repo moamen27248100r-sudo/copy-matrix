@@ -804,7 +804,9 @@
     "risk_q3_1": "Less than 3 months",
     "risk_q3_2": "3 to 12 months",
     "risk_q3_3": "More than a year",
-    "riskSave": "Save risk profile"
+    "riskSave": "Save risk profile",
+    "twoFactorOn": "Imewashwa",
+    "twoFactorManage": "Dhibiti 2FA"
   },
   "Kyc": {
     "title": "Uthibitishaji wa Utambulisho",
@@ -2259,8 +2261,6 @@
   "AccountSecurityPage": {
     "title": "Usalama",
     "subtitle": "Linda akaunti yako na udhibiti vifaa ulivyoingia.",
-    "twoFactorTitle": "Uthibitishaji wa hatua mbili",
-    "comingSoon": "Inakuja hivi karibuni",
     "changePassword": "Badilisha nenosiri",
     "devices": "Vifaa na vipindi hai"
   },
@@ -2280,5 +2280,43 @@
     "forexDailyNoDate": "Kiwango cha kila siku",
     "lots": "lot {lots}",
     "entryLabel": "Kuingia"
+  },
+  "TwoFactor": {
+    "title": "Uthibitishaji wa hatua mbili",
+    "statusOn": "Imewashwa",
+    "statusOff": "Imezimwa",
+    "descOff": "Ongeza hatua ya pili wakati wa kuingia: msimbo wa tarakimu 6 kutoka programu ya uthibitishaji kama Google Authenticator au Microsoft Authenticator, pamoja na nenosiri lako.",
+    "descOn": "Kila unapoingia unahitaji nenosiri lako na msimbo wa tarakimu 6 kutoka programu yako ya uthibitishaji.",
+    "enable": "Washa uthibitishaji wa hatua mbili",
+    "preparing": "Inaandaa…",
+    "stepScan": "Changanua msimbo huu wa QR kwa programu yako ya uthibitishaji.",
+    "qrAlt": "Msimbo wa QR kwa programu yako ya uthibitishaji",
+    "openInApp": "Fungua kwenye programu ya uthibitishaji",
+    "stepManual": "Huwezi kuchanganua? Weka ufunguo huu kwenye programu mwenyewe:",
+    "copyKey": "Nakili ufunguo",
+    "copied": "Imenakiliwa",
+    "stepConfirm": "Weka msimbo wa tarakimu 6 unaoonyeshwa na programu ili kukamilisha.",
+    "codeLabel": "Msimbo wa tarakimu 6",
+    "confirmEnable": "Thibitisha na uwashe",
+    "verifying": "Inathibitisha…",
+    "cancel": "Ghairi",
+    "enabledSuccess": "Uthibitishaji wa hatua mbili sasa umewashwa.",
+    "disable": "Zima uthibitishaji wa hatua mbili",
+    "disablePrompt": "Weka msimbo wa sasa kutoka programu yako ya uthibitishaji ili kuzima uthibitishaji wa hatua mbili.",
+    "confirmDisable": "Thibitisha na uzime",
+    "disabledSuccess": "Uthibitishaji wa hatua mbili umezimwa.",
+    "challengeTitle": "Uthibitishaji wa hatua mbili",
+    "challengeSubtitle": "Weka msimbo wa tarakimu 6 kutoka programu yako ya uthibitishaji ili kukamilisha kuingia.",
+    "verify": "Thibitisha",
+    "lostDevice": "Umepoteza ufikiaji wa programu ya uthibitishaji? Wasiliana na timu yetu ya usaidizi ili kurejesha akaunti yako.",
+    "useDifferentAccount": "Toka na utumie akaunti nyingine",
+    "errCodeFormat": "Weka msimbo wa tarakimu 6 kutoka programu yako.",
+    "errCodeInvalid": "Msimbo huu si sahihi au umeisha muda. Misimbo hubadilika kila sekunde 30 — weka unaoonyeshwa sasa kwenye programu.",
+    "errChallengeExpired": "Ombi la uthibitishaji limeisha muda. Tafadhali jaribu tena.",
+    "errEnrollmentExpired": "Kipindi hiki cha kusanidi kimeisha. Ghairi na uanze upya.",
+    "errTooManyAttempts": "Majaribio mengi mno. Tafadhali subiri dakika chache kisha ujaribu tena.",
+    "errAlreadyEnabled": "Uthibitishaji wa hatua mbili tayari umewashwa.",
+    "errNotEnabled": "Uthibitishaji wa hatua mbili haujawashwa kwenye akaunti hii.",
+    "errGeneric": "Hitilafu imetokea. Tafadhali jaribu tena."
   }
 }

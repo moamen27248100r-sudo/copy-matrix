@@ -804,7 +804,9 @@
     "risk_q3_1": "Less than 3 months",
     "risk_q3_2": "3 to 12 months",
     "risk_q3_3": "More than a year",
-    "riskSave": "Save risk profile"
+    "riskSave": "Save risk profile",
+    "twoFactorOn": "Aktif",
+    "twoFactorManage": "Kelola 2FA"
   },
   "Kyc": {
     "title": "Verifikasi Identitas",
@@ -2259,8 +2261,6 @@
   "AccountSecurityPage": {
     "title": "Keamanan",
     "subtitle": "Lindungi akun Anda dan kelola perangkat yang masuk.",
-    "twoFactorTitle": "Autentikasi dua faktor",
-    "comingSoon": "Segera hadir",
     "changePassword": "Ubah kata sandi",
     "devices": "Perangkat & sesi aktif"
   },
@@ -2280,5 +2280,43 @@
     "forexDailyNoDate": "Kurs harian",
     "lots": "{lots} lot",
     "entryLabel": "Masuk"
+  },
+  "TwoFactor": {
+    "title": "Autentikasi dua faktor",
+    "statusOn": "Aktif",
+    "statusOff": "Nonaktif",
+    "descOff": "Tambahkan langkah kedua saat masuk: kode 6 digit dari aplikasi autentikator seperti Google Authenticator atau Microsoft Authenticator, selain kata sandi Anda.",
+    "descOn": "Setiap masuk memerlukan kata sandi dan kode 6 digit dari aplikasi autentikator Anda.",
+    "enable": "Aktifkan autentikasi dua faktor",
+    "preparing": "Menyiapkan…",
+    "stepScan": "Pindai kode QR ini dengan aplikasi autentikator Anda.",
+    "qrAlt": "Kode QR untuk aplikasi autentikator Anda",
+    "openInApp": "Buka di aplikasi autentikator",
+    "stepManual": "Tidak bisa memindai? Masukkan kunci ini secara manual di aplikasi:",
+    "copyKey": "Salin kunci",
+    "copied": "Disalin",
+    "stepConfirm": "Masukkan kode 6 digit yang ditampilkan aplikasi untuk menyelesaikan.",
+    "codeLabel": "Kode 6 digit",
+    "confirmEnable": "Konfirmasi dan aktifkan",
+    "verifying": "Memverifikasi…",
+    "cancel": "Batal",
+    "enabledSuccess": "Autentikasi dua faktor kini aktif.",
+    "disable": "Nonaktifkan autentikasi dua faktor",
+    "disablePrompt": "Masukkan kode terkini dari aplikasi autentikator Anda untuk menonaktifkan autentikasi dua faktor.",
+    "confirmDisable": "Konfirmasi dan nonaktifkan",
+    "disabledSuccess": "Autentikasi dua faktor telah dinonaktifkan.",
+    "challengeTitle": "Verifikasi dua faktor",
+    "challengeSubtitle": "Masukkan kode 6 digit dari aplikasi autentikator Anda untuk menyelesaikan proses masuk.",
+    "verify": "Verifikasi",
+    "lostDevice": "Kehilangan akses ke aplikasi autentikator? Hubungi tim dukungan kami untuk memulihkan akun Anda.",
+    "useDifferentAccount": "Keluar dan gunakan akun lain",
+    "errCodeFormat": "Masukkan kode 6 digit dari aplikasi Anda.",
+    "errCodeInvalid": "Kode ini salah atau sudah kedaluwarsa. Kode berganti setiap 30 detik — masukkan kode yang tampil di aplikasi sekarang.",
+    "errChallengeExpired": "Permintaan verifikasi kedaluwarsa. Silakan coba lagi.",
+    "errEnrollmentExpired": "Sesi pengaturan ini kedaluwarsa. Batalkan dan mulai lagi.",
+    "errTooManyAttempts": "Terlalu banyak percobaan. Silakan tunggu beberapa menit lalu coba lagi.",
+    "errAlreadyEnabled": "Autentikasi dua faktor sudah aktif.",
+    "errNotEnabled": "Autentikasi dua faktor tidak aktif di akun ini.",
+    "errGeneric": "Terjadi kesalahan. Silakan coba lagi."
   }
 }

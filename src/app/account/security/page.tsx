@@ -1,18 +1,20 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { KeyRound, MonitorSmartphone, ShieldCheck, ChevronRight } from "lucide-react";
+import { KeyRound, MonitorSmartphone, ChevronRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
+import { TwoFactorSection } from "@/components/account/TwoFactorSection";
+import { hasVerifiedTotp } from "@/lib/mfa";
 
 export async function generateMetadata() {
   const t = await getTranslations("AccountSecurityPage");
   return { title: t("title") };
 }
 
-// Account security hub linked from the account menu: two-factor (not built
-// yet, shown as coming soon), password change (lives on /settings) and the
-// devices & sessions page.
+// Account security hub linked from the account menu: two-factor (Supabase
+// TOTP MFA), password change (lives on /settings) and the devices & sessions
+// page.
 export default async function AccountSecurityPage() {
   const t = await getTranslations("AccountSecurityPage");
   const supabase = await createClient();
@@ -31,15 +33,7 @@ export default async function AccountSecurityPage() {
         <h1 className="text-page-title">{t("title")}</h1>
         <p className="text-sm text-muted">{t("subtitle")}</p>
 
-        <div className={rowClass} aria-disabled="true">
-          <span className={iconClass}>
-            <ShieldCheck className="h-4 w-4" aria-hidden="true" />
-          </span>
-          <span className="flex-1 font-medium">{t("twoFactorTitle")}</span>
-          <span className="rounded-full border border-warning/40 bg-warning/10 px-2 py-0.5 text-[10px] font-semibold text-warning">
-            {t("comingSoon")}
-          </span>
-        </div>
+        <TwoFactorSection enabled={hasVerifiedTotp(user)} />
 
         <Link href="/settings#change-password" className={`${rowClass} transition hover:bg-white/5`}>
           <span className={iconClass}>
