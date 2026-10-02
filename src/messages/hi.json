@@ -2252,7 +2252,8 @@
     "logoutConfirmTitle": "लॉग आउट करें?",
     "logoutConfirmBody": "अपने खाते तक पहुँचने के लिए फिर से साइन इन करना होगा।",
     "cancel": "रद्द करें",
-    "version": "संस्करण {version}"
+    "version": "संस्करण {version}",
+    "accountNumber": "खाता संख्या"
   },
   "AccountSecurityPage": {
     "title": "सुरक्षा",

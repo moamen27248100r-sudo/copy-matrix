@@ -2252,7 +2252,8 @@
     "logoutConfirmTitle": "লগ আউট করবেন?",
     "logoutConfirmBody": "অ্যাকাউন্টে যেতে আবার সাইন ইন করতে হবে।",
     "cancel": "বাতিল",
-    "version": "সংস্করণ {version}"
+    "version": "সংস্করণ {version}",
+    "accountNumber": "অ্যাকাউন্ট নম্বর"
   },
   "AccountSecurityPage": {
     "title": "নিরাপত্তা",

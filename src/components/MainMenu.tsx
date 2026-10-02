@@ -87,7 +87,7 @@ function Chevron() {
 export function MainMenu({
   isAdmin,
   isLeadTrader = false,
-  userId,
+  accountNumber,
   displayName,
   email,
   locale,
@@ -95,7 +95,7 @@ export function MainMenu({
 }: {
   isAdmin: boolean;
   isLeadTrader?: boolean;
-  userId: string;
+  accountNumber: number | string;
   displayName?: string | null;
   email?: string | null;
   locale: Locale;
@@ -106,6 +106,7 @@ export function MainMenu({
   const { open, toggle, close } = useNavDrawer("menu");
   const panelRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+  const accountDisplay = `#${accountNumber}`;
   const [copied, setCopied] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [confirmLogout, setConfirmLogout] = useState(false);
@@ -140,7 +141,7 @@ export function MainMenu({
 
   async function copyUid() {
     try {
-      await navigator.clipboard.writeText(userId);
+      await navigator.clipboard.writeText(accountDisplay);
       setCopied(true);
       return;
     } catch {
@@ -148,7 +149,7 @@ export function MainMenu({
       // WebViews): fall back to a hidden textarea + execCommand.
     }
     const ta = document.createElement("textarea");
-    ta.value = userId;
+    ta.value = accountDisplay;
     ta.setAttribute("readonly", "");
     ta.style.position = "fixed";
     ta.style.opacity = "0";
@@ -254,9 +255,9 @@ export function MainMenu({
               {email ? maskEmail(email) : "—"}
             </p>
             <div className="mt-1 flex items-center gap-1.5 text-[11px] text-muted">
-              <span className="shrink-0">{tm("uid")}</span>
-              <span className="min-w-0 truncate font-mono text-foreground/80" dir="ltr" title={userId}>
-                {userId}
+              <span className="shrink-0">{tm("accountNumber")}</span>
+              <span className="min-w-0 truncate font-mono text-foreground/80" dir="ltr" title={accountDisplay}>
+                {accountDisplay}
               </span>
               <button
                 type="button"

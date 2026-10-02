@@ -2252,7 +2252,8 @@
     "logoutConfirmTitle": "Đăng xuất?",
     "logoutConfirmBody": "Bạn sẽ cần đăng nhập lại để truy cập tài khoản.",
     "cancel": "Hủy",
-    "version": "Phiên bản {version}"
+    "version": "Phiên bản {version}",
+    "accountNumber": "Số tài khoản"
   },
   "AccountSecurityPage": {
     "title": "Bảo mật",

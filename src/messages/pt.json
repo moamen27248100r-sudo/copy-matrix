@@ -2255,7 +2255,8 @@
     "logoutConfirmTitle": "Sair da conta?",
     "logoutConfirmBody": "Você precisará entrar novamente para acessar sua conta.",
     "cancel": "Cancelar",
-    "version": "Versão {version}"
+    "version": "Versão {version}",
+    "accountNumber": "N.º da conta"
   },
   "AccountSecurityPage": {
     "title": "Segurança",

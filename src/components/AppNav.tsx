@@ -28,10 +28,11 @@ export async function AppNav() {
   let accountType: "real" | "demo" | null = null;
   let isLeadTrader = false;
   let notifications: { id: string; type: string; title: string; body: string | null; data: Record<string, unknown> | null; is_read: boolean; created_at: string }[] = [];
+  let accountNumber: number | string = "";
   let kycStatus: string = "none";
   if (user) {
     const [{ data: profile }, { data: notificationRows }, { data: kyc }] = await Promise.all([
-      supabase.from("profiles").select("is_admin, is_suspended, display_name, email, account_type, is_lead_trader").eq("id", user.id).single(),
+      supabase.from("profiles").select("is_admin, is_suspended, display_name, email, account_type, is_lead_trader, account_number").eq("id", user.id).single(),
       supabase
         .from("notifications")
         .select("id, type, title, body, data, is_read, created_at")
@@ -52,6 +53,7 @@ export async function AppNav() {
     email = profile?.email ?? user.email ?? null;
     accountType = (profile?.account_type as "real" | "demo") ?? "demo";
     isLeadTrader = !!profile?.is_lead_trader;
+    accountNumber = profile?.account_number ?? "";
     notifications = notificationRows ?? [];
     kycStatus = kyc?.status ?? "none";
   }
@@ -66,7 +68,7 @@ export async function AppNav() {
             <MainMenu
               isAdmin={isAdmin}
               isLeadTrader={isLeadTrader}
-              userId={user.id}
+              accountNumber={accountNumber}
               displayName={displayName}
               email={email}
               locale={locale}

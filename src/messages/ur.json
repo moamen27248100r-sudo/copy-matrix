@@ -2252,7 +2252,8 @@
     "logoutConfirmTitle": "لاگ آؤٹ کریں؟",
     "logoutConfirmBody": "اپنے اکاؤنٹ تک رسائی کے لیے دوبارہ سائن ان کرنا ہوگا۔",
     "cancel": "منسوخ کریں",
-    "version": "ورژن {version}"
+    "version": "ورژن {version}",
+    "accountNumber": "اکاؤنٹ نمبر"
   },
   "AccountSecurityPage": {
     "title": "سیکیورٹی",

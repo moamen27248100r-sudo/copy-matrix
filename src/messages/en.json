@@ -2256,7 +2256,8 @@
     "logoutConfirmTitle": "Log out?",
     "logoutConfirmBody": "You’ll need to sign in again to access your account.",
     "cancel": "Cancel",
-    "version": "Version {version}"
+    "version": "Version {version}",
+    "accountNumber": "Account No."
   },
   "AccountSecurityPage": {
     "title": "Security",

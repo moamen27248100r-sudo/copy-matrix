@@ -2329,7 +2329,8 @@
     "logoutConfirmTitle": "تسجيل الخروج؟",
     "logoutConfirmBody": "ستحتاج إلى تسجيل الدخول مرة أخرى للوصول إلى حسابك.",
     "cancel": "إلغاء",
-    "version": "الإصدار {version}"
+    "version": "الإصدار {version}",
+    "accountNumber": "رقم الحساب"
   },
   "AccountSecurityPage": {
     "title": "الأمان",

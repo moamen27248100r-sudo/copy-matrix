@@ -2252,7 +2252,8 @@
     "logoutConfirmTitle": "Keluar?",
     "logoutConfirmBody": "Anda perlu masuk lagi untuk mengakses akun.",
     "cancel": "Batal",
-    "version": "Versi {version}"
+    "version": "Versi {version}",
+    "accountNumber": "No. Akun"
   },
   "AccountSecurityPage": {
     "title": "Keamanan",

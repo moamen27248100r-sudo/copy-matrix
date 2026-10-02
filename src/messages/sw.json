@@ -2252,7 +2252,8 @@
     "logoutConfirmTitle": "Toka?",
     "logoutConfirmBody": "Utahitaji kuingia tena ili kufikia akaunti yako.",
     "cancel": "Ghairi",
-    "version": "Toleo {version}"
+    "version": "Toleo {version}",
+    "accountNumber": "Namba ya Akaunti"
   },
   "AccountSecurityPage": {
     "title": "Usalama",

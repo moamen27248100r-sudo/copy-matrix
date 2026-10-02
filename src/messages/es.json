@@ -2253,7 +2253,8 @@
     "logoutConfirmTitle": "¿Cerrar sesión?",
     "logoutConfirmBody": "Tendrás que iniciar sesión de nuevo para acceder a tu cuenta.",
     "cancel": "Cancelar",
-    "version": "Versión {version}"
+    "version": "Versión {version}",
+    "accountNumber": "N.º de cuenta"
   },
   "AccountSecurityPage": {
     "title": "Seguridad",

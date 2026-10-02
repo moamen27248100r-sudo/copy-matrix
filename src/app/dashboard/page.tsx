@@ -28,6 +28,7 @@ export default async function DashboardPage({
   const { error } = await searchParams;
   const t = await getTranslations("Dashboard");
   const tNav = await getTranslations("Nav");
+  const tMenu = await getTranslations("AccountMenu");
   const supabase = await createClient();
   const {
     data: { user },
@@ -39,7 +40,7 @@ export default async function DashboardPage({
 
   const [{ data: profile }, { data: kyc }, { data: subscriptions }, { data: positions }, { data: tickerPrices }, { data: walletRequests }] =
     await Promise.all([
-      supabase.from("profiles").select("display_name, account_type, balance, country").eq("id", user.id).single(),
+      supabase.from("profiles").select("display_name, account_type, balance, country, account_number").eq("id", user.id).single(),
       supabase
         .from("kyc_submissions")
         .select("status")
@@ -228,6 +229,11 @@ export default async function DashboardPage({
               }
             >
               {profile.account_type === "real" ? t("accountReal") : t("accountDemo")}
+            </span>
+          )}
+          {profile?.account_number != null && (
+            <span className="text-xs text-muted" dir="ltr">
+              {tMenu("accountNumber")} <span className="font-mono text-foreground/80">#{profile.account_number}</span>
             </span>
           )}
         </div>

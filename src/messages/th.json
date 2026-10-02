@@ -2252,7 +2252,8 @@
     "logoutConfirmTitle": "ออกจากระบบ?",
     "logoutConfirmBody": "คุณต้องเข้าสู่ระบบอีกครั้งเพื่อใช้บัญชี",
     "cancel": "ยกเลิก",
-    "version": "เวอร์ชัน {version}"
+    "version": "เวอร์ชัน {version}",
+    "accountNumber": "เลขที่บัญชี"
   },
   "AccountSecurityPage": {
     "title": "ความปลอดภัย",

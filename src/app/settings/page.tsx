@@ -28,6 +28,7 @@ export default async function SettingsPage({
 }) {
   const { error, success } = await searchParams;
   const t = await getTranslations("Settings");
+  const tMenu = await getTranslations("AccountMenu");
   const locale = (await getLocale()) as Locale;
   const tz = (await cookies()).get("tz")?.value ?? "UTC";
   const tzOptions = TIMEZONES.includes(tz) ? TIMEZONES : [tz, ...TIMEZONES];
@@ -40,7 +41,7 @@ export default async function SettingsPage({
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("display_name, account_type")
+    .select("display_name, account_type, account_number")
     .eq("id", user.id)
     .single();
 
@@ -64,6 +65,11 @@ export default async function SettingsPage({
         <section className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
           <h2 className="font-medium">{t("profileTitle")}</h2>
           <p className="text-xs text-muted">{user.email}</p>
+          {profile?.account_number != null && (
+            <p className="text-xs text-muted" dir="ltr">
+              {tMenu("accountNumber")} <span className="font-mono text-foreground/80">#{profile.account_number}</span>
+            </p>
+          )}
           <form action={updateProfile} className="flex flex-col gap-3">
             <input
               name="displayName"

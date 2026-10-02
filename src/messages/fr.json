@@ -2253,7 +2253,8 @@
     "logoutConfirmTitle": "Se déconnecter ?",
     "logoutConfirmBody": "Vous devrez vous reconnecter pour accéder à votre compte.",
     "cancel": "Annuler",
-    "version": "Version {version}"
+    "version": "Version {version}",
+    "accountNumber": "N° de compte"
   },
   "AccountSecurityPage": {
     "title": "Sécurité",
