@@ -2232,5 +2232,48 @@
     "showIssues": "Ver operações afetadas",
     "bannerIssues": "A última verificação diária encontrou {count} operações com erros.",
     "bannerLink": "Ver relatório"
+  },
+  "AccountMenu": {
+    "uid": "UID",
+    "copyUid": "Copiar ID da conta",
+    "copied": "Copiado",
+    "kycVerified": "Verificado",
+    "kycUnverified": "Não verificado",
+    "kycPending": "Em análise",
+    "kycRejected": "Recusado",
+    "groupAccount": "Conta",
+    "groupMoney": "Fundos",
+    "groupMore": "Mais",
+    "groupSupport": "Suporte",
+    "groupLanguage": "Idioma",
+    "security": "Segurança",
+    "notifications": "Notificações",
+    "inviteFriend": "Convidar um amigo",
+    "terms": "Termos e condições",
+    "privacy": "Política de privacidade",
+    "riskDisclosure": "Divulgação de riscos",
+    "logoutConfirmTitle": "Sair da conta?",
+    "logoutConfirmBody": "Você precisará entrar novamente para acessar sua conta.",
+    "cancel": "Cancelar",
+    "version": "Versão {version}"
+  },
+  "AccountSecurityPage": {
+    "title": "Segurança",
+    "subtitle": "Proteja sua conta e gerencie onde você está conectado.",
+    "twoFactorTitle": "Autenticação de dois fatores",
+    "comingSoon": "Em breve",
+    "changePassword": "Alterar senha",
+    "devices": "Dispositivos e sessões ativas"
+  },
+  "AccountSessions": {
+    "subtitle": "Todos os dispositivos conectados à sua conta.",
+    "thisDevice": "Este dispositivo",
+    "unknownDevice": "Dispositivo desconhecido",
+    "lastActive": "Última atividade {time}",
+    "signedIn": "Conectado em {time}",
+    "signOutOthers": "Sair dos outros dispositivos",
+    "signedOutOthers": "Os outros dispositivos foram desconectados.",
+    "signOutFailed": "Não foi possível desconectar os outros dispositivos. Tente novamente.",
+    "noOthers": "Nenhum outro dispositivo conectado."
   }
 }

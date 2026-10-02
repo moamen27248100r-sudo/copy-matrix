@@ -16,7 +16,6 @@ import type { Locale } from "@/i18n/locales";
 export async function AppNav() {
   const supabase = await createClient();
   const t = await getTranslations("Nav");
-  const tKyc = await getTranslations("Kyc");
   const tDash = await getTranslations("Dashboard");
   const locale = (await getLocale()) as Locale;
   const {
@@ -67,16 +66,11 @@ export async function AppNav() {
             <MainMenu
               isAdmin={isAdmin}
               isLeadTrader={isLeadTrader}
+              userId={user.id}
               displayName={displayName}
               email={email}
               locale={locale}
               kycStatus={kycStatus}
-              kycStatusLabels={{
-                none: tKyc("statusNone"),
-                pending: tKyc("statusPending"),
-                approved: tKyc("statusApproved"),
-                rejected: tKyc("statusRejected"),
-              }}
             />
           ) : (
             <Link

@@ -2306,5 +2306,48 @@
     "showIssues": "عرض الصفقات المتأثرة",
     "bannerIssues": "آخر فحص يومي للصفقات وجد {count} صفقة بها أخطاء.",
     "bannerLink": "عرض التقرير"
+  },
+  "AccountMenu": {
+    "uid": "UID",
+    "copyUid": "نسخ رقم الحساب",
+    "copied": "تم النسخ",
+    "kycVerified": "موثّق",
+    "kycUnverified": "غير موثّق",
+    "kycPending": "قيد المراجعة",
+    "kycRejected": "مرفوض",
+    "groupAccount": "الحساب",
+    "groupMoney": "المال",
+    "groupMore": "المزيد",
+    "groupSupport": "الدعم",
+    "groupLanguage": "اللغة",
+    "security": "الأمان",
+    "notifications": "التنبيهات",
+    "inviteFriend": "ادعُ صديقاً",
+    "terms": "الشروط والأحكام",
+    "privacy": "سياسة الخصوصية",
+    "riskDisclosure": "إفصاح المخاطر",
+    "logoutConfirmTitle": "تسجيل الخروج؟",
+    "logoutConfirmBody": "ستحتاج إلى تسجيل الدخول مرة أخرى للوصول إلى حسابك.",
+    "cancel": "إلغاء",
+    "version": "الإصدار {version}"
+  },
+  "AccountSecurityPage": {
+    "title": "الأمان",
+    "subtitle": "احمِ حسابك وتحكّم في الأجهزة المسجّل دخولك منها.",
+    "twoFactorTitle": "التحقق الثنائي",
+    "comingSoon": "قريبًا",
+    "changePassword": "تغيير كلمة المرور",
+    "devices": "الأجهزة والجلسات النشطة"
+  },
+  "AccountSessions": {
+    "subtitle": "كل الأجهزة المسجّل دخولها إلى حسابك حاليًا.",
+    "thisDevice": "هذا الجهاز",
+    "unknownDevice": "جهاز غير معروف",
+    "lastActive": "آخر نشاط {time}",
+    "signedIn": "تسجيل الدخول {time}",
+    "signOutOthers": "تسجيل الخروج من باقي الأجهزة",
+    "signedOutOthers": "تم تسجيل الخروج من باقي الأجهزة.",
+    "signOutFailed": "تعذّر تسجيل الخروج من باقي الأجهزة. حاول مرة أخرى.",
+    "noOthers": "لا توجد أجهزة أخرى مسجّل دخولها."
   }
 }

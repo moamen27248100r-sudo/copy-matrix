@@ -2230,5 +2230,48 @@
     "showIssues": "Voir les trades concernés",
     "bannerIssues": "Le dernier contrôle quotidien a trouvé {count} trades en erreur.",
     "bannerLink": "Voir le rapport"
+  },
+  "AccountMenu": {
+    "uid": "UID",
+    "copyUid": "Copier l’identifiant",
+    "copied": "Copié",
+    "kycVerified": "Vérifié",
+    "kycUnverified": "Non vérifié",
+    "kycPending": "En cours d’examen",
+    "kycRejected": "Refusé",
+    "groupAccount": "Compte",
+    "groupMoney": "Fonds",
+    "groupMore": "Plus",
+    "groupSupport": "Assistance",
+    "groupLanguage": "Langue",
+    "security": "Sécurité",
+    "notifications": "Notifications",
+    "inviteFriend": "Inviter un ami",
+    "terms": "Conditions générales",
+    "privacy": "Politique de confidentialité",
+    "riskDisclosure": "Avertissement sur les risques",
+    "logoutConfirmTitle": "Se déconnecter ?",
+    "logoutConfirmBody": "Vous devrez vous reconnecter pour accéder à votre compte.",
+    "cancel": "Annuler",
+    "version": "Version {version}"
+  },
+  "AccountSecurityPage": {
+    "title": "Sécurité",
+    "subtitle": "Protégez votre compte et gérez vos connexions.",
+    "twoFactorTitle": "Authentification à deux facteurs",
+    "comingSoon": "Bientôt",
+    "changePassword": "Changer le mot de passe",
+    "devices": "Appareils et sessions actives"
+  },
+  "AccountSessions": {
+    "subtitle": "Tous les appareils actuellement connectés à votre compte.",
+    "thisDevice": "Cet appareil",
+    "unknownDevice": "Appareil inconnu",
+    "lastActive": "Dernière activité {time}",
+    "signedIn": "Connecté le {time}",
+    "signOutOthers": "Déconnecter les autres appareils",
+    "signedOutOthers": "Les autres appareils ont été déconnectés.",
+    "signOutFailed": "Impossible de déconnecter les autres appareils. Réessayez.",
+    "noOthers": "Aucun autre appareil n’est connecté."
   }
 }

@@ -2229,5 +2229,48 @@
     "showIssues": "Lihat trade terdampak",
     "bannerIssues": "Pemeriksaan harian terakhir menemukan {count} trade bermasalah.",
     "bannerLink": "Lihat laporan"
+  },
+  "AccountMenu": {
+    "uid": "UID",
+    "copyUid": "Salin ID akun",
+    "copied": "Disalin",
+    "kycVerified": "Terverifikasi",
+    "kycUnverified": "Belum terverifikasi",
+    "kycPending": "Sedang ditinjau",
+    "kycRejected": "Ditolak",
+    "groupAccount": "Akun",
+    "groupMoney": "Dana",
+    "groupMore": "Lainnya",
+    "groupSupport": "Dukungan",
+    "groupLanguage": "Bahasa",
+    "security": "Keamanan",
+    "notifications": "Notifikasi",
+    "inviteFriend": "Undang teman",
+    "terms": "Syarat & Ketentuan",
+    "privacy": "Kebijakan Privasi",
+    "riskDisclosure": "Pengungkapan Risiko",
+    "logoutConfirmTitle": "Keluar?",
+    "logoutConfirmBody": "Anda perlu masuk lagi untuk mengakses akun.",
+    "cancel": "Batal",
+    "version": "Versi {version}"
+  },
+  "AccountSecurityPage": {
+    "title": "Keamanan",
+    "subtitle": "Lindungi akun Anda dan kelola perangkat yang masuk.",
+    "twoFactorTitle": "Autentikasi dua faktor",
+    "comingSoon": "Segera hadir",
+    "changePassword": "Ubah kata sandi",
+    "devices": "Perangkat & sesi aktif"
+  },
+  "AccountSessions": {
+    "subtitle": "Semua perangkat yang sedang masuk ke akun Anda.",
+    "thisDevice": "Perangkat ini",
+    "unknownDevice": "Perangkat tidak dikenal",
+    "lastActive": "Terakhir aktif {time}",
+    "signedIn": "Masuk {time}",
+    "signOutOthers": "Keluar dari semua perangkat lain",
+    "signedOutOthers": "Telah keluar dari semua perangkat lain.",
+    "signOutFailed": "Gagal keluar dari perangkat lain. Coba lagi.",
+    "noOthers": "Tidak ada perangkat lain yang masuk."
   }
 }

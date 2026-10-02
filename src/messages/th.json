@@ -2229,5 +2229,48 @@
     "showIssues": "ดูเทรดที่ได้รับผลกระทบ",
     "bannerIssues": "การตรวจล่าสุดพบ {count} เทรดที่มีข้อผิดพลาด",
     "bannerLink": "ดูรายงาน"
+  },
+  "AccountMenu": {
+    "uid": "UID",
+    "copyUid": "คัดลอกรหัสบัญชี",
+    "copied": "คัดลอกแล้ว",
+    "kycVerified": "ยืนยันแล้ว",
+    "kycUnverified": "ยังไม่ยืนยัน",
+    "kycPending": "กำลังตรวจสอบ",
+    "kycRejected": "ถูกปฏิเสธ",
+    "groupAccount": "บัญชี",
+    "groupMoney": "การเงิน",
+    "groupMore": "เพิ่มเติม",
+    "groupSupport": "ช่วยเหลือ",
+    "groupLanguage": "ภาษา",
+    "security": "ความปลอดภัย",
+    "notifications": "การแจ้งเตือน",
+    "inviteFriend": "ชวนเพื่อน",
+    "terms": "ข้อกำหนดและเงื่อนไข",
+    "privacy": "นโยบายความเป็นส่วนตัว",
+    "riskDisclosure": "การเปิดเผยความเสี่ยง",
+    "logoutConfirmTitle": "ออกจากระบบ?",
+    "logoutConfirmBody": "คุณต้องเข้าสู่ระบบอีกครั้งเพื่อใช้บัญชี",
+    "cancel": "ยกเลิก",
+    "version": "เวอร์ชัน {version}"
+  },
+  "AccountSecurityPage": {
+    "title": "ความปลอดภัย",
+    "subtitle": "ปกป้องบัญชีและจัดการอุปกรณ์ที่เข้าสู่ระบบ",
+    "twoFactorTitle": "การยืนยันตัวตนสองขั้นตอน",
+    "comingSoon": "เร็วๆ นี้",
+    "changePassword": "เปลี่ยนรหัสผ่าน",
+    "devices": "อุปกรณ์และเซสชันที่ใช้งาน"
+  },
+  "AccountSessions": {
+    "subtitle": "อุปกรณ์ทั้งหมดที่เข้าสู่ระบบบัญชีของคุณอยู่",
+    "thisDevice": "อุปกรณ์นี้",
+    "unknownDevice": "อุปกรณ์ที่ไม่รู้จัก",
+    "lastActive": "ใช้งานล่าสุด {time}",
+    "signedIn": "เข้าสู่ระบบ {time}",
+    "signOutOthers": "ออกจากระบบอุปกรณ์อื่นทั้งหมด",
+    "signedOutOthers": "ออกจากระบบอุปกรณ์อื่นแล้ว",
+    "signOutFailed": "ไม่สามารถออกจากระบบอุปกรณ์อื่นได้ ลองอีกครั้ง",
+    "noOthers": "ไม่มีอุปกรณ์อื่นที่เข้าสู่ระบบ"
   }
 }

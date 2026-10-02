@@ -2229,5 +2229,48 @@
     "showIssues": "প্রভাবিত ট্রেড দেখুন",
     "bannerIssues": "শেষ দৈনিক যাচাইয়ে {count}টি ট্রেডে ত্রুটি পাওয়া গেছে।",
     "bannerLink": "রিপোর্ট দেখুন"
+  },
+  "AccountMenu": {
+    "uid": "UID",
+    "copyUid": "অ্যাকাউন্ট ID কপি করুন",
+    "copied": "কপি হয়েছে",
+    "kycVerified": "যাচাইকৃত",
+    "kycUnverified": "অযাচাইকৃত",
+    "kycPending": "পর্যালোচনাধীন",
+    "kycRejected": "প্রত্যাখ্যাত",
+    "groupAccount": "অ্যাকাউন্ট",
+    "groupMoney": "তহবিল",
+    "groupMore": "আরও",
+    "groupSupport": "সহায়তা",
+    "groupLanguage": "ভাষা",
+    "security": "নিরাপত্তা",
+    "notifications": "বিজ্ঞপ্তি",
+    "inviteFriend": "বন্ধুকে আমন্ত্রণ",
+    "terms": "শর্তাবলি",
+    "privacy": "গোপনীয়তা নীতি",
+    "riskDisclosure": "ঝুঁকি প্রকাশ",
+    "logoutConfirmTitle": "লগ আউট করবেন?",
+    "logoutConfirmBody": "অ্যাকাউন্টে যেতে আবার সাইন ইন করতে হবে।",
+    "cancel": "বাতিল",
+    "version": "সংস্করণ {version}"
+  },
+  "AccountSecurityPage": {
+    "title": "নিরাপত্তা",
+    "subtitle": "অ্যাকাউন্ট সুরক্ষিত রাখুন ও সাইন-ইন ডিভাইস পরিচালনা করুন।",
+    "twoFactorTitle": "দুই-ধাপ যাচাই",
+    "comingSoon": "শীঘ্রই আসছে",
+    "changePassword": "পাসওয়ার্ড পরিবর্তন",
+    "devices": "ডিভাইস ও সক্রিয় সেশন"
+  },
+  "AccountSessions": {
+    "subtitle": "আপনার অ্যাকাউন্টে এখন সাইন-ইন সব ডিভাইস।",
+    "thisDevice": "এই ডিভাইস",
+    "unknownDevice": "অজানা ডিভাইস",
+    "lastActive": "শেষ সক্রিয় {time}",
+    "signedIn": "সাইন-ইন {time}",
+    "signOutOthers": "অন্য সব ডিভাইস থেকে সাইন আউট",
+    "signedOutOthers": "অন্য সব ডিভাইস থেকে সাইন আউট হয়েছে।",
+    "signOutFailed": "অন্য ডিভাইস থেকে সাইন আউট করা যায়নি। আবার চেষ্টা করুন।",
+    "noOthers": "অন্য কোনো ডিভাইস সাইন-ইন নেই।"
   }
 }

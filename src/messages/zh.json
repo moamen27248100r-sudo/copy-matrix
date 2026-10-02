@@ -2230,5 +2230,48 @@
     "showIssues": "查看受影响的交易",
     "bannerIssues": "最近一次每日检查发现 {count} 笔交易有错误。",
     "bannerLink": "查看报告"
+  },
+  "AccountMenu": {
+    "uid": "UID",
+    "copyUid": "复制账户ID",
+    "copied": "已复制",
+    "kycVerified": "已认证",
+    "kycUnverified": "未认证",
+    "kycPending": "审核中",
+    "kycRejected": "已拒绝",
+    "groupAccount": "账户",
+    "groupMoney": "资金",
+    "groupMore": "更多",
+    "groupSupport": "支持",
+    "groupLanguage": "语言",
+    "security": "安全",
+    "notifications": "通知",
+    "inviteFriend": "邀请好友",
+    "terms": "条款和条件",
+    "privacy": "隐私政策",
+    "riskDisclosure": "风险披露",
+    "logoutConfirmTitle": "退出登录？",
+    "logoutConfirmBody": "您需要重新登录才能访问账户。",
+    "cancel": "取消",
+    "version": "版本 {version}"
+  },
+  "AccountSecurityPage": {
+    "title": "安全",
+    "subtitle": "保护您的账户并管理登录设备。",
+    "twoFactorTitle": "双重验证",
+    "comingSoon": "即将推出",
+    "changePassword": "修改密码",
+    "devices": "设备与活跃会话"
+  },
+  "AccountSessions": {
+    "subtitle": "当前登录您账户的所有设备。",
+    "thisDevice": "当前设备",
+    "unknownDevice": "未知设备",
+    "lastActive": "最近活动 {time}",
+    "signedIn": "登录于 {time}",
+    "signOutOthers": "退出其他所有设备",
+    "signedOutOthers": "已退出其他所有设备。",
+    "signOutFailed": "无法退出其他设备，请重试。",
+    "noOthers": "没有其他已登录的设备。"
   }
 }

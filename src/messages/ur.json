@@ -2229,5 +2229,48 @@
     "showIssues": "متاثرہ ٹریڈز دیکھیں",
     "bannerIssues": "آخری روزانہ جانچ میں {count} ٹریڈز میں غلطیاں ملیں۔",
     "bannerLink": "رپورٹ دیکھیں"
+  },
+  "AccountMenu": {
+    "uid": "UID",
+    "copyUid": "اکاؤنٹ ID کاپی کریں",
+    "copied": "کاپی ہو گیا",
+    "kycVerified": "تصدیق شدہ",
+    "kycUnverified": "غیر تصدیق شدہ",
+    "kycPending": "زیر جائزہ",
+    "kycRejected": "مسترد",
+    "groupAccount": "اکاؤنٹ",
+    "groupMoney": "رقم",
+    "groupMore": "مزید",
+    "groupSupport": "مدد",
+    "groupLanguage": "زبان",
+    "security": "سیکیورٹی",
+    "notifications": "اطلاعات",
+    "inviteFriend": "دوست کو مدعو کریں",
+    "terms": "شرائط و ضوابط",
+    "privacy": "رازداری کی پالیسی",
+    "riskDisclosure": "خطرات کا انکشاف",
+    "logoutConfirmTitle": "لاگ آؤٹ کریں؟",
+    "logoutConfirmBody": "اپنے اکاؤنٹ تک رسائی کے لیے دوبارہ سائن ان کرنا ہوگا۔",
+    "cancel": "منسوخ کریں",
+    "version": "ورژن {version}"
+  },
+  "AccountSecurityPage": {
+    "title": "سیکیورٹی",
+    "subtitle": "اپنے اکاؤنٹ کی حفاظت کریں اور سائن ان آلات کا انتظام کریں۔",
+    "twoFactorTitle": "دو مرحلہ تصدیق",
+    "comingSoon": "جلد آ رہا ہے",
+    "changePassword": "پاس ورڈ تبدیل کریں",
+    "devices": "آلات اور فعال سیشنز"
+  },
+  "AccountSessions": {
+    "subtitle": "آپ کے اکاؤنٹ میں اس وقت سائن ان تمام آلات۔",
+    "thisDevice": "یہ آلہ",
+    "unknownDevice": "نامعلوم آلہ",
+    "lastActive": "آخری سرگرمی {time}",
+    "signedIn": "سائن ان {time}",
+    "signOutOthers": "باقی تمام آلات سے سائن آؤٹ کریں",
+    "signedOutOthers": "باقی تمام آلات سے سائن آؤٹ ہو گیا۔",
+    "signOutFailed": "باقی آلات سے سائن آؤٹ نہیں ہو سکا۔ دوبارہ کوشش کریں۔",
+    "noOthers": "کوئی اور آلہ سائن ان نہیں ہے۔"
   }
 }

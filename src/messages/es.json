@@ -2230,5 +2230,48 @@
     "showIssues": "Ver operaciones afectadas",
     "bannerIssues": "La última revisión diaria encontró {count} operaciones con errores.",
     "bannerLink": "Ver informe"
+  },
+  "AccountMenu": {
+    "uid": "UID",
+    "copyUid": "Copiar ID de cuenta",
+    "copied": "Copiado",
+    "kycVerified": "Verificado",
+    "kycUnverified": "No verificado",
+    "kycPending": "En revisión",
+    "kycRejected": "Rechazado",
+    "groupAccount": "Cuenta",
+    "groupMoney": "Fondos",
+    "groupMore": "Más",
+    "groupSupport": "Soporte",
+    "groupLanguage": "Idioma",
+    "security": "Seguridad",
+    "notifications": "Notificaciones",
+    "inviteFriend": "Invitar a un amigo",
+    "terms": "Términos y condiciones",
+    "privacy": "Política de privacidad",
+    "riskDisclosure": "Divulgación de riesgos",
+    "logoutConfirmTitle": "¿Cerrar sesión?",
+    "logoutConfirmBody": "Tendrás que iniciar sesión de nuevo para acceder a tu cuenta.",
+    "cancel": "Cancelar",
+    "version": "Versión {version}"
+  },
+  "AccountSecurityPage": {
+    "title": "Seguridad",
+    "subtitle": "Protege tu cuenta y gestiona dónde has iniciado sesión.",
+    "twoFactorTitle": "Autenticación de dos factores",
+    "comingSoon": "Próximamente",
+    "changePassword": "Cambiar contraseña",
+    "devices": "Dispositivos y sesiones activas"
+  },
+  "AccountSessions": {
+    "subtitle": "Todos los dispositivos con sesión iniciada en tu cuenta.",
+    "thisDevice": "Este dispositivo",
+    "unknownDevice": "Dispositivo desconocido",
+    "lastActive": "Última actividad {time}",
+    "signedIn": "Inicio de sesión {time}",
+    "signOutOthers": "Cerrar sesión en los demás dispositivos",
+    "signedOutOthers": "Se cerró la sesión en los demás dispositivos.",
+    "signOutFailed": "No se pudo cerrar la sesión en los demás dispositivos. Inténtalo de nuevo.",
+    "noOthers": "No hay otros dispositivos con sesión iniciada."
   }
 }

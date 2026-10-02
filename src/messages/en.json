@@ -2233,5 +2233,48 @@
     "showIssues": "Show affected trades",
     "bannerIssues": "The latest daily trade check found {count} trades with errors.",
     "bannerLink": "View report"
+  },
+  "AccountMenu": {
+    "uid": "UID",
+    "copyUid": "Copy account ID",
+    "copied": "Copied",
+    "kycVerified": "Verified",
+    "kycUnverified": "Unverified",
+    "kycPending": "Under review",
+    "kycRejected": "Rejected",
+    "groupAccount": "Account",
+    "groupMoney": "Funds",
+    "groupMore": "More",
+    "groupSupport": "Support",
+    "groupLanguage": "Language",
+    "security": "Security",
+    "notifications": "Notifications",
+    "inviteFriend": "Invite a friend",
+    "terms": "Terms & Conditions",
+    "privacy": "Privacy Policy",
+    "riskDisclosure": "Risk Disclosure",
+    "logoutConfirmTitle": "Log out?",
+    "logoutConfirmBody": "You’ll need to sign in again to access your account.",
+    "cancel": "Cancel",
+    "version": "Version {version}"
+  },
+  "AccountSecurityPage": {
+    "title": "Security",
+    "subtitle": "Protect your account and manage where you’re signed in.",
+    "twoFactorTitle": "Two-factor authentication",
+    "comingSoon": "Coming soon",
+    "changePassword": "Change password",
+    "devices": "Devices & active sessions"
+  },
+  "AccountSessions": {
+    "subtitle": "Every device currently signed in to your account.",
+    "thisDevice": "This device",
+    "unknownDevice": "Unknown device",
+    "lastActive": "Last active {time}",
+    "signedIn": "Signed in {time}",
+    "signOutOthers": "Sign out of all other devices",
+    "signedOutOthers": "Signed out of all other devices.",
+    "signOutFailed": "Couldn’t sign out the other devices. Please try again.",
+    "noOthers": "No other devices are signed in."
   }
 }

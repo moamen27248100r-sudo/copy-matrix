@@ -2229,5 +2229,48 @@
     "showIssues": "Onyesha biashara zilizoathirika",
     "bannerIssues": "Ukaguzi wa mwisho umepata biashara {count} zenye makosa.",
     "bannerLink": "Tazama ripoti"
+  },
+  "AccountMenu": {
+    "uid": "UID",
+    "copyUid": "Nakili kitambulisho cha akaunti",
+    "copied": "Imenakiliwa",
+    "kycVerified": "Imethibitishwa",
+    "kycUnverified": "Haijathibitishwa",
+    "kycPending": "Inakaguliwa",
+    "kycRejected": "Imekataliwa",
+    "groupAccount": "Akaunti",
+    "groupMoney": "Fedha",
+    "groupMore": "Zaidi",
+    "groupSupport": "Msaada",
+    "groupLanguage": "Lugha",
+    "security": "Usalama",
+    "notifications": "Arifa",
+    "inviteFriend": "Alika rafiki",
+    "terms": "Sheria na Masharti",
+    "privacy": "Sera ya Faragha",
+    "riskDisclosure": "Ufichuzi wa Hatari",
+    "logoutConfirmTitle": "Toka?",
+    "logoutConfirmBody": "Utahitaji kuingia tena ili kufikia akaunti yako.",
+    "cancel": "Ghairi",
+    "version": "Toleo {version}"
+  },
+  "AccountSecurityPage": {
+    "title": "Usalama",
+    "subtitle": "Linda akaunti yako na udhibiti vifaa ulivyoingia.",
+    "twoFactorTitle": "Uthibitishaji wa hatua mbili",
+    "comingSoon": "Inakuja hivi karibuni",
+    "changePassword": "Badilisha nenosiri",
+    "devices": "Vifaa na vipindi hai"
+  },
+  "AccountSessions": {
+    "subtitle": "Vifaa vyote vilivyoingia kwenye akaunti yako sasa.",
+    "thisDevice": "Kifaa hiki",
+    "unknownDevice": "Kifaa kisichojulikana",
+    "lastActive": "Mara ya mwisho {time}",
+    "signedIn": "Aliingia {time}",
+    "signOutOthers": "Toka kwenye vifaa vingine vyote",
+    "signedOutOthers": "Umetoka kwenye vifaa vingine vyote.",
+    "signOutFailed": "Imeshindwa kutoka kwenye vifaa vingine. Jaribu tena.",
+    "noOthers": "Hakuna kifaa kingine kilichoingia."
   }
 }

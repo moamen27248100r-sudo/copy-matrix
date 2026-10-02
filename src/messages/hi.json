@@ -2229,5 +2229,48 @@
     "showIssues": "प्रभावित ट्रेड देखें",
     "bannerIssues": "पिछली दैनिक जाँच में {count} ट्रेड में त्रुटियाँ मिलीं।",
     "bannerLink": "रिपोर्ट देखें"
+  },
+  "AccountMenu": {
+    "uid": "UID",
+    "copyUid": "खाता ID कॉपी करें",
+    "copied": "कॉपी हो गया",
+    "kycVerified": "सत्यापित",
+    "kycUnverified": "असत्यापित",
+    "kycPending": "समीक्षा में",
+    "kycRejected": "अस्वीकृत",
+    "groupAccount": "खाता",
+    "groupMoney": "धनराशि",
+    "groupMore": "और",
+    "groupSupport": "सहायता",
+    "groupLanguage": "भाषा",
+    "security": "सुरक्षा",
+    "notifications": "सूचनाएँ",
+    "inviteFriend": "दोस्त को आमंत्रित करें",
+    "terms": "नियम और शर्तें",
+    "privacy": "गोपनीयता नीति",
+    "riskDisclosure": "जोखिम प्रकटीकरण",
+    "logoutConfirmTitle": "लॉग आउट करें?",
+    "logoutConfirmBody": "अपने खाते तक पहुँचने के लिए फिर से साइन इन करना होगा।",
+    "cancel": "रद्द करें",
+    "version": "संस्करण {version}"
+  },
+  "AccountSecurityPage": {
+    "title": "सुरक्षा",
+    "subtitle": "अपने खाते की सुरक्षा करें और साइन-इन डिवाइस प्रबंधित करें।",
+    "twoFactorTitle": "दो-चरणीय प्रमाणीकरण",
+    "comingSoon": "जल्द आ रहा है",
+    "changePassword": "पासवर्ड बदलें",
+    "devices": "डिवाइस और सक्रिय सत्र"
+  },
+  "AccountSessions": {
+    "subtitle": "आपके खाते में अभी साइन-इन सभी डिवाइस।",
+    "thisDevice": "यह डिवाइस",
+    "unknownDevice": "अज्ञात डिवाइस",
+    "lastActive": "अंतिम सक्रिय {time}",
+    "signedIn": "साइन-इन {time}",
+    "signOutOthers": "अन्य सभी डिवाइस से साइन आउट करें",
+    "signedOutOthers": "अन्य सभी डिवाइस से साइन आउट हो गया।",
+    "signOutFailed": "अन्य डिवाइस से साइन आउट नहीं हो सका। फिर कोशिश करें।",
+    "noOthers": "कोई अन्य डिवाइस साइन-इन नहीं है।"
   }
 }

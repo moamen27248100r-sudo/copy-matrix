@@ -2229,5 +2229,48 @@
     "showIssues": "Xem giao dịch bị ảnh hưởng",
     "bannerIssues": "Lần kiểm tra gần nhất phát hiện {count} giao dịch có lỗi.",
     "bannerLink": "Xem báo cáo"
+  },
+  "AccountMenu": {
+    "uid": "UID",
+    "copyUid": "Sao chép ID tài khoản",
+    "copied": "Đã sao chép",
+    "kycVerified": "Đã xác minh",
+    "kycUnverified": "Chưa xác minh",
+    "kycPending": "Đang xét duyệt",
+    "kycRejected": "Bị từ chối",
+    "groupAccount": "Tài khoản",
+    "groupMoney": "Tiền",
+    "groupMore": "Thêm",
+    "groupSupport": "Hỗ trợ",
+    "groupLanguage": "Ngôn ngữ",
+    "security": "Bảo mật",
+    "notifications": "Thông báo",
+    "inviteFriend": "Mời bạn bè",
+    "terms": "Điều khoản & Điều kiện",
+    "privacy": "Chính sách quyền riêng tư",
+    "riskDisclosure": "Công bố rủi ro",
+    "logoutConfirmTitle": "Đăng xuất?",
+    "logoutConfirmBody": "Bạn sẽ cần đăng nhập lại để truy cập tài khoản.",
+    "cancel": "Hủy",
+    "version": "Phiên bản {version}"
+  },
+  "AccountSecurityPage": {
+    "title": "Bảo mật",
+    "subtitle": "Bảo vệ tài khoản và quản lý nơi bạn đã đăng nhập.",
+    "twoFactorTitle": "Xác thực hai yếu tố",
+    "comingSoon": "Sắp ra mắt",
+    "changePassword": "Đổi mật khẩu",
+    "devices": "Thiết bị & phiên hoạt động"
+  },
+  "AccountSessions": {
+    "subtitle": "Mọi thiết bị đang đăng nhập vào tài khoản của bạn.",
+    "thisDevice": "Thiết bị này",
+    "unknownDevice": "Thiết bị không xác định",
+    "lastActive": "Hoạt động lần cuối {time}",
+    "signedIn": "Đăng nhập {time}",
+    "signOutOthers": "Đăng xuất khỏi các thiết bị khác",
+    "signedOutOthers": "Đã đăng xuất khỏi các thiết bị khác.",
+    "signOutFailed": "Không thể đăng xuất các thiết bị khác. Vui lòng thử lại.",
+    "noOthers": "Không có thiết bị nào khác đang đăng nhập."
   }
 }

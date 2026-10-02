@@ -1,3 +1,4 @@
+import { readFileSync } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import type { NextConfig } from "next";
@@ -22,6 +23,10 @@ const nextConfig: NextConfig = {
   // Leader avatars are capped at 1 MB; the default 1 MB action body limit
   // would reject a file near that size once multipart overhead is added.
   experimental: { serverActions: { bodySizeLimit: "2mb" } },
+  // Shown at the bottom of the account menu.
+  env: {
+    NEXT_PUBLIC_APP_VERSION: (JSON.parse(readFileSync(path.join(configDir, "package.json"), "utf8")) as { version: string }).version,
+  },
 };
 
 export default withNextIntl(nextConfig);

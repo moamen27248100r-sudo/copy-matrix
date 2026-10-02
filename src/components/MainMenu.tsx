@@ -3,67 +3,42 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
+import {
+  AlertTriangle,
+  Bell,
+  Check,
+  ChevronRight,
+  Copy,
+  Crown,
+  FileText,
+  Headset,
+  Languages,
+  LineChart,
+  Lock,
+  LogOut,
+  PieChart,
+  ReceiptText,
+  Settings,
+  ShieldCheck,
+  ShieldHalf,
+  UserPlus,
+  UserRoundCheck,
+  type LucideIcon,
+} from "lucide-react";
 import { logout } from "@/app/auth/actions";
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { setLocale } from "@/app/actions/locale";
 import { useNavDrawer } from "@/components/nav-drawer-context";
 import { useBodyScrollLock } from "@/lib/use-body-scroll-lock";
 import type { Locale } from "@/i18n/locales";
 
-// neverActive: never highlight this entry as the current page (it can share
-// a href with another entry).
-type NavItem = { href: string; label: string; icon: ReactNode; neverActive?: boolean; badge?: "live" | "new" };
+type NavItem = { href: string; label: string; icon: LucideIcon };
+type NavGroup = { title: string; items: NavItem[] };
 
-const ICONS = {
-  markets: (
-    <>
-      <path d="M3 3v18h18" />
-      <path d="M7 15l4-5 3 3 5-7" />
-    </>
-  ),
-  history: (
-    <>
-      <path d="M9 3h6a2 2 0 0 1 2 2v14l-3-2-2 2-2-2-2 2-3-2V5a2 2 0 0 1 2-2z" />
-      <path d="M9 8h6" />
-      <path d="M9 12h6" />
-    </>
-  ),
-  kyc: (
-    <>
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-      <path d="M9 12l2 2 4-4" />
-    </>
-  ),
-  settings: (
-    <>
-      <circle cx="12" cy="12" r="3" />
-      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
-    </>
-  ),
-  support: (
-    <>
-      <circle cx="12" cy="12" r="10" />
-      <circle cx="12" cy="12" r="4" />
-      <line x1="4.93" y1="4.93" x2="9.17" y2="9.17" />
-      <line x1="14.83" y1="14.83" x2="19.07" y2="19.07" />
-      <line x1="14.83" y1="9.17" x2="19.07" y2="4.93" />
-      <line x1="4.93" y1="19.07" x2="9.17" y2="14.83" />
-    </>
-  ),
-  language: (
-    <>
-      <circle cx="12" cy="12" r="10" />
-      <line x1="2" y1="12" x2="22" y2="12" />
-      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-    </>
-  ),
-};
-
-const ADMIN_ICON = (
-  <>
-    <path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" />
-  </>
-);
+// Native language names: shown as-is in every UI language.
+const LOCALE_LABELS: Partial<Record<Locale, string>> = { ar: "العربية", en: "English" };
+// Same set the header switcher offers.
+const MENU_LOCALES: Locale[] = ["ar", "en"];
 
 const AVATAR_GRADIENTS = [
   "from-accent to-brand",
@@ -78,19 +53,6 @@ function avatarGradient(seed: string) {
   return AVATAR_GRADIENTS[hash % AVATAR_GRADIENTS.length];
 }
 
-function SectionDivider() {
-  return <div className="mx-4 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" aria-hidden="true" />;
-}
-
-function LiveDot() {
-  return (
-    <span className="relative flex h-2.5 w-2.5 shrink-0" aria-hidden="true">
-      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
-      <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-success" />
-    </span>
-  );
-}
-
 // Masks the local part of an email for privacy: "delta126@gmail.com" -> "d****6@gmail.com".
 function maskEmail(email: string): string {
   const [local, domain] = email.split("@");
@@ -99,36 +61,54 @@ function maskEmail(email: string): string {
   return `${local[0]}****${local[local.length - 1]}@${domain}`;
 }
 
-const KYC_BADGE_TONE: Record<string, string> = {
-  none: "border-warning/40 bg-warning/10 text-warning",
-  pending: "border-warning/40 bg-warning/10 text-warning",
-  approved: "border-success/40 bg-success/10 text-success",
-  rejected: "border-danger/40 bg-danger/10 text-danger",
+const KYC_BADGE: Record<string, { tone: string; key: "kycVerified" | "kycUnverified" | "kycPending" | "kycRejected" }> = {
+  none: { tone: "border-warning/40 bg-warning/10 text-warning", key: "kycUnverified" },
+  pending: { tone: "border-warning/40 bg-warning/10 text-warning", key: "kycPending" },
+  approved: { tone: "border-success/40 bg-success/10 text-success", key: "kycVerified" },
+  rejected: { tone: "border-danger/40 bg-danger/10 text-danger", key: "kycRejected" },
 };
+
+function GroupTitle({ children }: { children: string }) {
+  return <p className="px-3 pt-3 pb-1 text-[11px] font-semibold uppercase tracking-wide text-muted">{children}</p>;
+}
+
+function RowIcon({ icon: Icon, tone = "bg-white/5 text-foreground/70" }: { icon: LucideIcon; tone?: string }) {
+  return (
+    <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ${tone}`}>
+      <Icon className="h-4 w-4" strokeWidth={2} aria-hidden="true" />
+    </span>
+  );
+}
+
+function Chevron() {
+  return <ChevronRight className="h-4 w-4 shrink-0 text-muted rtl:rotate-180" aria-hidden="true" />;
+}
 
 export function MainMenu({
   isAdmin,
   isLeadTrader = false,
+  userId,
   displayName,
   email,
   locale,
   kycStatus,
-  kycStatusLabels,
 }: {
   isAdmin: boolean;
   isLeadTrader?: boolean;
+  userId: string;
   displayName?: string | null;
   email?: string | null;
   locale: Locale;
   kycStatus: string;
-  kycStatusLabels: { none: string; pending: string; approved: string; rejected: string };
 }) {
   const t = useTranslations("Nav");
+  const tm = useTranslations("AccountMenu");
   const { open, toggle, close } = useNavDrawer("menu");
   const panelRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
-  const [hash, setHash] = useState("");
-  const [search, setSearch] = useState("");
+  const [copied, setCopied] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
+  const [confirmLogout, setConfirmLogout] = useState(false);
 
   useBodyScrollLock(open);
 
@@ -153,40 +133,78 @@ export function MainMenu({
   }, [open]);
 
   useEffect(() => {
-    setHash(window.location.hash);
-    setSearch(window.location.search.replace(/^\?/, ""));
-    const onHashChange = () => setHash(window.location.hash);
-    window.addEventListener("hashchange", onHashChange);
-    return () => window.removeEventListener("hashchange", onHashChange);
-  }, [pathname]);
+    if (!copied) return;
+    const id = setTimeout(() => setCopied(false), 1800);
+    return () => clearTimeout(id);
+  }, [copied]);
 
-  // This is now a profile menu, not the primary navigation -- the main
-  // sections (home/discover/my-copies/trades/portfolio) live in the
-  // persistent bottom nav / sidebar instead.
-  const items: NavItem[] = [
-    { href: "/markets", label: t("menuMarkets"), icon: ICONS.markets },
-    { href: "/portfolio?tab=activity", label: t("menuTransactionHistory"), icon: ICONS.history },
-    { href: "/profit-share-history", label: t("menuProfitShareHistory"), icon: ICONS.history },
-    { href: "/kyc", label: t("menuKyc"), icon: ICONS.kyc },
-    isLeadTrader
-      ? { href: "/lead", label: t("menuLeadCenter"), icon: ICONS.kyc }
-      : { href: "/become-lead-trader", label: t("menuBecomeLeader"), icon: ICONS.kyc },
-    { href: "/settings", label: t("menuSettings"), icon: ICONS.settings },
-    { href: "/support", label: t("menuSupport"), icon: ICONS.support },
-    ...(isAdmin ? [{ href: "/admin", label: t("menuAdmin"), icon: ADMIN_ICON }] : []),
+  async function copyUid() {
+    try {
+      await navigator.clipboard.writeText(userId);
+      setCopied(true);
+      return;
+    } catch {
+      // Clipboard API unavailable or denied (insecure context, some
+      // WebViews): fall back to a hidden textarea + execCommand.
+    }
+    const ta = document.createElement("textarea");
+    ta.value = userId;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand("copy");
+    ta.remove();
+    if (ok) setCopied(true);
+  }
+
+  // A profile menu, not the primary navigation -- the main sections live in
+  // the persistent bottom nav / sidebar.
+  const groups: NavGroup[] = [
+    {
+      title: tm("groupAccount"),
+      items: [
+        { href: "/kyc", label: t("menuKyc"), icon: UserRoundCheck },
+        { href: "/account/security", label: tm("security"), icon: Lock },
+        { href: "/notifications/preferences", label: tm("notifications"), icon: Bell },
+        { href: "/settings", label: t("menuSettings"), icon: Settings },
+      ],
+    },
+    {
+      title: tm("groupMoney"),
+      items: [
+        { href: "/portfolio?tab=activity", label: t("menuTransactionHistory"), icon: ReceiptText },
+        { href: "/profit-share-history", label: t("menuProfitShareHistory"), icon: PieChart },
+      ],
+    },
+    {
+      title: tm("groupMore"),
+      items: [
+        isLeadTrader
+          ? { href: "/lead", label: t("menuLeadCenter"), icon: Crown }
+          : { href: "/become-lead-trader", label: t("menuBecomeLeader"), icon: Crown },
+        // Invites exist only for lead traders (follower invite links); there
+        // is no referral program for regular users, so they don't see it.
+        ...(isLeadTrader ? [{ href: "/lead/followers", label: tm("inviteFriend"), icon: UserPlus }] : []),
+        { href: "/markets", label: t("menuMarkets"), icon: LineChart },
+        ...(isAdmin ? [{ href: "/admin", label: t("menuAdmin"), icon: ShieldHalf }] : []),
+      ],
+    },
+    {
+      title: tm("groupSupport"),
+      items: [
+        { href: "/support", label: t("menuSupport"), icon: Headset },
+        { href: "/legal/terms", label: tm("terms"), icon: FileText },
+        { href: "/legal/privacy", label: tm("privacy"), icon: ShieldCheck },
+        { href: "/risk-disclosure", label: tm("riskDisclosure"), icon: AlertTriangle },
+      ],
+    },
   ];
 
-  const isActive = (href: string) => {
-    const [pathAndQuery, hashPart] = href.split("#");
-    const [path, query] = pathAndQuery.split("?");
-    if (path !== pathname) return false;
-    if (hashPart) return hash === `#${hashPart}`;
-    if (query) return search === query;
-    return !hash && !search;
-  };
-
-  const kycLabel = (kycStatusLabels as Record<string, string>)[kycStatus] ?? kycStatusLabels.none;
-  const kycTone = KYC_BADGE_TONE[kycStatus] ?? KYC_BADGE_TONE.none;
+  const isActive = (href: string) => href.split("?")[0] === pathname;
+  const kyc = KYC_BADGE[kycStatus] ?? KYC_BADGE.none;
+  const version = process.env.NEXT_PUBLIC_APP_VERSION;
 
   return (
     <>
@@ -218,102 +236,171 @@ export function MainMenu({
         onTouchEnd={onTouchEnd}
         className={
           open
-            ? "fixed top-14 bottom-0 start-0 z-40 flex w-[78%] max-w-xs translate-x-0 flex-col overflow-y-auto border-e border-white/[0.06] bg-[#0B132B]/90 shadow-2xl shadow-black/50 backdrop-blur-xl transition-transform duration-300 ease-out sm:top-16"
-            : "fixed top-14 bottom-0 start-0 z-40 flex w-[78%] max-w-xs -translate-x-full flex-col overflow-y-auto border-e border-white/[0.06] bg-[#0B132B]/90 shadow-2xl shadow-black/50 backdrop-blur-xl transition-transform duration-300 ease-out rtl:translate-x-full sm:top-16"
+            ? "fixed top-14 bottom-0 start-0 z-40 flex w-[82%] max-w-xs translate-x-0 scroll-subtle flex-col overflow-y-auto overscroll-contain border-e border-white/[0.06] bg-[#0B132B]/95 shadow-2xl shadow-black/50 backdrop-blur-xl transition-transform duration-300 ease-out sm:top-16"
+            : "fixed top-14 bottom-0 start-0 z-40 flex w-[82%] max-w-xs -translate-x-full scroll-subtle flex-col overflow-y-auto overscroll-contain border-e border-white/[0.06] bg-[#0B132B]/95 shadow-2xl shadow-black/50 backdrop-blur-xl transition-transform duration-300 ease-out rtl:translate-x-full sm:top-16"
         }
       >
-        {/* Account identity -- avatar with a live-status pulse dot, masked
-            email, display name, and a KYC-status badge. */}
-        <div className="flex items-center gap-3 px-4 py-4">
-          <span className="relative flex h-10 w-10 shrink-0 items-center justify-center">
-            <span
-              className={`flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br ${avatarGradient(email ?? displayName ?? "u")} text-sm font-bold text-white`}
-            >
-              {(displayName ?? email ?? "?").charAt(0).toUpperCase()}
-            </span>
-            <span className="absolute -end-0.5 -bottom-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#0B132B]">
-              <LiveDot />
-            </span>
+        {/* Account identity: avatar, name, masked email, UID with copy,
+            and the KYC status badge (links to identity verification). */}
+        <div className="flex items-start gap-3 px-4 pt-4 pb-3">
+          <span
+            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${avatarGradient(email ?? displayName ?? "u")} text-base font-bold text-white`}
+          >
+            {(displayName ?? email ?? "?").charAt(0).toUpperCase()}
           </span>
           <div className="min-w-0 flex-1 text-start">
-            {displayName && <p className="truncate text-sm font-medium">{displayName}</p>}
+            {displayName && <p className="truncate text-sm font-semibold">{displayName}</p>}
             <p className="truncate text-xs text-muted" dir="ltr">
               {email ? maskEmail(email) : "—"}
             </p>
-          </div>
-          <span className={`shrink-0 rounded-full border px-2 py-1 text-[10px] font-semibold ${kycTone}`}>
-            {kycLabel}
-          </span>
-        </div>
-
-        <SectionDivider />
-
-        <div className="flex flex-col gap-0.5 px-2 py-2">
-          {items.map((item) => {
-            const active = !item.neverActive && isActive(item.href);
-            return (
-              <Link
-                key={item.label}
-                href={item.href}
-                onClick={close}
-                className={
-                  active
-                    ? "relative flex items-center gap-3 overflow-hidden rounded-xl bg-gradient-to-r from-accent/25 to-brand/10 px-3 py-2 text-[15px] font-semibold text-accent"
-                    : "relative flex items-center gap-3 rounded-xl px-3 py-2 text-[15px] font-medium text-foreground/90 transition hover:bg-white/5"
-                }
-              >
-                {active && (
-                  <span className="absolute inset-y-1 start-0 w-[3px] rounded-full bg-gradient-to-b from-accent to-brand shadow-[0_0_8px_theme(colors.accent)]" aria-hidden="true" />
-                )}
-                <span
-                  className={
-                    active
-                      ? "flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-accent/20 text-accent shadow-[0_0_10px_rgba(56,189,248,0.35)]"
-                      : "flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white/5 text-foreground/70"
-                  }
-                >
-                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    {item.icon}
-                  </svg>
-                </span>
-                <span className="flex-1">{item.label}</span>
-              </Link>
-            );
-          })}
-
-          {/* Language -- moved here from the header per the nav redesign. */}
-          <div className="flex items-center justify-between gap-3 rounded-xl px-3 py-2">
-            <span className="flex items-center gap-3 text-[15px] font-medium text-foreground/90">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white/5 text-foreground/70">
-                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  {ICONS.language}
-                </svg>
+            <div className="mt-1 flex items-center gap-1.5 text-[11px] text-muted">
+              <span className="shrink-0">{tm("uid")}</span>
+              <span className="min-w-0 truncate font-mono text-foreground/80" dir="ltr" title={userId}>
+                {userId}
               </span>
-              {t("langSectionLabel")}
+              <button
+                type="button"
+                onClick={copyUid}
+                aria-label={tm("copyUid")}
+                title={tm("copyUid")}
+                className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-muted transition hover:bg-white/10 hover:text-foreground"
+              >
+                {copied ? <Check className="h-3.5 w-3.5 text-success" aria-hidden="true" /> : <Copy className="h-3.5 w-3.5" aria-hidden="true" />}
+              </button>
+            </div>
+            <span aria-live="polite" className={copied ? "mt-0.5 block text-[11px] font-medium text-success" : "sr-only"}>
+              {copied ? tm("copied") : ""}
             </span>
-            <LanguageSwitcher currentLocale={locale} />
+            <Link
+              href="/kyc"
+              onClick={close}
+              className={`mt-2 inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-semibold transition hover:opacity-80 ${kyc.tone}`}
+            >
+              {tm(kyc.key)}
+              {kycStatus !== "approved" && <ChevronRight className="h-3 w-3 rtl:rotate-180" aria-hidden="true" />}
+            </Link>
           </div>
         </div>
+
+        <div className="mx-4 h-px bg-white/[0.06]" aria-hidden="true" />
+
+        <nav className="flex flex-col px-2 pb-2">
+          {groups.map((group) => (
+            <div key={group.title} className="flex flex-col">
+              <GroupTitle>{group.title}</GroupTitle>
+              {group.items.map((item) => {
+                const active = isActive(item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={close}
+                    aria-current={active ? "page" : undefined}
+                    className={
+                      active
+                        ? "flex items-center gap-3 rounded-xl bg-accent/15 px-3 py-2 text-[15px] font-semibold text-accent"
+                        : "flex items-center gap-3 rounded-xl px-3 py-2 text-[15px] font-medium text-foreground/90 transition hover:bg-white/5"
+                    }
+                  >
+                    <RowIcon icon={item.icon} tone={active ? "bg-accent/20 text-accent" : undefined} />
+                    <span className="min-w-0 flex-1 truncate">{item.label}</span>
+                    <Chevron />
+                  </Link>
+                );
+              })}
+            </div>
+          ))}
+
+          <GroupTitle>{tm("groupLanguage")}</GroupTitle>
+          <button
+            type="button"
+            onClick={() => setLangOpen((v) => !v)}
+            aria-expanded={langOpen}
+            className="flex items-center gap-3 rounded-xl px-3 py-2 text-[15px] font-medium text-foreground/90 transition hover:bg-white/5"
+          >
+            <RowIcon icon={Languages} />
+            <span className="min-w-0 flex-1 truncate text-start">{LOCALE_LABELS[locale] ?? locale.toUpperCase()}</span>
+            <ChevronRight className={`h-4 w-4 shrink-0 text-muted transition-transform ${langOpen ? "rotate-90" : "rtl:rotate-180"}`} aria-hidden="true" />
+          </button>
+          {langOpen && (
+            <div className="ms-11 flex flex-col gap-0.5 pb-1">
+              {MENU_LOCALES.map((l) => (
+                <form key={l} action={setLocale}>
+                  <input type="hidden" name="locale" value={l} />
+                  <input type="hidden" name="path" value={pathname ?? "/"} />
+                  <button
+                    type="submit"
+                    className={
+                      l === locale
+                        ? "flex w-full items-center justify-between rounded-lg bg-accent/10 px-3 py-2 text-sm font-medium text-accent"
+                        : "flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm text-foreground/90 hover:bg-white/5"
+                    }
+                  >
+                    {LOCALE_LABELS[l]}
+                    {l === locale && <Check className="h-4 w-4" aria-hidden="true" />}
+                  </button>
+                </form>
+              ))}
+            </div>
+          )}
+        </nav>
 
         <div className="mt-auto">
-          <SectionDivider />
-          <form action={logout} className="px-2 py-2">
+          <div className="mx-4 h-px bg-white/[0.06]" aria-hidden="true" />
+          <div className="px-2 py-2">
             <button
-              type="submit"
-              className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] font-medium text-danger transition hover:bg-danger/10"
+              type="button"
+              onClick={() => setConfirmLogout(true)}
+              className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] font-semibold text-danger transition hover:bg-danger/10"
             >
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-danger/10">
-                <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                  <path d="M16 17l5-5-5-5" />
-                  <path d="M21 12H9" />
-                </svg>
-              </span>
+              <RowIcon icon={LogOut} tone="bg-danger/10 text-danger" />
               {t("logout")}
             </button>
-          </form>
+          </div>
+          {version && <p className="pb-4 text-center text-[11px] text-muted/70">{tm("version", { version })}</p>}
         </div>
       </div>
+
+      {confirmLogout && (
+        <div
+          className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/70 p-4"
+          onClick={() => setConfirmLogout(false)}
+        >
+          <div
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="logout-confirm-title"
+            aria-describedby="logout-confirm-body"
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-sm rounded-2xl border border-white/10 bg-[#0B132B] p-5 shadow-2xl"
+          >
+            <h2 id="logout-confirm-title" className="text-lg font-semibold">
+              {tm("logoutConfirmTitle")}
+            </h2>
+            <p id="logout-confirm-body" className="mt-2 text-sm text-muted">
+              {tm("logoutConfirmBody")}
+            </p>
+            <div className="mt-5 flex gap-2">
+              <button
+                type="button"
+                autoFocus
+                onClick={() => setConfirmLogout(false)}
+                className="flex-1 rounded-xl border border-border px-4 py-2.5 text-sm font-medium transition hover:bg-white/5"
+              >
+                {tm("cancel")}
+              </button>
+              <form action={logout} className="flex-1">
+                <button
+                  type="submit"
+                  className="w-full rounded-xl bg-danger px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-danger/90"
+                >
+                  {t("logout")}
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

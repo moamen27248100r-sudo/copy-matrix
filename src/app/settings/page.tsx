@@ -124,7 +124,7 @@ export default async function SettingsPage({
           </form>
         </section>
 
-        <section className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
+        <section id="change-password" className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
           <h2 className="font-medium">{t("changePasswordTitle")}</h2>
           <form action={changePassword} className="flex flex-col gap-3">
             <input
