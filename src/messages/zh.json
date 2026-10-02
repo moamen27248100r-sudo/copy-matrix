@@ -340,7 +340,8 @@
     "mostCopiedThisWeekTitle": "本周最多人跟单",
     "copiersThisWeek": "本周新增 {count} 位跟单者",
     "tableTrader": "Trader",
-    "viewAllPositions": "View all {count} positions"
+    "viewAllPositions": "View all {count} positions",
+    "tableSize": "手数"
   },
   "Common": {
     "level": "等级 {level}",
@@ -2274,5 +2275,11 @@
     "signedOutOthers": "已退出其他所有设备。",
     "signOutFailed": "无法退出其他设备，请重试。",
     "noOthers": "没有其他已登录的设备。"
+  },
+  "LivePrices": {
+    "forexDaily": "每日汇率 · {date}",
+    "forexDailyNoDate": "每日汇率",
+    "lots": "{lots} 手",
+    "entryLabel": "开仓"
   }
 }

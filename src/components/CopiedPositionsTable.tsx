@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { SymbolIcon } from "@/lib/symbol-icons";
-import { useLivePrices } from "@/lib/use-live-prices";
+import { useLivePricesMeta } from "@/lib/use-live-prices";
+import { FOREX_SYMBOLS, lotsFromSize, openPositionPnl } from "@/lib/pip-specs";
+import { ForexAsOfNote } from "@/components/ForexAsOfNote";
 import { ConfirmButton } from "@/components/ConfirmButton";
 import { closePosition } from "@/app/dashboard/actions";
 
@@ -20,11 +22,13 @@ function formatPrice(value: number) {
   return value.toLocaleString("en-US", { maximumFractionDigits: 4 });
 }
 
-function PositionRow({ pos, current }: { pos: Position; current: number | undefined }) {
+function PositionRow({ pos, current, forexAsOf }: { pos: Position; current: number | undefined; forexAsOf: string | undefined }) {
   const t = useTranslations("Dashboard");
-  const pct =
-    current != null ? ((current - pos.entry_price) / pos.entry_price) * (pos.side === "sell" ? -1 : 1) : null;
-  const pnl = pct != null ? pct * Number(pos.size) : null;
+  const tl = useTranslations("LivePrices");
+  const live = current != null ? openPositionPnl(pos.side, pos.entry_price, current, Number(pos.size)) : null;
+  const pnl = live?.usd ?? null;
+  const pct = live?.pct ?? null;
+  const lots = lotsFromSize(pos.symbol, pos.entry_price, Number(pos.size));
 
   return (
     <tr className="border-b border-slate-800 last:border-b-0">
@@ -53,10 +57,14 @@ function PositionRow({ pos, current }: { pos: Position; current: number | undefi
         </span>
       </td>
       <td className="py-3 text-sm text-muted" dir="ltr">
+        {lots != null ? tl("lots", { lots }) : "—"}
+      </td>
+      <td className="py-3 text-sm text-muted" dir="ltr">
         {formatPrice(pos.entry_price)}
       </td>
       <td className="py-3 text-sm" dir="ltr">
         {current != null ? formatPrice(current) : "—"}
+        {FOREX_SYMBOLS.includes(pos.symbol) && <ForexAsOfNote asOf={forexAsOf} />}
       </td>
       <td className="py-3">
         <span
@@ -70,6 +78,9 @@ function PositionRow({ pos, current }: { pos: Position; current: number | undefi
           dir="ltr"
         >
           {pnl != null ? `${pnl >= 0 ? "+" : "-"}$${Math.abs(pnl).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "—"}
+          {pct != null && (
+            <span className="block text-[11px] font-normal opacity-80">{`${pct >= 0 ? "+" : ""}${pct.toFixed(2)}%`}</span>
+          )}
         </span>
       </td>
       <td className="py-3 pe-1 text-end">
@@ -100,7 +111,7 @@ export function CopiedPositionsTable({
   const shown = limit ? positions.slice(0, limit) : positions;
   const showTrader = shown.some((p) => p.traderName !== undefined);
   const symbols = Array.from(new Set(shown.map((p) => p.symbol)));
-  const prices = useLivePrices(symbols, {});
+  const { prices, forexAsOf } = useLivePricesMeta(symbols, {});
 
   if (positions.length === 0) {
     return <p className="text-sm text-muted">{t("noCopiedPositions")}</p>;
@@ -108,12 +119,13 @@ export function CopiedPositionsTable({
 
   return (
     <div className="overflow-x-auto">
-      <table className="w-full min-w-[520px] border-collapse text-start">
+      <table className="w-full min-w-[600px] border-collapse text-start">
         <thead>
           <tr className="border-b border-slate-800 text-start text-xs text-muted">
             <th className="py-2 ps-1 text-start font-normal">{t("tableSymbol")}</th>
             {showTrader && <th className="py-2 text-start font-normal">{t("tableTrader")}</th>}
             <th className="py-2 text-start font-normal">{t("tableSide")}</th>
+            <th className="py-2 text-start font-normal">{t("tableSize")}</th>
             <th className="py-2 text-start font-normal">{t("tableEntry")}</th>
             <th className="py-2 text-start font-normal">{t("tableMarket")}</th>
             <th className="py-2 text-start font-normal">{t("tablePnl")}</th>
@@ -122,7 +134,7 @@ export function CopiedPositionsTable({
         </thead>
         <tbody>
           {shown.map((pos) => (
-            <PositionRow key={pos.id} pos={pos} current={prices[pos.symbol]} />
+            <PositionRow key={pos.id} pos={pos} current={prices[pos.symbol]} forexAsOf={forexAsOf[pos.symbol]} />
           ))}
         </tbody>
       </table>

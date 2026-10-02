@@ -352,7 +352,8 @@
     "mostCopiedThisWeekTitle": "الأكثر نسخًا هذا الأسبوع",
     "copiersThisWeek": "{count} ناسخ جديد هذا الأسبوع",
     "tableTrader": "المتداول",
-    "viewAllPositions": "عرض كل الصفقات ({count})"
+    "viewAllPositions": "عرض كل الصفقات ({count})",
+    "tableSize": "الحجم"
   },
   "Common": {
     "level": "المستوى {level}",
@@ -2350,5 +2351,11 @@
     "signedOutOthers": "تم تسجيل الخروج من باقي الأجهزة.",
     "signOutFailed": "تعذّر تسجيل الخروج من باقي الأجهزة. حاول مرة أخرى.",
     "noOthers": "لا توجد أجهزة أخرى مسجّل دخولها."
+  },
+  "LivePrices": {
+    "forexDaily": "سعر يومي · {date}",
+    "forexDailyNoDate": "سعر يومي",
+    "lots": "{lots} لوت",
+    "entryLabel": "الدخول"
   }
 }

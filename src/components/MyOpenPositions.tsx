@@ -3,7 +3,9 @@
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { SymbolIcon } from "@/lib/symbol-icons";
-import { useLivePrices } from "@/lib/use-live-prices";
+import { useLivePricesMeta } from "@/lib/use-live-prices";
+import { FOREX_SYMBOLS, lotsFromSize, openPositionPnl } from "@/lib/pip-specs";
+import { ForexAsOfNote } from "@/components/ForexAsOfNote";
 
 type Position = {
   id: string;
@@ -19,7 +21,8 @@ function formatPrice(value: number) {
   return value.toLocaleString("en-US", { maximumFractionDigits: 4 });
 }
 
-function PositionRow({ pos, current }: { pos: Position; current: number | undefined }) {
+function PositionRow({ pos, current, forexAsOf }: { pos: Position; current: number | undefined; forexAsOf: string | undefined }) {
+  const tl = useTranslations("LivePrices");
   const [flash, setFlash] = useState<"up" | "down" | null>(null);
   const prevPrice = useRef<number | undefined>(current);
 
@@ -34,9 +37,10 @@ function PositionRow({ pos, current }: { pos: Position; current: number | undefi
     prevPrice.current = current;
   }, [current]);
 
-  const pct =
-    current != null ? ((current - pos.entry_price) / pos.entry_price) * (pos.side === "sell" ? -1 : 1) * 100 : null;
-  const unrealizedPnl = pct != null ? (pct / 100) * Number(pos.size) : null;
+  const live = current != null ? openPositionPnl(pos.side, pos.entry_price, current, Number(pos.size)) : null;
+  const pct = live?.pct ?? null;
+  const unrealizedPnl = live?.usd ?? null;
+  const lots = lotsFromSize(pos.symbol, pos.entry_price, Number(pos.size));
 
   return (
     <div
@@ -62,6 +66,11 @@ function PositionRow({ pos, current }: { pos: Position; current: number | undefi
           >
             {pos.side === "buy" ? "BUY" : "SELL"}
           </span>
+          {lots != null && (
+            <span className="ms-1.5 text-[11px] text-muted" dir="ltr">
+              {tl("lots", { lots })}
+            </span>
+          )}
         </div>
       </div>
       <div className="text-end">
@@ -83,6 +92,10 @@ function PositionRow({ pos, current }: { pos: Position; current: number | undefi
           {pct != null ? `${pct >= 0 ? "+" : ""}${pct.toFixed(2)}%` : "—"}
           {current != null && <> · {formatPrice(current)}</>}
         </p>
+        <p className="text-[11px] text-muted" dir="ltr">
+          {tl("entryLabel")} {formatPrice(pos.entry_price)}
+        </p>
+        {FOREX_SYMBOLS.includes(pos.symbol) && <ForexAsOfNote asOf={forexAsOf} />}
         {(pos.take_profit != null || pos.stop_loss != null) && (
           <p className="text-[11px] text-muted" dir="ltr">
             {pos.take_profit != null && <>TP {formatPrice(pos.take_profit)}</>}
@@ -104,7 +117,7 @@ export function MyOpenPositions({
 }) {
   const t = useTranslations("Portfolio");
   const symbols = Array.from(new Set(positions.map((p) => p.symbol)));
-  const prices = useLivePrices(symbols, initialPrices);
+  const { prices, forexAsOf } = useLivePricesMeta(symbols, initialPrices);
 
   const totalUnrealizedPnl = positions.reduce((sum, p) => {
     const current = prices[p.symbol];
@@ -131,7 +144,7 @@ export function MyOpenPositions({
       ) : (
         <div className="flex flex-col gap-2">
           {positions.map((pos) => (
-            <PositionRow key={pos.id} pos={pos} current={prices[pos.symbol]} />
+            <PositionRow key={pos.id} pos={pos} current={prices[pos.symbol]} forexAsOf={forexAsOf[pos.symbol]} />
           ))}
         </div>
       )}

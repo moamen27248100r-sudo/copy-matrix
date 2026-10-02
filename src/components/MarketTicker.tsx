@@ -1,6 +1,8 @@
 "use client";
 
 import { useRef } from "react";
+import { useTranslations } from "next-intl";
+import { FOREX_SYMBOLS } from "@/lib/pip-specs";
 import { useLivePrices } from "@/lib/use-live-prices";
 
 // Real DB symbols (see market_prices / migration 0072_real_market_prices.sql):
@@ -38,6 +40,7 @@ const TICKER_MARKETS: {
 ];
 
 export function MarketTicker({ initialPrices }: { initialPrices: Record<string, number> }) {
+  const tl = useTranslations("LivePrices");
   const symbols = TICKER_MARKETS.map((m) => m.dbSymbol);
   const prices = useLivePrices(symbols, initialPrices);
 
@@ -78,10 +81,14 @@ export function MarketTicker({ initialPrices }: { initialPrices: Record<string, 
                 <span dir="ltr" className="font-semibold text-white">
                   {item.format(item.price)}
                 </span>
-                <span dir="ltr" className={`font-medium ${item.changePct >= 0 ? "text-emerald-400" : "text-red-400"}`}>
-                  {item.changePct >= 0 ? "+" : ""}
-                  {item.changePct.toFixed(1)}%
-                </span>
+                {FOREX_SYMBOLS.includes(item.dbSymbol) ? (
+                  <span className="text-[10px] text-slate-400">{tl("forexDailyNoDate")}</span>
+                ) : (
+                  <span dir="ltr" className={`font-medium ${item.changePct >= 0 ? "text-emerald-400" : "text-red-400"}`}>
+                    {item.changePct >= 0 ? "+" : ""}
+                    {item.changePct.toFixed(1)}%
+                  </span>
+                )}
               </div>
             ))}
           </div>

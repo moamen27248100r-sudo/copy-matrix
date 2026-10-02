@@ -340,7 +340,8 @@
     "mostCopiedThisWeekTitle": "Được sao chép nhiều nhất tuần này",
     "copiersThisWeek": "{count} người sao chép mới tuần này",
     "tableTrader": "Trader",
-    "viewAllPositions": "View all {count} positions"
+    "viewAllPositions": "View all {count} positions",
+    "tableSize": "Khối lượng"
   },
   "Common": {
     "level": "Cấp độ {level}",
@@ -2273,5 +2274,11 @@
     "signedOutOthers": "Đã đăng xuất khỏi các thiết bị khác.",
     "signOutFailed": "Không thể đăng xuất các thiết bị khác. Vui lòng thử lại.",
     "noOthers": "Không có thiết bị nào khác đang đăng nhập."
+  },
+  "LivePrices": {
+    "forexDaily": "Tỷ giá hằng ngày · {date}",
+    "forexDailyNoDate": "Tỷ giá hằng ngày",
+    "lots": "{lots} lot",
+    "entryLabel": "Vào"
   }
 }

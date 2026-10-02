@@ -340,7 +340,8 @@
     "mostCopiedThisWeekTitle": "Most copied this week",
     "copiersThisWeek": "{count} new copiers this week",
     "tableTrader": "Trader",
-    "viewAllPositions": "View all {count} positions"
+    "viewAllPositions": "View all {count} positions",
+    "tableSize": "Size"
   },
   "Common": {
     "level": "Level {level}",
@@ -2277,5 +2278,11 @@
     "signedOutOthers": "Signed out of all other devices.",
     "signOutFailed": "Couldn’t sign out the other devices. Please try again.",
     "noOthers": "No other devices are signed in."
+  },
+  "LivePrices": {
+    "forexDaily": "Daily rate · {date}",
+    "forexDailyNoDate": "Daily rate",
+    "lots": "{lots} lot",
+    "entryLabel": "Entry"
   }
 }

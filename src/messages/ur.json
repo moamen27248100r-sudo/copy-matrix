@@ -340,7 +340,8 @@
     "mostCopiedThisWeekTitle": "اس ہفتے سب سے زیادہ کاپی کیے گئے",
     "copiersThisWeek": "اس ہفتے {count} نئے کاپی کرنے والے",
     "tableTrader": "Trader",
-    "viewAllPositions": "View all {count} positions"
+    "viewAllPositions": "View all {count} positions",
+    "tableSize": "سائز"
   },
   "Common": {
     "level": "لیول {level}",
@@ -2273,5 +2274,11 @@
     "signedOutOthers": "باقی تمام آلات سے سائن آؤٹ ہو گیا۔",
     "signOutFailed": "باقی آلات سے سائن آؤٹ نہیں ہو سکا۔ دوبارہ کوشش کریں۔",
     "noOthers": "کوئی اور آلہ سائن ان نہیں ہے۔"
+  },
+  "LivePrices": {
+    "forexDaily": "روزانہ نرخ · {date}",
+    "forexDailyNoDate": "روزانہ نرخ",
+    "lots": "{lots} لاٹ",
+    "entryLabel": "انٹری"
   }
 }

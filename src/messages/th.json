@@ -340,7 +340,8 @@
     "mostCopiedThisWeekTitle": "คัดลอกมากที่สุดในสัปดาห์นี้",
     "copiersThisWeek": "ผู้คัดลอกใหม่ {count} คนในสัปดาห์นี้",
     "tableTrader": "Trader",
-    "viewAllPositions": "View all {count} positions"
+    "viewAllPositions": "View all {count} positions",
+    "tableSize": "ขนาด"
   },
   "Common": {
     "level": "ระดับ {level}",
@@ -2273,5 +2274,11 @@
     "signedOutOthers": "ออกจากระบบอุปกรณ์อื่นแล้ว",
     "signOutFailed": "ไม่สามารถออกจากระบบอุปกรณ์อื่นได้ ลองอีกครั้ง",
     "noOthers": "ไม่มีอุปกรณ์อื่นที่เข้าสู่ระบบ"
+  },
+  "LivePrices": {
+    "forexDaily": "อัตราแลกเปลี่ยนรายวัน · {date}",
+    "forexDailyNoDate": "อัตราแลกเปลี่ยนรายวัน",
+    "lots": "{lots} ล็อต",
+    "entryLabel": "เปิด"
   }
 }

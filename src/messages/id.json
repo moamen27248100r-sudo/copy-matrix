@@ -340,7 +340,8 @@
     "mostCopiedThisWeekTitle": "Paling banyak disalin minggu ini",
     "copiersThisWeek": "{count} penyalin baru minggu ini",
     "tableTrader": "Trader",
-    "viewAllPositions": "View all {count} positions"
+    "viewAllPositions": "View all {count} positions",
+    "tableSize": "Ukuran"
   },
   "Common": {
     "level": "Level {level}",
@@ -2273,5 +2274,11 @@
     "signedOutOthers": "Telah keluar dari semua perangkat lain.",
     "signOutFailed": "Gagal keluar dari perangkat lain. Coba lagi.",
     "noOthers": "Tidak ada perangkat lain yang masuk."
+  },
+  "LivePrices": {
+    "forexDaily": "Kurs harian · {date}",
+    "forexDailyNoDate": "Kurs harian",
+    "lots": "{lots} lot",
+    "entryLabel": "Masuk"
   }
 }

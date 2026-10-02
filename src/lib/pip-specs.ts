@@ -107,3 +107,22 @@ export function levelsValid(side: string, entry: number, stopLoss: number | null
   if (takeProfit != null && !(takeProfit > 0 && (takeProfit - entry) * dir > 0)) return false;
   return true;
 }
+
+// Floating P/L of an open position, the same rule the database settles it by
+// (`((exit-entry)/entry) * size * sign`, where size is the position's dollar
+// notional). There is no leverage in this model: the lot size is already baked
+// into `size` (see computeLotSize).
+export function openPositionPnl(side: string, entry: number, current: number, size: number) {
+  const pct = (((current - entry) / entry) * tradeDirection(side)) * 100;
+  return { pct, usd: (pct / 100) * size };
+}
+
+// Inverse of computeLotSize's sizeDollars: the lot size an open position's
+// dollar notional corresponds to. null when the symbol or entry is unknown.
+export function lotsFromSize(symbol: string, entry: number, size: number): number | null {
+  const spec = PIP_SPECS[symbol];
+  if (!spec || !(entry > 0) || !(size > 0)) return null;
+  return Math.round(((size * spec.pipSize) / (spec.pipValuePerLot * entry)) * 100) / 100;
+}
+
+export const FOREX_SYMBOLS = ["EURUSD", "GBPUSD", "USDJPY"];

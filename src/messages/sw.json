@@ -340,7 +340,8 @@
     "mostCopiedThisWeekTitle": "Waliyonakiliwa zaidi wiki hii",
     "copiersThisWeek": "Wanakili {count} wapya wiki hii",
     "tableTrader": "Trader",
-    "viewAllPositions": "View all {count} positions"
+    "viewAllPositions": "View all {count} positions",
+    "tableSize": "Ukubwa"
   },
   "Common": {
     "level": "Kiwango {level}",
@@ -2273,5 +2274,11 @@
     "signedOutOthers": "Umetoka kwenye vifaa vingine vyote.",
     "signOutFailed": "Imeshindwa kutoka kwenye vifaa vingine. Jaribu tena.",
     "noOthers": "Hakuna kifaa kingine kilichoingia."
+  },
+  "LivePrices": {
+    "forexDaily": "Kiwango cha kila siku · {date}",
+    "forexDailyNoDate": "Kiwango cha kila siku",
+    "lots": "lot {lots}",
+    "entryLabel": "Kuingia"
   }
 }

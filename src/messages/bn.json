@@ -340,7 +340,8 @@
     "mostCopiedThisWeekTitle": "এই সপ্তাহে সবচেয়ে বেশি কপি হয়েছে",
     "copiersThisWeek": "এই সপ্তাহে {count} জন নতুন কপিয়ার",
     "tableTrader": "Trader",
-    "viewAllPositions": "View all {count} positions"
+    "viewAllPositions": "View all {count} positions",
+    "tableSize": "সাইজ"
   },
   "Common": {
     "level": "লেভেল {level}",
@@ -2273,5 +2274,11 @@
     "signedOutOthers": "অন্য সব ডিভাইস থেকে সাইন আউট হয়েছে।",
     "signOutFailed": "অন্য ডিভাইস থেকে সাইন আউট করা যায়নি। আবার চেষ্টা করুন।",
     "noOthers": "অন্য কোনো ডিভাইস সাইন-ইন নেই।"
+  },
+  "LivePrices": {
+    "forexDaily": "দৈনিক রেট · {date}",
+    "forexDailyNoDate": "দৈনিক রেট",
+    "lots": "{lots} লট",
+    "entryLabel": "এন্ট্রি"
   }
 }

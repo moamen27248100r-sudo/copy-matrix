@@ -340,7 +340,8 @@
     "mostCopiedThisWeekTitle": "Los más copiados esta semana",
     "copiersThisWeek": "{count} nuevos copiadores esta semana",
     "tableTrader": "Trader",
-    "viewAllPositions": "View all {count} positions"
+    "viewAllPositions": "View all {count} positions",
+    "tableSize": "Tamaño"
   },
   "Common": {
     "level": "Nivel {level}",
@@ -2274,5 +2275,11 @@
     "signedOutOthers": "Se cerró la sesión en los demás dispositivos.",
     "signOutFailed": "No se pudo cerrar la sesión en los demás dispositivos. Inténtalo de nuevo.",
     "noOthers": "No hay otros dispositivos con sesión iniciada."
+  },
+  "LivePrices": {
+    "forexDaily": "Tasa diaria · {date}",
+    "forexDailyNoDate": "Tasa diaria",
+    "lots": "{lots} lote",
+    "entryLabel": "Entrada"
   }
 }
