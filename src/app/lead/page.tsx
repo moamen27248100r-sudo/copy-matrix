@@ -41,6 +41,7 @@ export async function generateMetadata() {
 export default async function LeadOverviewPage() {
   const t = await getTranslations("LeadTrader.overview");
   const money = await getMoney();
+  const C = { compact: true } as const;
   const tp = await getTranslations("TraderProfile");
   const locale = (await getLocale()) as Locale;
   const supabase = await createClient();
@@ -146,14 +147,14 @@ export default async function LeadOverviewPage() {
 
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <StatCard label={t("accountStatus")} value={t(`status_${accountStatus}`)} tone={accountStatus === "active" ? "up" : accountStatus === "closed" ? undefined : "down"} />
-        <StatCard label={t("aum")} value={money(overview?.aum ?? aum)} />
+        <StatCard label={t("aum")} value={money(overview?.aum ?? aum, C)} />
         <StatCard label={t("copiersTotal")} value={String(overview?.followers_total ?? 0)} />
         <StatCard label={t("copiersActive")} value={String(overview?.followers_active ?? 0)} />
         <StatCard label={t("copiersNewMonth")} value={String(overview?.followers_new_month ?? 0)} />
         <StatCard label={t("copiersStopped")} value={String(overview?.followers_stopped ?? 0)} />
-        <StatCard label={t("earningsMonth")} value={money(overview?.earnings_month ?? 0)} />
-        <StatCard label={t("earningsTotal")} value={money(overview?.earnings_total ?? 0)} />
-        <StatCard label={t("earningsPending")} value={money(overview?.earnings_pending ?? 0)} />
+        <StatCard label={t("earningsMonth")} value={money(overview?.earnings_month ?? 0, C)} />
+        <StatCard label={t("earningsTotal")} value={money(overview?.earnings_total ?? 0, C)} />
+        <StatCard label={t("earningsPending")} value={money(overview?.earnings_pending ?? 0, C)} />
       </section>
 
       {next && (
@@ -170,10 +171,10 @@ export default async function LeadOverviewPage() {
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <StatCard label={t("leaderBalance")} value={money(Number(profile?.balance ?? 0))} />
         <StatCard label={t("followers")} value={`${followerCount} / ${tier.maxFollowers}`} />
-        <StatCard label={t("followerProfit")} value={money(realizedFollowerProfit)} tone={realizedFollowerProfit >= 0 ? "up" : "down"} />
-        <StatCard label={t("shareRealized")} value={money(shareRealized)} />
-        <StatCard label={t("shareUnrealized")} value={money(shareUnrealized)} />
-        <StatCard label={t("shareWeek")} value={money(shareWeek)} />
+        <StatCard label={t("followerProfit")} value={money(realizedFollowerProfit, C)} tone={realizedFollowerProfit >= 0 ? "up" : "down"} />
+        <StatCard label={t("shareRealized")} value={money(shareRealized, C)} />
+        <StatCard label={t("shareUnrealized")} value={money(shareUnrealized, C)} />
+        <StatCard label={t("shareWeek")} value={money(shareWeek, C)} />
         <StatCard label={t("sharePct")} value={`${sharePct}%`} />
       </section>
       <p className="-mt-4 text-xs text-muted">{t("shareEstimateNote")}</p>
@@ -227,9 +228,9 @@ function tierLabel(key: string, t: Awaited<ReturnType<typeof getTranslations>>) 
   return t(`tier_${key}`);
 }
 
-function ProgressItem({ label, value, target, money }: { label: string; value: number; target: number; money?: (n: number) => string }) {
+function ProgressItem({ label, value, target, money }: { label: string; value: number; target: number; money?: (n: number, opts?: { compact?: boolean }) => string }) {
   const pct = target > 0 ? Math.min(100, Math.round((value / target) * 100)) : 100;
-  const fmt = (n: number) => (money ? money(n) : String(n));
+  const fmt = (n: number) => (money ? money(n, { compact: true }) : String(n));
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex items-center justify-between text-xs text-muted">

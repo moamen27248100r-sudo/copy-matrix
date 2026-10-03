@@ -1,6 +1,5 @@
 import { test, expect, type Page } from "@playwright/test";
 
-const SITE_PASSWORD = process.env.SITE_ACCESS_PASSWORD!;
 const TEST_EMAIL = "navtest.cm@gmail.com";
 const TEST_PASSWORD = "test123456";
 
@@ -8,21 +7,19 @@ test.describe.serial("Copy Matrix smoke tests", () => {
   let page: Page;
 
   test.beforeAll(async ({ browser }) => {
-    page = await browser.newPage();
+    // The suite asserts Arabic copy (the default locale); pin it regardless of browser language.
+    const context = await browser.newContext({ locale: "ar" });
+    await context.addCookies([{ name: "locale", value: "ar", url: "http://localhost:3000" }]);
+    page = await context.newPage();
   });
 
   test.afterAll(async () => {
     await page.close();
   });
 
-  test("site gate blocks unauthenticated access and unlocks with the password", async () => {
+  test("unauthenticated access to the dashboard redirects to login", async () => {
     await page.goto("/dashboard");
-    await expect(page).toHaveURL(/\/gate/);
-    await page.getByPlaceholder("كلمة المرور").fill(SITE_PASSWORD);
-    await Promise.all([
-      page.waitForURL((url) => !url.pathname.startsWith("/gate")),
-      page.getByRole("button", { name: "دخول" }).click(),
-    ]);
+    await expect(page).toHaveURL(/\/login/);
   });
 
   test("logging in with valid credentials reaches the dashboard", async () => {
@@ -43,7 +40,7 @@ test.describe.serial("Copy Matrix smoke tests", () => {
 
   test("portfolio page shows the wallet balance", async () => {
     await page.goto("/portfolio");
-    await expect(page.getByText("الرصيد المتاح")).toBeVisible();
+    await expect(page.getByText("نقدي متاح للسحب").first()).toBeVisible();
   });
 
   test("legal pages render", async () => {
@@ -58,10 +55,12 @@ test.describe.serial("Copy Matrix smoke tests", () => {
     await expect(page.getByText("404")).toBeVisible();
   });
 
-  test("logout returns to the login page", async () => {
+  test("logout returns to the public homepage", async () => {
     await page.goto("/dashboard");
     await page.getByRole("button", { name: "القائمة" }).click();
-    await page.getByRole("button", { name: "تسجيل الخروج" }).click();
-    await expect(page).toHaveURL(/\/login/);
+    // The menu's logout asks for confirmation first (aria-labelledby=logout-confirm-title).
+    await page.getByRole("button", { name: "تسجيل الخروج" }).first().click();
+    await page.locator("[aria-labelledby=logout-confirm-title]").getByRole("button", { name: "تسجيل الخروج" }).click();
+    await expect(page).toHaveURL(/\/$/);
   });
 });

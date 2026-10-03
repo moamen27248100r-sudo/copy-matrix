@@ -385,19 +385,19 @@ export default async function TraderPage({
           </div>
           <div>
             <p className={Number(provider.total_profit) >= 0 ? "font-semibold text-success" : "font-semibold text-danger"}>
-              {money(Number(provider.total_profit), { signed: true })}
+              {money(Number(provider.total_profit), { signed: true, compact: true })}
             </p>
             <p className="text-xs text-muted">{t("statTotalProfit")}</p>
           </div>
           <div>
             <p className="font-semibold">
-              {money(Number(provider.total_withdrawals))}
+              {money(Number(provider.total_withdrawals), { compact: true })}
             </p>
             <p className="text-xs text-muted">{t("statTotalWithdrawals")}</p>
           </div>
           <div>
             <p className="font-semibold">
-              {money(Number(provider.account_capital ?? 0))}
+              {money(Number(provider.account_capital ?? 0), { compact: true })}
             </p>
             <p className="text-xs text-muted">{t("statCurrentCapital")}</p>
           </div>
@@ -415,7 +415,7 @@ export default async function TraderPage({
           </div>
           <div>
             <p className="font-semibold" dir="ltr">
-              {aum > 0 ? money(aum) : "—"}
+              {aum > 0 ? money(aum, { compact: true }) : "—"}
             </p>
             <p className="text-xs text-muted">{t("statAum")}</p>
           </div>
