@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations, getLocale } from "next-intl/server";
+import { getUserTimeZone } from "@/lib/timezone";
 import { createClient } from "@/lib/supabase/server";
 import { markAllRead, markOneRead } from "@/app/notifications/actions";
 import { AppNav } from "@/components/AppNav";
@@ -100,11 +101,11 @@ function NotificationIcon({ type }: { type: string }) {
   );
 }
 
-function formatNotificationTime(iso: string, locale: Locale) {
+function formatNotificationTime(iso: string, locale: Locale, timeZone: string) {
   const d = new Date(iso);
   const tag = localeTag(locale);
-  const date = d.toLocaleDateString(tag, { year: "numeric", month: "short", day: "numeric" });
-  const time = d.toLocaleTimeString(tag, { hour: "numeric", minute: "2-digit" });
+  const date = d.toLocaleDateString(tag, { year: "numeric", month: "short", day: "numeric", timeZone });
+  const time = d.toLocaleTimeString(tag, { hour: "numeric", minute: "2-digit", timeZone });
   return `${date} · ${time}`;
 }
 
@@ -129,6 +130,7 @@ export default async function NotificationsPage({ searchParams }: { searchParams
   const { cat } = await searchParams;
   const activeCat = (CATEGORY_KEYS as readonly string[]).includes(cat ?? "") ? (cat as string) : "all";
   const locale = (await getLocale()) as Locale;
+  const userTz = await getUserTimeZone();
   const t = await getTranslations("Nav");
   const tn = await getTranslations("Notifications");
   const supabase = await createClient();
@@ -209,7 +211,7 @@ export default async function NotificationsPage({ searchParams }: { searchParams
                       </div>
                       {body && <p className="whitespace-pre-line text-xs text-muted" dir="auto">{renderBody(body)}</p>}
                       <p className="mt-1 text-[11px] text-muted/70" dir="ltr">
-                        {formatNotificationTime(n.created_at, locale)}
+                        {formatNotificationTime(n.created_at, locale, userTz)}
                       </p>
                     </div>
                   </button>

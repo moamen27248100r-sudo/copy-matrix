@@ -38,7 +38,7 @@ export default async function DashboardPage({
     redirect("/login?next=%2Fdashboard");
   }
 
-  const [{ data: profile }, { data: kyc }, { data: subscriptions }, { data: positions }, { data: tickerPrices }, { data: walletRequests }] =
+  const [{ data: profile }, { data: kyc }, { data: subscriptions }, { data: rawPositions }, { data: tickerPrices }, { data: walletRequests }] =
     await Promise.all([
       supabase.from("profiles").select("display_name, account_type, balance, country, account_number").eq("id", user.id).single(),
       supabase
@@ -55,7 +55,7 @@ export default async function DashboardPage({
         .eq("is_active", true),
       supabase
         .from("simulated_positions")
-        .select("id, subscription_id, status, pnl, entry_price, size, opened_at, closed_at, signals(symbol, side)")
+        .select("id, subscription_id, status, pnl, entry_price, size, opened_at, closed_at, account_type, signals(symbol, side)")
         .eq("follower_id", user.id),
       supabase.from("market_prices").select("symbol, price").in("symbol", ["BTCUSDT", "XAUUSD", "EURUSD"]),
       supabase
@@ -66,6 +66,9 @@ export default async function DashboardPage({
         .order("requested_at", { ascending: false })
         .limit(5),
     ]);
+
+  // Demo and real stats never mix: only positions opened on the active account.
+  const positions = (rawPositions ?? []).filter((p) => p.account_type === (profile?.account_type === "real" ? "real" : "demo"));
 
   const tickerInitialPrices = Object.fromEntries((tickerPrices ?? []).map((p) => [p.symbol, Number(p.price)]));
 
@@ -178,7 +181,7 @@ export default async function DashboardPage({
         at: s.copy_started_at as string,
         providerName: providerNameBySubscription.get(s.id),
       })),
-    ...(walletRequests ?? []).map((w) => ({
+    ...(profile?.account_type === "real" ? (walletRequests ?? []) : []).map((w) => ({
       id: `wallet-${w.id}`,
       type: w.type === "deposit" ? ("deposit" as const) : ("withdrawal" as const),
       at: w.requested_at,

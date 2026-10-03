@@ -32,10 +32,12 @@ export default async function TradesPage({
   if (!user) redirect("/login?next=%2Ftrades");
 
   const daysNum = Number(days);
+  const { data: acct } = await supabase.from("profiles").select("account_type").eq("id", user.id).single();
   const { data: openRows } = await supabase
     .from("simulated_positions")
     .select("id, entry_price, size, take_profit, stop_loss, signals(symbol, side, stop_loss, take_profit)")
     .eq("follower_id", user.id)
+    .eq("account_type", acct?.account_type === "real" ? "real" : "demo")
     .eq("status", "open")
     .order("opened_at", { ascending: false });
 

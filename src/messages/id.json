@@ -790,7 +790,7 @@
       },
       {
         "title": "3. Penyimpanan dan Perlindungan Data",
-        "body": "Data disimpan dengan penyedia basis data dan penyimpanan cloud (Supabase) menggunakan aturan akses tingkat baris (RLS) yang ketat, sehingga tidak ada pengguna yang dapat mengakses data atau dokumen pengguna lain. Akses ke dokumen verifikasi identitas dibatasi hanya untuk tim peninjau admin."
+        "body": "Data disimpan dengan penyedia basis data dan penyimpanan cloud (Supabase) menggunakan aturan akses tingkat baris (RLS) yang ketat, sehingga tidak ada pengguna yang dapat mengakses data atau dokumen pengguna lain. Akses ke dokumen verifikasi identitas dibatasi hanya untuk staf kepatuhan yang berwenang."
       },
       {
         "title": "4. Berbagi Data dengan Pihak Ketiga",
@@ -1324,7 +1324,7 @@
       "style_session_trader": "Trader sesi",
       "style_moderate": "Moderat",
       "style_sporadic": "Sesekali",
-      "contactLabel": "Kontak (pribadi, hanya admin)",
+      "contactLabel": "Metode kontak (pribadi)",
       "contactPlaceholder": "Telegram, WhatsApp, email...",
       "minInvestmentLabel": "Investasi minimum yang disarankan ($)",
       "agreeLabel": "Saya menyetujui perjanjian lead trader.",
@@ -1478,7 +1478,7 @@
       "payoutAmount": "Jumlah (USD)",
       "payoutDestination": "Alamat dompet / detail pembayaran",
       "payoutRequest": "Ajukan penarikan",
-      "payoutMinNote": "Minimum $10. Hanya pendapatan yang sudah diselesaikan yang dapat ditarik; permintaan ditinjau tim.",
+      "payoutMinNote": "Minimum $10. Hanya penghasilan yang sudah diselesaikan yang dapat ditarik. Penarikan biasanya selesai dalam 24 jam.",
       "payoutPendingNotice": "Anda memiliki permintaan penarikan yang sedang ditinjau.",
       "payoutRequested": "Permintaan penarikan terkirim.",
       "payoutCancel": "Batalkan",
@@ -1547,7 +1547,7 @@
       "securityLogins": "Masuk",
       "securityAccount": "Ubah kata sandi & detail akun",
       "securityNotifications": "Preferensi notifikasi",
-      "securityNote": "Permintaan penarikan selalu ditinjau tim sebelum dana berpindah."
+      "securityNote": "Permintaan pencairan melewati pemeriksaan keamanan sebelum dana dilepaskan."
     },
     "tasks": {
       "title": "Pusat tugas",

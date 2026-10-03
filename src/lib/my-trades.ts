@@ -29,10 +29,13 @@ export async function fetchClosedTrades(
   userId: string,
   filters: TradeFilters = {},
 ): Promise<{ trades: ClosedTrade[]; symbols: string[]; providers: { id: string; name: string }[] }> {
+  // Demo and real histories stay apart: only the active account's trades.
+  const { data: acct } = await supabase.from("profiles").select("account_type").eq("id", userId).single();
   const { data } = await supabase
     .from("simulated_positions")
     .select("id, entry_price, exit_price, size, pnl, opened_at, closed_at, signals(symbol, side, provider_id, stop_loss, take_profit)")
     .eq("follower_id", userId)
+    .eq("account_type", acct?.account_type === "real" ? "real" : "demo")
     .eq("status", "closed")
     .order("closed_at", { ascending: false });
 

@@ -790,7 +790,7 @@
       },
       {
         "title": "3. Almacenamiento y protección de datos",
-        "body": "Los datos se almacenan con un proveedor de base de datos y almacenamiento en la nube (Supabase) usando reglas de acceso estrictas a nivel de fila (RLS), de modo que ningún usuario pueda acceder a los datos o documentos de otro usuario. El acceso a los documentos de verificación de identidad está restringido únicamente al equipo de revisión administrativa."
+        "body": "Los datos se almacenan con un proveedor de base de datos y almacenamiento en la nube (Supabase) usando reglas de acceso estrictas a nivel de fila (RLS), de modo que ningún usuario pueda acceder a los datos o documentos de otro usuario. El acceso a los documentos de verificación de identidad está restringido únicamente al personal de cumplimiento autorizado."
       },
       {
         "title": "4. Compartir datos con terceros",
@@ -1325,7 +1325,7 @@
       "style_session_trader": "Trader de sesión",
       "style_moderate": "Moderado",
       "style_sporadic": "Ocasional",
-      "contactLabel": "Método de contacto (privado, solo admin)",
+      "contactLabel": "Método de contacto (privado)",
       "contactPlaceholder": "Telegram, WhatsApp, correo...",
       "minInvestmentLabel": "Inversión mínima sugerida ($)",
       "agreeLabel": "Acepto el acuerdo del trader líder.",
@@ -1479,7 +1479,7 @@
       "payoutAmount": "Monto (USD)",
       "payoutDestination": "Dirección de billetera / datos de pago",
       "payoutRequest": "Solicitar retiro",
-      "payoutMinNote": "Mínimo 10 $. Solo se pueden retirar ganancias liquidadas; el equipo revisa las solicitudes.",
+      "payoutMinNote": "Mínimo 10 $. Solo se pueden retirar las ganancias liquidadas. Los retiros suelen completarse en 24 horas.",
       "payoutPendingNotice": "Tienes una solicitud de retiro en revisión.",
       "payoutRequested": "Solicitud de retiro enviada.",
       "payoutCancel": "Cancelar",
@@ -1548,7 +1548,7 @@
       "securityLogins": "Inicios de sesión",
       "securityAccount": "Cambiar contraseña y datos de la cuenta",
       "securityNotifications": "Preferencias de notificación",
-      "securityNote": "Las solicitudes de retiro siempre las revisa el equipo antes de mover dinero."
+      "securityNote": "Las solicitudes de pago pasan por controles de seguridad antes de liberar los fondos."
     },
     "tasks": {
       "title": "Centro de tareas",

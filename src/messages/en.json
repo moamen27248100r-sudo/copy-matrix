@@ -790,7 +790,7 @@
       },
       {
         "title": "3. Data Storage and Protection",
-        "body": "Data is stored with a cloud database and storage provider (Supabase) using strict row-level access rules (RLS), so that no user can access another user's data or documents. Access to identity verification documents is restricted to the admin review team only."
+        "body": "Data is stored with a cloud database and storage provider (Supabase) using strict row-level access rules (RLS), so that no user can access another user's data or documents. Access to identity verification documents is restricted to authorized compliance staff only."
       },
       {
         "title": "4. Sharing Data with Third Parties",
@@ -1328,7 +1328,7 @@
       "style_session_trader": "Session trader",
       "style_moderate": "Moderate",
       "style_sporadic": "Occasional",
-      "contactLabel": "Contact method (private, admin only)",
+      "contactLabel": "Contact method (private)",
       "contactPlaceholder": "Telegram, WhatsApp, email...",
       "minInvestmentLabel": "Suggested minimum investment ($)",
       "agreeLabel": "I agree to the lead trader agreement.",
@@ -1482,7 +1482,7 @@
       "payoutAmount": "Amount (USD)",
       "payoutDestination": "Wallet address / payout details",
       "payoutRequest": "Request withdrawal",
-      "payoutMinNote": "Minimum $10. Only settled earnings can be withdrawn; requests are reviewed by the team.",
+      "payoutMinNote": "Minimum $10. Only settled earnings can be withdrawn. Withdrawals are usually completed within 24 hours.",
       "payoutPendingNotice": "You have a withdrawal request under review.",
       "payoutRequested": "Withdrawal request submitted.",
       "payoutCancel": "Cancel",
@@ -1551,7 +1551,7 @@
       "securityLogins": "Sign-ins",
       "securityAccount": "Change password & account details",
       "securityNotifications": "Notification preferences",
-      "securityNote": "Payout requests are always reviewed by the team before any money moves."
+      "securityNote": "Payout requests go through security checks before funds are released."
     },
     "tasks": {
       "title": "Task center",

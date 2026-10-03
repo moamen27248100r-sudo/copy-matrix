@@ -790,7 +790,7 @@
       },
       {
         "title": "3. Uhifadhi na Ulinzi wa Data",
-        "body": "Data huhifadhiwa kwa mtoa huduma wa hifadhidata na uhifadhi wa wingu (Supabase) kwa kutumia kanuni kali za ufikiaji wa kiwango cha safu (RLS), ili hakuna mtumiaji anayeweza kufikia data au hati za mtumiaji mwingine. Ufikiaji wa hati za uthibitishaji wa utambulisho umezuiliwa kwa timu ya ukaguzi wa utawala pekee."
+        "body": "Data huhifadhiwa kwa mtoa huduma wa hifadhidata na uhifadhi wa wingu (Supabase) kwa kutumia kanuni kali za ufikiaji wa kiwango cha safu (RLS), ili hakuna mtumiaji anayeweza kufikia data au hati za mtumiaji mwingine. Ufikiaji wa hati za uthibitishaji wa utambulisho umezuiliwa kwa wafanyakazi walioidhinishwa wa uzingatiaji pekee."
       },
       {
         "title": "4. Kushiriki Data na Wahusika wa Tatu",
@@ -1324,7 +1324,7 @@
       "style_session_trader": "Mfanyabiashara wa kipindi",
       "style_moderate": "Wastani",
       "style_sporadic": "Mara chache",
-      "contactLabel": "Njia ya mawasiliano (siri, admin pekee)",
+      "contactLabel": "Njia ya mawasiliano (siri)",
       "contactPlaceholder": "Telegram, WhatsApp, barua pepe...",
       "minInvestmentLabel": "Uwekezaji wa chini unaopendekezwa ($)",
       "agreeLabel": "Nakubali makubaliano ya kiongozi wa biashara.",
@@ -1478,7 +1478,7 @@
       "payoutAmount": "Kiasi (USD)",
       "payoutDestination": "Anwani ya pochi / maelezo ya malipo",
       "payoutRequest": "Omba kutoa",
-      "payoutMinNote": "Kiwango cha chini $10. Mapato yaliyokamilishwa pekee yanaweza kutolewa; maombi hukaguliwa na timu.",
+      "payoutMinNote": "Kiwango cha chini $10. Ni mapato yaliyosuluhishwa pekee yanaweza kutolewa. Uondoaji kwa kawaida hukamilika ndani ya saa 24.",
       "payoutPendingNotice": "Una ombi la kutoa linalokaguliwa.",
       "payoutRequested": "Ombi la kutoa limetumwa.",
       "payoutCancel": "Ghairi",
@@ -1547,7 +1547,7 @@
       "securityLogins": "Uingiaji",
       "securityAccount": "Badilisha nenosiri na maelezo ya akaunti",
       "securityNotifications": "Mapendeleo ya arifa",
-      "securityNote": "Maombi ya kutoa hukaguliwa na timu kabla ya pesa kuhamishwa."
+      "securityNote": "Maombi ya malipo hupitia ukaguzi wa usalama kabla ya fedha kutolewa."
     },
     "tasks": {
       "title": "Kituo cha kazi",

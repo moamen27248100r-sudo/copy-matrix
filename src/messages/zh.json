@@ -790,7 +790,7 @@
       },
       {
         "title": "三、数据存储与保护",
-        "body": "数据存储在云数据库和存储服务提供商（Supabase）处，采用严格的行级访问规则（RLS），确保任何用户都无法访问其他用户的数据或文档。身份验证文档的访问权限仅限管理审核团队。"
+        "body": "数据存储在云数据库和存储服务提供商（Supabase）处，采用严格的行级访问规则（RLS），确保任何用户都无法访问其他用户的数据或文档。身份验证文档的访问权限仅限获授权的合规人员。"
       },
       {
         "title": "四、与第三方共享数据",
@@ -1325,7 +1325,7 @@
       "style_session_trader": "时段交易者",
       "style_moderate": "稳健",
       "style_sporadic": "偶尔交易",
-      "contactLabel": "联系方式（私密，仅管理员可见）",
+      "contactLabel": "联系方式（保密）",
       "contactPlaceholder": "Telegram、WhatsApp、邮箱…",
       "minInvestmentLabel": "建议最低投资额 ($)",
       "agreeLabel": "我同意带单交易员协议。",
@@ -1479,7 +1479,7 @@
       "payoutAmount": "金额 (USD)",
       "payoutDestination": "钱包地址 / 收款信息",
       "payoutRequest": "申请提现",
-      "payoutMinNote": "最低10美元。仅已结算收益可提现，申请由团队审核。",
+      "payoutMinNote": "最低 10 美元。仅可提取已结算的收益。提现通常在 24 小时内完成。",
       "payoutPendingNotice": "您有一笔提现申请正在审核中。",
       "payoutRequested": "提现申请已提交。",
       "payoutCancel": "取消",
@@ -1548,7 +1548,7 @@
       "securityLogins": "登录次数",
       "securityAccount": "修改密码和账户信息",
       "securityNotifications": "通知偏好",
-      "securityNote": "任何资金变动前，提现申请都会由团队审核。"
+      "securityNote": "提现申请在放款前会经过安全校验。"
     },
     "tasks": {
       "title": "任务中心",

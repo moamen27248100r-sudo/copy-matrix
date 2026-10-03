@@ -790,7 +790,7 @@
       },
       {
         "title": "3. Lưu trữ và bảo vệ dữ liệu",
-        "body": "Dữ liệu được lưu trữ với nhà cung cấp cơ sở dữ liệu và lưu trữ đám mây (Supabase) sử dụng các quy tắc truy cập cấp hàng nghiêm ngặt (RLS), để không người dùng nào có thể truy cập dữ liệu hoặc tài liệu của người dùng khác. Quyền truy cập vào tài liệu xác minh danh tính chỉ giới hạn cho đội ngũ kiểm duyệt quản trị."
+        "body": "Dữ liệu được lưu trữ với nhà cung cấp cơ sở dữ liệu và lưu trữ đám mây (Supabase) sử dụng các quy tắc truy cập cấp hàng nghiêm ngặt (RLS), để không người dùng nào có thể truy cập dữ liệu hoặc tài liệu của người dùng khác. Quyền truy cập vào tài liệu xác minh danh tính chỉ giới hạn cho nhân viên tuân thủ được ủy quyền."
       },
       {
         "title": "4. Chia sẻ dữ liệu với bên thứ ba",
@@ -1324,7 +1324,7 @@
       "style_session_trader": "Trader theo phiên",
       "style_moderate": "Vừa phải",
       "style_sporadic": "Thỉnh thoảng",
-      "contactLabel": "Cách liên hệ (riêng tư, chỉ admin)",
+      "contactLabel": "Phương thức liên hệ (riêng tư)",
       "contactPlaceholder": "Telegram, WhatsApp, email...",
       "minInvestmentLabel": "Khoản đầu tư tối thiểu đề xuất ($)",
       "agreeLabel": "Tôi đồng ý với thỏa thuận lead trader.",
@@ -1478,7 +1478,7 @@
       "payoutAmount": "Số tiền (USD)",
       "payoutDestination": "Địa chỉ ví / thông tin nhận",
       "payoutRequest": "Yêu cầu rút",
-      "payoutMinNote": "Tối thiểu $10. Chỉ rút được thu nhập đã quyết toán; yêu cầu do đội ngũ xem xét.",
+      "payoutMinNote": "Tối thiểu $10. Chỉ có thể rút thu nhập đã quyết toán. Việc rút tiền thường hoàn tất trong 24 giờ.",
       "payoutPendingNotice": "Bạn có một yêu cầu rút tiền đang được xem xét.",
       "payoutRequested": "Đã gửi yêu cầu rút tiền.",
       "payoutCancel": "Hủy",
@@ -1547,7 +1547,7 @@
       "securityLogins": "Lần đăng nhập",
       "securityAccount": "Đổi mật khẩu và thông tin tài khoản",
       "securityNotifications": "Tùy chọn thông báo",
-      "securityNote": "Yêu cầu rút luôn được đội ngũ xem xét trước khi tiền được chuyển."
+      "securityNote": "Yêu cầu thanh toán trải qua kiểm tra an ninh trước khi giải ngân."
     },
     "tasks": {
       "title": "Trung tâm nhiệm vụ",

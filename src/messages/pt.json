@@ -790,7 +790,7 @@
       },
       {
         "title": "3. Armazenamento e proteção de dados",
-        "body": "Os dados são armazenados com um provedor de banco de dados e armazenamento em nuvem (Supabase) usando regras rígidas de acesso em nível de linha (RLS), de modo que nenhum usuário possa acessar dados ou documentos de outro usuário. O acesso aos documentos de verificação de identidade é restrito exclusivamente à equipe de revisão administrativa."
+        "body": "Os dados são armazenados com um provedor de banco de dados e armazenamento em nuvem (Supabase) usando regras rígidas de acesso em nível de linha (RLS), de modo que nenhum usuário possa acessar dados ou documentos de outro usuário. O acesso aos documentos de verificação de identidade é restrito exclusivamente à equipe de conformidade autorizada."
       },
       {
         "title": "4. Compartilhamento de dados com terceiros",
@@ -1327,7 +1327,7 @@
       "style_session_trader": "Trader de sessão",
       "style_moderate": "Moderado",
       "style_sporadic": "Ocasional",
-      "contactLabel": "Forma de contato (privado, somente admin)",
+      "contactLabel": "Método de contacto (privado)",
       "contactPlaceholder": "Telegram, WhatsApp, e-mail...",
       "minInvestmentLabel": "Investimento mínimo sugerido ($)",
       "agreeLabel": "Concordo com o acordo do trader líder.",
@@ -1481,7 +1481,7 @@
       "payoutAmount": "Valor (USD)",
       "payoutDestination": "Endereço da carteira / dados de pagamento",
       "payoutRequest": "Solicitar saque",
-      "payoutMinNote": "Mínimo US$ 10. Só ganhos liquidados podem ser sacados; a equipe revisa os pedidos.",
+      "payoutMinNote": "Mínimo de 10 $. Só podem ser levantados ganhos liquidados. Os levantamentos costumam ser concluídos em 24 horas.",
       "payoutPendingNotice": "Você tem um pedido de saque em análise.",
       "payoutRequested": "Pedido de saque enviado.",
       "payoutCancel": "Cancelar",
@@ -1550,7 +1550,7 @@
       "securityLogins": "Logins",
       "securityAccount": "Alterar senha e dados da conta",
       "securityNotifications": "Preferências de notificação",
-      "securityNote": "Os pedidos de saque são sempre revisados pela equipe antes de qualquer movimentação."
+      "securityNote": "Os pedidos de pagamento passam por verificações de segurança antes de os fundos serem libertados."
     },
     "tasks": {
       "title": "Central de tarefas",

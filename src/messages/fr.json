@@ -790,7 +790,7 @@
       },
       {
         "title": "3. Stockage et protection des données",
-        "body": "Les données sont stockées chez un fournisseur de base de données et de stockage cloud (Supabase) avec des règles d'accès strictes au niveau des lignes (RLS), de sorte qu'aucun utilisateur ne peut accéder aux données ou documents d'un autre utilisateur. L'accès aux documents de vérification d'identité est réservé à l'équipe de révision administrative."
+        "body": "Les données sont stockées chez un fournisseur de base de données et de stockage cloud (Supabase) avec des règles d'accès strictes au niveau des lignes (RLS), de sorte qu'aucun utilisateur ne peut accéder aux données ou documents d'un autre utilisateur. L'accès aux documents de vérification d'identité est réservé à au personnel de conformité autorisé."
       },
       {
         "title": "4. Partage des données avec des tiers",
@@ -1325,7 +1325,7 @@
       "style_session_trader": "Trader de session",
       "style_moderate": "Modéré",
       "style_sporadic": "Occasionnel",
-      "contactLabel": "Moyen de contact (privé, admin uniquement)",
+      "contactLabel": "Moyen de contact (privé)",
       "contactPlaceholder": "Telegram, WhatsApp, e-mail...",
       "minInvestmentLabel": "Investissement minimum suggéré ($)",
       "agreeLabel": "J'accepte l'accord du trader leader.",
@@ -1479,7 +1479,7 @@
       "payoutAmount": "Montant (USD)",
       "payoutDestination": "Adresse du portefeuille / détails",
       "payoutRequest": "Demander le retrait",
-      "payoutMinNote": "Minimum 10 $. Seuls les gains réglés sont retirables ; les demandes sont examinées par l'équipe.",
+      "payoutMinNote": "Minimum 10 $. Seuls les gains réglés peuvent être retirés. Les retraits sont généralement terminés sous 24 heures.",
       "payoutPendingNotice": "Vous avez une demande de retrait en cours d'examen.",
       "payoutRequested": "Demande de retrait envoyée.",
       "payoutCancel": "Annuler",
@@ -1548,7 +1548,7 @@
       "securityLogins": "Connexions",
       "securityAccount": "Changer le mot de passe et les infos du compte",
       "securityNotifications": "Préférences de notification",
-      "securityNote": "Les demandes de retrait sont toujours examinées par l'équipe avant tout mouvement d'argent."
+      "securityNote": "Les demandes de paiement passent par des contrôles de sécurité avant la libération des fonds."
     },
     "tasks": {
       "title": "Centre des tâches",
