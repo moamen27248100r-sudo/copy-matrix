@@ -217,12 +217,8 @@
     "walletRejectedBody": "Permintaan Anda tidak dapat diselesaikan. Hubungi dukungan untuk detailnya.",
     "followedTradeOpenedTitle": "Transaksi baru dibuka | {providerName}",
     "followedTradeOpenedBody": "{providerName} membuka transaksi {side, select, sell {jual} other {beli}} pada {symbol}. Anda dapat meninjau detailnya sekarang.",
-    "comingSoon": "Segera hadir",
     "prefsTitle": "Preferensi notifikasi",
     "prefsDesc": "Pilih cara Anda ingin diberi tahu untuk setiap jenis kejadian.",
-    "channel_inApp": "Dalam aplikasi",
-    "channel_email": "Email",
-    "channel_telegram": "Telegram",
     "cat_all": "Semua",
     "cat_trades": "Transaksi",
     "cat_copy": "Salinan",
@@ -244,7 +240,11 @@
     "leadStatusChanged_stopped": "Trading pada akun lead trader Anda dihentikan.",
     "leadStatusChanged_suspended": "Akun Anda ditangguhkan. Hubungi dukungan.",
     "tradeIntegrityAlertTitle": "Peringatan integritas trade",
-    "tradeIntegrityAlertBody": "Pemeriksaan harian menemukan {issues} trade bermasalah."
+    "tradeIntegrityAlertBody": "Pemeriksaan harian menemukan {issues} trade bermasalah.",
+    "prefsSave": "Simpan preferensi",
+    "prefsSaved": "Preferensi disimpan.",
+    "prefsSaveFailed": "Tidak dapat menyimpan preferensi Anda. Silakan coba lagi.",
+    "prefsSecurityAlways": "Selalu aktif"
   },
   "Portfolio": {
     "title": "Portofolio Saya",
@@ -872,10 +872,14 @@
       "stopCopyBlocked": "Tidak dapat menghentikan penyalinan saat ini: Anda memiliki trade terbuka pada akun ini, dan saldo Anda saat ini ditahan sebagai margin untuk menutupinya. Silakan coba lagi setelah semua trade terbuka ditutup.",
       "copyRequiresInvite": "Trader ini hanya menerima pengikut lewat undangan. Mintalah tautan undangan kepadanya.",
       "notAcceptingFollowers": "Trader ini sedang tidak menerima pengikut baru.",
-      "inviteInvalid": "Tautan undangan ini tidak valid atau sudah digunakan."
+      "inviteInvalid": "Tautan undangan ini tidak valid atau sudah digunakan.",
+      "copySettingsInvalid": "Periksa pengaturan salin Anda: jumlah tetap dan maksimum tidak boleh melebihi jumlah yang dialokasikan, dan stop-loss harus antara 1% dan 90%."
     },
     "dashboard": {
-      "closeFailed": "Tidak dapat menutup posisi. Silakan coba lagi."
+      "closeFailed": "Tidak dapat menutup posisi. Silakan coba lagi.",
+      "tpInvalid": "Take-profit harus di atas harga saat ini untuk beli, atau di bawahnya untuk jual.",
+      "slInvalid": "Stop-loss harus di bawah harga saat ini untuk beli, atau di atasnya untuk jual.",
+      "tpSlFailed": "Tidak dapat memperbarui TP/SL. Silakan coba lagi."
     },
     "leadTrader": {
       "rateLimit": "Terlalu banyak percobaan. Coba lagi nanti.",
@@ -1242,7 +1246,6 @@
     "noSearchResults": "Tidak ada topik yang cocok dengan pencarian Anda."
   },
   "CopyDialog": {
-    "comingSoon": "Segera hadir",
     "open": "Salin",
     "title": "Salin {name}",
     "close": "Tutup",
@@ -1251,21 +1254,19 @@
     "modeLabel": "Mode salin",
     "modeRatio": "Rasio tetap",
     "modeFixed": "Jumlah tetap per transaksi",
-    "copyOpenTrades": "Salin juga transaksi yang sedang terbuka",
     "advanced": "Pengaturan lanjutan",
-    "maxPerTrade": "Jumlah maksimum per transaksi",
-    "copyStopLoss": "Salin stop-loss",
-    "trailingStop": "Trailing stop",
-    "perTradeTpSl": "Take-profit / stop-loss per transaksi",
+    "maxPerTrade": "Jumlah maksimum per transaksi ($) — opsional",
+    "copyStopLoss": "Berhenti menyalin saat rugi (%)",
     "riskAck": "Saya memahami bahwa copy trading mengandung risiko dan saya dapat kehilangan sebagian atau seluruh jumlah yang dialokasikan.",
     "confirm": "Mulai menyalin",
-    "profitShare": "Bagi hasil (hanya tampilan):"
+    "profitShare": "Bagi hasil:",
+    "copyStopLossHint": "Penyalinan berhenti otomatis saat kerugian yang terealisasi mencapai persentase ini dari jumlah yang dialokasikan.",
+    "fixedAmountLabel": "Jumlah per transaksi ($)"
   },
   "Trades": {
     "title": "Transaksi",
     "tabOpen": "Terbuka",
     "tabHistory": "Riwayat",
-    "editTpSlSoon": "Pengeditan take-profit / stop-loss segera hadir.",
     "closeAll": "Tutup semua",
     "closeAllConfirm": "Tutup semua {count} transaksi terbuka pada harga pasar saat ini?",
     "filterSymbol": "Simbol",
@@ -1277,7 +1278,14 @@
     "lastDays": "{days} hari terakhir",
     "apply": "Terapkan",
     "exportCsv": "Ekspor CSV",
-    "noHistory": "Tidak ada transaksi tertutup yang cocok."
+    "noHistory": "Tidak ada transaksi tertutup yang cocok.",
+    "editTpSl": "Ubah TP/SL",
+    "tpLabel": "Harga take profit",
+    "slLabel": "Harga stop loss",
+    "tpSlSave": "Simpan",
+    "tpSlCancel": "Batal",
+    "tpSlHint": "Kosongkan kolom untuk menghapusnya. Take profit harus di sisi untung dari harga saat ini, stop loss di sisi rugi.",
+    "tpSlSaved": "TP/SL diperbarui."
   },
   "Copies": {
     "title": "Salinan saya",

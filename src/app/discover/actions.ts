@@ -97,12 +97,28 @@ export async function followProvider(formData: FormData) {
     }
   }
 
+  // Advanced settings (all re-validated inside start_or_update_copy()).
+  const optionalNumber = (name: string) => {
+    const raw = String(formData.get(name) ?? "").trim();
+    if (raw === "") return null;
+    const n = Number(raw);
+    return Number.isFinite(n) ? n : NaN;
+  };
+  const copyMode = formData.get("mode") === "fixed" ? "fixed" : "ratio";
+
   const { error } = await supabase.rpc("start_or_update_copy", {
     p_provider_id: providerId,
     p_allocated_amount: allocatedAmount,
+    p_copy_mode: copyMode,
+    p_fixed_amount: copyMode === "fixed" ? optionalNumber("fixedAmount") : null,
+    p_max_per_trade: optionalNumber("maxPerTrade"),
+    p_stop_loss_pct: optionalNumber("stopLossPct"),
   });
 
   if (error) {
+    if (error.code === "CM017") {
+      redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copySettingsInvalid"))}`);
+    }
     if (error.code === "CM003") {
       redirect(`/trader/${providerId}?error=${encodeURIComponent(td("traderStopped"))}`);
     }

@@ -217,12 +217,8 @@
     "walletRejectedBody": "您的申请无法完成。如需了解详情，请联系客服。",
     "followedTradeOpenedTitle": "开仓新交易 | {providerName}",
     "followedTradeOpenedBody": "{providerName} 开了一笔 {symbol} 的{side, select, sell {卖出} other {买入}}交易。您现在可以查看详情。",
-    "comingSoon": "即将推出",
     "prefsTitle": "通知偏好",
     "prefsDesc": "为每类事件选择您希望的通知方式。",
-    "channel_inApp": "应用内",
-    "channel_email": "电子邮件",
-    "channel_telegram": "Telegram",
     "cat_all": "全部",
     "cat_trades": "交易",
     "cat_copy": "跟单",
@@ -244,7 +240,11 @@
     "leadStatusChanged_stopped": "您的领导者账户交易已被停止。",
     "leadStatusChanged_suspended": "您的账户已被暂停，请联系客服。",
     "tradeIntegrityAlertTitle": "交易完整性警报",
-    "tradeIntegrityAlertBody": "每日检查发现 {issues} 笔交易有错误。"
+    "tradeIntegrityAlertBody": "每日检查发现 {issues} 笔交易有错误。",
+    "prefsSave": "保存偏好",
+    "prefsSaved": "偏好已保存。",
+    "prefsSaveFailed": "无法保存您的偏好，请重试。",
+    "prefsSecurityAlways": "始终开启"
   },
   "Portfolio": {
     "title": "我的资产",
@@ -872,10 +872,14 @@
       "stopCopyBlocked": "当前无法停止跟单：您在此账户上有持仓中的交易，您的余额目前被作为保证金锁定以覆盖这些交易。请等所有持仓交易平仓后再试。",
       "copyRequiresInvite": "该交易员仅接受受邀关注者。请向其索取邀请链接。",
       "notAcceptingFollowers": "该交易员目前不接受新的关注者。",
-      "inviteInvalid": "此邀请链接无效或已被使用。"
+      "inviteInvalid": "此邀请链接无效或已被使用。",
+      "copySettingsInvalid": "请检查跟单设置：固定金额和最大金额不能超过分配金额，止损比例须在 1% 至 90% 之间。"
     },
     "dashboard": {
-      "closeFailed": "无法平仓，请重试。"
+      "closeFailed": "无法平仓，请重试。",
+      "tpInvalid": "买入时止盈须高于当前价格，卖出时须低于当前价格。",
+      "slInvalid": "买入时止损须低于当前价格，卖出时须高于当前价格。",
+      "tpSlFailed": "无法更新止盈/止损，请重试。"
     },
     "leadTrader": {
       "rateLimit": "尝试次数过多，请稍后再试。",
@@ -1243,7 +1247,6 @@
     "noSearchResults": "没有符合您搜索条件的主题。"
   },
   "CopyDialog": {
-    "comingSoon": "即将推出",
     "open": "跟单",
     "title": "跟单 {name}",
     "close": "关闭",
@@ -1252,21 +1255,19 @@
     "modeLabel": "跟单模式",
     "modeRatio": "固定比例",
     "modeFixed": "每笔固定金额",
-    "copyOpenTrades": "同时跟随当前持仓",
     "advanced": "高级设置",
-    "maxPerTrade": "单笔最大金额",
-    "copyStopLoss": "跟随止损",
-    "trailingStop": "移动止损",
-    "perTradeTpSl": "单笔止盈 / 止损",
+    "maxPerTrade": "单笔最大金额（$）— 可选",
+    "copyStopLoss": "亏损达到以下比例时停止跟单（%）",
     "riskAck": "我了解跟单交易存在风险，可能损失部分或全部分配金额。",
     "confirm": "开始跟单",
-    "profitShare": "利润分成（仅展示）："
+    "profitShare": "利润分成：",
+    "copyStopLossHint": "当已实现亏损达到分配金额的该比例时，跟单将自动停止。",
+    "fixedAmountLabel": "每笔金额（$）"
   },
   "Trades": {
     "title": "交易",
     "tabOpen": "持仓中",
     "tabHistory": "历史",
-    "editTpSlSoon": "止盈 / 止损编辑功能即将推出。",
     "closeAll": "全部平仓",
     "closeAllConfirm": "以当前市价平掉全部 {count} 笔持仓？",
     "filterSymbol": "品种",
@@ -1278,7 +1279,14 @@
     "lastDays": "最近 {days} 天",
     "apply": "应用",
     "exportCsv": "导出 CSV",
-    "noHistory": "没有匹配的已平仓交易。"
+    "noHistory": "没有匹配的已平仓交易。",
+    "editTpSl": "编辑止盈/止损",
+    "tpLabel": "止盈价格",
+    "slLabel": "止损价格",
+    "tpSlSave": "保存",
+    "tpSlCancel": "取消",
+    "tpSlHint": "留空即可移除。止盈须在当前价格的盈利一侧，止损须在亏损一侧。",
+    "tpSlSaved": "止盈/止损已更新。"
   },
   "Copies": {
     "title": "我的跟单",

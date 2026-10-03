@@ -34,6 +34,8 @@ type Position = {
   pnl: number | null;
   opened_at: string;
   closed_at: string | null;
+  take_profit: number | null;
+  stop_loss: number | null;
   signals: PositionSignal | PositionSignal[] | null;
 };
 
@@ -56,12 +58,13 @@ export async function generateMetadata() {
 export default async function PortfolioPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string; success?: string; tab?: string; demo?: string }>;
+  searchParams: Promise<{ error?: string; success?: string; tab?: string; demo?: string; tpsl?: string }>;
 }) {
-  const { error, success, tab, demo } = await searchParams;
+  const { error, success, tab, demo, tpsl } = await searchParams;
   const locale = (await getLocale()) as Locale;
   const t = await getTranslations("Portfolio");
   const td = await getTranslations("Dashboard");
+  const tTrades = await getTranslations("Trades");
   const TX_LABELS: Record<string, string> = {
     deposit: t("txDeposit"),
     withdrawal: t("txWithdrawal"),
@@ -110,7 +113,7 @@ export default async function PortfolioPage({
       supabase
         .from("simulated_positions")
         .select(
-          "id, entry_price, exit_price, size, status, pnl, opened_at, closed_at, signals(symbol, side, provider_id, stop_loss, take_profit)",
+          "id, entry_price, exit_price, size, status, pnl, opened_at, closed_at, take_profit, stop_loss, signals(symbol, side, provider_id, stop_loss, take_profit)",
         )
         .eq("follower_id", user.id)
         .order("opened_at", { ascending: false }),
@@ -157,8 +160,8 @@ export default async function PortfolioPage({
         side: signal.side,
         entry_price: Number(pos.entry_price),
         size: Number(pos.size),
-        take_profit: signal.take_profit,
-        stop_loss: signal.stop_loss,
+        take_profit: pos.take_profit ?? signal.take_profit,
+        stop_loss: pos.stop_loss ?? signal.stop_loss,
       };
     })
     .filter((p): p is NonNullable<typeof p> => p != null);
@@ -540,6 +543,14 @@ export default async function PortfolioPage({
           <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
             {error}
           </p>
+        )}
+        {tpsl && (
+          <AutoDismissMessage
+            className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success"
+            clearParams={["tpsl"]}
+          >
+            {tTrades("tpSlSaved")}
+          </AutoDismissMessage>
         )}
         {demo && (
           <AutoDismissMessage

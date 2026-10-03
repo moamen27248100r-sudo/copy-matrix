@@ -35,3 +35,45 @@ export async function closeAllPositions() {
     redirect(`/trades?error=${encodeURIComponent(t("closeFailed"))}`);
   }
 }
+
+// Sets (or clears, when a field is left empty) the customer's own take-profit /
+// stop-loss on one open copied position. Validation against the live price and
+// the actual closing both happen in the database.
+export async function updatePositionTpSl(formData: FormData) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  const rawReturn = String(formData.get("returnTo") ?? "/trades");
+  const returnTo = rawReturn.startsWith("/") && !rawReturn.startsWith("//") ? rawReturn.split("?")[0] : "/trades";
+  const tabQuery = rawReturn.includes("tab=positions") ? "tab=positions&" : rawReturn.includes("tab=open") ? "tab=open&" : "";
+
+  const optionalNumber = (name: string) => {
+    const raw = String(formData.get(name) ?? "").trim();
+    if (raw === "") return null;
+    const n = Number(raw);
+    return Number.isFinite(n) ? n : NaN;
+  };
+  const tp = optionalNumber("takeProfit");
+  const sl = optionalNumber("stopLoss");
+  const t = await getTranslations("Actions.dashboard");
+  const fail = (msg: string) => redirect(`${returnTo}?${tabQuery}error=${encodeURIComponent(msg)}`);
+
+  if ((tp != null && Number.isNaN(tp)) || (sl != null && Number.isNaN(sl))) fail(t("tpSlFailed"));
+
+  const { error } = await supabase.rpc("set_my_position_tp_sl", {
+    p_position_id: String(formData.get("positionId") ?? ""),
+    p_take_profit: tp,
+    p_stop_loss: sl,
+  });
+
+  if (error) {
+    fail(error.code === "CM015" ? t("tpInvalid") : error.code === "CM016" ? t("slInvalid") : t("tpSlFailed"));
+  }
+
+  revalidatePath("/trades");
+  revalidatePath("/portfolio");
+  redirect(`${returnTo}?${tabQuery}tpsl=saved`);
+}

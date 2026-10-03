@@ -105,7 +105,6 @@
   "id": [
     "Common.level",
     "CopyDialog.minAmount",
-    "CopyDialog.trailingStop",
     "Countries.AR",
     "Countries.AT",
     "Countries.AU",
@@ -201,7 +200,6 @@
     "Trades.filterTrader"
   ],
   "sw": [
-    "CopyDialog.trailingStop",
     "Countries.AT",
     "Countries.AU",
     "Countries.CL",

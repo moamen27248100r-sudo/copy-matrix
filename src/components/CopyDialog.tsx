@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 
-// Copy-start dialog. Amount + risk acknowledgment are wired to the real
-// followProvider action; copy mode and the advanced settings are shown
-// disabled ("coming soon") until the backend supports them.
+// Copy-start dialog. Every field is applied by the followProvider action and
+// stored on the subscription: the copy mode and max-per-trade size each copied
+// trade, and the stop-loss percentage is the loss at which the copy stops itself.
 export function CopyDialog({
   action,
   providerId,
@@ -25,12 +25,9 @@ export function CopyDialog({
   const [open, setOpen] = useState(false);
   const [ack, setAck] = useState(false);
   const [advanced, setAdvanced] = useState(false);
+  const [mode, setMode] = useState<"ratio" | "fixed">("ratio");
 
-  const soon = (
-    <span className="rounded-full border border-warning/40 bg-warning/10 px-2 py-0.5 text-[10px] font-semibold text-warning">
-      {t("comingSoon")}
-    </span>
-  );
+  const inputCls = "rounded-lg border border-border bg-surface px-3 py-2.5 text-foreground focus:outline-none";
 
   return (
     <>
@@ -66,7 +63,7 @@ export function CopyDialog({
                 min={minAmount}
                 defaultValue={defaultAmount}
                 required
-                className="rounded-lg border border-border bg-surface px-3 py-2.5 text-foreground focus:outline-none"
+                className={inputCls}
               />
               <span className="text-xs text-muted">
                 {t("minAmount")} <span dir="ltr">${minAmount.toLocaleString("en-US")}</span>
@@ -79,19 +76,20 @@ export function CopyDialog({
               </p>
             )}
 
-            <fieldset className="flex flex-col gap-2" disabled>
-              <legend className="flex w-full items-center justify-between pb-1 text-sm text-muted">
-                {t("modeLabel")} {soon}
-              </legend>
-              <label className="flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm opacity-60">
-                <input type="radio" name="mode" defaultChecked /> {t("modeRatio")}
+            <fieldset className="flex flex-col gap-2">
+              <legend className="pb-1 text-sm text-muted">{t("modeLabel")}</legend>
+              <label className="flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm">
+                <input type="radio" name="mode" value="ratio" checked={mode === "ratio"} onChange={() => setMode("ratio")} /> {t("modeRatio")}
               </label>
-              <label className="flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm opacity-60">
-                <input type="radio" name="mode" /> {t("modeFixed")}
+              <label className="flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm">
+                <input type="radio" name="mode" value="fixed" checked={mode === "fixed"} onChange={() => setMode("fixed")} /> {t("modeFixed")}
               </label>
-              <label className="flex items-center gap-2 text-sm opacity-60">
-                <input type="checkbox" /> {t("copyOpenTrades")}
-              </label>
+              {mode === "fixed" && (
+                <label className="flex flex-col gap-1.5 text-sm">
+                  <span className="text-muted">{t("fixedAmountLabel")}</span>
+                  <input name="fixedAmount" type="number" step="any" min={1} max={defaultAmount} required className={inputCls} dir="ltr" />
+                </label>
+              )}
             </fieldset>
 
             <div className="flex flex-col gap-2 rounded-lg border border-border">
@@ -104,17 +102,26 @@ export function CopyDialog({
                 <span>{t("advanced")}</span>
                 <span aria-hidden="true">{advanced ? "−" : "+"}</span>
               </button>
-              {advanced && (
-                <fieldset className="flex flex-col gap-2 px-3 pb-3" disabled>
-                  <div className="flex justify-end">{soon}</div>
-                  {(["maxPerTrade", "copyStopLoss", "trailingStop", "perTradeTpSl"] as const).map((k) => (
-                    <label key={k} className="flex flex-col gap-1 text-xs text-muted">
-                      {t(k)}
-                      <input type="text" className="rounded border border-border bg-surface px-2 py-1.5 opacity-60" />
-                    </label>
-                  ))}
-                </fieldset>
-              )}
+              <div className={advanced ? "flex flex-col gap-3 px-3 pb-3" : "hidden"}>
+                <label className="flex flex-col gap-1 text-xs text-muted">
+                  {t("maxPerTrade")}
+                  <input name="maxPerTrade" type="number" step="any" min={1} className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" dir="ltr" />
+                </label>
+                <label className="flex flex-col gap-1 text-xs text-muted">
+                  {t("copyStopLoss")}
+                  <input
+                    name="stopLossPct"
+                    type="number"
+                    step="1"
+                    min={1}
+                    max={90}
+                    defaultValue={50}
+                    className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground"
+                    dir="ltr"
+                  />
+                  <span>{t("copyStopLossHint")}</span>
+                </label>
+              </div>
             </div>
 
             <label className="flex items-start gap-2 text-xs text-muted">

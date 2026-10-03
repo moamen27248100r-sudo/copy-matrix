@@ -217,12 +217,8 @@
     "walletRejectedBody": "Your request could not be completed. Please contact support for details.",
     "followedTradeOpenedTitle": "New trade opened | {providerName}",
     "followedTradeOpenedBody": "{providerName} opened a {side, select, sell {sell} other {buy}} trade on {symbol}. You can review the details now.",
-    "comingSoon": "Coming soon",
     "prefsTitle": "Notification preferences",
     "prefsDesc": "Choose how you want to be notified for each type of event.",
-    "channel_inApp": "In-app",
-    "channel_email": "Email",
-    "channel_telegram": "Telegram",
     "cat_all": "All",
     "cat_trades": "Trades",
     "cat_copy": "Copy",
@@ -244,7 +240,11 @@
     "leadStatusChanged_stopped": "Trading on your lead trader account has been stopped.",
     "leadStatusChanged_suspended": "Your account has been suspended. Contact support.",
     "tradeIntegrityAlertTitle": "Trade integrity alert",
-    "tradeIntegrityAlertBody": "The daily check found {issues} trades with errors."
+    "tradeIntegrityAlertBody": "The daily check found {issues} trades with errors.",
+    "prefsSave": "Save preferences",
+    "prefsSaved": "Preferences saved.",
+    "prefsSaveFailed": "Could not save your preferences. Please try again.",
+    "prefsSecurityAlways": "Always on"
   },
   "Portfolio": {
     "title": "My Portfolio",
@@ -872,10 +872,14 @@
       "stopCopyBlocked": "Could not stop copying right now: you have open trades on this account, and your balance is currently held as margin to cover them. Please try again after all open trades close.",
       "copyRequiresInvite": "This trader only accepts followers by invitation. Ask them for an invite link.",
       "notAcceptingFollowers": "This trader is not accepting new followers right now.",
-      "inviteInvalid": "This invite link is invalid or has already been used."
+      "inviteInvalid": "This invite link is invalid or has already been used.",
+      "copySettingsInvalid": "Check your copy settings: the fixed and maximum amounts must not exceed the allocated amount, and the stop-loss must be between 1% and 90%."
     },
     "dashboard": {
-      "closeFailed": "Couldn't close the position. Please try again."
+      "closeFailed": "Couldn't close the position. Please try again.",
+      "tpInvalid": "Take-profit must be above the current price for a buy, or below it for a sell.",
+      "slInvalid": "Stop-loss must be below the current price for a buy, or above it for a sell.",
+      "tpSlFailed": "Could not update TP/SL. Please try again."
     },
     "leadTrader": {
       "rateLimit": "Too many attempts. Try again later.",
@@ -1246,7 +1250,6 @@
     "noSearchResults": "No topics match your search."
   },
   "CopyDialog": {
-    "comingSoon": "Coming soon",
     "open": "Copy",
     "title": "Copy {name}",
     "close": "Close",
@@ -1255,21 +1258,19 @@
     "modeLabel": "Copy mode",
     "modeRatio": "Fixed ratio",
     "modeFixed": "Fixed amount per trade",
-    "copyOpenTrades": "Also copy currently open trades",
     "advanced": "Advanced settings",
-    "maxPerTrade": "Max amount per trade",
-    "copyStopLoss": "Copy stop-loss",
-    "trailingStop": "Trailing stop",
-    "perTradeTpSl": "Per-trade take-profit / stop-loss",
+    "maxPerTrade": "Max amount per trade ($) — optional",
+    "copyStopLoss": "Stop copying at a loss of (%)",
     "riskAck": "I understand that copy trading involves risk and I may lose part or all of the allocated amount.",
     "confirm": "Start copying",
-    "profitShare": "Profit share (display only):"
+    "profitShare": "Profit share:",
+    "copyStopLossHint": "The copy stops automatically once its realized loss reaches this share of the allocated amount.",
+    "fixedAmountLabel": "Amount per trade ($)"
   },
   "Trades": {
     "title": "Trades",
     "tabOpen": "Open",
     "tabHistory": "History",
-    "editTpSlSoon": "Editing take-profit / stop-loss is coming soon.",
     "closeAll": "Close all",
     "closeAllConfirm": "Close all {count} open trades at the current market price?",
     "filterSymbol": "Symbol",
@@ -1281,7 +1282,14 @@
     "lastDays": "Last {days} days",
     "apply": "Apply",
     "exportCsv": "Export CSV",
-    "noHistory": "No closed trades match."
+    "noHistory": "No closed trades match.",
+    "editTpSl": "Edit TP/SL",
+    "tpLabel": "Take profit price",
+    "slLabel": "Stop loss price",
+    "tpSlSave": "Save",
+    "tpSlCancel": "Cancel",
+    "tpSlHint": "Leave a field empty to remove it. Take profit must be on the profit side of the current price, stop loss on the loss side.",
+    "tpSlSaved": "TP/SL updated."
   },
   "Copies": {
     "title": "My copies",

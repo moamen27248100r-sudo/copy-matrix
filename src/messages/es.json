@@ -217,12 +217,8 @@
     "walletRejectedBody": "No se pudo completar tu solicitud. Contacta con soporte para más detalles.",
     "followedTradeOpenedTitle": "Nueva operación abierta | {providerName}",
     "followedTradeOpenedBody": "{providerName} abrió una operación de {side, select, sell {venta} other {compra}} en {symbol}. Puedes revisar los detalles ahora.",
-    "comingSoon": "Próximamente",
     "prefsTitle": "Preferencias de notificaciones",
     "prefsDesc": "Elige cómo quieres recibir avisos de cada tipo de evento.",
-    "channel_inApp": "En la app",
-    "channel_email": "Correo electrónico",
-    "channel_telegram": "Telegram",
     "cat_all": "Todas",
     "cat_trades": "Operaciones",
     "cat_copy": "Copias",
@@ -244,7 +240,11 @@
     "leadStatusChanged_stopped": "Se detuvo el trading de tu cuenta de líder.",
     "leadStatusChanged_suspended": "Tu cuenta fue suspendida. Contacta con soporte.",
     "tradeIntegrityAlertTitle": "Alerta de integridad de operaciones",
-    "tradeIntegrityAlertBody": "La revisión diaria encontró {issues} operaciones con errores."
+    "tradeIntegrityAlertBody": "La revisión diaria encontró {issues} operaciones con errores.",
+    "prefsSave": "Guardar preferencias",
+    "prefsSaved": "Preferencias guardadas.",
+    "prefsSaveFailed": "No se pudieron guardar tus preferencias. Inténtalo de nuevo.",
+    "prefsSecurityAlways": "Siempre activas"
   },
   "Portfolio": {
     "title": "Mi cartera",
@@ -872,10 +872,14 @@
       "stopCopyBlocked": "No se pudo detener la copia en este momento: tienes operaciones abiertas en esta cuenta, y tu saldo está actualmente retenido como margen para cubrirlas. Inténtalo de nuevo después de que se cierren todas las operaciones abiertas.",
       "copyRequiresInvite": "Este trader solo acepta seguidores por invitación. Pídele un enlace de invitación.",
       "notAcceptingFollowers": "Este trader no acepta nuevos seguidores por el momento.",
-      "inviteInvalid": "Este enlace de invitación no es válido o ya se ha usado."
+      "inviteInvalid": "Este enlace de invitación no es válido o ya se ha usado.",
+      "copySettingsInvalid": "Revisa los ajustes de copia: los importes fijo y máximo no pueden superar el importe asignado y el stop-loss debe estar entre 1 % y 90 %."
     },
     "dashboard": {
-      "closeFailed": "No se pudo cerrar la posición. Inténtalo de nuevo."
+      "closeFailed": "No se pudo cerrar la posición. Inténtalo de nuevo.",
+      "tpInvalid": "El take-profit debe estar por encima del precio actual en una compra, o por debajo en una venta.",
+      "slInvalid": "El stop-loss debe estar por debajo del precio actual en una compra, o por encima en una venta.",
+      "tpSlFailed": "No se pudo actualizar el TP/SL. Inténtalo de nuevo."
     },
     "leadTrader": {
       "rateLimit": "Demasiados intentos. Inténtalo más tarde.",
@@ -1243,7 +1247,6 @@
     "noSearchResults": "No hay temas que coincidan con tu búsqueda."
   },
   "CopyDialog": {
-    "comingSoon": "Próximamente",
     "open": "Copiar",
     "title": "Copiar a {name}",
     "close": "Cerrar",
@@ -1252,21 +1255,19 @@
     "modeLabel": "Modo de copia",
     "modeRatio": "Proporción fija",
     "modeFixed": "Importe fijo por operación",
-    "copyOpenTrades": "Copiar también las operaciones abiertas actualmente",
     "advanced": "Ajustes avanzados",
-    "maxPerTrade": "Importe máximo por operación",
-    "copyStopLoss": "Copiar stop-loss",
-    "trailingStop": "Stop dinámico (trailing)",
-    "perTradeTpSl": "Take-profit / stop-loss por operación",
+    "maxPerTrade": "Importe máximo por operación ($) — opcional",
+    "copyStopLoss": "Dejar de copiar con una pérdida de (%)",
     "riskAck": "Entiendo que el copy trading conlleva riesgos y que puedo perder parte o la totalidad del importe asignado.",
     "confirm": "Empezar a copiar",
-    "profitShare": "Reparto de beneficios (solo informativo):"
+    "profitShare": "Reparto de beneficios:",
+    "copyStopLossHint": "La copia se detiene automáticamente cuando su pérdida realizada alcanza este porcentaje del importe asignado.",
+    "fixedAmountLabel": "Importe por operación ($)"
   },
   "Trades": {
     "title": "Operaciones",
     "tabOpen": "Abiertas",
     "tabHistory": "Historial",
-    "editTpSlSoon": "La edición de take-profit / stop-loss llegará pronto.",
     "closeAll": "Cerrar todas",
     "closeAllConfirm": "¿Cerrar las {count} operaciones abiertas al precio de mercado actual?",
     "filterSymbol": "Símbolo",
@@ -1278,7 +1279,14 @@
     "lastDays": "Últimos {days} días",
     "apply": "Aplicar",
     "exportCsv": "Exportar CSV",
-    "noHistory": "No hay operaciones cerradas que coincidan."
+    "noHistory": "No hay operaciones cerradas que coincidan.",
+    "editTpSl": "Editar TP/SL",
+    "tpLabel": "Precio de take profit",
+    "slLabel": "Precio de stop loss",
+    "tpSlSave": "Guardar",
+    "tpSlCancel": "Cancelar",
+    "tpSlHint": "Deja un campo vacío para quitarlo. El take profit debe estar del lado de beneficio del precio actual y el stop loss del lado de pérdida.",
+    "tpSlSaved": "TP/SL actualizado."
   },
   "Copies": {
     "title": "Mis copias",

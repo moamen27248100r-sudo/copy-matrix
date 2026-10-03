@@ -217,12 +217,8 @@
     "walletRejectedBody": "Không thể hoàn tất yêu cầu của bạn. Vui lòng liên hệ bộ phận hỗ trợ để biết chi tiết.",
     "followedTradeOpenedTitle": "Đã mở giao dịch mới | {providerName}",
     "followedTradeOpenedBody": "{providerName} đã mở giao dịch {side, select, sell {bán} other {mua}} trên {symbol}. Bạn có thể xem chi tiết ngay bây giờ.",
-    "comingSoon": "Sắp ra mắt",
     "prefsTitle": "Tùy chọn thông báo",
     "prefsDesc": "Chọn cách bạn muốn nhận thông báo cho từng loại sự kiện.",
-    "channel_inApp": "Trong ứng dụng",
-    "channel_email": "Email",
-    "channel_telegram": "Telegram",
     "cat_all": "Tất cả",
     "cat_trades": "Giao dịch",
     "cat_copy": "Sao chép",
@@ -244,7 +240,11 @@
     "leadStatusChanged_stopped": "Giao dịch trên tài khoản lead trader đã bị dừng.",
     "leadStatusChanged_suspended": "Tài khoản của bạn đã bị đình chỉ. Hãy liên hệ hỗ trợ.",
     "tradeIntegrityAlertTitle": "Cảnh báo giao dịch",
-    "tradeIntegrityAlertBody": "Kiểm tra hằng ngày phát hiện {issues} giao dịch có lỗi."
+    "tradeIntegrityAlertBody": "Kiểm tra hằng ngày phát hiện {issues} giao dịch có lỗi.",
+    "prefsSave": "Lưu tùy chọn",
+    "prefsSaved": "Đã lưu tùy chọn.",
+    "prefsSaveFailed": "Không thể lưu tùy chọn của bạn. Vui lòng thử lại.",
+    "prefsSecurityAlways": "Luôn bật"
   },
   "Portfolio": {
     "title": "Danh mục của tôi",
@@ -872,10 +872,14 @@
       "stopCopyBlocked": "Hiện không thể dừng sao chép: bạn có giao dịch đang mở trên tài khoản này, và số dư của bạn hiện đang được giữ làm ký quỹ để bù đắp cho chúng. Vui lòng thử lại sau khi tất cả các giao dịch đang mở đóng lại.",
       "copyRequiresInvite": "Nhà giao dịch này chỉ nhận người theo dõi qua lời mời. Hãy xin họ liên kết mời.",
       "notAcceptingFollowers": "Nhà giao dịch này hiện không nhận người theo dõi mới.",
-      "inviteInvalid": "Liên kết mời này không hợp lệ hoặc đã được sử dụng."
+      "inviteInvalid": "Liên kết mời này không hợp lệ hoặc đã được sử dụng.",
+      "copySettingsInvalid": "Kiểm tra cài đặt sao chép: số tiền cố định và tối đa không được vượt quá số tiền đã phân bổ, và cắt lỗ phải nằm trong khoảng 1% đến 90%."
     },
     "dashboard": {
-      "closeFailed": "Không thể đóng vị thế. Vui lòng thử lại."
+      "closeFailed": "Không thể đóng vị thế. Vui lòng thử lại.",
+      "tpInvalid": "Chốt lời phải cao hơn giá hiện tại với lệnh mua, hoặc thấp hơn với lệnh bán.",
+      "slInvalid": "Cắt lỗ phải thấp hơn giá hiện tại với lệnh mua, hoặc cao hơn với lệnh bán.",
+      "tpSlFailed": "Không thể cập nhật TP/SL. Vui lòng thử lại."
     },
     "leadTrader": {
       "rateLimit": "Quá nhiều lần thử. Vui lòng thử lại sau.",
@@ -1242,7 +1246,6 @@
     "noSearchResults": "Không có chủ đề nào khớp với tìm kiếm của bạn."
   },
   "CopyDialog": {
-    "comingSoon": "Sắp ra mắt",
     "open": "Sao chép",
     "title": "Sao chép {name}",
     "close": "Đóng",
@@ -1251,21 +1254,19 @@
     "modeLabel": "Chế độ sao chép",
     "modeRatio": "Tỷ lệ cố định",
     "modeFixed": "Số tiền cố định mỗi lệnh",
-    "copyOpenTrades": "Sao chép cả các lệnh đang mở",
     "advanced": "Cài đặt nâng cao",
-    "maxPerTrade": "Số tiền tối đa mỗi lệnh",
-    "copyStopLoss": "Sao chép cắt lỗ",
-    "trailingStop": "Dừng lỗ trượt",
-    "perTradeTpSl": "Chốt lời / cắt lỗ mỗi lệnh",
+    "maxPerTrade": "Số tiền tối đa mỗi lệnh ($) — tùy chọn",
+    "copyStopLoss": "Dừng sao chép khi lỗ đạt (%)",
     "riskAck": "Tôi hiểu rằng giao dịch sao chép có rủi ro và tôi có thể mất một phần hoặc toàn bộ số tiền đã phân bổ.",
     "confirm": "Bắt đầu sao chép",
-    "profitShare": "Chia sẻ lợi nhuận (chỉ hiển thị):"
+    "profitShare": "Chia sẻ lợi nhuận:",
+    "copyStopLossHint": "Lệnh sao chép tự động dừng khi khoản lỗ đã chốt đạt tỷ lệ này trên số tiền đã phân bổ.",
+    "fixedAmountLabel": "Số tiền mỗi lệnh ($)"
   },
   "Trades": {
     "title": "Giao dịch",
     "tabOpen": "Đang mở",
     "tabHistory": "Lịch sử",
-    "editTpSlSoon": "Tính năng chỉnh sửa chốt lời / cắt lỗ sắp ra mắt.",
     "closeAll": "Đóng tất cả",
     "closeAllConfirm": "Đóng tất cả {count} lệnh đang mở ở giá thị trường hiện tại?",
     "filterSymbol": "Mã",
@@ -1277,7 +1278,14 @@
     "lastDays": "{days} ngày qua",
     "apply": "Áp dụng",
     "exportCsv": "Xuất CSV",
-    "noHistory": "Không có lệnh đã đóng phù hợp."
+    "noHistory": "Không có lệnh đã đóng phù hợp.",
+    "editTpSl": "Sửa TP/SL",
+    "tpLabel": "Giá chốt lời",
+    "slLabel": "Giá cắt lỗ",
+    "tpSlSave": "Lưu",
+    "tpSlCancel": "Hủy",
+    "tpSlHint": "Để trống một ô để xóa nó. Chốt lời phải nằm ở phía có lãi so với giá hiện tại, cắt lỗ ở phía thua lỗ.",
+    "tpSlSaved": "Đã cập nhật TP/SL."
   },
   "Copies": {
     "title": "Lệnh sao chép của tôi",

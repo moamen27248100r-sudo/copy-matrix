@@ -109,7 +109,7 @@ function formatNotificationTime(iso: string, locale: Locale) {
 }
 
 const CATEGORY_TYPES: Record<string, string[]> = {
-  trades: ["followed_trade_closed"],
+  trades: ["followed_trade_opened", "followed_trade_closed"],
   copy: ["copy_opened", "copy_closed", "auto_stop_copy"],
   account: ["wallet_deposit_approved", "wallet_withdrawal_approved", "kyc_approved", "kyc_rejected"],
 };

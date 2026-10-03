@@ -217,12 +217,8 @@
     "walletRejectedBody": "Ombi lako halikuweza kukamilika. Tafadhali wasiliana na usaidizi kwa maelezo.",
     "followedTradeOpenedTitle": "Biashara mpya imefunguliwa | {providerName}",
     "followedTradeOpenedBody": "{providerName} amefungua biashara ya {side, select, sell {kuuza} other {kununua}} kwenye {symbol}. Unaweza kukagua maelezo sasa.",
-    "comingSoon": "Inakuja hivi karibuni",
     "prefsTitle": "Mapendeleo ya arifa",
     "prefsDesc": "Chagua jinsi unavyotaka kuarifiwa kwa kila aina ya tukio.",
-    "channel_inApp": "Ndani ya programu",
-    "channel_email": "Barua pepe",
-    "channel_telegram": "Telegram",
     "cat_all": "Zote",
     "cat_trades": "Biashara",
     "cat_copy": "Nakala",
@@ -244,7 +240,11 @@
     "leadStatusChanged_stopped": "Biashara kwenye akaunti yako ya kiongozi imesimamishwa.",
     "leadStatusChanged_suspended": "Akaunti yako imesimamishwa. Wasiliana na msaada.",
     "tradeIntegrityAlertTitle": "Tahadhari ya usahihi wa biashara",
-    "tradeIntegrityAlertBody": "Ukaguzi wa kila siku umepata biashara {issues} zenye makosa."
+    "tradeIntegrityAlertBody": "Ukaguzi wa kila siku umepata biashara {issues} zenye makosa.",
+    "prefsSave": "Hifadhi mapendeleo",
+    "prefsSaved": "Mapendeleo yamehifadhiwa.",
+    "prefsSaveFailed": "Imeshindwa kuhifadhi mapendeleo yako. Tafadhali jaribu tena.",
+    "prefsSecurityAlways": "Imewashwa daima"
   },
   "Portfolio": {
     "title": "Jalada Langu",
@@ -872,10 +872,14 @@
       "stopCopyBlocked": "Imeshindwa kuacha kunakili kwa sasa: una biashara zilizo wazi kwenye akaunti hii, na salio lako kwa sasa limehifadhiwa kama dhamana kuzifidia. Tafadhali jaribu tena baada ya biashara zote zilizo wazi kufungwa.",
       "copyRequiresInvite": "Mfanyabiashara huyu anakubali wafuasi kwa mwaliko pekee. Mwombe kiungo cha mwaliko.",
       "notAcceptingFollowers": "Mfanyabiashara huyu hakubali wafuasi wapya kwa sasa.",
-      "inviteInvalid": "Kiungo hiki cha mwaliko si sahihi au kimeshatumika."
+      "inviteInvalid": "Kiungo hiki cha mwaliko si sahihi au kimeshatumika.",
+      "copySettingsInvalid": "Kagua mipangilio yako ya kunakili: kiasi kisichobadilika na cha juu hakipaswi kuzidi kiasi kilichotengwa, na stop-loss iwe kati ya 1% na 90%."
     },
     "dashboard": {
-      "closeFailed": "Imeshindwa kufunga nafasi. Tafadhali jaribu tena."
+      "closeFailed": "Imeshindwa kufunga nafasi. Tafadhali jaribu tena.",
+      "tpInvalid": "Take-profit lazima iwe juu ya bei ya sasa kwa ununuzi, au chini yake kwa uuzaji.",
+      "slInvalid": "Stop-loss lazima iwe chini ya bei ya sasa kwa ununuzi, au juu yake kwa uuzaji.",
+      "tpSlFailed": "Imeshindwa kusasisha TP/SL. Tafadhali jaribu tena."
     },
     "leadTrader": {
       "rateLimit": "Majaribio mengi sana. Jaribu tena baadaye.",
@@ -1242,7 +1246,6 @@
     "noSearchResults": "Hakuna mada zinazolingana na utafutaji wako."
   },
   "CopyDialog": {
-    "comingSoon": "Inakuja hivi karibuni",
     "open": "Nakili",
     "title": "Nakili {name}",
     "close": "Funga",
@@ -1251,21 +1254,19 @@
     "modeLabel": "Hali ya kunakili",
     "modeRatio": "Uwiano usiobadilika",
     "modeFixed": "Kiasi kisichobadilika kwa kila biashara",
-    "copyOpenTrades": "Nakili pia biashara zilizo wazi sasa",
     "advanced": "Mipangilio ya hali ya juu",
-    "maxPerTrade": "Kiasi cha juu kwa kila biashara",
-    "copyStopLoss": "Nakili stop-loss",
-    "trailingStop": "Trailing stop",
-    "perTradeTpSl": "Take-profit / stop-loss kwa kila biashara",
+    "maxPerTrade": "Kiasi cha juu kwa kila biashara ($) — si lazima",
+    "copyStopLoss": "Acha kunakili hasara inapofikia (%)",
     "riskAck": "Ninaelewa kwamba biashara ya kunakili ina hatari na ninaweza kupoteza sehemu au kiasi chote nilichotenga.",
     "confirm": "Anza kunakili",
-    "profitShare": "Mgao wa faida (kuonyesha tu):"
+    "profitShare": "Mgao wa faida:",
+    "copyStopLossHint": "Nakala husimama kiotomatiki hasara iliyotimia inapofikia sehemu hii ya kiasi kilichotengwa.",
+    "fixedAmountLabel": "Kiasi kwa kila biashara ($)"
   },
   "Trades": {
     "title": "Biashara",
     "tabOpen": "Zilizo wazi",
     "tabHistory": "Historia",
-    "editTpSlSoon": "Kuhariri take-profit / stop-loss kunakuja hivi karibuni.",
     "closeAll": "Funga zote",
     "closeAllConfirm": "Funga biashara zote {count} zilizo wazi kwa bei ya sasa ya soko?",
     "filterSymbol": "Alama",
@@ -1277,7 +1278,14 @@
     "lastDays": "Siku {days} zilizopita",
     "apply": "Tumia",
     "exportCsv": "Hamisha CSV",
-    "noHistory": "Hakuna biashara zilizofungwa zinazolingana."
+    "noHistory": "Hakuna biashara zilizofungwa zinazolingana.",
+    "editTpSl": "Hariri TP/SL",
+    "tpLabel": "Bei ya take profit",
+    "slLabel": "Bei ya stop loss",
+    "tpSlSave": "Hifadhi",
+    "tpSlCancel": "Ghairi",
+    "tpSlHint": "Acha sehemu wazi ili kuiondoa. Take profit lazima iwe upande wa faida wa bei ya sasa, stop loss upande wa hasara.",
+    "tpSlSaved": "TP/SL imesasishwa."
   },
   "Copies": {
     "title": "Nakala zangu",

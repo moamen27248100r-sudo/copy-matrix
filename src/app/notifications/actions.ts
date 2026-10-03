@@ -40,3 +40,28 @@ export async function markOneRead(formData: FormData) {
 
   revalidatePath("/notifications");
 }
+
+const PREFERENCE_CATEGORIES = ["trades", "copy", "account"] as const;
+
+// Per-category in-app delivery. Security alerts are not configurable. The DB
+// (notifications_respect_preferences trigger) enforces what is saved here.
+export async function saveNotificationPreferences(formData: FormData) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) redirect("/login");
+
+  const rows = PREFERENCE_CATEGORIES.map((category) => ({
+    user_id: user.id,
+    category,
+    in_app: formData.get(`cat_${category}`) === "on",
+    updated_at: new Date().toISOString(),
+  }));
+
+  const { error } = await supabase.from("notification_preferences").upsert(rows, { onConflict: "user_id,category" });
+
+  revalidatePath("/notifications/preferences");
+  redirect(`/notifications/preferences?${error ? "error=1" : "saved=1"}`);
+}

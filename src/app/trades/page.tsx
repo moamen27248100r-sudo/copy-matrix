@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
 import { ConfirmButton } from "@/components/ConfirmButton";
+import { AutoDismissMessage } from "@/components/AutoDismissMessage";
 import { MyOpenPositions } from "@/components/MyOpenPositions";
 import { TradeHistory } from "@/components/TradeHistory";
 import { closeAllPositions } from "@/app/trades/actions";
@@ -19,9 +20,9 @@ export async function generateMetadata() {
 export default async function TradesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ tab?: string; symbol?: string; provider?: string; result?: string; days?: string; error?: string }>;
+  searchParams: Promise<{ tab?: string; symbol?: string; provider?: string; result?: string; days?: string; error?: string; tpsl?: string }>;
 }) {
-  const { tab, symbol, provider, result, days, error } = await searchParams;
+  const { tab, symbol, provider, result, days, error, tpsl } = await searchParams;
   const activeTab = tab === "history" ? "history" : "open";
   const t = await getTranslations("Trades");
   const supabase = await createClient();
@@ -33,7 +34,7 @@ export default async function TradesPage({
   const daysNum = Number(days);
   const { data: openRows } = await supabase
     .from("simulated_positions")
-    .select("id, entry_price, size, signals(symbol, side, stop_loss, take_profit)")
+    .select("id, entry_price, size, take_profit, stop_loss, signals(symbol, side, stop_loss, take_profit)")
     .eq("follower_id", user.id)
     .eq("status", "open")
     .order("opened_at", { ascending: false });
@@ -48,8 +49,8 @@ export default async function TradesPage({
         side: s.side,
         entry_price: Number(r.entry_price),
         size: Number(r.size),
-        take_profit: s.take_profit,
-        stop_loss: s.stop_loss,
+        take_profit: (r.take_profit as number | null) ?? s.take_profit,
+        stop_loss: (r.stop_loss as number | null) ?? s.stop_loss,
       },
     ];
   });
@@ -79,6 +80,11 @@ export default async function TradesPage({
       <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-64 lg:me-0 lg:pb-6">
         <h1 className="text-page-title">{t("title")}</h1>
         {error && <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>}
+        {tpsl && (
+          <AutoDismissMessage className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success" clearParams={["tpsl"]}>
+            {t("tpSlSaved")}
+          </AutoDismissMessage>
+        )}
 
         <div className="flex gap-1.5 rounded-lg border border-border bg-surface p-1">
           {(["open", "history"] as const).map((k) => (
@@ -99,8 +105,7 @@ export default async function TradesPage({
         {activeTab === "open" ? (
           <>
             {open.length > 0 && (
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="text-xs text-muted">{t("editTpSlSoon")}</p>
+              <div className="flex flex-wrap items-center justify-end gap-2">
                 <form action={closeAllPositions}>
                   <ConfirmButton
                     confirmText={t("closeAllConfirm", { count: open.length })}

@@ -1,11 +1,13 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { SymbolIcon } from "@/lib/symbol-icons";
 import { useLivePricesMeta } from "@/lib/use-live-prices";
 import { FOREX_SYMBOLS, lotsFromSize, openPositionPnl } from "@/lib/pip-specs";
 import { ForexAsOfNote } from "@/components/ForexAsOfNote";
+import { updatePositionTpSl } from "@/app/trades/actions";
 
 type Position = {
   id: string;
@@ -21,8 +23,20 @@ function formatPrice(value: number) {
   return value.toLocaleString("en-US", { maximumFractionDigits: 4 });
 }
 
-function PositionRow({ pos, current, forexAsOf }: { pos: Position; current: number | undefined; forexAsOf: string | undefined }) {
+function PositionRow({
+  pos,
+  current,
+  forexAsOf,
+  returnTo,
+}: {
+  pos: Position;
+  current: number | undefined;
+  forexAsOf: string | undefined;
+  returnTo: string;
+}) {
   const tl = useTranslations("LivePrices");
+  const tt = useTranslations("Trades");
+  const [editing, setEditing] = useState(false);
   const [flash, setFlash] = useState<"up" | "down" | null>(null);
   const prevPrice = useRef<number | undefined>(current);
 
@@ -45,7 +59,7 @@ function PositionRow({ pos, current, forexAsOf }: { pos: Position; current: numb
   return (
     <div
       className={
-        "flex items-center justify-between gap-3 rounded-lg border border-border bg-surface p-3 transition-colors duration-500 " +
+        "flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-surface p-3 transition-colors duration-500 " +
         (flash === "up" ? "bg-success/10" : flash === "down" ? "bg-danger/10" : "")
       }
     >
@@ -103,7 +117,31 @@ function PositionRow({ pos, current, forexAsOf }: { pos: Position; current: numb
             {pos.stop_loss != null && <>SL {formatPrice(pos.stop_loss)}</>}
           </p>
         )}
+        <button type="button" onClick={() => setEditing((v) => !v)} className="mt-1 text-[11px] font-medium text-accent hover:underline">
+          {tt("editTpSl")}
+        </button>
       </div>
+      {editing && (
+        <form action={updatePositionTpSl} className="mt-2 flex w-full flex-wrap items-end gap-2 border-t border-border pt-3 text-xs">
+          <input type="hidden" name="positionId" value={pos.id} />
+          <input type="hidden" name="returnTo" value={returnTo} />
+          <label className="flex min-w-[96px] flex-1 flex-col gap-1 text-muted">
+            {tt("tpLabel")}
+            <input name="takeProfit" type="number" step="any" min="0" defaultValue={pos.take_profit ?? ""} dir="ltr" className="rounded border border-border bg-background px-2 py-1.5 text-sm text-foreground" />
+          </label>
+          <label className="flex min-w-[96px] flex-1 flex-col gap-1 text-muted">
+            {tt("slLabel")}
+            <input name="stopLoss" type="number" step="any" min="0" defaultValue={pos.stop_loss ?? ""} dir="ltr" className="rounded border border-border bg-background px-2 py-1.5 text-sm text-foreground" />
+          </label>
+          <button type="submit" className="rounded bg-accent px-3 py-1.5 text-xs font-semibold text-accent-foreground">
+            {tt("tpSlSave")}
+          </button>
+          <button type="button" onClick={() => setEditing(false)} className="rounded border border-border px-3 py-1.5 text-xs text-muted">
+            {tt("tpSlCancel")}
+          </button>
+          <p className="w-full text-[11px] text-muted">{tt("tpSlHint")}</p>
+        </form>
+      )}
     </div>
   );
 }
@@ -116,6 +154,8 @@ export function MyOpenPositions({
   initialPrices: Record<string, number>;
 }) {
   const t = useTranslations("Portfolio");
+  const pathname = usePathname();
+  const returnTo = pathname === "/portfolio" ? "/portfolio?tab=positions" : pathname;
   const symbols = Array.from(new Set(positions.map((p) => p.symbol)));
   const { prices, forexAsOf } = useLivePricesMeta(symbols, initialPrices);
 
@@ -144,7 +184,7 @@ export function MyOpenPositions({
       ) : (
         <div className="flex flex-col gap-2">
           {positions.map((pos) => (
-            <PositionRow key={pos.id} pos={pos} current={prices[pos.symbol]} forexAsOf={forexAsOf[pos.symbol]} />
+            <PositionRow key={pos.id} pos={pos} current={prices[pos.symbol]} forexAsOf={forexAsOf[pos.symbol]} returnTo={returnTo} />
           ))}
         </div>
       )}
