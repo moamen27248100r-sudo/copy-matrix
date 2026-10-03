@@ -226,7 +226,7 @@
     "switchAccountAriaLabel": "Switch account type",
     "accountTypeReal": "Real account",
     "accountTypeDemo": "Demo account",
-    "switchAccountWarning": "Switching between real and demo resets the balance and stops current copying. Continue?",
+    "switchAccountWarning": "Your demo and real balances are kept separate. Switching accounts stops your current copying. Continue?",
     "switchAccountConfirmTitle": "Confirm account switch",
     "switchAccountConfirmCta": "Switch",
     "switchAccountCancelCta": "Cancel",
@@ -341,7 +341,8 @@
     "copiersThisWeek": "{count} new copiers this week",
     "tableTrader": "Trader",
     "viewAllPositions": "View all {count} positions",
-    "tableSize": "Size"
+    "tableSize": "Size",
+    "resetBalanceConfirm": "Reset your demo balance to 10,000 USDT? Your current copies will stop."
   },
   "Common": {
     "level": "Level {level}",
@@ -485,7 +486,16 @@
     "monthlyReportTitle": "Monthly report",
     "monthlyReportEmpty": "No activity yet.",
     "reviewProcessingNote": "Deposit and withdrawal requests are reviewed by our team. They're reflected in your balance once approved.",
-    "requestSubmittedMessage": "Your request was submitted and is pending review. Your balance will update once it's approved."
+    "requestSubmittedMessage": "Your request was submitted and is pending review. Your balance will update once it's approved.",
+    "demoDepositNote": "Demo funds are credited instantly. The maximum demo balance is 1,000,000 USDT.",
+    "demoWithdrawNote": "Demo withdrawals are instant and only affect your demo balance.",
+    "demoWalletNote": "Your demo balance is virtual and completely separate from your real account. Deposits and withdrawals are instant.",
+    "resetDemoButton": "Reset demo balance",
+    "resetDemoConfirm": "Reset your demo balance to 10,000 USDT? Your current copies will stop.",
+    "demoDepositDone": "Demo funds added to your balance.",
+    "demoWithdrawDone": "Demo funds withdrawn from your balance.",
+    "demoResetDone": "Your demo balance was reset to 10,000 USDT.",
+    "txDemoReset": "Balance reset"
   },
   "TradeHistory": {
     "periodToday": "Today",
@@ -765,7 +775,7 @@
     "fullNamePlaceholder": "Full name",
     "saveName": "Save name",
     "accountTypeTitle": "Account type",
-    "accountTypeDesc": "A real account lets you deposit and withdraw actual money. A demo account is for practicing and exploring with virtual funds only. Switching between them resets your balance (demo: {demoAmount}, real: {realAmount}).",
+    "accountTypeDesc": "A real account lets you deposit and withdraw actual money. A demo account is for practicing with virtual funds. The two balances are kept completely separate, and switching never moves funds between them.",
     "demoAccount": "Demo account",
     "demoAccountDesc": "— for practicing and exploring",
     "realAccount": "Real account",
@@ -1044,12 +1054,18 @@
       "withdrawInsufficientAvailable": "Your available balance for withdrawal is insufficient — part of your balance is currently held for an active copy. Stop copying first to return this amount to your available balance.",
       "withdrawNetworkRequired": "Choose a network and enter a wallet address to complete the withdrawal.",
       "withdrawRequestFailed": "Could not send the withdrawal request. Please try again.",
-      "withdrawCompleteFailed": "Could not complete the withdrawal. Please try again."
+      "withdrawCompleteFailed": "Could not complete the withdrawal. Please try again.",
+      "realOnly": "Deposits and withdrawals to a real wallet are available on your real account. Switch to your real account to continue.",
+      "demoLimitExceeded": "This deposit would exceed the maximum demo balance of 1,000,000 USDT.",
+      "demoResetOpenPositions": "Close all open positions before resetting your demo balance.",
+      "demoOnly": "This action is only available on a demo account.",
+      "demoWalletFailed": "Could not complete the demo transaction. Please try again."
     },
     "settings": {
       "nameEmpty": "The name cannot be empty.",
       "nameSaveFailed": "Could not save the name. Please try again.",
-      "accountTypeUpdateFailed": "Could not update the account type. Please try again."
+      "accountTypeUpdateFailed": "Could not update the account type. Please try again.",
+      "accountSwitchOpenPositions": "Close all open positions before switching accounts."
     },
     "discover": {
       "copyAmountInvalid": "The copy amount must be a number greater than zero.",

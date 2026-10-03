@@ -5,7 +5,6 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
-import { createAdminClient } from "@/lib/supabase/admin";
 import { translateAuthError } from "@/lib/auth-errors";
 
 export async function updateProfile(formData: FormData) {
@@ -47,27 +46,18 @@ export async function updateAccountType(formData: FormData) {
   if (!user) redirect("/login");
 
   const accountType = formData.get("accountType") === "real" ? "real" : "demo";
-  // High enough to clear the min_copy_amount of nearly every leader on the
-  // platform, so a demo account isn't blocked from copying almost anyone.
-  const balance = accountType === "real" ? 0 : 10000;
 
-  // account_type/balance have no direct-client UPDATE grant (balance in
-  // particular must never be client-settable to an arbitrary value) --
-  // this hardcoded 0-or-10000 assignment is the only legitimate way to
-  // change it, so it goes through the service-role client.
-  const { error } = await createAdminClient()
-    .from("profiles")
-    .update({ account_type: accountType, balance })
-    .eq("id", user.id);
+  // Swaps the active wallet (demo <-> real) server-side; the two balances are
+  // stored separately and never converted into each other.
+  const { error } = await supabase.rpc("switch_account_type", { p_type: accountType });
 
   if (error) {
     const tSettings = await getTranslations("Actions.settings");
-    redirect("/settings?error=" + encodeURIComponent(tSettings("accountTypeUpdateFailed")));
+    redirect(
+      "/settings?error=" +
+        encodeURIComponent(error.code === "CM010" ? tSettings("accountSwitchOpenPositions") : tSettings("accountTypeUpdateFailed")),
+    );
   }
-
-  // Same reset-on-switch rule as chooseAccountType: a copy relationship
-  // funded from the old balance shouldn't survive into the fresh account.
-  await supabase.from("subscriptions").update({ is_active: false }).eq("follower_id", user.id).eq("is_active", true);
 
   revalidatePath("/settings");
   revalidatePath("/dashboard");

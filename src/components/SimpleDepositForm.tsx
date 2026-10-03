@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { requestDeposit } from "@/app/portfolio/actions";
+import { demoDeposit } from "@/app/portfolio/actions";
 
 export function SimpleDepositForm() {
   const t = useTranslations("Portfolio");
@@ -10,7 +10,7 @@ export function SimpleDepositForm() {
   const [amount, setAmount] = useState("");
 
   return (
-    <form action={requestDeposit} className="flex flex-1 flex-col gap-8">
+    <form action={demoDeposit} className="flex flex-1 flex-col gap-8">
       <p className="text-sm text-muted">{t("enterDepositAmount")}</p>
 
       <div className="flex items-center gap-3">

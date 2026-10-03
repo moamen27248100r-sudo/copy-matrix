@@ -226,7 +226,7 @@
     "switchAccountAriaLabel": "Changer de type de compte",
     "accountTypeReal": "Compte réel",
     "accountTypeDemo": "Compte démo",
-    "switchAccountWarning": "Passer d'un compte réel à un compte démo réinitialise le solde et arrête la copie en cours. Continuer ?",
+    "switchAccountWarning": "Vos soldes démo et réel sont séparés. Changer de compte arrête vos copies en cours. Continuer ?",
     "switchAccountConfirmTitle": "Confirmer le changement de compte",
     "switchAccountConfirmCta": "Changer",
     "switchAccountCancelCta": "Annuler",
@@ -341,7 +341,8 @@
     "copiersThisWeek": "{count} nouveaux copieurs cette semaine",
     "tableTrader": "Trader",
     "viewAllPositions": "View all {count} positions",
-    "tableSize": "Taille"
+    "tableSize": "Taille",
+    "resetBalanceConfirm": "Réinitialiser votre solde démo à 10 000 USDT ? Vos copies en cours seront arrêtées."
   },
   "Common": {
     "level": "Niveau {level}",
@@ -485,7 +486,16 @@
     "monthlyReportTitle": "Monthly report",
     "monthlyReportEmpty": "No activity yet.",
     "reviewProcessingNote": "Les demandes de dépôt et de retrait sont examinées par notre équipe. Elles apparaissent dans votre solde une fois approuvées.",
-    "requestSubmittedMessage": "Votre demande a été envoyée et est en cours d'examen. Votre solde sera mis à jour une fois la demande approuvée."
+    "requestSubmittedMessage": "Votre demande a été envoyée et est en cours d'examen. Votre solde sera mis à jour une fois la demande approuvée.",
+    "demoDepositNote": "Les fonds de démonstration sont crédités instantanément. Le solde démo maximal est de 1 000 000 USDT.",
+    "demoWithdrawNote": "Les retraits démo sont instantanés et n'affectent que votre solde démo.",
+    "demoWalletNote": "Votre solde démo est virtuel et totalement distinct de votre compte réel. Les dépôts et retraits sont instantanés.",
+    "resetDemoButton": "Réinitialiser le solde démo",
+    "resetDemoConfirm": "Réinitialiser votre solde démo à 10 000 USDT ? Vos copies en cours seront arrêtées.",
+    "demoDepositDone": "Les fonds démo ont été ajoutés à votre solde.",
+    "demoWithdrawDone": "Les fonds démo ont été retirés de votre solde.",
+    "demoResetDone": "Votre solde démo a été réinitialisé à 10 000 USDT.",
+    "txDemoReset": "Réinitialisation du solde"
   },
   "TradeHistory": {
     "periodToday": "Aujourd'hui",
@@ -765,7 +775,7 @@
     "fullNamePlaceholder": "Nom complet",
     "saveName": "Enregistrer le nom",
     "accountTypeTitle": "Type de compte",
-    "accountTypeDesc": "Un compte réel permet de déposer et retirer de l'argent réel. Un compte démo sert à s'entraîner avec des fonds virtuels uniquement. Basculer entre les deux réinitialise votre solde (démo : {demoAmount}, réel : {realAmount}).",
+    "accountTypeDesc": "Un compte réel permet de déposer et de retirer de l'argent réel. Un compte démo sert à s'entraîner avec des fonds virtuels. Les deux soldes sont totalement séparés et changer de compte ne transfère jamais de fonds.",
     "demoAccount": "Compte démo",
     "demoAccountDesc": "— pour s'entraîner et explorer",
     "realAccount": "Compte réel",
@@ -1044,12 +1054,18 @@
       "withdrawInsufficientAvailable": "Votre solde disponible pour le retrait est insuffisant — une partie de votre solde est actuellement retenue pour une copie active. Arrêtez d'abord de copier pour restituer ce montant à votre solde disponible.",
       "withdrawNetworkRequired": "Choisissez un réseau et saisissez une adresse de portefeuille pour finaliser le retrait.",
       "withdrawRequestFailed": "Impossible d'envoyer la demande de retrait. Veuillez réessayer.",
-      "withdrawCompleteFailed": "Impossible de finaliser le retrait. Veuillez réessayer."
+      "withdrawCompleteFailed": "Impossible de finaliser le retrait. Veuillez réessayer.",
+      "realOnly": "Les dépôts et retraits réels sont disponibles sur votre compte réel. Passez à votre compte réel pour continuer.",
+      "demoLimitExceeded": "Ce dépôt dépasserait le solde démo maximal de 1 000 000 USDT.",
+      "demoResetOpenPositions": "Fermez toutes les positions ouvertes avant de réinitialiser votre solde démo.",
+      "demoOnly": "Cette action n'est disponible que sur un compte démo.",
+      "demoWalletFailed": "Impossible de terminer la transaction démo. Veuillez réessayer."
     },
     "settings": {
       "nameEmpty": "Le nom ne peut pas être vide.",
       "nameSaveFailed": "Impossible d'enregistrer le nom. Veuillez réessayer.",
-      "accountTypeUpdateFailed": "Impossible de mettre à jour le type de compte. Veuillez réessayer."
+      "accountTypeUpdateFailed": "Impossible de mettre à jour le type de compte. Veuillez réessayer.",
+      "accountSwitchOpenPositions": "Fermez toutes les positions ouvertes avant de changer de compte."
     },
     "discover": {
       "copyAmountInvalid": "Le montant à copier doit être un nombre supérieur à zéro.",

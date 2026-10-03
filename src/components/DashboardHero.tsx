@@ -5,6 +5,7 @@ import { ConfirmButton } from "@/components/ConfirmButton";
 import { MyEquityChart } from "@/components/MyEquityChart";
 import { CountUp } from "@/components/ui/CountUp";
 import { chooseAccountType } from "@/app/auth/actions";
+import { resetDemoBalance } from "@/app/portfolio/actions";
 
 type AccountType = "real" | "demo";
 
@@ -163,11 +164,10 @@ export async function DashboardHero({
         </div>
       ) : (
         <div className="grid grid-cols-3 gap-2">
-          <form action={chooseAccountType}>
-            <input type="hidden" name="accountType" value="demo" />
-            <input type="hidden" name="next" value="/dashboard" />
+          <form action={resetDemoBalance}>
+            <input type="hidden" name="returnTo" value="/dashboard" />
             <ConfirmButton
-              confirmText={tNav("switchAccountWarning")}
+              confirmText={t("resetBalanceConfirm")}
               className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-border bg-background px-3 py-2.5 text-sm font-medium transition hover:border-accent/50"
             >
               <ActionIcon>

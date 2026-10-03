@@ -10,7 +10,12 @@ export async function generateMetadata() {
   return { title: t("portfolioDepositTitle"), description: t("portfolioDepositDesc") };
 }
 
-export default async function DepositPage() {
+export default async function DepositPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
+  const { error } = await searchParams;
   const t = await getTranslations("Portfolio");
   const supabase = await createClient();
   const {
@@ -35,11 +40,14 @@ export default async function DepositPage() {
 
       <h1 className="text-2xl font-semibold">{t("depositTitle")}</h1>
 
-      <p className="text-sm text-muted">{t("reviewProcessingNote")}</p>
+      {error && (
+        <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>
+      )}
+
+      <p className="text-sm text-muted">{isDemo ? t("demoDepositNote") : t("reviewProcessingNote")}</p>
 
       {isDemo ? (
-        // Demo money doesn't need a real network/address — one field, one
-        // tap. Still goes through admin review like any other deposit.
+        // Demo funds need no network/address and are credited instantly.
         <SimpleDepositForm />
       ) : (
         <DepositGateway />

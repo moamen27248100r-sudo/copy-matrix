@@ -226,7 +226,7 @@
     "switchAccountAriaLabel": "Badilisha aina ya akaunti",
     "accountTypeReal": "Akaunti halisi",
     "accountTypeDemo": "Akaunti ya majaribio",
-    "switchAccountWarning": "Kubadilisha kati ya akaunti halisi na ya majaribio kutaweka upya salio na kusitisha unakili wa sasa. Endelea?",
+    "switchAccountWarning": "Salio lako la demo na halisi limetenganishwa. Kubadili akaunti kunasimamisha unakili wa sasa. Endelea?",
     "switchAccountConfirmTitle": "Thibitisha kubadili akaunti",
     "switchAccountConfirmCta": "Badilisha",
     "switchAccountCancelCta": "Ghairi",
@@ -341,7 +341,8 @@
     "copiersThisWeek": "Wanakili {count} wapya wiki hii",
     "tableTrader": "Trader",
     "viewAllPositions": "View all {count} positions",
-    "tableSize": "Ukubwa"
+    "tableSize": "Ukubwa",
+    "resetBalanceConfirm": "Weka upya salio lako la demo hadi USDT 10,000? Nakala zako za sasa zitasimama."
   },
   "Common": {
     "level": "Kiwango {level}",
@@ -485,7 +486,16 @@
     "monthlyReportTitle": "Monthly report",
     "monthlyReportEmpty": "No activity yet.",
     "reviewProcessingNote": "Maombi ya kuweka na kutoa pesa hukaguliwa na timu yetu na huonekana kwenye salio lako baada ya kuidhinishwa.",
-    "requestSubmittedMessage": "Ombi lako limetumwa na linakaguliwa. Salio lako litasasishwa litakapoidhinishwa."
+    "requestSubmittedMessage": "Ombi lako limetumwa na linakaguliwa. Salio lako litasasishwa litakapoidhinishwa.",
+    "demoDepositNote": "Fedha za majaribio huwekwa papo hapo. Salio la juu zaidi la demo ni USDT 1,000,000.",
+    "demoWithdrawNote": "Uondoaji wa demo ni wa papo hapo na unaathiri salio lako la demo pekee.",
+    "demoWalletNote": "Salio lako la demo ni la kidhahania na limetenganishwa kabisa na akaunti yako halisi. Amana na uondoaji ni wa papo hapo.",
+    "resetDemoButton": "Weka upya salio la demo",
+    "resetDemoConfirm": "Weka upya salio lako la demo hadi USDT 10,000? Nakala zako za sasa zitasimama.",
+    "demoDepositDone": "Fedha za demo zimeongezwa kwenye salio lako.",
+    "demoWithdrawDone": "Fedha za demo zimetolewa kwenye salio lako.",
+    "demoResetDone": "Salio lako la demo limewekwa upya hadi USDT 10,000.",
+    "txDemoReset": "Kuweka upya salio"
   },
   "TradeHistory": {
     "periodToday": "Leo",
@@ -765,7 +775,7 @@
     "fullNamePlaceholder": "Jina kamili",
     "saveName": "Hifadhi jina",
     "accountTypeTitle": "Aina ya akaunti",
-    "accountTypeDesc": "Akaunti halisi inakuruhusu kuweka na kutoa pesa halisi. Akaunti ya majaribio ni kwa ajili ya kufanya mazoezi na kuchunguza kwa fedha za dhahania pekee. Kubadilisha kati ya hizo mbili kunaweka upya salio lako (majaribio: {demoAmount}, halisi: {realAmount}).",
+    "accountTypeDesc": "Akaunti halisi hukuruhusu kuweka na kutoa pesa halisi. Akaunti ya demo ni ya mazoezi kwa fedha za kidhahania. Salio hizi mbili zimetenganishwa kabisa, na kubadili akaunti hakuhamishi fedha kati yake.",
     "demoAccount": "Akaunti ya majaribio",
     "demoAccountDesc": "— kwa mazoezi na uchunguzi",
     "realAccount": "Akaunti halisi",
@@ -1044,12 +1054,18 @@
       "withdrawInsufficientAvailable": "Salio lako linalopatikana la kuondoa halitoshi — sehemu ya salio lako kwa sasa imehifadhiwa kwa unakili unaoendelea. Acha kunakili kwanza ili kurejesha kiasi hiki kwenye salio lako linalopatikana.",
       "withdrawNetworkRequired": "Chagua mtandao na uweke anwani ya pochi ili kukamilisha uondoaji.",
       "withdrawRequestFailed": "Imeshindwa kutuma ombi la kuondoa fedha. Tafadhali jaribu tena.",
-      "withdrawCompleteFailed": "Imeshindwa kukamilisha uondoaji. Tafadhali jaribu tena."
+      "withdrawCompleteFailed": "Imeshindwa kukamilisha uondoaji. Tafadhali jaribu tena.",
+      "realOnly": "Amana na uondoaji halisi unapatikana kwenye akaunti yako halisi. Badili hadi akaunti halisi ili kuendelea.",
+      "demoLimitExceeded": "Amana hii itazidi salio la juu zaidi la demo la USDT 1,000,000.",
+      "demoResetOpenPositions": "Funga nafasi zote zilizo wazi kabla ya kuweka upya salio lako la demo.",
+      "demoOnly": "Kitendo hiki kinapatikana kwenye akaunti ya demo pekee.",
+      "demoWalletFailed": "Imeshindwa kukamilisha muamala wa demo. Tafadhali jaribu tena."
     },
     "settings": {
       "nameEmpty": "Jina haliwezi kuwa tupu.",
       "nameSaveFailed": "Imeshindwa kuhifadhi jina. Tafadhali jaribu tena.",
-      "accountTypeUpdateFailed": "Imeshindwa kusasisha aina ya akaunti. Tafadhali jaribu tena."
+      "accountTypeUpdateFailed": "Imeshindwa kusasisha aina ya akaunti. Tafadhali jaribu tena.",
+      "accountSwitchOpenPositions": "Funga nafasi zote zilizo wazi kabla ya kubadili akaunti."
     },
     "discover": {
       "copyAmountInvalid": "Kiasi cha kunakili lazima kiwe namba kubwa kuliko sifuri.",

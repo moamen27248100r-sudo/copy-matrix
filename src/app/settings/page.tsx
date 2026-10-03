@@ -93,7 +93,7 @@ export default async function SettingsPage({
         <section className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
           <h2 className="font-medium">{t("accountTypeTitle")}</h2>
           <p className="text-xs text-muted">
-            {t("accountTypeDesc", { demoAmount: "1,000$", realAmount: "0$" })}
+            {t("accountTypeDesc")}
           </p>
           <form action={updateAccountType} className="flex flex-col gap-2">
             <label

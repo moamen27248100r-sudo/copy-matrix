@@ -226,7 +226,7 @@
     "switchAccountAriaLabel": "Chuyển loại tài khoản",
     "accountTypeReal": "Tài khoản thực",
     "accountTypeDemo": "Tài khoản demo",
-    "switchAccountWarning": "Chuyển đổi giữa tài khoản thực và demo sẽ đặt lại số dư và dừng việc sao chép hiện tại. Tiếp tục?",
+    "switchAccountWarning": "Số dư demo và số dư thực của bạn được tách biệt. Chuyển tài khoản sẽ dừng sao chép hiện tại. Tiếp tục?",
     "switchAccountConfirmTitle": "Xác nhận chuyển tài khoản",
     "switchAccountConfirmCta": "Chuyển",
     "switchAccountCancelCta": "Hủy",
@@ -341,7 +341,8 @@
     "copiersThisWeek": "{count} người sao chép mới tuần này",
     "tableTrader": "Trader",
     "viewAllPositions": "View all {count} positions",
-    "tableSize": "Khối lượng"
+    "tableSize": "Khối lượng",
+    "resetBalanceConfirm": "Đặt lại số dư demo về 10.000 USDT? Các lệnh sao chép hiện tại sẽ dừng lại."
   },
   "Common": {
     "level": "Cấp độ {level}",
@@ -485,7 +486,16 @@
     "monthlyReportTitle": "Monthly report",
     "monthlyReportEmpty": "No activity yet.",
     "reviewProcessingNote": "Yêu cầu nạp và rút tiền được đội ngũ của chúng tôi xem xét và sẽ phản ánh vào số dư của bạn sau khi được duyệt.",
-    "requestSubmittedMessage": "Yêu cầu của bạn đã được gửi và đang chờ xem xét. Số dư của bạn sẽ được cập nhật sau khi được duyệt."
+    "requestSubmittedMessage": "Yêu cầu của bạn đã được gửi và đang chờ xem xét. Số dư của bạn sẽ được cập nhật sau khi được duyệt.",
+    "demoDepositNote": "Tiền demo được cộng ngay lập tức. Số dư demo tối đa là 1.000.000 USDT.",
+    "demoWithdrawNote": "Rút tiền demo diễn ra ngay lập tức và chỉ ảnh hưởng đến số dư demo của bạn.",
+    "demoWalletNote": "Số dư demo của bạn là ảo và hoàn toàn tách biệt với tài khoản thực. Nạp và rút tiền diễn ra ngay lập tức.",
+    "resetDemoButton": "Đặt lại số dư demo",
+    "resetDemoConfirm": "Đặt lại số dư demo về 10.000 USDT? Các lệnh sao chép hiện tại sẽ dừng lại.",
+    "demoDepositDone": "Tiền demo đã được cộng vào số dư của bạn.",
+    "demoWithdrawDone": "Tiền demo đã được rút khỏi số dư của bạn.",
+    "demoResetDone": "Số dư demo của bạn đã được đặt lại về 10.000 USDT.",
+    "txDemoReset": "Đặt lại số dư"
   },
   "TradeHistory": {
     "periodToday": "Hôm nay",
@@ -765,7 +775,7 @@
     "fullNamePlaceholder": "Họ và tên",
     "saveName": "Lưu tên",
     "accountTypeTitle": "Loại tài khoản",
-    "accountTypeDesc": "Tài khoản thật cho phép bạn nạp và rút tiền thật. Tài khoản demo chỉ dùng để luyện tập và khám phá với tiền ảo. Chuyển đổi giữa hai loại sẽ đặt lại số dư của bạn (demo: {demoAmount}, thật: {realAmount}).",
+    "accountTypeDesc": "Tài khoản thực cho phép nạp và rút tiền thật. Tài khoản demo dùng để luyện tập với tiền ảo. Hai số dư hoàn toàn tách biệt và việc chuyển tài khoản không bao giờ chuyển tiền giữa chúng.",
     "demoAccount": "Tài khoản demo",
     "demoAccountDesc": "— để luyện tập và khám phá",
     "realAccount": "Tài khoản thật",
@@ -1044,12 +1054,18 @@
       "withdrawInsufficientAvailable": "Số dư khả dụng để rút tiền của bạn không đủ — một phần số dư của bạn hiện đang được giữ cho việc sao chép đang hoạt động. Hãy dừng sao chép trước để hoàn trả số tiền này vào số dư khả dụng của bạn.",
       "withdrawNetworkRequired": "Chọn một mạng lưới và nhập địa chỉ ví để hoàn tất việc rút tiền.",
       "withdrawRequestFailed": "Không thể gửi yêu cầu rút tiền. Vui lòng thử lại.",
-      "withdrawCompleteFailed": "Không thể hoàn tất rút tiền. Vui lòng thử lại."
+      "withdrawCompleteFailed": "Không thể hoàn tất rút tiền. Vui lòng thử lại.",
+      "realOnly": "Nạp và rút tiền thực chỉ khả dụng trên tài khoản thực. Hãy chuyển sang tài khoản thực để tiếp tục.",
+      "demoLimitExceeded": "Khoản nạp này sẽ vượt quá số dư demo tối đa 1.000.000 USDT.",
+      "demoResetOpenPositions": "Hãy đóng tất cả vị thế đang mở trước khi đặt lại số dư demo.",
+      "demoOnly": "Thao tác này chỉ khả dụng trên tài khoản demo.",
+      "demoWalletFailed": "Không thể hoàn tất giao dịch demo. Vui lòng thử lại."
     },
     "settings": {
       "nameEmpty": "Tên không được để trống.",
       "nameSaveFailed": "Không thể lưu tên. Vui lòng thử lại.",
-      "accountTypeUpdateFailed": "Không thể cập nhật loại tài khoản. Vui lòng thử lại."
+      "accountTypeUpdateFailed": "Không thể cập nhật loại tài khoản. Vui lòng thử lại.",
+      "accountSwitchOpenPositions": "Hãy đóng tất cả vị thế đang mở trước khi chuyển tài khoản."
     },
     "discover": {
       "copyAmountInvalid": "Số tiền sao chép phải là một số lớn hơn không.",

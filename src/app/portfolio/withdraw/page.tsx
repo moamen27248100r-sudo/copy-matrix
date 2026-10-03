@@ -66,7 +66,9 @@ export default async function WithdrawPage({
   const leaderHasTraded = (activeSubs ?? []).some(
     (sub) => !!sub.copy_started_at && Date.now() - new Date(sub.copy_started_at).getTime() >= 10 * 60 * 1000,
   );
-  const blocked = (openPositionsCount ?? 0) > 0 || leaderHasTraded;
+  const isDemoAccount = profile?.account_type !== "real";
+  // Demo withdrawals are instant and only limited by the free (unallocated) balance.
+  const blocked = !isDemoAccount && ((openPositionsCount ?? 0) > 0 || leaderHasTraded);
 
   if (blocked) {
     return (
@@ -87,7 +89,7 @@ export default async function WithdrawPage({
       {error && (
         <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>
       )}
-      <p className="text-sm text-muted">{t("reviewProcessingNote")}</p>
+      <p className="text-sm text-muted">{accountType === "demo" ? t("demoWithdrawNote") : t("reviewProcessingNote")}</p>
       <WithdrawFlow accountType={accountType} maxAvailable={available} />
     </PageShell>
   );

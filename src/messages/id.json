@@ -226,7 +226,7 @@
     "switchAccountAriaLabel": "Ganti jenis akun",
     "accountTypeReal": "Akun real",
     "accountTypeDemo": "Akun demo",
-    "switchAccountWarning": "Beralih antara akun real dan demo akan mengatur ulang saldo dan menghentikan penyalinan saat ini. Lanjutkan?",
+    "switchAccountWarning": "Saldo demo dan riil Anda terpisah. Berganti akun akan menghentikan penyalinan saat ini. Lanjutkan?",
     "switchAccountConfirmTitle": "Konfirmasi ganti akun",
     "switchAccountConfirmCta": "Ganti",
     "switchAccountCancelCta": "Batal",
@@ -341,7 +341,8 @@
     "copiersThisWeek": "{count} penyalin baru minggu ini",
     "tableTrader": "Trader",
     "viewAllPositions": "View all {count} positions",
-    "tableSize": "Ukuran"
+    "tableSize": "Ukuran",
+    "resetBalanceConfirm": "Atur ulang saldo demo ke 10.000 USDT? Salinan Anda saat ini akan dihentikan."
   },
   "Common": {
     "level": "Level {level}",
@@ -485,7 +486,16 @@
     "monthlyReportTitle": "Monthly report",
     "monthlyReportEmpty": "No activity yet.",
     "reviewProcessingNote": "Permintaan setoran dan penarikan ditinjau oleh tim kami dan akan tercermin di saldo Anda setelah disetujui.",
-    "requestSubmittedMessage": "Permintaan Anda telah dikirim dan sedang ditinjau. Saldo Anda akan diperbarui setelah disetujui."
+    "requestSubmittedMessage": "Permintaan Anda telah dikirim dan sedang ditinjau. Saldo Anda akan diperbarui setelah disetujui.",
+    "demoDepositNote": "Dana demo dikreditkan secara instan. Saldo demo maksimum adalah 1.000.000 USDT.",
+    "demoWithdrawNote": "Penarikan demo bersifat instan dan hanya memengaruhi saldo demo Anda.",
+    "demoWalletNote": "Saldo demo Anda bersifat virtual dan sepenuhnya terpisah dari akun riil. Setoran dan penarikan bersifat instan.",
+    "resetDemoButton": "Atur ulang saldo demo",
+    "resetDemoConfirm": "Atur ulang saldo demo ke 10.000 USDT? Salinan Anda saat ini akan dihentikan.",
+    "demoDepositDone": "Dana demo telah ditambahkan ke saldo Anda.",
+    "demoWithdrawDone": "Dana demo telah ditarik dari saldo Anda.",
+    "demoResetDone": "Saldo demo Anda telah diatur ulang ke 10.000 USDT.",
+    "txDemoReset": "Pengaturan ulang saldo"
   },
   "TradeHistory": {
     "periodToday": "Hari ini",
@@ -765,7 +775,7 @@
     "fullNamePlaceholder": "Nama lengkap",
     "saveName": "Simpan nama",
     "accountTypeTitle": "Jenis akun",
-    "accountTypeDesc": "Akun nyata memungkinkan Anda menyetor dan menarik uang sungguhan. Akun demo hanya untuk berlatih dan mengeksplorasi dengan dana virtual. Beralih di antara keduanya akan mereset saldo Anda (demo: {demoAmount}, nyata: {realAmount}).",
+    "accountTypeDesc": "Akun riil memungkinkan Anda menyetor dan menarik uang sungguhan. Akun demo untuk berlatih dengan dana virtual. Kedua saldo sepenuhnya terpisah, dan berganti akun tidak pernah memindahkan dana di antara keduanya.",
     "demoAccount": "Akun demo",
     "demoAccountDesc": "— untuk berlatih dan mengeksplorasi",
     "realAccount": "Akun nyata",
@@ -1044,12 +1054,18 @@
       "withdrawInsufficientAvailable": "Saldo yang tersedia untuk penarikan tidak mencukupi — sebagian saldo Anda saat ini ditahan untuk penyalinan aktif. Hentikan penyalinan terlebih dahulu untuk mengembalikan jumlah ini ke saldo tersedia Anda.",
       "withdrawNetworkRequired": "Pilih jaringan dan masukkan alamat dompet untuk menyelesaikan penarikan.",
       "withdrawRequestFailed": "Tidak dapat mengirim permintaan penarikan. Silakan coba lagi.",
-      "withdrawCompleteFailed": "Tidak dapat menyelesaikan penarikan. Silakan coba lagi."
+      "withdrawCompleteFailed": "Tidak dapat menyelesaikan penarikan. Silakan coba lagi.",
+      "realOnly": "Setoran dan penarikan riil tersedia di akun riil Anda. Beralih ke akun riil untuk melanjutkan.",
+      "demoLimitExceeded": "Setoran ini akan melebihi saldo demo maksimum 1.000.000 USDT.",
+      "demoResetOpenPositions": "Tutup semua posisi terbuka sebelum mengatur ulang saldo demo.",
+      "demoOnly": "Tindakan ini hanya tersedia di akun demo.",
+      "demoWalletFailed": "Tidak dapat menyelesaikan transaksi demo. Silakan coba lagi."
     },
     "settings": {
       "nameEmpty": "Nama tidak boleh kosong.",
       "nameSaveFailed": "Tidak dapat menyimpan nama. Silakan coba lagi.",
-      "accountTypeUpdateFailed": "Tidak dapat memperbarui jenis akun. Silakan coba lagi."
+      "accountTypeUpdateFailed": "Tidak dapat memperbarui jenis akun. Silakan coba lagi.",
+      "accountSwitchOpenPositions": "Tutup semua posisi terbuka sebelum berganti akun."
     },
     "discover": {
       "copyAmountInvalid": "Jumlah salinan harus berupa angka lebih besar dari nol.",

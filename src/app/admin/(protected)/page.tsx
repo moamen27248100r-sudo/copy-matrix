@@ -38,8 +38,8 @@ export default async function AdminOverviewPage({
     supabase.from("simulated_positions").select("id", { count: "exact", head: true }),
     supabase.from("subscriptions").select("id", { count: "exact", head: true }).eq("is_active", true),
     supabase.from("profiles").select("balance"),
-    supabase.from("wallet_transactions").select("amount").eq("type", "deposit"),
-    supabase.from("wallet_transactions").select("amount").eq("type", "withdrawal"),
+    supabase.from("wallet_transactions").select("amount").eq("type", "deposit").eq("account_type", "real"),
+    supabase.from("wallet_transactions").select("amount").eq("type", "withdrawal").eq("account_type", "real"),
   ]);
 
   // Latest daily trade-integrity run (0219); flagged here when it found errors.

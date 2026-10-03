@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
-import { requestWithdrawal } from "@/app/portfolio/actions";
+import { demoWithdraw, requestWithdrawal } from "@/app/portfolio/actions";
 import { CRYPTO_CURRENCIES, networksForCurrency, type DepositNetwork } from "@/lib/deposit-networks";
 import { CryptoIcon } from "@/components/CryptoIcon";
 
@@ -178,9 +178,9 @@ export function WithdrawFlow({ accountType, maxAvailable }: { accountType: "real
 
   if (accountType === "demo") {
     return (
-      <form action={requestWithdrawal} className="flex flex-1 flex-col">
+      <form action={demoWithdraw} className="flex flex-1 flex-col">
         <input type="hidden" name="amount" value={amount} />
-        <AmountStep amount={amount} setAmount={setAmount} maxAvailable={maxAvailable} buttonLabel={t("continue")} />
+        <AmountStep amount={amount} setAmount={setAmount} maxAvailable={maxAvailable} buttonLabel={t("confirmWithdraw")} />
       </form>
     );
   }

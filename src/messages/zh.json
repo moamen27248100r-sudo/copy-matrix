@@ -226,7 +226,7 @@
     "switchAccountAriaLabel": "切换账户类型",
     "accountTypeReal": "真实账户",
     "accountTypeDemo": "模拟账户",
-    "switchAccountWarning": "在真实账户和模拟账户之间切换会重置余额并停止当前跟单。是否继续？",
+    "switchAccountWarning": "模拟余额与真实余额相互独立。切换账户会停止当前的跟单。是否继续？",
     "switchAccountConfirmTitle": "确认切换账户",
     "switchAccountConfirmCta": "切换",
     "switchAccountCancelCta": "取消",
@@ -341,7 +341,8 @@
     "copiersThisWeek": "本周新增 {count} 位跟单者",
     "tableTrader": "Trader",
     "viewAllPositions": "View all {count} positions",
-    "tableSize": "手数"
+    "tableSize": "手数",
+    "resetBalanceConfirm": "将模拟余额重置为 10,000 USDT？当前的跟单将会停止。"
   },
   "Common": {
     "level": "等级 {level}",
@@ -485,7 +486,16 @@
     "monthlyReportTitle": "Monthly report",
     "monthlyReportEmpty": "No activity yet.",
     "reviewProcessingNote": "充值和提现申请由我们的团队审核，批准后将反映在您的余额中。",
-    "requestSubmittedMessage": "您的申请已提交，正在审核中。批准后您的余额将更新。"
+    "requestSubmittedMessage": "您的申请已提交，正在审核中。批准后您的余额将更新。",
+    "demoDepositNote": "模拟资金即时到账。模拟账户余额上限为 1,000,000 USDT。",
+    "demoWithdrawNote": "模拟提现即时完成，仅影响您的模拟余额。",
+    "demoWalletNote": "模拟余额为虚拟资金，与您的真实账户完全独立。充值和提现即时到账。",
+    "resetDemoButton": "重置模拟余额",
+    "resetDemoConfirm": "将模拟余额重置为 10,000 USDT？当前的跟单将会停止。",
+    "demoDepositDone": "模拟资金已添加到您的余额。",
+    "demoWithdrawDone": "模拟资金已从您的余额中提取。",
+    "demoResetDone": "您的模拟余额已重置为 10,000 USDT。",
+    "txDemoReset": "余额重置"
   },
   "TradeHistory": {
     "periodToday": "今天",
@@ -765,7 +775,7 @@
     "fullNamePlaceholder": "全名",
     "saveName": "保存姓名",
     "accountTypeTitle": "账户类型",
-    "accountTypeDesc": "真实账户可以存取真实资金。模拟账户仅用于使用虚拟资金进行练习和探索。在两者之间切换会重置您的余额（模拟：{demoAmount}，真实：{realAmount}）。",
+    "accountTypeDesc": "真实账户可进行真实资金的充值和提现，模拟账户使用虚拟资金进行练习。两个余额完全独立，切换账户不会在二者之间转移任何资金。",
     "demoAccount": "模拟账户",
     "demoAccountDesc": "— 用于练习和探索",
     "realAccount": "真实账户",
@@ -1044,12 +1054,18 @@
       "withdrawInsufficientAvailable": "您可用于提款的余额不足 — 部分余额目前被锁定用于活跃跟单。请先停止跟单，将该金额返还到您的可用余额。",
       "withdrawNetworkRequired": "请选择网络并输入钱包地址以完成提款。",
       "withdrawRequestFailed": "无法发送提款申请，请重试。",
-      "withdrawCompleteFailed": "无法完成提款，请重试。"
+      "withdrawCompleteFailed": "无法完成提款，请重试。",
+      "realOnly": "真实充值和提现仅适用于真实账户。请切换到真实账户后继续。",
+      "demoLimitExceeded": "此次充值将超过 1,000,000 USDT 的模拟余额上限。",
+      "demoResetOpenPositions": "重置模拟余额前，请先平掉所有持仓。",
+      "demoOnly": "此操作仅适用于模拟账户。",
+      "demoWalletFailed": "无法完成模拟交易，请重试。"
     },
     "settings": {
       "nameEmpty": "姓名不能为空。",
       "nameSaveFailed": "无法保存姓名，请重试。",
-      "accountTypeUpdateFailed": "无法更新账户类型，请重试。"
+      "accountTypeUpdateFailed": "无法更新账户类型，请重试。",
+      "accountSwitchOpenPositions": "切换账户前，请先平掉所有持仓。"
     },
     "discover": {
       "copyAmountInvalid": "跟单金额必须是大于零的数字。",

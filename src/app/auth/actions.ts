@@ -158,21 +158,19 @@ export async function chooseAccountType(formData: FormData) {
   if (!user) redirect(next ? `/login?next=${encodeURIComponent(next)}` : "/login");
 
   const accountType = formData.get("accountType") === "real" ? "real" : "demo";
-  // High enough to clear the min_copy_amount of nearly every leader on the
-  // platform, so a demo account isn't blocked from copying almost anyone.
-  const balance = accountType === "real" ? 0 : 10000;
 
-  // account_type/balance/onboarding_completed have no direct-client UPDATE
-  // grant -- same reasoning as settings/actions.ts's updateAccountType.
-  await createAdminClient()
-    .from("profiles")
-    .update({ account_type: accountType, balance, onboarding_completed: true })
-    .eq("id", user.id);
-  // Switching account type resets the balance to a fresh start — any copy
-  // relationship funded from the old balance no longer has real money
-  // behind it, so it has to stop too, or the new account would show
-  // "invested" money it never actually had.
-  await supabase.from("subscriptions").update({ is_active: false }).eq("follower_id", user.id).eq("is_active", true);
+  // Demo and real wallets are kept separately; this swaps which one is active
+  // (stopping any copies of the old account) without ever mixing the funds.
+  const { error: switchError } = await supabase.rpc("switch_account_type", { p_type: accountType });
+  if (switchError) {
+    const tSettings = await getTranslations("Actions.settings");
+    redirect(
+      "/portfolio?error=" +
+        encodeURIComponent(switchError.code === "CM010" ? tSettings("accountSwitchOpenPositions") : tSettings("accountTypeUpdateFailed")),
+    );
+  }
+  // onboarding_completed has no direct-client UPDATE grant.
+  await createAdminClient().from("profiles").update({ onboarding_completed: true }).eq("id", user.id);
 
   redirect(next ?? "/dashboard?onboarded=1");
 }

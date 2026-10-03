@@ -11,6 +11,8 @@ import { TradeHistory } from "@/components/TradeHistory";
 import { PortfolioValueBreakdown } from "@/components/PortfolioValueBreakdown";
 import { MyEquityChart } from "@/components/MyEquityChart";
 import { AutoDismissMessage } from "@/components/AutoDismissMessage";
+import { ConfirmButton } from "@/components/ConfirmButton";
+import { resetDemoBalance } from "@/app/portfolio/actions";
 import { MyOpenPositions } from "@/components/MyOpenPositions";
 import { PositionTabs } from "@/components/PositionTabs";
 import { PendingOrdersEmpty } from "@/components/PendingOrdersEmpty";
@@ -54,9 +56,9 @@ export async function generateMetadata() {
 export default async function PortfolioPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string; success?: string; tab?: string }>;
+  searchParams: Promise<{ error?: string; success?: string; tab?: string; demo?: string }>;
 }) {
-  const { error, success, tab } = await searchParams;
+  const { error, success, tab, demo } = await searchParams;
   const locale = (await getLocale()) as Locale;
   const t = await getTranslations("Portfolio");
   const td = await getTranslations("Dashboard");
@@ -64,6 +66,7 @@ export default async function PortfolioPage({
     deposit: t("txDeposit"),
     withdrawal: t("txWithdrawal"),
     pnl: t("txPnl"),
+    demo_reset: t("txDemoReset"),
   };
   const REQUEST_STATUS_LABELS: Record<string, string> = {
     pending: t("statusPending"),
@@ -78,6 +81,11 @@ export default async function PortfolioPage({
   if (!user) {
     redirect("/login?next=%2Fportfolio");
   }
+
+  // Wallet history is per account: the demo and real ledgers never mix.
+  const { data: accountRow } = await supabase.from("profiles").select("account_type").eq("id", user.id).single();
+  const profileAccountType: "demo" | "real" = accountRow?.account_type === "real" ? "real" : "demo";
+  const isDemo = profileAccountType === "demo";
 
   const { data: subscriptions } = await supabase
     .from("subscriptions")
@@ -95,7 +103,7 @@ export default async function PortfolioPage({
     { data: transactions },
     { data: walletRequests },
   ] = await Promise.all([
-      supabase.from("profiles").select("balance").eq("id", user.id).single(),
+      supabase.from("profiles").select("balance, account_type").eq("id", user.id).single(),
       providerIds.length > 0
         ? supabase.from("provider_cards").select("*").in("provider_id", providerIds)
         : Promise.resolve({ data: [] as never[] }),
@@ -110,6 +118,7 @@ export default async function PortfolioPage({
         .from("wallet_transactions")
         .select("id, type, amount, balance_after, note, created_at")
         .eq("user_id", user.id)
+        .eq("account_type", profileAccountType)
         .order("created_at", { ascending: false })
         .limit(20),
       supabase
@@ -120,7 +129,7 @@ export default async function PortfolioPage({
         .limit(20),
     ]);
 
-  const pendingRequests = (walletRequests ?? []).filter((r) => r.status === "pending");
+  const pendingRequests = isDemo ? [] : (walletRequests ?? []).filter((r) => r.status === "pending");
 
   const allPositions = (positions ?? []) as Position[];
   const closedPositions = allPositions.filter((p) => p.status === "closed");
@@ -266,7 +275,18 @@ export default async function PortfolioPage({
             <span className="text-sm text-foreground">{td("copy")}</span>
           </Link>
         </div>
-        <p className="text-xs text-muted">{t("reviewProcessingNote")}</p>
+        <p className="text-xs text-muted">{isDemo ? t("demoWalletNote") : t("reviewProcessingNote")}</p>
+
+        {isDemo && (
+          <form action={resetDemoBalance} className="self-start">
+            <ConfirmButton
+              confirmText={t("resetDemoConfirm")}
+              className="rounded border border-border px-3 py-1.5 text-xs font-medium text-muted transition hover:text-foreground"
+            >
+              {t("resetDemoButton")}
+            </ConfirmButton>
+          </form>
+        )}
 
         {pendingRequests.length > 0 && (
           <div className="flex flex-col gap-2">
@@ -423,7 +443,7 @@ export default async function PortfolioPage({
     />
   );
 
-  const walletMovements = (transactions ?? []).filter((t) => t.type === "deposit" || t.type === "withdrawal");
+  const walletMovements = (transactions ?? []).filter((t) => t.type === "deposit" || t.type === "withdrawal" || t.type === "demo_reset");
 
   const activity = (
     <div className="flex flex-col gap-6">
@@ -462,7 +482,7 @@ export default async function PortfolioPage({
         )}
       </section>
 
-      <section className="flex flex-col gap-2">
+      {!isDemo && <section className="flex flex-col gap-2">
         <h2 className="font-medium">{t("depositWithdrawRequests")}</h2>
         {(walletRequests ?? []).length === 0 ? (
           <p className="text-sm text-muted">{t("noRequests")}</p>
@@ -504,7 +524,7 @@ export default async function PortfolioPage({
             </table>
           </div>
         )}
-      </section>
+      </section>}
     </div>
   );
 
@@ -518,6 +538,14 @@ export default async function PortfolioPage({
           <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
             {error}
           </p>
+        )}
+        {demo && (
+          <AutoDismissMessage
+            className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success"
+            clearParams={["demo"]}
+          >
+            {demo === "deposit" ? t("demoDepositDone") : demo === "withdraw" ? t("demoWithdrawDone") : t("demoResetDone")}
+          </AutoDismissMessage>
         )}
         {success && (
           <AutoDismissMessage

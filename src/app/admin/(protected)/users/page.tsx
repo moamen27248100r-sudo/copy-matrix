@@ -61,7 +61,7 @@ export default async function AdminUsersPage({
   const [{ data: approvedKyc }, { data: rejectedKyc }, { data: depositedUsers }] = await Promise.all([
     supabase.from("kyc_submissions").select("user_id").eq("status", "approved"),
     supabase.from("kyc_submissions").select("user_id").eq("status", "rejected"),
-    supabase.from("wallet_transactions").select("user_id").eq("type", "deposit"),
+    supabase.from("wallet_transactions").select("user_id").eq("type", "deposit").eq("account_type", "real"),
   ]);
   const verifiedUserIds = new Set((approvedKyc ?? []).map((r) => r.user_id));
   const rejectedUserIds = new Set((rejectedKyc ?? []).map((r) => r.user_id));

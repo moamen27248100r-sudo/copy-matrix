@@ -226,7 +226,7 @@
     "switchAccountAriaLabel": "Cambiar tipo de cuenta",
     "accountTypeReal": "Cuenta real",
     "accountTypeDemo": "Cuenta demo",
-    "switchAccountWarning": "Cambiar entre cuenta real y demo reinicia el saldo y detiene la copia actual. ¿Continuar?",
+    "switchAccountWarning": "Tus saldos demo y real están separados. Cambiar de cuenta detiene tus copias actuales. ¿Continuar?",
     "switchAccountConfirmTitle": "Confirmar cambio de cuenta",
     "switchAccountConfirmCta": "Cambiar",
     "switchAccountCancelCta": "Cancelar",
@@ -341,7 +341,8 @@
     "copiersThisWeek": "{count} nuevos copiadores esta semana",
     "tableTrader": "Trader",
     "viewAllPositions": "View all {count} positions",
-    "tableSize": "Tamaño"
+    "tableSize": "Tamaño",
+    "resetBalanceConfirm": "¿Restablecer tu saldo demo a 10.000 USDT? Tus copias actuales se detendrán."
   },
   "Common": {
     "level": "Nivel {level}",
@@ -485,7 +486,16 @@
     "monthlyReportTitle": "Monthly report",
     "monthlyReportEmpty": "No activity yet.",
     "reviewProcessingNote": "Las solicitudes de depósito y retiro son revisadas por nuestro equipo y se reflejan en tu saldo una vez aprobadas.",
-    "requestSubmittedMessage": "Tu solicitud se envió y está pendiente de revisión. Tu saldo se actualizará cuando sea aprobada."
+    "requestSubmittedMessage": "Tu solicitud se envió y está pendiente de revisión. Tu saldo se actualizará cuando sea aprobada.",
+    "demoDepositNote": "Los fondos de demostración se acreditan al instante. El saldo demo máximo es de 1.000.000 USDT.",
+    "demoWithdrawNote": "Los retiros demo son instantáneos y solo afectan a tu saldo demo.",
+    "demoWalletNote": "Tu saldo demo es virtual y está totalmente separado de tu cuenta real. Los depósitos y retiros son instantáneos.",
+    "resetDemoButton": "Restablecer saldo demo",
+    "resetDemoConfirm": "¿Restablecer tu saldo demo a 10.000 USDT? Tus copias actuales se detendrán.",
+    "demoDepositDone": "Los fondos demo se añadieron a tu saldo.",
+    "demoWithdrawDone": "Los fondos demo se retiraron de tu saldo.",
+    "demoResetDone": "Tu saldo demo se restableció a 10.000 USDT.",
+    "txDemoReset": "Restablecimiento de saldo"
   },
   "TradeHistory": {
     "periodToday": "Hoy",
@@ -765,7 +775,7 @@
     "fullNamePlaceholder": "Nombre completo",
     "saveName": "Guardar nombre",
     "accountTypeTitle": "Tipo de cuenta",
-    "accountTypeDesc": "Una cuenta real te permite depositar y retirar dinero real. Una cuenta demo es solo para practicar y explorar con fondos virtuales. Cambiar entre ambas reinicia tu saldo (demo: {demoAmount}, real: {realAmount}).",
+    "accountTypeDesc": "Una cuenta real permite depositar y retirar dinero real. Una cuenta demo sirve para practicar con fondos virtuales. Los dos saldos están totalmente separados y cambiar de cuenta nunca mueve fondos entre ellos.",
     "demoAccount": "Cuenta demo",
     "demoAccountDesc": "— para practicar y explorar",
     "realAccount": "Cuenta real",
@@ -1044,12 +1054,18 @@
       "withdrawInsufficientAvailable": "Tu saldo disponible para retirar es insuficiente — parte de tu saldo está retenido actualmente para una copia activa. Deja de copiar primero para devolver este monto a tu saldo disponible.",
       "withdrawNetworkRequired": "Elige una red e introduce una dirección de billetera para completar el retiro.",
       "withdrawRequestFailed": "No se pudo enviar la solicitud de retiro. Inténtalo de nuevo.",
-      "withdrawCompleteFailed": "No se pudo completar el retiro. Inténtalo de nuevo."
+      "withdrawCompleteFailed": "No se pudo completar el retiro. Inténtalo de nuevo.",
+      "realOnly": "Los depósitos y retiros reales están disponibles en tu cuenta real. Cambia a tu cuenta real para continuar.",
+      "demoLimitExceeded": "Este depósito superaría el saldo demo máximo de 1.000.000 USDT.",
+      "demoResetOpenPositions": "Cierra todas las posiciones abiertas antes de restablecer tu saldo demo.",
+      "demoOnly": "Esta acción solo está disponible en una cuenta demo.",
+      "demoWalletFailed": "No se pudo completar la transacción demo. Inténtalo de nuevo."
     },
     "settings": {
       "nameEmpty": "El nombre no puede estar vacío.",
       "nameSaveFailed": "No se pudo guardar el nombre. Inténtalo de nuevo.",
-      "accountTypeUpdateFailed": "No se pudo actualizar el tipo de cuenta. Inténtalo de nuevo."
+      "accountTypeUpdateFailed": "No se pudo actualizar el tipo de cuenta. Inténtalo de nuevo.",
+      "accountSwitchOpenPositions": "Cierra todas las posiciones abiertas antes de cambiar de cuenta."
     },
     "discover": {
       "copyAmountInvalid": "El monto a copiar debe ser un número mayor que cero.",
