@@ -19,16 +19,12 @@ export function PortfolioAllocationDonut({
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
 
-  let offset = 0;
-  const segments = slices
-    .filter((s) => s.value > 0)
-    .map((s, i) => {
-      const fraction = s.value / total;
-      const dash = fraction * circumference;
-      const segment = { ...s, color: COLORS[i % COLORS.length], dash, offset };
-      offset += dash;
-      return segment;
-    });
+  const visibleSlices = slices.filter((s) => s.value > 0);
+  const segments = visibleSlices.map((s, i) => {
+    const dash = (s.value / total) * circumference;
+    const offset = visibleSlices.slice(0, i).reduce((sum, p) => sum + (p.value / total) * circumference, 0);
+    return { ...s, color: COLORS[i % COLORS.length], dash, offset };
+  });
 
   return (
     <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-center sm:justify-center sm:gap-8">

@@ -118,7 +118,7 @@ export default async function TraderPage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  let [{ data: provider }, { data: signals }, { data: mySub }, { data: myProfile }, { data: myFollow }] = await Promise.all([
+  const [{ data: initialProvider }, { data: signals }, { data: mySub }, { data: myProfile }, { data: myFollow }] = await Promise.all([
     supabase.from("provider_cards").select("*").eq("provider_id", id).single(),
     supabase
       .from("signals")
@@ -147,6 +147,7 @@ export default async function TraderPage({
       : Promise.resolve({ data: null }),
   ]);
 
+  let provider = initialProvider;
   if (!provider) {
     // A missing row here usually means the id genuinely doesn't exist,
     // but Supabase returns the same null data for a transient query
