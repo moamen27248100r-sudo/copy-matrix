@@ -872,7 +872,11 @@
       "copyRequiresInvite": "Trader ini hanya menerima pengikut lewat undangan. Mintalah tautan undangan kepadanya.",
       "notAcceptingFollowers": "Trader ini sedang tidak menerima pengikut baru.",
       "inviteInvalid": "Tautan undangan ini tidak valid atau sudah digunakan.",
-      "copySettingsInvalid": "Periksa pengaturan salin Anda: jumlah tetap dan maksimum tidak boleh melebihi jumlah yang dialokasikan, dan stop-loss harus antara 1% dan 90%."
+      "copySettingsInvalid": "Periksa pengaturan salin Anda: jumlah tetap dan maksimum tidak boleh melebihi jumlah yang dialokasikan, dan stop-loss harus antara 1% dan 90%.",
+      "copyTpInvalid": "Take profit harus antara 1% dan 500% dari margin.",
+      "copySlInvalid": "Stop loss harus antara 1% dan 90% dari margin.",
+      "copyTrailingInvalid": "Trailing stop harus antara 0,5% dan 50%.",
+      "copyNotFound": "Salinan ini tidak lagi aktif."
     },
     "dashboard": {
       "closeFailed": "Tidak dapat menutup posisi. Silakan coba lagi.",
@@ -1260,7 +1264,15 @@
     "confirm": "Mulai menyalin",
     "profitShare": "Bagi hasil:",
     "copyStopLossHint": "Penyalinan berhenti otomatis saat kerugian yang terealisasi mencapai persentase ini dari jumlah yang dialokasikan.",
-    "fixedAmountLabel": "Jumlah per transaksi (USDT)"
+    "fixedAmountLabel": "Jumlah per transaksi (USDT)",
+    "tradeRiskTitle": "Manajemen risiko per transaksi",
+    "takeProfitLabel": "Take profit (% dari margin) — opsional",
+    "stopLossLabel": "Stop loss (% dari margin) — opsional",
+    "trailingLabel": "Trailing stop (%) — opsional",
+    "trailingHint": "Menutup transaksi saat harga turun sebesar ini dari harga terbaik yang pernah dicapai.",
+    "tpslHint": "Diterapkan otomatis pada setiap transaksi yang disalin mulai sekarang. Take profit 1–500%, stop loss 1–90%, trailing 0,5–50%.",
+    "copyOpenLabel": "Salin juga transaksi trader yang sedang terbuka",
+    "copyOpenHint": "Dibuka sekarang pada harga pasar saat ini, yang bisa berbeda dari harga masuk trader."
   },
   "Trades": {
     "title": "Transaksi",
@@ -1957,5 +1969,19 @@
     "errNotEnabled": "Autentikasi dua faktor tidak aktif di akun ini.",
     "errGeneric": "Terjadi kesalahan. Silakan coba lagi.",
     "impersonationRequires2fa": "Untuk melihat akun pelanggan, aktifkan dulu autentikasi dua faktor di akun admin Anda sendiri (Akun → Keamanan) lalu masuk dengannya."
+  },
+  "CopyRisk": {
+    "title": "Pengaturan transaksi (take profit / stop loss / trailing)",
+    "off": "Nonaktif",
+    "tpShort": "TP",
+    "slShort": "SL",
+    "trailingShort": "Trailing",
+    "tp": "Take profit (%)",
+    "sl": "Stop loss (%)",
+    "trailing": "Trailing (%)",
+    "hint": "Persentase dari margin transaksi. Kosongkan kolom untuk menonaktifkannya. Berlaku untuk setiap transaksi baru yang disalin mulai sekarang.",
+    "applyToOpen": "Terapkan juga pada transaksi saya yang sedang terbuka",
+    "save": "Simpan pengaturan",
+    "saved": "Pengaturan salin disimpan."
   }
 }

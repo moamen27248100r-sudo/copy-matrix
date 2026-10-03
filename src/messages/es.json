@@ -872,7 +872,11 @@
       "copyRequiresInvite": "Este trader solo acepta seguidores por invitación. Pídele un enlace de invitación.",
       "notAcceptingFollowers": "Este trader no acepta nuevos seguidores por el momento.",
       "inviteInvalid": "Este enlace de invitación no es válido o ya se ha usado.",
-      "copySettingsInvalid": "Revisa los ajustes de copia: los importes fijo y máximo no pueden superar el importe asignado y el stop-loss debe estar entre 1 % y 90 %."
+      "copySettingsInvalid": "Revisa los ajustes de copia: los importes fijo y máximo no pueden superar el importe asignado y el stop-loss debe estar entre 1 % y 90 %.",
+      "copyTpInvalid": "La toma de beneficios debe estar entre el 1 % y el 500 % del margen.",
+      "copySlInvalid": "El stop loss debe estar entre el 1 % y el 90 % del margen.",
+      "copyTrailingInvalid": "El stop dinámico debe estar entre el 0,5 % y el 50 %.",
+      "copyNotFound": "Esta copia ya no está activa."
     },
     "dashboard": {
       "closeFailed": "No se pudo cerrar la posición. Inténtalo de nuevo.",
@@ -1261,7 +1265,15 @@
     "confirm": "Empezar a copiar",
     "profitShare": "Reparto de beneficios:",
     "copyStopLossHint": "La copia se detiene automáticamente cuando su pérdida realizada alcanza este porcentaje del importe asignado.",
-    "fixedAmountLabel": "Importe por operación (USDT)"
+    "fixedAmountLabel": "Importe por operación (USDT)",
+    "tradeRiskTitle": "Gestión del riesgo por operación",
+    "takeProfitLabel": "Toma de beneficios (% del margen) — opcional",
+    "stopLossLabel": "Stop loss (% del margen) — opcional",
+    "trailingLabel": "Stop dinámico (%) — opcional",
+    "trailingHint": "Cierra la operación cuando el precio retrocede este porcentaje desde el mejor precio alcanzado.",
+    "tpslHint": "Se aplica automáticamente a cada operación copiada a partir de ahora. Toma de beneficios 1–500 %, stop loss 1–90 %, dinámico 0,5–50 %.",
+    "copyOpenLabel": "Copiar también las operaciones abiertas actualmente del trader",
+    "copyOpenHint": "Se abren ahora al precio actual de mercado, que puede diferir del precio de entrada del trader."
   },
   "Trades": {
     "title": "Operaciones",
@@ -1958,5 +1970,19 @@
     "errNotEnabled": "La autenticación de dos factores no está activada en esta cuenta.",
     "errGeneric": "Algo salió mal. Inténtalo de nuevo.",
     "impersonationRequires2fa": "Para ver la cuenta de un cliente, primero activa la autenticación de dos factores en tu propia cuenta de administrador (Cuenta → Seguridad) e inicia sesión con ella."
+  },
+  "CopyRisk": {
+    "title": "Ajustes de operaciones (toma de beneficios / stop loss / dinámico)",
+    "off": "Desactivado",
+    "tpShort": "TP",
+    "slShort": "SL",
+    "trailingShort": "Dinámico",
+    "tp": "Toma de beneficios (%)",
+    "sl": "Stop loss (%)",
+    "trailing": "Dinámico (%)",
+    "hint": "Porcentajes del margen de la operación. Deje un campo vacío para desactivarlo. Se aplica a cada nueva operación copiada a partir de ahora.",
+    "applyToOpen": "Aplicar también a mis operaciones abiertas actualmente",
+    "save": "Guardar ajustes",
+    "saved": "Ajustes de copia guardados."
   }
 }

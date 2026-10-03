@@ -872,7 +872,11 @@
       "copyRequiresInvite": "This trader only accepts followers by invitation. Ask them for an invite link.",
       "notAcceptingFollowers": "This trader is not accepting new followers right now.",
       "inviteInvalid": "This invite link is invalid or has already been used.",
-      "copySettingsInvalid": "Check your copy settings: the fixed and maximum amounts must not exceed the allocated amount, and the stop-loss must be between 1% and 90%."
+      "copySettingsInvalid": "Check your copy settings: the fixed and maximum amounts must not exceed the allocated amount, and the stop-loss must be between 1% and 90%.",
+      "copyTpInvalid": "Take profit must be between 1% and 500% of the margin.",
+      "copySlInvalid": "Stop loss must be between 1% and 90% of the margin.",
+      "copyTrailingInvalid": "Trailing stop must be between 0.5% and 50%.",
+      "copyNotFound": "This copy is no longer active."
     },
     "dashboard": {
       "closeFailed": "Couldn't close the position. Please try again.",
@@ -1264,7 +1268,15 @@
     "confirm": "Start copying",
     "profitShare": "Profit share:",
     "copyStopLossHint": "The copy stops automatically once its realized loss reaches this share of the allocated amount.",
-    "fixedAmountLabel": "Amount per trade (USDT)"
+    "fixedAmountLabel": "Amount per trade (USDT)",
+    "tradeRiskTitle": "Risk management per trade",
+    "takeProfitLabel": "Take profit (% of margin) — optional",
+    "stopLossLabel": "Stop loss (% of margin) — optional",
+    "trailingLabel": "Trailing stop (%) — optional",
+    "trailingHint": "Closes the trade when the price pulls back this much from the best price it reached.",
+    "tpslHint": "Applied automatically to every trade copied from now on. Take profit 1–500%, stop loss 1–90%, trailing 0.5–50%.",
+    "copyOpenLabel": "Also copy the trader's currently open trades",
+    "copyOpenHint": "They open now at the current market price, which may differ from the trader's entry price."
   },
   "Trades": {
     "title": "Trades",
@@ -1961,5 +1973,19 @@
     "errNotEnabled": "Two-factor authentication isn’t on for this account.",
     "errGeneric": "Something went wrong. Please try again.",
     "impersonationRequires2fa": "To view a customer’s account, first enable two-factor authentication on your own admin account (Account → Security) and sign in with it."
+  },
+  "CopyRisk": {
+    "title": "Trade settings (take profit / stop loss / trailing)",
+    "off": "Off",
+    "tpShort": "TP",
+    "slShort": "SL",
+    "trailingShort": "Trail",
+    "tp": "Take profit (%)",
+    "sl": "Stop loss (%)",
+    "trailing": "Trailing (%)",
+    "hint": "Percentages of the trade margin. Leave a field empty to turn it off. Applied to every new trade copied from now on.",
+    "applyToOpen": "Also apply to my currently open trades",
+    "save": "Save settings",
+    "saved": "Copy settings saved."
   }
 }

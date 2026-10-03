@@ -872,7 +872,11 @@
       "copyRequiresInvite": "Este trader só aceita seguidores por convite. Peça-lhe uma ligação de convite.",
       "notAcceptingFollowers": "Este trader não está a aceitar novos seguidores neste momento.",
       "inviteInvalid": "Este link de convite é inválido ou já foi utilizado.",
-      "copySettingsInvalid": "Verifique as definições de cópia: os valores fixo e máximo não podem exceder o valor alocado e o stop-loss deve estar entre 1% e 90%."
+      "copySettingsInvalid": "Verifique as definições de cópia: os valores fixo e máximo não podem exceder o valor alocado e o stop-loss deve estar entre 1% e 90%.",
+      "copyTpInvalid": "O take profit deve estar entre 1% e 500% da margem.",
+      "copySlInvalid": "O stop loss deve estar entre 1% e 90% da margem.",
+      "copyTrailingInvalid": "O stop móvel deve estar entre 0,5% e 50%.",
+      "copyNotFound": "Esta cópia já não está ativa."
     },
     "dashboard": {
       "closeFailed": "Não foi possível fechar a posição. Tente novamente.",
@@ -1263,7 +1267,15 @@
     "confirm": "Começar a copiar",
     "profitShare": "Partilha de lucros:",
     "copyStopLossHint": "A cópia para automaticamente quando a perda realizada atinge esta percentagem do valor alocado.",
-    "fixedAmountLabel": "Valor por operação (USDT)"
+    "fixedAmountLabel": "Valor por operação (USDT)",
+    "tradeRiskTitle": "Gestão de risco por operação",
+    "takeProfitLabel": "Take profit (% da margem) — opcional",
+    "stopLossLabel": "Stop loss (% da margem) — opcional",
+    "trailingLabel": "Stop móvel (%) — opcional",
+    "trailingHint": "Fecha a operação quando o preço recua essa percentagem em relação ao melhor preço atingido.",
+    "tpslHint": "Aplicado automaticamente a cada operação copiada a partir de agora. Take profit 1–500%, stop loss 1–90%, móvel 0,5–50%.",
+    "copyOpenLabel": "Copiar também as operações atualmente abertas do trader",
+    "copyOpenHint": "Abrem agora ao preço atual de mercado, que pode diferir do preço de entrada do trader."
   },
   "Trades": {
     "title": "Operações",
@@ -1960,5 +1972,19 @@
     "errNotEnabled": "A autenticação de dois fatores não está ativada nesta conta.",
     "errGeneric": "Algo deu errado. Tente novamente.",
     "impersonationRequires2fa": "Para visualizar a conta de um cliente, primeiro ative a autenticação de dois fatores na sua própria conta de administrador (Conta → Segurança) e faça login com ela."
+  },
+  "CopyRisk": {
+    "title": "Definições das operações (take profit / stop loss / móvel)",
+    "off": "Desativado",
+    "tpShort": "TP",
+    "slShort": "SL",
+    "trailingShort": "Móvel",
+    "tp": "Take profit (%)",
+    "sl": "Stop loss (%)",
+    "trailing": "Móvel (%)",
+    "hint": "Percentagens da margem da operação. Deixe um campo vazio para o desativar. Aplicado a cada nova operação copiada a partir de agora.",
+    "applyToOpen": "Aplicar também às minhas operações atualmente abertas",
+    "save": "Guardar definições",
+    "saved": "Definições de cópia guardadas."
   }
 }

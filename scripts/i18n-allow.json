@@ -1,8 +1,13 @@
 {
   "bn": [
+    "CopyRisk.slShort",
+    "CopyRisk.tpShort",
     "LeadTrader.followers.whitelistOn"
   ],
   "es": [
+    "CopyRisk.sl",
+    "CopyRisk.slShort",
+    "CopyRisk.tpShort",
     "Countries.AR",
     "Countries.AT",
     "Countries.AU",
@@ -41,6 +46,9 @@
   "fr": [
     "AccountMenu.notifications",
     "AccountMenu.version",
+    "CopyRisk.sl",
+    "CopyRisk.slShort",
+    "CopyRisk.tpShort",
     "Countries.BD",
     "Countries.CA",
     "Countries.DJ",
@@ -100,11 +108,18 @@
     "Trades.title"
   ],
   "hi": [
+    "CopyRisk.slShort",
+    "CopyRisk.tpShort",
     "LeadTrader.followers.whitelistOn"
   ],
   "id": [
     "Common.level",
     "CopyDialog.minAmount",
+    "CopyRisk.sl",
+    "CopyRisk.slShort",
+    "CopyRisk.tp",
+    "CopyRisk.tpShort",
+    "CopyRisk.trailing",
     "Countries.AR",
     "Countries.AT",
     "Countries.AU",
@@ -166,6 +181,10 @@
     "Trades.filterTrader"
   ],
   "pt": [
+    "CopyRisk.sl",
+    "CopyRisk.slShort",
+    "CopyRisk.tp",
+    "CopyRisk.tpShort",
     "Countries.AR",
     "Countries.BD",
     "Countries.CL",
@@ -200,6 +219,8 @@
     "Trades.filterTrader"
   ],
   "sw": [
+    "CopyRisk.slShort",
+    "CopyRisk.tpShort",
     "Countries.AT",
     "Countries.AU",
     "Countries.CL",
@@ -239,12 +260,18 @@
     "Symbols.XRPUSDT"
   ],
   "th": [
+    "CopyRisk.slShort",
+    "CopyRisk.tpShort",
     "LeadTrader.followers.whitelistOn"
   ],
   "ur": [
+    "CopyRisk.slShort",
+    "CopyRisk.tpShort",
     "LeadTrader.followers.whitelistOn"
   ],
   "vi": [
+    "CopyRisk.slShort",
+    "CopyRisk.tpShort",
     "Countries.AR",
     "Countries.BD",
     "Countries.BH",

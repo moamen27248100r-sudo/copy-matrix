@@ -872,7 +872,11 @@
       "copyRequiresInvite": "Ce trader n'accepte que les abonnés sur invitation. Demandez-lui un lien d'invitation.",
       "notAcceptingFollowers": "Ce trader n'accepte pas de nouveaux abonnés pour le moment.",
       "inviteInvalid": "Ce lien d'invitation est invalide ou a déjà été utilisé.",
-      "copySettingsInvalid": "Vérifiez vos paramètres de copie : les montants fixe et maximal ne doivent pas dépasser le montant alloué, et le stop-loss doit être compris entre 1 % et 90 %."
+      "copySettingsInvalid": "Vérifiez vos paramètres de copie : les montants fixe et maximal ne doivent pas dépasser le montant alloué, et le stop-loss doit être compris entre 1 % et 90 %.",
+      "copyTpInvalid": "La prise de profit doit être comprise entre 1 % et 500 % de la marge.",
+      "copySlInvalid": "Le stop loss doit être compris entre 1 % et 90 % de la marge.",
+      "copyTrailingInvalid": "Le stop suiveur doit être compris entre 0,5 % et 50 %.",
+      "copyNotFound": "Cette copie n'est plus active."
     },
     "dashboard": {
       "closeFailed": "Impossible de fermer la position. Réessayez.",
@@ -1261,7 +1265,15 @@
     "confirm": "Commencer à copier",
     "profitShare": "Partage des profits :",
     "copyStopLossHint": "La copie s'arrête automatiquement lorsque sa perte réalisée atteint cette part du montant alloué.",
-    "fixedAmountLabel": "Montant par trade (USDT)"
+    "fixedAmountLabel": "Montant par trade (USDT)",
+    "tradeRiskTitle": "Gestion du risque par trade",
+    "takeProfitLabel": "Prise de profit (% de la marge) — facultatif",
+    "stopLossLabel": "Stop loss (% de la marge) — facultatif",
+    "trailingLabel": "Stop suiveur (%) — facultatif",
+    "trailingHint": "Ferme le trade lorsque le prix recule de ce pourcentage par rapport au meilleur prix atteint.",
+    "tpslHint": "Appliqué automatiquement à chaque trade copié à partir de maintenant. Prise de profit 1–500 %, stop loss 1–90 %, suiveur 0,5–50 %.",
+    "copyOpenLabel": "Copier aussi les trades actuellement ouverts du trader",
+    "copyOpenHint": "Ils s'ouvrent maintenant au prix actuel du marché, qui peut différer du prix d'entrée du trader."
   },
   "Trades": {
     "title": "Trades",
@@ -1958,5 +1970,19 @@
     "errNotEnabled": "L’authentification à deux facteurs n’est pas activée sur ce compte.",
     "errGeneric": "Une erreur s’est produite. Veuillez réessayer.",
     "impersonationRequires2fa": "Pour consulter le compte d’un client, activez d’abord l’authentification à deux facteurs sur votre propre compte administrateur (Compte → Sécurité) et connectez-vous avec."
+  },
+  "CopyRisk": {
+    "title": "Réglages des trades (prise de profit / stop loss / suiveur)",
+    "off": "Désactivé",
+    "tpShort": "TP",
+    "slShort": "SL",
+    "trailingShort": "Suiveur",
+    "tp": "Prise de profit (%)",
+    "sl": "Stop loss (%)",
+    "trailing": "Suiveur (%)",
+    "hint": "Pourcentages de la marge du trade. Laissez un champ vide pour le désactiver. Appliqué à chaque nouveau trade copié à partir de maintenant.",
+    "applyToOpen": "Appliquer aussi à mes trades actuellement ouverts",
+    "save": "Enregistrer les réglages",
+    "saved": "Réglages de copie enregistrés."
   }
 }

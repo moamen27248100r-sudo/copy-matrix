@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { TraderAvatar } from "@/components/TraderAvatar";
 import { ConfirmButton } from "@/components/ConfirmButton";
-import { stopCopyingNow } from "@/app/discover/actions";
+import { stopCopyingNow, updateCopyRiskSettings } from "@/app/discover/actions";
 
 type CopiedProvider = {
   providerId: string;
@@ -13,6 +13,9 @@ type CopiedProvider = {
   allocatedAmount: number;
   maxDrawdownPct: number;
   cumulativePnl: number;
+  takeProfitPct?: number | null;
+  stopLossPct?: number | null;
+  trailingPct?: number | null;
 };
 
 // Cumulative closed pnl for this subscription vs. -(allocated * maxDrawdownPct / 100)
@@ -21,11 +24,17 @@ type CopiedProvider = {
 export async function ActiveCopyControlPanel({
   provider,
   returnTo = "/dashboard",
+  editable = false,
 }: {
   provider: CopiedProvider;
   returnTo?: string;
+  // Shows the per-trade take-profit / stop-loss / trailing editor.
+  editable?: boolean;
 }) {
   const t = await getTranslations("Dashboard");
+  const tr = await getTranslations("CopyRisk");
+  const off = tr("off");
+  const pct = (v: number | null | undefined) => (v == null ? off : `${v}%`);
   const money = await getMoney();
   const lossBudget = provider.allocatedAmount * (provider.maxDrawdownPct / 100);
   const lossUsed = Math.max(0, -provider.cumulativePnl);
@@ -73,6 +82,42 @@ export async function ActiveCopyControlPanel({
           <div className={`h-full rounded-full ${barColor}`} style={{ width: `${usedPct}%` }} />
         </div>
       </div>
+      {editable && (
+        <details className="group border-t border-slate-800 pt-4">
+          <summary className="flex cursor-pointer list-none items-center justify-between text-xs">
+            <span className="font-medium">{tr("title")}</span>
+            <span className="text-muted" dir="ltr">
+              {tr("tpShort")} {pct(provider.takeProfitPct)} · {tr("slShort")} {pct(provider.stopLossPct)} · {tr("trailingShort")} {pct(provider.trailingPct)}
+            </span>
+          </summary>
+          <form action={updateCopyRiskSettings} className="mt-3 flex flex-col gap-3">
+            <input type="hidden" name="providerId" value={provider.providerId} />
+            <input type="hidden" name="returnTo" value={returnTo} />
+            <div className="grid grid-cols-3 gap-2">
+              <label className="flex flex-col gap-1 text-xs text-muted">
+                {tr("tp")}
+                <input name="takeProfitPct" type="number" step="any" min={1} max={500} defaultValue={provider.takeProfitPct ?? ""} className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" dir="ltr" />
+              </label>
+              <label className="flex flex-col gap-1 text-xs text-muted">
+                {tr("sl")}
+                <input name="tradeStopLossPct" type="number" step="any" min={1} max={90} defaultValue={provider.stopLossPct ?? ""} className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" dir="ltr" />
+              </label>
+              <label className="flex flex-col gap-1 text-xs text-muted">
+                {tr("trailing")}
+                <input name="trailingPct" type="number" step="any" min={0.5} max={50} defaultValue={provider.trailingPct ?? ""} className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" dir="ltr" />
+              </label>
+            </div>
+            <p className="text-xs text-muted">{tr("hint")}</p>
+            <label className="flex items-start gap-2 text-xs text-muted">
+              <input type="checkbox" name="applyToOpen" className="mt-0.5" />
+              <span>{tr("applyToOpen")}</span>
+            </label>
+            <button type="submit" className="self-start rounded-lg bg-accent px-4 py-2 text-xs font-bold text-accent-foreground transition hover:bg-accent-hover">
+              {tr("save")}
+            </button>
+          </form>
+        </details>
+      )}
     </div>
   );
 }

@@ -872,7 +872,11 @@
       "copyRequiresInvite": "该交易员仅接受受邀关注者。请向其索取邀请链接。",
       "notAcceptingFollowers": "该交易员目前不接受新的关注者。",
       "inviteInvalid": "此邀请链接无效或已被使用。",
-      "copySettingsInvalid": "请检查跟单设置：固定金额和最大金额不能超过分配金额，止损比例须在 1% 至 90% 之间。"
+      "copySettingsInvalid": "请检查跟单设置：固定金额和最大金额不能超过分配金额，止损比例须在 1% 至 90% 之间。",
+      "copyTpInvalid": "止盈必须在保证金的 1% 到 500% 之间。",
+      "copySlInvalid": "止损必须在保证金的 1% 到 90% 之间。",
+      "copyTrailingInvalid": "移动止损必须在 0.5% 到 50% 之间。",
+      "copyNotFound": "此跟单已不再有效。"
     },
     "dashboard": {
       "closeFailed": "无法平仓，请重试。",
@@ -1261,7 +1265,15 @@
     "confirm": "开始跟单",
     "profitShare": "利润分成：",
     "copyStopLossHint": "当已实现亏损达到分配金额的该比例时，跟单将自动停止。",
-    "fixedAmountLabel": "每笔金额（USDT）"
+    "fixedAmountLabel": "每笔金额（USDT）",
+    "tradeRiskTitle": "每笔交易的风险管理",
+    "takeProfitLabel": "止盈（占保证金的百分比）— 可选",
+    "stopLossLabel": "止损（占保证金的百分比）— 可选",
+    "trailingLabel": "移动止损（%）— 可选",
+    "trailingHint": "当价格从交易达到的最佳价格回撤到该比例时平仓。",
+    "tpslHint": "自动应用于此后每一笔复制的交易。止盈 1–500%，止损 1–90%，移动止损 0.5–50%。",
+    "copyOpenLabel": "同时复制交易员当前持有的未平仓交易",
+    "copyOpenHint": "它们将以当前市价立即开仓，可能与交易员的开仓价不同。"
   },
   "Trades": {
     "title": "交易",
@@ -1958,5 +1970,19 @@
     "errNotEnabled": "此账户未启用双重验证。",
     "errGeneric": "出现问题，请重试。",
     "impersonationRequires2fa": "如需查看客户账户，请先为您自己的管理员账户启用双重验证（账户 → 安全），并使用双重验证登录。"
+  },
+  "CopyRisk": {
+    "title": "交易设置（止盈 / 止损 / 移动止损）",
+    "off": "关闭",
+    "tpShort": "止盈",
+    "slShort": "止损",
+    "trailingShort": "移动",
+    "tp": "止盈（%）",
+    "sl": "止损（%）",
+    "trailing": "移动止损（%）",
+    "hint": "均为交易保证金的百分比。留空即关闭。适用于此后每一笔新复制的交易。",
+    "applyToOpen": "同时应用于我当前持有的未平仓交易",
+    "save": "保存设置",
+    "saved": "跟单设置已保存。"
   }
 }

@@ -107,6 +107,14 @@ export async function followProvider(formData: FormData) {
     return Number.isFinite(n) ? n : NaN;
   };
   const copyMode = formData.get("mode") === "fixed" ? "fixed" : "ratio";
+  const tpPct = optionalNumber("takeProfitPct");
+  const slPct = optionalNumber("tradeStopLossPct");
+  const trailingPct = optionalNumber("trailingPct");
+  // The range checks live in the database; NaN would be sent as null (= "off"),
+  // so a non-numeric value is rejected here instead.
+  if (Number.isNaN(tpPct)) redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copyTpInvalid"))}`);
+  if (Number.isNaN(slPct)) redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copySlInvalid"))}`);
+  if (Number.isNaN(trailingPct)) redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copyTrailingInvalid"))}`);
 
   const { error } = await supabase.rpc("start_or_update_copy", {
     p_provider_id: providerId,
@@ -115,11 +123,24 @@ export async function followProvider(formData: FormData) {
     p_fixed_amount: copyMode === "fixed" ? optionalNumber("fixedAmount") : null,
     p_max_per_trade: optionalNumber("maxPerTrade"),
     p_stop_loss_pct: optionalNumber("stopLossPct"),
+    p_tp_pct: tpPct,
+    p_sl_pct: slPct,
+    p_trailing_pct: trailingPct,
+    p_copy_open: formData.get("copyOpen") === "on",
   });
 
   if (error) {
     if (error.code === "CM017") {
       redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copySettingsInvalid"))}`);
+    }
+    if (error.code === "CM018") {
+      redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copyTpInvalid"))}`);
+    }
+    if (error.code === "CM019") {
+      redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copySlInvalid"))}`);
+    }
+    if (error.code === "CM020") {
+      redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copyTrailingInvalid"))}`);
     }
     if (error.code === "CM003") {
       redirect(`/trader/${providerId}?error=${encodeURIComponent(td("traderStopped"))}`);
@@ -150,6 +171,52 @@ export async function followProvider(formData: FormData) {
   revalidatePath(`/trader/${providerId}`);
 
   redirect(isStarting ? `/trader/${providerId}?success=started` : `/trader/${providerId}`);
+}
+
+// Edit the per-trade take-profit / stop-loss / trailing settings of a running
+// copy. Ranges are enforced by update_copy_risk_settings() (distinct error code
+// per field); this only turns the codes into translated messages.
+export async function updateCopyRiskSettings(formData: FormData) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return;
+
+  const providerId = formData.get("providerId") as string;
+  const returnTo = (formData.get("returnTo") as string) || "/copies";
+  const td = await getTranslations("Actions.discover");
+  const fail = (key: string) => redirect(`${returnTo}?error=${encodeURIComponent(td(key))}`);
+
+  const optional = (name: string, invalidKey: string) => {
+    const raw = String(formData.get(name) ?? "").trim();
+    if (raw === "") return null;
+    const n = Number(raw);
+    return Number.isFinite(n) ? n : fail(invalidKey);
+  };
+  const tp = optional("takeProfitPct", "copyTpInvalid");
+  const sl = optional("tradeStopLossPct", "copySlInvalid");
+  const trailing = optional("trailingPct", "copyTrailingInvalid");
+
+  const { error } = await supabase.rpc("update_copy_risk_settings", {
+    p_provider_id: providerId,
+    p_tp_pct: tp,
+    p_sl_pct: sl,
+    p_trailing_pct: trailing,
+    p_apply_to_open: formData.get("applyToOpen") === "on",
+  });
+  if (error) {
+    if (error.code === "CM018") fail("copyTpInvalid");
+    if (error.code === "CM019") fail("copySlInvalid");
+    if (error.code === "CM020") fail("copyTrailingInvalid");
+    if (error.code === "CM021") fail("copyNotFound");
+    fail("copyFailed");
+  }
+
+  revalidatePath("/copies");
+  revalidatePath("/portfolio");
+  revalidatePath("/dashboard");
+  redirect(`${returnTo}?saved=1`);
 }
 
 // Dashboard "stop copying": closes every open copied position of this

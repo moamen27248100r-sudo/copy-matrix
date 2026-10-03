@@ -872,7 +872,11 @@
       "copyRequiresInvite": "Mfanyabiashara huyu anakubali wafuasi kwa mwaliko pekee. Mwombe kiungo cha mwaliko.",
       "notAcceptingFollowers": "Mfanyabiashara huyu hakubali wafuasi wapya kwa sasa.",
       "inviteInvalid": "Kiungo hiki cha mwaliko si sahihi au kimeshatumika.",
-      "copySettingsInvalid": "Kagua mipangilio yako ya kunakili: kiasi kisichobadilika na cha juu hakipaswi kuzidi kiasi kilichotengwa, na stop-loss iwe kati ya 1% na 90%."
+      "copySettingsInvalid": "Kagua mipangilio yako ya kunakili: kiasi kisichobadilika na cha juu hakipaswi kuzidi kiasi kilichotengwa, na stop-loss iwe kati ya 1% na 90%.",
+      "copyTpInvalid": "Chukua faida lazima iwe kati ya 1% na 500% ya margin.",
+      "copySlInvalid": "Komesha hasara lazima iwe kati ya 1% na 90% ya margin.",
+      "copyTrailingInvalid": "Stop inayofuata bei lazima iwe kati ya 0.5% na 50%.",
+      "copyNotFound": "Nakili hii haifanyi kazi tena."
     },
     "dashboard": {
       "closeFailed": "Imeshindwa kufunga nafasi. Tafadhali jaribu tena.",
@@ -1260,7 +1264,15 @@
     "confirm": "Anza kunakili",
     "profitShare": "Mgao wa faida:",
     "copyStopLossHint": "Nakala husimama kiotomatiki hasara iliyotimia inapofikia sehemu hii ya kiasi kilichotengwa.",
-    "fixedAmountLabel": "Kiasi kwa kila biashara (USDT)"
+    "fixedAmountLabel": "Kiasi kwa kila biashara (USDT)",
+    "tradeRiskTitle": "Usimamizi wa hatari kwa kila biashara",
+    "takeProfitLabel": "Chukua faida (% ya margin) — si lazima",
+    "stopLossLabel": "Komesha hasara (% ya margin) — si lazima",
+    "trailingLabel": "Stop inayofuata bei (%) — si lazima",
+    "trailingHint": "Hufunga biashara bei inaporudi nyuma kwa kiasi hiki kutoka bei bora iliyofikiwa.",
+    "tpslHint": "Hutumika kiotomatiki kwa kila biashara itakayonakiliwa kuanzia sasa. Chukua faida 1–500%, komesha hasara 1–90%, stop inayofuata 0.5–50%.",
+    "copyOpenLabel": "Nakili pia biashara zilizo wazi sasa za mfanyabiashara",
+    "copyOpenHint": "Hufunguliwa sasa kwa bei ya soko ya sasa, ambayo inaweza kutofautiana na bei ya kuingia ya mfanyabiashara."
   },
   "Trades": {
     "title": "Biashara",
@@ -1957,5 +1969,19 @@
     "errNotEnabled": "Uthibitishaji wa hatua mbili haujawashwa kwenye akaunti hii.",
     "errGeneric": "Hitilafu imetokea. Tafadhali jaribu tena.",
     "impersonationRequires2fa": "Ili kuona akaunti ya mteja, kwanza washa uthibitishaji wa hatua mbili kwenye akaunti yako ya msimamizi (Akaunti → Usalama) kisha uingie ukitumia."
+  },
+  "CopyRisk": {
+    "title": "Mipangilio ya biashara (chukua faida / komesha hasara / inayofuata)",
+    "off": "Imezimwa",
+    "tpShort": "TP",
+    "slShort": "SL",
+    "trailingShort": "Inayofuata",
+    "tp": "Chukua faida (%)",
+    "sl": "Komesha hasara (%)",
+    "trailing": "Inayofuata (%)",
+    "hint": "Asilimia za margin ya biashara. Acha sehemu wazi ili kuizima. Hutumika kwa kila biashara mpya itakayonakiliwa kuanzia sasa.",
+    "applyToOpen": "Tumia pia kwa biashara zangu zilizo wazi sasa",
+    "save": "Hifadhi mipangilio",
+    "saved": "Mipangilio ya kunakili imehifadhiwa."
   }
 }

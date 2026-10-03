@@ -123,6 +123,28 @@ export function CopyDialog({
                   />
                   <span>{t("copyStopLossHint")}</span>
                 </label>
+                <p className="border-t border-border pt-3 text-xs font-semibold text-foreground">{t("tradeRiskTitle")}</p>
+                <label className="flex flex-col gap-1 text-xs text-muted">
+                  {t("takeProfitLabel")}
+                  <input name="takeProfitPct" type="number" step="any" min={1} max={500} className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" dir="ltr" />
+                </label>
+                <label className="flex flex-col gap-1 text-xs text-muted">
+                  {t("stopLossLabel")}
+                  <input name="tradeStopLossPct" type="number" step="any" min={1} max={90} className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" dir="ltr" />
+                </label>
+                <label className="flex flex-col gap-1 text-xs text-muted">
+                  {t("trailingLabel")}
+                  <input name="trailingPct" type="number" step="any" min={0.5} max={50} className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" dir="ltr" />
+                  <span>{t("trailingHint")}</span>
+                </label>
+                <span className="text-xs text-muted">{t("tpslHint")}</span>
+                <label className="flex items-start gap-2 border-t border-border pt-3 text-xs text-muted">
+                  <input type="checkbox" name="copyOpen" className="mt-0.5" />
+                  <span>
+                    {t("copyOpenLabel")}
+                    <span className="block">{t("copyOpenHint")}</span>
+                  </span>
+                </label>
               </div>
             </div>
 

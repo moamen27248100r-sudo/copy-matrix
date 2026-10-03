@@ -872,7 +872,11 @@
       "copyRequiresInvite": "Nhà giao dịch này chỉ nhận người theo dõi qua lời mời. Hãy xin họ liên kết mời.",
       "notAcceptingFollowers": "Nhà giao dịch này hiện không nhận người theo dõi mới.",
       "inviteInvalid": "Liên kết mời này không hợp lệ hoặc đã được sử dụng.",
-      "copySettingsInvalid": "Kiểm tra cài đặt sao chép: số tiền cố định và tối đa không được vượt quá số tiền đã phân bổ, và cắt lỗ phải nằm trong khoảng 1% đến 90%."
+      "copySettingsInvalid": "Kiểm tra cài đặt sao chép: số tiền cố định và tối đa không được vượt quá số tiền đã phân bổ, và cắt lỗ phải nằm trong khoảng 1% đến 90%.",
+      "copyTpInvalid": "Chốt lời phải nằm trong khoảng 1% đến 500% ký quỹ.",
+      "copySlInvalid": "Cắt lỗ phải nằm trong khoảng 1% đến 90% ký quỹ.",
+      "copyTrailingInvalid": "Dừng lỗ động phải nằm trong khoảng 0,5% đến 50%.",
+      "copyNotFound": "Bản sao chép này không còn hoạt động."
     },
     "dashboard": {
       "closeFailed": "Không thể đóng vị thế. Vui lòng thử lại.",
@@ -1260,7 +1264,15 @@
     "confirm": "Bắt đầu sao chép",
     "profitShare": "Chia sẻ lợi nhuận:",
     "copyStopLossHint": "Lệnh sao chép tự động dừng khi khoản lỗ đã chốt đạt tỷ lệ này trên số tiền đã phân bổ.",
-    "fixedAmountLabel": "Số tiền mỗi lệnh (USDT)"
+    "fixedAmountLabel": "Số tiền mỗi lệnh (USDT)",
+    "tradeRiskTitle": "Quản lý rủi ro cho từng lệnh",
+    "takeProfitLabel": "Chốt lời (% ký quỹ) — tùy chọn",
+    "stopLossLabel": "Cắt lỗ (% ký quỹ) — tùy chọn",
+    "trailingLabel": "Dừng lỗ động (%) — tùy chọn",
+    "trailingHint": "Đóng lệnh khi giá giảm ngược lại theo tỷ lệ này so với mức giá tốt nhất đã đạt.",
+    "tpslHint": "Tự động áp dụng cho mọi lệnh được sao chép từ bây giờ. Chốt lời 1–500%, cắt lỗ 1–90%, dừng lỗ động 0,5–50%.",
+    "copyOpenLabel": "Sao chép cả các lệnh đang mở của trader",
+    "copyOpenHint": "Chúng được mở ngay theo giá thị trường hiện tại, có thể khác giá vào lệnh của trader."
   },
   "Trades": {
     "title": "Giao dịch",
@@ -1957,5 +1969,19 @@
     "errNotEnabled": "Tài khoản này chưa bật xác thực hai yếu tố.",
     "errGeneric": "Đã xảy ra lỗi. Vui lòng thử lại.",
     "impersonationRequires2fa": "Để xem tài khoản của khách hàng, trước tiên hãy bật xác thực hai yếu tố cho tài khoản quản trị của bạn (Tài khoản → Bảo mật) và đăng nhập bằng nó."
+  },
+  "CopyRisk": {
+    "title": "Cài đặt lệnh (chốt lời / cắt lỗ / dừng lỗ động)",
+    "off": "Tắt",
+    "tpShort": "TP",
+    "slShort": "SL",
+    "trailingShort": "Động",
+    "tp": "Chốt lời (%)",
+    "sl": "Cắt lỗ (%)",
+    "trailing": "Dừng lỗ động (%)",
+    "hint": "Tính theo phần trăm ký quỹ của lệnh. Để trống ô để tắt. Áp dụng cho mọi lệnh mới được sao chép từ bây giờ.",
+    "applyToOpen": "Áp dụng cả cho các lệnh đang mở của tôi",
+    "save": "Lưu cài đặt",
+    "saved": "Đã lưu cài đặt sao chép."
   }
 }
