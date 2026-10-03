@@ -1,3 +1,4 @@
+import { getMoney } from "@/lib/money-server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -16,6 +17,7 @@ export async function generateMetadata() {
 export default async function LeadProfilePage({ searchParams }: { searchParams: Promise<{ err?: string; ok?: string }> }) {
   const { err, ok } = await searchParams;
   const t = await getTranslations("LeadTrader.profile");
+  const money = await getMoney();
   const supabase = await createClient();
   const {
     data: { user },
@@ -91,7 +93,7 @@ export default async function LeadProfilePage({ searchParams }: { searchParams: 
         </p>
         <p>
           <span className="text-muted">{t("minCopy")}: </span>
-          <span dir="ltr">${Number(provider?.min_copy_amount ?? 0)}</span>
+          <span dir="ltr">{money(Number(provider?.min_copy_amount ?? 0))}</span>
         </p>
         <p>
           <span className="text-muted">{t("profitShare")}: </span>

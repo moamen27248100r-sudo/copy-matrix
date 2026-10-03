@@ -1,3 +1,4 @@
+import { getMoney } from "@/lib/money-server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -16,6 +17,7 @@ export default async function ComparePage({ searchParams }: { searchParams: Prom
   if (idList.length < 2) redirect("/discover");
 
   const t = await getTranslations("Discover");
+  const money = await getMoney();
   const supabase = await createClient();
   const { data: providers } = await supabase
     .from("provider_cards")
@@ -36,7 +38,7 @@ export default async function ComparePage({ searchParams }: { searchParams: Prom
     { label: t("compareSharpe"), value: (p) => String(stats.get(p.provider_id)?.sharpe ?? "—") },
     { label: t("compareTrades"), value: (p) => String(stats.get(p.provider_id)?.trades ?? 0) },
     { label: t("copiersLabel"), value: (p) => String(p.followers_count) },
-    { label: t("minCopyAmountLabel"), value: (p) => `$${Number(p.min_copy_amount).toLocaleString("en-US")}` },
+    { label: t("minCopyAmountLabel"), value: (p) => money(Number(p.min_copy_amount)) },
   ];
 
   return (

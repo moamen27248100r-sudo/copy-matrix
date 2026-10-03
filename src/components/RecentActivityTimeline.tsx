@@ -1,3 +1,4 @@
+import { getMoney } from "@/lib/money-server";
 import { getLocale, getTranslations } from "next-intl/server";
 import { formatDate } from "@/lib/locale-format";
 import type { Locale } from "@/i18n/locales";
@@ -44,6 +45,7 @@ function EventIcon({ type }: { type: ActivityEvent["type"] }) {
 
 export async function RecentActivityTimeline({ events }: { events: ActivityEvent[] }) {
   const t = await getTranslations("Dashboard");
+  const money = await getMoney();
   const locale = (await getLocale()) as Locale;
   if (events.length === 0) return null;
 
@@ -58,9 +60,9 @@ export async function RecentActivityTimeline({ events }: { events: ActivityEvent
       case "copy_started":
         return t("activityCopyStarted", { name: e.providerName ?? "" });
       case "deposit":
-        return t("activityDeposit", { amount: `$${Number(e.amount ?? 0).toLocaleString("en-US")}` });
+        return t("activityDeposit", { amount: money(Number(e.amount ?? 0)) });
       case "withdrawal":
-        return t("activityWithdrawal", { amount: `$${Number(e.amount ?? 0).toLocaleString("en-US")}` });
+        return t("activityWithdrawal", { amount: money(Number(e.amount ?? 0)) });
     }
   };
 

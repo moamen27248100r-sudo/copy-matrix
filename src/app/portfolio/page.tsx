@@ -1,3 +1,4 @@
+import { getMoney } from "@/lib/money-server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations, getLocale } from "next-intl/server";
@@ -66,6 +67,7 @@ export default async function PortfolioPage({
   const t = await getTranslations("Portfolio");
   const td = await getTranslations("Dashboard");
   const tTrades = await getTranslations("Trades");
+  const money = await getMoney();
   const userTz = await getUserTimeZone();
   const TX_LABELS: Record<string, string> = {
     deposit: t("txDeposit"),
@@ -302,7 +304,7 @@ export default async function PortfolioPage({
                 key={r.id}
                 className="flex items-center justify-between rounded border border-border bg-background px-3 py-2 text-sm"
               >
-                <span>{r.type === "deposit" ? td("deposit") : td("withdraw")} ${Number(r.amount).toLocaleString("en-US")}</span>
+                <span>{r.type === "deposit" ? td("deposit") : td("withdraw")} {money(Number(r.amount))}</span>
                 <span className="text-xs text-muted">
                   {REQUEST_STATUS_LABELS[r.status]} · {r.type === "deposit" ? t("etaDeposit") : t("etaWithdraw")}
                 </span>
@@ -322,8 +324,7 @@ export default async function PortfolioPage({
         <div className="grid grid-cols-2 gap-3 text-center text-sm sm:grid-cols-4">
           <div className="rounded-lg border border-border bg-surface p-3">
             <p className={totalRealizedPnl >= 0 ? "text-lg font-semibold text-success" : "text-lg font-semibold text-danger"} dir="ltr">
-              {totalRealizedPnl >= 0 ? "+" : ""}
-              {totalRealizedPnl.toFixed(2)}
+              {money(totalRealizedPnl, { signed: true })}
             </p>
             <p className="text-xs text-muted">{td("netRealizedProfit")}</p>
           </div>
@@ -376,10 +377,10 @@ export default async function PortfolioPage({
                     <td className="px-3 py-2">{m.trades}</td>
                     <td className="px-3 py-2">{m.trades ? `${Math.round((m.wins / m.trades) * 100)}%` : "—"}</td>
                     <td className={`px-3 py-2 ${m.pnl >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
-                      {m.pnl >= 0 ? "+" : "-"}${Math.abs(m.pnl).toFixed(2)}
+                      {money(m.pnl, { signed: true })}
                     </td>
                     <td className="px-3 py-2 whitespace-nowrap" dir="ltr">
-                      +${m.deposits.toLocaleString("en-US")} / -${m.withdrawals.toLocaleString("en-US")}
+                      {money(m.deposits, { signed: true })} / {money(-m.withdrawals)}
                     </td>
                   </tr>
                 ))}
@@ -414,7 +415,7 @@ export default async function PortfolioPage({
                     {p.display_name}
                   </p>
                   <p className="text-xs text-muted">
-                    {td("startedWith", { amount: Number(allocationByProvider.get(p.provider_id) ?? 0).toLocaleString("en-US") })}
+                    {td("startedWith", { amount: money(Number(allocationByProvider.get(p.provider_id) ?? 0)) })}
                   </p>
                 </div>
               </Link>
@@ -478,10 +479,9 @@ export default async function PortfolioPage({
                     </td>
                     <td className="py-2 pl-3 whitespace-nowrap">{TX_LABELS[t.type] ?? t.type}</td>
                     <td className={Number(t.amount) >= 0 ? "py-2 pl-3 whitespace-nowrap text-success" : "py-2 pl-3 whitespace-nowrap text-danger"}>
-                      {Number(t.amount) >= 0 ? "+" : ""}
-                      {Number(t.amount).toFixed(2)}
+                      {money(Number(t.amount), { signed: true })}
                     </td>
-                    <td className="py-2 whitespace-nowrap">${Number(t.balance_after).toLocaleString("en-US", { maximumFractionDigits: 2 })}</td>
+                    <td className="py-2 whitespace-nowrap">{money(Number(t.balance_after))}</td>
                   </tr>
                 ))}
               </tbody>
@@ -512,7 +512,7 @@ export default async function PortfolioPage({
                       {formatDateTime(r.requested_at, locale, { dateStyle: "medium", timeStyle: "short", timeZone: userTz })}
                     </td>
                     <td className="py-2 pl-3 whitespace-nowrap">{r.type === "deposit" ? td("deposit") : td("withdraw")}</td>
-                    <td className="py-2 pl-3 whitespace-nowrap">${Number(r.amount).toLocaleString("en-US")}</td>
+                    <td className="py-2 pl-3 whitespace-nowrap">{money(Number(r.amount))}</td>
                     <td className="py-2 whitespace-nowrap">
                       <span
                         className={

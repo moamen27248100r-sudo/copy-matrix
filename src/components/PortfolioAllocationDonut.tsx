@@ -1,5 +1,7 @@
 "use client";
 
+import { useMoney } from "@/lib/money-client";
+
 const COLORS = ["var(--accent)", "#34d399", "#f0a020", "#a78bfa", "#f472b6", "#38bdf8"];
 
 export function PortfolioAllocationDonut({
@@ -11,6 +13,7 @@ export function PortfolioAllocationDonut({
   totalLabel: string;
   totalValue: number;
 }) {
+  const money = useMoney();
   const total = slices.reduce((sum, s) => sum + s.value, 0);
   if (total <= 0) return null;
 
@@ -48,7 +51,7 @@ export function PortfolioAllocationDonut({
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <p className="text-lg font-bold" dir="ltr">
-            ${totalValue.toLocaleString("en-US", { maximumFractionDigits: 0 })}
+            {money(totalValue)}
           </p>
           <p className="text-[11px] text-muted">{totalLabel}</p>
         </div>
@@ -62,7 +65,7 @@ export function PortfolioAllocationDonut({
               {seg.label}
             </span>
             <span dir="ltr" className="font-medium">
-              ${seg.value.toLocaleString("en-US", { maximumFractionDigits: 0 })}
+              {money(seg.value)}
             </span>
           </div>
         ))}

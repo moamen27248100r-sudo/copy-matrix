@@ -59,7 +59,7 @@
     "tryCopy": {
       "badge": "Jaribu bila hatari",
       "title": "Jaribu kwa akaunti ya demo",
-      "description": "Anza na dola 10,000 za fedha za kidhahania na ufanye mazoezi ya kunakili kabla ya kutumia pesa zako.",
+      "description": "Anza na 10,000 USDT za fedha za kidhahania na ufanye mazoezi ya kunakili kabla ya kutumia pesa zako.",
       "cta": "Fungua akaunti ya demo",
       "cardWelcome": "Akaunti yako ya bure ya majaribio",
       "cardPortfolioLabel": "Thamani ya jalada la majaribio",
@@ -134,7 +134,7 @@
     "openPositions": "Nafasi zilizo wazi",
     "netRealizedProfit": "Faida halisi iliyotambuliwa",
     "traderYouCopy": "Mfanyabiashara unayemnakili",
-    "startedWith": "Ilianza na: ${amount}",
+    "startedWith": "Ilianza na: {amount}",
     "winRate": "Kiwango cha ushindi",
     "avgDailyReturn": "Wastani wa faida ya kila siku",
     "noClosedTrades": "Hakuna biashara zilizofungwa bado",
@@ -144,7 +144,7 @@
     "periodYear": "Mwaka",
     "periodAll": "Zote",
     "noEnoughClosedTrades": "Hakuna biashara za kutosha zilizofungwa katika kipindi hiki kuonyesha chati.",
-    "startingPoint": "Mwanzo: ${amount}",
+    "startingPoint": "Mwanzo: {amount}",
     "periodDay": "1S",
     "copiedPositionsTitle": "Nafasi Zinazonakiliwa Sasa",
     "tableSymbol": "Alama",
@@ -200,7 +200,7 @@
     "copyOpenedTitle": "Biashara mpya imenakiliwa",
     "copyOpenedBody": "Biashara ya {symbol} ({side, select, sell {kuuza} other {kununua}}) imenakiliwa kutoka kwa mfanyabiashara unayemfuata.",
     "copyClosedTitle": "Biashara iliyonakiliwa kutoka {providerName}",
-    "copyClosedBody": "Biashara ya {symbol} imefungwa kwa matokeo ya {positive, select, true {+} other {-}}{amount}$",
+    "copyClosedBody": "Biashara ya {symbol} imefungwa kwa matokeo ya {amount}",
     "autoStopCopyTitle": "Unakili umesimamishwa kiotomatiki",
     "autoStopCopyBody": "Unakili wa mfanyabiashara umesimamishwa kiotomatiki baada ya kuzidi kikomo cha hasara kinachoruhusiwa ({maxDrawdownPct}%). Unaweza kumfuata tena wakati wowote kutoka ukurasa wa ugunduzi.",
     "followedTradeClosedTitle": "Biashara mpya kutoka kwa mfanyabiashara unayemfuata",
@@ -228,13 +228,13 @@
     "prefsLink": "Mapendeleo",
     "leadPayoutApprovedTitle": "Utoaji umeidhinishwa",
     "leadPayoutRejectedTitle": "Utoaji umekataliwa",
-    "leadPayoutBody": "Ombi lako la kutoa ${amount} limekaguliwa.",
+    "leadPayoutBody": "Ombi lako la kutoa {amount} limekaguliwa.",
     "leadNewCopierTitle": "Mnakili mpya",
-    "leadNewCopierBody": "Mtu ameanza kukunakili kwa ${amount}.",
+    "leadNewCopierBody": "Mtu ameanza kukunakili kwa {amount}.",
     "leadCopierStoppedTitle": "Mnakili ameacha",
-    "leadCopierStoppedBody": "Mnakili mwenye ${amount} ameacha kukunakili.",
+    "leadCopierStoppedBody": "Mnakili mwenye {amount} ameacha kukunakili.",
     "leadProfitPaidTitle": "Malipo ya mgao wa faida",
-    "leadProfitPaidBody": "Mgao wa faida wa ${amount} umewekwa kwenye salio lako.",
+    "leadProfitPaidBody": "Mgao wa faida wa {amount} umewekwa kwenye salio lako.",
     "leadStatusChangedTitle": "Hali ya akaunti imebadilika",
     "leadStatusChanged_active": "Akaunti yako ya kiongozi inatumika.",
     "leadStatusChanged_stopped": "Biashara kwenye akaunti yako ya kiongozi imesimamishwa.",
@@ -288,7 +288,6 @@
     "enterDepositAmount": "Weka kiasi cha amana",
     "enterWithdrawAmount": "Weka kiasi cha kutoa",
     "continue": "Endelea",
-    "maxAvailable": "Upeo {amount} USD",
     "backEditAmount": "→ Rudi kuhariri kiasi",
     "chooseNetwork": "Chagua mtandao",
     "walletAddressLabel": "Anwani ya pochi",
@@ -301,7 +300,7 @@
     "copyAddress": "Nakili",
     "minDeposit": "Kiwango cha chini: {amount} {currency}",
     "networkConfirmations": "Uthibitisho wa mtandao: {count}",
-    "amountSentPlaceholder": "Kiasi kilichotumwa kwa USD",
+    "amountSentPlaceholder": "Kiasi kilichotumwa kwa USDT",
     "withdrawBlockedError": "Imeshindwa kuwasilisha ombi la kutoa: kwa sasa una nafasi wazi, na salio lako limehifadhiwa kama dhamana ya kuzifidia. Unaweza kuacha kunakili baada ya nafasi kufungwa ili kurejesha salio na faida kwenye pochi yako, kisha uwasilishe tena ombi la kutoa.",
     "chooseCurrency": "Chagua sarafu",
     "chooseNetworkStep": "Chagua mtandao",
@@ -1083,7 +1082,7 @@
           "kiwango cha chini cha kunakili",
           "kiasi gani"
         ],
-        "answer": "Kila mfanyabiashara huweka kiasi chake cha chini cha kunakili, kinachoonyeshwa kwenye ukurasa wake wa wasifu karibu na kitufe cha \"Nakili\", na kwa kawaida huwa kati ya $75 na $1,000 kutegemea mfanyabiashara."
+        "answer": "Kila mfanyabiashara huweka kiasi chake cha chini cha kunakili, kinachoonyeshwa kwenye ukurasa wake wa wasifu karibu na kitufe cha \"Nakili\", na kwa kawaida huwa kati ya 75 USDT na 1,000 USDT kutegemea mfanyabiashara."
       },
       {
         "id": "stop-copy",
@@ -1249,19 +1248,19 @@
     "open": "Nakili",
     "title": "Nakili {name}",
     "close": "Funga",
-    "amountLabel": "Kiasi cha kutenga ($)",
+    "amountLabel": "Kiasi cha kutenga (USDT)",
     "minAmount": "Kiwango cha chini:",
     "modeLabel": "Hali ya kunakili",
     "modeRatio": "Uwiano usiobadilika",
     "modeFixed": "Kiasi kisichobadilika kwa kila biashara",
     "advanced": "Mipangilio ya hali ya juu",
-    "maxPerTrade": "Kiasi cha juu kwa kila biashara ($) — si lazima",
+    "maxPerTrade": "Kiasi cha juu kwa kila biashara (USDT) — si lazima",
     "copyStopLoss": "Acha kunakili hasara inapofikia (%)",
     "riskAck": "Ninaelewa kwamba biashara ya kunakili ina hatari na ninaweza kupoteza sehemu au kiasi chote nilichotenga.",
     "confirm": "Anza kunakili",
     "profitShare": "Mgao wa faida:",
     "copyStopLossHint": "Nakala husimama kiotomatiki hasara iliyotimia inapofikia sehemu hii ya kiasi kilichotengwa.",
-    "fixedAmountLabel": "Kiasi kwa kila biashara ($)"
+    "fixedAmountLabel": "Kiasi kwa kila biashara (USDT)"
   },
   "Trades": {
     "title": "Biashara",
@@ -1326,7 +1325,7 @@
       "style_sporadic": "Mara chache",
       "contactLabel": "Njia ya mawasiliano (siri)",
       "contactPlaceholder": "Telegram, WhatsApp, barua pepe...",
-      "minInvestmentLabel": "Uwekezaji wa chini unaopendekezwa ($)",
+      "minInvestmentLabel": "Uwekezaji wa chini unaopendekezwa (USDT)",
       "agreeLabel": "Nakubali makubaliano ya kiongozi wa biashara.",
       "submit": "Tuma ombi"
     },
@@ -1475,10 +1474,10 @@
       "hwmTotal": "Kiwango cha juu cha sasa (HWM)",
       "hwmNote": "Unalipwa tu kwa faida mpya juu ya kilele cha awali cha kila mnakili; hasara lazima zirejeshwe kwanza.",
       "payoutTitle": "Toa mapato",
-      "payoutAmount": "Kiasi (USD)",
+      "payoutAmount": "Kiasi (USDT)",
       "payoutDestination": "Anwani ya pochi / maelezo ya malipo",
       "payoutRequest": "Omba kutoa",
-      "payoutMinNote": "Kiwango cha chini $10. Ni mapato yaliyosuluhishwa pekee yanaweza kutolewa. Uondoaji kwa kawaida hukamilika ndani ya saa 24.",
+      "payoutMinNote": "Kiwango cha chini 10 USDT. Ni mapato yaliyosuluhishwa pekee yanaweza kutolewa. Uondoaji kwa kawaida hukamilika ndani ya saa 24.",
       "payoutPendingNotice": "Una ombi la kutoa linalokaguliwa.",
       "payoutRequested": "Ombi la kutoa limetumwa.",
       "payoutCancel": "Ghairi",
@@ -1487,7 +1486,7 @@
       "payout_approved": "Imeidhinishwa",
       "payout_rejected": "Imekataliwa",
       "payout_cancelled": "Imeghairiwa",
-      "payoutErrMin": "Kiwango cha chini cha kutoa ni $10.",
+      "payoutErrMin": "Kiwango cha chini cha kutoa ni 10 USDT.",
       "payoutErrDestination": "Weka anwani ya pochi au maelezo ya malipo.",
       "payoutErrPending": "Tayari una ombi linalokaguliwa.",
       "payoutErrAvailable": "Kiasi kinazidi mapato yanayopatikana.",
@@ -1495,7 +1494,7 @@
       "monthlyTitle": "Mapato ya kila mwezi (high-water mark)",
       "month": "Mwezi",
       "newProfit": "Faida mpya juu ya kilele",
-      "payoutDisabledReason": "Kutoa hakupatikani: una ${available} ya mapato yaliyokamilishwa na kiwango cha chini ni $10."
+      "payoutDisabledReason": "Kutoa hakupatikani: una {available} ya mapato yaliyokamilishwa na kiwango cha chini ni 10 USDT."
     },
     "followerLedger": {
       "title": "Historia ya mgao wa faida",
@@ -1518,8 +1517,8 @@
       "market_indices": "Fahirisi",
       "contactLabel": "Njia ya mawasiliano (siri)",
       "followerSettings": "Mipangilio ya wafuasi",
-      "minInvestmentLabel": "Uwekezaji wa chini ($)",
-      "minCopyAmountLabel": "Kiwango cha chini cha kunakili ($)",
+      "minInvestmentLabel": "Uwekezaji wa chini (USDT)",
+      "minCopyAmountLabel": "Kiwango cha chini cha kunakili (USDT)",
       "profitSharePctLabel": "Kiwango cha mgao wa faida (juu {max}% katika ngazi yako)",
       "acceptingFollowersLabel": "Kupokea wafuasi wapya",
       "whitelistNote": "Hali ya mwaliko pekee inasimamiwa kutoka",
@@ -1731,7 +1730,7 @@
       },
       {
         "q": "Je, kuna akaunti ya majaribio?",
-        "a": "Ndiyo. Akaunti ya majaribio huanza na fedha pepe za $10,000, ikikuwezesha kujizoeza bila kuhatarisha pesa zako."
+        "a": "Ndiyo. Akaunti ya majaribio huanza na fedha pepe za 10,000 USDT, ikikuwezesha kujizoeza bila kuhatarisha pesa zako."
       }
     ]
   },

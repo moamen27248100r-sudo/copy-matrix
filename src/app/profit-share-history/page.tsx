@@ -1,3 +1,4 @@
+import { getMoney } from "@/lib/money-server";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
@@ -13,6 +14,7 @@ export async function generateMetadata() {
 
 export default async function ProfitShareHistoryPage() {
   const t = await getTranslations("LeadTrader.followerLedger");
+  const money = await getMoney();
   const supabase = await createClient();
   const {
     data: { user },
@@ -41,7 +43,7 @@ export default async function ProfitShareHistoryPage() {
         <div className="rounded-xl border border-border bg-surface p-4">
           <p className="text-xs text-muted">{t("totalDeducted")}</p>
           <p className="num text-lg font-semibold" dir="ltr">
-            ${totalDeducted.toFixed(2)}
+            {money(totalDeducted)}
           </p>
         </div>
 
@@ -59,7 +61,7 @@ export default async function ProfitShareHistoryPage() {
                 </div>
                 <div className="text-end">
                   <p className="num font-semibold text-danger" dir="ltr">
-                    -${Number(r.profit_share_amount).toFixed(2)}
+                    {money(-Number(r.profit_share_amount))}
                   </p>
                   <p className="text-xs text-muted">{t(`status_${r.status}`)}</p>
                 </div>

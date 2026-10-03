@@ -1,3 +1,4 @@
+import { useMoney } from "@/lib/money-client";
 import { StatusBar, BottomNav } from "../ScreenChrome";
 import { useTranslations } from "next-intl";
 import { SymbolIcon, symbolColor } from "@/lib/symbol-icons";
@@ -16,6 +17,7 @@ function seedOf(symbol: string) {
 
 function TradeRow({ trade, tick }: { trade: OpenTrade; tick: number }) {
   const t = useTranslations("HomeShowcase");
+  const money = useMoney();
   const seed = seedOf(trade.symbol);
   const pnl = jitter(trade.pnl, seed, tick);
   const up = pnl >= 0;
@@ -55,8 +57,7 @@ function TradeRow({ trade, tick }: { trade: OpenTrade; tick: number }) {
         </div>
       </div>
       <p className={"text-base font-bold tabular-nums " + (up ? "text-[#22C55E]" : "text-[#EF4444]")} dir="ltr">
-        {up ? "+" : ""}
-        {pnl.toFixed(2)}$
+        {money(pnl, { signed: true })}
       </p>
     </div>
   );
@@ -64,6 +65,7 @@ function TradeRow({ trade, tick }: { trade: OpenTrade; tick: number }) {
 
 export function LiveTradesScreen({ tick }: { tick: number }) {
   const t = useTranslations("HomeShowcase");
+  const money = useMoney();
   const total = showcaseOpenTrades.reduce((sum, tr) => sum + jitter(tr.pnl, seedOf(tr.symbol), tick), 0);
   const up = total >= 0;
 
@@ -80,8 +82,7 @@ export function LiveTradesScreen({ tick }: { tick: number }) {
         </div>
 
         <p className={"text-4xl font-extrabold tabular-nums " + (up ? "text-[#22C55E]" : "text-[#EF4444]")} dir="ltr">
-          {up ? "+" : ""}
-          {total.toFixed(2)}$
+          {money(total, { signed: true })}
         </p>
 
         <div className="flex flex-1 flex-col justify-center gap-2.5">

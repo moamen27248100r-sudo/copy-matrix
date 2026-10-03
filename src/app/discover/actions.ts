@@ -1,5 +1,7 @@
 "use server";
 
+import { getMoney } from "@/lib/money-server";
+import { formatMoney } from "@/lib/money";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -42,7 +44,7 @@ function traderFollowEmailHtml(
         ${row(t("riskLevel"), provider.risk_level ?? "—")}
         ${row(t("winRate"), provider.win_rate_pct != null ? `${provider.win_rate_pct}%` : "—")}
         ${row(t("avgReturn"), provider.avg_daily_return_pct != null ? `${provider.avg_daily_return_pct}%` : "—")}
-        ${row(t("totalProfit"), provider.total_profit != null ? `$${Number(provider.total_profit).toLocaleString("en-US", { maximumFractionDigits: 0 })}` : "—")}
+        ${row(t("totalProfit"), provider.total_profit != null ? formatMoney(Number(provider.total_profit), locale) : "—")}
         ${row(t("followersCount"), provider.followers_count != null ? String(provider.followers_count) : "—")}
         ${row(t("closedSignals"), provider.closed_signals != null ? String(provider.closed_signals) : "—")}
         ${row(t("memberSinceLabel"), formatDate(provider.joined_at, locale, { year: "numeric", month: "long" }))}
@@ -135,7 +137,7 @@ export async function followProvider(formData: FormData) {
       const { data: provider } = await supabase.from("providers").select("min_copy_amount").eq("id", providerId).single();
       redirect(
         `/trader/${providerId}?error=${encodeURIComponent(
-          td("copyAmountBelowMinimum", { amount: `$${Number(provider?.min_copy_amount ?? 0).toLocaleString("en-US")}` }),
+          td("copyAmountBelowMinimum", { amount: (await getMoney())(Number(provider?.min_copy_amount ?? 0)) }),
         )}`,
       );
     }

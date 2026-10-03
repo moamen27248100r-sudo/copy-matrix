@@ -1,5 +1,6 @@
 "use client";
 
+import { useMoney } from "@/lib/money-client";
 import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 import { demoWithdraw, requestWithdrawal } from "@/app/portfolio/actions";
@@ -27,12 +28,13 @@ function AmountStep({
   onContinue?: () => void;
 }) {
   const t = useTranslations("Portfolio");
+  const money = useMoney();
   return (
     <div className="flex flex-1 flex-col gap-6">
       <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-md">
         <p className="text-xs text-muted">{t("availableToWithdraw")}</p>
         <p className="mt-1 text-xl font-bold text-foreground" dir="ltr">
-          ${formatAmount(maxAvailable)}
+          {money(maxAvailable)}
         </p>
       </div>
 
@@ -95,6 +97,7 @@ function SecurityModal({
   onConfirm: () => void;
 }) {
   const t = useTranslations("Portfolio");
+  const money = useMoney();
   const [agreed, setAgreed] = useState(false);
 
   return (
@@ -114,7 +117,7 @@ function SecurityModal({
             <div className="flex flex-col gap-2 rounded-2xl border border-white/10 bg-white/[0.03] p-3.5 text-sm">
               <div className="flex items-center justify-between">
                 <span className="text-muted">{t("amount")}</span>
-                <span dir="ltr" className="font-semibold text-foreground">${amount}</span>
+                <span dir="ltr" className="font-semibold text-foreground">{money(Number(amount))}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-muted">{t("chooseNetworkStep")}</span>
@@ -126,7 +129,7 @@ function SecurityModal({
               </div>
               <div className="mt-1 flex items-center justify-between border-t border-white/10 pt-2">
                 <span className="text-muted">{t("netReceiveLabel")}</span>
-                <span dir="ltr" className="font-bold text-success">${formatAmount(netReceive)}</span>
+                <span dir="ltr" className="font-bold text-success">{money(netReceive)}</span>
               </div>
             </div>
 
@@ -166,6 +169,7 @@ function SecurityModal({
 
 export function WithdrawFlow({ accountType, maxAvailable }: { accountType: "real" | "demo"; maxAvailable: number }) {
   const t = useTranslations("Portfolio");
+  const money = useMoney();
   const [amount, setAmount] = useState(maxAvailable > 0 ? formatAmount(maxAvailable) : "");
   const [step, setStep] = useState<"amount" | "destination">("amount");
   const [currencyId, setCurrencyId] = useState<string | null>(null);
@@ -356,15 +360,15 @@ export function WithdrawFlow({ accountType, maxAvailable }: { accountType: "real
                 <div className="flex flex-col gap-2 rounded-2xl border border-white/10 bg-white/[0.03] p-3.5 text-sm backdrop-blur-md">
                   <div className="flex items-center justify-between">
                     <span className="text-muted">{t("availableToWithdraw")}</span>
-                    <span dir="ltr" className="text-foreground">${formatAmount(maxAvailable)}</span>
+                    <span dir="ltr" className="text-foreground">{money(maxAvailable)}</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-muted">{t("networkFeeLabel")}</span>
-                    <span dir="ltr" className="text-foreground">${formatAmount(feeUsd)}</span>
+                    <span dir="ltr" className="text-foreground">{money(feeUsd)}</span>
                   </div>
                   <div className="flex items-center justify-between border-t border-white/10 pt-2">
                     <span className="text-muted">{t("netReceiveLabel")}</span>
-                    <span dir="ltr" className="font-bold text-success">${formatAmount(netReceive)}</span>
+                    <span dir="ltr" className="font-bold text-success">{money(netReceive)}</span>
                   </div>
                 </div>
               </>

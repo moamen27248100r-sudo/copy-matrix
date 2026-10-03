@@ -1,3 +1,4 @@
+import { getMoney } from "@/lib/money-server";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
@@ -29,6 +30,7 @@ type Payout = { id: string; amount: number; destination: string; status: string;
 export default async function LeadSettlementsPage({ searchParams }: { searchParams: Promise<{ err?: string; ok?: string }> }) {
   const { err, ok } = await searchParams;
   const t = await getTranslations("LeadTrader.settlements");
+  const money = await getMoney();
   const supabase = await createClient();
   const {
     data: { user },
@@ -101,9 +103,9 @@ export default async function LeadSettlementsPage({ searchParams }: { searchPara
       {ok && <p className="rounded-lg border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">{t("payoutRequested")}</p>}
 
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <Stat label={t("availableToWithdraw")} value={Number(earnings?.available ?? 0)} />
-        <Stat label={t("profitShareRate")} value={Number(earnings?.rate ?? 0)} suffix="%" />
-        <Stat label={t("hwmTotal")} value={Number(earnings?.hwm_total ?? 0)} />
+        <Stat label={t("availableToWithdraw")} value={money(Number(earnings?.available ?? 0))} />
+        <Stat label={t("profitShareRate")} value={`${Number(earnings?.rate ?? 0)}%`} />
+        <Stat label={t("hwmTotal")} value={money(Number(earnings?.hwm_total ?? 0))} />
       </section>
       <p className="-mt-4 text-xs text-muted">{t("hwmNote")}</p>
 
@@ -121,7 +123,7 @@ export default async function LeadSettlementsPage({ searchParams }: { searchPara
           </form>
         )}
         {!hasPending && Number(earnings?.available ?? 0) < 10 && (
-          <p className="rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-warning">{t("payoutDisabledReason", { available: Number(earnings?.available ?? 0).toFixed(2) })}</p>
+          <p className="rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-warning">{t("payoutDisabledReason", { available: money(Number(earnings?.available ?? 0)) })}</p>
         )}
         <p className="text-xs text-muted">{t("payoutMinNote")}</p>
         {payouts.length > 0 && (
@@ -129,7 +131,7 @@ export default async function LeadSettlementsPage({ searchParams }: { searchPara
             {payouts.map((p) => (
               <div key={p.id} className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-border bg-background px-3 py-2 text-xs">
                 <span className="tabular-nums" dir="ltr">
-                  ${Number(p.amount).toFixed(2)} · {new Date(p.created_at).toLocaleDateString("en-US")}
+                  {money(Number(p.amount))} · {new Date(p.created_at).toLocaleDateString("en-US")}
                 </span>
                 <span className="flex items-center gap-2">
                   <span className={p.status === "approved" ? "text-success" : p.status === "pending" ? "text-warning" : "text-muted"}>{t(`payout_${p.status}`)}</span>
@@ -167,10 +169,10 @@ export default async function LeadSettlementsPage({ searchParams }: { searchPara
                 {earnings.monthly.map((m) => (
                   <tr key={m.month} className="border-b border-border last:border-b-0 tabular-nums" dir="ltr">
                     <td className="px-3 py-2 text-start">{m.month}</td>
-                    <td className="px-3 py-2 text-start">${Number(m.new_profit_above_hwm).toFixed(2)}</td>
-                    <td className="px-3 py-2 text-start">${Number(m.share).toFixed(2)}</td>
-                    <td className="px-3 py-2 text-start">${Number(m.settled ?? 0).toFixed(2)}</td>
-                    <td className="px-3 py-2 text-start">${Number(m.pending ?? 0).toFixed(2)}</td>
+                    <td className="px-3 py-2 text-start">{money(Number(m.new_profit_above_hwm))}</td>
+                    <td className="px-3 py-2 text-start">{money(Number(m.share))}</td>
+                    <td className="px-3 py-2 text-start">{money(Number(m.settled ?? 0))}</td>
+                    <td className="px-3 py-2 text-start">{money(Number(m.pending ?? 0))}</td>
                   </tr>
                 ))}
               </tbody>
@@ -180,10 +182,10 @@ export default async function LeadSettlementsPage({ searchParams }: { searchPara
       )}
 
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <Stat label={t("realized")} value={realized} />
-        <Stat label={t("settled")} value={settled} />
-        <Stat label={t("pending")} value={pending} />
-        <Stat label={t("unrealized")} value={unrealizedShare} />
+        <Stat label={t("realized")} value={money(realized)} />
+        <Stat label={t("settled")} value={money(settled)} />
+        <Stat label={t("pending")} value={money(pending)} />
+        <Stat label={t("unrealized")} value={money(unrealizedShare)} />
       </section>
 
       {rows.length === 0 ? (
@@ -211,11 +213,11 @@ export default async function LeadSettlementsPage({ searchParams }: { searchPara
                     {new Date(r.period_start).toLocaleDateString("en-US")} → {new Date(r.period_end).toLocaleDateString("en-US")}
                   </td>
                   <td className="px-3 py-2 tabular-nums text-success" dir="ltr">
-                    +${Number(r.gross_pnl).toFixed(2)}
+                    {money(Number(r.gross_pnl), { signed: true })}
                   </td>
                   <td className="px-3 py-2 tabular-nums">{r.profit_share_pct}%</td>
                   <td className="px-3 py-2 tabular-nums" dir="ltr">
-                    ${Number(r.profit_share_amount).toFixed(2)}
+                    {money(Number(r.profit_share_amount))}
                   </td>
                   <td className="px-3 py-2">
                     <span className={r.status === "settled" ? "text-success" : r.status === "pending" ? "text-warning" : "text-muted"}>{t(`status_${r.status}`)}</span>
@@ -230,12 +232,12 @@ export default async function LeadSettlementsPage({ searchParams }: { searchPara
   );
 }
 
-function Stat({ label, value, suffix }: { label: string; value: number; suffix?: string }) {
+function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col gap-1 rounded-xl border border-border bg-surface p-4">
       <p className="text-xs text-muted">{label}</p>
       <p className="num text-lg font-semibold" dir="ltr">
-        {suffix ? `${value}${suffix}` : `$${value.toFixed(2)}`}
+        {value}
       </p>
     </div>
   );

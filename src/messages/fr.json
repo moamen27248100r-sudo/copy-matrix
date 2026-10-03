@@ -59,7 +59,7 @@
     "tryCopy": {
       "badge": "Essayez sans risque",
       "title": "Essayez avec un compte démo",
-      "description": "Démarrez avec 10 000 $ de fonds virtuels et entraînez-vous à copier avant d'utiliser votre propre argent.",
+      "description": "Démarrez avec 10 000 USDT de fonds virtuels et entraînez-vous à copier avant d'utiliser votre propre argent.",
       "cta": "Ouvrir un compte démo",
       "cardWelcome": "Votre compte démo gratuit",
       "cardPortfolioLabel": "Valeur du portefeuille démo",
@@ -134,7 +134,7 @@
     "openPositions": "Positions ouvertes",
     "netRealizedProfit": "Profit net réalisé",
     "traderYouCopy": "Le trader que vous copiez",
-    "startedWith": "Débuté avec : {amount} $",
+    "startedWith": "Débuté avec : {amount}",
     "winRate": "Taux de réussite",
     "avgDailyReturn": "Rendement quotidien moyen",
     "noClosedTrades": "Aucun trade clôturé pour le moment",
@@ -144,7 +144,7 @@
     "periodYear": "Année",
     "periodAll": "Tout",
     "noEnoughClosedTrades": "Pas assez de trades clôturés sur cette période pour afficher le graphique.",
-    "startingPoint": "Début : ${amount}",
+    "startingPoint": "Début : {amount}",
     "periodDay": "1J",
     "copiedPositionsTitle": "Positions copiées actives",
     "tableSymbol": "Symbole",
@@ -200,7 +200,7 @@
     "copyOpenedTitle": "Nouvelle position copiée",
     "copyOpenedBody": "Position {symbol} ({side, select, sell {vente} other {achat}}) copiée d'un trader que vous suivez.",
     "copyClosedTitle": "Trade copié de {providerName}",
-    "copyClosedBody": "Le trade {symbol} a été clôturé avec un résultat de {positive, select, true {+} other {-}}{amount}$",
+    "copyClosedBody": "Le trade {symbol} a été clôturé avec un résultat de {amount}",
     "autoStopCopyTitle": "Copie arrêtée automatiquement",
     "autoStopCopyBody": "La copie d'un trader a été arrêtée automatiquement après avoir dépassé la limite de perte autorisée ({maxDrawdownPct}%). Vous pouvez le suivre à nouveau à tout moment depuis la page de découverte.",
     "followedTradeClosedTitle": "Nouveau trade d'un trader que vous suivez",
@@ -228,13 +228,13 @@
     "prefsLink": "Préférences",
     "leadPayoutApprovedTitle": "Retrait approuvé",
     "leadPayoutRejectedTitle": "Retrait refusé",
-    "leadPayoutBody": "Votre demande de retrait de {amount} $ a été examinée.",
+    "leadPayoutBody": "Votre demande de retrait de {amount} a été examinée.",
     "leadNewCopierTitle": "Nouveau copieur",
-    "leadNewCopierBody": "Quelqu'un a commencé à vous copier avec {amount} $.",
+    "leadNewCopierBody": "Quelqu'un a commencé à vous copier avec {amount}.",
     "leadCopierStoppedTitle": "Un copieur a arrêté",
-    "leadCopierStoppedBody": "Un copieur avec {amount} $ a arrêté de vous copier.",
+    "leadCopierStoppedBody": "Un copieur avec {amount} a arrêté de vous copier.",
     "leadProfitPaidTitle": "Paiement de partage des profits",
-    "leadProfitPaidBody": "{amount} $ de partage des profits ont été crédités sur votre solde.",
+    "leadProfitPaidBody": "{amount} de partage des profits ont été crédités sur votre solde.",
     "leadStatusChangedTitle": "Statut du compte modifié",
     "leadStatusChanged_active": "Votre compte de trader leader est actif.",
     "leadStatusChanged_stopped": "Le trading de votre compte leader a été arrêté.",
@@ -288,7 +288,6 @@
     "enterDepositAmount": "Entrez le montant du dépôt",
     "enterWithdrawAmount": "Entrez le montant du retrait",
     "continue": "Continuer",
-    "maxAvailable": "Max {amount} USD",
     "backEditAmount": "→ Retour pour modifier le montant",
     "chooseNetwork": "Choisir le réseau",
     "walletAddressLabel": "Adresse du portefeuille",
@@ -301,7 +300,7 @@
     "copyAddress": "Copier",
     "minDeposit": "Minimum : {amount} {currency}",
     "networkConfirmations": "Confirmations réseau : {count}",
-    "amountSentPlaceholder": "Montant envoyé en USD",
+    "amountSentPlaceholder": "Montant envoyé en USDT",
     "withdrawBlockedError": "Impossible de soumettre la demande de retrait : vous avez actuellement des positions ouvertes, et votre solde est réservé comme marge pour les couvrir. Vous pouvez arrêter la copie après la clôture des positions pour restituer le solde et les profits à votre portefeuille, puis soumettre à nouveau la demande de retrait.",
     "chooseCurrency": "Choisir la devise",
     "chooseNetworkStep": "Choisir le réseau",
@@ -1083,7 +1082,7 @@
           "minimum pour copier",
           "combien"
         ],
-        "answer": "Chaque trader fixe son propre montant minimum de copie, affiché sur sa page de profil à côté du bouton « Copier », et il varie généralement entre 75 $ et 1 000 $ selon le trader."
+        "answer": "Chaque trader fixe son propre montant minimum de copie, affiché sur sa page de profil à côté du bouton « Copier », et il varie généralement entre 75 USDT et 1 000 USDT selon le trader."
       },
       {
         "id": "stop-copy",
@@ -1250,19 +1249,19 @@
     "open": "Copier",
     "title": "Copier {name}",
     "close": "Fermer",
-    "amountLabel": "Montant à allouer ($)",
+    "amountLabel": "Montant à allouer (USDT)",
     "minAmount": "Minimum :",
     "modeLabel": "Mode de copie",
     "modeRatio": "Ratio fixe",
     "modeFixed": "Montant fixe par trade",
     "advanced": "Paramètres avancés",
-    "maxPerTrade": "Montant maximal par trade ($) — facultatif",
+    "maxPerTrade": "Montant maximal par trade (USDT) — facultatif",
     "copyStopLoss": "Arrêter la copie à une perte de (%)",
     "riskAck": "Je comprends que le copy trading comporte des risques et que je peux perdre tout ou partie du montant alloué.",
     "confirm": "Commencer à copier",
     "profitShare": "Partage des profits :",
     "copyStopLossHint": "La copie s'arrête automatiquement lorsque sa perte réalisée atteint cette part du montant alloué.",
-    "fixedAmountLabel": "Montant par trade ($)"
+    "fixedAmountLabel": "Montant par trade (USDT)"
   },
   "Trades": {
     "title": "Trades",
@@ -1327,7 +1326,7 @@
       "style_sporadic": "Occasionnel",
       "contactLabel": "Moyen de contact (privé)",
       "contactPlaceholder": "Telegram, WhatsApp, e-mail...",
-      "minInvestmentLabel": "Investissement minimum suggéré ($)",
+      "minInvestmentLabel": "Investissement minimum suggéré (USDT)",
       "agreeLabel": "J'accepte l'accord du trader leader.",
       "submit": "Envoyer la candidature"
     },
@@ -1476,10 +1475,10 @@
       "hwmTotal": "Plus haut historique (HWM)",
       "hwmNote": "Vous n'êtes rémunéré que sur le nouveau profit au-dessus du précédent sommet de chaque copieur ; les pertes doivent d'abord être récupérées.",
       "payoutTitle": "Retirer les gains",
-      "payoutAmount": "Montant (USD)",
+      "payoutAmount": "Montant (USDT)",
       "payoutDestination": "Adresse du portefeuille / détails",
       "payoutRequest": "Demander le retrait",
-      "payoutMinNote": "Minimum 10 $. Seuls les gains réglés peuvent être retirés. Les retraits sont généralement terminés sous 24 heures.",
+      "payoutMinNote": "Minimum 10 USDT. Seuls les gains réglés peuvent être retirés. Les retraits sont généralement terminés sous 24 heures.",
       "payoutPendingNotice": "Vous avez une demande de retrait en cours d'examen.",
       "payoutRequested": "Demande de retrait envoyée.",
       "payoutCancel": "Annuler",
@@ -1488,7 +1487,7 @@
       "payout_approved": "Approuvée",
       "payout_rejected": "Refusée",
       "payout_cancelled": "Annulée",
-      "payoutErrMin": "Le retrait minimum est de 10 $.",
+      "payoutErrMin": "Le retrait minimum est de 10 USDT.",
       "payoutErrDestination": "Saisissez l'adresse du portefeuille ou les détails.",
       "payoutErrPending": "Vous avez déjà une demande en cours.",
       "payoutErrAvailable": "Le montant dépasse vos gains disponibles.",
@@ -1496,7 +1495,7 @@
       "monthlyTitle": "Gains mensuels (high-water mark)",
       "month": "Mois",
       "newProfit": "Nouveau profit au-dessus du sommet",
-      "payoutDisabledReason": "Retrait indisponible : vous avez {available} $ de gains réglés et le minimum est de 10 $."
+      "payoutDisabledReason": "Retrait indisponible : vous avez {available} de gains réglés et le minimum est de 10 USDT."
     },
     "followerLedger": {
       "title": "Historique du partage des profits",
@@ -1519,8 +1518,8 @@
       "market_indices": "Indices",
       "contactLabel": "Moyen de contact (privé)",
       "followerSettings": "Paramètres des suiveurs",
-      "minInvestmentLabel": "Investissement minimum ($)",
-      "minCopyAmountLabel": "Montant minimum de copie ($)",
+      "minInvestmentLabel": "Investissement minimum (USDT)",
+      "minCopyAmountLabel": "Montant minimum de copie (USDT)",
       "profitSharePctLabel": "Taux de partage des profits (max {max} % à votre niveau)",
       "acceptingFollowersLabel": "Accepter de nouveaux suiveurs",
       "whitelistNote": "Le mode sur invitation se gère depuis",
@@ -1732,7 +1731,7 @@
       },
       {
         "q": "Existe-t-il un compte démo ?",
-        "a": "Oui. Un compte démo démarre avec 10 000 $ de fonds virtuels, pour vous entraîner sans risquer votre propre argent."
+        "a": "Oui. Un compte démo démarre avec 10 000 USDT de fonds virtuels, pour vous entraîner sans risquer votre propre argent."
       }
     ]
   },

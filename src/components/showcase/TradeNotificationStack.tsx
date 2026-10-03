@@ -1,5 +1,6 @@
 "use client";
 
+import { useMoney } from "@/lib/money-client";
 import { useTranslations } from "next-intl";
 import { SymbolIcon, symbolColor } from "@/lib/symbol-icons";
 import { showcaseNotifications } from "@/data/showcase-data";
@@ -13,6 +14,7 @@ const STACK_STYLE = [
 
 function NotificationCard({ symbol, pnl, style }: { symbol: string; pnl: number; style?: { scale: number; opacity: number } }) {
   const t = useTranslations("HomeShowcase");
+  const money = useMoney();
   const up = pnl >= 0;
   return (
     <div
@@ -34,8 +36,7 @@ function NotificationCard({ symbol, pnl, style }: { symbol: string; pnl: number;
           <p className="text-[10px] text-muted">{t("now")}</p>
         </div>
         <span className={"shrink-0 text-[12px] font-bold tabular-nums " + (up ? "text-[#22C55E]" : "text-[#EF4444]")} dir="ltr">
-          {up ? "▲" : "▼"} {up ? "+" : ""}
-          {pnl}$
+          {up ? "▲" : "▼"} {money(pnl, { signed: true })}
         </span>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { getMoney } from "@/lib/money-server";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { TraderAvatar } from "@/components/TraderAvatar";
@@ -25,6 +26,7 @@ export async function ActiveCopyControlPanel({
   returnTo?: string;
 }) {
   const t = await getTranslations("Dashboard");
+  const money = await getMoney();
   const lossBudget = provider.allocatedAmount * (provider.maxDrawdownPct / 100);
   const lossUsed = Math.max(0, -provider.cumulativePnl);
   const usedPct = lossBudget > 0 ? Math.min(100, (lossUsed / lossBudget) * 100) : 0;
@@ -44,7 +46,7 @@ export async function ActiveCopyControlPanel({
           <div className="min-w-0">
             <p className="truncate text-sm font-medium">{provider.displayName}</p>
             <p className="text-xs text-muted">
-              {t("startedWith", { amount: provider.allocatedAmount.toLocaleString("en-US") })}
+              {t("startedWith", { amount: money(provider.allocatedAmount) })}
             </p>
           </div>
         </Link>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useMoney } from "@/lib/money-client";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 
@@ -22,6 +23,7 @@ export function CopyDialog({
   profitSharePct?: number | null;
 }) {
   const t = useTranslations("CopyDialog");
+  const money = useMoney();
   const [open, setOpen] = useState(false);
   const [ack, setAck] = useState(false);
   const [advanced, setAdvanced] = useState(false);
@@ -66,7 +68,7 @@ export function CopyDialog({
                 className={inputCls}
               />
               <span className="text-xs text-muted">
-                {t("minAmount")} <span dir="ltr">${minAmount.toLocaleString("en-US")}</span>
+                {t("minAmount")} <span dir="ltr">{money(minAmount)}</span>
               </span>
             </label>
 

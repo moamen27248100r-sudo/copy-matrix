@@ -1,5 +1,6 @@
 "use client";
 
+import { useMoney } from "@/lib/money-client";
 import { useState } from "react";
 import { addMarginCallTrade } from "@/app/admin/actions";
 import { symbolFullName } from "@/lib/symbol-icons";
@@ -17,6 +18,7 @@ export function MarginCallForm({
   followedProviders: ProviderOption[];
   symbols: string[];
 }) {
+  const money = useMoney();
   const [lossAmount, setLossAmount] = useState(-100);
 
   if (followedProviders.length === 0) {
@@ -89,8 +91,7 @@ export function MarginCallForm({
       </fieldset>
 
       <p className="rounded border border-danger/30 bg-danger/5 px-3 py-2 text-sm text-danger">
-        ستُسجَّل خسارة قدرها ${targetLoss.toLocaleString("en-US", { maximumFractionDigits: 2 })} — وسيصبح الرصيد بعدها $
-        {balanceAfter.toLocaleString("en-US", { maximumFractionDigits: 2 })} (كان ${balance.toLocaleString("en-US", { maximumFractionDigits: 2 })})
+        ستُسجَّل خسارة قدرها {money(targetLoss)} — وسيصبح الرصيد بعدها {money(balanceAfter)} (كان {money(balance)})
       </p>
 
       <button

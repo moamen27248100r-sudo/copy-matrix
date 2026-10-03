@@ -16,7 +16,9 @@ type NotificationRow = {
 
 type Translator = (key: string, values?: Record<string, string | number>) => string;
 
-export function renderNotification(t: Translator, n: NotificationRow): { title: string; body: string | null } {
+type Money = (value: number, opts?: { signed?: boolean }) => string;
+
+export function renderNotification(t: Translator, n: NotificationRow, money: Money): { title: string; body: string | null } {
   // null/undefined means this row predates migration 0168 (no `data` column
   // yet) -- fall back to its originally-stored Arabic text. An empty object
   // is a deliberate, valid value (a type with no interpolated parameters).
@@ -38,7 +40,7 @@ export function renderNotification(t: Translator, n: NotificationRow): { title: 
     case "copy_closed":
       return {
         title: t("copyClosedTitle", { providerName: String(d.providerName ?? "") }),
-        body: t("copyClosedBody", { symbol: String(d.symbol ?? ""), amount: Number(d.amount ?? 0), positive: sign(d.positive) }),
+        body: t("copyClosedBody", { symbol: String(d.symbol ?? ""), amount: money(d.positive ? Number(d.amount ?? 0) : -Number(d.amount ?? 0), { signed: true }) }),
       };
     case "auto_stop_copy":
       return {
@@ -60,23 +62,23 @@ export function renderNotification(t: Translator, n: NotificationRow): { title: 
     case "kyc_rejected":
       return { title: t("kycRejectedTitle"), body: t("kycRejectedBody") };
     case "wallet_deposit_approved":
-      return { title: t("walletDepositApprovedTitle"), body: t("walletApprovedBody", { amount: Number(d.amount ?? 0) }) };
+      return { title: t("walletDepositApprovedTitle"), body: t("walletApprovedBody", { amount: money(Number(d.amount ?? 0)) }) };
     case "wallet_withdrawal_approved":
-      return { title: t("walletWithdrawalApprovedTitle"), body: t("walletApprovedBody", { amount: Number(d.amount ?? 0) }) };
+      return { title: t("walletWithdrawalApprovedTitle"), body: t("walletApprovedBody", { amount: money(Number(d.amount ?? 0)) }) };
     case "wallet_deposit_rejected":
       return { title: t("walletDepositRejectedTitle"), body: t("walletRejectedBody") };
     case "wallet_withdrawal_rejected":
       return { title: t("walletWithdrawalRejectedTitle"), body: t("walletRejectedBody") };
     case "lead_new_copier":
-      return { title: t("leadNewCopierTitle"), body: t("leadNewCopierBody", { amount: Number(d.amount ?? 0) }) };
+      return { title: t("leadNewCopierTitle"), body: t("leadNewCopierBody", { amount: money(Number(d.amount ?? 0)) }) };
     case "lead_copier_stopped":
-      return { title: t("leadCopierStoppedTitle"), body: t("leadCopierStoppedBody", { amount: Number(d.amount ?? 0) }) };
+      return { title: t("leadCopierStoppedTitle"), body: t("leadCopierStoppedBody", { amount: money(Number(d.amount ?? 0)) }) };
     case "lead_profit_paid":
-      return { title: t("leadProfitPaidTitle"), body: t("leadProfitPaidBody", { amount: Number(d.amount ?? 0) }) };
+      return { title: t("leadProfitPaidTitle"), body: t("leadProfitPaidBody", { amount: money(Number(d.amount ?? 0)) }) };
     case "lead_status_changed":
       return { title: t("leadStatusChangedTitle"), body: t(`leadStatusChanged_${String(d.status ?? "active")}`) };
     case "lead_payout_reviewed":
-      return { title: t(d.approved ? "leadPayoutApprovedTitle" : "leadPayoutRejectedTitle"), body: t("leadPayoutBody", { amount: Number(d.amount ?? 0) }) };
+      return { title: t(d.approved ? "leadPayoutApprovedTitle" : "leadPayoutRejectedTitle"), body: t("leadPayoutBody", { amount: money(Number(d.amount ?? 0)) }) };
     case "trade_integrity_alert":
       return { title: t("tradeIntegrityAlertTitle"), body: t("tradeIntegrityAlertBody", { issues: Number(d.issues ?? 0) }) };
     default:

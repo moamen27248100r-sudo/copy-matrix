@@ -3,7 +3,7 @@
     "tryCopy": {
       "badge": "جرّب بدون مخاطرة",
       "title": "جرّب بحساب تجريبي",
-      "description": "ابدأ برصيد افتراضي قدره 10,000$ وتدرّب على النسخ قبل استخدام أموالك.",
+      "description": "ابدأ برصيد افتراضي قدره 10,000 USDT وتدرّب على النسخ قبل استخدام أموالك.",
       "cta": "افتح حساب تجريبي",
       "cardWelcome": "حسابك التجريبي المجاني",
       "cardPortfolioLabel": "قيمة المحفظة التجريبية",
@@ -134,7 +134,7 @@
     "openPositions": "صفقات مفتوحة",
     "netRealizedProfit": "صافي الأرباح المحققة",
     "traderYouCopy": "المتداول الذي تنسخه",
-    "startedWith": "بدأ بمبلغ: ${amount}",
+    "startedWith": "بدأ بمبلغ: {amount}",
     "winRate": "نسبة النجاح",
     "avgDailyReturn": "متوسط العائد اليومي",
     "noClosedTrades": "لا توجد صفقات مغلقة بعد",
@@ -144,7 +144,7 @@
     "periodYear": "سنة",
     "periodAll": "الكل",
     "noEnoughClosedTrades": "لا توجد صفقات مغلقة كافية في هذه الفترة لعرض الرسم البياني.",
-    "startingPoint": "البداية: ${amount}",
+    "startingPoint": "البداية: {amount}",
     "periodDay": "يوم",
     "copiedPositionsTitle": "الصفقات المنسوخة النشطة",
     "tableSymbol": "الرمز",
@@ -200,7 +200,7 @@
     "copyOpenedTitle": "تم نسخ صفقة جديدة",
     "copyOpenedBody": "تم نسخ صفقة {symbol} ({side, select, sell {بيع} other {شراء}}) من متداول تتابعه.",
     "copyClosedTitle": "صفقة منسوخة من {providerName}",
-    "copyClosedBody": "أُغلقت صفقة {symbol} بنتيجة {positive, select, true {+} other {-}}{amount}$",
+    "copyClosedBody": "أُغلقت صفقة {symbol} بنتيجة {amount}",
     "autoStopCopyTitle": "تم إيقاف النسخ تلقائيًا",
     "autoStopCopyBody": "تم إيقاف متابعة أحد المتداولين تلقائيًا بعد تجاوز حد الخسارة المسموح به ({maxDrawdownPct}%). يمكنك متابعته مجددًا في أي وقت من صفحة اكتشاف المتداولين.",
     "followedTradeClosedTitle": "صفقة جديدة من متداول تتابعه",
@@ -228,13 +228,13 @@
     "prefsLink": "التفضيلات",
     "leadPayoutApprovedTitle": "تمت الموافقة على السحب",
     "leadPayoutRejectedTitle": "تم رفض السحب",
-    "leadPayoutBody": "تمت مراجعة طلب سحب أرباحك بقيمة ${amount}.",
+    "leadPayoutBody": "تمت مراجعة طلب سحب أرباحك بقيمة {amount}.",
     "leadNewCopierTitle": "نسّاخ جديد",
-    "leadNewCopierBody": "بدأ شخص نسخ صفقاتك بمبلغ ${amount}.",
+    "leadNewCopierBody": "بدأ شخص نسخ صفقاتك بمبلغ {amount}.",
     "leadCopierStoppedTitle": "نسّاخ أوقف النسخ",
-    "leadCopierStoppedBody": "أوقف ناسخ بمبلغ ${amount} نسخ صفقاتك.",
+    "leadCopierStoppedBody": "أوقف ناسخ بمبلغ {amount} نسخ صفقاتك.",
     "leadProfitPaidTitle": "دفعة أرباح جديدة",
-    "leadProfitPaidBody": "تمت تسوية ${amount} من مشاركة الأرباح إلى رصيدك.",
+    "leadProfitPaidBody": "تمت تسوية {amount} من مشاركة الأرباح إلى رصيدك.",
     "leadStatusChangedTitle": "تغيّرت حالة حسابك",
     "leadStatusChanged_active": "حسابك كقائد نشط الآن.",
     "leadStatusChanged_stopped": "تم إيقاف التداول على حسابك كقائد.",
@@ -288,7 +288,6 @@
     "enterDepositAmount": "أدخل مبلغ الإيداع",
     "enterWithdrawAmount": "أدخل مبلغ السحب",
     "continue": "متابعة",
-    "maxAvailable": "الحد الأقصى {amount} دولار",
     "backEditAmount": "→ رجوع لتعديل المبلغ",
     "chooseNetwork": "اختر الشبكة",
     "walletAddressLabel": "عنوان المحفظة",
@@ -301,7 +300,7 @@
     "copyAddress": "نسخ",
     "minDeposit": "الحد الأدنى: {amount} {currency}",
     "networkConfirmations": "تأكيدات الشبكة: {count}",
-    "amountSentPlaceholder": "المبلغ المُرسَل بالدولار",
+    "amountSentPlaceholder": "المبلغ المُرسَل بعملة USDT",
     "withdrawBlockedError": "تعذّر تقديم طلب السحب: لديك صفقات مفتوحة حاليًا، ورصيدك محجوز كهامش لتغطيتها. يمكنك إيقاف النسخ بعد إغلاق الصفقات لإعادة الرصيد والأرباح إلى محفظتك، ثم إعادة تقديم طلب السحب.",
     "chooseCurrency": "اختر العملة",
     "chooseNetworkStep": "اختر الشبكة",
@@ -1119,7 +1118,7 @@
           "بكام",
           "بكم"
         ],
-        "answer": "يحدد كل متداول الحد الأدنى الخاص به لعملية النسخ، ويظهر هذا المبلغ في صفحته الشخصية بجانب زر «نسخ»، وغالبًا ما يتراوح بين 75 و1000 دولار أمريكي بحسب المتداول."
+        "answer": "يحدد كل متداول الحد الأدنى الخاص به لعملية النسخ، ويظهر هذا المبلغ في صفحته الشخصية بجانب زر «نسخ»، وغالبًا ما يتراوح بين 75 و1000 USDT بحسب المتداول."
       },
       {
         "id": "stop-copy",
@@ -1314,19 +1313,19 @@
     "open": "نسخ",
     "title": "نسخ {name}",
     "close": "إغلاق",
-    "amountLabel": "المبلغ المخصص ($)",
+    "amountLabel": "المبلغ المخصص (USDT)",
     "minAmount": "الحد الأدنى:",
     "modeLabel": "وضع النسخ",
     "modeRatio": "نسبة ثابتة",
     "modeFixed": "مبلغ ثابت لكل صفقة",
     "advanced": "إعدادات متقدمة",
-    "maxPerTrade": "الحد الأقصى للمبلغ لكل صفقة ($) — اختياري",
+    "maxPerTrade": "الحد الأقصى للمبلغ لكل صفقة (USDT) — اختياري",
     "copyStopLoss": "إيقاف النسخ عند خسارة (%)",
     "riskAck": "أدرك أن النسخ ينطوي على مخاطر وأنني قد أخسر جزءًا من المبلغ المخصص أو كله.",
     "confirm": "ابدأ النسخ",
     "profitShare": "مشاركة الأرباح:",
     "copyStopLossHint": "يتوقف النسخ تلقائيًا عندما تبلغ خسارته المحققة هذه النسبة من المبلغ المخصص.",
-    "fixedAmountLabel": "المبلغ لكل صفقة ($)"
+    "fixedAmountLabel": "المبلغ لكل صفقة (USDT)"
   },
   "Trades": {
     "title": "الصفقات",
@@ -1391,7 +1390,7 @@
       "style_sporadic": "متقطّع",
       "contactLabel": "وسيلة التواصل (خاصة)",
       "contactPlaceholder": "تيليجرام، واتساب، بريد إلكتروني...",
-      "minInvestmentLabel": "الحد الأدنى المقترح للاستثمار ($)",
+      "minInvestmentLabel": "الحد الأدنى المقترح للاستثمار (USDT)",
       "agreeLabel": "أوافق على اتفاقية المتداول القائد.",
       "submit": "إرسال الطلب"
     },
@@ -1540,10 +1539,10 @@
       "hwmTotal": "مستوى القمة الحالي (HWM)",
       "hwmNote": "تحصل فقط على نسبة من الربح الجديد فوق أعلى قمة سابقة لكل ناسخ، ويجب تعويض أي خسارة أولاً.",
       "payoutTitle": "سحب الأرباح",
-      "payoutAmount": "المبلغ (USD)",
+      "payoutAmount": "المبلغ (USDT)",
       "payoutDestination": "عنوان المحفظة / بيانات الاستلام",
       "payoutRequest": "طلب سحب",
-      "payoutMinNote": "الحد الأدنى 10$. يمكن سحب الأرباح المسوّاة فقط. تكتمل عمليات السحب عادةً خلال 24 ساعة.",
+      "payoutMinNote": "الحد الأدنى 10 USDT. يمكن سحب الأرباح المسوّاة فقط. تكتمل عمليات السحب عادةً خلال 24 ساعة.",
       "payoutPendingNotice": "لديك طلب سحب قيد المراجعة.",
       "payoutRequested": "تم إرسال طلب السحب.",
       "payoutCancel": "إلغاء",
@@ -1552,7 +1551,7 @@
       "payout_approved": "تمت الموافقة",
       "payout_rejected": "مرفوض",
       "payout_cancelled": "ملغى",
-      "payoutErrMin": "الحد الأدنى للسحب 10$.",
+      "payoutErrMin": "الحد الأدنى للسحب 10 USDT.",
       "payoutErrDestination": "أدخل عنوان المحفظة أو بيانات الاستلام.",
       "payoutErrPending": "لديك طلب قيد المراجعة بالفعل.",
       "payoutErrAvailable": "المبلغ أكبر من أرباحك المتاحة.",
@@ -1560,7 +1559,7 @@
       "monthlyTitle": "الأرباح الشهرية (High-Water Mark)",
       "month": "الشهر",
       "newProfit": "ربح جديد فوق القمة",
-      "payoutDisabledReason": "السحب غير متاح: لديك ${available} من الأرباح المسوّاة والحد الأدنى 10$."
+      "payoutDisabledReason": "السحب غير متاح: لديك {available} من الأرباح المسوّاة والحد الأدنى 10 USDT."
     },
     "followerLedger": {
       "title": "سجل مشاركة الأرباح",
@@ -1583,8 +1582,8 @@
       "market_indices": "مؤشرات",
       "contactLabel": "وسيلة التواصل (خاصة)",
       "followerSettings": "إعدادات المتابعين",
-      "minInvestmentLabel": "الحد الأدنى للاستثمار ($)",
-      "minCopyAmountLabel": "الحد الأدنى للنسخ ($)",
+      "minInvestmentLabel": "الحد الأدنى للاستثمار (USDT)",
+      "minCopyAmountLabel": "الحد الأدنى للنسخ (USDT)",
       "profitSharePctLabel": "نسبة مشاركة الأرباح (الحد الأقصى {max}% لمستواك)",
       "acceptingFollowersLabel": "استقبال متابعين جدد",
       "whitelistNote": "وضع الدعوة فقط يُدار من صفحة",
@@ -1796,7 +1795,7 @@
       },
       {
         "q": "هل يوجد حساب تجريبي؟",
-        "a": "نعم. يبدأ الحساب التجريبي برصيد افتراضي قدره 10,000$، ويتيح لك التدرّب دون المخاطرة بأموالك."
+        "a": "نعم. يبدأ الحساب التجريبي برصيد افتراضي قدره 10,000 USDT، ويتيح لك التدرّب دون المخاطرة بأموالك."
       }
     ]
   },

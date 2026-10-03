@@ -1,5 +1,6 @@
 "use client";
 
+import { useMoney } from "@/lib/money-client";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { SymbolIcon } from "@/lib/symbol-icons";
@@ -25,6 +26,7 @@ function formatPrice(value: number) {
 function PositionRow({ pos, current, forexAsOf }: { pos: Position; current: number | undefined; forexAsOf: string | undefined }) {
   const t = useTranslations("Dashboard");
   const tl = useTranslations("LivePrices");
+  const money = useMoney();
   const live = current != null ? openPositionPnl(pos.side, pos.entry_price, current, Number(pos.size)) : null;
   const pnl = live?.usd ?? null;
   const pct = live?.pct ?? null;
@@ -77,7 +79,7 @@ function PositionRow({ pos, current, forexAsOf }: { pos: Position; current: numb
           }
           dir="ltr"
         >
-          {pnl != null ? `${pnl >= 0 ? "+" : "-"}$${Math.abs(pnl).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "—"}
+          {pnl != null ? money(pnl, { signed: true }) : "—"}
           {pct != null && (
             <span className="block text-[11px] font-normal opacity-80">{`${pct >= 0 ? "+" : ""}${pct.toFixed(2)}%`}</span>
           )}

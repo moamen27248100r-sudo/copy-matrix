@@ -1,3 +1,4 @@
+import { formatMoney } from "@/lib/money";
 import { createClient } from "@/lib/supabase/server";
 import { approveWalletRequest, rejectWalletRequest } from "@/app/admin/actions";
 
@@ -38,7 +39,7 @@ function PendingCard({ r }: { r: PendingRequest }) {
   return (
     <div className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
       <div>
-        <p className="font-medium">${Number(r.amount).toLocaleString("en-US")} <span className="text-xs font-normal text-muted">(المبلغ الذي طلبه العميل)</span></p>
+        <p className="font-medium">{formatMoney(Number(r.amount), "ar")} <span className="text-xs font-normal text-muted">(المبلغ الذي طلبه العميل)</span></p>
         <p className="text-xs text-muted">
           {profile?.display_name} · {profile?.email}
         </p>
@@ -85,7 +86,7 @@ function RecentRow({ r }: { r: RecentRequest }) {
     <div className="flex items-center justify-between rounded-lg border border-border bg-surface p-3 text-sm">
       <div>
         <p>
-          ${Number(r.amount).toLocaleString("en-US")} · {profile?.display_name}
+          {formatMoney(Number(r.amount), "ar")} · {profile?.display_name}
         </p>
         <p className="text-xs text-muted">{new Date(r.requested_at).toLocaleDateString("ar-EG")}</p>
       </div>

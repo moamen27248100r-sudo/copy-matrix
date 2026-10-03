@@ -1,3 +1,4 @@
+import { formatMoney } from "@/lib/money";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
@@ -186,7 +187,7 @@ export default async function AdminUsersPage({
                   <p className="text-xs text-muted">{u.email}</p>
                 </td>
                 <td className="py-2 whitespace-nowrap">
-                  ${Number(u.balance ?? 0).toLocaleString("en-US", { maximumFractionDigits: 0 })}
+                  {formatMoney(Number(u.balance ?? 0), "ar")}
                 </td>
                 <td className="py-2 whitespace-nowrap text-xs text-muted">
                   {new Date(u.created_at).toLocaleDateString("ar-EG")}

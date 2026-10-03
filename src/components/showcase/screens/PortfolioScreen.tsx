@@ -1,3 +1,4 @@
+import { useMoney } from "@/lib/money-client";
 import { StatusBar, BottomNav } from "../ScreenChrome";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
@@ -42,6 +43,7 @@ function initialsOf(name: string) {
 
 export function PortfolioScreen() {
   const t = useTranslations("HomeShowcase");
+  const money = useMoney();
   const locale = useLocale();
   const monthLabels = Array.from({ length: 6 }, (_, i) => new Intl.DateTimeFormat(locale, { month: "short" }).format(new Date(2025, i, 1)));
   const p = showcasePortfolio;
@@ -53,7 +55,7 @@ export function PortfolioScreen() {
         <div>
           <p className="text-[13px] text-muted">{t("totalBalance")}</p>
           <p className="text-[32px] font-extrabold tabular-nums leading-tight text-white" dir="ltr">
-            ${p.balance.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+            {money(p.balance)}
           </p>
           <p className={"text-[13px] font-semibold tabular-nums " + (up ? "text-[#22C55E]" : "text-[#EF4444]")} dir="ltr">
             {up ? "+" : ""}

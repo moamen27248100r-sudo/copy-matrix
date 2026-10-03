@@ -1,3 +1,4 @@
+import { getMoney } from "@/lib/money-server";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
@@ -80,6 +81,7 @@ export default async function DiscoverPage({
   const effectiveSort = sort && sort in SORT_OPTIONS ? sort : pillKey === "roi" ? "return" : pillKey === "trusted" ? "followers" : undefined;
   const sortKey: SortKey = effectiveSort && effectiveSort in SORT_OPTIONS ? (effectiveSort as SortKey) : "best";
   const t = await getTranslations("Discover");
+  const money = await getMoney();
 
   const supabase = await createClient();
   const {
@@ -317,9 +319,9 @@ export default async function DiscoverPage({
                 current: minEntry ?? "",
                 options: [
                   { value: "", label: t("filterAny") },
-                  { value: "100", label: "$100" },
-                  { value: "500", label: "$500" },
-                  { value: "1000", label: "$1000+" },
+                  { value: "100", label: money(100, { decimals: 0 }) },
+                  { value: "500", label: money(500, { decimals: 0 }) },
+                  { value: "1000", label: `${money(1000, { decimals: 0 })}+` },
                 ],
               },
               {
@@ -428,7 +430,7 @@ export default async function DiscoverPage({
                     </td>
                     <td className="px-4 py-3 text-sm">{p.followers_count}</td>
                     <td className="px-4 py-3 text-sm" dir="ltr">
-                      ${Number(p.min_copy_amount).toLocaleString("en-US")}
+                      {money(Number(p.min_copy_amount))}
                     </td>
                     <td className="px-4 py-3 text-end">
                       <Link href={compareHref(p.provider_id)} className="me-3 text-xs text-muted hover:text-accent">

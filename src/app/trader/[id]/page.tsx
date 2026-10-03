@@ -1,3 +1,4 @@
+import { getMoney } from "@/lib/money-server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -110,6 +111,7 @@ export default async function TraderPage({
   const activeTab: (typeof TABS)[number] = (TABS as readonly string[]).includes(tab ?? "") ? (tab as (typeof TABS)[number]) : "history";
   const locale = (await getLocale()) as Locale;
   const t = await getTranslations("TraderProfile");
+  const money = await getMoney();
   const tp = await getTranslations("TradeHistory");
   const tc = await getTranslations("Countries");
   const translateBio = await getBioTranslator();
@@ -266,7 +268,7 @@ export default async function TraderPage({
           <p className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">
             {t("copyStartedSuccess", {
               name: provider.display_name,
-              amount: `$${Number(mySub.allocated_amount).toLocaleString("en-US", { maximumFractionDigits: 2 })}`,
+              amount: money(Number(mySub.allocated_amount)),
             })}
           </p>
         )}
@@ -338,7 +340,7 @@ export default async function TraderPage({
                 {t("copyCta")}
               </Link>
               <p className="text-center text-xs text-muted">
-                {t("minCopyBadgeLabel")} <span dir="ltr">${Number(provider.min_copy_amount).toLocaleString("en-US")}</span>
+                {t("minCopyBadgeLabel")} <span dir="ltr">{money(Number(provider.min_copy_amount))}</span>
               </p>
             </div>
           ) : isFollowing ? (
@@ -347,7 +349,7 @@ export default async function TraderPage({
                 <span className="h-2 w-2 shrink-0 rounded-full bg-success" aria-hidden="true" />
                 <span className="truncate">
                   {t("currentlyCopyingAmount", {
-                    amount: `$${Number(mySub?.allocated_amount ?? 0).toLocaleString("en-US")}`,
+                    amount: money(Number(mySub?.allocated_amount ?? 0)),
                   })}
                 </span>
               </p>
@@ -370,7 +372,7 @@ export default async function TraderPage({
                 profitSharePct={profitShare}
               />
               <p className="text-center text-xs text-muted">
-                {t("minCopyBadgeLabel")} <span dir="ltr">${Number(provider.min_copy_amount).toLocaleString("en-US")}</span>
+                {t("minCopyBadgeLabel")} <span dir="ltr">{money(Number(provider.min_copy_amount))}</span>
               </p>
             </div>
           )}
@@ -383,20 +385,19 @@ export default async function TraderPage({
           </div>
           <div>
             <p className={Number(provider.total_profit) >= 0 ? "font-semibold text-success" : "font-semibold text-danger"}>
-              {Number(provider.total_profit) >= 0 ? "+" : "-"}$
-              {Math.abs(Number(provider.total_profit)).toLocaleString("en-US", { maximumFractionDigits: 0 })}
+              {money(Number(provider.total_profit), { signed: true })}
             </p>
             <p className="text-xs text-muted">{t("statTotalProfit")}</p>
           </div>
           <div>
             <p className="font-semibold">
-              ${Number(provider.total_withdrawals).toLocaleString("en-US", { maximumFractionDigits: 0 })}
+              {money(Number(provider.total_withdrawals))}
             </p>
             <p className="text-xs text-muted">{t("statTotalWithdrawals")}</p>
           </div>
           <div>
             <p className="font-semibold">
-              ${Number(provider.account_capital ?? 0).toLocaleString("en-US", { maximumFractionDigits: 0 })}
+              {money(Number(provider.account_capital ?? 0))}
             </p>
             <p className="text-xs text-muted">{t("statCurrentCapital")}</p>
           </div>
@@ -414,7 +415,7 @@ export default async function TraderPage({
           </div>
           <div>
             <p className="font-semibold" dir="ltr">
-              {aum > 0 ? `$${aum.toLocaleString("en-US", { maximumFractionDigits: 0 })}` : "—"}
+              {aum > 0 ? money(aum) : "—"}
             </p>
             <p className="text-xs text-muted">{t("statAum")}</p>
           </div>

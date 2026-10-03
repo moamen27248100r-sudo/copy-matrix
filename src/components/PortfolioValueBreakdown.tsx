@@ -1,8 +1,5 @@
 import { getTranslations } from "next-intl/server";
-
-function money(n: number) {
-  return n.toLocaleString("en-US", { maximumFractionDigits: 2 });
-}
+import { getMoney } from "@/lib/money-server";
 
 export async function PortfolioValueBreakdown({
   balance,
@@ -14,6 +11,7 @@ export async function PortfolioValueBreakdown({
   totalUnrealizedPnl: number;
 }) {
   const t = await getTranslations("Dashboard");
+  const money = await getMoney();
   // balance already includes any allocated capital (followProvider never
   // actually deducts it — allocated_amount is a reservation on top of the
   // same dollars, not separate money), so only unrealized P&L — not yet
@@ -26,14 +24,14 @@ export async function PortfolioValueBreakdown({
       <p className="text-xs text-muted">{t("portfolioValue")}</p>
       <p className="text-3xl font-semibold">
         <span dir="ltr" className="inline-block">
-          ${money(totalValue)}
+          {money(totalValue)}
         </span>
       </p>
       <div className="mt-3 grid grid-cols-3 gap-3 border-t border-border pt-3 text-sm">
         <div>
           <p className="font-semibold">
             <span dir="ltr" className="inline-block">
-              ${money(availableCash)}
+              {money(availableCash)}
             </span>
           </p>
           <p className="text-xs text-muted">{t("availableCash")}</p>
@@ -41,7 +39,7 @@ export async function PortfolioValueBreakdown({
         <div>
           <p className="font-semibold">
             <span dir="ltr" className="inline-block">
-              ${money(totalAllocated)}
+              {money(totalAllocated)}
             </span>
           </p>
           <p className="text-xs text-muted">{t("reservedForCopy")}</p>
@@ -49,8 +47,7 @@ export async function PortfolioValueBreakdown({
         <div>
           <p className={totalUnrealizedPnl >= 0 ? "font-semibold text-success" : "font-semibold text-danger"}>
             <span dir="ltr" className="inline-block">
-              {totalUnrealizedPnl >= 0 ? "+" : "-"}
-              ${money(Math.abs(totalUnrealizedPnl))}
+              {money(totalUnrealizedPnl, { signed: true })}
             </span>
           </p>
           <p className="text-xs text-muted">{t("unrealizedPnl")}</p>

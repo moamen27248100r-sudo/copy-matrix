@@ -1,3 +1,4 @@
+import { getMoney } from "@/lib/money-server";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { TraderAvatar } from "@/components/TraderAvatar";
@@ -55,6 +56,7 @@ export async function LeaderCard({
   onStopCopyingAction?: (formData: FormData) => void | Promise<void>;
 }) {
   const t = await getTranslations("Discover");
+  const money = await getMoney();
   const isDown = p.avg_daily_return_pct != null && p.avg_daily_return_pct < 0;
   const isStopped = p.trading_status === "stopped";
 
@@ -156,7 +158,7 @@ export async function LeaderCard({
 
       <div className="flex items-center justify-between text-xs text-muted">
         <span>
-          {t("minCopyAmountLabel")} <span dir="ltr">${Number(p.min_copy_amount).toLocaleString("en-US")}</span>
+          {t("minCopyAmountLabel")} <span dir="ltr">{money(Number(p.min_copy_amount))}</span>
         </span>
         <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 shrink-0 rtl:rotate-180" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M9 18l6-6-6-6" />

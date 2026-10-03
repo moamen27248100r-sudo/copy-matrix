@@ -1,5 +1,6 @@
 "use client";
 
+import { useMoney } from "@/lib/money-client";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
@@ -81,6 +82,7 @@ function formatPrice(value: number) {
 
 export function TradeHistory({ trades }: { trades: Trade[] }) {
   const tt = useTranslations("TradeHistory");
+  const money = useMoney();
   const [period, setPeriod] = useState<PeriodKey>("all");
   const [open, setOpen] = useState(false);
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -109,7 +111,7 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
             <>
               {" · "}
               <span className={netResult >= 0 ? "text-success" : "text-danger"} dir="ltr">
-                {netResult >= 0 ? "+" : "-"}${Math.abs(netResult).toFixed(2)}
+                {money(netResult, { signed: true })}
               </span>
             </>
           )}
@@ -179,7 +181,7 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
                       </span>
                       <span className={t.side === "buy" ? "font-medium text-accent" : "font-medium text-danger"} dir="ltr">
                         {t.side === "buy" ? "buy" : "sell"}
-                        {t.size != null && ` $${t.size}`}
+                        {t.size != null && ` ${money(t.size)}`}
                       </span>
                     </div>
                     {/* Trade result shown as percentage only, never a dollar

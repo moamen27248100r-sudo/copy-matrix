@@ -1,5 +1,6 @@
 "use client";
 
+import { useMoney } from "@/lib/money-client";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import QRCode from "qrcode";
@@ -11,6 +12,7 @@ import { SECURITY_BADGE } from "@/config/platform";
 
 export function DepositGateway() {
   const t = useTranslations("Portfolio");
+  const money = useMoney();
   const [currencyId, setCurrencyId] = useState<string | null>(null);
   const [selected, setSelected] = useState<DepositNetwork | null>(null);
   const [qrDataUrl, setQrDataUrl] = useState<string | null>(null);
@@ -95,7 +97,7 @@ export function DepositGateway() {
                     ~{fastest} {t("minutesShort")}
                   </span>
                   {" · "}
-                  {t("networkFeeLabel")} <span dir="ltr">${cheapest}</span>
+                  {t("networkFeeLabel")} <span dir="ltr">{money(cheapest)}</span>
                 </p>
               </button>
             );
@@ -144,7 +146,7 @@ export function DepositGateway() {
                       ~{n.estMinutes} {t("minutesShort")}
                     </span>
                     {" · "}
-                    {t("networkFeeLabel")} <span dir="ltr">${n.feeUsd}</span>
+                    {t("networkFeeLabel")} <span dir="ltr">{money(n.feeUsd)}</span>
                   </p>
                 </div>
               </div>

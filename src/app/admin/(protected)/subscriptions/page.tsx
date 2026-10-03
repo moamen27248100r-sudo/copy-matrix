@@ -1,3 +1,4 @@
+import { formatMoney } from "@/lib/money";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
@@ -140,7 +141,7 @@ export default async function AdminSubscriptionsPage({
                   </td>
                   <td className="py-2 whitespace-nowrap">{sub?.providerName ?? "—"}</td>
                   <td className="py-2 whitespace-nowrap">
-                    {sub ? `$${sub.amount.toLocaleString("en-US")}` : "—"}
+                    {sub ? formatMoney(sub.amount, "ar") : "—"}
                   </td>
                 </tr>
               );

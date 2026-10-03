@@ -1,3 +1,4 @@
+import { formatMoney } from "@/lib/money";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import {
@@ -126,7 +127,7 @@ export default async function AdminUserDetailPage({
       <section className="grid grid-cols-1 gap-3 sm:grid-cols-3">
         <div className="rounded-lg border border-border bg-surface p-3 text-center">
           <p className="text-lg font-semibold">
-            ${Number(profile.balance ?? 0).toLocaleString("en-US", { maximumFractionDigits: 0 })}
+            {formatMoney(Number(profile.balance ?? 0), "ar")}
           </p>
           <p className="text-xs text-muted">الرصيد الحالي</p>
         </div>
@@ -276,7 +277,7 @@ export default async function AdminUserDetailPage({
               <div key={w.id} className="flex items-center justify-between rounded-lg border border-border bg-surface p-3 text-sm">
                 <div>
                   <p>
-                    {w.type === "deposit" ? "إيداع" : "سحب"} — ${Number(w.amount).toLocaleString("en-US")}
+                    {w.type === "deposit" ? "إيداع" : "سحب"} — {formatMoney(Number(w.amount), "ar")}
                   </p>
                   <p className="text-xs text-muted">{new Date(w.requested_at).toLocaleDateString("ar-EG")}</p>
                 </div>
@@ -302,7 +303,7 @@ export default async function AdminUserDetailPage({
                   <div>
                     <p>{provider?.display_name ?? "—"}</p>
                     <p className="text-xs text-muted">
-                      ${Number(s.allocated_amount ?? 0).toLocaleString("en-US")} منذ{" "}
+                      {formatMoney(Number(s.allocated_amount ?? 0), "ar")} منذ{" "}
                       {new Date(s.created_at).toLocaleDateString("ar-EG")}
                     </p>
                   </div>
@@ -339,7 +340,7 @@ export default async function AdminUserDetailPage({
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <span>
                       {signal?.symbol ?? "—"} · {signal?.side === "buy" ? "شراء" : "بيع"} · دخول {p.entry_price} · حجم $
-                      {Number(p.size).toLocaleString("en-US")}
+                      {formatMoney(Number(p.size), "ar")}
                     </span>
                     <span
                       className={
@@ -350,7 +351,7 @@ export default async function AdminUserDetailPage({
                             : "rounded border border-danger/40 px-2 py-0.5 text-xs text-danger"
                       }
                     >
-                      {p.status === "open" ? "مفتوحة" : `مغلقة (${Number(p.pnl ?? 0) >= 0 ? "+" : ""}${Number(p.pnl ?? 0).toFixed(2)}$)`}
+                      {p.status === "open" ? "مفتوحة" : `مغلقة (${formatMoney(Number(p.pnl ?? 0), "ar", { signed: true })})`}
                     </span>
                   </div>
 

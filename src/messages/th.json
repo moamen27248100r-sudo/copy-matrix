@@ -59,7 +59,7 @@
     "tryCopy": {
       "badge": "ลองใช้แบบไร้ความเสี่ยง",
       "title": "ลองใช้งานด้วยบัญชีเดโม",
-      "description": "เริ่มต้นด้วยเงินเสมือน $10,000 และฝึกคัดลอกการเทรดก่อนใช้เงินจริงของคุณ",
+      "description": "เริ่มต้นด้วยเงินเสมือน 10,000 USDT และฝึกคัดลอกการเทรดก่อนใช้เงินจริงของคุณ",
       "cta": "เปิดบัญชีเดโม",
       "cardWelcome": "บัญชีทดลองฟรีของคุณ",
       "cardPortfolioLabel": "มูลค่าพอร์ตทดลอง",
@@ -134,7 +134,7 @@
     "openPositions": "โพซิชันที่เปิดอยู่",
     "netRealizedProfit": "กำไรสุทธิที่รับรู้แล้ว",
     "traderYouCopy": "เทรดเดอร์ที่คุณคัดลอก",
-    "startedWith": "เริ่มต้นด้วย: ${amount}",
+    "startedWith": "เริ่มต้นด้วย: {amount}",
     "winRate": "อัตราชนะ",
     "avgDailyReturn": "ผลตอบแทนเฉลี่ยรายวัน",
     "noClosedTrades": "ยังไม่มีการเทรดที่ปิดแล้ว",
@@ -144,7 +144,7 @@
     "periodYear": "ปี",
     "periodAll": "ทั้งหมด",
     "noEnoughClosedTrades": "มีการเทรดที่ปิดไม่เพียงพอในช่วงเวลานี้สำหรับแสดงกราฟ",
-    "startingPoint": "เริ่มต้น: ${amount}",
+    "startingPoint": "เริ่มต้น: {amount}",
     "periodDay": "1ว",
     "copiedPositionsTitle": "โพซิชันคัดลอกที่เปิดอยู่",
     "tableSymbol": "สัญลักษณ์",
@@ -200,7 +200,7 @@
     "copyOpenedTitle": "คัดลอกออเดอร์ใหม่แล้ว",
     "copyOpenedBody": "คัดลอกออเดอร์ {symbol} ({side, select, sell {ขาย} other {ซื้อ}}) จากเทรดเดอร์ที่คุณติดตามแล้ว",
     "copyClosedTitle": "การเทรดที่คัดลอกจาก {providerName}",
-    "copyClosedBody": "การเทรด {symbol} ปิดแล้วด้วยผลลัพธ์ {positive, select, true {+} other {-}}{amount}$",
+    "copyClosedBody": "การเทรด {symbol} ปิดแล้วด้วยผลลัพธ์ {amount}",
     "autoStopCopyTitle": "การคัดลอกหยุดโดยอัตโนมัติ",
     "autoStopCopyBody": "การคัดลอกเทรดเดอร์หยุดโดยอัตโนมัติหลังจากเกินขีดจำกัดการขาดทุนที่อนุญาต ({maxDrawdownPct}%) คุณสามารถติดตามพวกเขาอีกครั้งได้ทุกเมื่อจากหน้าค้นหา",
     "followedTradeClosedTitle": "การเทรดใหม่จากเทรดเดอร์ที่คุณติดตาม",
@@ -228,13 +228,13 @@
     "prefsLink": "การตั้งค่า",
     "leadPayoutApprovedTitle": "อนุมัติการถอนแล้ว",
     "leadPayoutRejectedTitle": "ปฏิเสธการถอน",
-    "leadPayoutBody": "คำขอถอน ${amount} ของคุณได้รับการตรวจสอบแล้ว",
+    "leadPayoutBody": "คำขอถอน {amount} ของคุณได้รับการตรวจสอบแล้ว",
     "leadNewCopierTitle": "ผู้คัดลอกใหม่",
-    "leadNewCopierBody": "มีคนเริ่มคัดลอกคุณด้วยเงิน ${amount}",
+    "leadNewCopierBody": "มีคนเริ่มคัดลอกคุณด้วยเงิน {amount}",
     "leadCopierStoppedTitle": "ผู้คัดลอกรายหนึ่งหยุดแล้ว",
-    "leadCopierStoppedBody": "ผู้คัดลอก ${amount} หยุดคัดลอกคุณแล้ว",
+    "leadCopierStoppedBody": "ผู้คัดลอก {amount} หยุดคัดลอกคุณแล้ว",
     "leadProfitPaidTitle": "การจ่ายส่วนแบ่งกำไร",
-    "leadProfitPaidBody": "ส่วนแบ่งกำไร ${amount} ถูกชำระเข้ายอดคงเหลือของคุณแล้ว",
+    "leadProfitPaidBody": "ส่วนแบ่งกำไร {amount} ถูกชำระเข้ายอดคงเหลือของคุณแล้ว",
     "leadStatusChangedTitle": "สถานะบัญชีเปลี่ยนแปลง",
     "leadStatusChanged_active": "บัญชีเทรดเดอร์ผู้นำของคุณใช้งานได้",
     "leadStatusChanged_stopped": "การเทรดบนบัญชีเทรดเดอร์ผู้นำของคุณถูกหยุด",
@@ -288,7 +288,6 @@
     "enterDepositAmount": "ป้อนจำนวนเงินฝาก",
     "enterWithdrawAmount": "ป้อนจำนวนเงินถอน",
     "continue": "ดำเนินการต่อ",
-    "maxAvailable": "สูงสุด {amount} USD",
     "backEditAmount": "→ กลับไปแก้ไขจำนวนเงิน",
     "chooseNetwork": "เลือกเครือข่าย",
     "walletAddressLabel": "ที่อยู่กระเป๋าเงิน",
@@ -301,7 +300,7 @@
     "copyAddress": "คัดลอก",
     "minDeposit": "ขั้นต่ำ: {amount} {currency}",
     "networkConfirmations": "การยืนยันเครือข่าย: {count}",
-    "amountSentPlaceholder": "จำนวนเงินที่ส่งเป็น USD",
+    "amountSentPlaceholder": "จำนวนเงินที่ส่งเป็น USDT",
     "withdrawBlockedError": "ไม่สามารถส่งคำขอถอนเงินได้: คุณมีโพซิชันที่เปิดอยู่ในขณะนี้ และยอดคงเหลือของคุณถูกสำรองไว้เป็นหลักประกันเพื่อครอบคลุม คุณสามารถหยุดคัดลอกหลังจากโพซิชันปิดเพื่อคืนยอดคงเหลือและกำไรกลับสู่กระเป๋าเงินของคุณ จากนั้นส่งคำขอถอนเงินอีกครั้ง",
     "chooseCurrency": "เลือกสกุลเงิน",
     "chooseNetworkStep": "เลือกเครือข่าย",
@@ -1083,7 +1082,7 @@
           "ขั้นต่ำในการคัดลอก",
           "เท่าไหร่"
         ],
-        "answer": "เทรดเดอร์แต่ละคนกำหนดจำนวนเงินขั้นต่ำในการคัดลอกของตนเอง ซึ่งแสดงอยู่ในหน้าโปรไฟล์ของพวกเขาข้างปุ่ม \"คัดลอก\" และโดยทั่วไปจะอยู่ระหว่าง $75 ถึง $1,000 ขึ้นอยู่กับเทรดเดอร์"
+        "answer": "เทรดเดอร์แต่ละคนกำหนดจำนวนเงินขั้นต่ำในการคัดลอกของตนเอง ซึ่งแสดงอยู่ในหน้าโปรไฟล์ของพวกเขาข้างปุ่ม \"คัดลอก\" และโดยทั่วไปจะอยู่ระหว่าง 75 USDT ถึง 1,000 USDT ขึ้นอยู่กับเทรดเดอร์"
       },
       {
         "id": "stop-copy",
@@ -1249,19 +1248,19 @@
     "open": "คัดลอก",
     "title": "คัดลอก {name}",
     "close": "ปิด",
-    "amountLabel": "จำนวนเงินที่จัดสรร ($)",
+    "amountLabel": "จำนวนเงินที่จัดสรร (USDT)",
     "minAmount": "ขั้นต่ำ:",
     "modeLabel": "โหมดการคัดลอก",
     "modeRatio": "อัตราส่วนคงที่",
     "modeFixed": "จำนวนคงที่ต่อการเทรด",
     "advanced": "การตั้งค่าขั้นสูง",
-    "maxPerTrade": "จำนวนสูงสุดต่อการเทรด ($) — ไม่บังคับ",
+    "maxPerTrade": "จำนวนสูงสุดต่อการเทรด (USDT) — ไม่บังคับ",
     "copyStopLoss": "หยุดคัดลอกเมื่อขาดทุนถึง (%)",
     "riskAck": "ฉันเข้าใจว่าการคัดลอกการเทรดมีความเสี่ยง และอาจสูญเสียเงินที่จัดสรรบางส่วนหรือทั้งหมด",
     "confirm": "เริ่มคัดลอก",
     "profitShare": "ส่วนแบ่งกำไร:",
     "copyStopLossHint": "การคัดลอกจะหยุดโดยอัตโนมัติเมื่อผลขาดทุนที่รับรู้แล้วถึงสัดส่วนนี้ของจำนวนเงินที่จัดสรร",
-    "fixedAmountLabel": "จำนวนเงินต่อการเทรด ($)"
+    "fixedAmountLabel": "จำนวนเงินต่อการเทรด (USDT)"
   },
   "Trades": {
     "title": "การเทรด",
@@ -1326,7 +1325,7 @@
       "style_sporadic": "นาน ๆ ครั้ง",
       "contactLabel": "ช่องทางติดต่อ (ส่วนตัว)",
       "contactPlaceholder": "Telegram, WhatsApp, อีเมล...",
-      "minInvestmentLabel": "เงินลงทุนขั้นต่ำที่แนะนำ ($)",
+      "minInvestmentLabel": "เงินลงทุนขั้นต่ำที่แนะนำ (USDT)",
       "agreeLabel": "ฉันยอมรับข้อตกลงเทรดเดอร์ผู้นำ",
       "submit": "ส่งใบสมัคร"
     },
@@ -1475,10 +1474,10 @@
       "hwmTotal": "จุดสูงสุดสะสม (HWM)",
       "hwmNote": "ได้รับส่วนแบ่งเฉพาะกำไรใหม่ที่สูงกว่าจุดสูงสุดเดิมของผู้คัดลอกแต่ละราย และต้องชดเชยขาดทุนก่อน",
       "payoutTitle": "ถอนรายได้",
-      "payoutAmount": "จำนวน (USD)",
+      "payoutAmount": "จำนวน (USDT)",
       "payoutDestination": "ที่อยู่กระเป๋า / รายละเอียดการรับเงิน",
       "payoutRequest": "ขอถอน",
-      "payoutMinNote": "ขั้นต่ำ $10 ถอนได้เฉพาะรายได้ที่ชำระแล้วเท่านั้น การถอนมักเสร็จสมบูรณ์ภายใน 24 ชั่วโมง",
+      "payoutMinNote": "ขั้นต่ำ 10 USDT ถอนได้เฉพาะรายได้ที่ชำระแล้วเท่านั้น การถอนมักเสร็จสมบูรณ์ภายใน 24 ชั่วโมง",
       "payoutPendingNotice": "คุณมีคำขอถอนที่กำลังตรวจสอบ",
       "payoutRequested": "ส่งคำขอถอนแล้ว",
       "payoutCancel": "ยกเลิก",
@@ -1487,7 +1486,7 @@
       "payout_approved": "อนุมัติแล้ว",
       "payout_rejected": "ถูกปฏิเสธ",
       "payout_cancelled": "ยกเลิกแล้ว",
-      "payoutErrMin": "ถอนขั้นต่ำ $10",
+      "payoutErrMin": "ถอนขั้นต่ำ 10 USDT",
       "payoutErrDestination": "กรอกที่อยู่กระเป๋าหรือรายละเอียดการรับเงิน",
       "payoutErrPending": "คุณมีคำขอที่กำลังตรวจสอบอยู่แล้ว",
       "payoutErrAvailable": "จำนวนเกินรายได้ที่ถอนได้",
@@ -1495,7 +1494,7 @@
       "monthlyTitle": "รายได้รายเดือน (high-water mark)",
       "month": "เดือน",
       "newProfit": "กำไรใหม่เหนือจุดสูงสุด",
-      "payoutDisabledReason": "ยังถอนไม่ได้: รายได้ที่ชำระแล้ว ${available} และขั้นต่ำคือ $10"
+      "payoutDisabledReason": "ยังถอนไม่ได้: รายได้ที่ชำระแล้ว {available} และขั้นต่ำคือ 10 USDT"
     },
     "followerLedger": {
       "title": "ประวัติการแบ่งกำไร",
@@ -1518,8 +1517,8 @@
       "market_indices": "ดัชนี",
       "contactLabel": "ช่องทางติดต่อ (ส่วนตัว)",
       "followerSettings": "การตั้งค่าผู้ติดตาม",
-      "minInvestmentLabel": "เงินลงทุนขั้นต่ำ ($)",
-      "minCopyAmountLabel": "จำนวนคัดลอกขั้นต่ำ ($)",
+      "minInvestmentLabel": "เงินลงทุนขั้นต่ำ (USDT)",
+      "minCopyAmountLabel": "จำนวนคัดลอกขั้นต่ำ (USDT)",
       "profitSharePctLabel": "สัดส่วนแบ่งกำไร (สูงสุด {max}% ในระดับของคุณ)",
       "acceptingFollowersLabel": "เปิดรับผู้ติดตามใหม่",
       "whitelistNote": "โหมดเฉพาะผู้ได้รับเชิญจัดการได้ที่",
@@ -1731,7 +1730,7 @@
       },
       {
         "q": "มีบัญชีทดลองหรือไม่",
-        "a": "มี บัญชีทดลองเริ่มต้นด้วยเงินเสมือน 10,000 ดอลลาร์ ให้คุณฝึกโดยไม่เสี่ยงเงินของตัวเอง"
+        "a": "มี บัญชีทดลองเริ่มต้นด้วยเงินเสมือน 10,000 USDT ให้คุณฝึกโดยไม่เสี่ยงเงินของตัวเอง"
       }
     ]
   },

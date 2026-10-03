@@ -1,3 +1,4 @@
+import { getMoney } from "@/lib/money-server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -31,6 +32,7 @@ export default async function LeadTradesPage({
   const { error, view } = await searchParams;
   const byAsset = view === "asset";
   const t = await getTranslations("LeadTrader.trades");
+  const money = await getMoney();
   const supabase = await createClient();
   const {
     data: { user },
@@ -148,7 +150,7 @@ export default async function LeadTradesPage({
                   <td className="px-3 py-2 tabular-nums">{r.margin.toLocaleString("en-US")}</td>
                   <td className="px-3 py-2 tabular-nums">{r.avgEntry.toLocaleString("en-US", { maximumFractionDigits: 4 })}</td>
                   <td className={`px-3 py-2 tabular-nums ${r.unrealized >= 0 ? "text-success" : "text-danger"}`}>
-                    {r.unrealized >= 0 ? "+" : "-"}${Math.abs(r.unrealized).toFixed(2)}
+                    {money(r.unrealized, { signed: true })}
                   </td>
                 </tr>
               ))}

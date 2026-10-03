@@ -1,5 +1,6 @@
 "use client";
 
+import { useMoney } from "@/lib/money-client";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef } from "react";
@@ -28,7 +29,7 @@ function renderBody(body: string) {
       {prefix}
       <span className={isPositive ? "text-success" : "text-danger"}>
         {amount}
-        {unit}
+        {unit === "$" ? " USDT" : unit}
       </span>
     </>
   );
@@ -37,6 +38,7 @@ function renderBody(body: string) {
 export function NotificationsMenu({ notifications }: { notifications: NotificationRow[] }) {
   const t = useTranslations("Nav");
   const tn = useTranslations("Notifications");
+  const money = useMoney();
   const { open, toggle, close } = useNavDrawer("notifications");
   const unreadCount = notifications.filter((n) => !n.is_read).length;
   const preview = notifications.slice(0, 6);
@@ -93,7 +95,7 @@ export function NotificationsMenu({ notifications }: { notifications: Notificati
             <p className="p-3 text-center text-sm text-muted">{t("notificationsEmpty")}</p>
           ) : (
             preview.map((n) => {
-              const { title, body } = renderNotification(tn, n);
+              const { title, body } = renderNotification(tn, n, money);
               return (
                 <form key={n.id} action={markOneRead}>
                   <input type="hidden" name="id" value={n.id} />

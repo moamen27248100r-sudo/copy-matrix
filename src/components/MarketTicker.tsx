@@ -18,17 +18,17 @@ const TICKER_MARKETS: {
 }[] = [
   {
     dbSymbol: "BTCUSDT",
-    label: "BTC/USD",
+    label: "BTC/USDT",
     glyph: "₿",
     iconClasses: "text-orange-400 bg-orange-500/10",
-    format: (p) => `$${Math.round(p).toLocaleString("en-US")}`,
+    format: (p) => Math.round(p).toLocaleString("en-US"),
   },
   {
     dbSymbol: "XAUUSD",
     label: "GOLD",
     glyph: "Au",
     iconClasses: "text-amber-400 bg-amber-500/10",
-    format: (p) => `$${p.toLocaleString("en-US", { maximumFractionDigits: 0 })}`,
+    format: (p) => p.toLocaleString("en-US", { maximumFractionDigits: 0 }),
   },
   {
     dbSymbol: "EURUSD",

@@ -24,7 +24,7 @@ export async function GET(request: Request) {
     days: Number.isFinite(days) && days > 0 ? days : undefined,
   });
 
-  const header = ["opened_at", "closed_at", "trader", "symbol", "side", "size", "entry", "exit", "pnl", "return_pct"];
+  const header = ["opened_at", "closed_at", "trader", "symbol", "side", "size_usdt", "entry", "exit", "pnl_usdt", "return_pct"];
   const lines = [header.join(",")].concat(
     trades.map((t) =>
       [t.openedAt, t.closedAt, t.providerName, t.symbol, t.side, t.size, t.entry, t.exit, t.pnl.toFixed(2), t.pct.toFixed(2)]

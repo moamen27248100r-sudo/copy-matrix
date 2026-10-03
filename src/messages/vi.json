@@ -59,7 +59,7 @@
     "tryCopy": {
       "badge": "Dùng thử miễn phí rủi ro",
       "title": "Dùng thử với tài khoản demo",
-      "description": "Bắt đầu với 10.000 $ tiền ảo và luyện tập sao chép trước khi dùng tiền thật của bạn.",
+      "description": "Bắt đầu với 10.000 USDT tiền ảo và luyện tập sao chép trước khi dùng tiền thật của bạn.",
       "cta": "Mở tài khoản demo",
       "cardWelcome": "Tài khoản demo miễn phí của bạn",
       "cardPortfolioLabel": "Giá trị danh mục demo",
@@ -134,7 +134,7 @@
     "openPositions": "Vị thế đang mở",
     "netRealizedProfit": "Lợi nhuận ròng đã thực hiện",
     "traderYouCopy": "Nhà giao dịch bạn đang sao chép",
-    "startedWith": "Bắt đầu với: ${amount}",
+    "startedWith": "Bắt đầu với: {amount}",
     "winRate": "Tỷ lệ thắng",
     "avgDailyReturn": "Lợi nhuận trung bình hằng ngày",
     "noClosedTrades": "Chưa có giao dịch nào đóng",
@@ -144,7 +144,7 @@
     "periodYear": "Năm",
     "periodAll": "Tất cả",
     "noEnoughClosedTrades": "Không đủ giao dịch đã đóng trong khoảng thời gian này để hiển thị biểu đồ.",
-    "startingPoint": "Bắt đầu: ${amount}",
+    "startingPoint": "Bắt đầu: {amount}",
     "periodDay": "1N",
     "copiedPositionsTitle": "Vị thế sao chép đang mở",
     "tableSymbol": "Mã",
@@ -200,7 +200,7 @@
     "copyOpenedTitle": "Đã sao chép giao dịch mới",
     "copyOpenedBody": "Đã sao chép giao dịch {symbol} ({side, select, sell {bán} other {mua}}) từ nhà giao dịch bạn theo dõi.",
     "copyClosedTitle": "Giao dịch được sao chép từ {providerName}",
-    "copyClosedBody": "Giao dịch {symbol} đã đóng với kết quả {positive, select, true {+} other {-}}{amount}$",
+    "copyClosedBody": "Giao dịch {symbol} đã đóng với kết quả {amount}",
     "autoStopCopyTitle": "Sao chép đã dừng tự động",
     "autoStopCopyBody": "Việc sao chép một nhà giao dịch đã tự động dừng lại sau khi vượt quá giới hạn lỗ cho phép ({maxDrawdownPct}%). Bạn có thể theo dõi lại họ bất cứ lúc nào từ trang khám phá.",
     "followedTradeClosedTitle": "Giao dịch mới từ nhà giao dịch bạn theo dõi",
@@ -228,13 +228,13 @@
     "prefsLink": "Tùy chọn",
     "leadPayoutApprovedTitle": "Đã duyệt rút tiền",
     "leadPayoutRejectedTitle": "Rút tiền bị từ chối",
-    "leadPayoutBody": "Yêu cầu rút ${amount} của bạn đã được xem xét.",
+    "leadPayoutBody": "Yêu cầu rút {amount} của bạn đã được xem xét.",
     "leadNewCopierTitle": "Người sao chép mới",
-    "leadNewCopierBody": "Có người bắt đầu sao chép bạn với ${amount}.",
+    "leadNewCopierBody": "Có người bắt đầu sao chép bạn với {amount}.",
     "leadCopierStoppedTitle": "Một người đã ngừng sao chép",
-    "leadCopierStoppedBody": "Một người với ${amount} đã ngừng sao chép bạn.",
+    "leadCopierStoppedBody": "Một người với {amount} đã ngừng sao chép bạn.",
     "leadProfitPaidTitle": "Thanh toán chia sẻ lợi nhuận",
-    "leadProfitPaidBody": "${amount} chia sẻ lợi nhuận đã được quyết toán vào số dư.",
+    "leadProfitPaidBody": "{amount} chia sẻ lợi nhuận đã được quyết toán vào số dư.",
     "leadStatusChangedTitle": "Trạng thái tài khoản đã đổi",
     "leadStatusChanged_active": "Tài khoản lead trader của bạn đang hoạt động.",
     "leadStatusChanged_stopped": "Giao dịch trên tài khoản lead trader đã bị dừng.",
@@ -288,7 +288,6 @@
     "enterDepositAmount": "Nhập số tiền nạp",
     "enterWithdrawAmount": "Nhập số tiền rút",
     "continue": "Tiếp tục",
-    "maxAvailable": "Tối đa {amount} USD",
     "backEditAmount": "→ Quay lại chỉnh sửa số tiền",
     "chooseNetwork": "Chọn mạng lưới",
     "walletAddressLabel": "Địa chỉ ví",
@@ -301,7 +300,7 @@
     "copyAddress": "Sao chép",
     "minDeposit": "Tối thiểu: {amount} {currency}",
     "networkConfirmations": "Xác nhận mạng lưới: {count}",
-    "amountSentPlaceholder": "Số tiền đã gửi bằng USD",
+    "amountSentPlaceholder": "Số tiền đã gửi bằng USDT",
     "withdrawBlockedError": "Không thể gửi yêu cầu rút tiền: bạn hiện có vị thế đang mở, và số dư của bạn đang được giữ làm ký quỹ để bảo đảm cho chúng. Bạn có thể dừng sao chép sau khi các vị thế đóng để hoàn lại số dư và lợi nhuận vào ví, sau đó gửi lại yêu cầu rút tiền.",
     "chooseCurrency": "Chọn tiền tệ",
     "chooseNetworkStep": "Chọn mạng lưới",
@@ -1083,7 +1082,7 @@
           "tối thiểu để sao chép",
           "bao nhiêu tiền"
         ],
-        "answer": "Mỗi nhà giao dịch tự đặt số tiền sao chép tối thiểu của riêng mình, hiển thị trên trang hồ sơ của họ bên cạnh nút \"Sao chép\", và thường dao động từ $75 đến $1.000 tùy theo nhà giao dịch."
+        "answer": "Mỗi nhà giao dịch tự đặt số tiền sao chép tối thiểu của riêng mình, hiển thị trên trang hồ sơ của họ bên cạnh nút \"Sao chép\", và thường dao động từ 75 USDT đến 1.000 USDT tùy theo nhà giao dịch."
       },
       {
         "id": "stop-copy",
@@ -1249,19 +1248,19 @@
     "open": "Sao chép",
     "title": "Sao chép {name}",
     "close": "Đóng",
-    "amountLabel": "Số tiền phân bổ ($)",
+    "amountLabel": "Số tiền phân bổ (USDT)",
     "minAmount": "Tối thiểu:",
     "modeLabel": "Chế độ sao chép",
     "modeRatio": "Tỷ lệ cố định",
     "modeFixed": "Số tiền cố định mỗi lệnh",
     "advanced": "Cài đặt nâng cao",
-    "maxPerTrade": "Số tiền tối đa mỗi lệnh ($) — tùy chọn",
+    "maxPerTrade": "Số tiền tối đa mỗi lệnh (USDT) — tùy chọn",
     "copyStopLoss": "Dừng sao chép khi lỗ đạt (%)",
     "riskAck": "Tôi hiểu rằng giao dịch sao chép có rủi ro và tôi có thể mất một phần hoặc toàn bộ số tiền đã phân bổ.",
     "confirm": "Bắt đầu sao chép",
     "profitShare": "Chia sẻ lợi nhuận:",
     "copyStopLossHint": "Lệnh sao chép tự động dừng khi khoản lỗ đã chốt đạt tỷ lệ này trên số tiền đã phân bổ.",
-    "fixedAmountLabel": "Số tiền mỗi lệnh ($)"
+    "fixedAmountLabel": "Số tiền mỗi lệnh (USDT)"
   },
   "Trades": {
     "title": "Giao dịch",
@@ -1326,7 +1325,7 @@
       "style_sporadic": "Thỉnh thoảng",
       "contactLabel": "Phương thức liên hệ (riêng tư)",
       "contactPlaceholder": "Telegram, WhatsApp, email...",
-      "minInvestmentLabel": "Khoản đầu tư tối thiểu đề xuất ($)",
+      "minInvestmentLabel": "Khoản đầu tư tối thiểu đề xuất (USDT)",
       "agreeLabel": "Tôi đồng ý với thỏa thuận lead trader.",
       "submit": "Gửi đơn"
     },
@@ -1475,10 +1474,10 @@
       "hwmTotal": "Mốc đỉnh hiện tại (HWM)",
       "hwmNote": "Bạn chỉ nhận phần lợi nhuận mới vượt đỉnh trước đó của mỗi người sao chép; khoản lỗ phải được bù trước.",
       "payoutTitle": "Rút thu nhập",
-      "payoutAmount": "Số tiền (USD)",
+      "payoutAmount": "Số tiền (USDT)",
       "payoutDestination": "Địa chỉ ví / thông tin nhận",
       "payoutRequest": "Yêu cầu rút",
-      "payoutMinNote": "Tối thiểu $10. Chỉ có thể rút thu nhập đã quyết toán. Việc rút tiền thường hoàn tất trong 24 giờ.",
+      "payoutMinNote": "Tối thiểu 10 USDT. Chỉ có thể rút thu nhập đã quyết toán. Việc rút tiền thường hoàn tất trong 24 giờ.",
       "payoutPendingNotice": "Bạn có một yêu cầu rút tiền đang được xem xét.",
       "payoutRequested": "Đã gửi yêu cầu rút tiền.",
       "payoutCancel": "Hủy",
@@ -1487,7 +1486,7 @@
       "payout_approved": "Đã duyệt",
       "payout_rejected": "Bị từ chối",
       "payout_cancelled": "Đã hủy",
-      "payoutErrMin": "Số tiền rút tối thiểu là $10.",
+      "payoutErrMin": "Số tiền rút tối thiểu là 10 USDT.",
       "payoutErrDestination": "Nhập địa chỉ ví hoặc thông tin nhận tiền.",
       "payoutErrPending": "Bạn đã có một yêu cầu đang được xem xét.",
       "payoutErrAvailable": "Số tiền vượt quá thu nhập khả dụng.",
@@ -1495,7 +1494,7 @@
       "monthlyTitle": "Thu nhập hàng tháng (high-water mark)",
       "month": "Tháng",
       "newProfit": "Lợi nhuận mới vượt đỉnh",
-      "payoutDisabledReason": "Chưa thể rút: thu nhập đã quyết toán của bạn là ${available}, tối thiểu $10."
+      "payoutDisabledReason": "Chưa thể rút: thu nhập đã quyết toán của bạn là {available}, tối thiểu 10 USDT."
     },
     "followerLedger": {
       "title": "Lịch sử chia sẻ lợi nhuận",
@@ -1518,8 +1517,8 @@
       "market_indices": "Chỉ số",
       "contactLabel": "Cách liên hệ (riêng tư)",
       "followerSettings": "Cài đặt người theo dõi",
-      "minInvestmentLabel": "Khoản đầu tư tối thiểu ($)",
-      "minCopyAmountLabel": "Số tiền sao chép tối thiểu ($)",
+      "minInvestmentLabel": "Khoản đầu tư tối thiểu (USDT)",
+      "minCopyAmountLabel": "Số tiền sao chép tối thiểu (USDT)",
       "profitSharePctLabel": "Tỷ lệ chia sẻ lợi nhuận (tối đa {max}% ở cấp của bạn)",
       "acceptingFollowersLabel": "Nhận người theo dõi mới",
       "whitelistNote": "Chế độ chỉ theo lời mời được quản lý tại",
@@ -1731,7 +1730,7 @@
       },
       {
         "q": "Có tài khoản demo không?",
-        "a": "Có. Tài khoản demo bắt đầu với 10.000 USD tiền ảo, giúp bạn luyện tập mà không mạo hiểm tiền của mình."
+        "a": "Có. Tài khoản demo bắt đầu với 10.000 USDT tiền ảo, giúp bạn luyện tập mà không mạo hiểm tiền của mình."
       }
     ]
   },

@@ -4,14 +4,14 @@ import { AccountTypeSwitcher } from "@/components/AccountTypeSwitcher";
 import { ConfirmButton } from "@/components/ConfirmButton";
 import { MyEquityChart } from "@/components/MyEquityChart";
 import { CountUp } from "@/components/ui/CountUp";
+import { getMoney } from "@/lib/money-server";
+import type { MoneyOptions } from "@/lib/money";
 import { chooseAccountType } from "@/app/auth/actions";
 import { resetDemoBalance } from "@/app/portfolio/actions";
 
 type AccountType = "real" | "demo";
 
-function money(n: number) {
-  return n.toLocaleString("en-US", { maximumFractionDigits: 2 });
-}
+type Money = (value: number, opts?: MoneyOptions) => string;
 
 function ActionIcon({ children }: { children: React.ReactNode }) {
   return (
@@ -21,13 +21,13 @@ function ActionIcon({ children }: { children: React.ReactNode }) {
   );
 }
 
-function ProfitRow({ label, amount, pct }: { label: string; amount: number; pct: number }) {
+function ProfitRow({ label, amount, pct, money }: { label: string; amount: number; pct: number; money: Money }) {
   const positive = amount >= 0;
   return (
     <div className="flex items-center justify-between text-sm">
       <span className="text-muted">{label}</span>
       <span dir="ltr" className={positive ? "text-success" : "text-danger"}>
-        {positive ? "+" : "-"}${money(Math.abs(amount))} ({positive ? "+" : "-"}
+        {money(amount, { signed: true })} ({positive ? "+" : "-"}
         {Math.abs(pct).toFixed(2)}%)
       </span>
     </div>
@@ -57,6 +57,7 @@ export async function DashboardHero({
   todayPnl: number;
   closedPositions: { pnl: number | null; closed_at: string | null }[];
 }) {
+  const money = await getMoney();
   const t = await getTranslations("Dashboard");
   const tNav = await getTranslations("Nav");
   // balance already includes any reserved copy capital (allocated_amount is
@@ -94,14 +95,14 @@ export async function DashboardHero({
       <div className="flex flex-col gap-1.5">
         <p className="font-display text-4xl font-extrabold tracking-tight" dir="ltr">
           <span dir="ltr" className="inline-block">
-            <CountUp value={totalValue} prefix="$" />
+            <CountUp value={totalValue} money />
           </span>
         </p>
-        <ProfitRow label={t("todayProfit")} amount={todayPnl} pct={todayPct} />
-        <ProfitRow label={t("totalProfit")} amount={totalProfit} pct={totalProfitPct} />
+        <ProfitRow label={t("todayProfit")} amount={todayPnl} pct={todayPct} money={money} />
+        <ProfitRow label={t("totalProfit")} amount={totalProfit} pct={totalProfitPct} money={money} />
         <p className="text-xs text-muted">
           <span dir="ltr" className={pnlPositive ? "text-success" : "text-danger"}>
-            {pnlPositive ? "+" : "-"}${money(Math.abs(totalUnrealizedPnl))} ({pnlPositive ? "+" : "-"}
+            {money(totalUnrealizedPnl, { signed: true })} ({pnlPositive ? "+" : "-"}
             {Math.abs(pnlPct).toFixed(2)}%)
           </span>{" "}
           {t("unrealizedPnl")}
@@ -115,7 +116,7 @@ export async function DashboardHero({
           <p className="text-xs text-muted">{t("availableCash")}</p>
           <p className="mt-0.5 font-semibold">
             <span dir="ltr" className="inline-block">
-              ${money(availableCash)}
+              {money(availableCash)}
             </span>
           </p>
         </div>
@@ -123,7 +124,7 @@ export async function DashboardHero({
           <p className="text-xs text-muted">{t("reservedForCopy")}</p>
           <p className="mt-0.5 font-semibold">
             <span dir="ltr" className="inline-block">
-              ${money(totalAllocated)}
+              {money(totalAllocated)}
             </span>
           </p>
         </div>

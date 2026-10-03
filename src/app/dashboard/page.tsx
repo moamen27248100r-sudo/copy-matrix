@@ -1,3 +1,4 @@
+import { getMoney } from "@/lib/money-server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -27,6 +28,7 @@ export default async function DashboardPage({
 }) {
   const { error } = await searchParams;
   const t = await getTranslations("Dashboard");
+  const money = await getMoney();
   const tNav = await getTranslations("Nav");
   const tMenu = await getTranslations("AccountMenu");
   const supabase = await createClient();
@@ -336,7 +338,7 @@ export default async function DashboardPage({
               icon: <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />,
             },
             {
-              value: `${netPnl >= 0 ? "+" : "-"}$${Math.abs(netPnl).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
+              value: money(netPnl, { signed: true }),
               label: t("netRealizedProfit"),
               tone: netPnl >= 0 ? "text-success" : "text-danger",
               icon: (

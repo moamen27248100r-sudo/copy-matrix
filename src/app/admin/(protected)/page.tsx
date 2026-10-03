@@ -1,3 +1,4 @@
+import { formatMoney } from "@/lib/money";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
@@ -66,9 +67,9 @@ export default async function AdminOverviewPage({
   ];
 
   const financialStats = [
-    { label: "رصيد المنصة الكلي", value: `$${totalBalance.toLocaleString("en-US", { maximumFractionDigits: 0 })}` },
-    { label: "إجمالي الإيداعات", value: `$${totalDeposits.toLocaleString("en-US", { maximumFractionDigits: 0 })}` },
-    { label: "إجمالي السحوبات", value: `$${totalWithdrawals.toLocaleString("en-US", { maximumFractionDigits: 0 })}` },
+    { label: "رصيد المنصة الكلي", value: formatMoney(totalBalance, "ar") },
+    { label: "إجمالي الإيداعات", value: formatMoney(totalDeposits, "ar") },
+    { label: "إجمالي السحوبات", value: formatMoney(totalWithdrawals, "ar") },
   ];
 
   const kycLink = {

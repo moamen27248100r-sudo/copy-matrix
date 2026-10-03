@@ -59,7 +59,7 @@
     "tryCopy": {
       "badge": "Experimente sem risco",
       "title": "Experimente com uma conta demo",
-      "description": "Comece com 10 000 $ em fundos virtuais e pratique o copy trading antes de usar o seu próprio dinheiro.",
+      "description": "Comece com 10 000 USDT em fundos virtuais e pratique o copy trading antes de usar o seu próprio dinheiro.",
       "cta": "Abrir uma conta demo",
       "cardWelcome": "Sua conta demo gratuita",
       "cardPortfolioLabel": "Valor da carteira demo",
@@ -134,7 +134,7 @@
     "openPositions": "Posições abertas",
     "netRealizedProfit": "Lucro líquido realizado",
     "traderYouCopy": "O trader que você copia",
-    "startedWith": "Começou com: ${amount}",
+    "startedWith": "Começou com: {amount}",
     "winRate": "Taxa de acerto",
     "avgDailyReturn": "Retorno diário médio",
     "noClosedTrades": "Ainda não há operações fechadas",
@@ -144,7 +144,7 @@
     "periodYear": "Ano",
     "periodAll": "Tudo",
     "noEnoughClosedTrades": "Não há operações fechadas suficientes neste período para mostrar o gráfico.",
-    "startingPoint": "Início: ${amount}",
+    "startingPoint": "Início: {amount}",
     "periodDay": "1D",
     "copiedPositionsTitle": "Posições copiadas ativas",
     "tableSymbol": "Símbolo",
@@ -200,7 +200,7 @@
     "copyOpenedTitle": "Nova operação copiada",
     "copyOpenedBody": "Foi copiada uma operação {symbol} ({side, select, sell {venda} other {compra}}) de um trader que você segue.",
     "copyClosedTitle": "Operação copiada de {providerName}",
-    "copyClosedBody": "A operação {symbol} foi fechada com um resultado de {positive, select, true {+} other {-}}{amount}$",
+    "copyClosedBody": "A operação {symbol} foi fechada com um resultado de {amount}",
     "autoStopCopyTitle": "Cópia interrompida automaticamente",
     "autoStopCopyBody": "A cópia de um trader foi interrompida automaticamente após exceder o limite de perda permitido ({maxDrawdownPct}%). Você pode segui-lo novamente a qualquer momento na página de descoberta.",
     "followedTradeClosedTitle": "Nova operação de um trader que você segue",
@@ -228,13 +228,13 @@
     "prefsLink": "Preferências",
     "leadPayoutApprovedTitle": "Saque aprovado",
     "leadPayoutRejectedTitle": "Saque recusado",
-    "leadPayoutBody": "Seu pedido de saque de US${amount} foi analisado.",
+    "leadPayoutBody": "Seu pedido de saque de {amount} foi analisado.",
     "leadNewCopierTitle": "Novo copiador",
-    "leadNewCopierBody": "Alguém começou a copiar você com US${amount}.",
+    "leadNewCopierBody": "Alguém começou a copiar você com {amount}.",
     "leadCopierStoppedTitle": "Um copiador parou",
-    "leadCopierStoppedBody": "Um copiador com US${amount} parou de copiar você.",
+    "leadCopierStoppedBody": "Um copiador com {amount} parou de copiar você.",
     "leadProfitPaidTitle": "Pagamento de participação",
-    "leadProfitPaidBody": "US${amount} de participação foram creditados no seu saldo.",
+    "leadProfitPaidBody": "{amount} de participação foram creditados no seu saldo.",
     "leadStatusChangedTitle": "Status da conta alterado",
     "leadStatusChanged_active": "Sua conta de líder está ativa.",
     "leadStatusChanged_stopped": "A negociação da sua conta de líder foi interrompida.",
@@ -288,7 +288,6 @@
     "enterDepositAmount": "Digite o valor do depósito",
     "enterWithdrawAmount": "Digite o valor do saque",
     "continue": "Continuar",
-    "maxAvailable": "Máx. {amount} USD",
     "backEditAmount": "→ Voltar para editar o valor",
     "chooseNetwork": "Escolha a rede",
     "walletAddressLabel": "Endereço da carteira",
@@ -301,7 +300,7 @@
     "copyAddress": "Copiar",
     "minDeposit": "Mínimo: {amount} {currency}",
     "networkConfirmations": "Confirmações de rede: {count}",
-    "amountSentPlaceholder": "Valor enviado em USD",
+    "amountSentPlaceholder": "Valor enviado em USDT",
     "withdrawBlockedError": "Não foi possível enviar a solicitação de saque: você tem posições abertas no momento, e seu saldo está reservado como margem para cobri-las. Você pode parar de copiar depois que as posições forem fechadas para devolver o saldo e os lucros à sua carteira, e então reenviar a solicitação de saque.",
     "chooseCurrency": "Escolha a moeda",
     "chooseNetworkStep": "Escolha a rede",
@@ -1083,7 +1082,7 @@
           "mínimo para copiar",
           "quanto"
         ],
-        "answer": "Cada trader define seu próprio valor mínimo de cópia, exibido na página de perfil ao lado do botão «Copiar», geralmente entre $75 e $1.000, dependendo do trader."
+        "answer": "Cada trader define seu próprio valor mínimo de cópia, exibido na página de perfil ao lado do botão «Copiar», geralmente entre 75 USDT e 1.000 USDT, dependendo do trader."
       },
       {
         "id": "stop-copy",
@@ -1252,19 +1251,19 @@
     "open": "Copiar",
     "title": "Copiar {name}",
     "close": "Fechar",
-    "amountLabel": "Valor a alocar ($)",
+    "amountLabel": "Valor a alocar (USDT)",
     "minAmount": "Mínimo:",
     "modeLabel": "Modo de cópia",
     "modeRatio": "Proporção fixa",
     "modeFixed": "Valor fixo por operação",
     "advanced": "Definições avançadas",
-    "maxPerTrade": "Valor máximo por operação ($) — opcional",
+    "maxPerTrade": "Valor máximo por operação (USDT) — opcional",
     "copyStopLoss": "Parar de copiar com uma perda de (%)",
     "riskAck": "Compreendo que o copy trading envolve riscos e que posso perder parte ou a totalidade do valor alocado.",
     "confirm": "Começar a copiar",
     "profitShare": "Partilha de lucros:",
     "copyStopLossHint": "A cópia para automaticamente quando a perda realizada atinge esta percentagem do valor alocado.",
-    "fixedAmountLabel": "Valor por operação ($)"
+    "fixedAmountLabel": "Valor por operação (USDT)"
   },
   "Trades": {
     "title": "Operações",
@@ -1329,7 +1328,7 @@
       "style_sporadic": "Ocasional",
       "contactLabel": "Método de contacto (privado)",
       "contactPlaceholder": "Telegram, WhatsApp, e-mail...",
-      "minInvestmentLabel": "Investimento mínimo sugerido ($)",
+      "minInvestmentLabel": "Investimento mínimo sugerido (USDT)",
       "agreeLabel": "Concordo com o acordo do trader líder.",
       "submit": "Enviar candidatura"
     },
@@ -1478,10 +1477,10 @@
       "hwmTotal": "Máxima histórica (HWM)",
       "hwmNote": "Você só recebe sobre o novo lucro acima do pico anterior de cada copiador; as perdas devem ser recuperadas antes.",
       "payoutTitle": "Sacar ganhos",
-      "payoutAmount": "Valor (USD)",
+      "payoutAmount": "Valor (USDT)",
       "payoutDestination": "Endereço da carteira / dados de pagamento",
       "payoutRequest": "Solicitar saque",
-      "payoutMinNote": "Mínimo de 10 $. Só podem ser levantados ganhos liquidados. Os levantamentos costumam ser concluídos em 24 horas.",
+      "payoutMinNote": "Mínimo de 10 USDT. Só podem ser levantados ganhos liquidados. Os levantamentos costumam ser concluídos em 24 horas.",
       "payoutPendingNotice": "Você tem um pedido de saque em análise.",
       "payoutRequested": "Pedido de saque enviado.",
       "payoutCancel": "Cancelar",
@@ -1490,7 +1489,7 @@
       "payout_approved": "Aprovado",
       "payout_rejected": "Recusado",
       "payout_cancelled": "Cancelado",
-      "payoutErrMin": "O saque mínimo é US$ 10.",
+      "payoutErrMin": "O saque mínimo é 10 USDT.",
       "payoutErrDestination": "Informe o endereço da carteira ou os dados de pagamento.",
       "payoutErrPending": "Você já tem um pedido em análise.",
       "payoutErrAvailable": "O valor excede seus ganhos disponíveis.",
@@ -1498,7 +1497,7 @@
       "monthlyTitle": "Ganhos mensais (high-water mark)",
       "month": "Mês",
       "newProfit": "Novo lucro acima do pico",
-      "payoutDisabledReason": "Saque indisponível: você tem US${available} em ganhos liquidados e o mínimo é US$ 10."
+      "payoutDisabledReason": "Saque indisponível: você tem {available} em ganhos liquidados e o mínimo é 10 USDT."
     },
     "followerLedger": {
       "title": "Histórico de participação nos lucros",
@@ -1521,8 +1520,8 @@
       "market_indices": "Índices",
       "contactLabel": "Forma de contato (privado)",
       "followerSettings": "Configurações de seguidores",
-      "minInvestmentLabel": "Investimento mínimo ($)",
-      "minCopyAmountLabel": "Valor mínimo de cópia ($)",
+      "minInvestmentLabel": "Investimento mínimo (USDT)",
+      "minCopyAmountLabel": "Valor mínimo de cópia (USDT)",
       "profitSharePctLabel": "Taxa de participação (máx. {max}% no seu nível)",
       "acceptingFollowersLabel": "Aceitar novos seguidores",
       "whitelistNote": "O modo somente por convite é gerenciado em",
@@ -1734,7 +1733,7 @@
       },
       {
         "q": "Existe conta demo?",
-        "a": "Sim. Uma conta demo começa com US$ 10.000 em fundos virtuais, para você praticar sem arriscar seu dinheiro."
+        "a": "Sim. Uma conta demo começa com 10.000 USDT em fundos virtuais, para você praticar sem arriscar seu dinheiro."
       }
     ]
   },

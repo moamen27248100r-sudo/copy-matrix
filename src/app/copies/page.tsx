@@ -1,3 +1,4 @@
+import { getMoney } from "@/lib/money-server";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -13,6 +14,7 @@ export async function generateMetadata() {
 export default async function CopiesPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
   const { error } = await searchParams;
   const t = await getTranslations("Copies");
+  const money = await getMoney();
   const supabase = await createClient();
   const {
     data: { user },
@@ -73,13 +75,13 @@ export default async function CopiesPage({ searchParams }: { searchParams: Promi
               </div>
               <div className="border-s border-border p-4">
                 <p className="text-lg font-semibold tabular-nums" dir="ltr">
-                  ${totalAllocated.toLocaleString("en-US")}
+                  {money(totalAllocated)}
                 </p>
                 <p className="text-xs text-muted">{t("totalAllocated")}</p>
               </div>
               <div className="border-s border-border p-4">
                 <p className={`text-lg font-semibold tabular-nums ${totalPnl >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
-                  {totalPnl >= 0 ? "+" : "-"}${Math.abs(totalPnl).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  {money(totalPnl, { signed: true })}
                 </p>
                 <p className="text-xs text-muted">{t("realizedPnl")}</p>
               </div>

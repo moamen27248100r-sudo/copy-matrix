@@ -1,3 +1,4 @@
+import { formatMoney } from "@/lib/money";
 import { createClient } from "@/lib/supabase/server";
 import { approveLeadPayout, rejectLeadPayout } from "@/app/admin/actions";
 
@@ -35,7 +36,7 @@ export default async function AdminLeadPayoutsPage({ searchParams }: { searchPar
           <div key={r.id} className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
             <div>
               <p className="font-medium">
-                ${Number(r.amount).toLocaleString("en-US")} · {name(r)}
+                {formatMoney(Number(r.amount), "ar")} · {name(r)}
               </p>
               <p className="break-all text-xs text-muted" dir="ltr">
                 {r.destination}
@@ -61,7 +62,7 @@ export default async function AdminLeadPayoutsPage({ searchParams }: { searchPar
         {recent.map((r) => (
           <div key={r.id} className="flex items-center justify-between rounded-lg border border-border px-3 py-2 text-sm">
             <span>
-              ${Number(r.amount).toLocaleString("en-US")} · {name(r)}
+              {formatMoney(Number(r.amount), "ar")} · {name(r)}
             </span>
             <span className="text-xs text-muted">{STATUS_LABELS[r.status] ?? r.status}</span>
           </div>

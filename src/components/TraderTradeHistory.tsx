@@ -1,5 +1,6 @@
 "use client";
 
+import { useMoney } from "@/lib/money-client";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useCallback, useMemo, useState } from "react";
@@ -70,7 +71,6 @@ function formatDateTime(iso: string | null | undefined) {
 
 const formatPrice = (v: number) => v.toLocaleString("en-US", { maximumFractionDigits: 4 });
 const formatLot = (v: number) => String(Number(v.toFixed(2)));
-const formatUsd = (v: number) => v.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const signed = (v: number, text: string) => `${v > 0 ? "+" : v < 0 ? "-" : ""}${text}`;
 
 const GAIN = "text-accent-hover";
@@ -100,6 +100,7 @@ export function TraderTradeHistory({ trades }: { trades: HistoryTrade[] }) {
   const t = useTranslations("TraderHistory");
   const tp = useTranslations("TradeHistory");
   const ts = useTranslations("Symbols");
+  const money = useMoney();
   const [period, setPeriod] = useState<HistoryPeriod>("all");
   const [custom, setCustom] = useState<CustomRange | null>(null);
   const [symbol, setSymbol] = useState("");
@@ -172,7 +173,7 @@ export function TraderTradeHistory({ trades }: { trades: HistoryTrade[] }) {
             const dirTone = x.side === "buy" ? GAIN : LOSS;
             const delta = tradeDeltaPoints(x.side, x.entry, x.exit);
             const desc = describe(x.symbol);
-            const pnlText = x.pnl != null ? signed(x.pnl, `$${formatUsd(Math.abs(x.pnl))}`) : null;
+            const pnlText = x.pnl != null ? money(x.pnl, { signed: true }) : null;
             const detailId = `trade-detail-${x.id}`;
             return (
               <li key={x.id} className="border-b border-white/[0.05] last:border-b-0">
@@ -300,16 +301,16 @@ export function TraderTradeHistory({ trades }: { trades: HistoryTrade[] }) {
         <div className="flex items-baseline justify-between py-1.5">
           <dt className="font-medium">{t("summaryProfit")}</dt>
           <dd className={`font-semibold ${totals.profit >= 0 ? "text-foreground" : LOSS}`} dir="ltr">
-            {signed(totals.profit, `$${formatUsd(Math.abs(totals.profit))}`)}
+            {money(totals.profit, { signed: true })}
           </dd>
         </div>
         <div className="flex items-baseline justify-between py-1.5">
           <dt className="font-medium">{t("summarySwap")}</dt>
-          <dd dir="ltr">{formatUsd(totals.swap)}</dd>
+          <dd dir="ltr">{money(totals.swap)}</dd>
         </div>
         <div className="flex items-baseline justify-between py-1.5">
           <dt className="font-medium">{t("summaryCommission")}</dt>
-          <dd dir="ltr">{formatUsd(totals.commission)}</dd>
+          <dd dir="ltr">{money(totals.commission)}</dd>
         </div>
         <div className="flex items-baseline justify-between py-1.5">
           <dt className="font-medium">{t("summaryTrades")}</dt>

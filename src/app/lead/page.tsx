@@ -1,3 +1,4 @@
+import { getMoney } from "@/lib/money-server";
 import { redirect } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
@@ -22,7 +23,6 @@ type SignalRow = {
   close_trigger: string | null;
 };
 
-const money = (n: number) => `$${n.toLocaleString("en-US", { maximumFractionDigits: 2 })}`;
 
 function StatCard({ label, value, tone }: { label: string; value: string; tone?: "up" | "down" }) {
   return (
@@ -40,6 +40,7 @@ export async function generateMetadata() {
 
 export default async function LeadOverviewPage() {
   const t = await getTranslations("LeadTrader.overview");
+  const money = await getMoney();
   const tp = await getTranslations("TraderProfile");
   const locale = (await getLocale()) as Locale;
   const supabase = await createClient();
@@ -160,8 +161,8 @@ export default async function LeadOverviewPage() {
           <p className="mb-2 text-sm font-medium">{t("nextTier", { tier: tierLabel(next.key, t) })}</p>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             <ProgressItem label={t("progressDays")} value={activeDays} target={next.minActiveDays} />
-            <ProgressItem label={t("progressAum")} value={aum} target={next.minAum} isMoney />
-            <ProgressItem label={t("progressFollowerProfit")} value={realizedFollowerProfit} target={next.minFollowerProfit} isMoney />
+            <ProgressItem label={t("progressAum")} value={aum} target={next.minAum} money={money} />
+            <ProgressItem label={t("progressFollowerProfit")} value={realizedFollowerProfit} target={next.minFollowerProfit} money={money} />
           </div>
         </div>
       )}
@@ -226,9 +227,9 @@ function tierLabel(key: string, t: Awaited<ReturnType<typeof getTranslations>>) 
   return t(`tier_${key}`);
 }
 
-function ProgressItem({ label, value, target, isMoney }: { label: string; value: number; target: number; isMoney?: boolean }) {
+function ProgressItem({ label, value, target, money }: { label: string; value: number; target: number; money?: (n: number) => string }) {
   const pct = target > 0 ? Math.min(100, Math.round((value / target) * 100)) : 100;
-  const fmt = (n: number) => (isMoney ? `$${n.toLocaleString("en-US", { maximumFractionDigits: 0 })}` : String(n));
+  const fmt = (n: number) => (money ? money(n) : String(n));
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex items-center justify-between text-xs text-muted">

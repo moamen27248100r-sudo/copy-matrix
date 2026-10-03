@@ -1,5 +1,6 @@
 "use server";
 
+import { formatMoney } from "@/lib/money";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
@@ -896,7 +897,7 @@ export async function addMarginCallTrade(formData: FormData) {
       `— الأداة: ${symbol}\n` +
       `— الاتجاه: ${sideLabel}\n` +
       `— المتداول المنسوخ: ${providerName}\n` +
-      `— النتيجة النهائية: -${actualLossUsd.toFixed(2)}$\n\n` +
+      `— النتيجة النهائية: ${formatMoney(-actualLossUsd, "ar")}\n\n` +
       `سبب الإغلاق: لم يكن للصفقة مستوى وقف خسارة (Stop Loss) محدد، ما أدى إلى استمرار تحرك السوق ضدها حتى وصول الحساب إلى مستوى التصفية الإجبارية.\n\n` +
       `نوصي دائمًا بتحديد مستوى وقف خسارة مناسب عند نسخ الصفقات، لإدارة المخاطر وحماية رأس مالكم من تقلبات السوق مستقبلًا.`,
   });

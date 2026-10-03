@@ -59,7 +59,7 @@
     "tryCopy": {
       "badge": "बिना जोखिम आज़माएं",
       "title": "डेमो अकाउंट के साथ आज़माएं",
-      "description": "$10,000 के आभासी फंड से शुरुआत करें और अपने पैसे इस्तेमाल करने से पहले कॉपी ट्रेडिंग का अभ्यास करें।",
+      "description": "10,000 USDT के आभासी फंड से शुरुआत करें और अपने पैसे इस्तेमाल करने से पहले कॉपी ट्रेडिंग का अभ्यास करें।",
       "cta": "डेमो अकाउंट खोलें",
       "cardWelcome": "आपका मुफ़्त डेमो खाता",
       "cardPortfolioLabel": "डेमो पोर्टफोलियो मूल्य",
@@ -134,7 +134,7 @@
     "openPositions": "खुले पोज़िशन",
     "netRealizedProfit": "शुद्ध वास्तविक लाभ",
     "traderYouCopy": "जिस ट्रेडर को आप कॉपी करते हैं",
-    "startedWith": "शुरुआत की गई राशि: ${amount}",
+    "startedWith": "शुरुआत की गई राशि: {amount}",
     "winRate": "जीत दर",
     "avgDailyReturn": "औसत दैनिक रिटर्न",
     "noClosedTrades": "अभी तक कोई बंद ट्रेड नहीं",
@@ -144,7 +144,7 @@
     "periodYear": "वर्ष",
     "periodAll": "सभी",
     "noEnoughClosedTrades": "इस अवधि में चार्ट दिखाने के लिए पर्याप्त बंद ट्रेड नहीं हैं।",
-    "startingPoint": "शुरुआत: ${amount}",
+    "startingPoint": "शुरुआत: {amount}",
     "periodDay": "1दि",
     "copiedPositionsTitle": "सक्रिय कॉपी की गई पोज़िशन",
     "tableSymbol": "सिंबल",
@@ -200,7 +200,7 @@
     "copyOpenedTitle": "नया ट्रेड कॉपी हुआ",
     "copyOpenedBody": "आपके फॉलो किए गए ट्रेडर से {symbol} ({side, select, sell {बिक्री} other {खरीद}}) ट्रेड कॉपी किया गया।",
     "copyClosedTitle": "{providerName} से कॉपी किया गया ट्रेड",
-    "copyClosedBody": "{symbol} ट्रेड {positive, select, true {+} other {-}}{amount}$ के परिणाम के साथ बंद हुआ",
+    "copyClosedBody": "{symbol} ट्रेड {amount} के परिणाम के साथ बंद हुआ",
     "autoStopCopyTitle": "कॉपी करना स्वचालित रूप से रोका गया",
     "autoStopCopyBody": "अनुमत हानि सीमा ({maxDrawdownPct}%) पार करने के बाद एक ट्रेडर की कॉपी स्वचालित रूप से रोक दी गई। आप किसी भी समय खोज पेज से उन्हें फिर से फॉलो कर सकते हैं।",
     "followedTradeClosedTitle": "आपके फॉलो किए गए ट्रेडर से नया ट्रेड",
@@ -228,13 +228,13 @@
     "prefsLink": "प्राथमिकताएं",
     "leadPayoutApprovedTitle": "निकासी स्वीकृत",
     "leadPayoutRejectedTitle": "निकासी अस्वीकृत",
-    "leadPayoutBody": "आपके ${amount} के निकासी अनुरोध की समीक्षा हुई।",
+    "leadPayoutBody": "आपके {amount} के निकासी अनुरोध की समीक्षा हुई।",
     "leadNewCopierTitle": "नया कॉपीकर्ता",
-    "leadNewCopierBody": "किसी ने ${amount} से आपको कॉपी करना शुरू किया।",
+    "leadNewCopierBody": "किसी ने {amount} से आपको कॉपी करना शुरू किया।",
     "leadCopierStoppedTitle": "एक कॉपीकर्ता ने रोका",
-    "leadCopierStoppedBody": "${amount} वाले एक कॉपीकर्ता ने कॉपी करना बंद किया।",
+    "leadCopierStoppedBody": "{amount} वाले एक कॉपीकर्ता ने कॉपी करना बंद किया।",
     "leadProfitPaidTitle": "लाभ-साझेदारी भुगतान",
-    "leadProfitPaidBody": "${amount} लाभ-साझेदारी आपके बैलेंस में जमा हुई।",
+    "leadProfitPaidBody": "{amount} लाभ-साझेदारी आपके बैलेंस में जमा हुई।",
     "leadStatusChangedTitle": "खाता स्थिति बदली",
     "leadStatusChanged_active": "आपका लीड ट्रेडर खाता सक्रिय है।",
     "leadStatusChanged_stopped": "आपके लीड ट्रेडर खाते पर ट्रेडिंग रोक दी गई है।",
@@ -288,7 +288,6 @@
     "enterDepositAmount": "जमा राशि दर्ज करें",
     "enterWithdrawAmount": "निकासी राशि दर्ज करें",
     "continue": "जारी रखें",
-    "maxAvailable": "अधिकतम {amount} USD",
     "backEditAmount": "→ राशि संपादित करने के लिए वापस जाएं",
     "chooseNetwork": "नेटवर्क चुनें",
     "walletAddressLabel": "वॉलेट पता",
@@ -301,7 +300,7 @@
     "copyAddress": "कॉपी करें",
     "minDeposit": "न्यूनतम: {amount} {currency}",
     "networkConfirmations": "नेटवर्क पुष्टिकरण: {count}",
-    "amountSentPlaceholder": "USD में भेजी गई राशि",
+    "amountSentPlaceholder": "USDT में भेजी गई राशि",
     "withdrawBlockedError": "निकासी अनुरोध सबमिट नहीं किया जा सका: आपके पास वर्तमान में खुली पोज़िशन हैं, और आपका बैलेंस उन्हें कवर करने के लिए मार्जिन के रूप में आरक्षित है। पोज़िशन बंद होने के बाद आप बैलेंस और मुनाफे को अपने वॉलेट में वापस लाने के लिए कॉपी करना बंद कर सकते हैं, फिर निकासी अनुरोध फिर से सबमिट करें।",
     "chooseCurrency": "मुद्रा चुनें",
     "chooseNetworkStep": "नेटवर्क चुनें",
@@ -1083,7 +1082,7 @@
           "कॉपी के लिए न्यूनतम",
           "कितनी राशि"
         ],
-        "answer": "प्रत्येक ट्रेडर अपनी खुद की न्यूनतम कॉपी राशि निर्धारित करता है, जो उनके प्रोफ़ाइल पेज पर \"कॉपी\" बटन के बगल में दिखाई जाती है, और यह आमतौर पर ट्रेडर के अनुसार $75 से $1,000 के बीच होती है।"
+        "answer": "प्रत्येक ट्रेडर अपनी खुद की न्यूनतम कॉपी राशि निर्धारित करता है, जो उनके प्रोफ़ाइल पेज पर \"कॉपी\" बटन के बगल में दिखाई जाती है, और यह आमतौर पर ट्रेडर के अनुसार 75 USDT से 1,000 USDT के बीच होती है।"
       },
       {
         "id": "stop-copy",
@@ -1249,19 +1248,19 @@
     "open": "कॉपी करें",
     "title": "{name} को कॉपी करें",
     "close": "बंद करें",
-    "amountLabel": "आवंटित करने की राशि ($)",
+    "amountLabel": "आवंटित करने की राशि (USDT)",
     "minAmount": "न्यूनतम:",
     "modeLabel": "कॉपी मोड",
     "modeRatio": "निश्चित अनुपात",
     "modeFixed": "प्रति ट्रेड निश्चित राशि",
     "advanced": "उन्नत सेटिंग्स",
-    "maxPerTrade": "प्रति ट्रेड अधिकतम राशि ($) — वैकल्पिक",
+    "maxPerTrade": "प्रति ट्रेड अधिकतम राशि (USDT) — वैकल्पिक",
     "copyStopLoss": "कितने % हानि पर कॉपी रोकें (%)",
     "riskAck": "मैं समझता/समझती हूं कि कॉपी ट्रेडिंग में जोखिम है और मैं आवंटित राशि का कुछ या पूरा हिस्सा खो सकता/सकती हूं।",
     "confirm": "कॉपी शुरू करें",
     "profitShare": "लाभ साझा:",
     "copyStopLossHint": "जब कॉपी की वास्तविक हानि आवंटित राशि के इस हिस्से तक पहुंचती है, तो कॉपी अपने आप रुक जाती है।",
-    "fixedAmountLabel": "प्रति ट्रेड राशि ($)"
+    "fixedAmountLabel": "प्रति ट्रेड राशि (USDT)"
   },
   "Trades": {
     "title": "ट्रेड",
@@ -1326,7 +1325,7 @@
       "style_sporadic": "कभी-कभार",
       "contactLabel": "संपर्क का तरीका (निजी)",
       "contactPlaceholder": "Telegram, WhatsApp, ईमेल...",
-      "minInvestmentLabel": "सुझाई गई न्यूनतम निवेश राशि ($)",
+      "minInvestmentLabel": "सुझाई गई न्यूनतम निवेश राशि (USDT)",
       "agreeLabel": "मैं लीड ट्रेडर समझौते से सहमत हूँ।",
       "submit": "आवेदन जमा करें"
     },
@@ -1475,10 +1474,10 @@
       "hwmTotal": "वर्तमान हाई-वॉटर मार्क",
       "hwmNote": "आपको हर कॉपीकर्ता के पिछले शिखर से ऊपर के नए मुनाफे पर ही हिस्सा मिलता है; पहले घाटा पूरा होना चाहिए।",
       "payoutTitle": "कमाई निकालें",
-      "payoutAmount": "राशि (USD)",
+      "payoutAmount": "राशि (USDT)",
       "payoutDestination": "वॉलेट पता / भुगतान विवरण",
       "payoutRequest": "निकासी का अनुरोध",
-      "payoutMinNote": "न्यूनतम $10। केवल निपटाई गई कमाई निकाली जा सकती है। निकासी आमतौर पर 24 घंटे के भीतर पूरी होती है।",
+      "payoutMinNote": "न्यूनतम 10 USDT। केवल निपटाई गई कमाई निकाली जा सकती है। निकासी आमतौर पर 24 घंटे के भीतर पूरी होती है।",
       "payoutPendingNotice": "आपका एक निकासी अनुरोध समीक्षा में है।",
       "payoutRequested": "निकासी अनुरोध भेज दिया गया।",
       "payoutCancel": "रद्द करें",
@@ -1487,7 +1486,7 @@
       "payout_approved": "स्वीकृत",
       "payout_rejected": "अस्वीकृत",
       "payout_cancelled": "रद्द",
-      "payoutErrMin": "न्यूनतम निकासी $10 है।",
+      "payoutErrMin": "न्यूनतम निकासी 10 USDT है।",
       "payoutErrDestination": "वॉलेट पता या भुगतान विवरण दर्ज करें।",
       "payoutErrPending": "आपका एक अनुरोध पहले से समीक्षा में है।",
       "payoutErrAvailable": "राशि आपकी उपलब्ध कमाई से अधिक है।",
@@ -1495,7 +1494,7 @@
       "monthlyTitle": "मासिक कमाई (हाई-वॉटर मार्क)",
       "month": "माह",
       "newProfit": "शिखर से ऊपर का नया मुनाफा",
-      "payoutDisabledReason": "निकासी उपलब्ध नहीं: आपकी निपटाई गई कमाई ${available} है और न्यूनतम $10 है।"
+      "payoutDisabledReason": "निकासी उपलब्ध नहीं: आपकी निपटाई गई कमाई {available} है और न्यूनतम 10 USDT है।"
     },
     "followerLedger": {
       "title": "लाभ-साझेदारी इतिहास",
@@ -1518,8 +1517,8 @@
       "market_indices": "इंडेक्स",
       "contactLabel": "संपर्क माध्यम (निजी)",
       "followerSettings": "फ़ॉलोअर सेटिंग्स",
-      "minInvestmentLabel": "न्यूनतम निवेश ($)",
-      "minCopyAmountLabel": "न्यूनतम कॉपी राशि ($)",
+      "minInvestmentLabel": "न्यूनतम निवेश (USDT)",
+      "minCopyAmountLabel": "न्यूनतम कॉपी राशि (USDT)",
       "profitSharePctLabel": "लाभ-साझेदारी दर (आपके स्तर पर अधिकतम {max}%)",
       "acceptingFollowersLabel": "नए फ़ॉलोअर स्वीकार करें",
       "whitelistNote": "केवल-आमंत्रण मोड यहाँ से प्रबंधित होता है:",
@@ -1731,7 +1730,7 @@
       },
       {
         "q": "क्या डेमो अकाउंट है?",
-        "a": "हाँ। डेमो अकाउंट 10,000 डॉलर के वर्चुअल फ़ंड से शुरू होता है, ताकि आप अपने पैसे को जोखिम में डाले बिना अभ्यास कर सकें।"
+        "a": "हाँ। डेमो अकाउंट 10,000 USDT के वर्चुअल फ़ंड से शुरू होता है, ताकि आप अपने पैसे को जोखिम में डाले बिना अभ्यास कर सकें।"
       }
     ]
   },

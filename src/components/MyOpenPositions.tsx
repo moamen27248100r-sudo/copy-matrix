@@ -1,5 +1,6 @@
 "use client";
 
+import { useMoney } from "@/lib/money-client";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -36,6 +37,7 @@ function PositionRow({
 }) {
   const tl = useTranslations("LivePrices");
   const tt = useTranslations("Trades");
+  const money = useMoney();
   const [editing, setEditing] = useState(false);
   const [flash, setFlash] = useState<"up" | "down" | null>(null);
   const prevPrice = useRef<number | undefined>(current);
@@ -99,7 +101,7 @@ function PositionRow({
           dir="ltr"
         >
           {unrealizedPnl != null
-            ? `${unrealizedPnl >= 0 ? "+" : "-"}$${Math.abs(unrealizedPnl).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+            ? money(unrealizedPnl, { signed: true })
             : "—"}
         </p>
         <p className="text-xs text-muted" dir="ltr">
@@ -154,6 +156,7 @@ export function MyOpenPositions({
   initialPrices: Record<string, number>;
 }) {
   const t = useTranslations("Portfolio");
+  const money = useMoney();
   const pathname = usePathname();
   const returnTo = pathname === "/portfolio" ? "/portfolio?tab=positions" : pathname;
   const symbols = Array.from(new Set(positions.map((p) => p.symbol)));
@@ -175,7 +178,7 @@ export function MyOpenPositions({
             className={totalUnrealizedPnl >= 0 ? "text-sm font-semibold text-success" : "text-sm font-semibold text-danger"}
             dir="ltr"
           >
-            {totalUnrealizedPnl >= 0 ? "+" : "-"}${Math.abs(totalUnrealizedPnl).toLocaleString("en-US", { maximumFractionDigits: 2 })}
+            {money(totalUnrealizedPnl, { signed: true })}
           </span>
         )}
       </div>

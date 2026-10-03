@@ -59,7 +59,7 @@
     "tryCopy": {
       "badge": "بلا خطرہ آزمائیں",
       "title": "ڈیمو اکاؤنٹ کے ساتھ آزمائیں",
-      "description": "$10,000 کے ورچوئل فنڈز سے شروع کریں اور اپنی رقم استعمال کرنے سے پہلے کاپی ٹریڈنگ کی مشق کریں۔",
+      "description": "10,000 USDT کے ورچوئل فنڈز سے شروع کریں اور اپنی رقم استعمال کرنے سے پہلے کاپی ٹریڈنگ کی مشق کریں۔",
       "cta": "ڈیمو اکاؤنٹ کھولیں",
       "cardWelcome": "آپ کا مفت ڈیمو اکاؤنٹ",
       "cardPortfolioLabel": "ڈیمو پورٹ فولیو ویلیو",
@@ -134,7 +134,7 @@
     "openPositions": "کھلی پوزیشنیں",
     "netRealizedProfit": "خالص حقیقی منافع",
     "traderYouCopy": "وہ ٹریڈر جسے آپ کاپی کرتے ہیں",
-    "startedWith": "ابتدائی رقم: ${amount}",
+    "startedWith": "ابتدائی رقم: {amount}",
     "winRate": "کامیابی کی شرح",
     "avgDailyReturn": "اوسط یومیہ منافع",
     "noClosedTrades": "ابھی تک کوئی بند ٹریڈ نہیں",
@@ -144,7 +144,7 @@
     "periodYear": "سال",
     "periodAll": "سب",
     "noEnoughClosedTrades": "اس مدت میں چارٹ دکھانے کے لیے کافی بند ٹریڈز نہیں ہیں۔",
-    "startingPoint": "آغاز: ${amount}",
+    "startingPoint": "آغاز: {amount}",
     "periodDay": "1د",
     "copiedPositionsTitle": "فعال کاپی شدہ پوزیشنز",
     "tableSymbol": "علامت",
@@ -200,7 +200,7 @@
     "copyOpenedTitle": "نئی ٹریڈ کاپی ہوگئی",
     "copyOpenedBody": "آپ کے فالو کردہ ٹریڈر سے {symbol} ({side, select, sell {فروخت} other {خریداری}}) ٹریڈ کاپی ہوگئی۔",
     "copyClosedTitle": "{providerName} سے کاپی شدہ ٹریڈ",
-    "copyClosedBody": "{symbol} ٹریڈ {positive, select, true {+} other {-}}{amount}$ کے نتیجے کے ساتھ بند ہوئی",
+    "copyClosedBody": "{symbol} ٹریڈ {amount} کے نتیجے کے ساتھ بند ہوئی",
     "autoStopCopyTitle": "کاپی کرنا خودکار طور پر روک دیا گیا",
     "autoStopCopyBody": "اجازت شدہ نقصان کی حد ({maxDrawdownPct}%) سے تجاوز کرنے کے بعد ایک ٹریڈر کی کاپی خودکار طور پر روک دی گئی۔ آپ کسی بھی وقت دریافت کے صفحے سے اسے دوبارہ فالو کر سکتے ہیں۔",
     "followedTradeClosedTitle": "آپ کے فالو کیے گئے ٹریڈر سے نئی ٹریڈ",
@@ -228,13 +228,13 @@
     "prefsLink": "ترجیحات",
     "leadPayoutApprovedTitle": "نکالنا منظور",
     "leadPayoutRejectedTitle": "نکالنا مسترد",
-    "leadPayoutBody": "آپ کی ${amount} کی نکالنے کی درخواست کا جائزہ لیا گیا۔",
+    "leadPayoutBody": "آپ کی {amount} کی نکالنے کی درخواست کا جائزہ لیا گیا۔",
     "leadNewCopierTitle": "نیا کاپی کرنے والا",
-    "leadNewCopierBody": "کسی نے ${amount} سے آپ کو کاپی کرنا شروع کیا۔",
+    "leadNewCopierBody": "کسی نے {amount} سے آپ کو کاپی کرنا شروع کیا۔",
     "leadCopierStoppedTitle": "ایک کاپی کرنے والے نے روک دیا",
-    "leadCopierStoppedBody": "${amount} والے ایک کاپی کرنے والے نے کاپی بند کر دی۔",
+    "leadCopierStoppedBody": "{amount} والے ایک کاپی کرنے والے نے کاپی بند کر دی۔",
     "leadProfitPaidTitle": "منافع کی ادائیگی",
-    "leadProfitPaidBody": "${amount} منافع کا حصہ آپ کے بیلنس میں جمع ہوا۔",
+    "leadProfitPaidBody": "{amount} منافع کا حصہ آپ کے بیلنس میں جمع ہوا۔",
     "leadStatusChangedTitle": "اکاؤنٹ کی حالت بدل گئی",
     "leadStatusChanged_active": "آپ کا لیڈ ٹریڈر اکاؤنٹ فعال ہے۔",
     "leadStatusChanged_stopped": "آپ کے لیڈ ٹریڈر اکاؤنٹ پر ٹریڈنگ روک دی گئی ہے۔",
@@ -288,7 +288,6 @@
     "enterDepositAmount": "جمع کی رقم درج کریں",
     "enterWithdrawAmount": "نکالنے کی رقم درج کریں",
     "continue": "جاری رکھیں",
-    "maxAvailable": "زیادہ سے زیادہ {amount} USD",
     "backEditAmount": "→ رقم میں ترمیم کے لیے واپس جائیں",
     "chooseNetwork": "نیٹ ورک منتخب کریں",
     "walletAddressLabel": "والیٹ ایڈریس",
@@ -301,7 +300,7 @@
     "copyAddress": "کاپی کریں",
     "minDeposit": "کم از کم: {amount} {currency}",
     "networkConfirmations": "نیٹ ورک تصدیقات: {count}",
-    "amountSentPlaceholder": "USD میں بھیجی گئی رقم",
+    "amountSentPlaceholder": "USDT میں بھیجی گئی رقم",
     "withdrawBlockedError": "نکالنے کی درخواست جمع نہیں کی جا سکی: آپ کے پاس فی الحال کھلی پوزیشنز ہیں، اور آپ کا بیلنس انہیں کور کرنے کے لیے مارجن کے طور پر محفوظ ہے۔ آپ پوزیشنز بند ہونے کے بعد کاپی کرنا بند کر سکتے ہیں تاکہ بیلنس اور منافع آپ کے والیٹ میں واپس آ جائیں، پھر نکالنے کی درخواست دوبارہ جمع کریں۔",
     "chooseCurrency": "کرنسی منتخب کریں",
     "chooseNetworkStep": "نیٹ ورک منتخب کریں",
@@ -1083,7 +1082,7 @@
           "کاپی کے لیے کم از کم",
           "کتنی رقم"
         ],
-        "answer": "ہر ٹریڈر اپنی کاپی کے لیے کم از کم رقم مقرر کرتا ہے، جو ان کے پروفائل پیج پر \"کاپی\" بٹن کے ساتھ دکھائی جاتی ہے، اور یہ عام طور پر ٹریڈر کے مطابق $75 سے $1,000 کے درمیان ہوتی ہے۔"
+        "answer": "ہر ٹریڈر اپنی کاپی کے لیے کم از کم رقم مقرر کرتا ہے، جو ان کے پروفائل پیج پر \"کاپی\" بٹن کے ساتھ دکھائی جاتی ہے، اور یہ عام طور پر ٹریڈر کے مطابق 75 USDT سے 1,000 USDT کے درمیان ہوتی ہے۔"
       },
       {
         "id": "stop-copy",
@@ -1249,19 +1248,19 @@
     "open": "کاپی کریں",
     "title": "{name} کو کاپی کریں",
     "close": "بند کریں",
-    "amountLabel": "مختص کرنے کی رقم ($)",
+    "amountLabel": "مختص کرنے کی رقم (USDT)",
     "minAmount": "کم از کم:",
     "modeLabel": "کاپی موڈ",
     "modeRatio": "مقررہ تناسب",
     "modeFixed": "فی ٹریڈ مقررہ رقم",
     "advanced": "ایڈوانسڈ سیٹنگز",
-    "maxPerTrade": "فی ٹریڈ زیادہ سے زیادہ رقم ($) — اختیاری",
+    "maxPerTrade": "فی ٹریڈ زیادہ سے زیادہ رقم (USDT) — اختیاری",
     "copyStopLoss": "کتنے فیصد نقصان پر کاپی روکیں (%)",
     "riskAck": "میں سمجھتا/سمجھتی ہوں کہ کاپی ٹریڈنگ میں خطرہ ہے اور میں مختص رقم کا کچھ یا پورا حصہ کھو سکتا/سکتی ہوں۔",
     "confirm": "کاپی شروع کریں",
     "profitShare": "منافع کا حصہ:",
     "copyStopLossHint": "جب کاپی کا حاصل شدہ نقصان مختص رقم کے اس حصے تک پہنچ جاتا ہے تو کاپی خود بخود رک جاتی ہے۔",
-    "fixedAmountLabel": "فی ٹریڈ رقم ($)"
+    "fixedAmountLabel": "فی ٹریڈ رقم (USDT)"
   },
   "Trades": {
     "title": "ٹریڈز",
@@ -1326,7 +1325,7 @@
       "style_sporadic": "کبھی کبھار",
       "contactLabel": "رابطے کا طریقہ (نجی)",
       "contactPlaceholder": "Telegram، WhatsApp، ای میل...",
-      "minInvestmentLabel": "تجویز کردہ کم از کم سرمایہ کاری ($)",
+      "minInvestmentLabel": "تجویز کردہ کم از کم سرمایہ کاری (USDT)",
       "agreeLabel": "میں لیڈ ٹریڈر معاہدے سے متفق ہوں۔",
       "submit": "درخواست جمع کریں"
     },
@@ -1475,10 +1474,10 @@
       "hwmTotal": "موجودہ ہائی واٹر مارک",
       "hwmNote": "آپ کو ہر کاپی کرنے والے کی پچھلی بلند ترین سطح سے اوپر کے نئے منافع پر ہی حصہ ملتا ہے؛ پہلے نقصان پورا ہونا چاہیے۔",
       "payoutTitle": "کمائی نکالیں",
-      "payoutAmount": "رقم (USD)",
+      "payoutAmount": "رقم (USDT)",
       "payoutDestination": "والٹ ایڈریس / ادائیگی کی تفصیل",
       "payoutRequest": "نکالنے کی درخواست",
-      "payoutMinNote": "کم از کم $10۔ صرف طے شدہ آمدنی نکالی جا سکتی ہے۔ نکالنا عموماً 24 گھنٹوں میں مکمل ہوتا ہے۔",
+      "payoutMinNote": "کم از کم 10 USDT۔ صرف طے شدہ آمدنی نکالی جا سکتی ہے۔ نکالنا عموماً 24 گھنٹوں میں مکمل ہوتا ہے۔",
       "payoutPendingNotice": "آپ کی ایک نکالنے کی درخواست زیر جائزہ ہے۔",
       "payoutRequested": "نکالنے کی درخواست بھیج دی گئی۔",
       "payoutCancel": "منسوخ کریں",
@@ -1487,7 +1486,7 @@
       "payout_approved": "منظور",
       "payout_rejected": "مسترد",
       "payout_cancelled": "منسوخ",
-      "payoutErrMin": "کم از کم نکالنا 10$ ہے۔",
+      "payoutErrMin": "کم از کم نکالنا 10 USDT ہے۔",
       "payoutErrDestination": "والٹ ایڈریس یا ادائیگی کی تفصیل درج کریں۔",
       "payoutErrPending": "آپ کی ایک درخواست پہلے سے زیر جائزہ ہے۔",
       "payoutErrAvailable": "رقم دستیاب کمائی سے زیادہ ہے۔",
@@ -1495,7 +1494,7 @@
       "monthlyTitle": "ماہانہ کمائی (ہائی واٹر مارک)",
       "month": "مہینہ",
       "newProfit": "چوٹی سے اوپر نیا منافع",
-      "payoutDisabledReason": "نکالنا دستیاب نہیں: آپ کی طے شدہ کمائی ${available} ہے اور کم از کم 10$ ہے۔"
+      "payoutDisabledReason": "نکالنا دستیاب نہیں: آپ کی طے شدہ کمائی {available} ہے اور کم از کم 10 USDT ہے۔"
     },
     "followerLedger": {
       "title": "منافع میں حصے کی ہسٹری",
@@ -1518,8 +1517,8 @@
       "market_indices": "انڈیکس",
       "contactLabel": "رابطے کا طریقہ (نجی)",
       "followerSettings": "فالوورز کی سیٹنگز",
-      "minInvestmentLabel": "کم از کم سرمایہ کاری ($)",
-      "minCopyAmountLabel": "کاپی کی کم از کم رقم ($)",
+      "minInvestmentLabel": "کم از کم سرمایہ کاری (USDT)",
+      "minCopyAmountLabel": "کاپی کی کم از کم رقم (USDT)",
       "profitSharePctLabel": "منافع میں حصے کی شرح (آپ کے درجے پر زیادہ سے زیادہ {max}%)",
       "acceptingFollowersLabel": "نئے فالوورز قبول کریں",
       "whitelistNote": "صرف دعوت موڈ یہاں سے منظم ہوتا ہے:",
@@ -1731,7 +1730,7 @@
       },
       {
         "q": "کیا ڈیمو اکاؤنٹ موجود ہے؟",
-        "a": "جی ہاں۔ ڈیمو اکاؤنٹ 10,000 ڈالر کے ورچوئل فنڈز سے شروع ہوتا ہے تاکہ آپ اپنی رقم کو خطرے میں ڈالے بغیر مشق کر سکیں۔"
+        "a": "جی ہاں۔ ڈیمو اکاؤنٹ 10,000 USDT کے ورچوئل فنڈز سے شروع ہوتا ہے تاکہ آپ اپنی رقم کو خطرے میں ڈالے بغیر مشق کر سکیں۔"
       }
     ]
   },

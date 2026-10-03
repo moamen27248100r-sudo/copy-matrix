@@ -1,3 +1,6 @@
+import type { Locale } from "@/i18n/locales";
+import { formatMoney } from "@/lib/money";
+import { useLocale } from "next-intl";
 import Link from "next/link";
 import { TraderAvatar } from "@/components/TraderAvatar";
 
@@ -50,6 +53,7 @@ export function TryCopySection({
   portfolioValue,
   leaders,
 }: Props) {
+  const locale = useLocale() as Locale;
   const maxReturn = Math.max(...leaders.map((l) => l.returnPct), 0.01);
 
   return (
@@ -78,7 +82,7 @@ export function TryCopySection({
             <p className="text-sm font-semibold">{cardWelcome}</p>
             <p className="mt-3 text-xs text-muted">{cardPortfolioLabel}</p>
             <p className="text-4xl font-bold text-foreground" dir="ltr">
-              ${portfolioValue.toLocaleString("en-US")}
+              {formatMoney(portfolioValue, locale)}
             </p>
             <p className="text-xs text-success" dir="ltr">
               +0.00 (0%)

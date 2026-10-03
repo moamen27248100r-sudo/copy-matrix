@@ -1,5 +1,6 @@
 "use client";
 
+import { useMoney } from "@/lib/money-client";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 
@@ -10,6 +11,7 @@ type ClosedPosition = {
 
 export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
   const t = useTranslations("Dashboard");
+  const money = useMoney();
   const PERIODS: { label: string; days: number | null }[] = [
     { label: t("periodDay"), days: 1 },
     { label: t("periodWeek"), days: 7 },
@@ -93,9 +95,9 @@ export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
             <polyline fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" points={coords} />
           </svg>
           <div className="flex items-center justify-between text-xs text-muted">
-            <span>{t("startingPoint", { amount: "0" })}</span>
+            <span>{t("startingPoint", { amount: money(0) })}</span>
             <span className={last >= 0 ? "text-success" : "text-danger"} dir="ltr">
-              {last >= 0 ? "+" : "-"}${Math.abs(last).toLocaleString("en-US", { maximumFractionDigits: 2 })}
+              {money(last, { signed: true })}
             </span>
           </div>
         </div>

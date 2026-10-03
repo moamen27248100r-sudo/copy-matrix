@@ -1,3 +1,4 @@
+import { getMoney } from "@/lib/money-server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations, getLocale } from "next-intl/server";
@@ -19,7 +20,7 @@ function renderBody(body: string) {
       {prefix}
       <span className={isPositive ? "text-success" : "text-danger"}>
         {amount}
-        {unit}
+        {unit === "$" ? " USDT" : unit}
       </span>
     </>
   );
@@ -131,6 +132,7 @@ export default async function NotificationsPage({ searchParams }: { searchParams
   const activeCat = (CATEGORY_KEYS as readonly string[]).includes(cat ?? "") ? (cat as string) : "all";
   const locale = (await getLocale()) as Locale;
   const userTz = await getUserTimeZone();
+  const money = await getMoney();
   const t = await getTranslations("Nav");
   const tn = await getTranslations("Notifications");
   const supabase = await createClient();
@@ -189,7 +191,7 @@ export default async function NotificationsPage({ searchParams }: { searchParams
         ) : (
           <div className="flex flex-col gap-2">
             {visible.map((n) => {
-              const { title, body } = renderNotification(tn, n);
+              const { title, body } = renderNotification(tn, n, money);
               return (
                 <form key={n.id} action={markOneRead}>
                   <input type="hidden" name="id" value={n.id} />

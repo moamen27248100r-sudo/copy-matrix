@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useMoney } from "@/lib/money-client";
 
 // Renders the real value immediately (so server HTML and first paint are never
 // a misleading "0"), then animates smoothly from the previous value to the new
 // one whenever it changes, with a brief background flash.
-export function CountUp({ value, prefix = "" }: { value: number; prefix?: string }) {
+export function CountUp({ value, prefix = "", money = false }: { value: number; prefix?: string; money?: boolean }) {
+  const fmt = useMoney();
   const [shown, setShown] = useState(value);
   const [flash, setFlash] = useState(0);
   const from = useRef(value);
@@ -39,7 +41,7 @@ export function CountUp({ value, prefix = "" }: { value: number; prefix?: string
   return (
     <span key={flash} className={flash > 0 ? "animate-value-flash rounded" : undefined}>
       {prefix}
-      {shown.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 0 })}
+      {money ? fmt(shown) : shown.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 0 })}
     </span>
   );
 }

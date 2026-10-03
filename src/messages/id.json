@@ -59,7 +59,7 @@
     "tryCopy": {
       "badge": "Coba tanpa risiko",
       "title": "Coba dengan akun demo",
-      "description": "Mulai dengan dana virtual $10.000 dan berlatih menyalin sebelum menggunakan uang Anda sendiri.",
+      "description": "Mulai dengan dana virtual 10.000 USDT dan berlatih menyalin sebelum menggunakan uang Anda sendiri.",
       "cta": "Buka akun demo",
       "cardWelcome": "Akun demo gratis Anda",
       "cardPortfolioLabel": "Nilai portofolio demo",
@@ -134,7 +134,7 @@
     "openPositions": "Posisi terbuka",
     "netRealizedProfit": "Laba bersih terealisasi",
     "traderYouCopy": "Trader yang Anda salin",
-    "startedWith": "Dimulai dengan: ${amount}",
+    "startedWith": "Dimulai dengan: {amount}",
     "winRate": "Tingkat kemenangan",
     "avgDailyReturn": "Rata-rata return harian",
     "noClosedTrades": "Belum ada transaksi yang ditutup",
@@ -144,7 +144,7 @@
     "periodYear": "Tahun",
     "periodAll": "Semua",
     "noEnoughClosedTrades": "Transaksi tertutup tidak cukup pada periode ini untuk menampilkan grafik.",
-    "startingPoint": "Mulai: ${amount}",
+    "startingPoint": "Mulai: {amount}",
     "periodDay": "1H",
     "copiedPositionsTitle": "Posisi Salinan Aktif",
     "tableSymbol": "Simbol",
@@ -200,7 +200,7 @@
     "copyOpenedTitle": "Trade baru disalin",
     "copyOpenedBody": "Trade {symbol} ({side, select, sell {jual} other {beli}}) disalin dari trader yang Anda ikuti.",
     "copyClosedTitle": "Transaksi disalin dari {providerName}",
-    "copyClosedBody": "Transaksi {symbol} ditutup dengan hasil {positive, select, true {+} other {-}}{amount}$",
+    "copyClosedBody": "Transaksi {symbol} ditutup dengan hasil {amount}",
     "autoStopCopyTitle": "Penyalinan dihentikan secara otomatis",
     "autoStopCopyBody": "Penyalinan seorang trader dihentikan secara otomatis setelah melampaui batas kerugian yang diizinkan ({maxDrawdownPct}%). Anda dapat mengikutinya lagi kapan saja dari halaman temukan.",
     "followedTradeClosedTitle": "Transaksi baru dari trader yang Anda ikuti",
@@ -228,13 +228,13 @@
     "prefsLink": "Preferensi",
     "leadPayoutApprovedTitle": "Penarikan disetujui",
     "leadPayoutRejectedTitle": "Penarikan ditolak",
-    "leadPayoutBody": "Permintaan penarikan ${amount} Anda telah ditinjau.",
+    "leadPayoutBody": "Permintaan penarikan {amount} Anda telah ditinjau.",
     "leadNewCopierTitle": "Peniru baru",
-    "leadNewCopierBody": "Seseorang mulai meniru Anda dengan ${amount}.",
+    "leadNewCopierBody": "Seseorang mulai meniru Anda dengan {amount}.",
     "leadCopierStoppedTitle": "Seorang peniru berhenti",
-    "leadCopierStoppedBody": "Peniru dengan ${amount} berhenti meniru Anda.",
+    "leadCopierStoppedBody": "Peniru dengan {amount} berhenti meniru Anda.",
     "leadProfitPaidTitle": "Pembayaran bagi hasil",
-    "leadProfitPaidBody": "Bagi hasil ${amount} telah masuk ke saldo Anda.",
+    "leadProfitPaidBody": "Bagi hasil {amount} telah masuk ke saldo Anda.",
     "leadStatusChangedTitle": "Status akun berubah",
     "leadStatusChanged_active": "Akun lead trader Anda aktif.",
     "leadStatusChanged_stopped": "Trading pada akun lead trader Anda dihentikan.",
@@ -288,7 +288,6 @@
     "enterDepositAmount": "Masukkan jumlah setoran",
     "enterWithdrawAmount": "Masukkan jumlah penarikan",
     "continue": "Lanjutkan",
-    "maxAvailable": "Maks {amount} USD",
     "backEditAmount": "→ Kembali untuk mengedit jumlah",
     "chooseNetwork": "Pilih jaringan",
     "walletAddressLabel": "Alamat dompet",
@@ -301,7 +300,7 @@
     "copyAddress": "Salin",
     "minDeposit": "Minimum: {amount} {currency}",
     "networkConfirmations": "Konfirmasi jaringan: {count}",
-    "amountSentPlaceholder": "Jumlah yang dikirim dalam USD",
+    "amountSentPlaceholder": "Jumlah yang dikirim dalam USDT",
     "withdrawBlockedError": "Tidak dapat mengirimkan permintaan penarikan: Anda saat ini memiliki posisi terbuka, dan saldo Anda dicadangkan sebagai margin untuk menutupinya. Anda dapat berhenti menyalin setelah posisi ditutup untuk mengembalikan saldo dan keuntungan ke dompet Anda, lalu kirimkan kembali permintaan penarikan.",
     "chooseCurrency": "Pilih mata uang",
     "chooseNetworkStep": "Pilih jaringan",
@@ -1083,7 +1082,7 @@
           "minimum untuk menyalin",
           "berapa banyak"
         ],
-        "answer": "Setiap trader menetapkan jumlah minimum penyalinannya sendiri, ditampilkan di halaman profil mereka di samping tombol \"Salin\", dan biasanya berkisar antara $75 hingga $1.000 tergantung trader."
+        "answer": "Setiap trader menetapkan jumlah minimum penyalinannya sendiri, ditampilkan di halaman profil mereka di samping tombol \"Salin\", dan biasanya berkisar antara 75 USDT hingga 1.000 USDT tergantung trader."
       },
       {
         "id": "stop-copy",
@@ -1249,19 +1248,19 @@
     "open": "Salin",
     "title": "Salin {name}",
     "close": "Tutup",
-    "amountLabel": "Jumlah yang dialokasikan ($)",
+    "amountLabel": "Jumlah yang dialokasikan (USDT)",
     "minAmount": "Minimum:",
     "modeLabel": "Mode salin",
     "modeRatio": "Rasio tetap",
     "modeFixed": "Jumlah tetap per transaksi",
     "advanced": "Pengaturan lanjutan",
-    "maxPerTrade": "Jumlah maksimum per transaksi ($) — opsional",
+    "maxPerTrade": "Jumlah maksimum per transaksi (USDT) — opsional",
     "copyStopLoss": "Berhenti menyalin saat rugi (%)",
     "riskAck": "Saya memahami bahwa copy trading mengandung risiko dan saya dapat kehilangan sebagian atau seluruh jumlah yang dialokasikan.",
     "confirm": "Mulai menyalin",
     "profitShare": "Bagi hasil:",
     "copyStopLossHint": "Penyalinan berhenti otomatis saat kerugian yang terealisasi mencapai persentase ini dari jumlah yang dialokasikan.",
-    "fixedAmountLabel": "Jumlah per transaksi ($)"
+    "fixedAmountLabel": "Jumlah per transaksi (USDT)"
   },
   "Trades": {
     "title": "Transaksi",
@@ -1326,7 +1325,7 @@
       "style_sporadic": "Sesekali",
       "contactLabel": "Metode kontak (pribadi)",
       "contactPlaceholder": "Telegram, WhatsApp, email...",
-      "minInvestmentLabel": "Investasi minimum yang disarankan ($)",
+      "minInvestmentLabel": "Investasi minimum yang disarankan (USDT)",
       "agreeLabel": "Saya menyetujui perjanjian lead trader.",
       "submit": "Kirim pengajuan"
     },
@@ -1475,10 +1474,10 @@
       "hwmTotal": "High-water mark saat ini",
       "hwmNote": "Anda hanya dibayar dari laba baru di atas puncak sebelumnya tiap peniru; kerugian harus dipulihkan dulu.",
       "payoutTitle": "Tarik pendapatan",
-      "payoutAmount": "Jumlah (USD)",
+      "payoutAmount": "Jumlah (USDT)",
       "payoutDestination": "Alamat dompet / detail pembayaran",
       "payoutRequest": "Ajukan penarikan",
-      "payoutMinNote": "Minimum $10. Hanya penghasilan yang sudah diselesaikan yang dapat ditarik. Penarikan biasanya selesai dalam 24 jam.",
+      "payoutMinNote": "Minimum 10 USDT. Hanya penghasilan yang sudah diselesaikan yang dapat ditarik. Penarikan biasanya selesai dalam 24 jam.",
       "payoutPendingNotice": "Anda memiliki permintaan penarikan yang sedang ditinjau.",
       "payoutRequested": "Permintaan penarikan terkirim.",
       "payoutCancel": "Batalkan",
@@ -1487,7 +1486,7 @@
       "payout_approved": "Disetujui",
       "payout_rejected": "Ditolak",
       "payout_cancelled": "Dibatalkan",
-      "payoutErrMin": "Penarikan minimum $10.",
+      "payoutErrMin": "Penarikan minimum 10 USDT.",
       "payoutErrDestination": "Masukkan alamat dompet atau detail pembayaran.",
       "payoutErrPending": "Anda sudah memiliki permintaan yang sedang ditinjau.",
       "payoutErrAvailable": "Jumlah melebihi pendapatan yang tersedia.",
@@ -1495,7 +1494,7 @@
       "monthlyTitle": "Pendapatan bulanan (high-water mark)",
       "month": "Bulan",
       "newProfit": "Laba baru di atas puncak",
-      "payoutDisabledReason": "Penarikan belum tersedia: pendapatan terselesaikan Anda ${available}, minimum $10."
+      "payoutDisabledReason": "Penarikan belum tersedia: pendapatan terselesaikan Anda {available}, minimum 10 USDT."
     },
     "followerLedger": {
       "title": "Riwayat bagi hasil",
@@ -1518,8 +1517,8 @@
       "market_indices": "Indeks",
       "contactLabel": "Kontak (pribadi)",
       "followerSettings": "Pengaturan pengikut",
-      "minInvestmentLabel": "Investasi minimum ($)",
-      "minCopyAmountLabel": "Jumlah salin minimum ($)",
+      "minInvestmentLabel": "Investasi minimum (USDT)",
+      "minCopyAmountLabel": "Jumlah salin minimum (USDT)",
       "profitSharePctLabel": "Persentase bagi hasil (maks. {max}% di level Anda)",
       "acceptingFollowersLabel": "Terima pengikut baru",
       "whitelistNote": "Mode hanya undangan dikelola dari",
@@ -1731,7 +1730,7 @@
       },
       {
         "q": "Apakah ada akun demo?",
-        "a": "Ya. Akun demo dimulai dengan dana virtual $10.000, sehingga Anda bisa berlatih tanpa mempertaruhkan uang sendiri."
+        "a": "Ya. Akun demo dimulai dengan dana virtual 10.000 USDT, sehingga Anda bisa berlatih tanpa mempertaruhkan uang sendiri."
       }
     ]
   },

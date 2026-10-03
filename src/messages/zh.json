@@ -59,7 +59,7 @@
     "tryCopy": {
       "badge": "免费试用",
       "title": "使用模拟账户体验",
-      "description": "从 10,000 美元虚拟资金开始，在动用自己的资金之前先练习跟单。",
+      "description": "从 10,000 USDT虚拟资金开始，在动用自己的资金之前先练习跟单。",
       "cta": "开通模拟账户",
       "cardWelcome": "您的免费模拟账户",
       "cardPortfolioLabel": "模拟账户组合价值",
@@ -134,7 +134,7 @@
     "openPositions": "持仓中",
     "netRealizedProfit": "净已实现利润",
     "traderYouCopy": "您正在跟单的交易员",
-    "startedWith": "起始金额：${amount}",
+    "startedWith": "起始金额：{amount}",
     "winRate": "胜率",
     "avgDailyReturn": "平均每日回报",
     "noClosedTrades": "暂无已平仓交易",
@@ -144,7 +144,7 @@
     "periodYear": "年",
     "periodAll": "全部",
     "noEnoughClosedTrades": "此期间已平仓交易不足，无法显示图表。",
-    "startingPoint": "起点：${amount}",
+    "startingPoint": "起点：{amount}",
     "periodDay": "1天",
     "copiedPositionsTitle": "当前跟单仓位",
     "tableSymbol": "品种",
@@ -200,7 +200,7 @@
     "copyOpenedTitle": "已复制新交易",
     "copyOpenedBody": "已从您关注的交易员复制一笔 {symbol}（{side, select, sell {卖出} other {买入}}）交易。",
     "copyClosedTitle": "来自 {providerName} 的跟单交易",
-    "copyClosedBody": "{symbol} 交易已平仓，结果为 {positive, select, true {+} other {-}}{amount} 美元",
+    "copyClosedBody": "{symbol} 交易已平仓，结果为 {amount}",
     "autoStopCopyTitle": "跟单已自动停止",
     "autoStopCopyBody": "对一位交易员的跟单在超过允许的亏损限额（{maxDrawdownPct}%）后已自动停止。您可以随时从发现页面重新关注该交易员。",
     "followedTradeClosedTitle": "您关注的交易员有新交易",
@@ -228,13 +228,13 @@
     "prefsLink": "偏好设置",
     "leadPayoutApprovedTitle": "提现已批准",
     "leadPayoutRejectedTitle": "提现被拒绝",
-    "leadPayoutBody": "您 ${amount} 的收益提现申请已审核。",
+    "leadPayoutBody": "您 {amount} 的收益提现申请已审核。",
     "leadNewCopierTitle": "新跟单者",
-    "leadNewCopierBody": "有人以 ${amount} 开始跟单您。",
+    "leadNewCopierBody": "有人以 {amount} 开始跟单您。",
     "leadCopierStoppedTitle": "有跟单者已停止",
-    "leadCopierStoppedBody": "一位 ${amount} 的跟单者已停止跟单。",
+    "leadCopierStoppedBody": "一位 {amount} 的跟单者已停止跟单。",
     "leadProfitPaidTitle": "分润到账",
-    "leadProfitPaidBody": "${amount} 分润已结算到您的余额。",
+    "leadProfitPaidBody": "{amount} 分润已结算到您的余额。",
     "leadStatusChangedTitle": "账户状态已变更",
     "leadStatusChanged_active": "您的领导者账户已恢复正常。",
     "leadStatusChanged_stopped": "您的领导者账户交易已被停止。",
@@ -288,7 +288,6 @@
     "enterDepositAmount": "输入存款金额",
     "enterWithdrawAmount": "输入提款金额",
     "continue": "继续",
-    "maxAvailable": "最多 {amount} 美元",
     "backEditAmount": "→ 返回修改金额",
     "chooseNetwork": "选择网络",
     "walletAddressLabel": "钱包地址",
@@ -301,7 +300,7 @@
     "copyAddress": "复制",
     "minDeposit": "最低：{amount} {currency}",
     "networkConfirmations": "网络确认数：{count}",
-    "amountSentPlaceholder": "已发送金额（美元）",
+    "amountSentPlaceholder": "已发送金额（USDT）",
     "withdrawBlockedError": "无法提交提款申请：您当前有持仓，您的余额已作为保证金被锁定以覆盖这些持仓。您可以在持仓平仓后停止跟单，将余额和利润退回钱包，然后重新提交提款申请。",
     "chooseCurrency": "选择币种",
     "chooseNetworkStep": "选择网络",
@@ -1083,7 +1082,7 @@
           "跟单最低",
           "需要多少钱"
         ],
-        "answer": "每位交易员会设定自己的最低跟单金额，显示在其个人主页的「跟单」按钮旁，通常根据交易员不同，在75美元至1,000美元之间。"
+        "answer": "每位交易员会设定自己的最低跟单金额，显示在其个人主页的「跟单」按钮旁，通常根据交易员不同，在75 USDT至1,000 USDT之间。"
       },
       {
         "id": "stop-copy",
@@ -1250,19 +1249,19 @@
     "open": "跟单",
     "title": "跟单 {name}",
     "close": "关闭",
-    "amountLabel": "分配金额（$）",
+    "amountLabel": "分配金额（USDT）",
     "minAmount": "最低：",
     "modeLabel": "跟单模式",
     "modeRatio": "固定比例",
     "modeFixed": "每笔固定金额",
     "advanced": "高级设置",
-    "maxPerTrade": "单笔最大金额（$）— 可选",
+    "maxPerTrade": "单笔最大金额（USDT）— 可选",
     "copyStopLoss": "亏损达到以下比例时停止跟单（%）",
     "riskAck": "我了解跟单交易存在风险，可能损失部分或全部分配金额。",
     "confirm": "开始跟单",
     "profitShare": "利润分成：",
     "copyStopLossHint": "当已实现亏损达到分配金额的该比例时，跟单将自动停止。",
-    "fixedAmountLabel": "每笔金额（$）"
+    "fixedAmountLabel": "每笔金额（USDT）"
   },
   "Trades": {
     "title": "交易",
@@ -1327,7 +1326,7 @@
       "style_sporadic": "偶尔交易",
       "contactLabel": "联系方式（保密）",
       "contactPlaceholder": "Telegram、WhatsApp、邮箱…",
-      "minInvestmentLabel": "建议最低投资额 ($)",
+      "minInvestmentLabel": "建议最低投资额 (USDT)",
       "agreeLabel": "我同意带单交易员协议。",
       "submit": "提交申请"
     },
@@ -1476,10 +1475,10 @@
       "hwmTotal": "当前高水位线 (HWM)",
       "hwmNote": "仅对每位跟单者超过此前峰值的新增利润分成，亏损须先弥补。",
       "payoutTitle": "提取收益",
-      "payoutAmount": "金额 (USD)",
+      "payoutAmount": "金额 (USDT)",
       "payoutDestination": "钱包地址 / 收款信息",
       "payoutRequest": "申请提现",
-      "payoutMinNote": "最低 10 美元。仅可提取已结算的收益。提现通常在 24 小时内完成。",
+      "payoutMinNote": "最低 10 USDT。仅可提取已结算的收益。提现通常在 24 小时内完成。",
       "payoutPendingNotice": "您有一笔提现申请正在审核中。",
       "payoutRequested": "提现申请已提交。",
       "payoutCancel": "取消",
@@ -1488,7 +1487,7 @@
       "payout_approved": "已批准",
       "payout_rejected": "已拒绝",
       "payout_cancelled": "已取消",
-      "payoutErrMin": "最低提现金额为10美元。",
+      "payoutErrMin": "最低提现金额为10 USDT。",
       "payoutErrDestination": "请输入钱包地址或收款信息。",
       "payoutErrPending": "您已有一笔申请在审核中。",
       "payoutErrAvailable": "金额超过可用收益。",
@@ -1496,7 +1495,7 @@
       "monthlyTitle": "月度收益（高水位线）",
       "month": "月份",
       "newProfit": "超过峰值的新增利润",
-      "payoutDisabledReason": "暂不可提现：已结算收益为 ${available}，最低提现 10 美元。"
+      "payoutDisabledReason": "暂不可提现：已结算收益为 {available}，最低提现 10 USDT。"
     },
     "followerLedger": {
       "title": "分润历史",
@@ -1519,8 +1518,8 @@
       "market_indices": "指数",
       "contactLabel": "联系方式（私密）",
       "followerSettings": "跟单者设置",
-      "minInvestmentLabel": "最低投资额 ($)",
-      "minCopyAmountLabel": "最低跟单金额 ($)",
+      "minInvestmentLabel": "最低投资额 (USDT)",
+      "minCopyAmountLabel": "最低跟单金额 (USDT)",
       "profitSharePctLabel": "分润比例（您的等级上限 {max}%）",
       "acceptingFollowersLabel": "接受新跟单者",
       "whitelistNote": "仅限邀请模式在以下页面管理：",
@@ -1732,7 +1731,7 @@
       },
       {
         "q": "有模拟账户吗？",
-        "a": "有。模拟账户初始拥有 10,000 美元虚拟资金，让你无需动用自己的钱即可练习。"
+        "a": "有。模拟账户初始拥有 10,000 USDT虚拟资金，让你无需动用自己的钱即可练习。"
       }
     ]
   },
