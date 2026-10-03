@@ -221,7 +221,7 @@ export function SignupForm({ next }: { next?: string | null }) {
           name="email"
           type="email"
           autoComplete="email"
-          placeholder="name@gmail.com"
+          placeholder={t("emailPlaceholder")}
           required
           dir="ltr"
           value={email}
@@ -255,7 +255,7 @@ export function SignupForm({ next }: { next?: string | null }) {
             value={nationalNumber}
             onChange={(e) => setNationalNumber(stripTrunkZero(e.target.value.replace(/\D/g, "")))}
             onBlur={() => setPhoneTouched(true)}
-            placeholder="xxxxxxxxx"
+            placeholder={t("phoneLabel")}
             required
             aria-invalid={showPhoneError ? true : undefined}
             aria-describedby="su-phone-err"

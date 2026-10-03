@@ -28,86 +28,13 @@
       "trust0": "No subscription fees or hidden commissions",
       "trust1": "Stop copying any trader instantly, anytime",
       "trust2": "An automatic loss limit on every copy",
-      "imageAlt": "A Copy Matrix app screenshot showing a live trade and the platform's features",
       "trustShort0": "No hidden fees",
       "trustShort1": "Stop anytime",
       "trustShort2": "Auto loss limit"
     },
-    "highlights": [
-      {
-        "title": "Real-time tracking",
-        "desc": "Follow your trades instantly"
-      },
-      {
-        "title": "Fast withdrawals",
-        "desc": "Fast and secure deposits & withdrawals"
-      },
-      {
-        "title": "No hidden fees",
-        "desc": "Complete transparency in fees"
-      },
-      {
-        "title": "Security & transparency",
-        "desc": "Protected with the latest technology"
-      }
-    ],
-    "features": {
-      "title": "Platform Features",
-      "items": [
-        {
-          "title": "Full transparency",
-          "desc": "Every trader's track record is public — every trade and every outcome is documented and clear."
-        },
-        {
-          "title": "Real-time tracking",
-          "desc": "Follow the performance of the traders you copy and your profits, moment by moment, from one dashboard."
-        },
-        {
-          "title": "Demo or real account",
-          "desc": "Start with a demo account to practice with virtual funds risk-free, or a real account that reflects your actual balance — switch between them anytime."
-        },
-        {
-          "title": "Multiple markets",
-          "desc": "Traders specialized in crypto, forex, gold, and global indices."
-        },
-        {
-          "title": "No hidden fees",
-          "desc": "We never deduct any commission from your profits or from copying, no matter how large."
-        },
-        {
-          "title": "Security-checked transactions",
-          "desc": "Every deposit and withdrawal goes through security checks before it is completed, to protect your account."
-        }
-      ]
-    },
     "markets": {
       "toolsTitle": "Available Trading Instruments",
-      "toolsDesc": "Live prices for the same instruments our platform's traders trade.",
-      "liveTitle": "Live Markets",
-      "liveDesc": "Track price movement moment by moment, and change the pair right from the chart."
-    },
-    "howItWorks": {
-      "badge": "4 simple steps",
-      "title": "How the Platform Works",
-      "subtitle": "Start copying trades automatically by following clear, simple steps",
-      "steps": [
-        {
-          "title": "Create your account",
-          "desc": "Complete registration and identity verification to get a verified account."
-        },
-        {
-          "title": "Deposit your funds",
-          "desc": "Deposit the amount you want to invest through the available payment methods. Deposits are credited once the network confirms them."
-        },
-        {
-          "title": "Choose a trader",
-          "desc": "Review the verified performance records of each trader, and pick the one that fits your strategy and preferred risk level."
-        },
-        {
-          "title": "Start copying automatically",
-          "desc": "The trades of the trader you chose are copied to your account instantly, and you can stop copying anytime with no restrictions."
-        }
-      ]
+      "toolsDesc": "Live prices for the same instruments our platform's traders trade."
     },
     "traders": {
       "title": "Top Traders",
@@ -117,46 +44,7 @@
       "avgReturn": "Avg. daily return",
       "viewProfile": "View profile",
       "copy": "Copy",
-      "recentTrades": "Recent trades performance",
       "subtitle": "Find elite traders with trusted, verified results. Pick the right one and copy their strategy in one click."
-    },
-    "faq": {
-      "title": "Frequently Asked Questions",
-      "subtitle": "Everything you need to know before you start copying trades",
-      "items": [
-        {
-          "q": "What's the difference between a demo and a real account?",
-          "a": "A demo account lets you try copy trading with virtual funds risk-free, while a real account reflects your actual balance. You can choose and change your account type anytime from the settings page after signing up."
-        },
-        {
-          "q": "How does trade copying work?",
-          "a": "Once you follow a trader, every trade they execute — opening or closing — is copied to your account automatically with the same details, the moment it happens, with no manual action from you."
-        },
-        {
-          "q": "Can I stop copying at any time?",
-          "a": "Yes, you can stop copying any trader instantly, anytime, from your portfolio page, with no conditions or waiting period."
-        },
-        {
-          "q": "Can I copy more than one trader at the same time?",
-          "a": "No, the system is designed so you copy only one trader at a time, to keep risk management clear. However, you can follow as many traders' performance as you like without copying them, and you'll receive their performance details by email — then pick one to actually copy. You can stop copying your current trader and copy another anytime."
-        },
-        {
-          "q": "What's the minimum required to start copying?",
-          "a": "The minimum varies from one trader to another, and is shown clearly on each trader's profile before you start following."
-        },
-        {
-          "q": "Are there any hidden fees or commissions?",
-          "a": "No, there are no hidden commissions or fees on copying trades or on realized profits, no matter how large."
-        },
-        {
-          "q": "Do I need to install a separate trading platform?",
-          "a": "No, tracking traders' performance and copying their trades happens entirely from within the Copy Matrix dashboard, with no need to install any external app or platform."
-        },
-        {
-          "q": "How do I deposit or withdraw?",
-          "a": "You can submit a deposit or withdrawal request from your portfolio page at any time. Requests show as Processing and are reflected in your balance once Completed."
-        }
-      ]
     },
     "cta": {
       "title": "Ready to get started?",
@@ -172,27 +60,11 @@
       "support": "Support",
       "rights": "All rights reserved. Founded in 2024."
     },
-    "valueCards": {
-      "title": "Your investment, your terms, full transparency",
-      "card1Headline": "0%",
-      "card1Subtitle": "Copy commission",
-      "card1Desc": "Copy the best traders' trades with no hidden commission on copying or on your profits, no matter how large.",
-      "card2Headline": "4 markets",
-      "card2Subtitle": "Real instrument variety",
-      "card2Desc": "Trade crypto, forex, gold and global indices, with traders specialized in each market.",
-      "card3Headline": "Verified performance",
-      "card3Subtitle": "No fake numbers",
-      "card3Desc": "Every trade and every result for every trader is documented and clear in front of you — review their full track record before you copy them."
-    },
     "trustStrip": {
       "demoTitle": "Free demo account",
       "demoDesc": "No real risk at all",
       "stopLossTitle": "Automatic loss limit on every copy",
       "stopLossDesc": "Copying stops when the loss limit is reached"
-    },
-    "traderPosts": {
-      "title": "Latest trader updates",
-      "subtitle": "Daily commentary from platform traders about their actual trades."
     },
     "metaTitle": "Copy Matrix — Automatically copy the best traders' trades"
   },
@@ -205,27 +77,14 @@
     "navMyCopies": "My Copies",
     "navTrades": "Trades",
     "navPortfolio": "Portfolio",
-    "langSectionLabel": "Language",
-    "menuMain": "Home",
-    "menuActiveCopy": "Active copy",
-    "menuDiscover": "Discover traders",
-    "badgeNew": "New",
     "menuMarkets": "Markets",
-    "menuMyTrades": "My trades",
     "menuTransactionHistory": "Transaction history",
-    "menuDeposit": "Deposit",
-    "menuWithdraw": "Withdraw",
     "menuKyc": "Identity verification",
     "menuSettings": "Settings",
     "menuSupport": "Support center",
     "menuAdmin": "Admin panel",
-    "walletSectionLabel": "Wallet",
-    "accountSectionLabel": "Account",
-    "availableBalance": "Available balance · open wallet",
     "logout": "Log out",
     "switchAccountAriaLabel": "Switch account type",
-    "accountTypeReal": "Real account",
-    "accountTypeDemo": "Demo account",
     "switchAccountWarning": "Your demo and real balances are kept separate. Switching accounts stops your current copying. Continue?",
     "switchAccountConfirmTitle": "Confirm account switch",
     "switchAccountConfirmCta": "Switch",
@@ -275,23 +134,10 @@
     "openPositions": "Open positions",
     "netRealizedProfit": "Net realized profit",
     "traderYouCopy": "The trader you copy",
-    "noCopyYet": "You're not copying any trader yet — pick one and start copying in one click.",
-    "browseTraders": "Browse traders",
     "startedWith": "Started with: ${amount}",
     "winRate": "Win rate",
     "avgDailyReturn": "Avg. daily return",
-    "portfolioPerformance": "Portfolio performance",
     "noClosedTrades": "No closed trades yet",
-    "equityWillAppear": "Your equity curve will appear here after your first copied trade closes.",
-    "quickAccess": "Quick access",
-    "quickLinkDiscoverTitle": "Discover traders",
-    "quickLinkDiscoverDesc": "Browse performance records and pick who to copy.",
-    "quickLinkPortfolioTitle": "My portfolio",
-    "quickLinkPortfolioDesc": "Manage your balance and deposit/withdrawal requests.",
-    "quickLinkKycTitle": "Identity verification",
-    "quickLinkKycDesc": "Complete your verification details to fully activate your account.",
-    "quickLinkSettingsTitle": "Settings",
-    "quickLinkSettingsDesc": "Update your account details and preferences.",
     "periodWeek": "Week",
     "periodMonth": "Month",
     "period3Months": "3 months",
@@ -456,8 +302,6 @@
     "minDeposit": "Minimum: {amount} {currency}",
     "networkConfirmations": "Network confirmations: {count}",
     "amountSentPlaceholder": "Amount sent in USD",
-    "afterSendingNote": "After sending the amount to the address above, click \"I've sent the amount\" — it will be reflected in your balance immediately.",
-    "iSentAmount": "I've sent the amount",
     "withdrawBlockedError": "Couldn't submit the withdrawal request: you currently have open positions, and your balance is reserved as margin to cover them. You can stop copying after the positions close to return the balance and profits to your wallet, then resubmit the withdrawal request.",
     "chooseCurrency": "Choose currency",
     "chooseNetworkStep": "Choose network",
@@ -473,12 +317,8 @@
     "processingLabel": "Processing...",
     "confirmAndSend": "Confirm and send",
     "destinationLabel": "Destination address",
-    "estConfirmTime": "Estimated confirmation time",
     "minutesShort": "min",
-    "depositGuidelinesTitle": "Deposit guidelines",
     "depositWarning": "Make sure you pick the correct network before sending — sending on an unsupported network can result in permanent loss of funds.",
-    "txIdLabel": "Transaction ID (TxID) — optional",
-    "txIdPlaceholder": "Paste the TxID from your wallet after sending",
     "proofOfPaymentLabel": "Attach proof of payment (transfer receipt image)",
     "proofOfPaymentRemove": "Remove",
     "proofOfPaymentHelp": "Please attach a clear transfer image to ensure your deposit is confirmed quickly",
@@ -508,11 +348,12 @@
     "periodYear": "Year",
     "periodAll": "All",
     "tradesCount": "{count} trades",
-    "winRateLabel": "Win rate",
     "noTradesInPeriod": "No closed trades in this period.",
     "chart": "Chart",
     "copy": "Copy",
-    "loadMore": "Load more"
+    "loadMore": "Load more",
+    "swap": "Swap",
+    "charges": "Charges"
   },
   "Symbols": {
     "XAUUSD": "Gold",
@@ -539,8 +380,7 @@
   },
   "TraderEquityChart": {
     "start": "Start",
-    "current": "Current",
-    "notEnoughData": "Not enough closed trades in this period to show the chart."
+    "current": "Current"
   },
   "OpenOrders": {
     "entryPrefix": "Entry",
@@ -548,25 +388,16 @@
     "noOpenOrders": "No open trades for this trader right now.",
     "totalFloatingPnl": "Total floating P/L"
   },
-  "RecentCopiers": {
-    "memberSince": "Since {date}"
-  },
   "TraderProfile": {
     "follow": "Follow",
     "unfollow": "Unfollow",
     "memberSince": "Member since {date}",
     "followNotifyNote": "You'll get an email with this trader's performance details when you follow them.",
-    "copiersListLabel": "Copiers list ({count})",
-    "signupPrompt": "Sign up for free to copy {name} and track their trading performance.",
-    "signupCta": "Create free account",
     "stoppedTradingNotice": "{name} has stopped trading and new copying can't be started. Their past track record is still fully viewable.",
-    "blockedNotice": "You are currently copying <strong>{otherName}</strong>. You can only copy one trader at a time — stop copying first from <link>your portfolio</link> to copy {name}.",
     "currentlyCopyingAmount": "You are copying this trader with {amount}",
-    "copyAmountLabel": "Copy amount",
     "copyCta": "Copy",
     "stopCopyingCta": "Stop copying",
     "minCopyBadgeLabel": "Minimum copy amount for this trader:",
-    "availableBalanceLabel": "Available balance:",
     "statCopiers": "Copiers",
     "statTotalProfit": "Total profit",
     "statTotalWithdrawals": "Total withdrawals",
@@ -574,27 +405,14 @@
     "statOverallWinRate": "Overall win rate",
     "statMaxDrawdown": "Max drawdown",
     "reliabilitySectionTitle": "Trading reliability level",
-    "gaugeReliability": "Reliability",
     "gaugeSafety": "Safety score",
     "gaugeRiskExposure": "Risk exposure",
-    "closedTradesStat": "Closed trades",
-    "daysMemberStat": "Days as member",
     "equityChartTitle": "Cumulative performance",
     "periodsPerformanceTitle": "Performance by period",
     "winRateInline": "Win rate {pct}%",
     "noTradesLabel": "No trades",
-    "assetsSectionTitle": "Trading instruments",
-    "openOrdersSectionTitle": "Open orders",
-    "tradeHistorySectionTitle": "Trade history",
     "noClosedTrades": "No closed trades yet.",
     "copyStartedSuccess": "You started copying {name} successfully with {amount}.",
-    "anotherTraderFallback": "another trader",
-    "riskStatusLow": "Safe risk",
-    "riskStatusMedium": "Moderate risk",
-    "riskStatusHigh": "High risk",
-    "safetyStatusHigh": "High safety",
-    "safetyStatusMedium": "Moderate safety",
-    "safetyStatusLow": "Low safety",
     "reliabilityStatusHigh": "Excellent reliability",
     "reliabilityStatusMedium": "Good reliability",
     "reliabilityStatusLow": "Low reliability",
@@ -607,7 +425,6 @@
     "gaugeTipTradingDays": "Number of days on which the trader actually traded.",
     "gaugeTipBadge": "This trader meets the platform's key trading-quality requirements.",
     "importantBadgeLabel": "Important",
-    "reliabilityHistoryTitle": "Trading Reliability History",
     "followingLabel": "Following",
     "followToastTitle": "Followed successfully",
     "followToastBody": "You'll now get instant notifications for every new trade and update from {name}.",
@@ -627,7 +444,6 @@
   "Discover": {
     "title": "Discover traders",
     "searchPlaceholder": "Search for a trader by name",
-    "searchButton": "Search",
     "sortBest": "Best",
     "sortReturn": "Highest return",
     "sortWinrate": "Highest win rate",
@@ -635,7 +451,6 @@
     "noMatches": "No traders match your search.",
     "follow": "Follow",
     "unfollow": "Unfollow",
-    "copiersCount": "{count} copiers",
     "copiersLabel": "Copiers",
     "winRate": "Win rate",
     "avgDailyReturn": "Avg. daily return",
@@ -653,7 +468,6 @@
     "pillRoi": "Top ROI",
     "pillTrusted": "Most Trusted",
     "pillAssets": "Asset Specialists",
-    "filterTimeHorizon": "Time horizon",
     "filterRisk": "Risk level",
     "filterMinEntry": "Minimum entry",
     "filterTrackRecord": "Track record",
@@ -825,7 +639,6 @@
     "statusPending": "Under review",
     "statusApproved": "Approved",
     "statusRejected": "Rejected",
-    "statusNone": "Not verified",
     "submittedDate": "Submitted on: {date}",
     "pendingNote": "Your request is currently under review. You will be notified as soon as a decision is made.",
     "rejectedNote": "Your request was rejected. Please contact support to find out why and resubmit.",
@@ -885,7 +698,6 @@
     "passwordPlaceholder6": "Password (at least 6 characters)",
     "showPassword": "Show password",
     "hidePassword": "Hide password",
-    "confirmPasswordPlaceholder": "Confirm password",
     "passwordMismatch": "The passwords do not match.",
     "creatingAccount": "Creating account...",
     "createAccountButton": "Create account",
@@ -1008,23 +820,6 @@
     "logOut": "Log out",
     "siteDescription": "A social trading platform for following top traders and automatically copying their trades."
   },
-  "CopierProfile": {
-    "copierOf": "Copying {name} · since {date}",
-    "defaultTraderFallback": "the trader",
-    "startingCapital": "Starting capital",
-    "totalReturn": "Total return",
-    "tradeCount": "Trades",
-    "currentCapital": "Current capital",
-    "depositsWithdrawalsTitle": "Deposits & Withdrawals",
-    "dateCol": "Date",
-    "typeCol": "Type",
-    "amountCol": "Amount",
-    "firstDeposit": "First deposit",
-    "deposit": "Deposit",
-    "withdrawal": "Withdrawal",
-    "tradeHistoryTitle": "Trade History",
-    "noTradesSinceJoined": "No closed trades since this customer joined."
-  },
   "Actions": {
     "rateLimit": "Too many attempts. Please wait a moment before trying again.",
     "auth": {
@@ -1050,13 +845,11 @@
     "portfolio": {
       "depositAmountInvalid": "The deposit amount must be a number greater than zero.",
       "depositRequestFailed": "Could not send the deposit request. Please try again.",
-      "depositCompleteFailed": "Could not complete the deposit. Please try again.",
       "withdrawAmountInvalid": "The withdrawal amount must be a number greater than zero.",
       "withdrawBlockedOpenPositions": "Could not submit the withdrawal request: you currently have open trades, and your balance is held as margin to cover them. You can stop copying after those trades close to return the balance and profits to your wallet, then submit the withdrawal request again.",
       "withdrawInsufficientAvailable": "Your available balance for withdrawal is insufficient — part of your balance is currently held for an active copy. Stop copying first to return this amount to your available balance.",
       "withdrawNetworkRequired": "Choose a network and enter a wallet address to complete the withdrawal.",
       "withdrawRequestFailed": "Could not send the withdrawal request. Please try again.",
-      "withdrawCompleteFailed": "Could not complete the withdrawal. Please try again.",
       "realOnly": "Deposits and withdrawals to a real wallet are available on your real account. Switch to your real account to continue.",
       "demoLimitExceeded": "This deposit would exceed the maximum demo balance of 1,000,000 USDT.",
       "demoResetOpenPositions": "Close all open positions before resetting your demo balance.",
@@ -1073,14 +866,13 @@
       "copyAmountInvalid": "The copy amount must be a number greater than zero.",
       "copyAmountUpdateBlocked": "Could not update the copy amount right now: you have open trades on this account, and your balance is currently held as margin to cover them. Please try again after all open trades close.",
       "traderStopped": "This trader has stopped trading and is no longer available to start new copying.",
-      "alreadyCopyingOther": "You are currently copying {name}. You can only copy one trader at a time — stop copying first from your portfolio.",
-      "anotherTraderFallback": "another trader",
       "copyAmountExceedsBalance": "The copy amount is greater than your available balance.",
       "copyAmountBelowMinimum": "The copy amount is below the minimum for this trader ({amount}).",
       "copyFailed": "Could not copy this trader. Please try again.",
       "stopCopyBlocked": "Could not stop copying right now: you have open trades on this account, and your balance is currently held as margin to cover them. Please try again after all open trades close.",
       "copyRequiresInvite": "This trader only accepts followers by invitation. Ask them for an invite link.",
-      "notAcceptingFollowers": "This trader is not accepting new followers right now."
+      "notAcceptingFollowers": "This trader is not accepting new followers right now.",
+      "inviteInvalid": "This invite link is invalid or has already been used."
     },
     "dashboard": {
       "closeFailed": "Couldn't close the position. Please try again."
@@ -1499,180 +1291,6 @@
     "totalAllocated": "Allocated",
     "realizedPnl": "Realized P&L"
   },
-  "Landing": {
-    "navTraders": "Traders",
-    "navMarkets": "Markets",
-    "navHow": "How it works",
-    "navFees": "Fees",
-    "navFaq": "FAQ",
-    "login": "Log in",
-    "signup": "Create account",
-    "menu": "Menu",
-    "closeMenu": "Close menu",
-    "language": "Language",
-    "heroTitle": "Copy the trades of professional traders in your account, automatically",
-    "heroDesc": "Review each trader's track record before you start, set your amount and risk level, and stop copying whenever you want.",
-    "heroStart": "Get started",
-    "heroBrowse": "Browse traders",
-    "trust1": "A loss limit for every copy",
-    "trust2": "Stop copying at any time",
-    "trust3": "Transparent track record",
-    "mockupCaption": "Real data from a trader on the platform",
-    "factMarketsLabel": "Tradable instruments",
-    "factMinLabel": "Minimum to start copying",
-    "factDemoLabel": "Demo account balance",
-    "factSignupValue": "Minutes",
-    "factSignupLabel": "To create your account",
-    "factFeeLabel": "Subscription fee",
-    "tradersTitle": "Traders you can copy",
-    "tradersViewAll": "View all",
-    "tabFollowers": "Most copied",
-    "tabRisk": "Lowest risk",
-    "tabReturn": "Highest 12-month return",
-    "return12": "12-month return",
-    "maxDd": "Max drawdown",
-    "riskLabel": "Risk",
-    "copiers": "Copiers",
-    "copy": "Copy",
-    "pastPerf": "Past performance does not guarantee future results.",
-    "marketCrypto": "Crypto",
-    "marketForex": "Forex",
-    "marketGold": "Gold",
-    "marketIndex": "Indices",
-    "howTitle": "How it works",
-    "how1t": "Create your account",
-    "how1d": "Sign up with your email and start with a demo account.",
-    "how2t": "Choose a trader after reviewing their performance",
-    "how2d": "Compare 12-month return, max drawdown and risk score.",
-    "how3t": "Set the amount; copying stops automatically at a 50% loss of it",
-    "how3d": "New trades are copied to your account automatically.",
-    "protectTitle": "You control the risk",
-    "protectIntro": "Every copy has its own settings. You decide how much to allocate and when to stop.",
-    "protect1": "A loss limit for each trader you copy",
-    "protect2": "A maximum size per trade",
-    "protect3": "Copy new trades only, or existing ones too",
-    "protect4": "Stop copying at any time",
-    "soon": "Coming soon",
-    "mockTitle": "Copy settings",
-    "mockAmount": "Amount to allocate",
-    "mockLossLimit": "Loss limit",
-    "mockMaxTrade": "Max size per trade",
-    "mockMode": "Copy scope",
-    "mockModeNew": "New trades only",
-    "mockStop": "Stop copying",
-    "mockNote": "Illustration of the copy settings screen",
-    "transpTitle": "How we select traders and calculate performance",
-    "transp1t": "Trader eligibility",
-    "transp1d": "A trader is listed only if the account is active and not suspended, and has at least 30 closed trades in the last 12 months.",
-    "transp2t": "Return and maximum drawdown",
-    "transp2d": "Return is the sum of the results of the trader's closed trades over the last 12 months. Max drawdown is the largest fall from a peak of that running total to a later low.",
-    "transp3t": "Risk score",
-    "transp3d": "A number from 1 to 10 based on max drawdown: one point for every 3 percentage points, capped at 10. A higher number means a higher risk.",
-    "feesTitle": "Fees",
-    "feesPay": "What you pay",
-    "feesNotPay": "What you don't pay",
-    "feePay1": "Network fee on crypto deposits, set by the network",
-    "feePay2": "A profit share, only if the trader sets one. It is shown on the trader's profile before you copy",
-    "feeNot1": "Opening a demo account",
-    "feesNote": "Fee details are shown before every deposit and copy.",
-    "demoTitle": "Try it with a demo account",
-    "demoDesc": "Start with {amount} in virtual funds and practice copying before using your own money.",
-    "demoCta": "Open a demo account",
-    "marketsTitle": "Instruments available for trading",
-    "marketsDesc": "Live prices for the same instruments the platform's traders use.",
-    "marketsViewAll": "View all markets",
-    "faqTitle": "Frequently asked questions",
-    "faq1q": "How does copying work?",
-    "faq1a": "You choose a trader and set an amount. When the trader opens a trade, a matching trade opens in your account, sized to the amount you allocated.",
-    "faq2q": "Can I lose my money?",
-    "faq2a": "Yes. Trading involves risk and you may lose part or all of the amount you allocate. Past performance does not guarantee future results. Copying stops automatically when the loss reaches 50% of the allocated amount.",
-    "faq3q": "What is the minimum amount?",
-    "faq3a": "It differs from trader to trader and is shown on each trader's profile before you copy. Currently it starts from {amount}.",
-    "faq3aNoAmount": "It differs from trader to trader and is shown on each trader's profile before you copy.",
-    "faq4q": "What are the fees?",
-    "faq4a": "See the fees section above. The details are shown before every deposit and before you start copying.",
-    "faq5q": "How do I stop copying?",
-    "faq5a": "Open “My copies” and press “Stop copying”. Trades still open for that copy must be closed first.",
-    "faq6q": "How do you choose traders?",
-    "faq6a": "See “How we select traders and calculate performance” above.",
-    "faq7q": "How do I withdraw my money?",
-    "faq7a": "Submit a withdrawal request from the Wallet page. Withdrawals require identity verification and are usually completed within 24 hours.",
-    "faq8q": "Is there a demo account?",
-    "faq8a": "Yes. A demo account starts with {amount} in virtual funds and lets you practice without risking your own money.",
-    "ctaTitle": "Ready to start?",
-    "ctaDesc": "Create an account in a few minutes and start with a demo.",
-    "footPlatform": "Platform",
-    "footCompany": "Company",
-    "footSupport": "Support",
-    "footLegal": "Legal",
-    "footSupportCenter": "Support center",
-    "footSecurity": "Security",
-    "footContact": "Contact us",
-    "footTerms": "Terms and conditions",
-    "footPrivacy": "Privacy policy",
-    "footRisk": "Risk disclosure",
-    "riskWarning": "Copy Matrix is a software platform for copying trading signals. It is not a financial institution, a bank or a licensed broker. Trading and copy trading involve a high level of risk and may result in the loss of all of your invested capital. Past performance does not guarantee future results.",
-    "rights": "All rights reserved.",
-    "tickerLabel": "Live prices",
-    "altDashboardMobile": "Copy Matrix dashboard on a phone",
-    "altDashboardDesktop": "Copy Matrix dashboard in a browser",
-    "altTraderMobile": "A trader profile page with return, drawdown and reliability",
-    "altCopyDialog": "The copy settings window",
-    "altTradesMobile": "Open trades with profit and loss",
-    "altCopiesMobile": "The My copies page",
-    "demoShotNote": "Screenshots are from a demo account. Past performance does not guarantee future results.",
-    "showTradersTitle": "A clear profile for every trader",
-    "showTradersDesc": "Each profile shows the return, maximum drawdown, win rate and reliability level before you copy.",
-    "followTitle": "Follow every trade",
-    "followDesc": "See open trades with their profit and loss, and review all your copies from one place.",
-    "demoTraderName": "Ahmed",
-    "demoBadge": "Demo",
-    "demoChartAlt": "Illustration of a gold price chart with a copied trade",
-    "demoOpened": "{name} opened a buy",
-    "demoCopied": "Copied to your account · 0.10 lot",
-    "demoClosed": "Closed with a profit of {amount}",
-    "demoTraderRow": "Trader",
-    "demoYourRow": "Your account (10%)",
-    "scrDemoAccount": "Demo account",
-    "scrT1": "Khalid Al-Mutairi",
-    "scrT2": "Sara Al-Harbi",
-    "scrT3": "Yousef Al-Ali",
-    "scrC1": "Saudi Arabia",
-    "scrC2": "United Arab Emirates",
-    "scrC3": "Jordan",
-    "scrDiscover": "Discover traders",
-    "scrCopyTitle": "Copy {name}",
-    "scrStopNote": "Copying stops automatically when the loss reaches 50% of the amount.",
-    "scrRiskAck": "I understand that copy trading involves risk and I may lose part or all of the allocated amount.",
-    "scrStart": "Start copying",
-    "scrMyCopies": "My copies",
-    "scrActive": "Active copies",
-    "scrAllocated": "Allocated",
-    "scrProfit": "Profit",
-    "lossNow": "Current loss",
-    "lossStopped": "Copying stopped automatically",
-    "scrGreeting": "Good evening",
-    "scrPortfolio": "Portfolio value",
-    "st1t": "Choose a trader",
-    "st1d": "Compare 12-month return, max drawdown and risk score before you copy.",
-    "st2t": "Set the amount",
-    "st2d": "Choose how much to allocate. Copying stops automatically when you lose 50% of it.",
-    "st3t": "Follow your trades",
-    "st3d": "See the profit of each copy and its open trades, and stop copying whenever you want.",
-    "altStep1": "A list of traders with their 12-month return",
-    "altStep2": "The copy window with a $1,000 amount and a 50% loss limit",
-    "altStep3": "The My copies page with live profit",
-    "demoDataNote": "The screens shown are illustrations with fixed sample data.",
-    "simTitle": "If you had copied",
-    "simDesc": "Pick a trader and an amount to see how the last 12 months would have looked.",
-    "simTrader": "Trader",
-    "simAmount": "Amount",
-    "simFinal": "Final value",
-    "simWorstMonth": "Worst month",
-    "simNoLoss": "No losing month",
-    "simChartAlt": "Monthly growth of the amount over the last 12 months",
-    "simNote": "A simulation based on past performance; it does not include fees. Past performance does not guarantee future results."
-  },
   "LeadTrader": {
     "apply": {
       "title": "Become a lead trader",
@@ -1804,8 +1422,6 @@
       "invested": "Invested",
       "balance": "Balance",
       "profit": "Profit",
-      "shareFromThem": "Share from them",
-      "daysFollowing": "Days following",
       "status": "Status",
       "active": "Active",
       "stopped": "Stopped",
@@ -1816,8 +1432,6 @@
       "createInvite": "Create invite",
       "inviteUsed": "Used",
       "invitePending": "Pending",
-      "announcementTitle": "Announcement to followers",
-      "announcementPlaceholder": "A short message for your followers...",
       "sendAnnouncement": "Send",
       "whitelistTitle": "Invite-only",
       "whitelistDesc": "When on, only people who used your invite link can start copying you.",

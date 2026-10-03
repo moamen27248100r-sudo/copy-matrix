@@ -239,7 +239,7 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
                           <span dir="ltr">{t.stopLoss != null ? formatPrice(t.stopLoss) : "-"}</span>
                         </div>
                         <div className="flex items-center justify-between rounded border border-border/60 px-2 py-1.5">
-                          <span className="text-muted">Swap</span>
+                          <span className="text-muted">{tt("swap")}</span>
                           <span>-</span>
                         </div>
                         <div className="flex items-center justify-between rounded border border-border/60 px-2 py-1.5">
@@ -247,7 +247,7 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
                           <span dir="ltr">{t.takeProfit != null ? formatPrice(t.takeProfit) : "-"}</span>
                         </div>
                         <div className="flex items-center justify-between rounded border border-border/60 px-2 py-1.5">
-                          <span className="text-muted">Charges</span>
+                          <span className="text-muted">{tt("charges")}</span>
                           <span>-</span>
                         </div>
                       </div>

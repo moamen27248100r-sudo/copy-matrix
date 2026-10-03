@@ -255,7 +255,7 @@ export function TraderTradeHistory({ trades }: { trades: HistoryTrade[] }) {
                           <Level label="T/P" value={x.takeProfit} />
                         </div>
                         <div>
-                          <Level label="Swap" value={x.swap} />
+                          <Level label={t("summarySwap")} value={x.swap} />
                           <Level label={t("charges")} value={x.commission} />
                         </div>
                       </div>

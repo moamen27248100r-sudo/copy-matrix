@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 
 // Follower invite link: /i/<code> -> marks the invite used and sends the
@@ -16,7 +17,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ code
 
   const { data: providerId } = await supabase.rpc("accept_follower_invite", { p_code: code });
   if (!providerId) {
-    return NextResponse.redirect(new URL("/discover?error=" + encodeURIComponent("رابط الدعوة غير صالح أو مستخدم بالفعل."), request.url));
+    return NextResponse.redirect(new URL("/discover?error=" + encodeURIComponent((await getTranslations("Actions.discover"))("inviteInvalid")), request.url));
   }
 
   return NextResponse.redirect(new URL(`/trader/${providerId}#copy`, request.url));

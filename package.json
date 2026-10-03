@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "i18n:check": "node scripts/i18n-check.mjs",
     "test": "node --test tests/trade-math.test.mjs",
     "test:db": "node --test tests/trade-integrity.db.test.mjs",
     "test:e2e": "playwright test",
