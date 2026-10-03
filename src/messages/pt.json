@@ -65,8 +65,8 @@
           "desc": "Nunca deduzimos nenhuma comissão dos seus lucros ou da cópia, não importa o valor."
         },
         {
-          "title": "Revisão administrativa em cada transação",
-          "desc": "Cada solicitação de depósito ou saque é revisada e aprovada manualmente pela nossa equipe antes da execução, para proteger sua conta."
+          "title": "Transações verificadas por segurança",
+          "desc": "Cada depósito e saque passa por verificações de segurança antes de ser concluído, para proteger a sua conta."
         }
       ]
     },
@@ -87,7 +87,7 @@
         },
         {
           "title": "Deposite seus fundos",
-          "desc": "Deposite o valor que deseja investir através dos métodos de pagamento disponíveis, a ser aprovado pela nossa equipe de administração."
+          "desc": "Deposite o valor que deseja investir pelos métodos de pagamento disponíveis. Os depósitos são creditados assim que a rede os confirma."
         },
         {
           "title": "Escolha um trader",
@@ -144,7 +144,7 @@
         },
         {
           "q": "Como deposito ou saco fundos?",
-          "a": "Você pode enviar uma solicitação de depósito ou saque na página do seu portfólio a qualquer momento, e ela será revisada e aprovada pela nossa equipe de administração antes de refletir no seu saldo."
+          "a": "Pode enviar um pedido de depósito ou saque na sua carteira a qualquer momento. Os pedidos aparecem como «Em processamento» e são refletidos no saldo quando concluídos."
         }
       ]
     },
@@ -253,7 +253,7 @@
     "kycNoneDesc": "A verificação é necessária para desbloquear todos os recursos da plataforma, incluindo solicitações de saque.",
     "kycNoneAction": "Concluir",
     "kycPendingTitle": "Solicitação de verificação em análise",
-    "kycPendingDesc": "Você será notificado assim que a equipe de administração tomar uma decisão.",
+    "kycPendingDesc": "Será notificado assim que a verificação for concluída.",
     "kycRejectedTitle": "Solicitação de verificação rejeitada",
     "kycRejectedDesc": "Reenvie ou entre em contato com o suporte para saber o motivo.",
     "kycRejectedAction": "Reenviar",
@@ -363,12 +363,12 @@
     "kycApprovedBody": "Sua solicitação de verificação de identidade foi aprovada.",
     "kycRejectedTitle": "Solicitação de verificação rejeitada",
     "kycRejectedBody": "Sua solicitação de verificação de identidade foi rejeitada. Entre em contato com o suporte para saber o motivo.",
-    "walletDepositApprovedTitle": "Solicitação de depósito aprovada",
-    "walletWithdrawalApprovedTitle": "Solicitação de saque aprovada",
-    "walletApprovedBody": "Sua solicitação de {amount}$ foi processada.",
-    "walletDepositRejectedTitle": "Solicitação de depósito rejeitada",
-    "walletWithdrawalRejectedTitle": "Solicitação de saque rejeitada",
-    "walletRejectedBody": "Sua solicitação foi rejeitada. Entre em contato com o suporte para saber o motivo.",
+    "walletDepositApprovedTitle": "Depósito concluído",
+    "walletWithdrawalApprovedTitle": "Saque concluído",
+    "walletApprovedBody": "A sua transação de {amount} USDT foi concluída.",
+    "walletDepositRejectedTitle": "Depósito recusado",
+    "walletWithdrawalRejectedTitle": "Saque recusado",
+    "walletRejectedBody": "Não foi possível concluir o seu pedido. Contacte o suporte para mais detalhes.",
     "followedTradeOpenedTitle": "Nova operação aberta | {providerName}",
     "followedTradeOpenedBody": "{providerName} abriu uma operação de {side, select, sell {venda} other {compra}} em {symbol}. Você pode revisar os detalhes agora.",
     "comingSoon": "Coming soon",
@@ -406,9 +406,9 @@
     "tabOverview": "Visão geral",
     "tabPositions": "Posições",
     "tabActivity": "Atividade",
-    "pendingRequestsLabel": "Solicitações em análise",
-    "statusPending": "Em análise",
-    "statusApproved": "Aprovada",
+    "pendingRequestsLabel": "Pedidos em processamento",
+    "statusPending": "Em processamento",
+    "statusApproved": "Concluído",
     "statusRejected": "Rejeitada",
     "cumulativePerformance": "Desempenho cumulativo da minha carteira",
     "myPerformance": "Desempenho da minha cópia",
@@ -485,8 +485,8 @@
     "confirmProofOfPayment": "Confirmar e enviar comprovante de depósito",
     "monthlyReportTitle": "Monthly report",
     "monthlyReportEmpty": "No activity yet.",
-    "reviewProcessingNote": "As solicitações de depósito e saque são analisadas pela nossa equipe e refletidas no seu saldo após a aprovação.",
-    "requestSubmittedMessage": "Sua solicitação foi enviada e está em análise. Seu saldo será atualizado assim que ela for aprovada.",
+    "reviewProcessingNote": "Os depósitos costumam ser creditados em até 30 minutos após a confirmação da rede. Os saques costumam ser concluídos em até 24 horas.",
+    "requestSubmittedMessage": "O seu pedido foi recebido e está em processamento. O seu saldo será atualizado quando for concluído.",
     "demoDepositNote": "Os fundos de demonstração são creditados instantaneamente. O saldo demo máximo é de 1.000.000 USDT.",
     "demoWithdrawNote": "Os saques demo são instantâneos e afetam apenas o seu saldo demo.",
     "demoWalletNote": "O seu saldo demo é virtual e totalmente separado da sua conta real. Depósitos e saques são instantâneos.",
@@ -495,7 +495,9 @@
     "demoDepositDone": "Os fundos demo foram adicionados ao seu saldo.",
     "demoWithdrawDone": "Os fundos demo foram retirados do seu saldo.",
     "demoResetDone": "O seu saldo demo foi redefinido para 10.000 USDT.",
-    "txDemoReset": "Redefinição de saldo"
+    "txDemoReset": "Redefinição de saldo",
+    "etaDeposit": "Est. 30 min",
+    "etaWithdraw": "Est. 24 h"
   },
   "TradeHistory": {
     "periodToday": "Hoje",
@@ -1002,7 +1004,7 @@
     "notFoundDesc": "O link que você tentou acessar não existe ou foi movido.",
     "backToHome": "Voltar ao início",
     "suspendedTitle": "Conta suspensa",
-    "suspendedDesc": "Esta conta foi suspensa pela equipe de administração. Se você acredita que isso é um erro, entre em contato com o suporte.",
+    "suspendedDesc": "Esta conta foi suspensa. Se acredita que se trata de um erro, contacte o suporte.",
     "logOut": "Sair",
     "siteDescription": "Uma plataforma de trading social para seguir os melhores traders e copiar automaticamente suas operações."
   },
@@ -1215,7 +1217,7 @@
           "adicionar fundos",
           "recarregar"
         ],
-        "answer": "Você pode depositar fundos escolhendo \"Depositar\" na seção da carteira no menu lateral, informando o valor e o método de pagamento e confirmando a solicitação. Todas as solicitações de depósito, em contas demo e reais, são analisadas pela nossa equipe e creditadas no seu saldo após a aprovação."
+        "answer": "Pode depositar fundos escolhendo «Depositar» na secção da carteira do menu lateral e indicando o valor e o método de pagamento. Os depósitos da conta real aparecem como «Em processamento» e são creditados quando concluídos, normalmente em 30 minutos. Os depósitos da conta demo são instantâneos."
       },
       {
         "id": "withdraw",
@@ -1225,7 +1227,7 @@
           "sacar",
           "sacar lucros"
         ],
-        "answer": "Para sacar, escolha «Saque» no menu lateral, informe o valor e o método de saque desejado, e envie a solicitação. Solicitações de saque exigem que a verificação de identidade (KYC) já esteja aprovada, e depois passam por revisão da nossa equipe antes do processamento."
+        "answer": "Para sacar, escolha «Sacar» no menu lateral, indique o valor e o método de saque preferido e envie o pedido. Os saques exigem que a verificação de identidade (KYC) esteja concluída. Os saques da conta real aparecem como «Em processamento» e costumam ser concluídos em 24 horas. Os saques da conta demo são instantâneos."
       },
       {
         "id": "withdraw-time",
@@ -1235,7 +1237,7 @@
           "quando chega o saque",
           "processamento do saque"
         ],
-        "answer": "As solicitações de saque são revisadas pela nossa equipe em um curto período após a confirmação da verificação de identidade. Você pode acompanhar o status da solicitação a qualquer momento na página «Histórico de Transações»."
+        "answer": "Os saques da conta real costumam ser concluídos em 24 horas após a conclusão da verificação de identidade. Pode acompanhar o estado (Em processamento, Concluído ou Recusado) a qualquer momento na página «Histórico de transações»."
       },
       {
         "id": "kyc",
@@ -1593,7 +1595,7 @@
     "faq6q": "How do you choose traders?",
     "faq6a": "See “How we select traders and calculate performance” above.",
     "faq7q": "How do I withdraw my money?",
-    "faq7a": "Submit a withdrawal request from the Wallet page. Withdrawals require identity verification and requests are reviewed before they are processed.",
+    "faq7a": "Envie um pedido de saque na página Carteira. Os saques exigem verificação de identidade e costumam ser concluídos em 24 horas.",
     "faq8q": "Is there a demo account?",
     "faq8a": "Yes. A demo account starts with {amount} in virtual funds and lets you practice without risking your own money.",
     "ctaTitle": "Ready to start?",
@@ -2106,7 +2108,7 @@
       },
       {
         "q": "Como retiro meu dinheiro?",
-        "a": "Envie um pedido de saque pela página da Carteira. Saques exigem verificação de identidade e os pedidos são revisados antes do processamento."
+        "a": "Envie um pedido de saque na página Carteira. Os saques exigem verificação de identidade e costumam ser concluídos em 24 horas."
       },
       {
         "q": "Existe conta demo?",
@@ -2173,7 +2175,7 @@
     "title": "Segurança da sua conta",
     "items": [
       "Verificação de identidade",
-      "Pedidos de saque revisados antes de serem processados",
+      "Os saques passam por verificações de segurança antes de serem concluídos",
       "Limite de perda automático em cada cópia",
       "Separação total entre conta demo e real",
       "Seus dados só são visíveis para você"
@@ -2194,7 +2196,7 @@
       },
       {
         "title": "Nosso compromisso com a transparência",
-        "body": "Cada trader tem um histórico de operações que você pode revisar antes de copiar, sem mensalidade nem comissões ocultas. Os pedidos de saque são revisados antes do processamento, e cada cópia tem um limite de perda automático que a interrompe quando atingido."
+        "body": "Cada trader tem um histórico de operações que pode consultar antes de copiar, sem taxas de subscrição nem comissões ocultas. Os saques passam por verificações de segurança antes de serem concluídos, e cada cópia tem um limite de perda automático que a interrompe ao ser atingido."
       },
       {
         "title": "Aviso de risco",

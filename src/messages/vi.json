@@ -65,8 +65,8 @@
           "desc": "Chúng tôi không bao giờ trừ bất kỳ hoa hồng nào từ lợi nhuận của bạn hoặc từ việc sao chép, dù số tiền lớn đến đâu."
         },
         {
-          "title": "Xét duyệt quản trị cho mọi giao dịch",
-          "desc": "Mọi yêu cầu nạp hoặc rút tiền đều được đội ngũ của chúng tôi xem xét và phê duyệt thủ công trước khi thực hiện, để bảo vệ tài khoản của bạn."
+          "title": "Giao dịch được kiểm tra an ninh",
+          "desc": "Mọi khoản nạp và rút đều trải qua kiểm tra an ninh trước khi hoàn tất, nhằm bảo vệ tài khoản của bạn."
         }
       ]
     },
@@ -87,7 +87,7 @@
         },
         {
           "title": "Nạp tiền của bạn",
-          "desc": "Nạp số tiền bạn muốn đầu tư qua các phương thức thanh toán có sẵn, để được đội ngũ quản trị của chúng tôi phê duyệt."
+          "desc": "Nạp số tiền bạn muốn đầu tư qua các phương thức thanh toán có sẵn. Khoản nạp được ghi có sau khi mạng xác nhận."
         },
         {
           "title": "Chọn một nhà giao dịch",
@@ -144,7 +144,7 @@
         },
         {
           "q": "Làm thế nào để tôi nạp hoặc rút tiền?",
-          "a": "Bạn có thể gửi yêu cầu nạp hoặc rút tiền từ trang danh mục đầu tư của mình bất cứ lúc nào, và nó sẽ được đội ngũ quản trị của chúng tôi xem xét và phê duyệt trước khi phản ánh vào số dư của bạn."
+          "a": "Bạn có thể gửi yêu cầu nạp hoặc rút tiền từ trang danh mục bất kỳ lúc nào. Yêu cầu hiển thị là Đang xử lý và được phản ánh vào số dư khi Hoàn tất."
         }
       ]
     },
@@ -253,7 +253,7 @@
     "kycNoneDesc": "Cần xác minh để mở khóa mọi tính năng của nền tảng, bao gồm cả yêu cầu rút tiền.",
     "kycNoneAction": "Hoàn tất",
     "kycPendingTitle": "Yêu cầu xác minh đang được xem xét",
-    "kycPendingDesc": "Bạn sẽ được thông báo ngay khi đội ngũ quản trị đưa ra quyết định.",
+    "kycPendingDesc": "Bạn sẽ được thông báo ngay khi quá trình xác minh hoàn tất.",
     "kycRejectedTitle": "Yêu cầu xác minh bị từ chối",
     "kycRejectedDesc": "Vui lòng gửi lại hoặc liên hệ hỗ trợ để biết lý do.",
     "kycRejectedAction": "Gửi lại",
@@ -363,12 +363,12 @@
     "kycApprovedBody": "Yêu cầu xác minh danh tính của bạn đã được duyệt.",
     "kycRejectedTitle": "Yêu cầu xác minh bị từ chối",
     "kycRejectedBody": "Yêu cầu xác minh danh tính của bạn đã bị từ chối. Vui lòng liên hệ hỗ trợ để biết lý do.",
-    "walletDepositApprovedTitle": "Yêu cầu nạp tiền đã được duyệt",
-    "walletWithdrawalApprovedTitle": "Yêu cầu rút tiền đã được duyệt",
-    "walletApprovedBody": "Yêu cầu {amount}$ của bạn đã được xử lý.",
-    "walletDepositRejectedTitle": "Yêu cầu nạp tiền bị từ chối",
-    "walletWithdrawalRejectedTitle": "Yêu cầu rút tiền bị từ chối",
-    "walletRejectedBody": "Yêu cầu của bạn đã bị từ chối. Vui lòng liên hệ hỗ trợ để biết lý do.",
+    "walletDepositApprovedTitle": "Nạp tiền hoàn tất",
+    "walletWithdrawalApprovedTitle": "Rút tiền hoàn tất",
+    "walletApprovedBody": "Giao dịch {amount} USDT của bạn đã hoàn tất.",
+    "walletDepositRejectedTitle": "Nạp tiền bị từ chối",
+    "walletWithdrawalRejectedTitle": "Rút tiền bị từ chối",
+    "walletRejectedBody": "Không thể hoàn tất yêu cầu của bạn. Vui lòng liên hệ bộ phận hỗ trợ để biết chi tiết.",
     "followedTradeOpenedTitle": "Đã mở giao dịch mới | {providerName}",
     "followedTradeOpenedBody": "{providerName} đã mở giao dịch {side, select, sell {bán} other {mua}} trên {symbol}. Bạn có thể xem chi tiết ngay bây giờ.",
     "comingSoon": "Coming soon",
@@ -406,9 +406,9 @@
     "tabOverview": "Tổng quan",
     "tabPositions": "Vị thế",
     "tabActivity": "Hoạt động",
-    "pendingRequestsLabel": "Yêu cầu đang xem xét",
-    "statusPending": "Đang xem xét",
-    "statusApproved": "Đã duyệt",
+    "pendingRequestsLabel": "Yêu cầu đang xử lý",
+    "statusPending": "Đang xử lý",
+    "statusApproved": "Hoàn tất",
     "statusRejected": "Bị từ chối",
     "cumulativePerformance": "Hiệu suất tích lũy danh mục của tôi",
     "myPerformance": "Hiệu suất sao chép của tôi",
@@ -485,8 +485,8 @@
     "confirmProofOfPayment": "Xác nhận và gửi bằng chứng nạp tiền",
     "monthlyReportTitle": "Monthly report",
     "monthlyReportEmpty": "No activity yet.",
-    "reviewProcessingNote": "Yêu cầu nạp và rút tiền được đội ngũ của chúng tôi xem xét và sẽ phản ánh vào số dư của bạn sau khi được duyệt.",
-    "requestSubmittedMessage": "Yêu cầu của bạn đã được gửi và đang chờ xem xét. Số dư của bạn sẽ được cập nhật sau khi được duyệt.",
+    "reviewProcessingNote": "Khoản nạp thường được ghi có trong 30 phút sau khi mạng xác nhận. Khoản rút thường hoàn tất trong 24 giờ.",
+    "requestSubmittedMessage": "Yêu cầu của bạn đã được tiếp nhận và đang được xử lý. Số dư sẽ được cập nhật khi hoàn tất.",
     "demoDepositNote": "Tiền demo được cộng ngay lập tức. Số dư demo tối đa là 1.000.000 USDT.",
     "demoWithdrawNote": "Rút tiền demo diễn ra ngay lập tức và chỉ ảnh hưởng đến số dư demo của bạn.",
     "demoWalletNote": "Số dư demo của bạn là ảo và hoàn toàn tách biệt với tài khoản thực. Nạp và rút tiền diễn ra ngay lập tức.",
@@ -495,7 +495,9 @@
     "demoDepositDone": "Tiền demo đã được cộng vào số dư của bạn.",
     "demoWithdrawDone": "Tiền demo đã được rút khỏi số dư của bạn.",
     "demoResetDone": "Số dư demo của bạn đã được đặt lại về 10.000 USDT.",
-    "txDemoReset": "Đặt lại số dư"
+    "txDemoReset": "Đặt lại số dư",
+    "etaDeposit": "Dự kiến 30 phút",
+    "etaWithdraw": "Dự kiến 24 giờ"
   },
   "TradeHistory": {
     "periodToday": "Hôm nay",
@@ -1002,7 +1004,7 @@
     "notFoundDesc": "Liên kết bạn đang cố truy cập không tồn tại hoặc đã bị di chuyển.",
     "backToHome": "Về trang chủ",
     "suspendedTitle": "Tài khoản bị đình chỉ",
-    "suspendedDesc": "Tài khoản này đã bị đội ngũ quản trị đình chỉ. Nếu bạn cho rằng đây là sai sót, vui lòng liên hệ bộ phận hỗ trợ.",
+    "suspendedDesc": "Tài khoản này đã bị tạm khóa. Nếu bạn cho rằng đây là nhầm lẫn, vui lòng liên hệ bộ phận hỗ trợ.",
     "logOut": "Đăng xuất",
     "siteDescription": "Một nền tảng giao dịch xã hội để theo dõi các nhà giao dịch hàng đầu và tự động sao chép giao dịch của họ."
   },
@@ -1215,7 +1217,7 @@
           "thêm tiền",
           "nạp thêm"
         ],
-        "answer": "Bạn có thể nạp tiền bằng cách chọn \"Nạp tiền\" trong phần ví của menu bên, sau đó nhập số tiền và phương thức thanh toán rồi xác nhận yêu cầu. Mọi yêu cầu nạp tiền, cho cả tài khoản demo và tài khoản thật, đều được đội ngũ của chúng tôi xem xét và cộng vào số dư của bạn sau khi được duyệt."
+        "answer": "Bạn có thể nạp tiền bằng cách chọn \"Nạp tiền\" trong mục ví ở menu bên, sau đó nhập số tiền và phương thức thanh toán. Khoản nạp tài khoản thực hiển thị là Đang xử lý và được ghi có khi Hoàn tất, thường trong vòng 30 phút. Khoản nạp tài khoản demo diễn ra ngay lập tức."
       },
       {
         "id": "withdraw",
@@ -1225,7 +1227,7 @@
           "rút",
           "rút lợi nhuận"
         ],
-        "answer": "Để rút tiền, chọn \"Rút tiền\" từ menu bên, nhập số tiền và phương thức rút tiền mong muốn, rồi gửi yêu cầu. Yêu cầu rút tiền cần xác minh danh tính (KYC) đã được phê duyệt trước, sau đó sẽ được đội ngũ của chúng tôi xem xét trước khi xử lý."
+        "answer": "Để rút tiền, chọn \"Rút tiền\" ở menu bên, nhập số tiền và phương thức rút mong muốn rồi gửi yêu cầu. Rút tiền yêu cầu hoàn tất xác minh danh tính (KYC) trước. Khoản rút tài khoản thực hiển thị là Đang xử lý và thường hoàn tất trong 24 giờ. Khoản rút tài khoản demo diễn ra ngay lập tức."
       },
       {
         "id": "withdraw-time",
@@ -1235,7 +1237,7 @@
           "khi nào tiền rút về",
           "xử lý rút tiền"
         ],
-        "answer": "Yêu cầu rút tiền được đội ngũ của chúng tôi xem xét trong thời gian ngắn sau khi xác minh danh tính được xác nhận hoàn tất. Bạn có thể theo dõi trạng thái yêu cầu bất cứ lúc nào từ trang \"Lịch sử giao dịch\"."
+        "answer": "Khoản rút tài khoản thực thường hoàn tất trong 24 giờ sau khi xác minh danh tính xong. Bạn có thể theo dõi trạng thái (Đang xử lý, Hoàn tất hoặc Bị từ chối) bất kỳ lúc nào tại trang \"Lịch sử giao dịch\"."
       },
       {
         "id": "kyc",
@@ -1590,7 +1592,7 @@
     "faq6q": "How do you choose traders?",
     "faq6a": "See “How we select traders and calculate performance” above.",
     "faq7q": "How do I withdraw my money?",
-    "faq7a": "Submit a withdrawal request from the Wallet page. Withdrawals require identity verification and requests are reviewed before they are processed.",
+    "faq7a": "Gửi yêu cầu rút tiền từ trang Ví. Rút tiền yêu cầu xác minh danh tính và thường hoàn tất trong 24 giờ.",
     "faq8q": "Is there a demo account?",
     "faq8a": "Yes. A demo account starts with {amount} in virtual funds and lets you practice without risking your own money.",
     "ctaTitle": "Ready to start?",
@@ -2103,7 +2105,7 @@
       },
       {
         "q": "Làm sao để rút tiền?",
-        "a": "Gửi yêu cầu rút tiền từ trang Ví. Việc rút tiền cần xác minh danh tính và các yêu cầu được xem xét trước khi xử lý."
+        "a": "Gửi yêu cầu rút tiền từ trang Ví. Rút tiền yêu cầu xác minh danh tính và thường hoàn tất trong 24 giờ."
       },
       {
         "q": "Có tài khoản demo không?",
@@ -2170,7 +2172,7 @@
     "title": "Bảo mật tài khoản của bạn",
     "items": [
       "Xác minh danh tính",
-      "Yêu cầu rút tiền được xem xét trước khi xử lý",
+      "Khoản rút trải qua kiểm tra an ninh trước khi hoàn tất",
       "Giới hạn lỗ tự động cho mỗi lệnh sao chép",
       "Tách biệt hoàn toàn giữa tài khoản demo và tài khoản thực",
       "Dữ liệu của bạn chỉ mình bạn xem được"
@@ -2191,7 +2193,7 @@
       },
       {
         "title": "Cam kết minh bạch của chúng tôi",
-        "body": "Mỗi trader có lịch sử giao dịch để bạn xem trước khi sao chép, không có phí đăng ký hay hoa hồng ẩn. Yêu cầu rút tiền được xem xét trước khi xử lý, và mỗi lệnh sao chép có giới hạn lỗ tự động sẽ dừng việc sao chép khi chạm mức đó."
+        "body": "Mỗi nhà giao dịch đều có lịch sử giao dịch để bạn xem trước khi sao chép, không có phí đăng ký hay hoa hồng ẩn. Khoản rút trải qua kiểm tra an ninh trước khi hoàn tất, và mỗi lệnh sao chép có giới hạn lỗ tự động sẽ dừng khi chạm mức đó."
       },
       {
         "title": "Cảnh báo rủi ro",

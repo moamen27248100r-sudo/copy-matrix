@@ -297,7 +297,9 @@ export default async function PortfolioPage({
                 className="flex items-center justify-between rounded border border-border bg-background px-3 py-2 text-sm"
               >
                 <span>{r.type === "deposit" ? td("deposit") : td("withdraw")} ${Number(r.amount).toLocaleString("en-US")}</span>
-                <span className="text-xs text-muted">{REQUEST_STATUS_LABELS[r.status]}</span>
+                <span className="text-xs text-muted">
+                  {REQUEST_STATUS_LABELS[r.status]} · {r.type === "deposit" ? t("etaDeposit") : t("etaWithdraw")}
+                </span>
               </div>
             ))}
           </div>

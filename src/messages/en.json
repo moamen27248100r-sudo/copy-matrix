@@ -75,8 +75,8 @@
           "desc": "We never deduct any commission from your profits or from copying, no matter how large."
         },
         {
-          "title": "Admin review on every transaction",
-          "desc": "Every deposit or withdrawal request is manually reviewed and approved by our team before execution, to protect your account."
+          "title": "Security-checked transactions",
+          "desc": "Every deposit and withdrawal goes through security checks before it is completed, to protect your account."
         }
       ]
     },
@@ -97,7 +97,7 @@
         },
         {
           "title": "Deposit your funds",
-          "desc": "Deposit the amount you want to invest through the available payment methods, to be approved by our admin team."
+          "desc": "Deposit the amount you want to invest through the available payment methods. Deposits are credited once the network confirms them."
         },
         {
           "title": "Choose a trader",
@@ -154,7 +154,7 @@
         },
         {
           "q": "How do I deposit or withdraw?",
-          "a": "You can submit a deposit or withdrawal request from your portfolio page at any time, and it will be reviewed and approved by our admin team before it reflects on your balance."
+          "a": "You can submit a deposit or withdrawal request from your portfolio page at any time. Requests show as Processing and are reflected in your balance once Completed."
         }
       ]
     },
@@ -253,7 +253,7 @@
     "kycNoneDesc": "Verification is required to unlock every platform feature, including withdrawal requests.",
     "kycNoneAction": "Complete",
     "kycPendingTitle": "Verification request under review",
-    "kycPendingDesc": "You'll be notified as soon as the admin team makes a decision.",
+    "kycPendingDesc": "You'll be notified as soon as the verification is complete.",
     "kycRejectedTitle": "Verification request rejected",
     "kycRejectedDesc": "Please resubmit or contact support to find out why.",
     "kycRejectedAction": "Resubmit",
@@ -363,12 +363,12 @@
     "kycApprovedBody": "Your identity verification request has been approved.",
     "kycRejectedTitle": "Verification request rejected",
     "kycRejectedBody": "Your identity verification request was rejected. Please contact support to find out why.",
-    "walletDepositApprovedTitle": "Deposit request approved",
-    "walletWithdrawalApprovedTitle": "Withdrawal request approved",
-    "walletApprovedBody": "Your request for {amount}$ has been processed.",
-    "walletDepositRejectedTitle": "Deposit request rejected",
-    "walletWithdrawalRejectedTitle": "Withdrawal request rejected",
-    "walletRejectedBody": "Your request was rejected. Please contact support to find out why.",
+    "walletDepositApprovedTitle": "Deposit completed",
+    "walletWithdrawalApprovedTitle": "Withdrawal completed",
+    "walletApprovedBody": "Your transaction of {amount} USDT has been completed.",
+    "walletDepositRejectedTitle": "Deposit rejected",
+    "walletWithdrawalRejectedTitle": "Withdrawal rejected",
+    "walletRejectedBody": "Your request could not be completed. Please contact support for details.",
     "followedTradeOpenedTitle": "New trade opened | {providerName}",
     "followedTradeOpenedBody": "{providerName} opened a {side, select, sell {sell} other {buy}} trade on {symbol}. You can review the details now.",
     "comingSoon": "Coming soon",
@@ -406,9 +406,9 @@
     "tabOverview": "Overview",
     "tabPositions": "Positions",
     "tabActivity": "Activity",
-    "pendingRequestsLabel": "Requests under review",
-    "statusPending": "Under review",
-    "statusApproved": "Approved",
+    "pendingRequestsLabel": "Processing requests",
+    "statusPending": "Processing",
+    "statusApproved": "Completed",
     "statusRejected": "Rejected",
     "cumulativePerformance": "My cumulative portfolio performance",
     "myPerformance": "My copying performance",
@@ -485,8 +485,8 @@
     "confirmProofOfPayment": "Confirm and send deposit proof",
     "monthlyReportTitle": "Monthly report",
     "monthlyReportEmpty": "No activity yet.",
-    "reviewProcessingNote": "Deposit and withdrawal requests are reviewed by our team. They're reflected in your balance once approved.",
-    "requestSubmittedMessage": "Your request was submitted and is pending review. Your balance will update once it's approved.",
+    "reviewProcessingNote": "Deposits are typically credited within 30 minutes of network confirmation. Withdrawals are typically completed within 24 hours.",
+    "requestSubmittedMessage": "Your request was received and is now processing. Your balance will update once it's completed.",
     "demoDepositNote": "Demo funds are credited instantly. The maximum demo balance is 1,000,000 USDT.",
     "demoWithdrawNote": "Demo withdrawals are instant and only affect your demo balance.",
     "demoWalletNote": "Your demo balance is virtual and completely separate from your real account. Deposits and withdrawals are instant.",
@@ -495,7 +495,9 @@
     "demoDepositDone": "Demo funds added to your balance.",
     "demoWithdrawDone": "Demo funds withdrawn from your balance.",
     "demoResetDone": "Your demo balance was reset to 10,000 USDT.",
-    "txDemoReset": "Balance reset"
+    "txDemoReset": "Balance reset",
+    "etaDeposit": "Est. 30 min",
+    "etaWithdraw": "Est. 24 h"
   },
   "TradeHistory": {
     "periodToday": "Today",
@@ -1002,7 +1004,7 @@
     "notFoundDesc": "The link you tried to reach does not exist or has been moved.",
     "backToHome": "Back to home",
     "suspendedTitle": "Account suspended",
-    "suspendedDesc": "This account has been suspended by the admin team. If you believe this is a mistake, please contact support.",
+    "suspendedDesc": "This account has been suspended. If you believe this is a mistake, please contact support.",
     "logOut": "Log out",
     "siteDescription": "A social trading platform for following top traders and automatically copying their trades."
   },
@@ -1215,7 +1217,7 @@
           "add funds",
           "top up"
         ],
-        "answer": "You can deposit funds by choosing \"Deposit\" from the wallet section in the side menu, then entering the amount and payment method and confirming the request. All deposit requests, for demo and real accounts, are reviewed by our team and credited to your balance once approved."
+        "answer": "You can deposit funds by choosing \"Deposit\" from the wallet section in the side menu, then entering the amount and payment method. Real-account deposits show as Processing and are credited to your balance once Completed, usually within 30 minutes. Demo-account deposits are instant."
       },
       {
         "id": "withdraw",
@@ -1225,7 +1227,7 @@
           "cash out",
           "withdraw profits"
         ],
-        "answer": "To withdraw, choose \"Withdraw\" from the side menu, enter the amount and preferred withdrawal method, and submit the request. Withdrawal requests require identity verification (KYC) to already be approved, and then go through review by our team before processing."
+        "answer": "To withdraw, choose \"Withdraw\" from the side menu, enter the amount and preferred withdrawal method, and submit the request. Withdrawals require identity verification (KYC) to be completed first. Real-account withdrawals show as Processing and are usually completed within 24 hours. Demo withdrawals are instant."
       },
       {
         "id": "withdraw-time",
@@ -1235,7 +1237,7 @@
           "when will withdrawal arrive",
           "withdrawal processing"
         ],
-        "answer": "Withdrawal requests are reviewed by our team within a short period once identity verification is confirmed complete. You can track the request status anytime from the \"Transaction History\" page."
+        "answer": "Real-account withdrawals are usually completed within 24 hours once identity verification is complete. You can track the status (Processing, Completed or Rejected) anytime from the \"Transaction History\" page."
       },
       {
         "id": "kyc",
@@ -1594,7 +1596,7 @@
     "faq6q": "How do you choose traders?",
     "faq6a": "See “How we select traders and calculate performance” above.",
     "faq7q": "How do I withdraw my money?",
-    "faq7a": "Submit a withdrawal request from the Wallet page. Withdrawals require identity verification and requests are reviewed before they are processed.",
+    "faq7a": "Submit a withdrawal request from the Wallet page. Withdrawals require identity verification and are usually completed within 24 hours.",
     "faq8q": "Is there a demo account?",
     "faq8a": "Yes. A demo account starts with {amount} in virtual funds and lets you practice without risking your own money.",
     "ctaTitle": "Ready to start?",
@@ -2107,7 +2109,7 @@
       },
       {
         "q": "How do I withdraw my money?",
-        "a": "Submit a withdrawal request from the Wallet page. Withdrawals require identity verification and requests are reviewed before processing."
+        "a": "Submit a withdrawal request from the Wallet page. Withdrawals require identity verification and are usually completed within 24 hours."
       },
       {
         "q": "Is there a demo account?",
@@ -2174,7 +2176,7 @@
     "title": "Your account security",
     "items": [
       "Identity verification",
-      "Withdrawal requests are reviewed before they are processed",
+      "Withdrawals go through security checks before they are completed",
       "An automatic loss limit on every copy",
       "Full separation between demo and real accounts",
       "Your data is visible only to you"
@@ -2195,7 +2197,7 @@
       },
       {
         "title": "Our commitment to transparency",
-        "body": "Every trader has a trade history you can review before copying, and there are no subscription fees or hidden commissions. Withdrawal requests are reviewed before they are processed, and every copy has an automatic loss limit that stops it once reached."
+        "body": "Every trader has a trade history you can review before copying, and there are no subscription fees or hidden commissions. Withdrawals go through security checks before they are completed, and every copy has an automatic loss limit that stops it once reached."
       },
       {
         "title": "Risk warning",

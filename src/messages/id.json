@@ -65,8 +65,8 @@
           "desc": "Kami tidak pernah memotong komisi apa pun dari keuntungan Anda atau dari penyalinan, berapa pun besarnya."
         },
         {
-          "title": "Peninjauan admin pada setiap transaksi",
-          "desc": "Setiap permintaan deposit atau penarikan ditinjau dan disetujui secara manual oleh tim kami sebelum dieksekusi, untuk melindungi akun Anda."
+          "title": "Transaksi dengan pemeriksaan keamanan",
+          "desc": "Setiap setoran dan penarikan melewati pemeriksaan keamanan sebelum selesai, demi melindungi akun Anda."
         }
       ]
     },
@@ -87,7 +87,7 @@
         },
         {
           "title": "Setor dana Anda",
-          "desc": "Setor jumlah yang ingin Anda investasikan melalui metode pembayaran yang tersedia, untuk disetujui oleh tim admin kami."
+          "desc": "Setor jumlah yang ingin Anda investasikan melalui metode pembayaran yang tersedia. Setoran dikreditkan setelah jaringan mengonfirmasinya."
         },
         {
           "title": "Pilih seorang trader",
@@ -144,7 +144,7 @@
         },
         {
           "q": "Bagaimana cara saya melakukan deposit atau penarikan?",
-          "a": "Anda dapat mengajukan permintaan deposit atau penarikan dari halaman portofolio Anda kapan saja, dan akan ditinjau serta disetujui oleh tim admin kami sebelum tercermin pada saldo Anda."
+          "a": "Anda dapat mengajukan setoran atau penarikan dari halaman portofolio kapan saja. Permintaan tampil sebagai Diproses dan tercermin di saldo setelah Selesai."
         }
       ]
     },
@@ -253,7 +253,7 @@
     "kycNoneDesc": "Verifikasi diperlukan untuk membuka semua fitur platform, termasuk permintaan penarikan.",
     "kycNoneAction": "Selesaikan",
     "kycPendingTitle": "Permintaan verifikasi sedang ditinjau",
-    "kycPendingDesc": "Anda akan diberi tahu segera setelah tim admin membuat keputusan.",
+    "kycPendingDesc": "Anda akan diberi tahu segera setelah verifikasi selesai.",
     "kycRejectedTitle": "Permintaan verifikasi ditolak",
     "kycRejectedDesc": "Silakan ajukan ulang atau hubungi dukungan untuk mengetahui alasannya.",
     "kycRejectedAction": "Ajukan ulang",
@@ -363,12 +363,12 @@
     "kycApprovedBody": "Permintaan verifikasi identitas Anda telah disetujui.",
     "kycRejectedTitle": "Permintaan verifikasi ditolak",
     "kycRejectedBody": "Permintaan verifikasi identitas Anda ditolak. Silakan hubungi dukungan untuk mengetahui alasannya.",
-    "walletDepositApprovedTitle": "Permintaan setor disetujui",
-    "walletWithdrawalApprovedTitle": "Permintaan tarik disetujui",
-    "walletApprovedBody": "Permintaan Anda sebesar {amount}$ telah diproses.",
-    "walletDepositRejectedTitle": "Permintaan setor ditolak",
-    "walletWithdrawalRejectedTitle": "Permintaan tarik ditolak",
-    "walletRejectedBody": "Permintaan Anda ditolak. Silakan hubungi dukungan untuk mengetahui alasannya.",
+    "walletDepositApprovedTitle": "Setoran selesai",
+    "walletWithdrawalApprovedTitle": "Penarikan selesai",
+    "walletApprovedBody": "Transaksi Anda sebesar {amount} USDT telah selesai.",
+    "walletDepositRejectedTitle": "Setoran ditolak",
+    "walletWithdrawalRejectedTitle": "Penarikan ditolak",
+    "walletRejectedBody": "Permintaan Anda tidak dapat diselesaikan. Hubungi dukungan untuk detailnya.",
     "followedTradeOpenedTitle": "Transaksi baru dibuka | {providerName}",
     "followedTradeOpenedBody": "{providerName} membuka transaksi {side, select, sell {jual} other {beli}} pada {symbol}. Anda dapat meninjau detailnya sekarang.",
     "comingSoon": "Coming soon",
@@ -406,9 +406,9 @@
     "tabOverview": "Ikhtisar",
     "tabPositions": "Posisi",
     "tabActivity": "Aktivitas",
-    "pendingRequestsLabel": "Permintaan sedang ditinjau",
-    "statusPending": "Sedang ditinjau",
-    "statusApproved": "Disetujui",
+    "pendingRequestsLabel": "Permintaan diproses",
+    "statusPending": "Diproses",
+    "statusApproved": "Selesai",
     "statusRejected": "Ditolak",
     "cumulativePerformance": "Performa kumulatif portofolio saya",
     "myPerformance": "Performa penyalinan saya",
@@ -485,8 +485,8 @@
     "confirmProofOfPayment": "Konfirmasi dan kirim bukti setoran",
     "monthlyReportTitle": "Monthly report",
     "monthlyReportEmpty": "No activity yet.",
-    "reviewProcessingNote": "Permintaan setoran dan penarikan ditinjau oleh tim kami dan akan tercermin di saldo Anda setelah disetujui.",
-    "requestSubmittedMessage": "Permintaan Anda telah dikirim dan sedang ditinjau. Saldo Anda akan diperbarui setelah disetujui.",
+    "reviewProcessingNote": "Setoran biasanya dikreditkan dalam 30 menit setelah konfirmasi jaringan. Penarikan biasanya selesai dalam 24 jam.",
+    "requestSubmittedMessage": "Permintaan Anda telah diterima dan sedang diproses. Saldo Anda akan diperbarui setelah selesai.",
     "demoDepositNote": "Dana demo dikreditkan secara instan. Saldo demo maksimum adalah 1.000.000 USDT.",
     "demoWithdrawNote": "Penarikan demo bersifat instan dan hanya memengaruhi saldo demo Anda.",
     "demoWalletNote": "Saldo demo Anda bersifat virtual dan sepenuhnya terpisah dari akun riil. Setoran dan penarikan bersifat instan.",
@@ -495,7 +495,9 @@
     "demoDepositDone": "Dana demo telah ditambahkan ke saldo Anda.",
     "demoWithdrawDone": "Dana demo telah ditarik dari saldo Anda.",
     "demoResetDone": "Saldo demo Anda telah diatur ulang ke 10.000 USDT.",
-    "txDemoReset": "Pengaturan ulang saldo"
+    "txDemoReset": "Pengaturan ulang saldo",
+    "etaDeposit": "Est. 30 mnt",
+    "etaWithdraw": "Est. 24 jam"
   },
   "TradeHistory": {
     "periodToday": "Hari ini",
@@ -1002,7 +1004,7 @@
     "notFoundDesc": "Tautan yang Anda coba akses tidak ada atau telah dipindahkan.",
     "backToHome": "Kembali ke beranda",
     "suspendedTitle": "Akun ditangguhkan",
-    "suspendedDesc": "Akun ini telah ditangguhkan oleh tim admin. Jika Anda merasa ini adalah kesalahan, silakan hubungi dukungan.",
+    "suspendedDesc": "Akun ini telah ditangguhkan. Jika Anda merasa ini kesalahan, silakan hubungi dukungan.",
     "logOut": "Keluar",
     "siteDescription": "Platform trading sosial untuk mengikuti trader terbaik dan menyalin trade mereka secara otomatis."
   },
@@ -1215,7 +1217,7 @@
           "tambah dana",
           "isi ulang"
         ],
-        "answer": "Anda dapat menyetor dana dengan memilih \"Setor\" di bagian dompet pada menu samping, lalu memasukkan jumlah dan metode pembayaran dan mengonfirmasi permintaan. Semua permintaan setoran, baik akun demo maupun akun riil, ditinjau oleh tim kami dan dikreditkan ke saldo Anda setelah disetujui."
+        "answer": "Anda dapat menyetor dana dengan memilih \"Setor\" di bagian dompet pada menu samping, lalu memasukkan jumlah dan metode pembayaran. Setoran akun riil tampil sebagai Diproses dan dikreditkan setelah Selesai, biasanya dalam 30 menit. Setoran akun demo bersifat instan."
       },
       {
         "id": "withdraw",
@@ -1225,7 +1227,7 @@
           "tarik dana",
           "tarik keuntungan"
         ],
-        "answer": "Untuk menarik dana, pilih \"Tarik\" dari menu samping, masukkan jumlah dan metode penarikan yang diinginkan, lalu kirim permintaan. Permintaan penarikan memerlukan verifikasi identitas (KYC) yang sudah disetujui, lalu melalui peninjauan tim kami sebelum diproses."
+        "answer": "Untuk menarik dana, pilih \"Tarik\" dari menu samping, masukkan jumlah dan metode penarikan yang diinginkan, lalu kirim permintaan. Penarikan mengharuskan verifikasi identitas (KYC) selesai terlebih dahulu. Penarikan akun riil tampil sebagai Diproses dan biasanya selesai dalam 24 jam. Penarikan akun demo bersifat instan."
       },
       {
         "id": "withdraw-time",
@@ -1235,7 +1237,7 @@
           "kapan penarikan sampai",
           "pemrosesan penarikan"
         ],
-        "answer": "Permintaan penarikan ditinjau oleh tim kami dalam waktu singkat setelah verifikasi identitas dikonfirmasi selesai. Anda dapat melacak status permintaan kapan saja dari halaman \"Riwayat Transaksi\"."
+        "answer": "Penarikan akun riil biasanya selesai dalam 24 jam setelah verifikasi identitas selesai. Anda dapat melacak statusnya (Diproses, Selesai, atau Ditolak) kapan saja dari halaman \"Riwayat Transaksi\"."
       },
       {
         "id": "kyc",
@@ -1590,7 +1592,7 @@
     "faq6q": "How do you choose traders?",
     "faq6a": "See “How we select traders and calculate performance” above.",
     "faq7q": "How do I withdraw my money?",
-    "faq7a": "Submit a withdrawal request from the Wallet page. Withdrawals require identity verification and requests are reviewed before they are processed.",
+    "faq7a": "Ajukan permintaan penarikan dari halaman Dompet. Penarikan memerlukan verifikasi identitas dan biasanya selesai dalam 24 jam.",
     "faq8q": "Is there a demo account?",
     "faq8a": "Yes. A demo account starts with {amount} in virtual funds and lets you practice without risking your own money.",
     "ctaTitle": "Ready to start?",
@@ -2103,7 +2105,7 @@
       },
       {
         "q": "Bagaimana cara menarik dana?",
-        "a": "Ajukan permintaan penarikan dari halaman Dompet. Penarikan memerlukan verifikasi identitas dan permintaan ditinjau sebelum diproses."
+        "a": "Ajukan permintaan penarikan dari halaman Dompet. Penarikan memerlukan verifikasi identitas dan biasanya selesai dalam 24 jam."
       },
       {
         "q": "Apakah ada akun demo?",
@@ -2170,7 +2172,7 @@
     "title": "Keamanan akun Anda",
     "items": [
       "Verifikasi identitas",
-      "Permintaan penarikan ditinjau sebelum diproses",
+      "Penarikan melewati pemeriksaan keamanan sebelum selesai",
       "Batas kerugian otomatis pada setiap salinan",
       "Pemisahan penuh antara akun demo dan akun riil",
       "Data Anda tidak dapat dilihat siapa pun selain Anda"
@@ -2191,7 +2193,7 @@
       },
       {
         "title": "Komitmen kami pada transparansi",
-        "body": "Setiap trader memiliki riwayat transaksi yang dapat ditinjau sebelum menyalin, tanpa biaya langganan atau komisi tersembunyi. Permintaan penarikan ditinjau sebelum diproses, dan setiap salinan memiliki batas kerugian otomatis yang menghentikannya saat tercapai."
+        "body": "Setiap trader memiliki riwayat transaksi yang dapat Anda tinjau sebelum menyalin, tanpa biaya langganan maupun komisi tersembunyi. Penarikan melewati pemeriksaan keamanan sebelum selesai, dan setiap salinan memiliki batas kerugian otomatis yang menghentikannya saat tercapai."
       },
       {
         "title": "Peringatan risiko",

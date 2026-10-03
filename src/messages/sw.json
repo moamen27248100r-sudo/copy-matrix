@@ -65,8 +65,8 @@
           "desc": "Hatuondoi kamwe kamisheni yoyote kutoka kwa faida zako au kutoka kwa unakili, haijalishi kiasi ni kikubwa kiasi gani."
         },
         {
-          "title": "Ukaguzi wa usimamizi kwa kila muamala",
-          "desc": "Kila ombi la uwekaji au uondoaji hukaguliwa na kuidhinishwa kwa mkono na timu yetu kabla ya utekelezaji, ili kulinda akaunti yako."
+          "title": "Miamala iliyokaguliwa kiusalama",
+          "desc": "Kila amana na uondoaji hupitia ukaguzi wa usalama kabla ya kukamilika, ili kulinda akaunti yako."
         }
       ]
     },
@@ -87,7 +87,7 @@
         },
         {
           "title": "Weka fedha zako",
-          "desc": "Weka kiasi unachotaka kuwekeza kupitia njia za malipo zinazopatikana, ili kiidhinishwe na timu yetu ya usimamizi."
+          "desc": "Weka kiasi unachotaka kuwekeza kupitia njia za malipo zilizopo. Amana huwekwa kwenye salio lako mtandao unapozithibitisha."
         },
         {
           "title": "Chagua mfanyabiashara",
@@ -144,7 +144,7 @@
         },
         {
           "q": "Ninawezaje kuweka au kutoa fedha?",
-          "a": "Unaweza kuwasilisha ombi la uwekaji au uondoaji kutoka ukurasa wa portfolio yako wakati wowote, na litakaguliwa na kuidhinishwa na timu yetu ya usimamizi kabla ya kuakisiwa kwenye salio lako."
+          "a": "Unaweza kuwasilisha ombi la amana au uondoaji kutoka ukurasa wako wa portfolio wakati wowote. Maombi huonekana kama \"Inachakatwa\" na huonekana kwenye salio lako yakikamilika."
         }
       ]
     },
@@ -253,7 +253,7 @@
     "kycNoneDesc": "Uthibitisho unahitajika ili kufungua vipengele vyote vya jukwaa, ikiwa ni pamoja na maombi ya kutoa fedha.",
     "kycNoneAction": "Kamilisha",
     "kycPendingTitle": "Ombi la uthibitisho linakaguliwa",
-    "kycPendingDesc": "Utaarifiwa mara tu timu ya usimamizi itakapofanya uamuzi.",
+    "kycPendingDesc": "Utaarifiwa mara tu uthibitishaji utakapokamilika.",
     "kycRejectedTitle": "Ombi la uthibitisho limekataliwa",
     "kycRejectedDesc": "Tafadhali wasilisha tena au wasiliana na msaada ili kujua sababu.",
     "kycRejectedAction": "Wasilisha tena",
@@ -363,12 +363,12 @@
     "kycApprovedBody": "Ombi lako la uthibitisho wa utambulisho limeidhinishwa.",
     "kycRejectedTitle": "Ombi la uthibitisho limekataliwa",
     "kycRejectedBody": "Ombi lako la uthibitisho wa utambulisho limekataliwa. Tafadhali wasiliana na msaada ili kujua sababu.",
-    "walletDepositApprovedTitle": "Ombi la kuweka pesa limeidhinishwa",
-    "walletWithdrawalApprovedTitle": "Ombi la kutoa pesa limeidhinishwa",
-    "walletApprovedBody": "Ombi lako la {amount}$ limeshughulikiwa.",
-    "walletDepositRejectedTitle": "Ombi la kuweka pesa limekataliwa",
-    "walletWithdrawalRejectedTitle": "Ombi la kutoa pesa limekataliwa",
-    "walletRejectedBody": "Ombi lako limekataliwa. Tafadhali wasiliana na msaada ili kujua sababu.",
+    "walletDepositApprovedTitle": "Amana imekamilika",
+    "walletWithdrawalApprovedTitle": "Uondoaji umekamilika",
+    "walletApprovedBody": "Muamala wako wa USDT {amount} umekamilika.",
+    "walletDepositRejectedTitle": "Amana imekataliwa",
+    "walletWithdrawalRejectedTitle": "Uondoaji umekataliwa",
+    "walletRejectedBody": "Ombi lako halikuweza kukamilika. Tafadhali wasiliana na usaidizi kwa maelezo.",
     "followedTradeOpenedTitle": "Biashara mpya imefunguliwa | {providerName}",
     "followedTradeOpenedBody": "{providerName} amefungua biashara ya {side, select, sell {kuuza} other {kununua}} kwenye {symbol}. Unaweza kukagua maelezo sasa.",
     "comingSoon": "Coming soon",
@@ -406,9 +406,9 @@
     "tabOverview": "Muhtasari",
     "tabPositions": "Nafasi",
     "tabActivity": "Shughuli",
-    "pendingRequestsLabel": "Maombi yanayokaguliwa",
-    "statusPending": "Yanakaguliwa",
-    "statusApproved": "Yameidhinishwa",
+    "pendingRequestsLabel": "Maombi yanayochakatwa",
+    "statusPending": "Inachakatwa",
+    "statusApproved": "Imekamilika",
     "statusRejected": "Yamekataliwa",
     "cumulativePerformance": "Utendaji wa jumla wa jalada langu",
     "myPerformance": "Utendaji wa unakili wangu",
@@ -485,8 +485,8 @@
     "confirmProofOfPayment": "Thibitisha na tuma uthibitisho wa amana",
     "monthlyReportTitle": "Monthly report",
     "monthlyReportEmpty": "No activity yet.",
-    "reviewProcessingNote": "Maombi ya kuweka na kutoa pesa hukaguliwa na timu yetu na huonekana kwenye salio lako baada ya kuidhinishwa.",
-    "requestSubmittedMessage": "Ombi lako limetumwa na linakaguliwa. Salio lako litasasishwa litakapoidhinishwa.",
+    "reviewProcessingNote": "Amana kwa kawaida huwekwa ndani ya dakika 30 baada ya mtandao kuthibitisha. Uondoaji kwa kawaida hukamilika ndani ya saa 24.",
+    "requestSubmittedMessage": "Ombi lako limepokelewa na linachakatwa. Salio lako litasasishwa litakapokamilika.",
     "demoDepositNote": "Fedha za majaribio huwekwa papo hapo. Salio la juu zaidi la demo ni USDT 1,000,000.",
     "demoWithdrawNote": "Uondoaji wa demo ni wa papo hapo na unaathiri salio lako la demo pekee.",
     "demoWalletNote": "Salio lako la demo ni la kidhahania na limetenganishwa kabisa na akaunti yako halisi. Amana na uondoaji ni wa papo hapo.",
@@ -495,7 +495,9 @@
     "demoDepositDone": "Fedha za demo zimeongezwa kwenye salio lako.",
     "demoWithdrawDone": "Fedha za demo zimetolewa kwenye salio lako.",
     "demoResetDone": "Salio lako la demo limewekwa upya hadi USDT 10,000.",
-    "txDemoReset": "Kuweka upya salio"
+    "txDemoReset": "Kuweka upya salio",
+    "etaDeposit": "Takriban dakika 30",
+    "etaWithdraw": "Takriban saa 24"
   },
   "TradeHistory": {
     "periodToday": "Leo",
@@ -1002,7 +1004,7 @@
     "notFoundDesc": "Kiungo ulichojaribu kufikia hakipo au kimehamishwa.",
     "backToHome": "Rudi mwanzo",
     "suspendedTitle": "Akaunti imesimamishwa",
-    "suspendedDesc": "Akaunti hii imesimamishwa na timu ya utawala. Ikiwa unaamini huu ni makosa, tafadhali wasiliana na msaada.",
+    "suspendedDesc": "Akaunti hii imesimamishwa. Ikiwa unaamini ni kosa, tafadhali wasiliana na usaidizi.",
     "logOut": "Toka",
     "siteDescription": "Jukwaa la biashara ya kijamii kwa ajili ya kufuata wafanyabiashara bora na kunakili biashara zao kiotomatiki."
   },
@@ -1215,7 +1217,7 @@
           "ongeza fedha",
           "jaza upya"
         ],
-        "answer": "Unaweza kuweka pesa kwa kuchagua \"Weka pesa\" katika sehemu ya pochi kwenye menyu ya pembeni, kisha kuingiza kiasi na njia ya malipo na kuthibitisha ombi. Maombi yote ya kuweka pesa, kwa akaunti ya majaribio na halisi, hukaguliwa na timu yetu na kiasi huongezwa kwenye salio lako baada ya kuidhinishwa."
+        "answer": "Unaweza kuweka fedha kwa kuchagua \"Weka\" kwenye sehemu ya pochi katika menyu ya pembeni, kisha kuingiza kiasi na njia ya malipo. Amana za akaunti halisi huonekana kama \"Inachakatwa\" na huwekwa kwenye salio zikikamilika, kwa kawaida ndani ya dakika 30. Amana za akaunti ya demo ni za papo hapo."
       },
       {
         "id": "withdraw",
@@ -1225,7 +1227,7 @@
           "toa fedha",
           "toa faida"
         ],
-        "answer": "Ili kuondoa, chagua \"Ondoa\" kutoka menyu ya pembeni, ingiza kiasi na njia ya uondoaji unayotaka, kisha wasilisha ombi. Maombi ya uondoaji yanahitaji uthibitishaji wa utambulisho (KYC) uliokwisha idhinishwa, kisha hupitia ukaguzi wa timu yetu kabla ya kuchakatwa."
+        "answer": "Ili kutoa, chagua \"Toa\" kwenye menyu ya pembeni, ingiza kiasi na njia unayopendelea, kisha wasilisha ombi. Uondoaji unahitaji uthibitishaji wa utambulisho (KYC) ukamilike kwanza. Uondoaji wa akaunti halisi huonekana kama \"Inachakatwa\" na kwa kawaida hukamilika ndani ya saa 24. Uondoaji wa demo ni wa papo hapo."
       },
       {
         "id": "withdraw-time",
@@ -1235,7 +1237,7 @@
           "uondoaji utafika lini",
           "uchakataji wa uondoaji"
         ],
-        "answer": "Maombi ya uondoaji yanakaguliwa na timu yetu ndani ya muda mfupi baada ya kuthibitisha uthibitishaji wa utambulisho umekamilika. Unaweza kufuatilia hali ya ombi wakati wowote kutoka ukurasa wa \"Historia ya Miamala\"."
+        "answer": "Uondoaji wa akaunti halisi kwa kawaida hukamilika ndani ya saa 24 baada ya uthibitishaji wa utambulisho kukamilika. Unaweza kufuatilia hali (Inachakatwa, Imekamilika au Imekataliwa) wakati wowote kutoka ukurasa wa \"Historia ya Miamala\"."
       },
       {
         "id": "kyc",
@@ -1590,7 +1592,7 @@
     "faq6q": "How do you choose traders?",
     "faq6a": "See “How we select traders and calculate performance” above.",
     "faq7q": "How do I withdraw my money?",
-    "faq7a": "Submit a withdrawal request from the Wallet page. Withdrawals require identity verification and requests are reviewed before they are processed.",
+    "faq7a": "Wasilisha ombi la uondoaji kutoka ukurasa wa Pochi. Uondoaji unahitaji uthibitishaji wa utambulisho na kwa kawaida hukamilika ndani ya saa 24.",
     "faq8q": "Is there a demo account?",
     "faq8a": "Yes. A demo account starts with {amount} in virtual funds and lets you practice without risking your own money.",
     "ctaTitle": "Ready to start?",
@@ -2103,7 +2105,7 @@
       },
       {
         "q": "Natoaje pesa zangu?",
-        "a": "Tuma ombi la kutoa pesa kutoka ukurasa wa Pochi. Utoaji unahitaji uthibitishaji wa utambulisho na maombi hukaguliwa kabla ya kushughulikiwa."
+        "a": "Wasilisha ombi la uondoaji kutoka ukurasa wa Pochi. Uondoaji unahitaji uthibitishaji wa utambulisho na kwa kawaida hukamilika ndani ya saa 24."
       },
       {
         "q": "Je, kuna akaunti ya majaribio?",
@@ -2170,7 +2172,7 @@
     "title": "Usalama wa akaunti yako",
     "items": [
       "Uthibitishaji wa utambulisho",
-      "Maombi ya kutoa pesa hukaguliwa kabla ya kushughulikiwa",
+      "Uondoaji hupitia ukaguzi wa usalama kabla ya kukamilika",
       "Kikomo cha hasara kiotomatiki kwa kila nakala",
       "Utengano kamili kati ya akaunti ya majaribio na halisi",
       "Data yako haionekani kwa mtu mwingine yeyote ila wewe"
@@ -2191,7 +2193,7 @@
       },
       {
         "title": "Ahadi yetu ya uwazi",
-        "body": "Kila mfanyabiashara ana historia ya biashara unayoweza kuikagua kabla ya kunakili, na hakuna ada ya usajili wala kamisheni fiche. Maombi ya kutoa pesa hukaguliwa kabla ya kushughulikiwa, na kila nakala ina kikomo cha hasara kiotomatiki kinachoisimamisha kikifikiwa."
+        "body": "Kila mfanyabiashara ana historia ya biashara unayoweza kuikagua kabla ya kunakili, na hakuna ada za usajili wala kamisheni zilizofichwa. Uondoaji hupitia ukaguzi wa usalama kabla ya kukamilika, na kila nakala ina kikomo cha hasara cha kiotomatiki kinachoisimamisha kinapofikiwa."
       },
       {
         "title": "Onyo la hatari",

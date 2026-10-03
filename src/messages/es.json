@@ -65,8 +65,8 @@
           "desc": "Nunca deducimos ninguna comisión de tus ganancias ni de la copia, sin importar el monto."
         },
         {
-          "title": "Revisión administrativa en cada transacción",
-          "desc": "Cada solicitud de depósito o retiro es revisada y aprobada manualmente por nuestro equipo antes de ejecutarse, para proteger tu cuenta."
+          "title": "Transacciones verificadas por seguridad",
+          "desc": "Cada depósito y retiro pasa por controles de seguridad antes de completarse, para proteger tu cuenta."
         }
       ]
     },
@@ -87,7 +87,7 @@
         },
         {
           "title": "Deposita tus fondos",
-          "desc": "Deposita el monto que deseas invertir a través de los métodos de pago disponibles, para ser aprobado por nuestro equipo de administración."
+          "desc": "Deposita el importe que quieres invertir con los métodos de pago disponibles. Los depósitos se acreditan cuando la red los confirma."
         },
         {
           "title": "Elige un trader",
@@ -144,7 +144,7 @@
         },
         {
           "q": "¿Cómo deposito o retiro fondos?",
-          "a": "Puedes enviar una solicitud de depósito o retiro desde la página de tu portafolio en cualquier momento, y será revisada y aprobada por nuestro equipo de administración antes de reflejarse en tu saldo."
+          "a": "Puedes enviar una solicitud de depósito o retiro desde tu cartera en cualquier momento. Las solicitudes aparecen como «En proceso» y se reflejan en tu saldo cuando se completan."
         }
       ]
     },
@@ -253,7 +253,7 @@
     "kycNoneDesc": "La verificación es necesaria para desbloquear todas las funciones de la plataforma, incluidas las solicitudes de retiro.",
     "kycNoneAction": "Completar",
     "kycPendingTitle": "Solicitud de verificación en revisión",
-    "kycPendingDesc": "Se te notificará en cuanto el equipo de administración tome una decisión.",
+    "kycPendingDesc": "Te avisaremos en cuanto se complete la verificación.",
     "kycRejectedTitle": "Solicitud de verificación rechazada",
     "kycRejectedDesc": "Vuelve a enviarla o contacta con soporte para conocer el motivo.",
     "kycRejectedAction": "Volver a enviar",
@@ -363,12 +363,12 @@
     "kycApprovedBody": "Tu solicitud de verificación de identidad ha sido aprobada.",
     "kycRejectedTitle": "Solicitud de verificación rechazada",
     "kycRejectedBody": "Tu solicitud de verificación de identidad fue rechazada. Contacta con soporte para conocer el motivo.",
-    "walletDepositApprovedTitle": "Solicitud de depósito aprobada",
-    "walletWithdrawalApprovedTitle": "Solicitud de retiro aprobada",
-    "walletApprovedBody": "Tu solicitud de {amount}$ ha sido procesada.",
-    "walletDepositRejectedTitle": "Solicitud de depósito rechazada",
-    "walletWithdrawalRejectedTitle": "Solicitud de retiro rechazada",
-    "walletRejectedBody": "Tu solicitud fue rechazada. Contacta con soporte para conocer el motivo.",
+    "walletDepositApprovedTitle": "Depósito completado",
+    "walletWithdrawalApprovedTitle": "Retiro completado",
+    "walletApprovedBody": "Tu transacción de {amount} USDT se ha completado.",
+    "walletDepositRejectedTitle": "Depósito rechazado",
+    "walletWithdrawalRejectedTitle": "Retiro rechazado",
+    "walletRejectedBody": "No se pudo completar tu solicitud. Contacta con soporte para más detalles.",
     "followedTradeOpenedTitle": "Nueva operación abierta | {providerName}",
     "followedTradeOpenedBody": "{providerName} abrió una operación de {side, select, sell {venta} other {compra}} en {symbol}. Puedes revisar los detalles ahora.",
     "comingSoon": "Coming soon",
@@ -406,9 +406,9 @@
     "tabOverview": "Resumen",
     "tabPositions": "Posiciones",
     "tabActivity": "Actividad",
-    "pendingRequestsLabel": "Solicitudes en revisión",
-    "statusPending": "En revisión",
-    "statusApproved": "Aprobada",
+    "pendingRequestsLabel": "Solicitudes en proceso",
+    "statusPending": "En proceso",
+    "statusApproved": "Completado",
     "statusRejected": "Rechazada",
     "cumulativePerformance": "Rendimiento acumulado de mi cartera",
     "myPerformance": "Rendimiento de mi copia",
@@ -485,8 +485,8 @@
     "confirmProofOfPayment": "Confirmar y enviar comprobante de depósito",
     "monthlyReportTitle": "Monthly report",
     "monthlyReportEmpty": "No activity yet.",
-    "reviewProcessingNote": "Las solicitudes de depósito y retiro son revisadas por nuestro equipo y se reflejan en tu saldo una vez aprobadas.",
-    "requestSubmittedMessage": "Tu solicitud se envió y está pendiente de revisión. Tu saldo se actualizará cuando sea aprobada.",
+    "reviewProcessingNote": "Los depósitos suelen acreditarse en 30 minutos tras la confirmación de la red. Los retiros suelen completarse en 24 horas.",
+    "requestSubmittedMessage": "Hemos recibido tu solicitud y se está procesando. Tu saldo se actualizará cuando se complete.",
     "demoDepositNote": "Los fondos de demostración se acreditan al instante. El saldo demo máximo es de 1.000.000 USDT.",
     "demoWithdrawNote": "Los retiros demo son instantáneos y solo afectan a tu saldo demo.",
     "demoWalletNote": "Tu saldo demo es virtual y está totalmente separado de tu cuenta real. Los depósitos y retiros son instantáneos.",
@@ -495,7 +495,9 @@
     "demoDepositDone": "Los fondos demo se añadieron a tu saldo.",
     "demoWithdrawDone": "Los fondos demo se retiraron de tu saldo.",
     "demoResetDone": "Tu saldo demo se restableció a 10.000 USDT.",
-    "txDemoReset": "Restablecimiento de saldo"
+    "txDemoReset": "Restablecimiento de saldo",
+    "etaDeposit": "Est. 30 min",
+    "etaWithdraw": "Est. 24 h"
   },
   "TradeHistory": {
     "periodToday": "Hoy",
@@ -1002,7 +1004,7 @@
     "notFoundDesc": "El enlace al que intentaste acceder no existe o ha sido movido.",
     "backToHome": "Volver al inicio",
     "suspendedTitle": "Cuenta suspendida",
-    "suspendedDesc": "Esta cuenta ha sido suspendida por el equipo de administración. Si crees que esto es un error, contacta con soporte.",
+    "suspendedDesc": "Esta cuenta ha sido suspendida. Si crees que es un error, contacta con soporte.",
     "logOut": "Cerrar sesión",
     "siteDescription": "Una plataforma de trading social para seguir a los mejores traders y copiar automáticamente sus operaciones."
   },
@@ -1215,7 +1217,7 @@
           "añadir fondos",
           "recargar"
         ],
-        "answer": "Puedes depositar fondos eligiendo «Depositar» en la sección de billetera del menú lateral, indicando el monto y método de pago, y confirmando la solicitud. Todas las solicitudes de depósito, tanto de cuentas demo como reales, son revisadas por nuestro equipo y se acreditan en tu saldo una vez aprobadas."
+        "answer": "Puedes depositar fondos eligiendo «Depositar» en la sección de cartera del menú lateral e indicando el importe y el método de pago. Los depósitos de la cuenta real aparecen como «En proceso» y se acreditan al completarse, normalmente en 30 minutos. Los depósitos de la cuenta demo son instantáneos."
       },
       {
         "id": "withdraw",
@@ -1225,7 +1227,7 @@
           "retirar",
           "retirar ganancias"
         ],
-        "answer": "Para retirar, elige «Retirar» en el menú lateral, indica el monto y el método de retiro deseado, y envía la solicitud. Las solicitudes de retiro requieren que la verificación de identidad (KYC) ya esté aprobada, y luego pasan por revisión de nuestro equipo antes de procesarse."
+        "answer": "Para retirar, elige «Retirar» en el menú lateral, introduce el importe y el método de retiro preferido y envía la solicitud. Los retiros requieren haber completado antes la verificación de identidad (KYC). Los retiros de la cuenta real aparecen como «En proceso» y suelen completarse en 24 horas. Los retiros de la cuenta demo son instantáneos."
       },
       {
         "id": "withdraw-time",
@@ -1235,7 +1237,7 @@
           "cuándo llega el retiro",
           "procesamiento del retiro"
         ],
-        "answer": "Las solicitudes de retiro son revisadas por nuestro equipo en un plazo breve una vez confirmada la verificación de identidad. Puedes seguir el estado de la solicitud en cualquier momento desde la página «Historial de transacciones»."
+        "answer": "Los retiros de la cuenta real suelen completarse en 24 horas una vez finalizada la verificación de identidad. Puedes seguir el estado (En proceso, Completado o Rechazado) en cualquier momento desde la página «Historial de transacciones»."
       },
       {
         "id": "kyc",
@@ -1591,7 +1593,7 @@
     "faq6q": "How do you choose traders?",
     "faq6a": "See “How we select traders and calculate performance” above.",
     "faq7q": "How do I withdraw my money?",
-    "faq7a": "Submit a withdrawal request from the Wallet page. Withdrawals require identity verification and requests are reviewed before they are processed.",
+    "faq7a": "Envía una solicitud de retiro desde la página Cartera. Los retiros requieren verificación de identidad y suelen completarse en 24 horas.",
     "faq8q": "Is there a demo account?",
     "faq8a": "Yes. A demo account starts with {amount} in virtual funds and lets you practice without risking your own money.",
     "ctaTitle": "Ready to start?",
@@ -2104,7 +2106,7 @@
       },
       {
         "q": "¿Cómo retiro mi dinero?",
-        "a": "Envía una solicitud de retiro desde la página de Billetera. Los retiros requieren verificación de identidad y las solicitudes se revisan antes de procesarse."
+        "a": "Envía una solicitud de retiro desde la página Cartera. Los retiros requieren verificación de identidad y suelen completarse en 24 horas."
       },
       {
         "q": "¿Hay una cuenta demo?",
@@ -2171,7 +2173,7 @@
     "title": "Seguridad de tu cuenta",
     "items": [
       "Verificación de identidad",
-      "Las solicitudes de retiro se revisan antes de procesarse",
+      "Los retiros pasan por controles de seguridad antes de completarse",
       "Límite de pérdida automático en cada copia",
       "Separación total entre cuenta demo y real",
       "Tus datos solo los ves tú"
@@ -2192,7 +2194,7 @@
       },
       {
         "title": "Nuestro compromiso con la transparencia",
-        "body": "Cada trader tiene un historial de operaciones que puedes revisar antes de copiar, sin cuotas de suscripción ni comisiones ocultas. Las solicitudes de retiro se revisan antes de procesarse, y cada copia tiene un límite de pérdida automático que la detiene al alcanzarse."
+        "body": "Cada trader tiene un historial de operaciones que puedes revisar antes de copiar, sin cuotas de suscripción ni comisiones ocultas. Los retiros pasan por controles de seguridad antes de completarse, y cada copia tiene un límite de pérdida automático que la detiene al alcanzarse."
       },
       {
         "title": "Aviso de riesgo",

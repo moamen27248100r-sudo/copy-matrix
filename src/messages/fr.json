@@ -65,8 +65,8 @@
           "desc": "Nous ne déduisons jamais de commission sur vos profits ni sur la copie, quel que soit le montant."
         },
         {
-          "title": "Vérification administrative sur chaque transaction",
-          "desc": "Chaque demande de dépôt ou de retrait est vérifiée et approuvée manuellement par notre équipe avant exécution, pour protéger votre compte."
+          "title": "Transactions sécurisées et contrôlées",
+          "desc": "Chaque dépôt et chaque retrait passe par des contrôles de sécurité avant d'être finalisé, afin de protéger votre compte."
         }
       ]
     },
@@ -87,7 +87,7 @@
         },
         {
           "title": "Déposez vos fonds",
-          "desc": "Déposez le montant que vous souhaitez investir via les moyens de paiement disponibles, à approuver par notre équipe d'administration."
+          "desc": "Déposez le montant que vous souhaitez investir via les moyens de paiement disponibles. Les dépôts sont crédités dès que le réseau les confirme."
         },
         {
           "title": "Choisissez un trader",
@@ -144,7 +144,7 @@
         },
         {
           "q": "Comment déposer ou retirer des fonds ?",
-          "a": "Vous pouvez soumettre une demande de dépôt ou de retrait depuis la page de votre portefeuille à tout moment, et elle sera examinée et approuvée par notre équipe d'administration avant de se refléter sur votre solde."
+          "a": "Vous pouvez soumettre une demande de dépôt ou de retrait depuis votre portefeuille à tout moment. Les demandes apparaissent comme « En cours » et sont reflétées dans votre solde une fois « Terminées »."
         }
       ]
     },
@@ -253,7 +253,7 @@
     "kycNoneDesc": "La vérification est requise pour débloquer toutes les fonctionnalités de la plateforme, y compris les demandes de retrait.",
     "kycNoneAction": "Compléter",
     "kycPendingTitle": "Demande de vérification en cours d'examen",
-    "kycPendingDesc": "Vous serez informé dès qu'une décision sera prise par l'équipe d'administration.",
+    "kycPendingDesc": "Vous serez averti dès que la vérification sera terminée.",
     "kycRejectedTitle": "Demande de vérification rejetée",
     "kycRejectedDesc": "Veuillez soumettre à nouveau ou contacter le support pour en connaître la raison.",
     "kycRejectedAction": "Soumettre à nouveau",
@@ -363,12 +363,12 @@
     "kycApprovedBody": "Votre demande de vérification d'identité a été approuvée.",
     "kycRejectedTitle": "Demande de vérification rejetée",
     "kycRejectedBody": "Votre demande de vérification d'identité a été rejetée. Veuillez contacter le support pour en connaître la raison.",
-    "walletDepositApprovedTitle": "Demande de dépôt approuvée",
-    "walletWithdrawalApprovedTitle": "Demande de retrait approuvée",
-    "walletApprovedBody": "Votre demande de {amount}$ a été traitée.",
-    "walletDepositRejectedTitle": "Demande de dépôt rejetée",
-    "walletWithdrawalRejectedTitle": "Demande de retrait rejetée",
-    "walletRejectedBody": "Votre demande a été rejetée. Veuillez contacter le support pour en connaître la raison.",
+    "walletDepositApprovedTitle": "Dépôt terminé",
+    "walletWithdrawalApprovedTitle": "Retrait terminé",
+    "walletApprovedBody": "Votre transaction de {amount} USDT est terminée.",
+    "walletDepositRejectedTitle": "Dépôt refusé",
+    "walletWithdrawalRejectedTitle": "Retrait refusé",
+    "walletRejectedBody": "Votre demande n'a pas pu être finalisée. Veuillez contacter le support pour plus de détails.",
     "followedTradeOpenedTitle": "Nouvelle position ouverte | {providerName}",
     "followedTradeOpenedBody": "{providerName} a ouvert une position {side, select, sell {vente} other {achat}} sur {symbol}. Vous pouvez consulter les détails maintenant.",
     "comingSoon": "Coming soon",
@@ -406,9 +406,9 @@
     "tabOverview": "Aperçu",
     "tabPositions": "Positions",
     "tabActivity": "Activité",
-    "pendingRequestsLabel": "Demandes en cours d'examen",
-    "statusPending": "En cours d'examen",
-    "statusApproved": "Approuvée",
+    "pendingRequestsLabel": "Demandes en cours",
+    "statusPending": "En cours",
+    "statusApproved": "Terminé",
     "statusRejected": "Rejetée",
     "cumulativePerformance": "Performance cumulée de mon portefeuille",
     "myPerformance": "Performance de ma copie",
@@ -485,8 +485,8 @@
     "confirmProofOfPayment": "Confirmer et envoyer la preuve de dépôt",
     "monthlyReportTitle": "Monthly report",
     "monthlyReportEmpty": "No activity yet.",
-    "reviewProcessingNote": "Les demandes de dépôt et de retrait sont examinées par notre équipe. Elles apparaissent dans votre solde une fois approuvées.",
-    "requestSubmittedMessage": "Votre demande a été envoyée et est en cours d'examen. Votre solde sera mis à jour une fois la demande approuvée.",
+    "reviewProcessingNote": "Les dépôts sont généralement crédités dans les 30 minutes suivant la confirmation du réseau. Les retraits sont généralement terminés sous 24 heures.",
+    "requestSubmittedMessage": "Votre demande a été reçue et est en cours de traitement. Votre solde sera mis à jour une fois terminée.",
     "demoDepositNote": "Les fonds de démonstration sont crédités instantanément. Le solde démo maximal est de 1 000 000 USDT.",
     "demoWithdrawNote": "Les retraits démo sont instantanés et n'affectent que votre solde démo.",
     "demoWalletNote": "Votre solde démo est virtuel et totalement distinct de votre compte réel. Les dépôts et retraits sont instantanés.",
@@ -495,7 +495,9 @@
     "demoDepositDone": "Les fonds démo ont été ajoutés à votre solde.",
     "demoWithdrawDone": "Les fonds démo ont été retirés de votre solde.",
     "demoResetDone": "Votre solde démo a été réinitialisé à 10 000 USDT.",
-    "txDemoReset": "Réinitialisation du solde"
+    "txDemoReset": "Réinitialisation du solde",
+    "etaDeposit": "Est. 30 min",
+    "etaWithdraw": "Est. 24 h"
   },
   "TradeHistory": {
     "periodToday": "Aujourd'hui",
@@ -1002,7 +1004,7 @@
     "notFoundDesc": "Le lien que vous avez essayé d'atteindre n'existe pas ou a été déplacé.",
     "backToHome": "Retour à l'accueil",
     "suspendedTitle": "Compte suspendu",
-    "suspendedDesc": "Ce compte a été suspendu par l'équipe d'administration. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter le support.",
+    "suspendedDesc": "Ce compte a été suspendu. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter le support.",
     "logOut": "Se déconnecter",
     "siteDescription": "Une plateforme de trading social pour suivre les meilleurs traders et copier automatiquement leurs trades."
   },
@@ -1215,7 +1217,7 @@
           "ajouter des fonds",
           "recharger"
         ],
-        "answer": "Vous pouvez déposer des fonds en choisissant « Dépôt » dans la section portefeuille du menu latéral, puis en indiquant le montant et le mode de paiement et en confirmant la demande. Toutes les demandes de dépôt, sur compte démo comme sur compte réel, sont examinées par notre équipe et créditées sur votre solde une fois approuvées."
+        "answer": "Vous pouvez déposer des fonds en choisissant « Dépôt » dans la section portefeuille du menu latéral, puis en saisissant le montant et le moyen de paiement. Les dépôts d'un compte réel apparaissent comme « En cours » et sont crédités une fois « Terminés », généralement sous 30 minutes. Les dépôts d'un compte démo sont instantanés."
       },
       {
         "id": "withdraw",
@@ -1225,7 +1227,7 @@
           "retirer",
           "retirer les bénéfices"
         ],
-        "answer": "Pour effectuer un retrait, choisissez « Retrait » dans le menu latéral, indiquez le montant et la méthode de retrait souhaitée, puis envoyez la demande. Les demandes de retrait nécessitent que la vérification d'identité (KYC) soit déjà approuvée, puis font l'objet d'un examen par notre équipe avant traitement."
+        "answer": "Pour retirer, choisissez « Retrait » dans le menu latéral, saisissez le montant et le mode de retrait souhaité, puis envoyez la demande. Les retraits nécessitent d'avoir terminé la vérification d'identité (KYC). Les retraits d'un compte réel apparaissent comme « En cours » et sont généralement terminés sous 24 heures. Les retraits d'un compte démo sont instantanés."
       },
       {
         "id": "withdraw-time",
@@ -1235,7 +1237,7 @@
           "quand arrive le retrait",
           "traitement du retrait"
         ],
-        "answer": "Les demandes de retrait sont examinées par notre équipe dans un court délai une fois la vérification d'identité confirmée complète. Vous pouvez suivre l'état de votre demande à tout moment depuis la page « Historique des transactions »."
+        "answer": "Les retraits d'un compte réel sont généralement terminés sous 24 heures une fois la vérification d'identité achevée. Vous pouvez suivre le statut (En cours, Terminé ou Refusé) à tout moment depuis la page « Historique des transactions »."
       },
       {
         "id": "kyc",
@@ -1591,7 +1593,7 @@
     "faq6q": "How do you choose traders?",
     "faq6a": "See “How we select traders and calculate performance” above.",
     "faq7q": "How do I withdraw my money?",
-    "faq7a": "Submit a withdrawal request from the Wallet page. Withdrawals require identity verification and requests are reviewed before they are processed.",
+    "faq7a": "Envoyez une demande de retrait depuis la page Portefeuille. Les retraits nécessitent une vérification d'identité et sont généralement terminés sous 24 heures.",
     "faq8q": "Is there a demo account?",
     "faq8a": "Yes. A demo account starts with {amount} in virtual funds and lets you practice without risking your own money.",
     "ctaTitle": "Ready to start?",
@@ -2104,7 +2106,7 @@
       },
       {
         "q": "Comment retirer mon argent ?",
-        "a": "Envoyez une demande de retrait depuis la page Portefeuille. Les retraits exigent une vérification d'identité et les demandes sont examinées avant traitement."
+        "a": "Envoyez une demande de retrait depuis la page Portefeuille. Les retraits nécessitent une vérification d'identité et sont généralement terminés sous 24 heures."
       },
       {
         "q": "Existe-t-il un compte démo ?",
@@ -2171,7 +2173,7 @@
     "title": "Sécurité de votre compte",
     "items": [
       "Vérification d'identité",
-      "Demandes de retrait examinées avant traitement",
+      "Les retraits passent par des contrôles de sécurité avant d'être finalisés",
       "Limite de perte automatique sur chaque copie",
       "Séparation totale entre compte démo et compte réel",
       "Vos données ne sont visibles que par vous"
@@ -2192,7 +2194,7 @@
       },
       {
         "title": "Notre engagement de transparence",
-        "body": "Chaque trader a un historique de trades consultable avant de copier, sans frais d'abonnement ni commissions cachées. Les demandes de retrait sont examinées avant traitement, et chaque copie a une limite de perte automatique qui l'arrête une fois atteinte."
+        "body": "Chaque trader dispose d'un historique de trades consultable avant de copier, sans frais d'abonnement ni commissions cachées. Les retraits passent par des contrôles de sécurité avant d'être finalisés, et chaque copie dispose d'une limite de perte automatique qui l'arrête une fois atteinte."
       },
       {
         "title": "Avertissement sur les risques",
