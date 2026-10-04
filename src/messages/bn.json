@@ -198,7 +198,7 @@
   },
   "Notifications": {
     "copyOpenedTitle": "নতুন ট্রেড কপি হয়েছে",
-    "copyOpenedBody": "আপনার অনুসরণ করা ট্রেডারের কাছ থেকে {symbol} ({side, select, sell {বিক্রয়} other {ক্রয়}}) ট্রেড কপি হয়েছে।",
+    "copyOpenedBody": "{providerName}-এর {symbol}-এ {side, select, sell {বিক্রয়} other {ক্রয়}} ট্রেডটি {size} দিয়ে {price} এন্ট্রি মূল্যে আপনার অ্যাকাউন্টে কপি করা হয়েছে।",
     "copyClosedTitle": "{providerName} থেকে কপি করা ট্রেড",
     "copyClosedBody": "{symbol} ট্রেড {amount} ফলাফল সহ বন্ধ হয়েছে",
     "autoStopCopyTitle": "কপি করা স্বয়ংক্রিয়ভাবে বন্ধ হয়েছে",
@@ -211,7 +211,7 @@
     "kycRejectedBody": "আপনার পরিচয় যাচাইকরণ অনুরোধ প্রত্যাখ্যাত হয়েছে। কারণ জানতে সহায়তার সাথে যোগাযোগ করুন।",
     "walletDepositApprovedTitle": "জমা সম্পন্ন হয়েছে",
     "walletWithdrawalApprovedTitle": "উত্তোলন সম্পন্ন হয়েছে",
-    "walletApprovedBody": "আপনার {amount} USDT লেনদেন সম্পন্ন হয়েছে।",
+    "walletApprovedBody": "আপনার {amount} লেনদেন সম্পন্ন হয়েছে।",
     "walletDepositRejectedTitle": "জমা প্রত্যাখ্যাত",
     "walletWithdrawalRejectedTitle": "উত্তোলন প্রত্যাখ্যাত",
     "walletRejectedBody": "আপনার অনুরোধ সম্পন্ন করা যায়নি। বিস্তারিত জানতে সহায়তার সাথে যোগাযোগ করুন।",
@@ -244,7 +244,18 @@
     "prefsSave": "পছন্দ সংরক্ষণ করুন",
     "prefsSaved": "পছন্দ সংরক্ষিত হয়েছে।",
     "prefsSaveFailed": "আপনার পছন্দ সংরক্ষণ করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।",
-    "prefsSecurityAlways": "সবসময় চালু"
+    "prefsSecurityAlways": "সবসময় চালু",
+    "copyClosedTpTitle": "টেক প্রফিটে পৌঁছেছে",
+    "copyClosedTpBody": "{providerName} থেকে কপি করা আপনার {symbol} ট্রেড আপনার টেক প্রফিটে {amount} ফলাফলসহ বন্ধ হয়েছে।",
+    "copyClosedSlTitle": "স্টপ লস কার্যকর হয়েছে",
+    "copyClosedSlBody": "{providerName} থেকে কপি করা আপনার {symbol} ট্রেড আপনার স্টপ লসে {amount} ফলাফলসহ বন্ধ হয়েছে।",
+    "copyClosedTrailingTitle": "ট্রেলিং স্টপ কার্যকর হয়েছে",
+    "copyClosedTrailingBody": "{providerName} থেকে কপি করা আপনার {symbol} ট্রেড আপনার ট্রেলিং স্টপে {amount} ফলাফলসহ বন্ধ হয়েছে।",
+    "copyClosedManualTitle": "ট্রেড বন্ধ হয়েছে",
+    "copyClosedManualBody": "আপনি {providerName} থেকে কপি করা আপনার {symbol} ট্রেড {amount} ফলাফলসহ বন্ধ করেছেন।",
+    "copyClosedLeaderTitle": "ট্রেড বন্ধ হয়েছে · {providerName}",
+    "copyClosedLeaderBody": "{providerName} {symbol} ট্রেড বন্ধ করেছেন। আপনার কপি {amount} ফলাফলসহ শেষ হয়েছে।",
+    "copyOpenedBodyLegacy": "আপনার অনুসরণ করা ট্রেডারের কাছ থেকে {symbol} ({side, select, sell {বিক্রয়} other {ক্রয়}}) ট্রেড কপি হয়েছে।"
   },
   "Portfolio": {
     "title": "আমার পোর্টফোলিও",
@@ -336,7 +347,9 @@
     "demoResetDone": "আপনার ডেমো ব্যালেন্স 10,000 USDT-তে রিসেট করা হয়েছে।",
     "txDemoReset": "ব্যালেন্স রিসেট",
     "etaDeposit": "আনুমানিক ৩০ মিনিট",
-    "etaWithdraw": "আনুমানিক ২৪ ঘণ্টা"
+    "etaWithdraw": "আনুমানিক ২৪ ঘণ্টা",
+    "txAdjustment": "ব্যালেন্স সমন্বয়",
+    "txFee": "ফি"
   },
   "TradeHistory": {
     "periodToday": "আজ",
@@ -853,7 +866,8 @@
       "demoLimitExceeded": "এই জমা 1,000,000 USDT-এর সর্বোচ্চ ডেমো ব্যালেন্স সীমা অতিক্রম করবে।",
       "demoResetOpenPositions": "ডেমো ব্যালেন্স রিসেট করার আগে সব খোলা পজিশন বন্ধ করুন।",
       "demoOnly": "এই কাজটি শুধুমাত্র ডেমো অ্যাকাউন্টে করা যায়।",
-      "demoWalletFailed": "ডেমো লেনদেন সম্পন্ন করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।"
+      "demoWalletFailed": "ডেমো লেনদেন সম্পন্ন করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।",
+      "withdrawAddressInvalid": "নির্বাচিত নেটওয়ার্কের জন্য ওয়ালেট ঠিকানাটি সঠিক মনে হচ্ছে না। ঠিকানা ও নেটওয়ার্ক যাচাই করে আবার চেষ্টা করুন।"
     },
     "settings": {
       "nameEmpty": "নাম খালি রাখা যাবে না।",
@@ -882,7 +896,8 @@
       "closeFailed": "পজিশন বন্ধ করা যায়নি। আবার চেষ্টা করুন।",
       "tpInvalid": "কেনার ক্ষেত্রে টেক-প্রফিট বর্তমান মূল্যের উপরে, আর বেচার ক্ষেত্রে নিচে হতে হবে।",
       "slInvalid": "কেনার ক্ষেত্রে স্টপ-লস বর্তমান মূল্যের নিচে, আর বেচার ক্ষেত্রে উপরে হতে হবে।",
-      "tpSlFailed": "TP/SL আপডেট করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।"
+      "tpSlFailed": "TP/SL আপডেট করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।",
+      "priceStale": "দাম হালনাগাদ করা হচ্ছে। অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।"
     },
     "leadTrader": {
       "rateLimit": "অনেক বেশি চেষ্টা। পরে আবার চেষ্টা করুন।",

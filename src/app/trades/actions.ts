@@ -22,9 +22,13 @@ export async function closeAllPositions() {
     .eq("status", "open");
 
   let failed = 0;
+  let stale = false;
   for (const p of open ?? []) {
     const { error } = await supabase.rpc("close_my_position", { p_position_id: p.id });
-    if (error) failed++;
+    if (error) {
+      failed++;
+      if (error.code === "CM022") stale = true;
+    }
   }
 
   revalidatePath("/trades");
@@ -32,7 +36,7 @@ export async function closeAllPositions() {
   revalidatePath("/portfolio");
   if (failed > 0) {
     const t = await getTranslations("Actions.dashboard");
-    redirect(`/trades?error=${encodeURIComponent(t("closeFailed"))}`);
+    redirect(`/trades?error=${encodeURIComponent(t(stale ? "priceStale" : "closeFailed"))}`);
   }
 }
 

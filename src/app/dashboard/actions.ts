@@ -22,7 +22,7 @@ export async function closePosition(formData: FormData) {
 
   if (error) {
     const t = await getTranslations("Actions.dashboard");
-    redirect(`/dashboard?error=${encodeURIComponent(t("closeFailed"))}`);
+    redirect(`/dashboard?error=${encodeURIComponent(error.code === "CM022" ? t("priceStale") : t("closeFailed"))}`);
   }
 
   revalidatePath("/dashboard");

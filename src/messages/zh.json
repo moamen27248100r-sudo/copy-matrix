@@ -198,7 +198,7 @@
   },
   "Notifications": {
     "copyOpenedTitle": "已复制新交易",
-    "copyOpenedBody": "已从您关注的交易员复制一笔 {symbol}（{side, select, sell {卖出} other {买入}}）交易。",
+    "copyOpenedBody": "已将 {providerName} 的{side, select, sell {卖出} other {买入}} {symbol} 交易复制到您的账户，金额 {size}，入场价 {price}。",
     "copyClosedTitle": "来自 {providerName} 的跟单交易",
     "copyClosedBody": "{symbol} 交易已平仓，结果为 {amount}",
     "autoStopCopyTitle": "跟单已自动停止",
@@ -211,7 +211,7 @@
     "kycRejectedBody": "您的身份验证申请被拒绝。请联系客服了解原因。",
     "walletDepositApprovedTitle": "充值已完成",
     "walletWithdrawalApprovedTitle": "提现已完成",
-    "walletApprovedBody": "您的 {amount} USDT 交易已完成。",
+    "walletApprovedBody": "您的 {amount} 交易已完成。",
     "walletDepositRejectedTitle": "充值被拒绝",
     "walletWithdrawalRejectedTitle": "提现被拒绝",
     "walletRejectedBody": "您的申请无法完成。如需了解详情，请联系客服。",
@@ -244,7 +244,18 @@
     "prefsSave": "保存偏好",
     "prefsSaved": "偏好已保存。",
     "prefsSaveFailed": "无法保存您的偏好，请重试。",
-    "prefsSecurityAlways": "始终开启"
+    "prefsSecurityAlways": "始终开启",
+    "copyClosedTpTitle": "已达到止盈",
+    "copyClosedTpBody": "您复制自 {providerName} 的 {symbol} 交易已在止盈位平仓，结果为 {amount}。",
+    "copyClosedSlTitle": "已触发止损",
+    "copyClosedSlBody": "您复制自 {providerName} 的 {symbol} 交易已在止损位平仓，结果为 {amount}。",
+    "copyClosedTrailingTitle": "已触发移动止损",
+    "copyClosedTrailingBody": "您复制自 {providerName} 的 {symbol} 交易已被移动止损平仓，结果为 {amount}。",
+    "copyClosedManualTitle": "交易已平仓",
+    "copyClosedManualBody": "您已手动平仓复制自 {providerName} 的 {symbol} 交易，结果为 {amount}。",
+    "copyClosedLeaderTitle": "交易已平仓 · {providerName}",
+    "copyClosedLeaderBody": "{providerName} 已平仓 {symbol} 交易。您的跟单结果为 {amount}。",
+    "copyOpenedBodyLegacy": "已从您关注的交易员复制一笔 {symbol}（{side, select, sell {卖出} other {买入}}）交易。"
   },
   "Portfolio": {
     "title": "我的资产",
@@ -336,7 +347,9 @@
     "demoResetDone": "您的模拟余额已重置为 10,000 USDT。",
     "txDemoReset": "余额重置",
     "etaDeposit": "预计 30 分钟",
-    "etaWithdraw": "预计 24 小时"
+    "etaWithdraw": "预计 24 小时",
+    "txAdjustment": "余额调整",
+    "txFee": "手续费"
   },
   "TradeHistory": {
     "periodToday": "今天",
@@ -853,7 +866,8 @@
       "demoLimitExceeded": "此次充值将超过 1,000,000 USDT 的模拟余额上限。",
       "demoResetOpenPositions": "重置模拟余额前，请先平掉所有持仓。",
       "demoOnly": "此操作仅适用于模拟账户。",
-      "demoWalletFailed": "无法完成模拟交易，请重试。"
+      "demoWalletFailed": "无法完成模拟交易，请重试。",
+      "withdrawAddressInvalid": "该钱包地址对所选网络似乎无效。请检查地址和网络后重试。"
     },
     "settings": {
       "nameEmpty": "姓名不能为空。",
@@ -882,7 +896,8 @@
       "closeFailed": "无法平仓，请重试。",
       "tpInvalid": "买入时止盈须高于当前价格，卖出时须低于当前价格。",
       "slInvalid": "买入时止损须低于当前价格，卖出时须高于当前价格。",
-      "tpSlFailed": "无法更新止盈/止损，请重试。"
+      "tpSlFailed": "无法更新止盈/止损，请重试。",
+      "priceStale": "价格正在刷新，请稍后重试。"
     },
     "leadTrader": {
       "rateLimit": "尝试次数过多，请稍后再试。",

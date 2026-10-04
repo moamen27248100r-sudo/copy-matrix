@@ -74,6 +74,8 @@ export default async function PortfolioPage({
     withdrawal: t("txWithdrawal"),
     pnl: t("txPnl"),
     demo_reset: t("txDemoReset"),
+    admin_adjustment: t("txAdjustment"),
+    fee: t("txFee"),
   };
   const REQUEST_STATUS_LABELS: Record<string, string> = {
     pending: t("statusPending"),
@@ -178,7 +180,7 @@ export default async function PortfolioPage({
   }, 0);
   const totalAllocated = Array.from(allocationByProvider.values()).reduce((sum, a) => sum + Number(a), 0);
 
-  const myWins = closedPositions.filter((p) => (p.pnl ?? 0) >= 0).length;
+  const myWins = closedPositions.filter((p) => (p.pnl ?? 0) > 0).length;
   const myWinRatePct = closedPositions.length > 0 ? Math.round((myWins / closedPositions.length) * 100) : null;
   const myAvgReturnPct =
     closedPositions.length > 0
@@ -235,7 +237,7 @@ export default async function PortfolioPage({
     if (!p.closed_at) continue;
     const b = bucket(p.closed_at);
     b.trades++;
-    if ((p.pnl ?? 0) >= 0) b.wins++;
+    if ((p.pnl ?? 0) > 0) b.wins++;
     b.pnl += p.pnl ?? 0;
   }
   for (const tx of transactions ?? []) {

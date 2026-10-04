@@ -254,7 +254,10 @@ export async function stopCopyingNow(formData: FormData) {
 
     for (const pos of openPositions ?? []) {
       const { error } = await supabase.rpc("close_my_position", { p_position_id: pos.id });
-      if (error) redirect(`${returnTo}?error=${encodeURIComponent(td("stopCopyBlocked"))}`);
+      if (error) {
+        const msg = error.code === "CM022" ? (await getTranslations("Actions.dashboard"))("priceStale") : td("stopCopyBlocked");
+        redirect(`${returnTo}?error=${encodeURIComponent(msg)}`);
+      }
     }
   }
 

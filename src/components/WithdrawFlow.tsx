@@ -5,6 +5,8 @@ import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 import { demoWithdraw, requestWithdrawal } from "@/app/portfolio/actions";
 import { CRYPTO_CURRENCIES, networksForCurrency, type DepositNetwork } from "@/lib/deposit-networks";
+import { CURRENCY } from "@/lib/money";
+import { SubmitButton } from "@/components/SubmitButton";
 import { CryptoIcon } from "@/components/CryptoIcon";
 
 // "1000.000000" reads as noise — show whole numbers plain ("1000") and
@@ -41,7 +43,7 @@ function AmountStep({
       <p className="text-sm text-muted">{t("enterWithdrawAmount")}</p>
 
       <div className="flex items-center gap-2">
-        <span className="shrink-0 text-lg font-semibold text-muted">USD</span>
+        <span className="shrink-0 text-lg font-semibold text-muted">{CURRENCY}</span>
         <div className="flex flex-1 items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 backdrop-blur-md">
           <input
             type="text"
@@ -66,14 +68,15 @@ function AmountStep({
       </div>
 
       <div className="mt-auto">
-        <button
-          type={onContinue ? "button" : "submit"}
-          onClick={onContinue}
-          disabled={!amount || Number(amount) <= 0 || Number(amount) > maxAvailable}
-          className="w-full rounded-xl bg-gradient-to-r from-accent to-brand px-4 py-3 text-center text-sm font-semibold text-white shadow-lg shadow-accent/20 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          {buttonLabel}
-        </button>
+        {onContinue ? (
+          <button type="button" onClick={onContinue} disabled={!amount || Number(amount) <= 0 || Number(amount) > maxAvailable} className="w-full rounded-xl bg-gradient-to-r from-accent to-brand px-4 py-3 text-center text-sm font-semibold text-white shadow-lg shadow-accent/20 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50">
+            {buttonLabel}
+          </button>
+        ) : (
+          <SubmitButton disabled={!amount || Number(amount) <= 0 || Number(amount) > maxAvailable} className="w-full rounded-xl bg-gradient-to-r from-accent to-brand px-4 py-3 text-center text-sm font-semibold text-white shadow-lg shadow-accent/20 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50">
+            {buttonLabel}
+          </SubmitButton>
+        )}
       </div>
     </div>
   );

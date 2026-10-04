@@ -3,6 +3,7 @@
 import { useMoney } from "@/lib/money-client";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { SubmitButton } from "@/components/SubmitButton";
 
 // Copy-start dialog. Every field is applied by the followProvider action and
 // stored on the subscription: the copy mode and max-per-trade size each copied
@@ -153,13 +154,9 @@ export function CopyDialog({
               <span>{t("riskAck")}</span>
             </label>
 
-            <button
-              type="submit"
-              disabled={!ack}
-              className="rounded-lg bg-accent px-6 py-3 text-base font-bold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
-            >
+            <SubmitButton disabled={!ack} className="rounded-lg bg-accent px-6 py-3 text-base font-bold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50">
               {t("confirm")}
-            </button>
+            </SubmitButton>
           </form>
         </div>
       )}

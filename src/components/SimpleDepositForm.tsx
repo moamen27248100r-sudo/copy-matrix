@@ -2,6 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { CURRENCY } from "@/lib/money";
+import { SubmitButton } from "@/components/SubmitButton";
 import { demoDeposit } from "@/app/portfolio/actions";
 
 export function SimpleDepositForm() {
@@ -14,7 +16,7 @@ export function SimpleDepositForm() {
       <p className="text-sm text-muted">{t("enterDepositAmount")}</p>
 
       <div className="flex items-center gap-3">
-        <span className="shrink-0 text-lg font-semibold text-muted">USD</span>
+        <span className="shrink-0 text-lg font-semibold text-muted">{CURRENCY}</span>
         <div className="flex-1 rounded-lg border border-border bg-surface px-4 py-3">
           <input
             name="amount"
@@ -31,13 +33,9 @@ export function SimpleDepositForm() {
       </div>
 
       <div className="mt-auto">
-        <button
-          type="submit"
-          disabled={!amount || Number(amount) <= 0}
-          className="w-full rounded-lg bg-accent px-4 py-3 text-center text-sm font-semibold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
-        >
+        <SubmitButton disabled={!amount || Number(amount) <= 0} className="w-full rounded-lg bg-accent px-4 py-3 text-center text-sm font-semibold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50">
           {td("deposit")}
-        </button>
+        </SubmitButton>
       </div>
     </form>
   );

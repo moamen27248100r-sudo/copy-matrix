@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import QRCode from "qrcode";
 import { requestDeposit } from "@/app/portfolio/actions";
 import { CRYPTO_CURRENCIES, networksForCurrency, type DepositNetwork } from "@/lib/deposit-networks";
+import { SubmitButton } from "@/components/SubmitButton";
 import { CryptoIcon } from "@/components/CryptoIcon";
 import { NetworkIcon } from "@/components/NetworkIcon";
 import { SECURITY_BADGE } from "@/config/platform";
@@ -285,12 +286,9 @@ export function DepositGateway() {
         <p className="text-xs text-muted">{t("proofOfPaymentHelp")}</p>
       </div>
 
-      <button
-        type="submit"
-        className="rounded-xl bg-gradient-to-r from-accent to-brand px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-accent/20 transition hover:brightness-110"
-      >
+      <SubmitButton className="rounded-xl bg-gradient-to-r from-accent to-brand px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-accent/20 transition hover:brightness-110">
         {t("confirmProofOfPayment")}
-      </button>
+      </SubmitButton>
     </form>
   );
 }

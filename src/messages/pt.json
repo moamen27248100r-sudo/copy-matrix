@@ -198,7 +198,7 @@
   },
   "Notifications": {
     "copyOpenedTitle": "Nova operação copiada",
-    "copyOpenedBody": "Foi copiada uma operação {symbol} ({side, select, sell {venda} other {compra}}) de um trader que você segue.",
+    "copyOpenedBody": "Uma operação de {side, select, sell {venda} other {compra}} em {symbol} de {providerName} foi copiada para a sua conta com {size} e preço de entrada de {price}.",
     "copyClosedTitle": "Operação copiada de {providerName}",
     "copyClosedBody": "A operação {symbol} foi fechada com um resultado de {amount}",
     "autoStopCopyTitle": "Cópia interrompida automaticamente",
@@ -211,7 +211,7 @@
     "kycRejectedBody": "Sua solicitação de verificação de identidade foi rejeitada. Entre em contato com o suporte para saber o motivo.",
     "walletDepositApprovedTitle": "Depósito concluído",
     "walletWithdrawalApprovedTitle": "Saque concluído",
-    "walletApprovedBody": "A sua transação de {amount} USDT foi concluída.",
+    "walletApprovedBody": "A sua transação de {amount} foi concluída.",
     "walletDepositRejectedTitle": "Depósito recusado",
     "walletWithdrawalRejectedTitle": "Saque recusado",
     "walletRejectedBody": "Não foi possível concluir o seu pedido. Contacte o suporte para mais detalhes.",
@@ -244,7 +244,18 @@
     "prefsSave": "Guardar preferências",
     "prefsSaved": "Preferências guardadas.",
     "prefsSaveFailed": "Não foi possível guardar as suas preferências. Tente novamente.",
-    "prefsSecurityAlways": "Sempre ativas"
+    "prefsSecurityAlways": "Sempre ativas",
+    "copyClosedTpTitle": "Meta de lucro atingida",
+    "copyClosedTpBody": "A sua operação {symbol} copiada de {providerName} foi encerrada na sua meta de lucro com um resultado de {amount}.",
+    "copyClosedSlTitle": "Stop loss acionado",
+    "copyClosedSlBody": "A sua operação {symbol} copiada de {providerName} foi encerrada no seu stop loss com um resultado de {amount}.",
+    "copyClosedTrailingTitle": "Stop móvel acionado",
+    "copyClosedTrailingBody": "A sua operação {symbol} copiada de {providerName} foi encerrada pelo seu stop móvel com um resultado de {amount}.",
+    "copyClosedManualTitle": "Operação encerrada",
+    "copyClosedManualBody": "Encerrou a sua operação {symbol} copiada de {providerName} com um resultado de {amount}.",
+    "copyClosedLeaderTitle": "Operação encerrada · {providerName}",
+    "copyClosedLeaderBody": "{providerName} encerrou a operação {symbol}. A sua cópia terminou com um resultado de {amount}.",
+    "copyOpenedBodyLegacy": "Foi copiada uma operação {symbol} ({side, select, sell {venda} other {compra}}) de um trader que você segue."
   },
   "Portfolio": {
     "title": "Minha carteira",
@@ -336,7 +347,9 @@
     "demoResetDone": "O seu saldo demo foi redefinido para 10.000 USDT.",
     "txDemoReset": "Redefinição de saldo",
     "etaDeposit": "Aprox. 30 min",
-    "etaWithdraw": "Aprox. 24 h"
+    "etaWithdraw": "Aprox. 24 h",
+    "txAdjustment": "Ajuste de saldo",
+    "txFee": "Taxa"
   },
   "TradeHistory": {
     "periodToday": "Hoje",
@@ -853,7 +866,8 @@
       "demoLimitExceeded": "Este depósito excederia o saldo demo máximo de 1.000.000 USDT.",
       "demoResetOpenPositions": "Feche todas as posições abertas antes de redefinir o seu saldo demo.",
       "demoOnly": "Esta ação só está disponível numa conta demo.",
-      "demoWalletFailed": "Não foi possível concluir a transação demo. Tente novamente."
+      "demoWalletFailed": "Não foi possível concluir a transação demo. Tente novamente.",
+      "withdrawAddressInvalid": "O endereço da carteira não parece válido para a rede selecionada. Verifique o endereço e a rede e tente novamente."
     },
     "settings": {
       "nameEmpty": "O nome não pode estar vazio.",
@@ -882,7 +896,8 @@
       "closeFailed": "Não foi possível fechar a posição. Tente novamente.",
       "tpInvalid": "O take-profit deve ficar acima do preço atual numa compra, ou abaixo numa venda.",
       "slInvalid": "O stop-loss deve ficar abaixo do preço atual numa compra, ou acima numa venda.",
-      "tpSlFailed": "Não foi possível atualizar o TP/SL. Tente novamente."
+      "tpSlFailed": "Não foi possível atualizar o TP/SL. Tente novamente.",
+      "priceStale": "Os preços estão a ser atualizados. Tente novamente dentro de instantes."
     },
     "leadTrader": {
       "rateLimit": "Muitas tentativas. Tente novamente mais tarde.",

@@ -198,7 +198,7 @@
   },
   "Notifications": {
     "copyOpenedTitle": "คัดลอกออเดอร์ใหม่แล้ว",
-    "copyOpenedBody": "คัดลอกออเดอร์ {symbol} ({side, select, sell {ขาย} other {ซื้อ}}) จากเทรดเดอร์ที่คุณติดตามแล้ว",
+    "copyOpenedBody": "คัดลอกการเทรด{side, select, sell {ขาย} other {ซื้อ}} {symbol} ของ {providerName} มายังบัญชีของคุณแล้ว ด้วยจำนวน {size} ที่ราคาเข้า {price}",
     "copyClosedTitle": "การเทรดที่คัดลอกจาก {providerName}",
     "copyClosedBody": "การเทรด {symbol} ปิดแล้วด้วยผลลัพธ์ {amount}",
     "autoStopCopyTitle": "การคัดลอกหยุดโดยอัตโนมัติ",
@@ -211,7 +211,7 @@
     "kycRejectedBody": "คำขอยืนยันตัวตนของคุณถูกปฏิเสธ กรุณาติดต่อฝ่ายสนับสนุนเพื่อทราบสาเหตุ",
     "walletDepositApprovedTitle": "การฝากเสร็จสมบูรณ์",
     "walletWithdrawalApprovedTitle": "การถอนเสร็จสมบูรณ์",
-    "walletApprovedBody": "ธุรกรรมจำนวน {amount} USDT ของคุณเสร็จสมบูรณ์แล้ว",
+    "walletApprovedBody": "ธุรกรรมจำนวน {amount} ของคุณเสร็จสมบูรณ์แล้ว",
     "walletDepositRejectedTitle": "การฝากถูกปฏิเสธ",
     "walletWithdrawalRejectedTitle": "การถอนถูกปฏิเสธ",
     "walletRejectedBody": "ไม่สามารถดำเนินการตามคำขอของคุณได้ โปรดติดต่อฝ่ายสนับสนุนเพื่อขอรายละเอียด",
@@ -244,7 +244,18 @@
     "prefsSave": "บันทึกการตั้งค่า",
     "prefsSaved": "บันทึกการตั้งค่าแล้ว",
     "prefsSaveFailed": "ไม่สามารถบันทึกการตั้งค่าของคุณได้ โปรดลองอีกครั้ง",
-    "prefsSecurityAlways": "เปิดเสมอ"
+    "prefsSecurityAlways": "เปิดเสมอ",
+    "copyClosedTpTitle": "ถึงเป้าหมายทำกำไรแล้ว",
+    "copyClosedTpBody": "การเทรด {symbol} ที่คัดลอกจาก {providerName} ปิดที่เป้าหมายทำกำไรของคุณ ด้วยผลลัพธ์ {amount}",
+    "copyClosedSlTitle": "ตัดขาดทุนทำงานแล้ว",
+    "copyClosedSlBody": "การเทรด {symbol} ที่คัดลอกจาก {providerName} ปิดที่จุดตัดขาดทุนของคุณ ด้วยผลลัพธ์ {amount}",
+    "copyClosedTrailingTitle": "Trailing Stop ทำงานแล้ว",
+    "copyClosedTrailingBody": "การเทรด {symbol} ที่คัดลอกจาก {providerName} ถูกปิดโดย Trailing Stop ของคุณ ด้วยผลลัพธ์ {amount}",
+    "copyClosedManualTitle": "ปิดการเทรดแล้ว",
+    "copyClosedManualBody": "คุณปิดการเทรด {symbol} ที่คัดลอกจาก {providerName} ด้วยผลลัพธ์ {amount}",
+    "copyClosedLeaderTitle": "ปิดการเทรดแล้ว · {providerName}",
+    "copyClosedLeaderBody": "{providerName} ปิดการเทรด {symbol} สำเนาของคุณสิ้นสุดด้วยผลลัพธ์ {amount}",
+    "copyOpenedBodyLegacy": "คัดลอกออเดอร์ {symbol} ({side, select, sell {ขาย} other {ซื้อ}}) จากเทรดเดอร์ที่คุณติดตามแล้ว"
   },
   "Portfolio": {
     "title": "พอร์ตของฉัน",
@@ -336,7 +347,9 @@
     "demoResetDone": "รีเซ็ตยอดคงเหลือเดโมของคุณเป็น 10,000 USDT แล้ว",
     "txDemoReset": "รีเซ็ตยอดคงเหลือ",
     "etaDeposit": "ประมาณ 30 นาที",
-    "etaWithdraw": "ประมาณ 24 ชั่วโมง"
+    "etaWithdraw": "ประมาณ 24 ชั่วโมง",
+    "txAdjustment": "ปรับยอดคงเหลือ",
+    "txFee": "ค่าธรรมเนียม"
   },
   "TradeHistory": {
     "periodToday": "วันนี้",
@@ -853,7 +866,8 @@
       "demoLimitExceeded": "การฝากนี้จะเกินยอดคงเหลือเดโมสูงสุด 1,000,000 USDT",
       "demoResetOpenPositions": "โปรดปิดสถานะที่เปิดอยู่ทั้งหมดก่อนรีเซ็ตยอดคงเหลือเดโม",
       "demoOnly": "การดำเนินการนี้ใช้ได้กับบัญชีเดโมเท่านั้น",
-      "demoWalletFailed": "ไม่สามารถทำรายการเดโมให้เสร็จสมบูรณ์ได้ โปรดลองอีกครั้ง"
+      "demoWalletFailed": "ไม่สามารถทำรายการเดโมให้เสร็จสมบูรณ์ได้ โปรดลองอีกครั้ง",
+      "withdrawAddressInvalid": "ที่อยู่กระเป๋าดูเหมือนไม่ถูกต้องสำหรับเครือข่ายที่เลือก โปรดตรวจสอบที่อยู่และเครือข่าย แล้วลองอีกครั้ง"
     },
     "settings": {
       "nameEmpty": "ชื่อต้องไม่ว่างเปล่า",
@@ -882,7 +896,8 @@
       "closeFailed": "ไม่สามารถปิดโพซิชันได้ กรุณาลองใหม่อีกครั้ง",
       "tpInvalid": "เทกโปรฟิตต้องสูงกว่าราคาปัจจุบันสำหรับคำสั่งซื้อ หรือต่ำกว่าสำหรับคำสั่งขาย",
       "slInvalid": "สต็อปลอสต้องต่ำกว่าราคาปัจจุบันสำหรับคำสั่งซื้อ หรือสูงกว่าสำหรับคำสั่งขาย",
-      "tpSlFailed": "ไม่สามารถอัปเดต TP/SL ได้ โปรดลองอีกครั้ง"
+      "tpSlFailed": "ไม่สามารถอัปเดต TP/SL ได้ โปรดลองอีกครั้ง",
+      "priceStale": "กำลังอัปเดตราคา โปรดลองอีกครั้งในอีกสักครู่"
     },
     "leadTrader": {
       "rateLimit": "ลองหลายครั้งเกินไป โปรดลองใหม่ภายหลัง",

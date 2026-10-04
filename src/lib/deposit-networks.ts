@@ -169,3 +169,25 @@ export function findDepositNetwork(id: string): DepositNetwork | undefined {
 export function networksForCurrency(currencyId: string): DepositNetwork[] {
   return DEPOSIT_NETWORKS.filter((n) => n.currencyId === currencyId);
 }
+
+// Withdrawal destinations are typed by the customer, so the shape of the address
+// is checked against the chosen network before a request is created. This is a
+// format check (right length and alphabet), not an on-chain checksum.
+const BASE58 = "[1-9A-HJ-NP-Za-km-z]";
+const ADDRESS_PATTERNS: Record<string, RegExp> = {
+  tron: new RegExp(`^T${BASE58}{33}$`),
+  evm: /^0x[0-9a-fA-F]{40}$/,
+  solana: new RegExp(`^${BASE58}{32,44}$`),
+  bitcoin: new RegExp(`^(bc1[02-9ac-hj-np-z]{25,87}|[13]${BASE58}{25,34})$`),
+};
+
+function addressKind(network: DepositNetwork): keyof typeof ADDRESS_PATTERNS {
+  if (/TRC20|Tron/i.test(network.network)) return "tron";
+  if (/ERC20|BEP20|Ethereum|BNB Smart Chain/i.test(network.network)) return "evm";
+  if (/Solana/i.test(network.network)) return "solana";
+  return "bitcoin";
+}
+
+export function isValidWalletAddress(network: DepositNetwork, address: string): boolean {
+  return ADDRESS_PATTERNS[addressKind(network)].test(address.trim());
+}

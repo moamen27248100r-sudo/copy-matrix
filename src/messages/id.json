@@ -198,7 +198,7 @@
   },
   "Notifications": {
     "copyOpenedTitle": "Trade baru disalin",
-    "copyOpenedBody": "Trade {symbol} ({side, select, sell {jual} other {beli}}) disalin dari trader yang Anda ikuti.",
+    "copyOpenedBody": "Transaksi {side, select, sell {jual} other {beli}} {symbol} dari {providerName} disalin ke akun Anda dengan {size} pada harga masuk {price}.",
     "copyClosedTitle": "Transaksi disalin dari {providerName}",
     "copyClosedBody": "Transaksi {symbol} ditutup dengan hasil {amount}",
     "autoStopCopyTitle": "Penyalinan dihentikan secara otomatis",
@@ -211,7 +211,7 @@
     "kycRejectedBody": "Permintaan verifikasi identitas Anda ditolak. Silakan hubungi dukungan untuk mengetahui alasannya.",
     "walletDepositApprovedTitle": "Setoran selesai",
     "walletWithdrawalApprovedTitle": "Penarikan selesai",
-    "walletApprovedBody": "Transaksi Anda sebesar {amount} USDT telah selesai.",
+    "walletApprovedBody": "Transaksi Anda sebesar {amount} telah selesai.",
     "walletDepositRejectedTitle": "Setoran ditolak",
     "walletWithdrawalRejectedTitle": "Penarikan ditolak",
     "walletRejectedBody": "Permintaan Anda tidak dapat diselesaikan. Hubungi dukungan untuk detailnya.",
@@ -244,7 +244,18 @@
     "prefsSave": "Simpan preferensi",
     "prefsSaved": "Preferensi disimpan.",
     "prefsSaveFailed": "Tidak dapat menyimpan preferensi Anda. Silakan coba lagi.",
-    "prefsSecurityAlways": "Selalu aktif"
+    "prefsSecurityAlways": "Selalu aktif",
+    "copyClosedTpTitle": "Target take profit tercapai",
+    "copyClosedTpBody": "Transaksi {symbol} Anda yang disalin dari {providerName} ditutup pada take profit dengan hasil {amount}.",
+    "copyClosedSlTitle": "Stop loss terpicu",
+    "copyClosedSlBody": "Transaksi {symbol} Anda yang disalin dari {providerName} ditutup pada stop loss dengan hasil {amount}.",
+    "copyClosedTrailingTitle": "Trailing stop terpicu",
+    "copyClosedTrailingBody": "Transaksi {symbol} Anda yang disalin dari {providerName} ditutup oleh trailing stop dengan hasil {amount}.",
+    "copyClosedManualTitle": "Transaksi ditutup",
+    "copyClosedManualBody": "Anda menutup transaksi {symbol} yang disalin dari {providerName} dengan hasil {amount}.",
+    "copyClosedLeaderTitle": "Transaksi ditutup · {providerName}",
+    "copyClosedLeaderBody": "{providerName} menutup transaksi {symbol}. Salinan Anda berakhir dengan hasil {amount}.",
+    "copyOpenedBodyLegacy": "Trade {symbol} ({side, select, sell {jual} other {beli}}) disalin dari trader yang Anda ikuti."
   },
   "Portfolio": {
     "title": "Portofolio Saya",
@@ -336,7 +347,9 @@
     "demoResetDone": "Saldo demo Anda telah diatur ulang ke 10.000 USDT.",
     "txDemoReset": "Pengaturan ulang saldo",
     "etaDeposit": "Est. 30 mnt",
-    "etaWithdraw": "Est. 24 jam"
+    "etaWithdraw": "Est. 24 jam",
+    "txAdjustment": "Penyesuaian saldo",
+    "txFee": "Biaya"
   },
   "TradeHistory": {
     "periodToday": "Hari ini",
@@ -853,7 +866,8 @@
       "demoLimitExceeded": "Setoran ini akan melebihi saldo demo maksimum 1.000.000 USDT.",
       "demoResetOpenPositions": "Tutup semua posisi terbuka sebelum mengatur ulang saldo demo.",
       "demoOnly": "Tindakan ini hanya tersedia di akun demo.",
-      "demoWalletFailed": "Tidak dapat menyelesaikan transaksi demo. Silakan coba lagi."
+      "demoWalletFailed": "Tidak dapat menyelesaikan transaksi demo. Silakan coba lagi.",
+      "withdrawAddressInvalid": "Alamat dompet tampaknya tidak valid untuk jaringan yang dipilih. Periksa alamat dan jaringan, lalu coba lagi."
     },
     "settings": {
       "nameEmpty": "Nama tidak boleh kosong.",
@@ -882,7 +896,8 @@
       "closeFailed": "Tidak dapat menutup posisi. Silakan coba lagi.",
       "tpInvalid": "Take-profit harus di atas harga saat ini untuk beli, atau di bawahnya untuk jual.",
       "slInvalid": "Stop-loss harus di bawah harga saat ini untuk beli, atau di atasnya untuk jual.",
-      "tpSlFailed": "Tidak dapat memperbarui TP/SL. Silakan coba lagi."
+      "tpSlFailed": "Tidak dapat memperbarui TP/SL. Silakan coba lagi.",
+      "priceStale": "Harga sedang diperbarui. Silakan coba lagi sebentar lagi."
     },
     "leadTrader": {
       "rateLimit": "Terlalu banyak percobaan. Coba lagi nanti.",

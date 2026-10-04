@@ -14,7 +14,8 @@ function Spinner() {
 // A submit button that disables itself and shows a spinner while its parent
 // <form action={...}> is pending -- prevents double-submits (e.g. someone
 // tapping "send" twice while the email is still going out) without any
-// manual isSubmitting state in the form itself. Must be rendered inside the
+// manual isSubmitting state in the form itself. Without a pendingLabel the
+// button keeps its label and is only disabled while pending. Must be rendered inside the
 // <form>, per useFormStatus's rule.
 export function SubmitButton({
   children,
@@ -23,7 +24,7 @@ export function SubmitButton({
   className = "rounded bg-accent px-3 py-2.5 font-medium text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50",
 }: {
   children: React.ReactNode;
-  pendingLabel: string;
+  pendingLabel?: string;
   disabled?: boolean;
   className?: string;
 }) {
@@ -31,7 +32,7 @@ export function SubmitButton({
 
   return (
     <button type="submit" disabled={disabled || pending} className={className}>
-      {pending ? (
+      {pending && pendingLabel ? (
         <span className="flex items-center justify-center gap-2">
           <Spinner />
           {pendingLabel}

@@ -198,7 +198,7 @@
   },
   "Notifications": {
     "copyOpenedTitle": "Đã sao chép giao dịch mới",
-    "copyOpenedBody": "Đã sao chép giao dịch {symbol} ({side, select, sell {bán} other {mua}}) từ nhà giao dịch bạn theo dõi.",
+    "copyOpenedBody": "Lệnh {side, select, sell {bán} other {mua}} {symbol} của {providerName} đã được sao chép vào tài khoản của bạn với {size}, giá vào lệnh {price}.",
     "copyClosedTitle": "Giao dịch được sao chép từ {providerName}",
     "copyClosedBody": "Giao dịch {symbol} đã đóng với kết quả {amount}",
     "autoStopCopyTitle": "Sao chép đã dừng tự động",
@@ -211,7 +211,7 @@
     "kycRejectedBody": "Yêu cầu xác minh danh tính của bạn đã bị từ chối. Vui lòng liên hệ hỗ trợ để biết lý do.",
     "walletDepositApprovedTitle": "Nạp tiền hoàn tất",
     "walletWithdrawalApprovedTitle": "Rút tiền hoàn tất",
-    "walletApprovedBody": "Giao dịch {amount} USDT của bạn đã hoàn tất.",
+    "walletApprovedBody": "Giao dịch {amount} của bạn đã hoàn tất.",
     "walletDepositRejectedTitle": "Nạp tiền bị từ chối",
     "walletWithdrawalRejectedTitle": "Rút tiền bị từ chối",
     "walletRejectedBody": "Không thể hoàn tất yêu cầu của bạn. Vui lòng liên hệ bộ phận hỗ trợ để biết chi tiết.",
@@ -244,7 +244,18 @@
     "prefsSave": "Lưu tùy chọn",
     "prefsSaved": "Đã lưu tùy chọn.",
     "prefsSaveFailed": "Không thể lưu tùy chọn của bạn. Vui lòng thử lại.",
-    "prefsSecurityAlways": "Luôn bật"
+    "prefsSecurityAlways": "Luôn bật",
+    "copyClosedTpTitle": "Đã đạt mục tiêu chốt lời",
+    "copyClosedTpBody": "Lệnh {symbol} bạn sao chép từ {providerName} đã đóng tại mức chốt lời với kết quả {amount}.",
+    "copyClosedSlTitle": "Đã kích hoạt cắt lỗ",
+    "copyClosedSlBody": "Lệnh {symbol} bạn sao chép từ {providerName} đã đóng tại mức cắt lỗ với kết quả {amount}.",
+    "copyClosedTrailingTitle": "Đã kích hoạt dừng lỗ theo sau",
+    "copyClosedTrailingBody": "Lệnh {symbol} bạn sao chép từ {providerName} đã bị đóng bởi lệnh dừng theo sau với kết quả {amount}.",
+    "copyClosedManualTitle": "Đã đóng lệnh",
+    "copyClosedManualBody": "Bạn đã đóng lệnh {symbol} sao chép từ {providerName} với kết quả {amount}.",
+    "copyClosedLeaderTitle": "Đã đóng lệnh · {providerName}",
+    "copyClosedLeaderBody": "{providerName} đã đóng lệnh {symbol}. Bản sao của bạn kết thúc với kết quả {amount}.",
+    "copyOpenedBodyLegacy": "Đã sao chép giao dịch {symbol} ({side, select, sell {bán} other {mua}}) từ nhà giao dịch bạn theo dõi."
   },
   "Portfolio": {
     "title": "Danh mục của tôi",
@@ -336,7 +347,9 @@
     "demoResetDone": "Số dư demo của bạn đã được đặt lại về 10.000 USDT.",
     "txDemoReset": "Đặt lại số dư",
     "etaDeposit": "Dự kiến 30 phút",
-    "etaWithdraw": "Dự kiến 24 giờ"
+    "etaWithdraw": "Dự kiến 24 giờ",
+    "txAdjustment": "Điều chỉnh số dư",
+    "txFee": "Phí"
   },
   "TradeHistory": {
     "periodToday": "Hôm nay",
@@ -853,7 +866,8 @@
       "demoLimitExceeded": "Khoản nạp này sẽ vượt quá số dư demo tối đa 1.000.000 USDT.",
       "demoResetOpenPositions": "Hãy đóng tất cả vị thế đang mở trước khi đặt lại số dư demo.",
       "demoOnly": "Thao tác này chỉ khả dụng trên tài khoản demo.",
-      "demoWalletFailed": "Không thể hoàn tất giao dịch demo. Vui lòng thử lại."
+      "demoWalletFailed": "Không thể hoàn tất giao dịch demo. Vui lòng thử lại.",
+      "withdrawAddressInvalid": "Địa chỉ ví có vẻ không hợp lệ với mạng đã chọn. Hãy kiểm tra địa chỉ và mạng rồi thử lại."
     },
     "settings": {
       "nameEmpty": "Tên không được để trống.",
@@ -882,7 +896,8 @@
       "closeFailed": "Không thể đóng vị thế. Vui lòng thử lại.",
       "tpInvalid": "Chốt lời phải cao hơn giá hiện tại với lệnh mua, hoặc thấp hơn với lệnh bán.",
       "slInvalid": "Cắt lỗ phải thấp hơn giá hiện tại với lệnh mua, hoặc cao hơn với lệnh bán.",
-      "tpSlFailed": "Không thể cập nhật TP/SL. Vui lòng thử lại."
+      "tpSlFailed": "Không thể cập nhật TP/SL. Vui lòng thử lại.",
+      "priceStale": "Giá đang được cập nhật. Vui lòng thử lại sau giây lát."
     },
     "leadTrader": {
       "rateLimit": "Quá nhiều lần thử. Vui lòng thử lại sau.",

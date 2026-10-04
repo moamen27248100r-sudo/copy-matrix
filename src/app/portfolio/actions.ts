@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
-import { findDepositNetwork } from "@/lib/deposit-networks";
+import { findDepositNetwork, isValidWalletAddress } from "@/lib/deposit-networks";
 
 async function requireRealAccount(returnPath: string) {
   const supabase = await createClient();
@@ -97,6 +97,10 @@ export async function requestWithdrawal(formData: FormData) {
 
   if (!network || !walletAddress) {
     redirect("/portfolio/withdraw?error=" + encodeURIComponent(tp("withdrawNetworkRequired")));
+  }
+
+  if (!isValidWalletAddress(network, walletAddress)) {
+    redirect("/portfolio/withdraw?error=" + encodeURIComponent(tp("withdrawAddressInvalid")));
   }
 
   const note = `Withdraw to: ${network.label} — Address: ${walletAddress}`;

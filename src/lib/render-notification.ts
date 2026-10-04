@@ -33,15 +33,35 @@ export function renderNotification(t: Translator, n: NotificationRow, money: Mon
 
   switch (n.type) {
     case "copy_opened":
+      // Rows from before 0231 only carry symbol + side.
+      if (d.providerName == null || d.size == null) {
+        return {
+          title: t("copyOpenedTitle"),
+          body: t("copyOpenedBodyLegacy", { symbol: String(d.symbol ?? ""), side: String(d.side ?? "buy") }),
+        };
+      }
       return {
         title: t("copyOpenedTitle"),
-        body: t("copyOpenedBody", { symbol: String(d.symbol ?? ""), side: String(d.side ?? "buy") }),
+        body: t("copyOpenedBody", {
+          providerName: String(d.providerName),
+          symbol: String(d.symbol ?? ""),
+          side: String(d.side ?? "buy"),
+          size: money(Number(d.size)),
+          price: Number(d.price ?? 0).toLocaleString("en-US", { maximumFractionDigits: 8 }),
+        }),
       };
-    case "copy_closed":
-      return {
-        title: t("copyClosedTitle", { providerName: String(d.providerName ?? "") }),
-        body: t("copyClosedBody", { symbol: String(d.symbol ?? ""), amount: money(d.positive ? Number(d.amount ?? 0) : -Number(d.amount ?? 0), { signed: true }) }),
+    case "copy_closed": {
+      const values = {
+        providerName: String(d.providerName ?? ""),
+        symbol: String(d.symbol ?? ""),
+        amount: money(d.positive ? Number(d.amount ?? 0) : -Number(d.amount ?? 0), { signed: true }),
       };
+      // Why it closed (0231): the take profit / stop loss / trailing stop the customer set,
+      // their own manual close, or the trader closing the trade.
+      const reason = ({ tp: "Tp", sl: "Sl", trailing: "Trailing", manual: "Manual", leader: "Leader" } as Record<string, string>)[String(d.reason ?? "")];
+      if (!reason) return { title: t("copyClosedTitle", { providerName: values.providerName }), body: t("copyClosedBody", values) };
+      return { title: t(`copyClosed${reason}Title`, values), body: t(`copyClosed${reason}Body`, values) };
+    }
     case "auto_stop_copy":
       return {
         title: t("autoStopCopyTitle"),

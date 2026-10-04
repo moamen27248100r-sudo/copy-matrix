@@ -198,7 +198,7 @@
   },
   "Notifications": {
     "copyOpenedTitle": "تم نسخ صفقة جديدة",
-    "copyOpenedBody": "تم نسخ صفقة {symbol} ({side, select, sell {بيع} other {شراء}}) من متداول تتابعه.",
+    "copyOpenedBody": "نُسخت صفقة {side, select, sell {بيع} other {شراء}} على {symbol} من {providerName} إلى حسابك بحجم {size} وسعر دخول {price}.",
     "copyClosedTitle": "صفقة منسوخة من {providerName}",
     "copyClosedBody": "أُغلقت صفقة {symbol} بنتيجة {amount}",
     "autoStopCopyTitle": "تم إيقاف النسخ تلقائيًا",
@@ -211,7 +211,7 @@
     "kycRejectedBody": "تم رفض طلب توثيق الهوية. يرجى التواصل مع الدعم لمعرفة السبب.",
     "walletDepositApprovedTitle": "اكتمل الإيداع",
     "walletWithdrawalApprovedTitle": "اكتمل السحب",
-    "walletApprovedBody": "اكتملت معاملتك بمبلغ {amount} USDT.",
+    "walletApprovedBody": "اكتملت معاملتك بمبلغ {amount}.",
     "walletDepositRejectedTitle": "تم رفض الإيداع",
     "walletWithdrawalRejectedTitle": "تم رفض السحب",
     "walletRejectedBody": "تعذّر إتمام طلبك. يُرجى التواصل مع الدعم لمعرفة التفاصيل.",
@@ -244,7 +244,18 @@
     "prefsSave": "حفظ التفضيلات",
     "prefsSaved": "تم حفظ التفضيلات.",
     "prefsSaveFailed": "تعذّر حفظ تفضيلاتك. يُرجى المحاولة مرة أخرى.",
-    "prefsSecurityAlways": "مفعّلة دائمًا"
+    "prefsSecurityAlways": "مفعّلة دائمًا",
+    "copyClosedTpTitle": "تم الوصول إلى جني الأرباح",
+    "copyClosedTpBody": "أُغلقت صفقتك {symbol} المنسوخة من {providerName} عند هدف جني الأرباح بنتيجة {amount}.",
+    "copyClosedSlTitle": "تم تفعيل وقف الخسارة",
+    "copyClosedSlBody": "أُغلقت صفقتك {symbol} المنسوخة من {providerName} عند وقف الخسارة بنتيجة {amount}.",
+    "copyClosedTrailingTitle": "تم تفعيل الوقف المتحرك",
+    "copyClosedTrailingBody": "أُغلقت صفقتك {symbol} المنسوخة من {providerName} بالوقف المتحرك بنتيجة {amount}.",
+    "copyClosedManualTitle": "تم إغلاق الصفقة",
+    "copyClosedManualBody": "أغلقتَ صفقتك {symbol} المنسوخة من {providerName} بنتيجة {amount}.",
+    "copyClosedLeaderTitle": "تم إغلاق الصفقة · {providerName}",
+    "copyClosedLeaderBody": "أغلق {providerName} صفقة {symbol}. انتهت نسختك بنتيجة {amount}.",
+    "copyOpenedBodyLegacy": "تم نسخ صفقة {symbol} ({side, select, sell {بيع} other {شراء}}) من متداول تتابعه."
   },
   "Portfolio": {
     "title": "محفظتي",
@@ -336,7 +347,9 @@
     "demoResetDone": "تمت إعادة تعيين رصيدك التجريبي إلى 10,000 USDT.",
     "txDemoReset": "إعادة تعيين الرصيد",
     "etaDeposit": "المدة المتوقعة: 30 دقيقة",
-    "etaWithdraw": "المدة المتوقعة: 24 ساعة"
+    "etaWithdraw": "المدة المتوقعة: 24 ساعة",
+    "txAdjustment": "تعديل الرصيد",
+    "txFee": "رسوم"
   },
   "TradeHistory": {
     "periodToday": "اليوم",
@@ -853,7 +866,8 @@
       "demoLimitExceeded": "هذا الإيداع يتجاوز الحد الأقصى للرصيد التجريبي وهو 1,000,000 USDT.",
       "demoResetOpenPositions": "أغلق جميع الصفقات المفتوحة قبل إعادة تعيين رصيدك التجريبي.",
       "demoOnly": "هذا الإجراء متاح في الحساب التجريبي فقط.",
-      "demoWalletFailed": "تعذّر إتمام العملية التجريبية. يُرجى المحاولة مرة أخرى."
+      "demoWalletFailed": "تعذّر إتمام العملية التجريبية. يُرجى المحاولة مرة أخرى.",
+      "withdrawAddressInvalid": "عنوان المحفظة لا يبدو صحيحًا للشبكة المحددة. تحقق من العنوان والشبكة ثم حاول مرة أخرى."
     },
     "settings": {
       "nameEmpty": "الاسم لا يمكن أن يكون فارغًا.",
@@ -882,7 +896,8 @@
       "closeFailed": "تعذّر إغلاق الصفقة. حاول مرة أخرى.",
       "tpInvalid": "يجب أن يكون جني الأرباح أعلى من السعر الحالي في الشراء، أو أدنى منه في البيع.",
       "slInvalid": "يجب أن يكون وقف الخسارة أدنى من السعر الحالي في الشراء، أو أعلى منه في البيع.",
-      "tpSlFailed": "تعذّر تحديث جني الأرباح/وقف الخسارة. يُرجى المحاولة مرة أخرى."
+      "tpSlFailed": "تعذّر تحديث جني الأرباح/وقف الخسارة. يُرجى المحاولة مرة أخرى.",
+      "priceStale": "جارٍ تحديث الأسعار. يُرجى المحاولة بعد لحظات."
     },
     "leadTrader": {
       "rateLimit": "محاولات كثيرة جدًا. حاول لاحقًا.",

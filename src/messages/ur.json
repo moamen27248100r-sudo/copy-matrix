@@ -198,7 +198,7 @@
   },
   "Notifications": {
     "copyOpenedTitle": "نئی ٹریڈ کاپی ہوگئی",
-    "copyOpenedBody": "آپ کے فالو کردہ ٹریڈر سے {symbol} ({side, select, sell {فروخت} other {خریداری}}) ٹریڈ کاپی ہوگئی۔",
+    "copyOpenedBody": "{providerName} کی {symbol} پر {side, select, sell {سیل} other {خرید}} ٹریڈ آپ کے اکاؤنٹ میں {size} کے ساتھ {price} کی انٹری قیمت پر کاپی ہوئی۔",
     "copyClosedTitle": "{providerName} سے کاپی شدہ ٹریڈ",
     "copyClosedBody": "{symbol} ٹریڈ {amount} کے نتیجے کے ساتھ بند ہوئی",
     "autoStopCopyTitle": "کاپی کرنا خودکار طور پر روک دیا گیا",
@@ -211,7 +211,7 @@
     "kycRejectedBody": "آپ کی شناختی تصدیق کی درخواست مسترد کر دی گئی۔ وجہ جاننے کے لیے براہ کرم سپورٹ سے رابطہ کریں۔",
     "walletDepositApprovedTitle": "ڈپازٹ مکمل ہو گیا",
     "walletWithdrawalApprovedTitle": "نکالنا مکمل ہو گیا",
-    "walletApprovedBody": "آپ کا {amount} USDT کا لین دین مکمل ہو گیا ہے۔",
+    "walletApprovedBody": "آپ کا {amount} کا لین دین مکمل ہو گیا ہے۔",
     "walletDepositRejectedTitle": "ڈپازٹ مسترد",
     "walletWithdrawalRejectedTitle": "نکالنا مسترد",
     "walletRejectedBody": "آپ کی درخواست مکمل نہیں ہو سکی۔ تفصیلات کے لیے براہ کرم سپورٹ سے رابطہ کریں۔",
@@ -244,7 +244,18 @@
     "prefsSave": "ترجیحات محفوظ کریں",
     "prefsSaved": "ترجیحات محفوظ ہو گئیں۔",
     "prefsSaveFailed": "آپ کی ترجیحات محفوظ نہیں ہو سکیں۔ براہ کرم دوبارہ کوشش کریں۔",
-    "prefsSecurityAlways": "ہمیشہ آن"
+    "prefsSecurityAlways": "ہمیشہ آن",
+    "copyClosedTpTitle": "ٹیک پرافٹ حاصل ہو گیا",
+    "copyClosedTpBody": "{providerName} سے کاپی کی گئی آپ کی {symbol} ٹریڈ آپ کے ٹیک پرافٹ پر {amount} کے نتیجے کے ساتھ بند ہوئی۔",
+    "copyClosedSlTitle": "اسٹاپ لاس فعال ہو گیا",
+    "copyClosedSlBody": "{providerName} سے کاپی کی گئی آپ کی {symbol} ٹریڈ آپ کے اسٹاپ لاس پر {amount} کے نتیجے کے ساتھ بند ہوئی۔",
+    "copyClosedTrailingTitle": "ٹریلنگ اسٹاپ فعال ہو گیا",
+    "copyClosedTrailingBody": "{providerName} سے کاپی کی گئی آپ کی {symbol} ٹریڈ آپ کے ٹریلنگ اسٹاپ سے {amount} کے نتیجے کے ساتھ بند ہوئی۔",
+    "copyClosedManualTitle": "ٹریڈ بند ہو گئی",
+    "copyClosedManualBody": "آپ نے {providerName} سے کاپی کی گئی اپنی {symbol} ٹریڈ {amount} کے نتیجے کے ساتھ بند کی۔",
+    "copyClosedLeaderTitle": "ٹریڈ بند ہو گئی · {providerName}",
+    "copyClosedLeaderBody": "{providerName} نے {symbol} ٹریڈ بند کی۔ آپ کی کاپی {amount} کے نتیجے کے ساتھ مکمل ہوئی۔",
+    "copyOpenedBodyLegacy": "آپ کے فالو کردہ ٹریڈر سے {symbol} ({side, select, sell {فروخت} other {خریداری}}) ٹریڈ کاپی ہوگئی۔"
   },
   "Portfolio": {
     "title": "میرا پورٹ فولیو",
@@ -336,7 +347,9 @@
     "demoResetDone": "آپ کا ڈیمو بیلنس 10,000 USDT پر ری سیٹ کر دیا گیا ہے۔",
     "txDemoReset": "بیلنس ری سیٹ",
     "etaDeposit": "متوقع 30 منٹ",
-    "etaWithdraw": "متوقع 24 گھنٹے"
+    "etaWithdraw": "متوقع 24 گھنٹے",
+    "txAdjustment": "بیلنس میں تبدیلی",
+    "txFee": "فیس"
   },
   "TradeHistory": {
     "periodToday": "آج",
@@ -853,7 +866,8 @@
       "demoLimitExceeded": "یہ ڈپازٹ 1,000,000 USDT کی زیادہ سے زیادہ ڈیمو بیلنس حد سے تجاوز کر جائے گا۔",
       "demoResetOpenPositions": "ڈیمو بیلنس ری سیٹ کرنے سے پہلے تمام کھلی پوزیشنیں بند کریں۔",
       "demoOnly": "یہ عمل صرف ڈیمو اکاؤنٹ پر دستیاب ہے۔",
-      "demoWalletFailed": "ڈیمو ٹرانزیکشن مکمل نہیں ہو سکی۔ براہ کرم دوبارہ کوشش کریں۔"
+      "demoWalletFailed": "ڈیمو ٹرانزیکشن مکمل نہیں ہو سکی۔ براہ کرم دوبارہ کوشش کریں۔",
+      "withdrawAddressInvalid": "منتخب کردہ نیٹ ورک کے لیے والیٹ ایڈریس درست نہیں لگتا۔ ایڈریس اور نیٹ ورک چیک کریں اور دوبارہ کوشش کریں۔"
     },
     "settings": {
       "nameEmpty": "نام خالی نہیں ہو سکتا۔",
@@ -882,7 +896,8 @@
       "closeFailed": "پوزیشن بند نہیں ہو سکی۔ دوبارہ کوشش کریں۔",
       "tpInvalid": "خرید میں ٹیک پرافٹ موجودہ قیمت سے اوپر اور فروخت میں نیچے ہونا چاہیے۔",
       "slInvalid": "خرید میں اسٹاپ لاس موجودہ قیمت سے نیچے اور فروخت میں اوپر ہونا چاہیے۔",
-      "tpSlFailed": "TP/SL اپ ڈیٹ نہیں ہو سکا۔ براہ کرم دوبارہ کوشش کریں۔"
+      "tpSlFailed": "TP/SL اپ ڈیٹ نہیں ہو سکا۔ براہ کرم دوبارہ کوشش کریں۔",
+      "priceStale": "قیمتیں اپ ڈیٹ ہو رہی ہیں۔ براہ کرم تھوڑی دیر بعد دوبارہ کوشش کریں۔"
     },
     "leadTrader": {
       "rateLimit": "بہت زیادہ کوششیں۔ بعد میں دوبارہ کوشش کریں۔",

@@ -11,6 +11,7 @@
     "test": "node --test tests/trade-math.test.mjs",
     "test:db": "node --test tests/trade-integrity.db.test.mjs tests/wallet-separation.db.test.mjs tests/copy-risk.db.test.mjs",
     "test:e2e": "playwright test",
+    "test:e2e:client": "playwright test e2e/client.spec.ts",
     "android:sync": "cap sync android",
     "android:open": "cap open android"
   },

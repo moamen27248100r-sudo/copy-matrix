@@ -198,7 +198,7 @@
   },
   "Notifications": {
     "copyOpenedTitle": "New trade copied",
-    "copyOpenedBody": "Copied a {symbol} ({side, select, sell {sell} other {buy}}) trade from a trader you follow.",
+    "copyOpenedBody": "A {side, select, sell {sell} other {buy}} trade on {symbol} from {providerName} was copied to your account with {size} at an entry price of {price}.",
     "copyClosedTitle": "Copied trade from {providerName}",
     "copyClosedBody": "The {symbol} trade closed with a result of {amount}",
     "autoStopCopyTitle": "Copying stopped automatically",
@@ -211,7 +211,7 @@
     "kycRejectedBody": "Your identity verification request was rejected. Please contact support to find out why.",
     "walletDepositApprovedTitle": "Deposit completed",
     "walletWithdrawalApprovedTitle": "Withdrawal completed",
-    "walletApprovedBody": "Your transaction of {amount} USDT has been completed.",
+    "walletApprovedBody": "Your transaction of {amount} has been completed.",
     "walletDepositRejectedTitle": "Deposit rejected",
     "walletWithdrawalRejectedTitle": "Withdrawal rejected",
     "walletRejectedBody": "Your request could not be completed. Please contact support for details.",
@@ -244,7 +244,18 @@
     "prefsSave": "Save preferences",
     "prefsSaved": "Preferences saved.",
     "prefsSaveFailed": "Could not save your preferences. Please try again.",
-    "prefsSecurityAlways": "Always on"
+    "prefsSecurityAlways": "Always on",
+    "copyClosedTpTitle": "Take profit reached",
+    "copyClosedTpBody": "Your {symbol} trade copied from {providerName} closed at your take profit with a result of {amount}.",
+    "copyClosedSlTitle": "Stop loss triggered",
+    "copyClosedSlBody": "Your {symbol} trade copied from {providerName} closed at your stop loss with a result of {amount}.",
+    "copyClosedTrailingTitle": "Trailing stop triggered",
+    "copyClosedTrailingBody": "Your {symbol} trade copied from {providerName} was closed by your trailing stop with a result of {amount}.",
+    "copyClosedManualTitle": "Trade closed",
+    "copyClosedManualBody": "You closed your {symbol} trade copied from {providerName} with a result of {amount}.",
+    "copyClosedLeaderTitle": "Trade closed · {providerName}",
+    "copyClosedLeaderBody": "{providerName} closed the {symbol} trade. Your copy finished with a result of {amount}.",
+    "copyOpenedBodyLegacy": "Copied a {symbol} ({side, select, sell {sell} other {buy}}) trade from a trader you follow."
   },
   "Portfolio": {
     "title": "My Portfolio",
@@ -336,7 +347,9 @@
     "demoResetDone": "Your demo balance was reset to 10,000 USDT.",
     "txDemoReset": "Balance reset",
     "etaDeposit": "Est. 30 min",
-    "etaWithdraw": "Est. 24 h"
+    "etaWithdraw": "Est. 24 h",
+    "txAdjustment": "Balance adjustment",
+    "txFee": "Fee"
   },
   "TradeHistory": {
     "periodToday": "Today",
@@ -853,7 +866,8 @@
       "demoLimitExceeded": "This deposit would exceed the maximum demo balance of 1,000,000 USDT.",
       "demoResetOpenPositions": "Close all open positions before resetting your demo balance.",
       "demoOnly": "This action is only available on a demo account.",
-      "demoWalletFailed": "Could not complete the demo transaction. Please try again."
+      "demoWalletFailed": "Could not complete the demo transaction. Please try again.",
+      "withdrawAddressInvalid": "The wallet address doesn't look valid for the selected network. Check the address and network, then try again."
     },
     "settings": {
       "nameEmpty": "The name cannot be empty.",
@@ -882,7 +896,8 @@
       "closeFailed": "Couldn't close the position. Please try again.",
       "tpInvalid": "Take-profit must be above the current price for a buy, or below it for a sell.",
       "slInvalid": "Stop-loss must be below the current price for a buy, or above it for a sell.",
-      "tpSlFailed": "Could not update TP/SL. Please try again."
+      "tpSlFailed": "Could not update TP/SL. Please try again.",
+      "priceStale": "Prices are being refreshed. Please try again in a moment."
     },
     "leadTrader": {
       "rateLimit": "Too many attempts. Try again later.",

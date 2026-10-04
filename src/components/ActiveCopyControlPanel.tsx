@@ -2,6 +2,7 @@ import { getMoney } from "@/lib/money-server";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { TraderAvatar } from "@/components/TraderAvatar";
+import { SubmitButton } from "@/components/SubmitButton";
 import { ConfirmButton } from "@/components/ConfirmButton";
 import { stopCopyingNow, updateCopyRiskSettings } from "@/app/discover/actions";
 
@@ -112,9 +113,9 @@ export async function ActiveCopyControlPanel({
               <input type="checkbox" name="applyToOpen" className="mt-0.5" />
               <span>{tr("applyToOpen")}</span>
             </label>
-            <button type="submit" className="self-start rounded-lg bg-accent px-4 py-2 text-xs font-bold text-accent-foreground transition hover:bg-accent-hover">
+            <SubmitButton className="self-start rounded-lg bg-accent px-4 py-2 text-xs font-bold text-accent-foreground transition hover:bg-accent-hover">
               {tr("save")}
-            </button>
+            </SubmitButton>
           </form>
         </details>
       )}

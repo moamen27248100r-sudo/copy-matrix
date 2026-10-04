@@ -198,7 +198,7 @@
   },
   "Notifications": {
     "copyOpenedTitle": "Biashara mpya imenakiliwa",
-    "copyOpenedBody": "Biashara ya {symbol} ({side, select, sell {kuuza} other {kununua}}) imenakiliwa kutoka kwa mfanyabiashara unayemfuata.",
+    "copyOpenedBody": "Biashara ya {side, select, sell {kuuza} other {kununua}} {symbol} ya {providerName} imenakiliwa kwenye akaunti yako kwa {size} kwa bei ya kuingia ya {price}.",
     "copyClosedTitle": "Biashara iliyonakiliwa kutoka {providerName}",
     "copyClosedBody": "Biashara ya {symbol} imefungwa kwa matokeo ya {amount}",
     "autoStopCopyTitle": "Unakili umesimamishwa kiotomatiki",
@@ -211,7 +211,7 @@
     "kycRejectedBody": "Ombi lako la uthibitisho wa utambulisho limekataliwa. Tafadhali wasiliana na msaada ili kujua sababu.",
     "walletDepositApprovedTitle": "Amana imekamilika",
     "walletWithdrawalApprovedTitle": "Uondoaji umekamilika",
-    "walletApprovedBody": "Muamala wako wa USDT {amount} umekamilika.",
+    "walletApprovedBody": "Muamala wako wa {amount} umekamilika.",
     "walletDepositRejectedTitle": "Amana imekataliwa",
     "walletWithdrawalRejectedTitle": "Uondoaji umekataliwa",
     "walletRejectedBody": "Ombi lako halikuweza kukamilika. Tafadhali wasiliana na usaidizi kwa maelezo.",
@@ -244,7 +244,18 @@
     "prefsSave": "Hifadhi mapendeleo",
     "prefsSaved": "Mapendeleo yamehifadhiwa.",
     "prefsSaveFailed": "Imeshindwa kuhifadhi mapendeleo yako. Tafadhali jaribu tena.",
-    "prefsSecurityAlways": "Imewashwa daima"
+    "prefsSecurityAlways": "Imewashwa daima",
+    "copyClosedTpTitle": "Lengo la faida limefikiwa",
+    "copyClosedTpBody": "Biashara yako ya {symbol} iliyonakiliwa kutoka kwa {providerName} imefungwa kwenye lengo lako la faida kwa matokeo ya {amount}.",
+    "copyClosedSlTitle": "Stop loss imewashwa",
+    "copyClosedSlBody": "Biashara yako ya {symbol} iliyonakiliwa kutoka kwa {providerName} imefungwa kwenye stop loss yako kwa matokeo ya {amount}.",
+    "copyClosedTrailingTitle": "Trailing stop imewashwa",
+    "copyClosedTrailingBody": "Biashara yako ya {symbol} iliyonakiliwa kutoka kwa {providerName} imefungwa na trailing stop yako kwa matokeo ya {amount}.",
+    "copyClosedManualTitle": "Biashara imefungwa",
+    "copyClosedManualBody": "Umefunga biashara yako ya {symbol} iliyonakiliwa kutoka kwa {providerName} kwa matokeo ya {amount}.",
+    "copyClosedLeaderTitle": "Biashara imefungwa · {providerName}",
+    "copyClosedLeaderBody": "{providerName} amefunga biashara ya {symbol}. Nakala yako imeisha kwa matokeo ya {amount}.",
+    "copyOpenedBodyLegacy": "Biashara ya {symbol} ({side, select, sell {kuuza} other {kununua}}) imenakiliwa kutoka kwa mfanyabiashara unayemfuata."
   },
   "Portfolio": {
     "title": "Jalada Langu",
@@ -336,7 +347,9 @@
     "demoResetDone": "Salio lako la demo limewekwa upya hadi USDT 10,000.",
     "txDemoReset": "Kuweka upya salio",
     "etaDeposit": "Takriban dakika 30",
-    "etaWithdraw": "Takriban saa 24"
+    "etaWithdraw": "Takriban saa 24",
+    "txAdjustment": "Marekebisho ya salio",
+    "txFee": "Ada"
   },
   "TradeHistory": {
     "periodToday": "Leo",
@@ -853,7 +866,8 @@
       "demoLimitExceeded": "Amana hii itazidi salio la juu zaidi la demo la USDT 1,000,000.",
       "demoResetOpenPositions": "Funga nafasi zote zilizo wazi kabla ya kuweka upya salio lako la demo.",
       "demoOnly": "Kitendo hiki kinapatikana kwenye akaunti ya demo pekee.",
-      "demoWalletFailed": "Imeshindwa kukamilisha muamala wa demo. Tafadhali jaribu tena."
+      "demoWalletFailed": "Imeshindwa kukamilisha muamala wa demo. Tafadhali jaribu tena.",
+      "withdrawAddressInvalid": "Anwani ya pochi haionekani kuwa sahihi kwa mtandao uliochaguliwa. Kagua anwani na mtandao, kisha ujaribu tena."
     },
     "settings": {
       "nameEmpty": "Jina haliwezi kuwa tupu.",
@@ -882,7 +896,8 @@
       "closeFailed": "Imeshindwa kufunga nafasi. Tafadhali jaribu tena.",
       "tpInvalid": "Take-profit lazima iwe juu ya bei ya sasa kwa ununuzi, au chini yake kwa uuzaji.",
       "slInvalid": "Stop-loss lazima iwe chini ya bei ya sasa kwa ununuzi, au juu yake kwa uuzaji.",
-      "tpSlFailed": "Imeshindwa kusasisha TP/SL. Tafadhali jaribu tena."
+      "tpSlFailed": "Imeshindwa kusasisha TP/SL. Tafadhali jaribu tena.",
+      "priceStale": "Bei zinasasishwa. Tafadhali jaribu tena baada ya muda mfupi."
     },
     "leadTrader": {
       "rateLimit": "Majaribio mengi sana. Jaribu tena baadaye.",
