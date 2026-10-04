@@ -312,7 +312,7 @@
     "minDeposit": "Minimum: {amount} {currency}",
     "networkConfirmations": "Network confirmations: {count}",
     "amountSentPlaceholder": "Amount sent in USDT",
-    "withdrawBlockedError": "Couldn't submit the withdrawal request: you currently have open positions, and your balance is reserved as margin to cover them. You can stop copying after the positions close to return the balance and profits to your wallet, then resubmit the withdrawal request.",
+    "withdrawBlockedError": "You can't withdraw while you have open copied trades. Withdrawals are available again once all of them are closed.",
     "chooseCurrency": "Choose currency",
     "chooseNetworkStep": "Choose network",
     "networkFeeLabel": "Network fee",
@@ -349,7 +349,9 @@
     "etaDeposit": "Est. 30 min",
     "etaWithdraw": "Est. 24 h",
     "txAdjustment": "Balance adjustment",
-    "txFee": "Fee"
+    "txFee": "Fee",
+    "kycRequiredNotice": "Identity verification is required to withdraw from a real account. Complete verification to continue.",
+    "kycRequiredCta": "Verify identity"
   },
   "TradeHistory": {
     "periodToday": "Today",
@@ -858,7 +860,7 @@
       "depositAmountInvalid": "The deposit amount must be a number greater than zero.",
       "depositRequestFailed": "Could not send the deposit request. Please try again.",
       "withdrawAmountInvalid": "The withdrawal amount must be a number greater than zero.",
-      "withdrawBlockedOpenPositions": "Could not submit the withdrawal request: you currently have open trades, and your balance is held as margin to cover them. You can stop copying after those trades close to return the balance and profits to your wallet, then submit the withdrawal request again.",
+      "withdrawBlockedOpenPositions": "You can't withdraw while you have open copied trades. Withdrawals are available again once all of them are closed.",
       "withdrawInsufficientAvailable": "Your available balance for withdrawal is insufficient — part of your balance is currently held for an active copy. Stop copying first to return this amount to your available balance.",
       "withdrawNetworkRequired": "Choose a network and enter a wallet address to complete the withdrawal.",
       "withdrawRequestFailed": "Could not send the withdrawal request. Please try again.",
@@ -867,7 +869,8 @@
       "demoResetOpenPositions": "Close all open positions before resetting your demo balance.",
       "demoOnly": "This action is only available on a demo account.",
       "demoWalletFailed": "Could not complete the demo transaction. Please try again.",
-      "withdrawAddressInvalid": "The wallet address doesn't look valid for the selected network. Check the address and network, then try again."
+      "withdrawAddressInvalid": "The wallet address doesn't look valid for the selected network. Check the address and network, then try again.",
+      "kycRequired": "Identity verification is required to withdraw from a real account. Complete verification to continue."
     },
     "settings": {
       "nameEmpty": "The name cannot be empty.",
@@ -877,7 +880,7 @@
     },
     "discover": {
       "copyAmountInvalid": "The copy amount must be a number greater than zero.",
-      "copyAmountUpdateBlocked": "Could not update the copy amount right now: you have open trades on this account, and your balance is currently held as margin to cover them. Please try again after all open trades close.",
+      "copyAmountUpdateBlocked": "While copied trades are open, the amount, copy mode and per-trade limit are locked. Take profit, stop loss and trailing stop can still be edited, and everything unlocks once all trades close.",
       "traderStopped": "This trader has stopped trading and is no longer available to start new copying.",
       "copyAmountExceedsBalance": "The copy amount is greater than your available balance.",
       "copyAmountBelowMinimum": "The copy amount is below the minimum for this trader ({amount}).",
@@ -890,7 +893,8 @@
       "copyTpInvalid": "Take profit must be between 1% and 500% of the margin.",
       "copySlInvalid": "Stop loss must be between 1% and 90% of the margin.",
       "copyTrailingInvalid": "Trailing stop must be between 0.5% and 50%.",
-      "copyNotFound": "This copy is no longer active."
+      "copyNotFound": "This copy is no longer active.",
+      "copySettingsSaved": "Copy settings saved."
     },
     "dashboard": {
       "closeFailed": "Couldn't close the position. Please try again.",
@@ -1291,7 +1295,11 @@
     "trailingHint": "Closes the trade when the price pulls back this much from the best price it reached.",
     "tpslHint": "Applied automatically to every trade copied from now on. Take profit 1–500%, stop loss 1–90%, trailing 0.5–50%.",
     "copyOpenLabel": "Also copy the trader's currently open trades",
-    "copyOpenHint": "They open now at the current market price, which may differ from the trader's entry price."
+    "copyOpenHint": "They open now at the current market price, which may differ from the trader's entry price.",
+    "editOpen": "Edit copy settings",
+    "editTitle": "Copy settings · {name}",
+    "editConfirm": "Save changes",
+    "lockedNotice": "Amount, mode and per-trade limit are locked while copied trades are open. Take profit, stop loss and trailing stop can still be changed."
   },
   "Trades": {
     "title": "Trades",

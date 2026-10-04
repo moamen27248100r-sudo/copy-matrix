@@ -312,7 +312,7 @@
     "minDeposit": "Tối thiểu: {amount} {currency}",
     "networkConfirmations": "Xác nhận mạng lưới: {count}",
     "amountSentPlaceholder": "Số tiền đã gửi bằng USDT",
-    "withdrawBlockedError": "Không thể gửi yêu cầu rút tiền: bạn hiện có vị thế đang mở, và số dư của bạn đang được giữ làm ký quỹ để bảo đảm cho chúng. Bạn có thể dừng sao chép sau khi các vị thế đóng để hoàn lại số dư và lợi nhuận vào ví, sau đó gửi lại yêu cầu rút tiền.",
+    "withdrawBlockedError": "Không thể rút tiền khi còn lệnh sao chép đang mở. Bạn có thể rút lại sau khi tất cả lệnh được đóng.",
     "chooseCurrency": "Chọn tiền tệ",
     "chooseNetworkStep": "Chọn mạng lưới",
     "networkFeeLabel": "Phí mạng",
@@ -349,7 +349,9 @@
     "etaDeposit": "Dự kiến 30 phút",
     "etaWithdraw": "Dự kiến 24 giờ",
     "txAdjustment": "Điều chỉnh số dư",
-    "txFee": "Phí"
+    "txFee": "Phí",
+    "kycRequiredNotice": "Cần xác minh danh tính để rút tiền từ tài khoản thực. Hãy hoàn tất xác minh để tiếp tục.",
+    "kycRequiredCta": "Xác minh danh tính"
   },
   "TradeHistory": {
     "periodToday": "Hôm nay",
@@ -858,7 +860,7 @@
       "depositAmountInvalid": "Số tiền nạp phải là một số lớn hơn không.",
       "depositRequestFailed": "Không thể gửi yêu cầu nạp tiền. Vui lòng thử lại.",
       "withdrawAmountInvalid": "Số tiền rút phải là một số lớn hơn không.",
-      "withdrawBlockedOpenPositions": "Không thể gửi yêu cầu rút tiền: bạn hiện có các giao dịch đang mở và số dư của bạn đang được giữ làm ký quỹ để bù đắp cho chúng. Bạn có thể dừng sao chép sau khi các giao dịch đó đóng lại để hoàn trả số dư và lợi nhuận vào ví, sau đó gửi lại yêu cầu rút tiền.",
+      "withdrawBlockedOpenPositions": "Không thể rút tiền khi còn lệnh sao chép đang mở. Bạn có thể rút lại sau khi tất cả lệnh được đóng.",
       "withdrawInsufficientAvailable": "Số dư khả dụng để rút tiền của bạn không đủ — một phần số dư của bạn hiện đang được giữ cho việc sao chép đang hoạt động. Hãy dừng sao chép trước để hoàn trả số tiền này vào số dư khả dụng của bạn.",
       "withdrawNetworkRequired": "Chọn một mạng lưới và nhập địa chỉ ví để hoàn tất việc rút tiền.",
       "withdrawRequestFailed": "Không thể gửi yêu cầu rút tiền. Vui lòng thử lại.",
@@ -867,7 +869,8 @@
       "demoResetOpenPositions": "Hãy đóng tất cả vị thế đang mở trước khi đặt lại số dư demo.",
       "demoOnly": "Thao tác này chỉ khả dụng trên tài khoản demo.",
       "demoWalletFailed": "Không thể hoàn tất giao dịch demo. Vui lòng thử lại.",
-      "withdrawAddressInvalid": "Địa chỉ ví có vẻ không hợp lệ với mạng đã chọn. Hãy kiểm tra địa chỉ và mạng rồi thử lại."
+      "withdrawAddressInvalid": "Địa chỉ ví có vẻ không hợp lệ với mạng đã chọn. Hãy kiểm tra địa chỉ và mạng rồi thử lại.",
+      "kycRequired": "Cần xác minh danh tính để rút tiền từ tài khoản thực. Hãy hoàn tất xác minh để tiếp tục."
     },
     "settings": {
       "nameEmpty": "Tên không được để trống.",
@@ -877,7 +880,7 @@
     },
     "discover": {
       "copyAmountInvalid": "Số tiền sao chép phải là một số lớn hơn không.",
-      "copyAmountUpdateBlocked": "Hiện không thể cập nhật số tiền sao chép: bạn có giao dịch đang mở trên tài khoản này, và số dư của bạn hiện đang được giữ làm ký quỹ để bù đắp cho chúng. Vui lòng thử lại sau khi tất cả các giao dịch đang mở đóng lại.",
+      "copyAmountUpdateBlocked": "Khi còn lệnh sao chép đang mở, số tiền, chế độ sao chép và giới hạn mỗi lệnh sẽ bị khóa. Bạn vẫn có thể chỉnh chốt lời, cắt lỗ và dừng lỗ theo sau; mọi thứ được mở khóa khi tất cả lệnh đóng.",
       "traderStopped": "Nhà giao dịch này đã ngừng giao dịch và không còn khả dụng để bắt đầu sao chép mới.",
       "copyAmountExceedsBalance": "Số tiền sao chép lớn hơn số dư khả dụng của bạn.",
       "copyAmountBelowMinimum": "Số tiền sao chép thấp hơn mức tối thiểu đối với nhà giao dịch này ({amount}).",
@@ -890,7 +893,8 @@
       "copyTpInvalid": "Chốt lời phải nằm trong khoảng 1% đến 500% ký quỹ.",
       "copySlInvalid": "Cắt lỗ phải nằm trong khoảng 1% đến 90% ký quỹ.",
       "copyTrailingInvalid": "Dừng lỗ động phải nằm trong khoảng 0,5% đến 50%.",
-      "copyNotFound": "Bản sao chép này không còn hoạt động."
+      "copyNotFound": "Bản sao chép này không còn hoạt động.",
+      "copySettingsSaved": "Đã lưu cài đặt sao chép."
     },
     "dashboard": {
       "closeFailed": "Không thể đóng vị thế. Vui lòng thử lại.",
@@ -1287,7 +1291,11 @@
     "trailingHint": "Đóng lệnh khi giá giảm ngược lại theo tỷ lệ này so với mức giá tốt nhất đã đạt.",
     "tpslHint": "Tự động áp dụng cho mọi lệnh được sao chép từ bây giờ. Chốt lời 1–500%, cắt lỗ 1–90%, dừng lỗ động 0,5–50%.",
     "copyOpenLabel": "Sao chép cả các lệnh đang mở của trader",
-    "copyOpenHint": "Chúng được mở ngay theo giá thị trường hiện tại, có thể khác giá vào lệnh của trader."
+    "copyOpenHint": "Chúng được mở ngay theo giá thị trường hiện tại, có thể khác giá vào lệnh của trader.",
+    "editOpen": "Chỉnh sửa cài đặt sao chép",
+    "editTitle": "Cài đặt sao chép · {name}",
+    "editConfirm": "Lưu thay đổi",
+    "lockedNotice": "Số tiền, chế độ và giới hạn mỗi lệnh bị khóa khi còn lệnh sao chép đang mở. Bạn vẫn có thể chỉnh chốt lời, cắt lỗ và dừng lỗ theo sau."
   },
   "Trades": {
     "title": "Giao dịch",

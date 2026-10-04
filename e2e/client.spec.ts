@@ -316,6 +316,48 @@ test.describe.serial("Client dashboard — full journey", () => {
     await client.getByRole("button", { name: "Confirm and send" }).click();
   }
 
+  // Runs SQL that must be refused by the database, then rolls everything back.
+  async function dbRefuses(code: string, statements: [string, unknown[]?][]) {
+    await sql("begin");
+    try {
+      let refused = "";
+      try {
+        for (const [text, params] of statements) await sql(text, params ?? []);
+      } catch (e) {
+        refused = (e as { code?: string }).code ?? String(e);
+      }
+      expect(refused).toBe(code);
+    } finally {
+      await sql("rollback");
+    }
+  }
+  const realWithdrawal = (): [string, unknown[]] => [
+    `insert into public.wallet_requests (user_id, type, amount, note) values ($1, 'withdrawal', 10, 'e2e')`,
+    [fx.clientId],
+  ];
+
+  early("2h0. a real withdrawal needs verified identity: clear notice, a button to verification, refused by the server", async () => {
+    await client.goto(`${BASE}/portfolio/withdraw`);
+    const text = await bodyText(client);
+    expect(text).toContain("Identity verification is required to withdraw from a real account. Complete verification to continue.");
+    expect(await client.locator("main input[type=text]").count()).toBe(0); // no withdrawal form at all
+    await client.getByRole("link", { name: "Verify identity" }).click();
+    await expect(client).toHaveURL(/\/kyc/);
+    // the database refuses it even if the page is bypassed: no submission, then a pending one
+    await dbRefuses("CM024", [realWithdrawal()]);
+    await sql(
+      `insert into public.kyc_submissions (user_id, full_name, national_id_number, id_document_path, status) values ($1, 'E2E Client', '0000000000', 'e2e/none', 'pending')`,
+      [fx.clientId],
+    );
+    await dbRefuses("CM024", [realWithdrawal()]);
+    await client.goto(`${BASE}/portfolio/withdraw`);
+    expect(await bodyText(client)).toContain("Identity verification is required");
+    // the back office approves it: the form appears
+    await sql(`update public.kyc_submissions set status = 'approved', reviewed_at = now() where user_id = $1`, [fx.clientId]);
+    await client.goto(`${BASE}/portfolio/withdraw`);
+    await expect(client.locator("main input[type=text]").first()).toBeVisible();
+  });
+
   early("2h. withdrawal with an invalid wallet address is refused with a clear message", async () => {
     await startWithdrawal("100", "abc");
     await expect(client).toHaveURL(/error=/);
@@ -487,6 +529,74 @@ test.describe.serial("Client dashboard — full journey", () => {
     const res = await sql(`select count(*) n from public.subscriptions where follower_id = $1 and provider_id = $2 and is_active`, [fx.clientId, fx.providerId]);
     expect(Number(res[0].n)).toBe(1);
   });
+
+  // ---------------------------------------------------------------- 3e. copy lock: nothing open yet
+  const sub = async () =>
+    (
+      await sql<Record<string, string | null>>(
+        `select allocated_amount, copy_mode, fixed_amount, max_per_trade, max_drawdown_pct, tp_pct, sl_pct, trailing_pct, is_active
+         from public.subscriptions where follower_id = $1 and provider_id = $2`,
+        [fx.clientId, fx.providerId],
+      )
+    )[0];
+  async function openEditDialog() {
+    await client.goto(`${BASE}/trader/${fx.providerId}`);
+    await client.getByRole("button", { name: "Edit copy settings" }).click();
+    await expect(client.getByRole("dialog")).toBeVisible();
+    return client.getByRole("dialog");
+  }
+
+  test("3e. before any copied trade opens, every copy setting can be edited and the copy can be withdrawn from", async () => {
+    let dlg = await openEditDialog();
+    await expect(dlg.getByText(/locked while copied trades are open/)).toHaveCount(0);
+    await expect(dlg.locator("input[name=allocatedAmount]")).toBeEditable();
+    await dlg.locator("input[name=allocatedAmount]").fill("3500");
+    await dlg.locator("input[name=fixedAmount]").fill("900");
+    await dlg.locator("input[name=maxPerTrade]").fill("700");
+    await dlg.locator("input[name=stopLossPct]").fill("40");
+    await dlg.locator("input[name=takeProfitPct]").fill("6");
+    await dlg.locator("input[name=tradeStopLossPct]").fill("4");
+    await dlg.locator("input[name=trailingPct]").fill("2");
+    await dlg.getByRole("button", { name: "Save changes" }).click();
+    await expect(client).toHaveURL(/success=saved/);
+    expect(await bodyText(client)).toContain("Copy settings saved.");
+    let s = await sub();
+    expect([Number(s.allocated_amount), Number(s.fixed_amount), Number(s.max_per_trade), Number(s.max_drawdown_pct), Number(s.tp_pct), Number(s.sl_pct), Number(s.trailing_pct)]).toEqual([3500, 900, 700, 40, 6, 4, 2]);
+    // mode too
+    dlg = await openEditDialog();
+    await dlg.getByLabel("Fixed ratio").check();
+    await dlg.getByRole("button", { name: "Save changes" }).click();
+    await expect(client).toHaveURL(/success=saved/);
+    s = await sub();
+    expect(s.copy_mode).toBe("ratio");
+    expect(s.fixed_amount).toBeNull();
+    // back to the settings the trading chapters rely on
+    dlg = await openEditDialog();
+    await dlg.locator("input[name=allocatedAmount]").fill("4000");
+    await dlg.getByLabel("Fixed amount per trade").check();
+    await dlg.locator("input[name=fixedAmount]").fill("1000");
+    await dlg.locator("input[name=maxPerTrade]").fill("800");
+    await dlg.locator("input[name=stopLossPct]").fill("50");
+    await dlg.locator("input[name=takeProfitPct]").fill("5");
+    await dlg.locator("input[name=tradeStopLossPct]").fill("3");
+    await dlg.locator("input[name=trailingPct]").fill("");
+    await dlg.getByRole("button", { name: "Save changes" }).click();
+    await expect(client).toHaveURL(/success=saved/);
+    s = await sub();
+    expect([Number(s.allocated_amount), s.copy_mode, Number(s.fixed_amount), Number(s.max_per_trade), Number(s.tp_pct), Number(s.sl_pct), s.trailing_pct]).toEqual([4000, "fixed", 1000, 800, 5, 3, null]);
+    // free cash can be withdrawn (balance 10,000 - 4,000 held for the copy), and put back
+    await client.goto(`${BASE}/portfolio/withdraw`);
+    await client.locator("main input[type=text]").first().fill("100");
+    await client.getByRole("button", { name: "Confirm withdrawal" }).click();
+    await expect(client).toHaveURL(/demo=withdraw/);
+    expect((await profile()).balance).toBe(9900);
+    await client.goto(`${BASE}/portfolio/deposit`);
+    await client.locator("input[name=amount]").fill("100");
+    await client.getByRole("button", { name: "Deposit" }).click();
+    await expect(client).toHaveURL(/demo=deposit/);
+    expect((await profile()).balance).toBe(10000);
+  });
+
   // ---------------------------------------------------------------- 4. trades
   type Pos = { id: string; status: string; size: string; entry_price: string; exit_price: string | null; pnl: string | null; take_profit: string | null; stop_loss: string | null; trail_pct: string | null; best_price: string | null; side: string; symbol: string; sig_entry: string; signal_id: string };
   async function positions(): Promise<Pos[]> {
@@ -531,6 +641,64 @@ test.describe.serial("Client dashboard — full journey", () => {
     expect(text).toContain("BUY");
     expect(text).toMatch(/TP [\d,.]+/);
     expect(text).toMatch(/SL [\d,.]+/);
+  });
+
+
+  // ---------------------------------------------------------------- 4a2. copy lock: a copied trade is open
+  test("4a2. while a copied trade is open: amount, mode and cap are locked (server too), TP/SL/trailing stay editable, withdrawing and stopping are refused", async () => {
+    expect((await positions()).filter((p) => p.status === "open")).toHaveLength(1);
+    const before = await sub();
+    // the dialog shows the lock and its reason
+    let dlg = await openEditDialog();
+    await expect(dlg.getByText("Amount, mode and per-trade limit are locked while copied trades are open. Take profit, stop loss and trailing stop can still be changed.")).toBeVisible();
+    for (const name of ["allocatedAmount", "fixedAmount", "maxPerTrade", "stopLossPct"]) {
+      await expect(dlg.locator(`input[name=${name}]`)).not.toBeEditable();
+    }
+    await expect(dlg.getByLabel("Fixed ratio")).toBeDisabled();
+    await expect(dlg.getByLabel("Fixed amount per trade")).toBeDisabled();
+    // TP / SL / trailing can still be changed
+    await dlg.locator("input[name=takeProfitPct]").fill("5.5");
+    await dlg.locator("input[name=trailingPct]").fill("2.5");
+    await dlg.getByRole("button", { name: "Save changes" }).click();
+    await expect(client).toHaveURL(/success=saved/);
+    let s = await sub();
+    expect(Number(s.tp_pct)).toBe(5.5);
+    expect(Number(s.trailing_pct)).toBe(2.5);
+    expect(Number(s.allocated_amount)).toBe(Number(before.allocated_amount));
+    // ... and the server refuses a changed amount even if the page is tampered with
+    dlg = await openEditDialog();
+    await dlg.locator("input[name=allocatedAmount]").evaluate((el: HTMLInputElement) => { el.readOnly = false; el.value = "3000"; });
+    await dlg.getByRole("button", { name: "Save changes" }).click();
+    await expect(client).toHaveURL(/error=/);
+    expect(await bodyText(client)).toContain("While copied trades are open, the amount, copy mode and per-trade limit are locked.");
+    s = await sub();
+    expect(Number(s.allocated_amount)).toBe(4000);
+    // put the trade settings back
+    dlg = await openEditDialog();
+    await dlg.locator("input[name=takeProfitPct]").fill("5");
+    await dlg.locator("input[name=trailingPct]").fill("");
+    await dlg.getByRole("button", { name: "Save changes" }).click();
+    await expect(client).toHaveURL(/success=saved/);
+    // withdrawing is refused, with the reason
+    await client.goto(`${BASE}/portfolio/withdraw`);
+    expect(await bodyText(client)).toContain("You can't withdraw while you have open copied trades. Withdrawals are available again once all of them are closed.");
+    await expect(client.locator("main input[type=text]")).toHaveCount(0);
+    // the database refuses it as well (demo function and the real-account request)
+    const api = (await import("@supabase/supabase-js")).createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!, { auth: { persistSession: false } });
+    expect((await api.auth.signInWithPassword({ email: CLIENT_EMAIL, password: PASSWORD })).error).toBeNull();
+    const r = await api.rpc("demo_withdraw", { p_amount: 10 });
+    expect(r.error?.code).toBe("CM023");
+    await api.auth.signOut({ scope: "local" });
+    await dbRefuses("CM023", [
+      [`update public.profiles set account_type = 'real' where id = $1`, [fx.clientId]],
+      realWithdrawal(),
+    ]);
+    // stopping the copy is refused while a trade is open
+    await client.goto(`${BASE}/trader/${fx.providerId}`);
+    await client.getByRole("button", { name: "Stop copying" }).click();
+    await expect(client).toHaveURL(/error=/);
+    expect(await bodyText(client)).toContain("Could not stop copying right now");
+    expect((await sub()).is_active).toBe(true);
   });
 
   test("4b. live profit/loss on the open trade matches size x price move", async () => {
@@ -725,6 +893,36 @@ test.describe.serial("Client dashboard — full journey", () => {
   test("4i. the trader's own BTC trades stay open when a follower's copy closes on its own rules", async () => {
     const open = await sql<{ n: string }>(`select count(*) n from public.signals where provider_id = $1 and status = 'open' and symbol = 'BTCUSDT'`, [fx.providerId]);
     expect(Number(open[0].n)).toBe(3);
+  });
+
+
+  test("4i2. once every copied trade is closed, the lock lifts by itself", async () => {
+    expect((await positions()).filter((p) => p.status === "open")).toHaveLength(0);
+    const dlg = await openEditDialog();
+    await expect(dlg.getByText(/locked while copied trades are open/)).toHaveCount(0);
+    await expect(dlg.locator("input[name=allocatedAmount]")).toBeEditable();
+    await dlg.locator("input[name=allocatedAmount]").fill("3000");
+    await dlg.locator("input[name=fixedAmount]").fill("1000");
+    await dlg.getByRole("button", { name: "Save changes" }).click();
+    await expect(client).toHaveURL(/success=saved/);
+    expect(Number((await sub()).allocated_amount)).toBe(3000);
+    await openEditDialog().then(async (d) => {
+      await d.locator("input[name=allocatedAmount]").fill("4000");
+      await d.getByRole("button", { name: "Save changes" }).click();
+    });
+    await expect(client).toHaveURL(/success=saved/);
+    // withdrawing works again
+    await client.goto(`${BASE}/portfolio/withdraw`);
+    await expect(client.locator("main input[type=text]").first()).toBeVisible();
+    const bal = (await profile()).balance;
+    await client.locator("main input[type=text]").first().fill("50");
+    await client.getByRole("button", { name: "Confirm withdrawal" }).click();
+    await expect(client).toHaveURL(/demo=withdraw/);
+    expect((await profile()).balance).toBeCloseTo(bal - 50, 2);
+    await client.goto(`${BASE}/portfolio/deposit`);
+    await client.locator("input[name=amount]").fill("50");
+    await client.getByRole("button", { name: "Deposit" }).click();
+    await expect(client).toHaveURL(/demo=deposit/);
   });
 
   // ---------------------------------------------------------------- 5. accounting, history, stats

@@ -312,7 +312,7 @@
     "minDeposit": "Minimum: {amount} {currency}",
     "networkConfirmations": "Konfirmasi jaringan: {count}",
     "amountSentPlaceholder": "Jumlah yang dikirim dalam USDT",
-    "withdrawBlockedError": "Tidak dapat mengirimkan permintaan penarikan: Anda saat ini memiliki posisi terbuka, dan saldo Anda dicadangkan sebagai margin untuk menutupinya. Anda dapat berhenti menyalin setelah posisi ditutup untuk mengembalikan saldo dan keuntungan ke dompet Anda, lalu kirimkan kembali permintaan penarikan.",
+    "withdrawBlockedError": "Penarikan tidak dapat dilakukan selama ada transaksi salinan yang terbuka. Penarikan tersedia lagi setelah semuanya ditutup.",
     "chooseCurrency": "Pilih mata uang",
     "chooseNetworkStep": "Pilih jaringan",
     "networkFeeLabel": "Biaya jaringan",
@@ -349,7 +349,9 @@
     "etaDeposit": "Est. 30 mnt",
     "etaWithdraw": "Est. 24 jam",
     "txAdjustment": "Penyesuaian saldo",
-    "txFee": "Biaya"
+    "txFee": "Biaya",
+    "kycRequiredNotice": "Verifikasi identitas diperlukan untuk menarik dana dari akun riil. Selesaikan verifikasi untuk melanjutkan.",
+    "kycRequiredCta": "Verifikasi identitas"
   },
   "TradeHistory": {
     "periodToday": "Hari ini",
@@ -858,7 +860,7 @@
       "depositAmountInvalid": "Jumlah setoran harus berupa angka lebih besar dari nol.",
       "depositRequestFailed": "Tidak dapat mengirim permintaan setoran. Silakan coba lagi.",
       "withdrawAmountInvalid": "Jumlah penarikan harus berupa angka lebih besar dari nol.",
-      "withdrawBlockedOpenPositions": "Tidak dapat mengirim permintaan penarikan: Anda saat ini memiliki trade terbuka, dan saldo Anda ditahan sebagai margin untuk menutupinya. Anda dapat berhenti menyalin setelah trade tersebut ditutup untuk mengembalikan saldo dan keuntungan ke dompet Anda, lalu kirim ulang permintaan penarikan.",
+      "withdrawBlockedOpenPositions": "Penarikan tidak dapat dilakukan selama ada transaksi salinan yang terbuka. Penarikan tersedia lagi setelah semuanya ditutup.",
       "withdrawInsufficientAvailable": "Saldo yang tersedia untuk penarikan tidak mencukupi — sebagian saldo Anda saat ini ditahan untuk penyalinan aktif. Hentikan penyalinan terlebih dahulu untuk mengembalikan jumlah ini ke saldo tersedia Anda.",
       "withdrawNetworkRequired": "Pilih jaringan dan masukkan alamat dompet untuk menyelesaikan penarikan.",
       "withdrawRequestFailed": "Tidak dapat mengirim permintaan penarikan. Silakan coba lagi.",
@@ -867,7 +869,8 @@
       "demoResetOpenPositions": "Tutup semua posisi terbuka sebelum mengatur ulang saldo demo.",
       "demoOnly": "Tindakan ini hanya tersedia di akun demo.",
       "demoWalletFailed": "Tidak dapat menyelesaikan transaksi demo. Silakan coba lagi.",
-      "withdrawAddressInvalid": "Alamat dompet tampaknya tidak valid untuk jaringan yang dipilih. Periksa alamat dan jaringan, lalu coba lagi."
+      "withdrawAddressInvalid": "Alamat dompet tampaknya tidak valid untuk jaringan yang dipilih. Periksa alamat dan jaringan, lalu coba lagi.",
+      "kycRequired": "Verifikasi identitas diperlukan untuk menarik dana dari akun riil. Selesaikan verifikasi untuk melanjutkan."
     },
     "settings": {
       "nameEmpty": "Nama tidak boleh kosong.",
@@ -877,7 +880,7 @@
     },
     "discover": {
       "copyAmountInvalid": "Jumlah salinan harus berupa angka lebih besar dari nol.",
-      "copyAmountUpdateBlocked": "Tidak dapat memperbarui jumlah salinan saat ini: Anda memiliki trade terbuka pada akun ini, dan saldo Anda saat ini ditahan sebagai margin untuk menutupinya. Silakan coba lagi setelah semua trade terbuka ditutup.",
+      "copyAmountUpdateBlocked": "Selama ada transaksi salinan yang terbuka, jumlah, mode salin, dan batas per transaksi terkunci. Take profit, stop loss, dan trailing stop tetap dapat diubah, dan semuanya terbuka kembali setelah semua transaksi ditutup.",
       "traderStopped": "Trader ini telah berhenti trading dan tidak lagi tersedia untuk memulai penyalinan baru.",
       "copyAmountExceedsBalance": "Jumlah salinan lebih besar dari saldo tersedia Anda.",
       "copyAmountBelowMinimum": "Jumlah salinan di bawah minimum untuk trader ini ({amount}).",
@@ -890,7 +893,8 @@
       "copyTpInvalid": "Take profit harus antara 1% dan 500% dari margin.",
       "copySlInvalid": "Stop loss harus antara 1% dan 90% dari margin.",
       "copyTrailingInvalid": "Trailing stop harus antara 0,5% dan 50%.",
-      "copyNotFound": "Salinan ini tidak lagi aktif."
+      "copyNotFound": "Salinan ini tidak lagi aktif.",
+      "copySettingsSaved": "Pengaturan salin disimpan."
     },
     "dashboard": {
       "closeFailed": "Tidak dapat menutup posisi. Silakan coba lagi.",
@@ -1287,7 +1291,11 @@
     "trailingHint": "Menutup transaksi saat harga turun sebesar ini dari harga terbaik yang pernah dicapai.",
     "tpslHint": "Diterapkan otomatis pada setiap transaksi yang disalin mulai sekarang. Take profit 1–500%, stop loss 1–90%, trailing 0,5–50%.",
     "copyOpenLabel": "Salin juga transaksi trader yang sedang terbuka",
-    "copyOpenHint": "Dibuka sekarang pada harga pasar saat ini, yang bisa berbeda dari harga masuk trader."
+    "copyOpenHint": "Dibuka sekarang pada harga pasar saat ini, yang bisa berbeda dari harga masuk trader.",
+    "editOpen": "Ubah pengaturan salin",
+    "editTitle": "Pengaturan salin · {name}",
+    "editConfirm": "Simpan perubahan",
+    "lockedNotice": "Jumlah, mode, dan batas per transaksi terkunci selama ada transaksi salinan yang terbuka. Take profit, stop loss, dan trailing stop tetap dapat diubah."
   },
   "Trades": {
     "title": "Transaksi",

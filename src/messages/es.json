@@ -312,7 +312,7 @@
     "minDeposit": "Mínimo: {amount} {currency}",
     "networkConfirmations": "Confirmaciones de red: {count}",
     "amountSentPlaceholder": "Importe enviado en USDT",
-    "withdrawBlockedError": "No se pudo enviar la solicitud de retiro: actualmente tienes posiciones abiertas y tu saldo está reservado como margen para cubrirlas. Puedes dejar de copiar después de que se cierren las posiciones para devolver el saldo y las ganancias a tu cartera, y luego volver a enviar la solicitud de retiro.",
+    "withdrawBlockedError": "No puedes retirar fondos mientras haya operaciones copiadas abiertas. Los retiros vuelven a estar disponibles cuando todas se cierren.",
     "chooseCurrency": "Elige la moneda",
     "chooseNetworkStep": "Elige la red",
     "networkFeeLabel": "Comisión de red",
@@ -349,7 +349,9 @@
     "etaDeposit": "Aprox. 30 min",
     "etaWithdraw": "Aprox. 24 h",
     "txAdjustment": "Ajuste de saldo",
-    "txFee": "Comisión"
+    "txFee": "Comisión",
+    "kycRequiredNotice": "Se requiere verificación de identidad para retirar fondos de una cuenta real. Completa la verificación para continuar.",
+    "kycRequiredCta": "Verificar identidad"
   },
   "TradeHistory": {
     "periodToday": "Hoy",
@@ -858,7 +860,7 @@
       "depositAmountInvalid": "El monto del depósito debe ser un número mayor que cero.",
       "depositRequestFailed": "No se pudo enviar la solicitud de depósito. Inténtalo de nuevo.",
       "withdrawAmountInvalid": "El monto del retiro debe ser un número mayor que cero.",
-      "withdrawBlockedOpenPositions": "No se pudo enviar la solicitud de retiro: actualmente tienes operaciones abiertas y tu saldo está retenido como margen para cubrirlas. Puedes dejar de copiar después de que esas operaciones se cierren para devolver el saldo y las ganancias a tu billetera, y luego enviar la solicitud de retiro de nuevo.",
+      "withdrawBlockedOpenPositions": "No puedes retirar fondos mientras haya operaciones copiadas abiertas. Los retiros vuelven a estar disponibles cuando todas se cierren.",
       "withdrawInsufficientAvailable": "Tu saldo disponible para retirar es insuficiente — parte de tu saldo está retenido actualmente para una copia activa. Deja de copiar primero para devolver este monto a tu saldo disponible.",
       "withdrawNetworkRequired": "Elige una red e introduce una dirección de billetera para completar el retiro.",
       "withdrawRequestFailed": "No se pudo enviar la solicitud de retiro. Inténtalo de nuevo.",
@@ -867,7 +869,8 @@
       "demoResetOpenPositions": "Cierra todas las posiciones abiertas antes de restablecer tu saldo demo.",
       "demoOnly": "Esta acción solo está disponible en una cuenta demo.",
       "demoWalletFailed": "No se pudo completar la transacción demo. Inténtalo de nuevo.",
-      "withdrawAddressInvalid": "La dirección de la billetera no parece válida para la red seleccionada. Revisa la dirección y la red e inténtalo de nuevo."
+      "withdrawAddressInvalid": "La dirección de la billetera no parece válida para la red seleccionada. Revisa la dirección y la red e inténtalo de nuevo.",
+      "kycRequired": "Se requiere verificación de identidad para retirar fondos de una cuenta real. Completa la verificación para continuar."
     },
     "settings": {
       "nameEmpty": "El nombre no puede estar vacío.",
@@ -877,7 +880,7 @@
     },
     "discover": {
       "copyAmountInvalid": "El monto a copiar debe ser un número mayor que cero.",
-      "copyAmountUpdateBlocked": "No se pudo actualizar el monto a copiar en este momento: tienes operaciones abiertas en esta cuenta, y tu saldo está actualmente retenido como margen para cubrirlas. Inténtalo de nuevo después de que se cierren todas las operaciones abiertas.",
+      "copyAmountUpdateBlocked": "Mientras haya operaciones copiadas abiertas, el importe, el modo de copia y el límite por operación están bloqueados. El objetivo de beneficio, el stop loss y el stop dinámico siguen siendo editables, y todo se desbloquea al cerrarse las operaciones.",
       "traderStopped": "Este trader ha dejado de operar y ya no está disponible para iniciar una nueva copia.",
       "copyAmountExceedsBalance": "El monto a copiar es mayor que tu saldo disponible.",
       "copyAmountBelowMinimum": "El monto a copiar es menor que el mínimo para este trader ({amount}).",
@@ -890,7 +893,8 @@
       "copyTpInvalid": "La toma de beneficios debe estar entre el 1 % y el 500 % del margen.",
       "copySlInvalid": "El stop loss debe estar entre el 1 % y el 90 % del margen.",
       "copyTrailingInvalid": "El stop dinámico debe estar entre el 0,5 % y el 50 %.",
-      "copyNotFound": "Esta copia ya no está activa."
+      "copyNotFound": "Esta copia ya no está activa.",
+      "copySettingsSaved": "Ajustes de copia guardados."
     },
     "dashboard": {
       "closeFailed": "No se pudo cerrar la posición. Inténtalo de nuevo.",
@@ -1288,7 +1292,11 @@
     "trailingHint": "Cierra la operación cuando el precio retrocede este porcentaje desde el mejor precio alcanzado.",
     "tpslHint": "Se aplica automáticamente a cada operación copiada a partir de ahora. Toma de beneficios 1–500 %, stop loss 1–90 %, dinámico 0,5–50 %.",
     "copyOpenLabel": "Copiar también las operaciones abiertas actualmente del trader",
-    "copyOpenHint": "Se abren ahora al precio actual de mercado, que puede diferir del precio de entrada del trader."
+    "copyOpenHint": "Se abren ahora al precio actual de mercado, que puede diferir del precio de entrada del trader.",
+    "editOpen": "Editar ajustes de copia",
+    "editTitle": "Ajustes de copia · {name}",
+    "editConfirm": "Guardar cambios",
+    "lockedNotice": "El importe, el modo y el límite por operación están bloqueados mientras haya operaciones copiadas abiertas. El objetivo de beneficio, el stop loss y el stop dinámico siguen siendo editables."
   },
   "Trades": {
     "title": "Operaciones",

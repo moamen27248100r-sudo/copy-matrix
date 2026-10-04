@@ -170,7 +170,7 @@ export async function followProvider(formData: FormData) {
   revalidatePath("/portfolio");
   revalidatePath(`/trader/${providerId}`);
 
-  redirect(isStarting ? `/trader/${providerId}?success=started` : `/trader/${providerId}`);
+  redirect(`/trader/${providerId}?success=${isStarting ? "started" : "saved"}`);
 }
 
 // Edit the per-trade take-profit / stop-loss / trailing settings of a running

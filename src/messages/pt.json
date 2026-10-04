@@ -312,7 +312,7 @@
     "minDeposit": "Mínimo: {amount} {currency}",
     "networkConfirmations": "Confirmações de rede: {count}",
     "amountSentPlaceholder": "Valor enviado em USDT",
-    "withdrawBlockedError": "Não foi possível enviar a solicitação de saque: você tem posições abertas no momento, e seu saldo está reservado como margem para cobri-las. Você pode parar de copiar depois que as posições forem fechadas para devolver o saldo e os lucros à sua carteira, e então reenviar a solicitação de saque.",
+    "withdrawBlockedError": "Não é possível levantar fundos enquanto houver operações copiadas abertas. Os levantamentos ficam disponíveis novamente quando todas forem encerradas.",
     "chooseCurrency": "Escolha a moeda",
     "chooseNetworkStep": "Escolha a rede",
     "networkFeeLabel": "Taxa de rede",
@@ -349,7 +349,9 @@
     "etaDeposit": "Aprox. 30 min",
     "etaWithdraw": "Aprox. 24 h",
     "txAdjustment": "Ajuste de saldo",
-    "txFee": "Taxa"
+    "txFee": "Taxa",
+    "kycRequiredNotice": "É necessária a verificação de identidade para levantar fundos de uma conta real. Conclua a verificação para continuar.",
+    "kycRequiredCta": "Verificar identidade"
   },
   "TradeHistory": {
     "periodToday": "Hoje",
@@ -858,7 +860,7 @@
       "depositAmountInvalid": "O valor do depósito deve ser um número maior que zero.",
       "depositRequestFailed": "Não foi possível enviar a solicitação de depósito. Tente novamente.",
       "withdrawAmountInvalid": "O valor do saque deve ser um número maior que zero.",
-      "withdrawBlockedOpenPositions": "Não foi possível enviar a solicitação de saque: você tem operações abertas atualmente, e seu saldo está retido como margem para cobri-las. Você pode parar de copiar depois que essas operações forem fechadas para devolver o saldo e os lucros à sua carteira, e então enviar a solicitação de saque novamente.",
+      "withdrawBlockedOpenPositions": "Não é possível levantar fundos enquanto houver operações copiadas abertas. Os levantamentos ficam disponíveis novamente quando todas forem encerradas.",
       "withdrawInsufficientAvailable": "Seu saldo disponível para saque é insuficiente — parte do seu saldo está atualmente retido para uma cópia ativa. Pare de copiar primeiro para devolver esse valor ao seu saldo disponível.",
       "withdrawNetworkRequired": "Escolha uma rede e insira um endereço de carteira para concluir o saque.",
       "withdrawRequestFailed": "Não foi possível enviar a solicitação de saque. Tente novamente.",
@@ -867,7 +869,8 @@
       "demoResetOpenPositions": "Feche todas as posições abertas antes de redefinir o seu saldo demo.",
       "demoOnly": "Esta ação só está disponível numa conta demo.",
       "demoWalletFailed": "Não foi possível concluir a transação demo. Tente novamente.",
-      "withdrawAddressInvalid": "O endereço da carteira não parece válido para a rede selecionada. Verifique o endereço e a rede e tente novamente."
+      "withdrawAddressInvalid": "O endereço da carteira não parece válido para a rede selecionada. Verifique o endereço e a rede e tente novamente.",
+      "kycRequired": "É necessária a verificação de identidade para levantar fundos de uma conta real. Conclua a verificação para continuar."
     },
     "settings": {
       "nameEmpty": "O nome não pode estar vazio.",
@@ -877,7 +880,7 @@
     },
     "discover": {
       "copyAmountInvalid": "O valor da cópia deve ser um número maior que zero.",
-      "copyAmountUpdateBlocked": "Não foi possível atualizar o valor da cópia no momento: você tem operações abertas nesta conta, e seu saldo está atualmente retido como margem para cobri-las. Tente novamente depois que todas as operações abertas forem fechadas.",
+      "copyAmountUpdateBlocked": "Enquanto houver operações copiadas abertas, o valor, o modo de cópia e o limite por operação ficam bloqueados. A meta de lucro, o stop loss e o stop móvel continuam editáveis, e tudo é desbloqueado quando as operações forem encerradas.",
       "traderStopped": "Este trader parou de negociar e não está mais disponível para iniciar uma nova cópia.",
       "copyAmountExceedsBalance": "O valor da cópia é maior que seu saldo disponível.",
       "copyAmountBelowMinimum": "O valor da cópia é menor que o mínimo para este trader ({amount}).",
@@ -890,7 +893,8 @@
       "copyTpInvalid": "O take profit deve estar entre 1% e 500% da margem.",
       "copySlInvalid": "O stop loss deve estar entre 1% e 90% da margem.",
       "copyTrailingInvalid": "O stop móvel deve estar entre 0,5% e 50%.",
-      "copyNotFound": "Esta cópia já não está ativa."
+      "copyNotFound": "Esta cópia já não está ativa.",
+      "copySettingsSaved": "Definições de cópia guardadas."
     },
     "dashboard": {
       "closeFailed": "Não foi possível fechar a posição. Tente novamente.",
@@ -1290,7 +1294,11 @@
     "trailingHint": "Fecha a operação quando o preço recua essa percentagem em relação ao melhor preço atingido.",
     "tpslHint": "Aplicado automaticamente a cada operação copiada a partir de agora. Take profit 1–500%, stop loss 1–90%, móvel 0,5–50%.",
     "copyOpenLabel": "Copiar também as operações atualmente abertas do trader",
-    "copyOpenHint": "Abrem agora ao preço atual de mercado, que pode diferir do preço de entrada do trader."
+    "copyOpenHint": "Abrem agora ao preço atual de mercado, que pode diferir do preço de entrada do trader.",
+    "editOpen": "Editar definições de cópia",
+    "editTitle": "Definições de cópia · {name}",
+    "editConfirm": "Guardar alterações",
+    "lockedNotice": "O valor, o modo e o limite por operação ficam bloqueados enquanto houver operações copiadas abertas. A meta de lucro, o stop loss e o stop móvel continuam editáveis."
   },
   "Trades": {
     "title": "Operações",

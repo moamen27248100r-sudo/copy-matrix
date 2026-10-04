@@ -15,6 +15,7 @@ export function CopyDialog({
   defaultAmount,
   minAmount,
   profitSharePct,
+  edit,
 }: {
   action: (formData: FormData) => void | Promise<void>;
   providerId: string;
@@ -22,13 +23,26 @@ export function CopyDialog({
   defaultAmount: number;
   minAmount: number;
   profitSharePct?: number | null;
+  // Editing a running copy: current values, and whether a copied trade is open (which locks the
+  // amount, mode, per-trade cap and copy stop-loss; the database enforces the same rule).
+  edit?: {
+    mode: "ratio" | "fixed";
+    fixedAmount: number | null;
+    maxPerTrade: number | null;
+    stopLossPct: number;
+    takeProfitPct: number | null;
+    tradeStopLossPct: number | null;
+    trailingPct: number | null;
+    locked: boolean;
+  };
 }) {
   const t = useTranslations("CopyDialog");
   const money = useMoney();
   const [open, setOpen] = useState(false);
-  const [ack, setAck] = useState(false);
-  const [advanced, setAdvanced] = useState(false);
-  const [mode, setMode] = useState<"ratio" | "fixed">("ratio");
+  const [ack, setAck] = useState(!!edit);
+  const [advanced, setAdvanced] = useState(!!edit);
+  const [mode, setMode] = useState<"ratio" | "fixed">(edit?.mode ?? "ratio");
+  const locked = !!edit?.locked;
 
   const inputCls = "rounded-lg border border-border bg-surface px-3 py-2.5 text-foreground focus:outline-none";
 
@@ -37,9 +51,13 @@ export function CopyDialog({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="w-full rounded-lg bg-accent px-6 py-3 text-base font-bold text-accent-foreground shadow-md shadow-accent/20 transition hover:bg-accent-hover"
+        className={
+          edit
+            ? "rounded-lg border border-border px-4 py-2 text-sm font-medium transition hover:border-accent/50"
+            : "w-full rounded-lg bg-accent px-6 py-3 text-base font-bold text-accent-foreground shadow-md shadow-accent/20 transition hover:bg-accent-hover"
+        }
       >
-        {t("open")}
+        {edit ? t("editOpen") : t("open")}
       </button>
 
       {open && (
@@ -51,11 +69,13 @@ export function CopyDialog({
           >
             <input type="hidden" name="providerId" value={providerId} />
             <div className="flex items-center justify-between">
-              <h2 className="text-base font-semibold">{t("title", { name: providerName })}</h2>
+              <h2 className="text-base font-semibold">{edit ? t("editTitle", { name: providerName }) : t("title", { name: providerName })}</h2>
               <button type="button" onClick={() => setOpen(false)} aria-label={t("close")} className="text-muted hover:text-foreground">
                 ✕
               </button>
             </div>
+
+            {locked && <p className="rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-xs text-warning">{t("lockedNotice")}</p>}
 
             <label className="flex flex-col gap-1.5 text-sm">
               <span className="text-muted">{t("amountLabel")}</span>
@@ -66,7 +86,8 @@ export function CopyDialog({
                 min={minAmount}
                 defaultValue={defaultAmount}
                 required
-                className={inputCls}
+                readOnly={locked}
+                className={inputCls + (locked ? " opacity-60" : "")}
               />
               <span className="text-xs text-muted">
                 {t("minAmount")} <span dir="ltr">{money(minAmount)}</span>
@@ -81,16 +102,17 @@ export function CopyDialog({
 
             <fieldset className="flex flex-col gap-2">
               <legend className="pb-1 text-sm text-muted">{t("modeLabel")}</legend>
+              {locked && <input type="hidden" name="mode" value={mode} />}
               <label className="flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm">
-                <input type="radio" name="mode" value="ratio" checked={mode === "ratio"} onChange={() => setMode("ratio")} /> {t("modeRatio")}
+                <input type="radio" name="mode" value="ratio" checked={mode === "ratio"} disabled={locked} onChange={() => setMode("ratio")} /> {t("modeRatio")}
               </label>
               <label className="flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm">
-                <input type="radio" name="mode" value="fixed" checked={mode === "fixed"} onChange={() => setMode("fixed")} /> {t("modeFixed")}
+                <input type="radio" name="mode" value="fixed" checked={mode === "fixed"} disabled={locked} onChange={() => setMode("fixed")} /> {t("modeFixed")}
               </label>
               {mode === "fixed" && (
                 <label className="flex flex-col gap-1.5 text-sm">
                   <span className="text-muted">{t("fixedAmountLabel")}</span>
-                  <input name="fixedAmount" type="number" step="any" min={1} max={defaultAmount} required className={inputCls} dir="ltr" />
+                  <input name="fixedAmount" type="number" step="any" min={1} max={defaultAmount} required readOnly={locked} defaultValue={edit?.fixedAmount ?? undefined} className={inputCls + (locked ? " opacity-60" : "")} dir="ltr" />
                 </label>
               )}
             </fieldset>
@@ -108,7 +130,7 @@ export function CopyDialog({
               <div className={advanced ? "flex flex-col gap-3 px-3 pb-3" : "hidden"}>
                 <label className="flex flex-col gap-1 text-xs text-muted">
                   {t("maxPerTrade")}
-                  <input name="maxPerTrade" type="number" step="any" min={1} className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" dir="ltr" />
+                  <input name="maxPerTrade" type="number" step="any" min={1} readOnly={locked} defaultValue={edit?.maxPerTrade ?? undefined} className={"rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" + (locked ? " opacity-60" : "")} dir="ltr" />
                 </label>
                 <label className="flex flex-col gap-1 text-xs text-muted">
                   {t("copyStopLoss")}
@@ -118,8 +140,9 @@ export function CopyDialog({
                     step="1"
                     min={1}
                     max={90}
-                    defaultValue={50}
-                    className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground"
+                    defaultValue={edit?.stopLossPct ?? 50}
+                    readOnly={locked}
+                    className={"rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" + (locked ? " opacity-60" : "")}
                     dir="ltr"
                   />
                   <span>{t("copyStopLossHint")}</span>
@@ -127,35 +150,35 @@ export function CopyDialog({
                 <p className="border-t border-border pt-3 text-xs font-semibold text-foreground">{t("tradeRiskTitle")}</p>
                 <label className="flex flex-col gap-1 text-xs text-muted">
                   {t("takeProfitLabel")}
-                  <input name="takeProfitPct" type="number" step="any" min={1} max={500} className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" dir="ltr" />
+                  <input name="takeProfitPct" type="number" step="any" min={1} max={500} defaultValue={edit?.takeProfitPct ?? undefined} className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" dir="ltr" />
                 </label>
                 <label className="flex flex-col gap-1 text-xs text-muted">
                   {t("stopLossLabel")}
-                  <input name="tradeStopLossPct" type="number" step="any" min={1} max={90} className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" dir="ltr" />
+                  <input name="tradeStopLossPct" type="number" step="any" min={1} max={90} defaultValue={edit?.tradeStopLossPct ?? undefined} className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" dir="ltr" />
                 </label>
                 <label className="flex flex-col gap-1 text-xs text-muted">
                   {t("trailingLabel")}
-                  <input name="trailingPct" type="number" step="any" min={0.5} max={50} className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" dir="ltr" />
+                  <input name="trailingPct" type="number" step="any" min={0.5} max={50} defaultValue={edit?.trailingPct ?? undefined} className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" dir="ltr" />
                   <span>{t("trailingHint")}</span>
                 </label>
                 <span className="text-xs text-muted">{t("tpslHint")}</span>
-                <label className="flex items-start gap-2 border-t border-border pt-3 text-xs text-muted">
+                {!edit && <label className="flex items-start gap-2 border-t border-border pt-3 text-xs text-muted">
                   <input type="checkbox" name="copyOpen" className="mt-0.5" />
                   <span>
                     {t("copyOpenLabel")}
                     <span className="block">{t("copyOpenHint")}</span>
                   </span>
-                </label>
+                </label>}
               </div>
             </div>
 
-            <label className="flex items-start gap-2 text-xs text-muted">
+            {!edit && <label className="flex items-start gap-2 text-xs text-muted">
               <input type="checkbox" checked={ack} onChange={(e) => setAck(e.target.checked)} className="mt-0.5" />
               <span>{t("riskAck")}</span>
-            </label>
+            </label>}
 
             <SubmitButton disabled={!ack} className="rounded-lg bg-accent px-6 py-3 text-base font-bold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50">
-              {t("confirm")}
+              {edit ? t("editConfirm") : t("confirm")}
             </SubmitButton>
           </form>
         </div>

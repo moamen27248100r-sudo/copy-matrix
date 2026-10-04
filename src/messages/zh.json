@@ -312,7 +312,7 @@
     "minDeposit": "最低：{amount} {currency}",
     "networkConfirmations": "网络确认数：{count}",
     "amountSentPlaceholder": "已发送金额（USDT）",
-    "withdrawBlockedError": "无法提交提款申请：您当前有持仓，您的余额已作为保证金被锁定以覆盖这些持仓。您可以在持仓平仓后停止跟单，将余额和利润退回钱包，然后重新提交提款申请。",
+    "withdrawBlockedError": "有未平仓的跟单交易时无法提现。所有交易平仓后即可恢复提现。",
     "chooseCurrency": "选择币种",
     "chooseNetworkStep": "选择网络",
     "networkFeeLabel": "网络手续费",
@@ -349,7 +349,9 @@
     "etaDeposit": "预计 30 分钟",
     "etaWithdraw": "预计 24 小时",
     "txAdjustment": "余额调整",
-    "txFee": "手续费"
+    "txFee": "手续费",
+    "kycRequiredNotice": "从真实账户提现需要完成身份验证。请先完成验证后继续。",
+    "kycRequiredCta": "前往验证"
   },
   "TradeHistory": {
     "periodToday": "今天",
@@ -858,7 +860,7 @@
       "depositAmountInvalid": "存款金额必须是大于零的数字。",
       "depositRequestFailed": "无法发送存款申请，请重试。",
       "withdrawAmountInvalid": "提款金额必须是大于零的数字。",
-      "withdrawBlockedOpenPositions": "无法提交提款申请：您目前有持仓中的交易，您的余额被作为保证金锁定以覆盖这些交易。这些交易平仓后您可以停止跟单，将余额和利润返还到您的钱包，然后重新提交提款申请。",
+      "withdrawBlockedOpenPositions": "有未平仓的跟单交易时无法提现。所有交易平仓后即可恢复提现。",
       "withdrawInsufficientAvailable": "您可用于提款的余额不足 — 部分余额目前被锁定用于活跃跟单。请先停止跟单，将该金额返还到您的可用余额。",
       "withdrawNetworkRequired": "请选择网络并输入钱包地址以完成提款。",
       "withdrawRequestFailed": "无法发送提款申请，请重试。",
@@ -867,7 +869,8 @@
       "demoResetOpenPositions": "重置模拟余额前，请先平掉所有持仓。",
       "demoOnly": "此操作仅适用于模拟账户。",
       "demoWalletFailed": "无法完成模拟交易，请重试。",
-      "withdrawAddressInvalid": "该钱包地址对所选网络似乎无效。请检查地址和网络后重试。"
+      "withdrawAddressInvalid": "该钱包地址对所选网络似乎无效。请检查地址和网络后重试。",
+      "kycRequired": "从真实账户提现需要完成身份验证。请先完成验证后继续。"
     },
     "settings": {
       "nameEmpty": "姓名不能为空。",
@@ -877,7 +880,7 @@
     },
     "discover": {
       "copyAmountInvalid": "跟单金额必须是大于零的数字。",
-      "copyAmountUpdateBlocked": "当前无法更新跟单金额：您在此账户上有持仓中的交易，您的余额目前被作为保证金锁定以覆盖这些交易。请等所有持仓交易平仓后再试。",
+      "copyAmountUpdateBlocked": "有未平仓的跟单交易时，金额、跟单模式和单笔上限会被锁定。止盈、止损和移动止损仍可修改，所有交易平仓后全部解锁。",
       "traderStopped": "该交易员已停止交易，无法开始新的跟单。",
       "copyAmountExceedsBalance": "跟单金额超过您的可用余额。",
       "copyAmountBelowMinimum": "跟单金额低于该交易员的最低要求（{amount}）。",
@@ -890,7 +893,8 @@
       "copyTpInvalid": "止盈必须在保证金的 1% 到 500% 之间。",
       "copySlInvalid": "止损必须在保证金的 1% 到 90% 之间。",
       "copyTrailingInvalid": "移动止损必须在 0.5% 到 50% 之间。",
-      "copyNotFound": "此跟单已不再有效。"
+      "copyNotFound": "此跟单已不再有效。",
+      "copySettingsSaved": "跟单设置已保存。"
     },
     "dashboard": {
       "closeFailed": "无法平仓，请重试。",
@@ -1288,7 +1292,11 @@
     "trailingHint": "当价格从交易达到的最佳价格回撤到该比例时平仓。",
     "tpslHint": "自动应用于此后每一笔复制的交易。止盈 1–500%，止损 1–90%，移动止损 0.5–50%。",
     "copyOpenLabel": "同时复制交易员当前持有的未平仓交易",
-    "copyOpenHint": "它们将以当前市价立即开仓，可能与交易员的开仓价不同。"
+    "copyOpenHint": "它们将以当前市价立即开仓，可能与交易员的开仓价不同。",
+    "editOpen": "编辑跟单设置",
+    "editTitle": "跟单设置 · {name}",
+    "editConfirm": "保存更改",
+    "lockedNotice": "有未平仓的跟单交易时，金额、模式和单笔上限已锁定。止盈、止损和移动止损仍可修改。"
   },
   "Trades": {
     "title": "交易",

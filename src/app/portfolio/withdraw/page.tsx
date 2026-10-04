@@ -43,34 +43,37 @@ export default async function WithdrawPage({
 
   if (!user) redirect("/login?next=%2Fportfolio%2Fwithdraw");
 
-  const [{ count: openPositionsCount }, { data: activeSubs }, { data: profile }] = await Promise.all([
+  const [{ count: openPositionsCount }, { data: activeSubs }, { data: profile }, { data: kyc }] = await Promise.all([
     supabase
       .from("simulated_positions")
       .select("id", { count: "exact", head: true })
       .eq("follower_id", user.id)
       .eq("status", "open"),
-    supabase
-      .from("subscriptions")
-      .select("allocated_amount, copy_started_at")
-      .eq("follower_id", user.id)
-      .eq("is_active", true),
+    supabase.from("subscriptions").select("allocated_amount").eq("follower_id", user.id).eq("is_active", true),
     supabase.from("profiles").select("balance, account_type").eq("id", user.id).single(),
+    supabase.from("kyc_submissions").select("status").eq("user_id", user.id).order("submitted_at", { ascending: false }).limit(1).maybeSingle(),
   ]);
 
-  // Same rule as requestWithdrawal's pre-check and the stop_copy/
-  // apply_wallet_request DB functions (0096_fix_grace_period_direction.sql):
-  // the leader is treated as having opened a trade once 10 minutes have
-  // passed since the copy started, locking withdrawal from then on. A
-  // customer can have several active copies now, so the lock applies the
-  // moment ANY of them has traded, not just one.
-  const leaderHasTraded = (activeSubs ?? []).some(
-    (sub) => !!sub.copy_started_at && Date.now() - new Date(sub.copy_started_at).getTime() >= 10 * 60 * 1000,
-  );
   const isDemoAccount = profile?.account_type !== "real";
-  // Demo withdrawals are instant and only limited by the free (unallocated) balance.
-  const blocked = !isDemoAccount && ((openPositionsCount ?? 0) > 0 || leaderHasTraded);
 
-  if (blocked) {
+  // Real withdrawals need approved identity verification (wallet_requests trigger, 0232).
+  if (!isDemoAccount && kyc?.status !== "approved") {
+    return (
+      <PageShell>
+        <p className="rounded border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-warning">{t("kycRequiredNotice")}</p>
+        <Link
+          href="/kyc"
+          className="rounded-lg bg-accent px-4 py-3 text-center text-sm font-semibold text-accent-foreground transition hover:bg-accent-hover"
+        >
+          {t("kycRequiredCta")}
+        </Link>
+      </PageShell>
+    );
+  }
+
+  // No withdrawal while a copied trade is open, on either account type; it unlocks by itself
+  // once every trade is closed.
+  if ((openPositionsCount ?? 0) > 0) {
     return (
       <PageShell>
         <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">

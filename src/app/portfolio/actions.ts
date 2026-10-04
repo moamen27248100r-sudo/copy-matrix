@@ -59,29 +59,22 @@ export async function requestWithdrawal(formData: FormData) {
     redirect("/portfolio/withdraw?error=" + encodeURIComponent(tp("withdrawAmountInvalid")));
   }
 
-  // Pre-check before inserting the wallet_request row — apply_wallet_request()
-  // enforces the same two rules at the DB level as a safety net, but checking
-  // here first avoids leaving an orphaned pending row for a blocked withdrawal.
-  const [{ count: openPositionsCount }, { data: activeSubs }] = await Promise.all([
+  // Pre-checks mirror the database rules (wallet_requests trigger, 0232): a withdrawal needs
+  // approved identity verification and no open copied trade; the database enforces both.
+  const [{ count: openPositionsCount }, { data: activeSubs }, { data: kyc }] = await Promise.all([
     supabase
       .from("simulated_positions")
       .select("id", { count: "exact", head: true })
       .eq("follower_id", user.id)
       .eq("status", "open"),
-    supabase
-      .from("subscriptions")
-      .select("allocated_amount, copy_started_at")
-      .eq("follower_id", user.id)
-      .eq("is_active", true),
+    supabase.from("subscriptions").select("allocated_amount").eq("follower_id", user.id).eq("is_active", true),
+    supabase.from("kyc_submissions").select("status").eq("user_id", user.id).order("submitted_at", { ascending: false }).limit(1).maybeSingle(),
   ]);
 
-  // The leader is treated as having opened a trade 10 minutes after a copy
-  // starts; from then on withdrawal stays locked until the copy is stopped.
-  const leaderHasTraded = (activeSubs ?? []).some(
-    (sub) => !!sub.copy_started_at && Date.now() - new Date(sub.copy_started_at).getTime() >= 10 * 60 * 1000,
-  );
-
-  if ((openPositionsCount && openPositionsCount > 0) || leaderHasTraded) {
+  if (kyc?.status !== "approved") {
+    redirect("/portfolio/withdraw?error=" + encodeURIComponent(tp("kycRequired")));
+  }
+  if (openPositionsCount && openPositionsCount > 0) {
     redirect("/portfolio/withdraw?error=" + encodeURIComponent(tp("withdrawBlockedOpenPositions")));
   }
 
@@ -143,6 +136,8 @@ async function runDemoWallet(
           ? tp("withdrawInsufficientAvailable")
           : error.code === "CM010"
             ? tp("demoResetOpenPositions")
+            : error.code === "CM023"
+            ? tp("withdrawBlockedOpenPositions")
             : error.code === "CM014"
               ? tp("demoOnly")
               : tp("demoWalletFailed");

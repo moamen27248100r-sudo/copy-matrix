@@ -312,7 +312,7 @@
     "minDeposit": "Minimum : {amount} {currency}",
     "networkConfirmations": "Confirmations réseau : {count}",
     "amountSentPlaceholder": "Montant envoyé en USDT",
-    "withdrawBlockedError": "Impossible de soumettre la demande de retrait : vous avez actuellement des positions ouvertes, et votre solde est réservé comme marge pour les couvrir. Vous pouvez arrêter la copie après la clôture des positions pour restituer le solde et les profits à votre portefeuille, puis soumettre à nouveau la demande de retrait.",
+    "withdrawBlockedError": "Les retraits sont impossibles tant que des transactions copiées sont ouvertes. Ils seront de nouveau disponibles une fois toutes les transactions clôturées.",
     "chooseCurrency": "Choisir la devise",
     "chooseNetworkStep": "Choisir le réseau",
     "networkFeeLabel": "Frais de réseau",
@@ -349,7 +349,9 @@
     "etaDeposit": "Env. 30 min",
     "etaWithdraw": "Env. 24 h",
     "txAdjustment": "Ajustement du solde",
-    "txFee": "Frais"
+    "txFee": "Frais",
+    "kycRequiredNotice": "La vérification d'identité est requise pour retirer des fonds d'un compte réel. Terminez la vérification pour continuer.",
+    "kycRequiredCta": "Vérifier mon identité"
   },
   "TradeHistory": {
     "periodToday": "Aujourd'hui",
@@ -858,7 +860,7 @@
       "depositAmountInvalid": "Le montant du dépôt doit être un nombre supérieur à zéro.",
       "depositRequestFailed": "Impossible d'envoyer la demande de dépôt. Veuillez réessayer.",
       "withdrawAmountInvalid": "Le montant du retrait doit être un nombre supérieur à zéro.",
-      "withdrawBlockedOpenPositions": "Impossible de soumettre la demande de retrait : vous avez actuellement des positions ouvertes et votre solde est retenu comme marge pour les couvrir. Vous pouvez arrêter de copier une fois ces positions clôturées pour récupérer le solde et les profits dans votre portefeuille, puis soumettre à nouveau la demande de retrait.",
+      "withdrawBlockedOpenPositions": "Les retraits sont impossibles tant que des transactions copiées sont ouvertes. Ils seront de nouveau disponibles une fois toutes les transactions clôturées.",
       "withdrawInsufficientAvailable": "Votre solde disponible pour le retrait est insuffisant — une partie de votre solde est actuellement retenue pour une copie active. Arrêtez d'abord de copier pour restituer ce montant à votre solde disponible.",
       "withdrawNetworkRequired": "Choisissez un réseau et saisissez une adresse de portefeuille pour finaliser le retrait.",
       "withdrawRequestFailed": "Impossible d'envoyer la demande de retrait. Veuillez réessayer.",
@@ -867,7 +869,8 @@
       "demoResetOpenPositions": "Fermez toutes les positions ouvertes avant de réinitialiser votre solde démo.",
       "demoOnly": "Cette action n'est disponible que sur un compte démo.",
       "demoWalletFailed": "Impossible de terminer la transaction démo. Veuillez réessayer.",
-      "withdrawAddressInvalid": "L'adresse du portefeuille ne semble pas valide pour le réseau sélectionné. Vérifiez l'adresse et le réseau, puis réessayez."
+      "withdrawAddressInvalid": "L'adresse du portefeuille ne semble pas valide pour le réseau sélectionné. Vérifiez l'adresse et le réseau, puis réessayez.",
+      "kycRequired": "La vérification d'identité est requise pour retirer des fonds d'un compte réel. Terminez la vérification pour continuer."
     },
     "settings": {
       "nameEmpty": "Le nom ne peut pas être vide.",
@@ -877,7 +880,7 @@
     },
     "discover": {
       "copyAmountInvalid": "Le montant à copier doit être un nombre supérieur à zéro.",
-      "copyAmountUpdateBlocked": "Impossible de mettre à jour le montant à copier pour le moment : vous avez des positions ouvertes sur ce compte, et votre solde est actuellement retenu comme marge pour les couvrir. Veuillez réessayer une fois toutes les positions ouvertes clôturées.",
+      "copyAmountUpdateBlocked": "Tant que des transactions copiées sont ouvertes, le montant, le mode de copie et la limite par transaction sont verrouillés. L'objectif de profit, le stop loss et le stop suiveur restent modifiables, et tout se déverrouille à la clôture des transactions.",
       "traderStopped": "Ce trader a arrêté de trader et n'est plus disponible pour démarrer une nouvelle copie.",
       "copyAmountExceedsBalance": "Le montant à copier dépasse votre solde disponible.",
       "copyAmountBelowMinimum": "Le montant à copier est inférieur au minimum pour ce trader ({amount}).",
@@ -890,7 +893,8 @@
       "copyTpInvalid": "La prise de profit doit être comprise entre 1 % et 500 % de la marge.",
       "copySlInvalid": "Le stop loss doit être compris entre 1 % et 90 % de la marge.",
       "copyTrailingInvalid": "Le stop suiveur doit être compris entre 0,5 % et 50 %.",
-      "copyNotFound": "Cette copie n'est plus active."
+      "copyNotFound": "Cette copie n'est plus active.",
+      "copySettingsSaved": "Paramètres de copie enregistrés."
     },
     "dashboard": {
       "closeFailed": "Impossible de fermer la position. Réessayez.",
@@ -1288,7 +1292,11 @@
     "trailingHint": "Ferme le trade lorsque le prix recule de ce pourcentage par rapport au meilleur prix atteint.",
     "tpslHint": "Appliqué automatiquement à chaque trade copié à partir de maintenant. Prise de profit 1–500 %, stop loss 1–90 %, suiveur 0,5–50 %.",
     "copyOpenLabel": "Copier aussi les trades actuellement ouverts du trader",
-    "copyOpenHint": "Ils s'ouvrent maintenant au prix actuel du marché, qui peut différer du prix d'entrée du trader."
+    "copyOpenHint": "Ils s'ouvrent maintenant au prix actuel du marché, qui peut différer du prix d'entrée du trader.",
+    "editOpen": "Modifier les paramètres de copie",
+    "editTitle": "Paramètres de copie · {name}",
+    "editConfirm": "Enregistrer",
+    "lockedNotice": "Le montant, le mode et la limite par transaction sont verrouillés tant que des transactions copiées sont ouvertes. L'objectif de profit, le stop loss et le stop suiveur restent modifiables."
   },
   "Trades": {
     "title": "Trades",

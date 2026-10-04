@@ -114,6 +114,7 @@ export default async function TraderPage({
   const money = await getMoney();
   const tp = await getTranslations("TradeHistory");
   const tc = await getTranslations("Countries");
+  const tdAct = await getTranslations("Actions.discover");
   const translateBio = await getBioTranslator();
   const supabase = await createClient();
   const {
@@ -135,7 +136,7 @@ export default async function TraderPage({
     user
       ? supabase
           .from("subscriptions")
-          .select("id, allocated_amount, max_drawdown_pct")
+          .select("id, allocated_amount, max_drawdown_pct, copy_mode, fixed_amount, max_per_trade, tp_pct, sl_pct, trailing_pct")
           .eq("follower_id", user.id)
           .eq("provider_id", id)
           .eq("is_active", true)
@@ -167,6 +168,11 @@ export default async function TraderPage({
 
   const allSignals = (signals ?? []) as SignalRow[];
   const isFollowing = !!mySub;
+  // Any open copied trade locks the amount / mode / per-trade cap (enforced in the database).
+  const { count: openCopiedCount } =
+    user && mySub
+      ? await supabase.from("simulated_positions").select("id", { count: "exact", head: true }).eq("subscription_id", mySub.id).eq("status", "open")
+      : { count: 0 };
   const isWatching = !!myFollow;
   const maxDrawdown = computeMaxDrawdown(allSignals);
   // AUM = allocated amount of active copies on REAL accounts only, computed
@@ -264,6 +270,10 @@ export default async function TraderPage({
           </p>
         )}
 
+        {success === "saved" && (
+          <p className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">{tdAct("copySettingsSaved")}</p>
+        )}
+
         {success === "started" && mySub && (
           <p className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">
             {t("copyStartedSuccess", {
@@ -353,6 +363,24 @@ export default async function TraderPage({
                   })}
                 </span>
               </p>
+              <div className="flex shrink-0 items-center gap-2">
+              <CopyDialog
+                action={followProvider}
+                providerId={id}
+                providerName={provider.display_name}
+                defaultAmount={Number(mySub?.allocated_amount ?? 0)}
+                minAmount={Number(provider.min_copy_amount)}
+                edit={{
+                  mode: mySub?.copy_mode === "fixed" ? "fixed" : "ratio",
+                  fixedAmount: mySub?.fixed_amount == null ? null : Number(mySub.fixed_amount),
+                  maxPerTrade: mySub?.max_per_trade == null ? null : Number(mySub.max_per_trade),
+                  stopLossPct: Number(mySub?.max_drawdown_pct ?? 50),
+                  takeProfitPct: mySub?.tp_pct == null ? null : Number(mySub.tp_pct),
+                  tradeStopLossPct: mySub?.sl_pct == null ? null : Number(mySub.sl_pct),
+                  trailingPct: mySub?.trailing_pct == null ? null : Number(mySub.trailing_pct),
+                  locked: (openCopiedCount ?? 0) > 0,
+                }}
+              />
               <form action={unfollowProvider}>
                 <input type="hidden" name="providerId" value={id} />
                 <input type="hidden" name="returnTo" value={`/trader/${id}`} />
@@ -360,6 +388,7 @@ export default async function TraderPage({
                   {t("stopCopyingCta")}
                 </button>
               </form>
+              </div>
             </div>
           ) : (
             <div className="flex flex-col gap-1.5">

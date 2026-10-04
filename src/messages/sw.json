@@ -312,7 +312,7 @@
     "minDeposit": "Kiwango cha chini: {amount} {currency}",
     "networkConfirmations": "Uthibitisho wa mtandao: {count}",
     "amountSentPlaceholder": "Kiasi kilichotumwa kwa USDT",
-    "withdrawBlockedError": "Imeshindwa kuwasilisha ombi la kutoa: kwa sasa una nafasi wazi, na salio lako limehifadhiwa kama dhamana ya kuzifidia. Unaweza kuacha kunakili baada ya nafasi kufungwa ili kurejesha salio na faida kwenye pochi yako, kisha uwasilishe tena ombi la kutoa.",
+    "withdrawBlockedError": "Huwezi kutoa pesa ukiwa na biashara zilizonakiliwa zilizo wazi. Utoaji utapatikana tena baada ya zote kufungwa.",
     "chooseCurrency": "Chagua sarafu",
     "chooseNetworkStep": "Chagua mtandao",
     "networkFeeLabel": "Ada ya mtandao",
@@ -349,7 +349,9 @@
     "etaDeposit": "Takriban dakika 30",
     "etaWithdraw": "Takriban saa 24",
     "txAdjustment": "Marekebisho ya salio",
-    "txFee": "Ada"
+    "txFee": "Ada",
+    "kycRequiredNotice": "Uthibitisho wa utambulisho unahitajika ili kutoa pesa kutoka akaunti halisi. Kamilisha uthibitisho ili kuendelea.",
+    "kycRequiredCta": "Thibitisha utambulisho"
   },
   "TradeHistory": {
     "periodToday": "Leo",
@@ -858,7 +860,7 @@
       "depositAmountInvalid": "Kiasi cha amana lazima kiwe namba kubwa kuliko sifuri.",
       "depositRequestFailed": "Imeshindwa kutuma ombi la amana. Tafadhali jaribu tena.",
       "withdrawAmountInvalid": "Kiasi cha kuondoa lazima kiwe namba kubwa kuliko sifuri.",
-      "withdrawBlockedOpenPositions": "Imeshindwa kuwasilisha ombi la kuondoa fedha: kwa sasa una biashara zilizo wazi, na salio lako limehifadhiwa kama dhamana kuzifidia. Unaweza kuacha kunakili baada ya biashara hizo kufungwa ili kurejesha salio na faida kwenye pochi yako, kisha uwasilishe tena ombi la kuondoa fedha.",
+      "withdrawBlockedOpenPositions": "Huwezi kutoa pesa ukiwa na biashara zilizonakiliwa zilizo wazi. Utoaji utapatikana tena baada ya zote kufungwa.",
       "withdrawInsufficientAvailable": "Salio lako linalopatikana la kuondoa halitoshi — sehemu ya salio lako kwa sasa imehifadhiwa kwa unakili unaoendelea. Acha kunakili kwanza ili kurejesha kiasi hiki kwenye salio lako linalopatikana.",
       "withdrawNetworkRequired": "Chagua mtandao na uweke anwani ya pochi ili kukamilisha uondoaji.",
       "withdrawRequestFailed": "Imeshindwa kutuma ombi la kuondoa fedha. Tafadhali jaribu tena.",
@@ -867,7 +869,8 @@
       "demoResetOpenPositions": "Funga nafasi zote zilizo wazi kabla ya kuweka upya salio lako la demo.",
       "demoOnly": "Kitendo hiki kinapatikana kwenye akaunti ya demo pekee.",
       "demoWalletFailed": "Imeshindwa kukamilisha muamala wa demo. Tafadhali jaribu tena.",
-      "withdrawAddressInvalid": "Anwani ya pochi haionekani kuwa sahihi kwa mtandao uliochaguliwa. Kagua anwani na mtandao, kisha ujaribu tena."
+      "withdrawAddressInvalid": "Anwani ya pochi haionekani kuwa sahihi kwa mtandao uliochaguliwa. Kagua anwani na mtandao, kisha ujaribu tena.",
+      "kycRequired": "Uthibitisho wa utambulisho unahitajika ili kutoa pesa kutoka akaunti halisi. Kamilisha uthibitisho ili kuendelea."
     },
     "settings": {
       "nameEmpty": "Jina haliwezi kuwa tupu.",
@@ -877,7 +880,7 @@
     },
     "discover": {
       "copyAmountInvalid": "Kiasi cha kunakili lazima kiwe namba kubwa kuliko sifuri.",
-      "copyAmountUpdateBlocked": "Imeshindwa kusasisha kiasi cha kunakili kwa sasa: una biashara zilizo wazi kwenye akaunti hii, na salio lako kwa sasa limehifadhiwa kama dhamana kuzifidia. Tafadhali jaribu tena baada ya biashara zote zilizo wazi kufungwa.",
+      "copyAmountUpdateBlocked": "Wakati biashara zilizonakiliwa ziko wazi, kiasi, hali ya kunakili na kikomo cha kila biashara vimefungwa. Lengo la faida, stop loss na trailing stop bado vinaweza kubadilishwa, na kila kitu hufunguka biashara zote zikifungwa.",
       "traderStopped": "Mfanyabiashara huyu ameacha kufanya biashara na hapatikani tena kuanzisha unakili mpya.",
       "copyAmountExceedsBalance": "Kiasi cha kunakili ni kikubwa kuliko salio lako linalopatikana.",
       "copyAmountBelowMinimum": "Kiasi cha kunakili ni chini ya kiwango cha chini kwa mfanyabiashara huyu ({amount}).",
@@ -890,7 +893,8 @@
       "copyTpInvalid": "Chukua faida lazima iwe kati ya 1% na 500% ya margin.",
       "copySlInvalid": "Komesha hasara lazima iwe kati ya 1% na 90% ya margin.",
       "copyTrailingInvalid": "Stop inayofuata bei lazima iwe kati ya 0.5% na 50%.",
-      "copyNotFound": "Nakili hii haifanyi kazi tena."
+      "copyNotFound": "Nakili hii haifanyi kazi tena.",
+      "copySettingsSaved": "Mipangilio ya kunakili imehifadhiwa."
     },
     "dashboard": {
       "closeFailed": "Imeshindwa kufunga nafasi. Tafadhali jaribu tena.",
@@ -1287,7 +1291,11 @@
     "trailingHint": "Hufunga biashara bei inaporudi nyuma kwa kiasi hiki kutoka bei bora iliyofikiwa.",
     "tpslHint": "Hutumika kiotomatiki kwa kila biashara itakayonakiliwa kuanzia sasa. Chukua faida 1–500%, komesha hasara 1–90%, stop inayofuata 0.5–50%.",
     "copyOpenLabel": "Nakili pia biashara zilizo wazi sasa za mfanyabiashara",
-    "copyOpenHint": "Hufunguliwa sasa kwa bei ya soko ya sasa, ambayo inaweza kutofautiana na bei ya kuingia ya mfanyabiashara."
+    "copyOpenHint": "Hufunguliwa sasa kwa bei ya soko ya sasa, ambayo inaweza kutofautiana na bei ya kuingia ya mfanyabiashara.",
+    "editOpen": "Hariri mipangilio ya kunakili",
+    "editTitle": "Mipangilio ya kunakili · {name}",
+    "editConfirm": "Hifadhi mabadiliko",
+    "lockedNotice": "Kiasi, hali na kikomo cha kila biashara vimefungwa wakati biashara zilizonakiliwa ziko wazi. Lengo la faida, stop loss na trailing stop bado vinaweza kubadilishwa."
   },
   "Trades": {
     "title": "Biashara",
