@@ -12,6 +12,10 @@ import { IMPERSONATION_COOKIE } from "@/lib/impersonation";
 import { decodeJwtClaims } from "@/lib/mfa";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { computeLotSize } from "@/lib/pip-specs";
+import { isNetworkId, isValidAddress, normalizeTxHash, tronAddressChecksumOk } from "@/lib/crypto/networks";
+import { verifyConfigFromEnv, verifyDeposit } from "@/lib/crypto/verify";
+import { checkDeposit } from "@/lib/crypto/deposits";
+import { ADMIN_DEPOSIT_FAILURE } from "@/lib/crypto/admin-labels";
 
 async function assertAdmin() {
   const supabase = await createClient();
@@ -79,62 +83,116 @@ export async function rejectKyc(formData: FormData) {
   revalidatePath("/admin/kyc");
 }
 
-export async function approveWalletRequest(formData: FormData) {
-  const { supabase, adminId } = await assertAdmin();
-  const requestId = formData.get("requestId") as string;
-  // For deposits specifically, the admin can confirm the amount that was
-  // actually received (e.g. the client requested $1000 but only sent
-  // $200) — the trigger that credits the balance uses whatever value is
-  // in this column at approval time, not what the client originally
-  // typed, so this must be corrected here before approving.
-  const actualAmountRaw = formData.get("actualAmount");
-  const actualAmount =
-    actualAmountRaw != null && actualAmountRaw !== "" ? Number(actualAmountRaw) : null;
+// Crypto wallet back office -------------------------------------------------------------------
 
-  if (actualAmount != null && (!Number.isFinite(actualAmount) || actualAmount <= 0)) {
-    redirect("/admin/wallet-requests?error=" + encodeURIComponent("المبلغ الفعلي المؤكَّد غير صالح."));
-  }
+const ADMIN_WALLET_ERRORS: Record<string, string> = {
+  CM031: "رقم العملية (TxID) غير صالح.",
+  CM032: "رقم العملية (TxID) مستخدم من قبل.",
+  CM048: "حالة الطلب تغيّرت (ربما ألغاه العميل أو عالجه مشرف آخر). حدّث الصفحة.",
+  CM049: "الشبكة غير موجودة.",
+  "23514": "قيمة غير صالحة: تأكد من صيغة العنوان وأن رسوم السحب أقل من الحد الأدنى للسحب.",
+};
 
-  const updatePayload: { status: "approved"; amount?: number } = { status: "approved" };
-  if (actualAmount != null) updatePayload.amount = actualAmount;
-
-  const { error } = await supabase
-    .from("wallet_requests")
-    .update(updatePayload)
-    .eq("id", requestId)
-    .eq("status", "pending");
-
-  if (error) {
-    redirect("/admin/wallet-requests?error=" + encodeURIComponent("تعذّرت الموافقة على الطلب: " + error.message));
-  }
-
-  await logAdminAction(
-    supabase,
-    adminId,
-    "approve_wallet_request",
-    "wallet_request",
-    requestId,
-    actualAmount != null ? { confirmedAmount: actualAmount } : undefined,
-  );
-
-  revalidatePath("/admin");
-  revalidatePath("/admin/wallet-requests");
+function adminWalletError(path: string, error: { code?: string; message: string }): never {
+  redirect(`${path}?error=` + encodeURIComponent(ADMIN_WALLET_ERRORS[error.code ?? ""] ?? "تعذّر تنفيذ العملية: " + error.message));
 }
 
-export async function rejectWalletRequest(formData: FormData) {
+function numberField(formData: FormData, name: string) {
+  const v = Number(formData.get(name));
+  return Number.isFinite(v) ? v : NaN;
+}
+
+export async function updateCryptoNetwork(formData: FormData) {
   const { supabase, adminId } = await assertAdmin();
-  const requestId = formData.get("requestId") as string;
+  const id = String(formData.get("id") ?? "");
+  const address = String(formData.get("depositAddress") ?? "").trim();
+  if (address && !(isNetworkId(id) && isValidAddress(id, address))) {
+    redirect("/admin/crypto-networks?error=" + encodeURIComponent(`عنوان الإيداع لا يطابق صيغة شبكة ${id}.`));
+  }
+  if (address && id === "TRC20" && !(await tronAddressChecksumOk(address))) {
+    redirect("/admin/crypto-networks?error=" + encodeURIComponent("عنوان TRC20 غير صحيح (فشل التحقق من المجموع الاختباري)."));
+  }
+  const values = {
+    p_id: id,
+    p_deposit_address: address || null,
+    p_min_deposit: numberField(formData, "minDeposit"),
+    p_confirmations: Math.trunc(numberField(formData, "confirmations")),
+    p_withdraw_fee: numberField(formData, "withdrawFee"),
+    p_min_withdraw: numberField(formData, "minWithdraw"),
+    p_daily_withdraw_limit: numberField(formData, "dailyWithdrawLimit"),
+    p_deposit_enabled: formData.get("depositEnabled") === "on",
+    p_withdraw_enabled: formData.get("withdrawEnabled") === "on",
+  };
+  if ([values.p_min_deposit, values.p_confirmations, values.p_withdraw_fee, values.p_min_withdraw, values.p_daily_withdraw_limit].some((v) => Number.isNaN(v))) {
+    redirect("/admin/crypto-networks?error=" + encodeURIComponent("كل الحقول الرقمية مطلوبة."));
+  }
+  const { error } = await supabase.rpc("admin_update_crypto_network", values);
+  if (error) adminWalletError("/admin/crypto-networks", error);
+  await logAdminAction(supabase, adminId, "update_crypto_network", "crypto_network", null, { ...values });
+  revalidatePath("/admin/crypto-networks");
+  revalidatePath("/portfolio/deposit");
+  revalidatePath("/portfolio/withdraw");
+  redirect("/admin/crypto-networks?saved=" + encodeURIComponent(id));
+}
 
-  await supabase
-    .from("wallet_requests")
-    .update({ status: "rejected" })
-    .eq("id", requestId)
-    .eq("status", "pending");
+export async function startCryptoWithdrawal(formData: FormData) {
+  const { supabase, adminId } = await assertAdmin();
+  const id = String(formData.get("id") ?? "");
+  const { error } = await supabase.rpc("admin_crypto_withdrawal_start", { p_id: id });
+  if (error) adminWalletError("/admin/withdrawals", error);
+  await logAdminAction(supabase, adminId, "start_crypto_withdrawal", "crypto_withdrawal", id);
+  revalidatePath("/admin/withdrawals");
+}
 
-  await logAdminAction(supabase, adminId, "reject_wallet_request", "wallet_request", requestId);
+export async function completeCryptoWithdrawal(formData: FormData) {
+  const { supabase, adminId } = await assertAdmin();
+  const id = String(formData.get("id") ?? "");
+  const hash = normalizeTxHash(String(formData.get("txHash") ?? ""));
+  if (!hash) redirect("/admin/withdrawals?error=" + encodeURIComponent(ADMIN_WALLET_ERRORS.CM031));
 
+  // When the transaction is already visible on-chain, it must pay the customer's address in USDT
+  // at least the net amount. A transaction not indexed yet is accepted (just broadcast).
+  const { data: w } = await supabase.from("crypto_withdrawals").select("network, address, net_amount").eq("id", id).single();
+  if (w && isNetworkId(w.network)) {
+    const check = await verifyDeposit(w.network, hash, w.address, verifyConfigFromEnv());
+    if (check.state === "failed") {
+      redirect("/admin/withdrawals?error=" + encodeURIComponent("هذه العملية على البلوكتشين لا تطابق الطلب: " + ADMIN_DEPOSIT_FAILURE[check.reason]));
+    }
+    if (check.state === "found" && Number(check.amount) + 1e-9 < Number(w.net_amount)) {
+      redirect("/admin/withdrawals?error=" + encodeURIComponent(`المبلغ المرسل في العملية (${check.amount} USDT) أقل من المبلغ المستحق للعميل.`));
+    }
+  }
+
+  const { error } = await supabase.rpc("admin_crypto_withdrawal_complete", { p_id: id, p_tx_hash: hash });
+  if (error) adminWalletError("/admin/withdrawals", error);
+  await logAdminAction(supabase, adminId, "complete_crypto_withdrawal", "crypto_withdrawal", id, { txHash: hash });
+  revalidatePath("/admin/withdrawals");
   revalidatePath("/admin");
-  revalidatePath("/admin/wallet-requests");
+}
+
+export async function rejectCryptoWithdrawal(formData: FormData) {
+  const { supabase, adminId } = await assertAdmin();
+  const id = String(formData.get("id") ?? "");
+  const reason = String(formData.get("reason") ?? "").trim().slice(0, 300);
+  const { error } = await supabase.rpc("admin_crypto_withdrawal_reject", { p_id: id, p_reason: reason });
+  if (error) adminWalletError("/admin/withdrawals", error);
+  await logAdminAction(supabase, adminId, "reject_crypto_withdrawal", "crypto_withdrawal", id, reason ? { reason } : undefined);
+  revalidatePath("/admin/withdrawals");
+  revalidatePath("/admin");
+}
+
+export async function recheckCryptoDeposit(formData: FormData) {
+  const { supabase, adminId } = await assertAdmin();
+  const id = String(formData.get("id") ?? "");
+  const { error } = await supabase.rpc("admin_crypto_deposit_recheck", { p_id: id });
+  if (error) adminWalletError("/admin/deposits", error);
+  try {
+    await checkDeposit(id);
+  } catch (e) {
+    console.error("admin recheck failed", e);
+  }
+  await logAdminAction(supabase, adminId, "recheck_crypto_deposit", "crypto_deposit", id);
+  revalidatePath("/admin/deposits");
 }
 
 export async function toggleAdmin(formData: FormData) {

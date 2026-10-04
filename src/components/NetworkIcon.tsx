@@ -5,8 +5,6 @@ const NETWORK_STYLE: { match: RegExp; glyph: string; color: string }[] = [
   { match: /tron/i, glyph: "T", color: "#FF060A" },
   { match: /bnb|bsc|smart chain/i, glyph: "B", color: "#F0B90B" },
   { match: /ethereum|erc20/i, glyph: "Ξ", color: "#627EEA" },
-  { match: /solana/i, glyph: "S", color: "#9945FF" },
-  { match: /bitcoin/i, glyph: "₿", color: "#F7931A" },
 ];
 
 function styleForNetwork(network: string) {

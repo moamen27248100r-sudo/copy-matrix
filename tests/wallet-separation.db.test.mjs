@@ -69,28 +69,22 @@ test("demo operations never touch the real wallet; switching only swaps", async 
   assert.deepEqual(await profile(), { account_type: "demo", b: 11000, o: 0 });
 });
 
-test("a user cannot raise a balance directly or self-approve requests", async () => {
+test("a user cannot raise a balance directly or create wallet requests", async () => {
   await asUser(() => fails("42501", () => db.query("update public.profiles set balance = 999999 where id = $1", [USER])));
   await asUser(() => fails("42501", () => db.query("update public.profiles set other_balance = 999999 where id = $1", [USER])));
-  await asUser(() => fails("CM012", () => db.query("insert into public.wallet_requests(user_id,type,amount) values ($1,'deposit',5)", [USER])));
   await asUser(() => db.query("select switch_account_type('real')"));
-  await asUser(() =>
-    fails(null, () =>
-      db.query("insert into public.wallet_requests(user_id,type,amount,status) values ($1,'deposit',500,'approved')", [USER]),
-    ),
-  );
-  await asUser(() => db.query("insert into public.wallet_requests(user_id,type,amount) values ($1,'deposit',100)", [USER]));
-  await asUser(() =>
-    db.query("update public.wallet_requests set status='approved' where user_id=$1", [USER]).then((r) => assert.equal(r.rowCount, 0)),
-  );
+  // Manual wallet requests are retired (0233): deposits come only from verified TxIDs.
+  await asUser(() => fails("42501", () => db.query("insert into public.wallet_requests(user_id,type,amount) values ($1,'deposit',100)", [USER])));
+  await asUser(() => fails("42501", () => db.query("insert into public.crypto_deposits(user_id,network,tx_hash,deposit_address,required_confirmations,status,amount) values ($1,'TRC20',repeat('1',64),'x',1,'completed',500)", [USER])));
   assert.equal((await profile()).b, 0);
 });
 
-test("a completed real deposit credits only the real wallet", async () => {
-  // Completing the request is the privileged (owner) path.
-  await db.query("update public.wallet_requests set status='approved' where user_id=$1 and status='pending'", [USER]);
-  assert.deepEqual(await profile(), { account_type: "real", b: 100, o: 11000 });
+test("a completed real deposit credits only the real wallet, even after switching to demo", async () => {
+  await db.query("update public.crypto_networks set deposit_address = 'TLa2f6VPqDgRE67v1736s7bJ8Ray5wYjU7', deposit_enabled = true where id = 'TRC20'");
+  const { rows: [d] } = await db.query("select id from public.crypto_deposit_submit($1,'TRC20',repeat('2',64))", [USER]);
   await asUser(() => db.query("select switch_account_type('demo')"));
+  await db.query("select public.crypto_deposit_record_check($1, $2)", [d.id, JSON.stringify({ state: "found", amount: "100", confirmations: 99, block: 1 })]);
+  assert.deepEqual(await profile(), { account_type: "demo", b: 11000, o: 100 });
 });
 
 test("notification preferences suppress only the chosen category", async () => {

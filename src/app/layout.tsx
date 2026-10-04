@@ -11,6 +11,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
 import { ImpersonationBanner } from "@/components/ImpersonationBanner";
+import { SEARCH_INDEXING_ENABLED } from "@/lib/indexing";
 import "./globals.css";
 
 // Platform typography (applied centrally in globals.css via :lang()):
@@ -77,6 +78,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Copy Matrix",
     description: t("siteDescription"),
+    ...(SEARCH_INDEXING_ENABLED ? {} : { robots: { index: false, follow: false, googleBot: { index: false, follow: false } } }),
   };
 }
 

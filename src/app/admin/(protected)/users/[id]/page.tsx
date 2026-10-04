@@ -1,4 +1,5 @@
 import { formatMoney } from "@/lib/money";
+import { ADMIN_DEPOSIT_STATUS, ADMIN_STATUS_TONE, ADMIN_WITHDRAWAL_STATUS } from "@/lib/crypto/admin-labels";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import {
@@ -26,11 +27,6 @@ const KYC_STATUS_LABELS: Record<string, string> = {
   rejected: "مرفوض",
 };
 
-const WALLET_STATUS_LABELS: Record<string, string> = {
-  pending: "قيد المراجعة",
-  approved: "مقبول",
-  rejected: "مرفوض",
-};
 
 export default async function AdminUserDetailPage({
   params,
@@ -61,12 +57,15 @@ export default async function AdminUserDetailPage({
         .select("id, full_name, national_id_number, status, submitted_at, reviewed_at")
         .eq("user_id", id)
         .order("submitted_at", { ascending: false }),
-      supabase
-        .from("wallet_requests")
-        .select("id, type, amount, status, requested_at")
-        .eq("user_id", id)
-        .order("requested_at", { ascending: false })
-        .limit(20),
+      Promise.all([
+        supabase.from("crypto_deposits").select("id, network, amount, status, created_at").eq("user_id", id).order("created_at", { ascending: false }).limit(20),
+        supabase.from("crypto_withdrawals").select("id, network, amount, status, created_at").eq("user_id", id).order("created_at", { ascending: false }).limit(20),
+      ]).then(([d, w]) => ({
+        data: [
+          ...(d.data ?? []).map((r) => ({ ...r, type: "deposit" as const })),
+          ...(w.data ?? []).map((r) => ({ ...r, type: "withdrawal" as const })),
+        ].sort((a, b) => b.created_at.localeCompare(a.created_at)),
+      })),
       supabase
         .from("subscriptions")
         .select("id, provider_id, allocated_amount, is_active, created_at, providers(display_name)")
@@ -268,21 +267,21 @@ export default async function AdminUserDetailPage({
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">طلبات الإيداع والسحب</h2>
+        <h2 className="font-medium">الإيداعات والسحوبات</h2>
         {(walletHistory ?? []).length === 0 ? (
-          <p className="text-sm text-muted">لا توجد طلبات محفظة.</p>
+          <p className="text-sm text-muted">لا توجد إيداعات أو سحوبات.</p>
         ) : (
           <div className="flex flex-col gap-2">
             {walletHistory!.map((w) => (
               <div key={w.id} className="flex items-center justify-between rounded-lg border border-border bg-surface p-3 text-sm">
                 <div>
                   <p>
-                    {w.type === "deposit" ? "إيداع" : "سحب"} — {formatMoney(Number(w.amount), "ar")}
+                    {w.type === "deposit" ? "إيداع" : "سحب"} — {w.amount != null ? formatMoney(Number(w.amount), "ar") : "—"} · {w.network}
                   </p>
-                  <p className="text-xs text-muted">{new Date(w.requested_at).toLocaleDateString("ar-EG")}</p>
+                  <p className="text-xs text-muted">{new Date(w.created_at).toLocaleDateString("ar-EG")}</p>
                 </div>
-                <span className="rounded border border-border px-2 py-0.5 text-xs">
-                  {WALLET_STATUS_LABELS[w.status] ?? w.status}
+                <span className={`rounded border px-2 py-0.5 text-xs ${ADMIN_STATUS_TONE[w.status] ?? "border-border"}`}>
+                  {(w.type === "deposit" ? ADMIN_DEPOSIT_STATUS : ADMIN_WITHDRAWAL_STATUS)[w.status] ?? w.status}
                 </span>
               </div>
             ))}

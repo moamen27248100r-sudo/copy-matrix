@@ -258,155 +258,205 @@ test.describe.serial("Client dashboard — full journey", () => {
     expect(await bodyText(client)).toContain("Your demo balance was reset to 10,000 USDT.");
     expect((await profile()).balance).toBe(10000);
   });
-  // ---------------------------------------------------------------- 2. wallet (real)
-  early("2f. real deposit: request is pending, wallet only moves when completed", async () => {
+  // ---------------------------------------------------------------- 2. wallet (real, USDT)
+  const DEPOSIT_TRON = "TLa2f6VPqDgRE67v1736s7bJ8Ray5wYjU7";
+  const DEST_TRON = "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t";
+  let savedNetworks: { id: string; deposit_address: string | null; deposit_enabled: boolean; withdraw_enabled: boolean }[] = [];
+  let walletSecret = "";
+  const fakeHash = (c: string) => (RUN_TAG.replace(/[^0-9a-f]/g, "") + c.repeat(64)).slice(0, 64);
+  async function restoreNetworks() {
+    for (const n of savedNetworks) {
+      await sql(`update public.crypto_networks set deposit_address = $2, deposit_enabled = $3, withdraw_enabled = $4 where id = $1`, [
+        n.id,
+        n.deposit_address,
+        n.deposit_enabled,
+        n.withdraw_enabled,
+      ]);
+    }
+    savedNetworks = [];
+  }
+  test.afterAll(restoreNetworks);
+
+  early("2f. real deposit: unavailable without an address; with one, address/QR/limits shown and a TxID is checked", async () => {
     await client.goto(`${BASE}/dashboard`);
     await client.getByRole("group").getByRole("button", { name: "Real", exact: true }).first().click();
     await client.getByRole("button", { name: "Switch", exact: true }).click();
     await expect.poll(async () => (await profile()).type).toBe("real");
+
+    savedNetworks = await sql(`select id, deposit_address, deposit_enabled, withdraw_enabled from public.crypto_networks`);
+    await sql(`update public.crypto_networks set deposit_address = null`);
     await client.goto(`${BASE}/portfolio/deposit`);
-    await client.getByRole("button", { name: /USDT/ }).first().click();
-    await client.getByRole("button", { name: /TRC20/ }).click();
-    await client.locator("input[name=amount]").fill("250");
-    await client.getByRole("button", { name: /Confirm|submit|sent/i }).last().click();
-    await expect(client).toHaveURL(/success=1/);
-    const rows = await sql<{ type: string; amount: string; status: string; account_type: string }>(
-      `select type, amount, status, account_type from public.wallet_requests where user_id = $1`, [fx.clientId]);
-    expect(rows).toHaveLength(1);
-    expect(rows[0]).toMatchObject({ type: "deposit", status: "pending", account_type: "real" });
-    expect(Number(rows[0].amount)).toBe(250);
-    expect((await profile()).balance).toBe(0); // not credited until completed
-    await client.goto(`${BASE}/portfolio?tab=activity`);
-    const activity = await bodyText(client);
-    expect(activity).toContain("250.00 USDT");
-    expect(activity).toContain("Processing");
+    expect(await bodyText(client)).toContain("Deposits temporarily unavailable");
+
+    await sql(
+      `update public.crypto_networks set deposit_address = $1, deposit_enabled = true, withdraw_enabled = true, min_deposit = 10, confirmations = 20, withdraw_fee = 1, min_withdraw = 10, daily_withdraw_limit = 50000 where id = 'TRC20'`,
+      [DEPOSIT_TRON],
+    );
+    await client.goto(`${BASE}/portfolio/deposit`);
+    const text = await bodyText(client);
+    expect(text).toContain(DEPOSIT_TRON);
+    expect(text).toContain("Send only USDT on the TRC20 (Tron) network to this address.");
+    expect(text).toContain("Minimum deposit");
+    expect(text).toContain("10.00 USDT");
+    expect(text).toContain("20 confirmations");
+    expect(text).not.toMatch(/BEP20|ERC20/); // networks without an address are hidden
+    await expect(client.getByRole("img", { name: /QR code/ })).toBeVisible();
+
+    await client.getByPlaceholder("Paste the TxID").fill(fakeHash("a"));
+    await client.getByRole("button", { name: "Verify deposit" }).click();
+    await expect(client.getByRole("status").filter({ hasText: "looking for this transaction" })).toBeVisible();
+    const rows = await sql<{ status: string; network: string; amount: string | null }>(
+      `select status, network, amount from public.crypto_deposits where user_id = $1`,
+      [fx.clientId],
+    );
+    expect(rows).toEqual([{ status: "pending", network: "TRC20", amount: null }]);
+    expect((await profile()).balance).toBe(0); // nothing credited before the chain confirms it
+
+    // the same TxID can never be submitted twice
+    await client.getByPlaceholder("Paste the TxID").fill("0x" + fakeHash("a").toUpperCase());
+    await client.getByRole("button", { name: "Verify deposit" }).click();
+    await expect(client.getByRole("alert")).toContainText("already been submitted");
   });
 
-  early("2g. completing the deposit credits only the real wallet and notifies", async () => {
-    // What the back office does when it approves the request.
-    await sql(`update public.wallet_requests set status = 'approved' where user_id = $1 and type = 'deposit'`, [fx.clientId]);
+  early("2g. a confirmed TxID credits the on-chain amount once, only to the real wallet, and notifies", async () => {
+    const [d] = await sql<{ id: string }>(`select id from public.crypto_deposits where user_id = $1 and status = 'pending'`, [fx.clientId]);
+    // What the verifier reports once the chain has 20 confirmations.
+    const found = JSON.stringify({ state: "found", amount: "250", confirmations: 20, from: "41ab", block: 1 });
+    await sql(`select public.crypto_deposit_record_check($1, $2)`, [d.id, found]);
+    await sql(`select public.crypto_deposit_record_check($1, $2)`, [d.id, found]); // a second check changes nothing
     const p = await profile();
     expect(p.balance).toBe(250);
     expect(p.other).toBe(10000); // demo wallet untouched
-    const tx = await sql<{ type: string; amount: string; balance_after: string; account_type: string }>(
-      `select type, amount, balance_after, account_type from public.wallet_transactions where user_id = $1 and account_type = 'real'`, [fx.clientId]);
-    expect(tx).toHaveLength(1);
-    expect(Number(tx[0].amount)).toBe(250);
-    expect(Number(tx[0].balance_after)).toBe(250);
+    const tx = await sql<{ amount: string; balance_after: string }>(
+      `select amount, balance_after from public.wallet_transactions where user_id = $1 and account_type = 'real'`,
+      [fx.clientId],
+    );
+    expect(tx.map((t) => [Number(t.amount), Number(t.balance_after)])).toEqual([[250, 250]]);
     await client.goto(`${BASE}/notifications`);
     const text = await bodyText(client);
     expect(text).toContain("Deposit completed");
     expect(text).toContain("Your transaction of 250.00 USDT has been completed.");
-    await client.goto(`${BASE}/portfolio?tab=activity`);
-    const act = await bodyText(client);
-    expect(act).toContain("Completed");
-    expect(act).toContain(usdt(250));
+    await client.goto(`${BASE}/portfolio/history`);
+    const hist = await bodyText(client);
+    expect(hist).toContain("Completed");
+    expect(hist).toContain(usdt(250));
+    await expect(client.locator(`a[href*="tronscan.org/#/transaction/${fakeHash("a")}"]`)).toBeVisible();
   });
 
-  const TRC20_ADDRESS = "TXpN7mK4hLqR2vZ8wD3fS6cY1uB5eJ9gAx";
-  async function startWithdrawal(amount: string, address: string) {
+  early("2h0. a real withdrawal needs verified identity: clear notice and a button to verification", async () => {
     await client.goto(`${BASE}/portfolio/withdraw`);
-    await client.locator("main input[type=text]").first().fill(amount);
-    await client.getByRole("button", { name: "Continue" }).click();
-    await client.getByRole("button", { name: /USDT/ }).first().click();
-    await client.getByRole("button", { name: /TRC20/ }).click();
-    await client.getByPlaceholder("Enter your wallet address on the selected network").fill(address);
-    await client.getByRole("button", { name: "Confirm withdrawal" }).click();
-    await client.getByRole("checkbox").check();
-    await client.getByRole("button", { name: "Confirm and send" }).click();
-  }
-
-  // Runs SQL that must be refused by the database, then rolls everything back.
-  async function dbRefuses(code: string, statements: [string, unknown[]?][]) {
-    await sql("begin");
-    try {
-      let refused = "";
-      try {
-        for (const [text, params] of statements) await sql(text, params ?? []);
-      } catch (e) {
-        refused = (e as { code?: string }).code ?? String(e);
-      }
-      expect(refused).toBe(code);
-    } finally {
-      await sql("rollback");
-    }
-  }
-  const realWithdrawal = (): [string, unknown[]] => [
-    `insert into public.wallet_requests (user_id, type, amount, note) values ($1, 'withdrawal', 10, 'e2e')`,
-    [fx.clientId],
-  ];
-
-  early("2h0. a real withdrawal needs verified identity: clear notice, a button to verification, refused by the server", async () => {
-    await client.goto(`${BASE}/portfolio/withdraw`);
-    const text = await bodyText(client);
-    expect(text).toContain("Identity verification is required to withdraw from a real account. Complete verification to continue.");
-    expect(await client.locator("main input[type=text]").count()).toBe(0); // no withdrawal form at all
+    expect(await bodyText(client)).toContain(
+      "Identity verification is required to withdraw from a real account. Complete verification to continue.",
+    );
+    expect(await client.getByPlaceholder(/Enter a TRC20/).count()).toBe(0); // no withdrawal form at all
     await client.getByRole("link", { name: "Verify identity" }).click();
     await expect(client).toHaveURL(/\/kyc/);
-    // the database refuses it even if the page is bypassed: no submission, then a pending one
-    await dbRefuses("CM024", [realWithdrawal()]);
     await sql(
-      `insert into public.kyc_submissions (user_id, full_name, national_id_number, id_document_path, status) values ($1, 'E2E Client', '0000000000', 'e2e/none', 'pending')`,
+      `insert into public.kyc_submissions (user_id, full_name, national_id_number, id_document_path, status, reviewed_at) values ($1, 'E2E Client', '0000000000', 'e2e/none', 'approved', now())`,
       [fx.clientId],
     );
-    await dbRefuses("CM024", [realWithdrawal()]);
+  });
+
+  early("2h1. withdrawals need 2FA; enabling it holds withdrawals for 24 hours", async () => {
     await client.goto(`${BASE}/portfolio/withdraw`);
-    expect(await bodyText(client)).toContain("Identity verification is required");
-    // the back office approves it: the form appears
-    await sql(`update public.kyc_submissions set status = 'approved', reviewed_at = now() where user_id = $1`, [fx.clientId]);
+    expect(await bodyText(client)).toContain("Enable two-factor authentication to withdraw");
+    await client.getByRole("link", { name: "Enable 2FA" }).click();
+    await expect(client).toHaveURL(/\/account\/security/);
+    await client.getByRole("button", { name: "Enable two-factor authentication" }).click();
+    walletSecret = (await client.locator("code").first().innerText()).replace(/\s/g, "");
+    await freshWindow();
+    await client.locator("#mfa-enroll-code").fill(totp(walletSecret));
+    await client.getByRole("button", { name: "Confirm and enable" }).click();
+    await expect(client.getByText("Two-factor authentication is now on.")).toBeVisible();
+
     await client.goto(`${BASE}/portfolio/withdraw`);
-    await expect(client.locator("main input[type=text]").first()).toBeVisible();
+    expect(await bodyText(client)).toContain("Withdrawals temporarily on hold");
+    // 24 hours later
+    await sql(
+      `update public.account_security_events set mfa_changed_at = now() - interval '25 hours', password_changed_at = now() - interval '25 hours' where user_id = $1`,
+      [fx.clientId],
+    );
+    await client.goto(`${BASE}/portfolio/withdraw`);
+    await expect(client.getByPlaceholder("Enter a TRC20 (Tron) address")).toBeVisible();
   });
 
-  early("2h. withdrawal with an invalid wallet address is refused with a clear message", async () => {
-    await startWithdrawal("100", "abc");
-    await expect(client).toHaveURL(/error=/);
-    expect(await bodyText(client)).toContain("wallet address");
-    const n = await sql(`select 1 from public.wallet_requests where user_id = $1 and type = 'withdrawal'`, [fx.clientId]);
-    expect(n).toHaveLength(0);
+  early("2h. an invalid wallet address is flagged and cannot be sent", async () => {
+    await client.goto(`${BASE}/portfolio/withdraw`);
+    await client.getByPlaceholder("Enter a TRC20 (Tron) address").fill("abc");
+    expect(await bodyText(client)).toContain("This doesn't look like a valid TRC20 (Tron) address.");
+    await expect(client.getByRole("button", { name: "Withdraw", exact: true })).toBeDisabled();
   });
 
-  early("2i. real withdrawal is a pending request; the wallet moves only when completed", async () => {
-    await startWithdrawal("100", TRC20_ADDRESS);
-    await expect(client).toHaveURL(/success=1/);
-    const rows = await sql<{ amount: string; status: string; note: string }>(
-      `select amount, status, note from public.wallet_requests where user_id = $1 and type = 'withdrawal'`, [fx.clientId]);
-    expect(rows).toHaveLength(1);
-    expect(Number(rows[0].amount)).toBe(100);
-    expect(rows[0].status).toBe("pending");
-    expect(rows[0].note).toContain(TRC20_ADDRESS);
-    expect((await profile()).balance).toBe(250);
-    await sql(`update public.wallet_requests set status = 'approved' where user_id = $1 and type = 'withdrawal'`, [fx.clientId]);
-    const p = await profile();
-    expect(p.balance).toBe(150);
-    expect(p.other).toBe(10000);
-    await client.goto(`${BASE}/notifications`);
-    const text = await bodyText(client);
-    expect(text).toContain("Withdrawal completed");
-    expect(text).toContain("Your transaction of 100.00 USDT has been completed.");
-  });
+  async function requestWithdrawal(amount: string) {
+    await client.goto(`${BASE}/portfolio/withdraw`);
+    await client.getByPlaceholder("Enter a TRC20 (Tron) address").fill(DEST_TRON);
+    await client.locator("input[name=amount]").fill(amount);
+    await freshWindow();
+    await client.locator("input[name=code]").fill(totp(walletSecret));
+    await client.getByRole("checkbox").check();
+    await client.getByRole("button", { name: "Withdraw", exact: true }).click();
+    await expect(client).toHaveURL(/requested=1/);
+  }
 
-  early("2j. a rejected deposit leaves the wallet alone and says so politely", async () => {
-    await client.goto(`${BASE}/portfolio/deposit`);
-    await client.getByRole("button", { name: /USDT/ }).first().click();
-    await client.getByRole("button", { name: /TRC20/ }).click();
-    await client.locator("input[name=amount]").fill("75");
-    await client.getByRole("button", { name: "Confirm" }).last().click();
-    await expect(client).toHaveURL(/success=1/);
-    await sql(`update public.wallet_requests set status = 'rejected' where user_id = $1 and type = 'deposit' and amount = 75`, [fx.clientId]);
+  early("2i. a withdrawal freezes the amount at once; cancelling returns it; the back office completes it with a TxID", async () => {
+    await requestWithdrawal("100");
+    expect(await bodyText(client)).toContain("Withdrawal request received.");
     expect((await profile()).balance).toBe(150);
-    await client.goto(`${BASE}/notifications`);
+    const [w] = await sql<{ status: string; fee: string; net_amount: string; address: string }>(
+      `select status, fee, net_amount, address from public.crypto_withdrawals where user_id = $1`,
+      [fx.clientId],
+    );
+    expect({ ...w, fee: Number(w.fee), net_amount: Number(w.net_amount) }).toEqual({ status: "processing", fee: 1, net_amount: 99, address: DEST_TRON });
+
+    client.once("dialog", (dlg) => dlg.accept());
+    await client.getByRole("button", { name: "Cancel" }).click();
+    await expect(client).toHaveURL(/cancelled=1/);
+    expect((await profile()).balance).toBe(250);
+
+    await requestWithdrawal("100");
+    // Back office: sent from the platform wallet and completed with the transaction hash.
+    await sql(
+      `update public.crypto_withdrawals set status = 'completed', tx_hash = $2, completed_at = now() where user_id = $1 and status = 'processing'`,
+      [fx.clientId, fakeHash("c")],
+    );
+    expect((await profile()).balance).toBe(150);
+    await client.goto(`${BASE}/portfolio/history?tab=withdrawals`);
     const text = await bodyText(client);
-    expect(text).toContain("Deposit rejected");
-    expect(text).toContain("Your request could not be completed. Please contact support for details.");
+    expect(text).toContain("Completed");
+    expect(text).toContain("Cancelled");
+    expect(text).toContain(usdt(99));
+    await expect(client.locator(`a[href*="tronscan.org/#/transaction/${fakeHash("c")}"]`)).toBeVisible();
   });
 
-  early("2k. withdrawing more than the real balance is blocked", async () => {
+  early("2j. a TxID that paid someone else is refused with a clear reason; the wallet is untouched", async () => {
+    await client.goto(`${BASE}/portfolio/deposit`);
+    await client.getByPlaceholder("Paste the TxID").fill(fakeHash("b"));
+    await client.getByRole("button", { name: "Verify deposit" }).click();
+    await expect(client.getByRole("status").filter({ hasText: "looking for this transaction" })).toBeVisible();
+    const [d] = await sql<{ id: string }>(`select id from public.crypto_deposits where user_id = $1 and status = 'pending'`, [fx.clientId]);
+    await sql(`select public.crypto_deposit_record_check($1, $2)`, [d.id, JSON.stringify({ state: "failed", reason: "wrong_recipient" })]);
+    expect((await profile()).balance).toBe(150);
+    await client.goto(`${BASE}/portfolio/history`);
+    expect(await bodyText(client)).toContain("the transaction was not sent to your deposit address");
+    await client.goto(`${BASE}/notifications`);
+    expect(await bodyText(client)).toContain("Deposit not credited");
+  });
+
+  early("2k. withdrawing more than the available balance is blocked; 'All' fills the maximum", async () => {
     await client.goto(`${BASE}/portfolio/withdraw`);
-    await client.locator("main input[type=text]").first().fill("150.01");
-    await expect(client.getByRole("button", { name: "Continue" })).toBeDisabled();
-    await client.locator("main input[type=text]").first().fill("150");
-    await expect(client.getByRole("button", { name: "Continue" })).toBeEnabled();
+    await client.locator("input[name=amount]").fill("150.01");
+    expect(await bodyText(client)).toContain("The amount exceeds your available balance.");
+    await client.getByRole("button", { name: "All", exact: true }).click();
+    await expect(client.locator("input[name=amount]")).toHaveValue("150");
+
+    // turn 2FA off again so the rest of the journey signs in with a password only
+    await client.goto(`${BASE}/account/security`);
+    await client.getByRole("button", { name: "Disable two-factor authentication" }).click();
+    await freshWindow();
+    await client.locator("input[name=code]").fill(totp(walletSecret));
+    await client.getByRole("button", { name: "Confirm and disable" }).click();
+    await expect(client.getByText("Two-factor authentication has been turned off.")).toBeVisible();
+    await restoreNetworks();
   });
   // ---------------------------------------------------------------- 3. copy: discover, start, settings
   test("3a. the leader signs in; Discover lists traders and a profile opens", async () => {
@@ -683,16 +733,12 @@ test.describe.serial("Client dashboard — full journey", () => {
     await client.goto(`${BASE}/portfolio/withdraw`);
     expect(await bodyText(client)).toContain("You can't withdraw while you have open copied trades. Withdrawals are available again once all of them are closed.");
     await expect(client.locator("main input[type=text]")).toHaveCount(0);
-    // the database refuses it as well (demo function and the real-account request)
+    // the database refuses it as well (the real-account rule is covered by tests/crypto-wallet.db.test.mjs)
     const api = (await import("@supabase/supabase-js")).createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!, { auth: { persistSession: false } });
     expect((await api.auth.signInWithPassword({ email: CLIENT_EMAIL, password: PASSWORD })).error).toBeNull();
     const r = await api.rpc("demo_withdraw", { p_amount: 10 });
     expect(r.error?.code).toBe("CM023");
     await api.auth.signOut({ scope: "local" });
-    await dbRefuses("CM023", [
-      [`update public.profiles set account_type = 'real' where id = $1`, [fx.clientId]],
-      realWithdrawal(),
-    ]);
     // stopping the copy is refused while a trade is open
     await client.goto(`${BASE}/trader/${fx.providerId}`);
     await client.getByRole("button", { name: "Stop copying" }).click();

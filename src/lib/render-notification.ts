@@ -88,7 +88,10 @@ export function renderNotification(t: Translator, n: NotificationRow, money: Mon
     case "wallet_deposit_rejected":
       return { title: t("walletDepositRejectedTitle"), body: t("walletRejectedBody") };
     case "wallet_withdrawal_rejected":
-      return { title: t("walletWithdrawalRejectedTitle"), body: t("walletRejectedBody") };
+      // Crypto withdrawals (0233) are refunded on rejection; older manual requests were not.
+      return { title: t("walletWithdrawalRejectedTitle"), body: d.network ? t("walletWithdrawalRefundedBody") : t("walletRejectedBody") };
+    case "wallet_deposit_failed":
+      return { title: t("walletDepositFailedTitle"), body: t("walletDepositFailedBody", { network: String(d.network ?? "") }) };
     case "lead_new_copier":
       return { title: t("leadNewCopierTitle"), body: t("leadNewCopierBody", { amount: money(Number(d.amount ?? 0)) }) };
     case "lead_copier_stopped":

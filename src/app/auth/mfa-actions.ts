@@ -4,9 +4,8 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { getTranslations } from "next-intl/server";
-import type { AuthError, SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { attemptAllowed, CODE_PATTERN, readCode, verifiedTotpFactorId, verifyErrorKey } from "@/lib/mfa-verify";
 import { safeNextPath } from "@/lib/safe-next";
 import { MFA_PENDING_LOGIN_COOKIE } from "@/lib/mfa";
 import { getRequestIpAndCountry } from "@/lib/request-ip";
@@ -17,49 +16,6 @@ import { getRequestIpAndCountry } from "@/lib/request-ip";
 
 export type MfaFormState = { error?: string; ok?: boolean };
 export type TotpEnrollment = { factorId: string; qrCode: string; secret: string; uri: string };
-
-const CODE_PATTERN = /^\d{6}$/;
-
-// Supabase already throttles MFA verification per IP; on top of that, cap
-// guesses per account across all IPs and per account+IP, so a 6-digit code
-// can't be brute-forced from many addresses.
-async function attemptAllowed(supabase: SupabaseClient, userId: string) {
-  const { data, error } = await supabase.rpc("check_rate_limit", {
-    p_key: `mfa-verify-user:${userId}`,
-    p_max_attempts: 10,
-    p_window_seconds: 900,
-  });
-  if (!error && data === false) return false;
-  return checkRateLimit(`mfa-verify:${userId}`, 5, 300);
-}
-
-// Maps a Supabase verify error to a TwoFactor message key. A wrong code and
-// one whose 30-second window has passed are indistinguishable to Supabase
-// (both "mfa_verification_failed"), so one message covers both.
-function verifyErrorKey(error: AuthError) {
-  switch (error.code) {
-    case "mfa_verification_failed":
-    case "mfa_verification_rejected":
-      return "errCodeInvalid";
-    case "mfa_challenge_expired":
-      return "errChallengeExpired";
-    case "mfa_factor_not_found":
-      return "errEnrollmentExpired";
-    case "over_request_rate_limit":
-      return "errTooManyAttempts";
-    default:
-      return error.status === 429 ? "errTooManyAttempts" : "errGeneric";
-  }
-}
-
-function readCode(formData: FormData) {
-  return ((formData.get("code") as string) ?? "").replace(/\s/g, "");
-}
-
-async function verifiedTotpFactorId(supabase: SupabaseClient) {
-  const { data } = await supabase.auth.mfa.listFactors();
-  return data?.totp[0]?.id ?? null;
-}
 
 // Sign-in step two: steps the current aal1 session up to aal2.
 export async function verifyMfaLogin(_prev: MfaFormState, formData: FormData): Promise<MfaFormState> {

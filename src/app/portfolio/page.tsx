@@ -18,6 +18,7 @@ import { resetDemoBalance } from "@/app/portfolio/actions";
 import { MyOpenPositions } from "@/components/MyOpenPositions";
 import { PositionTabs } from "@/components/PositionTabs";
 import { PendingOrdersEmpty } from "@/components/PendingOrdersEmpty";
+import { WalletStatusBadge } from "@/components/wallet/WalletStatus";
 import { TraderAvatar } from "@/components/TraderAvatar";
 
 type PositionSignal = {
@@ -60,13 +61,14 @@ export async function generateMetadata() {
 export default async function PortfolioPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string; success?: string; tab?: string; demo?: string; tpsl?: string }>;
+  searchParams: Promise<{ error?: string; tab?: string; demo?: string; tpsl?: string }>;
 }) {
-  const { error, success, tab, demo, tpsl } = await searchParams;
+  const { error, tab, demo, tpsl } = await searchParams;
   const locale = (await getLocale()) as Locale;
   const t = await getTranslations("Portfolio");
   const td = await getTranslations("Dashboard");
   const tTrades = await getTranslations("Trades");
+  const tw = await getTranslations("Wallet");
   const money = await getMoney();
   const userTz = await getUserTimeZone();
   const TX_LABELS: Record<string, string> = {
@@ -76,11 +78,7 @@ export default async function PortfolioPage({
     demo_reset: t("txDemoReset"),
     admin_adjustment: t("txAdjustment"),
     fee: t("txFee"),
-  };
-  const REQUEST_STATUS_LABELS: Record<string, string> = {
-    pending: t("statusPending"),
-    approved: t("statusApproved"),
-    rejected: t("statusRejected"),
+    withdrawal_refund: t("txWithdrawalRefund"),
   };
   const supabase = await createClient();
   const {
@@ -110,7 +108,8 @@ export default async function PortfolioPage({
     { data: followedProviders },
     { data: positions },
     { data: transactions },
-    { data: walletRequests },
+    { data: pendingDeposits },
+    { data: openWithdrawals },
   ] = await Promise.all([
       supabase.from("profiles").select("balance, account_type").eq("id", user.id).single(),
       providerIds.length > 0
@@ -132,14 +131,26 @@ export default async function PortfolioPage({
         .order("created_at", { ascending: false })
         .limit(20),
       supabase
-        .from("wallet_requests")
-        .select("id, type, amount, status, requested_at")
+        .from("crypto_deposits")
+        .select("id, network, amount, status, confirmations, required_confirmations, created_at")
         .eq("user_id", user.id)
-        .order("requested_at", { ascending: false })
-        .limit(20),
+        .eq("status", "pending")
+        .order("created_at", { ascending: false }),
+      supabase
+        .from("crypto_withdrawals")
+        .select("id, network, amount, status, created_at")
+        .eq("user_id", user.id)
+        .in("status", ["processing", "sending"])
+        .order("created_at", { ascending: false }),
     ]);
 
-  const pendingRequests = isDemo ? [] : (walletRequests ?? []).filter((r) => r.status === "pending");
+  // Real-wallet movements still in progress: deposits awaiting confirmations, withdrawals not yet sent.
+  const pendingRequests = isDemo
+    ? []
+    : [
+        ...(pendingDeposits ?? []).map((d) => ({ ...d, kind: "deposit" as const })),
+        ...(openWithdrawals ?? []).map((w) => ({ ...w, kind: "withdrawal" as const, confirmations: 0, required_confirmations: 0 })),
+      ].sort((a, b) => b.created_at.localeCompare(a.created_at));
 
   const allPositions = (positions ?? []) as Position[];
   const closedPositions = allPositions.filter((p) => p.status === "closed");
@@ -302,17 +313,24 @@ export default async function PortfolioPage({
           <div className="flex flex-col gap-2">
             <p className="text-xs font-medium text-muted">{t("pendingRequestsLabel")}</p>
             {pendingRequests.map((r) => (
-              <div
+              <Link
                 key={r.id}
-                className="flex items-center justify-between rounded border border-border bg-background px-3 py-2 text-sm"
+                href={r.kind === "deposit" ? "/portfolio/history" : "/portfolio/history?tab=withdrawals"}
+                className="flex items-center justify-between gap-2 rounded border border-border bg-background px-3 py-2 text-sm transition hover:border-accent/40"
               >
-                <span>{r.type === "deposit" ? td("deposit") : td("withdraw")} {money(Number(r.amount))}</span>
-                <span className="text-xs text-muted">
-                  {REQUEST_STATUS_LABELS[r.status]} · {r.type === "deposit" ? t("etaDeposit") : t("etaWithdraw")}
+                <span>
+                  {r.kind === "deposit" ? td("deposit") : td("withdraw")} {r.amount != null ? money(Number(r.amount)) : ""}{" "}
+                  <span className="text-xs text-muted">· {r.network}</span>
                 </span>
-              </div>
+                <WalletStatusBadge status={r.status} confirmations={r.confirmations} required={r.required_confirmations} />
+              </Link>
             ))}
           </div>
+        )}
+        {!isDemo && (
+          <Link href="/portfolio/history" className="self-start text-xs font-medium text-accent hover:underline">
+            {tw("historyTitle")}
+          </Link>
         )}
       </section>
 
@@ -492,49 +510,20 @@ export default async function PortfolioPage({
         )}
       </section>
 
-      {!isDemo && <section className="flex flex-col gap-2">
-        <h2 className="font-medium">{t("depositWithdrawRequests")}</h2>
-        {(walletRequests ?? []).length === 0 ? (
-          <p className="text-sm text-muted">{t("noRequests")}</p>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[420px] text-sm">
-              <thead>
-                <tr className="border-b border-border text-right text-xs text-muted">
-                  <th className="py-2 pl-3">{t("date")}</th>
-                  <th className="py-2 pl-3">{t("type")}</th>
-                  <th className="py-2 pl-3">{t("amount")}</th>
-                  <th className="py-2">{t("status")}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {walletRequests!.map((r) => (
-                  <tr key={r.id} className="border-b border-border/60">
-                    <td className="py-2 pl-3 whitespace-nowrap text-xs text-muted">
-                      {formatDateTime(r.requested_at, locale, { dateStyle: "medium", timeStyle: "short", timeZone: userTz })}
-                    </td>
-                    <td className="py-2 pl-3 whitespace-nowrap">{r.type === "deposit" ? td("deposit") : td("withdraw")}</td>
-                    <td className="py-2 pl-3 whitespace-nowrap">{money(Number(r.amount))}</td>
-                    <td className="py-2 whitespace-nowrap">
-                      <span
-                        className={
-                          r.status === "approved"
-                            ? "text-success"
-                            : r.status === "rejected"
-                              ? "text-danger"
-                              : "text-muted"
-                        }
-                      >
-                        {REQUEST_STATUS_LABELS[r.status]}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+      {!isDemo && (
+        <section className="flex flex-col gap-2">
+          <h2 className="font-medium">{t("depositWithdrawRequests")}</h2>
+          <p className="text-sm text-muted">{tw("historyTeaser")}</p>
+          <div className="flex gap-3 text-sm">
+            <Link href="/portfolio/history" className="font-medium text-accent hover:underline">
+              {tw("tabDeposits")}
+            </Link>
+            <Link href="/portfolio/history?tab=withdrawals" className="font-medium text-accent hover:underline">
+              {tw("tabWithdrawals")}
+            </Link>
           </div>
-        )}
-      </section>}
+        </section>
+      )}
     </div>
   );
 
@@ -563,14 +552,6 @@ export default async function PortfolioPage({
             clearParams={["demo"]}
           >
             {demo === "deposit" ? t("demoDepositDone") : demo === "withdraw" ? t("demoWithdrawDone") : t("demoResetDone")}
-          </AutoDismissMessage>
-        )}
-        {success && (
-          <AutoDismissMessage
-            className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success"
-            clearParams={["success"]}
-          >
-            {t("requestSubmittedMessage")}
           </AutoDismissMessage>
         )}
 

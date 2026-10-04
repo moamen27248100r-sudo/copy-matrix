@@ -60,13 +60,28 @@ export default async function DashboardPage({
         .select("id, subscription_id, status, pnl, entry_price, size, opened_at, closed_at, account_type, signals(symbol, side)")
         .eq("follower_id", user.id),
       supabase.from("market_prices").select("symbol, price").in("symbol", ["BTCUSDT", "XAUUSD", "EURUSD"]),
-      supabase
-        .from("wallet_requests")
-        .select("id, type, amount, status, requested_at")
-        .eq("user_id", user.id)
-        .eq("status", "approved")
-        .order("requested_at", { ascending: false })
-        .limit(5),
+      // Completed real-wallet movements for the activity feed.
+      Promise.all([
+        supabase
+          .from("crypto_deposits")
+          .select("id, amount, completed_at")
+          .eq("user_id", user.id)
+          .eq("status", "completed")
+          .order("completed_at", { ascending: false })
+          .limit(5),
+        supabase
+          .from("crypto_withdrawals")
+          .select("id, net_amount, completed_at")
+          .eq("user_id", user.id)
+          .eq("status", "completed")
+          .order("completed_at", { ascending: false })
+          .limit(5),
+      ]).then(([deposits, withdrawals]) => ({
+        data: [
+          ...(deposits.data ?? []).map((d) => ({ id: d.id, type: "deposit", amount: d.amount, requested_at: d.completed_at as string })),
+          ...(withdrawals.data ?? []).map((w) => ({ id: w.id, type: "withdrawal", amount: w.net_amount, requested_at: w.completed_at as string })),
+        ],
+      })),
     ]);
 
   // Demo and real stats never mix: only positions opened on the active account.

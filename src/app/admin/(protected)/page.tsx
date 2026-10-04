@@ -34,13 +34,14 @@ export default async function AdminOverviewPage({
     supabase.from("profiles").select("id", { count: "exact", head: true }),
     supabase.from("providers").select("id", { count: "exact", head: true }),
     supabase.from("kyc_submissions").select("id", { count: "exact", head: true }).eq("status", "pending"),
-    supabase.from("wallet_requests").select("id", { count: "exact", head: true }).eq("status", "pending"),
+    supabase.from("crypto_withdrawals").select("id", { count: "exact", head: true }).in("status", ["processing", "sending"]),
     supabase.from("signals").select("id", { count: "exact", head: true }),
     supabase.from("simulated_positions").select("id", { count: "exact", head: true }),
     supabase.from("subscriptions").select("id", { count: "exact", head: true }).eq("is_active", true),
     supabase.from("profiles").select("balance"),
     supabase.from("wallet_transactions").select("amount").eq("type", "deposit").eq("account_type", "real"),
-    supabase.from("wallet_transactions").select("amount").eq("type", "withdrawal").eq("account_type", "real"),
+    // Withdrawals are debited when requested; cancelled / rejected ones come back as withdrawal_refund.
+    supabase.from("wallet_transactions").select("amount").in("type", ["withdrawal", "withdrawal_refund"]).eq("account_type", "real"),
   ]);
 
   // Latest daily trade-integrity run (0219); flagged here when it found errors.
@@ -79,8 +80,8 @@ export default async function AdminOverviewPage({
     urgent: (pendingKycCount ?? 0) > 0,
   };
   const walletLink = {
-    href: "/admin/wallet-requests",
-    label: "طلبات محفظة معلقة",
+    href: "/admin/withdrawals",
+    label: "طلبات سحب بانتظار التنفيذ",
     value: pendingWalletCount ?? 0,
     urgent: (pendingWalletCount ?? 0) > 0,
   };

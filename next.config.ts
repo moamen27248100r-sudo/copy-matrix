@@ -24,6 +24,12 @@ const nextConfig: NextConfig = {
   // would reject a file near that size once multipart overhead is added.
   experimental: { serverActions: { bodySizeLimit: "2mb" } },
   // Shown at the bottom of the account menu.
+  // Until launch every response tells search engines not to index it (src/lib/indexing.ts).
+  async headers() {
+    return process.env.ALLOW_SEARCH_INDEXING === "true"
+      ? []
+      : [{ source: "/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] }];
+  },
   env: {
     NEXT_PUBLIC_APP_VERSION: (JSON.parse(readFileSync(path.join(configDir, "package.json"), "utf8")) as { version: string }).version,
   },
