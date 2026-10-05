@@ -259,7 +259,9 @@
     "copyOpenedBodyLegacy": "Se copió una operación {symbol} ({side, select, sell {venta} other {compra}}) de un trader que sigues.",
     "walletWithdrawalRefundedBody": "No se pudo completar tu retiro. El monto total se devolvió a tu saldo.",
     "walletDepositFailedTitle": "Depósito no acreditado",
-    "walletDepositFailedBody": "Tu depósito de USDT en {network} no se pudo acreditar. Consulta el historial de depósitos para ver el motivo."
+    "walletDepositFailedBody": "Tu depósito de USDT en {network} no se pudo acreditar. Consulta el historial de depósitos para ver el motivo.",
+    "scopeReal": "Notificaciones de tu cuenta real, además de las alertas de cuenta y seguridad.",
+    "scopeDemo": "Notificaciones de tu cuenta demo, además de las alertas de cuenta y seguridad."
   },
   "Portfolio": {
     "title": "Mi cartera",

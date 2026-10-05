@@ -259,7 +259,9 @@
     "copyOpenedBodyLegacy": "Position {symbol} ({side, select, sell {vente} other {achat}}) copiée d'un trader que vous suivez.",
     "walletWithdrawalRefundedBody": "Votre retrait n'a pas pu être effectué. Le montant total a été restitué sur votre solde.",
     "walletDepositFailedTitle": "Dépôt non crédité",
-    "walletDepositFailedBody": "Votre dépôt USDT sur {network} n'a pas pu être crédité. Consultez l'historique des dépôts pour en connaître la raison."
+    "walletDepositFailedBody": "Votre dépôt USDT sur {network} n'a pas pu être crédité. Consultez l'historique des dépôts pour en connaître la raison.",
+    "scopeReal": "Notifications de votre compte réel, ainsi que les alertes de compte et de sécurité.",
+    "scopeDemo": "Notifications de votre compte démo, ainsi que les alertes de compte et de sécurité."
   },
   "Portfolio": {
     "title": "Mon portefeuille",

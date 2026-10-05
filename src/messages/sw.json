@@ -259,7 +259,9 @@
     "copyOpenedBodyLegacy": "Biashara ya {symbol} ({side, select, sell {kuuza} other {kununua}}) imenakiliwa kutoka kwa mfanyabiashara unayemfuata.",
     "walletWithdrawalRefundedBody": "Utoaji wako haukuweza kukamilika. Kiasi chote kimerudishwa kwenye salio lako.",
     "walletDepositFailedTitle": "Amana haikuingizwa",
-    "walletDepositFailedBody": "Amana yako ya USDT kwenye {network} haikuweza kuingizwa. Fungua historia ya amana kuona sababu."
+    "walletDepositFailedBody": "Amana yako ya USDT kwenye {network} haikuweza kuingizwa. Fungua historia ya amana kuona sababu.",
+    "scopeReal": "Arifa za akaunti yako halisi, pamoja na tahadhari za akaunti na usalama.",
+    "scopeDemo": "Arifa za akaunti yako ya majaribio, pamoja na tahadhari za akaunti na usalama."
   },
   "Portfolio": {
     "title": "Jalada Langu",

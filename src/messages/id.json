@@ -259,7 +259,9 @@
     "copyOpenedBodyLegacy": "Trade {symbol} ({side, select, sell {jual} other {beli}}) disalin dari trader yang Anda ikuti.",
     "walletWithdrawalRefundedBody": "Penarikan Anda tidak dapat diselesaikan. Seluruh jumlah telah dikembalikan ke saldo Anda.",
     "walletDepositFailedTitle": "Deposit tidak dikreditkan",
-    "walletDepositFailedBody": "Deposit USDT Anda di {network} tidak dapat dikreditkan. Buka riwayat deposit untuk melihat alasannya."
+    "walletDepositFailedBody": "Deposit USDT Anda di {network} tidak dapat dikreditkan. Buka riwayat deposit untuk melihat alasannya.",
+    "scopeReal": "Notifikasi akun riil Anda, ditambah peringatan akun dan keamanan.",
+    "scopeDemo": "Notifikasi akun demo Anda, ditambah peringatan akun dan keamanan."
   },
   "Portfolio": {
     "title": "Portofolio Saya",

@@ -259,7 +259,9 @@
     "copyOpenedBodyLegacy": "आपके फॉलो किए गए ट्रेडर से {symbol} ({side, select, sell {बिक्री} other {खरीद}}) ट्रेड कॉपी किया गया।",
     "walletWithdrawalRefundedBody": "आपकी निकासी पूरी नहीं हो सकी। पूरी राशि आपके बैलेंस में लौटा दी गई है।",
     "walletDepositFailedTitle": "जमा क्रेडिट नहीं हुई",
-    "walletDepositFailedBody": "{network} पर आपकी USDT जमा क्रेडिट नहीं हो सकी। कारण जानने के लिए जमा इतिहास खोलें।"
+    "walletDepositFailedBody": "{network} पर आपकी USDT जमा क्रेडिट नहीं हो सकी। कारण जानने के लिए जमा इतिहास खोलें।",
+    "scopeReal": "आपके रियल अकाउंट की सूचनाएँ, साथ में अकाउंट और सुरक्षा अलर्ट।",
+    "scopeDemo": "आपके डेमो अकाउंट की सूचनाएँ, साथ में अकाउंट और सुरक्षा अलर्ट।"
   },
   "Portfolio": {
     "title": "मेरा पोर्टफोलियो",

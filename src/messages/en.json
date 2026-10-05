@@ -259,7 +259,9 @@
     "copyOpenedBodyLegacy": "Copied a {symbol} ({side, select, sell {sell} other {buy}}) trade from a trader you follow.",
     "walletWithdrawalRefundedBody": "Your withdrawal could not be completed. The full amount has been returned to your balance.",
     "walletDepositFailedTitle": "Deposit not credited",
-    "walletDepositFailedBody": "Your USDT deposit on {network} could not be credited. Open your deposit history for the reason."
+    "walletDepositFailedBody": "Your USDT deposit on {network} could not be credited. Open your deposit history for the reason.",
+    "scopeReal": "Notifications for your real account, plus account and security alerts.",
+    "scopeDemo": "Notifications for your demo account, plus account and security alerts."
   },
   "Portfolio": {
     "title": "My Portfolio",

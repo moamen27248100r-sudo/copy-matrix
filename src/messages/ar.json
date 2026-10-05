@@ -259,7 +259,9 @@
     "copyOpenedBodyLegacy": "تم نسخ صفقة {symbol} ({side, select, sell {بيع} other {شراء}}) من متداول تتابعه.",
     "walletWithdrawalRefundedBody": "تعذّر إتمام طلب السحب، وأُعيد المبلغ كاملاً إلى رصيدك.",
     "walletDepositFailedTitle": "لم يتم احتساب الإيداع",
-    "walletDepositFailedBody": "تعذّر احتساب إيداع USDT على شبكة {network}. افتح سجل الإيداعات لمعرفة السبب."
+    "walletDepositFailedBody": "تعذّر احتساب إيداع USDT على شبكة {network}. افتح سجل الإيداعات لمعرفة السبب.",
+    "scopeReal": "إشعارات حسابك الحقيقي، بالإضافة إلى تنبيهات الحساب والأمان.",
+    "scopeDemo": "إشعارات حسابك التجريبي، بالإضافة إلى تنبيهات الحساب والأمان."
   },
   "Portfolio": {
     "title": "محفظتي",

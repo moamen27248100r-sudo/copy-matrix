@@ -259,7 +259,9 @@
     "copyOpenedBodyLegacy": "Đã sao chép giao dịch {symbol} ({side, select, sell {bán} other {mua}}) từ nhà giao dịch bạn theo dõi.",
     "walletWithdrawalRefundedBody": "Không thể hoàn tất lệnh rút. Toàn bộ số tiền đã được hoàn về số dư.",
     "walletDepositFailedTitle": "Khoản nạp chưa được ghi có",
-    "walletDepositFailedBody": "Khoản nạp USDT trên {network} không thể ghi có. Mở lịch sử nạp để xem lý do."
+    "walletDepositFailedBody": "Khoản nạp USDT trên {network} không thể ghi có. Mở lịch sử nạp để xem lý do.",
+    "scopeReal": "Thông báo của tài khoản thực, cùng các cảnh báo tài khoản và bảo mật.",
+    "scopeDemo": "Thông báo của tài khoản demo, cùng các cảnh báo tài khoản và bảo mật."
   },
   "Portfolio": {
     "title": "Danh mục của tôi",

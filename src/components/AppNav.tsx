@@ -33,12 +33,8 @@ export async function AppNav() {
   if (user) {
     const [{ data: profile }, { data: notificationRows }, { data: kyc }] = await Promise.all([
       supabase.from("profiles").select("is_admin, is_suspended, display_name, email, account_type, is_lead_trader, account_number").eq("id", user.id).single(),
-      supabase
-        .from("notifications")
-        .select("id, type, title, body, data, is_read, created_at")
-        .eq("user_id", user.id)
-        .order("created_at", { ascending: false })
-        .limit(10),
+      // Only the current account's notifications plus the shared ones (0241).
+      supabase.rpc("my_notifications", { p_limit: 10 }),
       supabase
         .from("kyc_submissions")
         .select("status")
@@ -108,7 +104,7 @@ export async function AppNav() {
                   cancelCta={t("switchAccountCancelCta")}
                 />
               )}
-              <NotificationsMenu notifications={notifications} />
+              <NotificationsMenu notifications={notifications} accountType={accountType ?? "demo"} />
             </>
           ) : (
             <>

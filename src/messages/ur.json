@@ -259,7 +259,9 @@
     "copyOpenedBodyLegacy": "آپ کے فالو کردہ ٹریڈر سے {symbol} ({side, select, sell {فروخت} other {خریداری}}) ٹریڈ کاپی ہوگئی۔",
     "walletWithdrawalRefundedBody": "آپ کی رقم نکلوانے کی درخواست مکمل نہیں ہو سکی۔ پوری رقم آپ کے بیلنس میں واپس کر دی گئی ہے۔",
     "walletDepositFailedTitle": "ڈپازٹ جمع نہیں ہوا",
-    "walletDepositFailedBody": "{network} پر آپ کا USDT ڈپازٹ جمع نہیں ہو سکا۔ وجہ جاننے کے لیے ڈپازٹ کی تاریخچہ کھولیں۔"
+    "walletDepositFailedBody": "{network} پر آپ کا USDT ڈپازٹ جمع نہیں ہو سکا۔ وجہ جاننے کے لیے ڈپازٹ کی تاریخچہ کھولیں۔",
+    "scopeReal": "آپ کے ریئل اکاؤنٹ کی اطلاعات، اکاؤنٹ اور سیکیورٹی الرٹس کے ساتھ۔",
+    "scopeDemo": "آپ کے ڈیمو اکاؤنٹ کی اطلاعات، اکاؤنٹ اور سیکیورٹی الرٹس کے ساتھ۔"
   },
   "Portfolio": {
     "title": "میرا پورٹ فولیو",

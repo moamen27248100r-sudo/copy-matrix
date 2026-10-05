@@ -6,6 +6,7 @@ import { getUserTimeZone } from "@/lib/timezone";
 import { createClient } from "@/lib/supabase/server";
 import { markAllRead, markOneRead } from "@/app/notifications/actions";
 import { AppNav } from "@/components/AppNav";
+import { AccountBadge } from "@/components/NotificationsMenu";
 import { renderNotification } from "@/lib/render-notification";
 import { localeTag } from "@/lib/locale-format";
 import type { Locale } from "@/i18n/locales";
@@ -135,6 +136,7 @@ export default async function NotificationsPage({ searchParams }: { searchParams
   const money = await getMoney();
   const t = await getTranslations("Nav");
   const tn = await getTranslations("Notifications");
+  const tDash = await getTranslations("Dashboard");
   const supabase = await createClient();
   const {
     data: { user },
@@ -142,22 +144,27 @@ export default async function NotificationsPage({ searchParams }: { searchParams
 
   if (!user) redirect("/login?next=%2Fnotifications");
 
-  const { data: notifications } = await supabase
-    .from("notifications")
-    .select("id, type, title, body, data, is_read, created_at")
-    .eq("user_id", user.id)
-    .order("created_at", { ascending: false })
-    .limit(50);
+  // The current account's notifications plus the shared account / security
+  // ones (0241), like the separate demo and real modes of trading platforms.
+  const [{ data: notifications }, { data: profile }] = await Promise.all([
+    supabase.rpc("my_notifications", { p_limit: 50 }),
+    supabase.from("profiles").select("account_type").eq("id", user.id).single(),
+  ]);
+  const accountType: "real" | "demo" = profile?.account_type === "real" ? "real" : "demo";
 
-  const hasUnread = (notifications ?? []).some((n) => !n.is_read);
-  const visible = (notifications ?? []).filter((n) => activeCat === "all" || categoryOf(n.type) === activeCat);
+  const rows = (notifications ?? []) as { id: string; type: string; title: string; body: string | null; data: Record<string, unknown> | null; is_read: boolean; created_at: string }[];
+  const hasUnread = rows.some((n) => !n.is_read);
+  const visible = rows.filter((n) => activeCat === "all" || categoryOf(n.type) === activeCat);
 
   return (
     <>
       <AppNav />
       <main className="mx-auto flex w-full max-w-lg flex-col gap-4 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-64 lg:me-0 lg:pb-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-page-title">{t("notificationsTitle")}</h1>
+          <div className="flex items-center gap-2">
+            <h1 className="text-page-title">{t("notificationsTitle")}</h1>
+            <AccountBadge accountType={accountType} label={accountType === "real" ? tDash("accountTypeShortReal") : tDash("accountTypeShortDemo")} />
+          </div>
           {hasUnread && (
             <form action={markAllRead}>
               <button type="submit" className="text-sm text-muted underline">
@@ -166,6 +173,8 @@ export default async function NotificationsPage({ searchParams }: { searchParams
             </form>
           )}
         </div>
+
+        <p className="-mt-2 text-xs text-muted">{accountType === "real" ? tn("scopeReal") : tn("scopeDemo")}</p>
 
         <div className="flex flex-wrap items-center gap-1.5">
           {CATEGORY_KEYS.map((k) => (

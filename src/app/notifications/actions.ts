@@ -12,11 +12,8 @@ export async function markAllRead() {
 
   if (!user) redirect("/login");
 
-  await supabase
-    .from("notifications")
-    .update({ is_read: true })
-    .eq("user_id", user.id)
-    .eq("is_read", false);
+  // Only the current account's notifications and the shared ones (0241).
+  await supabase.rpc("mark_my_notifications_read");
 
   revalidatePath("/notifications");
   revalidatePath("/dashboard");
