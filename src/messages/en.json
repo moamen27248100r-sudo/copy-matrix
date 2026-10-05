@@ -417,7 +417,7 @@
     "statSharpe": "Sharpe ratio",
     "statAvgDuration": "Avg. trade duration",
     "hoursShort": "{hours}h",
-    "statAum": "AUM (real accounts)",
+    "statAum": "Copied funds (AUM)",
     "statProfitShare": "Profit share",
     "strategyTitle": "Strategy",
     "riskDisclosureTitle": "Risk disclosure"

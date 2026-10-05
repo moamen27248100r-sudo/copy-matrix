@@ -417,7 +417,7 @@
     "statSharpe": "อัตราส่วนชาร์ป",
     "statAvgDuration": "ระยะเวลาเทรดเฉลี่ย",
     "hoursShort": "{hours}h",
-    "statAum": "AUM (บัญชีจริง)",
+    "statAum": "เงินที่ถูกคัดลอก (AUM)",
     "statProfitShare": "ส่วนแบ่งกำไร",
     "strategyTitle": "กลยุทธ์",
     "riskDisclosureTitle": "การเปิดเผยความเสี่ยง"

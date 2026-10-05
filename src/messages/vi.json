@@ -417,7 +417,7 @@
     "statSharpe": "Tỷ lệ Sharpe",
     "statAvgDuration": "Thời lượng lệnh trung bình",
     "hoursShort": "{hours}h",
-    "statAum": "AUM (tài khoản thực)",
+    "statAum": "Vốn được sao chép (AUM)",
     "statProfitShare": "Chia sẻ lợi nhuận",
     "strategyTitle": "Chiến lược",
     "riskDisclosureTitle": "Công bố rủi ro"

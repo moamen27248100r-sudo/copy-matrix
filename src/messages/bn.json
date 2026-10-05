@@ -417,7 +417,7 @@
     "statSharpe": "শার্প অনুপাত",
     "statAvgDuration": "গড় ট্রেডের সময়কাল",
     "hoursShort": "{hours}h",
-    "statAum": "AUM (রিয়েল অ্যাকাউন্ট)",
+    "statAum": "কপি করা অর্থ (AUM)",
     "statProfitShare": "মুনাফার অংশ",
     "strategyTitle": "কৌশল",
     "riskDisclosureTitle": "ঝুঁকির প্রকাশ"

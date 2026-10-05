@@ -417,7 +417,7 @@
     "statSharpe": "शार्प अनुपात",
     "statAvgDuration": "औसत ट्रेड अवधि",
     "hoursShort": "{hours}h",
-    "statAum": "AUM (रियल अकाउंट)",
+    "statAum": "कॉपी की गई राशि (AUM)",
     "statProfitShare": "लाभ साझा",
     "strategyTitle": "रणनीति",
     "riskDisclosureTitle": "जोखिम प्रकटीकरण"

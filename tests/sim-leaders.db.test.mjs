@@ -1,6 +1,8 @@
-// Simulated leaders (0234 / 0235) against SUPABASE_DB_URL: the SQL trajectory
-// matches the JS one, simulated leaders are visible and copyable on demo
-// accounts only, and every stored stat equals what the trades add up to.
+// Simulated leaders (0234 / 0235 / 0240) against SUPABASE_DB_URL: the SQL
+// trajectory matches the JS one; with the sim_leaders_open_to_real switch off
+// they are visible and copyable on demo accounts only, with it on a real
+// account copies them end to end; every stored stat equals what the trades
+// add up to.
 // Everything runs in one transaction that is rolled back. Run: npm run test:db
 import { after, before, test } from "node:test";
 import assert from "node:assert/strict";
@@ -31,6 +33,10 @@ async function as(user, fn) {
     await db.query("reset role");
   }
 }
+
+// The real-account switch (0240), changed inside the test transaction only.
+const openToReal = (on) =>
+  db.query("update public.platform_settings set value = $1::jsonb where key = 'sim_leaders_open_to_real'", [JSON.stringify(on)]);
 
 async function fails(code, fn) {
   await db.query("savepoint f");
@@ -75,7 +81,8 @@ test("sim_target_log in SQL matches targetLog in JS for every persona", async ()
   }
 });
 
-test("simulated leaders are only listed for demo accounts", async () => {
+test("switch off: simulated leaders are only listed for demo accounts", async () => {
+  await openToReal(false);
   const count = async (user) =>
     as(user, async () => Number((await db.query("select count(*) n from public.provider_cards where is_simulated")).rows[0].n));
   assert.equal(await count(null), 0, "visitors");
@@ -93,7 +100,7 @@ test("simulated leaders are only listed for demo accounts", async () => {
   assert.ok((await series(DEMO)).days.length > 0);
 });
 
-test("only a demo account can copy or follow a simulated leader", async () => {
+test("switch off: only a demo account can copy or follow a simulated leader", async () => {
   await as(REAL, () => fails("CM050", () => db.query("select start_or_update_copy($1, 1000)", [simulated])));
   await as(REAL, () => fails("CM050", () => db.query("insert into public.follows (follower_id, provider_id) values ($1, $2)", [REAL, simulated])));
   await as(DEMO, () => db.query("select start_or_update_copy($1, 1000)", [simulated]));
@@ -101,9 +108,9 @@ test("only a demo account can copy or follow a simulated leader", async () => {
   assert.equal(rows[0].is_active, true);
 });
 
-test("a simulated leader's trade is mirrored to demo copiers only", async () => {
-  // A real-account copy can't be created through the API any more; one left
-  // over from before must still receive nothing.
+test("switch off: a simulated leader's trade is mirrored to demo copiers only", async () => {
+  // A real-account copy can't be created through the API then; one left over
+  // from before must still receive nothing.
   await db.query(
     "insert into public.subscriptions (follower_id, provider_id, is_active, allocated_amount, copy_started_at) values ($1, $2, true, 1000, now()) on conflict (follower_id, provider_id) do update set is_active = true",
     [REAL, simulated],
@@ -116,6 +123,44 @@ test("a simulated leader's trade is mirrored to demo copiers only", async () => 
   const followers = pos.rows.map((r) => r.follower_id);
   assert.ok(followers.includes(DEMO));
   assert.ok(!followers.includes(REAL));
+  await db.query("delete from public.subscriptions where follower_id = $1", [REAL]);
+});
+
+test("switch on: real accounts and visitors see simulated leaders", async () => {
+  await openToReal(true);
+  const count = async (user) =>
+    as(user, async () => Number((await db.query("select count(*) n from public.provider_cards where is_simulated")).rows[0].n));
+  assert.ok((await count(null)) > 0, "visitors");
+  assert.ok((await count(REAL)) > 0, "real account");
+  const series = await as(REAL, async () => (await db.query("select public.provider_daily_series($1) s", [simulated])).rows[0].s);
+  assert.ok(series.days.length > 0);
+});
+
+test("switch on: a real account copies a simulated leader end to end", async () => {
+  await openToReal(true);
+  const before = Number((await db.query("select balance from public.profiles where id = $1", [REAL])).rows[0].balance);
+  await as(REAL, () => db.query("select start_or_update_copy($1, 1000)", [simulated]));
+  await as(REAL, () => db.query("insert into public.follows (follower_id, provider_id) values ($1, $2)", [REAL, simulated]));
+
+  // The leader opens a trade: it is mirrored into the real account.
+  const { rows } = await db.query(
+    "insert into public.signals (provider_id, symbol, side, entry_price, status, opened_at, lot_size) select $1, 'BTCUSDT', 'buy', price, 'open', now() - interval '1 hour', 0.01 from public.market_prices where symbol = 'BTCUSDT' returning id, entry_price",
+    [simulated],
+  );
+  const pos = (await db.query("select id, account_type, size from public.simulated_positions where signal_id = $1 and follower_id = $2", [rows[0].id, REAL])).rows[0];
+  assert.equal(pos.account_type, "real");
+  await db.query("update public.simulated_positions set opened_at = now() - interval '30 minutes' where id = $1", [pos.id]);
+
+  // The leader closes 1% higher: the real wallet gets exactly that result.
+  const exit = Math.round(Number(rows[0].entry_price) * 1.01 * 100) / 100;
+  await db.query("update public.signals set status = 'closed', exit_price = $2, closed_at = now() where id = $1", [rows[0].id, exit]);
+  const closed = (await db.query("select status, pnl::float pnl from public.simulated_positions where id = $1", [pos.id])).rows[0];
+  assert.equal(closed.status, "closed");
+  assert.ok(closed.pnl > 0);
+  const after = Number((await db.query("select balance from public.profiles where id = $1", [REAL])).rows[0].balance);
+  assert.ok(Math.abs(after - before - closed.pnl) < 0.01, "real wallet credited with the copied result");
+  const tx = await db.query("select account_type from public.wallet_transactions where user_id = $1 and type = 'pnl' order by created_at desc limit 1", [REAL]);
+  assert.equal(tx.rows[0].account_type, "real");
 });
 
 test("stored stats equal what the trades add up to", async () => {

@@ -417,7 +417,7 @@
     "statSharpe": "Rasio Sharpe",
     "statAvgDuration": "Rata-rata durasi transaksi",
     "hoursShort": "{hours}h",
-    "statAum": "AUM (akun riil)",
+    "statAum": "Dana yang disalin (AUM)",
     "statProfitShare": "Bagi hasil",
     "strategyTitle": "Strategi",
     "riskDisclosureTitle": "Pengungkapan risiko"

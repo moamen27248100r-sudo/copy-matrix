@@ -417,7 +417,7 @@
     "statSharpe": "Ratio de Sharpe",
     "statAvgDuration": "Duración media de las operaciones",
     "hoursShort": "{hours}h",
-    "statAum": "AUM (cuentas reales)",
+    "statAum": "Fondos copiados (AUM)",
     "statProfitShare": "Reparto de beneficios",
     "strategyTitle": "Estrategia",
     "riskDisclosureTitle": "Aviso de riesgo"

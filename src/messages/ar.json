@@ -417,7 +417,7 @@
     "statSharpe": "نسبة شارب",
     "statAvgDuration": "متوسط مدة الصفقة",
     "hoursShort": "{hours} ساعة",
-    "statAum": "الأصول المُدارة (حسابات حقيقية)",
+    "statAum": "الأموال المنسوخة (AUM)",
     "statProfitShare": "مشاركة الأرباح",
     "strategyTitle": "الاستراتيجية",
     "riskDisclosureTitle": "إفصاح المخاطر"

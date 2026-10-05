@@ -417,7 +417,7 @@
     "statSharpe": "夏普比率",
     "statAvgDuration": "平均持仓时长",
     "hoursShort": "{hours}h",
-    "statAum": "管理资产（真实账户）",
+    "statAum": "跟单资金规模",
     "statProfitShare": "利润分成",
     "strategyTitle": "策略",
     "riskDisclosureTitle": "风险披露"

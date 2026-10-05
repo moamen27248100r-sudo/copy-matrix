@@ -417,7 +417,7 @@
     "statSharpe": "Ratio de Sharpe",
     "statAvgDuration": "Durée moyenne des trades",
     "hoursShort": "{hours}h",
-    "statAum": "AUM (comptes réels)",
+    "statAum": "Fonds copiés (encours)",
     "statProfitShare": "Partage des profits",
     "strategyTitle": "Stratégie",
     "riskDisclosureTitle": "Avertissement sur les risques"
