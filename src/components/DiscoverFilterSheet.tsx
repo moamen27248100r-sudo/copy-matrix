@@ -9,7 +9,8 @@ type RadioSection = { name: string; label: string; options: RadioOption[]; curre
 // Single consolidated filter entry point for the discover page: one
 // button (with a badge showing how many filters are active) opens a
 // glass bottom sheet containing every dimension -- quick categories,
-// sort, risk, minimum entry, asset class, track record -- as native radio
+// period, sort, style, risk, return, win rate, drawdown, profit share,
+// copiers, AUM, asset class, minimum entry, track record -- as native radio
 // groups inside one <form method="get">. Submitting it navigates like any
 // other GET form on this page (same pattern as the search box above it),
 // so picking several options only takes effect once, on "Apply" --
@@ -20,7 +21,7 @@ export function DiscoverFilterSheet({
   resetLabel,
   closeLabel,
   activeCount,
-  q,
+  hidden,
   resetHref,
   sections,
 }: {
@@ -29,7 +30,8 @@ export function DiscoverFilterSheet({
   resetLabel: string;
   closeLabel: string;
   activeCount: number;
-  q?: string;
+  /** Values the form keeps as they are (search, view, page size...). */
+  hidden: Record<string, string | null | undefined>;
   resetHref: string;
   sections: RadioSection[];
 }) {
@@ -61,7 +63,7 @@ export function DiscoverFilterSheet({
             action="/discover"
             className="absolute inset-x-0 bottom-0 z-10 flex max-h-[85vh] flex-col gap-5 overflow-y-auto rounded-t-3xl border-t border-white/[0.08] bg-[#0B132B]/95 p-5 shadow-2xl shadow-black/50 backdrop-blur-xl sm:inset-x-auto sm:end-6 sm:top-16 sm:bottom-auto sm:w-96 sm:rounded-3xl sm:border"
           >
-            {q && <input type="hidden" name="q" value={q} />}
+            {Object.entries(hidden).map(([name, value]) => (value ? <input key={name} type="hidden" name={name} value={value} /> : null))}
 
             <div className="flex items-center justify-between">
               <p className="text-base font-semibold text-foreground">{triggerLabel}</p>

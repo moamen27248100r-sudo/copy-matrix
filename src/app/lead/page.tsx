@@ -8,6 +8,7 @@ import { computeReliabilityTimeline, computeActiveTradingDays } from "@/lib/reli
 import { getGaugeTier } from "@/components/CircularGauge";
 import { ExnessReliabilitySection } from "@/components/ExnessReliabilitySection";
 import { MonthlyReturnsCalendar } from "@/components/MonthlyReturnsCalendar";
+import type { DailySeries } from "@/components/TraderEquityChart";
 import { fetchLeadOverview } from "@/lib/lead-dashboard";
 import type { Locale } from "@/i18n/locales";
 
@@ -53,7 +54,7 @@ export default async function LeadOverviewPage() {
   const providerId = await getOwnProviderId(supabase, user.id);
   if (!providerId) redirect("/become-lead-trader");
 
-  const [{ data: provider }, { data: profile }, { data: allSignals }, { data: subs }, periodStats, overview, { data: ltProfile }] = await Promise.all([
+  const [{ data: provider }, { data: profile }, { data: allSignals }, { data: subs }, periodStats, overview, { data: ltProfile }, { data: dailyRaw }] = await Promise.all([
     supabase.from("providers").select("display_name, profit_share_pct, min_copy_amount, trading_status").eq("id", providerId).single(),
     supabase.from("profiles").select("balance, is_suspended").eq("id", user.id).single(),
     supabase
@@ -66,7 +67,9 @@ export default async function LeadOverviewPage() {
     Promise.all([7, 30, 90, 180].map((d) => fetchProviderStats(supabase, [providerId], d))),
     fetchLeadOverview(supabase),
     supabase.from("lead_trader_profiles").select("accepting_followers").eq("provider_id", providerId).maybeSingle(),
+    supabase.rpc("provider_daily_series", { p_provider_id: providerId }),
   ]);
+  const daily = (dailyRaw ?? null) as DailySeries | null;
   const accountStatus = profile?.is_suspended ? "suspended" : provider?.trading_status === "stopped" ? "stopped" : ltProfile?.accepting_followers === false ? "closed" : "active";
 
   const signals = (allSignals ?? []) as SignalRow[];
@@ -212,13 +215,13 @@ export default async function LeadOverviewPage() {
           riskExposureScore={riskExposureScore}
           limitScore={limitScore}
           activeTradingDays={activeDays}
-          signals={signals}
+          daily={daily}
         />
       </div>
 
       <section className="flex flex-col gap-3">
         <h2 className="text-section-title">{tp("monthlyReturnsTitle")}</h2>
-        <MonthlyReturnsCalendar signals={signals} locale={locale} />
+        <MonthlyReturnsCalendar daily={daily} locale={locale} />
       </section>
     </div>
   );

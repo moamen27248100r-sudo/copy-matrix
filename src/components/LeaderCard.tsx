@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { TraderAvatar } from "@/components/TraderAvatar";
 import { TierBadge, RiskBadge, StoppedBadge } from "@/components/TraderBadges";
 import { Sparkline } from "@/components/Sparkline";
+import { periodStats, DEFAULT_PERIOD, type Period } from "@/lib/leader-period";
 
 type ProviderCard = {
   provider_id: string;
@@ -13,10 +14,11 @@ type ProviderCard = {
   tier: string | null;
   risk_level: string | null;
   trading_status: string | null;
-  win_rate_pct: number | null;
-  avg_daily_return_pct: number | null;
   followers_count: number | null;
   min_copy_amount: number | null;
+  aum?: number | null;
+  profit_share_pct?: number | null;
+  [column: string]: unknown;
 };
 
 // One card, used by both the homepage's featured-leaders section and the
@@ -36,6 +38,7 @@ export async function LeaderCard({
   followFormField = "providerId",
   copyState = "copy",
   onStopCopyingAction,
+  period = DEFAULT_PERIOD,
 }: {
   provider: ProviderCard;
   copyHref: string;
@@ -54,10 +57,14 @@ export async function LeaderCard({
    * with an explanatory tooltip). */
   copyState?: "copy" | "stopCopying" | "stoppedDisabled" | "blockedDisabled";
   onStopCopyingAction?: (formData: FormData) => void | Promise<void>;
+  /** Stats period shown on the card (ROI, PnL, win rate, drawdown). */
+  period?: Period;
 }) {
   const t = await getTranslations("Discover");
   const money = await getMoney();
-  const isDown = p.avg_daily_return_pct != null && p.avg_daily_return_pct < 0;
+  const stats = periodStats(p, period);
+  const isDown = stats.roi != null && stats.roi < 0;
+  const periodLabel = t(`periodShort_${period}`);
   const isStopped = p.trading_status === "stopped";
 
   return (
@@ -132,7 +139,7 @@ export async function LeaderCard({
           lighter muted label underneath). */}
       <div className="flex items-center overflow-hidden rounded-xl border border-white/[0.06] bg-background/60">
         <div className="flex-1 border-e border-white/10 px-2 py-2.5 text-center">
-          <p className="text-sm font-semibold text-success">{p.win_rate_pct != null ? `${Number(p.win_rate_pct).toFixed(1)}%` : "—"}</p>
+          <p className="text-sm font-semibold text-success">{stats.winRate != null ? `${stats.winRate.toFixed(1)}%` : "—"}</p>
           <p className="text-[11px] font-normal text-muted">{t("winRate")}</p>
         </div>
         <div className="flex-1 border-e border-white/10 px-2 py-2.5 text-center">
@@ -143,10 +150,10 @@ export async function LeaderCard({
             </>
           ) : (
             <>
-              <p className={isDown ? "text-sm font-semibold text-danger" : "text-sm font-semibold text-success"}>
-                {p.avg_daily_return_pct != null ? `${Number(p.avg_daily_return_pct).toFixed(1)}%` : "—"}
+              <p className={isDown ? "text-sm font-semibold text-danger" : "text-sm font-semibold text-success"} dir="ltr">
+                {stats.roi != null ? `${stats.roi > 0 ? "+" : ""}${stats.roi.toFixed(2)}%` : "—"}
               </p>
-              <p className="text-[11px] font-normal text-muted">{t("avgDailyReturn")}</p>
+              <p className="text-[11px] font-normal text-muted">{t("roiLabel", { period: periodLabel })}</p>
             </>
           )}
         </div>
@@ -156,10 +163,32 @@ export async function LeaderCard({
         </div>
       </div>
 
+      <div className="grid grid-cols-3 gap-1 text-center text-[11px] text-muted">
+        <div>
+          <p dir="ltr" className={stats.pnl != null && stats.pnl < 0 ? "font-medium text-danger" : "font-medium text-foreground"}>
+            {stats.pnl != null ? money(stats.pnl, { signed: true, compact: true }) : "—"}
+          </p>
+          <p>{t("pnlLabel")}</p>
+        </div>
+        <div>
+          <p dir="ltr" className="font-medium text-foreground">{stats.mdd != null ? `${stats.mdd.toFixed(1)}%` : "—"}</p>
+          <p>{t("maxDrawdown")}</p>
+        </div>
+        <div>
+          <p dir="ltr" className="font-medium text-foreground">{p.aum ? money(Number(p.aum), { compact: true }) : "—"}</p>
+          <p>{t("aumLabel")}</p>
+        </div>
+      </div>
+
       <div className="flex items-center justify-between text-xs text-muted">
         <span>
           {t("minCopyAmountLabel")} <span dir="ltr">{money(Number(p.min_copy_amount))}</span>
         </span>
+        {p.profit_share_pct != null && (
+          <span>
+            {t("profitShareLabel")} <span dir="ltr">{Number(p.profit_share_pct)}%</span>
+          </span>
+        )}
         <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 shrink-0 rtl:rotate-180" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M9 18l6-6-6-6" />
         </svg>

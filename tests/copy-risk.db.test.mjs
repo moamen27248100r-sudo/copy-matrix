@@ -84,11 +84,10 @@ before(async () => {
   }
   await as(REAL, () => db.query("select switch_account_type('real')"));
   await db.query("update public.profiles set balance = 5000 where id=$1", [REAL]);
+  // A real (non-simulated) leader of its own: simulated leaders can only be
+  // copied from demo accounts (0235), and both account types are tested here.
   const { rows } = await db.query(
-    `select p.id from public.providers p
-      where p.trading_status <> 'stopped' and p.min_copy_amount <= 200
-        and not exists (select 1 from public.lead_trader_profiles l where l.provider_id = p.id and l.whitelist_enabled)
-      order by p.min_copy_amount limit 1`,
+    "insert into public.providers (display_name, min_copy_amount, trading_status, is_simulated) values ('Copy Risk Test Leader', 100, 'active', false) returning id",
   );
   provider = rows[0].id;
   // No other open trades of this leader, so only the ones created here exist.

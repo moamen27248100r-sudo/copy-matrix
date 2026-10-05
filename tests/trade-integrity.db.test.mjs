@@ -223,7 +223,7 @@ test("margin call closing several trades at once records lot and full data on ea
 test("live engine run writes only consistent trades", async () => {
   await db.query("select public.run_market_simulation()");
   const { rows } = await db.query(
-    `select i.detail, s.id from public.trade_integrity_issues() i
+    `select i.detail, s.id from public.trade_integrity_issues(now() - interval '10 minutes') i
      join public.signals s on s.id = i.row_id
      where not i.flagged and not s.created_by_admin
        and (s.closed_at >= now() or s.opened_at >= now() - interval '1 second')`,

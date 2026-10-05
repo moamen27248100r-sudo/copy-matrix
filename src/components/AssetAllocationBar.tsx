@@ -3,19 +3,19 @@ import { symbolColor, OTHER_COLOR } from "@/lib/symbol-icons";
 
 const OTHER = "__other__";
 
-export async function AssetAllocationBar({ signals }: { signals: { symbol: string }[] }) {
-  if (signals.length === 0) return null;
+// Share of the leader's trades per symbol (provider_stats.asset_mix: trade
+// counts by symbol).
+export async function AssetAllocationBar({ mix }: { mix: Record<string, number> }) {
+  const counts = new Map(Object.entries(mix).map(([s, n]) => [s, Number(n)] as const));
+  const total = Array.from(counts.values()).reduce((a, b) => a + b, 0);
+  if (total === 0) return null;
   const t = await getTranslations("Common");
-
-  const counts = new Map<string, number>();
-  for (const s of signals) counts.set(s.symbol, (counts.get(s.symbol) ?? 0) + 1);
 
   const sorted = Array.from(counts.entries()).sort((a, b) => b[1] - a[1]);
   const top = sorted.slice(0, 4);
   const restCount = sorted.slice(4).reduce((sum, [, c]) => sum + c, 0);
   if (restCount > 0) top.push([OTHER, restCount]);
 
-  const total = signals.length;
   // Keep the bar's actual widths as exact fractions (not pre-rounded) so the
   // segments always sum to precisely 100% and fill the bar with no gaps —
   // only the displayed percentage labels are rounded, for readability.

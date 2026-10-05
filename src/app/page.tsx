@@ -13,7 +13,6 @@ import { FAQAccordion } from "@/components/FAQAccordion";
 import { Footer } from "@/components/Footer";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
 import { getBioTranslator } from "@/lib/bio-translations";
-import { fetchBulkProviderStats } from "@/lib/provider-stats";
 
 export const dynamic = "force-dynamic";
 
@@ -87,9 +86,9 @@ export default async function Home() {
       .in("country", INTERNATIONAL_COUNTRY_CODES)
       .eq("risk_level", "منخفضة")
       .eq("is_archived", false)
-      .gt("avg_daily_return_pct", 0)
-      .gte("win_rate_pct", 65)
-      .order("avg_daily_return_pct", { ascending: false, nullsFirst: false })
+      .gt("roi_90d", 0)
+      .gte("win_rate_all", 55)
+      .order("rating_score", { ascending: false, nullsFirst: false })
       .limit(10);
     if (!error) {
       // Keep the badge (risk_level, from trade data) and the bio consistent.
@@ -101,27 +100,18 @@ export default async function Home() {
 
   const topProviders = rawTopProviders ? rawTopProviders.slice(0, 3) : rawTopProviders;
 
-  // Cumulative return (%) over each featured leader's last closed trades, for
-  // the sparkline on the card -- same per-trade move TraderEquityChart uses.
+  // Return (%) over each featured leader's last 30 days, for the sparkline on
+  // the card -- the same daily equity series as the profile chart.
   const sparkSeries: Record<string, number[]> = {};
-  const bulkStats = await fetchBulkProviderStats(supabase);
   await Promise.all(
     (topProviders ?? []).map(async (p) => {
-      const { data: rows } = await supabase
-        .from("signals")
-        .select("side, entry_price, exit_price, closed_at")
-        .eq("provider_id", p.provider_id)
-        .eq("status", "closed")
-        .eq("created_by_admin", false)
-        .not("exit_price", "is", null)
-        .order("closed_at", { ascending: false })
-        .limit(40);
-      let cumulative = 0;
+      const { data } = await supabase.rpc("provider_daily_series", { p_provider_id: p.provider_id });
+      const ret = ((data as { ret?: number[] } | null)?.ret ?? []).slice(-30);
+      let index = 1;
       const series = [0];
-      for (const r of (rows ?? []).reverse()) {
-        const raw = (Number(r.exit_price) - Number(r.entry_price)) / Number(r.entry_price);
-        cumulative += (r.side === "sell" ? -raw : raw) * 100;
-        series.push(cumulative);
+      for (const r of ret) {
+        index *= 1 + Number(r);
+        series.push((index - 1) * 100);
       }
       sparkSeries[String(p.provider_id)] = series;
     }),
@@ -130,13 +120,13 @@ export default async function Home() {
   // Real leaders for the "try copy trading" mockup card -- same ranking as
   // the top-traders section, just five bars instead of three cards.
   const tryCopyLeaders = (rawTopProviders ? rawTopProviders.slice(0, 5) : [])
-    .filter((p) => p.avg_daily_return_pct != null && Number(p.avg_daily_return_pct) > 0)
+    .filter((p) => p.roi_30d != null && Number(p.roi_30d) > 0)
     .map((p) => ({
       id: String(p.provider_id),
       name: String(p.display_name ?? "").trim().split(" ")[0] || "?",
       avatarUrl: (p.avatar_url as string | null) ?? null,
       ratingScore: (p.rating_score as number | null) ?? null,
-      returnPct: Number(p.avg_daily_return_pct),
+      returnPct: Number(p.roi_30d),
     }));
 
   const navLinks = NAV_HASHES.map((h) => ({ href: `#${h}`, label: t(`nav.${h === "how-it-works" ? "howItWorks" : h}`) }));
@@ -226,6 +216,15 @@ export default async function Home() {
         />
       )}
 
+      {topProviders && topProviders.length === 0 && (
+        <section id="traders" className="flex flex-col gap-6 border-t border-border px-6 py-16">
+          <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-2 text-center">
+            <h2 className="font-display text-2xl font-extrabold sm:text-3xl">{t("traders.title")}</h2>
+            <p className="max-w-xl text-sm text-muted">{t("traders.empty")}</p>
+          </div>
+        </section>
+      )}
+
       {topProviders && topProviders.length > 0 && (
         <section id="traders" className="flex flex-col gap-6 border-t border-border px-6 py-16">
           <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-2 text-center">
@@ -244,7 +243,7 @@ export default async function Home() {
                   copyHref={copyHref}
                   bio={p.bio ? translateBio(p.bio) : null}
                   sparkline={sparkSeries[String(p.provider_id)]}
-                  maxDrawdownPct={bulkStats.get(String(p.provider_id))?.maxDrawdown ?? null}
+                  maxDrawdownPct={p.mdd_30d != null ? Number(p.mdd_30d) : null}
                 />
               );
             })}

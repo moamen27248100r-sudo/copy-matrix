@@ -4,40 +4,38 @@ import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
-import { fetchProviderStats } from "@/lib/provider-stats";
+import { parsePeriod, periodStats } from "@/lib/leader-period";
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
   return { title: t("discoverCompareTitle"), description: t("discoverCompareDesc") };
 }
 
-export default async function ComparePage({ searchParams }: { searchParams: Promise<{ ids?: string }> }) {
-  const { ids } = await searchParams;
+export default async function ComparePage({ searchParams }: { searchParams: Promise<{ ids?: string; period?: string }> }) {
+  const { ids, period: periodParam } = await searchParams;
+  const period = parsePeriod(periodParam);
   const idList = (ids ?? "").split(",").filter(Boolean).slice(0, 4);
   if (idList.length < 2) redirect("/discover");
 
   const t = await getTranslations("Discover");
   const money = await getMoney();
   const supabase = await createClient();
-  const { data: providers } = await supabase
-    .from("provider_cards")
-    .select("provider_id, display_name, win_rate_pct, avg_daily_return_pct, followers_count, min_copy_amount, risk_level")
-    .in("provider_id", idList);
+  const { data: providers } = await supabase.from("provider_cards").select("*").in("provider_id", idList);
   const list = idList.map((id) => providers?.find((p) => p.provider_id === id)).filter((p) => !!p);
-  const stats = await fetchProviderStats(
-    supabase,
-    list.map((p) => p.provider_id),
-  );
 
-  const pct = (v: number | null | undefined) => (v == null ? "—" : `${v}%`);
+  const pct = (v: number | null | undefined, signed = false) => (v == null ? "—" : `${signed && v > 0 ? "+" : ""}${v.toFixed(2)}%`);
+  const periodLabel = t(`periodShort_${period}`);
   const rows: { label: string; value: (p: (typeof list)[number]) => string }[] = [
-    { label: t("avgDailyReturn"), value: (p) => pct(p.avg_daily_return_pct) },
-    { label: t("winRate"), value: (p) => pct(p.win_rate_pct) },
-    { label: t("compareTotalReturn"), value: (p) => pct(stats.get(p.provider_id)?.totalReturn) },
-    { label: t("compareMaxDrawdown"), value: (p) => pct(stats.get(p.provider_id)?.maxDrawdown) },
-    { label: t("compareSharpe"), value: (p) => String(stats.get(p.provider_id)?.sharpe ?? "—") },
-    { label: t("compareTrades"), value: (p) => String(stats.get(p.provider_id)?.trades ?? 0) },
+    { label: t("roiLabel", { period: periodLabel }), value: (p) => pct(periodStats(p, period).roi, true) },
+    { label: `${t("pnlLabel")} (${periodLabel})`, value: (p) => { const v = periodStats(p, period).pnl; return v == null ? "—" : money(v, { signed: true }); } },
+    { label: t("winRate"), value: (p) => pct(periodStats(p, period).winRate) },
+    { label: t("compareMaxDrawdown"), value: (p) => pct(periodStats(p, period).mdd) },
+    { label: t("compareSharpe"), value: (p) => String(periodStats(p, period).sharpe ?? "—") },
+    { label: t("compareTrades"), value: (p) => String(periodStats(p, period).trades ?? 0) },
+    { label: t("compareTotalReturn"), value: (p) => pct(p.roi_all != null ? Number(p.roi_all) : null, true) },
     { label: t("copiersLabel"), value: (p) => String(p.followers_count) },
+    { label: t("aumLabel"), value: (p) => (p.aum ? money(Number(p.aum), { compact: true }) : "—") },
+    { label: t("profitShareLabel"), value: (p) => (p.profit_share_pct != null ? `${Number(p.profit_share_pct)}%` : "—") },
     { label: t("minCopyAmountLabel"), value: (p) => money(Number(p.min_copy_amount)) },
   ];
 

@@ -145,6 +145,9 @@ export async function followProvider(formData: FormData) {
     if (error.code === "CM003") {
       redirect(`/trader/${providerId}?error=${encodeURIComponent(td("traderStopped"))}`);
     }
+    if (error.code === "CM050") {
+      redirect(`/discover?error=${encodeURIComponent(td("leaderUnavailable"))}`);
+    }
     if (error.code === "CM004") {
       redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copyAmountUpdateBlocked"))}`);
     }

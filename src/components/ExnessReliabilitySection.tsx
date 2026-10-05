@@ -3,18 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { getGaugeTier, type GaugeTier } from "@/components/CircularGauge";
-import { TraderEquityChart } from "@/components/TraderEquityChart";
-
-type SignalRow = {
-  id: string;
-  symbol: string;
-  side: string;
-  entry_price: number;
-  exit_price: number | null;
-  status: string;
-  opened_at: string;
-  closed_at: string | null;
-};
+import { TraderEquityChart, type DailySeries } from "@/components/TraderEquityChart";
 
 type ColorTier = "bad" | "medium" | "good" | "neutral";
 
@@ -256,7 +245,7 @@ export function ExnessReliabilitySection({
   riskExposureScore,
   limitScore,
   activeTradingDays,
-  signals,
+  daily,
 }: {
   reliabilityScore: number;
   reliabilityStatus: string;
@@ -264,7 +253,7 @@ export function ExnessReliabilitySection({
   riskExposureScore: number;
   limitScore: number;
   activeTradingDays: number;
-  signals: SignalRow[];
+  daily: DailySeries | null;
 }) {
   const t = useTranslations("TraderProfile");
   const mainTier = colorTierFor(reliabilityScore, false);
@@ -385,7 +374,7 @@ export function ExnessReliabilitySection({
 
       <div className="flex flex-col gap-2.5 border-t border-slate-700/70 pt-4">
         <h3 className="font-display text-sm font-extrabold">{t("equityChartTitle")}</h3>
-        <TraderEquityChart signals={signals} />
+        <TraderEquityChart daily={daily} />
       </div>
     </div>
   );

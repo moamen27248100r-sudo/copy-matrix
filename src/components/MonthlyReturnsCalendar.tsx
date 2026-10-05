@@ -1,17 +1,10 @@
-type SignalRow = {
-  side: string;
-  entry_price: number;
-  exit_price: number | null;
-  status: string;
-  closed_at: string | null;
-};
+import type { DailySeries } from "@/components/TraderEquityChart";
 
-// A colored heatmap of the trader's last 12 months of realized return --
-// each cell is the sum of that month's closed trades' % return (same
-// per-trade convention TraderEquityChart/periodStats use), shaded green
-// or red by magnitude so a follower can spot a leader's good/bad months
-// at a glance instead of reading the raw performance grid.
-export function MonthlyReturnsCalendar({ signals, locale }: { signals: SignalRow[]; locale: string }) {
+// A colored heatmap of the trader's last 12 months of return -- each cell is
+// that month's time-weighted return on equity (the daily returns compounded),
+// shaded green or red by magnitude so a follower can spot a leader's good and
+// bad months at a glance.
+export function MonthlyReturnsCalendar({ daily, locale }: { daily: DailySeries | null; locale: string }) {
   const now = new Date();
   const months: { key: string; label: string; year: number; month: number }[] = [];
   for (let i = 11; i >= 0; i--) {
@@ -24,15 +17,13 @@ export function MonthlyReturnsCalendar({ signals, locale }: { signals: SignalRow
     });
   }
 
-  const returnByMonth = new Map<string, number>();
-  for (const s of signals) {
-    if (s.status !== "closed" || s.exit_price == null || !s.closed_at) continue;
-    const d = new Date(s.closed_at);
+  const indexByMonth = new Map<string, number>();
+  (daily?.days ?? []).forEach((day, i) => {
+    const d = new Date(day + "T00:00:00Z");
     const key = `${d.getUTCFullYear()}-${d.getUTCMonth()}`;
-    const raw = (s.exit_price - s.entry_price) / s.entry_price;
-    const pct = (s.side === "sell" ? -raw : raw) * 100;
-    returnByMonth.set(key, (returnByMonth.get(key) ?? 0) + pct);
-  }
+    indexByMonth.set(key, (indexByMonth.get(key) ?? 1) * (1 + Number(daily!.ret[i] ?? 0)));
+  });
+  const returnByMonth = new Map(Array.from(indexByMonth.entries()).map(([k, v]) => [k, (v - 1) * 100]));
 
   const maxAbs = Math.max(1, ...Array.from(returnByMonth.values()).map((v) => Math.abs(v)));
 

@@ -9,14 +9,13 @@ import { AppNav } from "@/components/AppNav";
 import { TraderTradeHistory, type HistoryTrade } from "@/components/TraderTradeHistory";
 import { getGaugeTier } from "@/components/CircularGauge";
 import { ExnessReliabilitySection } from "@/components/ExnessReliabilitySection";
-import { computeReliabilityTimeline, computeActiveTradingDays } from "@/lib/reliability";
+import type { DailySeries } from "@/components/TraderEquityChart";
 import { AssetAllocationBar } from "@/components/AssetAllocationBar";
 import { MonthlyReturnsCalendar } from "@/components/MonthlyReturnsCalendar";
 import { OpenOrdersTable } from "@/components/OpenOrdersTable";
 import { TraderAvatar } from "@/components/TraderAvatar";
 import { countryDisplay } from "@/lib/country-metadata";
 import { formatDate } from "@/lib/locale-format";
-import { computeStats } from "@/lib/provider-stats";
 import { resolveLevels, tradeProfitUsd, tradeReturnPct } from "@/lib/pip-specs";
 import { CopyBar } from "@/components/CopyBar";
 import { CopyDialog } from "@/components/CopyDialog";
@@ -36,62 +35,16 @@ type SignalRow = {
   closed_at: string | null;
   close_trigger: string | null;
   lot_size: number | null;
+  commission: number | null;
+  swap: number | null;
+  pnl_usd: number | null;
 };
 
-function periodStats(signals: SignalRow[], days: number) {
-  const cutoffMs = Date.now() - days * 24 * 60 * 60 * 1000;
-  const closed = signals.filter(
-    (s) => s.status === "closed" && s.closed_at && new Date(s.closed_at).getTime() >= cutoffMs,
-  );
+type DailyRows = DailySeries & { trades: number[]; wins: number[] };
 
-  if (closed.length === 0) return { count: 0, winRate: null as number | null, totalReturn: null as number | null };
-
-  let wins = 0;
-  let totalReturn = 0;
-  for (const s of closed) {
-    const raw = (s.exit_price! - s.entry_price) / s.entry_price;
-    const signed = s.side === "sell" ? -raw : raw;
-    if (signed > 0) wins++;
-    totalReturn += signed * 100;
-  }
-
-  return {
-    count: closed.length,
-    winRate: Math.round((wins / closed.length) * 100),
-    // Real realized performance for the period (sum of each trade's %
-    // return, same convention TraderEquityChart already uses for its
-    // cumulative line) — not an average per trade.
-    totalReturn: Math.round(totalReturn * 100) / 100,
-  };
-}
-
-function computeMaxDrawdown(signals: SignalRow[]) {
-  const closed = signals
-    .filter((s) => s.status === "closed" && s.exit_price != null && s.closed_at)
-    .sort((a, b) => new Date(a.closed_at!).getTime() - new Date(b.closed_at!).getTime());
-
-  if (closed.length === 0) return null;
-
-  // Compounds each trade's % return against a running equity multiplier
-  // instead of naively summing percentages -- the additive version could
-  // (and, checked live, regularly did) report an impossible >100% or
-  // even >1000% drawdown once per-trade swings got large enough (a
-  // string of double-digit losses adds up past -100% on paper even
-  // though real equity can only ever asymptotically approach zero,
-  // never cross it). This can never mathematically exceed 100%.
-  let equity = 1;
-  let peak = 1;
-  let maxDrawdown = 0;
-  for (const s of closed) {
-    const raw = (s.exit_price! - s.entry_price) / s.entry_price;
-    const signed = s.side === "sell" ? -raw : raw;
-    equity *= 1 + signed;
-    if (equity > peak) peak = equity;
-    const drawdown = peak > 0 ? ((peak - equity) / peak) * 100 : 0;
-    if (drawdown > maxDrawdown) maxDrawdown = drawdown;
-  }
-  return Math.round(maxDrawdown * 100) / 100;
-}
+// The profile's trade list shows the latest closed trades; every stat on the
+// page comes from provider_stats / provider_daily, which cover all of them.
+const HISTORY_LIMIT = 300;
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
@@ -121,18 +74,29 @@ export default async function TraderPage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  const [{ data: initialProvider }, { data: signals }, { data: mySub }, { data: myProfile }, { data: myFollow }] = await Promise.all([
+  const SIGNAL_COLUMNS =
+    "id, symbol, side, entry_price, exit_price, stop_loss, take_profit, status, opened_at, closed_at, close_trigger, lot_size, commission, swap, pnl_usd";
+  // created_by_admin signals are per-customer corrections -- they belong to
+  // that one customer's own view, not the leader's public track record.
+  const [
+    { data: initialProvider },
+    { data: openSignals },
+    { data: closedSignals },
+    { data: mySub },
+    { data: myProfile },
+    { data: myFollow },
+    { data: dailyRaw },
+  ] = await Promise.all([
     supabase.from("provider_cards").select("*").eq("provider_id", id).single(),
+    supabase.from("signals").select(SIGNAL_COLUMNS).eq("provider_id", id).eq("created_by_admin", false).eq("status", "open").order("opened_at", { ascending: false }),
     supabase
       .from("signals")
-      .select("id, symbol, side, entry_price, exit_price, stop_loss, take_profit, status, opened_at, closed_at, close_trigger, lot_size")
+      .select(SIGNAL_COLUMNS)
       .eq("provider_id", id)
-      // created_by_admin signals are per-customer trades (manual corrections,
-      // margin calls, and the density-mechanic phantom positions below) --
-      // they belong to that one customer's own view, not the leader's public
-      // track record.
       .eq("created_by_admin", false)
-      .order("opened_at", { ascending: false }),
+      .eq("status", "closed")
+      .order("closed_at", { ascending: false })
+      .limit(HISTORY_LIMIT),
     user
       ? supabase
           .from("subscriptions")
@@ -148,6 +112,7 @@ export default async function TraderPage({
     user
       ? supabase.from("follows").select("provider_id").eq("follower_id", user.id).eq("provider_id", id).maybeSingle()
       : Promise.resolve({ data: null }),
+    supabase.rpc("provider_daily_series", { p_provider_id: id }),
   ]);
 
   let provider = initialProvider;
@@ -166,7 +131,9 @@ export default async function TraderPage({
     notFound();
   }
 
-  const allSignals = (signals ?? []) as SignalRow[];
+  const openOrders = (openSignals ?? []) as SignalRow[];
+  const closedSignalsList = (closedSignals ?? []) as SignalRow[];
+  const daily = (dailyRaw ?? null) as DailyRows | null;
   const isFollowing = !!mySub;
   // Any open copied trade locks the amount / mode / per-trade cap (enforced in the database).
   const { count: openCopiedCount } =
@@ -174,25 +141,17 @@ export default async function TraderPage({
       ? await supabase.from("simulated_positions").select("id", { count: "exact", head: true }).eq("subscription_id", mySub.id).eq("status", "open")
       : { count: 0 };
   const isWatching = !!myFollow;
-  const maxDrawdown = computeMaxDrawdown(allSignals);
-  // AUM = allocated amount of active copies on REAL accounts only, computed
-  // in the database (provider_aum, 0195); 0 is shown as "—".
-  const { data: aumRaw } = await supabase.rpc("provider_aum", { p_provider_id: id });
-  const aum = Number(aumRaw ?? 0);
+  const maxDrawdown = provider.mdd_all != null ? Number(provider.mdd_all) : null;
+  const aum = Number(provider.aum ?? 0);
   // Leader-written strategy / risk text (lead_trader_profiles, 0213); only
   // self-service lead traders have a row, so this is null for everyone else.
   const { data: ltPublic } = await supabase.from("lead_trader_profiles").select("strategy_description, risk_disclosure").eq("provider_id", id).maybeSingle();
   const profitShare = provider.profit_share_pct != null ? Number(provider.profit_share_pct) : null;
-  const extraStats = computeStats(
-    allSignals.flatMap((s) =>
-      s.status === "closed" && s.exit_price != null && s.closed_at
-        ? [{ provider_id: id, side: s.side, entry_price: s.entry_price, exit_price: s.exit_price, opened_at: s.opened_at, closed_at: s.closed_at }]
-        : [],
-    ),
-  );
+  const sharpe = provider.sharpe_all != null ? Number(provider.sharpe_all) : null;
+  const avgHoldHours = provider.avg_hold_hours != null ? Number(provider.avg_hold_hours) : null;
 
-  const closedHistory: HistoryTrade[] = allSignals
-    .filter((s) => s.status === "closed" && s.exit_price != null)
+  const closedHistory: HistoryTrade[] = closedSignalsList
+    .filter((s) => s.exit_price != null)
     .map((s) => {
       const entry = Number(s.entry_price);
       const exit = Number(s.exit_price);
@@ -210,20 +169,18 @@ export default async function TraderPage({
         lot,
         entry,
         exit,
-        pnl: tradeProfitUsd(s.symbol, s.side, entry, exit, lot),
+        pnl: s.pnl_usd != null ? Number(s.pnl_usd) : tradeProfitUsd(s.symbol, s.side, entry, exit, lot),
         pct: tradeReturnPct(s.side, entry, exit),
         openedAt: s.opened_at,
         closedAt: s.closed_at,
         stopLoss,
         takeProfit,
-        // No per-trade swap / commission is recorded; shown as "-".
-        swap: null,
-        commission: null,
+        swap: s.swap != null ? Number(s.swap) : null,
+        commission: s.commission != null ? Number(s.commission) : null,
         copyHref: "#copy",
       };
     });
 
-  const openOrders = allSignals.filter((s) => s.status === "open");
   const openSymbols = Array.from(new Set(openOrders.map((s) => s.symbol)));
   const { data: livePrices } =
     openSymbols.length > 0
@@ -233,17 +190,14 @@ export default async function TraderPage({
     (livePrices ?? []).map((p) => [p.symbol, Number(p.price)]),
   );
 
-  const reliabilityTimeline = computeReliabilityTimeline(allSignals);
-  const latestReliabilityPoint = reliabilityTimeline[reliabilityTimeline.length - 1];
-  const reliabilityScore = latestReliabilityPoint?.reliability ?? Number(provider.rating_score ?? 50);
-  const safetyScore =
-    latestReliabilityPoint?.safety ??
-    Math.max(0, Math.min(100, Math.round(100 - Number(provider.return_volatility ?? 2) * 15)));
-  const riskExposureScore =
-    latestReliabilityPoint?.risk ??
-    (maxDrawdown != null ? Math.max(0, Math.min(100, Math.round(maxDrawdown * 8))) : 20);
-  const limitScore = latestReliabilityPoint?.limitScore ?? 0;
-  const activeTradingDays = computeActiveTradingDays(allSignals);
+  // Gauges from the stats: rating, daily volatility, drawdown, the share of
+  // trades closed at their S/L or T/P, and the days with a trade.
+  const reliabilityScore = Number(provider.rating_score ?? 50);
+  const annualVol = Number(provider.return_volatility ?? 0) * Math.sqrt(365);
+  const safetyScore = Math.max(0, Math.min(100, Math.round(100 - annualVol * 1.5)));
+  const riskExposureScore = maxDrawdown != null ? Math.max(0, Math.min(100, Math.round(maxDrawdown * 1.6))) : 20;
+  const limitScore = Math.round(Number(provider.limit_pct ?? 0));
+  const activeTradingDays = Number(provider.active_days ?? 0);
 
   const STATUS_KEYS = {
     reliability: { low: "reliabilityStatusLow", medium: "reliabilityStatusMedium", high: "reliabilityStatusHigh" },
@@ -252,12 +206,22 @@ export default async function TraderPage({
 
   const isStopped = provider.trading_status === "stopped";
 
+  const todayIso = new Date().toISOString().slice(0, 10);
+  const today = daily && daily.days.length && daily.days[daily.days.length - 1] === todayIso ? daily.days.length - 1 : -1;
+  const todayTrades = today >= 0 ? Number(daily!.trades[today]) : 0;
   const periods = [
-    { labelKey: "periodToday", days: 1 },
-    { labelKey: "periodWeek", days: 7 },
-    { labelKey: "periodMonth", days: 30 },
-    { labelKey: "periodThreeMonths", days: 90 },
-    { labelKey: "periodSixMonths", days: 180 },
+    {
+      labelKey: "periodToday",
+      roi: today >= 0 ? Number(daily!.ret[today]) * 100 : null,
+      trades: todayTrades,
+      winRate: todayTrades > 0 ? Math.round((Number(daily!.wins[today]) / todayTrades) * 100) : null,
+    },
+    ...(["7d", "30d", "90d", "180d"] as const).map((s, i) => ({
+      labelKey: ["periodWeek", "periodMonth", "periodThreeMonths", "periodSixMonths"][i],
+      roi: provider[`roi_${s}`] != null ? Number(provider[`roi_${s}`]) : null,
+      trades: Number(provider[`trades_${s}`] ?? 0),
+      winRate: provider[`win_rate_${s}`] != null ? Math.round(Number(provider[`win_rate_${s}`])) : null,
+    })),
   ];
 
   return (
@@ -458,13 +422,13 @@ export default async function TraderPage({
           )}
           <div>
             <p className="font-semibold tabular-nums" dir="ltr">
-              {extraStats.sharpe ?? "—"}
+              {sharpe ?? "—"}
             </p>
             <p className="text-xs text-muted">{t("statSharpe")}</p>
           </div>
           <div>
             <p className="font-semibold tabular-nums" dir="ltr">
-              {extraStats.avgDurationHours != null ? t("hoursShort", { hours: extraStats.avgDurationHours }) : "—"}
+              {avgHoldHours != null ? t("hoursShort", { hours: Math.round(avgHoldHours * 10) / 10 }) : "—"}
             </p>
             <p className="text-xs text-muted">{t("statAvgDuration")}</p>
           </div>
@@ -478,7 +442,7 @@ export default async function TraderPage({
             riskExposureScore={riskExposureScore}
             limitScore={limitScore}
             activeTradingDays={activeTradingDays}
-            signals={allSignals}
+            daily={daily}
           />
         </div>
       </div>
@@ -511,34 +475,23 @@ export default async function TraderPage({
           <div className="flex flex-col gap-3">
             <h2 className="font-medium">{t("periodsPerformanceTitle")}</h2>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
-              {periods.map((p) => {
-                const stats = periodStats(allSignals, p.days);
-                return (
-                  <div key={p.labelKey} className="rounded-lg border border-border bg-surface p-3 text-center">
-                    <p className="text-xs text-muted">{tp(p.labelKey)}</p>
-                    <p
-                      className={
-                        stats.totalReturn != null && stats.totalReturn < 0
-                          ? "text-lg font-semibold text-danger"
-                          : "text-lg font-semibold text-success"
-                      }
-                    >
-                      {stats.totalReturn != null
-                        ? `${stats.totalReturn > 0 ? "+" : ""}${stats.totalReturn}%`
-                        : "—"}
-                    </p>
-                    <p className="text-xs text-muted">
-                      {stats.winRate != null ? t("winRateInline", { pct: stats.winRate }) : t("noTradesLabel")}
-                    </p>
-                  </div>
-                );
-              })}
+              {periods.map((p) => (
+                <div key={p.labelKey} className="rounded-lg border border-border bg-surface p-3 text-center">
+                  <p className="text-xs text-muted">{tp(p.labelKey)}</p>
+                  <p className={p.roi != null && p.roi < 0 ? "text-lg font-semibold text-danger" : "text-lg font-semibold text-success"} dir="ltr">
+                    {p.roi != null && p.trades > 0 ? `${p.roi > 0 ? "+" : ""}${p.roi.toFixed(2)}%` : "—"}
+                  </p>
+                  <p className="text-xs text-muted">
+                    {p.winRate != null && p.trades > 0 ? t("winRateInline", { pct: p.winRate }) : t("noTradesLabel")}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
           <div className="flex flex-col gap-3">
             <h2 className="font-medium">{t("monthlyReturnsTitle")}</h2>
-            <MonthlyReturnsCalendar signals={allSignals} locale={locale} />
+            <MonthlyReturnsCalendar daily={daily} locale={locale} />
           </div>
         </section>
       )}
@@ -566,10 +519,10 @@ export default async function TraderPage({
 
       {activeTab === "allocation" && (
         <section className="flex flex-col gap-3">
-          {allSignals.length === 0 ? (
+          {!provider.asset_mix || Object.keys(provider.asset_mix).length === 0 ? (
             <p className="text-sm text-muted">{t("noClosedTrades")}</p>
           ) : (
-            <AssetAllocationBar signals={allSignals} />
+            <AssetAllocationBar mix={provider.asset_mix as Record<string, number>} />
           )}
         </section>
       )}

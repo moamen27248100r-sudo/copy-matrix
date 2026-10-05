@@ -5,16 +5,9 @@ import { useTranslations, useLocale } from "next-intl";
 import { localeTag } from "@/lib/locale-format";
 import type { Locale } from "@/i18n/locales";
 
-type SignalRow = {
-  id: string;
-  symbol: string;
-  side: string;
-  entry_price: number;
-  exit_price: number | null;
-  status: string;
-  opened_at: string;
-  closed_at: string | null;
-};
+// The leader's daily equity series (provider_daily_series): UTC days and each
+// day's return on equity.
+export type DailySeries = { days: string[]; ret: number[] };
 
 const PERIODS: { labelKey: string; days: number | null }[] = [
   { labelKey: "periodWeek", days: 7 },
@@ -54,7 +47,7 @@ function resample(points: ChartPoint[], startT: number, endT: number): number[] 
   return out;
 }
 
-export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
+export function TraderEquityChart({ daily }: { daily: DailySeries | null }) {
   const t = useTranslations("TraderEquityChart");
   const tp = useTranslations("TradeHistory");
   const locale = useLocale() as Locale;
@@ -85,32 +78,25 @@ export function TraderEquityChart({ signals }: { signals: SignalRow[] }) {
     const now = new Date();
     const todayUtcStart = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
     const cutoff = period.days != null ? todayUtcStart - period.days * DAY : 0;
-    const closed = signals
-      .filter(
-        (s) =>
-          s.status === "closed" &&
-          s.closed_at &&
-          s.exit_price != null &&
-          new Date(s.closed_at).getTime() >= cutoff,
-      )
-      .sort((a, b) => new Date(a.closed_at!).getTime() - new Date(b.closed_at!).getTime());
-
+    const days = daily?.days ?? [];
     const end = todayUtcStart + DAY;
-    const firstTrade = closed.length > 0 ? new Date(closed[0].closed_at!).getTime() : end - 30 * DAY;
-    const start = period.days != null ? cutoff : Math.min(firstTrade - DAY, end - DAY);
+    const firstDay = days.length > 0 ? Date.parse(days[0] + "T00:00:00Z") : end - 30 * DAY;
+    const start = period.days != null ? cutoff : Math.min(firstDay, end - DAY);
 
-    let cumulative = 0;
+    // Time-weighted return: each day's return compounds on the last, so
+    // deposits and withdrawals never show up as gains or losses.
+    let index = 1;
     const pts: ChartPoint[] = [{ value: 0, time: start }];
-    for (const s of closed) {
-      const raw = (s.exit_price! - s.entry_price) / s.entry_price;
-      const signed = s.side === "sell" ? -raw : raw;
-      cumulative += signed * 100;
-      pts.push({ value: cumulative, time: new Date(s.closed_at!).getTime() });
-    }
+    days.forEach((day, i) => {
+      const dayStart = Date.parse(day + "T00:00:00Z");
+      if (dayStart < start) return;
+      index *= 1 + Number(daily!.ret[i] ?? 0);
+      pts.push({ value: (index - 1) * 100, time: Math.min(dayStart + DAY, end) });
+    });
     // A period with no closed trades still gets a flat line across the window.
     if (pts.length < 2) pts.push({ value: 0, time: end });
     return { points: pts, startT: start, endT: end };
-  }, [signals, periodIdx]);
+  }, [daily, periodIdx]);
 
   const target = useMemo(() => resample(points, startT, endT), [points, startT, endT]);
 

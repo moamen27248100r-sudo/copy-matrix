@@ -23,8 +23,8 @@ export async function SuggestedTraders({ excludeProviderIds }: { excludeProvider
     .select("*")
     .eq("is_archived", false)
     .neq("trading_status", "stopped")
-    .gt("avg_daily_return_pct", 0)
-    .gte("win_rate_pct", 60);
+    .gt("roi_90d", 0)
+    .gte("win_rate_all", 50);
   if (riskLevel) query = query.eq("risk_level", riskLevel);
   const { data: rawProviders } = await query
     .order("rating_score", { ascending: false, nullsFirst: false })
@@ -36,21 +36,14 @@ export async function SuggestedTraders({ excludeProviderIds }: { excludeProvider
   const sparkSeries: Record<string, number[]> = {};
   await Promise.all(
     providers.map(async (p) => {
-      const { data: rows } = await supabase
-        .from("signals")
-        .select("side, entry_price, exit_price, closed_at")
-        .eq("provider_id", p.provider_id)
-        .eq("status", "closed")
-        .eq("created_by_admin", false)
-        .not("exit_price", "is", null)
-        .order("closed_at", { ascending: false })
-        .limit(40);
-      let cumulative = 0;
+      // Last 30 days of the leader's daily equity series.
+      const { data } = await supabase.rpc("provider_daily_series", { p_provider_id: p.provider_id });
+      const ret = ((data as { ret?: number[] } | null)?.ret ?? []).slice(-30);
+      let index = 1;
       const series = [0];
-      for (const r of (rows ?? []).reverse()) {
-        const raw = (Number(r.exit_price) - Number(r.entry_price)) / Number(r.entry_price);
-        cumulative += (r.side === "sell" ? -raw : raw) * 100;
-        series.push(cumulative);
+      for (const r of ret) {
+        index *= 1 + Number(r);
+        series.push((index - 1) * 100);
       }
       sparkSeries[p.provider_id] = series;
     }),
