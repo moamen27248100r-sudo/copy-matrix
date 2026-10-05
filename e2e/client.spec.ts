@@ -3,6 +3,7 @@
 // Runs against the live database with temporary users that are always removed
 // afterwards. Run: npm run test:e2e:client
 import { test, expect, type Browser, type BrowserContext, type Page } from "@playwright/test";
+import pg from "pg";
 import {
   CLIENT_EMAIL,
   LEADER_EMAIL,
@@ -315,7 +316,8 @@ test.describe.serial("Client dashboard — full journey", () => {
     // the same TxID can never be submitted twice
     await client.getByPlaceholder("Paste the TxID").fill("0x" + fakeHash("a").toUpperCase());
     await client.getByRole("button", { name: "Verify deposit" }).click();
-    await expect(client.getByRole("alert")).toContainText("already been submitted");
+    // Next.js adds its own (empty) route-announcer alert; match ours by its text.
+    await expect(client.getByRole("alert").filter({ hasText: "already been submitted" })).toBeVisible();
   });
 
   early("2g. a confirmed TxID credits the on-chain amount once, only to the real wallet, and notifies", async () => {
@@ -388,6 +390,9 @@ test.describe.serial("Client dashboard — full journey", () => {
   });
 
   async function requestWithdrawal(amount: string) {
+    // Each withdrawal spends a two-factor code; the scenario uses more codes
+    // for this one user than the 5-per-window limit allows.
+    await clearLocalRateLimits([fx.clientId]);
     await client.goto(`${BASE}/portfolio/withdraw`);
     await client.getByPlaceholder("Enter a TRC20 (Tron) address").fill(DEST_TRON);
     await client.locator("input[name=amount]").fill(amount);
@@ -1012,6 +1017,12 @@ test.describe.serial("Client dashboard — full journey", () => {
     await leaderOpen("XRPUSDT", "buy");
     await expect.poll(async () => (await positions()).length).toBe(6);
     await sql(`update public.market_prices set updated_at = now() - interval '10 minutes' where symbol = 'XRPUSDT'`);
+    // Hold the row so the 10-second price feed can't refresh it mid-click; the
+    // app still reads the (stale) committed value.
+    const holder = new pg.Client({ connectionString: process.env.SUPABASE_DB_URL, ssl: { rejectUnauthorized: false } });
+    await holder.connect();
+    await holder.query("begin");
+    await holder.query("select 1 from public.market_prices where symbol = 'XRPUSDT' for update");
     try {
       await client.goto(`${BASE}/dashboard`);
       client.once("dialog", (d) => d.accept());
@@ -1020,6 +1031,8 @@ test.describe.serial("Client dashboard — full journey", () => {
       expect(await bodyText(client)).toContain("Prices are being refreshed. Please try again in a moment.");
       expect((await positions())[5].status).toBe("open");
     } finally {
+      await holder.query("rollback");
+      await holder.end();
       await sql(`update public.market_prices set updated_at = now() where symbol = 'XRPUSDT'`);
     }
   });

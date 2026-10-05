@@ -112,8 +112,13 @@ export async function clearLocalRateLimits(userIds: string[] = []) {
   await sql(
     `delete from public.rate_limits
      where key in ('login:unknown', 'login:::1', 'login:127.0.0.1', 'signup:unknown')
-        or key = any($1)`,
-    [userIds.flatMap((id) => [`mfa-verify:${id}`, `mfa-verify-user:${id}`])],
+        or key = any($1)
+        -- the per-address buckets end with the address, e.g. "mfa-verify:<id>:::1"
+        or key like any($2)`,
+    [
+      userIds.flatMap((id) => [`mfa-verify:${id}`, `mfa-verify-user:${id}`]),
+      userIds.map((id) => `mfa-verify:${id}:%`),
+    ],
   );
 }
 
