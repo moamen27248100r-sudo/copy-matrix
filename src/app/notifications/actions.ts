@@ -40,8 +40,9 @@ export async function markOneRead(formData: FormData) {
 
 const PREFERENCE_CATEGORIES = ["trades", "copy", "account"] as const;
 
-// Per-category in-app delivery. Security alerts are not configurable. The DB
-// (notifications_respect_preferences trigger) enforces what is saved here.
+// Per-category in-app and email delivery. Security alerts are not
+// configurable. The DB enforces what is saved here
+// (notifications_respect_preferences, email_category_enabled).
 export async function saveNotificationPreferences(formData: FormData) {
   const supabase = await createClient();
   const {
@@ -54,6 +55,7 @@ export async function saveNotificationPreferences(formData: FormData) {
     user_id: user.id,
     category,
     in_app: formData.get(`cat_${category}`) === "on",
+    email: formData.get(`email_${category}`) === "on",
     updated_at: new Date().toISOString(),
   }));
 

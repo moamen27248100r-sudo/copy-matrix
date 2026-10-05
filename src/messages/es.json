@@ -261,7 +261,10 @@
     "walletDepositFailedTitle": "Depósito no acreditado",
     "walletDepositFailedBody": "Tu depósito de USDT en {network} no se pudo acreditar. Consulta el historial de depósitos para ver el motivo.",
     "scopeReal": "Notificaciones de tu cuenta real, además de las alertas de cuenta y seguridad.",
-    "scopeDemo": "Notificaciones de tu cuenta demo, además de las alertas de cuenta y seguridad."
+    "scopeDemo": "Notificaciones de tu cuenta demo, además de las alertas de cuenta y seguridad.",
+    "prefsInApp": "En la app",
+    "prefsEmail": "Correo",
+    "prefsEmailNote": "Los correos se envían solo para tu cuenta real; las operaciones de la cuenta demo se quedan en la app. Los correos de seguridad se envían siempre."
   },
   "Portfolio": {
     "title": "Mi cartera",
@@ -2114,5 +2117,38 @@
     "colTxid": "Transacción (TxID)",
     "colAddress": "Dirección",
     "refundedNote": "Monto devuelto a tu saldo"
+  },
+  "Email": {
+    "greeting": "Hola:",
+    "greetingName": "Hola, {name}:",
+    "accountReal": "Cuenta real",
+    "accountDemo": "Cuenta demo",
+    "ctaTrades": "Ver mis operaciones",
+    "ctaWallet": "Abrir mi billetera",
+    "ctaKyc": "Ver la verificación",
+    "ctaLead": "Abrir el centro del trader",
+    "ctaSecurity": "Revisar la seguridad de la cuenta",
+    "ctaNotifications": "Abrir notificaciones",
+    "footerPrefs": "Recibes este correo porque tienes una cuenta en Copy Matrix.",
+    "footerSecurity": "Es una alerta de seguridad de tu cuenta de Copy Matrix y no se puede desactivar.",
+    "managePrefs": "Gestionar correos",
+    "notYou": "Si no fuiste tú, cambia tu contraseña de inmediato y contacta con soporte.",
+    "passwordChangedTitle": "Tu contraseña se ha cambiado",
+    "passwordChangedBody": "Se acaba de cambiar la contraseña de tu cuenta. Por tu seguridad, los retiros quedan en pausa durante 24 horas.",
+    "mfaChangedTitle": "Se ha cambiado la verificación en dos pasos",
+    "mfaChangedBody": "Se acaba de activar, desactivar o sustituir la verificación en dos pasos de tu cuenta. Por tu seguridad, los retiros quedan en pausa durante 24 horas.",
+    "withdrawalRequestedTitle": "Retiro solicitado",
+    "withdrawalRequestedBody": "Se ha solicitado desde tu cuenta un retiro de {amount} en {network} a {address}. Ya se está procesando."
+  },
+  "AuthEmail": {
+    "confirmSubject": "Confirma tu correo",
+    "confirmBody": "¡Bienvenido a Copy Matrix! Confirma tu correo para activar tu cuenta.",
+    "confirmButton": "Confirmar mi correo",
+    "resetSubject": "Restablece tu contraseña",
+    "resetBody": "Recibimos una solicitud para restablecer tu contraseña. Introduce este código en la app:",
+    "resetButton": "Restablecer contraseña",
+    "resetLinkNote": "O pulsa este botón en el mismo dispositivo desde el que lo solicitaste:",
+    "ignoreNote": "Si no lo solicitaste, puedes ignorar este correo sin problema.",
+    "linkFallback": "Si el botón no funciona, copia este enlace en tu navegador:"
   }
 }

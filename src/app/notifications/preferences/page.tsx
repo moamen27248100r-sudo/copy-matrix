@@ -26,8 +26,12 @@ export default async function NotificationPreferencesPage({
   } = await supabase.auth.getUser();
   if (!user) redirect("/login?next=%2Fnotifications%2Fpreferences");
 
-  const { data: prefs } = await supabase.from("notification_preferences").select("category, in_app").eq("user_id", user.id);
-  const enabled = new Map((prefs ?? []).map((p) => [p.category as string, p.in_app as boolean]));
+  const { data: prefs } = await supabase.from("notification_preferences").select("category, in_app, email").eq("user_id", user.id);
+  const inApp = new Map((prefs ?? []).map((p) => [p.category as string, p.in_app as boolean]));
+  // No saved choice: copy and account emails on, followed-leader trades off
+  // (same defaults as email_category_enabled, migration 0242).
+  const email = new Map((prefs ?? []).map((p) => [p.category as string, p.email as boolean | null]));
+  const emailOn = (cat: string) => email.get(cat) ?? cat !== "trades";
 
   return (
     <>
@@ -50,17 +54,28 @@ export default async function NotificationPreferencesPage({
 
         <form action={saveNotificationPreferences} className="flex flex-col gap-4">
           <div className="overflow-hidden rounded-xl border border-border bg-surface">
+            <div className="flex items-center gap-3 border-b border-border px-4 py-2 text-xs text-muted">
+              <span className="flex-1" />
+              <span className="w-16 text-center">{t("prefsInApp")}</span>
+              <span className="w-16 text-center">{t("prefsEmail")}</span>
+            </div>
             {CATEGORIES.map((cat) => (
-              <label key={cat} className="flex cursor-pointer items-center justify-between gap-3 border-b border-border px-4 py-3 text-sm">
-                <span className="font-medium">{t(`cat_${cat}`)}</span>
-                <input type="checkbox" name={`cat_${cat}`} defaultChecked={enabled.get(cat) ?? true} className="h-4 w-4 accent-accent" />
-              </label>
+              <div key={cat} className="flex items-center gap-3 border-b border-border px-4 py-3 text-sm">
+                <span className="flex-1 font-medium">{t(`cat_${cat}`)}</span>
+                <label className="flex w-16 cursor-pointer justify-center">
+                  <input type="checkbox" name={`cat_${cat}`} aria-label={`${t(`cat_${cat}`)} · ${t("prefsInApp")}`} defaultChecked={inApp.get(cat) ?? true} className="h-4 w-4 accent-accent" />
+                </label>
+                <label className="flex w-16 cursor-pointer justify-center">
+                  <input type="checkbox" name={`email_${cat}`} aria-label={`${t(`cat_${cat}`)} · ${t("prefsEmail")}`} defaultChecked={emailOn(cat)} className="h-4 w-4 accent-accent" />
+                </label>
+              </div>
             ))}
             <div className="flex items-center justify-between gap-3 px-4 py-3 text-sm">
               <span className="font-medium">{t("cat_security")}</span>
               <span className="text-xs text-muted">{t("prefsSecurityAlways")}</span>
             </div>
           </div>
+          <p className="text-xs text-muted">{t("prefsEmailNote")}</p>
           <button
             type="submit"
             className="rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-accent-foreground transition hover:bg-accent-hover"

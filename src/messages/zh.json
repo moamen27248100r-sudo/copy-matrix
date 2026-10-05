@@ -261,7 +261,10 @@
     "walletDepositFailedTitle": "充值未入账",
     "walletDepositFailedBody": "您在 {network} 上的 USDT 充值未能入账，请在充值记录中查看原因。",
     "scopeReal": "您真实账户的通知，以及账户和安全提醒。",
-    "scopeDemo": "您模拟账户的通知，以及账户和安全提醒。"
+    "scopeDemo": "您模拟账户的通知，以及账户和安全提醒。",
+    "prefsInApp": "站内",
+    "prefsEmail": "邮件",
+    "prefsEmailNote": "邮件仅针对您的真实账户发送；模拟账户的交易只在站内显示。安全邮件始终发送。"
   },
   "Portfolio": {
     "title": "我的资产",
@@ -2114,5 +2117,38 @@
     "colTxid": "交易（TxID）",
     "colAddress": "地址",
     "refundedNote": "金额已退回余额"
+  },
+  "Email": {
+    "greeting": "您好，",
+    "greetingName": "{name}，您好：",
+    "accountReal": "真实账户",
+    "accountDemo": "模拟账户",
+    "ctaTrades": "查看我的交易",
+    "ctaWallet": "打开我的钱包",
+    "ctaKyc": "查看身份验证",
+    "ctaLead": "打开带单中心",
+    "ctaSecurity": "查看账户安全",
+    "ctaNotifications": "打开通知",
+    "footerPrefs": "您收到此邮件，是因为您拥有 Copy Matrix 账户。",
+    "footerSecurity": "这是有关您 Copy Matrix 账户的安全提醒，无法关闭。",
+    "managePrefs": "管理邮件通知",
+    "notYou": "如果这不是您本人操作，请立即修改密码并联系客服。",
+    "passwordChangedTitle": "您的密码已更改",
+    "passwordChangedBody": "您账户的密码刚刚被修改。为保护您的资金，提现将暂停 24 小时。",
+    "mfaChangedTitle": "双重验证已更改",
+    "mfaChangedBody": "您账户的双重验证刚刚被开启、关闭或更换。为保护您的资金，提现将暂停 24 小时。",
+    "withdrawalRequestedTitle": "已提交提现申请",
+    "withdrawalRequestedBody": "您的账户提交了一笔 {amount} 的提现，网络 {network}，地址 {address}，正在处理中。"
+  },
+  "AuthEmail": {
+    "confirmSubject": "确认您的邮箱",
+    "confirmBody": "欢迎来到 Copy Matrix！请确认您的邮箱以激活账户。",
+    "confirmButton": "确认邮箱",
+    "resetSubject": "重置您的密码",
+    "resetBody": "我们收到了重置密码的请求。请在应用中输入此验证码：",
+    "resetButton": "重置密码",
+    "resetLinkNote": "或在您发起请求的同一设备上点击此按钮：",
+    "ignoreNote": "如果这不是您本人的请求，请忽略此邮件。",
+    "linkFallback": "如果按钮无法使用，请将此链接复制到浏览器："
   }
 }

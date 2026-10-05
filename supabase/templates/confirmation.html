@@ -1,0 +1,165 @@
+{{ $l := or .Data.locale "ar" }}<!doctype html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#f2f4f8;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f2f4f8;padding:24px 12px;"><tr><td align="center">
+{{ if eq $l "en" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="ltr">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:left;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:left;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">Confirm your email</h1>
+<p style="margin:0 0 20px;font-size:15px;line-height:1.7;color:#2b3446;">Welcome to Copy Matrix! Confirm your email address to activate your account.</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">Confirm my email</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">If the button doesn't work, copy this link into your browser:</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:left;font-size:12px;line-height:1.6;color:#7a8396;">If you didn't request this, you can safely ignore this email.</td></tr>
+</table>
+{{ else if eq $l "fr" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="ltr">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:left;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:left;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">Confirmez votre adresse e-mail</h1>
+<p style="margin:0 0 20px;font-size:15px;line-height:1.7;color:#2b3446;">Bienvenue sur Copy Matrix ! Confirmez votre adresse e-mail pour activer votre compte.</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">Confirmer mon e-mail</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">Si le bouton ne fonctionne pas, copiez ce lien dans votre navigateur :</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:left;font-size:12px;line-height:1.6;color:#7a8396;">Si vous n'êtes pas à l'origine de cette demande, ignorez simplement cet e-mail.</td></tr>
+</table>
+{{ else if eq $l "es" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="ltr">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:left;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:left;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">Confirma tu correo</h1>
+<p style="margin:0 0 20px;font-size:15px;line-height:1.7;color:#2b3446;">¡Bienvenido a Copy Matrix! Confirma tu correo para activar tu cuenta.</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">Confirmar mi correo</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">Si el botón no funciona, copia este enlace en tu navegador:</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:left;font-size:12px;line-height:1.6;color:#7a8396;">Si no lo solicitaste, puedes ignorar este correo sin problema.</td></tr>
+</table>
+{{ else if eq $l "pt" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="ltr">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:left;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:left;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">Confirme o seu e-mail</h1>
+<p style="margin:0 0 20px;font-size:15px;line-height:1.7;color:#2b3446;">Bem-vindo à Copy Matrix! Confirme o seu e-mail para ativar a sua conta.</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">Confirmar o meu e-mail</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">Se o botão não funcionar, copie este link para o navegador:</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:left;font-size:12px;line-height:1.6;color:#7a8396;">Se não fez este pedido, pode ignorar este e-mail em segurança.</td></tr>
+</table>
+{{ else if eq $l "zh" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="ltr">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:left;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:left;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">确认您的邮箱</h1>
+<p style="margin:0 0 20px;font-size:15px;line-height:1.7;color:#2b3446;">欢迎来到 Copy Matrix！请确认您的邮箱以激活账户。</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">确认邮箱</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">如果按钮无法使用，请将此链接复制到浏览器：</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:left;font-size:12px;line-height:1.6;color:#7a8396;">如果这不是您本人的请求，请忽略此邮件。</td></tr>
+</table>
+{{ else if eq $l "hi" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="ltr">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:left;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:left;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">अपना ईमेल पुष्टि करें</h1>
+<p style="margin:0 0 20px;font-size:15px;line-height:1.7;color:#2b3446;">Copy Matrix में आपका स्वागत है! अपना अकाउंट सक्रिय करने के लिए ईमेल की पुष्टि करें।</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">मेरा ईमेल पुष्टि करें</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">अगर बटन काम न करे, तो यह लिंक ब्राउज़र में कॉपी करें:</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:left;font-size:12px;line-height:1.6;color:#7a8396;">अगर आपने यह अनुरोध नहीं किया, तो इस ईमेल को अनदेखा कर दें।</td></tr>
+</table>
+{{ else if eq $l "ur" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="rtl">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:right;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:right;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">اپنی ای میل کی تصدیق کریں</h1>
+<p style="margin:0 0 20px;font-size:15px;line-height:1.7;color:#2b3446;">Copy Matrix میں خوش آمدید! اپنا اکاؤنٹ فعال کرنے کے لیے ای میل کی تصدیق کریں۔</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">میری ای میل کی تصدیق کریں</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">اگر بٹن کام نہ کرے تو یہ لنک براؤزر میں کاپی کریں:</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:right;font-size:12px;line-height:1.6;color:#7a8396;">اگر آپ نے یہ درخواست نہیں کی تو اس ای میل کو نظر انداز کر دیں۔</td></tr>
+</table>
+{{ else if eq $l "id" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="ltr">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:left;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:left;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">Konfirmasi surel Anda</h1>
+<p style="margin:0 0 20px;font-size:15px;line-height:1.7;color:#2b3446;">Selamat datang di Copy Matrix! Konfirmasi surel Anda untuk mengaktifkan akun.</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">Konfirmasi surel saya</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">Jika tombol tidak berfungsi, salin tautan ini ke peramban:</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:left;font-size:12px;line-height:1.6;color:#7a8396;">Jika Anda tidak memintanya, abaikan saja surel ini.</td></tr>
+</table>
+{{ else if eq $l "vi" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="ltr">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:left;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:left;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">Xác nhận email của bạn</h1>
+<p style="margin:0 0 20px;font-size:15px;line-height:1.7;color:#2b3446;">Chào mừng bạn đến với Copy Matrix! Hãy xác nhận email để kích hoạt tài khoản.</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">Xác nhận email của tôi</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">Nếu nút không hoạt động, hãy sao chép liên kết này vào trình duyệt:</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:left;font-size:12px;line-height:1.6;color:#7a8396;">Nếu bạn không yêu cầu, bạn có thể bỏ qua thư này.</td></tr>
+</table>
+{{ else if eq $l "th" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="ltr">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:left;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:left;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">ยืนยันอีเมลของคุณ</h1>
+<p style="margin:0 0 20px;font-size:15px;line-height:1.7;color:#2b3446;">ยินดีต้อนรับสู่ Copy Matrix! ยืนยันอีเมลเพื่อเปิดใช้งานบัญชีของคุณ</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">ยืนยันอีเมลของฉัน</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">หากปุ่มใช้งานไม่ได้ ให้คัดลอกลิงก์นี้ไปที่เบราว์เซอร์:</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:left;font-size:12px;line-height:1.6;color:#7a8396;">หากคุณไม่ได้ขอ คุณสามารถเพิกเฉยต่ออีเมลนี้ได้</td></tr>
+</table>
+{{ else if eq $l "bn" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="ltr">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:left;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:left;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">আপনার ইমেইল নিশ্চিত করুন</h1>
+<p style="margin:0 0 20px;font-size:15px;line-height:1.7;color:#2b3446;">Copy Matrix-এ স্বাগতম! অ্যাকাউন্ট চালু করতে আপনার ইমেইল নিশ্চিত করুন।</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">আমার ইমেইল নিশ্চিত করুন</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">বোতাম কাজ না করলে এই লিংকটি ব্রাউজারে কপি করুন:</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:left;font-size:12px;line-height:1.6;color:#7a8396;">আপনি অনুরোধ না করে থাকলে এই ইমেইলটি উপেক্ষা করুন।</td></tr>
+</table>
+{{ else if eq $l "sw" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="ltr">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:left;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:left;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">Thibitisha barua pepe yako</h1>
+<p style="margin:0 0 20px;font-size:15px;line-height:1.7;color:#2b3446;">Karibu Copy Matrix! Thibitisha barua pepe yako ili kuwezesha akaunti yako.</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">Thibitisha barua pepe yangu</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">Kama kitufe hakifanyi kazi, nakili kiungo hiki kwenye kivinjari:</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:left;font-size:12px;line-height:1.6;color:#7a8396;">Kama hukuomba hili, unaweza kupuuza barua pepe hii.</td></tr>
+</table>
+{{ else }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="rtl">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:right;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:right;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">تأكيد بريدك الإلكتروني</h1>
+<p style="margin:0 0 20px;font-size:15px;line-height:1.7;color:#2b3446;">مرحبًا بك في Copy Matrix! أكّد بريدك الإلكتروني لتفعيل حسابك.</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">تأكيد بريدي الإلكتروني</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">إذا لم يعمل الزر، انسخ هذا الرابط في المتصفح:</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:right;font-size:12px;line-height:1.6;color:#7a8396;">إذا لم تطلب ذلك، يمكنك تجاهل هذه الرسالة بأمان.</td></tr>
+</table>
+{{ end }}
+</td></tr></table>
+</body>
+</html>

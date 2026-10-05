@@ -261,7 +261,10 @@
     "walletDepositFailedTitle": "Deposit not credited",
     "walletDepositFailedBody": "Your USDT deposit on {network} could not be credited. Open your deposit history for the reason.",
     "scopeReal": "Notifications for your real account, plus account and security alerts.",
-    "scopeDemo": "Notifications for your demo account, plus account and security alerts."
+    "scopeDemo": "Notifications for your demo account, plus account and security alerts.",
+    "prefsInApp": "In app",
+    "prefsEmail": "Email",
+    "prefsEmailNote": "Emails are sent for your real account only; demo-account trades stay in the app. Security emails are always sent."
   },
   "Portfolio": {
     "title": "My Portfolio",
@@ -2117,5 +2120,38 @@
     "colTxid": "Transaction (TxID)",
     "colAddress": "Address",
     "refundedNote": "Amount returned to your balance"
+  },
+  "Email": {
+    "greeting": "Hello,",
+    "greetingName": "Hello {name},",
+    "accountReal": "Real account",
+    "accountDemo": "Demo account",
+    "ctaTrades": "View my trades",
+    "ctaWallet": "Open my wallet",
+    "ctaKyc": "View verification",
+    "ctaLead": "Open Lead Center",
+    "ctaSecurity": "Review account security",
+    "ctaNotifications": "Open notifications",
+    "footerPrefs": "You are receiving this email because you have a Copy Matrix account.",
+    "footerSecurity": "This is a security alert about your Copy Matrix account and can't be turned off.",
+    "managePrefs": "Manage email notifications",
+    "notYou": "If this wasn't you, change your password right away and contact support.",
+    "passwordChangedTitle": "Your password was changed",
+    "passwordChangedBody": "The password of your account was just changed. For your protection, withdrawals are paused for 24 hours.",
+    "mfaChangedTitle": "Two-factor authentication was changed",
+    "mfaChangedBody": "Two-factor authentication on your account was just turned on, off or replaced. For your protection, withdrawals are paused for 24 hours.",
+    "withdrawalRequestedTitle": "Withdrawal requested",
+    "withdrawalRequestedBody": "A withdrawal of {amount} on {network} to {address} was requested from your account. It is now being processed."
+  },
+  "AuthEmail": {
+    "confirmSubject": "Confirm your email",
+    "confirmBody": "Welcome to Copy Matrix! Confirm your email address to activate your account.",
+    "confirmButton": "Confirm my email",
+    "resetSubject": "Reset your password",
+    "resetBody": "We received a request to reset your password. Enter this code in the app:",
+    "resetButton": "Reset password",
+    "resetLinkNote": "Or open this button on the same device where you requested the reset:",
+    "ignoreNote": "If you didn't request this, you can safely ignore this email.",
+    "linkFallback": "If the button doesn't work, copy this link into your browser:"
   }
 }

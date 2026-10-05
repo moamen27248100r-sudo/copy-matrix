@@ -1,0 +1,34 @@
+Subject lines (Supabase subjects can't switch language; use the bilingual one):
+
+Confirm signup: تأكيد بريدك الإلكتروني | Confirm your email
+Reset password: إعادة تعيين كلمة المرور | Reset your password
+
+All languages, for reference:
+
+ar: تأكيد بريدك الإلكتروني
+en: Confirm your email
+fr: Confirmez votre adresse e-mail
+es: Confirma tu correo
+pt: Confirme o seu e-mail
+zh: 确认您的邮箱
+hi: अपना ईमेल पुष्टि करें
+ur: اپنی ای میل کی تصدیق کریں
+id: Konfirmasi surel Anda
+vi: Xác nhận email của bạn
+th: ยืนยันอีเมลของคุณ
+bn: আপনার ইমেইল নিশ্চিত করুন
+sw: Thibitisha barua pepe yako
+
+ar: إعادة تعيين كلمة المرور
+en: Reset your password
+fr: Réinitialisez votre mot de passe
+es: Restablece tu contraseña
+pt: Redefina a sua palavra-passe
+zh: 重置您的密码
+hi: अपना पासवर्ड रीसेट करें
+ur: اپنا پاس ورڈ ری سیٹ کریں
+id: Atur ulang kata sandi Anda
+vi: Đặt lại mật khẩu của bạn
+th: รีเซ็ตรหัสผ่านของคุณ
+bn: আপনার পাসওয়ার্ড রিসেট করুন
+sw: Weka upya nenosiri lako

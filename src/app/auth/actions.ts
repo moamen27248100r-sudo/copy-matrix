@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { cookies, headers } from "next/headers";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { translateAuthError } from "@/lib/auth-errors";
@@ -116,6 +116,8 @@ export async function signup(formData: FormData) {
         display_name: formData.get("displayName") as string,
         account_type: accountType,
         phone,
+        // Language of the confirmation email and of the app's own emails.
+        locale: await getLocale(),
       },
     },
   });

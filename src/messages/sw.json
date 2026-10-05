@@ -261,7 +261,10 @@
     "walletDepositFailedTitle": "Amana haikuingizwa",
     "walletDepositFailedBody": "Amana yako ya USDT kwenye {network} haikuweza kuingizwa. Fungua historia ya amana kuona sababu.",
     "scopeReal": "Arifa za akaunti yako halisi, pamoja na tahadhari za akaunti na usalama.",
-    "scopeDemo": "Arifa za akaunti yako ya majaribio, pamoja na tahadhari za akaunti na usalama."
+    "scopeDemo": "Arifa za akaunti yako ya majaribio, pamoja na tahadhari za akaunti na usalama.",
+    "prefsInApp": "Ndani ya programu",
+    "prefsEmail": "Barua pepe",
+    "prefsEmailNote": "Barua pepe hutumwa kwa akaunti yako halisi pekee; biashara za akaunti ya majaribio hubaki ndani ya programu. Barua pepe za usalama hutumwa kila mara."
   },
   "Portfolio": {
     "title": "Jalada Langu",
@@ -2113,5 +2116,38 @@
     "colTxid": "Muamala (TxID)",
     "colAddress": "Anwani",
     "refundedNote": "Kiasi kimerudishwa kwenye salio lako"
+  },
+  "Email": {
+    "greeting": "Habari,",
+    "greetingName": "Habari {name},",
+    "accountReal": "Akaunti halisi",
+    "accountDemo": "Akaunti ya majaribio",
+    "ctaTrades": "Angalia biashara zangu",
+    "ctaWallet": "Fungua pochi yangu",
+    "ctaKyc": "Angalia uthibitisho",
+    "ctaLead": "Fungua kituo cha kiongozi",
+    "ctaSecurity": "Kagua usalama wa akaunti",
+    "ctaNotifications": "Fungua arifa",
+    "footerPrefs": "Umepokea barua pepe hii kwa sababu una akaunti ya Copy Matrix.",
+    "footerSecurity": "Hii ni tahadhari ya usalama kuhusu akaunti yako ya Copy Matrix na haiwezi kuzimwa.",
+    "managePrefs": "Dhibiti arifa za barua pepe",
+    "notYou": "Kama si wewe, badilisha nenosiri lako mara moja na uwasiliane na msaada.",
+    "passwordChangedTitle": "Nenosiri lako limebadilishwa",
+    "passwordChangedBody": "Nenosiri la akaunti yako limebadilishwa sasa hivi. Kwa usalama wako, utoaji wa pesa umesimamishwa kwa saa 24.",
+    "mfaChangedTitle": "Uthibitishaji wa hatua mbili umebadilishwa",
+    "mfaChangedBody": "Uthibitishaji wa hatua mbili kwenye akaunti yako umewashwa, umezimwa au umebadilishwa sasa hivi. Kwa usalama wako, utoaji wa pesa umesimamishwa kwa saa 24.",
+    "withdrawalRequestedTitle": "Ombi la kutoa pesa",
+    "withdrawalRequestedBody": "Ombi la kutoa {amount} kwenye mtandao wa {network} kwenda {address} limetumwa kutoka akaunti yako na linashughulikiwa sasa."
+  },
+  "AuthEmail": {
+    "confirmSubject": "Thibitisha barua pepe yako",
+    "confirmBody": "Karibu Copy Matrix! Thibitisha barua pepe yako ili kuwezesha akaunti yako.",
+    "confirmButton": "Thibitisha barua pepe yangu",
+    "resetSubject": "Weka upya nenosiri lako",
+    "resetBody": "Tumepokea ombi la kuweka upya nenosiri lako. Weka msimbo huu kwenye programu:",
+    "resetButton": "Weka upya nenosiri",
+    "resetLinkNote": "Au bonyeza kitufe hiki kwenye kifaa kilekile ulichoombea:",
+    "ignoreNote": "Kama hukuomba hili, unaweza kupuuza barua pepe hii.",
+    "linkFallback": "Kama kitufe hakifanyi kazi, nakili kiungo hiki kwenye kivinjari:"
   }
 }

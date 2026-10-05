@@ -261,7 +261,10 @@
     "walletDepositFailedTitle": "Dépôt non crédité",
     "walletDepositFailedBody": "Votre dépôt USDT sur {network} n'a pas pu être crédité. Consultez l'historique des dépôts pour en connaître la raison.",
     "scopeReal": "Notifications de votre compte réel, ainsi que les alertes de compte et de sécurité.",
-    "scopeDemo": "Notifications de votre compte démo, ainsi que les alertes de compte et de sécurité."
+    "scopeDemo": "Notifications de votre compte démo, ainsi que les alertes de compte et de sécurité.",
+    "prefsInApp": "Dans l'app",
+    "prefsEmail": "E-mail",
+    "prefsEmailNote": "Les e-mails concernent uniquement votre compte réel ; les trades du compte démo restent dans l'app. Les e-mails de sécurité sont toujours envoyés."
   },
   "Portfolio": {
     "title": "Mon portefeuille",
@@ -2114,5 +2117,38 @@
     "colTxid": "Transaction (TxID)",
     "colAddress": "Adresse",
     "refundedNote": "Montant restitué sur votre solde"
+  },
+  "Email": {
+    "greeting": "Bonjour,",
+    "greetingName": "Bonjour {name},",
+    "accountReal": "Compte réel",
+    "accountDemo": "Compte démo",
+    "ctaTrades": "Voir mes trades",
+    "ctaWallet": "Ouvrir mon portefeuille",
+    "ctaKyc": "Voir la vérification",
+    "ctaLead": "Ouvrir l'espace trader",
+    "ctaSecurity": "Vérifier la sécurité du compte",
+    "ctaNotifications": "Ouvrir les notifications",
+    "footerPrefs": "Vous recevez cet e-mail car vous avez un compte Copy Matrix.",
+    "footerSecurity": "Il s'agit d'une alerte de sécurité concernant votre compte Copy Matrix ; elle ne peut pas être désactivée.",
+    "managePrefs": "Gérer les e-mails",
+    "notYou": "Si ce n'était pas vous, changez immédiatement votre mot de passe et contactez le support.",
+    "passwordChangedTitle": "Votre mot de passe a été modifié",
+    "passwordChangedBody": "Le mot de passe de votre compte vient d'être modifié. Pour votre protection, les retraits sont suspendus pendant 24 heures.",
+    "mfaChangedTitle": "La double authentification a été modifiée",
+    "mfaChangedBody": "La double authentification de votre compte vient d'être activée, désactivée ou remplacée. Pour votre protection, les retraits sont suspendus pendant 24 heures.",
+    "withdrawalRequestedTitle": "Demande de retrait",
+    "withdrawalRequestedBody": "Un retrait de {amount} sur {network} vers {address} a été demandé depuis votre compte. Il est en cours de traitement."
+  },
+  "AuthEmail": {
+    "confirmSubject": "Confirmez votre adresse e-mail",
+    "confirmBody": "Bienvenue sur Copy Matrix ! Confirmez votre adresse e-mail pour activer votre compte.",
+    "confirmButton": "Confirmer mon e-mail",
+    "resetSubject": "Réinitialisez votre mot de passe",
+    "resetBody": "Nous avons reçu une demande de réinitialisation de votre mot de passe. Saisissez ce code dans l'app :",
+    "resetButton": "Réinitialiser le mot de passe",
+    "resetLinkNote": "Ou utilisez ce bouton sur l'appareil depuis lequel vous avez fait la demande :",
+    "ignoreNote": "Si vous n'êtes pas à l'origine de cette demande, ignorez simplement cet e-mail.",
+    "linkFallback": "Si le bouton ne fonctionne pas, copiez ce lien dans votre navigateur :"
   }
 }

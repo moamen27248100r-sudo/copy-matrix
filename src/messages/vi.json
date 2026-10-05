@@ -261,7 +261,10 @@
     "walletDepositFailedTitle": "Khoản nạp chưa được ghi có",
     "walletDepositFailedBody": "Khoản nạp USDT trên {network} không thể ghi có. Mở lịch sử nạp để xem lý do.",
     "scopeReal": "Thông báo của tài khoản thực, cùng các cảnh báo tài khoản và bảo mật.",
-    "scopeDemo": "Thông báo của tài khoản demo, cùng các cảnh báo tài khoản và bảo mật."
+    "scopeDemo": "Thông báo của tài khoản demo, cùng các cảnh báo tài khoản và bảo mật.",
+    "prefsInApp": "Trong ứng dụng",
+    "prefsEmail": "Thư điện tử",
+    "prefsEmailNote": "Thư chỉ được gửi cho tài khoản thực; giao dịch của tài khoản demo chỉ hiển thị trong ứng dụng. Thư bảo mật luôn được gửi."
   },
   "Portfolio": {
     "title": "Danh mục của tôi",
@@ -2113,5 +2116,38 @@
     "colTxid": "Giao dịch (TxID)",
     "colAddress": "Địa chỉ",
     "refundedNote": "Đã hoàn tiền về số dư"
+  },
+  "Email": {
+    "greeting": "Xin chào,",
+    "greetingName": "Xin chào {name},",
+    "accountReal": "Tài khoản thực",
+    "accountDemo": "Tài khoản demo",
+    "ctaTrades": "Xem giao dịch của tôi",
+    "ctaWallet": "Mở ví của tôi",
+    "ctaKyc": "Xem xác minh",
+    "ctaLead": "Mở trung tâm nhà giao dịch",
+    "ctaSecurity": "Kiểm tra bảo mật tài khoản",
+    "ctaNotifications": "Mở thông báo",
+    "footerPrefs": "Bạn nhận được thư này vì bạn có tài khoản Copy Matrix.",
+    "footerSecurity": "Đây là cảnh báo bảo mật cho tài khoản Copy Matrix của bạn và không thể tắt.",
+    "managePrefs": "Quản lý thư thông báo",
+    "notYou": "Nếu không phải bạn, hãy đổi mật khẩu ngay và liên hệ bộ phận hỗ trợ.",
+    "passwordChangedTitle": "Mật khẩu của bạn đã được thay đổi",
+    "passwordChangedBody": "Mật khẩu tài khoản của bạn vừa được thay đổi. Để bảo vệ bạn, lệnh rút tiền tạm dừng trong 24 giờ.",
+    "mfaChangedTitle": "Xác thực hai lớp đã được thay đổi",
+    "mfaChangedBody": "Xác thực hai lớp của tài khoản vừa được bật, tắt hoặc thay thế. Để bảo vệ bạn, lệnh rút tiền tạm dừng trong 24 giờ.",
+    "withdrawalRequestedTitle": "Yêu cầu rút tiền",
+    "withdrawalRequestedBody": "Một lệnh rút {amount} trên mạng {network} đến {address} đã được yêu cầu từ tài khoản của bạn và đang được xử lý."
+  },
+  "AuthEmail": {
+    "confirmSubject": "Xác nhận email của bạn",
+    "confirmBody": "Chào mừng bạn đến với Copy Matrix! Hãy xác nhận email để kích hoạt tài khoản.",
+    "confirmButton": "Xác nhận email của tôi",
+    "resetSubject": "Đặt lại mật khẩu của bạn",
+    "resetBody": "Chúng tôi nhận được yêu cầu đặt lại mật khẩu. Hãy nhập mã này trong ứng dụng:",
+    "resetButton": "Đặt lại mật khẩu",
+    "resetLinkNote": "Hoặc nhấn nút này trên chính thiết bị bạn đã yêu cầu:",
+    "ignoreNote": "Nếu bạn không yêu cầu, bạn có thể bỏ qua thư này.",
+    "linkFallback": "Nếu nút không hoạt động, hãy sao chép liên kết này vào trình duyệt:"
   }
 }

@@ -261,7 +261,10 @@
     "walletDepositFailedTitle": "Deposit tidak dikreditkan",
     "walletDepositFailedBody": "Deposit USDT Anda di {network} tidak dapat dikreditkan. Buka riwayat deposit untuk melihat alasannya.",
     "scopeReal": "Notifikasi akun riil Anda, ditambah peringatan akun dan keamanan.",
-    "scopeDemo": "Notifikasi akun demo Anda, ditambah peringatan akun dan keamanan."
+    "scopeDemo": "Notifikasi akun demo Anda, ditambah peringatan akun dan keamanan.",
+    "prefsInApp": "Di aplikasi",
+    "prefsEmail": "Surel",
+    "prefsEmailNote": "Surel hanya dikirim untuk akun riil Anda; transaksi akun demo tetap di aplikasi. Surel keamanan selalu dikirim."
   },
   "Portfolio": {
     "title": "Portofolio Saya",
@@ -2113,5 +2116,38 @@
     "colTxid": "Transaksi (TxID)",
     "colAddress": "Alamat",
     "refundedNote": "Jumlah dikembalikan ke saldo Anda"
+  },
+  "Email": {
+    "greeting": "Halo,",
+    "greetingName": "Halo {name},",
+    "accountReal": "Akun riil",
+    "accountDemo": "Akun demo",
+    "ctaTrades": "Lihat transaksi saya",
+    "ctaWallet": "Buka dompet saya",
+    "ctaKyc": "Lihat verifikasi",
+    "ctaLead": "Buka pusat trader",
+    "ctaSecurity": "Tinjau keamanan akun",
+    "ctaNotifications": "Buka notifikasi",
+    "footerPrefs": "Anda menerima surel ini karena memiliki akun Copy Matrix.",
+    "footerSecurity": "Ini adalah peringatan keamanan akun Copy Matrix Anda dan tidak dapat dimatikan.",
+    "managePrefs": "Kelola notifikasi surel",
+    "notYou": "Jika ini bukan Anda, segera ganti kata sandi dan hubungi dukungan.",
+    "passwordChangedTitle": "Kata sandi Anda telah diubah",
+    "passwordChangedBody": "Kata sandi akun Anda baru saja diubah. Demi keamanan Anda, penarikan dihentikan sementara selama 24 jam.",
+    "mfaChangedTitle": "Autentikasi dua faktor telah diubah",
+    "mfaChangedBody": "Autentikasi dua faktor di akun Anda baru saja diaktifkan, dinonaktifkan, atau diganti. Demi keamanan Anda, penarikan dihentikan sementara selama 24 jam.",
+    "withdrawalRequestedTitle": "Penarikan diminta",
+    "withdrawalRequestedBody": "Penarikan {amount} di jaringan {network} ke {address} telah diminta dari akun Anda dan sedang diproses."
+  },
+  "AuthEmail": {
+    "confirmSubject": "Konfirmasi surel Anda",
+    "confirmBody": "Selamat datang di Copy Matrix! Konfirmasi surel Anda untuk mengaktifkan akun.",
+    "confirmButton": "Konfirmasi surel saya",
+    "resetSubject": "Atur ulang kata sandi Anda",
+    "resetBody": "Kami menerima permintaan untuk mengatur ulang kata sandi Anda. Masukkan kode ini di aplikasi:",
+    "resetButton": "Atur ulang kata sandi",
+    "resetLinkNote": "Atau tekan tombol ini di perangkat yang sama tempat Anda memintanya:",
+    "ignoreNote": "Jika Anda tidak memintanya, abaikan saja surel ini.",
+    "linkFallback": "Jika tombol tidak berfungsi, salin tautan ini ke peramban:"
   }
 }

@@ -1,0 +1,191 @@
+{{ $l := or .Data.locale "ar" }}<!doctype html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#f2f4f8;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f2f4f8;padding:24px 12px;"><tr><td align="center">
+{{ if eq $l "en" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="ltr">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:left;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:left;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">Reset your password</h1>
+<p style="margin:0 0 12px;font-size:15px;line-height:1.7;color:#2b3446;">We received a request to reset your password. Enter this code in the app:</p>
+<p style="margin:0 0 20px;font-size:28px;font-weight:700;letter-spacing:6px;color:#1a2234;" dir="ltr">{{ .Token }}</p>
+<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#5b6475;">Or open this button on the same device where you requested the reset:</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">Reset password</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">If the button doesn't work, copy this link into your browser:</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:left;font-size:12px;line-height:1.6;color:#7a8396;">If you didn't request this, you can safely ignore this email.</td></tr>
+</table>
+{{ else if eq $l "fr" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="ltr">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:left;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:left;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">Réinitialisez votre mot de passe</h1>
+<p style="margin:0 0 12px;font-size:15px;line-height:1.7;color:#2b3446;">Nous avons reçu une demande de réinitialisation de votre mot de passe. Saisissez ce code dans l'app :</p>
+<p style="margin:0 0 20px;font-size:28px;font-weight:700;letter-spacing:6px;color:#1a2234;" dir="ltr">{{ .Token }}</p>
+<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#5b6475;">Ou utilisez ce bouton sur l'appareil depuis lequel vous avez fait la demande :</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">Réinitialiser le mot de passe</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">Si le bouton ne fonctionne pas, copiez ce lien dans votre navigateur :</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:left;font-size:12px;line-height:1.6;color:#7a8396;">Si vous n'êtes pas à l'origine de cette demande, ignorez simplement cet e-mail.</td></tr>
+</table>
+{{ else if eq $l "es" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="ltr">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:left;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:left;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">Restablece tu contraseña</h1>
+<p style="margin:0 0 12px;font-size:15px;line-height:1.7;color:#2b3446;">Recibimos una solicitud para restablecer tu contraseña. Introduce este código en la app:</p>
+<p style="margin:0 0 20px;font-size:28px;font-weight:700;letter-spacing:6px;color:#1a2234;" dir="ltr">{{ .Token }}</p>
+<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#5b6475;">O pulsa este botón en el mismo dispositivo desde el que lo solicitaste:</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">Restablecer contraseña</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">Si el botón no funciona, copia este enlace en tu navegador:</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:left;font-size:12px;line-height:1.6;color:#7a8396;">Si no lo solicitaste, puedes ignorar este correo sin problema.</td></tr>
+</table>
+{{ else if eq $l "pt" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="ltr">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:left;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:left;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">Redefina a sua palavra-passe</h1>
+<p style="margin:0 0 12px;font-size:15px;line-height:1.7;color:#2b3446;">Recebemos um pedido para redefinir a sua palavra-passe. Introduza este código na app:</p>
+<p style="margin:0 0 20px;font-size:28px;font-weight:700;letter-spacing:6px;color:#1a2234;" dir="ltr">{{ .Token }}</p>
+<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#5b6475;">Ou toque neste botão no mesmo dispositivo em que fez o pedido:</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">Redefinir palavra-passe</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">Se o botão não funcionar, copie este link para o navegador:</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:left;font-size:12px;line-height:1.6;color:#7a8396;">Se não fez este pedido, pode ignorar este e-mail em segurança.</td></tr>
+</table>
+{{ else if eq $l "zh" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="ltr">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:left;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:left;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">重置您的密码</h1>
+<p style="margin:0 0 12px;font-size:15px;line-height:1.7;color:#2b3446;">我们收到了重置密码的请求。请在应用中输入此验证码：</p>
+<p style="margin:0 0 20px;font-size:28px;font-weight:700;letter-spacing:6px;color:#1a2234;" dir="ltr">{{ .Token }}</p>
+<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#5b6475;">或在您发起请求的同一设备上点击此按钮：</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">重置密码</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">如果按钮无法使用，请将此链接复制到浏览器：</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:left;font-size:12px;line-height:1.6;color:#7a8396;">如果这不是您本人的请求，请忽略此邮件。</td></tr>
+</table>
+{{ else if eq $l "hi" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="ltr">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:left;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:left;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">अपना पासवर्ड रीसेट करें</h1>
+<p style="margin:0 0 12px;font-size:15px;line-height:1.7;color:#2b3446;">हमें आपका पासवर्ड रीसेट करने का अनुरोध मिला है। ऐप में यह कोड डालें:</p>
+<p style="margin:0 0 20px;font-size:28px;font-weight:700;letter-spacing:6px;color:#1a2234;" dir="ltr">{{ .Token }}</p>
+<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#5b6475;">या जिस डिवाइस से अनुरोध किया था उसी पर यह बटन दबाएँ:</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">पासवर्ड रीसेट करें</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">अगर बटन काम न करे, तो यह लिंक ब्राउज़र में कॉपी करें:</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:left;font-size:12px;line-height:1.6;color:#7a8396;">अगर आपने यह अनुरोध नहीं किया, तो इस ईमेल को अनदेखा कर दें।</td></tr>
+</table>
+{{ else if eq $l "ur" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="rtl">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:right;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:right;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">اپنا پاس ورڈ ری سیٹ کریں</h1>
+<p style="margin:0 0 12px;font-size:15px;line-height:1.7;color:#2b3446;">ہمیں آپ کا پاس ورڈ ری سیٹ کرنے کی درخواست ملی ہے۔ ایپ میں یہ کوڈ درج کریں:</p>
+<p style="margin:0 0 20px;font-size:28px;font-weight:700;letter-spacing:6px;color:#1a2234;" dir="ltr">{{ .Token }}</p>
+<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#5b6475;">یا جس ڈیوائس سے درخواست کی تھی اسی پر یہ بٹن دبائیں:</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">پاس ورڈ ری سیٹ کریں</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">اگر بٹن کام نہ کرے تو یہ لنک براؤزر میں کاپی کریں:</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:right;font-size:12px;line-height:1.6;color:#7a8396;">اگر آپ نے یہ درخواست نہیں کی تو اس ای میل کو نظر انداز کر دیں۔</td></tr>
+</table>
+{{ else if eq $l "id" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="ltr">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:left;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:left;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">Atur ulang kata sandi Anda</h1>
+<p style="margin:0 0 12px;font-size:15px;line-height:1.7;color:#2b3446;">Kami menerima permintaan untuk mengatur ulang kata sandi Anda. Masukkan kode ini di aplikasi:</p>
+<p style="margin:0 0 20px;font-size:28px;font-weight:700;letter-spacing:6px;color:#1a2234;" dir="ltr">{{ .Token }}</p>
+<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#5b6475;">Atau tekan tombol ini di perangkat yang sama tempat Anda memintanya:</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">Atur ulang kata sandi</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">Jika tombol tidak berfungsi, salin tautan ini ke peramban:</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:left;font-size:12px;line-height:1.6;color:#7a8396;">Jika Anda tidak memintanya, abaikan saja surel ini.</td></tr>
+</table>
+{{ else if eq $l "vi" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="ltr">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:left;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:left;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">Đặt lại mật khẩu của bạn</h1>
+<p style="margin:0 0 12px;font-size:15px;line-height:1.7;color:#2b3446;">Chúng tôi nhận được yêu cầu đặt lại mật khẩu. Hãy nhập mã này trong ứng dụng:</p>
+<p style="margin:0 0 20px;font-size:28px;font-weight:700;letter-spacing:6px;color:#1a2234;" dir="ltr">{{ .Token }}</p>
+<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#5b6475;">Hoặc nhấn nút này trên chính thiết bị bạn đã yêu cầu:</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">Đặt lại mật khẩu</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">Nếu nút không hoạt động, hãy sao chép liên kết này vào trình duyệt:</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:left;font-size:12px;line-height:1.6;color:#7a8396;">Nếu bạn không yêu cầu, bạn có thể bỏ qua thư này.</td></tr>
+</table>
+{{ else if eq $l "th" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="ltr">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:left;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:left;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">รีเซ็ตรหัสผ่านของคุณ</h1>
+<p style="margin:0 0 12px;font-size:15px;line-height:1.7;color:#2b3446;">เราได้รับคำขอรีเซ็ตรหัสผ่านของคุณ กรอกรหัสนี้ในแอป:</p>
+<p style="margin:0 0 20px;font-size:28px;font-weight:700;letter-spacing:6px;color:#1a2234;" dir="ltr">{{ .Token }}</p>
+<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#5b6475;">หรือกดปุ่มนี้บนอุปกรณ์เดียวกับที่คุณขอรีเซ็ต:</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">รีเซ็ตรหัสผ่าน</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">หากปุ่มใช้งานไม่ได้ ให้คัดลอกลิงก์นี้ไปที่เบราว์เซอร์:</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:left;font-size:12px;line-height:1.6;color:#7a8396;">หากคุณไม่ได้ขอ คุณสามารถเพิกเฉยต่ออีเมลนี้ได้</td></tr>
+</table>
+{{ else if eq $l "bn" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="ltr">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:left;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:left;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">আপনার পাসওয়ার্ড রিসেট করুন</h1>
+<p style="margin:0 0 12px;font-size:15px;line-height:1.7;color:#2b3446;">আপনার পাসওয়ার্ড রিসেটের অনুরোধ পেয়েছি। অ্যাপে এই কোডটি দিন:</p>
+<p style="margin:0 0 20px;font-size:28px;font-weight:700;letter-spacing:6px;color:#1a2234;" dir="ltr">{{ .Token }}</p>
+<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#5b6475;">অথবা যে ডিভাইস থেকে অনুরোধ করেছেন সেখানে এই বোতামটি চাপুন:</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">পাসওয়ার্ড রিসেট করুন</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">বোতাম কাজ না করলে এই লিংকটি ব্রাউজারে কপি করুন:</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:left;font-size:12px;line-height:1.6;color:#7a8396;">আপনি অনুরোধ না করে থাকলে এই ইমেইলটি উপেক্ষা করুন।</td></tr>
+</table>
+{{ else if eq $l "sw" }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="ltr">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:left;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:left;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">Weka upya nenosiri lako</h1>
+<p style="margin:0 0 12px;font-size:15px;line-height:1.7;color:#2b3446;">Tumepokea ombi la kuweka upya nenosiri lako. Weka msimbo huu kwenye programu:</p>
+<p style="margin:0 0 20px;font-size:28px;font-weight:700;letter-spacing:6px;color:#1a2234;" dir="ltr">{{ .Token }}</p>
+<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#5b6475;">Au bonyeza kitufe hiki kwenye kifaa kilekile ulichoombea:</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">Weka upya nenosiri</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">Kama kitufe hakifanyi kazi, nakili kiungo hiki kwenye kivinjari:</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:left;font-size:12px;line-height:1.6;color:#7a8396;">Kama hukuomba hili, unaweza kupuuza barua pepe hii.</td></tr>
+</table>
+{{ else }}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;" dir="rtl">
+<tr><td style="background:#0b0f17;padding:18px 24px;text-align:right;"><span style="font-size:18px;font-weight:700;color:#ffffff;">Copy Matrix</span></td></tr>
+<tr><td style="padding:28px 24px 12px;text-align:right;">
+<h1 style="margin:0 0 12px;font-size:20px;color:#1a2234;">إعادة تعيين كلمة المرور</h1>
+<p style="margin:0 0 12px;font-size:15px;line-height:1.7;color:#2b3446;">وصلنا طلب لإعادة تعيين كلمة المرور. أدخل هذا الرمز في المنصة:</p>
+<p style="margin:0 0 20px;font-size:28px;font-weight:700;letter-spacing:6px;color:#1a2234;" dir="ltr">{{ .Token }}</p>
+<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#5b6475;">أو اضغط هذا الزر على نفس الجهاز الذي طلبت منه إعادة التعيين:</p>
+<p style="margin:0 0 20px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#2f6fed;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 22px;border-radius:10px;">إعادة تعيين كلمة المرور</a></p>
+<p style="margin:0 0 6px;font-size:12px;color:#7a8396;">إذا لم يعمل الزر، انسخ هذا الرابط في المتصفح:</p>
+<p style="margin:0 0 16px;font-size:12px;word-break:break-all;" dir="ltr"><a href="{{ .ConfirmationURL }}" style="color:#2f6fed;">{{ .ConfirmationURL }}</a></p>
+</td></tr>
+<tr><td style="padding:14px 24px;border-top:1px solid #e6e9f0;text-align:right;font-size:12px;line-height:1.6;color:#7a8396;">إذا لم تطلب ذلك، يمكنك تجاهل هذه الرسالة بأمان.</td></tr>
+</table>
+{{ end }}
+</td></tr></table>
+</body>
+</html>
