@@ -10,7 +10,7 @@ export function emailConfigured() {
   return !!(SUPPORT_EMAIL_HOST && SUPPORT_EMAIL_USER && SUPPORT_EMAIL_PASS);
 }
 
-let transporter: nodemailer.Transporter | null = null;
+let transporter: ReturnType<typeof nodemailer.createTransport> | null = null;
 
 function getTransporter() {
   if (transporter) return transporter;
