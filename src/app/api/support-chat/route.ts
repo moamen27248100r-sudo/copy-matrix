@@ -3,11 +3,11 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { matchFaq, buildNoMatchFallback, type FaqEntry } from "@/lib/support-faq";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { sanitizeChatHistory, type ChatMessage } from "@/lib/chat-history";
 import { PLATFORM_NAME, SUPPORT_EMAIL } from "@/config/platform";
 
 export const dynamic = "force-dynamic";
 
-type ChatMessage = { role: "user" | "assistant"; content: string };
 
 // The model reads instructions in any language equally well, so the prompt
 // itself stays in English (simplest to keep accurate) and only the target
@@ -82,12 +82,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "invalid_message" }, { status: 400 });
   }
 
-  const history: ChatMessage[] = Array.isArray(body.history)
-    ? body.history.filter(
-        (m): m is ChatMessage =>
-          typeof m === "object" && m !== null && (m as ChatMessage).role !== undefined && typeof (m as ChatMessage).content === "string",
-      )
-    : [];
+  const history = sanitizeChatHistory(body.history);
 
   const locale = (await getLocale()) as Locale;
   const t = await getTranslations("Faq");
