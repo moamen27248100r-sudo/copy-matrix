@@ -1,3 +1,4 @@
+import { nowMs } from "@/lib/now";
 import { getMoney } from "@/lib/money-server";
 import { redirect } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -101,7 +102,7 @@ export default async function LeadOverviewPage() {
     return sum + pct * Number(p.size);
   }, 0);
 
-  const weekAgo = Date.now() - 7 * 86400000;
+  const weekAgo = nowMs() - 7 * 86400000;
   const weekProfit = closedPositions
     .filter((p) => p.closed_at && new Date(p.closed_at).getTime() >= weekAgo)
     .reduce((sum, p) => sum + (p.pnl ?? 0), 0);

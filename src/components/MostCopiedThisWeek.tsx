@@ -1,3 +1,4 @@
+import { nowMs } from "@/lib/now";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
@@ -7,7 +8,7 @@ export async function MostCopiedThisWeek() {
   const t = await getTranslations("Dashboard");
   const supabase = await createClient();
 
-  const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+  const weekAgo = new Date(nowMs() - 7 * 24 * 60 * 60 * 1000).toISOString();
   const { data: recentSubs } = await supabase
     .from("subscriptions")
     .select("provider_id")

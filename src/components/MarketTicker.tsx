@@ -48,6 +48,7 @@ export function MarketTicker({ initialPrices }: { initialPrices: Record<string, 
   // percentage is a genuine live delta off real numbers rather than a
   // fabricated figure -- it just isn't a 24h-open change, since
   // market_prices only ever stores the current price.
+  /* eslint-disable react-hooks/refs -- intentional write-once baseline per symbol */
   const baselineRef = useRef<Record<string, number>>({});
   for (const symbol of symbols) {
     if (baselineRef.current[symbol] === undefined && prices[symbol]) {
@@ -61,6 +62,7 @@ export function MarketTicker({ initialPrices }: { initialPrices: Record<string, 
     const changePct = price && baseline ? ((price - baseline) / baseline) * 100 : 0;
     return { ...m, price, changePct };
   }).filter((item) => item.price);
+  /* eslint-enable react-hooks/refs */
 
   if (items.length === 0) return null;
 

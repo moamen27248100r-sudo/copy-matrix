@@ -1,3 +1,4 @@
+import { nowMs } from "@/lib/now";
 import { formatMoney } from "@/lib/money";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
@@ -81,7 +82,7 @@ export default async function AdminUsersPage({
     query = query.or(`display_name.ilike.%${q}%,email.ilike.%${q}%`);
   }
 
-  const abandonedCutoff = new Date(Date.now() - ABANDONED_DAYS * 24 * 60 * 60 * 1000).toISOString();
+  const abandonedCutoff = new Date(nowMs() - ABANDONED_DAYS * 24 * 60 * 60 * 1000).toISOString();
 
   if (status === "active_no_deposit") {
     query = query.eq("is_suspended", false);
@@ -114,7 +115,7 @@ export default async function AdminUsersPage({
   query = query.range(from, to);
 
   const { data: users, count } = await query;
-  const onlineCutoff = Date.now() - ONLINE_WINDOW_MINUTES * 60 * 1000;
+  const onlineCutoff = nowMs() - ONLINE_WINDOW_MINUTES * 60 * 1000;
   const totalPages = Math.max(1, Math.ceil((count ?? 0) / PAGE_SIZE));
 
   const linkParams = (overrides: Record<string, string | number>) => {

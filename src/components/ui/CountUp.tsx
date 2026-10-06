@@ -20,6 +20,7 @@ export function CountUp({ value, prefix = "", money = false }: { value: number; 
     }
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       from.current = value;
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- syncs state with a browser API on mount
       setShown(value);
       return;
     }

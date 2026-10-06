@@ -1,3 +1,4 @@
+import { nowMs } from "@/lib/now";
 import { formatMoney } from "@/lib/money";
 import { ADMIN_DEPOSIT_STATUS, ADMIN_STATUS_TONE, ADMIN_WITHDRAWAL_STATUS } from "@/lib/crypto/admin-labels";
 import Link from "next/link";
@@ -143,7 +144,7 @@ export default async function AdminUserDetailPage({
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <div className="rounded-lg border border-border bg-surface p-3 text-center">
           <p className="text-sm font-semibold">
-            {profile.last_seen_at && Date.now() - new Date(profile.last_seen_at).getTime() < 5 * 60 * 1000 ? (
+            {profile.last_seen_at && nowMs() - new Date(profile.last_seen_at).getTime() < 5 * 60 * 1000 ? (
               <span className="text-success">متصل الآن</span>
             ) : profile.last_seen_at ? (
               new Date(profile.last_seen_at).toLocaleString("ar-EG")

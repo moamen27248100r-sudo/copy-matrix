@@ -6,6 +6,7 @@ export function usePrefersReducedMotion(): boolean {
   const [reduced, setReduced] = useState(false);
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- syncs state with a browser API on mount
     setReduced(mq.matches);
     const handler = (e: MediaQueryListEvent) => setReduced(e.matches);
     mq.addEventListener("change", handler);
@@ -18,6 +19,7 @@ export function useIsDesktop(breakpointPx = 1024): boolean {
   const [isDesktop, setIsDesktop] = useState(false);
   useEffect(() => {
     const mq = window.matchMedia(`(min-width: ${breakpointPx}px)`);
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- syncs state with a browser API on mount
     setIsDesktop(mq.matches);
     const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
     mq.addEventListener("change", handler);

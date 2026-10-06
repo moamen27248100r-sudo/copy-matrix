@@ -163,6 +163,7 @@ export function SignupForm({ next }: { next?: string | null }) {
   // instead of always defaulting to Saudi Arabia.
   useEffect(() => {
     const detected = detectCountry();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- syncs state with a browser API on mount
     if (detected) setCountry(detected);
   }, []);
 

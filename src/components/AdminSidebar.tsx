@@ -157,6 +157,7 @@ export function AdminMobileMenuButton() {
   }, [open]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- syncs state with a browser API on mount
     setOpen(false);
   }, [pathname]);
 
