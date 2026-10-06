@@ -1,5 +1,6 @@
 import type { AuthError, SupabaseClient } from "@supabase/supabase-js";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 // Server-side TOTP checks shared by the 2FA settings, the sign-in code step and withdrawals.
 
@@ -8,8 +9,8 @@ export const CODE_PATTERN = /^\d{6}$/;
 // Supabase already throttles MFA verification per IP; on top of that, cap
 // guesses per account across all IPs and per account+IP, so a 6-digit code
 // can't be brute-forced from many addresses.
-export async function attemptAllowed(supabase: SupabaseClient, userId: string) {
-  const { data, error } = await supabase.rpc("check_rate_limit", {
+export async function attemptAllowed(_supabase: SupabaseClient, userId: string) {
+  const { data, error } = await createAdminClient().rpc("check_rate_limit", {
     p_key: `mfa-verify-user:${userId}`,
     p_max_attempts: 10,
     p_window_seconds: 900,
