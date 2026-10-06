@@ -3,6 +3,7 @@ import { type NextRequest } from "next/server";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
+import { safeNextPath } from "@/lib/safe-next";
 
 // Lands here from Supabase's own hosted verify page after it checks the
 // token from an emailed link (currently: password recovery only, see
@@ -18,7 +19,7 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get("code");
   const tokenHash = searchParams.get("token_hash");
   const type = searchParams.get("type") as EmailOtpType | null;
-  const next = searchParams.get("next") ?? "/dashboard";
+  const next = safeNextPath(searchParams.get("next")) ?? "/dashboard";
 
   const supabase = await createClient();
 
