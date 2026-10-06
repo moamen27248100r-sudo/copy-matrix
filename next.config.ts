@@ -16,6 +16,17 @@ if (process.cwd() !== configDir) {
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
+// Sent on every response: the app is never shown inside another site's frame (clickjacking),
+// browsers must not guess content types, and HTTPS is pinned.
+const SECURITY_HEADERS = [
+  { key: "X-Frame-Options", value: "DENY" },
+  { key: "Content-Security-Policy", value: "frame-ancestors 'none'" },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
+  { key: "Permissions-Policy", value: "camera=(self), microphone=(), geolocation=(), payment=()" },
+];
+
 const nextConfig: NextConfig = {
   // Pin the workspace root to this project (a stray package-lock.json higher up
   // the tree otherwise triggers a warning on every build).
@@ -26,9 +37,15 @@ const nextConfig: NextConfig = {
   // Shown at the bottom of the account menu.
   // Until launch every response tells search engines not to index it (src/lib/indexing.ts).
   async headers() {
-    return process.env.ALLOW_SEARCH_INDEXING === "true"
-      ? []
-      : [{ source: "/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] }];
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          ...SECURITY_HEADERS,
+          ...(process.env.ALLOW_SEARCH_INDEXING === "true" ? [] : [{ key: "X-Robots-Tag", value: "noindex, nofollow" }]),
+        ],
+      },
+    ];
   },
   env: {
     NEXT_PUBLIC_APP_VERSION: (JSON.parse(readFileSync(path.join(configDir, "package.json"), "utf8")) as { version: string }).version,
