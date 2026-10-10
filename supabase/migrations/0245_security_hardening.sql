@@ -60,7 +60,7 @@ CREATE OR REPLACE FUNCTION public.start_or_update_copy(p_provider_id uuid, p_all
  LANGUAGE plpgsql
  SECURITY DEFINER
  SET search_path TO 'public'
-AS $function$;
+AS $function$
 declare
   v_balance numeric;
   v_min_copy_amount numeric;
