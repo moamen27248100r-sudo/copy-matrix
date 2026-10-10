@@ -4,6 +4,8 @@
 import { test, expect, type Page } from "@playwright/test";
 import { sql, closeDb } from "./support/fixtures";
 
+// E2E_BASE_URL / E2E_LEADER_ID check one given leader on a deployed site.
+const BASE = process.env.E2E_BASE_URL ?? "http://localhost:3000";
 type Card = Record<string, string | number | null>;
 let id = "";
 let card: Card;
@@ -19,7 +21,7 @@ test.beforeAll(async () => {
     `select b.provider_id from public.sim_history_builds b join public.provider_stats s using (provider_id)
      where s.trades_30d > 3 order by s.trades_30d desc limit 1`,
   );
-  id = row.provider_id;
+  id = process.env.E2E_LEADER_ID ?? row.provider_id;
   await sql("select public.refresh_provider_stats($1::uuid[], true)", [[id]]);
   [card] = await sql<Card>("select * from public.provider_cards where provider_id = $1", [id]);
 });
@@ -27,7 +29,7 @@ test.beforeAll(async () => {
 test.afterAll(closeDb);
 
 async function open(page: Page, tab = "history") {
-  await page.context().addCookies([{ name: "locale", value: "en", url: "http://localhost:3000" }]);
+  await page.context().addCookies([{ name: "locale", value: "en", url: BASE }]);
   await page.goto(`/trader/${id}?tab=${tab}`);
   await expect(page.getByRole("heading", { name: String(card.display_name) })).toBeVisible();
 }
@@ -91,7 +93,7 @@ test("asset allocation tab shows each symbol's share of the trades", async ({ pa
 });
 
 test("the discover card shows the same 30-day numbers", async ({ page }) => {
-  await page.context().addCookies([{ name: "locale", value: "en", url: "http://localhost:3000" }]);
+  await page.context().addCookies([{ name: "locale", value: "en", url: BASE }]);
   await page.goto(`/discover?period=30&q=${encodeURIComponent(String(card.display_name))}`);
   const cardText = clean(await page.locator(`a[href="/trader/${id}"]`).first().locator("xpath=ancestor::*[contains(@class,'rounded')][1]").innerText());
   expect(cardText).toContain(pct(card.roi_30d));
