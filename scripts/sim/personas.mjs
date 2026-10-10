@@ -3,7 +3,7 @@
 // id, and stored on providers.persona so the live engine (run_market_simulation)
 // keeps trading exactly the same way the rebuilt history did.
 
-export const PERSONA_VERSION = 1;
+export const PERSONA_VERSION = 2;
 
 const MIN = 1;
 const HOUR = 60;
@@ -126,6 +126,10 @@ const COPY_AVG = { low: [1200, 3000], medium: [500, 1500], high: [250, 800] };
 const lnAnnual = (pct) => Math.log(1 + pct / 100);
 const T_MAX_SHOCK = 0.4;
 
+// Momentum lookback (minutes) the direction is read from, by style. The live
+// engine reads it from price_history, which keeps 7 days.
+const LOOKBACK = { scalper: [10, 60], day: [60, 480], swing: [720, 2880], position: [2880, 7200] };
+
 // Stop distance in units of the volatility expected over the holding time.
 const K_SL = { scalper: [1.6, 2.2], day: [1.3, 1.8], swing: [0.6, 0.9], position: [0.55, 0.85] };
 
@@ -161,6 +165,11 @@ export function drawPersona(key, rng, { startMs, trackDays }) {
     wr: round(r(P.wr), 3),
     rr: round(r(P.rr), 3),
     k_sl: round(rng.range(...K_SL[P.style]), 3),
+    // Strategy: follow (trend) or fade (reversion) the move over `lb` minutes,
+    // with probability `follow`; otherwise the direction is a coin flip.
+    strat: rng.chance(0.6) ? "trend" : "reversion",
+    lb: Math.round(Math.exp(rng.range(Math.log(LOOKBACK[P.style][0]), Math.log(LOOKBACK[P.style][1])))),
+    follow: round(rng.range(0.5, 0.85), 3),
     dd: P.dd,
     traj,
     start: new Date(startMs).toISOString(),
@@ -294,4 +303,26 @@ function rawTargetLog(traj, d) {
 function round(x, n) {
   const f = 10 ** n;
   return Math.round(x * f) / f;
+}
+
+// One candidate way of trading for an existing leader: the profile stays as it
+// is (style, risk class, assets, sessions, activity, holding times, capital,
+// audience, target curve) and only the trading parameters inside the
+// persona's ranges are drawn again -- risk per trade, leverage, reward:risk,
+// stop width and the strategy.
+export function candidatePersona(profile, rng) {
+  const P = PERSONAS[profile.key];
+  const r = (pair) => rng.range(pair[0], pair[1]);
+  return {
+    ...profile,
+    v: PERSONA_VERSION,
+    risk_pct: round(r(P.riskPct), 3),
+    lev: Math.round(r(P.lev)),
+    rr: round(r(P.rr), 3),
+    k_sl: round(rng.range(...K_SL[P.style]), 3),
+    strat: rng.chance(0.6) ? "trend" : "reversion",
+    lb: Math.round(Math.exp(rng.range(Math.log(LOOKBACK[P.style][0]), Math.log(LOOKBACK[P.style][1])))),
+    follow: round(rng.range(0.5, 0.85), 3),
+    seed: Math.floor(rng.float() * 2 ** 31),
+  };
 }

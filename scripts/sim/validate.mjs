@@ -1,23 +1,20 @@
-// Validation gate for a rebuilt leader: the generated history has to match
-// its persona (win rate, reward:risk, drawdown, activity) and stay inside the
-// risk class' daily / monthly limits. Failing leaders are regenerated with a
-// new sub-seed by the rebuild script.
+// Picks a leader's history among several candidate runs. Every candidate is a
+// complete, causal run of the engine (no trade looks ahead); the one whose
+// equity curve sits closest to the leader's profile -- its target curve,
+// drawdown range and win rate -- is kept. Nothing inside a run is adjusted.
 
-import { RISK_LIMITS } from "./personas.mjs";
+import { RISK_LIMITS, targetLog } from "./personas.mjs";
 
 const DAY_MS = 86400_000;
 
 export function leaderMetrics(sim) {
   const closed = sim.trades.filter((t) => !t.stillOpen);
   const wins = closed.filter((t) => t.pnl > 0);
-  const losses = closed.filter((t) => t.pnl <= 0);
-  const avgWin = wins.length ? wins.reduce((a, t) => a + t.returnPct, 0) / wins.length : 0;
-  const avgLoss = losses.length ? -losses.reduce((a, t) => a + t.returnPct, 0) / losses.length : 0;
-
   let log = 0;
   let peak = 0;
   let mdd = 0;
   let maxDay = 0;
+  const curve = [];
   const months = new Map();
   for (const [k, r] of sim.daily) {
     const base = r.start + r.cash;
@@ -26,45 +23,48 @@ export function leaderMetrics(sim) {
     log += Math.log(Math.max(1e-6, 1 + ret));
     peak = Math.max(peak, log);
     mdd = Math.max(mdd, 1 - Math.exp(log - peak));
+    curve.push([k, log]);
     const d = new Date(k * DAY_MS);
     const mk = d.getUTCFullYear() * 12 + d.getUTCMonth();
     months.set(mk, (months.get(mk) ?? 0) + Math.log(Math.max(1e-6, 1 + ret)));
   }
-  const monthRets = [...months.values()].map((l) => Math.exp(l) - 1);
   const days = sim.daily.length;
-  const tradingDays = Math.max(1, sim.daily.filter(([, r]) => r.trades > 0).length);
   return {
     trades: closed.length,
+    open: sim.trades.length - closed.length,
     winRate: closed.length ? wins.length / closed.length : 0,
-    rr: avgLoss > 0 ? avgWin / avgLoss : 0,
     mdd,
     maxDay,
-    monthRets,
+    monthRets: [...months.values()].map((l) => Math.exp(l) - 1),
     total: Math.exp(log) - 1,
     annual: days > 30 ? Math.exp((log * 365) / days) - 1 : 0,
-    tradesPerDay: closed.length / Math.max(1, days),
-    tradesPerTradingDay: closed.length / tradingDays,
+    curve,
   };
 }
 
-export function validateLeader(persona, sim, trackDays) {
+// Lower is closer. RMS distance between the run's log equity index and the
+// target curve at 12 checkpoints, plus drawdown / win-rate / risk-limit terms.
+export function scoreCandidate(persona, sim, startMs) {
   const m = leaderMetrics(sim);
+  const startDay = Math.floor(startMs / DAY_MS);
+  let se = 0;
+  let n = 0;
+  const step = Math.max(1, Math.floor(m.curve.length / 12));
+  for (let j = step - 1; j < m.curve.length; j += step) {
+    const [k, log] = m.curve[j];
+    se += (log - targetLog(persona.traj, k - startDay)) ** 2;
+    n++;
+  }
+  const last = m.curve[m.curve.length - 1];
+  if (last) {
+    se += 2 * (last[1] - targetLog(persona.traj, last[0] - startDay)) ** 2;
+    n += 2;
+  }
+  let score = n ? Math.sqrt(se / n) : 0;
+  const [ddLo, ddHi] = persona.dd;
+  score += 2 * Math.max(0, m.mdd - ddHi * 1.15) + 0.5 * Math.max(0, ddLo * 0.5 - m.mdd);
+  if (m.trades >= 100) score += 0.5 * Math.max(0, Math.abs(m.winRate - persona.wr) - 0.05);
   const lim = RISK_LIMITS[persona.risk];
-  const v = [];
-  if (m.maxDay > lim.day * 1.05) v.push(`day ${(m.maxDay * 100).toFixed(1)}%`);
-  let extremes = 0;
-  for (const r of m.monthRets) {
-    if (r < lim.month[0] * 1.05 || r > lim.month[1] * 1.05) v.push(`month ${(r * 100).toFixed(1)}%`);
-    if (r < lim.monthNormal[0] * 1.05 || r > lim.monthNormal[1] * 1.05) extremes++;
-  }
-  const years = Math.max(1, trackDays / 365);
-  if (persona.risk !== "high" && extremes > 0) v.push(`abnormal months ${extremes}`);
-  if (persona.risk === "high" && extremes > Math.ceil(years) + 1) v.push(`extreme months ${extremes}`);
-  if (m.mdd > persona.dd[1] * 1.15 + 0.01) v.push(`dd ${(m.mdd * 100).toFixed(1)}%`);
-  if (m.trades >= 150) {
-    const [lo, hi] = [persona.wr - 0.08, persona.wr + 0.08];
-    if (m.winRate < lo || m.winRate > hi) v.push(`wr ${(m.winRate * 100).toFixed(1)}%`);
-    if (m.rr < persona.rr * 0.65 || m.rr > persona.rr * 1.5) v.push(`rr ${m.rr.toFixed(2)}`);
-  }
-  return { ok: v.length === 0, violations: v, metrics: m };
+  if (m.maxDay > lim.day * 1.05) score += 0.5;
+  return { score, metrics: m };
 }

@@ -9,7 +9,7 @@
     "lint": "eslint",
     "i18n:check": "node scripts/i18n-check.mjs",
     "test": "node --test tests/security.test.mjs tests/trade-math.test.mjs tests/crypto-verify.test.mjs tests/sim-engine.test.mjs",
-    "test:db": "node --test --test-concurrency=1 tests/trade-integrity.db.test.mjs tests/wallet-separation.db.test.mjs tests/copy-risk.db.test.mjs tests/crypto-wallet.db.test.mjs tests/sim-leaders.db.test.mjs tests/notifications-account.db.test.mjs tests/email-outbox.db.test.mjs tests/security-hardening.db.test.mjs",
+    "test:db": "node --test --test-concurrency=1 tests/trade-integrity.db.test.mjs tests/wallet-separation.db.test.mjs tests/copy-risk.db.test.mjs tests/crypto-wallet.db.test.mjs tests/sim-leaders.db.test.mjs tests/notifications-account.db.test.mjs tests/email-outbox.db.test.mjs tests/security-hardening.db.test.mjs tests/leader-history.db.test.mjs tests/leader-prices.db.test.mjs",
     "test:e2e": "playwright test",
     "test:e2e:client": "playwright test e2e/client.spec.ts",
     "test:e2e:real": "playwright test e2e/real-account.spec.ts",

@@ -1,311 +1,349 @@
 // Leader trading engine used to rebuild a simulated leader's history from real
-// hourly prices. The live engine (public.run_market_simulation) applies the
-// same rules minute by minute:
+// 1-minute prices (candles.mjs). It never looks ahead: every decision at a
+// minute uses that minute's opening price and earlier data only, and the
+// live engine (public.sim_open_trade / public.sim_advance_trade) applies the
+// same rules to the live feed:
 //
-// - a trade opens at the market price, with its lot sized from the leader's
-//   equity, risk per trade and stop distance, and real S/L and T/P levels;
-// - touching the T/P or S/L closes it right there, at that level;
-// - otherwise, once its planned holding time is up, the leader takes the best
-//   (planned win) or cuts at the worst (planned loss) price actually traded in
-//   the recent window, or closes at the market after a grace period;
-// - whether a trade is planned as a win is drawn from the persona's win rate,
-//   nudged by how far the equity curve sits from the persona's trajectory.
+// - when: trades arrive at random inside the leader's sessions (Poisson, at
+//   the persona's trades-per-day rate), never while the symbol's market is
+//   closed and never on a minute with no real trade;
+// - direction: the move over the persona's lookback window (trend leaders
+//   follow it, reversion leaders fade it) with probability `follow`,
+//   otherwise a coin flip;
+// - entry: the minute's opening price plus half the spread (a buy pays the
+//   ask, a sell receives the bid);
+// - levels: the stop sits at the volatility expected over the holding time
+//   (trailing 30-day hourly volatility, completed hours only) times k_sl, the
+//   target at the stop times the reward:risk;
+// - size: risk_pct of the realised equity over the stop distance, capped by
+//   the leverage;
+// - exit: the first later minute whose range reaches the stop or the target
+//   on the exit side of the spread closes the trade AT that level (stop first
+//   when one candle reaches both); otherwise, once the holding time is up,
+//   the trade closes at the market (that minute's open less half the spread).
+//   Scalpers and day traders also go flat a few minutes before a gold / forex
+//   market closes for the weekend;
+// - costs: spread (in the prices), commission, overnight swap.
 //
-// Every exit is a price that really traded at the close time, P&L follows from
-// side, prices and lot, and all stats are computed afterwards from the trades.
+// Prices are integers (price x 10^dp) and money is in cents, rounded half
+// away from zero exactly like Postgres numeric round(), so the P&L here is
+// the same number public.sim_close_trade computes.
 
-import { Rng, hashSeed, mulberry32 } from "./rng.mjs";
-import { HOUR } from "./candles.mjs";
-import { RISK_LIMITS, targetLog } from "./personas.mjs";
+import { Rng } from "./rng.mjs";
+import { MINUTE, HOUR, DAY } from "./candles.mjs";
+import { RISK_LIMITS } from "./personas.mjs";
 
-const MINUTE = 60_000;
-const DAY_MS = 24 * HOUR;
-
-// pip / pip value match public.trade_profit_usd; units = price units per lot.
+// pip / pip value match public.trade_profit_usd. spread = full spread in
+// price units (spreadRel: as a share of the price).
 export const SPECS = {
-  XAUUSD: { pip: 0.1, val: 10, step: 0.01, dp: 2, kind: "metal", comm: 7, swap: -3 },
-  EURUSD: { pip: 0.0001, val: 10, step: 0.01, dp: 5, kind: "fx", comm: 7, swap: -0.8 },
-  GBPUSD: { pip: 0.0001, val: 10, step: 0.01, dp: 5, kind: "fx", comm: 7, swap: -1 },
-  USDJPY: { pip: 0.01, val: 9, step: 0.01, dp: 3, kind: "fxjpy", comm: 7, swap: -0.8 },
-  BTCUSDT: { pip: 1, val: 1, step: 0.001, dp: 2, kind: "crypto", fee: 0.0002 },
-  ETHUSDT: { pip: 0.1, val: 1, step: 0.001, dp: 2, kind: "crypto", fee: 0.0002 },
-  SOLUSDT: { pip: 0.01, val: 1, step: 0.001, dp: 3, kind: "crypto", fee: 0.0002 },
-  BNBUSDT: { pip: 0.1, val: 1, step: 0.001, dp: 2, kind: "crypto", fee: 0.0002 },
-  XRPUSDT: { pip: 0.0001, val: 1, step: 0.001, dp: 4, kind: "crypto", fee: 0.0002 },
+  XAUUSD: { pip: 0.1, val: 10, step: 0.01, dp: 2, kind: "metal", comm: 7, swap: -3, spread: 0.15 },
+  EURUSD: { pip: 0.0001, val: 10, step: 0.01, dp: 5, kind: "fx", comm: 7, swap: -0.8, spread: 0.00002 },
+  GBPUSD: { pip: 0.0001, val: 10, step: 0.01, dp: 5, kind: "fx", comm: 7, swap: -1, spread: 0.00003 },
+  USDJPY: { pip: 0.01, val: 9, step: 0.01, dp: 3, kind: "fxjpy", comm: 7, swap: -0.8, spread: 0.003 },
+  BTCUSDT: { pip: 1, val: 1, step: 0.001, dp: 2, kind: "crypto", fee: 0.0002, spreadRel: 0.00002 },
+  ETHUSDT: { pip: 0.1, val: 1, step: 0.001, dp: 2, kind: "crypto", fee: 0.0002, spreadRel: 0.00002 },
+  SOLUSDT: { pip: 0.01, val: 1, step: 0.001, dp: 3, kind: "crypto", fee: 0.0002, spreadRel: 0.00002 },
+  BNBUSDT: { pip: 0.1, val: 1, step: 0.001, dp: 2, kind: "crypto", fee: 0.0002, spreadRel: 0.00002 },
+  XRPUSDT: { pip: 0.0001, val: 1, step: 0.001, dp: 4, kind: "crypto", fee: 0.0002, spreadRel: 0.00002 },
 };
-// Only multi-day personas trade the two pairs that have no intraday feed.
-export const DAILY_ONLY = new Set(["GBPUSD", "USDJPY"]);
 
 export const units = (sym) => SPECS[sym].val / SPECS[sym].pip;
 export const isCrypto = (sym) => SPECS[sym].kind === "crypto";
+const pipInt = (sym) => Math.round(SPECS[sym].pip * 10 ** SPECS[sym].dp);
+const stepMilli = (sym) => Math.round(SPECS[sym].step * 1000);
 
-export function notionalUsd(sym, lot, price) {
-  const k = SPECS[sym].kind;
-  if (k === "fx") return lot * 100000 * price;
-  if (k === "fxjpy") return lot * 100000;
-  return lot * units(sym) * price;
+// Half the spread in integer price units at an integer price.
+export function halfSpread(sym, priceInt) {
+  const s = SPECS[sym];
+  const full = s.spreadRel != null ? priceInt * s.spreadRel : s.spread * 10 ** s.dp;
+  return Math.max(1, Math.round(full / 2));
 }
 
-// Gold and forex close from Friday 22:00 to Sunday 22:00 UTC and on 1 Jan / 25 Dec.
+// Gold and forex close from Friday 22:00 to Sunday 22:00 UTC and on 1 Jan /
+// 25 Dec (public.sim_market_open).
 export function marketOpen(sym, ms) {
   if (isCrypto(sym)) return true;
-  const d = new Date(ms);
-  const dow = d.getUTCDay();
-  const h = d.getUTCHours();
+  const day = Math.floor(ms / DAY);
+  const dow = (day + 4) % 7; // 1970-01-01 was a Thursday
+  const h = Math.floor(ms / HOUR) % 24;
   if (dow === 6 || (dow === 0 && h < 22) || (dow === 5 && h >= 22)) return false;
+  const d = new Date(ms);
   const md = d.getUTCMonth() * 100 + d.getUTCDate();
   return md !== 1 && md !== 1125;
 }
 
-export const roundTo = (x, dp) => Math.round(x * 10 ** dp) / 10 ** dp;
-const cents = (x) => Math.round(x * 100) / 100;
+// ---------------------------------------------------------------- exact money
 
-// ---------------------------------------------------------------- prices
+const big = BigInt;
+// n / d rounded half away from zero (d > 0).
+function roundDiv(n, d) {
+  if (n >= 0n) return (2n * n + d) / (2n * d);
+  return -((-2n * n + d) / (2n * d));
+}
+// A decimal (e.g. 0.0002, -0.8) as an exact fraction.
+function frac(x) {
+  const s = String(x);
+  const dot = s.indexOf(".");
+  if (dot < 0) return [big(s), 1n];
+  const dec = s.length - dot - 1;
+  return [big(s.replace(".", "")), 10n ** big(dec)];
+}
 
-// Minute prices inside each real hourly candle: open -> first extreme -> second
-// extreme -> close, with a little bridge noise, never leaving [low, high].
-export class PriceBook {
+// Notional in USD of `lotMilli` thousandths of a lot at an integer price, as a fraction.
+function notionalFrac(sym, lotMilli, priceInt) {
+  const s = SPECS[sym];
+  const scale = 10n ** big(s.dp);
+  if (s.kind === "fx") return [big(lotMilli) * 100000n * big(priceInt), 1000n * scale];
+  if (s.kind === "fxjpy") return [big(lotMilli) * 100000n, 1000n];
+  // lot x (val / pip) x price
+  return [big(lotMilli) * big(s.val) * big(priceInt), 1000n * big(pipInt(sym))];
+}
+export function notionalUsd(sym, lotMilli, priceInt) {
+  const [n, d] = notionalFrac(sym, lotMilli, priceInt);
+  return Number(n) / Number(d);
+}
+
+// Gross result in cents: (exit - entry) x dir x (val / pip) x lot.
+export function grossCents(sym, dir, entryInt, exitInt, lotMilli) {
+  const s = SPECS[sym];
+  return Number(roundDiv(big(exitInt - entryInt) * big(dir) * big(s.val) * big(lotMilli) * 100n, big(pipInt(sym)) * 1000n));
+}
+
+// Overnight rollovers (22:00 UTC) held through while the market was open.
+export function swapNights(sym, openMs, closeMs) {
+  let nights = 0;
+  let roll = Math.floor(openMs / DAY) * DAY + 22 * HOUR;
+  if (roll <= openMs) roll += DAY;
+  for (; roll < closeMs; roll += DAY) if (marketOpen(sym, roll - HOUR)) nights++;
+  return nights;
+}
+
+export function costsCents(sym, lotMilli, entryInt, exitInt, openMs, closeMs) {
+  const s = SPECS[sym];
+  if (s.kind === "crypto") {
+    const [fn, fd] = frac(s.fee);
+    const [n1, d1] = notionalFrac(sym, lotMilli, entryInt);
+    const [n2] = notionalFrac(sym, lotMilli, exitInt);
+    // fee x (notional at entry + notional at exit) / 2
+    return { commission: Number(roundDiv(fn * (n1 + n2) * 100n, fd * d1 * 2n)), swap: 0 };
+  }
+  const [cn, cd] = frac(s.comm);
+  const [sn, sd] = frac(s.swap);
+  const nights = swapNights(sym, openMs, closeMs);
+  return {
+    commission: Number(roundDiv(cn * big(lotMilli) * 100n, cd * 1000n)),
+    swap: Number(roundDiv(sn * big(lotMilli) * big(nights) * 100n, sd * 1000n)),
+  };
+}
+
+// pnl / equity x 100, 4 decimals.
+export function returnPct(pnlCents, equityCents) {
+  if (equityCents <= 0) return null;
+  return Number(roundDiv(big(pnlCents) * 1000000n, big(equityCents))) / 10000;
+}
+
+// ---------------------------------------------------------------- market data
+
+// Per-symbol helpers on a MinuteSeries: market-open flags and the trailing
+// volatility of completed hours.
+export class Market {
   constructor(seriesBySymbol) {
     this.s = seriesBySymbol;
-    this.cache = new Map();
+    this.open = {};
+    this.hourOpen = {};
     this.sigma = {};
-    for (const [sym, ser] of Object.entries(seriesBySymbol)) this.sigma[sym] = rollingSigma(ser);
-  }
-  hourPath(sym, i) {
-    const key = sym + i;
-    let p = this.cache.get(key);
-    if (p) return p;
-    const ser = this.s[sym];
-    const o = ser.o[i], h = ser.h[i], l = ser.l[i], c = ser.c[i];
-    p = new Float64Array(61);
-    const rnd = mulberry32(hashSeed(key));
-    const upFirst = c >= o ? rnd() < 0.3 : rnd() < 0.7;
-    const t1 = 3 + Math.floor(rnd() * 25);
-    const t2 = 32 + Math.floor(rnd() * 25);
-    const anchors = [[0, o], [t1, upFirst ? h : l], [t2, upFirst ? l : h], [60, c]];
-    for (let a = 0; a < 3; a++) {
-      const [x0, y0] = anchors[a];
-      const [x1, y1] = anchors[a + 1];
-      let w = 0;
-      const amp = Math.abs(y1 - y0) * 0.3 + (h - l) * 0.08;
-      const walk = [0];
-      for (let x = x0 + 1; x <= x1; x++) walk.push((w += (rnd() - 0.5) * amp));
-      const endW = walk[walk.length - 1];
-      for (let x = x0; x <= x1; x++) {
-        const f = (x - x0) / (x1 - x0 || 1);
-        const v = y0 + (y1 - y0) * f + walk[x - x0] - endW * f;
-        p[x] = Math.min(h, Math.max(l, v));
+    for (const [sym, ser] of Object.entries(seriesBySymbol)) {
+      const open = new Uint8Array(ser.n);
+      const nh = Math.ceil(ser.n / 60);
+      const hourOpen = new Uint8Array(nh);
+      for (let k = 0; k < nh; k++) {
+        const o = marketOpen(sym, ser.time(k * 60)) ? 1 : 0;
+        hourOpen[k] = o;
+        open.fill(o, k * 60, Math.min(ser.n, k * 60 + 60));
       }
+      this.open[sym] = open;
+      this.hourOpen[sym] = hourOpen;
+      this.sigma[sym] = trailingSigma(ser, hourOpen);
     }
-    p[t1] = anchors[1][1];
-    p[t2] = anchors[2][1];
-    if (this.cache.size > 400000) this.cache.clear();
-    this.cache.set(key, p);
-    return p;
-  }
-  // Price at a minute timestamp (ms, minute aligned).
-  at(sym, ms) {
-    const ser = this.s[sym];
-    const i = ser.index(ms);
-    if (i < 0) return ser.o[0];
-    if (i >= ser.n) return ser.c[ser.n - 1];
-    return this.hourPath(sym, i)[Math.floor((ms - (ser.from + i * HOUR)) / MINUTE)];
-  }
-  sigmaAt(sym, ms) {
-    const ser = this.s[sym];
-    const i = Math.min(ser.n - 1, Math.max(0, ser.index(ms)));
-    return this.sigma[sym][i];
-  }
-  high(sym, i) {
-    return this.s[sym].h[i];
-  }
-  low(sym, i) {
-    return this.s[sym].l[i];
   }
 }
 
-// Trailing 30-day standard deviation of hourly log returns (moves only).
-function rollingSigma(ser) {
-  const out = new Float64Array(ser.n);
+// sigma[k]: standard deviation of the hourly log returns of the 720 open
+// hours before hour k (hour k itself excluded).
+function trailingSigma(ser, hourOpen) {
+  const nh = Math.ceil(ser.n / 60);
+  const close = (k) => ser.c[Math.min(ser.n - 1, k * 60 + 59)];
+  const out = new Float64Array(nh);
   const W = 720;
-  const r = new Float64Array(ser.n);
-  for (let i = 1; i < ser.n; i++) r[i] = Math.log(ser.c[i] / ser.c[i - 1]);
+  const window = [];
   let s2 = 0;
-  let cnt = 0;
-  for (let i = 1; i < ser.n; i++) {
-    if (r[i] !== 0) {
-      s2 += r[i] * r[i];
-      cnt++;
+  for (let k = 0; k < nh; k++) {
+    out[k] = window.length > 24 ? Math.sqrt(s2 / window.length) : 0.006;
+    if (k >= 1 && hourOpen[k]) {
+      const r = Math.log(close(k) / close(k - 1));
+      if (r !== 0 && Number.isFinite(r)) {
+        window.push(r);
+        s2 += r * r;
+        if (window.length > W) s2 -= window.shift() ** 2;
+      }
     }
-    if (i > W && r[i - W] !== 0) {
-      s2 -= r[i - W] * r[i - W];
-      cnt--;
-    }
-    out[i] = cnt > 24 ? Math.sqrt(Math.max(0, s2) / cnt) : 0.006;
   }
-  out[0] = out[1];
   return out;
 }
 
 // ---------------------------------------------------------------- engine
 
 const clamp = (x, lo, hi) => Math.min(hi, Math.max(lo, x));
-const dayKey = (ms) => Math.floor(ms / DAY_MS);
+const dayKey = (ms) => Math.floor(ms / DAY);
+const FLAT_BEFORE_CLOSE_MIN = 5;
 
-function inSession(persona, ms) {
-  const d = new Date(ms);
-  const h = d.getUTCHours();
-  for (const [a, b, w] of persona.sessions) if (h >= a && h < b) return w;
+export function sessionWeight(persona, hourOfDay) {
+  for (const [a, b, w] of persona.sessions) if (hourOfDay >= a && hourOfDay < b) return w;
   return 0;
 }
-
-function sessionMinutesPerDay(persona) {
+export function sessionMinutesPerDay(persona) {
   let m = 0;
   for (const [a, b, w] of persona.sessions) m += (b - a) * 60 * w;
   return m;
 }
+export const flatsBeforeClose = (persona, sym) => !isCrypto(sym) && (persona.style === "scalper" || persona.style === "day");
 
-// Holding time in minutes, log-uniform inside the persona's range.
-function drawHold(rng, persona) {
-  const [lo, hi] = persona.hold;
-  return Math.max(1, Math.round(Math.exp(rng.range(Math.log(lo), Math.log(hi)))));
+// Direction from the move over the lookback window (integer prices).
+export function signalDir(persona, nowInt, thenInt, coin, follow) {
+  if (follow < persona.follow && nowInt !== thenInt) {
+    const up = nowInt > thenInt ? 1 : -1;
+    return persona.strat === "reversion" ? -up : up;
+  }
+  return coin < 0.5 ? 1 : -1;
 }
 
-export const REGULATOR_GAIN = 4;
-export const RETRO_GAIN = 3;
-export const EXIT_WINDOW_MAX_MIN = 1440;
-// A planned win takes the best recent price once it is worth a share of the
-// target that grows with the persona's reward:risk (patient swing traders wait
-// longer than scalpers); after 1.5x the holding time any profit will do.
-export const winTakeFraction = (rr) => clamp(0.25 + 0.3 * rr, 0.4, 0.9);
-
-// How a trade with these levels resolves on the real path. Returns
-// { exitMs, exit, trigger }.
-export function resolveTrade(book, t) {
-  const { sym, dir, entry, sl, tp, openMs, holdMin, planWin, lossHindsight, take } = t;
-  const ser = book.s[sym];
-  const tpDist = (tp - entry) * dir;
-  const slDist = (entry - sl) * dir;
-  const plannedMs = openMs + holdMin * MINUTE;
-  const graceMs = openMs + holdMin * MINUTE * (planWin ? 3 : 2);
-  const W = exitWindowMin(holdMin) * MINUTE;
-  const step = holdMin < 120 ? MINUTE : 15 * MINUTE;
-  let nextCheck = plannedMs;
-  let ms = openMs + MINUTE;
-  const endMs = ser.from + ser.n * HOUR - MINUTE;
-  while (ms <= endMs) {
-    const i = ser.index(ms);
-    const hourStart = ser.from + i * HOUR;
-    // Whole hour can be skipped when neither level is inside its range and no
-    // exit decision falls inside it.
-    if (ms === hourStart && hourStart + HOUR <= nextCheck) {
-      const hi = book.high(sym, i);
-      const lo = book.low(sym, i);
-      const best = dir > 0 ? hi : lo;
-      const worst = dir > 0 ? lo : hi;
-      if (!marketOpen(sym, ms) || ((best - entry) * dir < tpDist && (entry - worst) * dir < slDist)) {
-        ms += HOUR;
+// Where a trade opened at minute i0 ends on the real path. Returns
+// { i, exit, trigger, exitMs } or null when it is still open at endIdx.
+export function resolveTrade(market, t, endIdx) {
+  const ser = market.s[t.sym];
+  const open = market.open[t.sym];
+  const hourOpen = market.hourOpen[t.sym];
+  const { dir, sl, tp, i0, holdMin, half, flat } = t;
+  const iStop = i0 + holdMin;
+  let i = i0;
+  while (i < endIdx) {
+    const k = Math.floor(i / 60);
+    if (i % 60 === 0 && i + 60 <= endIdx) {
+      if (!hourOpen[k]) {
+        i += 60;
         continue;
       }
-    }
-    if (marketOpen(sym, ms)) {
-      const p = book.at(sym, ms);
-      const e = (p - entry) * dir;
-      if (e >= tpDist) return { exitMs: ms, exit: tp, trigger: "tp" };
-      if (e <= -slDist) return { exitMs: ms, exit: sl, trigger: "sl" };
-      if (ms >= nextCheck) {
-        // A planned loss runs to its levels (or the grace period) unless the
-        // curve is above its trajectory: then it is cut at the worst recent price.
-        if (!planWin && !lossHindsight) {
-          if (ms >= graceMs) return { exitMs: ms, exit: p, trigger: "timeout" };
-          nextCheck = graceMs;
-          ms += MINUTE;
+      // A whole open hour that reaches neither level and holds no decision.
+      if (i + 60 <= iStop && (!flat || hourOpen[k + 1])) {
+        const adverse = (dir > 0 ? ser.hl[k] : ser.hh[k]) - dir * half;
+        const favour = (dir > 0 ? ser.hh[k] : ser.hl[k]) - dir * half;
+        if ((adverse - sl) * dir > 0 && (favour - tp) * dir < 0) {
+          i += 60;
           continue;
         }
-        const late = ms >= openMs + holdMin * MINUTE * 1.5;
-        const decided = windowExit(book, sym, dir, entry, Math.max(openMs + MINUTE, ms - W), ms, planWin, (late ? 0 : take) * tpDist, slDist);
-        if (decided) return decided;
-        if (ms >= graceMs) return { exitMs: ms, exit: p, trigger: "timeout" };
-        nextCheck = ms + step;
       }
     }
-    ms += MINUTE;
-  }
-  return null; // still open at the end of the data
-}
-
-// Best (planned win) / worst (planned loss) price traded in [fromMs, toMs].
-export function exitWindowMin(holdMin) {
-  return clamp(holdMin, 1, EXIT_WINDOW_MAX_MIN);
-}
-
-function windowExit(book, sym, dir, entry, fromMs, toMs, planWin, winNeed, slDist) {
-  const ser = book.s[sym];
-  let bestE = planWin ? -Infinity : Infinity;
-  let bestMs = 0;
-  let bestP = 0;
-  const consider = (ms, p) => {
-    const e = (p - entry) * dir;
-    if (planWin ? e > bestE : e < bestE) {
-      bestE = e;
-      bestMs = ms;
-      bestP = p;
-    }
-  };
-  let ms = fromMs;
-  while (ms <= toMs) {
-    const i = ser.index(ms);
-    const hourStart = ser.from + i * HOUR;
-    if (ms === hourStart && hourStart + HOUR - MINUTE <= toMs) {
-      // A whole hour: its extreme is the candle's high / low, reached at the
-      // minute the path puts it.
-      if (marketOpen(sym, ms)) {
-        const path = book.hourPath(sym, i);
-        const want = (dir > 0) === planWin ? book.high(sym, i) : book.low(sym, i);
-        const m = path.indexOf(want);
-        if (m >= 0 && m < 60) consider(hourStart + m * MINUTE, want);
-        else for (let k = 0; k < 60; k++) consider(hourStart + k * MINUTE, path[k]);
-      }
-      ms += HOUR;
+    if (!open[i]) {
+      i++;
       continue;
     }
-    if (marketOpen(sym, ms)) consider(ms, book.at(sym, ms));
-    ms += MINUTE;
+    const adverse = (dir > 0 ? ser.l[i] : ser.h[i]) - dir * half;
+    const favour = (dir > 0 ? ser.h[i] : ser.l[i]) - dir * half;
+    // Inside one candle the order is unknown: the stop is assumed first.
+    if ((adverse - sl) * dir <= 0) return { i, exit: sl, trigger: "sl", exitMs: ser.time(i) + 30_000 };
+    if ((favour - tp) * dir >= 0) return { i, exit: tp, trigger: "tp", exitMs: ser.time(i) + 30_000 };
+    const closing = flat && (i + FLAT_BEFORE_CLOSE_MIN >= ser.n || !open[i + FLAT_BEFORE_CLOSE_MIN]);
+    if (i >= iStop || (closing && i > i0)) {
+      return { i, exit: ser.o[i] - dir * half, trigger: i >= iStop ? "timeout" : "manual", exitMs: ser.time(i) };
+    }
+    i++;
   }
-  if (planWin && bestE > 0 && bestE >= winNeed) return { exitMs: bestMs, exit: bestP, trigger: "manual" };
-  if (!planWin && bestE <= -0.15 * slDist) return { exitMs: bestMs, exit: bestP, trigger: "manual" };
   return null;
 }
 
-export function tradeCosts(sym, lot, entry, exit, openMs, closeMs) {
-  const s = SPECS[sym];
-  if (s.kind === "crypto") {
-    return { commission: cents(s.fee * (notionalUsd(sym, lot, entry) + notionalUsd(sym, lot, exit)) / 2), swap: 0 };
+// Plans a trade at minute index i (null when it can't be opened).
+export function planTrade(persona, market, rng, sym, i, equityCents, riskMult = 1) {
+  const ser = market.s[sym];
+  const spec = SPECS[sym];
+  if (!ser.real[i] || !market.open[sym][i]) return null;
+  // Scalpers and day traders don't open into a market that closes within 30 minutes.
+  if (flatsBeforeClose(persona, sym) && (i + 30 >= ser.n || !market.open[sym][i + 30])) return null;
+  const lb = persona.lb;
+  if (i - lb < 0) return null;
+  const now = ser.o[i];
+  const dir = signalDir(persona, now, ser.o[i - lb], rng.float(), rng.float());
+  const holdMin = Math.max(1, Math.round(Math.exp(rng.range(Math.log(persona.hold[0]), Math.log(persona.hold[1])))));
+  const half = halfSpread(sym, now);
+  const entry = now + dir * half;
+  const sigma = market.sigma[sym][Math.floor(i / 60)];
+  const scale = 10 ** spec.dp;
+  let slDist = (entry / scale) * sigma * Math.sqrt(Math.max(holdMin, 5) / 60) * persona.k_sl * rng.range(0.8, 1.25);
+  slDist = Math.max(slDist, spec.pip * (spec.kind === "crypto" ? 5 : 8), (entry / scale) * 0.0004);
+  const tpDist = slDist * persona.rr * rng.range(0.85, 1.18);
+  const slInt = Math.round(slDist * scale);
+  const tpInt = Math.round(tpDist * scale);
+  const sl = entry - dir * slInt;
+  const tp = entry + dir * tpInt;
+  if (sl <= 0 || slInt <= 0 || tpInt <= 0) return null;
+
+  // Lot (in thousandths) from the risk budget, capped by the leverage.
+  const equity = equityCents / 100;
+  const riskUsd = equity * (persona.risk_pct / 100) * riskMult * rng.range(0.85, 1.15);
+  const step = stepMilli(sym);
+  const perMilli = slDist * units(sym) / 1000; // USD lost at the stop per 0.001 lot
+  let lot = Math.floor(riskUsd / perMilli / step) * step;
+  const maxLot = Math.floor((equity * persona.lev) / notionalUsd(sym, 1000, entry) * 1000 / step) * step;
+  lot = Math.min(lot, maxLot);
+  if (lot < step) {
+    // The minimum lot is only taken when it doesn't triple the intended risk.
+    if (step * perMilli > riskUsd * 3) return null;
+    lot = step;
   }
-  // Overnight financing at each 22:00 UTC rollover held through.
-  let nights = 0;
-  const firstRoll = Math.ceil((openMs - 22 * HOUR) / DAY_MS) * DAY_MS + 22 * HOUR;
-  for (let r = firstRoll; r < closeMs; r += DAY_MS) if (marketOpen(sym, r - HOUR)) nights++;
-  return { commission: cents(s.comm * lot), swap: cents(s.swap * lot * nights) };
+  const riskPct = (lot * perMilli * 100) / equity;
+  return { sym, dir, side: dir > 0 ? "buy" : "sell", entry, sl, tp, lot, half, i0: i, openMs: ser.time(i), holdMin, riskPct, flat: flatsBeforeClose(persona, sym) };
 }
 
-export function grossPnl(sym, dir, entry, exit, lot) {
-  return cents((exit - entry) * dir * units(sym) * lot);
+// Drawdown brake: past the profile's lower drawdown bound the leader halves
+// the risk per trade; near the upper bound a quarter, and no new trade until
+// 7 days after the last closed one. `dd` is the drawdown of the
+// time-weighted equity index including today's realised result.
+export const DD_PAUSE_MS = 7 * DAY;
+export function drawdownBrake(persona, dd, sinceLastCloseMs) {
+  const [lo, hi] = persona.dd;
+  if (dd >= hi * 0.9) return sinceLastCloseMs < DD_PAUSE_MS ? 0 : 0.25;
+  return dd > lo ? 0.5 : 1;
 }
 
-// Simulates one leader from `startMs` to `endMs`. Returns trades (closed and
-// still open), daily rows and cash flows.
-export function simulateLeader(persona, book, { startMs, endMs, seed }) {
+// Exposure factor: multi-day trades rarely all close on the same day.
+export const exposureFactor = (persona) => ({ scalper: 0.85, day: 0.85, swing: 1.25, position: 1.2 })[persona.style];
+
+function poisson(rng, lambda) {
+  const L = Math.exp(-lambda);
+  let k = 0;
+  let p = rng.float();
+  while (p > L) {
+    k++;
+    p *= rng.float();
+  }
+  return k;
+}
+
+// Simulates one leader over [startMs, endMs). Money in cents.
+export function simulateLeader(persona, market, { startMs, endMs, seed }) {
   const rng = new Rng(seed);
   const limits = RISK_LIMITS[persona.risk];
+  const any = Object.values(market.s)[0];
+  const endIdx = any.index(endMs);
   const trades = [];
   const cashFlows = [];
   const days = new Map();
   const open = [];
-  const pending = []; // closed-on-path trades not yet applied, sorted by exitMs
+  const pending = []; // trades with a known exit, sorted by exitMs
 
-  let equity = 0;
-  let logIdx = 0; // log of the time-weighted index, completed days
+  let equity = 0; // cents
+  let logIdx = 0;
+  let peakLog = 0;
+  let lastCloseMs = -Infinity;
   let curDay = dayKey(startMs);
   let dayStart = 0;
   let dayPnl = 0;
@@ -317,12 +355,10 @@ export function simulateLeader(persona, book, { startMs, endMs, seed }) {
   let tradeNo = 0;
 
   const perMinute = persona.tpd / sessionMinutesPerDay(persona);
-  const symbols = Object.entries(persona.assets).filter(
-    ([s]) => !DAILY_ONLY.has(s) || persona.style === "swing" || persona.style === "position",
-  );
+  const symbols = Object.fromEntries(Object.entries(persona.assets).filter(([s]) => market.s[s]));
   const dayRec = (k) => {
     let r = days.get(k);
-    if (!r) days.set(k, (r = { trades: 0, wins: 0, pnl: 0, grossProfit: 0, grossLoss: 0, cash: 0, start: 0, end: 0 }));
+    if (!r) days.set(k, (r = { trades: 0, wins: 0, pnl: 0, cash: 0, start: 0 }));
     return r;
   };
 
@@ -332,204 +368,138 @@ export function simulateLeader(persona, book, { startMs, endMs, seed }) {
     monthPnl += tr.pnl;
     const r = dayRec(dayKey(tr.exitMs));
     r.trades++;
-    if (tr.pnl > 0) {
-      r.wins++;
-      r.grossProfit += tr.pnl;
-    } else r.grossLoss += -tr.pnl;
+    if (tr.pnl > 0) r.wins++;
     r.pnl += tr.pnl;
+    lastCloseMs = tr.exitMs;
     open.splice(open.indexOf(tr), 1);
   };
-
+  const applyCloses = (ms) => {
+    while (pending.length && pending[0].exitMs <= ms) closeTrade(pending.shift());
+  };
   const finishDay = () => {
     const r = dayRec(curDay);
     r.start = dayStart;
-    r.end = equity;
     r.cash = dayCash;
     const base = dayStart + dayCash;
     const ret = base > 0 ? dayPnl / base : 0;
     logIdx += Math.log(Math.max(1e-6, 1 + ret));
+    peakLog = Math.max(peakLog, logIdx);
     monthLog += Math.log(Math.max(1e-6, 1 + ret));
   };
-
-  const addCash = (ms, amount, kind) => {
-    amount = Math.round(amount / 10) * 10;
+  const addCash = (ms, amountCents, kind) => {
+    const amount = Math.round(amountCents / 1000) * 1000; // whole $10
     if (!amount) return;
     equity += amount;
     dayCash += amount;
     cashFlows.push({ at: ms, amount, kind });
   };
-
+  const cap0 = persona.cap0 * 100;
   const monthStart = (ms) => {
     // Withdrawals after a profitable month, top-ups after a wipe-out.
-    if (monthPnl > 0 && rng.chance(persona.wd_prob) && equity - monthPnl * persona.wd_frac > persona.cap0 * 0.8) {
+    if (monthPnl > 0 && rng.chance(persona.wd_prob) && equity - monthPnl * persona.wd_frac > cap0 * 0.8) {
       addCash(ms + rng.int(1, 600) * MINUTE, -monthPnl * persona.wd_frac, "withdrawal");
     }
-    if (equity < persona.cap0 * 0.3 && rng.chance(persona.key === "gambler" ? 0.9 : 0.7)) {
-      addCash(ms + rng.int(1, 600) * MINUTE, persona.cap0 * rng.range(0.5, 1) - equity, "deposit");
+    if (equity < cap0 * 0.3 && rng.chance(persona.key === "gambler" ? 0.9 : 0.7)) {
+      addCash(ms + rng.int(1, 600) * MINUTE, cap0 * rng.range(0.5, 1) - equity, "deposit");
     }
     monthLog = 0;
     monthPnl = 0;
   };
-
-  addCash(startMs, persona.cap0, "deposit");
-  const step0 = Math.ceil(startMs / MINUTE) * MINUTE;
-  for (let ms = step0; ms < endMs; ms += MINUTE) {
-    // Apply trades whose exit time has come.
-    while (pending.length && pending[0].exitMs <= ms) closeTrade(pending.shift());
-
+  const rollTo = (ms) => {
     const k = dayKey(ms);
-    if (k !== curDay) {
+    while (curDay < k) {
+      applyCloses((curDay + 1) * DAY - 1);
       finishDay();
-      curDay = k;
+      curDay++;
       dayStart = equity;
       dayPnl = 0;
       dayCash = 0;
-      const m = new Date(ms).getUTCMonth();
+      const dayMs = curDay * DAY;
+      const m = new Date(dayMs).getUTCMonth();
       if (m !== monthIdx) {
         monthIdx = m;
-        monthStart(ms);
+        monthStart(dayMs);
       }
+      if (equity < cap0 * 0.12 && !open.length) addCash(dayMs, cap0 * rng.range(0.4, 0.8) - equity, "deposit");
     }
-    if (equity < persona.cap0 * 0.12 && !open.length) addCash(ms, persona.cap0 * rng.range(0.4, 0.8) - equity, "deposit");
+  };
 
-    const w = inSession(persona, ms);
-    if (!w || open.length >= persona.max_open) continue;
-    if (!persona.weekend) {
-      const dow = new Date(ms).getUTCDay();
-      if (dow === 0 || dow === 6) continue;
-    }
-    if (rng.float() >= perMinute * w) continue;
-
-    // Daily / monthly brakes.
+  const tryOpen = (ms) => {
+    if (open.length >= persona.max_open) return;
+    // Daily / monthly brakes on the realised result.
     const dayBase = dayStart + dayCash;
     const dayRet = dayBase > 0 ? dayPnl / dayBase : 0;
-    if (Math.abs(dayRet) >= limits.day * 0.7) continue;
+    if (Math.abs(dayRet) >= limits.day * 0.7) return;
     const monthRet = Math.exp(monthLog + Math.log(Math.max(1e-6, 1 + dayRet))) - 1;
     const year = new Date(ms).getUTCFullYear();
     const [nLo, nHi] = limits.monthNormal;
     const [xLo, xHi] = limits.month;
-    if (monthRet <= xLo * 0.85 || monthRet >= xHi * 0.85) continue;
+    if (monthRet <= xLo * 0.85 || monthRet >= xHi * 0.85) return;
     if (monthRet <= nLo * 0.9 || monthRet >= nHi * 0.9) {
-      if (persona.risk !== "high" || extremeYear === year) continue;
+      if (persona.risk !== "high" || extremeYear === year) return;
     }
     if (persona.risk === "high" && (monthRet < nLo || monthRet > nHi)) extremeYear = year;
-
-    // Open risk (risk x reward:risk of every open trade) stays inside the
-    // daily limit, so trades closing together can't break it.
+    // Open risk stays inside the daily limit.
     const exposure = open.reduce((a, o) => a + o.riskPct * Math.max(1, persona.rr), 0);
-    if (exposure + persona.risk_pct * Math.max(1, persona.rr) > limits.day * 100 * exposureFactor(persona)) continue;
+    if (exposure + persona.risk_pct * Math.max(1, persona.rr) > limits.day * 100 * exposureFactor(persona)) return;
+    if (equity <= 0) return;
+    const curLog = logIdx + Math.log(Math.max(1e-6, 1 + dayRet));
+    const dd = 1 - Math.exp(curLog - Math.max(peakLog, curLog));
+    const riskMult = drawdownBrake(persona, dd, ms - lastCloseMs);
+    if (!riskMult) return;
 
-    const sym = rng.weighted(Object.fromEntries(symbols));
-    if (!marketOpen(sym, ms)) continue;
-    const t = planTrade(persona, book, rng, sym, ms, equity, startMs, logIdx + Math.log(Math.max(1e-6, 1 + dayRet)));
-    if (!t) continue;
-    tradeNo++;
-    t.no = tradeNo;
+    const sym = rng.weighted(symbols);
+    const ser = market.s[sym];
+    const t = planTrade(persona, market, rng, sym, ser.index(ms), equity, riskMult);
+    if (!t) return;
+    t.no = ++tradeNo;
     t.equityAtOpen = equity;
-    const res = resolveTrade(book, t);
+    const res = resolveTrade(market, t, endIdx);
     open.push(t);
-    if (res && res.exitMs < endMs) {
-      Object.assign(t, res);
-      t.exit = roundTo(t.exit, SPECS[sym].dp);
-      const costs = tradeCosts(sym, t.lot, t.entry, t.exit, t.openMs, t.exitMs);
-      t.commission = costs.commission;
-      t.swap = costs.swap;
-      t.gross = grossPnl(sym, t.dir, t.entry, t.exit, t.lot);
-      t.pnl = cents(t.gross - t.commission + t.swap);
-      t.returnPct = roundTo((t.pnl / t.equityAtOpen) * 100, 4);
-      let j = pending.length;
-      while (j > 0 && pending[j - 1].exitMs > t.exitMs) j--;
-      pending.splice(j, 0, t);
-    } else {
-      t.stillOpen = true;
-    }
     trades.push(t);
+    if (!res) {
+      t.stillOpen = true;
+      return;
+    }
+    Object.assign(t, res);
+    const costs = costsCents(sym, t.lot, t.entry, t.exit, t.openMs, t.exitMs);
+    t.commission = costs.commission;
+    t.swap = costs.swap;
+    t.gross = grossCents(sym, t.dir, t.entry, t.exit, t.lot);
+    t.pnl = t.gross - t.commission + t.swap;
+    t.returnPct = returnPct(t.pnl, t.equityAtOpen);
+    let j = pending.length;
+    while (j > 0 && pending[j - 1].exitMs > t.exitMs) j--;
+    pending.splice(j, 0, t);
+  };
+
+  addCash(startMs, cap0, "deposit");
+  const firstHour = Math.ceil(startMs / HOUR) * HOUR;
+  for (let h = firstHour; h < endMs; h += HOUR) {
+    rollTo(h);
+    const hourOfDay = Math.floor(h / HOUR) % 24;
+    const w = sessionWeight(persona, hourOfDay);
+    if (!w) continue;
+    if (!persona.weekend) {
+      const dow = (Math.floor(h / DAY) + 4) % 7;
+      if (dow === 0 || dow === 6) continue;
+    }
+    const n = poisson(rng, perMinute * w * 60);
+    if (!n) continue;
+    const mins = Array.from({ length: n }, () => rng.int(0, 59)).sort((a, b) => a - b);
+    for (const m of mins) {
+      const ms = h + m * MINUTE;
+      if (ms >= endMs) break;
+      applyCloses(ms);
+      tryOpen(ms);
+    }
   }
-  while (pending.length && pending[0].exitMs < endMs) closeTrade(pending.shift());
+  rollTo(endMs);
+  applyCloses(endMs - 1);
   finishDay();
 
   const daily = [...days.entries()].sort((a, b) => a[0] - b[0]);
   return { trades, cashFlows, daily, equity };
-}
-
-// Multi-day trades rarely all close on the same day, so they may carry more.
-export const exposureFactor = (persona) => ({ scalper: 0.85, day: 0.85, swing: 1.25, position: 1.2 })[persona.style];
-
-export function planTrade(persona, book, rng, sym, ms, equity, startMs, curLog) {
-  const spec = SPECS[sym];
-  const d = (ms - startMs) / DAY_MS;
-  const gap = targetLog(persona.traj, d) - curLog;
-  const pWin = clamp(persona.wr + REGULATOR_GAIN * gap, 0.03, 0.97);
-  const planWin = rng.chance(pWin);
-  const lossHindsight = gap < 0;
-  const holdMin = drawHold(rng, persona);
-  const entry = roundTo(book.at(sym, ms), spec.dp);
-  const sigma = book.sigmaAt(sym, ms);
-  let slDist = entry * sigma * Math.sqrt(Math.max(holdMin, 5) / 60) * persona.k_sl * rng.range(0.8, 1.25);
-  slDist = Math.max(slDist, spec.pip * (spec.kind === "crypto" ? 5 : 8), entry * 0.0004);
-  const tpDist = slDist * persona.rr * rng.range(0.85, 1.18);
-  const dir = rng.chance(0.5) ? 1 : -1;
-  const riskUsd = equity * (persona.risk_pct / 100) * rng.range(0.85, 1.15);
-  let lot = Math.floor(riskUsd / (slDist * units(sym)) / spec.step) * spec.step;
-  const maxLot = Math.floor((equity * persona.lev) / notionalUsd(sym, 1, entry) / spec.step) * spec.step;
-  lot = Math.min(lot, maxLot);
-  if (lot < spec.step) {
-    // The minimum lot is only taken when it doesn't triple the intended risk.
-    if (spec.step * slDist * units(sym) > riskUsd * 3) return null;
-    lot = spec.step;
-  }
-  lot = roundTo(lot, 3);
-  const sl = roundTo(entry - dir * slDist, spec.dp);
-  const tp = roundTo(entry + dir * tpDist, spec.dp);
-  if (sl <= 0 || sl === entry || tp === entry) return null;
-  const riskPct = (lot * slDist * units(sym) * 100) / equity;
-  const t = { sym, dir, side: dir > 0 ? "buy" : "sell", entry, sl, tp, lot, openMs: ms, holdMin, planWin, lossHindsight, gap, take: winTakeFraction(persona.rr), riskPct };
-  // Planned wins lean on the recent past while the curve is behind its
-  // trajectory, planned losses while it is ahead.
-  const pRetro = clamp(planWin ? 0.5 + RETRO_GAIN * gap : -RETRO_GAIN * gap, 0, 0.9);
-  if (rng.chance(pRetro)) retroEntry(book, t, slDist, tpDist, retroMaxMin(persona), planWin);
-  return t;
-}
-
-// A trade may be entered at a price of the recent past (up to 30% of the
-// holding time, capped by style): the best one for a planned win, the worst
-// one for a planned loss -- as long as neither level would have been touched
-// since.
-export const retroMaxMin = (persona) => ({ scalper: 60, day: 60, swing: 360, position: 1440 })[persona.style];
-
-export function retroEntry(book, t, slDist, tpDist, maxMin, favourable) {
-  const D = clamp(Math.round(t.holdMin * 0.3), 1, maxMin);
-  const now = book.at(t.sym, t.openMs);
-  let lo = Infinity, loMs = 0, hi = -Infinity, hiMs = 0;
-  for (let m = t.openMs - D * MINUTE; m < t.openMs; m += MINUTE) {
-    if (!marketOpen(t.sym, m)) continue;
-    const p = book.at(t.sym, m);
-    if (p < lo) [lo, loMs] = [p, m];
-    if (p > hi) [hi, hiMs] = [p, m];
-  }
-  if (!loMs) return;
-  const buyGain = now - lo;
-  const sellGain = hi - now;
-  // Favourable: buy at the low / sell at the high. Unfavourable: the reverse.
-  const useLow = favourable ? buyGain >= sellGain : now - lo < hi - now;
-  const dir = favourable ? (useLow ? 1 : -1) : useLow ? -1 : 1;
-  const fromMs = useLow ? loMs : hiMs;
-  const entry = roundTo(useLow ? lo : hi, SPECS[t.sym].dp);
-  // Neither level may have been reached between that entry and now.
-  for (let m = fromMs; m <= t.openMs; m += MINUTE) {
-    if (!marketOpen(t.sym, m)) continue;
-    const e = (book.at(t.sym, m) - entry) * dir;
-    if (e >= tpDist || e <= -slDist) return;
-  }
-  Object.assign(t, {
-    dir,
-    side: dir > 0 ? "buy" : "sell",
-    entry,
-    sl: roundTo(entry - dir * slDist, SPECS[t.sym].dp),
-    tp: roundTo(entry + dir * tpDist, SPECS[t.sym].dp),
-    openMs: fromMs,
-    holdMin: t.holdMin + Math.round((t.openMs - fromMs) / MINUTE),
-  });
 }
 
 // ---------------------------------------------------------------- followers
