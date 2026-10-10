@@ -3,7 +3,7 @@
 // id, and stored on providers.persona so the live engine (run_market_simulation)
 // keeps trading exactly the same way the rebuilt history did.
 
-export const PERSONA_VERSION = 2;
+export const PERSONA_VERSION = 3;
 
 const MIN = 1;
 const HOUR = 60;
@@ -320,9 +320,24 @@ export function candidatePersona(profile, rng) {
     lev: Math.round(r(P.lev)),
     rr: round(r(P.rr), 3),
     k_sl: round(rng.range(...K_SL[P.style]), 3),
-    strat: rng.chance(0.6) ? "trend" : "reversion",
-    lb: Math.round(Math.exp(rng.range(Math.log(LOOKBACK[P.style][0]), Math.log(LOOKBACK[P.style][1])))),
-    follow: round(rng.range(0.5, 0.85), 3),
+    ...drawStrategy(P.style, rng),
     seed: Math.floor(rng.float() * 2 ** 31),
+  };
+}
+
+// The trend lookback is read from price_history live (7 days kept), so it stays under 6.25 days.
+export const MAX_TREND_LOOKBACK = 9000;
+
+// Strategy of a candidate: trend (buy pullbacks in the trend), breakout (go with
+// a move the trend confirms) or reversion (fade an over-extended move), a short
+// lookback by style, a trend lookback 3-8 times longer, and how systematically
+// the leader follows it.
+function drawStrategy(style, rng) {
+  const lb = Math.round(Math.exp(rng.range(Math.log(LOOKBACK[style][0]), Math.log(LOOKBACK[style][1]))));
+  return {
+    strat: rng.weighted({ trend: 0.45, breakout: 0.3, reversion: 0.25 }),
+    lb,
+    tlb: Math.min(MAX_TREND_LOOKBACK, Math.round(lb * rng.range(3, 8))),
+    follow: round(rng.range(0.6, 0.95), 3),
   };
 }

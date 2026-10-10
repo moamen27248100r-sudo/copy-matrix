@@ -1,9 +1,16 @@
 // Picks a leader's history among several candidate runs. Every candidate is a
 // complete, causal run of the engine (no trade looks ahead); the one whose
 // equity curve sits closest to the leader's profile -- its target curve,
-// drawdown range and win rate -- is kept. Nothing inside a run is adjusted.
+// drawdown range and win rate -- and performs better is kept. A return above
+// what the risk class can plausibly make (ANNUAL_CAP) counts against a
+// candidate instead of for it. Nothing inside a run is adjusted.
 
 import { RISK_LIMITS, targetLog } from "./personas.mjs";
+
+// Plausible annual return ceilings by risk class.
+export const ANNUAL_CAP = { low: 0.25, medium: 0.5, high: 1.0 };
+// Weight of the annualised return in the score (lower score = better).
+export const PERF_WEIGHT = 0.6;
 
 const DAY_MS = 86400_000;
 
@@ -66,5 +73,8 @@ export function scoreCandidate(persona, sim, startMs) {
   if (m.trades >= 100) score += 0.5 * Math.max(0, Math.abs(m.winRate - persona.wr) - 0.05);
   const lim = RISK_LIMITS[persona.risk];
   if (m.maxDay > lim.day * 1.05) score += 0.5;
+  const cap = ANNUAL_CAP[persona.risk];
+  score -= PERF_WEIGHT * Math.max(-0.5, Math.min(m.annual, cap));
+  score += 1.5 * Math.max(0, m.annual - cap);
   return { score, metrics: m };
 }

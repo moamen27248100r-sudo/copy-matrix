@@ -7,9 +7,13 @@
 // - when: trades arrive at random inside the leader's sessions (Poisson, at
 //   the persona's trades-per-day rate), never while the symbol's market is
 //   closed and never on a minute with no real trade;
-// - direction: the move over the persona's lookback window (trend leaders
-//   follow it, reversion leaders fade it) with probability `follow`,
-//   otherwise a coin flip;
+// - direction (persona v3, with a trend lookback `tlb`): with probability
+//   `follow` the strategy decides from the move over the short lookback `lb`
+//   and the long one `tlb` -- "trend" buys pullbacks in an uptrend / sells
+//   rallies in a downtrend, "breakout" trades when both moves agree,
+//   "reversion" fades a move when both agree (over-extended) -- and
+//   skips the trade when its condition isn't met; otherwise a coin flip.
+//   (v2 personas, without `tlb`: follow / fade the short move);
 // - entry: the minute's opening price plus half the spread (a buy pays the
 //   ask, a sell receives the bid);
 // - levels: the stop sits at the volatility expected over the holding time
@@ -211,11 +215,22 @@ export function sessionMinutesPerDay(persona) {
 }
 export const flatsBeforeClose = (persona, sym) => !isCrypto(sym) && (persona.style === "scalper" || persona.style === "day");
 
-// Direction from the move over the lookback window (integer prices).
-export function signalDir(persona, nowInt, thenInt, coin, follow) {
-  if (follow < persona.follow && nowInt !== thenInt) {
-    const up = nowInt > thenInt ? 1 : -1;
-    return persona.strat === "reversion" ? -up : up;
+// Direction from past prices only (integer prices). 0 = no trade.
+export function signalDir(persona, nowInt, thenInt, coin, follow, longThenInt = null) {
+  if (persona.tlb == null) {
+    if (follow < persona.follow && nowInt !== thenInt) {
+      const up = nowInt > thenInt ? 1 : -1;
+      return persona.strat === "reversion" ? -up : up;
+    }
+    return coin < 0.5 ? 1 : -1;
+  }
+  if (follow < persona.follow) {
+    const s = Math.sign(nowInt - thenInt);
+    const l = Math.sign(nowInt - longThenInt);
+    if (s === 0 || l === 0) return 0;
+    if (persona.strat === "trend") return s === -l ? l : 0;
+    if (persona.strat === "breakout") return s === l ? l : 0;
+    return s === l ? -s : 0; // reversion: fade an over-extended move
   }
   return coin < 0.5 ? 1 : -1;
 }
@@ -278,9 +293,11 @@ export function planTrade(persona, market, rng, sym, i, equityCents, riskMult = 
   // Scalpers and day traders don't open into a market that closes within 30 minutes.
   if (flatsBeforeClose(persona, sym) && (i + 30 >= ser.n || !market.open[sym][i + 30])) return null;
   const lb = persona.lb;
-  if (i - lb < 0) return null;
+  const tlb = persona.tlb ?? lb;
+  if (i - Math.max(lb, tlb) < 0) return null;
   const now = ser.o[i];
-  const dir = signalDir(persona, now, ser.o[i - lb], rng.float(), rng.float());
+  const dir = signalDir(persona, now, ser.o[i - lb], rng.float(), rng.float(), ser.o[i - tlb]);
+  if (!dir) return null;
   const holdMin = Math.max(1, Math.round(Math.exp(rng.range(Math.log(persona.hold[0]), Math.log(persona.hold[1])))));
   const half = halfSpread(sym, now);
   const entry = now + dir * half;
@@ -311,6 +328,11 @@ export function planTrade(persona, market, rng, sym, i, equityCents, riskMult = 
   const riskPct = (lot * perMilli * 100) / equity;
   return { sym, dir, side: dir > 0 ? "buy" : "sell", entry, sl, tp, lot, half, i0: i, openMs: ser.time(i), holdMin, riskPct, flat: flatsBeforeClose(persona, sym) };
 }
+
+// A v3 strategy skips about half of its signal-led chances (its condition is
+// not met), so chances arrive that much more often and the leader keeps the
+// profile's trades per day. A constant per persona -- no price involved.
+export const filterRateFactor = (persona) => (persona.tlb == null ? 1 : 1 / (1 - 0.5 * persona.follow));
 
 // Drawdown brake: past the profile's lower drawdown bound the leader halves
 // the risk per trade; near the upper bound a quarter, and no new trade until
@@ -363,7 +385,7 @@ export function simulateLeader(persona, market, { startMs, endMs, seed }) {
   let extremeYear = -1;
   let tradeNo = 0;
 
-  const perMinute = persona.tpd / sessionMinutesPerDay(persona);
+  const perMinute = (persona.tpd / sessionMinutesPerDay(persona)) * filterRateFactor(persona);
   const symbols = Object.fromEntries(Object.entries(persona.assets).filter(([s]) => market.s[s]));
   const dayRec = (k) => {
     let r = days.get(k);

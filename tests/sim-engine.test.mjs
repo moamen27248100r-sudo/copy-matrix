@@ -6,7 +6,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { MinuteSeries, SYMBOLS, FEEDS, MINUTE, HOUR, DAY } from "../scripts/sim/candles.mjs";
 import { Market, simulateLeader, halfSpread, marketOpen, grossCents, drawdownBrake, SPECS } from "../scripts/sim/engine.mjs";
-import { PERSONA_KEYS, drawPersona } from "../scripts/sim/personas.mjs";
+import { PERSONA_KEYS, drawPersona, candidatePersona, MAX_TREND_LOOKBACK } from "../scripts/sim/personas.mjs";
 import { buildDaily, signalId } from "../scripts/sim/rebuild.mjs";
 import { Rng } from "../scripts/sim/rng.mjs";
 
@@ -92,6 +92,25 @@ test("no look-ahead: changing the prices after T changes no trade opened before 
     // And the shock did change the later history.
     assert.notDeepEqual(a.sim.trades.map(decision), b.sim.trades.map(decision));
   }
+});
+
+test("no look-ahead with the v3 strategies (trend / breakout / reversion filters)", () => {
+  const T = START + 12 * DAY;
+  const shocked = syntheticMarket(T);
+  const strats = new Set();
+  for (const key of ["crypto_day", "fx_day", "swing_trend", "gold_scalper", "crypto_swing_bold"]) {
+    for (let k = 0; k < 3; k++) {
+      const base = drawPersona(key, new Rng(`v3:${key}`), { startMs: START, trackDays: (END - START) / DAY });
+      const persona = candidatePersona(base, new Rng(`v3:${key}:${k}`));
+      strats.add(persona.strat);
+      assert.ok(persona.tlb >= persona.lb && persona.tlb <= MAX_TREND_LOOKBACK);
+      const a = simulateLeader(persona, market, { startMs: START, endMs: END, seed: persona.seed });
+      const b = simulateLeader(persona, shocked, { startMs: START, endMs: END, seed: persona.seed });
+      const before = (s) => s.trades.filter((t) => t.openMs < T).map(decision);
+      assert.deepEqual(before(a), before(b), `${key} ${persona.strat}: decisions before T unchanged`);
+    }
+  }
+  assert.equal(strats.size, 3, "all three strategies drawn");
 });
 
 test("every trade opens at the candle's price and closes at the first touch or the time stop", () => {

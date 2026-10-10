@@ -9,7 +9,7 @@
 //       first --apply run backs up the simulated leaders' current trades,
 //       ledger, cash flows and provider rows to <dir> (JSON lines).
 //
-// Options: --candidates <n> (default 12) runs per leader, the closest to its
+// Options: --candidates <n> (default 40) runs per leader, the closest to its
 // profile is kept (validate.mjs); --force rebuilds leaders already built at
 // this version; --limit <n> stops after n leaders; --exclude-assets <SYM,...>
 // leaves out leaders trading those symbols (e.g. while a feed is down);
@@ -33,7 +33,7 @@ import { candidatePersona, targetLog } from "./personas.mjs";
 import { scoreCandidate } from "./validate.mjs";
 import { Rng } from "./rng.mjs";
 
-export const HISTORY_VERSION = 2;
+export const HISTORY_VERSION = 3;
 export const FROM_MS = Date.UTC(2021, 11, 1);
 const WARMUP_DAYS = 31;
 
@@ -84,6 +84,24 @@ export function buildDaily(sim, startMs, endMs) {
     out.push([k, r]);
   }
   return { daily: out, equity };
+}
+
+// Activity of a built history: trades opened per weekday of the record, and the
+// longest stretch with no trade open at all (a check that the record has no
+// unexplained empty months; a long position held for weeks is not empty).
+export function activity(r) {
+  const days = r.daily.length ? r.daily.length : 1;
+  const weekdays = Math.max(1, days * (r.persona.weekend ? 1 : 5 / 7));
+  const spans = r.sim.trades.map((t) => [t.openMs, t.stillOpen ? Infinity : t.exitMs]).sort((a, b) => a[0] - b[0]);
+  let gap = 0;
+  let covered = r.startMs;
+  for (const [a, b] of spans) {
+    gap = Math.max(gap, a - covered);
+    covered = Math.max(covered, b);
+  }
+  const last = r.daily.length ? (r.daily[r.daily.length - 1][0] + 1) * DAY : covered;
+  if (covered !== Infinity) gap = Math.max(gap, last - covered);
+  return { perWeekday: r.sim.trades.length / weekdays, longestGapDays: gap / DAY };
 }
 
 // Best of `candidates` causal runs for one leader.
@@ -243,7 +261,7 @@ async function main() {
   const APPLY = args.includes("--apply");
   const FORCE = args.includes("--force");
   const ALL = args.includes("--all");
-  const CANDIDATES = Number(opt("candidates", 12));
+  const CANDIDATES = Number(opt("candidates", 40));
   const BATCH = Number(opt("batch", 25));
   const LIMIT = Number(opt("limit", Infinity));
   const MAX_DB_MB = Number(opt("max-db-mb", 2500));
@@ -320,13 +338,14 @@ async function main() {
   const market = new Market(candles);
   log("candles loaded");
 
-  const csv = ["id,name,persona,style,risk,strategy,candidate,score,track_days,trades,open,win_rate,total_return,annual,max_dd,target_total"];
+  const csv = ["id,name,persona,style,risk,strategy,candidate,score,track_days,trades,open,win_rate,total_return,annual,max_dd,target_total,trades_per_weekday,profile_tpd,longest_gap_days"];
   const writeReport = (r, l) =>
     csv.push(
       [l.id, JSON.stringify(l.display_name ?? ""), r.persona.key, r.persona.style, r.persona.risk, r.persona.strat, r.k, r.score.toFixed(3),
         Math.round((endMs - r.startMs) / DAY), r.metrics.trades, r.metrics.open, (r.metrics.winRate * 100).toFixed(1),
         (r.metrics.total * 100).toFixed(1), (r.metrics.annual * 100).toFixed(1), (r.metrics.mdd * 100).toFixed(1),
-        ((Math.exp(targetLog(r.persona.traj, (endMs - r.startMs) / DAY)) - 1) * 100).toFixed(1)].join(","),
+        ((Math.exp(targetLog(r.persona.traj, (endMs - r.startMs) / DAY)) - 1) * 100).toFixed(1),
+        activity(r).perWeekday.toFixed(2), r.persona.tpd, activity(r).longestGapDays.toFixed(1)].join(","),
     );
 
   async function withRetry(label, fn) {

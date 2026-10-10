@@ -20,7 +20,7 @@
 // the same way: the hour's candle on its first minute, the other 59 minutes
 // flat at the hour's close and not real (series.hourly).
 
-import { mkdirSync, existsSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, existsSync, readFileSync, writeFileSync, statSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import https from "node:https";
 import { tmpdir } from "node:os";
@@ -198,18 +198,33 @@ async function loadMonth(sym, y, m, nowMs, log) {
     return new Int32Array(b.buffer, b.byteOffset, b.length / 4);
   }
   mkdirSync(dir, { recursive: true });
-  log(`downloading ${sym} ${monthKey(y, m)}`);
+  // The month in progress is kept as a partial file: a slow source (Dukascopy) is
+  // read again only every 12 hours, and an outage falls back to the last copy.
+  const partial = join(dir, `${monthKey(y, m)}.partial.bin`);
+  const readPartial = () => {
+    const b = readFileSync(partial);
+    return new Int32Array(b.buffer, b.byteOffset, b.length / 4);
+  };
   const feed = FEEDS[sym];
+  if (!finished && feed.src !== "binance" && existsSync(partial) && Date.now() - statSync(partial).mtimeMs < 12 * HOUR) return readPartial();
+  log(`downloading ${sym} ${monthKey(y, m)}`);
   const end = Math.min(to, Math.floor(nowMs / MINUTE) * MINUTE);
-  const part =
-    feed.src === "binance"
-      ? await fetchMonthBinance(feed.pair, DP[sym], from, end)
-      : feed.hourly
-        ? await fetchMonthDukascopyHours(feed, DP[sym], from, end, finished)
-        : await fetchMonthDukascopy(feed, DP[sym], from, end);
+  let part;
+  try {
+    part =
+      feed.src === "binance"
+        ? await fetchMonthBinance(feed.pair, DP[sym], from, end)
+        : feed.hourly
+          ? await fetchMonthDukascopyHours(feed, DP[sym], from, end, finished)
+          : await fetchMonthDukascopy(feed, DP[sym], from, end);
+  } catch (err) {
+    if (finished || !existsSync(partial)) throw err;
+    log(`${sym} ${monthKey(y, m)}: download failed (${err.message}), using the last copy`);
+    return readPartial();
+  }
   const data = new Int32Array(Math.round((to - from) / MINUTE) * 5);
   data.set(part);
-  if (finished) writeFileSync(file, Buffer.from(data.buffer));
+  writeFileSync(finished ? file : partial, Buffer.from(data.buffer));
   return data;
 }
 
