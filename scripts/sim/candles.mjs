@@ -6,18 +6,23 @@
 //   BTCUSDT ETHUSDT SOLUSDT BNBUSDT XRPUSDT  Binance spot 1m klines
 //   XAUUSD                                   Binance PAXGUSDT 1m klines (gold-backed token)
 //   EURUSD                                   Binance EURUSDT 1m klines
-//   GBPUSD USDJPY                            Dukascopy 1m BID candles (the live feed only has
-//                                            the ECB daily rate for these two)
+//   GBPUSD USDJPY                            Dukascopy 1h BID candles (the live feed only has
+//                                            the ECB daily rate for these two; only multi-day
+//                                            personas trade them, and Dukascopy serves the
+//                                            hourly history one file per month)
 //
 // Prices are stored as integers (price x 10^dp, dp from SPECS) in one file per
 // symbol and month under CANDLE_DIR (default: <tmp>/copy-matrix-candles/m1),
 // outside the project. Finished months are downloaded once; the current month
 // is fetched again on every run. A minute with no trade is filled with the
 // previous close and flagged as not real -- the engine never opens a trade on
-// one, and a flat candle can never touch a level.
+// one, and a flat candle can never touch a level. An hourly symbol is stored
+// the same way: the hour's candle on its first minute, the other 59 minutes
+// flat at the hour's close and not real (series.hourly).
 
 import { mkdirSync, existsSync, readFileSync, writeFileSync } from "node:fs";
 import { spawnSync } from "node:child_process";
+import https from "node:https";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
@@ -37,24 +42,39 @@ export const FEEDS = {
   XRPUSDT: { src: "binance", pair: "XRPUSDT" },
   XAUUSD: { src: "binance", pair: "PAXGUSDT" },
   EURUSD: { src: "binance", pair: "EURUSDT" },
-  GBPUSD: { src: "dukascopy", inst: "GBPUSD", point: 1e5 },
-  USDJPY: { src: "dukascopy", inst: "USDJPY", point: 1e3 },
+  GBPUSD: { src: "dukascopy", inst: "GBPUSD", point: 1e5, hourly: true },
+  USDJPY: { src: "dukascopy", inst: "USDJPY", point: 1e3, hourly: true },
 };
 export const SYMBOLS = Object.keys(FEEDS);
 
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36";
 const BINANCE = "https://data-api.binance.vision/api/v3/klines";
 
+// Plain https with a long timeout: Dukascopy throttles busy clients to tens of
+// seconds per answer, past fetch's fixed 10 s connect timeout.
+function httpGet(url) {
+  return new Promise((resolve, reject) => {
+    const req = https.get(url, { headers: { "User-Agent": UA }, timeout: 90_000 }, (res) => {
+      const chunks = [];
+      res.on("data", (c) => chunks.push(c));
+      res.on("end", () => resolve({ status: res.statusCode, body: Buffer.concat(chunks) }));
+      res.on("error", reject);
+    });
+    req.on("timeout", () => req.destroy(new Error(`timeout ${url}`)));
+    req.on("error", reject);
+  });
+}
+
 async function getWithRetry(url, asJson) {
   for (let attempt = 1; ; attempt++) {
     try {
-      const res = await fetch(url, { headers: { "User-Agent": UA } });
+      const res = await httpGet(url);
       if (res.status === 404) return null;
-      if (!res.ok) throw new Error(`${res.status} ${url}`);
-      return asJson ? await res.json() : Buffer.from(await res.arrayBuffer());
+      if (res.status !== 200) throw new Error(`${res.status} ${url}`);
+      return asJson ? JSON.parse(res.body.toString("utf8")) : res.body;
     } catch (err) {
-      if (attempt >= 6) throw err;
-      await new Promise((r) => setTimeout(r, 1500 * attempt));
+      if (attempt >= 12) throw err;
+      await new Promise((r) => setTimeout(r, Math.min(60_000, 5000 * attempt)));
     }
   }
 }
@@ -113,6 +133,39 @@ export function decodeDukascopyDay(buf) {
   return rows;
 }
 
+// Dukascopy month file of hourly candles (records: seconds from the month start).
+// The current month has no file yet: its days are read minute by minute and
+// folded into hours.
+async function fetchMonthDukascopyHours(feed, dp, from, to, finished) {
+  const n = Math.round((to - from) / MINUTE);
+  const out = new Int32Array(n * 5);
+  const conv = 10 ** dp / feed.point;
+  const put = (ms, o, h, l, c) => {
+    const i = Math.round((ms - from) / MINUTE);
+    if (i >= 0 && i < n) out.set([Math.round(o * conv), Math.round(h * conv), Math.round(l * conv), Math.round(c * conv), 1], i * 5);
+  };
+  const d = new Date(from);
+  if (finished) {
+    const url = `https://datafeed.dukascopy.com/datafeed/${feed.inst}/${d.getUTCFullYear()}/${String(d.getUTCMonth()).padStart(2, "0")}/BID_candles_hour_1.bi5`;
+    for (const r of decodeDukascopyDay(await getWithRetry(url, false))) if (r.vol > 0) put(from + r.sec * 1000, r.o, r.h, r.l, r.c);
+    return out;
+  }
+  for (let day = from; day < to; day += DAY) {
+    const dd = new Date(day);
+    const url = `https://datafeed.dukascopy.com/datafeed/${feed.inst}/${dd.getUTCFullYear()}/${String(dd.getUTCMonth()).padStart(2, "0")}/${String(dd.getUTCDate()).padStart(2, "0")}/BID_candles_min_1.bi5`;
+    const hours = new Map();
+    for (const r of decodeDukascopyDay(await getWithRetry(url, false))) {
+      if (!(r.vol > 0)) continue;
+      const hs = day + Math.floor(r.sec / 3600) * HOUR;
+      const x = hours.get(hs);
+      if (!x) hours.set(hs, { o: r.o, h: r.h, l: r.l, c: r.c });
+      else Object.assign(x, { h: Math.max(x.h, r.h), l: Math.min(x.l, r.l), c: r.c });
+    }
+    for (const [hs, x] of hours) put(hs, x.o, x.h, x.l, x.c);
+  }
+  return out;
+}
+
 async function fetchMonthDukascopy(feed, dp, from, to) {
   const n = Math.round((to - from) / MINUTE);
   const out = new Int32Array(n * 5);
@@ -138,7 +191,7 @@ async function loadMonth(sym, y, m, nowMs, log) {
   const from = monthStart(y, m);
   const to = monthStart(y, m + 1);
   const finished = to <= nowMs - DAY;
-  const dir = join(CANDLE_DIR, sym);
+  const dir = join(CANDLE_DIR, FEEDS[sym].hourly ? `${sym}-h1` : sym);
   const file = join(dir, `${monthKey(y, m)}.bin`);
   if (finished && existsSync(file)) {
     const b = readFileSync(file);
@@ -148,7 +201,12 @@ async function loadMonth(sym, y, m, nowMs, log) {
   log(`downloading ${sym} ${monthKey(y, m)}`);
   const feed = FEEDS[sym];
   const end = Math.min(to, Math.floor(nowMs / MINUTE) * MINUTE);
-  const part = feed.src === "binance" ? await fetchMonthBinance(feed.pair, DP[sym], from, end) : await fetchMonthDukascopy(feed, DP[sym], from, end);
+  const part =
+    feed.src === "binance"
+      ? await fetchMonthBinance(feed.pair, DP[sym], from, end)
+      : feed.hourly
+        ? await fetchMonthDukascopyHours(feed, DP[sym], from, end, finished)
+        : await fetchMonthDukascopy(feed, DP[sym], from, end);
   const data = new Int32Array(Math.round((to - from) / MINUTE) * 5);
   data.set(part);
   if (finished) writeFileSync(file, Buffer.from(data.buffer));
@@ -160,6 +218,7 @@ async function loadMonth(sym, y, m, nowMs, log) {
 export class MinuteSeries {
   constructor(sym, fromMs, toMs, months) {
     this.sym = sym;
+    this.hourly = !!FEEDS[sym]?.hourly;
     this.dp = DP[sym];
     this.scale = 10 ** this.dp;
     this.from = fromMs;

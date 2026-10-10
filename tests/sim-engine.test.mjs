@@ -4,7 +4,7 @@
 // Runs on synthetic 1-minute candles, so it needs no network.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { MinuteSeries, SYMBOLS, MINUTE, DAY } from "../scripts/sim/candles.mjs";
+import { MinuteSeries, SYMBOLS, FEEDS, MINUTE, HOUR, DAY } from "../scripts/sim/candles.mjs";
 import { Market, simulateLeader, halfSpread, marketOpen, grossCents, drawdownBrake, SPECS } from "../scripts/sim/engine.mjs";
 import { PERSONA_KEYS, drawPersona } from "../scripts/sim/personas.mjs";
 import { buildDaily, signalId } from "../scripts/sim/rebuild.mjs";
@@ -15,8 +15,9 @@ const TO = Date.UTC(2025, 2, 15);
 const N = (TO - FROM) / MINUTE;
 const BASE = { BTCUSDT: 60000, ETHUSDT: 3000, SOLUSDT: 150, BNBUSDT: 600, XRPUSDT: 0.6, XAUUSD: 2400, EURUSD: 1.08, GBPUSD: 1.27, USDJPY: 150 };
 
-// A random-walk minute series per symbol; `shockFrom` (ms) changes every
-// candle from that minute on.
+// A random-walk minute series per symbol (hourly candles for the hourly
+// symbols, like the real feed); `shockFrom` (ms) changes every candle from
+// that minute on.
 function syntheticMarket(shockFrom = Infinity) {
   const series = {};
   for (const sym of SYMBOLS) {
@@ -35,6 +36,20 @@ function syntheticMarket(shockFrom = Infinity) {
       const l = Math.min(o, c) * (1 - Math.abs(rng.gauss()) * 0.0003);
       data.set([Math.round(o * scale), Math.round(h * scale), Math.round(l * scale), Math.round(c * scale), 1], i * 5);
       p = c;
+    }
+    if (FEEDS[sym].hourly) {
+      // Fold each hour into its first minute; the other 59 are not traded.
+      for (let k = 0; k < N; k += 60) {
+        let hi = -Infinity;
+        let lo = Infinity;
+        for (let i = k; i < k + 60; i++) {
+          hi = Math.max(hi, data[i * 5 + 1]);
+          lo = Math.min(lo, data[i * 5 + 2]);
+        }
+        const close = data[(k + 59) * 5 + 3];
+        data.set([data[k * 5], hi, lo, close, 1], k * 5);
+        for (let i = k + 1; i < k + 60; i++) data[i * 5 + 4] = 0;
+      }
     }
     series[sym] = new MinuteSeries(sym, FROM, TO, [{ start: FROM, data }]);
   }
@@ -115,6 +130,19 @@ test("every trade opens at the candle's price and closes at the first touch or t
       assert.ok(Number.isInteger(t.pnl) && Number.isInteger(t.commission) && Number.isInteger(t.swap), "money in whole cents");
     }
   }
+});
+
+test("hourly symbols trade at hour opens only", () => {
+  let n = 0;
+  for (const key of ["macro", "swing_trend"]) {
+    const { sim } = run(key, `hourly:${key}`);
+    for (const t of sim.trades.filter((x) => FEEDS[x.sym].hourly)) {
+      n++;
+      assert.equal(t.openMs % HOUR, 0, `${key} ${t.sym} opens on the hour`);
+      if (!t.stillOpen && t.trigger !== "sl" && t.trigger !== "tp") assert.equal(t.exitMs % HOUR, 0, `${key} ${t.sym} market exit on the hour`);
+    }
+  }
+  assert.ok(n > 0, "hourly symbols traded");
 });
 
 test("gold and forex never open while their market is closed", () => {

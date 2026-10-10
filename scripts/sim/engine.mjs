@@ -23,6 +23,9 @@
 //   the trade closes at the market (that minute's open less half the spread).
 //   Scalpers and day traders also go flat a few minutes before a gold / forex
 //   market closes for the weekend;
+// - hourly symbols (GBPUSD / USDJPY, see candles.mjs): a decision taken inside
+//   an hour is filled at the next hour's open, and market exits happen at hour
+//   opens -- the only prices of those series;
 // - costs: spread (in the prices), commission, overnight swap.
 //
 // Prices are integers (price x 10^dp) and money is in cents, rounded half
@@ -253,7 +256,7 @@ export function resolveTrade(market, t, endIdx) {
     if ((adverse - sl) * dir <= 0) return { i, exit: sl, trigger: "sl", exitMs: ser.time(i) + 30_000 };
     if ((favour - tp) * dir >= 0) return { i, exit: tp, trigger: "tp", exitMs: ser.time(i) + 30_000 };
     const closing = flat && (i + FLAT_BEFORE_CLOSE_MIN >= ser.n || !open[i + FLAT_BEFORE_CLOSE_MIN]);
-    if (i >= iStop || (closing && i > i0)) {
+    if ((i >= iStop || (closing && i > i0)) && (!ser.hourly || ser.real[i])) {
       return { i, exit: ser.o[i] - dir * half, trigger: i >= iStop ? "timeout" : "manual", exitMs: ser.time(i) };
     }
     i++;
@@ -265,6 +268,12 @@ export function resolveTrade(market, t, endIdx) {
 export function planTrade(persona, market, rng, sym, i, equityCents, riskMult = 1) {
   const ser = market.s[sym];
   const spec = SPECS[sym];
+  // An hourly series only has a price at each hour's open: the order fills there.
+  if (ser.hourly && !ser.real[i]) {
+    const j = i + 60 - (i % 60);
+    if (j >= ser.n || !ser.real[j]) return null;
+    i = j;
+  }
   if (!ser.real[i] || !market.open[sym][i]) return null;
   // Scalpers and day traders don't open into a market that closes within 30 minutes.
   if (flatsBeforeClose(persona, sym) && (i + 30 >= ser.n || !market.open[sym][i + 30])) return null;
