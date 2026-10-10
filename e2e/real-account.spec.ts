@@ -69,11 +69,15 @@ test.describe.serial("Real account — full journey", () => {
     );
     testLeader = t.id;
     await sql(`select public.refresh_provider_stats(array[$1]::uuid[], true)`, [testLeader]);
-    // A crypto scalper (trades around the clock) the customer can afford.
+    // A crypto leader (trades around the clock, weekends too) the customer can
+    // afford and whose drawdown brake lets it trade right now (0246).
     const [r] = await sql<{ id: string; min: string }>(
-      `select id, min_copy_amount min from public.providers
-        where is_simulated and persona ->> 'key' = 'crypto_scalper' and min_copy_amount <= 1000 and not is_archived
-        order by (persona ->> 'tpd')::numeric desc limit 1`,
+      `select p.id, p.min_copy_amount min from public.providers p
+        where p.is_simulated and (p.persona ->> 'weekend')::boolean and p.min_copy_amount <= 1000 and not p.is_archived
+          and public.sim_drawdown_brake(p.id, p.persona, 0) > 0
+          and (select count(*) from public.signals s where s.provider_id = p.id and s.status = 'open' and not s.hidden)
+              < (p.persona ->> 'max_open')::int
+        order by (p.persona ->> 'tpd')::numeric desc limit 1`,
     );
     rosterLeader = r.id;
     rosterMin = Number(r.min);
