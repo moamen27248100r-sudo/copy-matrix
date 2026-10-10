@@ -30,7 +30,7 @@ import { createHash } from "node:crypto";
 import { loadCandles, MINUTE, DAY } from "./candles.mjs";
 import { Market, SPECS, simulateLeader, followerSeries, notionalUsd } from "./engine.mjs";
 import { candidatePersona, targetLog } from "./personas.mjs";
-import { scoreCandidate } from "./validate.mjs";
+import { scoreCandidate, overCap } from "./validate.mjs";
 import { Rng } from "./rng.mjs";
 
 export const HISTORY_VERSION = 3;
@@ -113,7 +113,10 @@ export function buildLeader(leader, market, { endMs, candidates }) {
     const persona = candidatePersona(profile, new Rng(`hist:${leader.id}:v${HISTORY_VERSION}:${k}`));
     const sim = simulateLeader(persona, market, { startMs, endMs, seed: persona.seed });
     const { score, metrics } = scoreCandidate(persona, sim, startMs);
-    if (!best || score < best.score) best = { k, persona, sim, score, metrics };
+    // A candidate above its risk class's return ceiling is only kept when no
+    // candidate is under it.
+    const over = overCap(persona, metrics);
+    if (!best || (best.over && !over) || (best.over === over && score < best.score)) best = { k, persona, sim, score, metrics, over };
   }
   const { daily, equity } = buildDaily(best.sim, startMs, endMs);
   const followers = followerSeries(best.persona, daily.map(([k, r]) => [k, { start: r.start, cash: r.cash, pnl: r.pnl }]), best.persona.seed + 1);

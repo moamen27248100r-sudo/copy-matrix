@@ -12,6 +12,13 @@ export const ANNUAL_CAP = { low: 0.25, medium: 0.5, high: 1.0 };
 // Weight of the annualised return in the score (lower score = better).
 export const PERF_WEIGHT = 0.6;
 
+// Above the ceiling: the annual return for a record of a year or more, the total
+// return for a shorter one (annualising a few weeks would inflate it).
+export function overCap(persona, m) {
+  const ret = m.curve.length >= 365 ? m.annual : m.total;
+  return ret > ANNUAL_CAP[persona.risk];
+}
+
 const DAY_MS = 86400_000;
 
 export function leaderMetrics(sim) {
