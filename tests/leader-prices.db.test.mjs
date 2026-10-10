@@ -13,13 +13,12 @@ import { after, before, test } from "node:test";
 import assert from "node:assert/strict";
 import pg from "pg";
 import { config } from "dotenv";
-import { FEEDS, DP, MINUTE, decodeDukascopyDay } from "../scripts/sim/candles.mjs";
+import { FEEDS, DP, MINUTE, decodeDukascopyDay, getWithRetry } from "../scripts/sim/candles.mjs";
 import { halfSpread } from "../scripts/sim/engine.mjs";
 import { HISTORY_VERSION } from "../scripts/sim/rebuild.mjs";
 
 config({ path: ".env.local", quiet: true });
 const db = new pg.Client({ connectionString: process.env.SUPABASE_DB_URL, ssl: { rejectUnauthorized: false } });
-const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36";
 let trades = [];
 
 before(async () => {
@@ -41,14 +40,8 @@ before(async () => {
 
 after(() => db.end());
 
-async function get(url, json) {
-  for (let attempt = 1; ; attempt++) {
-    const res = await fetch(url, { headers: { "User-Agent": UA } }).catch((e) => ({ ok: false, status: String(e) }));
-    if (res.ok) return json ? res.json() : Buffer.from(await res.arrayBuffer());
-    if (attempt >= 4) throw new Error(`${res.status} ${url}`);
-    await new Promise((r) => setTimeout(r, 1500 * attempt));
-  }
-}
+// The loader's own downloader: patient with Dukascopy's throttling.
+const get = getWithRetry;
 
 // The real candle starting at `ms` (1 minute; 1 hour for the hourly symbols), as integer prices.
 const dayCache = new Map();

@@ -65,7 +65,7 @@ function httpGet(url) {
   });
 }
 
-async function getWithRetry(url, asJson) {
+export async function getWithRetry(url, asJson) {
   for (let attempt = 1; ; attempt++) {
     try {
       const res = await httpGet(url);
