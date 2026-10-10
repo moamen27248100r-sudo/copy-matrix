@@ -38,12 +38,12 @@ export default async function LeadSettingsPage({
     supabase.from("lead_trader_profiles").select("min_investment, hide_country, trade_protection, accepting_followers").eq("provider_id", providerId).maybeSingle(),
     supabase.from("lead_trader_applications").select("contact_info, trading_style").eq("user_id", user.id).eq("status", "approved").order("submitted_at", { ascending: false }).limit(1).maybeSingle(),
     supabase.from("subscriptions").select("allocated_amount, is_active").eq("provider_id", providerId),
-    supabase.from("signals").select("opened_at, status").eq("provider_id", providerId).eq("created_by_admin", false),
+    supabase.from("signals").select("opened_at, closed_at, status").eq("provider_id", providerId).eq("created_by_admin", false).eq("hidden", false),
     supabase.from("profiles").select("last_seen_at, login_count").eq("id", user.id).single(),
   ]);
 
   const aum = (subs ?? []).filter((s) => s.is_active).reduce((sum, s) => sum + Number(s.allocated_amount), 0);
-  const activeDays = computeActiveTradingDays((signals ?? []).map((s) => ({ opened_at: s.opened_at })));
+  const activeDays = computeActiveTradingDays(signals ?? []);
   const tier = currentTier({ activeDays, aum, followerProfit: 0, maxDrawdownPct: null });
   const hasOpenTrades = (signals ?? []).some((s) => s.status === "open");
   const markets = new Set(provider?.symbol_bias ?? []);

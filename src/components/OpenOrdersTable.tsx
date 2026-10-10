@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { SymbolIcon } from "@/lib/symbol-icons";
 import { useLivePrices } from "@/lib/use-live-prices";
+import { useMoney } from "@/lib/money-client";
+import { tradeProfitUsd, tradeReturnPct } from "@/lib/pip-specs";
 
 type OpenOrder = {
   id: string;
@@ -13,7 +15,19 @@ type OpenOrder = {
   opened_at: string;
   take_profit: number | null;
   stop_loss: number | null;
+  lot_size: number | null;
 };
+
+// Unrealised result at the live price: dollars from the lot size (same pip
+// conventions as the closed trades), and the price move in the trade's favour.
+function floating(order: OpenOrder, current: number | undefined) {
+  if (current == null) return { usd: null, pct: null };
+  const entry = Number(order.entry_price);
+  return {
+    usd: tradeProfitUsd(order.symbol, order.side, entry, current, order.lot_size == null ? null : Number(order.lot_size)),
+    pct: tradeReturnPct(order.side, entry, current),
+  };
+}
 
 function formatPrice(value: number) {
   return value.toLocaleString("en-US", { maximumFractionDigits: 4 });
@@ -24,6 +38,7 @@ function formatPrice(value: number) {
 // unchanging forex daily rate ticking every 2s with the exact same number.
 function OrderRow({ order, current }: { order: OpenOrder; current: number | undefined }) {
   const t = useTranslations("OpenOrders");
+  const money = useMoney();
   const [flash, setFlash] = useState<"up" | "down" | null>(null);
   const prevPrice = useRef<number | undefined>(current);
 
@@ -38,11 +53,8 @@ function OrderRow({ order, current }: { order: OpenOrder; current: number | unde
     prevPrice.current = current;
   }, [current]);
 
-  const pct =
-    current != null
-      ? ((current - order.entry_price) / order.entry_price) * (order.side === "sell" ? -1 : 1) * 100
-      : null;
-  const isProfit = pct != null && pct >= 0;
+  const { usd, pct } = floating(order, current);
+  const isProfit = (usd ?? pct ?? 0) >= 0;
 
   return (
     <div
@@ -81,8 +93,14 @@ function OrderRow({ order, current }: { order: OpenOrder; current: number | unde
           }
           dir="ltr"
         >
-          {pct != null ? `${pct >= 0 ? "+" : ""}${pct.toFixed(2)}%` : "—"}
+          {usd != null ? money(usd, { signed: true }) : pct != null ? `${pct >= 0 ? "+" : ""}${pct.toFixed(2)}%` : "—"}
         </p>
+        {usd != null && pct != null && (
+          <p className="text-[11px] text-muted" dir="ltr">
+            {`${pct >= 0 ? "+" : ""}${pct.toFixed(2)}%`}
+            {order.lot_size != null && <> · {t("lotSize", { lot: Number(order.lot_size) })}</>}
+          </p>
+        )}
         <p className="text-xs text-muted" dir="ltr">
           {t("entryPrefix")} {formatPrice(order.entry_price)}
           {current != null && <> · {t("currentPrefix")} {formatPrice(current)}</>}
@@ -107,6 +125,7 @@ export function OpenOrdersTable({
   initialPrices: Record<string, number>;
 }) {
   const t = useTranslations("OpenOrders");
+  const money = useMoney();
   const symbols = Array.from(new Set(orders.map((o) => o.symbol)));
   const prices = useLivePrices(symbols, initialPrices);
 
@@ -114,23 +133,19 @@ export function OpenOrdersTable({
     return <p className="text-sm text-muted">{t("noOpenOrders")}</p>;
   }
 
-  const totalPct = orders.reduce((sum, o) => {
-    const current = prices[o.symbol];
-    if (current == null) return sum;
-    const pct = ((current - o.entry_price) / o.entry_price) * (o.side === "sell" ? -1 : 1) * 100;
-    return sum + pct;
-  }, 0);
+  // Sum of the trades' dollar results (in cents, so the total is exact).
+  const totalCents = orders.reduce((sum, o) => sum + Math.round((floating(o, prices[o.symbol]).usd ?? 0) * 100), 0);
+  const total = totalCents / 100;
 
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-between rounded-lg bg-background px-3 py-2">
         <span className="text-xs text-muted">{t("totalFloatingPnl")}</span>
         <span
-          className={totalPct >= 0 ? "text-sm font-semibold text-success" : "text-sm font-semibold text-danger"}
+          className={total >= 0 ? "text-sm font-semibold text-success" : "text-sm font-semibold text-danger"}
           dir="ltr"
         >
-          {totalPct >= 0 ? "+" : ""}
-          {totalPct.toFixed(2)}%
+          {money(total, { signed: true })}
         </span>
       </div>
       {orders.map((o) => (

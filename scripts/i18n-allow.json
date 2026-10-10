@@ -89,6 +89,7 @@
     "Nav.notificationsAriaLabel",
     "Nav.notificationsTitle",
     "Notifications.cat_trades",
+    "OpenOrders.lotSize",
     "Portfolio.date",
     "Portfolio.maxAvailable",
     "Portfolio.maxButton",
@@ -107,10 +108,10 @@
     "TraderProfile.tab_performance",
     "Trades.filterTrader",
     "Trades.title",
-    "Wallet.confirmationsValue",
-    "Wallet.arrivalValue",
     "Wallet.amountPlaceholder",
-    "Wallet.colTxid"
+    "Wallet.arrivalValue",
+    "Wallet.colTxid",
+    "Wallet.confirmationsValue"
   ],
   "hi": [
     "CopyRisk.slShort",
@@ -173,6 +174,7 @@
     "LeadTrader.trades.takeProfit",
     "LivePrices.lots",
     "Nav.menuAriaLabel",
+    "OpenOrders.lotSize",
     "Portfolio.status",
     "SiteFooter.platform",
     "Symbols.BNBUSDT",

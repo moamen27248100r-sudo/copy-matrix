@@ -23,10 +23,10 @@ export async function updateLeadTraderSettings(formData: FormData) {
   // the same way the overview page does.
   const [{ data: subs }, { data: signals }] = await Promise.all([
     supabase.from("subscriptions").select("allocated_amount, is_active").eq("provider_id", providerId),
-    supabase.from("signals").select("opened_at").eq("provider_id", providerId).eq("created_by_admin", false),
+    supabase.from("signals").select("opened_at, closed_at").eq("provider_id", providerId).eq("created_by_admin", false).eq("hidden", false),
   ]);
   const aum = (subs ?? []).filter((s) => s.is_active).reduce((sum, s) => sum + Number(s.allocated_amount), 0);
-  const activeDays = computeActiveTradingDays((signals ?? []).map((s) => ({ opened_at: s.opened_at })));
+  const activeDays = computeActiveTradingDays(signals ?? []);
   const tier = currentTier({ activeDays, aum, followerProfit: 0, maxDrawdownPct: null });
 
   const markets = (LEAD_TRADER_MARKETS as readonly string[]).filter((m) => formData.get(`market_${m}`) === "on");

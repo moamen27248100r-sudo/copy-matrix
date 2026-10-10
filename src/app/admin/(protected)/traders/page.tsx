@@ -47,7 +47,7 @@ export default async function AdminTradersPage({
     leaderIds.length > 0
       ? await supabase
           .from("provider_cards")
-          .select("provider_id, followers_count, win_rate_pct, avg_return_pct, tier, rating_score")
+          .select("provider_id, followers_count, win_rate_pct, avg_return_pct, tier, rating_score, closed_signals, roi_all, mdd_all, total_profit")
           .in("provider_id", leaderIds)
       : { data: [] };
 
@@ -175,6 +175,17 @@ export default async function AdminTradersPage({
                   <span className="rounded border border-border px-2 py-0.5">{l.card?.followers_count ?? 0} متابع</span>
                   <span className="rounded border border-border px-2 py-0.5">
                     نجاح {l.card?.win_rate_pct != null ? `${l.card.win_rate_pct}%` : "—"}
+                  </span>
+                  {/* Same provider_cards numbers as the public profile and discover. */}
+                  <span className="rounded border border-border px-2 py-0.5">{l.card?.closed_signals ?? 0} صفقة</span>
+                  <span className="rounded border border-border px-2 py-0.5" dir="ltr">
+                    {Number(l.card?.closed_signals ?? 0) > 0 ? `${Number(l.card?.roi_all) > 0 ? "+" : ""}${Number(l.card?.roi_all).toFixed(2)}%` : "—"} عائد
+                  </span>
+                  <span className="rounded border border-border px-2 py-0.5" dir="ltr">
+                    {Number(l.card?.closed_signals ?? 0) > 0 ? `-${Number(l.card?.mdd_all).toFixed(2)}%` : "—"} تراجع
+                  </span>
+                  <span className="rounded border border-border px-2 py-0.5" dir="ltr">
+                    {Number(l.card?.total_profit ?? 0).toFixed(2)}$ ربح
                   </span>
                 </span>
               </summary>

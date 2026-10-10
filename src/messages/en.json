@@ -372,7 +372,8 @@
     "entryPrefix": "Entry",
     "currentPrefix": "Current",
     "noOpenOrders": "No open trades for this trader right now.",
-    "totalFloatingPnl": "Total floating P/L"
+    "totalFloatingPnl": "Total floating P/L",
+    "lotSize": "{lot} lot"
   },
   "TraderProfile": {
     "follow": "Follow",
@@ -404,13 +405,11 @@
     "reliabilityStatusLow": "Low reliability",
     "gaugeLimitScore": "Limit Score",
     "gaugeTradingDays": "Active Trading Days",
-    "gaugeTipReliability": "Overall trading reliability (0–100): combines consistency of results, risk discipline and activity history. Higher is better.",
-    "gaugeTipSafety": "Safety score (0–100): how stable the trader's returns are and how well losses are contained. Higher is better.",
-    "gaugeTipRisk": "Risk exposure (0–100): how much capital the trader puts at risk. Lower is better.",
-    "gaugeTipLimit": "Limit score: how well the trader respects position and risk limits.",
-    "gaugeTipTradingDays": "Number of days on which the trader actually traded.",
-    "gaugeTipBadge": "This trader meets the platform's key trading-quality requirements.",
-    "importantBadgeLabel": "Important",
+    "gaugeTipReliability": "Overall trading reliability (0–100): combines the 6-month return, the largest drawdown, the share of profitable months, the length of the track record and the win rate. Higher is better.",
+    "gaugeTipSafety": "Safety score (0–100): 100 minus 1.5 × the yearly volatility of the trader's daily returns, so steadier returns score higher. Higher is better.",
+    "gaugeTipRisk": "Risk exposure (0–100): 1.6 × the largest drop of the trader's equity from its peak (maximum drawdown). Lower is better; red from about a 31% drawdown.",
+    "gaugeTipLimit": "Limit score: the share of closed trades that ended at their stop loss or take profit, rather than being closed by hand or when their holding time ran out.",
+    "gaugeTipTradingDays": "Number of days on which the trader opened or closed at least one trade.",
     "followingLabel": "Following",
     "followToastTitle": "Followed successfully",
     "followToastBody": "You'll now get instant notifications for every new trade and update from {name}.",
@@ -425,7 +424,14 @@
     "statAum": "Copied funds (AUM)",
     "statProfitShare": "Profit share",
     "strategyTitle": "Strategy",
-    "riskDisclosureTitle": "Risk disclosure"
+    "riskDisclosureTitle": "Risk disclosure",
+    "gaugeActivity": "Activity level",
+    "activityHigh": "Very active",
+    "activityMedium": "Active",
+    "activityLow": "Low activity",
+    "activityNone": "Inactive",
+    "reliabilityStatusNone": "No score yet",
+    "gaugeTipActivity": "How often the trader trades: closed trades per week over the last 90 days. Very active from 5 a week, active from 1."
   },
   "Discover": {
     "title": "Discover traders",
@@ -1914,7 +1920,8 @@
     "summarySwap": "Swap",
     "summaryCommission": "Commission",
     "summaryTrades": "Trades",
-    "goldVsUsd": "Gold vs US Dollar"
+    "goldVsUsd": "Gold vs US Dollar",
+    "showingLatest": "Showing the latest {shown} of {total} trades; the totals below include all of them."
   },
   "AdminIntegrity": {
     "navLabel": "Trade integrity",

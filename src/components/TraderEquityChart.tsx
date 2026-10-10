@@ -77,7 +77,9 @@ export function TraderEquityChart({ daily }: { daily: DailySeries | null }) {
     // practically impossible without changing what "last 30 days" means.
     const now = new Date();
     const todayUtcStart = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
-    const cutoff = period.days != null ? todayUtcStart - period.days * DAY : 0;
+    // N days = today and the N - 1 days before it, the same window as the
+    // roi_7d / roi_30d / roi_90d stats (provider_daily rows with age < N).
+    const cutoff = period.days != null ? todayUtcStart - (period.days - 1) * DAY : 0;
     const days = daily?.days ?? [];
     const end = todayUtcStart + DAY;
     const firstDay = days.length > 0 ? Date.parse(days[0] + "T00:00:00Z") : end - 30 * DAY;

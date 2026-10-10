@@ -372,7 +372,8 @@
     "entryPrefix": "Vào lệnh",
     "currentPrefix": "Hiện tại",
     "noOpenOrders": "Hiện không có giao dịch mở nào cho nhà giao dịch này.",
-    "totalFloatingPnl": "Tổng lãi/lỗ nổi"
+    "totalFloatingPnl": "Tổng lãi/lỗ nổi",
+    "lotSize": "{lot} lô"
   },
   "TraderProfile": {
     "follow": "Theo dõi",
@@ -404,13 +405,11 @@
     "reliabilityStatusLow": "Độ tin cậy thấp",
     "gaugeLimitScore": "Điểm giới hạn",
     "gaugeTradingDays": "Số ngày giao dịch hoạt động",
-    "gaugeTipReliability": "Độ tin cậy giao dịch tổng thể (0–100): kết hợp tính ổn định của kết quả, kỷ luật rủi ro và lịch sử hoạt động. Càng cao càng tốt.",
-    "gaugeTipSafety": "Điểm an toàn (0–100): mức ổn định lợi nhuận của nhà giao dịch và khả năng kiểm soát thua lỗ. Càng cao càng tốt.",
-    "gaugeTipRisk": "Mức phơi nhiễm rủi ro (0–100): lượng vốn nhà giao dịch đặt vào rủi ro. Càng thấp càng tốt.",
-    "gaugeTipLimit": "Điểm hạn mức: mức độ nhà giao dịch tuân thủ giới hạn vị thế và rủi ro.",
-    "gaugeTipTradingDays": "Số ngày nhà giao dịch thực sự có giao dịch.",
-    "gaugeTipBadge": "Nhà giao dịch này đáp ứng các yêu cầu chất lượng giao dịch chính của nền tảng.",
-    "importantBadgeLabel": "Quan trọng",
+    "gaugeTipReliability": "Độ tin cậy giao dịch tổng thể (0–100): kết hợp lợi nhuận 6 tháng, mức sụt giảm lớn nhất, tỷ lệ tháng có lãi, độ dài lịch sử và tỷ lệ thắng. Càng cao càng tốt.",
+    "gaugeTipSafety": "Điểm an toàn (0–100): 100 trừ 1,5 × độ biến động hằng năm của lợi nhuận hằng ngày, lợi nhuận càng ổn định thì điểm càng cao. Càng cao càng tốt.",
+    "gaugeTipRisk": "Mức độ rủi ro (0–100): 1,6 × mức giảm lớn nhất của vốn so với đỉnh (sụt giảm tối đa). Càng thấp càng tốt; hiển thị màu đỏ từ mức sụt giảm khoảng 31%.",
+    "gaugeTipLimit": "Điểm giới hạn: tỷ lệ lệnh đã đóng kết thúc tại mức cắt lỗ hoặc chốt lời, thay vì đóng thủ công hoặc khi hết thời gian nắm giữ.",
+    "gaugeTipTradingDays": "Số ngày nhà giao dịch mở hoặc đóng ít nhất một lệnh.",
     "followingLabel": "Đang theo dõi",
     "followToastTitle": "Theo dõi thành công",
     "followToastBody": "Bạn sẽ nhận được thông báo tức thì cho mỗi giao dịch và cập nhật mới từ {name}.",
@@ -425,7 +424,14 @@
     "statAum": "Vốn được sao chép (AUM)",
     "statProfitShare": "Chia sẻ lợi nhuận",
     "strategyTitle": "Chiến lược",
-    "riskDisclosureTitle": "Công bố rủi ro"
+    "riskDisclosureTitle": "Công bố rủi ro",
+    "gaugeActivity": "Mức độ hoạt động",
+    "activityHigh": "Rất tích cực",
+    "activityMedium": "Tích cực",
+    "activityLow": "Ít hoạt động",
+    "activityNone": "Không hoạt động",
+    "reliabilityStatusNone": "Chưa có điểm",
+    "gaugeTipActivity": "Tần suất giao dịch: số lệnh đã đóng mỗi tuần trong 90 ngày gần nhất. Rất tích cực từ 5 lệnh/tuần, tích cực từ 1 lệnh."
   },
   "Discover": {
     "title": "Khám phá nhà giao dịch",
@@ -1910,7 +1916,8 @@
     "summarySwap": "Swap",
     "summaryCommission": "Hoa hồng",
     "summaryTrades": "Số lệnh",
-    "goldVsUsd": "Vàng so với Đô la Mỹ"
+    "goldVsUsd": "Vàng so với Đô la Mỹ",
+    "showingLatest": "Đang hiển thị {shown} lệnh gần nhất trong tổng số {total}; các tổng bên dưới bao gồm tất cả."
   },
   "AdminIntegrity": {
     "navLabel": "Tính toàn vẹn giao dịch",

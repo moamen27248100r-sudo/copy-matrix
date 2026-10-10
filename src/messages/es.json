@@ -372,7 +372,8 @@
     "entryPrefix": "Entrada",
     "currentPrefix": "Actual",
     "noOpenOrders": "No hay operaciones abiertas para este trader actualmente.",
-    "totalFloatingPnl": "P/L flotante total"
+    "totalFloatingPnl": "P/L flotante total",
+    "lotSize": "{lot} lote"
   },
   "TraderProfile": {
     "follow": "Seguir",
@@ -404,13 +405,11 @@
     "reliabilityStatusLow": "Fiabilidad baja",
     "gaugeLimitScore": "Puntuación de límite",
     "gaugeTradingDays": "Días de trading activos",
-    "gaugeTipReliability": "Fiabilidad general del trading (0–100): combina la consistencia de los resultados, la disciplina de riesgo y el historial de actividad. Más alto es mejor.",
-    "gaugeTipSafety": "Índice de seguridad (0–100): estabilidad de los rendimientos del trader y control de las pérdidas. Más alto es mejor.",
-    "gaugeTipRisk": "Exposición al riesgo (0–100): cuánto capital arriesga el trader. Más bajo es mejor.",
-    "gaugeTipLimit": "Índice de límites: qué tan bien respeta el trader los límites de posiciones y de riesgo.",
-    "gaugeTipTradingDays": "Número de días en los que el trader operó realmente.",
-    "gaugeTipBadge": "Este trader cumple los principales requisitos de calidad de trading de la plataforma.",
-    "importantBadgeLabel": "Importante",
+    "gaugeTipReliability": "Fiabilidad global (0–100): combina el rendimiento de 6 meses, la mayor caída, la proporción de meses rentables, la antigüedad del historial y la tasa de acierto. Cuanto más alto, mejor.",
+    "gaugeTipSafety": "Puntuación de seguridad (0–100): 100 menos 1,5 × la volatilidad anual de los rendimientos diarios; los rendimientos más estables puntúan más. Cuanto más alto, mejor.",
+    "gaugeTipRisk": "Exposición al riesgo (0–100): 1,6 × la mayor caída del capital desde su máximo (drawdown máximo). Cuanto más bajo, mejor; en rojo desde una caída de alrededor del 31 %.",
+    "gaugeTipLimit": "Puntuación de límites: proporción de operaciones cerradas en su stop loss o take profit, en lugar de cerrarse a mano o al agotarse su tiempo de mantenimiento.",
+    "gaugeTipTradingDays": "Número de días en los que el trader abrió o cerró al menos una operación.",
     "followingLabel": "Siguiendo",
     "followToastTitle": "Siguiendo con éxito",
     "followToastBody": "Ahora recibirás notificaciones instantáneas de cada nueva operación y actualización de {name}.",
@@ -425,7 +424,14 @@
     "statAum": "Fondos copiados (AUM)",
     "statProfitShare": "Reparto de beneficios",
     "strategyTitle": "Estrategia",
-    "riskDisclosureTitle": "Aviso de riesgo"
+    "riskDisclosureTitle": "Aviso de riesgo",
+    "gaugeActivity": "Nivel de actividad",
+    "activityHigh": "Muy activo",
+    "activityMedium": "Activo",
+    "activityLow": "Poca actividad",
+    "activityNone": "Inactivo",
+    "reliabilityStatusNone": "Aún sin puntuación",
+    "gaugeTipActivity": "Con qué frecuencia opera: operaciones cerradas por semana en los últimos 90 días. Muy activo desde 5 por semana, activo desde 1."
   },
   "Discover": {
     "title": "Descubrir traders",
@@ -1911,7 +1917,8 @@
     "summarySwap": "Swap",
     "summaryCommission": "Comisión",
     "summaryTrades": "Operaciones",
-    "goldVsUsd": "Oro vs Dólar estadounidense"
+    "goldVsUsd": "Oro vs Dólar estadounidense",
+    "showingLatest": "Se muestran las {shown} operaciones más recientes de {total}; los totales de abajo las incluyen todas."
   },
   "AdminIntegrity": {
     "navLabel": "Integridad de operaciones",

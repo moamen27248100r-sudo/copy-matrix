@@ -1,6 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { LEAD_TRADER_TIERS, type LeadTraderTier } from "@/config/lead-trader";
-import { computeStats } from "@/lib/provider-stats";
 
 // The provider row for a signed-in lead trader, or null if they don't have
 // one (not approved yet). One provider per user (providers.user_id unique).
@@ -55,6 +54,3 @@ export function nextTier(current: LeadTraderTier): LeadTraderTier | null {
   const i = LEAD_TRADER_TIERS.findIndex((t) => t.key === current.key);
   return i >= 0 && i < LEAD_TRADER_TIERS.length - 1 ? LEAD_TRADER_TIERS[i + 1] : null;
 }
-
-// Re-exported for convenience so /lead pages only import from one module.
-export { computeStats };

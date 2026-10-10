@@ -372,7 +372,8 @@
     "entryPrefix": "Entri",
     "currentPrefix": "Saat ini",
     "noOpenOrders": "Tidak ada trade terbuka untuk trader ini saat ini.",
-    "totalFloatingPnl": "Total P/L mengambang"
+    "totalFloatingPnl": "Total P/L mengambang",
+    "lotSize": "{lot} lot"
   },
   "TraderProfile": {
     "follow": "Ikuti",
@@ -404,13 +405,11 @@
     "reliabilityStatusLow": "Keandalan rendah",
     "gaugeLimitScore": "Skor Batas",
     "gaugeTradingDays": "Hari Trading Aktif",
-    "gaugeTipReliability": "Keandalan trading keseluruhan (0–100): menggabungkan konsistensi hasil, disiplin risiko, dan riwayat aktivitas. Semakin tinggi semakin baik.",
-    "gaugeTipSafety": "Skor keamanan (0–100): seberapa stabil return trader dan seberapa baik kerugian dikendalikan. Semakin tinggi semakin baik.",
-    "gaugeTipRisk": "Eksposur risiko (0–100): seberapa besar modal yang dipertaruhkan trader. Semakin rendah semakin baik.",
-    "gaugeTipLimit": "Skor batas: seberapa patuh trader terhadap batas posisi dan risiko.",
-    "gaugeTipTradingDays": "Jumlah hari saat trader benar-benar bertransaksi.",
-    "gaugeTipBadge": "Trader ini memenuhi persyaratan utama kualitas trading platform.",
-    "importantBadgeLabel": "Penting",
+    "gaugeTipReliability": "Keandalan trading keseluruhan (0–100): menggabungkan imbal hasil 6 bulan, penurunan terbesar, porsi bulan yang untung, lama rekam jejak, dan rasio menang. Semakin tinggi semakin baik.",
+    "gaugeTipSafety": "Skor keamanan (0–100): 100 dikurangi 1,5 × volatilitas tahunan imbal hasil harian, sehingga imbal hasil yang lebih stabil mendapat skor lebih tinggi. Semakin tinggi semakin baik.",
+    "gaugeTipRisk": "Eksposur risiko (0–100): 1,6 × penurunan modal terbesar dari puncaknya (drawdown maksimum). Semakin rendah semakin baik; merah mulai sekitar 31% penurunan.",
+    "gaugeTipLimit": "Skor batas: porsi transaksi tertutup yang berakhir di stop loss atau take profit, bukan ditutup manual atau saat waktu tahannya habis.",
+    "gaugeTipTradingDays": "Jumlah hari trader membuka atau menutup setidaknya satu transaksi.",
     "followingLabel": "Mengikuti",
     "followToastTitle": "Berhasil mengikuti",
     "followToastBody": "Anda kini akan menerima notifikasi instan untuk setiap transaksi dan pembaruan baru dari {name}.",
@@ -425,7 +424,14 @@
     "statAum": "Dana yang disalin (AUM)",
     "statProfitShare": "Bagi hasil",
     "strategyTitle": "Strategi",
-    "riskDisclosureTitle": "Pengungkapan risiko"
+    "riskDisclosureTitle": "Pengungkapan risiko",
+    "gaugeActivity": "Tingkat aktivitas",
+    "activityHigh": "Sangat aktif",
+    "activityMedium": "Aktif",
+    "activityLow": "Kurang aktif",
+    "activityNone": "Tidak aktif",
+    "reliabilityStatusNone": "Belum ada skor",
+    "gaugeTipActivity": "Seberapa sering trader bertransaksi: transaksi ditutup per minggu selama 90 hari terakhir. Sangat aktif mulai 5 per minggu, aktif mulai 1."
   },
   "Discover": {
     "title": "Temukan trader",
@@ -1910,7 +1916,8 @@
     "summarySwap": "Swap",
     "summaryCommission": "Komisi",
     "summaryTrades": "Transaksi",
-    "goldVsUsd": "Emas vs Dolar AS"
+    "goldVsUsd": "Emas vs Dolar AS",
+    "showingLatest": "Menampilkan {shown} transaksi terbaru dari {total}; total di bawah mencakup semuanya."
   },
   "AdminIntegrity": {
     "navLabel": "Integritas trade",

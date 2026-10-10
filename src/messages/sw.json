@@ -372,7 +372,8 @@
     "entryPrefix": "Kuingia",
     "currentPrefix": "Sasa",
     "noOpenOrders": "Hakuna biashara zilizo wazi kwa mfanyabiashara huyu kwa sasa.",
-    "totalFloatingPnl": "Jumla ya faida/hasara inayoelea"
+    "totalFloatingPnl": "Jumla ya faida/hasara inayoelea",
+    "lotSize": "loti {lot}"
   },
   "TraderProfile": {
     "follow": "Fuata",
@@ -404,13 +405,11 @@
     "reliabilityStatusLow": "Kuaminika chini",
     "gaugeLimitScore": "Alama ya Kikomo",
     "gaugeTradingDays": "Siku za Biashara Zilizo Hai",
-    "gaugeTipReliability": "Uaminifu wa jumla wa biashara (0–100): unachanganya uthabiti wa matokeo, nidhamu ya hatari na historia ya shughuli. Juu ni bora.",
-    "gaugeTipSafety": "Alama ya usalama (0–100): jinsi mapato ya mfanyabiashara yalivyo thabiti na hasara zinavyodhibitiwa. Juu ni bora.",
-    "gaugeTipRisk": "Mfiduo wa hatari (0–100): kiasi cha mtaji ambacho mfanyabiashara anaweka hatarini. Chini ni bora.",
-    "gaugeTipLimit": "Alama ya mipaka: jinsi mfanyabiashara anavyozingatia mipaka ya nafasi na hatari.",
-    "gaugeTipTradingDays": "Idadi ya siku ambazo mfanyabiashara alifanya biashara kweli.",
-    "gaugeTipBadge": "Mfanyabiashara huyu anakidhi mahitaji makuu ya ubora wa biashara ya jukwaa.",
-    "importantBadgeLabel": "Muhimu",
+    "gaugeTipReliability": "Uaminifu wa jumla wa biashara (0–100): unachanganya faida ya miezi 6, kushuka kukubwa zaidi, sehemu ya miezi yenye faida, urefu wa rekodi na kiwango cha ushindi. Juu zaidi ni bora.",
+    "gaugeTipSafety": "Alama ya usalama (0–100): 100 toa 1.5 × kuyumba kwa mwaka kwa faida za kila siku, hivyo faida thabiti zaidi hupata alama ya juu. Juu zaidi ni bora.",
+    "gaugeTipRisk": "Kiwango cha hatari (0–100): 1.6 × kushuka kukubwa zaidi kwa mtaji kutoka kilele chake (upungufu wa juu zaidi). Chini zaidi ni bora; nyekundu kuanzia kushuka kwa takriban 31%.",
+    "gaugeTipLimit": "Alama ya kikomo: sehemu ya biashara zilizofungwa zilizoishia kwenye stop loss au take profit, badala ya kufungwa kwa mkono au muda wa kushikilia ulipoisha.",
+    "gaugeTipTradingDays": "Idadi ya siku ambazo mfanyabiashara alifungua au kufunga angalau biashara moja.",
     "followingLabel": "Unafuata",
     "followToastTitle": "Umefuata kwa mafanikio",
     "followToastBody": "Sasa utapokea arifa za papo hapo za kila biashara na sasisho jipya kutoka kwa {name}.",
@@ -425,7 +424,14 @@
     "statAum": "Fedha zilizonakiliwa (AUM)",
     "statProfitShare": "Mgao wa faida",
     "strategyTitle": "Mkakati",
-    "riskDisclosureTitle": "Ufichuzi wa hatari"
+    "riskDisclosureTitle": "Ufichuzi wa hatari",
+    "gaugeActivity": "Kiwango cha shughuli",
+    "activityHigh": "Mwenye shughuli nyingi",
+    "activityMedium": "Anashughulika",
+    "activityLow": "Shughuli chache",
+    "activityNone": "Hana shughuli",
+    "reliabilityStatusNone": "Bado hakuna alama",
+    "gaugeTipActivity": "Mara ngapi mfanyabiashara hufanya biashara: biashara zilizofungwa kwa wiki katika siku 90 zilizopita. Mwenye shughuli nyingi kuanzia 5 kwa wiki, anashughulika kuanzia 1."
   },
   "Discover": {
     "title": "Gundua wafanyabiashara",
@@ -1910,7 +1916,8 @@
     "summarySwap": "Swap",
     "summaryCommission": "Kamisheni",
     "summaryTrades": "Biashara",
-    "goldVsUsd": "Dhahabu dhidi ya Dola ya Marekani"
+    "goldVsUsd": "Dhahabu dhidi ya Dola ya Marekani",
+    "showingLatest": "Inaonyesha biashara {shown} za karibuni kati ya {total}; jumla zilizo hapa chini zinajumuisha zote."
   },
   "AdminIntegrity": {
     "navLabel": "Usahihi wa biashara",

@@ -4,27 +4,13 @@ import { redirect } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { getOwnProviderId, currentTier, nextTier } from "@/lib/lead-trader";
-import { fetchProviderStats, computeStats } from "@/lib/provider-stats";
-import { computeReliabilityTimeline, computeActiveTradingDays } from "@/lib/reliability";
+import { leaderScores } from "@/lib/leader-scores";
 import { getGaugeTier } from "@/components/CircularGauge";
 import { ExnessReliabilitySection } from "@/components/ExnessReliabilitySection";
 import { MonthlyReturnsCalendar } from "@/components/MonthlyReturnsCalendar";
 import type { DailySeries } from "@/components/TraderEquityChart";
 import { fetchLeadOverview } from "@/lib/lead-dashboard";
 import type { Locale } from "@/i18n/locales";
-
-type SignalRow = {
-  id: string;
-  symbol: string;
-  side: string;
-  entry_price: number;
-  exit_price: number | null;
-  status: string;
-  opened_at: string;
-  closed_at: string | null;
-  close_trigger: string | null;
-};
-
 
 function StatCard({ label, value, tone }: { label: string; value: string; tone?: "up" | "down" }) {
   return (
@@ -55,17 +41,13 @@ export default async function LeadOverviewPage() {
   const providerId = await getOwnProviderId(supabase, user.id);
   if (!providerId) redirect("/become-lead-trader");
 
-  const [{ data: provider }, { data: profile }, { data: allSignals }, { data: subs }, periodStats, overview, { data: ltProfile }, { data: dailyRaw }] = await Promise.all([
+  // Every performance number comes from provider_cards (provider_stats, built
+  // from the trades) -- the same row the public profile and discover read.
+  const [{ data: provider }, { data: profile }, { data: card }, { data: subs }, overview, { data: ltProfile }, { data: dailyRaw }] = await Promise.all([
     supabase.from("providers").select("display_name, profit_share_pct, min_copy_amount, trading_status").eq("id", providerId).single(),
     supabase.from("profiles").select("balance, is_suspended").eq("id", user.id).single(),
-    supabase
-      .from("signals")
-      .select("id, symbol, side, entry_price, exit_price, status, opened_at, closed_at, close_trigger")
-      .eq("provider_id", providerId)
-      .eq("created_by_admin", false)
-      .order("opened_at", { ascending: false }),
+    supabase.from("provider_cards").select("*").eq("provider_id", providerId).maybeSingle(),
     supabase.from("subscriptions").select("id, allocated_amount, is_active, copy_started_at").eq("provider_id", providerId),
-    Promise.all([7, 30, 90, 180].map((d) => fetchProviderStats(supabase, [providerId], d))),
     fetchLeadOverview(supabase),
     supabase.from("lead_trader_profiles").select("accepting_followers").eq("provider_id", providerId).maybeSingle(),
     supabase.rpc("provider_daily_series", { p_provider_id: providerId }),
@@ -73,7 +55,6 @@ export default async function LeadOverviewPage() {
   const daily = (dailyRaw ?? null) as DailySeries | null;
   const accountStatus = profile?.is_suspended ? "suspended" : provider?.trading_status === "stopped" ? "stopped" : ltProfile?.accepting_followers === false ? "closed" : "active";
 
-  const signals = (allSignals ?? []) as SignalRow[];
   const activeSubs = (subs ?? []).filter((s) => s.is_active);
   const subIds = (subs ?? []).map((s) => s.id);
   const aum = activeSubs.reduce((sum, s) => sum + Number(s.allocated_amount), 0);
@@ -112,32 +93,23 @@ export default async function LeadOverviewPage() {
   const shareUnrealized = Math.max(0, unrealizedFollowerProfit) * (sharePct / 100);
   const shareWeek = Math.max(0, weekProfit) * (sharePct / 100);
 
-  const stats = computeStats(
-    signals
-      .filter((s) => s.status === "closed" && s.exit_price != null && s.closed_at)
-      .map((s) => ({ provider_id: providerId, side: s.side, entry_price: s.entry_price, exit_price: s.exit_price!, opened_at: s.opened_at, closed_at: s.closed_at! })),
-  );
-  const activeDays = computeActiveTradingDays(signals);
-  const tier = currentTier({ activeDays, aum, followerProfit: realizedFollowerProfit, maxDrawdownPct: stats.maxDrawdown });
+  const num = (v: unknown) => (v == null ? null : Number(v));
+  const closedTrades = Number(card?.closed_signals ?? 0);
+  const scores = leaderScores(card ?? {});
+  const activeDays = scores.activeDays;
+  const maxDrawdown = closedTrades > 0 ? num(card?.mdd_all) : null;
+  const tier = currentTier({ activeDays, aum, followerProfit: realizedFollowerProfit, maxDrawdownPct: maxDrawdown });
   const next = nextTier(tier);
 
-  const [d7, d30, d90, d180] = periodStats;
-  const periodRows = [
-    { label: t("period7"), stats: d7.get(providerId) },
-    { label: t("period30"), stats: d30.get(providerId) },
-    { label: t("period90"), stats: d90.get(providerId) },
-    { label: t("period180"), stats: d180.get(providerId) },
-  ];
+  const periodRows = (["7d", "30d", "90d", "180d"] as const).map((p, i) => ({
+    label: t(["period7", "period30", "period90", "period180"][i]),
+    roi: closedTrades > 0 ? num(card?.[`roi_${p}`]) : null,
+  }));
 
-  const reliabilityTimeline = computeReliabilityTimeline(signals);
-  const latest = reliabilityTimeline[reliabilityTimeline.length - 1];
-  const reliabilityScore = latest?.reliability ?? 50;
-  const safetyScore = latest?.safety ?? 50;
-  const riskExposureScore = latest?.risk ?? (stats.maxDrawdown != null ? Math.min(100, Math.round(stats.maxDrawdown * 8)) : 20);
-  const limitScore = latest?.limitScore ?? 0;
-  const reliabilityStatus = tp(
-    { low: "reliabilityStatusLow", medium: "reliabilityStatusMedium", high: "reliabilityStatusHigh" }[getGaugeTier(reliabilityScore, "reliability")],
-  );
+  const reliabilityStatus =
+    scores.reliability == null
+      ? tp("reliabilityStatusNone")
+      : tp({ low: "reliabilityStatusLow", medium: "reliabilityStatusMedium", high: "reliabilityStatusHigh" }[getGaugeTier(scores.reliability, "reliability")]);
 
   return (
     <div className="flex flex-col gap-6">
@@ -188,10 +160,8 @@ export default async function LeadOverviewPage() {
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {periodRows.map((r) => (
             <div key={r.label} className="rounded-xl border border-border bg-surface p-4 text-center">
-              <p
-                className={`num text-lg font-semibold ${(r.stats?.totalReturn ?? 0) >= 0 ? "text-success" : "text-danger"}`}
-              >
-                {r.stats ? `${r.stats.totalReturn >= 0 ? "+" : ""}${r.stats.totalReturn}%` : "—"}
+              <p className={`num text-lg font-semibold ${(r.roi ?? 0) >= 0 ? "text-success" : "text-danger"}`}>
+                {r.roi != null ? `${r.roi > 0 ? "+" : ""}${r.roi.toFixed(2)}%` : "—"}
               </p>
               <p className="text-xs text-muted">{r.label}</p>
             </div>
@@ -200,22 +170,26 @@ export default async function LeadOverviewPage() {
       </section>
 
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <StatCard label={tp("statOverallWinRate")} value={stats.winRate != null ? `${stats.winRate}%` : "—"} />
-        <StatCard label={tp("statMaxDrawdown")} value={stats.maxDrawdown != null ? `-${stats.maxDrawdown}%` : "—"} />
-        <StatCard label={tp("statSharpe")} value={String(stats.sharpe ?? "—")} />
-        <StatCard label={tp("statAvgDuration")} value={stats.avgDurationHours != null ? `${stats.avgDurationHours}h` : "—"} />
-        <StatCard label={t("tradesCount")} value={String(stats.trades)} />
+        <StatCard label={tp("statOverallWinRate")} value={card?.win_rate_pct != null ? `${card.win_rate_pct}%` : "—"} />
+        <StatCard label={tp("statMaxDrawdown")} value={maxDrawdown != null ? `-${maxDrawdown}%` : "—"} />
+        <StatCard label={tp("statSharpe")} value={card?.sharpe_all != null ? String(card.sharpe_all) : "—"} />
+        <StatCard
+          label={tp("statAvgDuration")}
+          value={card?.avg_hold_hours != null ? tp("hoursShort", { hours: Math.round(Number(card.avg_hold_hours) * 10) / 10 }) : "—"}
+        />
+        <StatCard label={t("tradesCount")} value={String(closedTrades)} />
         <StatCard label={t("activeDays")} value={String(activeDays)} />
       </section>
 
       <div className="border-t border-border pt-4">
         <ExnessReliabilitySection
-          reliabilityScore={reliabilityScore}
+          reliabilityScore={scores.reliability}
           reliabilityStatus={reliabilityStatus}
-          safetyScore={safetyScore}
-          riskExposureScore={riskExposureScore}
-          limitScore={limitScore}
+          safetyScore={scores.safety}
+          riskExposureScore={scores.risk}
+          limitScore={scores.limit}
           activeTradingDays={activeDays}
+          activity={scores.activity}
           daily={daily}
         />
       </div>

@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { followProvider, unfollowProvider } from "@/app/discover/actions";
 import { FollowButton } from "@/components/FollowButton";
 import { AppNav } from "@/components/AppNav";
-import { TraderTradeHistory, type HistoryTrade } from "@/components/TraderTradeHistory";
+import { TraderTradeHistory, type HistoryTrade, type TradeDay } from "@/components/TraderTradeHistory";
 import { getGaugeTier } from "@/components/CircularGauge";
 import { ExnessReliabilitySection } from "@/components/ExnessReliabilitySection";
 import type { DailySeries } from "@/components/TraderEquityChart";
@@ -21,6 +21,7 @@ import { CopyBar } from "@/components/CopyBar";
 import { CopyDialog } from "@/components/CopyDialog";
 import { getBioTranslator } from "@/lib/bio-translations";
 import type { Locale } from "@/i18n/locales";
+import { leaderScores } from "@/lib/leader-scores";
 
 type SignalRow = {
   id: string;
@@ -43,7 +44,8 @@ type SignalRow = {
 type DailyRows = DailySeries & { trades: number[]; wins: number[] };
 
 // The profile's trade list shows the latest closed trades; every stat on the
-// page comes from provider_stats / provider_daily, which cover all of them.
+// page comes from provider_stats / provider_daily and the history totals from
+// provider_trade_days, which cover all of them.
 const HISTORY_LIMIT = 300;
 
 export async function generateMetadata() {
@@ -76,8 +78,9 @@ export default async function TraderPage({
 
   const SIGNAL_COLUMNS =
     "id, symbol, side, entry_price, exit_price, stop_loss, take_profit, status, opened_at, closed_at, close_trigger, lot_size, commission, swap, pnl_usd";
-  // created_by_admin signals are per-customer corrections -- they belong to
-  // that one customer's own view, not the leader's public track record.
+  // created_by_admin signals are per-customer corrections, and hidden ones are
+  // trades a customer copied before the leader's record was rebuilt -- both
+  // belong to that customer's own view, not the leader's public track record.
   const [
     { data: initialProvider },
     { data: openSignals },
@@ -86,14 +89,23 @@ export default async function TraderPage({
     { data: myProfile },
     { data: myFollow },
     { data: dailyRaw },
+    { data: tradeDaysRaw },
   ] = await Promise.all([
     supabase.from("provider_cards").select("*").eq("provider_id", id).single(),
-    supabase.from("signals").select(SIGNAL_COLUMNS).eq("provider_id", id).eq("created_by_admin", false).eq("status", "open").order("opened_at", { ascending: false }),
     supabase
       .from("signals")
       .select(SIGNAL_COLUMNS)
       .eq("provider_id", id)
       .eq("created_by_admin", false)
+      .eq("hidden", false)
+      .eq("status", "open")
+      .order("opened_at", { ascending: false }),
+    supabase
+      .from("signals")
+      .select(SIGNAL_COLUMNS)
+      .eq("provider_id", id)
+      .eq("created_by_admin", false)
+      .eq("hidden", false)
       .eq("status", "closed")
       .order("closed_at", { ascending: false })
       .limit(HISTORY_LIMIT),
@@ -113,6 +125,7 @@ export default async function TraderPage({
       ? supabase.from("follows").select("provider_id").eq("follower_id", user.id).eq("provider_id", id).maybeSingle()
       : Promise.resolve({ data: null }),
     supabase.rpc("provider_daily_series", { p_provider_id: id }),
+    supabase.rpc("provider_trade_days", { p_provider_id: id }),
   ]);
 
   let provider = initialProvider;
@@ -134,6 +147,7 @@ export default async function TraderPage({
   const openOrders = (openSignals ?? []) as SignalRow[];
   const closedSignalsList = (closedSignals ?? []) as SignalRow[];
   const daily = (dailyRaw ?? null) as DailyRows | null;
+  const tradeDays = (tradeDaysRaw ?? []) as TradeDay[];
   const isFollowing = !!mySub;
   // Any open copied trade locks the amount / mode / per-trade cap (enforced in the database).
   const { count: openCopiedCount } =
@@ -141,7 +155,7 @@ export default async function TraderPage({
       ? await supabase.from("simulated_positions").select("id", { count: "exact", head: true }).eq("subscription_id", mySub.id).eq("status", "open")
       : { count: 0 };
   const isWatching = !!myFollow;
-  const maxDrawdown = provider.mdd_all != null ? Number(provider.mdd_all) : null;
+  const maxDrawdown = provider.mdd_all != null && Number(provider.closed_signals) > 0 ? Number(provider.mdd_all) : null;
   const aum = Number(provider.aum ?? 0);
   // Leader-written strategy / risk text (lead_trader_profiles, 0213); only
   // self-service lead traders have a row, so this is null for everyone else.
@@ -190,19 +204,15 @@ export default async function TraderPage({
     (livePrices ?? []).map((p) => [p.symbol, Number(p.price)]),
   );
 
-  // Gauges from the stats: rating, daily volatility, drawdown, the share of
-  // trades closed at their S/L or T/P, and the days with a trade.
-  const reliabilityScore = Number(provider.rating_score ?? 50);
-  const annualVol = Number(provider.return_volatility ?? 0) * Math.sqrt(365);
-  const safetyScore = Math.max(0, Math.min(100, Math.round(100 - annualVol * 1.5)));
-  const riskExposureScore = maxDrawdown != null ? Math.max(0, Math.min(100, Math.round(maxDrawdown * 1.6))) : 20;
-  const limitScore = Math.round(Number(provider.limit_pct ?? 0));
-  const activeTradingDays = Number(provider.active_days ?? 0);
+  // Gauges from the stats (formulas in src/lib/leader-scores.ts); none until
+  // the leader has a closed trade.
+  const scores = leaderScores(provider);
 
   const STATUS_KEYS = {
     reliability: { low: "reliabilityStatusLow", medium: "reliabilityStatusMedium", high: "reliabilityStatusHigh" },
   } as const;
-  const reliabilityStatus = t(STATUS_KEYS.reliability[getGaugeTier(reliabilityScore, "reliability")]);
+  const reliabilityStatus =
+    scores.reliability == null ? t("reliabilityStatusNone") : t(STATUS_KEYS.reliability[getGaugeTier(scores.reliability, "reliability")]);
 
   const isStopped = provider.trading_status === "stopped";
 
@@ -436,12 +446,13 @@ export default async function TraderPage({
 
         <div className="border-t border-slate-700/70 pt-4">
           <ExnessReliabilitySection
-            reliabilityScore={reliabilityScore}
+            reliabilityScore={scores.reliability}
             reliabilityStatus={reliabilityStatus}
-            safetyScore={safetyScore}
-            riskExposureScore={riskExposureScore}
-            limitScore={limitScore}
-            activeTradingDays={activeTradingDays}
+            safetyScore={scores.safety}
+            riskExposureScore={scores.risk}
+            limitScore={scores.limit}
+            activeTradingDays={scores.activeDays}
+            activity={scores.activity}
             daily={daily}
           />
         </div>
@@ -509,10 +520,10 @@ export default async function TraderPage({
               date: formatDate(provider.joined_at, locale, { year: "numeric", month: "long", timeZone: "UTC" }),
             })}
           </p>
-          {closedHistory.length === 0 ? (
+          {tradeDays.length === 0 ? (
             <p className="text-sm text-muted">{t("noClosedTrades")}</p>
           ) : (
-            <TraderTradeHistory trades={closedHistory} />
+            <TraderTradeHistory trades={closedHistory} days={tradeDays} />
           )}
         </section>
       )}

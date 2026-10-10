@@ -32,26 +32,31 @@ export type HistoryTrade = {
   copyHref: string;
 };
 
+/** Every closed trade of the leader per UTC day and symbol (provider_trade_days):
+ *  [day, symbol, trades, pnl, swap, commission], money in cents. */
+export type TradeDay = [string, string, number, number, number, number];
+
 const PAGE_SIZE = 40;
 const DAY = 24 * 60 * 60 * 1000;
-const WINDOW_DAYS: Partial<Record<HistoryPeriod, number>> = { week: 7, month: 30, threeMonths: 90, sixMonths: 182, year: 365 };
+// N days = today and the N - 1 UTC days before it, like the leader's stats.
+const WINDOW_DAYS: Partial<Record<HistoryPeriod, number>> = { week: 7, month: 30, threeMonths: 90, sixMonths: 180, year: 365 };
 
-function withinPeriod(iso: string | null, period: HistoryPeriod, custom: CustomRange | null) {
-  if (!iso) return false;
-  const ts = new Date(iso).getTime();
-  if (period === "all") return true;
-  if (period === "today") {
-    const d = new Date(ts);
-    const n = new Date();
-    return d.getFullYear() === n.getFullYear() && d.getMonth() === n.getMonth() && d.getDate() === n.getDate();
-  }
-  if (period === "custom") {
-    if (!custom) return true;
-    const from = new Date(`${custom.from}T00:00:00`).getTime();
-    const to = new Date(`${custom.to}T23:59:59.999`).getTime();
-    return ts >= from && ts <= to;
-  }
-  return Date.now() - ts <= (WINDOW_DAYS[period] ?? 0) * DAY;
+// The UTC day (YYYY-MM-DD) a period starts on; null = no lower bound.
+function periodStart(period: HistoryPeriod, custom: CustomRange | null): string | null {
+  if (period === "all") return null;
+  if (period === "custom") return custom?.from ?? null;
+  const now = new Date();
+  const today = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+  const days = period === "today" ? 1 : (WINDOW_DAYS[period] ?? 1);
+  return new Date(today - (days - 1) * DAY).toISOString().slice(0, 10);
+}
+
+function withinPeriod(day: string | null, period: HistoryPeriod, custom: CustomRange | null) {
+  if (!day) return false;
+  const from = periodStart(period, custom);
+  if (from && day < from) return false;
+  if (period === "custom" && custom?.to && day > custom.to) return false;
+  return true;
 }
 
 // A stable ticket number derived from the trade's own id.
@@ -70,7 +75,8 @@ function formatDateTime(iso: string | null | undefined) {
 }
 
 const formatPrice = (v: number) => v.toLocaleString("en-US", { maximumFractionDigits: 4 });
-const formatLot = (v: number) => String(Number(v.toFixed(2)));
+// Crypto lots step by 0.001, forex / gold by 0.01.
+const formatLot = (v: number) => String(Number(v.toFixed(3)));
 const signed = (v: number, text: string) => `${v > 0 ? "+" : v < 0 ? "-" : ""}${text}`;
 
 const GAIN = "text-accent-hover";
@@ -96,7 +102,10 @@ function Level({ label, value }: { label: string; value: number | null }) {
   );
 }
 
-export function TraderTradeHistory({ trades }: { trades: HistoryTrade[] }) {
+// `trades` holds the latest closed trades; `days` covers all of them, so the
+// count and the totals of any period / symbol are exact even when the list
+// only shows the most recent ones.
+export function TraderTradeHistory({ trades, days }: { trades: HistoryTrade[]; days: TradeDay[] }) {
   const t = useTranslations("TraderHistory");
   const tp = useTranslations("TradeHistory");
   const ts = useTranslations("Symbols");
@@ -108,23 +117,27 @@ export function TraderTradeHistory({ trades }: { trades: HistoryTrade[] }) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [visible, setVisible] = useState(PAGE_SIZE);
 
-  const symbols = useMemo(() => Array.from(new Set(trades.map((x) => x.symbol))).sort(), [trades]);
+  const symbols = useMemo(() => Array.from(new Set(days.map((d) => d[1]))).sort(), [days]);
   const filtered = useMemo(
-    () => trades.filter((x) => (!symbol || x.symbol === symbol) && withinPeriod(x.closedAt, period, custom)),
+    () => trades.filter((x) => (!symbol || x.symbol === symbol) && withinPeriod(x.closedAt?.slice(0, 10) ?? null, period, custom)),
     [trades, symbol, period, custom],
   );
 
+  // Integer cents, summed exactly.
   const totals = useMemo(() => {
+    let count = 0;
     let profit = 0;
     let swap = 0;
     let commission = 0;
-    for (const x of filtered) {
-      profit += x.pnl ?? 0;
-      swap += x.swap ?? 0;
-      commission += x.commission ?? 0;
+    for (const [day, sym, n, pnl, sw, comm] of days) {
+      if ((symbol && sym !== symbol) || !withinPeriod(day, period, custom)) continue;
+      count += n;
+      profit += pnl;
+      swap += sw;
+      commission += comm;
     }
-    return { profit, swap, commission };
-  }, [filtered]);
+    return { count, profit: profit / 100, swap: swap / 100, commission: commission / 100 };
+  }, [days, symbol, period, custom]);
 
   const close = useCallback(() => setSheetOpen(false), []);
 
@@ -140,7 +153,7 @@ export function TraderTradeHistory({ trades }: { trades: HistoryTrade[] }) {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center justify-between gap-3">
-        <p className="text-sm text-muted">{tp("tradesCount", { count: filtered.length })}</p>
+        <p className="text-sm text-muted">{tp("tradesCount", { count: totals.count })}</p>
         <button
           type="button"
           onClick={() => setSheetOpen(true)}
@@ -162,7 +175,7 @@ export function TraderTradeHistory({ trades }: { trades: HistoryTrade[] }) {
         </button>
       </div>
 
-      {filtered.length === 0 ? (
+      {totals.count === 0 ? (
         <p className="py-10 text-center text-sm text-muted">{tp("noTradesInPeriod")}</p>
       ) : (
         <ul className="flex flex-col">
@@ -286,6 +299,10 @@ export function TraderTradeHistory({ trades }: { trades: HistoryTrade[] }) {
         </ul>
       )}
 
+      {totals.count > filtered.length && filtered.length <= visible && (
+        <p className="text-center text-xs text-muted">{t("showingLatest", { shown: filtered.length, total: totals.count })}</p>
+      )}
+
       {filtered.length > visible && (
         <button
           type="button"
@@ -314,7 +331,7 @@ export function TraderTradeHistory({ trades }: { trades: HistoryTrade[] }) {
         </div>
         <div className="flex items-baseline justify-between py-1.5">
           <dt className="font-medium">{t("summaryTrades")}</dt>
-          <dd dir="ltr">{filtered.length}</dd>
+          <dd dir="ltr">{totals.count}</dd>
         </div>
       </dl>
 

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { getGaugeTier, type GaugeTier } from "@/components/CircularGauge";
 import { TraderEquityChart, type DailySeries } from "@/components/TraderEquityChart";
+import type { ActivityLevel } from "@/lib/leader-scores";
 
 type ColorTier = "bad" | "medium" | "good" | "neutral";
 
@@ -115,7 +116,7 @@ function IconCircle({ tier, size, value, animate, children }: { tier: ColorTier;
 
 // Info tooltip trigger: hover/focus on desktop, tap on touch. The bubble is
 // rendered by the section (see Tip) so it can never overflow a half-width column.
-type TipKey = "reliability" | "safety" | "risk" | "limit" | "days" | "badge";
+type TipKey = "reliability" | "safety" | "risk" | "limit" | "days" | "activity";
 type TipState = { key: TipKey; top: number } | null;
 
 const ROW_H = 48;
@@ -178,61 +179,69 @@ function Row({ tipKey, tip, children }: { tipKey: TipKey; tip: TipHandlers; chil
 
 const clampScore = (v: number) => Math.max(0, Math.min(100, Math.round(v)));
 
-function MainRing({ value, status, tier, icon, tip }: { value: number; status: string; tier: ColorTier; icon: React.ReactNode; tip: TipHandlers }) {
+// A score is null while the leader has no closed trade: neutral ring, "—".
+function MainRing({ value, status, tier, icon, tip }: { value: number | null; status: string; tier: ColorTier; icon: React.ReactNode; tip: TipHandlers }) {
   const colors = TIER_COLOR[tier];
   return (
     <Row tipKey="reliability" tip={tip}>
-      <IconCircle tier={tier} size={RING_SIZE} value={clampScore(value)} animate={tip.animate}>
+      <IconCircle tier={tier} size={RING_SIZE} value={value == null ? 0 : clampScore(value)} animate={tip.animate}>
         {icon}
       </IconCircle>
       <div className="flex min-w-0 flex-col items-start leading-tight">
         <span className={`text-xs font-semibold ${colors.text}`}>{status}</span>
         <span className={`text-base font-extrabold ${colors.text}`} dir="ltr">
-          {clampScore(value)}/100
+          {value == null ? "—" : `${clampScore(value)}/100`}
         </span>
       </div>
     </Row>
   );
 }
 
-function SubRing({ tipKey, value, label, icon, inverted, tip }: { tipKey: TipKey; value: number; label: string; icon: React.ReactNode; inverted?: boolean; tip: TipHandlers }) {
-  const tier = colorTierFor(value, !!inverted);
+function SubRing({ tipKey, value, label, icon, inverted, percent, tip }: { tipKey: TipKey; value: number | null; label: string; icon: React.ReactNode; inverted?: boolean; percent?: boolean; tip: TipHandlers }) {
+  const tier = value == null ? "neutral" : colorTierFor(value, !!inverted);
   const colors = TIER_COLOR[tier];
   return (
     <Row tipKey={tipKey} tip={tip}>
-      <IconCircle tier={tier} size={RING_SIZE} value={clampScore(value)} animate={tip.animate}>
+      <IconCircle tier={tier} size={RING_SIZE} value={value == null ? 0 : clampScore(value)} animate={tip.animate}>
         {icon}
       </IconCircle>
       <div className="flex min-w-0 flex-col items-start leading-tight">
         <span className="text-xs text-slate-400">{label}</span>
         <span className={`text-sm font-bold ${colors.text}`} dir="ltr">
-          {clampScore(value)}/100
+          {value == null ? "—" : percent ? `${clampScore(value)}%` : `${clampScore(value)}/100`}
         </span>
       </div>
     </Row>
   );
 }
 
-function MainBadge({ label, tip }: { label: string; tip: TipHandlers }) {
+const ACTIVITY_TIER: Record<ActivityLevel, ColorTier> = { high: "good", medium: "good", low: "medium", none: "neutral" };
+
+function ActivityBadge({ level, label, status, tip }: { level: ActivityLevel; label: string; status: string; tip: TipHandlers }) {
+  const tier = ACTIVITY_TIER[level];
   return (
-    <Row tipKey="badge" tip={tip}>
-      <IconCircle tier="good" size={RING_SIZE} animate={tip.animate}>
+    <Row tipKey="activity" tip={tip}>
+      <IconCircle tier={tier} size={RING_SIZE} animate={tip.animate}>
         <BoltIcon className="h-5 w-5" />
       </IconCircle>
-      <span className="text-sm font-bold text-white">{label}</span>
+      <div className="flex min-w-0 flex-col items-start leading-tight">
+        <span className="text-xs text-slate-400">{label}</span>
+        <span className={`text-sm font-bold ${TIER_COLOR[tier].text}`}>{status}</span>
+      </div>
     </Row>
   );
 }
 
+// A plain count (not a quality score), so it stays neutral.
 function SubNumber({ tipKey, value, label, icon, tip }: { tipKey: TipKey; value: number; label: string; icon: React.ReactNode; tip: TipHandlers }) {
   return (
     <Row tipKey={tipKey} tip={tip}>
-      <IconCircle tier="good" size={RING_SIZE} animate={tip.animate}>
+      <IconCircle tier="neutral" size={RING_SIZE} animate={tip.animate}>
         {icon}
       </IconCircle>
       <div className="flex min-w-0 flex-col items-start leading-tight">
         <span className="text-xs text-slate-400">{label}</span>
-        <span className="text-sm font-bold text-emerald-400" dir="ltr">{value}</span>
+        <span className="text-sm font-bold text-foreground" dir="ltr">{value}</span>
       </div>
     </Row>
   );
@@ -245,18 +254,20 @@ export function ExnessReliabilitySection({
   riskExposureScore,
   limitScore,
   activeTradingDays,
+  activity,
   daily,
 }: {
-  reliabilityScore: number;
+  reliabilityScore: number | null;
   reliabilityStatus: string;
-  safetyScore: number;
-  riskExposureScore: number;
-  limitScore: number;
+  safetyScore: number | null;
+  riskExposureScore: number | null;
+  limitScore: number | null;
   activeTradingDays: number;
+  activity: ActivityLevel;
   daily: DailySeries | null;
 }) {
   const t = useTranslations("TraderProfile");
-  const mainTier = colorTierFor(reliabilityScore, false);
+  const mainTier = reliabilityScore == null ? "neutral" : colorTierFor(reliabilityScore, false);
   const gridRef = useRef<HTMLDivElement>(null);
   const [animate, setAnimate] = useState(false);
   const [tipState, setTipState] = useState<TipState>(null);
@@ -333,7 +344,7 @@ export function ExnessReliabilitySection({
     risk: t("gaugeTipRisk"),
     limit: t("gaugeTipLimit"),
     days: t("gaugeTipTradingDays"),
-    badge: t("gaugeTipBadge"),
+    activity: t("gaugeTipActivity"),
   };
 
   return (
@@ -355,8 +366,13 @@ export function ExnessReliabilitySection({
         <div className="flex items-start gap-0" data-tip-row>
           <BracketConnector />
           <div className="flex min-w-0 flex-1 flex-col" style={{ gap: ROW_GAP }}>
-            <MainBadge label={t("importantBadgeLabel")} tip={tip} />
-            <SubNumber tipKey="limit" value={limitScore} label={t("gaugeLimitScore")} icon={<CheckIcon className="h-[18px] w-[18px]" />} tip={tip} />
+            <ActivityBadge
+              level={activity}
+              label={t("gaugeActivity")}
+              status={{ high: t("activityHigh"), medium: t("activityMedium"), low: t("activityLow"), none: t("activityNone") }[activity]}
+              tip={tip}
+            />
+            <SubRing tipKey="limit" value={limitScore} label={t("gaugeLimitScore")} icon={<CheckIcon className="h-[18px] w-[18px]" />} percent tip={tip} />
             <SubNumber tipKey="days" value={activeTradingDays} label={t("gaugeTradingDays")} icon={<CalendarIcon className="h-[18px] w-[18px]" />} tip={tip} />
           </div>
         </div>

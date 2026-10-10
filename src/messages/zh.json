@@ -372,7 +372,8 @@
     "entryPrefix": "入场",
     "currentPrefix": "当前",
     "noOpenOrders": "该交易员目前没有持仓中的交易。",
-    "totalFloatingPnl": "浮动盈亏总计"
+    "totalFloatingPnl": "浮动盈亏总计",
+    "lotSize": "{lot} 手"
   },
   "TraderProfile": {
     "follow": "关注",
@@ -404,13 +405,11 @@
     "reliabilityStatusLow": "可靠性较低",
     "gaugeLimitScore": "限额评分",
     "gaugeTradingDays": "活跃交易天数",
-    "gaugeTipReliability": "交易综合可靠度（0–100）：综合结果稳定性、风险纪律和活跃记录。数值越高越好。",
-    "gaugeTipSafety": "安全指数（0–100）：交易员收益的稳定程度以及控制亏损的能力。数值越高越好。",
-    "gaugeTipRisk": "风险敞口（0–100）：交易员承担风险的资金比例。数值越低越好。",
-    "gaugeTipLimit": "限额指数：交易员遵守仓位和风险限额的程度。",
-    "gaugeTipTradingDays": "交易员实际进行交易的天数。",
-    "gaugeTipBadge": "该交易员满足平台的主要交易质量要求。",
-    "importantBadgeLabel": "重要",
+    "gaugeTipReliability": "整体交易可靠性（0–100）：综合 6 个月收益、最大回撤、盈利月份占比、交易记录时长和胜率。越高越好。",
+    "gaugeTipSafety": "安全分（0–100）：100 减去 1.5 × 每日收益的年化波动率，收益越稳定得分越高。越高越好。",
+    "gaugeTipRisk": "风险敞口（0–100）：1.6 × 交易者资金从峰值的最大跌幅（最大回撤）。越低越好；回撤约 31% 起显示为红色。",
+    "gaugeTipLimit": "限价分：在止损或止盈位平仓的交易占已平仓交易的比例，而非手动平仓或持仓时间到期平仓。",
+    "gaugeTipTradingDays": "交易者至少开仓或平仓一笔交易的天数。",
     "followingLabel": "已关注",
     "followToastTitle": "关注成功",
     "followToastBody": "您现在将即时收到来自 {name} 的每笔新交易和更新通知。",
@@ -425,7 +424,14 @@
     "statAum": "跟单资金规模",
     "statProfitShare": "利润分成",
     "strategyTitle": "策略",
-    "riskDisclosureTitle": "风险披露"
+    "riskDisclosureTitle": "风险披露",
+    "gaugeActivity": "活跃程度",
+    "activityHigh": "非常活跃",
+    "activityMedium": "活跃",
+    "activityLow": "活跃度低",
+    "activityNone": "不活跃",
+    "reliabilityStatusNone": "暂无评分",
+    "gaugeTipActivity": "交易频率：过去 90 天内每周平仓的交易数。每周 5 笔及以上为非常活跃，1 笔及以上为活跃。"
   },
   "Discover": {
     "title": "发现交易员",
@@ -1911,7 +1917,8 @@
     "summarySwap": "隔夜利息",
     "summaryCommission": "佣金",
     "summaryTrades": "交易笔数",
-    "goldVsUsd": "黄金兑美元"
+    "goldVsUsd": "黄金兑美元",
+    "showingLatest": "显示 {total} 笔交易中最近的 {shown} 笔；下方合计包含全部交易。"
   },
   "AdminIntegrity": {
     "navLabel": "交易完整性",
