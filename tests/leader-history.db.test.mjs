@@ -243,6 +243,30 @@ test("writing the same history twice leaves one copy of each trade and keeps cus
   assert.equal(ledgerTrades, r.metrics.trades, "ledger rebuilt once, not added twice");
 });
 
+test("live trades open and close at the live feed price, plus / minus half the spread", async () => {
+  // Every trade the live engine opened or closed after a leader's history was written.
+  const rows = await q(
+    `select g.id, g.symbol, g.side, g.status, g.close_trigger,
+       case when g.opened_at <= b.history_to then true
+            else exists (select 1 from public.price_history ph
+                         where ph.symbol = g.symbol and ph.ts between g.opened_at - interval '5 minutes' and g.opened_at
+                           and round(ph.price, s.dp::int) + public.trade_dir(g.side) * public.sim_half_spread(g.symbol, round(ph.price, s.dp::int)) = g.entry_price) end entry_ok,
+       case when g.status <> 'closed' or g.closed_at <= b.history_to then true
+            -- A level touch closes at the level; a market close at the feed (the
+            -- integrity guard may still label one near a level 'tp' / 'sl').
+            when g.exit_price in (g.stop_loss, g.take_profit) then true
+            else exists (select 1 from public.price_history ph
+                         where ph.symbol = g.symbol and ph.ts between g.closed_at - interval '5 minutes' and g.closed_at
+                           and round(ph.price, s.dp::int) - public.trade_dir(g.side) * public.sim_half_spread(g.symbol, g.entry_price) = g.exit_price) end exit_ok
+     from public.signals g join public.sim_history_builds b on b.provider_id = g.provider_id join public.sim_symbols s on s.symbol = g.symbol
+     where not g.hidden and (g.opened_at > b.history_to or g.closed_at > b.history_to)`,
+  );
+  for (const r of rows) {
+    assert.ok(r.entry_ok, `${r.symbol} ${r.side} ${r.id}: live entry = a feed price +/- half the spread`);
+    assert.ok(r.exit_ok, `${r.symbol} ${r.side} ${r.id}: live exit (${r.close_trigger})`);
+  }
+});
+
 test("anonymous visitors see the trades of the leaders whose stats they see", async () => {
   const ids = (await q("select provider_id from public.provider_stats where trades_all > 0 order by provider_id limit 20")).map((r) => r.provider_id);
   await q("select public.refresh_provider_stats($1::uuid[], false)", [ids]);
