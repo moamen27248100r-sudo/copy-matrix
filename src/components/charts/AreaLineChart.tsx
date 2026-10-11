@@ -42,6 +42,7 @@ function niceTicks(lo: number, hi: number, target: number): number[] {
 export function AreaLineChart({
   points,
   format,
+  axisFormat,
   ariaLabel,
   compact = false,
   timeAxis = false,
@@ -52,6 +53,8 @@ export function AreaLineChart({
   points: ChartPoint[];
   // Used for the axis, the current-value badge and the tooltip.
   format: (v: number) => string;
+  // Shorter form for the axis ticks only (e.g. no currency suffix).
+  axisFormat?: (v: number) => string;
   ariaLabel: string;
   // Hides the two axes only; everything else stays.
   compact?: boolean;
@@ -67,7 +70,10 @@ export function AreaLineChart({
   const gradId = `alc-${useId().replace(/[^a-zA-Z0-9]/g, "")}`;
   const boxRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
-  const [hoverIdx, setHoverIdx] = useState<number | null>(null);
+  // Tied to the points array it was picked from, so a data change (e.g. a new
+  // period) never leaves a tooltip pointing at a stale index.
+  const [hover, setHover] = useState<{ idx: number; src: ChartPoint[] } | null>(null);
+  const hoverIdx = hover && hover.src === points ? hover.idx : null;
 
   useEffect(() => {
     const el = boxRef.current;
@@ -103,11 +109,21 @@ export function AreaLineChart({
   if (!model) return <div className={className} style={{ height: H }} aria-hidden="true" />;
   const { yMin, yMax, ticks, d0, d1 } = model;
 
-  const fmtDay = (t: number, withYear: boolean) =>
-    new Date(t).toLocaleDateString(tag, { day: withYear ? "numeric" : "2-digit", month: "short", ...(withYear ? { year: "numeric" } : {}), timeZone: "UTC" });
+  // A window of under three days labels hours instead of days, so ticks
+  // never repeat the same date.
+  const fmtDay = (t: number, full: boolean) =>
+    shortSpan
+      ? new Date(t).toLocaleString(tag, {
+          ...(full ? { day: "2-digit", month: "short" } : {}),
+          hour: "2-digit",
+          minute: "2-digit",
+          timeZone: "UTC",
+        })
+      : new Date(t).toLocaleDateString(tag, { day: full ? "numeric" : "2-digit", month: "short", ...(full ? { year: "numeric" } : {}), timeZone: "UTC" });
 
+  const fmtAxis = axisFormat ?? format;
   const lastLabel = format(last);
-  const labelChars = compact ? lastLabel.length : Math.max(lastLabel.length, ...ticks.map((v) => format(v).length));
+  const labelChars = compact ? lastLabel.length : Math.max(lastLabel.length, ...ticks.map((v) => fmtAxis(v).length));
   const gutter = Math.ceil(labelChars * 6.8 + 14);
   const plotW = Math.max(width - gutter, 1);
   const plotBottom = H - (compact ? PAD_TOP : X_AXIS_H);
@@ -128,6 +144,7 @@ export function AreaLineChart({
   // X-axis dates: a few evenly spaced positions so they never crowd.
   const spanDays = useTime || points[0].t != null ? ((useTime ? d1 - d0 : (points[n - 1].t ?? 0) - (points[0].t ?? 0)) / 86400000) : 0;
   const withYear = spanDays > 330;
+  const shortSpan = spanDays > 0 && spanDays < 3;
   const xCount = Math.min(5, Math.max(2, Math.floor(plotW / 96)));
   const xLabels: { x: number; text: string; anchor: "start" | "middle" | "end" }[] = [];
   if (!compact) {
@@ -153,7 +170,7 @@ export function AreaLineChart({
         best = i;
       }
     });
-    setHoverIdx(best);
+    setHover({ idx: best, src: points });
   };
 
   const tipW = hovered?.t != null ? 124 : 92;
@@ -171,11 +188,16 @@ export function AreaLineChart({
       onPointerMove={(e) => handlePointer(e.clientX, e.currentTarget)}
       onPointerDown={(e) => handlePointer(e.clientX, e.currentTarget)}
       onPointerLeave={(e) => {
-        if (e.pointerType === "mouse") setHoverIdx(null);
+        if (e.pointerType === "mouse") setHover(null);
       }}
     >
       {width > 0 && (
-        <svg width={width} height={H} role="img" aria-label={`${ariaLabel}: ${lastLabel}`} className="block">
+        <svg
+          width={width}
+          height={H}
+          {...(ariaLabel ? { role: "img", "aria-label": `${ariaLabel}: ${lastLabel}` } : { "aria-hidden": true })}
+          className="block"
+        >
           <defs>
             <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
               <stop offset="0" stopColor={LINE} stopOpacity="0.45" />
@@ -196,7 +218,7 @@ export function AreaLineChart({
               if (Math.abs(y - lastY) < BADGE_H * 0.8) return null;
               return (
                 <text key={v} x={plotW + 8} y={y + FONT * 0.35} fill={AXIS_TEXT} fontSize={FONT}>
-                  {format(v)}
+                  {fmtAxis(v)}
                 </text>
               );
             })}

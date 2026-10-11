@@ -41,9 +41,11 @@ export function TraderEquityChart({ daily }: { daily: DailySeries | null }) {
     // roi_7d / roi_30d / roi_90d stats (provider_daily rows with age < N).
     const cutoff = period.days != null ? todayUtcStart - (period.days - 1) * DAY : 0;
     const days = daily?.days ?? [];
-    const end = todayUtcStart + DAY;
-    const firstDay = days.length > 0 ? Date.parse(days[0] + "T00:00:00Z") : end - 30 * DAY;
-    const start = period.days != null ? cutoff : Math.min(firstDay, end - DAY);
+    // Last millisecond of today, so the axis end and each day's closing point
+    // read as that day and not as the following midnight.
+    const end = todayUtcStart + DAY - 1;
+    const firstDay = days.length > 0 ? Date.parse(days[0] + "T00:00:00Z") : todayUtcStart + DAY - 30 * DAY;
+    const start = period.days != null ? cutoff : Math.min(firstDay, todayUtcStart);
 
     // Time-weighted return: each day's return compounds on the last, so
     // deposits and withdrawals never show up as gains or losses.
@@ -53,7 +55,7 @@ export function TraderEquityChart({ daily }: { daily: DailySeries | null }) {
       const dayStart = Date.parse(day + "T00:00:00Z");
       if (dayStart < start) return;
       index *= 1 + Number(daily!.ret[i] ?? 0);
-      pts.push({ v: (index - 1) * 100, t: Math.min(dayStart + DAY, end) });
+      pts.push({ v: (index - 1) * 100, t: Math.min(dayStart + DAY - 1, end) });
     });
     // A period with no closed trades still gets a flat line across the window.
     if (pts.length < 2) pts.push({ v: 0, t: end });

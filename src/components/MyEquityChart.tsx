@@ -2,8 +2,10 @@
 
 import { AreaLineChart, type ChartPoint } from "@/components/charts/AreaLineChart";
 import { useMoney } from "@/lib/money-client";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
+import { formatNumber } from "@/lib/money";
+import type { Locale } from "@/i18n/locales";
 
 type ClosedPosition = {
   pnl: number | null;
@@ -13,6 +15,7 @@ type ClosedPosition = {
 export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
   const t = useTranslations("Dashboard");
   const money = useMoney();
+  const locale = useLocale() as Locale;
   const PERIODS: { label: string; days: number | null }[] = [
     { label: t("periodDay"), days: 1 },
     { label: t("periodWeek"), days: 7 },
@@ -72,7 +75,12 @@ export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
         <p className="text-sm text-muted">{t("noEnoughClosedTrades")}</p>
       ) : (
         <div className="rounded-lg border border-border bg-background p-3">
-          <AreaLineChart points={points} format={(v) => money(v)} ariaLabel={t("startingPoint", { amount: money(0) })} />
+          <AreaLineChart
+            points={points}
+            format={(v) => money(v)}
+            axisFormat={(v) => formatNumber(v, locale, Number.isInteger(v) ? 0 : 2)}
+            ariaLabel={t("startingPoint", { amount: money(0) })}
+          />
           <div className="flex items-center justify-between text-xs text-muted">
             <span>{t("startingPoint", { amount: money(0) })}</span>
             <span className={last >= 0 ? "text-success" : "text-danger"} dir="ltr">
