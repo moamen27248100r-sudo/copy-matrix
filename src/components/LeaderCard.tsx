@@ -145,10 +145,10 @@ export async function LeaderCard({
           lighter muted label underneath). */}
       <div className="flex items-center overflow-hidden rounded-xl border border-white/[0.06] bg-background/60">
         <div className="flex-1 border-e border-white/10 px-2 py-2.5 text-center">
-          <p className="text-sm font-semibold text-success">{fmtWinRate(stats.winRate)}</p>
-          <p className="text-[11px] font-normal text-muted">
-            {t("winRate")} <PeriodTag label={periodLabel} />
+          <p className="text-sm font-semibold text-success">
+            {fmtWinRate(stats.winRate)} <PeriodTag label={periodLabel} />
           </p>
+          <p className="text-[11px] font-normal text-muted">{t("winRate")}</p>
         </div>
         <div className="flex-1 border-e border-white/10 px-2 py-2.5 text-center">
           {maxDrawdownPct !== undefined ? (
@@ -174,17 +174,15 @@ export async function LeaderCard({
       <div className="grid grid-cols-3 gap-1 text-center text-[11px] text-muted">
         <div>
           <p dir="ltr" className={stats.pnl != null && stats.pnl < 0 ? "font-medium text-danger" : "font-medium text-foreground"}>
-            {stats.pnl != null ? money(stats.pnl, { signed: true, compact: true }) : "—"}
+            {stats.pnl != null ? money(stats.pnl, { signed: true, compact: true }) : "—"} <PeriodTag label={periodLabel} />
           </p>
-          <p>
-            {t("pnlLabel")} <PeriodTag label={periodLabel} />
-          </p>
+          <p>{t("pnlLabel")}</p>
         </div>
         <div>
-          <p dir="ltr" className="font-medium text-foreground">{fmtDrawdown(stats.mdd)}</p>
-          <p>
-            {t("maxDrawdown")} <PeriodTag label={periodLabel} />
+          <p dir="ltr" className="font-medium text-foreground">
+            {fmtDrawdown(stats.mdd)} <PeriodTag label={periodLabel} />
           </p>
+          <p>{t("maxDrawdown")}</p>
         </div>
         <div>
           <p dir="ltr" className="font-medium text-foreground">{p.aum ? money(Number(p.aum), { compact: true }) : "—"}</p>
