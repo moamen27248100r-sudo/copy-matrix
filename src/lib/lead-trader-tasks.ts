@@ -6,6 +6,21 @@ export type LeadTraderTask = { key: string; done: boolean };
 // appearing in Discover (Phase 7). Computed live from real data every time
 // (same philosophy as the tier calculation) rather than stored, so there is
 // nothing to keep in sync.
+// The checklist from already-fetched facts (pure, so the rule is testable).
+export function buildLeadTraderTasks(facts: {
+  bio: string | null | undefined;
+  symbolBias: readonly string[] | null | undefined;
+  tradingStyle: string | null | undefined;
+  closedTrades: number | null | undefined;
+}): { tasks: LeadTraderTask[]; eligible: boolean } {
+  const tasks: LeadTraderTask[] = [
+    { key: "profile", done: !!facts.bio && (facts.symbolBias?.length ?? 0) > 0 },
+    { key: "tradingStyle", done: !!facts.tradingStyle },
+    { key: "firstTenTrades", done: (facts.closedTrades ?? 0) >= 10 },
+  ];
+  return { tasks, eligible: tasks.every((t) => t.done) };
+}
+
 export async function computeLeadTraderTasks(supabase: SupabaseClient, providerId: string, userId: string): Promise<{ tasks: LeadTraderTask[]; eligible: boolean }> {
   const [{ data: provider }, { data: application }, { count: closedTrades }] = await Promise.all([
     supabase.from("providers").select("bio, symbol_bias").eq("id", providerId).single(),
@@ -13,13 +28,12 @@ export async function computeLeadTraderTasks(supabase: SupabaseClient, providerI
     supabase.from("signals").select("id", { count: "exact", head: true }).eq("provider_id", providerId).eq("created_by_admin", false).eq("status", "closed"),
   ]);
 
-  const tasks: LeadTraderTask[] = [
-    { key: "profile", done: !!provider?.bio && (provider?.symbol_bias?.length ?? 0) > 0 },
-    { key: "tradingStyle", done: !!application?.trading_style },
-    { key: "firstTenTrades", done: (closedTrades ?? 0) >= 10 },
-  ];
-
-  return { tasks, eligible: tasks.every((t) => t.done) };
+  return buildLeadTraderTasks({
+    bio: provider?.bio,
+    symbolBias: provider?.symbol_bias,
+    tradingStyle: application?.trading_style,
+    closedTrades,
+  });
 }
 
 // Only self-service lead traders (a real providers.user_id) are subject to

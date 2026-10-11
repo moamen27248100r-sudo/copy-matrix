@@ -2,6 +2,8 @@ import { getMoney } from "@/lib/money-server";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { redirect } from "next/navigation";
 import { unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
 import { LeaderCard } from "@/components/LeaderCard";
@@ -120,6 +122,13 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
     data: { user },
   } = await supabase.auth.getUser();
 
+  // Whether a self-service lead trader has cleared the checklist is a platform
+  // fact, not something to read through the viewer's row-level security: a
+  // visitor cannot read another trader's application, so judged with the
+  // viewer's own client every such leader looked "incomplete" to everyone but
+  // their owner (and a signed-out visitor could not even list them to hide
+  // them). Only booleans come out of this client.
+  const admin = createAdminClient();
   const [{ data: mySubscriptions }, { data: myFollows }, { data: selfService }] = await Promise.all([
     user
       ? supabase.from("subscriptions").select("provider_id").eq("follower_id", user.id).eq("is_active", true)
@@ -128,13 +137,13 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
       ? supabase.from("follows").select("provider_id").eq("follower_id", user.id)
       : Promise.resolve({ data: [] as { provider_id: string }[] }),
     // Self-service lead traders only appear once their task checklist is done.
-    supabase.from("providers").select("id").not("user_id", "is", null),
+    admin.from("providers").select("id").not("user_id", "is", null),
   ]);
   const watchingIds = (myFollows ?? []).map((f) => f.provider_id);
   const followingIds = new Set((mySubscriptions ?? []).map((s) => s.provider_id));
   const hiddenIds = (
     await Promise.all(
-      (selfService ?? []).map(async (r) => ((await isSelfServiceLeadTraderEligible(supabase, r.id)) ? null : r.id)),
+      (selfService ?? []).map(async (r) => ((await isSelfServiceLeadTraderEligible(admin, r.id)) ? null : r.id)),
     )
   ).filter((x): x is string => !!x);
 
@@ -181,6 +190,16 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
   const { data: providers, count } = await query;
   const total = count ?? 0;
   const pageCount = Math.max(1, Math.ceil(total / perPage));
+  // A stale or hand-typed page past the end lands on the last page, not on a
+  // misleading "no results".
+  if (page > pageCount && total > 0) {
+    const sp = new URLSearchParams(
+      Object.entries(params).filter((e): e is [string, string] => typeof e[1] === "string" && e[0] !== "page" && e[0] !== "error"),
+    );
+    if (pageCount > 1) sp.set("page", String(pageCount));
+    const qs = sp.toString();
+    redirect(qs ? `/discover?${qs}` : "/discover");
+  }
 
   // With nothing to show, tell "no leaders at all" apart from "no matches".
   let noLeadersAtAll = false;

@@ -12,18 +12,19 @@ type ClosedPosition = {
   closed_at: string | null;
 };
 
+const PERIODS: { labelKey: string; days: number | null }[] = [
+  { labelKey: "periodDay", days: 1 },
+  { labelKey: "periodWeek", days: 7 },
+  { labelKey: "periodMonth", days: 30 },
+  { labelKey: "period3Months", days: 90 },
+  { labelKey: "periodYear", days: 365 },
+  { labelKey: "periodAll", days: null },
+];
+
 export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
   const t = useTranslations("Dashboard");
   const money = useMoney();
   const locale = useLocale() as Locale;
-  const PERIODS: { label: string; days: number | null }[] = [
-    { label: t("periodDay"), days: 1 },
-    { label: t("periodWeek"), days: 7 },
-    { label: t("periodMonth"), days: 30 },
-    { label: t("period3Months"), days: 90 },
-    { label: t("periodYear"), days: 365 },
-    { label: t("periodAll"), days: null },
-  ];
   const [periodIdx, setPeriodIdx] = useState(2);
 
   const points = useMemo(() => {
@@ -57,7 +58,7 @@ export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
       <div className="flex flex-wrap gap-1.5">
         {PERIODS.map((p, i) => (
           <button
-            key={p.label}
+            key={p.labelKey}
             type="button"
             onClick={() => setPeriodIdx(i)}
             className={
@@ -66,7 +67,7 @@ export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
                 : "rounded-full px-3.5 py-1 text-xs text-muted"
             }
           >
-            {p.label}
+            {t(p.labelKey)}
           </button>
         ))}
       </div>
