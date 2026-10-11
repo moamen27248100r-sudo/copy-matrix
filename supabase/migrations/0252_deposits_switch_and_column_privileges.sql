@@ -12,7 +12,8 @@
 --    public record, so clients no longer filter on created_by_admin.
 -- 5. Column-level SELECT: signals (without predetermined_win, needs_review, review_reasons,
 --    is_margin_call, created_by_admin) and providers (without persona, skill, rr_ratio,
---    activity_weight, user_id, is_simulated).
+--    activity_weight, user_id, is_simulated, session_start_hour, session_end_hour,
+--    trading_style, base_followers_count, risk_archetype).
 -- 6. provider_cards no longer returns is_simulated.
 --
 -- Rollback: supabase/rollback/0252_deposits_switch_and_column_privileges.sql
@@ -335,9 +336,10 @@ grant select (id, provider_id, symbol, side, entry_price, stop_loss, take_profit
   on public.signals to anon, authenticated;
 
 revoke select on public.providers from anon, authenticated;
-grant select (id, bio, created_at, display_name, base_followers_count, total_profit, total_withdrawals,
-              min_copy_amount, symbol_bias, risk_archetype, account_capital, session_start_hour,
-              session_end_hour, country, trading_style, trading_status, margin_called_at,
+-- (the engine's own columns -- activity hours, trading style, base follower count, risk
+-- archetype -- are readable by the service role and the database functions only)
+grant select (id, bio, created_at, display_name, total_profit, total_withdrawals, min_copy_amount,
+              symbol_bias, account_capital, country, trading_status, margin_called_at,
               margin_call_count, avatar_url, is_archived, total_volume, profit_share_pct)
   on public.providers to authenticated;
 

@@ -36,8 +36,24 @@ const cards = await get("provider_cards?select=*&limit=1");
 ok("provider_cards readable", cards.status === 200 && Array.isArray(cards.body) && cards.body.length === 1, `status ${cards.status}`);
 ok("provider_cards has no is_simulated", cards.status === 200 && cards.body?.[0] && !("is_simulated" in cards.body[0]));
 
-const prov = await get("providers?select=persona&limit=1");
-ok("providers.persona is not readable by anon", prov.status === 401 || prov.status === 403 || (prov.status === 200 && prov.body.length === 0) || prov.body?.code === "42501");
+// anon has no policy on providers (empty answer) or no privilege (401/403): either way no value comes back
+for (const col of [
+  "persona",
+  "skill",
+  "rr_ratio",
+  "activity_weight",
+  "user_id",
+  "is_simulated",
+  "session_start_hour",
+  "session_end_hour",
+  "trading_style",
+  "base_followers_count",
+  "risk_archetype",
+]) {
+  const r = await get(`providers?select=${col}&limit=1`);
+  const hidden = r.status === 401 || r.status === 403 || r.body?.code === "42501" || (r.status === 200 && Array.isArray(r.body) && r.body.length === 0);
+  ok(`providers.${col} is not readable by anon`, hidden, `status ${r.status}`);
+}
 
 const sw = await fetch(`${base}/rest/v1/rpc/deposits_enabled`, {
   method: "POST",

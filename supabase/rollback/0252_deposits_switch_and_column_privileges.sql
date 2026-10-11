@@ -85,6 +85,7 @@ SELECT p.id AS provider_id,
 grant select, insert, update, delete on public.provider_cards to authenticated;
 grant select on public.provider_cards to anon, service_role;
 
+-- table-level SELECT again (covers every column, including the ones the migration hid)
 grant select on public.signals to anon, authenticated;
 grant select on public.providers to anon, authenticated;
 

@@ -15,6 +15,21 @@ const sql = readFileSync("supabase/migrations/0252_deposits_switch_and_column_pr
   .replace(/^begin;$/m, "-- begin")
   .replace(/^commit;$/m, "-- commit");
 
+// providers columns clients cannot read after 0252
+const PROVIDER_HIDDEN = [
+  "persona",
+  "skill",
+  "rr_ratio",
+  "activity_weight",
+  "user_id",
+  "is_simulated",
+  "session_start_hour",
+  "session_end_hour",
+  "trading_style",
+  "base_followers_count",
+  "risk_archetype",
+];
+
 const results = [];
 const ok = (name, pass, extra = "") => results.push({ name, pass, extra: String(extra) });
 
@@ -74,7 +89,7 @@ try {
   await as("authenticated", DEMO, async () => {
     ok("demo: signals visible under RLS", Number((await run("select count(*) n from public.signals")).rows[0].n) > 0);
     ok("demo: signals select * denied", (await failsWith(() => run("select * from public.signals limit 1"))) === "42501");
-    for (const col of ["persona", "skill", "rr_ratio", "activity_weight", "user_id", "is_simulated"]) {
+    for (const col of PROVIDER_HIDDEN) {
       ok(`demo: providers.${col} denied`, (await failsWith(() => run(`select ${col} from public.providers limit 1`))) === "42501");
     }
     ok("demo: providers public columns", (await run("select id, display_name, min_copy_amount, trading_status from public.providers limit 3")).rows.length === 3);
@@ -98,7 +113,10 @@ try {
   }
 
   await as("authenticated", ADMIN, async () => {
-    ok("admin: providers listing columns", (await run("select id, display_name, base_followers_count from public.providers limit 2")).rows.length === 2);
+    ok("admin: providers listing columns", (await run("select id, display_name, min_copy_amount from public.providers limit 2")).rows.length === 2);
+    for (const col of PROVIDER_HIDDEN) {
+      ok(`admin (session role): providers.${col} denied -- the admin pages read it with the service role`, (await failsWith(() => run(`select ${col} from public.providers limit 1`))) === "42501");
+    }
     ok("admin: signals visible columns", (await run("select id, symbol, status from public.signals where status = 'open' limit 2")).rows !== undefined);
   });
 
