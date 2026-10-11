@@ -125,11 +125,7 @@ export async function LeaderCard({
               {sparkline[sparkline.length - 1].toFixed(1)}%
             </span>
           </div>
-          <Sparkline
-            id={`spark-${p.provider_id}`}
-            values={sparkline}
-            className={`mt-2 h-14 w-full ${sparkline[sparkline.length - 1] >= 0 ? "text-success" : "text-danger"}`}
-          />
+          <Sparkline values={sparkline} className="mt-2" />
         </div>
       )}
       {bio && <p className="relative z-10 line-clamp-2 text-xs leading-relaxed text-muted">{bio}</p>}

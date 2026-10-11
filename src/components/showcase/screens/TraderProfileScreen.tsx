@@ -1,6 +1,6 @@
 import { ChevronRight, BadgeCheck } from "lucide-react";
 import { StatusBar, BottomNav } from "../ScreenChrome";
-import { PerformanceChart } from "../PerformanceChart";
+import { AreaLineChart } from "@/components/charts/AreaLineChart";
 import { useTranslations } from "next-intl";
 import { Logo } from "@/components/Logo";
 import { showcaseTrader } from "@/data/showcase-data";
@@ -15,7 +15,7 @@ const initials = showcaseTrader.name
 // native-app-sized text -- it gets scaled down uniformly to whatever the
 // phone's actual rendered width is, so it never needs its own
 // per-breakpoint font tuning.
-export function TraderProfileScreen({ active, reducedMotion }: { active: boolean; reducedMotion: boolean }) {
+export function TraderProfileScreen() {
   const ts = useTranslations("HomeShowcase");
   const td = useTranslations("Discover");
   const tb = useTranslations("TraderBadges");
@@ -63,8 +63,8 @@ export function TraderProfileScreen({ active, reducedMotion }: { active: boolean
           </div>
         </div>
 
-        <div className="h-28 w-full flex-1">
-          <PerformanceChart points={t.monthlyEquity} color="#22C55E" active={active} reducedMotion={reducedMotion} />
+        <div className="w-full flex-1">
+          <AreaLineChart compact height={112} points={t.monthlyEquity.map((v) => ({ v }))} format={(v) => String(Math.round(v))} ariaLabel="" />
         </div>
 
         <p className="text-[13px] text-muted">

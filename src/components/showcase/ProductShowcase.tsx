@@ -53,11 +53,11 @@ function TopTraderCard({ reducedMotion }: { reducedMotion: boolean }) {
   );
 }
 
-function FrontPhoneScreens({ tick, activeScreen, reducedMotion }: { tick: number; activeScreen: number; reducedMotion: boolean }) {
+function FrontPhoneScreens({ tick, activeScreen }: { tick: number; activeScreen: number }) {
   return Array.from({ length: SCREEN_COUNT }, (_, i) => (i - activeScreen + SCREEN_COUNT) % SCREEN_COUNT).map((diff, i) => (
     <ScreenSlide key={i} diff={diff}>
       <ScaledScreenContent>
-        {i === 0 && <TraderProfileScreen active={activeScreen === 0} reducedMotion={reducedMotion} />}
+        {i === 0 && <TraderProfileScreen />}
         {i === 1 && <LiveTradesScreen tick={tick} />}
         {i === 2 && <PortfolioScreen />}
       </ScaledScreenContent>
@@ -104,7 +104,7 @@ export function ProductShowcase() {
           >
             <PhoneFrame widthClassName={FRONT_WIDTH} rotateClassName="lg:rotate-[-4deg]">
               <ScaledScreenContent>
-                <TraderProfileScreen active reducedMotion={reducedMotion} />
+                <TraderProfileScreen />
               </ScaledScreenContent>
             </PhoneFrame>
             <div className="absolute right-0 top-0" style={{ transform: "translate(35%, -50%)" }}>
@@ -120,7 +120,7 @@ export function ProductShowcase() {
         // hero doesn't push the CTA far below the fold; no floating cards.
         <div className="relative mx-auto flex h-[250px] w-full max-w-[360px] items-start justify-center overflow-hidden">
           <PhoneFrame widthClassName={FRONT_WIDTH}>
-            <FrontPhoneScreens tick={tick} activeScreen={activeScreen} reducedMotion={reducedMotion} />
+            <FrontPhoneScreens tick={tick} activeScreen={activeScreen} />
           </PhoneFrame>
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background to-transparent" />
         </div>

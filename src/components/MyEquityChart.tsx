@@ -1,5 +1,6 @@
 "use client";
 
+import { AreaLineChart, type ChartPoint } from "@/components/charts/AreaLineChart";
 import { useMoney } from "@/lib/money-client";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
@@ -36,26 +37,17 @@ export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
       .sort((a, b) => new Date(a.closed_at!).getTime() - new Date(b.closed_at!).getTime());
 
     let cumulative = 0;
-    const pts = [0];
+    const firstT = closed.length > 0 ? new Date(closed[0].closed_at!).getTime() : todayUtcStart;
+    const pts: ChartPoint[] = [{ v: 0, t: period.days != null ? cutoff : firstT }];
     for (const p of closed) {
       cumulative += p.pnl ?? 0;
-      pts.push(cumulative);
+      pts.push({ v: cumulative, t: new Date(p.closed_at!).getTime() });
     }
     return pts;
   }, [positions, periodIdx]);
 
-  const width = 600;
-  const height = 180;
   const hasData = points.length >= 3;
-  const min = Math.min(...points, 0);
-  const max = Math.max(...points, 0);
-  const range = max - min || 1;
-  const stepX = hasData ? width / (points.length - 1) : 0;
-  const coords = points.map((v, i) => `${i * stepX},${height - ((v - min) / range) * height}`).join(" ");
-  const zeroY = height - ((0 - min) / range) * height;
-  const last = points[points.length - 1] ?? 0;
-  const color = "var(--brand)";
-  const areaPoints = hasData ? `0,${height} ${coords} ${width},${height}` : "";
+  const last = points[points.length - 1]?.v ?? 0;
 
   return (
     <div className="flex flex-col gap-3">
@@ -80,20 +72,7 @@ export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
         <p className="text-sm text-muted">{t("noEnoughClosedTrades")}</p>
       ) : (
         <div className="rounded-lg border border-border bg-background p-3">
-          <svg viewBox={`0 0 ${width} ${height}`} className="h-44 w-full">
-            <defs>
-              <linearGradient id="my-equity-fill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor={color} stopOpacity="0.25" />
-                <stop offset="100%" stopColor={color} stopOpacity="0" />
-              </linearGradient>
-            </defs>
-            {[0.25, 0.5, 0.75].map((f) => (
-              <line key={f} x1={0} y1={height * f} x2={width} y2={height * f} stroke="var(--border)" strokeWidth={0.5} />
-            ))}
-            <line x1={0} y1={zeroY} x2={width} y2={zeroY} stroke="var(--border)" strokeDasharray="4" />
-            <polygon points={areaPoints} fill="url(#my-equity-fill)" />
-            <polyline fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" points={coords} />
-          </svg>
+          <AreaLineChart points={points} format={(v) => money(v)} ariaLabel={t("startingPoint", { amount: money(0) })} />
           <div className="flex items-center justify-between text-xs text-muted">
             <span>{t("startingPoint", { amount: money(0) })}</span>
             <span className={last >= 0 ? "text-success" : "text-danger"} dir="ltr">
