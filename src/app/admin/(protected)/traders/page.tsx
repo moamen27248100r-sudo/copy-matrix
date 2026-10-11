@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import {
   createLeader,
   updateLeader,
@@ -27,8 +28,10 @@ export default async function AdminTradersPage({
   const to = from + PAGE_SIZE - 1;
 
   const supabase = await createClient();
+  // The leader list shows engine columns (skill, user_id) that clients cannot read.
+  const adminDb = createAdminClient();
 
-  let leaderQuery = supabase
+  let leaderQuery = adminDb
     .from("providers")
     .select(
       "id, display_name, bio, skill, min_copy_amount, base_followers_count, total_profit, total_withdrawals, created_at, user_id, avatar_url, profit_share_pct",

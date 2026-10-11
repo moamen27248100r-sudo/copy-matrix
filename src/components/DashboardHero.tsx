@@ -42,6 +42,7 @@ function ProfitRow({ label, amount, pct, money }: { label: string; amount: numbe
 // section further down the page.
 export async function DashboardHero({
   accountType,
+  depositsOn,
   balance,
   totalAllocated,
   totalUnrealizedPnl,
@@ -50,6 +51,8 @@ export async function DashboardHero({
   closedPositions,
 }: {
   accountType: AccountType;
+  /** Deposits switched on (platform setting); a real account sees no deposit button while off. */
+  depositsOn: boolean;
   balance: number;
   totalAllocated: number;
   totalUnrealizedPnl: number;
@@ -131,17 +134,19 @@ export async function DashboardHero({
       </div>
 
       {accountType === "real" ? (
-        <div className="grid grid-cols-3 gap-2">
-          <Link
-            href="/portfolio/deposit"
-            className="flex items-center justify-center gap-1.5 rounded-lg bg-accent px-3 py-2.5 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
-          >
-            <ActionIcon>
-              <path d="M12 5v14" />
-              <path d="M5 12l7 7 7-7" />
-            </ActionIcon>
-            {t("deposit")}
-          </Link>
+        <div className={`grid gap-2 ${depositsOn ? "grid-cols-3" : "grid-cols-2"}`}>
+          {depositsOn && (
+            <Link
+              href="/portfolio/deposit"
+              className="flex items-center justify-center gap-1.5 rounded-lg bg-accent px-3 py-2.5 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
+            >
+              <ActionIcon>
+                <path d="M12 5v14" />
+                <path d="M5 12l7 7 7-7" />
+              </ActionIcon>
+              {t("deposit")}
+            </Link>
+          )}
           <Link
             href="/portfolio/withdraw"
             className="flex items-center justify-center gap-1.5 rounded-lg border border-border bg-background px-3 py-2.5 text-sm font-medium transition hover:border-accent/50"

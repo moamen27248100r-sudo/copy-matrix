@@ -3,9 +3,13 @@ import { LEAD_TRADER_TIERS, type LeadTraderTier } from "@/config/lead-trader";
 
 // The provider row for a signed-in lead trader, or null if they don't have
 // one (not approved yet). One provider per user (providers.user_id unique).
-export async function getOwnProviderId(supabase: SupabaseClient, userId: string): Promise<string | null> {
-  const { data } = await supabase.from("providers").select("id").eq("user_id", userId).maybeSingle();
-  return (data?.id as string | undefined) ?? null;
+// Resolved by own_provider_id() for the signed-in session: providers.user_id
+// itself is not readable by clients. `userId` is kept for the callers; it is
+// always the signed-in user.
+export async function getOwnProviderId(supabase: SupabaseClient, userId?: string): Promise<string | null> {
+  void userId;
+  const { data } = await supabase.rpc("own_provider_id");
+  return typeof data === "string" ? data : null;
 }
 
 export type FollowerRow = {

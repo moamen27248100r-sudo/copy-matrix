@@ -914,7 +914,8 @@
       "copyTrailingInvalid": "Trailing stop must be between 0.5% and 50%.",
       "copyNotFound": "This copy is no longer active.",
       "copySettingsSaved": "Copy settings saved.",
-      "leaderUnavailable": "This trader isn't available on your current account."
+      "leaderUnavailable": "This trader isn't available on your current account.",
+      "copyRequiresKyc": "Complete identity verification (KYC) to start copying."
     },
     "dashboard": {
       "closeFailed": "Couldn't close the position. Please try again.",

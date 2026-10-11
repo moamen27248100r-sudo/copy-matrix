@@ -17,6 +17,7 @@ export function CopyDialog({
   defaultAmount,
   minAmount,
   balance,
+  depositHref,
   profitSharePct,
   edit,
 }: {
@@ -27,6 +28,8 @@ export function CopyDialog({
   minAmount: number;
   // The viewer's balance (starting a copy only): below the minimum, copying cannot start.
   balance?: number;
+  // Where the viewer can add funds (null: nowhere right now, so no link is shown).
+  depositHref?: string | null;
   profitSharePct?: number | null;
   // Editing a running copy: current values, and whether a copied trade is open (which locks the
   // amount, mode, per-trade cap and copy stop-loss; the database enforces the same rule).
@@ -96,9 +99,11 @@ export function CopyDialog({
             {belowMinimum && (
               <p className="rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-xs text-warning" role="alert">
                 {t("balanceBelowMin", { balance: money(balance ?? 0), min: money(minAmount) })}{" "}
-                <Link href="/portfolio/deposit" className="font-semibold underline">
-                  {t("depositCta")}
-                </Link>
+                {depositHref && (
+                  <Link href={depositHref} className="font-semibold underline">
+                    {t("depositCta")}
+                  </Link>
+                )}
               </p>
             )}
 

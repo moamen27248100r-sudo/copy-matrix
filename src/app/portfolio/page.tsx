@@ -20,6 +20,7 @@ import { PositionTabs } from "@/components/PositionTabs";
 import { PendingOrdersEmpty } from "@/components/PendingOrdersEmpty";
 import { WalletStatusBadge } from "@/components/wallet/WalletStatus";
 import { TraderAvatar } from "@/components/TraderAvatar";
+import { depositsEnabled } from "@/lib/deposits-enabled";
 
 type PositionSignal = {
   symbol: string;
@@ -93,6 +94,7 @@ export default async function PortfolioPage({
   const { data: accountRow } = await supabase.from("profiles").select("account_type").eq("id", user.id).single();
   const profileAccountType: "demo" | "real" = accountRow?.account_type === "real" ? "real" : "demo";
   const isDemo = profileAccountType === "demo";
+  const depositsOn = await depositsEnabled(supabase);
 
   const { data: subscriptions } = await supabase
     .from("subscriptions")
@@ -268,7 +270,7 @@ export default async function PortfolioPage({
           totalAllocated={totalAllocated}
           totalUnrealizedPnl={totalUnrealizedPnl}
         />
-        <div className="grid grid-cols-3 gap-3">
+        <div className={`grid gap-3 ${isDemo || depositsOn ? "grid-cols-3" : "grid-cols-2"}`}>
           <Link href="/portfolio/withdraw" className="flex flex-col items-center gap-2">
             <span className="flex h-14 w-14 items-center justify-center rounded-full bg-background text-foreground transition group-hover:bg-accent/10">
               <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -278,15 +280,17 @@ export default async function PortfolioPage({
             </span>
             <span className="text-sm text-foreground">{td("withdraw")}</span>
           </Link>
-          <Link href="/portfolio/deposit" className="flex flex-col items-center gap-2">
-            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-background text-foreground">
-              <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M12 5v14" />
-                <path d="M5 12l7 7 7-7" />
-              </svg>
-            </span>
-            <span className="text-sm text-foreground">{td("deposit")}</span>
-          </Link>
+          {(isDemo || depositsOn) && (
+            <Link href="/portfolio/deposit" className="flex flex-col items-center gap-2">
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-background text-foreground">
+                <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 5v14" />
+                  <path d="M5 12l7 7 7-7" />
+                </svg>
+              </span>
+              <span className="text-sm text-foreground">{td("deposit")}</span>
+            </Link>
+          )}
           <Link href="/discover" className="flex flex-col items-center gap-2">
             <span className="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-accent-foreground">
               <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

@@ -914,7 +914,8 @@
       "copyTrailingInvalid": "يجب أن يكون وقف الخسارة المتحرك بين 0.5% و50%.",
       "copyNotFound": "هذا النسخ لم يعد نشطًا.",
       "copySettingsSaved": "تم حفظ إعدادات النسخ.",
-      "leaderUnavailable": "هذا المتداول غير متاح على حسابك الحالي."
+      "leaderUnavailable": "هذا المتداول غير متاح على حسابك الحالي.",
+      "copyRequiresKyc": "أكمل التحقق من الهوية (KYC) لبدء النسخ."
     },
     "dashboard": {
       "closeFailed": "تعذّر إغلاق الصفقة. حاول مرة أخرى.",

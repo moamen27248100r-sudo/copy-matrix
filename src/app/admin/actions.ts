@@ -1075,7 +1075,7 @@ export async function applyLeadTraderSettlements(formData: FormData) {
     .eq("status", "pending");
 
   const admin = createAdminClient();
-  const { data: provider } = await supabase.from("providers").select("user_id").eq("id", providerId).single();
+  const { data: provider } = await admin.from("providers").select("user_id").eq("id", providerId).single();
   let settledCount = 0;
   let settledTotal = 0;
 

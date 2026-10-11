@@ -1,4 +1,5 @@
 import { createAdminClient } from "@/lib/supabase/admin";
+import { depositsEnabled } from "@/lib/deposits-enabled";
 import { NETWORK_IDS, isNetworkId, type NetworkId } from "@/lib/crypto/networks";
 import { verifyConfigFromEnv, verifyDeposit } from "@/lib/crypto/verify";
 
@@ -48,6 +49,7 @@ export async function loadNetworkSettings(): Promise<NetworkSettings[]> {
 /** Networks a customer can deposit on right now, with the address they should send to. */
 export async function depositOptionsFor(userId: string) {
   const admin = createAdminClient();
+  if (!(await depositsEnabled(admin))) return [];
   const settings = await loadNetworkSettings();
   const options = await Promise.all(
     settings

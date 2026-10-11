@@ -914,7 +914,8 @@
       "copyTrailingInvalid": "Trailing stop harus antara 0,5% dan 50%.",
       "copyNotFound": "Salinan ini tidak lagi aktif.",
       "copySettingsSaved": "Pengaturan salin disimpan.",
-      "leaderUnavailable": "Trader ini tidak tersedia di akun Anda saat ini."
+      "leaderUnavailable": "Trader ini tidak tersedia di akun Anda saat ini.",
+      "copyRequiresKyc": "Selesaikan verifikasi identitas (KYC) untuk mulai menyalin."
     },
     "dashboard": {
       "closeFailed": "Tidak dapat menutup posisi. Silakan coba lagi.",

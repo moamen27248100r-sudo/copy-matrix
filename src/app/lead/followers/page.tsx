@@ -41,7 +41,7 @@ export default async function LeadFollowersPage({
       .select("id, follower_id, allocated_amount, is_active, copy_started_at, max_drawdown_pct")
       .eq("provider_id", providerId)
       .order("copy_started_at", { ascending: false }),
-    supabase.from("signals").select("opened_at, closed_at").eq("provider_id", providerId).eq("created_by_admin", false).eq("hidden", false),
+    supabase.from("signals").select("opened_at, closed_at").eq("provider_id", providerId).eq("hidden", false),
     supabase.from("follower_invites").select("id, code, invited_email, used_by, used_at, created_at").eq("provider_id", providerId).order("created_at", { ascending: false }),
     supabase.rpc("lead_trader_get_or_create_invite_code"),
     supabase.from("lead_trader_profiles").select("whitelist_enabled").eq("provider_id", providerId).maybeSingle(),

@@ -914,7 +914,8 @@
       "copyTrailingInvalid": "O stop móvel deve estar entre 0,5% e 50%.",
       "copyNotFound": "Esta cópia já não está ativa.",
       "copySettingsSaved": "Definições de cópia guardadas.",
-      "leaderUnavailable": "Este trader não está disponível na sua conta atual."
+      "leaderUnavailable": "Este trader não está disponível na sua conta atual.",
+      "copyRequiresKyc": "Conclua a verificação de identidade (KYC) para começar a copiar."
     },
     "dashboard": {
       "closeFailed": "Não foi possível fechar a posição. Tente novamente.",

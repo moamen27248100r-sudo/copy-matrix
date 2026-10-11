@@ -7,6 +7,7 @@ import { DepositPanel } from "@/components/wallet/DepositPanel";
 import { PendingDepositsRefresher, WalletStatusBadge } from "@/components/wallet/WalletStatus";
 import { WalletPageShell, WalletNotice } from "@/components/wallet/WalletPageShell";
 import { depositOptionsFor } from "@/lib/crypto/deposits";
+import { depositsEnabled } from "@/lib/deposits-enabled";
 import { explorerTxUrl, isNetworkId, shortAddress, displayTxHash } from "@/lib/crypto/networks";
 import { getMoney } from "@/lib/money-server";
 import { formatDateTime } from "@/lib/locale-format";
@@ -38,6 +39,16 @@ export default async function DepositPage({ searchParams }: { searchParams: Prom
         <p className="text-sm text-muted">{t("demoDepositNote")}</p>
         {/* Demo funds need no network/address and are credited instantly. */}
         <SimpleDepositForm />
+      </WalletPageShell>
+    );
+  }
+
+  if (!(await depositsEnabled(supabase))) {
+    return (
+      <WalletPageShell title={t("depositTitle")}>
+        <WalletNotice tone="warning" title={tw("depositUnavailableTitle")}>
+          {tw("depositUnavailableBody")}
+        </WalletNotice>
       </WalletPageShell>
     );
   }

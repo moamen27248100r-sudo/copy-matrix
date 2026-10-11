@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
+import { depositsEnabled } from "@/lib/deposits-enabled";
 import { WalletNotice, WalletPageShell } from "@/components/wallet/WalletPageShell";
 import { PendingDepositsRefresher, WalletStatusBadge } from "@/components/wallet/WalletStatus";
 import { ConfirmButton } from "@/components/ConfirmButton";
@@ -51,6 +52,7 @@ export default async function WalletHistoryPage({
   if (!user) redirect("/login?next=%2Fportfolio%2Fhistory");
 
   const { data: profile } = await supabase.from("profiles").select("account_type").eq("id", user.id).single();
+  const canDeposit = profile?.account_type !== "real" || (await depositsEnabled(supabase));
   if (profile?.account_type !== "real") {
     return (
       <WalletPageShell title={tw("historyTitle")} wide>
@@ -103,9 +105,11 @@ export default async function WalletHistoryPage({
             {tw("tabWithdrawals")}
           </Link>
         </nav>
-        <Link href={showWithdrawals ? "/portfolio/withdraw" : "/portfolio/deposit"} className="text-sm font-medium text-accent hover:underline">
-          {showWithdrawals ? tw("newWithdrawal") : tw("newDeposit")}
-        </Link>
+        {(showWithdrawals || canDeposit) && (
+          <Link href={showWithdrawals ? "/portfolio/withdraw" : "/portfolio/deposit"} className="text-sm font-medium text-accent hover:underline">
+            {showWithdrawals ? tw("newWithdrawal") : tw("newDeposit")}
+          </Link>
+        )}
       </div>
 
       {!showWithdrawals &&

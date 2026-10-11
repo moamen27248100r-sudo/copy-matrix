@@ -914,7 +914,8 @@
       "copyTrailingInvalid": "Le stop suiveur doit être compris entre 0,5 % et 50 %.",
       "copyNotFound": "Cette copie n'est plus active.",
       "copySettingsSaved": "Paramètres de copie enregistrés.",
-      "leaderUnavailable": "Ce trader n'est pas disponible sur votre compte actuel."
+      "leaderUnavailable": "Ce trader n'est pas disponible sur votre compte actuel.",
+      "copyRequiresKyc": "Terminez la vérification d'identité (KYC) pour commencer à copier."
     },
     "dashboard": {
       "closeFailed": "Impossible de fermer la position. Réessayez.",

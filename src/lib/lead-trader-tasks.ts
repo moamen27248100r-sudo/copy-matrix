@@ -25,7 +25,7 @@ export async function computeLeadTraderTasks(supabase: SupabaseClient, providerI
   const [{ data: provider }, { data: application }, { count: closedTrades }] = await Promise.all([
     supabase.from("providers").select("bio, symbol_bias").eq("id", providerId).single(),
     supabase.from("lead_trader_applications").select("trading_style").eq("user_id", userId).eq("status", "approved").order("submitted_at", { ascending: false }).limit(1).maybeSingle(),
-    supabase.from("signals").select("id", { count: "exact", head: true }).eq("provider_id", providerId).eq("created_by_admin", false).eq("status", "closed"),
+    supabase.from("signals").select("id", { count: "exact", head: true }).eq("provider_id", providerId).eq("status", "closed"),
   ]);
 
   return buildLeadTraderTasks({

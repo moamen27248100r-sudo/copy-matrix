@@ -914,7 +914,8 @@
       "copyTrailingInvalid": "Dừng lỗ động phải nằm trong khoảng 0,5% đến 50%.",
       "copyNotFound": "Bản sao chép này không còn hoạt động.",
       "copySettingsSaved": "Đã lưu cài đặt sao chép.",
-      "leaderUnavailable": "Nhà giao dịch này không khả dụng trên tài khoản hiện tại của bạn."
+      "leaderUnavailable": "Nhà giao dịch này không khả dụng trên tài khoản hiện tại của bạn.",
+      "copyRequiresKyc": "Hoàn tất xác minh danh tính (KYC) để bắt đầu sao chép."
     },
     "dashboard": {
       "closeFailed": "Không thể đóng vị thế. Vui lòng thử lại.",

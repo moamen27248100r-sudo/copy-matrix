@@ -914,7 +914,8 @@
       "copyTrailingInvalid": "El stop dinámico debe estar entre el 0,5 % y el 50 %.",
       "copyNotFound": "Esta copia ya no está activa.",
       "copySettingsSaved": "Ajustes de copia guardados.",
-      "leaderUnavailable": "Este trader no está disponible en tu cuenta actual."
+      "leaderUnavailable": "Este trader no está disponible en tu cuenta actual.",
+      "copyRequiresKyc": "Completa la verificación de identidad (KYC) para empezar a copiar."
     },
     "dashboard": {
       "closeFailed": "No se pudo cerrar la posición. Inténtalo de nuevo.",

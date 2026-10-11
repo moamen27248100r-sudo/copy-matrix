@@ -1,4 +1,5 @@
 import { getMoney } from "@/lib/money-server";
+import { depositsEnabled } from "@/lib/deposits-enabled";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -323,6 +324,7 @@ export default async function DashboardPage({
 
         <DashboardHero
           accountType={accountType}
+          depositsOn={await depositsEnabled(supabase)}
           balance={Number(profile?.balance ?? 0)}
           totalAllocated={totalAllocated}
           totalUnrealizedPnl={totalUnrealizedPnl}

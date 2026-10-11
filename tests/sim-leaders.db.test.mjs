@@ -34,9 +34,15 @@ async function as(user, fn) {
   }
 }
 
-// The real-account switch (0240), changed inside the test transaction only.
+// The real-account switch: simulated leaders are open to real accounts exactly while deposits are
+// off (0252: sim_leaders_open_to_real() = not deposits_enabled). Changed inside the test transaction only.
 const openToReal = (on) =>
-  db.query("update public.platform_settings set value = $1::jsonb where key = 'sim_leaders_open_to_real'", [JSON.stringify(on)]);
+  db.query("update public.platform_settings set value = $1::jsonb where key = 'deposits_enabled'", [JSON.stringify(!on)]);
+
+// Simulated leaders are counted through provider_cards (providers.is_simulated is not readable by clients).
+const simulatedIds = async () => (await db.query("select id from public.providers where is_simulated")).rows.map((r) => r.id);
+const countSimulatedCards = async (ids) =>
+  Number((await db.query("select count(*) n from public.provider_cards where provider_id = any($1::uuid[])", [ids])).rows[0].n);
 
 async function fails(code, fn) {
   await db.query("savepoint f");
@@ -83,8 +89,8 @@ test("sim_target_log in SQL matches targetLog in JS for every persona", async ()
 
 test("switch off: simulated leaders are only listed for demo accounts", async () => {
   await openToReal(false);
-  const count = async (user) =>
-    as(user, async () => Number((await db.query("select count(*) n from public.provider_cards where is_simulated")).rows[0].n));
+  const ids = await simulatedIds();
+  const count = async (user) => as(user, async () => countSimulatedCards(ids));
   assert.equal(await count(null), 0, "visitors");
   assert.equal(await count(REAL), 0, "real account");
   assert.ok((await count(DEMO)) > 0, "demo account");
@@ -128,8 +134,8 @@ test("switch off: a simulated leader's trade is mirrored to demo copiers only", 
 
 test("switch on: real accounts and visitors see simulated leaders", async () => {
   await openToReal(true);
-  const count = async (user) =>
-    as(user, async () => Number((await db.query("select count(*) n from public.provider_cards where is_simulated")).rows[0].n));
+  const ids = await simulatedIds();
+  const count = async (user) => as(user, async () => countSimulatedCards(ids));
   assert.ok((await count(null)) > 0, "visitors");
   assert.ok((await count(REAL)) > 0, "real account");
   const series = await as(REAL, async () => (await db.query("select public.provider_daily_series($1) s", [simulated])).rows[0].s);

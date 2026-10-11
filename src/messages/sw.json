@@ -914,7 +914,8 @@
       "copyTrailingInvalid": "Stop inayofuata bei lazima iwe kati ya 0.5% na 50%.",
       "copyNotFound": "Nakili hii haifanyi kazi tena.",
       "copySettingsSaved": "Mipangilio ya kunakili imehifadhiwa.",
-      "leaderUnavailable": "Mfanyabiashara huyu hapatikani kwenye akaunti yako ya sasa."
+      "leaderUnavailable": "Mfanyabiashara huyu hapatikani kwenye akaunti yako ya sasa.",
+      "copyRequiresKyc": "Kamilisha uthibitishaji wa utambulisho (KYC) ili uanze kunakili."
     },
     "dashboard": {
       "closeFailed": "Imeshindwa kufunga nafasi. Tafadhali jaribu tena.",

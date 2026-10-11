@@ -38,7 +38,7 @@ export default async function LeadSettingsPage({
     supabase.from("lead_trader_profiles").select("min_investment, hide_country, trade_protection, accepting_followers").eq("provider_id", providerId).maybeSingle(),
     supabase.from("lead_trader_applications").select("contact_info, trading_style").eq("user_id", user.id).eq("status", "approved").order("submitted_at", { ascending: false }).limit(1).maybeSingle(),
     supabase.from("subscriptions").select("allocated_amount, is_active").eq("provider_id", providerId),
-    supabase.from("signals").select("opened_at, closed_at, status").eq("provider_id", providerId).eq("created_by_admin", false).eq("hidden", false),
+    supabase.from("signals").select("opened_at, closed_at, status").eq("provider_id", providerId).eq("hidden", false),
     supabase.from("profiles").select("last_seen_at, login_count").eq("id", user.id).single(),
   ]);
 

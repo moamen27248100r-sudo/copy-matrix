@@ -156,6 +156,12 @@ export async function followProvider(formData: FormData) {
     if (error.code === "CM006") {
       redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copyAmountExceedsBalance"))}`);
     }
+    if (error.code === "CM051") {
+      redirect(`/trader/${providerId}?error=${encodeURIComponent(td("notAcceptingFollowers"))}`);
+    }
+    if (error.code === "CM052") {
+      redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copyRequiresKyc"))}`);
+    }
     if (error.code === "CM008") {
       redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copyRequiresInvite"))}`);
     }

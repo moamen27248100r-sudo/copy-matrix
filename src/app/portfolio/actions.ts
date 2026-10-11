@@ -18,6 +18,7 @@ export type WithdrawFormState = { error?: string };
 const DEPOSIT_ERRORS: Record<string, string> = {
   CM012: "realOnly",
   CM030: "depositNetworkUnavailable",
+  CM035: "depositNetworkUnavailable",
   CM031: "txHashInvalid",
   CM032: "txAlreadySubmitted",
   CM033: "tooManyPendingDeposits",

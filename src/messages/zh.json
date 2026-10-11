@@ -914,7 +914,8 @@
       "copyTrailingInvalid": "移动止损必须在 0.5% 到 50% 之间。",
       "copyNotFound": "此跟单已不再有效。",
       "copySettingsSaved": "跟单设置已保存。",
-      "leaderUnavailable": "该交易员在您当前的账户中不可用。"
+      "leaderUnavailable": "该交易员在您当前的账户中不可用。",
+      "copyRequiresKyc": "请先完成身份验证（KYC）后再开始跟单。"
     },
     "dashboard": {
       "closeFailed": "无法平仓，请重试。",
