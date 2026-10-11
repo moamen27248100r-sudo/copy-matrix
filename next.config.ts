@@ -34,6 +34,10 @@ const nextConfig: NextConfig = {
   // Leader avatars are capped at 1 MB; the default 1 MB action body limit
   // would reject a file near that size once multipart overhead is added.
   experimental: { serverActions: { bodySizeLimit: "2mb" } },
+  // The leader page's title / description come from the database. Next streams such
+  // metadata into <body> for ordinary clients, which SEO audits (and anything that does
+  // not run scripts) read as "no meta description"; blocking keeps it in <head>.
+  htmlLimitedBots: /.*/,
   // Shown at the bottom of the account menu.
   // Until launch every response tells search engines not to index it (src/lib/indexing.ts).
   async headers() {
