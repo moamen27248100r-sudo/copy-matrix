@@ -389,7 +389,7 @@ export function ExnessReliabilitySection({
       </div>
 
       <div className="flex flex-col gap-2.5 border-t border-slate-700/70 pt-4">
-        <h3 className="font-display text-sm font-extrabold">{t("equityChartTitle")}</h3>
+        <h3 className="font-display text-base font-semibold">{t("equityChartTitle")}</h3>
         <TraderEquityChart daily={daily} />
       </div>
     </div>

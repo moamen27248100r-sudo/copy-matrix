@@ -62,8 +62,8 @@ export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
             onClick={() => setPeriodIdx(i)}
             className={
               i === periodIdx
-                ? "rounded border border-brand bg-brand/10 px-3 py-1 text-xs text-brand"
-                : "rounded border border-border px-3 py-1 text-xs text-muted"
+                ? "rounded-full bg-brand/25 px-3.5 py-1 text-xs text-white"
+                : "rounded-full px-3.5 py-1 text-xs text-muted"
             }
           >
             {p.label}
@@ -83,7 +83,7 @@ export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
           />
           <div className="flex items-center justify-between text-xs text-muted">
             <span>{t("startingPoint", { amount: money(0) })}</span>
-            <span className={last >= 0 ? "text-success" : "text-danger"} dir="ltr">
+            <span className={`font-semibold ${last >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
               {money(last, { signed: true })}
             </span>
           </div>

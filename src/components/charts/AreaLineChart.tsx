@@ -17,10 +17,12 @@ export type ChartPoint = {
 };
 
 const LINE = "#5B8DEF";
-const GRID = "rgba(255,255,255,0.06)";
-const AXIS_TEXT = "#8B95A7";
+const GRID = "rgba(255,255,255,0.04)";
+const AXIS_TEXT = "#6B7588";
 const LAST_LINE = "rgba(184,192,204,0.65)";
 const FONT = 11;
+const BADGE_FONT = 12;
+const TABULAR = { fontVariantNumeric: "tabular-nums" } as const;
 const PAD_TOP = 8;
 const X_AXIS_H = 20;
 const BADGE_H = 18;
@@ -123,8 +125,8 @@ export function AreaLineChart({
 
   const fmtAxis = axisFormat ?? format;
   const lastLabel = format(last);
-  const labelChars = compact ? lastLabel.length : Math.max(lastLabel.length, ...ticks.map((v) => fmtAxis(v).length));
-  const gutter = Math.ceil(labelChars * 6.8 + 14);
+  const axisChars = compact ? 0 : Math.max(...ticks.map((v) => fmtAxis(v).length));
+  const gutter = Math.ceil(Math.max(axisChars * 6.4, lastLabel.length * 7.4) + 14);
   const plotW = Math.max(width - gutter, 1);
   const plotBottom = H - (compact ? PAD_TOP : X_AXIS_H);
   const plotH = Math.max(plotBottom - PAD_TOP, 1);
@@ -200,8 +202,8 @@ export function AreaLineChart({
         >
           <defs>
             <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stopColor={LINE} stopOpacity="0.45" />
-              <stop offset="1" stopColor={LINE} stopOpacity="0" />
+              <stop offset="0" stopColor={LINE} stopOpacity="0.22" />
+              <stop offset="1" stopColor={LINE} stopOpacity="0.02" />
             </linearGradient>
           </defs>
 
@@ -210,20 +212,20 @@ export function AreaLineChart({
           ))}
 
           <path d={areaPath} fill={`url(#${gradId})`} />
-          <path d={linePath} fill="none" stroke={LINE} strokeWidth={1.75} strokeLinejoin="round" strokeLinecap="round" />
+          <path d={linePath} fill="none" stroke={LINE} strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
 
           {!compact &&
             ticks.map((v) => {
               const y = yFor(v);
               if (Math.abs(y - lastY) < BADGE_H * 0.8) return null;
               return (
-                <text key={v} x={plotW + 8} y={y + FONT * 0.35} fill={AXIS_TEXT} fontSize={FONT}>
+                <text key={v} x={plotW + 8} y={y + FONT * 0.35} fill={AXIS_TEXT} fontSize={FONT} style={TABULAR}>
                   {fmtAxis(v)}
                 </text>
               );
             })}
           {xLabels.map((l, i) => (
-            <text key={i} x={l.x} y={H - 5} textAnchor={l.anchor} fill={AXIS_TEXT} fontSize={FONT}>
+            <text key={i} x={l.x} y={H - 5} textAnchor={l.anchor} fill={AXIS_TEXT} fontSize={FONT} style={TABULAR}>
               {l.text}
             </text>
           ))}
@@ -232,11 +234,12 @@ export function AreaLineChart({
           <rect x={plotW + 4} y={badgeY} width={Math.max(gutter - 4, 1)} height={BADGE_H} rx={3} fill="#ffffff" />
           <text
             x={plotW + 4 + Math.max(gutter - 4, 1) / 2}
-            y={badgeY + BADGE_H / 2 + FONT * 0.36}
+            y={badgeY + BADGE_H / 2 + BADGE_FONT * 0.36}
             textAnchor="middle"
             fill="#000000"
-            fontSize={FONT}
-            fontWeight={700}
+            fontSize={BADGE_FONT}
+            fontWeight={600}
+            style={TABULAR}
           >
             {lastLabel}
           </text>

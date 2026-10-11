@@ -75,8 +75,8 @@ export function TraderEquityChart({ daily }: { daily: DailySeries | null }) {
             type="button"
             aria-pressed={i === periodIdx}
             onClick={() => setPeriodIdx(i)}
-            className={`min-h-8 rounded-md border px-3 py-1 text-xs transition-colors duration-200 motion-reduce:transition-none ${
-              i === periodIdx ? "border-brand bg-brand/15 text-brand" : "border-border text-muted hover:text-foreground"
+            className={`min-h-8 rounded-full px-3.5 py-1 text-xs transition-colors duration-200 motion-reduce:transition-none ${
+              i === periodIdx ? "bg-brand/25 text-white" : "text-muted hover:text-foreground"
             }`}
           >
             {tp(p.labelKey)}
@@ -84,14 +84,17 @@ export function TraderEquityChart({ daily }: { daily: DailySeries | null }) {
         ))}
       </div>
 
-      <div className="rounded-lg border border-border/50 p-3">
+      <div className="rounded-lg border border-border/50 bg-black/20 p-3">
         <AreaLineChart points={points} format={fmtPct} ariaLabel={t("current")} timeAxis domain={domain} />
         <div className="mt-1 flex items-center justify-between text-xs text-muted">
           <span>
             {t("start")}: <bdi dir="ltr">0%</bdi>
           </span>
-          <span className={negative ? "text-danger" : "text-foreground"}>
-            {t("current")}: <bdi dir="ltr">{fmtPct(last)}</bdi>
+          <span>
+            {t("current")}:{" "}
+            <bdi dir="ltr" className={`font-semibold ${negative ? "text-danger" : "text-foreground"}`}>
+              {fmtPct(last)}
+            </bdi>
           </span>
         </div>
       </div>
