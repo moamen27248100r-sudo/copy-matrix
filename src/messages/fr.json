@@ -425,7 +425,8 @@
     "activityLow": "Peu actif",
     "activityNone": "Inactif",
     "reliabilityStatusNone": "Pas encore de note",
-    "gaugeTipActivity": "Fréquence de trading : trades clôturés par semaine sur les 90 derniers jours. Très actif dès 5 par semaine, actif dès 1."
+    "gaugeTipActivity": "Fréquence de trading : trades clôturés par semaine sur les 90 derniers jours. Très actif dès 5 par semaine, actif dès 1.",
+    "stopCopyingConfirm": "Arrêter de copier {name} ? Vous pourrez recommencer à tout moment."
   },
   "Discover": {
     "title": "Découvrir les traders",
@@ -529,7 +530,8 @@
     "showingRange": "{from}–{to} sur {total}",
     "prevPage": "Précédent",
     "nextPage": "Suivant",
-    "perPageLabel": "Par page :"
+    "perPageLabel": "Par page :",
+    "stopCopyingConfirm": "Arrêter de copier {name} ? Vous pourrez recommencer à tout moment."
   },
   "Countries": {
     "US": "États-Unis",
@@ -1314,7 +1316,9 @@
     "editOpen": "Modifier les paramètres de copie",
     "editTitle": "Paramètres de copie · {name}",
     "editConfirm": "Enregistrer",
-    "lockedNotice": "Le montant, le mode et la limite par transaction sont verrouillés tant que des transactions copiées sont ouvertes. L'objectif de profit, le stop loss et le stop suiveur restent modifiables."
+    "lockedNotice": "Le montant, le mode et la limite par transaction sont verrouillés tant que des transactions copiées sont ouvertes. L'objectif de profit, le stop loss et le stop suiveur restent modifiables.",
+    "balanceBelowMin": "Votre solde ({balance}) est inférieur au minimum de ce trader ({min}).",
+    "depositCta": "Ajouter des fonds"
   },
   "Trades": {
     "title": "Trades",

@@ -425,7 +425,8 @@
     "activityLow": "Poca actividad",
     "activityNone": "Inactivo",
     "reliabilityStatusNone": "Aún sin puntuación",
-    "gaugeTipActivity": "Con qué frecuencia opera: operaciones cerradas por semana en los últimos 90 días. Muy activo desde 5 por semana, activo desde 1."
+    "gaugeTipActivity": "Con qué frecuencia opera: operaciones cerradas por semana en los últimos 90 días. Muy activo desde 5 por semana, activo desde 1.",
+    "stopCopyingConfirm": "¿Dejar de copiar a {name}? Puedes volver a copiar cuando quieras."
   },
   "Discover": {
     "title": "Descubrir traders",
@@ -529,7 +530,8 @@
     "showingRange": "{from}–{to} de {total}",
     "prevPage": "Anterior",
     "nextPage": "Siguiente",
-    "perPageLabel": "Por página:"
+    "perPageLabel": "Por página:",
+    "stopCopyingConfirm": "¿Dejar de copiar a {name}? Puedes volver a copiar cuando quieras."
   },
   "Countries": {
     "US": "Estados Unidos",
@@ -1314,7 +1316,9 @@
     "editOpen": "Editar ajustes de copia",
     "editTitle": "Ajustes de copia · {name}",
     "editConfirm": "Guardar cambios",
-    "lockedNotice": "El importe, el modo y el límite por operación están bloqueados mientras haya operaciones copiadas abiertas. El objetivo de beneficio, el stop loss y el stop dinámico siguen siendo editables."
+    "lockedNotice": "El importe, el modo y el límite por operación están bloqueados mientras haya operaciones copiadas abiertas. El objetivo de beneficio, el stop loss y el stop dinámico siguen siendo editables.",
+    "balanceBelowMin": "Tu saldo ({balance}) es inferior al mínimo de este trader ({min}).",
+    "depositCta": "Añadir fondos"
   },
   "Trades": {
     "title": "Operaciones",

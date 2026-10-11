@@ -18,11 +18,14 @@ import { countryDisplay } from "@/lib/country-metadata";
 import { formatDate } from "@/lib/locale-format";
 import { resolveLevels, tradeProfitUsd, tradeReturnPct } from "@/lib/pip-specs";
 import { CopyBar } from "@/components/CopyBar";
+import { ConfirmButton } from "@/components/ConfirmButton";
+import { TabStrip } from "@/components/TabStrip";
 import { CopyDialog } from "@/components/CopyDialog";
 import { getBioTranslator } from "@/lib/bio-translations";
 import type { Locale } from "@/i18n/locales";
 import { leaderScores } from "@/lib/leader-scores";
 import { fmtDrawdown, fmtReturn, fmtWinRate } from "@/lib/format-stats";
+import { isUuid } from "@/lib/uuid";
 
 type SignalRow = {
   id: string;
@@ -263,7 +266,7 @@ export default async function TraderPage({
           <TraderAvatar providerId={id} name={provider.display_name} avatarUrl={provider.avatar_url} ratingScore={provider.rating_score} size={64} priority />
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
-              <h1 className="text-xl font-semibold">{provider.display_name}</h1>
+              <h1 className="max-w-full break-words text-xl font-semibold [overflow-wrap:anywhere]">{provider.display_name}</h1>
               {countryDisplay(provider.country) && (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -279,7 +282,7 @@ export default async function TraderPage({
               ) : (
                 <Link
                   href={`/signup?next=${encodeURIComponent(`/trader/${id}`)}`}
-                  className="rounded-full border border-accent px-3 py-0.5 text-xs text-accent"
+                  className="tap-44 rounded-full border border-accent px-3 py-0.5 text-xs text-accent-text"
                 >
                   {t("follow")}
                 </Link>
@@ -313,9 +316,24 @@ export default async function TraderPage({
             under the bio, from sm up. */}
         <CopyBar>
           {isStopped ? (
-            <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-3 text-center text-sm text-danger">
-              {t("stoppedTradingNotice", { name: provider.display_name })}
-            </p>
+            <div className="flex flex-col gap-2">
+              <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-3 text-center text-sm text-danger">
+                {t("stoppedTradingNotice", { name: provider.display_name })}
+              </p>
+              {/* A follower of a leader who stopped trading can still end the copy. */}
+              {isFollowing && (
+                <form action={unfollowProvider} className="flex justify-center">
+                  <input type="hidden" name="providerId" value={id} />
+                  <input type="hidden" name="returnTo" value={`/trader/${id}`} />
+                  <ConfirmButton
+                    confirmText={t("stopCopyingConfirm", { name: provider.display_name })}
+                    className="rounded-lg border border-border px-4 py-2 text-sm disabled:opacity-60"
+                  >
+                    {t("stopCopyingCta")}
+                  </ConfirmButton>
+                </form>
+              )}
+            </div>
           ) : !user ? (
             <div className="flex flex-col gap-1.5">
               <Link
@@ -359,9 +377,12 @@ export default async function TraderPage({
               <form action={unfollowProvider}>
                 <input type="hidden" name="providerId" value={id} />
                 <input type="hidden" name="returnTo" value={`/trader/${id}`} />
-                <button type="submit" className="shrink-0 rounded-lg border border-border px-4 py-2 text-sm">
+                <ConfirmButton
+                  confirmText={t("stopCopyingConfirm", { name: provider.display_name })}
+                  className="shrink-0 rounded-lg border border-border px-4 py-2 text-sm disabled:opacity-60"
+                >
                   {t("stopCopyingCta")}
-                </button>
+                </ConfirmButton>
               </form>
               </div>
             </div>
@@ -373,6 +394,7 @@ export default async function TraderPage({
                 providerName={provider.display_name}
                 defaultAmount={Number(myProfile?.balance ?? provider.min_copy_amount)}
                 minAmount={Number(provider.min_copy_amount)}
+                balance={Number(myProfile?.balance ?? 0)}
                 profitSharePct={profitShare}
               />
               <p className="text-center text-xs text-muted">
@@ -459,15 +481,16 @@ export default async function TraderPage({
         </div>
       </div>
 
-      <div className="flex gap-1 overflow-x-auto rounded-full border border-border bg-surface p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <TabStrip className="flex gap-1 overflow-x-auto rounded-full border border-border bg-surface p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {TABS.map((key) => (
           <Link
             key={key}
             href={`/trader/${id}?tab=${key}`}
+            aria-current={activeTab === key ? "page" : undefined}
             className={
               activeTab === key
-                ? "min-w-fit flex-1 whitespace-nowrap rounded-full bg-accent px-3 py-1.5 text-center text-sm font-medium text-accent-foreground"
-                : "min-w-fit flex-1 whitespace-nowrap rounded-full px-3 py-1.5 text-center text-sm text-muted transition hover:text-foreground"
+                ? "tap-44 min-w-fit flex-1 whitespace-nowrap rounded-full bg-accent px-3 py-1.5 text-center text-sm font-medium text-accent-foreground"
+                : "tap-44 min-w-fit flex-1 whitespace-nowrap rounded-full px-3 py-1.5 text-center text-sm text-muted transition hover:text-foreground"
             }
           >
             {
@@ -480,7 +503,7 @@ export default async function TraderPage({
             }
           </Link>
         ))}
-      </div>
+      </TabStrip>
 
       {activeTab === "performance" && (
         <section className="flex flex-col gap-6">
@@ -516,7 +539,7 @@ export default async function TraderPage({
 
       {activeTab === "history" && (
         <section className="flex flex-col gap-3">
-          <p className="text-end text-xs text-slate-500">
+          <p className="text-end text-xs text-muted">
             {t("memberSince", {
               date: formatDate(provider.joined_at, locale, { year: "numeric", month: "long", timeZone: "UTC" }),
             })}

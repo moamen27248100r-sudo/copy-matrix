@@ -61,8 +61,8 @@ export function FollowButton({
         disabled={isPending}
         className={
           isWatching
-            ? "inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-slate-800 px-3 py-0.5 text-xs text-emerald-400 disabled:opacity-60"
-            : "inline-flex items-center gap-1 rounded-full border border-accent px-3 py-0.5 text-xs text-accent disabled:opacity-60"
+            ? "tap-44 inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-slate-800 px-3 py-0.5 text-xs text-emerald-400 disabled:opacity-60"
+            : "tap-44 inline-flex items-center gap-1 rounded-full border border-accent px-3 py-0.5 text-xs text-accent-text disabled:opacity-60"
         }
       >
         {isWatching && <CheckIcon className="h-3 w-3" />}

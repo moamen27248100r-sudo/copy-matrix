@@ -545,7 +545,7 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
                 <Link
                   key={n}
                   href={href({ per: n === PER_PAGE[viewMode][viewMode === "table" ? 0 : 1] ? null : n, page: null })}
-                  className={perPage === Number(n) ? "rounded-full bg-accent/15 px-2 py-0.5 font-medium text-accent" : "rounded-full px-2 py-0.5 hover:text-foreground"}
+                  className={perPage === Number(n) ? "rounded-full bg-accent/15 px-2 py-0.5 font-medium text-accent-text" : "rounded-full px-2 py-0.5 hover:text-foreground"}
                 >
                   {n}
                 </Link>

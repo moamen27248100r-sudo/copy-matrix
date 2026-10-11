@@ -78,7 +78,7 @@ function EquityPanel({
               setHover(null);
               onPeriod(i);
             }}
-            className={`min-h-8 rounded-full px-3.5 py-1 text-xs transition-colors duration-200 motion-reduce:transition-none ${
+            className={`tap-44 min-h-8 rounded-full px-3.5 py-1 text-xs transition-colors duration-200 motion-reduce:transition-none ${
               i === periodIdx ? "bg-brand/25 text-white" : "text-muted hover:text-foreground"
             }`}
           >
@@ -151,7 +151,7 @@ function CloseIcon() {
 }
 
 const ICON_BUTTON =
-  "flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-muted transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-brand motion-reduce:transition-none";
+  "tap-44 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-muted transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-brand motion-reduce:transition-none";
 
 export function TraderEquityChart({ daily }: { daily: DailySeries | null }) {
   const t = useTranslations("TraderEquityChart");

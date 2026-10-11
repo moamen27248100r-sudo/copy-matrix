@@ -12,6 +12,8 @@
   --accent: #2f6fed;
   --accent-hover: #4d84f0;
   --accent-foreground: #ffffff;
+  /* Small accent-coloured text: --accent itself is 4.2:1 on the page background. */
+  --accent-text: #6b9bf5;
   --success: #0ecb81;
   --danger: #f6465d;
   --warning: #f0a020;
@@ -37,6 +39,7 @@
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-foreground: var(--accent-foreground);
+  --color-accent-text: var(--accent-text);
   --color-success: var(--success);
   --color-danger: var(--danger);
   --color-warning: var(--warning);
@@ -345,6 +348,21 @@ th {
   direction: ltr;
   unicode-bidi: isolate;
   display: inline-block;
+}
+
+/* Small controls keep their look but get a 44x44 tap area (a centred, invisible
+   hit box), so phones don't need a pixel-perfect thumb. */
+.tap-44 {
+  position: relative;
+}
+.tap-44::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(100%, 44px);
+  height: max(100%, 44px);
+  transform: translate(-50%, -50%);
 }
 
 /* Line charts: short fade when the drawn data changes (period switch). */

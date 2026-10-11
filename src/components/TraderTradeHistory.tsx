@@ -159,7 +159,7 @@ export function TraderTradeHistory({ trades, days }: { trades: HistoryTrade[]; d
           type="button"
           onClick={() => setSheetOpen(true)}
           aria-haspopup="dialog"
-          className="flex min-h-9 max-w-[72%] items-center gap-2 rounded-lg border border-accent/30 bg-accent/15 px-3 py-1.5 text-sm font-medium text-accent-hover transition hover:bg-accent/25 motion-reduce:transition-none"
+          className="tap-44 flex min-h-9 max-w-[72%] items-center gap-2 rounded-lg border border-accent/30 bg-accent/15 px-3 py-1.5 text-sm font-medium text-accent-text transition hover:bg-accent/25 motion-reduce:transition-none"
         >
           <ClockIcon />
           <span className="truncate" dir="auto">
@@ -291,7 +291,7 @@ export function TraderTradeHistory({ trades, days }: { trades: HistoryTrade[]; d
         <button
           type="button"
           onClick={() => setVisible((v) => v + PAGE_SIZE)}
-          className="rounded-xl bg-surface py-2.5 text-sm font-medium text-accent-hover transition hover:bg-white/[0.08]"
+          className="rounded-xl bg-surface py-3 text-sm font-medium text-accent-text transition hover:bg-white/[0.08]"
         >
           {tp("loadMore")}
         </button>

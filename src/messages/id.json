@@ -425,7 +425,8 @@
     "activityLow": "Kurang aktif",
     "activityNone": "Tidak aktif",
     "reliabilityStatusNone": "Belum ada skor",
-    "gaugeTipActivity": "Seberapa sering trader bertransaksi: transaksi ditutup per minggu selama 90 hari terakhir. Sangat aktif mulai 5 per minggu, aktif mulai 1."
+    "gaugeTipActivity": "Seberapa sering trader bertransaksi: transaksi ditutup per minggu selama 90 hari terakhir. Sangat aktif mulai 5 per minggu, aktif mulai 1.",
+    "stopCopyingConfirm": "Berhenti menyalin {name}? Anda dapat mulai menyalin lagi kapan saja."
   },
   "Discover": {
     "title": "Temukan trader",
@@ -529,7 +530,8 @@
     "showingRange": "{from}–{to} dari {total}",
     "prevPage": "Sebelumnya",
     "nextPage": "Berikutnya",
-    "perPageLabel": "Per halaman:"
+    "perPageLabel": "Per halaman:",
+    "stopCopyingConfirm": "Berhenti menyalin {name}? Anda dapat mulai menyalin lagi kapan saja."
   },
   "Countries": {
     "US": "Amerika Serikat",
@@ -1313,7 +1315,9 @@
     "editOpen": "Ubah pengaturan salin",
     "editTitle": "Pengaturan salin · {name}",
     "editConfirm": "Simpan perubahan",
-    "lockedNotice": "Jumlah, mode, dan batas per transaksi terkunci selama ada transaksi salinan yang terbuka. Take profit, stop loss, dan trailing stop tetap dapat diubah."
+    "lockedNotice": "Jumlah, mode, dan batas per transaksi terkunci selama ada transaksi salinan yang terbuka. Take profit, stop loss, dan trailing stop tetap dapat diubah.",
+    "balanceBelowMin": "Saldo Anda ({balance}) di bawah minimum trader ini ({min}).",
+    "depositCta": "Tambah dana"
   },
   "Trades": {
     "title": "Transaksi",

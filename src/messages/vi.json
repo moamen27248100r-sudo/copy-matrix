@@ -425,7 +425,8 @@
     "activityLow": "Ít hoạt động",
     "activityNone": "Không hoạt động",
     "reliabilityStatusNone": "Chưa có điểm",
-    "gaugeTipActivity": "Tần suất giao dịch: số lệnh đã đóng mỗi tuần trong 90 ngày gần nhất. Rất tích cực từ 5 lệnh/tuần, tích cực từ 1 lệnh."
+    "gaugeTipActivity": "Tần suất giao dịch: số lệnh đã đóng mỗi tuần trong 90 ngày gần nhất. Rất tích cực từ 5 lệnh/tuần, tích cực từ 1 lệnh.",
+    "stopCopyingConfirm": "Dừng sao chép {name}? Bạn có thể bắt đầu sao chép lại bất cứ lúc nào."
   },
   "Discover": {
     "title": "Khám phá nhà giao dịch",
@@ -529,7 +530,8 @@
     "showingRange": "{from}–{to} trên {total}",
     "prevPage": "Trước",
     "nextPage": "Tiếp",
-    "perPageLabel": "Mỗi trang:"
+    "perPageLabel": "Mỗi trang:",
+    "stopCopyingConfirm": "Dừng sao chép {name}? Bạn có thể bắt đầu sao chép lại bất cứ lúc nào."
   },
   "Countries": {
     "US": "Hoa Kỳ",
@@ -1313,7 +1315,9 @@
     "editOpen": "Chỉnh sửa cài đặt sao chép",
     "editTitle": "Cài đặt sao chép · {name}",
     "editConfirm": "Lưu thay đổi",
-    "lockedNotice": "Số tiền, chế độ và giới hạn mỗi lệnh bị khóa khi còn lệnh sao chép đang mở. Bạn vẫn có thể chỉnh chốt lời, cắt lỗ và dừng lỗ theo sau."
+    "lockedNotice": "Số tiền, chế độ và giới hạn mỗi lệnh bị khóa khi còn lệnh sao chép đang mở. Bạn vẫn có thể chỉnh chốt lời, cắt lỗ và dừng lỗ theo sau.",
+    "balanceBelowMin": "Số dư của bạn ({balance}) thấp hơn mức tối thiểu của nhà giao dịch này ({min}).",
+    "depositCta": "Nạp tiền"
   },
   "Trades": {
     "title": "Giao dịch",

@@ -425,7 +425,8 @@
     "activityLow": "Shughuli chache",
     "activityNone": "Hana shughuli",
     "reliabilityStatusNone": "Bado hakuna alama",
-    "gaugeTipActivity": "Mara ngapi mfanyabiashara hufanya biashara: biashara zilizofungwa kwa wiki katika siku 90 zilizopita. Mwenye shughuli nyingi kuanzia 5 kwa wiki, anashughulika kuanzia 1."
+    "gaugeTipActivity": "Mara ngapi mfanyabiashara hufanya biashara: biashara zilizofungwa kwa wiki katika siku 90 zilizopita. Mwenye shughuli nyingi kuanzia 5 kwa wiki, anashughulika kuanzia 1.",
+    "stopCopyingConfirm": "Acha kunakili {name}? Unaweza kuanza kunakili tena wakati wowote."
   },
   "Discover": {
     "title": "Gundua wafanyabiashara",
@@ -529,7 +530,8 @@
     "showingRange": "{from}–{to} kati ya {total}",
     "prevPage": "Iliyotangulia",
     "nextPage": "Inayofuata",
-    "perPageLabel": "Kwa ukurasa:"
+    "perPageLabel": "Kwa ukurasa:",
+    "stopCopyingConfirm": "Acha kunakili {name}? Unaweza kuanza kunakili tena wakati wowote."
   },
   "Countries": {
     "US": "Marekani",
@@ -1313,7 +1315,9 @@
     "editOpen": "Hariri mipangilio ya kunakili",
     "editTitle": "Mipangilio ya kunakili · {name}",
     "editConfirm": "Hifadhi mabadiliko",
-    "lockedNotice": "Kiasi, hali na kikomo cha kila biashara vimefungwa wakati biashara zilizonakiliwa ziko wazi. Lengo la faida, stop loss na trailing stop bado vinaweza kubadilishwa."
+    "lockedNotice": "Kiasi, hali na kikomo cha kila biashara vimefungwa wakati biashara zilizonakiliwa ziko wazi. Lengo la faida, stop loss na trailing stop bado vinaweza kubadilishwa.",
+    "balanceBelowMin": "Salio lako ({balance}) liko chini ya kiwango cha chini cha mfanyabiashara huyu ({min}).",
+    "depositCta": "Ongeza fedha"
   },
   "Trades": {
     "title": "Biashara",

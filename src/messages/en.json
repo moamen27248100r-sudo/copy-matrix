@@ -425,7 +425,8 @@
     "activityLow": "Low activity",
     "activityNone": "Inactive",
     "reliabilityStatusNone": "No score yet",
-    "gaugeTipActivity": "How often the trader trades: closed trades per week over the last 90 days. Very active from 5 a week, active from 1."
+    "gaugeTipActivity": "How often the trader trades: closed trades per week over the last 90 days. Very active from 5 a week, active from 1.",
+    "stopCopyingConfirm": "Stop copying {name}? You can start copying again at any time."
   },
   "Discover": {
     "title": "Discover traders",
@@ -529,7 +530,8 @@
     "showingRange": "{from}–{to} of {total}",
     "prevPage": "Previous",
     "nextPage": "Next",
-    "perPageLabel": "Per page:"
+    "perPageLabel": "Per page:",
+    "stopCopyingConfirm": "Stop copying {name}? You can start copying again at any time."
   },
   "Countries": {
     "US": "United States",
@@ -1317,7 +1319,9 @@
     "editOpen": "Edit copy settings",
     "editTitle": "Copy settings · {name}",
     "editConfirm": "Save changes",
-    "lockedNotice": "Amount, mode and per-trade limit are locked while copied trades are open. Take profit, stop loss and trailing stop can still be changed."
+    "lockedNotice": "Amount, mode and per-trade limit are locked while copied trades are open. Take profit, stop loss and trailing stop can still be changed.",
+    "balanceBelowMin": "Your balance ({balance}) is below this trader's minimum ({min}).",
+    "depositCta": "Add funds"
   },
   "Trades": {
     "title": "Trades",

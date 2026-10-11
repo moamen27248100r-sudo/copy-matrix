@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { TraderAvatar } from "@/components/TraderAvatar";
 import { TierBadge, RiskBadge, StoppedBadge } from "@/components/TraderBadges";
 import { Sparkline } from "@/components/Sparkline";
+import { ConfirmButton } from "@/components/ConfirmButton";
 import { periodStats, DEFAULT_PERIOD, type Period } from "@/lib/leader-period";
 import { fmtDrawdown, fmtReturn, fmtWinRate } from "@/lib/format-stats";
 
@@ -106,8 +107,8 @@ export async function LeaderCard({
               title={isWatching ? t("unfollow") : t("follow")}
               className={
                 isWatching
-                  ? "flex h-8 w-8 items-center justify-center rounded-full border border-accent/40 bg-accent/10 text-accent transition hover:bg-accent/15"
-                  : "flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted transition hover:border-accent/40 hover:text-accent"
+                  ? "tap-44 flex h-8 w-8 items-center justify-center rounded-full border border-accent/40 bg-accent/10 text-accent transition hover:bg-accent/15"
+                  : "tap-44 flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted transition hover:border-accent/40 hover:text-accent"
               }
             >
               <svg viewBox="0 0 24 24" className="h-4 w-4" fill={isWatching ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -205,9 +206,12 @@ export async function LeaderCard({
           <form action={onStopCopyingAction}>
             <input type="hidden" name="providerId" value={p.provider_id} />
             <input type="hidden" name="returnTo" value="/discover" />
-            <button type="submit" className="w-full rounded-lg border border-border px-3 py-2.5 text-sm transition hover:border-muted">
+            <ConfirmButton
+              confirmText={t("stopCopyingConfirm", { name: p.display_name })}
+              className="w-full rounded-lg border border-border px-3 py-2.5 text-sm transition hover:border-muted disabled:opacity-60"
+            >
               {t("stopCopying")}
-            </button>
+            </ConfirmButton>
           </form>
         ) : copyState === "stoppedDisabled" ? (
           <button type="button" disabled title={t("stoppedTooltip")} className="w-full cursor-not-allowed rounded-lg bg-border px-3 py-2.5 text-sm font-medium text-muted">

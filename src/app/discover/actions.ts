@@ -10,6 +10,7 @@ import { sendSupportEmail } from "@/lib/email";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
 import { formatDate } from "@/lib/locale-format";
 import { translateBio } from "@/lib/bio-translations";
+import { isUuid } from "@/lib/uuid";
 
 type FollowEmailTranslator = (key: string, values?: Record<string, string | number>) => string;
 
@@ -57,7 +58,8 @@ function traderFollowEmailHtml(
 }
 
 export async function followProvider(formData: FormData) {
-  const providerId = formData.get("providerId") as string;
+  const providerId = formData.get("providerId");
+  if (!isUuid(providerId)) redirect("/discover");
 
   const supabase = await createClient();
   const {

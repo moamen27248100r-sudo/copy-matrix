@@ -425,7 +425,8 @@
     "activityLow": "活跃度低",
     "activityNone": "不活跃",
     "reliabilityStatusNone": "暂无评分",
-    "gaugeTipActivity": "交易频率：过去 90 天内每周平仓的交易数。每周 5 笔及以上为非常活跃，1 笔及以上为活跃。"
+    "gaugeTipActivity": "交易频率：过去 90 天内每周平仓的交易数。每周 5 笔及以上为非常活跃，1 笔及以上为活跃。",
+    "stopCopyingConfirm": "停止跟单 {name}？你可以随时重新开始跟单。"
   },
   "Discover": {
     "title": "发现交易员",
@@ -529,7 +530,8 @@
     "showingRange": "第 {from}–{to} 位，共 {total} 位",
     "prevPage": "上一页",
     "nextPage": "下一页",
-    "perPageLabel": "每页："
+    "perPageLabel": "每页：",
+    "stopCopyingConfirm": "停止跟单 {name}？你可以随时重新开始跟单。"
   },
   "Countries": {
     "US": "美国",
@@ -1314,7 +1316,9 @@
     "editOpen": "编辑跟单设置",
     "editTitle": "跟单设置 · {name}",
     "editConfirm": "保存更改",
-    "lockedNotice": "有未平仓的跟单交易时，金额、模式和单笔上限已锁定。止盈、止损和移动止损仍可修改。"
+    "lockedNotice": "有未平仓的跟单交易时，金额、模式和单笔上限已锁定。止盈、止损和移动止损仍可修改。",
+    "balanceBelowMin": "你的余额（{balance}）低于该交易员的最低要求（{min}）。",
+    "depositCta": "充值"
   },
   "Trades": {
     "title": "交易",
