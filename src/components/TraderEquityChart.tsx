@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { AreaLineChart, type ChartPoint } from "@/components/charts/AreaLineChart";
-import { periodChange } from "@/lib/chart-math";
 import { localeTag } from "@/lib/locale-format";
 import { useBodyScrollLock } from "@/lib/use-body-scroll-lock";
 import type { Locale } from "@/i18n/locales";
@@ -26,15 +25,11 @@ function fmtPct(v: number) {
   return `${v > 0 ? "+" : ""}${v.toFixed(2)}%`;
 }
 
-function fmtSigned(v: number) {
-  return `${v > 0 ? "+" : v < 0 ? "-" : ""}${Math.abs(v).toFixed(2)}`;
-}
-
 type ChartData = { points: ChartPoint[]; domain: [number, number] };
 
 // The interactive chart: period buttons, a header that shows the current value
-// (or the point under the cursor, with its change over the period), the chart,
-// and the Start / Current line. Rendered inline and again inside the
+// (or the point under the cursor) with the period name or the point's date
+// under it, the chart, and the Start / Current line. Rendered inline and again inside the
 // full-screen overlay.
 function EquityPanel({
   data,
@@ -51,6 +46,7 @@ function EquityPanel({
 }) {
   const t = useTranslations("TraderEquityChart");
   const tp = useTranslations("TradeHistory");
+  const tr = useTranslations("Trades");
   const locale = useLocale() as Locale;
   const tag = localeTag(locale);
   const { points, domain } = data;
@@ -61,16 +57,14 @@ function EquityPanel({
   const last = points[n - 1].v;
   const idx = hoverIdx != null && hoverIdx < n ? hoverIdx : n - 1;
   const shown = points[idx];
-  const change = periodChange(
-    points.map((p) => p.v),
-    idx,
-  );
-  const gain = change.abs >= 0;
+  const gain = shown.v >= 0;
+  const periodDays = PERIODS[periodIdx].days;
+  // "Last 30 days" ... or "All" for the whole history.
+  const periodLabel = periodDays != null ? tr("lastDays", { days: periodDays }) : tp(PERIODS[periodIdx].labelKey);
   const dateLine =
     hoverIdx != null && shown.t != null
       ? new Date(shown.t).toLocaleDateString(tag, { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" })
-      : t("current");
-  const periodLabel = tp(PERIODS[periodIdx].labelKey);
+      : periodLabel;
 
   return (
     <div className="flex flex-col gap-3">
@@ -96,15 +90,15 @@ function EquityPanel({
       <div className="rounded-lg border border-border/50 bg-background p-3">
         <div className="mb-2 flex items-start justify-between gap-3">
           <div className="min-w-0" aria-live="polite">
-            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
-              <span className="text-[28px] font-bold leading-tight tabular-nums text-foreground" dir="ltr">
-                {fmtPct(shown.v)}
+            <span
+              className={`flex items-baseline gap-1.5 text-[28px] font-bold leading-tight tabular-nums ${gain ? "text-success" : "text-danger"}`}
+              dir="ltr"
+            >
+              <span className="text-sm" aria-hidden="true">
+                {gain ? "▲" : "▼"}
               </span>
-              <span className={`text-sm font-semibold tabular-nums ${gain ? "text-success" : "text-danger"}`} dir="ltr">
-                {gain ? "▲" : "▼"} {fmtSigned(change.abs)}
-                {change.pct != null && ` (${fmtSigned(change.pct)}%)`}
-              </span>
-            </div>
+              {fmtPct(shown.v)}
+            </span>
             <p className="text-xs text-muted" dir="auto">
               {dateLine}
             </p>
