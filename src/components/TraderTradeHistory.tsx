@@ -11,6 +11,7 @@ import {
   periodLabelKey,
 } from "@/components/HistoryPeriodSheet";
 import { tradeDeltaPoints } from "@/lib/pip-specs";
+import { TradeRow } from "@/components/trades/TradeRow";
 
 export type HistoryTrade = {
   id: string;
@@ -178,7 +179,7 @@ export function TraderTradeHistory({ trades, days }: { trades: HistoryTrade[]; d
       {totals.count === 0 ? (
         <p className="py-10 text-center text-sm text-muted">{tp("noTradesInPeriod")}</p>
       ) : (
-        <ul className="flex flex-col">
+        <ul className="flex flex-col md:mx-auto md:w-full md:max-w-3xl">
           {shown.map((x) => {
             const open = expandedId === x.id;
             const gain = (x.pnl ?? x.pct) >= 0;
@@ -189,32 +190,15 @@ export function TraderTradeHistory({ trades, days }: { trades: HistoryTrade[]; d
             const pnlText = x.pnl != null ? money(x.pnl, { signed: true }) : null;
             const detailId = `trade-detail-${x.id}`;
             return (
-              <li key={x.id} className="border-b border-white/[0.05] last:border-b-0">
+              <li key={x.id}>
                 <button
                   type="button"
                   onClick={() => setExpandedId(open ? null : x.id)}
                   aria-expanded={open}
                   aria-controls={detailId}
-                  className="flex w-full flex-col gap-1 py-3 text-start"
+                  className="block w-full py-[5px] text-start"
                 >
-                  <div className="flex items-baseline justify-between gap-3">
-                    <span className="flex min-w-0 items-baseline gap-1.5 text-base" dir="ltr">
-                      <span className="font-bold text-foreground">{x.symbol}</span>
-                      <span className={`font-medium ${dirTone}`}>
-                        {x.side}
-                        {x.lot != null && ` ${formatLot(x.lot)}`}
-                      </span>
-                    </span>
-                    <span className={`shrink-0 text-base font-bold ${tone}`} dir="ltr">
-                      {pnlText ?? `${signed(x.pct, Math.abs(x.pct).toFixed(2))}%`}
-                    </span>
-                  </div>
-                  <div className="flex items-baseline justify-between gap-3 text-[13px] text-muted">
-                    <span dir="ltr">
-                      {formatPrice(x.entry)} → {formatPrice(x.exit)}
-                    </span>
-                    <span dir="ltr">{formatDateTime(x.closedAt)}</span>
-                  </div>
+                  <TradeRow symbol={x.symbol} side={x.side} lots={x.lot} pnl={x.pnl} pct={x.pct} from={x.entry} to={x.exit} date={x.closedAt} />
                 </button>
 
                 <div

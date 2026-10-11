@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { getOwnProviderId } from "@/lib/lead-trader";
 import { placeLeadOrder, closeLeadOrder } from "@/app/lead/trades/actions";
+import { TradeRow } from "@/components/trades/TradeRow";
 
 const SYMBOLS = ["BTCUSDT", "ETHUSDT", "SOLUSDT", "BNBUSDT", "XRPUSDT", "XAUUSD", "EURUSD", "GBPUSD", "USDJPY"];
 
@@ -158,22 +159,24 @@ export default async function LeadTradesPage({
           </table>
         </div>
       ) : (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col">
           {signals.map((s) => {
             const pct = pctOf(s);
             return (
-              <div key={s.id} className="flex items-center justify-between gap-3 rounded-xl border border-border bg-surface p-3">
-                <div className="min-w-0">
-                  <p className="text-sm font-medium" dir="ltr">
-                    {s.symbol} <span className={s.side === "buy" ? "text-accent" : "text-danger"}>{s.side === "buy" ? t("buy") : t("sell")}</span>
-                  </p>
-                  <p className="text-xs text-muted tabular-nums" dir="ltr">
-                    {s.entry_price} · {t("copiers")}: {copiedCountBySignal.get(s.id) ?? 0}
-                  </p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className={`text-sm tabular-nums ${pct != null && pct >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
-                    {pct != null ? `${pct >= 0 ? "+" : ""}${(pct * 100).toFixed(2)}%` : "—"}
+              <div key={s.id} className="py-[5px]">
+                <TradeRow
+                  symbol={s.symbol}
+                  side={s.side}
+                  lots={s.lot_size != null ? Number(s.lot_size) : null}
+                  pnl={null}
+                  pct={pct != null ? pct * 100 : null}
+                  from={s.entry_price}
+                  to={priceBySymbol.get(s.symbol)}
+                  date={s.opened_at}
+                />
+                <div className="mt-1 flex items-center justify-between gap-3 text-xs text-muted">
+                  <span dir="ltr">
+                    {t("copiers")}: {copiedCountBySignal.get(s.id) ?? 0}
                   </span>
                   <form action={closeLeadOrder}>
                     <input type="hidden" name="signalId" value={s.id} />

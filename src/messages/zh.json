@@ -148,11 +148,6 @@
     "startingPoint": "起点：{amount}",
     "periodDay": "1天",
     "copiedPositionsTitle": "当前跟单仓位",
-    "tableSymbol": "品种",
-    "tableSide": "方向",
-    "tableEntry": "开仓价",
-    "tableMarket": "市场价",
-    "tablePnl": "盈亏",
     "closeTrade": "平仓",
     "closeTradeConfirm": "确定要以当前市场价格立即平掉此仓位吗？",
     "noCopiedPositions": "目前没有未平仓的跟单仓位。",
@@ -186,9 +181,7 @@
     "allocationAvailableCash": "可用现金",
     "mostCopiedThisWeekTitle": "本周最多人跟单",
     "copiersThisWeek": "本周新增 {count} 位跟单者",
-    "tableTrader": "交易员",
     "viewAllPositions": "查看全部 {count} 个持仓",
-    "tableSize": "手数",
     "resetBalanceConfirm": "将模拟余额重置为 10,000 USDT？当前的跟单将会停止。"
   },
   "Common": {
@@ -369,11 +362,8 @@
     "current": "当前"
   },
   "OpenOrders": {
-    "entryPrefix": "入场",
-    "currentPrefix": "当前",
     "noOpenOrders": "该交易员目前没有持仓中的交易。",
-    "totalFloatingPnl": "浮动盈亏总计",
-    "lotSize": "{lot} 手"
+    "totalFloatingPnl": "浮动盈亏总计"
   },
   "TraderProfile": {
     "follow": "关注",
@@ -1976,9 +1966,7 @@
   },
   "LivePrices": {
     "forexDaily": "每日汇率 · {date}",
-    "forexDailyNoDate": "每日汇率",
-    "lots": "{lots} 手",
-    "entryLabel": "开仓"
+    "forexDailyNoDate": "每日汇率"
   },
   "TwoFactor": {
     "title": "双重验证",

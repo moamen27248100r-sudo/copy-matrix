@@ -148,11 +148,6 @@
     "startingPoint": "Mulai: {amount}",
     "periodDay": "1H",
     "copiedPositionsTitle": "Posisi Salinan Aktif",
-    "tableSymbol": "Simbol",
-    "tableSide": "Jenis",
-    "tableEntry": "Harga Masuk",
-    "tableMarket": "Harga Pasar",
-    "tablePnl": "Untung/Rugi",
     "closeTrade": "Tutup",
     "closeTradeConfirm": "Tutup posisi ini sekarang pada harga pasar saat ini?",
     "noCopiedPositions": "Tidak ada posisi salinan yang terbuka saat ini.",
@@ -186,9 +181,7 @@
     "allocationAvailableCash": "Kas tersedia",
     "mostCopiedThisWeekTitle": "Paling banyak disalin minggu ini",
     "copiersThisWeek": "{count} penyalin baru minggu ini",
-    "tableTrader": "Trader",
     "viewAllPositions": "Lihat semua {count} posisi",
-    "tableSize": "Ukuran",
     "resetBalanceConfirm": "Atur ulang saldo demo ke 10.000 USDT? Salinan Anda saat ini akan dihentikan."
   },
   "Common": {
@@ -369,11 +362,8 @@
     "current": "Saat ini"
   },
   "OpenOrders": {
-    "entryPrefix": "Entri",
-    "currentPrefix": "Saat ini",
     "noOpenOrders": "Tidak ada trade terbuka untuk trader ini saat ini.",
-    "totalFloatingPnl": "Total P/L mengambang",
-    "lotSize": "{lot} lot"
+    "totalFloatingPnl": "Total P/L mengambang"
   },
   "TraderProfile": {
     "follow": "Ikuti",
@@ -1975,9 +1965,7 @@
   },
   "LivePrices": {
     "forexDaily": "Kurs harian · {date}",
-    "forexDailyNoDate": "Kurs harian",
-    "lots": "{lots} lot",
-    "entryLabel": "Masuk"
+    "forexDailyNoDate": "Kurs harian"
   },
   "TwoFactor": {
     "title": "Autentikasi dua faktor",

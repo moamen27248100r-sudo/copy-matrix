@@ -35,7 +35,7 @@ export default async function TradesPage({
   const { data: acct } = await supabase.from("profiles").select("account_type").eq("id", user.id).single();
   const { data: openRows } = await supabase
     .from("simulated_positions")
-    .select("id, entry_price, size, take_profit, stop_loss, signals(symbol, side, stop_loss, take_profit)")
+    .select("id, entry_price, size, opened_at, take_profit, stop_loss, signals(symbol, side, stop_loss, take_profit)")
     .eq("follower_id", user.id)
     .eq("account_type", acct?.account_type === "real" ? "real" : "demo")
     .eq("status", "open")
@@ -51,6 +51,7 @@ export default async function TradesPage({
         side: s.side,
         entry_price: Number(r.entry_price),
         size: Number(r.size),
+        opened_at: (r.opened_at as string | null) ?? null,
         take_profit: (r.take_profit as number | null) ?? s.take_profit,
         stop_loss: (r.stop_loss as number | null) ?? s.stop_loss,
       },

@@ -148,11 +148,6 @@
     "startingPoint": "Start: {amount}",
     "periodDay": "1D",
     "copiedPositionsTitle": "Active Copied Positions",
-    "tableSymbol": "Symbol",
-    "tableSide": "Side",
-    "tableEntry": "Entry Price",
-    "tableMarket": "Market Price",
-    "tablePnl": "PnL",
     "closeTrade": "Close",
     "closeTradeConfirm": "Close this position now at the current market price?",
     "noCopiedPositions": "No open copied positions right now.",
@@ -186,9 +181,7 @@
     "allocationAvailableCash": "Available cash",
     "mostCopiedThisWeekTitle": "Most copied this week",
     "copiersThisWeek": "{count} new copiers this week",
-    "tableTrader": "Trader",
     "viewAllPositions": "View all {count} positions",
-    "tableSize": "Size",
     "resetBalanceConfirm": "Reset your demo balance to 10,000 USDT? Your current copies will stop."
   },
   "Common": {
@@ -369,11 +362,8 @@
     "current": "Current"
   },
   "OpenOrders": {
-    "entryPrefix": "Entry",
-    "currentPrefix": "Current",
     "noOpenOrders": "No open trades for this trader right now.",
-    "totalFloatingPnl": "Total floating P/L",
-    "lotSize": "{lot} lot"
+    "totalFloatingPnl": "Total floating P/L"
   },
   "TraderProfile": {
     "follow": "Follow",
@@ -1979,9 +1969,7 @@
   },
   "LivePrices": {
     "forexDaily": "Daily rate · {date}",
-    "forexDailyNoDate": "Daily rate",
-    "lots": "{lots} lot",
-    "entryLabel": "Entry"
+    "forexDailyNoDate": "Daily rate"
   },
   "TwoFactor": {
     "title": "Two-factor authentication",

@@ -4,6 +4,8 @@ import { useMoney } from "@/lib/money-client";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
+import { TradeRow } from "@/components/trades/TradeRow";
+import { lotsFromSize } from "@/lib/pip-specs";
 
 type Trade = {
   id: string;
@@ -160,46 +162,30 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
           <p className="text-sm text-muted">{tt("noTradesInPeriod")}</p>
         </div>
       ) : (
-        <div className="relative h-[520px] space-y-2 overflow-y-auto pe-1 scroll-subtle">
+        <div className="relative h-[520px] overflow-y-auto pe-1 scroll-subtle md:mx-auto md:w-full md:max-w-3xl">
           {filtered.map((t) => {
             const isExpanded = expandedId === t.id;
             const isProfit = (t.pnl ?? t.pct) >= 0;
             const deltaPoints = t.exit != null ? (t.exit - t.entry) * (t.side === "sell" ? -1 : 1) : null;
 
             return (
-              <div key={t.id} className="overflow-hidden rounded-lg border border-border bg-surface">
+              <div key={t.id}>
                 <button
                   type="button"
                   onClick={() => setExpandedId(isExpanded ? null : t.id)}
                   aria-expanded={isExpanded}
-                  className="flex w-full flex-col gap-1.5 p-3 text-start"
+                  className="block w-full py-[5px] text-start"
                 >
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="flex min-w-0 items-center gap-1.5 text-sm">
-                      <span className="font-bold text-foreground" dir="ltr">
-                        {t.symbol}
-                      </span>
-                      <span className={t.side === "buy" ? "font-medium text-accent" : "font-medium text-danger"} dir="ltr">
-                        {t.side === "buy" ? "buy" : "sell"}
-                        {t.size != null && ` ${money(t.size)}`}
-                      </span>
-                    </div>
-                    {/* Trade result shown as percentage only, never a dollar
-                        amount -- matches every other record in this list;
-                        account balances/deposits elsewhere keep showing $. */}
-                    <span className={`shrink-0 font-semibold ${isProfit ? "text-success" : "text-danger"}`} dir="ltr">
-                      {isProfit ? "+" : ""}
-                      {t.pct.toFixed(2)}%
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between gap-2 text-xs text-muted">
-                    <span dir="ltr">
-                      {formatPrice(t.entry)}
-                      {" → "}
-                      {t.exit != null ? formatPrice(t.exit) : "—"}
-                    </span>
-                    <span dir="ltr">{formatPreciseDateTime(t.closedAt)}</span>
-                  </div>
+                  <TradeRow
+                    symbol={t.symbol}
+                    side={t.side}
+                    lots={t.size != null ? lotsFromSize(t.symbol, t.entry, t.size) : null}
+                    pnl={t.pnl ?? null}
+                    pct={t.pct}
+                    from={t.entry}
+                    to={t.exit}
+                    date={t.closedAt}
+                  />
                 </button>
 
                 <div
@@ -210,7 +196,7 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
                   }
                 >
                   <div className="overflow-hidden">
-                    <div className="flex flex-col gap-3 border-t border-border px-3 pb-3 pt-3">
+                    <div className="mb-2 flex flex-col gap-3 rounded-xl bg-background/60 p-3">
                       <div className="flex items-center justify-between gap-2">
                         <div>
                           <p className="text-sm font-medium" dir="ltr">

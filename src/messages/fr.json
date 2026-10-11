@@ -148,11 +148,6 @@
     "startingPoint": "Début : {amount}",
     "periodDay": "1J",
     "copiedPositionsTitle": "Positions copiées actives",
-    "tableSymbol": "Symbole",
-    "tableSide": "Sens",
-    "tableEntry": "Prix d'entrée",
-    "tableMarket": "Prix du marché",
-    "tablePnl": "Profit/Perte",
     "closeTrade": "Fermer",
     "closeTradeConfirm": "Fermer cette position maintenant au prix du marché actuel ?",
     "noCopiedPositions": "Aucune position copiée ouverte actuellement.",
@@ -186,9 +181,7 @@
     "allocationAvailableCash": "Liquidités disponibles",
     "mostCopiedThisWeekTitle": "Les plus copiés cette semaine",
     "copiersThisWeek": "{count} nouveaux copieurs cette semaine",
-    "tableTrader": "Trader",
     "viewAllPositions": "Voir les {count} positions",
-    "tableSize": "Taille",
     "resetBalanceConfirm": "Réinitialiser votre solde démo à 10 000 USDT ? Vos copies en cours seront arrêtées."
   },
   "Common": {
@@ -369,11 +362,8 @@
     "current": "Actuel"
   },
   "OpenOrders": {
-    "entryPrefix": "Entrée",
-    "currentPrefix": "Actuel",
     "noOpenOrders": "Aucune position ouverte pour ce trader actuellement.",
-    "totalFloatingPnl": "P/L flottant total",
-    "lotSize": "{lot} lot"
+    "totalFloatingPnl": "P/L flottant total"
   },
   "TraderProfile": {
     "follow": "Suivre",
@@ -1976,9 +1966,7 @@
   },
   "LivePrices": {
     "forexDaily": "Taux quotidien · {date}",
-    "forexDailyNoDate": "Taux quotidien",
-    "lots": "{lots} lot",
-    "entryLabel": "Entrée"
+    "forexDailyNoDate": "Taux quotidien"
   },
   "TwoFactor": {
     "title": "Authentification à deux facteurs",

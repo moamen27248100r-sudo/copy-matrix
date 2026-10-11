@@ -4,10 +4,11 @@ import { useMoney } from "@/lib/money-client";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { SymbolIcon } from "@/lib/symbol-icons";
 import { useLivePricesMeta } from "@/lib/use-live-prices";
 import { FOREX_SYMBOLS, lotsFromSize, openPositionPnl } from "@/lib/pip-specs";
 import { ForexAsOfNote } from "@/components/ForexAsOfNote";
+import { TradeRow } from "@/components/trades/TradeRow";
+import { formatTradePrice } from "@/lib/trade-format";
 import { updatePositionTpSl } from "@/app/trades/actions";
 
 type Position = {
@@ -16,13 +17,10 @@ type Position = {
   side: string;
   entry_price: number;
   size: number;
+  opened_at?: string | null;
   take_profit: number | null;
   stop_loss: number | null;
 };
-
-function formatPrice(value: number) {
-  return value.toLocaleString("en-US", { maximumFractionDigits: 4 });
-}
 
 function PositionRow({
   pos,
@@ -35,9 +33,7 @@ function PositionRow({
   forexAsOf: string | undefined;
   returnTo: string;
 }) {
-  const tl = useTranslations("LivePrices");
   const tt = useTranslations("Trades");
-  const money = useMoney();
   const [editing, setEditing] = useState(false);
   const [flash, setFlash] = useState<"up" | "down" | null>(null);
   const prevPrice = useRef<number | undefined>(current);
@@ -61,65 +57,32 @@ function PositionRow({
   return (
     <div
       className={
-        "flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-surface p-3 transition-colors duration-500 " +
+        "rounded-lg py-[5px] transition-colors duration-500 " +
         (flash === "up" ? "bg-success/10" : flash === "down" ? "bg-danger/10" : "")
       }
     >
-      <div className="flex items-center gap-2.5">
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-background text-base">
-          <SymbolIcon symbol={pos.symbol} />
-        </span>
-        <div>
-          <p className="text-sm font-medium" dir="ltr">
-            {pos.symbol}
-          </p>
-          <span
-            className={
-              pos.side === "buy"
-                ? "rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-medium text-accent"
-                : "rounded-full bg-danger/10 px-2 py-0.5 text-[10px] font-medium text-danger"
-            }
-          >
-            {pos.side === "buy" ? "BUY" : "SELL"}
-          </span>
-          {lots != null && (
-            <span className="ms-1.5 text-[11px] text-muted" dir="ltr">
-              {tl("lots", { lots })}
-            </span>
+      <TradeRow
+        symbol={pos.symbol}
+        side={pos.side}
+        lots={lots}
+        pnl={unrealizedPnl}
+        pct={pct}
+        from={pos.entry_price}
+        to={current}
+        date={pos.opened_at}
+      />
+      <div className="mt-1 flex flex-wrap items-center justify-between gap-x-3 gap-y-0.5 text-xs text-muted" dir="ltr">
+        <span>
+          {(pos.take_profit != null || pos.stop_loss != null) && (
+            <>
+              {pos.take_profit != null && <>TP {formatTradePrice(pos.take_profit, pos.symbol)}</>}
+              {pos.take_profit != null && pos.stop_loss != null && " · "}
+              {pos.stop_loss != null && <>SL {formatTradePrice(pos.stop_loss, pos.symbol)}</>}
+            </>
           )}
-        </div>
-      </div>
-      <div className="text-end">
-        <p
-          className={
-            unrealizedPnl == null
-              ? "text-sm font-semibold text-muted transition-colors duration-300"
-              : unrealizedPnl >= 0
-                ? "text-sm font-semibold text-success transition-colors duration-300"
-                : "text-sm font-semibold text-danger transition-colors duration-300"
-          }
-          dir="ltr"
-        >
-          {unrealizedPnl != null
-            ? money(unrealizedPnl, { signed: true })
-            : "—"}
-        </p>
-        <p className="text-xs text-muted" dir="ltr">
-          {pct != null ? `${pct >= 0 ? "+" : ""}${pct.toFixed(2)}%` : "—"}
-          {current != null && <> · {formatPrice(current)}</>}
-        </p>
-        <p className="text-[11px] text-muted" dir="ltr">
-          {tl("entryLabel")} {formatPrice(pos.entry_price)}
-        </p>
-        {FOREX_SYMBOLS.includes(pos.symbol) && <ForexAsOfNote asOf={forexAsOf} />}
-        {(pos.take_profit != null || pos.stop_loss != null) && (
-          <p className="text-[11px] text-muted" dir="ltr">
-            {pos.take_profit != null && <>TP {formatPrice(pos.take_profit)}</>}
-            {pos.take_profit != null && pos.stop_loss != null && " · "}
-            {pos.stop_loss != null && <>SL {formatPrice(pos.stop_loss)}</>}
-          </p>
-        )}
-        <button type="button" onClick={() => setEditing((v) => !v)} className="mt-1 text-[11px] font-medium text-accent hover:underline">
+          {FOREX_SYMBOLS.includes(pos.symbol) && <ForexAsOfNote asOf={forexAsOf} />}
+        </span>
+        <button type="button" onClick={() => setEditing((v) => !v)} className="font-medium text-accent hover:underline">
           {tt("editTpSl")}
         </button>
       </div>

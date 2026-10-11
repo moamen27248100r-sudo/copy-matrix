@@ -148,11 +148,6 @@
     "startingPoint": "البداية: {amount}",
     "periodDay": "يوم",
     "copiedPositionsTitle": "الصفقات المنسوخة النشطة",
-    "tableSymbol": "الرمز",
-    "tableSide": "النوع",
-    "tableEntry": "سعر الدخول",
-    "tableMarket": "سعر السوق",
-    "tablePnl": "الربح/الخسارة",
     "closeTrade": "إغلاق",
     "closeTradeConfirm": "هل أنت متأكد من إغلاق هذه الصفقة الآن بسعر السوق الحالي؟",
     "noCopiedPositions": "لا توجد صفقات منسوخة مفتوحة حاليًا.",
@@ -186,9 +181,7 @@
     "allocationAvailableCash": "نقدي متاح",
     "mostCopiedThisWeekTitle": "الأكثر نسخًا هذا الأسبوع",
     "copiersThisWeek": "{count} ناسخ جديد هذا الأسبوع",
-    "tableTrader": "المتداول",
     "viewAllPositions": "عرض كل الصفقات ({count})",
-    "tableSize": "الحجم",
     "resetBalanceConfirm": "هل تريد إعادة تعيين رصيدك التجريبي إلى 10,000 USDT؟ سيتوقف النسخ الحالي."
   },
   "Common": {
@@ -369,11 +362,8 @@
     "current": "الحالي"
   },
   "OpenOrders": {
-    "entryPrefix": "دخول",
-    "currentPrefix": "الحالي",
     "noOpenOrders": "لا توجد صفقات مفتوحة حاليًا لهذا المتداول.",
-    "totalFloatingPnl": "إجمالي التذبذب العائم",
-    "lotSize": "{lot} لوت"
+    "totalFloatingPnl": "إجمالي التذبذب العائم"
   },
   "TraderProfile": {
     "follow": "متابعة",
@@ -2040,9 +2030,7 @@
   },
   "LivePrices": {
     "forexDaily": "سعر يومي · {date}",
-    "forexDailyNoDate": "سعر يومي",
-    "lots": "{lots} لوت",
-    "entryLabel": "الدخول"
+    "forexDailyNoDate": "سعر يومي"
   },
   "TwoFactor": {
     "title": "التحقق الثنائي",

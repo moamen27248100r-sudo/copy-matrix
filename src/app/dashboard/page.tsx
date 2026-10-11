@@ -415,6 +415,7 @@ export default async function DashboardPage({
                     side: signal?.side ?? "buy",
                     entry_price: p.entry_price,
                     size: p.size,
+                    opened_at: p.opened_at,
                     traderName: providerNameBySubscription.get(p.subscription_id) ?? "",
                   };
                 })}

@@ -178,6 +178,7 @@ export default async function PortfolioPage({
         side: signal.side,
         entry_price: Number(pos.entry_price),
         size: Number(pos.size),
+        opened_at: (pos.opened_at as string | null) ?? null,
         take_profit: pos.take_profit ?? signal.take_profit,
         stop_loss: pos.stop_loss ?? signal.stop_loss,
       };
