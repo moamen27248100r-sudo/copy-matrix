@@ -7,6 +7,7 @@ import { AppNav } from "@/components/AppNav";
 import { LeaderCard } from "@/components/LeaderCard";
 import { DiscoverFilterSheet } from "@/components/DiscoverFilterSheet";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { fmtDrawdown, fmtReturn, fmtWinRate } from "@/lib/format-stats";
 import { isSelfServiceLeadTraderEligible } from "@/lib/lead-trader-tasks";
 import {
   PERIODS,
@@ -451,13 +452,13 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
                         </Link>
                       </td>
                       <td className={`px-3 py-3 text-sm ${s.roi != null && s.roi < 0 ? "text-danger" : "text-success"}`} dir="ltr">
-                        {s.roi != null ? `${s.roi > 0 ? "+" : ""}${s.roi.toFixed(2)}%` : "—"}
+                        {fmtReturn(s.roi)}
                       </td>
                       <td className={`px-3 py-3 text-sm ${s.pnl != null && s.pnl < 0 ? "text-danger" : ""}`} dir="ltr">
                         {s.pnl != null ? money(s.pnl, { signed: true, compact: true }) : "—"}
                       </td>
-                      <td className="px-3 py-3 text-sm" dir="ltr">{s.winRate != null ? `${s.winRate.toFixed(1)}%` : "—"}</td>
-                      <td className="px-3 py-3 text-sm" dir="ltr">{s.mdd != null ? `${s.mdd.toFixed(1)}%` : "—"}</td>
+                      <td className="px-3 py-3 text-sm" dir="ltr">{fmtWinRate(s.winRate)}</td>
+                      <td className="px-3 py-3 text-sm" dir="ltr">{fmtDrawdown(s.mdd)}</td>
                       <td className="px-3 py-3 text-sm">{p.followers_count}</td>
                       <td className="px-3 py-3 text-sm" dir="ltr">{p.aum ? money(Number(p.aum), { compact: true }) : "—"}</td>
                       <td className="px-3 py-3 text-sm" dir="ltr">{p.profit_share_pct != null ? `${Number(p.profit_share_pct)}%` : "—"}</td>

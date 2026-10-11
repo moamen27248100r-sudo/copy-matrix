@@ -4,8 +4,8 @@
 // (no axes). `values` is the cumulative return series in percent.
 
 import { AreaLineChart } from "@/components/charts/AreaLineChart";
+import { fmtReturn } from "@/lib/format-stats";
 
-const fmtPct = (v: number) => `${v > 0 ? "+" : ""}${v.toFixed(1)}%`;
 
 export function Sparkline({ values, className = "" }: { values: number[]; className?: string }) {
   if (values.length < 3) return <div className={className} aria-hidden="true" />;
@@ -15,7 +15,7 @@ export function Sparkline({ values, className = "" }: { values: number[]; classN
       mode="static"
       height={64}
       points={values.map((v) => ({ v }))}
-      format={fmtPct}
+      format={fmtReturn}
       ariaLabel="Return"
       className={className}
     />

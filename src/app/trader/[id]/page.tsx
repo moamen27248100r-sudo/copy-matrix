@@ -22,6 +22,7 @@ import { CopyDialog } from "@/components/CopyDialog";
 import { getBioTranslator } from "@/lib/bio-translations";
 import type { Locale } from "@/i18n/locales";
 import { leaderScores } from "@/lib/leader-scores";
+import { fmtDrawdown, fmtReturn, fmtWinRate } from "@/lib/format-stats";
 
 type SignalRow = {
   id: string;
@@ -406,13 +407,13 @@ export default async function TraderPage({
           </div>
           <div>
             <p className="font-semibold">
-              {provider.win_rate_pct != null ? `${provider.win_rate_pct}%` : "—"}
+              {fmtWinRate(provider.win_rate_pct != null ? Number(provider.win_rate_pct) : null)}
             </p>
             <p className="text-xs text-muted">{t("statOverallWinRate")}</p>
           </div>
           <div>
             <p className="font-semibold text-danger" dir="ltr">
-              {maxDrawdown != null ? `-${maxDrawdown}%` : "—"}
+              {fmtDrawdown(maxDrawdown)}
             </p>
             <p className="text-xs text-muted">{t("statMaxDrawdown")}</p>
           </div>
@@ -490,7 +491,7 @@ export default async function TraderPage({
                 <div key={p.labelKey} className="rounded-lg border border-border bg-surface p-3 text-center">
                   <p className="text-xs text-muted">{tp(p.labelKey)}</p>
                   <p className={p.roi != null && p.roi < 0 ? "text-lg font-semibold text-danger" : "text-lg font-semibold text-success"} dir="ltr">
-                    {p.roi != null && p.trades > 0 ? `${p.roi > 0 ? "+" : ""}${p.roi.toFixed(2)}%` : "—"}
+                    {p.roi != null && p.trades > 0 ? fmtReturn(p.roi) : "—"}
                   </p>
                   <p className="text-xs text-muted">
                     {p.winRate != null && p.trades > 0 ? t("winRateInline", { pct: p.winRate }) : t("noTradesLabel")}

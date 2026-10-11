@@ -5,6 +5,7 @@ import { TraderAvatar } from "@/components/TraderAvatar";
 import { TierBadge, RiskBadge, StoppedBadge } from "@/components/TraderBadges";
 import { Sparkline } from "@/components/Sparkline";
 import { periodStats, DEFAULT_PERIOD, type Period } from "@/lib/leader-period";
+import { fmtDrawdown, fmtReturn, fmtWinRate } from "@/lib/format-stats";
 
 type ProviderCard = {
   provider_id: string;
@@ -121,8 +122,7 @@ export async function LeaderCard({
         <div className="relative z-10 rounded-xl border border-white/5 bg-background p-3">
           <div className="flex items-center justify-end text-[11px] text-muted">
             <span dir="ltr" className={`font-semibold ${sparkline[sparkline.length - 1] >= 0 ? "text-success" : "text-danger"}`}>
-              {sparkline[sparkline.length - 1] >= 0 ? "+" : ""}
-              {sparkline[sparkline.length - 1].toFixed(1)}%
+              {fmtReturn(sparkline[sparkline.length - 1])}
             </span>
           </div>
           <Sparkline values={sparkline} className="mt-2" />
@@ -135,19 +135,19 @@ export async function LeaderCard({
           lighter muted label underneath). */}
       <div className="flex items-center overflow-hidden rounded-xl border border-white/[0.06] bg-background/60">
         <div className="flex-1 border-e border-white/10 px-2 py-2.5 text-center">
-          <p className="text-sm font-semibold text-success">{stats.winRate != null ? `${stats.winRate.toFixed(1)}%` : "—"}</p>
+          <p className="text-sm font-semibold text-success">{fmtWinRate(stats.winRate)}</p>
           <p className="text-[11px] font-normal text-muted">{t("winRate")}</p>
         </div>
         <div className="flex-1 border-e border-white/10 px-2 py-2.5 text-center">
           {maxDrawdownPct !== undefined ? (
             <>
-              <p className="text-sm font-semibold text-foreground">{maxDrawdownPct != null ? `${maxDrawdownPct.toFixed(1)}%` : "—"}</p>
+              <p className="text-sm font-semibold text-foreground">{fmtDrawdown(maxDrawdownPct)}</p>
               <p className="text-[11px] font-normal text-muted">{t("maxDrawdown")}</p>
             </>
           ) : (
             <>
               <p className={isDown ? "text-sm font-semibold text-danger" : "text-sm font-semibold text-success"} dir="ltr">
-                {stats.roi != null ? `${stats.roi > 0 ? "+" : ""}${stats.roi.toFixed(2)}%` : "—"}
+                {fmtReturn(stats.roi)}
               </p>
               <p className="text-[11px] font-normal text-muted">{t("roiLabel", { period: periodLabel })}</p>
             </>
@@ -167,7 +167,7 @@ export async function LeaderCard({
           <p>{t("pnlLabel")}</p>
         </div>
         <div>
-          <p dir="ltr" className="font-medium text-foreground">{stats.mdd != null ? `${stats.mdd.toFixed(1)}%` : "—"}</p>
+          <p dir="ltr" className="font-medium text-foreground">{fmtDrawdown(stats.mdd)}</p>
           <p>{t("maxDrawdown")}</p>
         </div>
         <div>

@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
 import { parsePeriod, periodStats } from "@/lib/leader-period";
+import { fmtReturn } from "@/lib/format-stats";
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
@@ -23,7 +24,7 @@ export default async function ComparePage({ searchParams }: { searchParams: Prom
   const { data: providers } = await supabase.from("provider_cards").select("*").in("provider_id", idList);
   const list = idList.map((id) => providers?.find((p) => p.provider_id === id)).filter((p) => !!p);
 
-  const pct = (v: number | null | undefined, signed = false) => (v == null ? "—" : `${signed && v > 0 ? "+" : ""}${v.toFixed(2)}%`);
+  const pct = (v: number | null | undefined, signed = false) => (v == null ? "—" : signed ? fmtReturn(v) : `${v.toFixed(2)}%`);
   const periodLabel = t(`periodShort_${period}`);
   const rows: { label: string; value: (p: (typeof list)[number]) => string }[] = [
     { label: t("roiLabel", { period: periodLabel }), value: (p) => pct(periodStats(p, period).roi, true) },
