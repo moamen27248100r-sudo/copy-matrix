@@ -28,7 +28,7 @@ export function Header({
         <div className="flex items-center justify-between gap-2">
           <Logo iconClassName="h-4 w-4" textClassName="text-base" />
           <div className="flex items-center gap-2">
-            <Button href="/signup" variant="primary" size="sm" className="h-9 px-3 text-xs">
+            <Button href="/signup" variant="primary" size="sm" className="tap-44 h-9 px-3 text-xs">
               {signupLabel}
             </Button>
             <HeaderMobileMenu locale={locale} navLinks={navLinks} loginLabel={loginLabel} menuLabel={menuLabel} />
@@ -38,7 +38,7 @@ export function Header({
 
       <div className="mx-auto hidden max-w-6xl px-2 py-3 sm:px-6 sm:py-4 md:block">
         <div className="grid grid-cols-[auto_1fr_auto] items-center gap-0.5 sm:gap-3">
-          <Button href="/signup" variant="primary" size="sm" className="min-w-0 px-1 sm:px-4">
+          <Button href="/signup" variant="primary" size="sm" className="tap-44 min-w-0 px-1 sm:px-4">
             {signupLabel}
           </Button>
 
@@ -48,7 +48,7 @@ export function Header({
 
           <div className="flex min-w-0 items-center gap-0.5 sm:gap-3">
             <LanguageSwitcher currentLocale={locale} />
-            <Button href="/login" variant="outline" size="sm" className="min-w-0 px-0.5 sm:px-4">
+            <Button href="/login" variant="outline" size="sm" className="tap-44 min-w-0 px-0.5 sm:px-4">
               {loginLabel}
             </Button>
           </div>

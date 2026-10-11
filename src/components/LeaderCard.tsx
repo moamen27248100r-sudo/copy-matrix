@@ -23,6 +23,15 @@ type ProviderCard = {
   [column: string]: unknown;
 };
 
+// The period a number was computed over (7D / 30D / ...), small and grey beside it.
+function PeriodTag({ label }: { label: string }) {
+  return (
+    <span dir="ltr" className="ms-0.5 text-[9px] font-medium uppercase tracking-wide text-muted/70">
+      {label}
+    </span>
+  );
+}
+
 // One card, used by both the homepage's featured-leaders section and the
 // full discover grid -- a single shared component so a future visual
 // change only has to happen once. Everything beyond the always-shown
@@ -137,7 +146,9 @@ export async function LeaderCard({
       <div className="flex items-center overflow-hidden rounded-xl border border-white/[0.06] bg-background/60">
         <div className="flex-1 border-e border-white/10 px-2 py-2.5 text-center">
           <p className="text-sm font-semibold text-success">{fmtWinRate(stats.winRate)}</p>
-          <p className="text-[11px] font-normal text-muted">{t("winRate")}</p>
+          <p className="text-[11px] font-normal text-muted">
+            {t("winRate")} <PeriodTag label={periodLabel} />
+          </p>
         </div>
         <div className="flex-1 border-e border-white/10 px-2 py-2.5 text-center">
           {maxDrawdownPct !== undefined ? (
@@ -165,11 +176,15 @@ export async function LeaderCard({
           <p dir="ltr" className={stats.pnl != null && stats.pnl < 0 ? "font-medium text-danger" : "font-medium text-foreground"}>
             {stats.pnl != null ? money(stats.pnl, { signed: true, compact: true }) : "—"}
           </p>
-          <p>{t("pnlLabel")}</p>
+          <p>
+            {t("pnlLabel")} <PeriodTag label={periodLabel} />
+          </p>
         </div>
         <div>
           <p dir="ltr" className="font-medium text-foreground">{fmtDrawdown(stats.mdd)}</p>
-          <p>{t("maxDrawdown")}</p>
+          <p>
+            {t("maxDrawdown")} <PeriodTag label={periodLabel} />
+          </p>
         </div>
         <div>
           <p dir="ltr" className="font-medium text-foreground">{p.aum ? money(Number(p.aum), { compact: true }) : "—"}</p>

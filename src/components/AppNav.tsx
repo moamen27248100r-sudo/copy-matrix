@@ -73,7 +73,7 @@ export async function AppNav() {
           ) : (
             <Link
               href="/signup"
-              className="min-w-0 whitespace-nowrap rounded bg-accent px-2.5 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover sm:px-4"
+              className="tap-44 min-w-0 whitespace-nowrap rounded bg-accent px-2.5 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover sm:px-4"
             >
               {t("createAccount")}
             </Link>
@@ -111,7 +111,7 @@ export async function AppNav() {
               <LanguageSwitcher currentLocale={locale} />
               <Link
                 href="/login"
-                className="min-w-0 whitespace-nowrap rounded border border-border px-2 py-2 text-sm font-medium text-foreground transition hover:bg-surface sm:px-4"
+                className="tap-44 min-w-0 whitespace-nowrap rounded border border-border px-2 py-2 text-sm font-medium text-foreground transition hover:bg-surface sm:px-4"
               >
                 {t("login")}
               </Link>
