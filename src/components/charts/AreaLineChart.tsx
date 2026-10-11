@@ -3,18 +3,28 @@
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { useLocale } from "next-intl";
 import { localeTag } from "@/lib/locale-format";
+import { nearestIndex } from "@/lib/chart-math";
 import type { Locale } from "@/i18n/locales";
 
 // The platform's one line/area chart: a quiet blue line over a fading fill,
 // right-hand value axis, dashed current-value line with a white badge --
 // the look of a market-data app. Every line chart in the app renders through
 // this component; callers only supply points and a value formatter.
+//
+// Three modes:
+//   "static"      -- drawing only, no interaction (leader cards)
+//   "tooltip"     -- hover/touch shows a small value + date tooltip (default)
+//   "interactive" -- crosshair with axis badges, keyboard navigation and an
+//                    onHover callback so the caller can show the point in
+//                    its own header (leader page)
 
 export type ChartPoint = {
   v: number;
   // Epoch ms (UTC). Optional: without it the chart has no dates, only values.
   t?: number;
 };
+
+export type ChartMode = "static" | "tooltip" | "interactive";
 
 // Chart colours, all in one place. The fill is a vertical gradient of
 // FILL.color from FILL.top opacity down to FILL.bottom.
@@ -23,6 +33,9 @@ const FILL = { color: "#1E3A8A", top: 0.35, bottom: 0 };
 const GRID = "rgba(255,255,255,0.04)";
 const AXIS_TEXT = "#6B7588";
 const LAST_LINE = "rgba(184,192,204,0.65)";
+const PAGE_BG = "#0b0f17";
+const CROSS_LINE = "rgba(184,192,204,0.4)";
+const CROSS_BADGE = "#2B3548";
 const FONT = 11;
 const BADGE_FONT = 12;
 const TABULAR = { fontVariantNumeric: "tabular-nums" } as const;
@@ -53,6 +66,9 @@ export function AreaLineChart({
   timeAxis = false,
   domain,
   height,
+  mode = "tooltip",
+  onHover,
+  fadeKey,
   className = "",
 }: {
   points: ChartPoint[];
@@ -68,6 +84,11 @@ export function AreaLineChart({
   // [startMs, endMs] for the time axis; defaults to the first/last point.
   domain?: [number, number];
   height?: number;
+  mode?: ChartMode;
+  // interactive mode: index of the point under the cursor, null when none.
+  onHover?: (index: number | null) => void;
+  // Changing it replays the short fade-in (e.g. a new period).
+  fadeKey?: string | number;
   className?: string;
 }) {
   const locale = useLocale() as Locale;
@@ -76,9 +97,14 @@ export function AreaLineChart({
   const boxRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
   // Tied to the points array it was picked from, so a data change (e.g. a new
-  // period) never leaves a tooltip pointing at a stale index.
+  // period) never leaves a readout pointing at a stale index.
   const [hover, setHover] = useState<{ idx: number; src: ChartPoint[] } | null>(null);
   const hoverIdx = hover && hover.src === points ? hover.idx : null;
+  // Pointer moves are coalesced to one update per animation frame.
+  const frameRef = useRef(0);
+  const pendingX = useRef<number | null>(null);
+  const interactive = mode === "interactive";
+  const live = mode !== "static";
 
   useEffect(() => {
     const el = boxRef.current;
@@ -89,6 +115,8 @@ export function AreaLineChart({
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
+
+  useEffect(() => () => cancelAnimationFrame(frameRef.current), []);
 
   const H = height ?? (compact ? 56 : 180);
   const n = points.length;
@@ -164,18 +192,45 @@ export function AreaLineChart({
   }
 
   const hovered = hoverIdx != null && hoverIdx < n ? points[hoverIdx] : null;
-  const handlePointer = (clientX: number, el: HTMLElement) => {
-    const x = clientX - el.getBoundingClientRect().left;
-    let best = 0;
-    let bestDist = Infinity;
-    coords.forEach(([cx], i) => {
-      const d = Math.abs(cx - x);
-      if (d < bestDist) {
-        bestDist = d;
-        best = i;
-      }
+  const select = (idx: number | null) => {
+    setHover(idx == null ? null : { idx, src: points });
+    onHover?.(idx);
+  };
+  const pick = (x: number) => {
+    const idx = nearestIndex(
+      coords.map((c) => c[0]),
+      x,
+    );
+    if (idx >= 0) select(idx);
+  };
+  const schedule = (clientX: number, el: HTMLElement) => {
+    pendingX.current = clientX - el.getBoundingClientRect().left;
+    if (frameRef.current) return;
+    frameRef.current = requestAnimationFrame(() => {
+      frameRef.current = 0;
+      if (pendingX.current != null) pick(pendingX.current);
     });
-    setHover({ idx: best, src: points });
+  };
+  const clear = () => {
+    cancelAnimationFrame(frameRef.current);
+    frameRef.current = 0;
+    pendingX.current = null;
+    select(null);
+  };
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    const from = hoverIdx ?? n - 1;
+    let next: number | null = null;
+    if (e.key === "ArrowRight") next = Math.min(from + 1, n - 1);
+    else if (e.key === "ArrowLeft") next = Math.max(from - 1, 0);
+    else if (e.key === "Home") next = 0;
+    else if (e.key === "End") next = n - 1;
+    else if (e.key === "Escape") {
+      clear();
+      return;
+    }
+    if (next == null) return;
+    e.preventDefault();
+    select(next);
   };
 
   const tipW = hovered?.t != null ? 124 : 92;
@@ -184,24 +239,52 @@ export function AreaLineChart({
   const tipLeft = Math.min(Math.max(hx - tipW / 2, 2), Math.max(width - tipW - 2, 2));
   const tipTop = hy > H / 2 ? Math.max(hy - 52, 0) : hy + 12;
 
+  const liveHandlers = live
+    ? {
+        onPointerMove: (e: React.PointerEvent<HTMLDivElement>) => schedule(e.clientX, e.currentTarget),
+        onPointerDown: (e: React.PointerEvent<HTMLDivElement>) => schedule(e.clientX, e.currentTarget),
+        onPointerLeave: (e: React.PointerEvent<HTMLDivElement>) => {
+          if (e.pointerType === "mouse") clear();
+        },
+      }
+    : {};
+  // The readout follows a finger only while it is down; the page keeps its
+  // vertical scroll (touch-pan-y) and a horizontal drag belongs to the chart.
+  const interactiveProps = interactive
+    ? {
+        onPointerUp: (e: React.PointerEvent<HTMLDivElement>) => {
+          if (e.pointerType !== "mouse") clear();
+        },
+        onPointerCancel: clear,
+        onKeyDown,
+        onBlur: clear,
+        tabIndex: 0,
+        role: "img" as const,
+        "aria-label": ariaLabel || undefined,
+      }
+    : {};
+
+  const crossBadgeY = Math.min(Math.max(hy - BADGE_H / 2, 0), H - BADGE_H);
+  const dateLabel = hovered?.t != null ? fmtDay(hovered.t, true) : null;
+  const dateW = dateLabel ? Math.ceil(dateLabel.length * 6.6 + 16) : 0;
+  const dateX = Math.min(Math.max(hx - dateW / 2, 0), plotW + gutter - dateW);
+
   return (
     <div
       ref={boxRef}
       dir="ltr"
-      className={`relative w-full touch-pan-y select-none bg-background ${className}`}
+      className={`relative w-full touch-pan-y select-none bg-background outline-none focus-visible:ring-2 focus-visible:ring-brand/60 ${className}`}
       style={{ height: H }}
-      onPointerMove={(e) => handlePointer(e.clientX, e.currentTarget)}
-      onPointerDown={(e) => handlePointer(e.clientX, e.currentTarget)}
-      onPointerLeave={(e) => {
-        if (e.pointerType === "mouse") setHover(null);
-      }}
+      {...liveHandlers}
+      {...interactiveProps}
     >
       {width > 0 && (
         <svg
+          key={fadeKey ?? "chart"}
           width={width}
           height={H}
-          {...(ariaLabel ? { role: "img", "aria-label": `${ariaLabel}: ${lastLabel}` } : { "aria-hidden": true })}
-          className="block"
+          {...(ariaLabel && !interactive ? { role: "img", "aria-label": `${ariaLabel}: ${lastLabel}` } : { "aria-hidden": true })}
+          className="alc-fade block"
         >
           <defs>
             <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
@@ -221,6 +304,7 @@ export function AreaLineChart({
             ticks.map((v) => {
               const y = yFor(v);
               if (Math.abs(y - lastY) < BADGE_H * 0.8) return null;
+              if (interactive && hovered && Math.abs(y - hy) < BADGE_H * 0.8) return null;
               return (
                 <text key={v} x={plotW + 8} y={y + FONT * 0.35} fill={AXIS_TEXT} fontSize={FONT} style={TABULAR}>
                   {fmtAxis(v)}
@@ -247,16 +331,52 @@ export function AreaLineChart({
             {lastLabel}
           </text>
 
-          {hovered && (
+          {hovered && mode === "tooltip" && (
             <g pointerEvents="none">
               <line x1={hx} x2={hx} y1={PAD_TOP} y2={plotBottom} stroke="#8B95A7" strokeOpacity={0.7} strokeWidth={1} />
-              <circle cx={hx} cy={hy} r={3.5} fill={LINE} stroke="#0b0f17" strokeWidth={1.5} />
+              <circle cx={hx} cy={hy} r={3.5} fill={LINE} stroke={PAGE_BG} strokeWidth={1.5} />
+            </g>
+          )}
+
+          {hovered && interactive && (
+            <g pointerEvents="none">
+              <line x1={hx} x2={hx} y1={PAD_TOP} y2={plotBottom} stroke={CROSS_LINE} strokeWidth={1} />
+              <line x1={0} x2={plotW} y1={hy} y2={hy} stroke={CROSS_LINE} strokeWidth={1} strokeDasharray="4 4" />
+              <circle cx={hx} cy={hy} r={4.5} fill={LINE} stroke={PAGE_BG} strokeWidth={2} />
+              <rect x={plotW + 4} y={crossBadgeY} width={Math.max(gutter - 4, 1)} height={BADGE_H} rx={3} fill={CROSS_BADGE} />
+              <text
+                x={plotW + 4 + Math.max(gutter - 4, 1) / 2}
+                y={crossBadgeY + BADGE_H / 2 + BADGE_FONT * 0.36}
+                textAnchor="middle"
+                fill="#ffffff"
+                fontSize={BADGE_FONT}
+                fontWeight={600}
+                style={TABULAR}
+              >
+                {format(hovered.v)}
+              </text>
+              {!compact && dateLabel && (
+                <g>
+                  <rect x={dateX} y={H - X_AXIS_H + 1} width={dateW} height={BADGE_H - 1} rx={3} fill={CROSS_BADGE} />
+                  <text
+                    x={dateX + dateW / 2}
+                    y={H - X_AXIS_H + 1 + (BADGE_H - 1) / 2 + FONT * 0.36}
+                    textAnchor="middle"
+                    fill="#ffffff"
+                    fontSize={FONT}
+                    fontWeight={600}
+                    style={TABULAR}
+                  >
+                    {dateLabel}
+                  </text>
+                </g>
+              )}
             </g>
           )}
         </svg>
       )}
 
-      {hovered && (
+      {hovered && mode === "tooltip" && (
         <div
           className="pointer-events-none absolute z-10 rounded-md border border-border bg-background px-2.5 py-1.5 text-center shadow-lg shadow-black/40"
           style={{ left: tipLeft, top: tipTop, width: tipW }}

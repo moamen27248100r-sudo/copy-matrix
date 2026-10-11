@@ -359,7 +359,11 @@
   },
   "TraderEquityChart": {
     "start": "शुरुआत",
-    "current": "वर्तमान"
+    "current": "वर्तमान",
+    "expand": "चार्ट बड़ा करें",
+    "closeFullscreen": "बंद करें",
+    "performanceAria": "{period} में प्रदर्शन: {value}",
+    "performanceTitle": "संचयी प्रदर्शन"
   },
   "OpenOrders": {
     "noOpenOrders": "इस ट्रेडर के लिए फिलहाल कोई खुला ट्रेड नहीं है।",

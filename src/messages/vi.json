@@ -359,7 +359,11 @@
   },
   "TraderEquityChart": {
     "start": "Bắt đầu",
-    "current": "Hiện tại"
+    "current": "Hiện tại",
+    "expand": "Phóng to biểu đồ",
+    "closeFullscreen": "Đóng",
+    "performanceAria": "Hiệu suất trong {period}: {value}",
+    "performanceTitle": "Hiệu suất tích lũy"
   },
   "OpenOrders": {
     "noOpenOrders": "Hiện không có giao dịch mở nào cho nhà giao dịch này.",

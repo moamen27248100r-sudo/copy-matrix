@@ -359,7 +359,11 @@
   },
   "TraderEquityChart": {
     "start": "শুরু",
-    "current": "বর্তমান"
+    "current": "বর্তমান",
+    "expand": "চার্ট বড় করুন",
+    "closeFullscreen": "বন্ধ করুন",
+    "performanceAria": "{period} সময়ে পারফরম্যান্স: {value}",
+    "performanceTitle": "সঞ্চিত পারফরম্যান্স"
   },
   "OpenOrders": {
     "noOpenOrders": "এই ট্রেডারের জন্য বর্তমানে কোনো খোলা ট্রেড নেই।",

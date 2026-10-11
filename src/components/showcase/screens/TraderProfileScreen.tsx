@@ -64,7 +64,7 @@ export function TraderProfileScreen() {
         </div>
 
         <div className="w-full flex-1">
-          <AreaLineChart compact height={112} points={t.monthlyEquity.map((v) => ({ v }))} format={(v) => String(Math.round(v))} ariaLabel="" />
+          <AreaLineChart compact mode="static" height={112} points={t.monthlyEquity.map((v) => ({ v }))} format={(v) => String(Math.round(v))} ariaLabel="" />
         </div>
 
         <p className="text-[13px] text-muted">

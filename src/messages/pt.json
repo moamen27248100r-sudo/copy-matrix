@@ -359,7 +359,11 @@
   },
   "TraderEquityChart": {
     "start": "Início",
-    "current": "Atual"
+    "current": "Atual",
+    "expand": "Ampliar gráfico",
+    "closeFullscreen": "Fechar",
+    "performanceAria": "Desempenho em {period}: {value}",
+    "performanceTitle": "Desempenho acumulado"
   },
   "OpenOrders": {
     "noOpenOrders": "Nenhuma operação aberta para este trader no momento.",

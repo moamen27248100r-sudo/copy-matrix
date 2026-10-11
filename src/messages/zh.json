@@ -359,7 +359,11 @@
   },
   "TraderEquityChart": {
     "start": "起点",
-    "current": "当前"
+    "current": "当前",
+    "expand": "放大图表",
+    "closeFullscreen": "关闭",
+    "performanceAria": "{period}业绩：{value}",
+    "performanceTitle": "累计表现"
   },
   "OpenOrders": {
     "noOpenOrders": "该交易员目前没有持仓中的交易。",

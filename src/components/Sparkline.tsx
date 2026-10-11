@@ -12,6 +12,7 @@ export function Sparkline({ values, className = "" }: { values: number[]; classN
   return (
     <AreaLineChart
       compact
+      mode="static"
       height={64}
       points={values.map((v) => ({ v }))}
       format={fmtPct}

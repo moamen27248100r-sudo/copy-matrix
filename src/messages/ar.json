@@ -359,7 +359,11 @@
   },
   "TraderEquityChart": {
     "start": "البداية",
-    "current": "الحالي"
+    "current": "الحالي",
+    "expand": "تكبير الرسم",
+    "closeFullscreen": "إغلاق",
+    "performanceAria": "الأداء خلال {period}: {value}",
+    "performanceTitle": "منحنى الأداء التراكمي"
   },
   "OpenOrders": {
     "noOpenOrders": "لا توجد صفقات مفتوحة حاليًا لهذا المتداول.",

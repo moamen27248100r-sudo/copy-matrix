@@ -359,7 +359,11 @@
   },
   "TraderEquityChart": {
     "start": "Start",
-    "current": "Current"
+    "current": "Current",
+    "expand": "Expand chart",
+    "closeFullscreen": "Close",
+    "performanceAria": "Performance over {period}: {value}",
+    "performanceTitle": "Cumulative performance"
   },
   "OpenOrders": {
     "noOpenOrders": "No open trades for this trader right now.",

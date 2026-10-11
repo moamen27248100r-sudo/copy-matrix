@@ -347,24 +347,22 @@ th {
   display: inline-block;
 }
 
-/* Trader equity chart: soft left-to-right reveal when the period filter changes. */
-@keyframes equity-chart-reveal {
+/* Line charts: short fade when the drawn data changes (period switch). */
+@keyframes alc-fade-in {
   from {
-    clip-path: inset(0 100% 0 0);
-    opacity: 0.4;
+    opacity: 0;
   }
   to {
-    clip-path: inset(0 0 0 0);
     opacity: 1;
   }
 }
 
-.equity-chart-reveal {
-  animation: equity-chart-reveal 0.6s ease-out;
+.alc-fade {
+  animation: alc-fade-in 0.18s ease-out;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .equity-chart-reveal {
+  .alc-fade {
     animation: none;
   }
 }

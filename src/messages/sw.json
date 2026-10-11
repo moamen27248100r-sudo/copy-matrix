@@ -359,7 +359,11 @@
   },
   "TraderEquityChart": {
     "start": "Mwanzo",
-    "current": "Sasa"
+    "current": "Sasa",
+    "expand": "Kuza chati",
+    "closeFullscreen": "Funga",
+    "performanceAria": "Utendaji wa {period}: {value}",
+    "performanceTitle": "Utendaji wa jumla"
   },
   "OpenOrders": {
     "noOpenOrders": "Hakuna biashara zilizo wazi kwa mfanyabiashara huyu kwa sasa.",

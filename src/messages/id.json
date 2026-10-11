@@ -359,7 +359,11 @@
   },
   "TraderEquityChart": {
     "start": "Awal",
-    "current": "Saat ini"
+    "current": "Saat ini",
+    "expand": "Perbesar grafik",
+    "closeFullscreen": "Tutup",
+    "performanceAria": "Kinerja selama {period}: {value}",
+    "performanceTitle": "Performa kumulatif"
   },
   "OpenOrders": {
     "noOpenOrders": "Tidak ada trade terbuka untuk trader ini saat ini.",

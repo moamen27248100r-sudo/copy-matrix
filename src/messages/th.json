@@ -359,7 +359,11 @@
   },
   "TraderEquityChart": {
     "start": "เริ่มต้น",
-    "current": "ปัจจุบัน"
+    "current": "ปัจจุบัน",
+    "expand": "ขยายกราฟ",
+    "closeFullscreen": "ปิด",
+    "performanceAria": "ผลงานในช่วง {period}: {value}",
+    "performanceTitle": "ผลงานสะสม"
   },
   "OpenOrders": {
     "noOpenOrders": "ขณะนี้ไม่มีออเดอร์เปิดสำหรับเทรดเดอร์รายนี้",

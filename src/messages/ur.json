@@ -359,7 +359,11 @@
   },
   "TraderEquityChart": {
     "start": "آغاز",
-    "current": "موجودہ"
+    "current": "موجودہ",
+    "expand": "چارٹ بڑا کریں",
+    "closeFullscreen": "بند کریں",
+    "performanceAria": "{period} میں کارکردگی: {value}",
+    "performanceTitle": "مجموعی کارکردگی"
   },
   "OpenOrders": {
     "noOpenOrders": "اس ٹریڈر کے لیے فی الحال کوئی کھلی ٹریڈ نہیں۔",
