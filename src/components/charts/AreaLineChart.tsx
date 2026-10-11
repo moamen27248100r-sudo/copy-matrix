@@ -16,7 +16,10 @@ export type ChartPoint = {
   t?: number;
 };
 
-const LINE = "#5B8DEF";
+// Chart colours, all in one place. The fill is a vertical gradient of
+// FILL.color from FILL.top opacity down to FILL.bottom.
+const LINE = "#3D6FD9";
+const FILL = { color: "#1E3A8A", top: 0.35, bottom: 0 };
 const GRID = "rgba(255,255,255,0.04)";
 const AXIS_TEXT = "#6B7588";
 const LAST_LINE = "rgba(184,192,204,0.65)";
@@ -185,7 +188,7 @@ export function AreaLineChart({
     <div
       ref={boxRef}
       dir="ltr"
-      className={`relative w-full touch-pan-y select-none ${className}`}
+      className={`relative w-full touch-pan-y select-none bg-background ${className}`}
       style={{ height: H }}
       onPointerMove={(e) => handlePointer(e.clientX, e.currentTarget)}
       onPointerDown={(e) => handlePointer(e.clientX, e.currentTarget)}
@@ -202,8 +205,8 @@ export function AreaLineChart({
         >
           <defs>
             <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stopColor={LINE} stopOpacity="0.22" />
-              <stop offset="1" stopColor={LINE} stopOpacity="0.02" />
+              <stop offset="0" stopColor={FILL.color} stopOpacity={FILL.top} />
+              <stop offset="1" stopColor={FILL.color} stopOpacity={FILL.bottom} />
             </linearGradient>
           </defs>
 

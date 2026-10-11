@@ -84,7 +84,7 @@ export function TraderEquityChart({ daily }: { daily: DailySeries | null }) {
         ))}
       </div>
 
-      <div className="rounded-lg border border-border/50 bg-black/20 p-3">
+      <div className="rounded-lg border border-border/50 bg-background p-3">
         <AreaLineChart points={points} format={fmtPct} ariaLabel={t("current")} timeAxis domain={domain} />
         <div className="mt-1 flex items-center justify-between text-xs text-muted">
           <span>

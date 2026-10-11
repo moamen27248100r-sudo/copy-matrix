@@ -118,7 +118,7 @@ export async function LeaderCard({
       </div>
 
       {sparkline && sparkline.length >= 3 && (
-        <div className="relative z-10 rounded-xl border border-white/5 bg-black/20 p-3">
+        <div className="relative z-10 rounded-xl border border-white/5 bg-background p-3">
           <div className="flex items-center justify-end text-[11px] text-muted">
             <span dir="ltr" className={`font-semibold ${sparkline[sparkline.length - 1] >= 0 ? "text-success" : "text-danger"}`}>
               {sparkline[sparkline.length - 1] >= 0 ? "+" : ""}

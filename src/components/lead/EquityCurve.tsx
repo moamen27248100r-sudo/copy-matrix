@@ -13,5 +13,9 @@ export function EquityCurve({ points, label }: { points: Point[]; label: string 
     const t = Date.parse(p.t);
     return { v: p.v, t: Number.isNaN(t) ? undefined : t };
   });
-  return <AreaLineChart points={pts} format={fmtPct} ariaLabel={label} height={208} />;
+  return (
+    <div className="rounded-lg border border-border/50 bg-background p-3">
+      <AreaLineChart points={pts} format={fmtPct} ariaLabel={label} height={208} />
+    </div>
+  );
 }
