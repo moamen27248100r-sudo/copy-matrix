@@ -1751,7 +1751,8 @@
     "leadProfileTitle": "Hồ sơ công khai | Trung tâm Lead Trader",
     "leadProfileDesc": "Chỉnh sửa nội dung người sao chép thấy trên trang công khai của bạn.",
     "leadAnnouncementsTitle": "Thông báo | Trung tâm Lead Trader",
-    "leadAnnouncementsDesc": "Gửi cập nhật ngắn cho người sao chép đang hoạt động."
+    "leadAnnouncementsDesc": "Gửi cập nhật ngắn cho người sao chép đang hoạt động.",
+    "traderProfileDescStats": "{name}: lợi nhuận {roi} trong 30 ngày, tỷ lệ thắng {win}, {copiers} người sao chép. Xem toàn bộ lịch sử và sao chép tự động."
   },
   "HomeFaq": {
     "title": "Câu hỏi thường gặp",

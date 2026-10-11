@@ -1751,7 +1751,8 @@
     "leadProfileTitle": "โปรไฟล์สาธารณะ | ศูนย์เทรดเดอร์ผู้นำ",
     "leadProfileDesc": "แก้ไขสิ่งที่ผู้คัดลอกเห็นบนหน้าสาธารณะของคุณ",
     "leadAnnouncementsTitle": "ประกาศ | ศูนย์เทรดเดอร์ผู้นำ",
-    "leadAnnouncementsDesc": "ส่งอัปเดตสั้น ๆ ถึงผู้คัดลอกที่ใช้งานอยู่"
+    "leadAnnouncementsDesc": "ส่งอัปเดตสั้น ๆ ถึงผู้คัดลอกที่ใช้งานอยู่",
+    "traderProfileDescStats": "{name}: ผลตอบแทน {roi} ใน 30 วัน อัตราชนะ {win} ผู้คัดลอก {copiers} คน ดูผลงานทั้งหมดและคัดลอกอัตโนมัติ"
   },
   "HomeFaq": {
     "title": "คำถามที่พบบ่อย",

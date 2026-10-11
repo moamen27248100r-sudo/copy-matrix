@@ -1751,7 +1751,8 @@
     "leadProfileTitle": "Wasifu wa umma | Kituo cha Kiongozi",
     "leadProfileDesc": "Hariri wanachoona wanakili kwenye ukurasa wako wa umma.",
     "leadAnnouncementsTitle": "Matangazo | Kituo cha Kiongozi",
-    "leadAnnouncementsDesc": "Tuma taarifa fupi kwa wanakili wako hai."
+    "leadAnnouncementsDesc": "Tuma taarifa fupi kwa wanakili wako hai.",
+    "traderProfileDescStats": "{name}: faida ya {roi} kwa siku 30, kiwango cha ushindi {win}, wanakili {copiers}. Tazama rekodi kamili na unakili kiotomatiki."
   },
   "HomeFaq": {
     "title": "Maswali yanayoulizwa mara kwa mara",

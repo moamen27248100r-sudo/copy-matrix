@@ -52,9 +52,32 @@ type DailyRows = DailySeries & { trades: number[]; wins: number[] };
 // provider_trade_days, which cover all of them.
 const HISTORY_LIMIT = 300;
 
-export async function generateMetadata() {
+// Each leader gets its own title and description (and share image, see
+// opengraph-image.tsx); an unknown id falls back to the generic ones.
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const t = await getTranslations("Metadata");
-  return { title: t("traderProfileTitle"), description: t("traderProfileDesc") };
+  const fallback = { title: t("traderProfileTitle"), description: t("traderProfileDesc") };
+  const { id } = await params;
+  // Not a leader id at all: a real 404 before the page starts streaming.
+  if (!isUuid(id)) notFound();
+
+  const supabase = await createClient();
+  const { data: p } = await supabase
+    .from("provider_cards")
+    .select("display_name, roi_30d, win_rate_all, followers_count")
+    .eq("provider_id", id)
+    .maybeSingle();
+  const name = typeof p?.display_name === "string" ? p.display_name.trim() : "";
+  if (!p || !name) return fallback;
+
+  const title = `${name} | Copy Matrix`;
+  const description = t("traderProfileDescStats", {
+    name,
+    roi: fmtReturn(p.roi_30d != null ? Number(p.roi_30d) : null),
+    win: fmtWinRate(p.win_rate_all != null ? Number(p.win_rate_all) : null),
+    copiers: Number(p.followers_count ?? 0),
+  });
+  return { title, description, openGraph: { title, description, type: "profile" as const } };
 }
 
 export default async function TraderPage({

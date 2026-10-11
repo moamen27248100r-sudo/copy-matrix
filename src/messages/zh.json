@@ -1752,7 +1752,8 @@
     "leadProfileTitle": "公开资料 | 领导者中心",
     "leadProfileDesc": "编辑跟单者在您公开页面上看到的内容。",
     "leadAnnouncementsTitle": "公告 | 领导者中心",
-    "leadAnnouncementsDesc": "向您的活跃跟单者发送简短通知。"
+    "leadAnnouncementsDesc": "向您的活跃跟单者发送简短通知。",
+    "traderProfileDescStats": "{name}：30天收益 {roi}，胜率 {win}，{copiers} 位跟单者。查看完整业绩并自动跟单。"
   },
   "HomeFaq": {
     "title": "常见问题",

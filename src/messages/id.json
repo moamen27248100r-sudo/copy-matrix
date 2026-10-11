@@ -1751,7 +1751,8 @@
     "leadProfileTitle": "Profil publik | Pusat Lead Trader",
     "leadProfileDesc": "Ubah apa yang dilihat peniru di halaman publik Anda.",
     "leadAnnouncementsTitle": "Pengumuman | Pusat Lead Trader",
-    "leadAnnouncementsDesc": "Kirim pembaruan singkat ke peniru aktif Anda."
+    "leadAnnouncementsDesc": "Kirim pembaruan singkat ke peniru aktif Anda.",
+    "traderProfileDescStats": "{name}: imbal hasil {roi} dalam 30 hari, win rate {win}, {copiers} penyalin. Lihat seluruh rekam jejak dan salin otomatis."
   },
   "HomeFaq": {
     "title": "Pertanyaan yang sering diajukan",

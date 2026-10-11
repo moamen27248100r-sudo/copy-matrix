@@ -1816,7 +1816,8 @@
     "leadProfileTitle": "الملف العام | مركز القائد",
     "leadProfileDesc": "عدّل ما يراه النسّاخون في صفحتك العامة.",
     "leadAnnouncementsTitle": "الإعلانات | مركز القائد",
-    "leadAnnouncementsDesc": "أرسل تحديثات قصيرة لنسّاخيك النشطين."
+    "leadAnnouncementsDesc": "أرسل تحديثات قصيرة لنسّاخيك النشطين.",
+    "traderProfileDescStats": "{name}: عائد {roi} خلال 30 يوماً، ونسبة نجاح {win}، و{copiers} ناسخاً. اطّلع على السجل الكامل وانسخ تلقائياً."
   },
   "HomeFaq": {
     "title": "الأسئلة الشائعة",

@@ -1752,7 +1752,8 @@
     "leadProfileTitle": "Perfil público | Centro del líder",
     "leadProfileDesc": "Edita lo que ven los copiadores en tu página pública.",
     "leadAnnouncementsTitle": "Anuncios | Centro del líder",
-    "leadAnnouncementsDesc": "Envía avisos breves a tus copiadores activos."
+    "leadAnnouncementsDesc": "Envía avisos breves a tus copiadores activos.",
+    "traderProfileDescStats": "{name}: {roi} de rendimiento en 30 días, {win} de acierto, {copiers} copiadores. Consulta todo el historial y copia automáticamente."
   },
   "HomeFaq": {
     "title": "Preguntas frecuentes",

@@ -1752,7 +1752,8 @@
     "leadProfileTitle": "Profil public | Espace trader leader",
     "leadProfileDesc": "Modifiez ce que voient les copieurs sur votre page publique.",
     "leadAnnouncementsTitle": "Annonces | Espace trader leader",
-    "leadAnnouncementsDesc": "Envoyez de courtes annonces à vos copieurs actifs."
+    "leadAnnouncementsDesc": "Envoyez de courtes annonces à vos copieurs actifs.",
+    "traderProfileDescStats": "{name} : {roi} de rendement sur 30 jours, {win} de réussite, {copiers} copieurs. Consultez tout l'historique et copiez automatiquement."
   },
   "HomeFaq": {
     "title": "Questions fréquentes",

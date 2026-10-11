@@ -1755,7 +1755,8 @@
     "leadProfileTitle": "Public profile | Lead Trader Center",
     "leadProfileDesc": "Edit what copiers see on your public trader page.",
     "leadAnnouncementsTitle": "Announcements | Lead Trader Center",
-    "leadAnnouncementsDesc": "Send short updates to your active copiers."
+    "leadAnnouncementsDesc": "Send short updates to your active copiers.",
+    "traderProfileDescStats": "{name}: {roi} return over 30 days, {win} win rate, {copiers} copiers. See the full track record and copy automatically."
   },
   "HomeFaq": {
     "title": "Frequently asked questions",
