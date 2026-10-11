@@ -1,25 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import {
-  IBM_Plex_Sans_Arabic,
-  Inter,
-  Noto_Sans_SC,
-  Noto_Sans_Devanagari,
-  Noto_Sans_Thai,
-  Noto_Sans_Bengali,
-} from "next/font/google";
+import { IBM_Plex_Sans_Arabic, Inter } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
 import { ImpersonationBanner } from "@/components/ImpersonationBanner";
 import { SEARCH_INDEXING_ENABLED } from "@/lib/indexing";
+import { GLOBAL_CLIENT_NAMESPACES, pickMessages } from "@/i18n/client-messages";
 import "./globals.css";
 
 // Platform typography (applied centrally in globals.css via :lang()):
 //   Arabic / Urdu  -> IBM Plex Sans Arabic
 //   Latin + digits -> Inter (first in every stack, so numerals are always Inter)
-//   zh / hi / th / bn -> the matching Noto Sans family
-// The Noto families are not preloaded: the browser fetches a face only when
-// its script is actually rendered.
+//   zh / hi / th / bn -> the system face of that script (no web font: the Noto families were
+//                        hundreds of @font-face rules, ~370 KB of render-blocking CSS on every page)
 const plexSansArabic = IBM_Plex_Sans_Arabic({
   variable: "--font-plex-sans-arabic",
   subsets: ["arabic", "latin"],
@@ -32,37 +25,6 @@ const inter = Inter({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
-});
-
-const notoSC = Noto_Sans_SC({
-  variable: "--font-noto-sc",
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-  preload: false,
-});
-
-const notoDevanagari = Noto_Sans_Devanagari({
-  variable: "--font-noto-devanagari",
-  subsets: ["devanagari", "latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-  preload: false,
-});
-
-const notoThai = Noto_Sans_Thai({
-  variable: "--font-noto-thai",
-  subsets: ["thai", "latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-  preload: false,
-});
-
-const notoBengali = Noto_Sans_Bengali({
-  variable: "--font-noto-bengali",
-  subsets: ["bengali", "latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-  preload: false,
 });
 
 // viewport-fit=cover makes env(safe-area-inset-*) real on iOS Safari / Chrome,
@@ -88,7 +50,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = (await getLocale()) as Locale;
-  const messages = await getMessages();
+  // Only the namespaces client components read (i18n/client-messages.ts), not the whole catalog.
+  const messages = pickMessages(await getMessages(), GLOBAL_CLIENT_NAMESPACES);
   const dir = isRtlLocale(locale) ? "rtl" : "ltr";
 
   const jsonLd = {
@@ -112,7 +75,7 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={dir}
-      className={`${plexSansArabic.variable} ${inter.variable} ${notoSC.variable} ${notoDevanagari.variable} ${notoThai.variable} ${notoBengali.variable} h-full antialiased`}
+      className={`${plexSansArabic.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <script

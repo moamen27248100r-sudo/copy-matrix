@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { SupportChatPage } from "@/components/SupportChatPage";
+import { ExtraMessages } from "@/components/ExtraMessages";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Support");
@@ -8,5 +9,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function SupportPage() {
-  return <SupportChatPage />;
+  return (
+    <ExtraMessages namespaces={["Faq"]}>
+      <SupportChatPage />
+    </ExtraMessages>
+  );
 }

@@ -1916,8 +1916,7 @@
     "summarySwap": "Swap",
     "summaryCommission": "Komisi",
     "summaryTrades": "Transaksi",
-    "goldVsUsd": "Emas vs Dolar AS",
-    "showingLatest": "Menampilkan {shown} transaksi terbaru dari {total}; total di bawah mencakup semuanya."
+    "goldVsUsd": "Emas vs Dolar AS"
   },
   "AdminIntegrity": {
     "navLabel": "Integritas trade",

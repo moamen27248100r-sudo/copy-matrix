@@ -1916,8 +1916,7 @@
     "summarySwap": "स्वैप",
     "summaryCommission": "कमीशन",
     "summaryTrades": "ट्रेड",
-    "goldVsUsd": "सोना बनाम अमेरिकी डॉलर",
-    "showingLatest": "{total} में से नवीनतम {shown} ट्रेड दिखाए जा रहे हैं; नीचे के कुल योग में सभी शामिल हैं।"
+    "goldVsUsd": "सोना बनाम अमेरिकी डॉलर"
   },
   "AdminIntegrity": {
     "navLabel": "ट्रेड अखंडता",

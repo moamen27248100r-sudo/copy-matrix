@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { logout } from "@/app/auth/actions";
 import { AuthShell } from "@/components/auth/AuthShell";
 import { MfaChallengeForm } from "@/components/auth/MfaChallengeForm";
+import { ExtraMessages } from "@/components/ExtraMessages";
 import { safeNextPath } from "@/lib/safe-next";
 import { getPendingMfa } from "@/lib/mfa";
 import { createClient } from "@/lib/supabase/server";
@@ -30,7 +31,9 @@ export default async function MfaChallengePage({ searchParams }: { searchParams:
 
   return (
     <AuthShell title={t("challengeTitle")} subtitle={t("challengeSubtitle")}>
-      <MfaChallengeForm next={next} />
+      <ExtraMessages namespaces={["TwoFactor"]}>
+        <MfaChallengeForm next={next} />
+      </ExtraMessages>
       <p className="text-sm text-muted">{t("lostDevice")}</p>
       <form action={logout}>
         <button type="submit" className="w-full text-center text-sm text-muted underline underline-offset-4 hover:text-foreground">

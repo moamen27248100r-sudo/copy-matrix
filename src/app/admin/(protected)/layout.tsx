@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Logo } from "@/components/Logo";
 import { logout } from "@/app/auth/actions";
 import { AdminSidebar, AdminMobileMenuButton } from "@/components/AdminSidebar";
+import { ExtraMessages } from "@/components/ExtraMessages";
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const supabase = await createClient();
@@ -25,7 +26,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
   }
 
   return (
-    <>
+    <ExtraMessages namespaces={["AdminIntegrity"]}>
       <nav className="sticky top-0 z-[9999] w-full border-b border-border bg-[#0b1726]">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-2 px-2 sm:h-16 sm:px-6">
           <div className="flex min-w-0 items-center gap-1.5">
@@ -53,6 +54,6 @@ export default async function AdminLayout({ children }: { children: ReactNode })
         <AdminSidebar />
         <main className="flex min-w-0 flex-1 flex-col gap-8 p-6">{children}</main>
       </div>
-    </>
+    </ExtraMessages>
   );
 }

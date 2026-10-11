@@ -1916,8 +1916,7 @@
     "summarySwap": "สวอป",
     "summaryCommission": "ค่าคอมมิชชัน",
     "summaryTrades": "จำนวนเทรด",
-    "goldVsUsd": "ทองคำเทียบดอลลาร์สหรัฐ",
-    "showingLatest": "แสดง {shown} รายการล่าสุดจาก {total} รายการ ยอดรวมด้านล่างรวมทั้งหมด"
+    "goldVsUsd": "ทองคำเทียบดอลลาร์สหรัฐ"
   },
   "AdminIntegrity": {
     "navLabel": "ความถูกต้องของเทรด",

@@ -1916,8 +1916,7 @@
     "summarySwap": "Swap",
     "summaryCommission": "Hoa hồng",
     "summaryTrades": "Số lệnh",
-    "goldVsUsd": "Vàng so với Đô la Mỹ",
-    "showingLatest": "Đang hiển thị {shown} lệnh gần nhất trong tổng số {total}; các tổng bên dưới bao gồm tất cả."
+    "goldVsUsd": "Vàng so với Đô la Mỹ"
   },
   "AdminIntegrity": {
     "navLabel": "Tính toàn vẹn giao dịch",

@@ -1981,8 +1981,7 @@
     "summarySwap": "التبييت",
     "summaryCommission": "العمولة",
     "summaryTrades": "عدد الصفقات",
-    "goldVsUsd": "الذهب مقابل الدولار الأمريكي",
-    "showingLatest": "يُعرض آخر {shown} من {total} صفقة، والإجماليات أدناه تشملها كلها."
+    "goldVsUsd": "الذهب مقابل الدولار الأمريكي"
   },
   "AdminIntegrity": {
     "navLabel": "سلامة الصفقات",

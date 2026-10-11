@@ -1916,8 +1916,7 @@
     "summarySwap": "Swap",
     "summaryCommission": "Kamisheni",
     "summaryTrades": "Biashara",
-    "goldVsUsd": "Dhahabu dhidi ya Dola ya Marekani",
-    "showingLatest": "Inaonyesha biashara {shown} za karibuni kati ya {total}; jumla zilizo hapa chini zinajumuisha zote."
+    "goldVsUsd": "Dhahabu dhidi ya Dola ya Marekani"
   },
   "AdminIntegrity": {
     "navLabel": "Usahihi wa biashara",

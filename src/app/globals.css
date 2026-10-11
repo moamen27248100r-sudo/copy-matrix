@@ -61,16 +61,16 @@ html {
   font-variant-numeric: tabular-nums;
 }
 html:lang(zh) {
-  --font-stack: var(--font-inter), var(--font-noto-sc), "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-stack: var(--font-inter), "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Noto Sans SC", sans-serif;
 }
 html:lang(hi) {
-  --font-stack: var(--font-inter), var(--font-noto-devanagari), sans-serif;
+  --font-stack: var(--font-inter), "Kohinoor Devanagari", "Nirmala UI", "Noto Sans Devanagari", sans-serif;
 }
 html:lang(th) {
-  --font-stack: var(--font-inter), var(--font-noto-thai), sans-serif;
+  --font-stack: var(--font-inter), "Thonburi", "Leelawadee UI", "Noto Sans Thai", sans-serif;
 }
 html:lang(bn) {
-  --font-stack: var(--font-inter), var(--font-noto-bengali), sans-serif;
+  --font-stack: var(--font-inter), "Bangla Sangam MN", "Nirmala UI", "Noto Sans Bengali", sans-serif;
 }
 html:lang(ar),
 html:lang(ur) {

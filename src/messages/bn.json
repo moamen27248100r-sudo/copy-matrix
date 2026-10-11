@@ -1916,8 +1916,7 @@
     "summarySwap": "সোয়াপ",
     "summaryCommission": "কমিশন",
     "summaryTrades": "ট্রেড",
-    "goldVsUsd": "স্বর্ণ বনাম মার্কিন ডলার",
-    "showingLatest": "{total}টির মধ্যে সর্বশেষ {shown}টি ট্রেড দেখানো হচ্ছে; নিচের মোট হিসাবে সবগুলো আছে।"
+    "goldVsUsd": "স্বর্ণ বনাম মার্কিন ডলার"
   },
   "AdminIntegrity": {
     "navLabel": "ট্রেডের সঠিকতা",

@@ -5,6 +5,7 @@ import { KeyRound, MonitorSmartphone, ChevronRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
 import { TwoFactorSection } from "@/components/account/TwoFactorSection";
+import { ExtraMessages } from "@/components/ExtraMessages";
 import { hasVerifiedTotp } from "@/lib/mfa";
 
 export async function generateMetadata() {
@@ -33,7 +34,9 @@ export default async function AccountSecurityPage() {
         <h1 className="text-page-title">{t("title")}</h1>
         <p className="text-sm text-muted">{t("subtitle")}</p>
 
-        <TwoFactorSection enabled={hasVerifiedTotp(user)} />
+        <ExtraMessages namespaces={["TwoFactor"]}>
+          <TwoFactorSection enabled={hasVerifiedTotp(user)} />
+        </ExtraMessages>
 
         <Link href="/settings#change-password" className={`${rowClass} transition hover:bg-white/5`}>
           <span className={iconClass}>

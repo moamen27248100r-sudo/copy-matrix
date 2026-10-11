@@ -1917,8 +1917,7 @@
     "summarySwap": "隔夜利息",
     "summaryCommission": "佣金",
     "summaryTrades": "交易笔数",
-    "goldVsUsd": "黄金兑美元",
-    "showingLatest": "显示 {total} 笔交易中最近的 {shown} 笔；下方合计包含全部交易。"
+    "goldVsUsd": "黄金兑美元"
   },
   "AdminIntegrity": {
     "navLabel": "交易完整性",

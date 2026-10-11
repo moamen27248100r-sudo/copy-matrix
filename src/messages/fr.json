@@ -1917,8 +1917,7 @@
     "summarySwap": "Swap",
     "summaryCommission": "Commission",
     "summaryTrades": "Transactions",
-    "goldVsUsd": "Or vs Dollar américain",
-    "showingLatest": "Affichage des {shown} derniers trades sur {total} ; les totaux ci-dessous les incluent tous."
+    "goldVsUsd": "Or vs Dollar américain"
   },
   "AdminIntegrity": {
     "navLabel": "Intégrité des trades",

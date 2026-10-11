@@ -1920,8 +1920,7 @@
     "summarySwap": "Swap",
     "summaryCommission": "Commission",
     "summaryTrades": "Trades",
-    "goldVsUsd": "Gold vs US Dollar",
-    "showingLatest": "Showing the latest {shown} of {total} trades; the totals below include all of them."
+    "goldVsUsd": "Gold vs US Dollar"
   },
   "AdminIntegrity": {
     "navLabel": "Trade integrity",

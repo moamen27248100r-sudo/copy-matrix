@@ -1916,8 +1916,7 @@
     "summarySwap": "سواپ",
     "summaryCommission": "کمیشن",
     "summaryTrades": "ٹریڈز",
-    "goldVsUsd": "سونا بمقابلہ امریکی ڈالر",
-    "showingLatest": "{total} میں سے تازہ ترین {shown} ٹریڈز دکھائی جا رہی ہیں؛ نیچے کے مجموعے میں سب شامل ہیں۔"
+    "goldVsUsd": "سونا بمقابلہ امریکی ڈالر"
   },
   "AdminIntegrity": {
     "navLabel": "ٹریڈ کی درستگی",

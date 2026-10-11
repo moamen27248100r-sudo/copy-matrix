@@ -3,7 +3,7 @@
 import { useMoney } from "@/lib/money-client";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   HistoryPeriodSheet,
   type CustomRange,
@@ -12,32 +12,12 @@ import {
 } from "@/components/HistoryPeriodSheet";
 import { tradeDeltaPoints } from "@/lib/pip-specs";
 import { TradeRow } from "@/components/trades/TradeRow";
+import { loadLeaderTrades } from "@/app/trader/[id]/actions";
+import type { HistoryTrade, TradeDay } from "@/lib/leader-trades";
+import { cursorOf, mergeBatch } from "@/lib/trade-paging";
 
-export type HistoryTrade = {
-  id: string;
-  symbol: string;
-  side: string;
-  lot: number | null;
-  entry: number;
-  exit: number;
-  /** Realized result in USD; null when the lot size isn't known. */
-  pnl: number | null;
-  /** Direction-adjusted % return (negative for a loss). */
-  pct: number;
-  openedAt: string | null;
-  closedAt: string | null;
-  stopLoss: number | null;
-  takeProfit: number | null;
-  swap: number | null;
-  commission: number | null;
-  copyHref: string;
-};
+export type { HistoryTrade, TradeDay };
 
-/** Every closed trade of the leader per UTC day and symbol (provider_trade_days):
- *  [day, symbol, trades, pnl, swap, commission], money in cents. */
-export type TradeDay = [string, string, number, number, number, number];
-
-const PAGE_SIZE = 40;
 const DAY = 24 * 60 * 60 * 1000;
 // N days = today and the N - 1 UTC days before it, like the leader's stats.
 const WINDOW_DAYS: Partial<Record<HistoryPeriod, number>> = { week: 7, month: 30, threeMonths: 90, sixMonths: 180, year: 365 };
@@ -103,10 +83,19 @@ function Level({ label, value }: { label: string; value: number | null }) {
   );
 }
 
-// `trades` holds the latest closed trades; `days` covers all of them, so the
-// count and the totals of any period / symbol are exact even when the list
-// only shows the most recent ones.
-export function TraderTradeHistory({ trades, days }: { trades: HistoryTrade[]; days: TradeDay[] }) {
+// The list is read from the server in batches of 50 (newest first) as it is scrolled; `days` covers
+// every closed trade, so the count and the totals of any period / symbol are exact without loading them.
+export function TraderTradeHistory({
+  providerId,
+  initialTrades,
+  initialHasMore,
+  days,
+}: {
+  providerId: string;
+  initialTrades: HistoryTrade[];
+  initialHasMore: boolean;
+  days: TradeDay[];
+}) {
   const t = useTranslations("TraderHistory");
   const tp = useTranslations("TradeHistory");
   const ts = useTranslations("Symbols");
@@ -116,13 +105,16 @@ export function TraderTradeHistory({ trades, days }: { trades: HistoryTrade[]; d
   const [symbol, setSymbol] = useState("");
   const [sheetOpen, setSheetOpen] = useState(false);
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [visible, setVisible] = useState(PAGE_SIZE);
+  const [items, setItems] = useState<HistoryTrade[]>(initialTrades);
+  const [hasMore, setHasMore] = useState(initialHasMore);
+  const [loading, setLoading] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const ticketRef = useRef(0); // a newer request makes an older answer irrelevant
+  const sentinelRef = useRef<HTMLDivElement>(null);
+
+  type Filter = { period: HistoryPeriod; custom: CustomRange | null; symbol: string };
 
   const symbols = useMemo(() => Array.from(new Set(days.map((d) => d[1]))).sort(), [days]);
-  const filtered = useMemo(
-    () => trades.filter((x) => (!symbol || x.symbol === symbol) && withinPeriod(x.closedAt?.slice(0, 10) ?? null, period, custom)),
-    [trades, symbol, period, custom],
-  );
 
   // Integer cents, summed exactly.
   const totals = useMemo(() => {
@@ -140,6 +132,64 @@ export function TraderTradeHistory({ trades, days }: { trades: HistoryTrade[]; d
     return { count, profit: profit / 100, swap: swap / 100, commission: commission / 100 };
   }, [days, symbol, period, custom]);
 
+  const load = useCallback(
+    async (f: Filter, base: HistoryTrade[]) => {
+      const ticket = ++ticketRef.current;
+      setLoading(true);
+      setFailed(false);
+      const last = base.length > 0 ? base[base.length - 1] : null;
+      const res = await loadLeaderTrades({
+        providerId,
+        period: f.period,
+        custom: f.custom,
+        symbol: f.symbol || null,
+        cursor: last ? cursorOf(last) : null,
+      });
+      if (ticket !== ticketRef.current) return;
+      setLoading(false);
+      if ("error" in res) {
+        setFailed(true);
+        return;
+      }
+      setItems(mergeBatch(base, res.trades));
+      setHasMore(res.hasMore);
+    },
+    [providerId],
+  );
+
+  const loadMore = useCallback(() => {
+    if (loading || !hasMore) return;
+    void load({ period, custom, symbol }, items);
+  }, [load, loading, hasMore, period, custom, symbol, items]);
+
+  // Auto-load the next batch when the end of the list scrolls near.
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el || !hasMore || failed || typeof IntersectionObserver === "undefined") return; // (effects run in the browser only)
+    const io = new IntersectionObserver((entries) => entries[0]?.isIntersecting && loadMore(), { rootMargin: "600px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [hasMore, failed, loadMore]);
+
+  // A new period / symbol: the first batch comes with the page when nothing is filtered, else from the server.
+  const applyFilter = (next: Filter) => {
+    setPeriod(next.period);
+    setCustom(next.custom);
+    setSymbol(next.symbol);
+    setExpandedId(null);
+    if (next.period === "all" && !next.symbol) {
+      ticketRef.current++;
+      setLoading(false);
+      setFailed(false);
+      setItems(initialTrades);
+      setHasMore(initialHasMore);
+    } else {
+      setItems([]);
+      setHasMore(true);
+      void load(next, []);
+    }
+  };
+
   const close = useCallback(() => setSheetOpen(false), []);
 
   const periodText = period === "custom" ? (custom ? `${custom.from} → ${custom.to}` : t("custom")) : tp(periodLabelKey(period));
@@ -148,8 +198,6 @@ export function TraderTradeHistory({ trades, days }: { trades: HistoryTrade[]; d
     if (sym === "XAUUSD") return t("goldVsUsd");
     return ts.has(sym as never) ? ts(sym as never) : null;
   };
-
-  const shown = filtered.slice(0, visible);
 
   return (
     <div className="flex flex-col gap-3">
@@ -180,7 +228,7 @@ export function TraderTradeHistory({ trades, days }: { trades: HistoryTrade[]; d
         <p className="py-10 text-center text-sm text-muted">{tp("noTradesInPeriod")}</p>
       ) : (
         <ul className="flex flex-col md:mx-auto md:w-full md:max-w-3xl">
-          {shown.map((x) => {
+          {items.map((x) => {
             const open = expandedId === x.id;
             const gain = (x.pnl ?? x.pct) >= 0;
             const tone = gain ? GAIN : LOSS;
@@ -283,15 +331,14 @@ export function TraderTradeHistory({ trades, days }: { trades: HistoryTrade[]; d
         </ul>
       )}
 
-      {totals.count > filtered.length && filtered.length <= visible && (
-        <p className="text-center text-xs text-muted">{t("showingLatest", { shown: filtered.length, total: totals.count })}</p>
-      )}
-
-      {filtered.length > visible && (
+      <div ref={sentinelRef} aria-hidden="true" className="h-px" />
+      {hasMore && (loading || failed) && (
         <button
           type="button"
-          onClick={() => setVisible((v) => v + PAGE_SIZE)}
-          className="rounded-xl bg-surface py-3 text-sm font-medium text-accent-text transition hover:bg-white/[0.08]"
+          onClick={loadMore}
+          disabled={loading}
+          aria-busy={loading}
+          className="rounded-xl bg-surface py-3 text-sm font-medium text-accent-text transition hover:bg-white/[0.08] disabled:opacity-60"
         >
           {tp("loadMore")}
         </button>
@@ -327,22 +374,15 @@ export function TraderTradeHistory({ trades, days }: { trades: HistoryTrade[]; d
         symbol={symbol}
         symbols={symbols}
         onSelectPeriod={(p) => {
-          setPeriod(p);
-          setVisible(PAGE_SIZE);
-          setExpandedId(null);
+          applyFilter({ period: p, custom, symbol });
           setSheetOpen(false);
         }}
         onApplyCustom={(range) => {
-          setCustom(range);
-          setPeriod("custom");
-          setVisible(PAGE_SIZE);
-          setExpandedId(null);
+          applyFilter({ period: "custom", custom: range, symbol });
           setSheetOpen(false);
         }}
-        onSelectSymbol={(s) => {
-          setSymbol(s);
-          setVisible(PAGE_SIZE);
-          setExpandedId(null);
+        onSelectSymbol={(sym) => {
+          applyFilter({ period, custom, symbol: sym });
         }}
       />
     </div>

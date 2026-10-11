@@ -6,7 +6,8 @@ import { createClient } from "@/lib/supabase/server";
 import { followProvider, unfollowProvider } from "@/app/discover/actions";
 import { FollowButton } from "@/components/FollowButton";
 import { AppNav } from "@/components/AppNav";
-import { TraderTradeHistory, type HistoryTrade, type TradeDay } from "@/components/TraderTradeHistory";
+import { TraderTradeHistory } from "@/components/TraderTradeHistory";
+import { fetchLeaderTrades, SIGNAL_COLUMNS, type SignalRow, type TradeDay } from "@/lib/leader-trades";
 import { getGaugeTier } from "@/components/CircularGauge";
 import { ExnessReliabilitySection } from "@/components/ExnessReliabilitySection";
 import type { DailySeries } from "@/components/TraderEquityChart";
@@ -16,7 +17,6 @@ import { OpenOrdersTable } from "@/components/OpenOrdersTable";
 import { TraderAvatar } from "@/components/TraderAvatar";
 import { countryDisplay } from "@/lib/country-metadata";
 import { formatDate } from "@/lib/locale-format";
-import { resolveLevels, tradeProfitUsd, tradeReturnPct } from "@/lib/pip-specs";
 import { CopyBar } from "@/components/CopyBar";
 import { ConfirmButton } from "@/components/ConfirmButton";
 import { TabStrip } from "@/components/TabStrip";
@@ -26,31 +26,14 @@ import type { Locale } from "@/i18n/locales";
 import { leaderScores } from "@/lib/leader-scores";
 import { fmtDrawdown, fmtReturn, fmtWinRate } from "@/lib/format-stats";
 import { isUuid } from "@/lib/uuid";
-
-type SignalRow = {
-  id: string;
-  symbol: string;
-  side: string;
-  entry_price: number;
-  exit_price: number | null;
-  stop_loss: number | null;
-  take_profit: number | null;
-  status: string;
-  opened_at: string;
-  closed_at: string | null;
-  close_trigger: string | null;
-  lot_size: number | null;
-  commission: number | null;
-  swap: number | null;
-  pnl_usd: number | null;
-};
+import { depositsEnabled } from "@/lib/deposits-enabled";
+import { copyRefusal } from "@/lib/copy-rules";
 
 type DailyRows = DailySeries & { trades: number[]; wins: number[] };
 
-// The profile's trade list shows the latest closed trades; every stat on the
-// page comes from provider_stats / provider_daily and the history totals from
-// provider_trade_days, which cover all of them.
-const HISTORY_LIMIT = 300;
+// The trade history is read from the server in batches (lib/leader-trades, 50 at a time, newest
+// first) as it is scrolled; every stat on the page comes from provider_stats / provider_daily and
+// the history totals from provider_trade_days, which cover all trades.
 
 // Each leader gets its own title and description (and share image, see
 // opengraph-image.tsx); an unknown id falls back to the generic ones.
@@ -104,39 +87,35 @@ export default async function TraderPage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  const SIGNAL_COLUMNS =
-    "id, symbol, side, entry_price, exit_price, stop_loss, take_profit, status, opened_at, closed_at, close_trigger, lot_size, commission, swap, pnl_usd";
-  // created_by_admin signals are per-customer corrections, and hidden ones are
-  // trades a customer copied before the leader's record was rebuilt -- both
-  // belong to that customer's own view, not the leader's public track record.
+  // Per-customer corrections (created by an admin) and hidden trades (copied
+  // before the leader's record was rebuilt) belong to that customer's own view,
+  // not the leader's public track record; row-level security already keeps them
+  // out of what a visitor can read, the hidden filter below is the explicit part.
   const [
     { data: initialProvider },
     { data: openSignals },
-    { data: closedSignals },
+    firstBatch,
     { data: mySub },
     { data: myProfile },
     { data: myFollow },
     { data: dailyRaw },
     { data: tradeDaysRaw },
+    { data: ltPublic },
+    depositsOn,
+    { data: myKyc },
   ] = await Promise.all([
     supabase.from("provider_cards").select("*").eq("provider_id", id).single(),
     supabase
       .from("signals")
       .select(SIGNAL_COLUMNS)
       .eq("provider_id", id)
-      .eq("created_by_admin", false)
       .eq("hidden", false)
       .eq("status", "open")
       .order("opened_at", { ascending: false }),
-    supabase
-      .from("signals")
-      .select(SIGNAL_COLUMNS)
-      .eq("provider_id", id)
-      .eq("created_by_admin", false)
-      .eq("hidden", false)
-      .eq("status", "closed")
-      .order("closed_at", { ascending: false })
-      .limit(HISTORY_LIMIT),
+    // Only the history tab shows closed trades: the first batch of 50.
+    activeTab === "history"
+      ? fetchLeaderTrades(supabase, id, { from: null, to: null, symbol: null }, null)
+      : Promise.resolve({ trades: [], hasMore: false }),
     user
       ? supabase
           .from("subscriptions")
@@ -147,13 +126,21 @@ export default async function TraderPage({
           .maybeSingle()
       : Promise.resolve({ data: null }),
     user
-      ? supabase.from("profiles").select("balance").eq("id", user.id).single()
+      ? supabase.from("profiles").select("balance, account_type").eq("id", user.id).single()
       : Promise.resolve({ data: null }),
     user
       ? supabase.from("follows").select("provider_id").eq("follower_id", user.id).eq("provider_id", id).maybeSingle()
       : Promise.resolve({ data: null }),
     supabase.rpc("provider_daily_series", { p_provider_id: id }),
     supabase.rpc("provider_trade_days", { p_provider_id: id }),
+    // Leader-written strategy / risk text (lead_trader_profiles, 0213); only self-service lead
+    // traders have a row, so this is null for everyone else.
+    supabase.from("lead_trader_profiles").select("strategy_description, risk_disclosure, accepting_followers").eq("provider_id", id).maybeSingle(),
+    // Why a new copy would be refused is said before the dialog (the database refuses with the same reasons).
+    depositsEnabled(supabase),
+    user
+      ? supabase.from("kyc_submissions").select("status").eq("user_id", user.id).order("submitted_at", { ascending: false }).limit(1).maybeSingle()
+      : Promise.resolve({ data: null }),
   ]);
 
   let provider = initialProvider;
@@ -173,8 +160,9 @@ export default async function TraderPage({
   }
 
   const openOrders = (openSignals ?? []) as SignalRow[];
-  const closedSignalsList = (closedSignals ?? []) as SignalRow[];
   const daily = (dailyRaw ?? null) as DailyRows | null;
+  // The browser needs only the days and the returns (the other series stay on the server).
+  const dailyForClient: DailySeries | null = daily ? { days: daily.days, ret: daily.ret } : null;
   const tradeDays = (tradeDaysRaw ?? []) as TradeDay[];
   const isFollowing = !!mySub;
   // Any open copied trade locks the amount / mode / per-trade cap (enforced in the database).
@@ -185,43 +173,19 @@ export default async function TraderPage({
   const isWatching = !!myFollow;
   const maxDrawdown = provider.mdd_all != null && Number(provider.closed_signals) > 0 ? Number(provider.mdd_all) : null;
   const aum = Number(provider.aum ?? 0);
-  // Leader-written strategy / risk text (lead_trader_profiles, 0213); only
-  // self-service lead traders have a row, so this is null for everyone else.
-  const { data: ltPublic } = await supabase.from("lead_trader_profiles").select("strategy_description, risk_disclosure").eq("provider_id", id).maybeSingle();
+  const startRefusal = user
+    ? copyRefusal({
+        isStarting: true,
+        depositsEnabled: depositsOn,
+        accountType: myProfile?.account_type === "real" ? "real" : "demo",
+        leaderSimulated: false, // a leader the viewer can see on a real account is not simulated
+        leaderAcceptingFollowers: ltPublic?.accepting_followers,
+        kycApproved: myKyc?.status === "approved",
+      })
+    : null;
   const profitShare = provider.profit_share_pct != null ? Number(provider.profit_share_pct) : null;
   const sharpe = provider.sharpe_all != null ? Number(provider.sharpe_all) : null;
   const avgHoldHours = provider.avg_hold_hours != null ? Number(provider.avg_hold_hours) : null;
-
-  const closedHistory: HistoryTrade[] = closedSignalsList
-    .filter((s) => s.exit_price != null)
-    .map((s) => {
-      const entry = Number(s.entry_price);
-      const exit = Number(s.exit_price);
-      const lot = s.lot_size != null ? Number(s.lot_size) : null;
-      const { stopLoss, takeProfit } = resolveLevels(
-        s.side,
-        entry,
-        s.stop_loss != null ? Number(s.stop_loss) : null,
-        s.take_profit != null ? Number(s.take_profit) : null,
-      );
-      return {
-        id: s.id,
-        symbol: s.symbol,
-        side: s.side,
-        lot,
-        entry,
-        exit,
-        pnl: s.pnl_usd != null ? Number(s.pnl_usd) : tradeProfitUsd(s.symbol, s.side, entry, exit, lot),
-        pct: tradeReturnPct(s.side, entry, exit),
-        openedAt: s.opened_at,
-        closedAt: s.closed_at,
-        stopLoss,
-        takeProfit,
-        swap: s.swap != null ? Number(s.swap) : null,
-        commission: s.commission != null ? Number(s.commission) : null,
-        copyHref: "#copy",
-      };
-    });
 
   const openSymbols = Array.from(new Set(openOrders.map((s) => s.symbol)));
   const { data: livePrices } =
@@ -410,6 +374,17 @@ export default async function TraderPage({
               </form>
               </div>
             </div>
+          ) : startRefusal === "not_accepting_followers" ? (
+            <p className="rounded-lg border border-warning/30 bg-warning/10 px-3 py-3 text-center text-sm text-warning">
+              {tdAct("notAcceptingFollowers")}
+            </p>
+          ) : startRefusal === "kyc_required" ? (
+            <Link
+              href="/kyc"
+              className="block rounded-lg border border-warning/30 bg-warning/10 px-3 py-3 text-center text-sm text-warning transition hover:bg-warning/15"
+            >
+              {tdAct("copyRequiresKyc")}
+            </Link>
           ) : (
             <div className="flex flex-col gap-1.5">
               <CopyDialog
@@ -419,6 +394,7 @@ export default async function TraderPage({
                 defaultAmount={Number(myProfile?.balance ?? provider.min_copy_amount)}
                 minAmount={Number(provider.min_copy_amount)}
                 balance={Number(myProfile?.balance ?? 0)}
+                depositHref={myProfile?.account_type !== "real" || depositsOn ? "/portfolio/deposit" : null}
                 profitSharePct={profitShare}
               />
               <p className="text-center text-xs text-muted">
@@ -500,7 +476,7 @@ export default async function TraderPage({
             limitScore={scores.limit}
             activeTradingDays={scores.activeDays}
             activity={scores.activity}
-            daily={daily}
+            daily={dailyForClient}
           />
         </div>
       </div>
@@ -550,7 +526,7 @@ export default async function TraderPage({
 
           <div className="flex flex-col gap-3">
             <h2 className="font-medium">{t("monthlyReturnsTitle")}</h2>
-            <MonthlyReturnsCalendar daily={daily} locale={locale} />
+            <MonthlyReturnsCalendar daily={dailyForClient} locale={locale} />
           </div>
         </section>
       )}
@@ -571,7 +547,7 @@ export default async function TraderPage({
           {tradeDays.length === 0 ? (
             <p className="text-sm text-muted">{t("noClosedTrades")}</p>
           ) : (
-            <TraderTradeHistory trades={closedHistory} days={tradeDays} />
+            <TraderTradeHistory providerId={id} initialTrades={firstBatch.trades} initialHasMore={firstBatch.hasMore} days={tradeDays} />
           )}
         </section>
       )}
