@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { redirect } from "next/navigation";
+import { emptyPageTarget } from "@/lib/discover-paging";
 import { unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
 import { LeaderCard } from "@/components/LeaderCard";
@@ -190,16 +191,10 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
   const { data: providers, count } = await query;
   const total = count ?? 0;
   const pageCount = Math.max(1, Math.ceil(total / perPage));
-  // A stale or hand-typed page past the end lands on the last page, not on a
+  // A stale or hand-typed page past the end lands on a real page, not on a
   // misleading "no results".
-  if (page > pageCount && total > 0) {
-    const sp = new URLSearchParams(
-      Object.entries(params).filter((e): e is [string, string] => typeof e[1] === "string" && e[0] !== "page" && e[0] !== "error"),
-    );
-    if (pageCount > 1) sp.set("page", String(pageCount));
-    const qs = sp.toString();
-    redirect(qs ? `/discover?${qs}` : "/discover");
-  }
+  const correction = emptyPageTarget(params, page, providers?.length ?? 0, total, perPage);
+  if (correction) redirect(correction);
 
   // With nothing to show, tell "no leaders at all" apart from "no matches".
   let noLeadersAtAll = false;
