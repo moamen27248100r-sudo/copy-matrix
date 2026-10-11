@@ -58,7 +58,8 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const t = await getTranslations("Metadata");
   const fallback = { title: t("traderProfileTitle"), description: t("traderProfileDesc") };
   const { id } = await params;
-  // Not a leader id at all: a real 404 before the page starts streaming.
+  // Not a leader id at all (the page itself renders the not-found view; the HTTP
+  // status stays 200 because loading.tsx streams the response).
   if (!isUuid(id)) notFound();
 
   const supabase = await createClient();
