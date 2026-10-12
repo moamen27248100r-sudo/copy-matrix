@@ -63,8 +63,8 @@ export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
             onClick={() => setPeriodIdx(i)}
             className={
               i === periodIdx
-                ? "rounded-full bg-brand/25 px-3.5 py-1 text-xs text-white"
-                : "rounded-full px-3.5 py-1 text-xs text-muted"
+                ? "rounded-full bg-brand/25 px-3 py-1 text-xs text-white"
+                : "rounded-full px-3 py-1 text-xs text-muted"
             }
           >
             {t(p.labelKey)}

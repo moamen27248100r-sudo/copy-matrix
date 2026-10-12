@@ -10,7 +10,7 @@ import { hasVerifiedTotp } from "@/lib/mfa";
 
 export async function generateMetadata() {
   const t = await getTranslations("AccountSecurityPage");
-  return { title: t("title") };
+  return { title: `${t("title")} | Copy Matrix` };
 }
 
 // Account security hub linked from the account menu: two-factor (Supabase

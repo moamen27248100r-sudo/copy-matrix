@@ -7,11 +7,11 @@ import { demoWithdraw } from "@/app/portfolio/actions";
 import { CURRENCY } from "@/lib/money";
 import { SubmitButton } from "@/components/SubmitButton";
 
-// "1000.000000" reads as noise — show whole numbers plain ("1000") and
-// only keep decimals when the amount actually has cents ("1000.5").
+// The "All" amount must never exceed the balance, or the form refuses its own
+// value. Balances carry up to 6 decimals, so round DOWN at 6 (rounding to cents
+// could land above the balance), and drop trailing zeros ("1000", not "1000.000000").
 function formatAmount(n: number): string {
-  const rounded = Math.round(n * 100) / 100;
-  return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(2);
+  return String(Math.floor(n * 1e6) / 1e6);
 }
 
 function AmountStep({

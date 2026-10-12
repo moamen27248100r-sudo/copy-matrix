@@ -14,6 +14,11 @@ import { isUuid } from "@/lib/uuid";
 
 type FollowEmailTranslator = (key: string, values?: Record<string, string | number>) => string;
 
+// Leaders choose their own display name and bio, so everything interpolated into the
+// email HTML below is escaped.
+const esc = (v: string) =>
+  v.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+
 function traderFollowEmailHtml(
   provider: {
     display_name: string | null;
@@ -32,14 +37,14 @@ function traderFollowEmailHtml(
   locale: Locale,
 ) {
   const row = (label: string, value: string) =>
-    `<tr><td style="padding:6px 12px;color:#666;">${label}</td><td style="padding:6px 12px;font-weight:600;">${value}</td></tr>`;
+    `<tr><td style="padding:6px 12px;color:#666;">${esc(label)}</td><td style="padding:6px 12px;font-weight:600;">${esc(value)}</td></tr>`;
   const dir = isRtlLocale(locale) ? "rtl" : "ltr";
 
   return `
     <div dir="${dir}" style="font-family:Tahoma,Arial,sans-serif;max-width:480px;margin:auto;">
-      <h2 style="margin-bottom:4px;">${t("heading", { name: provider.display_name ?? "" })}</h2>
+      <h2 style="margin-bottom:4px;">${esc(t("heading", { name: provider.display_name ?? "" }))}</h2>
       <p style="color:#666;">${t("intro")}</p>
-      ${provider.bio ? `<p style="color:#444;">${translateBio(provider.bio, tBio)}</p>` : ""}
+      ${provider.bio ? `<p style="color:#444;">${esc(translateBio(provider.bio, tBio) ?? "")}</p>` : ""}
       <table style="width:100%;border-collapse:collapse;">
         ${row(t("tier"), provider.tier ?? "—")}
         ${row(t("riskLevel"), provider.risk_level ?? "—")}

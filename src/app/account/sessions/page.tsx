@@ -18,7 +18,7 @@ type SessionRow = {
 
 export async function generateMetadata() {
   const t = await getTranslations("AccountSecurityPage");
-  return { title: t("devices") };
+  return { title: `${t("devices")} | Copy Matrix` };
 }
 
 // Browser / OS names are proper nouns, so they aren't translated.
