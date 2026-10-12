@@ -84,6 +84,8 @@ const ICONS = {
   },
 };
 
+let lastBox: { x: number; w: number } | null = null;
+
 export function BottomNav() {
   const t = useTranslations("Nav");
   const pathname = usePathname();
@@ -99,21 +101,37 @@ export function BottomNav() {
   const activeIndex = items.findIndex((item) => pathname === item.href || pathname.startsWith(`${item.href}/`));
 
   const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
-  const [box, setBox] = useState<{ x: number; w: number } | null>(null);
-  // The indicator snaps into place on first paint and only animates on later changes.
-  const [ready, setReady] = useState(false);
+  // Every page mounts its own nav, so the last indicator position is kept at module
+  // level: a new page starts the pill where the previous page left it and slides it
+  // to the new tab. The very first mount has no previous position and just snaps.
+  const [box, setBox] = useState<{ x: number; w: number } | null>(lastBox);
+  const [ready, setReady] = useState(lastBox !== null);
 
   useLayoutEffect(() => {
-    const measure = () => {
+    const measure = (animate: boolean) => {
       const el = activeIndex >= 0 ? itemRefs.current[activeIndex] : null;
-      setBox(el ? { x: el.offsetLeft, w: el.offsetWidth } : null);
+      const next = el ? { x: el.offsetLeft, w: el.offsetWidth } : null;
+      if (next) lastBox = next;
+      if (animate) {
+        // two frames so the browser paints the starting position first
+        raf = requestAnimationFrame(() => {
+          raf = requestAnimationFrame(() => {
+            setBox(next);
+            setReady(true);
+          });
+        });
+      } else {
+        setBox(next);
+      }
     };
-    measure();
-    const raf = requestAnimationFrame(() => setReady(true));
-    window.addEventListener("resize", measure);
+    let raf = 0;
+    measure(lastBox !== null);
+    if (lastBox === null) raf = requestAnimationFrame(() => setReady(true));
+    const onResize = () => measure(false);
+    window.addEventListener("resize", onResize);
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener("resize", measure);
+      window.removeEventListener("resize", onResize);
     };
   }, [activeIndex]);
 

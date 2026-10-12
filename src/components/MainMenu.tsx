@@ -346,7 +346,7 @@ export function MainMenu({
           )}
         </nav>
 
-        <div className="mt-auto">
+        <div className="sticky bottom-0 mt-auto bg-[#0B132B]">
           <div className="mx-4 h-px bg-white/[0.06]" aria-hidden="true" />
           <div className="px-2 py-2">
             <button
@@ -368,7 +368,7 @@ export function MainMenu({
           onClick={() => setConfirmLogout(false)}
         >
           <div
-            role="alertdialog"
+            role="dialog"
             aria-modal="true"
             aria-labelledby="logout-confirm-title"
             aria-describedby="logout-confirm-body"
