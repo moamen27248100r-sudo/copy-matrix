@@ -95,6 +95,7 @@ export default async function RootLayout({
             <StripFlashParams />
           </Suspense>
           {children}
+          {hasSession && <BottomNav />}
         </NextIntlClientProvider>
       </body>
     </html>
