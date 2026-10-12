@@ -2,6 +2,7 @@
 
 import { useMoney } from "@/lib/money-client";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useBodyScrollLock } from "@/lib/use-body-scroll-lock";
@@ -82,7 +83,7 @@ export function CopyDialog({
         {edit ? t("editOpen") : t("open")}
       </button>
 
-      {open && (
+      {open && createPortal(
         <div className="fixed inset-0 z-[10000] flex items-end justify-center sm:items-center" role="dialog" aria-modal="true" aria-label={edit ? t("editTitle", { name: providerName }) : t("title", { name: providerName })}>
           <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" onClick={() => setOpen(false)} aria-hidden="true" />
           <form
@@ -222,7 +223,8 @@ export function CopyDialog({
               {edit ? t("editConfirm") : t("confirm")}
             </SubmitButton>
           </form>
-        </div>
+        </div>,
+        document.body,
       )}
     </>
   );
