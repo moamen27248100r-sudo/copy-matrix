@@ -108,7 +108,13 @@ export function BottomNav() {
   const pathname = usePathname();
   // The tab the user just tapped: the indicator moves immediately, before the
   // page has finished loading. Only valid while still on the page it was set on.
-  const [pending, setPending] = useState<{ from: string; href: string } | null>(null);
+  const [pending, setPending] = useState<string | null>(null);
+  const [seenPath, setSeenPath] = useState(pathname);
+  if (seenPath !== pathname) {
+    // Navigation landed (or the user went back): the optimistic tab is no longer needed.
+    setSeenPath(pathname);
+    setPending(null);
+  }
 
   const items = [
     { href: "/dashboard", label: t("navHome"), icon: ICONS.home },
@@ -119,7 +125,7 @@ export function BottomNav() {
   ];
 
   const visible = SHELL_PREFIXES.some((p) => pathname === p || pathname.startsWith(p.endsWith("/") ? p : `${p}/`));
-  const current = pending && pending.from === pathname ? pending.href : pathname;
+  const current = pending ?? pathname;
   const activeIndex = items.findIndex((item) => current === item.href || current.startsWith(`${item.href}/`));
 
   const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
@@ -183,7 +189,7 @@ export function BottomNav() {
                   itemRefs.current[i] = el;
                 }}
                 onClick={() => {
-                  if (item.href !== pathname) setPending({ from: pathname, href: item.href });
+                  setPending(item.href !== pathname ? item.href : null);
                 }}
                 aria-current={active ? "page" : undefined}
                 className={`relative z-10 flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-full px-1 text-[11px] font-medium transition-colors duration-200 motion-reduce:transition-none ${
