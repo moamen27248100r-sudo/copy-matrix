@@ -94,14 +94,17 @@ try {
     }
     ok("demo: providers public columns", (await run("select id, display_name, min_copy_amount, trading_status from public.providers limit 3")).rows.length === 3);
     ok("demo: provider_cards works", Number((await run("select count(*) n from public.provider_cards")).rows[0].n) > 0);
-    ok("demo: own positions with embedded signals", (await run("select id, signals(symbol, side) from public.simulated_positions limit 2")).rows !== undefined);
+    ok(
+      "demo: own positions joined to their signals",
+      (await failsWith(() => run("select sp.id, s.symbol, s.side from public.simulated_positions sp join public.signals s on s.id = sp.signal_id limit 2"))) === null,
+    );
   });
 
   if (OWNER) {
     await as("authenticated", OWNER, async () => {
       ok("owner: own_provider_id() resolves", (await run("select public.own_provider_id() v")).rows[0].v !== null);
       for (const [name, q] of [
-        ["lead_trader_profiles", "select * from public.lead_trader_profiles where provider_id = public.own_provider_id()"],
+        ["lead_trader_profiles", "select provider_id, accepting_followers, whitelist_enabled from public.lead_trader_profiles where provider_id = public.own_provider_id()"],
         ["follower_invites", "select id from public.follower_invites limit 1"],
         ["subscriptions of own provider", "select id from public.subscriptions where provider_id = public.own_provider_id()"],
         ["simulated_positions of own copiers", "select id from public.simulated_positions limit 1"],
