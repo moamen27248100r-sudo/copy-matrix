@@ -4,6 +4,8 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
 import { Suspense } from "react";
+import { cookies } from "next/headers";
+import { BottomNav } from "@/components/BottomNav";
 import { ImpersonationBanner } from "@/components/ImpersonationBanner";
 import { StripFlashParams } from "@/components/StripFlashParams";
 import { SEARCH_INDEXING_ENABLED } from "@/lib/indexing";
@@ -55,6 +57,9 @@ export default async function RootLayout({
   // Only the namespaces client components read (i18n/client-messages.ts), not the whole catalog.
   const messages = pickMessages(await getMessages(), GLOBAL_CLIENT_NAMESPACES);
   const dir = isRtlLocale(locale) ? "rtl" : "ltr";
+  // Cheap presence check (no network): the mobile bottom nav lives here so it persists
+  // across navigations and loading states. Pages still verify the session themselves.
+  const hasSession = (await cookies()).getAll().some((c) => c.name.startsWith("sb-") && c.name.includes("-auth-token"));
 
   const jsonLd = {
     "@context": "https://schema.org",

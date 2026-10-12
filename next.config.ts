@@ -33,7 +33,13 @@ const nextConfig: NextConfig = {
   turbopack: { root: configDir },
   // Leader avatars are capped at 1 MB; the default 1 MB action body limit
   // would reject a file near that size once multipart overhead is added.
-  experimental: { serverActions: { bodySizeLimit: "2mb" } },
+  experimental: {
+    serverActions: { bodySizeLimit: "2mb" },
+    // Revisited pages render instantly from the client router cache and refresh in the
+    // background on the next visit after 30s. Server actions that change balances,
+    // copies or positions call revalidatePath, which clears this cache immediately.
+    staleTimes: { dynamic: 30, static: 180 },
+  },
   // The leader page's title / description come from the database. Next streams such
   // metadata into <body> for ordinary clients, which SEO audits (and anything that does
   // not run scripts) read as "no meta description"; blocking keeps it in <head>.

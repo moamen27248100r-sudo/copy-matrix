@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 // Unified 24px line icons (1.75 stroke, round caps) drawn for the platform.
 // Each tab has an outline form (inactive) and a filled form (active).
@@ -84,11 +84,32 @@ const ICONS = {
   },
 };
 
-let lastBox: { x: number; w: number } | null = null;
+// Pages that render the customer app shell (AppNav). The nav lives in the root
+// layout so it persists across navigations and loading states, but only shows here.
+const SHELL_PREFIXES = [
+  "/dashboard",
+  "/discover",
+  "/copies",
+  "/trades",
+  "/portfolio",
+  "/trader/",
+  "/settings",
+  "/notifications",
+  "/kyc",
+  "/account",
+  "/markets",
+  "/lead",
+  "/profit-share-history",
+  "/become-lead-trader",
+];
 
 export function BottomNav() {
   const t = useTranslations("Nav");
   const pathname = usePathname();
+  const router = useRouter();
+  // The tab the user just tapped: the indicator moves immediately, before the
+  // page has finished loading. Only valid while still on the page it was set on.
+  const [pending, setPending] = useState<{ from: string; href: string } | null>(null);
 
   const items = [
     { href: "/dashboard", label: t("navHome"), icon: ICONS.home },
@@ -98,42 +119,38 @@ export function BottomNav() {
     { href: "/portfolio", label: t("navPortfolio"), icon: ICONS.portfolio },
   ];
 
-  const activeIndex = items.findIndex((item) => pathname === item.href || pathname.startsWith(`${item.href}/`));
+  const visible = SHELL_PREFIXES.some((p) => pathname === p || pathname.startsWith(p.endsWith("/") ? p : `${p}/`));
+  const current = pending && pending.from === pathname ? pending.href : pathname;
+  const activeIndex = items.findIndex((item) => current === item.href || current.startsWith(`${item.href}/`));
 
   const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
-  // Every page mounts its own nav, so the last indicator position is kept at module
-  // level: a new page starts the pill where the previous page left it and slides it
-  // to the new tab. The very first mount has no previous position and just snaps.
-  const [box, setBox] = useState<{ x: number; w: number } | null>(lastBox);
-  const [ready, setReady] = useState(lastBox !== null);
+  const [box, setBox] = useState<{ x: number; w: number } | null>(null);
+  // The indicator snaps into place on first paint and only animates on later changes.
+  const [ready, setReady] = useState(false);
+
+  // Warm every tab's route (loading shell + data) so a tap renders at once.
+  useEffect(() => {
+    if (!visible) return;
+    for (const item of items) router.prefetch(item.href);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible, router]);
 
   useLayoutEffect(() => {
-    const measure = (animate: boolean) => {
+    if (!visible) return;
+    const measure = () => {
       const el = activeIndex >= 0 ? itemRefs.current[activeIndex] : null;
-      const next = el ? { x: el.offsetLeft, w: el.offsetWidth } : null;
-      if (next) lastBox = next;
-      if (animate) {
-        // two frames so the browser paints the starting position first
-        raf = requestAnimationFrame(() => {
-          raf = requestAnimationFrame(() => {
-            setBox(next);
-            setReady(true);
-          });
-        });
-      } else {
-        setBox(next);
-      }
+      setBox(el ? { x: el.offsetLeft, w: el.offsetWidth } : null);
     };
-    let raf = 0;
-    measure(lastBox !== null);
-    if (lastBox === null) raf = requestAnimationFrame(() => setReady(true));
-    const onResize = () => measure(false);
-    window.addEventListener("resize", onResize);
+    measure();
+    const raf = requestAnimationFrame(() => setReady(true));
+    window.addEventListener("resize", measure);
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener("resize", onResize);
+      window.removeEventListener("resize", measure);
     };
-  }, [activeIndex]);
+  }, [activeIndex, visible]);
+
+  if (!visible) return null;
 
   return (
     <>
@@ -170,9 +187,12 @@ export function BottomNav() {
                 ref={(el) => {
                   itemRefs.current[i] = el;
                 }}
+                onClick={() => {
+                  if (item.href !== pathname) setPending({ from: pathname, href: item.href });
+                }}
                 aria-current={active ? "page" : undefined}
                 className={`relative z-10 flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-full px-1 text-[11px] font-medium transition-colors duration-200 motion-reduce:transition-none ${
-                  active ? "text-accent-text" : "text-muted active:text-foreground"
+                  active ? "text-white" : "text-[#AEB7C7] active:text-white"
                 }`}
               >
                 <svg

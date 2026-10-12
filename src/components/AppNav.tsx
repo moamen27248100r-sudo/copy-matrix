@@ -7,7 +7,6 @@ import { NotificationsMenu } from "@/components/NotificationsMenu";
 import { AccountTypeSwitcher } from "@/components/AccountTypeSwitcher";
 import { LeadModeSwitcher } from "@/components/LeadModeSwitcher";
 import { SidebarNav } from "@/components/SidebarNav";
-import { BottomNav } from "@/components/BottomNav";
 import { NavDrawerProvider } from "@/components/nav-drawer-context";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/Logo";
@@ -129,7 +128,6 @@ export async function AppNav() {
     {user && (
       <>
         <SidebarNav isAdmin={isAdmin} />
-        <BottomNav />
       </>
     )}
     </>
