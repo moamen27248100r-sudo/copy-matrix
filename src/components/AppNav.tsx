@@ -80,7 +80,7 @@ export async function AppNav() {
           )}
         </div>
 
-        <Link href={user ? "/dashboard" : "/"} className="flex min-w-0 items-center justify-center overflow-hidden">
+        <Link href={user ? "/dashboard" : "/"} className="flex min-h-11 min-w-0 items-center justify-center overflow-hidden">
           <Logo iconClassName="h-4 w-4 sm:h-5 sm:w-5" textClassName="text-base sm:text-xl" />
         </Link>
 

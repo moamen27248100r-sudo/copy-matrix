@@ -365,6 +365,33 @@ th {
   transform: translate(-50%, -50%);
 }
 
+/* Touch screens and narrow viewports: every button, tab, summary and pill-shaped
+   link smaller than 44px gets the same invisible 44x44 hit box as .tap-44, so no
+   control has to be added one by one. Kept in the base layer so a utility on the
+   element (absolute, fixed, ...) still wins; desktop pointers are unaffected. */
+@layer base {
+  @media (pointer: coarse), (max-width: 1023px) {
+    button,
+    [role="tab"],
+    summary,
+    a[href][class*="rounded"] {
+      position: relative;
+    }
+    button::after,
+    [role="tab"]::after,
+    summary::after,
+    a[href][class*="rounded"]::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: max(100%, 44px);
+      height: max(100%, 44px);
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
 /* Line charts: short fade when the drawn data changes (period switch). */
 @keyframes alc-fade-in {
   from {

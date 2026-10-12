@@ -56,7 +56,7 @@ export function DiscoverFilterSheet({
       </button>
 
       {open && (
-        <div className="fixed inset-0 z-[10000]">
+        <div className="fixed inset-0 z-[10000]" role="dialog" aria-modal="true" aria-label={triggerLabel}>
           <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" onClick={() => setOpen(false)} aria-hidden="true" />
           <form
             method="get"
@@ -101,7 +101,7 @@ export function DiscoverFilterSheet({
               </fieldset>
             ))}
 
-            <div className="mt-2 flex gap-2 border-t border-white/[0.08] pt-4">
+            <div className="sticky bottom-0 -mx-5 -mb-5 mt-2 flex gap-2 border-t border-white/[0.08] bg-[#0B132B] px-5 pb-5 pt-4">
               <Link
                 href={resetHref}
                 onClick={() => setOpen(false)}

@@ -219,9 +219,11 @@ export function CopyDialog({
               <span>{t("riskAck")}</span>
             </label>}
 
-            <SubmitButton disabled={!ack || belowMinimum || amountIssue != null} className="rounded-lg bg-accent px-6 py-3 text-base font-bold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50">
+            <div className="sticky bottom-0 -mx-5 -mb-5 bg-[#0B132B] px-5 pb-5 pt-3">
+              <SubmitButton disabled={!ack || belowMinimum || amountIssue != null} className="w-full rounded-lg bg-accent px-6 py-3 text-base font-bold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50">
               {edit ? t("editConfirm") : t("confirm")}
             </SubmitButton>
+            </div>
           </form>
         </div>,
         document.body,

@@ -77,6 +77,9 @@ export function AccountTypeSwitcher({
       {pending && (
         <div
           className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-label={confirmTitle}
           onClick={() => setPending(null)}
         >
           <div
