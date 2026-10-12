@@ -55,7 +55,7 @@ export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex flex-wrap gap-1.5">
+      <div className="flex flex-wrap gap-1">
         {PERIODS.map((p, i) => (
           <button
             key={p.labelKey}
@@ -63,8 +63,8 @@ export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
             onClick={() => setPeriodIdx(i)}
             className={
               i === periodIdx
-                ? "rounded-full bg-brand/25 px-3 py-1 text-xs text-white"
-                : "rounded-full px-3 py-1 text-xs text-muted"
+                ? "rounded-full bg-brand/25 px-2 py-1 text-xs text-white"
+                : "rounded-full px-2 py-1 text-xs text-muted"
             }
           >
             {t(p.labelKey)}

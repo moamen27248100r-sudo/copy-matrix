@@ -267,7 +267,7 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
               name="q"
               defaultValue={q}
               placeholder={t("searchPlaceholder")}
-              className="w-full rounded-full border border-white/[0.08] bg-surface/80 py-2 ps-9 pe-3 text-base text-foreground backdrop-blur-md placeholder:text-muted focus:border-accent/40 focus:outline-none"
+              className="w-full text-ellipsis rounded-full border border-white/[0.08] bg-surface/80 py-2 ps-9 pe-3 text-base text-foreground backdrop-blur-md placeholder:text-muted focus:border-accent/40 focus:outline-none"
             />
             {Object.entries(current).map(([k, v]) =>
               v && k !== "q" && k !== "compare" ? <input key={k} type="hidden" name={k} value={v} /> : null,
