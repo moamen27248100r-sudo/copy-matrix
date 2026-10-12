@@ -38,7 +38,7 @@ const nextConfig: NextConfig = {
     // Revisited pages render instantly from the client router cache and refresh in the
     // background on the next visit after 30s. Server actions that change balances,
     // copies or positions call revalidatePath, which clears this cache immediately.
-    staleTimes: { dynamic: 30, static: 180 },
+    staleTimes: { dynamic: 30, static: 60 },
   },
   // The leader page's title / description come from the database. Next streams such
   // metadata into <body> for ordinary clients, which SEO audits (and anything that does

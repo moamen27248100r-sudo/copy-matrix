@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 // Unified 24px line icons (1.75 stroke, round caps) drawn for the platform.
 // Each tab has an outline form (inactive) and a filled form (active).
@@ -106,7 +106,6 @@ const SHELL_PREFIXES = [
 export function BottomNav() {
   const t = useTranslations("Nav");
   const pathname = usePathname();
-  const router = useRouter();
   // The tab the user just tapped: the indicator moves immediately, before the
   // page has finished loading. Only valid while still on the page it was set on.
   const [pending, setPending] = useState<{ from: string; href: string } | null>(null);
@@ -127,13 +126,6 @@ export function BottomNav() {
   const [box, setBox] = useState<{ x: number; w: number } | null>(null);
   // The indicator snaps into place on first paint and only animates on later changes.
   const [ready, setReady] = useState(false);
-
-  // Warm every tab's route (loading shell + data) so a tap renders at once.
-  useEffect(() => {
-    if (!visible) return;
-    for (const item of items) router.prefetch(item.href);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [visible, router]);
 
   useLayoutEffect(() => {
     if (!visible) return;
@@ -184,6 +176,9 @@ export function BottomNav() {
               <Link
                 key={item.href}
                 href={item.href}
+                // Full prefetch: the whole page payload is fetched as soon as the nav is
+                // on screen, so the first tap renders instantly (mutations clear the cache).
+                prefetch={true}
                 ref={(el) => {
                   itemRefs.current[i] = el;
                 }}
