@@ -1318,7 +1318,9 @@
     "editConfirm": "Hifadhi mabadiliko",
     "lockedNotice": "Kiasi, hali na kikomo cha kila biashara vimefungwa wakati biashara zilizonakiliwa ziko wazi. Lengo la faida, stop loss na trailing stop bado vinaweza kubadilishwa.",
     "balanceBelowMin": "Salio lako ({balance}) liko chini ya kiwango cha chini cha mfanyabiashara huyu ({min}).",
-    "depositCta": "Ongeza fedha"
+    "depositCta": "Ongeza fedha",
+    "amountBelowMin": "Kiasi ni chini ya kiwango cha chini cha mfanyabiashara huyu ({min}).",
+    "amountAboveBalance": "Kiasi kinazidi salio lako linalopatikana ({balance})."
   },
   "Trades": {
     "title": "Biashara",

@@ -1318,7 +1318,9 @@
     "editConfirm": "Simpan perubahan",
     "lockedNotice": "Jumlah, mode, dan batas per transaksi terkunci selama ada transaksi salinan yang terbuka. Take profit, stop loss, dan trailing stop tetap dapat diubah.",
     "balanceBelowMin": "Saldo Anda ({balance}) di bawah minimum trader ini ({min}).",
-    "depositCta": "Tambah dana"
+    "depositCta": "Tambah dana",
+    "amountBelowMin": "Jumlah di bawah minimum trader ini ({min}).",
+    "amountAboveBalance": "Jumlah melebihi saldo tersedia Anda ({balance})."
   },
   "Trades": {
     "title": "Transaksi",

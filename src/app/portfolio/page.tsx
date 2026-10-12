@@ -447,12 +447,12 @@ export default async function PortfolioPage({
               <form action={unfollowProvider}>
                 <input type="hidden" name="providerId" value={p.provider_id} />
                 <input type="hidden" name="returnTo" value="/portfolio" />
-                <button
-                  type="submit"
-                  className="rounded border border-border px-3 py-1 text-xs"
+                <ConfirmButton
+                  confirmText={td("stopCopyingConfirm")}
+                  className="min-h-11 rounded border border-border px-3 py-1 text-xs"
                 >
                   {t("stopCopying")}
-                </button>
+                </ConfirmButton>
               </form>
             </div>
           ))

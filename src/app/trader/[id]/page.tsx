@@ -19,6 +19,7 @@ import { countryDisplay } from "@/lib/country-metadata";
 import { formatDate } from "@/lib/locale-format";
 import { CopyBar } from "@/components/CopyBar";
 import { ConfirmButton } from "@/components/ConfirmButton";
+import { defaultCopyAmount } from "@/lib/copy-amount";
 import { TabStrip } from "@/components/TabStrip";
 import { CopyDialog } from "@/components/CopyDialog";
 import { getBioTranslator } from "@/lib/bio-translations";
@@ -335,16 +336,16 @@ export default async function TraderPage({
               </p>
             </div>
           ) : isFollowing ? (
-            <div className="flex items-center justify-between gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <p className="flex min-w-0 items-center gap-2 text-sm">
                 <span className="h-2 w-2 shrink-0 rounded-full bg-success" aria-hidden="true" />
-                <span className="truncate">
+                <span>
                   {t("currentlyCopyingAmount", {
                     amount: money(Number(mySub?.allocated_amount ?? 0)),
                   })}
                 </span>
               </p>
-              <div className="flex shrink-0 items-center gap-2">
+              <div className="flex shrink-0 items-center gap-2 [&>*]:flex-1 sm:[&>*]:flex-none">
               <CopyDialog
                 action={followProvider}
                 providerId={id}
@@ -391,7 +392,7 @@ export default async function TraderPage({
                 action={followProvider}
                 providerId={id}
                 providerName={provider.display_name}
-                defaultAmount={Number(myProfile?.balance ?? provider.min_copy_amount)}
+                defaultAmount={defaultCopyAmount(Number(provider.min_copy_amount), myProfile?.balance == null ? null : Number(myProfile.balance))}
                 minAmount={Number(provider.min_copy_amount)}
                 balance={Number(myProfile?.balance ?? 0)}
                 depositHref={myProfile?.account_type !== "real" || depositsOn ? "/portfolio/deposit" : null}

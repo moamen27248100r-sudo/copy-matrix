@@ -239,7 +239,7 @@ export function TraderEquityChart({ daily }: { daily: DailySeries | null }) {
       <EquityPanel data={data} periodIdx={periodIdx} onPeriod={setPeriodIdx} height={180} action={expandButton} />
 
       {full && (
-        <div role="dialog" aria-modal="true" aria-label={t("performanceTitle")} className="fixed inset-0 z-[60] flex flex-col overflow-y-auto bg-background p-4">
+        <div role="dialog" aria-modal="true" aria-label={t("performanceTitle")} className="fixed inset-0 z-[10000] flex flex-col overflow-y-auto bg-background p-4">
           <div className="mx-auto w-full max-w-5xl">
             <EquityPanel
               data={data}

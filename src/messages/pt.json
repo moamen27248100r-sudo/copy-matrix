@@ -1321,7 +1321,9 @@
     "editConfirm": "Guardar alterações",
     "lockedNotice": "O valor, o modo e o limite por operação ficam bloqueados enquanto houver operações copiadas abertas. A meta de lucro, o stop loss e o stop móvel continuam editáveis.",
     "balanceBelowMin": "Seu saldo ({balance}) está abaixo do mínimo deste trader ({min}).",
-    "depositCta": "Adicionar fundos"
+    "depositCta": "Adicionar fundos",
+    "amountBelowMin": "O valor está abaixo do mínimo deste trader ({min}).",
+    "amountAboveBalance": "O valor é maior que o seu saldo disponível ({balance})."
   },
   "Trades": {
     "title": "Operações",

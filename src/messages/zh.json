@@ -1319,7 +1319,9 @@
     "editConfirm": "保存更改",
     "lockedNotice": "有未平仓的跟单交易时，金额、模式和单笔上限已锁定。止盈、止损和移动止损仍可修改。",
     "balanceBelowMin": "你的余额（{balance}）低于该交易员的最低要求（{min}）。",
-    "depositCta": "充值"
+    "depositCta": "充值",
+    "amountBelowMin": "金额低于该交易员的最低要求（{min}）。",
+    "amountAboveBalance": "金额超过您的可用余额（{balance}）。"
   },
   "Trades": {
     "title": "交易",

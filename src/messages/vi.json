@@ -1318,7 +1318,9 @@
     "editConfirm": "Lưu thay đổi",
     "lockedNotice": "Số tiền, chế độ và giới hạn mỗi lệnh bị khóa khi còn lệnh sao chép đang mở. Bạn vẫn có thể chỉnh chốt lời, cắt lỗ và dừng lỗ theo sau.",
     "balanceBelowMin": "Số dư của bạn ({balance}) thấp hơn mức tối thiểu của nhà giao dịch này ({min}).",
-    "depositCta": "Nạp tiền"
+    "depositCta": "Nạp tiền",
+    "amountBelowMin": "Số tiền thấp hơn mức tối thiểu của trader này ({min}).",
+    "amountAboveBalance": "Số tiền vượt quá số dư khả dụng của bạn ({balance})."
   },
   "Trades": {
     "title": "Giao dịch",

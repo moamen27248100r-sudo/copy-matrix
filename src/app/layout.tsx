@@ -3,7 +3,9 @@ import { IBM_Plex_Sans_Arabic, Inter } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
+import { Suspense } from "react";
 import { ImpersonationBanner } from "@/components/ImpersonationBanner";
+import { StripFlashParams } from "@/components/StripFlashParams";
 import { SEARCH_INDEXING_ENABLED } from "@/lib/indexing";
 import { GLOBAL_CLIENT_NAMESPACES, pickMessages } from "@/i18n/client-messages";
 import "./globals.css";
@@ -84,6 +86,9 @@ export default async function RootLayout({
         />
         <NextIntlClientProvider messages={messages}>
           <ImpersonationBanner />
+          <Suspense fallback={null}>
+            <StripFlashParams />
+          </Suspense>
           {children}
         </NextIntlClientProvider>
       </body>

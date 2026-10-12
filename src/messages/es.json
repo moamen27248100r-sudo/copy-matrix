@@ -1319,7 +1319,9 @@
     "editConfirm": "Guardar cambios",
     "lockedNotice": "El importe, el modo y el límite por operación están bloqueados mientras haya operaciones copiadas abiertas. El objetivo de beneficio, el stop loss y el stop dinámico siguen siendo editables.",
     "balanceBelowMin": "Tu saldo ({balance}) es inferior al mínimo de este trader ({min}).",
-    "depositCta": "Añadir fondos"
+    "depositCta": "Añadir fondos",
+    "amountBelowMin": "El importe es inferior al mínimo de este trader ({min}).",
+    "amountAboveBalance": "El importe supera tu saldo disponible ({balance})."
   },
   "Trades": {
     "title": "Operaciones",

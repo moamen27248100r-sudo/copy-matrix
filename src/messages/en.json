@@ -1322,7 +1322,9 @@
     "editConfirm": "Save changes",
     "lockedNotice": "Amount, mode and per-trade limit are locked while copied trades are open. Take profit, stop loss and trailing stop can still be changed.",
     "balanceBelowMin": "Your balance ({balance}) is below this trader's minimum ({min}).",
-    "depositCta": "Add funds"
+    "depositCta": "Add funds",
+    "amountBelowMin": "Amount is below this trader's minimum ({min}).",
+    "amountAboveBalance": "Amount is more than your available balance ({balance})."
   },
   "Trades": {
     "title": "Trades",

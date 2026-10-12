@@ -1319,7 +1319,9 @@
     "editConfirm": "Enregistrer",
     "lockedNotice": "Le montant, le mode et la limite par transaction sont verrouillés tant que des transactions copiées sont ouvertes. L'objectif de profit, le stop loss et le stop suiveur restent modifiables.",
     "balanceBelowMin": "Votre solde ({balance}) est inférieur au minimum de ce trader ({min}).",
-    "depositCta": "Ajouter des fonds"
+    "depositCta": "Ajouter des fonds",
+    "amountBelowMin": "Le montant est inférieur au minimum de ce trader ({min}).",
+    "amountAboveBalance": "Le montant dépasse votre solde disponible ({balance})."
   },
   "Trades": {
     "title": "Trades",

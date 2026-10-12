@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useBodyScrollLock } from "@/lib/use-body-scroll-lock";
 import { SubmitButton } from "@/components/SubmitButton";
+import { copyAmountIssue } from "@/lib/copy-amount";
 
 // Copy-start dialog. Every field is applied by the followProvider action and
 // stored on the subscription: the copy mode and max-per-trade size each copied
@@ -51,6 +52,8 @@ export function CopyDialog({
   const [advanced, setAdvanced] = useState(!!edit);
   const [mode, setMode] = useState<"ratio" | "fixed">(edit?.mode ?? "ratio");
   const locked = !!edit?.locked;
+  const [amount, setAmount] = useState(String(defaultAmount));
+  const amountIssue = locked || amount.trim() === "" ? null : copyAmountIssue(Number(amount), minAmount, edit ? null : balance);
   const belowMinimum = !edit && balance != null && balance < minAmount;
 
   useBodyScrollLock(open);
@@ -80,7 +83,7 @@ export function CopyDialog({
       </button>
 
       {open && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center" role="dialog" aria-modal="true" aria-label={edit ? t("editTitle", { name: providerName }) : t("title", { name: providerName })}>
+        <div className="fixed inset-0 z-[10000] flex items-end justify-center sm:items-center" role="dialog" aria-modal="true" aria-label={edit ? t("editTitle", { name: providerName }) : t("title", { name: providerName })}>
           <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" onClick={() => setOpen(false)} aria-hidden="true" />
           <form
             action={action}
@@ -114,7 +117,10 @@ export function CopyDialog({
                 type="number"
                 step="any"
                 min={minAmount}
-                defaultValue={defaultAmount}
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                aria-invalid={amountIssue != null}
+                aria-describedby={amountIssue ? "copy-amount-issue" : undefined}
                 required
                 readOnly={locked}
                 className={inputCls + (locked ? " opacity-60" : "")}
@@ -122,6 +128,11 @@ export function CopyDialog({
               <span className="text-xs text-muted">
                 {t("minAmount")} <span dir="ltr">{money(minAmount)}</span>
               </span>
+              {amountIssue && (
+                <span id="copy-amount-issue" role="alert" className="text-xs font-medium text-danger">
+                  {amountIssue === "below_min" ? t("amountBelowMin", { min: money(minAmount) }) : t("amountAboveBalance", { balance: money(balance ?? 0) })}
+                </span>
+              )}
             </label>
 
             {profitSharePct != null && (
@@ -142,7 +153,7 @@ export function CopyDialog({
               {mode === "fixed" && (
                 <label className="flex flex-col gap-1.5 text-sm">
                   <span className="text-muted">{t("fixedAmountLabel")}</span>
-                  <input name="fixedAmount" type="number" step="any" min={1} max={defaultAmount} required readOnly={locked} defaultValue={edit?.fixedAmount ?? undefined} className={inputCls + (locked ? " opacity-60" : "")} dir="ltr" />
+                  <input name="fixedAmount" type="number" step="any" min={1} max={Number(amount) > 0 ? Number(amount) : defaultAmount} required readOnly={locked} defaultValue={edit?.fixedAmount ?? undefined} className={inputCls + (locked ? " opacity-60" : "")} dir="ltr" />
                 </label>
               )}
             </fieldset>
@@ -207,7 +218,7 @@ export function CopyDialog({
               <span>{t("riskAck")}</span>
             </label>}
 
-            <SubmitButton disabled={!ack || belowMinimum} className="rounded-lg bg-accent px-6 py-3 text-base font-bold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50">
+            <SubmitButton disabled={!ack || belowMinimum || amountIssue != null} className="rounded-lg bg-accent px-6 py-3 text-base font-bold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50">
               {edit ? t("editConfirm") : t("confirm")}
             </SubmitButton>
           </form>
