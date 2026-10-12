@@ -70,7 +70,7 @@ export default async function LoginPage({
             <label htmlFor="li-password" className="text-sm font-medium">
               {t("passwordLabel")}
             </label>
-            <Link href="/forgot-password" className="text-sm text-muted underline underline-offset-4 hover:text-foreground">
+            <Link href="/forgot-password" className="tap-44 text-sm text-muted underline underline-offset-4 hover:text-foreground">
               {t("forgotPassword")}
             </Link>
           </div>
@@ -83,7 +83,7 @@ export default async function LoginPage({
 
       <p className="text-center text-sm text-muted">
         {t("noAccount")}{" "}
-        <Link href={signupHref} className="font-medium text-foreground underline underline-offset-4">
+        <Link href={signupHref} className="tap-44 font-medium text-foreground underline underline-offset-4">
           {t("createNewAccount")}
         </Link>
       </p>

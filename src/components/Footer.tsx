@@ -22,11 +22,11 @@ export function Footer({ dir, navLinks }: { dir: "rtl" | "ltr"; navLinks: NavLin
             <p className="line-clamp-1 text-xs font-semibold text-slate-400">{t("platform")}</p>
             <div className="flex flex-col gap-2 text-sm">
               {navLinks.map((l) => (
-                <a key={l.href} href={l.href} className="line-clamp-1 text-muted hover:text-foreground">
+                <a key={l.href} href={l.href} className="-my-3 line-clamp-1 py-3 text-muted hover:text-foreground">
                   {l.label}
                 </a>
               ))}
-              <Link href="/about" className="line-clamp-1 text-muted hover:text-foreground">
+              <Link href="/about" className="-my-3 line-clamp-1 py-3 text-muted hover:text-foreground">
                 {t("about")}
               </Link>
             </div>
@@ -35,10 +35,10 @@ export function Footer({ dir, navLinks }: { dir: "rtl" | "ltr"; navLinks: NavLin
           <div className="flex h-full flex-col justify-between gap-2 rounded-2xl border border-glass-border bg-glass-surface p-5 backdrop-blur-xl">
             <p className="line-clamp-1 text-xs font-semibold text-slate-400">{t("security")}</p>
             <div className="flex flex-col gap-2 text-sm">
-              <Link href="/security" className="line-clamp-1 text-muted hover:text-foreground">
+              <Link href="/security" className="-my-3 line-clamp-1 py-3 text-muted hover:text-foreground">
                 {t("securityCenter")}
               </Link>
-              <Link href="/risk-disclosure" className="line-clamp-1 text-muted hover:text-foreground">
+              <Link href="/risk-disclosure" className="-my-3 line-clamp-1 py-3 text-muted hover:text-foreground">
                 {t("riskDisclosure")}
               </Link>
             </div>
@@ -47,16 +47,16 @@ export function Footer({ dir, navLinks }: { dir: "rtl" | "ltr"; navLinks: NavLin
           <div className="flex h-full flex-col justify-between gap-2 rounded-2xl border border-glass-border bg-glass-surface p-5 backdrop-blur-xl">
             <p className="line-clamp-1 text-xs font-semibold text-slate-400">{t("support")}</p>
             <div className="flex flex-col gap-2 text-sm">
-              <Link href="/support" className="line-clamp-1 text-muted hover:text-foreground">
+              <Link href="/support" className="-my-3 line-clamp-1 py-3 text-muted hover:text-foreground">
                 {t("supportLink")}
               </Link>
-              <Link href="/legal/terms" className="line-clamp-1 text-muted hover:text-foreground">
+              <Link href="/legal/terms" className="-my-3 line-clamp-1 py-3 text-muted hover:text-foreground">
                 {t("terms")}
               </Link>
-              <Link href="/legal/privacy" className="line-clamp-1 text-muted hover:text-foreground">
+              <Link href="/legal/privacy" className="-my-3 line-clamp-1 py-3 text-muted hover:text-foreground">
                 {t("privacy")}
               </Link>
-              <a href={`mailto:${SUPPORT_EMAIL}`} dir="ltr" className="line-clamp-1 text-start text-muted hover:text-foreground">
+              <a href={`mailto:${SUPPORT_EMAIL}`} dir="ltr" className="-my-3 line-clamp-1 py-3 text-start text-muted hover:text-foreground">
                 {SUPPORT_EMAIL}
               </a>
             </div>

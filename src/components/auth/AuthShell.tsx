@@ -11,10 +11,10 @@ export async function AuthShell({ title, subtitle, children }: { title: string; 
   return (
     <div className="landing min-h-screen">
       <header className="mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between px-4 sm:px-6">
-        <Link href="/" aria-label="Copy Matrix">
+        <Link href="/" aria-label="Copy Matrix" className="tap-44">
           <Logo iconClassName="h-4 w-4" textClassName="text-lg" />
         </Link>
-        <Link href="/" className="flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-foreground">
+        <Link href="/" className="tap-44 flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-foreground">
           {t("backHome")}
           <ArrowRight className="h-4 w-4 rtl:rotate-180" strokeWidth={1.5} aria-hidden="true" />
         </Link>

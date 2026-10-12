@@ -39,7 +39,7 @@ export default async function SignupPage({
       <SignupForm next={next} />
 
       <p className="text-center text-sm">
-        <Link href={loginHref} className="font-medium text-foreground underline underline-offset-4">
+        <Link href={loginHref} className="tap-44 font-medium text-foreground underline underline-offset-4">
           {t("alreadyHaveAccount")}
         </Link>
       </p>
