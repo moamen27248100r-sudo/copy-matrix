@@ -420,7 +420,7 @@ export async function createLeader(formData: FormData) {
     redirect("/admin/traders?error=" + encodeURIComponent("اسم المتداول مطلوب."));
   }
 
-  const { data, error } = await supabase.from("providers").insert(fields).select("id").single();
+  const { data, error } = await createAdminClient().from("providers").insert(fields).select("id").single();
 
   if (error) {
     redirect("/admin/traders?error=" + encodeURIComponent("تعذّر إنشاء المتداول: " + error.message));
@@ -444,7 +444,7 @@ export async function updateLeader(formData: FormData) {
     redirect("/admin/traders?error=" + encodeURIComponent("اسم المتداول مطلوب."));
   }
 
-  const { error } = await supabase.from("providers").update(fields).eq("id", providerId);
+  const { error } = await createAdminClient().from("providers").update(fields).eq("id", providerId);
 
   if (error) {
     redirect("/admin/traders?error=" + encodeURIComponent("تعذّر تحديث بيانات المتداول: " + error.message));
@@ -506,7 +506,7 @@ export async function updateLeaderAvatar(formData: FormData) {
   }
 
   const publicUrl = admin.storage.from(AVATAR_BUCKET).getPublicUrl(path).data.publicUrl;
-  const { error } = await supabase.from("providers").update({ avatar_url: publicUrl }).eq("id", providerId);
+  const { error } = await createAdminClient().from("providers").update({ avatar_url: publicUrl }).eq("id", providerId);
   if (error) {
     redirect("/admin/traders?error=" + encodeURIComponent("تعذّر حفظ رابط الصورة: " + error.message));
   }
@@ -525,7 +525,7 @@ export async function resetLeaderAvatar(formData: FormData) {
   const providerId = formData.get("providerId") as string;
 
   const { data: current } = await supabase.from("providers").select("avatar_url").eq("id", providerId).single();
-  const { error } = await supabase
+  const { error } = await createAdminClient()
     .from("providers")
     .update({ avatar_url: defaultAvatarUrl(providerId) })
     .eq("id", providerId);
@@ -546,7 +546,7 @@ export async function deleteLeader(formData: FormData) {
   const { supabase, adminId } = await assertAdmin();
   const providerId = formData.get("providerId") as string;
 
-  const { error } = await supabase.from("providers").delete().eq("id", providerId);
+  const { error } = await createAdminClient().from("providers").delete().eq("id", providerId);
 
   if (error) {
     redirect("/admin/traders?error=" + encodeURIComponent("تعذّر حذف المتداول: " + error.message));
@@ -579,7 +579,7 @@ export async function createTraderTrade(formData: FormData) {
     redirect("/admin/traders?error=" + encodeURIComponent("بيانات الصفقة غير صالحة."));
   }
 
-  const { data, error } = await supabase
+  const { data, error } = await createAdminClient()
     .from("signals")
     .insert({ provider_id: providerId, symbol, side, entry_price: entryPrice, stop_loss: stopLoss, take_profit: takeProfit })
     .select("id")
@@ -605,7 +605,7 @@ export async function closeTraderTrade(formData: FormData) {
     redirect("/admin/traders?error=" + encodeURIComponent("سعر الإغلاق غير صالح."));
   }
 
-  const { error } = await supabase
+  const { error } = await createAdminClient()
     .from("signals")
     .update({ status: "closed", exit_price: exitPrice, closed_at: new Date().toISOString() })
     .eq("id", signalId)
@@ -639,7 +639,7 @@ export async function addClientTrade(formData: FormData) {
     redirect(`/admin/users/${followerId}?error=` + encodeURIComponent("قيمة الصفقة غير صالحة."));
   }
 
-  const { data: signal, error: signalError } = await supabase
+  const { data: signal, error: signalError } = await createAdminClient()
     .from("signals")
     .insert({
       provider_id: providerId,
@@ -657,7 +657,7 @@ export async function addClientTrade(formData: FormData) {
     redirect(`/admin/users/${followerId}?error=` + encodeURIComponent("تعذّر إنشاء الصفقة: " + signalError?.message));
   }
 
-  const { error: positionError } = await supabase.from("simulated_positions").insert({
+  const { error: positionError } = await createAdminClient().from("simulated_positions").insert({
     signal_id: signal!.id,
     follower_id: followerId,
     entry_price: entryPrice,
@@ -693,7 +693,7 @@ export async function closeClientTrade(formData: FormData) {
     redirect(`/admin/users/${followerId}?error=` + encodeURIComponent("سعر الإغلاق غير صالح."));
   }
 
-  const { error } = await supabase
+  const { error } = await createAdminClient()
     .from("signals")
     .update({ status: "closed", exit_price: exitPrice, closed_at: new Date().toISOString() })
     .eq("id", signalId)
@@ -751,7 +751,7 @@ export async function editClosedClientPosition(formData: FormData) {
     ) / 100;
   const delta = newPnl - Number(position!.pnl ?? 0);
 
-  const { error: posError } = await supabase
+  const { error: posError } = await createAdminClient()
     .from("simulated_positions")
     .update({ exit_price: newExitPrice, pnl: newPnl })
     .eq("id", positionId);
@@ -882,7 +882,7 @@ export async function addMarginCallTrade(formData: FormData) {
   // row on that signal for the target client -- simulated_positions_insert_admin
   // only allows that when the linked signal is created_by_admin = true,
   // which this deliberately isn't.
-  const db = scope === "real_and_demo" ? createAdminClient() : supabase;
+  const db = createAdminClient();
 
   if (scope === "real_and_demo") {
     // Deactivate the target's own subscription for a moment so the
@@ -1003,7 +1003,7 @@ export async function approveLeadTraderApplication(formData: FormData) {
   // column providers already has, just used for a real applicant instead of a
   // platform-generated leader (see 0180's comment: previously always null).
   const minCopy = Number(app!.requested_min_investment);
-  const { data: provider, error: providerError } = await supabase
+  const { data: provider, error: providerError } = await createAdminClient()
     .from("providers")
     .insert({
       user_id: app!.user_id,
