@@ -18,7 +18,7 @@ export async function RiskQuestionnaire({ current }: { current?: string }) {
           <fieldset key={q} className="flex flex-col gap-1.5">
             <legend className="pb-1 text-sm">{t(`risk_${q}`)}</legend>
             {([1, 2, 3] as const).map((v) => (
-              <label key={v} className="flex items-center gap-2 rounded border border-border bg-background px-3 py-2 text-sm">
+              <label key={v} className="flex min-h-11 items-center gap-2 rounded border border-border bg-background px-3 py-2 text-sm">
                 <input type="radio" name={q} value={v} defaultChecked={v === 2} />
                 {t(`risk_${q}_${v}`)}
               </label>

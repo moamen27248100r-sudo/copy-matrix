@@ -510,7 +510,7 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
                   />
                   <Link
                     href={compareHref(p.provider_id)}
-                    className={compareIds.includes(p.provider_id) ? "self-end px-2 text-xs font-medium text-accent" : "self-end px-2 text-xs text-muted hover:text-accent"}
+                    className={compareIds.includes(p.provider_id) ? "tap-44 self-end px-2 text-xs font-medium text-accent" : "tap-44 self-end px-2 text-xs text-muted hover:text-accent"}
                   >
                     {compareIds.includes(p.provider_id) ? t("compareRemove") : t("compareAdd")}
                   </Link>

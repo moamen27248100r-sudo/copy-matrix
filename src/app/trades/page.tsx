@@ -75,7 +75,7 @@ export default async function TradesPage({
       : { trades: [], symbols: [] as string[], providers: [] as { id: string; name: string }[] };
 
   const exportQs = new URLSearchParams(Object.entries({ symbol, provider, result, days }).filter(([, v]) => !!v) as [string, string][]);
-  const select = "rounded border border-border bg-background px-2 py-1.5 text-sm";
+  const select = "min-h-11 rounded border border-border bg-background px-2 py-1.5 text-sm lg:min-h-0";
 
   return (
     <>

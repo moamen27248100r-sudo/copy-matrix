@@ -190,7 +190,7 @@ export default async function NotificationsPage({ searchParams }: { searchParams
               {tn(`cat_${k}`)}
             </Link>
           ))}
-          <Link href="/notifications/preferences" className="ms-auto text-xs text-accent hover:underline">
+          <Link href="/notifications/preferences" className="tap-44 ms-auto text-xs text-accent hover:underline">
             {tn("prefsLink")}
           </Link>
         </div>

@@ -79,7 +79,7 @@ export default async function SettingsPage({
               defaultValue={profile?.display_name ?? ""}
               placeholder={t("fullNamePlaceholder")}
               required
-              className="rounded border border-border bg-background px-3 py-2"
+              className="min-h-11 rounded border border-border bg-background px-3 py-2"
             />
             <button
               type="submit"
@@ -141,7 +141,7 @@ export default async function SettingsPage({
               placeholder={t("newPasswordPlaceholder")}
               required
               minLength={6}
-              className="rounded border border-border bg-background px-3 py-2"
+              className="min-h-11 rounded border border-border bg-background px-3 py-2"
             />
             <button
               type="submit"
@@ -168,7 +168,7 @@ export default async function SettingsPage({
               id="timezone"
               name="timezone"
               defaultValue={tz}
-              className="rounded border border-border bg-background px-3 py-2 text-base"
+              className="min-h-11 rounded border border-border bg-background px-3 py-2 text-base"
             >
               {tzOptions.map((z) => (
                 <option key={z} value={z}>
