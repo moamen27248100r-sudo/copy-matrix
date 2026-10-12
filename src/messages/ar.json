@@ -1412,7 +1412,7 @@
     "tpSlSaved": "تم تحديث جني الأرباح/وقف الخسارة."
   },
   "Copies": {
-    "title": "نسخي",
+    "title": "نسخاتي",
     "empty": "أنت لا تنسخ أي متداول حاليًا.",
     "discover": "استكشف المتداولين",
     "activeCopies": "النسخ النشطة",
@@ -1752,7 +1752,7 @@
   "Metadata": {
     "becomeLeadTraderTitle": "كن متداولًا رائدًا | Copy Matrix",
     "becomeLeadTraderDesc": "التقدم لتصبح متداولًا رائدًا على Copy Matrix.",
-    "copiesTitle": "نسخي | Copy Matrix",
+    "copiesTitle": "نسخاتي | Copy Matrix",
     "copiesDesc": "عرض وإدارة المتداولين الذين تنسخهم حاليًا.",
     "dashboardTitle": "لوحة التحكم | Copy Matrix",
     "dashboardDesc": "نظرة عامة على حسابك ونشاطك في Copy Matrix.",
