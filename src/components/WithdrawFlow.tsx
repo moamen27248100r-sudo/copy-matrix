@@ -1,6 +1,6 @@
 "use client";
 
-import { useMoney } from "@/lib/money-client";
+import { useUsdt } from "@/lib/money-client";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { demoWithdraw } from "@/app/portfolio/actions";
@@ -26,7 +26,7 @@ function AmountStep({
   buttonLabel: string;
 }) {
   const t = useTranslations("Portfolio");
-  const money = useMoney();
+  const money = useUsdt();
   return (
     <div className="flex flex-1 flex-col gap-6">
       <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-md">

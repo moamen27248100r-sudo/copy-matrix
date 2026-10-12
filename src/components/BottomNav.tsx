@@ -33,7 +33,7 @@ const ICONS = {
     filled: (
       <>
         <circle cx="12" cy="12" r="9" fill="currentColor" />
-        <path d="m15.4 8.6-1.9 4.9-4.9 1.9 1.9-4.9z" fill="var(--background)" stroke="var(--background)" />
+        <path d="m15.4 8.6-1.9 4.9-4.9 1.9 1.9-4.9z" fill="var(--surface)" stroke="var(--surface)" />
       </>
     ),
   },
@@ -78,7 +78,7 @@ const ICONS = {
       <>
         <path d="M4 8.5V6.2A2.2 2.2 0 0 1 6.2 4H16" />
         <path d="M4 8.5A2.5 2.5 0 0 1 6.5 6H18a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6.5A2.5 2.5 0 0 1 4 17.5z" fill="currentColor" />
-        <circle cx="16" cy="13.5" r="1.3" fill="var(--background)" stroke="var(--background)" />
+        <circle cx="16" cy="13.5" r="1.3" fill="var(--surface)" stroke="var(--surface)" />
       </>
     ),
   },
@@ -193,7 +193,7 @@ export function BottomNav() {
                 }}
                 aria-current={active ? "page" : undefined}
                 className={`relative z-10 flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-full px-1 text-[11px] font-medium transition-colors duration-200 motion-reduce:transition-none ${
-                  active ? "text-white" : "text-[#AEB7C7] active:text-white"
+                  active ? "text-accent-text" : "text-muted active:text-foreground"
                 }`}
               >
                 <svg

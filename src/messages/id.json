@@ -60,7 +60,7 @@
     "tryCopy": {
       "badge": "Coba tanpa risiko",
       "title": "Coba dengan akun demo",
-      "description": "Mulai dengan dana virtual 10.000 USDT dan berlatih menyalin sebelum menggunakan uang Anda sendiri.",
+      "description": "Mulai dengan dana virtual $10.000 dan berlatih menyalin sebelum menggunakan uang Anda sendiri.",
       "cta": "Buka akun demo",
       "cardWelcome": "Akun demo gratis Anda",
       "cardPortfolioLabel": "Nilai portofolio demo",
@@ -182,7 +182,7 @@
     "mostCopiedThisWeekTitle": "Paling banyak disalin minggu ini",
     "copiersThisWeek": "{count} penyalin baru minggu ini",
     "viewAllPositions": "Lihat semua {count} posisi",
-    "resetBalanceConfirm": "Atur ulang saldo demo ke 10.000 USDT? Salinan Anda saat ini akan dihentikan."
+    "resetBalanceConfirm": "Atur ulang saldo demo ke $10.000? Salinan Anda saat ini akan dihentikan."
   },
   "Common": {
     "level": "Level {level}",
@@ -307,10 +307,10 @@
     "demoWithdrawNote": "Penarikan demo bersifat instan dan hanya memengaruhi saldo demo Anda.",
     "demoWalletNote": "Saldo demo Anda bersifat virtual dan sepenuhnya terpisah dari akun riil. Setoran dan penarikan bersifat instan.",
     "resetDemoButton": "Atur ulang saldo demo",
-    "resetDemoConfirm": "Atur ulang saldo demo ke 10.000 USDT? Salinan Anda saat ini akan dihentikan.",
+    "resetDemoConfirm": "Atur ulang saldo demo ke $10.000? Salinan Anda saat ini akan dihentikan.",
     "demoDepositDone": "Dana demo telah ditambahkan ke saldo Anda.",
     "demoWithdrawDone": "Dana demo telah ditarik dari saldo Anda.",
-    "demoResetDone": "Saldo demo Anda telah diatur ulang ke 10.000 USDT.",
+    "demoResetDone": "Saldo demo Anda telah diatur ulang ke $10.000.",
     "txDemoReset": "Pengaturan ulang saldo",
     "txAdjustment": "Penyesuaian saldo",
     "txFee": "Biaya",
@@ -1126,7 +1126,7 @@
           "minimum untuk menyalin",
           "berapa banyak"
         ],
-        "answer": "Setiap trader menetapkan jumlah minimum penyalinannya sendiri, ditampilkan di halaman profil mereka di samping tombol \"Salin\", dan biasanya berkisar antara 75 USDT hingga 1.000 USDT tergantung trader."
+        "answer": "Setiap trader menetapkan jumlah minimum penyalinannya sendiri, ditampilkan di halaman profil mereka di samping tombol \"Salin\", dan biasanya berkisar antara $75 hingga $1.000 tergantung trader."
       },
       {
         "id": "stop-copy",
@@ -1292,19 +1292,19 @@
     "open": "Salin",
     "title": "Salin {name}",
     "close": "Tutup",
-    "amountLabel": "Jumlah yang dialokasikan (USDT)",
+    "amountLabel": "Jumlah yang dialokasikan ($)",
     "minAmount": "Minimum:",
     "modeLabel": "Mode salin",
     "modeRatio": "Rasio tetap",
     "modeFixed": "Jumlah tetap per transaksi",
     "advanced": "Pengaturan lanjutan",
-    "maxPerTrade": "Jumlah maksimum per transaksi (USDT) — opsional",
+    "maxPerTrade": "Jumlah maksimum per transaksi ($) — opsional",
     "copyStopLoss": "Berhenti menyalin saat rugi (%)",
     "riskAck": "Saya memahami bahwa copy trading mengandung risiko dan saya dapat kehilangan sebagian atau seluruh jumlah yang dialokasikan.",
     "confirm": "Mulai menyalin",
     "profitShare": "Bagi hasil:",
     "copyStopLossHint": "Penyalinan berhenti otomatis saat kerugian yang terealisasi mencapai persentase ini dari jumlah yang dialokasikan.",
-    "fixedAmountLabel": "Jumlah per transaksi (USDT)",
+    "fixedAmountLabel": "Jumlah per transaksi ($)",
     "tradeRiskTitle": "Manajemen risiko per transaksi",
     "takeProfitLabel": "Take profit (% dari margin) — opsional",
     "stopLossLabel": "Stop loss (% dari margin) — opsional",
@@ -1385,7 +1385,7 @@
       "style_sporadic": "Sesekali",
       "contactLabel": "Metode kontak (pribadi)",
       "contactPlaceholder": "Telegram, WhatsApp, email...",
-      "minInvestmentLabel": "Investasi minimum yang disarankan (USDT)",
+      "minInvestmentLabel": "Investasi minimum yang disarankan ($)",
       "agreeLabel": "Saya menyetujui perjanjian lead trader.",
       "submit": "Kirim pengajuan"
     },
@@ -1577,8 +1577,8 @@
       "market_indices": "Indeks",
       "contactLabel": "Kontak (pribadi)",
       "followerSettings": "Pengaturan pengikut",
-      "minInvestmentLabel": "Investasi minimum (USDT)",
-      "minCopyAmountLabel": "Jumlah salin minimum (USDT)",
+      "minInvestmentLabel": "Investasi minimum ($)",
+      "minCopyAmountLabel": "Jumlah salin minimum ($)",
       "profitSharePctLabel": "Persentase bagi hasil (maks. {max}% di level Anda)",
       "acceptingFollowersLabel": "Terima pengikut baru",
       "whitelistNote": "Mode hanya undangan dikelola dari",
@@ -1791,7 +1791,7 @@
       },
       {
         "q": "Apakah ada akun demo?",
-        "a": "Ya. Akun demo dimulai dengan dana virtual 10.000 USDT, sehingga Anda bisa berlatih tanpa mempertaruhkan uang sendiri."
+        "a": "Ya. Akun demo dimulai dengan dana virtual $10.000, sehingga Anda bisa berlatih tanpa mempertaruhkan uang sendiri."
       }
     ]
   },

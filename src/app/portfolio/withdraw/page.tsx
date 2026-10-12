@@ -9,7 +9,7 @@ import { ConfirmButton } from "@/components/ConfirmButton";
 import { cancelCryptoWithdrawal } from "@/app/portfolio/actions";
 import { hasVerifiedTotp } from "@/lib/mfa";
 import { isNetworkId, shortAddress } from "@/lib/crypto/networks";
-import { getMoney } from "@/lib/money-server";
+import { getUsdt } from "@/lib/money-server";
 import { formatDateTime } from "@/lib/locale-format";
 import { getUserTimeZone } from "@/lib/timezone";
 import type { Locale } from "@/i18n/locales";
@@ -76,7 +76,7 @@ export default async function WithdrawPage({ searchParams }: { searchParams: Pro
     );
   }
 
-  const money = await getMoney();
+  const money = await getUsdt();
   const locale = (await getLocale()) as Locale;
   const timeZone = await getUserTimeZone();
   const rows = recent ?? [];

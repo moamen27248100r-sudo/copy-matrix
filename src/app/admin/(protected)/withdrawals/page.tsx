@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { formatMoney } from "@/lib/money";
+import { formatUsdt } from "@/lib/money";
 import { createClient } from "@/lib/supabase/server";
 import { completeCryptoWithdrawal, rejectCryptoWithdrawal, startCryptoWithdrawal } from "@/app/admin/actions";
 import { SubmitButton } from "@/components/SubmitButton";
@@ -40,10 +40,10 @@ function QueueCard({ w }: { w: Withdrawal }) {
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div>
           <p className="text-lg font-semibold">
-            {formatMoney(Number(w.net_amount), "ar", { decimals: 6 })} <span className="text-xs font-normal text-muted">(المبلغ المطلوب إرساله)</span>
+            {formatUsdt(Number(w.net_amount), "ar", { decimals: 6 })} <span className="text-xs font-normal text-muted">(المبلغ المطلوب إرساله)</span>
           </p>
           <p className="text-xs text-muted">
-            المخصوم من الرصيد {formatMoney(Number(w.amount), "ar")} · الرسوم {formatMoney(Number(w.fee), "ar")} · {w.network}
+            المخصوم من الرصيد {formatUsdt(Number(w.amount), "ar")} · الرسوم {formatUsdt(Number(w.fee), "ar")} · {w.network}
           </p>
           <Link href={`/admin/users/${w.user_id}`} className="text-xs text-accent hover:underline">
             {profile?.display_name} · {profile?.email}
@@ -157,7 +157,7 @@ export default async function AdminWithdrawalsPage({ searchParams }: { searchPar
                       </Link>
                     </td>
                     <td className="py-2 pe-3">{w.network}</td>
-                    <td className="py-2 pe-3">{formatMoney(Number(w.net_amount), "ar")}</td>
+                    <td className="py-2 pe-3">{formatUsdt(Number(w.net_amount), "ar")}</td>
                     <td className="py-2 pe-3">
                       <StatusChip status={w.status} />
                     </td>

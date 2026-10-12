@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { formatMoney } from "@/lib/money";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import {
@@ -188,7 +189,7 @@ export default async function AdminTradersPage({
                     {Number(l.card?.closed_signals ?? 0) > 0 ? `-${Number(l.card?.mdd_all).toFixed(2)}%` : "—"} تراجع
                   </span>
                   <span className="rounded border border-border px-2 py-0.5" dir="ltr">
-                    {Number(l.card?.total_profit ?? 0).toFixed(2)}$ ربح
+                    {formatMoney(Number(l.card?.total_profit ?? 0), "ar", { signed: true })} ربح
                   </span>
                 </span>
               </summary>

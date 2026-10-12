@@ -21,15 +21,18 @@ function ActionIcon({ children }: { children: React.ReactNode }) {
   );
 }
 
-function ProfitRow({ label, amount, pct, money }: { label: string; amount: number; pct: number; money: Money }) {
+// A label with its figure directly beneath it, aligned to the start edge in both directions.
+function ProfitStat({ label, amount, pct, money }: { label: string; amount: number; pct: number; money: Money }) {
   const positive = amount >= 0;
   return (
-    <div className="flex items-center justify-between text-sm">
-      <span className="text-muted">{label}</span>
-      <span dir="ltr" className={positive ? "text-success" : "text-danger"}>
-        {money(amount, { signed: true })} ({positive ? "+" : "-"}
-        {Math.abs(pct).toFixed(2)}%)
-      </span>
+    <div className="min-w-0 text-start">
+      <p className="text-xs text-muted">{label}</p>
+      <p className="mt-0.5 text-sm font-semibold">
+        <span dir="ltr" className={`inline-block ${positive ? "text-success" : "text-danger"}`}>
+          {money(amount, { signed: true })} ({positive ? "+" : "-"}
+          {Math.abs(pct).toFixed(2)}%)
+        </span>
+      </p>
     </div>
   );
 }
@@ -101,14 +104,16 @@ export async function DashboardHero({
             <CountUp value={totalValue} money />
           </span>
         </p>
-        <ProfitRow label={t("todayProfit")} amount={todayPnl} pct={todayPct} money={money} />
-        <ProfitRow label={t("totalProfit")} amount={totalProfit} pct={totalProfitPct} money={money} />
-        <p className="text-xs text-muted">
-          <span dir="ltr" className={pnlPositive ? "text-success" : "text-danger"}>
+        <div className="mt-1 grid grid-cols-2 gap-3">
+          <ProfitStat label={t("todayProfit")} amount={todayPnl} pct={todayPct} money={money} />
+          <ProfitStat label={t("totalProfit")} amount={totalProfit} pct={totalProfitPct} money={money} />
+        </div>
+        <p className="text-start text-xs text-muted">
+          {t("unrealizedPnl")}{" "}
+          <span dir="ltr" className={`inline-block ${pnlPositive ? "text-success" : "text-danger"}`}>
             {money(totalUnrealizedPnl, { signed: true })} ({pnlPositive ? "+" : "-"}
             {Math.abs(pnlPct).toFixed(2)}%)
-          </span>{" "}
-          {t("unrealizedPnl")}
+          </span>
         </p>
       </div>
 

@@ -60,7 +60,7 @@
     "tryCopy": {
       "badge": "Jaribu bila hatari",
       "title": "Jaribu kwa akaunti ya demo",
-      "description": "Anza na 10,000 USDT za fedha za kidhahania na ufanye mazoezi ya kunakili kabla ya kutumia pesa zako.",
+      "description": "Anza na $10,000 za fedha za kidhahania na ufanye mazoezi ya kunakili kabla ya kutumia pesa zako.",
       "cta": "Fungua akaunti ya demo",
       "cardWelcome": "Akaunti yako ya bure ya majaribio",
       "cardPortfolioLabel": "Thamani ya jalada la majaribio",
@@ -182,7 +182,7 @@
     "mostCopiedThisWeekTitle": "Waliyonakiliwa zaidi wiki hii",
     "copiersThisWeek": "Wanakili {count} wapya wiki hii",
     "viewAllPositions": "Tazama nafasi zote {count}",
-    "resetBalanceConfirm": "Weka upya salio lako la demo hadi USDT 10,000? Nakala zako za sasa zitasimama."
+    "resetBalanceConfirm": "Weka upya salio lako la demo hadi $10,000? Nakala zako za sasa zitasimama."
   },
   "Common": {
     "level": "Kiwango {level}",
@@ -307,10 +307,10 @@
     "demoWithdrawNote": "Uondoaji wa demo ni wa papo hapo na unaathiri salio lako la demo pekee.",
     "demoWalletNote": "Salio lako la demo ni la kidhahania na limetenganishwa kabisa na akaunti yako halisi. Amana na uondoaji ni wa papo hapo.",
     "resetDemoButton": "Weka upya salio la demo",
-    "resetDemoConfirm": "Weka upya salio lako la demo hadi USDT 10,000? Nakala zako za sasa zitasimama.",
+    "resetDemoConfirm": "Weka upya salio lako la demo hadi $10,000? Nakala zako za sasa zitasimama.",
     "demoDepositDone": "Fedha za demo zimeongezwa kwenye salio lako.",
     "demoWithdrawDone": "Fedha za demo zimetolewa kwenye salio lako.",
-    "demoResetDone": "Salio lako la demo limewekwa upya hadi USDT 10,000.",
+    "demoResetDone": "Salio lako la demo limewekwa upya hadi $10,000.",
     "txDemoReset": "Kuweka upya salio",
     "txAdjustment": "Marekebisho ya salio",
     "txFee": "Ada",
@@ -1126,7 +1126,7 @@
           "kiwango cha chini cha kunakili",
           "kiasi gani"
         ],
-        "answer": "Kila mfanyabiashara huweka kiasi chake cha chini cha kunakili, kinachoonyeshwa kwenye ukurasa wake wa wasifu karibu na kitufe cha \"Nakili\", na kwa kawaida huwa kati ya 75 USDT na 1,000 USDT kutegemea mfanyabiashara."
+        "answer": "Kila mfanyabiashara huweka kiasi chake cha chini cha kunakili, kinachoonyeshwa kwenye ukurasa wake wa wasifu karibu na kitufe cha \"Nakili\", na kwa kawaida huwa kati ya $75 na $1,000 kutegemea mfanyabiashara."
       },
       {
         "id": "stop-copy",
@@ -1292,19 +1292,19 @@
     "open": "Nakili",
     "title": "Nakili {name}",
     "close": "Funga",
-    "amountLabel": "Kiasi cha kutenga (USDT)",
+    "amountLabel": "Kiasi cha kutenga ($)",
     "minAmount": "Kiwango cha chini:",
     "modeLabel": "Hali ya kunakili",
     "modeRatio": "Uwiano usiobadilika",
     "modeFixed": "Kiasi kisichobadilika kwa kila biashara",
     "advanced": "Mipangilio ya hali ya juu",
-    "maxPerTrade": "Kiasi cha juu kwa kila biashara (USDT) — si lazima",
+    "maxPerTrade": "Kiasi cha juu kwa kila biashara ($) — si lazima",
     "copyStopLoss": "Acha kunakili hasara inapofikia (%)",
     "riskAck": "Ninaelewa kwamba biashara ya kunakili ina hatari na ninaweza kupoteza sehemu au kiasi chote nilichotenga.",
     "confirm": "Anza kunakili",
     "profitShare": "Mgao wa faida:",
     "copyStopLossHint": "Nakala husimama kiotomatiki hasara iliyotimia inapofikia sehemu hii ya kiasi kilichotengwa.",
-    "fixedAmountLabel": "Kiasi kwa kila biashara (USDT)",
+    "fixedAmountLabel": "Kiasi kwa kila biashara ($)",
     "tradeRiskTitle": "Usimamizi wa hatari kwa kila biashara",
     "takeProfitLabel": "Chukua faida (% ya margin) — si lazima",
     "stopLossLabel": "Komesha hasara (% ya margin) — si lazima",
@@ -1385,7 +1385,7 @@
       "style_sporadic": "Mara chache",
       "contactLabel": "Njia ya mawasiliano (siri)",
       "contactPlaceholder": "Telegram, WhatsApp, barua pepe...",
-      "minInvestmentLabel": "Uwekezaji wa chini unaopendekezwa (USDT)",
+      "minInvestmentLabel": "Uwekezaji wa chini unaopendekezwa ($)",
       "agreeLabel": "Nakubali makubaliano ya kiongozi wa biashara.",
       "submit": "Tuma ombi"
     },
@@ -1577,8 +1577,8 @@
       "market_indices": "Fahirisi",
       "contactLabel": "Njia ya mawasiliano (siri)",
       "followerSettings": "Mipangilio ya wafuasi",
-      "minInvestmentLabel": "Uwekezaji wa chini (USDT)",
-      "minCopyAmountLabel": "Kiwango cha chini cha kunakili (USDT)",
+      "minInvestmentLabel": "Uwekezaji wa chini ($)",
+      "minCopyAmountLabel": "Kiwango cha chini cha kunakili ($)",
       "profitSharePctLabel": "Kiwango cha mgao wa faida (juu {max}% katika ngazi yako)",
       "acceptingFollowersLabel": "Kupokea wafuasi wapya",
       "whitelistNote": "Hali ya mwaliko pekee inasimamiwa kutoka",
@@ -1791,7 +1791,7 @@
       },
       {
         "q": "Je, kuna akaunti ya majaribio?",
-        "a": "Ndiyo. Akaunti ya majaribio huanza na fedha pepe za 10,000 USDT, ikikuwezesha kujizoeza bila kuhatarisha pesa zako."
+        "a": "Ndiyo. Akaunti ya majaribio huanza na fedha pepe za $10,000, ikikuwezesha kujizoeza bila kuhatarisha pesa zako."
       }
     ]
   },

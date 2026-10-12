@@ -43,8 +43,7 @@ function renderBody(body: string) {
     <>
       {prefix}
       <span className={isPositive ? "text-success" : "text-danger"}>
-        {amount}
-        {unit === "$" ? " USDT" : unit}
+        {unit === "$" ? `${amount.slice(0, 1)}$${amount.slice(1)}` : `${amount}${unit}`}
       </span>
     </>
   );

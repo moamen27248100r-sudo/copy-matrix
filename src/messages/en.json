@@ -3,7 +3,7 @@
     "tryCopy": {
       "badge": "Try it risk-free",
       "title": "Try it with a demo account",
-      "description": "Start with 10,000 USDT in virtual funds and practice copying before using your own money.",
+      "description": "Start with $10,000 in virtual funds and practice copying before using your own money.",
       "cta": "Open a demo account",
       "cardWelcome": "Your free demo account",
       "cardPortfolioLabel": "Demo portfolio value",
@@ -182,7 +182,7 @@
     "mostCopiedThisWeekTitle": "Most copied this week",
     "copiersThisWeek": "{count} new copiers this week",
     "viewAllPositions": "View all {count} positions",
-    "resetBalanceConfirm": "Reset your demo balance to 10,000 USDT? Your current copies will stop."
+    "resetBalanceConfirm": "Reset your demo balance to $10,000? Your current copies will stop."
   },
   "Common": {
     "level": "Level {level}",
@@ -307,10 +307,10 @@
     "demoWithdrawNote": "Demo withdrawals are instant and only affect your demo balance.",
     "demoWalletNote": "Your demo balance is virtual and completely separate from your real account. Deposits and withdrawals are instant.",
     "resetDemoButton": "Reset demo balance",
-    "resetDemoConfirm": "Reset your demo balance to 10,000 USDT? Your current copies will stop.",
+    "resetDemoConfirm": "Reset your demo balance to $10,000? Your current copies will stop.",
     "demoDepositDone": "Demo funds added to your balance.",
     "demoWithdrawDone": "Demo funds withdrawn from your balance.",
-    "demoResetDone": "Your demo balance was reset to 10,000 USDT.",
+    "demoResetDone": "Your demo balance was reset to $10,000.",
     "txDemoReset": "Balance reset",
     "txAdjustment": "Balance adjustment",
     "txFee": "Fee",
@@ -1126,7 +1126,7 @@
           "minimum to copy",
           "how much"
         ],
-        "answer": "Each trader sets their own minimum copy amount, shown on their profile page next to the \"Copy\" button, and it typically ranges between 75 USDT and 1,000 USDT depending on the trader."
+        "answer": "Each trader sets their own minimum copy amount, shown on their profile page next to the \"Copy\" button, and it typically ranges between $75 and $1,000 depending on the trader."
       },
       {
         "id": "stop-copy",
@@ -1296,19 +1296,19 @@
     "open": "Copy",
     "title": "Copy {name}",
     "close": "Close",
-    "amountLabel": "Amount to allocate (USDT)",
+    "amountLabel": "Amount to allocate ($)",
     "minAmount": "Minimum:",
     "modeLabel": "Copy mode",
     "modeRatio": "Fixed ratio",
     "modeFixed": "Fixed amount per trade",
     "advanced": "Advanced settings",
-    "maxPerTrade": "Max amount per trade (USDT) — optional",
+    "maxPerTrade": "Max amount per trade ($) — optional",
     "copyStopLoss": "Stop copying at a loss of (%)",
     "riskAck": "I understand that copy trading involves risk and I may lose part or all of the allocated amount.",
     "confirm": "Start copying",
     "profitShare": "Profit share:",
     "copyStopLossHint": "The copy stops automatically once its realized loss reaches this share of the allocated amount.",
-    "fixedAmountLabel": "Amount per trade (USDT)",
+    "fixedAmountLabel": "Amount per trade ($)",
     "tradeRiskTitle": "Risk management per trade",
     "takeProfitLabel": "Take profit (% of margin) — optional",
     "stopLossLabel": "Stop loss (% of margin) — optional",
@@ -1389,7 +1389,7 @@
       "style_sporadic": "Occasional",
       "contactLabel": "Contact method (private)",
       "contactPlaceholder": "Telegram, WhatsApp, email...",
-      "minInvestmentLabel": "Suggested minimum investment (USDT)",
+      "minInvestmentLabel": "Suggested minimum investment ($)",
       "agreeLabel": "I agree to the lead trader agreement.",
       "submit": "Submit application"
     },
@@ -1581,8 +1581,8 @@
       "market_indices": "Indices",
       "contactLabel": "Contact method (private)",
       "followerSettings": "Follower settings",
-      "minInvestmentLabel": "Minimum investment (USDT)",
-      "minCopyAmountLabel": "Minimum copy amount (USDT)",
+      "minInvestmentLabel": "Minimum investment ($)",
+      "minCopyAmountLabel": "Minimum copy amount ($)",
       "profitSharePctLabel": "Profit-share rate (max {max}% at your tier)",
       "acceptingFollowersLabel": "Accepting new followers",
       "whitelistNote": "Invite-only mode is managed from",
@@ -1795,7 +1795,7 @@
       },
       {
         "q": "Is there a demo account?",
-        "a": "Yes. A demo account starts with 10,000 USDT in virtual funds, letting you practice without risking your own money."
+        "a": "Yes. A demo account starts with $10,000 in virtual funds, letting you practice without risking your own money."
       }
     ]
   },

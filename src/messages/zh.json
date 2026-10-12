@@ -60,7 +60,7 @@
     "tryCopy": {
       "badge": "免费试用",
       "title": "使用模拟账户体验",
-      "description": "从 10,000 USDT虚拟资金开始，在动用自己的资金之前先练习跟单。",
+      "description": "从 $10,000虚拟资金开始，在动用自己的资金之前先练习跟单。",
       "cta": "开通模拟账户",
       "cardWelcome": "您的免费模拟账户",
       "cardPortfolioLabel": "模拟账户组合价值",
@@ -182,7 +182,7 @@
     "mostCopiedThisWeekTitle": "本周最多人跟单",
     "copiersThisWeek": "本周新增 {count} 位跟单者",
     "viewAllPositions": "查看全部 {count} 个持仓",
-    "resetBalanceConfirm": "将模拟余额重置为 10,000 USDT？当前的跟单将会停止。"
+    "resetBalanceConfirm": "将模拟余额重置为 $10,000？当前的跟单将会停止。"
   },
   "Common": {
     "level": "等级 {level}",
@@ -307,10 +307,10 @@
     "demoWithdrawNote": "模拟提现即时完成，仅影响您的模拟余额。",
     "demoWalletNote": "模拟余额为虚拟资金，与您的真实账户完全独立。充值和提现即时到账。",
     "resetDemoButton": "重置模拟余额",
-    "resetDemoConfirm": "将模拟余额重置为 10,000 USDT？当前的跟单将会停止。",
+    "resetDemoConfirm": "将模拟余额重置为 $10,000？当前的跟单将会停止。",
     "demoDepositDone": "模拟资金已添加到您的余额。",
     "demoWithdrawDone": "模拟资金已从您的余额中提取。",
-    "demoResetDone": "您的模拟余额已重置为 10,000 USDT。",
+    "demoResetDone": "您的模拟余额已重置为 $10,000。",
     "txDemoReset": "余额重置",
     "txAdjustment": "余额调整",
     "txFee": "手续费",
@@ -1126,7 +1126,7 @@
           "跟单最低",
           "需要多少钱"
         ],
-        "answer": "每位交易员会设定自己的最低跟单金额，显示在其个人主页的「跟单」按钮旁，通常根据交易员不同，在75 USDT至1,000 USDT之间。"
+        "answer": "每位交易员会设定自己的最低跟单金额，显示在其个人主页的「跟单」按钮旁，通常根据交易员不同，在$75至$1,000之间。"
       },
       {
         "id": "stop-copy",
@@ -1293,19 +1293,19 @@
     "open": "跟单",
     "title": "跟单 {name}",
     "close": "关闭",
-    "amountLabel": "分配金额（USDT）",
+    "amountLabel": "分配金额（$）",
     "minAmount": "最低：",
     "modeLabel": "跟单模式",
     "modeRatio": "固定比例",
     "modeFixed": "每笔固定金额",
     "advanced": "高级设置",
-    "maxPerTrade": "单笔最大金额（USDT）— 可选",
+    "maxPerTrade": "单笔最大金额（$）— 可选",
     "copyStopLoss": "亏损达到以下比例时停止跟单（%）",
     "riskAck": "我了解跟单交易存在风险，可能损失部分或全部分配金额。",
     "confirm": "开始跟单",
     "profitShare": "利润分成：",
     "copyStopLossHint": "当已实现亏损达到分配金额的该比例时，跟单将自动停止。",
-    "fixedAmountLabel": "每笔金额（USDT）",
+    "fixedAmountLabel": "每笔金额（$）",
     "tradeRiskTitle": "每笔交易的风险管理",
     "takeProfitLabel": "止盈（占保证金的百分比）— 可选",
     "stopLossLabel": "止损（占保证金的百分比）— 可选",
@@ -1386,7 +1386,7 @@
       "style_sporadic": "偶尔交易",
       "contactLabel": "联系方式（保密）",
       "contactPlaceholder": "Telegram、WhatsApp、邮箱…",
-      "minInvestmentLabel": "建议最低投资额 (USDT)",
+      "minInvestmentLabel": "建议最低投资额 ($)",
       "agreeLabel": "我同意带单交易员协议。",
       "submit": "提交申请"
     },
@@ -1578,8 +1578,8 @@
       "market_indices": "指数",
       "contactLabel": "联系方式（私密）",
       "followerSettings": "跟单者设置",
-      "minInvestmentLabel": "最低投资额 (USDT)",
-      "minCopyAmountLabel": "最低跟单金额 (USDT)",
+      "minInvestmentLabel": "最低投资额 ($)",
+      "minCopyAmountLabel": "最低跟单金额 ($)",
       "profitSharePctLabel": "分润比例（您的等级上限 {max}%）",
       "acceptingFollowersLabel": "接受新跟单者",
       "whitelistNote": "仅限邀请模式在以下页面管理：",
@@ -1792,7 +1792,7 @@
       },
       {
         "q": "有模拟账户吗？",
-        "a": "有。模拟账户初始拥有 10,000 USDT虚拟资金，让你无需动用自己的钱即可练习。"
+        "a": "有。模拟账户初始拥有 $10,000虚拟资金，让你无需动用自己的钱即可练习。"
       }
     ]
   },

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { formatMoney } from "@/lib/money";
+import { formatUsdt } from "@/lib/money";
 import { createClient } from "@/lib/supabase/server";
 import { recheckCryptoDeposit } from "@/app/admin/actions";
 import { SubmitButton } from "@/components/SubmitButton";
@@ -92,7 +92,7 @@ export default async function AdminDepositsPage({ searchParams }: { searchParams
                       </Link>
                     </td>
                     <td className="py-2 pe-3">{d.network}</td>
-                    <td className="py-2 pe-3">{d.amount != null ? formatMoney(Number(d.amount), "ar") : "—"}</td>
+                    <td className="py-2 pe-3">{d.amount != null ? formatUsdt(Number(d.amount), "ar") : "—"}</td>
                     <td className="py-2 pe-3">
                       <span className={`rounded border px-2 py-0.5 text-xs ${ADMIN_STATUS_TONE[d.status] ?? "border-border"}`}>
                         {ADMIN_DEPOSIT_STATUS[d.status] ?? d.status}

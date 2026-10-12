@@ -60,7 +60,7 @@
     "tryCopy": {
       "badge": "Dùng thử miễn phí rủi ro",
       "title": "Dùng thử với tài khoản demo",
-      "description": "Bắt đầu với 10.000 USDT tiền ảo và luyện tập sao chép trước khi dùng tiền thật của bạn.",
+      "description": "Bắt đầu với $10.000 tiền ảo và luyện tập sao chép trước khi dùng tiền thật của bạn.",
       "cta": "Mở tài khoản demo",
       "cardWelcome": "Tài khoản demo miễn phí của bạn",
       "cardPortfolioLabel": "Giá trị danh mục demo",
@@ -182,7 +182,7 @@
     "mostCopiedThisWeekTitle": "Được sao chép nhiều nhất tuần này",
     "copiersThisWeek": "{count} người sao chép mới tuần này",
     "viewAllPositions": "Xem tất cả {count} vị thế",
-    "resetBalanceConfirm": "Đặt lại số dư demo về 10.000 USDT? Các lệnh sao chép hiện tại sẽ dừng lại."
+    "resetBalanceConfirm": "Đặt lại số dư demo về $10.000? Các lệnh sao chép hiện tại sẽ dừng lại."
   },
   "Common": {
     "level": "Cấp độ {level}",
@@ -307,10 +307,10 @@
     "demoWithdrawNote": "Rút tiền demo diễn ra ngay lập tức và chỉ ảnh hưởng đến số dư demo của bạn.",
     "demoWalletNote": "Số dư demo của bạn là ảo và hoàn toàn tách biệt với tài khoản thực. Nạp và rút tiền diễn ra ngay lập tức.",
     "resetDemoButton": "Đặt lại số dư demo",
-    "resetDemoConfirm": "Đặt lại số dư demo về 10.000 USDT? Các lệnh sao chép hiện tại sẽ dừng lại.",
+    "resetDemoConfirm": "Đặt lại số dư demo về $10.000? Các lệnh sao chép hiện tại sẽ dừng lại.",
     "demoDepositDone": "Tiền demo đã được cộng vào số dư của bạn.",
     "demoWithdrawDone": "Tiền demo đã được rút khỏi số dư của bạn.",
-    "demoResetDone": "Số dư demo của bạn đã được đặt lại về 10.000 USDT.",
+    "demoResetDone": "Số dư demo của bạn đã được đặt lại về $10.000.",
     "txDemoReset": "Đặt lại số dư",
     "txAdjustment": "Điều chỉnh số dư",
     "txFee": "Phí",
@@ -1126,7 +1126,7 @@
           "tối thiểu để sao chép",
           "bao nhiêu tiền"
         ],
-        "answer": "Mỗi nhà giao dịch tự đặt số tiền sao chép tối thiểu của riêng mình, hiển thị trên trang hồ sơ của họ bên cạnh nút \"Sao chép\", và thường dao động từ 75 USDT đến 1.000 USDT tùy theo nhà giao dịch."
+        "answer": "Mỗi nhà giao dịch tự đặt số tiền sao chép tối thiểu của riêng mình, hiển thị trên trang hồ sơ của họ bên cạnh nút \"Sao chép\", và thường dao động từ $75 đến $1.000 tùy theo nhà giao dịch."
       },
       {
         "id": "stop-copy",
@@ -1292,19 +1292,19 @@
     "open": "Sao chép",
     "title": "Sao chép {name}",
     "close": "Đóng",
-    "amountLabel": "Số tiền phân bổ (USDT)",
+    "amountLabel": "Số tiền phân bổ ($)",
     "minAmount": "Tối thiểu:",
     "modeLabel": "Chế độ sao chép",
     "modeRatio": "Tỷ lệ cố định",
     "modeFixed": "Số tiền cố định mỗi lệnh",
     "advanced": "Cài đặt nâng cao",
-    "maxPerTrade": "Số tiền tối đa mỗi lệnh (USDT) — tùy chọn",
+    "maxPerTrade": "Số tiền tối đa mỗi lệnh ($) — tùy chọn",
     "copyStopLoss": "Dừng sao chép khi lỗ đạt (%)",
     "riskAck": "Tôi hiểu rằng giao dịch sao chép có rủi ro và tôi có thể mất một phần hoặc toàn bộ số tiền đã phân bổ.",
     "confirm": "Bắt đầu sao chép",
     "profitShare": "Chia sẻ lợi nhuận:",
     "copyStopLossHint": "Lệnh sao chép tự động dừng khi khoản lỗ đã chốt đạt tỷ lệ này trên số tiền đã phân bổ.",
-    "fixedAmountLabel": "Số tiền mỗi lệnh (USDT)",
+    "fixedAmountLabel": "Số tiền mỗi lệnh ($)",
     "tradeRiskTitle": "Quản lý rủi ro cho từng lệnh",
     "takeProfitLabel": "Chốt lời (% ký quỹ) — tùy chọn",
     "stopLossLabel": "Cắt lỗ (% ký quỹ) — tùy chọn",
@@ -1385,7 +1385,7 @@
       "style_sporadic": "Thỉnh thoảng",
       "contactLabel": "Phương thức liên hệ (riêng tư)",
       "contactPlaceholder": "Telegram, WhatsApp, email...",
-      "minInvestmentLabel": "Khoản đầu tư tối thiểu đề xuất (USDT)",
+      "minInvestmentLabel": "Khoản đầu tư tối thiểu đề xuất ($)",
       "agreeLabel": "Tôi đồng ý với thỏa thuận lead trader.",
       "submit": "Gửi đơn"
     },
@@ -1577,8 +1577,8 @@
       "market_indices": "Chỉ số",
       "contactLabel": "Cách liên hệ (riêng tư)",
       "followerSettings": "Cài đặt người theo dõi",
-      "minInvestmentLabel": "Khoản đầu tư tối thiểu (USDT)",
-      "minCopyAmountLabel": "Số tiền sao chép tối thiểu (USDT)",
+      "minInvestmentLabel": "Khoản đầu tư tối thiểu ($)",
+      "minCopyAmountLabel": "Số tiền sao chép tối thiểu ($)",
       "profitSharePctLabel": "Tỷ lệ chia sẻ lợi nhuận (tối đa {max}% ở cấp của bạn)",
       "acceptingFollowersLabel": "Nhận người theo dõi mới",
       "whitelistNote": "Chế độ chỉ theo lời mời được quản lý tại",
@@ -1791,7 +1791,7 @@
       },
       {
         "q": "Có tài khoản demo không?",
-        "a": "Có. Tài khoản demo bắt đầu với 10.000 USDT tiền ảo, giúp bạn luyện tập mà không mạo hiểm tiền của mình."
+        "a": "Có. Tài khoản demo bắt đầu với $10.000 tiền ảo, giúp bạn luyện tập mà không mạo hiểm tiền của mình."
       }
     ]
   },

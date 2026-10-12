@@ -9,7 +9,7 @@ import { WalletPageShell, WalletNotice } from "@/components/wallet/WalletPageShe
 import { depositOptionsFor } from "@/lib/crypto/deposits";
 import { depositsEnabled } from "@/lib/deposits-enabled";
 import { explorerTxUrl, isNetworkId, shortAddress, displayTxHash } from "@/lib/crypto/networks";
-import { getMoney } from "@/lib/money-server";
+import { getUsdt } from "@/lib/money-server";
 import { formatDateTime } from "@/lib/locale-format";
 import { getUserTimeZone } from "@/lib/timezone";
 import type { Locale } from "@/i18n/locales";
@@ -73,7 +73,7 @@ export default async function DepositPage({ searchParams }: { searchParams: Prom
     );
   }
 
-  const money = await getMoney();
+  const money = await getUsdt();
   const locale = (await getLocale()) as Locale;
   const timeZone = await getUserTimeZone();
   const rows = recent ?? [];

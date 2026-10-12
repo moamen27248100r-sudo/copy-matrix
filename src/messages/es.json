@@ -60,7 +60,7 @@
     "tryCopy": {
       "badge": "Pruébalo sin riesgo",
       "title": "Pruébalo con una cuenta demo",
-      "description": "Empieza con 10 000 USDT en fondos virtuales y practica el copy trading antes de usar tu propio dinero.",
+      "description": "Empieza con $10 000 en fondos virtuales y practica el copy trading antes de usar tu propio dinero.",
       "cta": "Abrir una cuenta demo",
       "cardWelcome": "Tu cuenta demo gratuita",
       "cardPortfolioLabel": "Valor de la cartera demo",
@@ -182,7 +182,7 @@
     "mostCopiedThisWeekTitle": "Los más copiados esta semana",
     "copiersThisWeek": "{count} nuevos copiadores esta semana",
     "viewAllPositions": "Ver las {count} posiciones",
-    "resetBalanceConfirm": "¿Restablecer tu saldo demo a 10.000 USDT? Tus copias actuales se detendrán."
+    "resetBalanceConfirm": "¿Restablecer tu saldo demo a $10.000? Tus copias actuales se detendrán."
   },
   "Common": {
     "level": "Nivel {level}",
@@ -307,10 +307,10 @@
     "demoWithdrawNote": "Los retiros demo son instantáneos y solo afectan a tu saldo demo.",
     "demoWalletNote": "Tu saldo demo es virtual y está totalmente separado de tu cuenta real. Los depósitos y retiros son instantáneos.",
     "resetDemoButton": "Restablecer saldo demo",
-    "resetDemoConfirm": "¿Restablecer tu saldo demo a 10.000 USDT? Tus copias actuales se detendrán.",
+    "resetDemoConfirm": "¿Restablecer tu saldo demo a $10.000? Tus copias actuales se detendrán.",
     "demoDepositDone": "Los fondos demo se añadieron a tu saldo.",
     "demoWithdrawDone": "Los fondos demo se retiraron de tu saldo.",
-    "demoResetDone": "Tu saldo demo se restableció a 10.000 USDT.",
+    "demoResetDone": "Tu saldo demo se restableció a $10.000.",
     "txDemoReset": "Restablecimiento de saldo",
     "txAdjustment": "Ajuste de saldo",
     "txFee": "Comisión",
@@ -1126,7 +1126,7 @@
           "mínimo para copiar",
           "cuánto"
         ],
-        "answer": "Cada trader establece su propio monto mínimo de copia, mostrado en su página de perfil junto al botón «Copiar», y generalmente varía entre 75 USDT y 1,000 USDT según el trader."
+        "answer": "Cada trader establece su propio monto mínimo de copia, mostrado en su página de perfil junto al botón «Copiar», y generalmente varía entre $75 y $1,000 según el trader."
       },
       {
         "id": "stop-copy",
@@ -1293,19 +1293,19 @@
     "open": "Copiar",
     "title": "Copiar a {name}",
     "close": "Cerrar",
-    "amountLabel": "Importe a asignar (USDT)",
+    "amountLabel": "Importe a asignar ($)",
     "minAmount": "Mínimo:",
     "modeLabel": "Modo de copia",
     "modeRatio": "Proporción fija",
     "modeFixed": "Importe fijo por operación",
     "advanced": "Ajustes avanzados",
-    "maxPerTrade": "Importe máximo por operación (USDT) — opcional",
+    "maxPerTrade": "Importe máximo por operación ($) — opcional",
     "copyStopLoss": "Dejar de copiar con una pérdida de (%)",
     "riskAck": "Entiendo que el copy trading conlleva riesgos y que puedo perder parte o la totalidad del importe asignado.",
     "confirm": "Empezar a copiar",
     "profitShare": "Reparto de beneficios:",
     "copyStopLossHint": "La copia se detiene automáticamente cuando su pérdida realizada alcanza este porcentaje del importe asignado.",
-    "fixedAmountLabel": "Importe por operación (USDT)",
+    "fixedAmountLabel": "Importe por operación ($)",
     "tradeRiskTitle": "Gestión del riesgo por operación",
     "takeProfitLabel": "Toma de beneficios (% del margen) — opcional",
     "stopLossLabel": "Stop loss (% del margen) — opcional",
@@ -1386,7 +1386,7 @@
       "style_sporadic": "Ocasional",
       "contactLabel": "Método de contacto (privado)",
       "contactPlaceholder": "Telegram, WhatsApp, correo...",
-      "minInvestmentLabel": "Inversión mínima sugerida (USDT)",
+      "minInvestmentLabel": "Inversión mínima sugerida ($)",
       "agreeLabel": "Acepto el acuerdo del trader líder.",
       "submit": "Enviar solicitud"
     },
@@ -1578,8 +1578,8 @@
       "market_indices": "Índices",
       "contactLabel": "Método de contacto (privado)",
       "followerSettings": "Ajustes de seguidores",
-      "minInvestmentLabel": "Inversión mínima (USDT)",
-      "minCopyAmountLabel": "Monto mínimo de copia (USDT)",
+      "minInvestmentLabel": "Inversión mínima ($)",
+      "minCopyAmountLabel": "Monto mínimo de copia ($)",
       "profitSharePctLabel": "Porcentaje de participación (máx. {max}% en tu nivel)",
       "acceptingFollowersLabel": "Aceptar nuevos seguidores",
       "whitelistNote": "El modo solo por invitación se gestiona desde",
@@ -1792,7 +1792,7 @@
       },
       {
         "q": "¿Hay una cuenta demo?",
-        "a": "Sí. Una cuenta demo empieza con 10.000 USDT en fondos virtuales, para practicar sin arriesgar tu dinero."
+        "a": "Sí. Una cuenta demo empieza con $10.000 en fondos virtuales, para practicar sin arriesgar tu dinero."
       }
     ]
   },

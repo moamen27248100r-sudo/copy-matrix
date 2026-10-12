@@ -3,7 +3,7 @@
 import { useActionState, useState } from "react";
 import { useTranslations } from "next-intl";
 import { requestCryptoWithdrawal, type WithdrawFormState } from "@/app/portfolio/actions";
-import { useMoney } from "@/lib/money-client";
+import { useUsdt } from "@/lib/money-client";
 import { CHAINS, isValidAddress, networkLabel, type NetworkId } from "@/lib/crypto/networks";
 import { CURRENCY } from "@/lib/money";
 import { SubmitButton } from "@/components/SubmitButton";
@@ -16,7 +16,7 @@ const floor6 = (n: number) => Math.floor(n * 1e6) / 1e6;
 
 export function WithdrawForm({ networks, available }: { networks: WithdrawNetworkOption[]; available: number }) {
   const t = useTranslations("Wallet");
-  const money = useMoney();
+  const money = useUsdt();
   const [networkId, setNetworkId] = useState<NetworkId>(networks[0].id);
   const net = networks.find((n) => n.id === networkId) ?? networks[0];
   const [address, setAddress] = useState("");

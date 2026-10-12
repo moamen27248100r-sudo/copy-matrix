@@ -4,7 +4,7 @@ import { useActionState, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import QRCode from "qrcode";
 import { submitDepositTxid, type DepositFormState } from "@/app/portfolio/actions";
-import { useMoney } from "@/lib/money-client";
+import { useUsdt } from "@/lib/money-client";
 import { CHAINS, estimatedMinutes, networkLabel, normalizeTxHash, type NetworkId } from "@/lib/crypto/networks";
 import { SubmitButton } from "@/components/SubmitButton";
 import { NetworkIcon } from "@/components/NetworkIcon";
@@ -13,7 +13,7 @@ export type DepositNetworkOption = { id: NetworkId; address: string; minDeposit:
 
 export function DepositPanel({ networks }: { networks: DepositNetworkOption[] }) {
   const t = useTranslations("Wallet");
-  const money = useMoney();
+  const money = useUsdt();
   const [selectedId, setSelectedId] = useState<NetworkId>(networks[0].id);
   const selected = networks.find((n) => n.id === selectedId) ?? networks[0];
   const [qr, setQr] = useState<{ address: string; url: string } | null>(null);
