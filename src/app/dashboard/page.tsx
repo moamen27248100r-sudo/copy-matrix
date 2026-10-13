@@ -296,8 +296,8 @@ export default async function DashboardPage({
         {/* One quiet line: the account number and which account is active. */}
         <div className="flex flex-wrap items-center gap-2 text-xs text-muted">
           {profile?.account_number != null && (
-            <span dir="ltr">
-              {tMenu("accountNumber")} <span className="font-mono text-foreground/80">#{profile.account_number}</span>
+            <span>
+              {tMenu("accountNumber")} <span dir="ltr" className="inline-block font-mono text-foreground/80">#{profile.account_number}</span>
             </span>
           )}
           {profile?.account_type && (

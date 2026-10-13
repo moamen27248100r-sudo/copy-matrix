@@ -69,8 +69,8 @@ export default async function SettingsPage({
           <h2 className="font-medium">{t("profileTitle")}</h2>
           <p className="text-xs text-muted">{user.email}</p>
           {profile?.account_number != null && (
-            <p className="text-xs text-muted" dir="ltr">
-              {tMenu("accountNumber")} <span className="font-mono text-foreground/80">#{profile.account_number}</span>
+            <p className="text-xs text-muted">
+              {tMenu("accountNumber")} <span dir="ltr" className="inline-block font-mono text-foreground/80">#{profile.account_number}</span>
             </p>
           )}
           <form action={updateProfile} className="flex flex-col gap-3">
