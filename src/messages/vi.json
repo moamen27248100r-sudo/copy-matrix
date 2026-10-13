@@ -214,7 +214,25 @@
     "benchmarkChartLabel": "Lợi suất danh mục so với thị trường",
     "returnOnInvested": "Lợi suất trên vốn ròng",
     "netInvestedLabel": "Vốn ròng",
-    "kycNoneTitleNoDeposit": "Chào mừng! Vui lòng hoàn tất thông tin tài khoản để bắt đầu."
+    "kycNoneTitleNoDeposit": "Chào mừng! Vui lòng hoàn tất thông tin tài khoản để bắt đầu.",
+    "riskTitle": "Rủi ro danh mục",
+    "riskLow": "Thấp",
+    "riskMedium": "Trung bình",
+    "riskHigh": "Cao",
+    "riskInfoLabel": "Cách tính mức rủi ro",
+    "riskExplainIntro": "Điểm đơn giản từ 0 đến 100 dựa trên ba yếu tố:",
+    "riskExplainReserved": "Tối đa {points} điểm: phần số dư của bạn được dành cho các bản sao.",
+    "riskExplainDrawdown": "Tối đa {points} điểm: danh mục thấp hơn mức cao nhất bao nhiêu (giảm {cap}% được tính là tối đa).",
+    "riskExplainTraders": "Tối đa {points} điểm: mức rủi ro của các trader bạn sao chép, tính theo số tiền ở mỗi người.",
+    "riskExplainScale": "Dưới {low}: thấp. Từ {low} đến {high}: trung bình. {high} trở lên: cao.",
+    "riskExplainNote": "Đây là hướng dẫn đơn giản để bạn thấy mức độ rủi ro; không phải là dự báo.",
+    "riskPartReserved": "Đã dành",
+    "riskPartDrawdown": "Mức giảm",
+    "riskPartTraders": "Trader",
+    "newsTitle": "Tin thị trường",
+    "newsViewAll": "Xem tất cả",
+    "newsSourceLine": "{source} qua Investing.com · {time}",
+    "newsNote": "Tiêu đề do Investing.com đăng bằng tiếng Anh và mở trên trang của họ."
   },
   "Common": {
     "level": "Cấp độ {level}",
@@ -289,7 +307,10 @@
     "scopeDemo": "Thông báo của tài khoản demo, cùng các cảnh báo tài khoản và bảo mật.",
     "prefsInApp": "Trong ứng dụng",
     "prefsEmail": "Thư điện tử",
-    "prefsEmailNote": "Thư chỉ được gửi cho tài khoản thực; giao dịch của tài khoản demo chỉ hiển thị trong ứng dụng. Thư bảo mật luôn được gửi."
+    "prefsEmailNote": "Thư chỉ được gửi cho tài khoản thực; giao dịch của tài khoản demo chỉ hiển thị trong ứng dụng. Thư bảo mật luôn được gửi.",
+    "lossAlertTitle": "Cảnh báo lỗ",
+    "lossAlertBodyCopy": "Bản sao {providerName} của bạn đang lỗ {loss}% (ngưỡng cảnh báo của bạn là {threshold}%).",
+    "lossAlertBodyPortfolio": "Danh mục của bạn đang lỗ {loss}% vốn đã đầu tư (ngưỡng cảnh báo của bạn là {threshold}%)."
   },
   "Portfolio": {
     "title": "Danh mục của tôi",
@@ -685,7 +706,16 @@
     "riskSave": "Lưu hồ sơ rủi ro",
     "twoFactorOn": "Đã bật",
     "twoFactorManage": "Quản lý 2FA",
-    "sessionsManage": "Quản lý thiết bị"
+    "sessionsManage": "Quản lý thiết bị",
+    "lossAlertsTitle": "Cảnh báo lỗ",
+    "lossAlertsDesc": "Nhận thông báo khi khoản lỗ đạt tỷ lệ bạn chọn. Mỗi lần vượt ngưỡng nhận một cảnh báo, và chỉ nhận cảnh báo mới sau khi khoản lỗ quay lại dưới ngưỡng. Để trống nếu không muốn cảnh báo.",
+    "lossAlertsPortfolio": "Toàn bộ danh mục",
+    "lossAlertsCopyOf": "Sao chép {name}",
+    "lossAlertsNoCopies": "Hiện bạn không sao chép ai. Cảnh báo cho từng bản sao sẽ hiện ở đây khi bạn bắt đầu.",
+    "lossAlertsHint": "Giá trị từ 1 đến 90. Tính trên số tiền của bản sao, và trên vốn ròng với toàn bộ danh mục.",
+    "lossAlertsSave": "Lưu cảnh báo",
+    "lossAlertsInvalid": "Nhập giá trị từ 1 đến 90, hoặc để trống.",
+    "lossAlertsFailed": "Không thể lưu cảnh báo. Vui lòng thử lại."
   },
   "Kyc": {
     "title": "Xác minh danh tính",
@@ -2175,7 +2205,8 @@
     "mfaChangedTitle": "Xác thực hai lớp đã được thay đổi",
     "mfaChangedBody": "Xác thực hai lớp của tài khoản vừa được bật, tắt hoặc thay thế. Để bảo vệ bạn, lệnh rút tiền tạm dừng trong 24 giờ.",
     "withdrawalRequestedTitle": "Yêu cầu rút tiền",
-    "withdrawalRequestedBody": "Một lệnh rút {amount} trên mạng {network} đến {address} đã được yêu cầu từ tài khoản của bạn và đang được xử lý."
+    "withdrawalRequestedBody": "Một lệnh rút {amount} trên mạng {network} đến {address} đã được yêu cầu từ tài khoản của bạn và đang được xử lý.",
+    "ctaDashboard": "Mở bảng điều khiển"
   },
   "AuthEmail": {
     "confirmSubject": "Xác nhận email của bạn",

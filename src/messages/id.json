@@ -214,7 +214,25 @@
     "benchmarkChartLabel": "Imbal hasil portofolio dibandingkan pasar",
     "returnOnInvested": "Imbal hasil atas dana bersih",
     "netInvestedLabel": "Dana bersih",
-    "kycNoneTitleNoDeposit": "Selamat datang! Lengkapi data akun Anda untuk memulai."
+    "kycNoneTitleNoDeposit": "Selamat datang! Lengkapi data akun Anda untuk memulai.",
+    "riskTitle": "Risiko portofolio",
+    "riskLow": "Rendah",
+    "riskMedium": "Sedang",
+    "riskHigh": "Tinggi",
+    "riskInfoLabel": "Cara tingkat risiko dihitung",
+    "riskExplainIntro": "Skor sederhana 0 sampai 100 dari tiga hal:",
+    "riskExplainReserved": "Hingga {points} poin: bagian saldo Anda yang dicadangkan dalam salinan.",
+    "riskExplainDrawdown": "Hingga {points} poin: seberapa jauh portofolio di bawah nilai tertingginya (penurunan {cap}% dihitung sebagai maksimum).",
+    "riskExplainTraders": "Hingga {points} poin: tingkat risiko trader yang Anda salin, dibobot menurut jumlah di masing-masing.",
+    "riskExplainScale": "Di bawah {low}: rendah. {low} sampai {high}: sedang. {high} atau lebih: tinggi.",
+    "riskExplainNote": "Ini panduan sederhana untuk melihat eksposur Anda; bukan prakiraan.",
+    "riskPartReserved": "Dicadangkan",
+    "riskPartDrawdown": "Penurunan",
+    "riskPartTraders": "Trader",
+    "newsTitle": "Berita pasar",
+    "newsViewAll": "Lihat semua",
+    "newsSourceLine": "{source} melalui Investing.com · {time}",
+    "newsNote": "Judul diterbitkan Investing.com dalam bahasa Inggris dan dibuka di situs mereka."
   },
   "Common": {
     "level": "Level {level}",
@@ -289,7 +307,10 @@
     "scopeDemo": "Notifikasi akun demo Anda, ditambah peringatan akun dan keamanan.",
     "prefsInApp": "Di aplikasi",
     "prefsEmail": "Surel",
-    "prefsEmailNote": "Surel hanya dikirim untuk akun riil Anda; transaksi akun demo tetap di aplikasi. Surel keamanan selalu dikirim."
+    "prefsEmailNote": "Surel hanya dikirim untuk akun riil Anda; transaksi akun demo tetap di aplikasi. Surel keamanan selalu dikirim.",
+    "lossAlertTitle": "Peringatan kerugian",
+    "lossAlertBodyCopy": "Salinan {providerName} Anda rugi {loss}% (batas peringatan Anda {threshold}%).",
+    "lossAlertBodyPortfolio": "Portofolio Anda rugi {loss}% dari dana yang diinvestasikan (batas peringatan Anda {threshold}%)."
   },
   "Portfolio": {
     "title": "Portofolio Saya",
@@ -685,7 +706,16 @@
     "riskSave": "Simpan profil risiko",
     "twoFactorOn": "Aktif",
     "twoFactorManage": "Kelola 2FA",
-    "sessionsManage": "Kelola perangkat"
+    "sessionsManage": "Kelola perangkat",
+    "lossAlertsTitle": "Peringatan kerugian",
+    "lossAlertsDesc": "Dapatkan pemberitahuan saat kerugian mencapai persentase yang Anda pilih. Satu peringatan per pelampauan, dan yang baru hanya setelah kerugian kembali di bawah batas. Kosongkan kolom jika tidak ingin peringatan.",
+    "lossAlertsPortfolio": "Seluruh portofolio",
+    "lossAlertsCopyOf": "Salinan {name}",
+    "lossAlertsNoCopies": "Anda sedang tidak menyalin siapa pun. Peringatan tiap salinan muncul di sini setelah Anda memulainya.",
+    "lossAlertsHint": "Nilai antara 1 dan 90. Diukur dari jumlah salinan, dan dari dana bersih untuk seluruh portofolio.",
+    "lossAlertsSave": "Simpan peringatan",
+    "lossAlertsInvalid": "Masukkan nilai antara 1 dan 90, atau kosongkan.",
+    "lossAlertsFailed": "Peringatan tidak dapat disimpan. Silakan coba lagi."
   },
   "Kyc": {
     "title": "Verifikasi Identitas",
@@ -2175,7 +2205,8 @@
     "mfaChangedTitle": "Autentikasi dua faktor telah diubah",
     "mfaChangedBody": "Autentikasi dua faktor di akun Anda baru saja diaktifkan, dinonaktifkan, atau diganti. Demi keamanan Anda, penarikan dihentikan sementara selama 24 jam.",
     "withdrawalRequestedTitle": "Penarikan diminta",
-    "withdrawalRequestedBody": "Penarikan {amount} di jaringan {network} ke {address} telah diminta dari akun Anda dan sedang diproses."
+    "withdrawalRequestedBody": "Penarikan {amount} di jaringan {network} ke {address} telah diminta dari akun Anda dan sedang diproses.",
+    "ctaDashboard": "Buka dasbor saya"
   },
   "AuthEmail": {
     "confirmSubject": "Konfirmasi surel Anda",

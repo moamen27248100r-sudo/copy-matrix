@@ -214,7 +214,25 @@
     "benchmarkChartLabel": "عائد المحفظة مقارنةً بالسوق",
     "returnOnInvested": "العائد على صافي المستثمر",
     "netInvestedLabel": "صافي المستثمر",
-    "kycNoneTitleNoDeposit": "أهلاً بك! يرجى استكمال بيانات حسابك للبدء."
+    "kycNoneTitleNoDeposit": "أهلاً بك! يرجى استكمال بيانات حسابك للبدء.",
+    "riskTitle": "مخاطر المحفظة",
+    "riskLow": "منخفض",
+    "riskMedium": "متوسط",
+    "riskHigh": "مرتفع",
+    "riskInfoLabel": "كيف يُحسب مستوى المخاطر",
+    "riskExplainIntro": "درجة بسيطة من 0 إلى 100 تُبنى على ثلاثة عوامل:",
+    "riskExplainReserved": "حتى {points} نقطة: نسبة رصيدك المحجوزة في النسخ.",
+    "riskExplainDrawdown": "حتى {points} نقطة: مدى انخفاض المحفظة عن أعلى قيمة لها (انخفاض {cap}% يُحتسب كحد أقصى).",
+    "riskExplainTraders": "حتى {points} نقطة: مستوى مخاطر المتداولين الذين تنسخهم، موزونًا بالمبلغ المخصص لكل منهم.",
+    "riskExplainScale": "أقل من {low}: منخفض. من {low} إلى {high}: متوسط. {high} فأكثر: مرتفع.",
+    "riskExplainNote": "هذا مؤشر مبسّط يساعدك على رؤية تعرّضك للمخاطر، وهو ليس توقعًا.",
+    "riskPartReserved": "المحجوز",
+    "riskPartDrawdown": "التراجع",
+    "riskPartTraders": "المتداولون",
+    "newsTitle": "أخبار الأسواق",
+    "newsViewAll": "عرض الكل",
+    "newsSourceLine": "{source} عبر Investing.com · {time}",
+    "newsNote": "العناوين تنشرها Investing.com بالإنجليزية وتُفتح على موقعها."
   },
   "Common": {
     "level": "المستوى {level}",
@@ -289,7 +307,10 @@
     "scopeDemo": "إشعارات حسابك التجريبي، بالإضافة إلى تنبيهات الحساب والأمان.",
     "prefsInApp": "داخل المنصة",
     "prefsEmail": "البريد",
-    "prefsEmailNote": "تُرسل رسائل البريد لحسابك الحقيقي فقط، وتبقى صفقات الحساب التجريبي داخل المنصة. رسائل الأمان تُرسل دائمًا."
+    "prefsEmailNote": "تُرسل رسائل البريد لحسابك الحقيقي فقط، وتبقى صفقات الحساب التجريبي داخل المنصة. رسائل الأمان تُرسل دائمًا.",
+    "lossAlertTitle": "تنبيه خسارة",
+    "lossAlertBodyCopy": "وصلت خسارة نسخك لـ {providerName} إلى {loss}% (حد التنبيه الذي حددته {threshold}%).",
+    "lossAlertBodyPortfolio": "وصلت خسارة محفظتك إلى {loss}% من المبلغ المستثمر (حد التنبيه الذي حددته {threshold}%)."
   },
   "Portfolio": {
     "title": "محفظتي",
@@ -685,7 +706,16 @@
     "riskSave": "حفظ ملف المخاطرة",
     "twoFactorOn": "مفعّل",
     "twoFactorManage": "إدارة التحقق الثنائي",
-    "sessionsManage": "إدارة الأجهزة"
+    "sessionsManage": "إدارة الأجهزة",
+    "lossAlertsTitle": "تنبيهات الخسارة",
+    "lossAlertsDesc": "احصل على تنبيه عندما تصل الخسارة إلى النسبة التي تختارها. يصلك تنبيه واحد عند كل تجاوز، ولا يتكرر إلا بعد أن تعود الخسارة تحت النسبة. اترك الحقل فارغًا لإلغاء التنبيه.",
+    "lossAlertsPortfolio": "إجمالي المحفظة",
+    "lossAlertsCopyOf": "نسخ {name}",
+    "lossAlertsNoCopies": "أنت لا تنسخ أي متداول حاليًا. ستظهر هنا تنبيهات كل نسخة عند بدء نسخ.",
+    "lossAlertsHint": "قيمة بين 1 و90. تُقاس على مبلغ النسخة، وعلى صافي المبلغ المستثمر لإجمالي المحفظة.",
+    "lossAlertsSave": "حفظ التنبيهات",
+    "lossAlertsInvalid": "أدخل قيمة بين 1 و90، أو اترك الحقل فارغًا.",
+    "lossAlertsFailed": "تعذّر حفظ التنبيهات. حاول مرة أخرى."
   },
   "Kyc": {
     "title": "توثيق الهوية",
@@ -2240,7 +2270,8 @@
     "mfaChangedTitle": "تم تغيير المصادقة الثنائية",
     "mfaChangedBody": "تم للتو تفعيل المصادقة الثنائية على حسابك أو إيقافها أو استبدالها. لحمايتك، تتوقف عمليات السحب لمدة 24 ساعة.",
     "withdrawalRequestedTitle": "تم طلب سحب",
-    "withdrawalRequestedBody": "تم طلب سحب {amount} عبر شبكة {network} إلى العنوان {address} من حسابك، والطلب قيد المعالجة الآن."
+    "withdrawalRequestedBody": "تم طلب سحب {amount} عبر شبكة {network} إلى العنوان {address} من حسابك، والطلب قيد المعالجة الآن.",
+    "ctaDashboard": "افتح لوحة التحكم"
   },
   "AuthEmail": {
     "confirmSubject": "تأكيد بريدك الإلكتروني",

@@ -101,3 +101,38 @@ export async function saveRiskProfile(formData: FormData) {
   revalidatePath("/dashboard");
   redirect("/settings?success=1");
 }
+
+// Loss alerts: one threshold (in %) per active copy and one for the whole portfolio. An empty field
+// removes the alert. The database (set_loss_alert) validates the range and the ownership.
+export async function saveLossAlerts(formData: FormData) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  const ta = await getTranslations("Settings");
+  const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  const jobs: { providerId: string | null; threshold: number }[] = [];
+  for (const [key, raw] of formData.entries()) {
+    if (typeof raw !== "string") continue;
+    let providerId: string | null;
+    if (key === "portfolio") providerId = null;
+    else if (key.startsWith("copy_") && UUID.test(key.slice(5))) providerId = key.slice(5);
+    else continue;
+    const text = raw.trim().replace(",", ".");
+    const threshold = text === "" ? 0 : Number(text);
+    if (!Number.isFinite(threshold) || threshold < 0 || (threshold > 0 && (threshold < 1 || threshold > 90))) {
+      redirect("/settings?error=" + encodeURIComponent(ta("lossAlertsInvalid")));
+    }
+    jobs.push({ providerId, threshold });
+  }
+
+  for (const job of jobs) {
+    const { error } = await supabase.rpc("set_loss_alert", { p_provider_id: job.providerId, p_threshold: job.threshold });
+    if (error) redirect("/settings?error=" + encodeURIComponent(ta("lossAlertsFailed")));
+  }
+
+  revalidatePath("/settings");
+  redirect("/settings?success=1");
+}

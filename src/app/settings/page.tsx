@@ -10,6 +10,7 @@ import { RiskQuestionnaire } from "@/components/RiskQuestionnaire";
 import { setTimezone } from "@/app/actions/locale";
 import type { Locale } from "@/i18n/locales";
 import { hasVerifiedTotp } from "@/lib/mfa";
+import { LossAlertsSection } from "@/components/LossAlertsSection";
 
 const TIMEZONES = [
   "UTC", "Africa/Cairo", "Africa/Lagos", "Africa/Nairobi", "Asia/Riyadh", "Asia/Dubai", "Asia/Karachi",
@@ -151,6 +152,8 @@ export default async function SettingsPage({
             </button>
           </form>
         </section>
+
+        <LossAlertsSection userId={user.id} />
 
         <RiskQuestionnaire current={(await cookies()).get("risk_profile")?.value} />
 

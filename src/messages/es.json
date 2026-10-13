@@ -214,7 +214,25 @@
     "benchmarkChartLabel": "Rentabilidad de la cartera frente al mercado",
     "returnOnInvested": "Rentabilidad sobre lo invertido neto",
     "netInvestedLabel": "Neto invertido",
-    "kycNoneTitleNoDeposit": "¡Bienvenido! Complete los datos de su cuenta para empezar."
+    "kycNoneTitleNoDeposit": "¡Bienvenido! Complete los datos de su cuenta para empezar.",
+    "riskTitle": "Riesgo de la cartera",
+    "riskLow": "Bajo",
+    "riskMedium": "Medio",
+    "riskHigh": "Alto",
+    "riskInfoLabel": "Cómo se calcula el nivel de riesgo",
+    "riskExplainIntro": "Una puntuación simple de 0 a 100 basada en tres factores:",
+    "riskExplainReserved": "Hasta {points} puntos: la parte de su saldo reservada en copias.",
+    "riskExplainDrawdown": "Hasta {points} puntos: cuánto está la cartera por debajo de su valor máximo (una caída del {cap}% cuenta como el máximo).",
+    "riskExplainTraders": "Hasta {points} puntos: el nivel de riesgo de los traders que copia, ponderado por el importe en cada uno.",
+    "riskExplainScale": "Menos de {low}: bajo. De {low} a {high}: medio. {high} o más: alto.",
+    "riskExplainNote": "Es una guía sencilla para ver su exposición; no es una previsión.",
+    "riskPartReserved": "Reservado",
+    "riskPartDrawdown": "Caída",
+    "riskPartTraders": "Traders",
+    "newsTitle": "Noticias del mercado",
+    "newsViewAll": "Ver todas",
+    "newsSourceLine": "{source} vía Investing.com · {time}",
+    "newsNote": "Los titulares los publica Investing.com en inglés y se abren en su sitio."
   },
   "Common": {
     "level": "Nivel {level}",
@@ -289,7 +307,10 @@
     "scopeDemo": "Notificaciones de tu cuenta demo, además de las alertas de cuenta y seguridad.",
     "prefsInApp": "En la app",
     "prefsEmail": "Correo",
-    "prefsEmailNote": "Los correos se envían solo para tu cuenta real; las operaciones de la cuenta demo se quedan en la app. Los correos de seguridad se envían siempre."
+    "prefsEmailNote": "Los correos se envían solo para tu cuenta real; las operaciones de la cuenta demo se quedan en la app. Los correos de seguridad se envían siempre.",
+    "lossAlertTitle": "Alerta de pérdida",
+    "lossAlertBodyCopy": "Su copia de {providerName} acumula una pérdida del {loss}% (su nivel de alerta es {threshold}%).",
+    "lossAlertBodyPortfolio": "Su cartera acumula una pérdida del {loss}% de los fondos invertidos (su nivel de alerta es {threshold}%)."
   },
   "Portfolio": {
     "title": "Mi cartera",
@@ -685,7 +706,16 @@
     "riskSave": "Guardar perfil de riesgo",
     "twoFactorOn": "Activada",
     "twoFactorManage": "Gestionar 2FA",
-    "sessionsManage": "Administrar dispositivos"
+    "sessionsManage": "Administrar dispositivos",
+    "lossAlertsTitle": "Alertas de pérdida",
+    "lossAlertsDesc": "Reciba un aviso cuando una pérdida alcance el porcentaje que elija. Recibe una alerta por cruce y otra solo después de que la pérdida vuelva por debajo. Deje el campo vacío para no recibir alerta.",
+    "lossAlertsPortfolio": "Toda la cartera",
+    "lossAlertsCopyOf": "Copia de {name}",
+    "lossAlertsNoCopies": "No está copiando a nadie ahora. Las alertas de cada copia aparecerán aquí cuando inicie una.",
+    "lossAlertsHint": "Un valor entre 1 y 90. Se mide sobre el importe de la copia y sobre lo invertido neto para toda la cartera.",
+    "lossAlertsSave": "Guardar alertas",
+    "lossAlertsInvalid": "Introduzca un valor entre 1 y 90, o déjelo vacío.",
+    "lossAlertsFailed": "No se pudieron guardar las alertas. Inténtelo de nuevo."
   },
   "Kyc": {
     "title": "Verificación de identidad",
@@ -2176,7 +2206,8 @@
     "mfaChangedTitle": "Se ha cambiado la verificación en dos pasos",
     "mfaChangedBody": "Se acaba de activar, desactivar o sustituir la verificación en dos pasos de tu cuenta. Por tu seguridad, los retiros quedan en pausa durante 24 horas.",
     "withdrawalRequestedTitle": "Retiro solicitado",
-    "withdrawalRequestedBody": "Se ha solicitado desde tu cuenta un retiro de {amount} en {network} a {address}. Ya se está procesando."
+    "withdrawalRequestedBody": "Se ha solicitado desde tu cuenta un retiro de {amount} en {network} a {address}. Ya se está procesando.",
+    "ctaDashboard": "Abrir mi panel"
   },
   "AuthEmail": {
     "confirmSubject": "Confirma tu correo",

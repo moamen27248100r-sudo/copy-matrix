@@ -6,7 +6,6 @@ import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { formatNumber } from "@/lib/money";
 import { formatPct, profitPct } from "@/lib/profit-pct";
-import { getBenchmarkSeries } from "@/app/dashboard/actions";
 import type { Locale } from "@/i18n/locales";
 
 type ClosedPosition = {
@@ -25,33 +24,26 @@ const PERIODS: { labelKey: string; days: number | null }[] = [
 
 type Bench = "off" | "BTCUSDT" | "XAUUSD";
 
-export function MyEquityChart({ positions, netInvested = null }: { positions: ClosedPosition[]; netInvested?: number | null }) {
+// Reference price lines per symbol and period (days; "0" = all time), read once with the page from
+// the database cache (benchmark_bundle, refreshed every few minutes) so switching is instant.
+export type Benchmarks = Record<string, Record<string, { t: number; p: number }[]>>;
+
+export function MyEquityChart({
+  positions,
+  netInvested = null,
+  benchmarks = null,
+}: {
+  positions: ClosedPosition[];
+  netInvested?: number | null;
+  benchmarks?: Benchmarks | null;
+}) {
   const t = useTranslations("Dashboard");
   const money = useMoney();
   const locale = useLocale() as Locale;
   const [periodIdx, setPeriodIdx] = useState(2);
   const [bench, setBench] = useState<Bench>("off");
-  const [benchData, setBenchData] = useState<{ symbol: Bench; days: number; pts: { t: number; p: number }[]; at: number } | null>(null);
-  const [benchLoading, setBenchLoading] = useState(false);
-
-  const loadBench = async (symbol: Bench, days: number | null) => {
-    if (symbol === "off") return;
-    setBenchLoading(true);
-    try {
-      const pts = await getBenchmarkSeries(symbol, days ?? 0);
-      setBenchData({ symbol, days: days ?? 0, pts, at: Date.now() });
-    } finally {
-      setBenchLoading(false);
-    }
-  };
-  const chooseBench = (next: Bench) => {
-    setBench(next);
-    if (next !== "off") void loadBench(next, PERIODS[periodIdx].days);
-  };
-  const choosePeriod = (i: number) => {
-    setPeriodIdx(i);
-    if (bench !== "off") void loadBench(bench, PERIODS[i].days);
-  };
+  const chooseBench = (next: Bench) => setBench(next);
+  const choosePeriod = (i: number) => setPeriodIdx(i);
 
   const { points, cutoff, firstT } = useMemo(() => {
     const period = PERIODS[periodIdx];
@@ -82,11 +74,13 @@ export function MyEquityChart({ positions, netInvested = null }: { positions: Cl
   // Comparison view: both lines as % return since the start of the period -- the portfolio's
   // result over net invested funds, and the reference market's price change.
   const compare = useMemo(() => {
-    if (bench === "off" || !benchData || benchData.symbol !== bench || benchData.days !== (PERIODS[periodIdx].days ?? 0)) return null;
+    if (bench === "off" || !benchmarks) return null;
     if (netInvested == null || netInvested <= 0) return null;
     const start = PERIODS[periodIdx].days != null ? cutoff : firstT;
-    const end = benchData.at;
-    const ref = benchData.pts.filter((p) => p.t >= start);
+    const series = benchmarks[bench]?.[String(PERIODS[periodIdx].days ?? 0)] ?? [];
+    const ref = series.filter((p) => p.t >= start);
+    // The chart ends at the newest reference price, so both lines cover the same span.
+    const end = ref.length > 0 ? ref[ref.length - 1].t : start;
     if (ref.length < 2) return null;
     const base = ref[0].p;
     if (!(base > 0)) return null;
@@ -94,9 +88,9 @@ export function MyEquityChart({ positions, netInvested = null }: { positions: Cl
     own.push({ t: end, v: own[own.length - 1]?.v ?? 0 });
     const line: ChartPoint[] = ref.map((p) => ({ t: p.t, v: (p.p / base - 1) * 100 }));
     return { own, line, start, end, ownLast: own[own.length - 1].v, refLast: line[line.length - 1].v };
-  }, [bench, benchData, netInvested, points, periodIdx, cutoff, firstT]);
+  }, [bench, benchmarks, netInvested, points, periodIdx, cutoff, firstT]);
 
-  const canCompare = netInvested != null && netInvested > 0;
+  const canCompare = netInvested != null && netInvested > 0 && benchmarks != null && Object.keys(benchmarks).length > 0;
   const benchOptions: { key: Bench; label: string }[] = [
     { key: "off", label: t("benchmarkOff") },
     { key: "BTCUSDT", label: t("benchmarkBtc") },
@@ -187,7 +181,6 @@ export function MyEquityChart({ positions, netInvested = null }: { positions: Cl
               {o.label}
             </button>
           ))}
-          {benchLoading && <span className="text-xs text-muted">…</span>}
         </div>
       )}
     </div>

@@ -214,7 +214,25 @@
     "benchmarkChartLabel": "Mapato ya jalada dhidi ya soko",
     "returnOnInvested": "Mapato kwa uwekezaji halisi",
     "netInvestedLabel": "Uwekezaji halisi",
-    "kycNoneTitleNoDeposit": "Karibu! Tafadhali jaza maelezo ya akaunti yako ili kuanza."
+    "kycNoneTitleNoDeposit": "Karibu! Tafadhali jaza maelezo ya akaunti yako ili kuanza.",
+    "riskTitle": "Hatari ya jalada",
+    "riskLow": "Chini",
+    "riskMedium": "Wastani",
+    "riskHigh": "Juu",
+    "riskInfoLabel": "Jinsi kiwango cha hatari kinavyokokotolewa",
+    "riskExplainIntro": "Alama rahisi ya 0 hadi 100 inayotokana na mambo matatu:",
+    "riskExplainReserved": "Hadi pointi {points}: sehemu ya salio lako iliyohifadhiwa kwenye nakala.",
+    "riskExplainDrawdown": "Hadi pointi {points}: jalada liko chini kiasi gani ya thamani yake ya juu zaidi (kushuka kwa {cap}% kunahesabiwa kama kiwango cha juu).",
+    "riskExplainTraders": "Hadi pointi {points}: kiwango cha hatari cha wafanyabiashara unaowanakili, kulingana na kiasi kwa kila mmoja.",
+    "riskExplainScale": "Chini ya {low}: chini. Kutoka {low} hadi {high}: wastani. {high} au zaidi: juu.",
+    "riskExplainNote": "Huu ni mwongozo rahisi wa kukusaidia kuona mfiduo wako; si utabiri.",
+    "riskPartReserved": "Iliyohifadhiwa",
+    "riskPartDrawdown": "Kushuka",
+    "riskPartTraders": "Wafanyabiashara",
+    "newsTitle": "Habari za soko",
+    "newsViewAll": "Tazama zote",
+    "newsSourceLine": "{source} kupitia Investing.com · {time}",
+    "newsNote": "Vichwa vya habari vinachapishwa na Investing.com kwa Kiingereza na hufunguka kwenye tovuti yao."
   },
   "Common": {
     "level": "Kiwango {level}",
@@ -289,7 +307,10 @@
     "scopeDemo": "Arifa za akaunti yako ya majaribio, pamoja na tahadhari za akaunti na usalama.",
     "prefsInApp": "Ndani ya programu",
     "prefsEmail": "Barua pepe",
-    "prefsEmailNote": "Barua pepe hutumwa kwa akaunti yako halisi pekee; biashara za akaunti ya majaribio hubaki ndani ya programu. Barua pepe za usalama hutumwa kila mara."
+    "prefsEmailNote": "Barua pepe hutumwa kwa akaunti yako halisi pekee; biashara za akaunti ya majaribio hubaki ndani ya programu. Barua pepe za usalama hutumwa kila mara.",
+    "lossAlertTitle": "Arifa ya hasara",
+    "lossAlertBodyCopy": "Nakala yako ya {providerName} ina hasara ya {loss}% (kiwango chako cha arifa ni {threshold}%).",
+    "lossAlertBodyPortfolio": "Jalada lako lina hasara ya {loss}% ya fedha ulizowekeza (kiwango chako cha arifa ni {threshold}%)."
   },
   "Portfolio": {
     "title": "Jalada Langu",
@@ -685,7 +706,16 @@
     "riskSave": "Hifadhi wasifu wa hatari",
     "twoFactorOn": "Imewashwa",
     "twoFactorManage": "Dhibiti 2FA",
-    "sessionsManage": "Simamia vifaa"
+    "sessionsManage": "Simamia vifaa",
+    "lossAlertsTitle": "Arifa za hasara",
+    "lossAlertsDesc": "Pata arifa hasara inapofikia asilimia unayochagua. Unapata arifa moja kwa kila kuvuka, na nyingine mpya baada ya hasara kurudi chini ya kiwango. Acha tupu kama hutaki arifa.",
+    "lossAlertsPortfolio": "Jalada lote",
+    "lossAlertsCopyOf": "Nakala ya {name}",
+    "lossAlertsNoCopies": "Hunakili mtu yeyote sasa. Arifa za kila nakala zitaonekana hapa utakapoanza.",
+    "lossAlertsHint": "Thamani kati ya 1 na 90. Hupimwa kwa kiasi cha nakala, na kwa uwekezaji halisi kwa jalada lote.",
+    "lossAlertsSave": "Hifadhi arifa",
+    "lossAlertsInvalid": "Weka thamani kati ya 1 na 90, au iache tupu.",
+    "lossAlertsFailed": "Imeshindwa kuhifadhi arifa. Tafadhali jaribu tena."
   },
   "Kyc": {
     "title": "Uthibitishaji wa Utambulisho",
@@ -2175,7 +2205,8 @@
     "mfaChangedTitle": "Uthibitishaji wa hatua mbili umebadilishwa",
     "mfaChangedBody": "Uthibitishaji wa hatua mbili kwenye akaunti yako umewashwa, umezimwa au umebadilishwa sasa hivi. Kwa usalama wako, utoaji wa pesa umesimamishwa kwa saa 24.",
     "withdrawalRequestedTitle": "Ombi la kutoa pesa",
-    "withdrawalRequestedBody": "Ombi la kutoa {amount} kwenye mtandao wa {network} kwenda {address} limetumwa kutoka akaunti yako na linashughulikiwa sasa."
+    "withdrawalRequestedBody": "Ombi la kutoa {amount} kwenye mtandao wa {network} kwenda {address} limetumwa kutoka akaunti yako na linashughulikiwa sasa.",
+    "ctaDashboard": "Fungua dashibodi yangu"
   },
   "AuthEmail": {
     "confirmSubject": "Thibitisha barua pepe yako",

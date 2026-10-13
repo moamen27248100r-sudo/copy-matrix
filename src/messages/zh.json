@@ -214,7 +214,25 @@
     "benchmarkChartLabel": "投资组合收益与市场对比",
     "returnOnInvested": "净投入收益率",
     "netInvestedLabel": "净投入",
-    "kycNoneTitleNoDeposit": "欢迎！请先完善您的账户资料。"
+    "kycNoneTitleNoDeposit": "欢迎！请先完善您的账户资料。",
+    "riskTitle": "组合风险",
+    "riskLow": "低",
+    "riskMedium": "中",
+    "riskHigh": "高",
+    "riskInfoLabel": "风险等级如何计算",
+    "riskExplainIntro": "根据三个因素得出的 0 至 100 的简单分数：",
+    "riskExplainReserved": "最多 {points} 分：您的余额中被跟单占用的比例。",
+    "riskExplainDrawdown": "最多 {points} 分：组合低于历史最高值的幅度（回撤 {cap}% 即计为满分）。",
+    "riskExplainTraders": "最多 {points} 分：您跟单交易员的风险等级，按各自投入金额加权。",
+    "riskExplainScale": "低于 {low}：低。{low} 至 {high}：中。{high} 及以上：高。",
+    "riskExplainNote": "这只是帮助您了解风险敞口的简单参考，并非预测。",
+    "riskPartReserved": "已占用",
+    "riskPartDrawdown": "回撤",
+    "riskPartTraders": "交易员",
+    "newsTitle": "市场新闻",
+    "newsViewAll": "查看全部",
+    "newsSourceLine": "{source}，来自 Investing.com · {time}",
+    "newsNote": "标题由 Investing.com 以英文发布，点击后在其网站打开。"
   },
   "Common": {
     "level": "等级 {level}",
@@ -289,7 +307,10 @@
     "scopeDemo": "您模拟账户的通知，以及账户和安全提醒。",
     "prefsInApp": "站内",
     "prefsEmail": "邮件",
-    "prefsEmailNote": "邮件仅针对您的真实账户发送；模拟账户的交易只在站内显示。安全邮件始终发送。"
+    "prefsEmailNote": "邮件仅针对您的真实账户发送；模拟账户的交易只在站内显示。安全邮件始终发送。",
+    "lossAlertTitle": "亏损提醒",
+    "lossAlertBodyCopy": "您对 {providerName} 的跟单亏损已达 {loss}%（您设置的提醒线为 {threshold}%）。",
+    "lossAlertBodyPortfolio": "您的投资组合亏损已达投入资金的 {loss}%（您设置的提醒线为 {threshold}%）。"
   },
   "Portfolio": {
     "title": "我的资产",
@@ -685,7 +706,16 @@
     "riskSave": "保存风险画像",
     "twoFactorOn": "已启用",
     "twoFactorManage": "管理双重验证",
-    "sessionsManage": "管理设备"
+    "sessionsManage": "管理设备",
+    "lossAlertsTitle": "亏损提醒",
+    "lossAlertsDesc": "当亏损达到您设定的百分比时通知您。每次越过阈值只提醒一次，亏损回落到阈值以下后再次越过才会再次提醒。留空表示不提醒。",
+    "lossAlertsPortfolio": "整个投资组合",
+    "lossAlertsCopyOf": "跟单 {name}",
+    "lossAlertsNoCopies": "您当前没有跟单。开始跟单后，这里会显示每个跟单的提醒设置。",
+    "lossAlertsHint": "1 至 90 之间的数值。单个跟单按其金额计算，整个组合按净投入计算。",
+    "lossAlertsSave": "保存提醒",
+    "lossAlertsInvalid": "请输入 1 至 90 之间的数值，或留空。",
+    "lossAlertsFailed": "无法保存提醒，请重试。"
   },
   "Kyc": {
     "title": "身份验证",
@@ -2176,7 +2206,8 @@
     "mfaChangedTitle": "双重验证已更改",
     "mfaChangedBody": "您账户的双重验证刚刚被开启、关闭或更换。为保护您的资金，提现将暂停 24 小时。",
     "withdrawalRequestedTitle": "已提交提现申请",
-    "withdrawalRequestedBody": "您的账户提交了一笔 {amount} 的提现，网络 {network}，地址 {address}，正在处理中。"
+    "withdrawalRequestedBody": "您的账户提交了一笔 {amount} 的提现，网络 {network}，地址 {address}，正在处理中。",
+    "ctaDashboard": "打开我的控制台"
   },
   "AuthEmail": {
     "confirmSubject": "确认您的邮箱",

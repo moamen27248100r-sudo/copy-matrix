@@ -11,7 +11,7 @@ import { AppNav } from "@/components/AppNav";
 import { PortfolioTabs } from "@/components/PortfolioTabs";
 import { TradeHistory } from "@/components/TradeHistory";
 import { PortfolioValueBreakdown } from "@/components/PortfolioValueBreakdown";
-import { MyEquityChart } from "@/components/MyEquityChart";
+import { MyEquityChart, type Benchmarks } from "@/components/MyEquityChart";
 import { AutoDismissMessage } from "@/components/AutoDismissMessage";
 import { ConfirmButton } from "@/components/ConfirmButton";
 import { resetDemoBalance } from "@/app/portfolio/actions";
@@ -46,6 +46,9 @@ type Position = {
 function positionSignal(pos: Position): PositionSignal | null {
   return Array.isArray(pos.signals) ? pos.signals[0] ?? null : pos.signals;
 }
+
+// The history list shows the latest closed trades; totals cover all of them (CSV export has the rest).
+const CLOSED_HISTORY_LIMIT = 200;
 
 function signedReturnPct(pos: Position) {
   const signal = positionSignal(pos);
@@ -108,16 +111,20 @@ export default async function PortfolioPage({
   const [
     { data: profile },
     { data: followedProviders },
-    { data: positions },
+    { data: openRows },
+    { data: closedRows },
     { data: transactions },
     { data: pendingDeposits },
     { data: openWithdrawals },
     { data: dashSummary },
+    { data: benchmarkBundle },
   ] = await Promise.all([
       supabase.from("profiles").select("balance, account_type").eq("id", user.id).single(),
       providerIds.length > 0
         ? supabase.from("provider_cards").select("*").in("provider_id", providerIds)
         : Promise.resolve({ data: [] as never[] }),
+      // Open positions (few) and the latest closed trades for the history list; every total and the
+      // monthly report come from portfolio_summary (migration 0255), not from these rows.
       supabase
         .from("simulated_positions")
         .select(
@@ -125,7 +132,19 @@ export default async function PortfolioPage({
         )
         .eq("follower_id", user.id)
         .eq("account_type", profileAccountType)
-        .order("opened_at", { ascending: false }),
+        .eq("status", "open")
+        .order("opened_at", { ascending: false })
+        .limit(200),
+      supabase
+        .from("simulated_positions")
+        .select(
+          "id, entry_price, exit_price, size, status, pnl, opened_at, closed_at, take_profit, stop_loss, signals(symbol, side, provider_id, stop_loss, take_profit)",
+        )
+        .eq("follower_id", user.id)
+        .eq("account_type", profileAccountType)
+        .eq("status", "closed")
+        .order("closed_at", { ascending: false })
+        .limit(CLOSED_HISTORY_LIMIT),
       supabase
         .from("wallet_transactions")
         .select("id, type, amount, balance_after, note, created_at")
@@ -146,9 +165,18 @@ export default async function PortfolioPage({
         .in("status", ["processing", "sending"])
         .order("created_at", { ascending: false }),
       // Net invested funds: the base of the return % (same definition as the dashboard, lib/profit-pct.ts).
-      supabase.rpc("dashboard_summary", { p_tz: userTz }),
+      supabase.rpc("portfolio_summary", { p_tz: userTz }),
+      supabase.rpc("benchmark_bundle"),
     ]);
-  const netInvested = dashSummary ? Number((dashSummary as { net_invested: number }).net_invested) : null;
+  type Summary = {
+    net_invested: number;
+    avg_return_pct: number | null;
+    closed: { closed_count: number; wins: number; realized: number };
+    series: { t: number; v: number }[];
+    monthly: { key: string; trades: number; wins: number; pnl: number; deposits: number; withdrawals: number }[];
+  };
+  const summary = (dashSummary ?? null) as Summary | null;
+  const netInvested = summary ? Number(summary.net_invested) : null;
 
   // Real-wallet movements still in progress: deposits awaiting confirmations, withdrawals not yet sent.
   const pendingRequests = isDemo
@@ -158,10 +186,11 @@ export default async function PortfolioPage({
         ...(openWithdrawals ?? []).map((w) => ({ ...w, kind: "withdrawal" as const, confirmations: 0, required_confirmations: 0 })),
       ].sort((a, b) => b.created_at.localeCompare(a.created_at));
 
-  const allPositions = (positions ?? []) as Position[];
+  const allPositions = [...((openRows ?? []) as Position[]), ...((closedRows ?? []) as Position[])];
   const closedPositions = allPositions.filter((p) => p.status === "closed");
   const openPositions = allPositions.filter((p) => p.status === "open");
-  const totalRealizedPnl = closedPositions.reduce((sum, p) => sum + (p.pnl ?? 0), 0);
+  const closedCount = summary ? Number(summary.closed.closed_count) : closedPositions.length;
+  const totalRealizedPnl = summary ? Number(summary.closed.realized) : closedPositions.reduce((sum, p) => sum + (p.pnl ?? 0), 0);
 
   const openSymbols = Array.from(
     new Set(openPositions.map((p) => positionSignal(p)?.symbol).filter((s): s is string => !!s)),
@@ -198,12 +227,9 @@ export default async function PortfolioPage({
   }, 0);
   const totalAllocated = Array.from(allocationByProvider.values()).reduce((sum, a) => sum + Number(a), 0);
 
-  const myWins = closedPositions.filter((p) => (p.pnl ?? 0) > 0).length;
-  const myWinRatePct = closedPositions.length > 0 ? Math.round((myWins / closedPositions.length) * 100) : null;
-  const myAvgReturnPct =
-    closedPositions.length > 0
-      ? closedPositions.reduce((sum, p) => sum + signedReturnPct(p), 0) / closedPositions.length
-      : null;
+  const myWins = summary ? Number(summary.closed.wins) : closedPositions.filter((p) => (p.pnl ?? 0) > 0).length;
+  const myWinRatePct = closedCount > 0 ? Math.round((myWins / closedCount) * 100) : null;
+  const myAvgReturnPct = summary ? (summary.avg_return_pct == null ? null : Number(summary.avg_return_pct)) : null;
 
   const historyProviderIds = Array.from(
     new Set(
@@ -242,29 +268,16 @@ export default async function PortfolioPage({
     };
   });
 
-  // Last 6 months (UTC), newest first: closed-trade results plus wallet
-  // deposits/withdrawals from the recent-transactions window already loaded.
-  const monthBuckets = new Map<string, { key: string; trades: number; wins: number; pnl: number; deposits: number; withdrawals: number }>();
-  const bucket = (iso: string) => {
-    const key = iso.slice(0, 7);
-    let b = monthBuckets.get(key);
-    if (!b) monthBuckets.set(key, (b = { key, trades: 0, wins: 0, pnl: 0, deposits: 0, withdrawals: 0 }));
-    return b;
-  };
-  for (const p of closedPositions) {
-    if (!p.closed_at) continue;
-    const b = bucket(p.closed_at);
-    b.trades++;
-    if ((p.pnl ?? 0) > 0) b.wins++;
-    b.pnl += p.pnl ?? 0;
-  }
-  for (const tx of transactions ?? []) {
-    if (tx.type === "deposit") bucket(tx.created_at).deposits += Math.abs(Number(tx.amount));
-    else if (tx.type === "withdrawal") bucket(tx.created_at).withdrawals += Math.abs(Number(tx.amount));
-  }
-  const monthlyReport = Array.from(monthBuckets.values())
-    .sort((a, b) => b.key.localeCompare(a.key))
-    .slice(0, 6);
+  // Last 6 months (UTC), newest first -- computed by the database from every closed trade and every
+  // wallet deposit / withdrawal of this account (portfolio_summary).
+  const monthlyReport = (summary?.monthly ?? []).map((m) => ({
+    key: m.key,
+    trades: Number(m.trades),
+    wins: Number(m.wins),
+    pnl: Number(m.pnl),
+    deposits: Number(m.deposits),
+    withdrawals: Number(m.withdrawals),
+  }));
 
   const overview = (
     <div className="flex flex-col gap-6">
@@ -347,7 +360,11 @@ export default async function PortfolioPage({
 
       <section className="flex flex-col gap-3">
         <h2 className="font-medium">{t("cumulativePerformance")}</h2>
-        <MyEquityChart positions={closedPositions.map((p) => ({ pnl: p.pnl, closed_at: p.closed_at }))} netInvested={netInvested} />
+        <MyEquityChart
+          positions={(summary?.series ?? []).map((p) => ({ pnl: p.v, closed_at: new Date(p.t).toISOString() }))}
+          netInvested={netInvested}
+          benchmarks={(benchmarkBundle ?? null) as Benchmarks | null}
+        />
       </section>
 
       <section className="flex flex-col gap-3">
@@ -377,7 +394,7 @@ export default async function PortfolioPage({
             <p className="text-xs text-muted">{t("avgTradeReturn")}</p>
           </div>
           <div className="rounded-lg border border-border bg-surface p-3">
-            <p className="text-lg font-semibold">{closedPositions.length}</p>
+            <p className="text-lg font-semibold">{closedCount}</p>
             <p className="text-xs text-muted">{t("closedTradesCount")}</p>
           </div>
         </div>

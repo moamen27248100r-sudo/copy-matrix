@@ -19,6 +19,10 @@ import { RecentActivityTimeline, type ActivityEvent } from "@/components/RecentA
 import { AllocationCard } from "@/components/AllocationCard";
 import { TraderPnlList } from "@/components/TraderPnlList";
 import { FavoriteTraders } from "@/components/FavoriteTraders";
+import { MarketNewsSection } from "@/components/MarketNewsSection";
+import { PortfolioRiskCard } from "@/components/PortfolioRiskCard";
+import { computeRisk, currentDrawdownPct, leaderRiskLevel } from "@/lib/portfolio-risk";
+import type { Benchmarks } from "@/components/MyEquityChart";
 import { Skeleton } from "@/components/ui/Skeleton";
 
 function SectionSkeleton() {
@@ -68,6 +72,7 @@ export default async function DashboardPage({
     { data: tickerPrices },
     { data: walletRequests },
     depositsOn,
+    { data: benchmarkBundle },
   ] = await Promise.all([
     supabase.from("profiles").select("display_name, account_type, balance, country, account_number").eq("id", user.id).single(),
     supabase
@@ -125,6 +130,8 @@ export default async function DashboardPage({
       ],
     })),
     depositsEnabled(supabase),
+    // Reference price lines (BTC, gold) for the chart comparison, cached in the database.
+    supabase.rpc("benchmark_bundle"),
   ]);
 
   type ProviderResult = {
@@ -132,6 +139,7 @@ export default async function DashboardPage({
     display_name: string | null;
     avatar_url: string | null;
     rating_score: number | null;
+    risk_level: string | null;
     allocated: number;
     realized: number;
     unrealized: number;
@@ -237,6 +245,17 @@ export default async function DashboardPage({
   ]
     .sort((x, y) => new Date(y.at).getTime() - new Date(x.at).getTime())
     .slice(0, 8);
+
+  // Portfolio risk indicator (formula and weights live in lib/portfolio-risk.ts).
+  const risk = computeRisk({
+    reservedRatio: Number(profile?.balance ?? 0) > 0 ? totalAllocated / Number(profile?.balance ?? 0) : 0,
+    drawdownPct: currentDrawdownPct(summary?.series ?? [], netInvested ?? 0, netPnl, totalUnrealizedPnl),
+    leaders: byProvider.flatMap((p) => {
+      const level = leaderRiskLevel(p.risk_level);
+      return level ? [{ level, amount: Number(p.allocated) }] : [];
+    }),
+  });
+  const riskDrawdownPct = currentDrawdownPct(summary?.series ?? [], netInvested ?? 0, netPnl, totalUnrealizedPnl);
 
   // Allocation views: by trader (reserved copy capital) and by asset class (open position value),
   // each with the part of the balance that is not in use.
@@ -374,6 +393,7 @@ export default async function DashboardPage({
           todayPnl={todayPnl}
           closedPositions={(summary?.series ?? []).map((p) => ({ pnl: p.v, closed_at: new Date(p.t).toISOString() }))}
           netInvested={netInvested}
+          benchmarks={(benchmarkBundle ?? null) as Benchmarks | null}
         />
 
         <section className="grid grid-cols-3 rounded-2xl border border-border bg-surface">
@@ -422,6 +442,13 @@ export default async function DashboardPage({
         </section>
 
         {closedStats.closed_count > 0 && <PerformanceSummary stats={closedStats} />}
+
+        <PortfolioRiskCard
+          risk={risk}
+          reservedPct={Number(profile?.balance ?? 0) > 0 ? Math.min(100, (totalAllocated / Number(profile?.balance ?? 0)) * 100) : 0}
+          drawdownPct={riskDrawdownPct}
+          hasCopies={copiedProviders.length > 0}
+        />
 
         <section id="my-copies" className="flex flex-col gap-3 scroll-mt-20">
           {copiedProviders.length > 0 && (
@@ -494,6 +521,10 @@ export default async function DashboardPage({
         )}
 
         {copiedProviders.length > 0 && <RecentActivityTimeline events={activityEvents} />}
+
+        <Suspense fallback={null}>
+          <MarketNewsSection providerIds={providerIds} openSymbols={Array.from(new Set(openPositions.map((p) => positionSignal(p)?.symbol).filter((s): s is string => !!s)))} />
+        </Suspense>
 
         <Suspense fallback={null}>
           <FavoriteTraders userId={user.id} />

@@ -214,7 +214,25 @@
     "benchmarkChartLabel": "Retorno da carteira em comparação com o mercado",
     "returnOnInvested": "Retorno sobre o líquido investido",
     "netInvestedLabel": "Líquido investido",
-    "kycNoneTitleNoDeposit": "Bem-vindo! Preencha os dados da sua conta para começar."
+    "kycNoneTitleNoDeposit": "Bem-vindo! Preencha os dados da sua conta para começar.",
+    "riskTitle": "Risco da carteira",
+    "riskLow": "Baixo",
+    "riskMedium": "Médio",
+    "riskHigh": "Alto",
+    "riskInfoLabel": "Como o nível de risco é calculado",
+    "riskExplainIntro": "Uma pontuação simples de 0 a 100 baseada em três fatores:",
+    "riskExplainReserved": "Até {points} pontos: a parte do seu saldo reservada em cópias.",
+    "riskExplainDrawdown": "Até {points} pontos: quanto a carteira está abaixo do seu valor máximo (uma queda de {cap}% conta como o máximo).",
+    "riskExplainTraders": "Até {points} pontos: o nível de risco dos traders copiados, ponderado pelo valor em cada um.",
+    "riskExplainScale": "Menos de {low}: baixo. De {low} a {high}: médio. {high} ou mais: alto.",
+    "riskExplainNote": "É um guia simples para ver a sua exposição; não é uma previsão.",
+    "riskPartReserved": "Reservado",
+    "riskPartDrawdown": "Queda",
+    "riskPartTraders": "Traders",
+    "newsTitle": "Notícias do mercado",
+    "newsViewAll": "Ver todas",
+    "newsSourceLine": "{source} via Investing.com · {time}",
+    "newsNote": "As manchetes são publicadas pelo Investing.com em inglês e abrem no site deles."
   },
   "Common": {
     "level": "Nível {level}",
@@ -289,7 +307,10 @@
     "scopeDemo": "Notificações da sua conta demo, mais os alertas de conta e segurança.",
     "prefsInApp": "No app",
     "prefsEmail": "E-mail",
-    "prefsEmailNote": "Os e-mails são enviados apenas para sua conta real; as operações da conta demo ficam no app. Os e-mails de segurança são sempre enviados."
+    "prefsEmailNote": "Os e-mails são enviados apenas para sua conta real; as operações da conta demo ficam no app. Os e-mails de segurança são sempre enviados.",
+    "lossAlertTitle": "Alerta de perda",
+    "lossAlertBodyCopy": "A sua cópia de {providerName} está com perda de {loss}% (o seu nível de alerta é {threshold}%).",
+    "lossAlertBodyPortfolio": "A sua carteira está com perda de {loss}% dos fundos investidos (o seu nível de alerta é {threshold}%)."
   },
   "Portfolio": {
     "title": "Minha carteira",
@@ -685,7 +706,16 @@
     "riskSave": "Guardar perfil de risco",
     "twoFactorOn": "Ativada",
     "twoFactorManage": "Gerenciar 2FA",
-    "sessionsManage": "Gerenciar dispositivos"
+    "sessionsManage": "Gerenciar dispositivos",
+    "lossAlertsTitle": "Alertas de perda",
+    "lossAlertsDesc": "Seja avisado quando uma perda atingir a porcentagem escolhida. Você recebe um alerta por cruzamento e outro só depois que a perda voltar para baixo. Deixe vazio para não receber alerta.",
+    "lossAlertsPortfolio": "Carteira inteira",
+    "lossAlertsCopyOf": "Cópia de {name}",
+    "lossAlertsNoCopies": "Você não está copiando ninguém agora. Os alertas de cada cópia aparecem aqui quando iniciar uma.",
+    "lossAlertsHint": "Um valor entre 1 e 90. É medido sobre o valor da cópia e sobre o líquido investido para a carteira inteira.",
+    "lossAlertsSave": "Salvar alertas",
+    "lossAlertsInvalid": "Informe um valor entre 1 e 90, ou deixe vazio.",
+    "lossAlertsFailed": "Não foi possível salvar os alertas. Tente novamente."
   },
   "Kyc": {
     "title": "Verificação de identidade",
@@ -2178,7 +2208,8 @@
     "mfaChangedTitle": "A autenticação de dois fatores foi alterada",
     "mfaChangedBody": "A autenticação de dois fatores da sua conta acabou de ser ativada, desativada ou substituída. Para sua proteção, os levantamentos ficam suspensos durante 24 horas.",
     "withdrawalRequestedTitle": "Levantamento solicitado",
-    "withdrawalRequestedBody": "Foi solicitado a partir da sua conta um levantamento de {amount} na rede {network} para {address}. Já está a ser processado."
+    "withdrawalRequestedBody": "Foi solicitado a partir da sua conta um levantamento de {amount} na rede {network} para {address}. Já está a ser processado.",
+    "ctaDashboard": "Abrir o meu painel"
   },
   "AuthEmail": {
     "confirmSubject": "Confirme o seu e-mail",

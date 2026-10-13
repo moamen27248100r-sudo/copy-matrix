@@ -214,7 +214,25 @@
     "benchmarkChartLabel": "Rendement du portefeuille comparé au marché",
     "returnOnInvested": "Rendement sur le net investi",
     "netInvestedLabel": "Net investi",
-    "kycNoneTitleNoDeposit": "Bienvenue ! Veuillez compléter les informations de votre compte pour commencer."
+    "kycNoneTitleNoDeposit": "Bienvenue ! Veuillez compléter les informations de votre compte pour commencer.",
+    "riskTitle": "Risque du portefeuille",
+    "riskLow": "Faible",
+    "riskMedium": "Moyen",
+    "riskHigh": "Élevé",
+    "riskInfoLabel": "Comment le niveau de risque est calculé",
+    "riskExplainIntro": "Un score simple de 0 à 100 construit à partir de trois éléments :",
+    "riskExplainReserved": "Jusqu'à {points} points : la part de votre solde réservée dans les copies.",
+    "riskExplainDrawdown": "Jusqu'à {points} points : l'écart du portefeuille par rapport à son plus haut (une baisse de {cap}% compte comme le maximum).",
+    "riskExplainTraders": "Jusqu'à {points} points : le niveau de risque des traders copiés, pondéré par le montant alloué à chacun.",
+    "riskExplainScale": "Moins de {low} : faible. De {low} à {high} : moyen. {high} ou plus : élevé.",
+    "riskExplainNote": "C'est un repère simple pour visualiser votre exposition ; ce n'est pas une prévision.",
+    "riskPartReserved": "Réservé",
+    "riskPartDrawdown": "Repli",
+    "riskPartTraders": "Traders",
+    "newsTitle": "Actualités des marchés",
+    "newsViewAll": "Tout voir",
+    "newsSourceLine": "{source} via Investing.com · {time}",
+    "newsNote": "Les titres sont publiés par Investing.com en anglais et s'ouvrent sur leur site."
   },
   "Common": {
     "level": "Niveau {level}",
@@ -289,7 +307,10 @@
     "scopeDemo": "Notifications de votre compte démo, ainsi que les alertes de compte et de sécurité.",
     "prefsInApp": "Dans l'app",
     "prefsEmail": "E-mail",
-    "prefsEmailNote": "Les e-mails concernent uniquement votre compte réel ; les trades du compte démo restent dans l'app. Les e-mails de sécurité sont toujours envoyés."
+    "prefsEmailNote": "Les e-mails concernent uniquement votre compte réel ; les trades du compte démo restent dans l'app. Les e-mails de sécurité sont toujours envoyés.",
+    "lossAlertTitle": "Alerte de perte",
+    "lossAlertBodyCopy": "Votre copie de {providerName} est en perte de {loss}% (votre seuil d'alerte est de {threshold}%).",
+    "lossAlertBodyPortfolio": "Votre portefeuille est en perte de {loss}% des fonds investis (votre seuil d'alerte est de {threshold}%)."
   },
   "Portfolio": {
     "title": "Mon portefeuille",
@@ -685,7 +706,16 @@
     "riskSave": "Enregistrer le profil de risque",
     "twoFactorOn": "Activée",
     "twoFactorManage": "Gérer la 2FA",
-    "sessionsManage": "Gérer les appareils"
+    "sessionsManage": "Gérer les appareils",
+    "lossAlertsTitle": "Alertes de perte",
+    "lossAlertsDesc": "Soyez averti quand une perte atteint le pourcentage choisi. Vous recevez une alerte par dépassement, et une nouvelle seulement après que la perte est repassée sous le seuil. Laissez vide pour aucune alerte.",
+    "lossAlertsPortfolio": "Portefeuille entier",
+    "lossAlertsCopyOf": "Copie de {name}",
+    "lossAlertsNoCopies": "Vous ne copiez personne pour le moment. Les alertes de chaque copie apparaîtront ici dès que vous en démarrez une.",
+    "lossAlertsHint": "Une valeur entre 1 et 90. Elle est mesurée sur le montant de la copie, et sur le net investi pour tout le portefeuille.",
+    "lossAlertsSave": "Enregistrer les alertes",
+    "lossAlertsInvalid": "Saisissez une valeur entre 1 et 90, ou laissez vide.",
+    "lossAlertsFailed": "Impossible d'enregistrer les alertes. Réessayez."
   },
   "Kyc": {
     "title": "Vérification d'identité",
@@ -2176,7 +2206,8 @@
     "mfaChangedTitle": "La double authentification a été modifiée",
     "mfaChangedBody": "La double authentification de votre compte vient d'être activée, désactivée ou remplacée. Pour votre protection, les retraits sont suspendus pendant 24 heures.",
     "withdrawalRequestedTitle": "Demande de retrait",
-    "withdrawalRequestedBody": "Un retrait de {amount} sur {network} vers {address} a été demandé depuis votre compte. Il est en cours de traitement."
+    "withdrawalRequestedBody": "Un retrait de {amount} sur {network} vers {address} a été demandé depuis votre compte. Il est en cours de traitement.",
+    "ctaDashboard": "Ouvrir mon tableau de bord"
   },
   "AuthEmail": {
     "confirmSubject": "Confirmez votre adresse e-mail",

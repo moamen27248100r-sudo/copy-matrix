@@ -214,7 +214,25 @@
     "benchmarkChartLabel": "Portfolio return compared with the market",
     "returnOnInvested": "Return on net invested",
     "netInvestedLabel": "Net invested",
-    "kycNoneTitleNoDeposit": "Welcome! Please fill in your account details to get started."
+    "kycNoneTitleNoDeposit": "Welcome! Please fill in your account details to get started.",
+    "riskTitle": "Portfolio risk",
+    "riskLow": "Low",
+    "riskMedium": "Medium",
+    "riskHigh": "High",
+    "riskInfoLabel": "How the risk level is calculated",
+    "riskExplainIntro": "A simple score from 0 to 100 built from three things:",
+    "riskExplainReserved": "Up to {points} points: the share of your balance reserved in copies.",
+    "riskExplainDrawdown": "Up to {points} points: how far the portfolio is below its highest value (a {cap}% drop counts as the maximum).",
+    "riskExplainTraders": "Up to {points} points: the risk level of the traders you copy, weighted by the amount in each.",
+    "riskExplainScale": "Under {low}: low. From {low} to {high}: medium. {high} or more: high.",
+    "riskExplainNote": "This is a simple guide to help you see your exposure; it is not a forecast.",
+    "riskPartReserved": "Reserved",
+    "riskPartDrawdown": "Drawdown",
+    "riskPartTraders": "Traders",
+    "newsTitle": "Market news",
+    "newsViewAll": "View all",
+    "newsSourceLine": "{source} via Investing.com · {time}",
+    "newsNote": "Headlines are published by Investing.com in English and open on their site."
   },
   "Common": {
     "level": "Level {level}",
@@ -289,7 +307,10 @@
     "scopeDemo": "Notifications for your demo account, plus account and security alerts.",
     "prefsInApp": "In app",
     "prefsEmail": "Email",
-    "prefsEmailNote": "Emails are sent for your real account only; demo-account trades stay in the app. Security emails are always sent."
+    "prefsEmailNote": "Emails are sent for your real account only; demo-account trades stay in the app. Security emails are always sent.",
+    "lossAlertTitle": "Loss alert",
+    "lossAlertBodyCopy": "Your copy of {providerName} is down {loss}% (your alert level is {threshold}%).",
+    "lossAlertBodyPortfolio": "Your portfolio is down {loss}% of your invested funds (your alert level is {threshold}%)."
   },
   "Portfolio": {
     "title": "My Portfolio",
@@ -685,7 +706,16 @@
     "riskSave": "Save risk profile",
     "twoFactorOn": "Enabled",
     "twoFactorManage": "Manage 2FA",
-    "sessionsManage": "Manage devices"
+    "sessionsManage": "Manage devices",
+    "lossAlertsTitle": "Loss alerts",
+    "lossAlertsDesc": "Get notified when a loss reaches the percentage you choose. You receive one alert per crossing, and a new one only after the loss has fallen back under it. Leave a field empty for no alert.",
+    "lossAlertsPortfolio": "Whole portfolio",
+    "lossAlertsCopyOf": "Copy of {name}",
+    "lossAlertsNoCopies": "You are not copying anyone right now. Alerts for each copy appear here once you start one.",
+    "lossAlertsHint": "A value between 1 and 90. It is measured on the amount of the copy, and on your net invested funds for the whole portfolio.",
+    "lossAlertsSave": "Save alerts",
+    "lossAlertsInvalid": "Enter a value between 1 and 90, or leave it empty.",
+    "lossAlertsFailed": "Could not save the alerts. Please try again."
   },
   "Kyc": {
     "title": "Identity Verification",
@@ -2179,7 +2209,8 @@
     "mfaChangedTitle": "Two-factor authentication was changed",
     "mfaChangedBody": "Two-factor authentication on your account was just turned on, off or replaced. For your protection, withdrawals are paused for 24 hours.",
     "withdrawalRequestedTitle": "Withdrawal requested",
-    "withdrawalRequestedBody": "A withdrawal of {amount} on {network} to {address} was requested from your account. It is now being processed."
+    "withdrawalRequestedBody": "A withdrawal of {amount} on {network} to {address} was requested from your account. It is now being processed.",
+    "ctaDashboard": "Open my dashboard"
   },
   "AuthEmail": {
     "confirmSubject": "Confirm your email",

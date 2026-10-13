@@ -2,7 +2,7 @@ import Link from "next/link";
 import { formatPct, profitPct } from "@/lib/profit-pct";
 import { getTranslations } from "next-intl/server";
 import { ConfirmButton } from "@/components/ConfirmButton";
-import { MyEquityChart } from "@/components/MyEquityChart";
+import { MyEquityChart, type Benchmarks } from "@/components/MyEquityChart";
 import { CountUp } from "@/components/ui/CountUp";
 import { getMoney } from "@/lib/money-server";
 import type { MoneyOptions } from "@/lib/money";
@@ -53,6 +53,7 @@ export async function DashboardHero({
   todayPnl,
   closedPositions,
   netInvested,
+  benchmarks = null,
 }: {
   accountType: AccountType;
   /** Deposits switched on (platform setting); a real account sees no deposit button while off. */
@@ -65,6 +66,8 @@ export async function DashboardHero({
   closedPositions: { pnl: number | null; closed_at: string | null }[];
   /** Net invested funds (see lib/profit-pct.ts); null when unknown. */
   netInvested: number | null;
+  /** Cached reference price lines for the comparison on the chart. */
+  benchmarks?: Benchmarks | null;
 }) {
   const money = await getMoney();
   const t = await getTranslations("Dashboard");
@@ -103,7 +106,7 @@ export async function DashboardHero({
         </p>
       </div>
 
-      <MyEquityChart positions={closedPositions} netInvested={netInvested} />
+      <MyEquityChart positions={closedPositions} netInvested={netInvested} benchmarks={benchmarks} />
 
       <div className="grid grid-cols-2 gap-3 border-t border-border pt-4">
         <div>

@@ -67,6 +67,14 @@ export function renderNotification(t: Translator, n: NotificationRow, money: Mon
         title: t("autoStopCopyTitle"),
         body: t("autoStopCopyBody", { maxDrawdownPct: Number(d.maxDrawdownPct ?? 0) }),
       };
+    case "loss_alert":
+      return {
+        title: t("lossAlertTitle"),
+        body:
+          d.scope === "copy"
+            ? t("lossAlertBodyCopy", { providerName: String(d.providerName ?? ""), loss: Number(d.lossPct ?? 0), threshold: Number(d.thresholdPct ?? 0) })
+            : t("lossAlertBodyPortfolio", { loss: Number(d.lossPct ?? 0), threshold: Number(d.thresholdPct ?? 0) }),
+      };
     case "followed_trade_closed":
       return {
         title: t("followedTradeClosedTitle"),
