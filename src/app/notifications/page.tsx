@@ -208,11 +208,11 @@ export default async function NotificationsPage({ searchParams }: { searchParams
                     disabled={n.is_read}
                     className={
                       n.is_read
-                        ? "relative flex w-full items-start gap-3 overflow-hidden rounded-lg border border-border bg-surface p-3.5 text-right"
-                        : "relative flex w-full items-start gap-3 overflow-hidden rounded-lg border border-accent/30 bg-accent/5 p-3.5 text-right"
+                        ? "relative flex w-full items-start gap-3 overflow-hidden rounded-lg border border-border bg-surface p-3.5 text-start"
+                        : "relative flex w-full items-start gap-3 overflow-hidden rounded-lg border border-accent/30 bg-accent/5 p-3.5 text-start"
                     }
                   >
-                    {!n.is_read && <span className="absolute inset-y-0 right-0 w-1 bg-accent" aria-hidden="true" />}
+                    {!n.is_read && <span className="absolute inset-y-0 start-0 w-1 bg-accent" aria-hidden="true" />}
                     <NotificationIcon type={n.type} />
                     <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                       <div className="flex items-start justify-between gap-2">

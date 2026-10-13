@@ -52,7 +52,7 @@ export default async function LeadAnnouncementsPage({ searchParams }: { searchPa
         {(rows ?? []).map((a) => (
           <div key={a.id} className="flex items-start justify-between gap-3 rounded-xl border border-border bg-surface p-3">
             <div className="min-w-0">
-              <p className="whitespace-pre-line break-words text-sm">{a.body}</p>
+              <p dir="auto" className="whitespace-pre-line break-words text-start text-sm">{a.body}</p>
               <p className="mt-1 text-xs text-muted">{formatDateTime(a.created_at, locale)}</p>
             </div>
             <form action={deleteAnnouncement}>

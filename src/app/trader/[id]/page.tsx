@@ -285,7 +285,7 @@ export default async function TraderPage({
           </div>
         </div>
 
-        {provider.bio && <p className="text-sm text-muted">{translateBio(provider.bio)}</p>}
+        {provider.bio && <p dir="auto" className="text-start text-sm text-muted">{translateBio(provider.bio)}</p>}
         {ltPublic?.strategy_description && (
           <div className="rounded-xl border border-border bg-surface p-3">
             <p className="mb-1 text-xs font-semibold">{t("strategyTitle")}</p>
