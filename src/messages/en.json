@@ -213,7 +213,8 @@
     "benchmarkYou": "You",
     "benchmarkChartLabel": "Portfolio return compared with the market",
     "returnOnInvested": "Return on net invested",
-    "netInvestedLabel": "Net invested"
+    "netInvestedLabel": "Net invested",
+    "kycNoneTitleNoDeposit": "Welcome! Please fill in your account details to get started."
   },
   "Common": {
     "level": "Level {level}",

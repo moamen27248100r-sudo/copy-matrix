@@ -257,7 +257,7 @@ export default async function DashboardPage({
   ];
 
   const kycCopyByStatus: Record<string, { title: string; desc: string; action?: string }> = {
-    none: { title: t("kycNoneTitle"), desc: t("kycNoneDesc"), action: t("kycNoneAction") },
+    none: { title: depositsOn ? t("kycNoneTitle") : t("kycNoneTitleNoDeposit"), desc: t("kycNoneDesc"), action: t("kycNoneAction") },
     pending: { title: t("kycPendingTitle"), desc: t("kycPendingDesc") },
     rejected: { title: t("kycRejectedTitle"), desc: t("kycRejectedDesc"), action: t("kycRejectedAction") },
   };

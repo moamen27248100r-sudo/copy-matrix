@@ -213,7 +213,8 @@
     "benchmarkYou": "Você",
     "benchmarkChartLabel": "Retorno da carteira em comparação com o mercado",
     "returnOnInvested": "Retorno sobre o líquido investido",
-    "netInvestedLabel": "Líquido investido"
+    "netInvestedLabel": "Líquido investido",
+    "kycNoneTitleNoDeposit": "Bem-vindo! Preencha os dados da sua conta para começar."
   },
   "Common": {
     "level": "Nível {level}",

@@ -213,7 +213,8 @@
     "benchmarkYou": "আপনি",
     "benchmarkChartLabel": "পোর্টফোলিও রিটার্নের সাথে বাজারের তুলনা",
     "returnOnInvested": "নিট বিনিয়োগের উপর রিটার্ন",
-    "netInvestedLabel": "নিট বিনিয়োগ"
+    "netInvestedLabel": "নিট বিনিয়োগ",
+    "kycNoneTitleNoDeposit": "স্বাগতম! শুরু করতে আপনার অ্যাকাউন্টের তথ্য পূরণ করুন।"
   },
   "Common": {
     "level": "লেভেল {level}",

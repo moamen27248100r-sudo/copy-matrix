@@ -213,7 +213,8 @@
     "benchmarkYou": "คุณ",
     "benchmarkChartLabel": "ผลตอบแทนพอร์ตเทียบกับตลาด",
     "returnOnInvested": "ผลตอบแทนต่อเงินลงทุนสุทธิ",
-    "netInvestedLabel": "เงินลงทุนสุทธิ"
+    "netInvestedLabel": "เงินลงทุนสุทธิ",
+    "kycNoneTitleNoDeposit": "ยินดีต้อนรับ! โปรดกรอกข้อมูลบัญชีของคุณเพื่อเริ่มต้น"
   },
   "Common": {
     "level": "ระดับ {level}",

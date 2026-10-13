@@ -213,7 +213,8 @@
     "benchmarkYou": "आप",
     "benchmarkChartLabel": "पोर्टफोलियो रिटर्न की बाज़ार से तुलना",
     "returnOnInvested": "शुद्ध निवेश पर रिटर्न",
-    "netInvestedLabel": "शुद्ध निवेश"
+    "netInvestedLabel": "शुद्ध निवेश",
+    "kycNoneTitleNoDeposit": "स्वागत है! शुरू करने के लिए कृपया अपने खाते का विवरण भरें।"
   },
   "Common": {
     "level": "लेवल {level}",

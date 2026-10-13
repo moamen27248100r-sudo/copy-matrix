@@ -213,7 +213,8 @@
     "benchmarkYou": "Wewe",
     "benchmarkChartLabel": "Mapato ya jalada dhidi ya soko",
     "returnOnInvested": "Mapato kwa uwekezaji halisi",
-    "netInvestedLabel": "Uwekezaji halisi"
+    "netInvestedLabel": "Uwekezaji halisi",
+    "kycNoneTitleNoDeposit": "Karibu! Tafadhali jaza maelezo ya akaunti yako ili kuanza."
   },
   "Common": {
     "level": "Kiwango {level}",

@@ -213,7 +213,8 @@
     "benchmarkYou": "您",
     "benchmarkChartLabel": "投资组合收益与市场对比",
     "returnOnInvested": "净投入收益率",
-    "netInvestedLabel": "净投入"
+    "netInvestedLabel": "净投入",
+    "kycNoneTitleNoDeposit": "欢迎！请先完善您的账户资料。"
   },
   "Common": {
     "level": "等级 {level}",

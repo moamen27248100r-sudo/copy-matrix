@@ -213,7 +213,8 @@
     "benchmarkYou": "Usted",
     "benchmarkChartLabel": "Rentabilidad de la cartera frente al mercado",
     "returnOnInvested": "Rentabilidad sobre lo invertido neto",
-    "netInvestedLabel": "Neto invertido"
+    "netInvestedLabel": "Neto invertido",
+    "kycNoneTitleNoDeposit": "¡Bienvenido! Complete los datos de su cuenta para empezar."
   },
   "Common": {
     "level": "Nivel {level}",

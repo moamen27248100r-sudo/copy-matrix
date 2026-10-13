@@ -213,7 +213,8 @@
     "benchmarkYou": "آپ",
     "benchmarkChartLabel": "پورٹ فولیو کے منافع کا مارکیٹ سے موازنہ",
     "returnOnInvested": "خالص سرمایہ پر منافع",
-    "netInvestedLabel": "خالص سرمایہ کاری"
+    "netInvestedLabel": "خالص سرمایہ کاری",
+    "kycNoneTitleNoDeposit": "خوش آمدید! شروع کرنے کے لیے براہِ کرم اپنے اکاؤنٹ کی تفصیلات مکمل کریں۔"
   },
   "Common": {
     "level": "لیول {level}",

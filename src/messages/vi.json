@@ -213,7 +213,8 @@
     "benchmarkYou": "Bạn",
     "benchmarkChartLabel": "Lợi suất danh mục so với thị trường",
     "returnOnInvested": "Lợi suất trên vốn ròng",
-    "netInvestedLabel": "Vốn ròng"
+    "netInvestedLabel": "Vốn ròng",
+    "kycNoneTitleNoDeposit": "Chào mừng! Vui lòng hoàn tất thông tin tài khoản để bắt đầu."
   },
   "Common": {
     "level": "Cấp độ {level}",

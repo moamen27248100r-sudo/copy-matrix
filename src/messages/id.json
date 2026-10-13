@@ -213,7 +213,8 @@
     "benchmarkYou": "Anda",
     "benchmarkChartLabel": "Imbal hasil portofolio dibandingkan pasar",
     "returnOnInvested": "Imbal hasil atas dana bersih",
-    "netInvestedLabel": "Dana bersih"
+    "netInvestedLabel": "Dana bersih",
+    "kycNoneTitleNoDeposit": "Selamat datang! Lengkapi data akun Anda untuk memulai."
   },
   "Common": {
     "level": "Level {level}",

@@ -213,7 +213,8 @@
     "benchmarkYou": "أنت",
     "benchmarkChartLabel": "عائد المحفظة مقارنةً بالسوق",
     "returnOnInvested": "العائد على صافي المستثمر",
-    "netInvestedLabel": "صافي المستثمر"
+    "netInvestedLabel": "صافي المستثمر",
+    "kycNoneTitleNoDeposit": "أهلاً بك! يرجى استكمال بيانات حسابك للبدء."
   },
   "Common": {
     "level": "المستوى {level}",
