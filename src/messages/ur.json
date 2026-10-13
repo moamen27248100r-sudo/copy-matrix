@@ -95,12 +95,13 @@
     "notificationsEmpty": "ابھی تک کوئی اطلاع نہیں۔",
     "viewAll": "سب دیکھیں",
     "markAllRead": "سب کو پڑھا ہوا نشان زد کریں",
-    "demoStrip": "آپ ڈیمو موڈ میں ہیں — صرف ورچوئل فنڈز۔",
+    "demoStrip": "ڈیمو موڈ: فرضی رقم",
     "switchToLeaderMode": "لیڈ ٹریڈر سینٹر",
     "switchToCopierMode": "کاپیئر ڈیش بورڈ",
     "menuLeadCenter": "لیڈ ٹریڈر سینٹر",
     "menuBecomeLeader": "لیڈ ٹریڈر بنیں",
-    "menuProfitShareHistory": "منافع کی تقسیم کی تاریخ"
+    "menuProfitShareHistory": "منافع کی تقسیم کی تاریخ",
+    "demoStripSwitch": "حقیقی اکاؤنٹ سے ٹریڈ کریں"
   },
   "LangSwitcher": {
     "label": "زبان"
@@ -716,7 +717,10 @@
     "lossAlertsHint": "1 سے 90 کے درمیان کوئی قدر۔ یہ کاپی کی رقم پر ناپی جاتی ہے، اور پورے پورٹ فولیو کے لیے خالص سرمایہ کاری پر۔",
     "lossAlertsSave": "الرٹ محفوظ کریں",
     "lossAlertsInvalid": "1 سے 90 کے درمیان قدر درج کریں، یا خالی چھوڑ دیں۔",
-    "lossAlertsFailed": "الرٹ محفوظ نہیں ہو سکے۔ دوبارہ کوشش کریں۔"
+    "lossAlertsFailed": "الرٹ محفوظ نہیں ہو سکے۔ دوبارہ کوشش کریں۔",
+    "notificationPrefsTitle": "اطلاعات",
+    "notificationPrefsDesc": "منتخب کریں کہ ایپ میں اور ای میل پر کون سی اطلاعات ملیں۔",
+    "notificationPrefsLink": "اطلاعات کی ترجیحات"
   },
   "Kyc": {
     "title": "شناخت کی تصدیق",
@@ -2039,7 +2043,8 @@
   },
   "LivePrices": {
     "forexDaily": "روزانہ نرخ · {date}",
-    "forexDailyNoDate": "روزانہ نرخ"
+    "forexDailyNoDate": "روزانہ نرخ",
+    "tickerLabel": "لائیو مارکیٹ قیمتیں"
   },
   "TwoFactor": {
     "title": "دو مرحلہ تصدیق",

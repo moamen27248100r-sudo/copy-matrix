@@ -136,6 +136,30 @@ body {
   }
 }
 
+/* Market ticker: the track holds several identical copies and moves exactly one copy's width per
+   cycle (25% of four copies), toward the end edge of the reading direction. */
+@keyframes ticker-scroll-ltr {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-25%);
+  }
+}
+@keyframes ticker-scroll-rtl {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(25%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [class*="ticker-scroll"] {
+    animation: none !important;
+  }
+}
+
 /* Pops and briefly recolors a live stat's digits whenever its value
    changes, so the update reads clearly even while its card is also
    sliding inside the marquee. */

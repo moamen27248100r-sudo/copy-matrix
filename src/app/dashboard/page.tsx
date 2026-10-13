@@ -12,7 +12,6 @@ import { DashboardHero } from "@/components/DashboardHero";
 import { MarketTicker } from "@/components/MarketTicker";
 import { CopiedPositionsTable } from "@/components/CopiedPositionsTable";
 import { ActiveCopyControlPanel } from "@/components/ActiveCopyControlPanel";
-import { ConfirmButton } from "@/components/ConfirmButton";
 import { OnboardingStepsCard } from "@/components/OnboardingStepsCard";
 import { SuggestedTraders } from "@/components/SuggestedTraders";
 import { RecentActivityTimeline, type ActivityEvent } from "@/components/RecentActivityTimeline";
@@ -34,7 +33,6 @@ function SectionSkeleton() {
   );
 }
 import { MostCopiedThisWeek } from "@/components/MostCopiedThisWeek";
-import { chooseAccountType } from "@/app/auth/actions";
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
@@ -189,7 +187,6 @@ export default async function DashboardPage({
   const todayPnl = Number(closedStats.today);
   const totalUnrealizedPnl = Number(openStats.unrealized);
   const netInvested = summary ? Number(summary.net_invested) : null;
-  const totalProfit = netPnl + totalUnrealizedPnl;
 
   // A customer can copy several traders at once, so this is a list.
   const copiedProviders = (subscriptions ?? []).flatMap((sub) => {
@@ -288,11 +285,6 @@ export default async function DashboardPage({
   // accounts (demo money never needs identity verification).
   const kycCopy =
     accountType === "real" && kycStatus !== "approved" ? kycCopyByStatus[kycStatus] ?? kycCopyByStatus.none : null;
-  const showDemoBanner = accountType === "demo";
-
-  const hour = Number(new Intl.DateTimeFormat("en-GB", { hour: "2-digit", hourCycle: "h23", timeZone }).format(new Date()));
-  const greetingName = profile?.display_name ?? user.email ?? "";
-  const greeting = hour >= 5 && hour < 18 ? t("greetingMorning", { name: greetingName }) : t("greetingEvening", { name: greetingName });
 
   return (
     <>
@@ -300,54 +292,29 @@ export default async function DashboardPage({
       <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-64 lg:me-0 lg:pb-6">
         <MarketTicker initialPrices={tickerInitialPrices} />
 
-        <div className="flex flex-wrap items-center gap-3">
-          <h1 className="text-page-title">{greeting}</h1>
+        <h1 className="sr-only">{tNav("navHome")}</h1>
+        {/* One quiet line: the account number and which account is active. */}
+        <div className="flex flex-wrap items-center gap-2 text-xs text-muted">
+          {profile?.account_number != null && (
+            <span dir="ltr">
+              {tMenu("accountNumber")} <span className="font-mono text-foreground/80">#{profile.account_number}</span>
+            </span>
+          )}
           {profile?.account_type && (
             <span
               className={
                 profile.account_type === "real"
-                  ? "rounded-full border border-success/40 bg-success/10 px-3 py-1 text-xs font-semibold text-success"
-                  : "rounded-full border border-warning/40 bg-warning/10 px-3 py-1 text-xs font-semibold text-warning"
+                  ? "rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 text-[11px] font-semibold text-success"
+                  : "rounded-full border border-warning/40 bg-warning/10 px-2.5 py-0.5 text-[11px] font-semibold text-warning"
               }
             >
               {profile.account_type === "real" ? t("accountReal") : t("accountDemo")}
-            </span>
-          )}
-          {profile?.account_number != null && (
-            <span className="text-xs text-muted" dir="ltr">
-              {tMenu("accountNumber")} <span className="font-mono text-foreground/80">#{profile.account_number}</span>
             </span>
           )}
         </div>
 
         {error && (
           <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>
-        )}
-
-        {showDemoBanner && (
-          <div className="flex flex-col gap-4 rounded-2xl border border-accent/30 bg-accent/10 p-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent/15">
-                <svg viewBox="0 0 24 24" className="h-5 w-5 text-accent" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-sm font-medium">{t("demoBannerTitle")}</p>
-                <p className="mt-0.5 text-xs text-muted">{t("demoBannerDesc")}</p>
-              </div>
-            </div>
-            <form action={chooseAccountType} className="shrink-0">
-              <input type="hidden" name="accountType" value="real" />
-              <input type="hidden" name="next" value="/dashboard" />
-              <ConfirmButton
-                confirmText={tNav("switchAccountWarning")}
-                className="rounded-lg bg-accent px-4 py-2 text-center text-sm font-semibold text-accent-foreground transition hover:bg-accent-hover"
-              >
-                {t("demoBannerAction")}
-              </ConfirmButton>
-            </form>
-          </div>
         )}
 
         {kycCopy && (

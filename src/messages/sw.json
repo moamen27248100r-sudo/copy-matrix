@@ -95,12 +95,13 @@
     "notificationsEmpty": "Hakuna arifa bado.",
     "viewAll": "Ona zote",
     "markAllRead": "Weka alama zote kama zimesomwa",
-    "demoStrip": "Uko kwenye hali ya demo — fedha za kidhahania pekee.",
+    "demoStrip": "Hali ya majaribio: fedha pepe",
     "switchToLeaderMode": "Kituo cha mfanyabiashara kiongozi",
     "switchToCopierMode": "Dashibodi ya mnakili",
     "menuLeadCenter": "Kituo cha mfanyabiashara kiongozi",
     "menuBecomeLeader": "Kuwa mfanyabiashara kiongozi",
-    "menuProfitShareHistory": "Historia ya mgao wa faida"
+    "menuProfitShareHistory": "Historia ya mgao wa faida",
+    "demoStripSwitch": "Fanya biashara kwa akaunti halisi"
   },
   "LangSwitcher": {
     "label": "Lugha"
@@ -716,7 +717,10 @@
     "lossAlertsHint": "Thamani kati ya 1 na 90. Hupimwa kwa kiasi cha nakala, na kwa uwekezaji halisi kwa jalada lote.",
     "lossAlertsSave": "Hifadhi arifa",
     "lossAlertsInvalid": "Weka thamani kati ya 1 na 90, au iache tupu.",
-    "lossAlertsFailed": "Imeshindwa kuhifadhi arifa. Tafadhali jaribu tena."
+    "lossAlertsFailed": "Imeshindwa kuhifadhi arifa. Tafadhali jaribu tena.",
+    "notificationPrefsTitle": "Arifa",
+    "notificationPrefsDesc": "Chagua arifa unazopokea kwenye programu na kwa barua pepe.",
+    "notificationPrefsLink": "Mapendeleo ya arifa"
   },
   "Kyc": {
     "title": "Uthibitishaji wa Utambulisho",
@@ -2039,7 +2043,8 @@
   },
   "LivePrices": {
     "forexDaily": "Kiwango cha kila siku · {date}",
-    "forexDailyNoDate": "Kiwango cha kila siku"
+    "forexDailyNoDate": "Kiwango cha kila siku",
+    "tickerLabel": "Bei za soko za moja kwa moja"
   },
   "TwoFactor": {
     "title": "Uthibitishaji wa hatua mbili",

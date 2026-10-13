@@ -95,12 +95,13 @@
     "notificationsEmpty": "暂无通知。",
     "viewAll": "查看全部",
     "markAllRead": "全部标记为已读",
-    "demoStrip": "您正处于模拟模式 — 仅使用虚拟资金。",
+    "demoStrip": "演示模式：虚拟资金",
     "switchToLeaderMode": "带单员中心",
     "switchToCopierMode": "跟单员面板",
     "menuLeadCenter": "带单员中心",
     "menuBecomeLeader": "成为带单员",
-    "menuProfitShareHistory": "分润记录"
+    "menuProfitShareHistory": "分润记录",
+    "demoStripSwitch": "使用真实账户交易"
   },
   "LangSwitcher": {
     "label": "语言"
@@ -716,7 +717,10 @@
     "lossAlertsHint": "1 至 90 之间的数值。单个跟单按其金额计算，整个组合按净投入计算。",
     "lossAlertsSave": "保存提醒",
     "lossAlertsInvalid": "请输入 1 至 90 之间的数值，或留空。",
-    "lossAlertsFailed": "无法保存提醒，请重试。"
+    "lossAlertsFailed": "无法保存提醒，请重试。",
+    "notificationPrefsTitle": "通知",
+    "notificationPrefsDesc": "选择您在应用内和邮件中接收的通知。",
+    "notificationPrefsLink": "通知偏好设置"
   },
   "Kyc": {
     "title": "身份验证",
@@ -2040,7 +2044,8 @@
   },
   "LivePrices": {
     "forexDaily": "每日汇率 · {date}",
-    "forexDailyNoDate": "每日汇率"
+    "forexDailyNoDate": "每日汇率",
+    "tickerLabel": "实时市场价格"
   },
   "TwoFactor": {
     "title": "双重验证",

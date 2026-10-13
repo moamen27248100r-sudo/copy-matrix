@@ -4,8 +4,7 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { MainMenu } from "@/components/MainMenu";
 import { NotificationsMenu } from "@/components/NotificationsMenu";
-import { AccountTypeSwitcher } from "@/components/AccountTypeSwitcher";
-import { LeadModeSwitcher } from "@/components/LeadModeSwitcher";
+import { DemoStrip } from "@/components/DemoStrip";
 import { SidebarNav } from "@/components/SidebarNav";
 import { NavDrawerProvider } from "@/components/nav-drawer-context";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
@@ -15,7 +14,6 @@ import type { Locale } from "@/i18n/locales";
 export async function AppNav() {
   const supabase = await createClient();
   const t = await getTranslations("Nav");
-  const tDash = await getTranslations("Dashboard");
   const locale = (await getLocale()) as Locale;
   const {
     data: { user },
@@ -27,13 +25,14 @@ export async function AppNav() {
   let accountType: "real" | "demo" | null = null;
   let isLeadTrader = false;
   let notifications: { id: string; type: string; title: string; body: string | null; data: Record<string, unknown> | null; is_read: boolean; created_at: string }[] = [];
+  let unreadCount = 0;
   let accountNumber: number | string = "";
   let kycStatus: string = "none";
   if (user) {
     const [{ data: profile }, { data: notificationRows }, { data: kyc }] = await Promise.all([
       supabase.from("profiles").select("is_admin, is_suspended, display_name, email, account_type, is_lead_trader, account_number").eq("id", user.id).single(),
       // Only the current account's notifications plus the shared ones (0241).
-      supabase.rpc("my_notifications", { p_limit: 10 }),
+      supabase.rpc("my_notifications", { p_limit: 200 }),
       supabase
         .from("kyc_submissions")
         .select("status")
@@ -49,7 +48,9 @@ export async function AppNav() {
     accountType = (profile?.account_type as "real" | "demo") ?? "demo";
     isLeadTrader = !!profile?.is_lead_trader;
     accountNumber = profile?.account_number ?? "";
-    notifications = notificationRows ?? [];
+    const allNotifications = notificationRows ?? [];
+    unreadCount = allNotifications.filter((n: { is_read: boolean }) => !n.is_read).length;
+    notifications = allNotifications.slice(0, 10);
     kycStatus = kyc?.status ?? "none";
   }
 
@@ -68,6 +69,7 @@ export async function AppNav() {
               email={email}
               locale={locale}
               kycStatus={kycStatus}
+              accountType={accountType ?? "demo"}
             />
           ) : (
             <Link
@@ -86,24 +88,7 @@ export async function AppNav() {
         <div className="flex min-w-0 items-center justify-end gap-0.5 sm:gap-3">
           {user ? (
             <>
-              {isLeadTrader && <LeadModeSwitcher />}
-              {accountType && (
-                <AccountTypeSwitcher
-                  accountType={accountType}
-                  next="/dashboard"
-                  variant="card"
-                  ariaLabel={t("switchAccountAriaLabel")}
-                  options={[
-                    { key: "real", label: tDash("accountTypeShortReal") },
-                    { key: "demo", label: tDash("accountTypeShortDemo") },
-                  ]}
-                  confirmTitle={t("switchAccountConfirmTitle")}
-                  confirmText={t("switchAccountWarning")}
-                  confirmCta={t("switchAccountConfirmCta")}
-                  cancelCta={t("switchAccountCancelCta")}
-                />
-              )}
-              <NotificationsMenu notifications={notifications} accountType={accountType ?? "demo"} />
+              <NotificationsMenu notifications={notifications} unreadCount={unreadCount} />
             </>
           ) : (
             <>
@@ -120,11 +105,7 @@ export async function AppNav() {
       </div>
       </NavDrawerProvider>
     </nav>
-    {user && accountType === "demo" && (
-      <div className="w-full border-b border-warning/30 bg-warning/10 px-4 py-1 text-center text-[11px] font-medium text-warning lg:ps-64">
-        {t("demoStrip")}
-      </div>
-    )}
+    {user && accountType === "demo" && <DemoStrip />}
     {user && (
       <>
         <SidebarNav isAdmin={isAdmin} />

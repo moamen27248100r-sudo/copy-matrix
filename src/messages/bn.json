@@ -95,12 +95,13 @@
     "notificationsEmpty": "এখনও কোনো বিজ্ঞপ্তি নেই।",
     "viewAll": "সব দেখুন",
     "markAllRead": "সব পঠিত হিসেবে চিহ্নিত করুন",
-    "demoStrip": "আপনি ডেমো মোডে আছেন — শুধুমাত্র ভার্চুয়াল ফান্ড।",
+    "demoStrip": "ডেমো মোড: ভার্চুয়াল অর্থ",
     "switchToLeaderMode": "লিড ট্রেডার সেন্টার",
     "switchToCopierMode": "কপিয়ার ড্যাশবোর্ড",
     "menuLeadCenter": "লিড ট্রেডার সেন্টার",
     "menuBecomeLeader": "লিড ট্রেডার হন",
-    "menuProfitShareHistory": "মুনাফা ভাগাভাগির ইতিহাস"
+    "menuProfitShareHistory": "মুনাফা ভাগাভাগির ইতিহাস",
+    "demoStripSwitch": "রিয়াল অ্যাকাউন্টে ট্রেড করুন"
   },
   "LangSwitcher": {
     "label": "ভাষা"
@@ -716,7 +717,10 @@
     "lossAlertsHint": "১ থেকে ৯০ এর মধ্যে একটি মান। কপির পরিমাণের উপর এবং পুরো পোর্টফোলিওর জন্য নিট বিনিয়োগের উপর মাপা হয়।",
     "lossAlertsSave": "সতর্কতা সংরক্ষণ করুন",
     "lossAlertsInvalid": "১ থেকে ৯০ এর মধ্যে একটি মান দিন, অথবা খালি রাখুন।",
-    "lossAlertsFailed": "সতর্কতা সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।"
+    "lossAlertsFailed": "সতর্কতা সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।",
+    "notificationPrefsTitle": "বিজ্ঞপ্তি",
+    "notificationPrefsDesc": "অ্যাপে এবং ইমেইলে কোন বিজ্ঞপ্তি পাবেন তা বেছে নিন।",
+    "notificationPrefsLink": "বিজ্ঞপ্তির পছন্দ"
   },
   "Kyc": {
     "title": "পরিচয় যাচাইকরণ",
@@ -2039,7 +2043,8 @@
   },
   "LivePrices": {
     "forexDaily": "দৈনিক রেট · {date}",
-    "forexDailyNoDate": "দৈনিক রেট"
+    "forexDailyNoDate": "দৈনিক রেট",
+    "tickerLabel": "লাইভ বাজারদর"
   },
   "TwoFactor": {
     "title": "টু-ফ্যাক্টর অথেন্টিকেশন",

@@ -95,12 +95,13 @@
     "notificationsEmpty": "ยังไม่มีการแจ้งเตือน",
     "viewAll": "ดูทั้งหมด",
     "markAllRead": "ทำเครื่องหมายว่าอ่านแล้วทั้งหมด",
-    "demoStrip": "คุณอยู่ในโหมดเดโม — ใช้เงินเสมือนเท่านั้น",
+    "demoStrip": "โหมดเดโม: เงินเสมือน",
     "switchToLeaderMode": "ศูนย์ลีดเทรดเดอร์",
     "switchToCopierMode": "แดชบอร์ดผู้คัดลอก",
     "menuLeadCenter": "ศูนย์ลีดเทรดเดอร์",
     "menuBecomeLeader": "สมัครเป็นลีดเทรดเดอร์",
-    "menuProfitShareHistory": "ประวัติการแบ่งกำไร"
+    "menuProfitShareHistory": "ประวัติการแบ่งกำไร",
+    "demoStripSwitch": "เทรดด้วยบัญชีจริง"
   },
   "LangSwitcher": {
     "label": "ภาษา"
@@ -716,7 +717,10 @@
     "lossAlertsHint": "ค่าระหว่าง 1 ถึง 90 วัดจากจำนวนเงินของการคัดลอก และจากเงินลงทุนสุทธิสำหรับทั้งพอร์ต",
     "lossAlertsSave": "บันทึกการแจ้งเตือน",
     "lossAlertsInvalid": "ใส่ค่าระหว่าง 1 ถึง 90 หรือเว้นว่างไว้",
-    "lossAlertsFailed": "ไม่สามารถบันทึกการแจ้งเตือนได้ โปรดลองอีกครั้ง"
+    "lossAlertsFailed": "ไม่สามารถบันทึกการแจ้งเตือนได้ โปรดลองอีกครั้ง",
+    "notificationPrefsTitle": "การแจ้งเตือน",
+    "notificationPrefsDesc": "เลือกการแจ้งเตือนที่คุณต้องการรับในแอปและทางอีเมล",
+    "notificationPrefsLink": "การตั้งค่าการแจ้งเตือน"
   },
   "Kyc": {
     "title": "การยืนยันตัวตน",
@@ -2039,7 +2043,8 @@
   },
   "LivePrices": {
     "forexDaily": "อัตราแลกเปลี่ยนรายวัน · {date}",
-    "forexDailyNoDate": "อัตราแลกเปลี่ยนรายวัน"
+    "forexDailyNoDate": "อัตราแลกเปลี่ยนรายวัน",
+    "tickerLabel": "ราคาตลาดสด"
   },
   "TwoFactor": {
     "title": "การยืนยันตัวตนสองขั้นตอน",

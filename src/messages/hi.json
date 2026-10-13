@@ -95,12 +95,13 @@
     "notificationsEmpty": "अभी तक कोई सूचना नहीं।",
     "viewAll": "सभी देखें",
     "markAllRead": "सभी को पढ़ा हुआ चिह्नित करें",
-    "demoStrip": "आप डेमो मोड में हैं — केवल आभासी फंड।",
+    "demoStrip": "डेमो मोड: आभासी धनराशि",
     "switchToLeaderMode": "लीड ट्रेडर सेंटर",
     "switchToCopierMode": "कॉपियर डैशबोर्ड",
     "menuLeadCenter": "लीड ट्रेडर सेंटर",
     "menuBecomeLeader": "लीड ट्रेडर बनें",
-    "menuProfitShareHistory": "लाभ साझा इतिहास"
+    "menuProfitShareHistory": "लाभ साझा इतिहास",
+    "demoStripSwitch": "वास्तविक खाते से ट्रेड करें"
   },
   "LangSwitcher": {
     "label": "भाषा"
@@ -716,7 +717,10 @@
     "lossAlertsHint": "1 से 90 के बीच का मान। यह कॉपी की राशि पर मापा जाता है, और पूरे पोर्टफोलियो के लिए शुद्ध निवेश पर।",
     "lossAlertsSave": "अलर्ट सहेजें",
     "lossAlertsInvalid": "1 से 90 के बीच का मान दर्ज करें, या खाली छोड़ें।",
-    "lossAlertsFailed": "अलर्ट सहेजे नहीं जा सके। कृपया फिर कोशिश करें।"
+    "lossAlertsFailed": "अलर्ट सहेजे नहीं जा सके। कृपया फिर कोशिश करें।",
+    "notificationPrefsTitle": "सूचनाएँ",
+    "notificationPrefsDesc": "चुनें कि आपको ऐप में और ईमेल से कौन-सी सूचनाएँ मिलें।",
+    "notificationPrefsLink": "सूचना प्राथमिकताएँ"
   },
   "Kyc": {
     "title": "पहचान सत्यापन",
@@ -2039,7 +2043,8 @@
   },
   "LivePrices": {
     "forexDaily": "दैनिक दर · {date}",
-    "forexDailyNoDate": "दैनिक दर"
+    "forexDailyNoDate": "दैनिक दर",
+    "tickerLabel": "लाइव बाज़ार मूल्य"
   },
   "TwoFactor": {
     "title": "टू-फ़ैक्टर ऑथेंटिकेशन",

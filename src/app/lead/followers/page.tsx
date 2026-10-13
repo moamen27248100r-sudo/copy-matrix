@@ -1,7 +1,9 @@
 import { getMoney } from "@/lib/money-server";
+import type { Locale } from "@/i18n/locales";
+import { formatDate } from "@/lib/locale-format";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { getOwnProviderId, currentTier } from "@/lib/lead-trader";
 import { computeActiveTradingDays } from "@/lib/reliability";
@@ -26,6 +28,7 @@ export default async function LeadFollowersPage({
   const pageNum = Math.max(1, Number(page) || 1);
   const t = await getTranslations("LeadTrader.followers");
   const money = await getMoney();
+  const locale = (await getLocale()) as Locale;
   const supabase = await createClient();
   const {
     data: { user },
@@ -152,7 +155,7 @@ export default async function LeadFollowersPage({
                       {money(profit, { signed: true })}
                     </td>
                     <td className="px-3 py-2 text-xs text-muted tabular-nums" dir="ltr">
-                      {c.joined_at ? new Date(c.joined_at).toLocaleDateString("en-US") : "—"}
+                      {c.joined_at ? formatDate(c.joined_at, locale) : "—"}
                     </td>
                     <td className="px-3 py-2">
                       <span className={c.is_active ? "text-success" : "text-muted"}>{c.is_active ? t("active") : t("stopped")}</span>

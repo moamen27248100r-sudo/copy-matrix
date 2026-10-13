@@ -153,6 +153,14 @@ export default async function SettingsPage({
           </form>
         </section>
 
+        <section className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
+          <h2 className="font-medium">{t("notificationPrefsTitle")}</h2>
+          <p className="text-xs text-muted">{t("notificationPrefsDesc")}</p>
+          <Link href="/notifications/preferences" className="rounded border border-border px-3 py-2 text-center text-sm transition hover:bg-white/5">
+            {t("notificationPrefsLink")}
+          </Link>
+        </section>
+
         <LossAlertsSection userId={user.id} />
 
         <RiskQuestionnaire current={(await cookies()).get("risk_profile")?.value} />

@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import type { Locale } from "@/i18n/locales";
+import { formatDate } from "@/lib/locale-format";
+import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { getOwnProviderId } from "@/lib/lead-trader";
 import { fetchLeadTraderHistory } from "@/lib/lead-trader-history";
@@ -16,6 +18,7 @@ export default async function LeadTradesHistoryPage({
 }) {
   const { symbol, result, days } = await searchParams;
   const t = await getTranslations("LeadTrader.trades");
+  const locale = (await getLocale()) as Locale;
   const supabase = await createClient();
   const {
     data: { user },
@@ -85,7 +88,7 @@ export default async function LeadTradesHistoryPage({
               {rows.map((r) => (
                 <tr key={r.id} className="border-b border-border last:border-b-0">
                   <td className="px-3 py-2 text-xs text-muted tabular-nums" dir="ltr">
-                    {r.closedAt ? new Date(r.closedAt).toLocaleDateString("en-US") : "—"}
+                    {r.closedAt ? formatDate(r.closedAt, locale) : "—"}
                   </td>
                   <td className="px-3 py-2 font-medium" dir="ltr">
                     {r.symbol}

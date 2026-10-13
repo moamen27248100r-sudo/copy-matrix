@@ -1,6 +1,8 @@
 import { getMoney } from "@/lib/money-server";
+import type { Locale } from "@/i18n/locales";
+import { formatDate } from "@/lib/locale-format";
 import { redirect } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
 
@@ -15,6 +17,7 @@ export async function generateMetadata() {
 export default async function ProfitShareHistoryPage() {
   const t = await getTranslations("LeadTrader.followerLedger");
   const money = await getMoney();
+  const locale = (await getLocale()) as Locale;
   const supabase = await createClient();
   const {
     data: { user },
@@ -56,7 +59,7 @@ export default async function ProfitShareHistoryPage() {
                 <div>
                   <p className="font-medium">{nameById.get(r.provider_id) ?? "—"}</p>
                   <p className="text-xs text-muted tabular-nums" dir="ltr">
-                    {new Date(r.period_end).toLocaleDateString("en-US")}
+                    {formatDate(r.period_end, locale)}
                   </p>
                 </div>
                 <div className="text-end">

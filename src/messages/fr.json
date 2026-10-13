@@ -95,12 +95,13 @@
     "notificationsEmpty": "Aucune notification pour le moment.",
     "viewAll": "Tout voir",
     "markAllRead": "Tout marquer comme lu",
-    "demoStrip": "Vous êtes en mode démo : fonds virtuels uniquement.",
+    "demoStrip": "Mode démo : fonds virtuels",
     "switchToLeaderMode": "Espace trader leader",
     "switchToCopierMode": "Tableau de bord copieur",
     "menuLeadCenter": "Espace trader leader",
     "menuBecomeLeader": "Devenir trader leader",
-    "menuProfitShareHistory": "Historique du partage des profits"
+    "menuProfitShareHistory": "Historique du partage des profits",
+    "demoStripSwitch": "Trader avec un compte réel"
   },
   "LangSwitcher": {
     "label": "Langue"
@@ -716,7 +717,10 @@
     "lossAlertsHint": "Une valeur entre 1 et 90. Elle est mesurée sur le montant de la copie, et sur le net investi pour tout le portefeuille.",
     "lossAlertsSave": "Enregistrer les alertes",
     "lossAlertsInvalid": "Saisissez une valeur entre 1 et 90, ou laissez vide.",
-    "lossAlertsFailed": "Impossible d'enregistrer les alertes. Réessayez."
+    "lossAlertsFailed": "Impossible d'enregistrer les alertes. Réessayez.",
+    "notificationPrefsTitle": "Notifications",
+    "notificationPrefsDesc": "Choisissez les notifications reçues dans l'application et par e-mail.",
+    "notificationPrefsLink": "Préférences de notification"
   },
   "Kyc": {
     "title": "Vérification d'identité",
@@ -2040,7 +2044,8 @@
   },
   "LivePrices": {
     "forexDaily": "Taux quotidien · {date}",
-    "forexDailyNoDate": "Taux quotidien"
+    "forexDailyNoDate": "Taux quotidien",
+    "tickerLabel": "Prix des marchés en direct"
   },
   "TwoFactor": {
     "title": "Authentification à deux facteurs",

@@ -95,12 +95,13 @@
     "notificationsEmpty": "Chưa có thông báo nào.",
     "viewAll": "Xem tất cả",
     "markAllRead": "Đánh dấu tất cả đã đọc",
-    "demoStrip": "Bạn đang ở chế độ demo — chỉ dùng tiền ảo.",
+    "demoStrip": "Chế độ demo: tiền ảo",
     "switchToLeaderMode": "Trung tâm nhà giao dịch dẫn đầu",
     "switchToCopierMode": "Bảng điều khiển người sao chép",
     "menuLeadCenter": "Trung tâm nhà giao dịch dẫn đầu",
     "menuBecomeLeader": "Trở thành nhà giao dịch dẫn đầu",
-    "menuProfitShareHistory": "Lịch sử chia sẻ lợi nhuận"
+    "menuProfitShareHistory": "Lịch sử chia sẻ lợi nhuận",
+    "demoStripSwitch": "Giao dịch bằng tài khoản thật"
   },
   "LangSwitcher": {
     "label": "Ngôn ngữ"
@@ -716,7 +717,10 @@
     "lossAlertsHint": "Giá trị từ 1 đến 90. Tính trên số tiền của bản sao, và trên vốn ròng với toàn bộ danh mục.",
     "lossAlertsSave": "Lưu cảnh báo",
     "lossAlertsInvalid": "Nhập giá trị từ 1 đến 90, hoặc để trống.",
-    "lossAlertsFailed": "Không thể lưu cảnh báo. Vui lòng thử lại."
+    "lossAlertsFailed": "Không thể lưu cảnh báo. Vui lòng thử lại.",
+    "notificationPrefsTitle": "Thông báo",
+    "notificationPrefsDesc": "Chọn thông báo bạn nhận trong ứng dụng và qua email.",
+    "notificationPrefsLink": "Tùy chọn thông báo"
   },
   "Kyc": {
     "title": "Xác minh danh tính",
@@ -2039,7 +2043,8 @@
   },
   "LivePrices": {
     "forexDaily": "Tỷ giá hằng ngày · {date}",
-    "forexDailyNoDate": "Tỷ giá hằng ngày"
+    "forexDailyNoDate": "Tỷ giá hằng ngày",
+    "tickerLabel": "Giá thị trường trực tiếp"
   },
   "TwoFactor": {
     "title": "Xác thực hai yếu tố",

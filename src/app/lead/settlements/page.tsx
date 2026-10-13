@@ -1,6 +1,8 @@
 import { getMoney } from "@/lib/money-server";
+import type { Locale } from "@/i18n/locales";
+import { formatDate } from "@/lib/locale-format";
 import { redirect } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { getOwnProviderId } from "@/lib/lead-trader";
 import { LEAD_TRADER_MONEY_ENABLED } from "@/config/lead-trader";
@@ -31,6 +33,7 @@ export default async function LeadSettlementsPage({ searchParams }: { searchPara
   const { err, ok } = await searchParams;
   const t = await getTranslations("LeadTrader.settlements");
   const money = await getMoney();
+  const locale = (await getLocale()) as Locale;
   const supabase = await createClient();
   const {
     data: { user },
@@ -131,7 +134,7 @@ export default async function LeadSettlementsPage({ searchParams }: { searchPara
             {payouts.map((p) => (
               <div key={p.id} className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-border bg-background px-3 py-2 text-xs">
                 <span className="tabular-nums" dir="ltr">
-                  {money(Number(p.amount))} · {new Date(p.created_at).toLocaleDateString("en-US")}
+                  {money(Number(p.amount))} · {formatDate(p.created_at, locale)}
                 </span>
                 <span className="flex items-center gap-2">
                   <span className={p.status === "approved" ? "text-success" : p.status === "pending" ? "text-warning" : "text-muted"}>{t(`payout_${p.status}`)}</span>
@@ -210,7 +213,7 @@ export default async function LeadSettlementsPage({ searchParams }: { searchPara
                     {maskEmail(emailById.get(r.follower_id) ?? null, r.follower_id)}
                   </td>
                   <td className="px-3 py-2 text-xs text-muted tabular-nums" dir="ltr">
-                    {new Date(r.period_start).toLocaleDateString("en-US")} → {new Date(r.period_end).toLocaleDateString("en-US")}
+                    {formatDate(r.period_start, locale)} → {formatDate(r.period_end, locale)}
                   </td>
                   <td className="px-3 py-2 tabular-nums text-success" dir="ltr">
                     {money(Number(r.gross_pnl), { signed: true })}

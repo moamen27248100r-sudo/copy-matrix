@@ -29,6 +29,8 @@ export function AccountTypeSwitcher({
   cancelCta,
   variant = "card",
   onSwitch,
+  linkLabel,
+  linkClassName,
 }: {
   accountType: AccountType;
   next: string;
@@ -38,8 +40,11 @@ export function AccountTypeSwitcher({
   confirmText: string;
   confirmCta: string;
   cancelCta: string;
-  variant?: "card" | "pill";
+  variant?: "card" | "pill" | "link";
   onSwitch?: () => void;
+  /** variant "link": the text of the single button that proposes the other account. */
+  linkLabel?: string;
+  linkClassName?: string;
 }) {
   const [pending, setPending] = useState<AccountType | null>(null);
   const realFormRef = useRef<HTMLFormElement>(null);
@@ -48,7 +53,7 @@ export function AccountTypeSwitcher({
     real: realFormRef,
     demo: demoFormRef,
   };
-  const cls = VARIANT_CLASSES[variant];
+  const cls = VARIANT_CLASSES[variant === "pill" ? "pill" : "card"];
 
   return (
     <>
@@ -61,18 +66,29 @@ export function AccountTypeSwitcher({
         <input type="hidden" name="next" value={next} />
       </form>
 
-      <div className={cls.group} role="group" aria-label={ariaLabel}>
-        {options.map((opt) => (
-          <button
-            key={opt.key}
-            type="button"
-            onClick={() => opt.key !== accountType && setPending(opt.key)}
-            className={opt.key === accountType ? cls.active : cls.inactive}
-          >
-            {opt.label}
-          </button>
-        ))}
-      </div>
+      {variant === "link" ? (
+        <button
+          type="button"
+          onClick={() => setPending(accountType === "real" ? "demo" : "real")}
+          aria-label={ariaLabel}
+          className={linkClassName}
+        >
+          {linkLabel}
+        </button>
+      ) : (
+        <div className={cls.group} role="group" aria-label={ariaLabel}>
+          {options.map((opt) => (
+            <button
+              key={opt.key}
+              type="button"
+              onClick={() => opt.key !== accountType && setPending(opt.key)}
+              className={opt.key === accountType ? cls.active : cls.inactive}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      )}
 
       {pending && (
         <div

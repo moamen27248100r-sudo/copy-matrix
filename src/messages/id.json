@@ -95,12 +95,13 @@
     "notificationsEmpty": "Belum ada notifikasi.",
     "viewAll": "Lihat semua",
     "markAllRead": "Tandai semua sebagai dibaca",
-    "demoStrip": "Anda berada dalam mode demo — hanya dana virtual.",
+    "demoStrip": "Mode demo: dana virtual",
     "switchToLeaderMode": "Pusat lead trader",
     "switchToCopierMode": "Dasbor penyalin",
     "menuLeadCenter": "Pusat lead trader",
     "menuBecomeLeader": "Jadi lead trader",
-    "menuProfitShareHistory": "Riwayat bagi hasil"
+    "menuProfitShareHistory": "Riwayat bagi hasil",
+    "demoStripSwitch": "Trading dengan akun nyata"
   },
   "LangSwitcher": {
     "label": "Bahasa"
@@ -716,7 +717,10 @@
     "lossAlertsHint": "Nilai antara 1 dan 90. Diukur dari jumlah salinan, dan dari dana bersih untuk seluruh portofolio.",
     "lossAlertsSave": "Simpan peringatan",
     "lossAlertsInvalid": "Masukkan nilai antara 1 dan 90, atau kosongkan.",
-    "lossAlertsFailed": "Peringatan tidak dapat disimpan. Silakan coba lagi."
+    "lossAlertsFailed": "Peringatan tidak dapat disimpan. Silakan coba lagi.",
+    "notificationPrefsTitle": "Notifikasi",
+    "notificationPrefsDesc": "Pilih pemberitahuan yang Anda terima di aplikasi dan lewat email.",
+    "notificationPrefsLink": "Preferensi notifikasi"
   },
   "Kyc": {
     "title": "Verifikasi Identitas",
@@ -2039,7 +2043,8 @@
   },
   "LivePrices": {
     "forexDaily": "Kurs harian · {date}",
-    "forexDailyNoDate": "Kurs harian"
+    "forexDailyNoDate": "Kurs harian",
+    "tickerLabel": "Harga pasar langsung"
   },
   "TwoFactor": {
     "title": "Autentikasi dua faktor",

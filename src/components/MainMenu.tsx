@@ -6,7 +6,6 @@ import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import {
   AlertTriangle,
-  Bell,
   Check,
   ChevronRight,
   Copy,
@@ -17,8 +16,8 @@ import {
   LineChart,
   Lock,
   LogOut,
+  Menu,
   PieChart,
-  ReceiptText,
   Settings,
   ShieldCheck,
   ShieldHalf,
@@ -30,15 +29,30 @@ import { logout } from "@/app/auth/actions";
 import { setLocale } from "@/app/actions/locale";
 import { useNavDrawer } from "@/components/nav-drawer-context";
 import { useBodyScrollLock } from "@/lib/use-body-scroll-lock";
-import type { Locale } from "@/i18n/locales";
+import { SUPPORTED_LOCALES, type Locale } from "@/i18n/locales";
+import { AccountTypeSwitcher } from "@/components/AccountTypeSwitcher";
 
 type NavItem = { href: string; label: string; icon: LucideIcon };
 type NavGroup = { title: string; items: NavItem[] };
 
 // Native language names: shown as-is in every UI language.
-const LOCALE_LABELS: Partial<Record<Locale, string>> = { ar: "العربية", en: "English" };
-// Same set the header switcher offers.
-const MENU_LOCALES: Locale[] = ["ar", "en"];
+const LOCALE_LABELS: Record<Locale, string> = {
+  ar: "العربية",
+  en: "English",
+  fr: "Français",
+  es: "Español",
+  pt: "Português",
+  zh: "中文",
+  hi: "हिन्दी",
+  ur: "اردو",
+  id: "Bahasa Indonesia",
+  vi: "Tiếng Việt",
+  th: "ไทย",
+  bn: "বাংলা",
+  sw: "Kiswahili",
+};
+// Every language the platform is translated into.
+const MENU_LOCALES: readonly Locale[] = SUPPORTED_LOCALES;
 
 const AVATAR_GRADIENTS = [
   "from-accent to-brand",
@@ -92,6 +106,7 @@ export function MainMenu({
   email,
   locale,
   kycStatus,
+  accountType,
 }: {
   isAdmin: boolean;
   isLeadTrader?: boolean;
@@ -100,9 +115,11 @@ export function MainMenu({
   email?: string | null;
   locale: Locale;
   kycStatus: string;
+  accountType: "real" | "demo";
 }) {
   const t = useTranslations("Nav");
   const tm = useTranslations("AccountMenu");
+  const tDash = useTranslations("Dashboard");
   const { open, toggle, close } = useNavDrawer("menu");
   const panelRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
@@ -168,14 +185,13 @@ export function MainMenu({
       items: [
         { href: "/kyc", label: t("menuKyc"), icon: UserRoundCheck },
         { href: "/account/security", label: tm("security"), icon: Lock },
-        { href: "/notifications/preferences", label: tm("notifications"), icon: Bell },
+        // Notification preferences live inside Settings (one place for alerts, the bell is the inbox).
         { href: "/settings", label: t("menuSettings"), icon: Settings },
       ],
     },
     {
       title: tm("groupMoney"),
       items: [
-        { href: "/portfolio?tab=activity", label: t("menuTransactionHistory"), icon: ReceiptText },
         { href: "/profit-share-history", label: t("menuProfitShareHistory"), icon: PieChart },
       ],
     },
@@ -215,10 +231,8 @@ export function MainMenu({
         aria-label={t("menuAriaLabel")}
         className="relative flex h-9 w-9 shrink-0 items-center justify-center"
       >
-        <span
-          className={`flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br ${avatarGradient(email ?? displayName ?? "u")} text-sm font-bold text-white`}
-        >
-          {(displayName ?? email ?? "?").charAt(0).toUpperCase()}
+        <span className="flex h-9 w-9 items-center justify-center rounded border border-border text-foreground">
+          <Menu className="h-5 w-5" strokeWidth={2} aria-hidden="true" />
         </span>
       </button>
 
@@ -281,6 +295,24 @@ export function MainMenu({
               {kycStatus !== "approved" && <ChevronRight className="h-3 w-3 rtl:rotate-180" aria-hidden="true" />}
             </Link>
           </div>
+        </div>
+
+        <div className="px-4 pb-3">
+          <AccountTypeSwitcher
+            accountType={accountType}
+            next={pathname || "/dashboard"}
+            variant="pill"
+            ariaLabel={t("switchAccountAriaLabel")}
+            options={[
+              { key: "real", label: tDash("accountTypeShortReal") },
+              { key: "demo", label: tDash("accountTypeShortDemo") },
+            ]}
+            confirmTitle={t("switchAccountConfirmTitle")}
+            confirmText={t("switchAccountWarning")}
+            confirmCta={t("switchAccountConfirmCta")}
+            cancelCta={t("switchAccountCancelCta")}
+            onSwitch={close}
+          />
         </div>
 
         <div className="mx-4 h-px bg-white/[0.06]" aria-hidden="true" />

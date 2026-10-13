@@ -95,12 +95,13 @@
     "notificationsEmpty": "No notifications yet.",
     "viewAll": "View all",
     "markAllRead": "Mark all as read",
-    "demoStrip": "You're in demo mode — virtual funds only.",
+    "demoStrip": "Demo mode: virtual funds",
     "switchToLeaderMode": "Lead trader center",
     "switchToCopierMode": "Copier dashboard",
     "menuLeadCenter": "Lead trader center",
     "menuBecomeLeader": "Become a lead trader",
-    "menuProfitShareHistory": "Profit-share history"
+    "menuProfitShareHistory": "Profit-share history",
+    "demoStripSwitch": "Trade with a real account"
   },
   "LangSwitcher": {
     "label": "Language"
@@ -716,7 +717,10 @@
     "lossAlertsHint": "A value between 1 and 90. It is measured on the amount of the copy, and on your net invested funds for the whole portfolio.",
     "lossAlertsSave": "Save alerts",
     "lossAlertsInvalid": "Enter a value between 1 and 90, or leave it empty.",
-    "lossAlertsFailed": "Could not save the alerts. Please try again."
+    "lossAlertsFailed": "Could not save the alerts. Please try again.",
+    "notificationPrefsTitle": "Notifications",
+    "notificationPrefsDesc": "Choose which notices you receive in the app and by email.",
+    "notificationPrefsLink": "Notification preferences"
   },
   "Kyc": {
     "title": "Identity Verification",
@@ -2043,7 +2047,8 @@
   },
   "LivePrices": {
     "forexDaily": "Daily rate · {date}",
-    "forexDailyNoDate": "Daily rate"
+    "forexDailyNoDate": "Daily rate",
+    "tickerLabel": "Live market prices"
   },
   "TwoFactor": {
     "title": "Two-factor authentication",

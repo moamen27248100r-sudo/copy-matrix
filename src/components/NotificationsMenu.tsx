@@ -19,20 +19,6 @@ type NotificationRow = {
   created_at: string;
 };
 
-// Which account the list belongs to, colored like the account switcher.
-export function AccountBadge({ accountType, label }: { accountType: "real" | "demo"; label: string }) {
-  return (
-    <span
-      className={
-        accountType === "real"
-          ? "rounded-full border border-success/40 bg-success/10 px-2 py-0.5 text-[11px] font-medium text-success"
-          : "rounded-full border border-warning/40 bg-warning/10 px-2 py-0.5 text-[11px] font-medium text-warning"
-      }
-    >
-      {label}
-    </span>
-  );
-}
 
 function renderBody(body: string) {
   const match = body.match(/^(.*?)([+-]\d[\d,]*\.?\d*)(\$|%)$/);
@@ -49,13 +35,11 @@ function renderBody(body: string) {
   );
 }
 
-export function NotificationsMenu({ notifications, accountType }: { notifications: NotificationRow[]; accountType: "real" | "demo" }) {
+export function NotificationsMenu({ notifications, unreadCount }: { notifications: NotificationRow[]; unreadCount: number }) {
   const t = useTranslations("Nav");
-  const tDash = useTranslations("Dashboard");
   const tn = useTranslations("Notifications");
   const money = useMoney();
   const { open, toggle, close } = useNavDrawer("notifications");
-  const unreadCount = notifications.filter((n) => !n.is_read).length;
   const preview = notifications.slice(0, 6);
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -103,7 +87,6 @@ export function NotificationsMenu({ notifications, accountType }: { notification
       >
         <div className="flex items-center justify-between gap-2 border-b border-border px-4 py-3">
           <span className="text-sm font-medium">{t("notificationsTitle")}</span>
-          <AccountBadge accountType={accountType} label={accountType === "real" ? tDash("accountTypeShortReal") : tDash("accountTypeShortDemo")} />
         </div>
 
         <div className="flex flex-1 flex-col gap-2 overflow-y-auto p-3">

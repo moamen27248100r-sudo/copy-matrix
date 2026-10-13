@@ -95,12 +95,13 @@
     "notificationsEmpty": "لا توجد إشعارات حتى الآن.",
     "viewAll": "عرض الكل",
     "markAllRead": "تحديد الكل كمقروء",
-    "demoStrip": "أنت في الوضع التجريبي — أموال افتراضية فقط.",
+    "demoStrip": "الوضع التجريبي: أموال افتراضية",
     "switchToLeaderMode": "لوحة القائد",
     "switchToCopierMode": "لوحة الناسخ",
     "menuLeadCenter": "لوحة المتداول القائد",
     "menuBecomeLeader": "كن متداولًا قائدًا",
-    "menuProfitShareHistory": "سجل مشاركة الأرباح"
+    "menuProfitShareHistory": "سجل مشاركة الأرباح",
+    "demoStripSwitch": "التداول بحساب حقيقي"
   },
   "LangSwitcher": {
     "label": "اللغة"
@@ -716,7 +717,10 @@
     "lossAlertsHint": "قيمة بين 1 و90. تُقاس على مبلغ النسخة، وعلى صافي المبلغ المستثمر لإجمالي المحفظة.",
     "lossAlertsSave": "حفظ التنبيهات",
     "lossAlertsInvalid": "أدخل قيمة بين 1 و90، أو اترك الحقل فارغًا.",
-    "lossAlertsFailed": "تعذّر حفظ التنبيهات. حاول مرة أخرى."
+    "lossAlertsFailed": "تعذّر حفظ التنبيهات. حاول مرة أخرى.",
+    "notificationPrefsTitle": "التنبيهات",
+    "notificationPrefsDesc": "اختر الإشعارات التي تصلك داخل المنصة وعبر البريد.",
+    "notificationPrefsLink": "تفضيلات التنبيهات"
   },
   "Kyc": {
     "title": "توثيق الهوية",
@@ -2104,7 +2108,8 @@
   },
   "LivePrices": {
     "forexDaily": "سعر يومي · {date}",
-    "forexDailyNoDate": "سعر يومي"
+    "forexDailyNoDate": "سعر يومي",
+    "tickerLabel": "أسعار الأسواق المباشرة"
   },
   "TwoFactor": {
     "title": "التحقق الثنائي",
