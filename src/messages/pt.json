@@ -232,7 +232,8 @@
     "newsTitle": "Notícias do mercado",
     "newsViewAll": "Ver todas",
     "newsSourceLine": "{source} via Investing.com · {time}",
-    "newsNote": "As manchetes são publicadas pelo Investing.com em inglês e abrem no site deles."
+    "newsNote": "As manchetes são publicadas pelo Investing.com em inglês e abrem no site deles.",
+    "newsSourceOnly": "{source} · {time}"
   },
   "Common": {
     "level": "Nível {level}",

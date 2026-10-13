@@ -232,7 +232,8 @@
     "newsTitle": "Market news",
     "newsViewAll": "View all",
     "newsSourceLine": "{source} via Investing.com · {time}",
-    "newsNote": "Headlines are published by Investing.com in English and open on their site."
+    "newsNote": "Headlines are published by Investing.com in English and open on their site.",
+    "newsSourceOnly": "{source} · {time}"
   },
   "Common": {
     "level": "Level {level}",

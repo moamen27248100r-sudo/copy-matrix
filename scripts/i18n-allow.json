@@ -2,6 +2,7 @@
   "bn": [
     "CopyRisk.slShort",
     "CopyRisk.tpShort",
+    "Dashboard.newsSourceOnly",
     "LeadTrader.followers.whitelistOn"
   ],
   "es": [
@@ -28,6 +29,7 @@
     "Dashboard.accountTypeShortReal",
     "Dashboard.assetClassForex",
     "Dashboard.benchmarkBtc",
+    "Dashboard.newsSourceOnly",
     "Dashboard.riskPartTraders",
     "Dashboard.tableTrader",
     "Discover.tableName",
@@ -71,6 +73,7 @@
     "Dashboard.assetClassForex",
     "Dashboard.benchmarkBtc",
     "Dashboard.newsSourceLine",
+    "Dashboard.newsSourceOnly",
     "Dashboard.riskPartTraders",
     "Dashboard.tableTrader",
     "Discover.tableName",
@@ -124,6 +127,7 @@
   "hi": [
     "CopyRisk.slShort",
     "CopyRisk.tpShort",
+    "Dashboard.newsSourceOnly",
     "LeadTrader.followers.whitelistOn"
   ],
   "id": [
@@ -164,6 +168,7 @@
     "Countries.VN",
     "Dashboard.assetClassForex",
     "Dashboard.benchmarkBtc",
+    "Dashboard.newsSourceOnly",
     "Dashboard.tableTrader",
     "Discover.filterButtonLabel",
     "Discover.tableName",
@@ -214,6 +219,7 @@
     "Dashboard.assetClassForex",
     "Dashboard.benchmarkBtc",
     "Dashboard.newsSourceLine",
+    "Dashboard.newsSourceOnly",
     "Dashboard.riskPartTraders",
     "Dashboard.tableTrader",
     "Discover.tableName",
@@ -272,6 +278,7 @@
     "Countries.YE",
     "Dashboard.assetClassForex",
     "Dashboard.benchmarkBtc",
+    "Dashboard.newsSourceOnly",
     "LeadTrader.apply.style_scalper",
     "LeadTrader.followers.whitelistOn",
     "LeadTrader.settings.style_scalper",
@@ -286,11 +293,13 @@
   "th": [
     "CopyRisk.slShort",
     "CopyRisk.tpShort",
+    "Dashboard.newsSourceOnly",
     "LeadTrader.followers.whitelistOn"
   ],
   "ur": [
     "CopyRisk.slShort",
     "CopyRisk.tpShort",
+    "Dashboard.newsSourceOnly",
     "LeadTrader.followers.whitelistOn"
   ],
   "vi": [
@@ -332,6 +341,7 @@
     "Countries.TN",
     "Countries.YE",
     "Dashboard.benchmarkBtc",
+    "Dashboard.newsSourceOnly",
     "Home.nav.menu",
     "LeadTrader.apply.contactPlaceholder",
     "LeadTrader.apply.style_scalper",
@@ -344,6 +354,10 @@
     "Symbols.XRPUSDT"
   ],
   "zh": [
+    "Dashboard.newsSourceOnly",
     "LeadTrader.followers.whitelistOn"
+  ],
+  "ar": [
+    "Dashboard.newsSourceOnly"
   ]
 }

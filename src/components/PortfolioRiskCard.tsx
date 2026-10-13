@@ -22,20 +22,20 @@ export async function PortfolioRiskCard({
   const pct = Math.min(100, Math.max(0, risk.score));
 
   return (
-    <section className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4" aria-labelledby="portfolio-risk-title">
+    <section className="relative flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4" aria-labelledby="portfolio-risk-title">
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <h2 id="portfolio-risk-title" className="text-base font-semibold">
             {t("riskTitle")}
           </h2>
-          <details className="group relative">
+          <details className="group">
             <summary
               aria-label={t("riskInfoLabel")}
               className="flex h-7 w-7 cursor-pointer list-none items-center justify-center rounded-full border border-border text-xs font-semibold text-muted transition hover:text-foreground"
             >
               i
             </summary>
-            <div className="absolute start-0 top-9 z-20 w-72 max-w-[80vw] rounded-xl border border-border bg-background p-3 text-start text-xs leading-relaxed text-muted shadow-xl">
+            <div className="absolute inset-x-3 top-12 z-20 rounded-xl border border-border bg-background p-3 text-start text-xs leading-relaxed text-muted shadow-xl">
               <p className="text-foreground">{t("riskExplainIntro")}</p>
               <ul className="mt-2 flex list-disc flex-col gap-1.5 ps-4">
                 <li>{t("riskExplainReserved", { points: RISK_WEIGHTS.reserved })}</li>

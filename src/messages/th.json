@@ -232,7 +232,8 @@
     "newsTitle": "ข่าวตลาด",
     "newsViewAll": "ดูทั้งหมด",
     "newsSourceLine": "{source} ผ่าน Investing.com · {time}",
-    "newsNote": "พาดหัวเผยแพร่โดย Investing.com เป็นภาษาอังกฤษ และเปิดบนเว็บไซต์ของเขา"
+    "newsNote": "พาดหัวเผยแพร่โดย Investing.com เป็นภาษาอังกฤษ และเปิดบนเว็บไซต์ของเขา",
+    "newsSourceOnly": "{source} · {time}"
   },
   "Common": {
     "level": "ระดับ {level}",

@@ -232,7 +232,8 @@
     "newsTitle": "Tin thị trường",
     "newsViewAll": "Xem tất cả",
     "newsSourceLine": "{source} qua Investing.com · {time}",
-    "newsNote": "Tiêu đề do Investing.com đăng bằng tiếng Anh và mở trên trang của họ."
+    "newsNote": "Tiêu đề do Investing.com đăng bằng tiếng Anh và mở trên trang của họ.",
+    "newsSourceOnly": "{source} · {time}"
   },
   "Common": {
     "level": "Cấp độ {level}",

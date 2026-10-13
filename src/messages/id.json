@@ -232,7 +232,8 @@
     "newsTitle": "Berita pasar",
     "newsViewAll": "Lihat semua",
     "newsSourceLine": "{source} melalui Investing.com · {time}",
-    "newsNote": "Judul diterbitkan Investing.com dalam bahasa Inggris dan dibuka di situs mereka."
+    "newsNote": "Judul diterbitkan Investing.com dalam bahasa Inggris dan dibuka di situs mereka.",
+    "newsSourceOnly": "{source} · {time}"
   },
   "Common": {
     "level": "Level {level}",

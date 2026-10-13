@@ -232,7 +232,8 @@
     "newsTitle": "Noticias del mercado",
     "newsViewAll": "Ver todas",
     "newsSourceLine": "{source} vía Investing.com · {time}",
-    "newsNote": "Los titulares los publica Investing.com en inglés y se abren en su sitio."
+    "newsNote": "Los titulares los publica Investing.com en inglés y se abren en su sitio.",
+    "newsSourceOnly": "{source} · {time}"
   },
   "Common": {
     "level": "Nivel {level}",

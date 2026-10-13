@@ -232,7 +232,8 @@
     "newsTitle": "أخبار الأسواق",
     "newsViewAll": "عرض الكل",
     "newsSourceLine": "{source} عبر Investing.com · {time}",
-    "newsNote": "العناوين تنشرها Investing.com بالإنجليزية وتُفتح على موقعها."
+    "newsNote": "العناوين تنشرها Investing.com بالإنجليزية وتُفتح على موقعها.",
+    "newsSourceOnly": "{source} · {time}"
   },
   "Common": {
     "level": "المستوى {level}",

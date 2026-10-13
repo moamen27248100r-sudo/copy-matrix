@@ -232,7 +232,8 @@
     "newsTitle": "市场新闻",
     "newsViewAll": "查看全部",
     "newsSourceLine": "{source}，来自 Investing.com · {time}",
-    "newsNote": "标题由 Investing.com 以英文发布，点击后在其网站打开。"
+    "newsNote": "标题由 Investing.com 以英文发布，点击后在其网站打开。",
+    "newsSourceOnly": "{source} · {time}"
   },
   "Common": {
     "level": "等级 {level}",

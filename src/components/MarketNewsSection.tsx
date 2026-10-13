@@ -58,7 +58,9 @@ export async function MarketNewsSection({ providerIds, openSymbols }: { provider
                 {n.title}
               </span>
               <span className="text-xs text-muted">
-                {t("newsSourceLine", { source: n.source, time: ago(n.pubDate) })}
+                {n.source === "Investing.com"
+                  ? t("newsSourceOnly", { source: n.source, time: ago(n.pubDate) })
+                  : t("newsSourceLine", { source: n.source, time: ago(n.pubDate) })}
               </span>
             </a>
           </li>

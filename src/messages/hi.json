@@ -232,7 +232,8 @@
     "newsTitle": "बाज़ार समाचार",
     "newsViewAll": "सभी देखें",
     "newsSourceLine": "{source}, Investing.com के माध्यम से · {time}",
-    "newsNote": "शीर्षक Investing.com द्वारा अंग्रेज़ी में प्रकाशित होते हैं और उनकी साइट पर खुलते हैं।"
+    "newsNote": "शीर्षक Investing.com द्वारा अंग्रेज़ी में प्रकाशित होते हैं और उनकी साइट पर खुलते हैं।",
+    "newsSourceOnly": "{source} · {time}"
   },
   "Common": {
     "level": "लेवल {level}",

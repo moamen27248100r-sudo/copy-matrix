@@ -232,7 +232,8 @@
     "newsTitle": "Habari za soko",
     "newsViewAll": "Tazama zote",
     "newsSourceLine": "{source} kupitia Investing.com · {time}",
-    "newsNote": "Vichwa vya habari vinachapishwa na Investing.com kwa Kiingereza na hufunguka kwenye tovuti yao."
+    "newsNote": "Vichwa vya habari vinachapishwa na Investing.com kwa Kiingereza na hufunguka kwenye tovuti yao.",
+    "newsSourceOnly": "{source} · {time}"
   },
   "Common": {
     "level": "Kiwango {level}",

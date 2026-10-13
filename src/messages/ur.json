@@ -232,7 +232,8 @@
     "newsTitle": "مارکیٹ کی خبریں",
     "newsViewAll": "سب دیکھیں",
     "newsSourceLine": "{source} بذریعہ Investing.com · {time}",
-    "newsNote": "سرخیاں Investing.com انگریزی میں شائع کرتا ہے اور ان کی سائٹ پر کھلتی ہیں۔"
+    "newsNote": "سرخیاں Investing.com انگریزی میں شائع کرتا ہے اور ان کی سائٹ پر کھلتی ہیں۔",
+    "newsSourceOnly": "{source} · {time}"
   },
   "Common": {
     "level": "لیول {level}",

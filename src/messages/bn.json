@@ -232,7 +232,8 @@
     "newsTitle": "বাজারের খবর",
     "newsViewAll": "সব দেখুন",
     "newsSourceLine": "{source}, Investing.com এর মাধ্যমে · {time}",
-    "newsNote": "শিরোনামগুলো Investing.com ইংরেজিতে প্রকাশ করে এবং তাদের সাইটে খোলে।"
+    "newsNote": "শিরোনামগুলো Investing.com ইংরেজিতে প্রকাশ করে এবং তাদের সাইটে খোলে।",
+    "newsSourceOnly": "{source} · {time}"
   },
   "Common": {
     "level": "লেভেল {level}",
