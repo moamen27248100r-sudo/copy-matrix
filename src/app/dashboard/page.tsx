@@ -15,7 +15,9 @@ import { ConfirmButton } from "@/components/ConfirmButton";
 import { OnboardingStepsCard } from "@/components/OnboardingStepsCard";
 import { SuggestedTraders } from "@/components/SuggestedTraders";
 import { RecentActivityTimeline, type ActivityEvent } from "@/components/RecentActivityTimeline";
-import { PortfolioAllocationDonut } from "@/components/PortfolioAllocationDonut";
+import { AllocationCard } from "@/components/AllocationCard";
+import { TraderPnlList } from "@/components/TraderPnlList";
+import { FavoriteTraders } from "@/components/FavoriteTraders";
 import { MostCopiedThisWeek } from "@/components/MostCopiedThisWeek";
 import { chooseAccountType } from "@/app/auth/actions";
 
@@ -43,66 +45,108 @@ export default async function DashboardPage({
     redirect("/login?next=%2Fdashboard");
   }
 
-  const [{ data: profile }, { data: kyc }, { data: subscriptions }, { data: rawPositions }, { data: tickerPrices }, { data: walletRequests }] =
-    await Promise.all([
-      supabase.from("profiles").select("display_name, account_type, balance, country, account_number").eq("id", user.id).single(),
+  const timeZone = await getUserTimeZone();
+
+  const [
+    { data: profile },
+    { data: kyc },
+    { data: subscriptions },
+    { data: summaryRaw },
+    { data: rawOpen },
+    { data: rawRecentClosed },
+    { data: tickerPrices },
+    { data: walletRequests },
+    { data: follows },
+  ] = await Promise.all([
+    supabase.from("profiles").select("display_name, account_type, balance, country, account_number").eq("id", user.id).single(),
+    supabase
+      .from("kyc_submissions")
+      .select("status")
+      .eq("user_id", user.id)
+      .order("submitted_at", { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+    supabase
+      .from("subscriptions")
+      .select("id, provider_id, allocated_amount, max_drawdown_pct, copy_started_at")
+      .eq("follower_id", user.id)
+      .eq("is_active", true),
+    // Every total on this page (closed-trade stats, floating P&L, per-trader results, asset mix,
+    // equity series, net invested) is computed by the database in one call (migration 0254).
+    supabase.rpc("dashboard_summary", { p_tz: timeZone }),
+    // Only the open positions are listed; there are few of them.
+    supabase
+      .from("simulated_positions")
+      .select("id, subscription_id, status, pnl, entry_price, size, opened_at, closed_at, account_type, signals(symbol, side)")
+      .eq("follower_id", user.id)
+      .eq("status", "open")
+      .order("opened_at", { ascending: false })
+      .limit(100),
+    // The latest closed trades feed the activity timeline.
+    supabase
+      .from("simulated_positions")
+      .select("id, subscription_id, status, pnl, entry_price, size, opened_at, closed_at, account_type, signals(symbol, side)")
+      .eq("follower_id", user.id)
+      .eq("status", "closed")
+      .order("closed_at", { ascending: false })
+      .limit(20),
+    supabase.from("market_prices").select("symbol, price").in("symbol", ["BTCUSDT", "XAUUSD", "EURUSD"]),
+    // Completed real-wallet movements for the activity feed.
+    Promise.all([
       supabase
-        .from("kyc_submissions")
-        .select("status")
+        .from("crypto_deposits")
+        .select("id, amount, completed_at")
         .eq("user_id", user.id)
-        .order("submitted_at", { ascending: false })
-        .limit(1)
-        .maybeSingle(),
+        .eq("status", "completed")
+        .order("completed_at", { ascending: false })
+        .limit(5),
       supabase
-        .from("subscriptions")
-        .select("id, provider_id, allocated_amount, max_drawdown_pct, copy_started_at")
-        .eq("follower_id", user.id)
-        .eq("is_active", true),
-      supabase
-        .from("simulated_positions")
-        .select("id, subscription_id, status, pnl, entry_price, size, opened_at, closed_at, account_type, signals(symbol, side)")
-        .eq("follower_id", user.id),
-      supabase.from("market_prices").select("symbol, price").in("symbol", ["BTCUSDT", "XAUUSD", "EURUSD"]),
-      // Completed real-wallet movements for the activity feed.
-      Promise.all([
-        supabase
-          .from("crypto_deposits")
-          .select("id, amount, completed_at")
-          .eq("user_id", user.id)
-          .eq("status", "completed")
-          .order("completed_at", { ascending: false })
-          .limit(5),
-        supabase
-          .from("crypto_withdrawals")
-          .select("id, net_amount, completed_at")
-          .eq("user_id", user.id)
-          .eq("status", "completed")
-          .order("completed_at", { ascending: false })
-          .limit(5),
-      ]).then(([deposits, withdrawals]) => ({
-        data: [
-          ...(deposits.data ?? []).map((d) => ({ id: d.id, type: "deposit", amount: d.amount, requested_at: d.completed_at as string })),
-          ...(withdrawals.data ?? []).map((w) => ({ id: w.id, type: "withdrawal", amount: w.net_amount, requested_at: w.completed_at as string })),
-        ],
-      })),
-    ]);
+        .from("crypto_withdrawals")
+        .select("id, net_amount, completed_at")
+        .eq("user_id", user.id)
+        .eq("status", "completed")
+        .order("completed_at", { ascending: false })
+        .limit(5),
+    ]).then(([deposits, withdrawals]) => ({
+      data: [
+        ...(deposits.data ?? []).map((d) => ({ id: d.id, type: "deposit", amount: d.amount, requested_at: d.completed_at as string })),
+        ...(withdrawals.data ?? []).map((w) => ({ id: w.id, type: "withdrawal", amount: w.net_amount, requested_at: w.completed_at as string })),
+      ],
+    })),
+    supabase.from("follows").select("provider_id").eq("follower_id", user.id),
+  ]);
 
-  // Demo and real stats never mix: only positions opened on the active account.
-  const positions = (rawPositions ?? []).filter((p) => p.account_type === (profile?.account_type === "real" ? "real" : "demo"));
+  type ProviderResult = {
+    provider_id: string;
+    display_name: string | null;
+    avatar_url: string | null;
+    rating_score: number | null;
+    allocated: number;
+    realized: number;
+    unrealized: number;
+    total: number;
+    open_count: number;
+  };
+  type Summary = {
+    account_type: string;
+    balance: number;
+    net_invested: number;
+    closed: { closed_count: number; wins: number; losses: number; best: number | null; worst: number | null; gross_win: number; gross_loss: number; realized: number; today: number };
+    open: { count: number; unrealized: number; invested: number };
+    by_provider: ProviderResult[];
+    by_class: { class: string; value: number }[];
+    series: { t: number; v: number }[];
+  };
+  const summary = (summaryRaw ?? null) as Summary | null;
+  const closedStats = summary?.closed ?? { closed_count: 0, wins: 0, losses: 0, best: null, worst: null, gross_win: 0, gross_loss: 0, realized: 0, today: 0 };
+  const openStats = summary?.open ?? { count: 0, unrealized: 0, invested: 0 };
+  const byProvider = summary?.by_provider ?? [];
 
+  const activeType = profile?.account_type === "real" ? "real" : "demo";
   const tickerInitialPrices = Object.fromEntries((tickerPrices ?? []).map((p) => [p.symbol, Number(p.price)]));
 
   const providerIds = (subscriptions ?? []).map((s) => s.provider_id);
-  const allocationByProvider = new Map((subscriptions ?? []).map((s) => [s.provider_id, s.allocated_amount]));
-  const totalAllocated = Array.from(allocationByProvider.values()).reduce((sum, a) => sum + Number(a), 0);
-
-  const { data: followedProviders } =
-    providerIds.length > 0
-      ? await supabase
-          .from("provider_cards")
-          .select("provider_id, display_name, win_rate_pct, avg_daily_return_pct, avatar_url, rating_score")
-          .in("provider_id", providerIds)
-      : { data: [] as never[] };
+  const totalAllocated = (subscriptions ?? []).reduce((sum, s) => sum + Number(s.allocated_amount), 0);
 
   type PositionSignal = { symbol: string; side: string };
   type DashPosition = {
@@ -119,66 +163,35 @@ export default async function DashboardPage({
   const positionSignal = (p: DashPosition): PositionSignal | null =>
     Array.isArray(p.signals) ? p.signals[0] ?? null : p.signals;
 
-  const allPositions = (positions ?? []) as DashPosition[];
-  const openPositions = allPositions.filter((p) => p.status === "open");
-  const closedPositions = allPositions.filter((p) => p.status === "closed");
-  const openPositionsCount = openPositions.length;
-  const netPnl = closedPositions.reduce((sum, p) => sum + (p.pnl ?? 0), 0);
-  const timeZone = await getUserTimeZone();
-  // "Today" and the greeting follow the customer's own timezone (Settings), not the server's.
-  const dayKey = (d: Date) => d.toLocaleDateString("en-CA", { timeZone });
-  const todayKey = dayKey(new Date());
-  const todayPnl = closedPositions
-    .filter((p) => p.closed_at && dayKey(new Date(p.closed_at)) === todayKey)
-    .reduce((sum, p) => sum + (p.pnl ?? 0), 0);
+  const openPositions = ((rawOpen ?? []) as (DashPosition & { account_type: string })[]).filter((p) => p.account_type === activeType);
+  const recentClosed = ((rawRecentClosed ?? []) as (DashPosition & { account_type: string })[]).filter((p) => p.account_type === activeType);
+  const openPositionsCount = openStats.count;
+  const netPnl = Number(closedStats.realized);
+  const todayPnl = Number(closedStats.today);
+  const totalUnrealizedPnl = Number(openStats.unrealized);
+  const netInvested = summary ? Number(summary.net_invested) : null;
+  const totalProfit = netPnl + totalUnrealizedPnl;
 
-  // Same threshold auto_stop_copy checks server-side (0168): cumulative
-  // closed pnl per subscription vs -(allocated * maxDrawdownPct / 100).
-  const cumulativePnlBySubscription = new Map<string, number>();
-  for (const p of closedPositions) {
-    cumulativePnlBySubscription.set(p.subscription_id, (cumulativePnlBySubscription.get(p.subscription_id) ?? 0) + (p.pnl ?? 0));
-  }
-  // A customer can copy several traders at once now, so this is a list
-  // (was a single "activeSubscription" before multi-copy support).
+  // A customer can copy several traders at once, so this is a list.
   const copiedProviders = (subscriptions ?? []).flatMap((sub) => {
-    const providerCard = (followedProviders ?? []).find((p) => p.provider_id === sub.provider_id);
-    if (!providerCard) return [];
+    const row = byProvider.find((p) => p.provider_id === sub.provider_id);
+    if (!row) return [];
     return [
       {
         subscriptionId: sub.id,
         providerId: sub.provider_id,
-        displayName: providerCard.display_name,
-        avatarUrl: providerCard.avatar_url,
-        ratingScore: providerCard.rating_score,
+        displayName: row.display_name ?? "",
+        avatarUrl: row.avatar_url,
+        ratingScore: row.rating_score,
         allocatedAmount: Number(sub.allocated_amount),
         maxDrawdownPct: Number(sub.max_drawdown_pct),
-        cumulativePnl: cumulativePnlBySubscription.get(sub.id) ?? 0,
+        cumulativePnl: Number(row.realized),
       },
     ];
   });
 
-  const openSymbols = Array.from(
-    new Set(openPositions.map((p) => positionSignal(p)?.symbol).filter((s): s is string => !!s)),
-  );
-  const { data: livePrices } =
-    openSymbols.length > 0
-      ? await supabase.from("market_prices").select("symbol, price").in("symbol", openSymbols)
-      : { data: [] as { symbol: string; price: number }[] };
-  const priceBySymbol = new Map((livePrices ?? []).map((p) => [p.symbol, Number(p.price)]));
-
-  const totalUnrealizedPnl = openPositions.reduce((sum, pos) => {
-    const signal = positionSignal(pos);
-    const current = signal ? priceBySymbol.get(signal.symbol) : undefined;
-    if (current == null || !signal) return sum;
-    const pct = ((current - pos.entry_price) / pos.entry_price) * (signal.side === "sell" ? -1 : 1);
-    return sum + pct * Number(pos.size);
-  }, 0);
-
-  // Merges positions/copy-starts/wallet activity into one feed, newest
-  // first, for the "recent activity" timeline -- provider names come from
-  // the customer's own currently-active copies (good enough for a demo
-  // feed of recent events; a copy stopped since then just shows without a
-  // name rather than a wrong or stale one).
+  // Merges positions/copy-starts/wallet activity into one feed, newest first, for the "recent
+  // activity" timeline -- provider names come from the customer's currently-active copies.
   const providerNameBySubscription = new Map(copiedProviders.map((p) => [p.subscriptionId, p.displayName]));
   const activityEvents: ActivityEvent[] = [
     ...openPositions.map((p) => ({
@@ -187,7 +200,7 @@ export default async function DashboardPage({
       at: p.opened_at,
       symbol: positionSignal(p)?.symbol,
     })),
-    ...closedPositions
+    ...recentClosed
       .filter((p) => p.closed_at)
       .map((p) => ({
         id: `close-${p.id}`,
@@ -211,13 +224,38 @@ export default async function DashboardPage({
       amount: Number(w.amount),
     })),
   ]
-    .sort((a, b) => new Date(b.at).getTime() - new Date(a.at).getTime())
+    .sort((x, y) => new Date(y.at).getTime() - new Date(x.at).getTime())
     .slice(0, 8);
 
-  const allocationSlices = [
+  // Allocation views: by trader (reserved copy capital) and by asset class (open position value),
+  // each with the part of the balance that is not in use.
+  const balanceNow = Number(profile?.balance ?? 0);
+  const assetClassLabel: Record<string, string> = {
+    metal: t("assetClassMetal"),
+    forex: t("assetClassForex"),
+    crypto: t("assetClassCrypto"),
+    other: t("assetClassOther"),
+  };
+  const allocationByTrader = [
     ...copiedProviders.map((p) => ({ label: p.displayName, value: p.allocatedAmount })),
-    { label: t("allocationAvailableCash"), value: Math.max(0, Number(profile?.balance ?? 0) - totalAllocated) },
+    { label: t("allocationAvailableCash"), value: Math.max(0, balanceNow - totalAllocated) },
   ];
+  const allocationByAsset = [
+    ...(summary?.by_class ?? []).map((c) => ({ label: assetClassLabel[c.class] ?? assetClassLabel.other, value: Math.max(0, Number(c.value)) })),
+    { label: t("allocationNotInvested"), value: Math.max(0, balanceNow - Number(openStats.invested)) },
+  ];
+
+  // Favourite traders (the bookmark in Discover).
+  const favouriteIds = (follows ?? []).map((r) => r.provider_id);
+  const { data: favouriteCards } =
+    favouriteIds.length > 0
+      ? await supabase
+          .from("provider_cards")
+          .select("provider_id, display_name, avatar_url, rating_score, win_rate_pct, roi_30d")
+          .in("provider_id", favouriteIds)
+          .order("rating_score", { ascending: false, nullsFirst: false })
+          .limit(4)
+      : { data: [] as never[] };
 
   const kycCopyByStatus: Record<string, { title: string; desc: string; action?: string }> = {
     none: { title: t("kycNoneTitle"), desc: t("kycNoneDesc"), action: t("kycNoneAction") },
@@ -335,7 +373,8 @@ export default async function DashboardPage({
           totalUnrealizedPnl={totalUnrealizedPnl}
           totalRealizedPnl={netPnl}
           todayPnl={todayPnl}
-          closedPositions={closedPositions.map((p) => ({ pnl: p.pnl, closed_at: p.closed_at }))}
+          closedPositions={(summary?.series ?? []).map((p) => ({ pnl: p.v, closed_at: new Date(p.t).toISOString() }))}
+          netInvested={netInvested}
         />
 
         <section className="grid grid-cols-3 rounded-2xl border border-border bg-surface">
@@ -383,7 +422,7 @@ export default async function DashboardPage({
           ))}
         </section>
 
-        {closedPositions.length > 0 && <PerformanceSummary pnls={closedPositions.map((p) => Number(p.pnl ?? 0))} />}
+        {closedStats.closed_count > 0 && <PerformanceSummary stats={closedStats} />}
 
         <section id="my-copies" className="flex flex-col gap-3 scroll-mt-20">
           {copiedProviders.length > 0 && (
@@ -435,20 +474,25 @@ export default async function DashboardPage({
           </section>
         )}
 
+        {copiedProviders.length > 0 && <TraderPnlList rows={byProvider} />}
+
         {copiedProviders.length > 0 && (
           <section className="flex flex-col gap-3">
             <h2 className="text-base font-semibold">{t("portfolioAllocationTitle")}</h2>
             <div className="rounded-2xl border border-border bg-surface p-5">
-              <PortfolioAllocationDonut
-                slices={allocationSlices}
+              <AllocationCard
+                byTrader={allocationByTrader}
+                byAsset={allocationByAsset}
                 totalLabel={t("portfolioValue")}
-                totalValue={Number(profile?.balance ?? 0) + totalUnrealizedPnl}
+                totalValue={balanceNow + totalUnrealizedPnl}
               />
             </div>
           </section>
         )}
 
         {copiedProviders.length > 0 && <RecentActivityTimeline events={activityEvents} />}
+
+        {(favouriteCards ?? []).length > 0 && <FavoriteTraders cards={favouriteCards ?? []} />}
 
         <MostCopiedThisWeek />
 

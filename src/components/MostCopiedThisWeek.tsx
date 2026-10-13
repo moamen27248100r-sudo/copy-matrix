@@ -4,6 +4,8 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { TraderAvatar } from "@/components/TraderAvatar";
 
+const MIN_NEW_COPIERS = 5;
+
 export async function MostCopiedThisWeek() {
   const t = await getTranslations("Dashboard");
   const supabase = await createClient();
@@ -25,6 +27,10 @@ export async function MostCopiedThisWeek() {
     .map(([id]) => id);
 
   if (topProviderIds.length === 0) return null;
+
+  // Social proof only once it is meaningful: shown when the leading trader gained at least
+  // MIN_NEW_COPIERS new copiers this week. The numbers themselves are never altered.
+  if ((countByProvider.get(topProviderIds[0]) ?? 0) < MIN_NEW_COPIERS) return null;
 
   const { data: providers } = await supabase
     .from("provider_cards")

@@ -112,6 +112,7 @@ export default async function PortfolioPage({
     { data: transactions },
     { data: pendingDeposits },
     { data: openWithdrawals },
+    { data: dashSummary },
   ] = await Promise.all([
       supabase.from("profiles").select("balance, account_type").eq("id", user.id).single(),
       providerIds.length > 0
@@ -144,7 +145,10 @@ export default async function PortfolioPage({
         .eq("user_id", user.id)
         .in("status", ["processing", "sending"])
         .order("created_at", { ascending: false }),
+      // Net invested funds: the base of the return % (same definition as the dashboard, lib/profit-pct.ts).
+      supabase.rpc("dashboard_summary", { p_tz: userTz }),
     ]);
+  const netInvested = dashSummary ? Number((dashSummary as { net_invested: number }).net_invested) : null;
 
   // Real-wallet movements still in progress: deposits awaiting confirmations, withdrawals not yet sent.
   const pendingRequests = isDemo
@@ -269,6 +273,8 @@ export default async function PortfolioPage({
           balance={Number(profile?.balance ?? 0)}
           totalAllocated={totalAllocated}
           totalUnrealizedPnl={totalUnrealizedPnl}
+          totalProfit={totalRealizedPnl + totalUnrealizedPnl}
+          netInvested={netInvested}
         />
         <div className={`grid gap-3 ${isDemo || depositsOn ? "grid-cols-3" : "grid-cols-2"}`}>
           <Link href="/portfolio/withdraw" className="flex flex-col items-center gap-2">
@@ -341,7 +347,7 @@ export default async function PortfolioPage({
 
       <section className="flex flex-col gap-3">
         <h2 className="font-medium">{t("cumulativePerformance")}</h2>
-        <MyEquityChart positions={closedPositions.map((p) => ({ pnl: p.pnl, closed_at: p.closed_at }))} />
+        <MyEquityChart positions={closedPositions.map((p) => ({ pnl: p.pnl, closed_at: p.closed_at }))} netInvested={netInvested} />
       </section>
 
       <section className="flex flex-col gap-3">

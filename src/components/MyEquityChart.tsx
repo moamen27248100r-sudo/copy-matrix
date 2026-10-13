@@ -5,6 +5,8 @@ import { useMoney } from "@/lib/money-client";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { formatNumber } from "@/lib/money";
+import { formatPct, profitPct } from "@/lib/profit-pct";
+import { getBenchmarkSeries } from "@/app/dashboard/actions";
 import type { Locale } from "@/i18n/locales";
 
 type ClosedPosition = {
@@ -21,13 +23,37 @@ const PERIODS: { labelKey: string; days: number | null }[] = [
   { labelKey: "periodAll", days: null },
 ];
 
-export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
+type Bench = "off" | "BTCUSDT" | "XAUUSD";
+
+export function MyEquityChart({ positions, netInvested = null }: { positions: ClosedPosition[]; netInvested?: number | null }) {
   const t = useTranslations("Dashboard");
   const money = useMoney();
   const locale = useLocale() as Locale;
   const [periodIdx, setPeriodIdx] = useState(2);
+  const [bench, setBench] = useState<Bench>("off");
+  const [benchData, setBenchData] = useState<{ symbol: Bench; days: number; pts: { t: number; p: number }[]; at: number } | null>(null);
+  const [benchLoading, setBenchLoading] = useState(false);
 
-  const points = useMemo(() => {
+  const loadBench = async (symbol: Bench, days: number | null) => {
+    if (symbol === "off") return;
+    setBenchLoading(true);
+    try {
+      const pts = await getBenchmarkSeries(symbol, days ?? 0);
+      setBenchData({ symbol, days: days ?? 0, pts, at: Date.now() });
+    } finally {
+      setBenchLoading(false);
+    }
+  };
+  const chooseBench = (next: Bench) => {
+    setBench(next);
+    if (next !== "off") void loadBench(next, PERIODS[periodIdx].days);
+  };
+  const choosePeriod = (i: number) => {
+    setPeriodIdx(i);
+    if (bench !== "off") void loadBench(bench, PERIODS[i].days);
+  };
+
+  const { points, cutoff, firstT } = useMemo(() => {
     const period = PERIODS[periodIdx];
     // Rounded to the start of the current UTC day -- see TraderEquityChart
     // for why: Date.now() computed fresh during both the server's SSR pass
@@ -47,11 +73,35 @@ export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
       cumulative += p.pnl ?? 0;
       pts.push({ v: cumulative, t: new Date(p.closed_at!).getTime() });
     }
-    return pts;
+    return { points: pts, cutoff, firstT };
   }, [positions, periodIdx]);
 
   const hasData = points.length >= 3;
   const last = points[points.length - 1]?.v ?? 0;
+
+  // Comparison view: both lines as % return since the start of the period -- the portfolio's
+  // result over net invested funds, and the reference market's price change.
+  const compare = useMemo(() => {
+    if (bench === "off" || !benchData || benchData.symbol !== bench || benchData.days !== (PERIODS[periodIdx].days ?? 0)) return null;
+    if (netInvested == null || netInvested <= 0) return null;
+    const start = PERIODS[periodIdx].days != null ? cutoff : firstT;
+    const end = benchData.at;
+    const ref = benchData.pts.filter((p) => p.t >= start);
+    if (ref.length < 2) return null;
+    const base = ref[0].p;
+    if (!(base > 0)) return null;
+    const own: ChartPoint[] = points.map((p) => ({ t: p.t, v: profitPct(p.v, netInvested) ?? 0 }));
+    own.push({ t: end, v: own[own.length - 1]?.v ?? 0 });
+    const line: ChartPoint[] = ref.map((p) => ({ t: p.t, v: (p.p / base - 1) * 100 }));
+    return { own, line, start, end, ownLast: own[own.length - 1].v, refLast: line[line.length - 1].v };
+  }, [bench, benchData, netInvested, points, periodIdx, cutoff, firstT]);
+
+  const canCompare = netInvested != null && netInvested > 0;
+  const benchOptions: { key: Bench; label: string }[] = [
+    { key: "off", label: t("benchmarkOff") },
+    { key: "BTCUSDT", label: t("benchmarkBtc") },
+    { key: "XAUUSD", label: t("benchmarkGold") },
+  ];
 
   return (
     <div className="flex flex-col gap-3">
@@ -60,7 +110,7 @@ export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
           <button
             key={p.labelKey}
             type="button"
-            onClick={() => setPeriodIdx(i)}
+            onClick={() => choosePeriod(i)}
             className={
               i === periodIdx
                 ? "rounded-full bg-brand/25 px-2 py-1 text-xs text-white"
@@ -76,18 +126,68 @@ export function MyEquityChart({ positions }: { positions: ClosedPosition[] }) {
         <p className="text-sm text-muted">{t("noEnoughClosedTrades")}</p>
       ) : (
         <div className="rounded-lg border border-border bg-background p-3">
-          <AreaLineChart
-            points={points}
-            format={(v) => money(v)}
-            axisFormat={(v) => formatNumber(v, locale, Number.isInteger(v) ? 0 : 2)}
-            ariaLabel={t("startingPoint", { amount: money(0) })}
-          />
+          {compare ? (
+            <AreaLineChart
+              points={compare.own}
+              overlay={compare.line}
+              timeAxis
+              domain={[compare.start, compare.end]}
+              format={(v) => formatPct(v)}
+              axisFormat={(v) => formatPct(v, 1)}
+              ariaLabel={t("benchmarkChartLabel")}
+              fadeKey={`${periodIdx}-${bench}`}
+            />
+          ) : (
+            <AreaLineChart
+              points={points}
+              format={(v) => money(v)}
+              axisFormat={(v) => formatNumber(v, locale, Number.isInteger(v) ? 0 : 2)}
+              ariaLabel={t("startingPoint", { amount: money(0) })}
+            />
+          )}
           <div className="flex items-center justify-between text-xs text-muted">
-            <span>{t("startingPoint", { amount: money(0) })}</span>
-            <span className={`font-semibold ${last >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
-              {money(last, { signed: true })}
-            </span>
+            {compare ? (
+              <>
+                <span className="inline-flex items-center gap-1.5">
+                  <span aria-hidden="true" className="inline-block h-0.5 w-4 border-t-2 border-dashed border-[#8B95A7]" />
+                  {bench === "BTCUSDT" ? t("benchmarkBtc") : t("benchmarkGold")}{" "}
+                  <span dir="ltr">{formatPct(compare.refLast)}</span>
+                </span>
+                <span className={`font-semibold ${compare.ownLast >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
+                  {t("benchmarkYou")} {formatPct(compare.ownLast)}
+                </span>
+              </>
+            ) : (
+              <>
+                <span>{t("startingPoint", { amount: money(0) })}</span>
+                <span className={`font-semibold ${last >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
+                  {money(last, { signed: true })}
+                </span>
+              </>
+            )}
           </div>
+        </div>
+      )}
+
+      {hasData && canCompare && (
+        <div className="flex flex-wrap items-center gap-1.5" role="group" aria-label={t("benchmarkLabel")}>
+          <span className="text-xs text-muted">{t("benchmarkLabel")}</span>
+          {benchOptions.map((o) => (
+            <button
+              key={o.key}
+              type="button"
+              aria-pressed={bench === o.key}
+              onClick={() => chooseBench(o.key)}
+              className={
+                bench === o.key
+                  ? "min-h-8 rounded-full border border-accent/50 bg-accent/15 px-3 text-xs font-medium text-foreground"
+                  : "min-h-8 rounded-full border border-border px-3 text-xs text-muted transition hover:text-foreground"
+              }
+            >
+              {o.label}
+            </button>
+          ))}
+          {benchLoading && <span className="text-xs text-muted">…</span>}
         </div>
       )}
     </div>

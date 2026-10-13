@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { formatPct, profitPct } from "@/lib/profit-pct";
 import { getTranslations } from "next-intl/server";
 import { ConfirmButton } from "@/components/ConfirmButton";
 import { MyEquityChart } from "@/components/MyEquityChart";
@@ -20,19 +21,16 @@ function ActionIcon({ children }: { children: React.ReactNode }) {
 }
 
 // A label with its figure directly beneath it, aligned to the start edge in both directions.
-const pctText = (v: number) => {
-  const r = Number(v.toFixed(2));
-  return `${r > 0 ? "+" : r < 0 ? "-" : ""}${Math.abs(r).toFixed(2)}%`;
-};
+const pctText = (v: number | null) => formatPct(v);
 
-function ProfitStat({ label, amount, pct, money }: { label: string; amount: number; pct: number; money: Money }) {
+function ProfitStat({ label, amount, pct, money }: { label: string; amount: number; pct: number | null; money: Money }) {
   const positive = amount >= 0;
   return (
     <div className="min-w-0 text-start">
       <p className="text-xs text-muted">{label}</p>
       <p className="mt-0.5 text-sm font-semibold">
         <span dir="ltr" className={`inline-block ${positive ? "text-success" : "text-danger"}`}>
-          {money(amount, { signed: true })} ({pctText(pct)})
+          {money(amount, { signed: true })} {pct != null ? `(${pctText(pct)})` : ""}
         </span>
       </p>
     </div>
@@ -54,6 +52,7 @@ export async function DashboardHero({
   totalRealizedPnl,
   todayPnl,
   closedPositions,
+  netInvested,
 }: {
   accountType: AccountType;
   /** Deposits switched on (platform setting); a real account sees no deposit button while off. */
@@ -64,6 +63,8 @@ export async function DashboardHero({
   totalRealizedPnl: number;
   todayPnl: number;
   closedPositions: { pnl: number | null; closed_at: string | null }[];
+  /** Net invested funds (see lib/profit-pct.ts); null when unknown. */
+  netInvested: number | null;
 }) {
   const money = await getMoney();
   const t = await getTranslations("Dashboard");
@@ -72,11 +73,11 @@ export async function DashboardHero({
   // unrealized P&L, not yet in balance until a position closes, is added.
   const totalValue = balance + totalUnrealizedPnl;
   const availableCash = Math.max(0, balance - totalAllocated);
-  const pnlPct = balance > 0 ? (totalUnrealizedPnl / balance) * 100 : 0;
+  const pnlPct = profitPct(totalUnrealizedPnl, netInvested);
   const pnlPositive = totalUnrealizedPnl >= 0;
   const totalProfit = totalRealizedPnl + totalUnrealizedPnl;
-  const totalProfitPct = balance > 0 ? (totalProfit / balance) * 100 : 0;
-  const todayPct = balance > 0 ? (todayPnl / balance) * 100 : 0;
+  const totalProfitPct = profitPct(totalProfit, netInvested);
+  const todayPct = profitPct(todayPnl, netInvested);
 
   return (
     <section className="flex flex-col gap-5 rounded-2xl border border-border bg-surface p-5">
@@ -97,12 +98,12 @@ export async function DashboardHero({
         <p className="text-start text-xs text-muted">
           {t("unrealizedPnl")}{" "}
           <span dir="ltr" className={`inline-block ${pnlPositive ? "text-success" : "text-danger"}`}>
-            {money(totalUnrealizedPnl, { signed: true })} ({pctText(pnlPct)})
+            {money(totalUnrealizedPnl, { signed: true })} {pnlPct != null ? `(${pctText(pnlPct)})` : ""}
           </span>
         </p>
       </div>
 
-      <MyEquityChart positions={closedPositions} />
+      <MyEquityChart positions={closedPositions} netInvested={netInvested} />
 
       <div className="grid grid-cols-2 gap-3 border-t border-border pt-4">
         <div>

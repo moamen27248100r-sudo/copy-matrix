@@ -70,6 +70,7 @@ export function AreaLineChart({
   onHover,
   fadeKey,
   className = "",
+  overlay,
 }: {
   points: ChartPoint[];
   // Used for the axis, the current-value badge and the tooltip.
@@ -90,6 +91,9 @@ export function AreaLineChart({
   // Changing it replays the short fade-in (e.g. a new period).
   fadeKey?: string | number;
   className?: string;
+  // A second, quieter reference line (e.g. a market index) drawn on the same axes. Needs `t` on
+  // every point and `timeAxis` so both lines share the time axis.
+  overlay?: ChartPoint[];
 }) {
   const locale = useLocale() as Locale;
   const tag = localeTag(locale);
@@ -130,6 +134,10 @@ export function AreaLineChart({
       if (p.v < lo) lo = p.v;
       if (p.v > hi) hi = p.v;
     }
+    for (const p of overlay ?? []) {
+      if (p.v < lo) lo = p.v;
+      if (p.v > hi) hi = p.v;
+    }
     const span = hi - lo || Math.max(Math.abs(hi), 1) * 0.1;
     const yMin = lo - span * 0.08;
     const yMax = hi + span * 0.08;
@@ -137,7 +145,7 @@ export function AreaLineChart({
     const d0 = domain?.[0] ?? points[0].t ?? 0;
     const d1 = domain?.[1] ?? points[n - 1].t ?? 1;
     return { yMin, yMax, ticks, d0, d1 };
-  }, [points, n, compact, domain]);
+  }, [points, n, compact, domain, overlay]);
 
   if (!model) return <div className={className} style={{ height: H }} aria-hidden="true" />;
   const { yMin, yMax, ticks, d0, d1 } = model;
@@ -171,6 +179,13 @@ export function AreaLineChart({
   const coords = points.map((p, i): [number, number] => [xFor(i), yFor(p.v)]);
   const linePath = coords.map(([x, y], i) => `${i === 0 ? "M" : "L"}${x.toFixed(1)} ${y.toFixed(1)}`).join(" ");
   const areaPath = `${linePath} L${coords[n - 1][0].toFixed(1)} ${plotBottom} L${coords[0][0].toFixed(1)} ${plotBottom}Z`;
+  const overlayPath =
+    useTime && overlay && overlay.length > 1
+      ? overlay
+          .filter((p) => p.t != null)
+          .map((p, i) => `${i === 0 ? "M" : "L"}${(((p.t as number) - d0) / (d1 - d0 || 1) * plotW).toFixed(1)} ${yFor(p.v).toFixed(1)}`)
+          .join(" ")
+      : null;
   const lastY = yFor(last);
   const badgeY = Math.min(Math.max(lastY - BADGE_H / 2, 0), H - BADGE_H);
 
@@ -298,6 +313,9 @@ export function AreaLineChart({
           ))}
 
           <path d={areaPath} fill={`url(#${gradId})`} />
+          {overlayPath && (
+            <path d={overlayPath} fill="none" stroke="#8B95A7" strokeOpacity={0.85} strokeWidth={1.5} strokeDasharray="5 4" strokeLinejoin="round" strokeLinecap="round" />
+          )}
           <path d={linePath} fill="none" stroke={LINE} strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
 
           {!compact &&
