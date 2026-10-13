@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
+import { createClient } from "@/lib/supabase/server";
 import { TraderAvatar } from "@/components/TraderAvatar";
 import { fmtReturn, fmtWinRate } from "@/lib/format-stats";
 
@@ -13,8 +14,19 @@ type Card = {
 };
 
 // The traders the customer bookmarked in Discover, with a quick look at how they are doing.
-export async function FavoriteTraders({ cards }: { cards: Card[] }) {
+export async function FavoriteTraders({ userId }: { userId: string }) {
   const t = await getTranslations("Dashboard");
+  const supabase = await createClient();
+  const { data: follows } = await supabase.from("follows").select("provider_id").eq("follower_id", userId);
+  const ids = (follows ?? []).map((r) => r.provider_id);
+  if (ids.length === 0) return null;
+  const { data } = await supabase
+    .from("provider_cards")
+    .select("provider_id, display_name, avatar_url, rating_score, win_rate_pct, roi_30d")
+    .in("provider_id", ids)
+    .order("rating_score", { ascending: false, nullsFirst: false })
+    .limit(4);
+  const cards = (data ?? []) as Card[];
   if (cards.length === 0) return null;
 
   return (

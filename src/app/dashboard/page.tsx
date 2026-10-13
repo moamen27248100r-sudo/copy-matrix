@@ -2,6 +2,7 @@ import { getMoney } from "@/lib/money-server";
 import { depositsEnabled } from "@/lib/deposits-enabled";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { getUserTimeZone } from "@/lib/timezone";
@@ -18,6 +19,16 @@ import { RecentActivityTimeline, type ActivityEvent } from "@/components/RecentA
 import { AllocationCard } from "@/components/AllocationCard";
 import { TraderPnlList } from "@/components/TraderPnlList";
 import { FavoriteTraders } from "@/components/FavoriteTraders";
+import { Skeleton } from "@/components/ui/Skeleton";
+
+function SectionSkeleton() {
+  return (
+    <div className="flex flex-col gap-3" aria-busy="true">
+      <Skeleton className="h-5 w-40" />
+      <Skeleton className="h-28 w-full" />
+    </div>
+  );
+}
 import { MostCopiedThisWeek } from "@/components/MostCopiedThisWeek";
 import { chooseAccountType } from "@/app/auth/actions";
 
@@ -56,7 +67,7 @@ export default async function DashboardPage({
     { data: rawRecentClosed },
     { data: tickerPrices },
     { data: walletRequests },
-    { data: follows },
+    depositsOn,
   ] = await Promise.all([
     supabase.from("profiles").select("display_name, account_type, balance, country, account_number").eq("id", user.id).single(),
     supabase
@@ -113,7 +124,7 @@ export default async function DashboardPage({
         ...(withdrawals.data ?? []).map((w) => ({ id: w.id, type: "withdrawal", amount: w.net_amount, requested_at: w.completed_at as string })),
       ],
     })),
-    supabase.from("follows").select("provider_id").eq("follower_id", user.id),
+    depositsEnabled(supabase),
   ]);
 
   type ProviderResult = {
@@ -245,18 +256,6 @@ export default async function DashboardPage({
     { label: t("allocationNotInvested"), value: Math.max(0, balanceNow - Number(openStats.invested)) },
   ];
 
-  // Favourite traders (the bookmark in Discover).
-  const favouriteIds = (follows ?? []).map((r) => r.provider_id);
-  const { data: favouriteCards } =
-    favouriteIds.length > 0
-      ? await supabase
-          .from("provider_cards")
-          .select("provider_id, display_name, avatar_url, rating_score, win_rate_pct, roi_30d")
-          .in("provider_id", favouriteIds)
-          .order("rating_score", { ascending: false, nullsFirst: false })
-          .limit(4)
-      : { data: [] as never[] };
-
   const kycCopyByStatus: Record<string, { title: string; desc: string; action?: string }> = {
     none: { title: t("kycNoneTitle"), desc: t("kycNoneDesc"), action: t("kycNoneAction") },
     pending: { title: t("kycPendingTitle"), desc: t("kycPendingDesc") },
@@ -367,7 +366,7 @@ export default async function DashboardPage({
 
         <DashboardHero
           accountType={accountType}
-          depositsOn={await depositsEnabled(supabase)}
+          depositsOn={depositsOn}
           balance={Number(profile?.balance ?? 0)}
           totalAllocated={totalAllocated}
           totalUnrealizedPnl={totalUnrealizedPnl}
@@ -448,7 +447,11 @@ export default async function DashboardPage({
           )}
         </section>
 
-        {copiedProviders.length === 0 && <SuggestedTraders excludeProviderIds={providerIds} />}
+        {copiedProviders.length === 0 && (
+          <Suspense fallback={<SectionSkeleton />}>
+            <SuggestedTraders excludeProviderIds={providerIds} />
+          </Suspense>
+        )}
 
         {copiedProviders.length > 0 && (
           <section className="flex flex-col gap-3">
@@ -492,9 +495,13 @@ export default async function DashboardPage({
 
         {copiedProviders.length > 0 && <RecentActivityTimeline events={activityEvents} />}
 
-        {(favouriteCards ?? []).length > 0 && <FavoriteTraders cards={favouriteCards ?? []} />}
+        <Suspense fallback={null}>
+          <FavoriteTraders userId={user.id} />
+        </Suspense>
 
-        <MostCopiedThisWeek />
+        <Suspense fallback={null}>
+          <MostCopiedThisWeek />
+        </Suspense>
 
         <p className="text-center text-xs text-muted">{t("riskDisclaimerLine")}</p>
       </main>
