@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { cookies, headers } from "next/headers";
 import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
@@ -174,6 +175,9 @@ export async function chooseAccountType(formData: FormData) {
   // onboarding_completed has no direct-client UPDATE grant.
   await createAdminClient().from("profiles").update({ onboarding_completed: true }).eq("id", user.id);
 
+  // Every page, the header and the notification counter belong to the active account: drop the
+  // client router cache so nothing from the other account stays on screen.
+  revalidatePath("/", "layout");
   redirect(next ?? "/dashboard?onboarded=1");
 }
 

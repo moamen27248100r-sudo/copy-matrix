@@ -208,7 +208,7 @@ export function BottomNav() {
                 >
                   {active ? item.icon.filled : item.icon.outline}
                 </svg>
-                <span className="w-full truncate text-center leading-tight">{item.label}</span>
+                <span className="line-clamp-2 w-full break-words text-center leading-[1.1]">{item.label}</span>
               </Link>
             );
           })}
