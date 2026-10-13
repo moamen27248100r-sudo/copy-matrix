@@ -189,7 +189,9 @@
     "perfBestTrade": "सर्वश्रेष्ठ ट्रेड",
     "perfWorstTrade": "सबसे खराब ट्रेड",
     "perfAvgTrade": "प्रति ट्रेड औसत",
-    "perfProfitFactor": "प्रॉफिट फैक्टर"
+    "perfProfitFactor": "प्रॉफिट फैक्टर",
+    "activityPositionClosedFlat": "{symbol} ट्रेड बिना लाभ-हानि के बंद हुआ",
+    "copyRealizedPnl": "प्राप्त परिणाम:"
   },
   "Common": {
     "level": "लेवल {level}",

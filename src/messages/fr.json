@@ -189,7 +189,9 @@
     "perfBestTrade": "Meilleur trade",
     "perfWorstTrade": "Pire trade",
     "perfAvgTrade": "Moyenne par trade",
-    "perfProfitFactor": "Facteur de profit"
+    "perfProfitFactor": "Facteur de profit",
+    "activityPositionClosedFlat": "Trade {symbol} clôturé à l'équilibre",
+    "copyRealizedPnl": "Résultat réalisé :"
   },
   "Common": {
     "level": "Niveau {level}",

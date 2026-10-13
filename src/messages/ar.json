@@ -189,7 +189,9 @@
     "perfBestTrade": "أفضل صفقة",
     "perfWorstTrade": "أسوأ صفقة",
     "perfAvgTrade": "متوسط الصفقة",
-    "perfProfitFactor": "عامل الربح"
+    "perfProfitFactor": "عامل الربح",
+    "activityPositionClosedFlat": "أُغلقت صفقة {symbol} بدون ربح أو خسارة",
+    "copyRealizedPnl": "النتيجة المحققة:"
   },
   "Common": {
     "level": "المستوى {level}",

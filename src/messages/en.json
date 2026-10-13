@@ -189,7 +189,9 @@
     "perfBestTrade": "Best trade",
     "perfWorstTrade": "Worst trade",
     "perfAvgTrade": "Average per trade",
-    "perfProfitFactor": "Profit factor"
+    "perfProfitFactor": "Profit factor",
+    "activityPositionClosedFlat": "Closed a {symbol} trade at break-even",
+    "copyRealizedPnl": "Realized result:"
   },
   "Common": {
     "level": "Level {level}",

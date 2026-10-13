@@ -189,7 +189,9 @@
     "perfBestTrade": "最佳交易",
     "perfWorstTrade": "最差交易",
     "perfAvgTrade": "每笔平均",
-    "perfProfitFactor": "盈亏比"
+    "perfProfitFactor": "盈亏比",
+    "activityPositionClosedFlat": "{symbol} 交易以持平平仓",
+    "copyRealizedPnl": "已实现盈亏："
   },
   "Common": {
     "level": "等级 {level}",

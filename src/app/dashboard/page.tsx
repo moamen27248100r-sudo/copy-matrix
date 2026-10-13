@@ -191,7 +191,8 @@ export default async function DashboardPage({
       .filter((p) => p.closed_at)
       .map((p) => ({
         id: `close-${p.id}`,
-        type: (p.pnl ?? 0) >= 0 ? ("position_closed_win" as const) : ("position_closed_loss" as const),
+        type:
+          (p.pnl ?? 0) > 0 ? ("position_closed_win" as const) : (p.pnl ?? 0) < 0 ? ("position_closed_loss" as const) : ("position_closed_flat" as const),
         at: p.closed_at as string,
         symbol: positionSignal(p)?.symbol,
       })),

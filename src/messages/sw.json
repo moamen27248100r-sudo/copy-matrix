@@ -189,7 +189,9 @@
     "perfBestTrade": "Biashara bora zaidi",
     "perfWorstTrade": "Biashara mbaya zaidi",
     "perfAvgTrade": "Wastani kwa biashara",
-    "perfProfitFactor": "Kipengele cha faida"
+    "perfProfitFactor": "Kipengele cha faida",
+    "activityPositionClosedFlat": "Biashara ya {symbol} imefungwa bila faida wala hasara",
+    "copyRealizedPnl": "Matokeo yaliyopatikana:"
   },
   "Common": {
     "level": "Kiwango {level}",

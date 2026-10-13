@@ -189,7 +189,9 @@
     "perfBestTrade": "بہترین ٹریڈ",
     "perfWorstTrade": "بدترین ٹریڈ",
     "perfAvgTrade": "فی ٹریڈ اوسط",
-    "perfProfitFactor": "پرافٹ فیکٹر"
+    "perfProfitFactor": "پرافٹ فیکٹر",
+    "activityPositionClosedFlat": "{symbol} ٹریڈ بغیر نفع یا نقصان کے بند ہوئی",
+    "copyRealizedPnl": "حاصل شدہ نتیجہ:"
   },
   "Common": {
     "level": "لیول {level}",

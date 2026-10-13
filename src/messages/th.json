@@ -189,7 +189,9 @@
     "perfBestTrade": "เทรดที่ดีที่สุด",
     "perfWorstTrade": "เทรดที่แย่ที่สุด",
     "perfAvgTrade": "เฉลี่ยต่อเทรด",
-    "perfProfitFactor": "ปัจจัยกำไร"
+    "perfProfitFactor": "ปัจจัยกำไร",
+    "activityPositionClosedFlat": "ปิดเทรด {symbol} เท่าทุน",
+    "copyRealizedPnl": "ผลลัพธ์ที่เกิดขึ้นแล้ว:"
   },
   "Common": {
     "level": "ระดับ {level}",

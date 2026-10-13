@@ -189,7 +189,9 @@
     "perfBestTrade": "Trade terbaik",
     "perfWorstTrade": "Trade terburuk",
     "perfAvgTrade": "Rata-rata per trade",
-    "perfProfitFactor": "Faktor profit"
+    "perfProfitFactor": "Faktor profit",
+    "activityPositionClosedFlat": "Trade {symbol} ditutup impas",
+    "copyRealizedPnl": "Hasil terealisasi:"
   },
   "Common": {
     "level": "Level {level}",

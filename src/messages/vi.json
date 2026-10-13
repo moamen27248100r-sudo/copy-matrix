@@ -189,7 +189,9 @@
     "perfBestTrade": "Lệnh tốt nhất",
     "perfWorstTrade": "Lệnh tệ nhất",
     "perfAvgTrade": "Trung bình mỗi lệnh",
-    "perfProfitFactor": "Hệ số lợi nhuận"
+    "perfProfitFactor": "Hệ số lợi nhuận",
+    "activityPositionClosedFlat": "Đã đóng lệnh {symbol} hòa vốn",
+    "copyRealizedPnl": "Kết quả đã chốt:"
   },
   "Common": {
     "level": "Cấp độ {level}",

@@ -5,7 +5,7 @@ import type { Locale } from "@/i18n/locales";
 
 export type ActivityEvent = {
   id: string;
-  type: "position_opened" | "position_closed_win" | "position_closed_loss" | "copy_started" | "deposit" | "withdrawal";
+  type: "position_opened" | "position_closed_win" | "position_closed_loss" | "position_closed_flat" | "copy_started" | "deposit" | "withdrawal";
   at: string;
   providerName?: string;
   symbol?: string;
@@ -17,6 +17,7 @@ function EventIcon({ type }: { type: ActivityEvent["type"] }) {
     position_opened: <path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />,
     position_closed_win: <path d="M23 6l-9.5 9.5-5-5L1 18M17 6h6v6" />,
     position_closed_loss: <path d="M23 18l-9.5-9.5-5 5L1 6M17 18h6v-6" />,
+    position_closed_flat: <path d="M4 12h16" />,
     copy_started: (
       <>
         <rect x="9" y="9" width="12" height="12" rx="2" />
@@ -30,6 +31,7 @@ function EventIcon({ type }: { type: ActivityEvent["type"] }) {
     position_opened: "text-accent bg-accent/10",
     position_closed_win: "text-success bg-success/10",
     position_closed_loss: "text-danger bg-danger/10",
+    position_closed_flat: "text-muted bg-white/5",
     copy_started: "text-accent bg-accent/10",
     deposit: "text-success bg-success/10",
     withdrawal: "text-warning bg-warning/10",
@@ -57,6 +59,8 @@ export async function RecentActivityTimeline({ events }: { events: ActivityEvent
         return t("activityPositionClosedWin", { symbol: e.symbol ?? "" });
       case "position_closed_loss":
         return t("activityPositionClosedLoss", { symbol: e.symbol ?? "" });
+      case "position_closed_flat":
+        return t("activityPositionClosedFlat", { symbol: e.symbol ?? "" });
       case "copy_started":
         return t("activityCopyStarted", { name: e.providerName ?? "" });
       case "deposit":

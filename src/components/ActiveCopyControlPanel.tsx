@@ -58,6 +58,12 @@ export async function ActiveCopyControlPanel({
             <p className="text-xs text-muted">
               {t("startedWith", { amount: money(provider.allocatedAmount) })}
             </p>
+            <p className="text-xs text-muted">
+              {t("copyRealizedPnl")}{" "}
+              <span dir="ltr" className={`inline-block font-medium ${provider.cumulativePnl > 0 ? "text-success" : provider.cumulativePnl < 0 ? "text-danger" : "text-foreground"}`}>
+                {money(provider.cumulativePnl, { signed: true })}
+              </span>
+            </p>
           </div>
         </Link>
         <form action={stopCopyingNow}>

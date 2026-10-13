@@ -20,6 +20,11 @@ function ActionIcon({ children }: { children: React.ReactNode }) {
 }
 
 // A label with its figure directly beneath it, aligned to the start edge in both directions.
+const pctText = (v: number) => {
+  const r = Number(v.toFixed(2));
+  return `${r > 0 ? "+" : r < 0 ? "-" : ""}${Math.abs(r).toFixed(2)}%`;
+};
+
 function ProfitStat({ label, amount, pct, money }: { label: string; amount: number; pct: number; money: Money }) {
   const positive = amount >= 0;
   return (
@@ -27,8 +32,7 @@ function ProfitStat({ label, amount, pct, money }: { label: string; amount: numb
       <p className="text-xs text-muted">{label}</p>
       <p className="mt-0.5 text-sm font-semibold">
         <span dir="ltr" className={`inline-block ${positive ? "text-success" : "text-danger"}`}>
-          {money(amount, { signed: true })} ({positive ? "+" : "-"}
-          {Math.abs(pct).toFixed(2)}%)
+          {money(amount, { signed: true })} ({pctText(pct)})
         </span>
       </p>
     </div>
@@ -93,8 +97,7 @@ export async function DashboardHero({
         <p className="text-start text-xs text-muted">
           {t("unrealizedPnl")}{" "}
           <span dir="ltr" className={`inline-block ${pnlPositive ? "text-success" : "text-danger"}`}>
-            {money(totalUnrealizedPnl, { signed: true })} ({pnlPositive ? "+" : "-"}
-            {Math.abs(pnlPct).toFixed(2)}%)
+            {money(totalUnrealizedPnl, { signed: true })} ({pctText(pnlPct)})
           </span>
         </p>
       </div>

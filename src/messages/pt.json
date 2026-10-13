@@ -189,7 +189,9 @@
     "perfBestTrade": "Melhor operação",
     "perfWorstTrade": "Pior operação",
     "perfAvgTrade": "Média por operação",
-    "perfProfitFactor": "Fator de lucro"
+    "perfProfitFactor": "Fator de lucro",
+    "activityPositionClosedFlat": "Operação {symbol} fechada sem lucro nem prejuízo",
+    "copyRealizedPnl": "Resultado realizado:"
   },
   "Common": {
     "level": "Nível {level}",
