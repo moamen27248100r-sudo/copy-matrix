@@ -52,9 +52,10 @@ export async function MarketNewsSection({ providerIds, openSymbols }: { provider
               href={n.link}
               target="_blank"
               rel="noopener noreferrer"
+              dir="auto"
               className="flex min-h-14 flex-col gap-1 px-4 py-3 text-start transition hover:bg-white/[0.03]"
             >
-              <span dir="auto" className="text-sm font-medium leading-snug">
+              <span className="text-sm font-medium leading-snug">
                 {n.title}
               </span>
               <span className="text-xs text-muted">
