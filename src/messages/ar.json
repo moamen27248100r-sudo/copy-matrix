@@ -180,9 +180,16 @@
     "portfolioAllocationTitle": "توزيع المحفظة",
     "allocationAvailableCash": "نقدي متاح",
     "mostCopiedThisWeekTitle": "الأكثر نسخًا هذا الأسبوع",
-    "copiersThisWeek": "{count} ناسخ جديد هذا الأسبوع",
+    "copiersThisWeek": "{count, plural, one {ناسخ جديد واحد هذا الأسبوع} two {ناسخان جديدان هذا الأسبوع} few {# ناسخين جدد هذا الأسبوع} other {# ناسخ جديد هذا الأسبوع}}",
     "viewAllPositions": "عرض كل الصفقات ({count})",
-    "resetBalanceConfirm": "هل تريد إعادة تعيين رصيدك التجريبي إلى $10,000؟ سيتوقف النسخ الحالي."
+    "resetBalanceConfirm": "هل تريد إعادة تعيين رصيدك التجريبي إلى $10,000؟ سيتوقف النسخ الحالي.",
+    "perfTitle": "ملخص التداول",
+    "perfWinRate": "نسبة النجاح",
+    "perfClosedTrades": "الصفقات المغلقة",
+    "perfBestTrade": "أفضل صفقة",
+    "perfWorstTrade": "أسوأ صفقة",
+    "perfAvgTrade": "متوسط الصفقة",
+    "perfProfitFactor": "عامل الربح"
   },
   "Common": {
     "level": "المستوى {level}",

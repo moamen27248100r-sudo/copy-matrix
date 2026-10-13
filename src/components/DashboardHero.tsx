@@ -1,12 +1,10 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { AccountTypeSwitcher } from "@/components/AccountTypeSwitcher";
 import { ConfirmButton } from "@/components/ConfirmButton";
 import { MyEquityChart } from "@/components/MyEquityChart";
 import { CountUp } from "@/components/ui/CountUp";
 import { getMoney } from "@/lib/money-server";
 import type { MoneyOptions } from "@/lib/money";
-import { chooseAccountType } from "@/app/auth/actions";
 import { resetDemoBalance } from "@/app/portfolio/actions";
 
 type AccountType = "real" | "demo";
@@ -65,7 +63,6 @@ export async function DashboardHero({
 }) {
   const money = await getMoney();
   const t = await getTranslations("Dashboard");
-  const tNav = await getTranslations("Nav");
   // balance already includes any reserved copy capital (allocated_amount is
   // a reservation on the same dollars, not separate money) -- only
   // unrealized P&L, not yet in balance until a position closes, is added.
@@ -73,7 +70,6 @@ export async function DashboardHero({
   const availableCash = Math.max(0, balance - totalAllocated);
   const pnlPct = balance > 0 ? (totalUnrealizedPnl / balance) * 100 : 0;
   const pnlPositive = totalUnrealizedPnl >= 0;
-  const accountTypeShort = (v: AccountType) => (v === "real" ? t("accountTypeShortReal") : t("accountTypeShortDemo"));
   const totalProfit = totalRealizedPnl + totalUnrealizedPnl;
   const totalProfitPct = balance > 0 ? (totalProfit / balance) * 100 : 0;
   const todayPct = balance > 0 ? (todayPnl / balance) * 100 : 0;
@@ -82,20 +78,6 @@ export async function DashboardHero({
     <section className="flex flex-col gap-5 rounded-2xl border border-border bg-surface p-5">
       <div className="flex items-center justify-between gap-3">
         <span className="text-sm text-muted">{t("portfolioValue")}</span>
-
-        <AccountTypeSwitcher
-          accountType={accountType}
-          next="/dashboard"
-          ariaLabel={t("accountTypeAriaLabel")}
-          options={[
-            { key: "real", label: accountTypeShort("real") },
-            { key: "demo", label: accountTypeShort("demo") },
-          ]}
-          confirmTitle={t("switchAccountConfirmTitle")}
-          confirmText={tNav("switchAccountWarning")}
-          confirmCta={t("switchAccountConfirmCta")}
-          cancelCta={t("switchAccountCancelCta")}
-        />
       </div>
 
       <div className="flex flex-col gap-1.5">
@@ -174,7 +156,7 @@ export async function DashboardHero({
           </Link>
         </div>
       ) : (
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-2 gap-2">
           <form action={resetDemoBalance}>
             <input type="hidden" name="returnTo" value="/dashboard" />
             <ConfirmButton
@@ -198,19 +180,6 @@ export async function DashboardHero({
             </ActionIcon>
             {t("copy")}
           </Link>
-          <form action={chooseAccountType}>
-            <input type="hidden" name="accountType" value="real" />
-            <input type="hidden" name="next" value="/dashboard" />
-            <ConfirmButton
-              confirmText={tNav("switchAccountWarning")}
-              className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-accent px-3 py-2.5 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
-            >
-              <ActionIcon>
-                <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" />
-              </ActionIcon>
-              {t("demoBannerAction")}
-            </ConfirmButton>
-          </form>
         </div>
       )}
     </section>

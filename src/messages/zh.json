@@ -182,7 +182,14 @@
     "mostCopiedThisWeekTitle": "本周最多人跟单",
     "copiersThisWeek": "本周新增 {count} 位跟单者",
     "viewAllPositions": "查看全部 {count} 个持仓",
-    "resetBalanceConfirm": "将模拟余额重置为 $10,000？当前的跟单将会停止。"
+    "resetBalanceConfirm": "将模拟余额重置为 $10,000？当前的跟单将会停止。",
+    "perfTitle": "交易摘要",
+    "perfWinRate": "胜率",
+    "perfClosedTrades": "已平仓交易",
+    "perfBestTrade": "最佳交易",
+    "perfWorstTrade": "最差交易",
+    "perfAvgTrade": "每笔平均",
+    "perfProfitFactor": "盈亏比"
   },
   "Common": {
     "level": "等级 {level}",

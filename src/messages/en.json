@@ -180,9 +180,16 @@
     "portfolioAllocationTitle": "Portfolio allocation",
     "allocationAvailableCash": "Available cash",
     "mostCopiedThisWeekTitle": "Most copied this week",
-    "copiersThisWeek": "{count} new copiers this week",
+    "copiersThisWeek": "{count, plural, one {# new copier this week} other {# new copiers this week}}",
     "viewAllPositions": "View all {count} positions",
-    "resetBalanceConfirm": "Reset your demo balance to $10,000? Your current copies will stop."
+    "resetBalanceConfirm": "Reset your demo balance to $10,000? Your current copies will stop.",
+    "perfTitle": "Trading summary",
+    "perfWinRate": "Win rate",
+    "perfClosedTrades": "Closed trades",
+    "perfBestTrade": "Best trade",
+    "perfWorstTrade": "Worst trade",
+    "perfAvgTrade": "Average per trade",
+    "perfProfitFactor": "Profit factor"
   },
   "Common": {
     "level": "Level {level}",

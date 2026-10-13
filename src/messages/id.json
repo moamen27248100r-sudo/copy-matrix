@@ -182,7 +182,14 @@
     "mostCopiedThisWeekTitle": "Paling banyak disalin minggu ini",
     "copiersThisWeek": "{count} penyalin baru minggu ini",
     "viewAllPositions": "Lihat semua {count} posisi",
-    "resetBalanceConfirm": "Atur ulang saldo demo ke $10.000? Salinan Anda saat ini akan dihentikan."
+    "resetBalanceConfirm": "Atur ulang saldo demo ke $10.000? Salinan Anda saat ini akan dihentikan.",
+    "perfTitle": "Ringkasan trading",
+    "perfWinRate": "Rasio menang",
+    "perfClosedTrades": "Trade ditutup",
+    "perfBestTrade": "Trade terbaik",
+    "perfWorstTrade": "Trade terburuk",
+    "perfAvgTrade": "Rata-rata per trade",
+    "perfProfitFactor": "Faktor profit"
   },
   "Common": {
     "level": "Level {level}",

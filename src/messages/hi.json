@@ -182,7 +182,14 @@
     "mostCopiedThisWeekTitle": "इस सप्ताह सबसे ज़्यादा कॉपी किए गए",
     "copiersThisWeek": "इस सप्ताह {count} नए कॉपियर",
     "viewAllPositions": "सभी {count} पोज़िशन देखें",
-    "resetBalanceConfirm": "डेमो बैलेंस को $10,000 पर रीसेट करें? आपकी मौजूदा कॉपी बंद हो जाएंगी।"
+    "resetBalanceConfirm": "डेमो बैलेंस को $10,000 पर रीसेट करें? आपकी मौजूदा कॉपी बंद हो जाएंगी।",
+    "perfTitle": "ट्रेडिंग सारांश",
+    "perfWinRate": "जीत दर",
+    "perfClosedTrades": "बंद ट्रेड",
+    "perfBestTrade": "सर्वश्रेष्ठ ट्रेड",
+    "perfWorstTrade": "सबसे खराब ट्रेड",
+    "perfAvgTrade": "प्रति ट्रेड औसत",
+    "perfProfitFactor": "प्रॉफिट फैक्टर"
   },
   "Common": {
     "level": "लेवल {level}",

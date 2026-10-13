@@ -182,7 +182,14 @@
     "mostCopiedThisWeekTitle": "Waliyonakiliwa zaidi wiki hii",
     "copiersThisWeek": "Wanakili {count} wapya wiki hii",
     "viewAllPositions": "Tazama nafasi zote {count}",
-    "resetBalanceConfirm": "Weka upya salio lako la demo hadi $10,000? Nakala zako za sasa zitasimama."
+    "resetBalanceConfirm": "Weka upya salio lako la demo hadi $10,000? Nakala zako za sasa zitasimama.",
+    "perfTitle": "Muhtasari wa biashara",
+    "perfWinRate": "Kiwango cha ushindi",
+    "perfClosedTrades": "Biashara zilizofungwa",
+    "perfBestTrade": "Biashara bora zaidi",
+    "perfWorstTrade": "Biashara mbaya zaidi",
+    "perfAvgTrade": "Wastani kwa biashara",
+    "perfProfitFactor": "Kipengele cha faida"
   },
   "Common": {
     "level": "Kiwango {level}",

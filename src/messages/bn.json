@@ -182,7 +182,14 @@
     "mostCopiedThisWeekTitle": "এই সপ্তাহে সবচেয়ে বেশি কপি হয়েছে",
     "copiersThisWeek": "এই সপ্তাহে {count} জন নতুন কপিয়ার",
     "viewAllPositions": "সব {count}টি পজিশন দেখুন",
-    "resetBalanceConfirm": "ডেমো ব্যালেন্স $10,000-তে রিসেট করবেন? আপনার বর্তমান কপি বন্ধ হয়ে যাবে।"
+    "resetBalanceConfirm": "ডেমো ব্যালেন্স $10,000-তে রিসেট করবেন? আপনার বর্তমান কপি বন্ধ হয়ে যাবে।",
+    "perfTitle": "ট্রেডিং সারসংক্ষেপ",
+    "perfWinRate": "জয়ের হার",
+    "perfClosedTrades": "বন্ধ ট্রেড",
+    "perfBestTrade": "সেরা ট্রেড",
+    "perfWorstTrade": "সবচেয়ে খারাপ ট্রেড",
+    "perfAvgTrade": "প্রতি ট্রেডের গড়",
+    "perfProfitFactor": "প্রফিট ফ্যাক্টর"
   },
   "Common": {
     "level": "লেভেল {level}",

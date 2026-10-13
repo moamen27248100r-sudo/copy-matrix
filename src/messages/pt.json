@@ -180,9 +180,16 @@
     "portfolioAllocationTitle": "Distribuição da carteira",
     "allocationAvailableCash": "Dinheiro disponível",
     "mostCopiedThisWeekTitle": "Mais copiados esta semana",
-    "copiersThisWeek": "{count} novos copiadores esta semana",
+    "copiersThisWeek": "{count, plural, one {# novo copiador esta semana} other {# novos copiadores esta semana}}",
     "viewAllPositions": "Ver todas as {count} posições",
-    "resetBalanceConfirm": "Redefinir o seu saldo demo para $10.000? As suas cópias atuais serão interrompidas."
+    "resetBalanceConfirm": "Redefinir o seu saldo demo para $10.000? As suas cópias atuais serão interrompidas.",
+    "perfTitle": "Resumo de trading",
+    "perfWinRate": "Taxa de acerto",
+    "perfClosedTrades": "Operações fechadas",
+    "perfBestTrade": "Melhor operação",
+    "perfWorstTrade": "Pior operação",
+    "perfAvgTrade": "Média por operação",
+    "perfProfitFactor": "Fator de lucro"
   },
   "Common": {
     "level": "Nível {level}",

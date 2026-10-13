@@ -4,6 +4,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
+import { getUserTimeZone } from "@/lib/timezone";
+import { PerformanceSummary } from "@/components/PerformanceSummary";
 import { AppNav } from "@/components/AppNav";
 import { DashboardHero } from "@/components/DashboardHero";
 import { MarketTicker } from "@/components/MarketTicker";
@@ -122,10 +124,12 @@ export default async function DashboardPage({
   const closedPositions = allPositions.filter((p) => p.status === "closed");
   const openPositionsCount = openPositions.length;
   const netPnl = closedPositions.reduce((sum, p) => sum + (p.pnl ?? 0), 0);
-  const now = new Date();
-  const todayUtcStart = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+  const timeZone = await getUserTimeZone();
+  // "Today" and the greeting follow the customer's own timezone (Settings), not the server's.
+  const dayKey = (d: Date) => d.toLocaleDateString("en-CA", { timeZone });
+  const todayKey = dayKey(new Date());
   const todayPnl = closedPositions
-    .filter((p) => p.closed_at && new Date(p.closed_at).getTime() >= todayUtcStart)
+    .filter((p) => p.closed_at && dayKey(new Date(p.closed_at)) === todayKey)
     .reduce((sum, p) => sum + (p.pnl ?? 0), 0);
 
   // Same threshold auto_stop_copy checks server-side (0168): cumulative
@@ -229,7 +233,7 @@ export default async function DashboardPage({
     accountType === "real" && kycStatus !== "approved" ? kycCopyByStatus[kycStatus] ?? kycCopyByStatus.none : null;
   const showDemoBanner = accountType === "demo";
 
-  const hour = new Date().getHours();
+  const hour = Number(new Intl.DateTimeFormat("en-GB", { hour: "2-digit", hourCycle: "h23", timeZone }).format(new Date()));
   const greetingName = profile?.display_name ?? user.email ?? "";
   const greeting = hour >= 5 && hour < 18 ? t("greetingMorning", { name: greetingName }) : t("greetingEvening", { name: greetingName });
 
@@ -378,6 +382,8 @@ export default async function DashboardPage({
           ))}
         </section>
 
+        {closedPositions.length > 0 && <PerformanceSummary pnls={closedPositions.map((p) => Number(p.pnl ?? 0))} />}
+
         <section id="my-copies" className="flex flex-col gap-3 scroll-mt-20">
           {copiedProviders.length > 0 && (
             <div className="flex items-center justify-between">
@@ -435,7 +441,7 @@ export default async function DashboardPage({
               <PortfolioAllocationDonut
                 slices={allocationSlices}
                 totalLabel={t("portfolioValue")}
-                totalValue={Number(profile?.balance ?? 0)}
+                totalValue={Number(profile?.balance ?? 0) + totalUnrealizedPnl}
               />
             </div>
           </section>

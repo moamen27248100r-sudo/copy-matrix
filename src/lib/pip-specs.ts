@@ -122,7 +122,7 @@ export function openPositionPnl(side: string, entry: number, current: number, si
 export function lotsFromSize(symbol: string, entry: number, size: number): number | null {
   const spec = PIP_SPECS[symbol];
   if (!spec || !(entry > 0) || !(size > 0)) return null;
-  return Math.round(((size * spec.pipSize) / (spec.pipValuePerLot * entry)) * 100) / 100;
+  return Math.round(((size * spec.pipSize) / (spec.pipValuePerLot * entry)) * 1000) / 1000;
 }
 
 export const FOREX_SYMBOLS = ["EURUSD", "GBPUSD", "USDJPY"];

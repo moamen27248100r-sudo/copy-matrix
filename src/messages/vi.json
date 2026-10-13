@@ -182,7 +182,14 @@
     "mostCopiedThisWeekTitle": "Được sao chép nhiều nhất tuần này",
     "copiersThisWeek": "{count} người sao chép mới tuần này",
     "viewAllPositions": "Xem tất cả {count} vị thế",
-    "resetBalanceConfirm": "Đặt lại số dư demo về $10.000? Các lệnh sao chép hiện tại sẽ dừng lại."
+    "resetBalanceConfirm": "Đặt lại số dư demo về $10.000? Các lệnh sao chép hiện tại sẽ dừng lại.",
+    "perfTitle": "Tóm tắt giao dịch",
+    "perfWinRate": "Tỷ lệ thắng",
+    "perfClosedTrades": "Lệnh đã đóng",
+    "perfBestTrade": "Lệnh tốt nhất",
+    "perfWorstTrade": "Lệnh tệ nhất",
+    "perfAvgTrade": "Trung bình mỗi lệnh",
+    "perfProfitFactor": "Hệ số lợi nhuận"
   },
   "Common": {
     "level": "Cấp độ {level}",

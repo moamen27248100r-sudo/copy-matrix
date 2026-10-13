@@ -182,7 +182,14 @@
     "mostCopiedThisWeekTitle": "اس ہفتے سب سے زیادہ کاپی کیے گئے",
     "copiersThisWeek": "اس ہفتے {count} نئے کاپی کرنے والے",
     "viewAllPositions": "تمام {count} پوزیشنیں دیکھیں",
-    "resetBalanceConfirm": "ڈیمو بیلنس کو $10,000 پر ری سیٹ کریں؟ آپ کی موجودہ کاپیاں رک جائیں گی۔"
+    "resetBalanceConfirm": "ڈیمو بیلنس کو $10,000 پر ری سیٹ کریں؟ آپ کی موجودہ کاپیاں رک جائیں گی۔",
+    "perfTitle": "ٹریڈنگ کا خلاصہ",
+    "perfWinRate": "کامیابی کی شرح",
+    "perfClosedTrades": "بند ٹریڈز",
+    "perfBestTrade": "بہترین ٹریڈ",
+    "perfWorstTrade": "بدترین ٹریڈ",
+    "perfAvgTrade": "فی ٹریڈ اوسط",
+    "perfProfitFactor": "پرافٹ فیکٹر"
   },
   "Common": {
     "level": "لیول {level}",

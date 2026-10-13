@@ -182,7 +182,14 @@
     "mostCopiedThisWeekTitle": "คัดลอกมากที่สุดในสัปดาห์นี้",
     "copiersThisWeek": "ผู้คัดลอกใหม่ {count} คนในสัปดาห์นี้",
     "viewAllPositions": "ดูสถานะทั้งหมด {count} รายการ",
-    "resetBalanceConfirm": "รีเซ็ตยอดคงเหลือเดโมเป็น $10,000 หรือไม่ การคัดลอกที่ใช้งานอยู่จะหยุดลง"
+    "resetBalanceConfirm": "รีเซ็ตยอดคงเหลือเดโมเป็น $10,000 หรือไม่ การคัดลอกที่ใช้งานอยู่จะหยุดลง",
+    "perfTitle": "สรุปการเทรด",
+    "perfWinRate": "อัตราชนะ",
+    "perfClosedTrades": "เทรดที่ปิดแล้ว",
+    "perfBestTrade": "เทรดที่ดีที่สุด",
+    "perfWorstTrade": "เทรดที่แย่ที่สุด",
+    "perfAvgTrade": "เฉลี่ยต่อเทรด",
+    "perfProfitFactor": "ปัจจัยกำไร"
   },
   "Common": {
     "level": "ระดับ {level}",
