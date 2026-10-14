@@ -509,7 +509,12 @@
     "activityNone": "Inactif",
     "reliabilityStatusNone": "Pas encore de note",
     "gaugeTipActivity": "Fréquence de trading : trades clôturés par semaine sur les 90 derniers jours. Très actif dès 5 par semaine, actif dès 1.",
-    "stopCopyingConfirm": "Arrêter de copier {name} ? Vous pourrez recommencer à tout moment."
+    "stopCopyingConfirm": "Arrêter de copier {name} ? Vous pourrez recommencer à tout moment.",
+    "aumOver": "Plus de {amount}",
+    "statTotalReturn": "Rendement total",
+    "advancedStats": "Statistiques avancées",
+    "statProfitFactor": "Facteur de profit",
+    "statAvgWinLoss": "Gain / perte moyens"
   },
   "Discover": {
     "title": "Découvrir les traders",
@@ -617,7 +622,8 @@
     "stopCopyingConfirm": "Arrêter de copier {name} ? Vous pourrez recommencer à tout moment.",
     "insufficientData": "Données insuffisantes pour cette période",
     "tabTraders": "Traders",
-    "tabMarkets": "Marchés"
+    "tabMarkets": "Marchés",
+    "aumOver": "Plus de {amount}"
   },
   "Countries": {
     "US": "États-Unis",

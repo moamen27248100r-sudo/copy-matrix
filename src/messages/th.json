@@ -509,7 +509,12 @@
     "activityNone": "ไม่เคลื่อนไหว",
     "reliabilityStatusNone": "ยังไม่มีคะแนน",
     "gaugeTipActivity": "ความถี่ในการเทรด: จำนวนการเทรดที่ปิดต่อสัปดาห์ในช่วง 90 วันที่ผ่านมา เคลื่อนไหวมากตั้งแต่ 5 ครั้งต่อสัปดาห์ เคลื่อนไหวตั้งแต่ 1 ครั้ง",
-    "stopCopyingConfirm": "หยุดคัดลอก {name} หรือไม่? คุณสามารถเริ่มคัดลอกใหม่ได้ทุกเมื่อ"
+    "stopCopyingConfirm": "หยุดคัดลอก {name} หรือไม่? คุณสามารถเริ่มคัดลอกใหม่ได้ทุกเมื่อ",
+    "aumOver": "มากกว่า {amount}",
+    "statTotalReturn": "ผลตอบแทนรวม",
+    "advancedStats": "สถิติขั้นสูง",
+    "statProfitFactor": "ปัจจัยกำไร",
+    "statAvgWinLoss": "กำไร / ขาดทุนเฉลี่ย"
   },
   "Discover": {
     "title": "ค้นหาเทรดเดอร์",
@@ -617,7 +622,8 @@
     "stopCopyingConfirm": "หยุดคัดลอก {name} หรือไม่? คุณสามารถเริ่มคัดลอกใหม่ได้ทุกเมื่อ",
     "insufficientData": "ข้อมูลไม่เพียงพอสำหรับช่วงเวลานี้",
     "tabTraders": "เทรดเดอร์",
-    "tabMarkets": "ตลาด"
+    "tabMarkets": "ตลาด",
+    "aumOver": "มากกว่า {amount}"
   },
   "Countries": {
     "US": "สหรัฐอเมริกา",

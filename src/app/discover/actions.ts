@@ -1,7 +1,6 @@
 "use server";
 
 import { getMoney } from "@/lib/money-server";
-import { formatMoney } from "@/lib/money";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -27,7 +26,6 @@ function traderFollowEmailHtml(
     risk_level: string | null;
     win_rate_pct: number | null;
     avg_daily_return_pct: number | null;
-    total_profit: number | null;
     followers_count: number | null;
     closed_signals: number | null;
     joined_at: string;
@@ -50,7 +48,6 @@ function traderFollowEmailHtml(
         ${row(t("riskLevel"), provider.risk_level ?? "—")}
         ${row(t("winRate"), provider.win_rate_pct != null ? `${provider.win_rate_pct}%` : "—")}
         ${row(t("avgReturn"), provider.avg_daily_return_pct != null ? `${provider.avg_daily_return_pct}%` : "—")}
-        ${row(t("totalProfit"), provider.total_profit != null ? formatMoney(Number(provider.total_profit), locale) : "—")}
         ${row(t("followersCount"), provider.followers_count != null ? String(provider.followers_count) : "—")}
         ${row(t("closedSignals"), provider.closed_signals != null ? String(provider.closed_signals) : "—")}
         ${row(t("memberSinceLabel"), formatDate(provider.joined_at, locale, { year: "numeric", month: "long" }))}
@@ -341,7 +338,7 @@ export async function followTrader(formData: FormData) {
     const { data: provider } = await supabase
       .from("provider_cards")
       .select(
-        "display_name, bio, tier, risk_level, win_rate_pct, avg_daily_return_pct, total_profit, followers_count, closed_signals, joined_at",
+        "display_name, bio, tier, risk_level, win_rate_pct, avg_daily_return_pct, followers_count, closed_signals, joined_at",
       )
       .eq("provider_id", providerId)
       .single();

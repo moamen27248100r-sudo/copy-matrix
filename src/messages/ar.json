@@ -509,7 +509,12 @@
     "activityNone": "غير نشط",
     "reliabilityStatusNone": "لا توجد درجة بعد",
     "gaugeTipActivity": "مدى تكرار تداول المتداول: عدد الصفقات المغلقة أسبوعيًا خلال آخر 90 يومًا. نشط جدًا من 5 صفقات أسبوعيًا، ونشط من صفقة واحدة.",
-    "stopCopyingConfirm": "إيقاف نسخ {name}؟ يمكنك بدء النسخ مجدداً في أي وقت."
+    "stopCopyingConfirm": "إيقاف نسخ {name}؟ يمكنك بدء النسخ مجدداً في أي وقت.",
+    "aumOver": "أكثر من {amount}",
+    "statTotalReturn": "العائد الإجمالي",
+    "advancedStats": "إحصائيات متقدمة",
+    "statProfitFactor": "معامل الربح",
+    "statAvgWinLoss": "متوسط الربح / الخسارة"
   },
   "Discover": {
     "title": "اكتشاف المتداولين",
@@ -617,7 +622,8 @@
     "stopCopyingConfirm": "إيقاف نسخ {name}؟ يمكنك بدء النسخ مجدداً في أي وقت.",
     "insufficientData": "بيانات غير كافية لهذه الفترة",
     "tabTraders": "المتداولون",
-    "tabMarkets": "الأسواق"
+    "tabMarkets": "الأسواق",
+    "aumOver": "أكثر من {amount}"
   },
   "Countries": {
     "US": "الولايات المتحدة",

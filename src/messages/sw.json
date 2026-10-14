@@ -509,7 +509,12 @@
     "activityNone": "Hana shughuli",
     "reliabilityStatusNone": "Bado hakuna alama",
     "gaugeTipActivity": "Mara ngapi mfanyabiashara hufanya biashara: biashara zilizofungwa kwa wiki katika siku 90 zilizopita. Mwenye shughuli nyingi kuanzia 5 kwa wiki, anashughulika kuanzia 1.",
-    "stopCopyingConfirm": "Acha kunakili {name}? Unaweza kuanza kunakili tena wakati wowote."
+    "stopCopyingConfirm": "Acha kunakili {name}? Unaweza kuanza kunakili tena wakati wowote.",
+    "aumOver": "Zaidi ya {amount}",
+    "statTotalReturn": "Faida ya jumla",
+    "advancedStats": "Takwimu za kina",
+    "statProfitFactor": "Kigezo cha faida",
+    "statAvgWinLoss": "Wastani wa faida / hasara"
   },
   "Discover": {
     "title": "Gundua wafanyabiashara",
@@ -617,7 +622,8 @@
     "stopCopyingConfirm": "Acha kunakili {name}? Unaweza kuanza kunakili tena wakati wowote.",
     "insufficientData": "Data haitoshi kwa kipindi hiki",
     "tabTraders": "Wafanyabiashara",
-    "tabMarkets": "Masoko"
+    "tabMarkets": "Masoko",
+    "aumOver": "Zaidi ya {amount}"
   },
   "Countries": {
     "US": "Marekani",

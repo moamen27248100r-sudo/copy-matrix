@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
 import { parsePeriod, periodStats } from "@/lib/leader-period";
+import { aumBandFloor } from "@/lib/aum-band";
 import { fmtReturn } from "@/lib/format-stats";
 import { adjustedMaxDrawdown } from "@/lib/leader-scores";
 import { adjustedDrawdowns } from "@/lib/leader-drawdown";
@@ -32,14 +33,13 @@ export default async function ComparePage({ searchParams }: { searchParams: Prom
   const periodLabel = t(`periodShort_${period}`);
   const rows: { label: string; value: (p: (typeof list)[number]) => string }[] = [
     { label: t("roiLabel", { period: periodLabel }), value: (p) => pct(periodStats(p, period).roi, true) },
-    { label: `${t("pnlLabel")} (${periodLabel})`, value: (p) => { const v = periodStats(p, period).pnl; return v == null ? "—" : money(v, { signed: true }); } },
     { label: t("winRate"), value: (p) => pct(periodStats(p, period).winRate) },
     { label: t("compareMaxDrawdown"), value: (p) => { const s = periodStats(p, period); return s.sufficient ? pct(adjustedMaxDrawdown(s.mdd, adjustedDd.get(String(p.provider_id)) ?? null)) : "—"; } },
     { label: t("compareSharpe"), value: (p) => String(periodStats(p, period).sharpe ?? "—") },
     { label: t("compareTrades"), value: (p) => { const s = periodStats(p, period); return `${s.trades ?? 0}${s.sufficient ? "" : " ⓘ"}`; } },
     { label: t("compareTotalReturn"), value: (p) => pct(p.roi_all != null ? Number(p.roi_all) : null, true) },
     { label: t("copiersLabel"), value: (p) => String(p.followers_count) },
-    { label: t("aumLabel"), value: (p) => (p.aum ? money(Number(p.aum), { compact: true }) : "—") },
+    { label: t("aumLabel"), value: (p) => (aumBandFloor(p.aum_band) != null ? t("aumOver", { amount: money(aumBandFloor(p.aum_band) as number, { compact: true }) }) : "—") },
     { label: t("profitShareLabel"), value: (p) => (p.profit_share_pct != null ? `${Number(p.profit_share_pct)}%` : "—") },
     { label: t("minCopyAmountLabel"), value: (p) => money(Number(p.min_copy_amount)) },
   ];

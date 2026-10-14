@@ -17,6 +17,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { fmtDrawdown, fmtReturn, fmtWinRate } from "@/lib/format-stats";
 import { MIN_CLOSED_TRADES, adjustedMaxDrawdown } from "@/lib/leader-scores";
 import { adjustedDrawdowns } from "@/lib/leader-drawdown";
+import { aumBandAtLeast, aumBandFloor } from "@/lib/aum-band";
 import { isSelfServiceLeadTraderEligible } from "@/lib/lead-trader-tasks";
 import {
   PERIODS,
@@ -32,12 +33,11 @@ import {
 // whose numbers all come from the leaders' trades (provider_stats), so the
 // counts and pages are exact.
 
-const SORT_KEYS = ["best", "roi", "pnl", "winrate", "drawdown", "followers", "aum", "sharpe", "newest"] as const;
+const SORT_KEYS = ["best", "roi", "winrate", "drawdown", "followers", "aum", "sharpe", "newest"] as const;
 type SortKey = (typeof SORT_KEYS)[number];
 const SORT_LABEL: Record<SortKey, string> = {
   best: "sortBest",
   roi: "sortReturn",
-  pnl: "sortProfit",
   winrate: "sortWinrate",
   drawdown: "sortDrawdown",
   followers: "sortFollowers",
@@ -197,7 +197,7 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
   if (minWin) query = query.gte(cols.winRate, Number(minWin));
   if (roiMin) query = roiMin === "0" ? query.gt(cols.roi, 0) : query.gte(cols.roi, Number(roiMin));
   if (followersMin) query = query.gte("followers_count", Number(followersMin));
-  if (aumMin) query = query.gte("aum", Number(aumMin));
+  if (aumMin) query = query.gte("aum_band", aumBandAtLeast(Number(aumMin)));
   if (ddMax) query = query.lte(cols.mdd, Number(ddMax));
   // "Minimum entry" filters by the customer's budget: leaders whose minimum
   // copy amount fits it.
@@ -210,11 +210,10 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
   const order: Record<SortKey, [string, boolean]> = {
     best: ["rating_score", false],
     roi: [cols.roi, false],
-    pnl: [cols.pnl, false],
     winrate: [cols.winRate, false],
     drawdown: [cols.mdd, true],
     followers: ["followers_count", false],
-    aum: ["aum", false],
+    aum: ["aum_band", false],
     sharpe: [cols.sharpe, false],
     newest: ["joined_at", false],
   };
@@ -524,7 +523,6 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
                 <tr className="border-b border-border bg-surface text-xs text-muted">
                   <th className="px-4 py-3 text-start font-normal">{t("tableName")}</th>
                   <th className="px-3 py-3 text-start font-normal">{t("roiLabel", { period: periodLabel(period) })}</th>
-                  <th className="px-3 py-3 text-start font-normal">{t("pnlLabel")}</th>
                   <th className="px-3 py-3 text-start font-normal">{t("winRate")}</th>
                   <th className="px-3 py-3 text-start font-normal">{t("maxDrawdown")}</th>
                   <th className="px-3 py-3 text-start font-normal">{t("copiersLabel")}</th>
@@ -546,15 +544,12 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
                       <td className={`px-3 py-3 text-sm ${s.roi != null && s.roi < 0 ? "text-danger" : "text-success"}`} dir="ltr" title={s.sufficient ? undefined : t("insufficientData")}>
                         {fmtReturn(s.roi)}
                       </td>
-                      <td className={`px-3 py-3 text-sm ${s.pnl != null && s.pnl < 0 ? "text-danger" : ""}`} dir="ltr">
-                        {s.pnl != null ? money(s.pnl, { signed: true, compact: true }) : "—"}
-                      </td>
                       <td className="px-3 py-3 text-sm" dir="ltr" title={s.sufficient ? undefined : t("insufficientData")}>{fmtWinRate(s.winRate)}</td>
                       <td className="px-3 py-3 text-sm" dir="ltr" title={s.sufficient ? undefined : t("insufficientData")}>
                         {fmtDrawdown(s.sufficient ? adjustedMaxDrawdown(s.mdd, adjustedDd.get(String(p.provider_id)) ?? null) : null)}
                       </td>
                       <td className="px-3 py-3 text-sm">{p.followers_count}</td>
-                      <td className="px-3 py-3 text-sm" dir="ltr">{p.aum ? money(Number(p.aum), { compact: true }) : "—"}</td>
+                      <td className="px-3 py-3 text-sm" dir="ltr">{aumBandFloor(p.aum_band) != null ? t("aumOver", { amount: money(aumBandFloor(p.aum_band) as number, { compact: true }) }) : "—"}</td>
                       <td className="px-3 py-3 text-sm" dir="ltr">{p.profit_share_pct != null ? `${Number(p.profit_share_pct)}%` : "—"}</td>
                       <td className="px-3 py-3 text-end">
                         <Link href={compareHref(p.provider_id)} className="me-3 text-xs text-muted hover:text-accent">

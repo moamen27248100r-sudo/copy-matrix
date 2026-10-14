@@ -509,7 +509,12 @@
     "activityNone": "不活跃",
     "reliabilityStatusNone": "暂无评分",
     "gaugeTipActivity": "交易频率：过去 90 天内每周平仓的交易数。每周 5 笔及以上为非常活跃，1 笔及以上为活跃。",
-    "stopCopyingConfirm": "停止跟单 {name}？你可以随时重新开始跟单。"
+    "stopCopyingConfirm": "停止跟单 {name}？你可以随时重新开始跟单。",
+    "aumOver": "超过 {amount}",
+    "statTotalReturn": "总收益率",
+    "advancedStats": "高级统计",
+    "statProfitFactor": "盈亏比",
+    "statAvgWinLoss": "平均盈利 / 亏损"
   },
   "Discover": {
     "title": "发现交易员",
@@ -617,7 +622,8 @@
     "stopCopyingConfirm": "停止跟单 {name}？你可以随时重新开始跟单。",
     "insufficientData": "该时段数据不足",
     "tabTraders": "交易员",
-    "tabMarkets": "市场"
+    "tabMarkets": "市场",
+    "aumOver": "超过 {amount}"
   },
   "Countries": {
     "US": "美国",

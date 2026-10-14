@@ -17,7 +17,6 @@ export function periodColumns(p: Period) {
   const s = suffix(p);
   return {
     roi: `roi_${s}`,
-    pnl: `pnl_${s}`,
     winRate: `win_rate_${s}`,
     mdd: `mdd_${s}`,
     sharpe: `sharpe_${s}`,
@@ -31,7 +30,6 @@ export type PeriodStats = {
   /** false when fewer than MIN_CLOSED_TRADES trades closed in the period: return, win rate, drawdown and Sharpe are then null */
   sufficient: boolean;
   roi: number | null;
-  pnl: number | null;
   winRate: number | null;
   mdd: number | null;
   sharpe: number | null;
@@ -48,7 +46,6 @@ export function periodStats(row: Record<string, unknown>, p: Period): PeriodStat
   return {
     sufficient,
     roi: sufficient ? num(row[c.roi]) : null,
-    pnl: num(row[c.pnl]),
     winRate: sufficient ? num(row[c.winRate]) : null,
     mdd: sufficient ? num(row[c.mdd]) : null,
     sharpe: sufficient ? num(row[c.sharpe]) : null,

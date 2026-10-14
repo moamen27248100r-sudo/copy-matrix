@@ -36,10 +36,14 @@ test("signed adds + for gains", () => {
   assert.equal(m(0, "en", { signed: true }), "$0");
 });
 
-test("compact keeps K and M with the dollar sign", () => {
-  assert.equal(m(1120, "en", { compact: true }), "$1.12K");
-  assert.equal(m(-1120, "en", { compact: true }), "-$1.12K");
-  assert.equal(m(1250000, "en", { compact: true }), "$1.25M");
+test("compact shortens millions only, with a Latin letter, and never writes thousands in words", () => {
+  assert.equal(m(1120, "en", { compact: true }), "$1,120");
+  assert.equal(m(-1120, "en", { compact: true }), "-$1,120");
+  assert.equal(m(424420, "en", { compact: true }), "$424,420");
+  assert.equal(m(1250000, "en", { compact: true }), "$1.3M");
+  assert.equal(m(1200000, "en", { compact: true }), "$1.2M");
+  assert.equal(m(12000000, "ar", { compact: true }), "$12M");
+  assert.equal(m(1980, "ar", { signed: true, compact: true }), "+$1,980");
   assert.equal(m(850, "en", { compact: true }), "$850");
 });
 

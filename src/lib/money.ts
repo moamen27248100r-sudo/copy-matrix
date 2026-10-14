@@ -10,9 +10,21 @@ export type MoneyOptions = {
   decimals?: number;
   /** Prefix "+" for positive and "-" for negative values (P&L style). */
   signed?: boolean;
-  /** Short form for big headline stats (AUM, totals): $1.25M, $850.4K. Values under 1,000 stay in full. */
+  /**
+   * Short form for tight spaces, millions and above only: $1.2M, $3.4B -- always with a Latin letter,
+   * in every language. Anything under a million is written in full with thousands separators
+   * ("$424,420"); there are no word abbreviations ("thousand", "ألف") anywhere.
+   */
   compact?: boolean;
 };
+
+// "1.2M" / "12M" / "1.25B": one fraction digit under 10, none from 10 up.
+function shortMillions(abs: number): string {
+  const unit = abs >= 1e9 ? "B" : "M";
+  const v = abs / (abs >= 1e9 ? 1e9 : 1e6);
+  const text = v >= 10 ? String(Math.round(v)) : String(Number(v.toFixed(1)));
+  return `${text}${unit}`;
+}
 
 // The one place amounts are formatted: "$10,000", "$2.31", "-$749.90", "$1.33K".
 //   * a whole amount drops its fraction ("$10,000"), a real fraction keeps two digits ("$2.31");
@@ -25,15 +37,12 @@ export function formatMoney(value: number, locale: Locale, opts: MoneyOptions = 
   const { decimals = 2, signed = false, compact = false } = opts;
   const n = Number.isFinite(value) ? value : 0;
   const rounded = Number(Math.abs(n).toFixed(decimals));
-  const useCompact = compact && rounded >= 1000;
+  const useCompact = compact && rounded >= 1_000_000;
   const whole = Number.isInteger(rounded);
   const digits = whole ? 0 : decimals;
-  const abs = new Intl.NumberFormat(
-    localeTag(locale),
-    useCompact
-      ? { notation: "compact", compactDisplay: "short", maximumFractionDigits: 2 }
-      : { minimumFractionDigits: digits, maximumFractionDigits: digits },
-  ).format(rounded);
+  const abs = useCompact
+    ? shortMillions(rounded)
+    : new Intl.NumberFormat(localeTag(locale), { minimumFractionDigits: digits, maximumFractionDigits: digits }).format(rounded);
   const sign = n < 0 && rounded !== 0 ? "-" : signed && n > 0 && rounded !== 0 ? "+" : "";
   return `⁦${sign}$${abs}⁩`;
 }
@@ -43,13 +52,10 @@ export function formatMoney(value: number, locale: Locale, opts: MoneyOptions = 
 export function formatUsdt(value: number, locale: Locale, opts: MoneyOptions = {}): string {
   const { decimals = 2, signed = false, compact = false } = opts;
   const n = Number.isFinite(value) ? value : 0;
-  const useCompact = compact && Math.abs(n) >= 1000;
-  const abs = new Intl.NumberFormat(
-    localeTag(locale),
-    useCompact
-      ? { notation: "compact", compactDisplay: "short", maximumFractionDigits: 2 }
-      : { minimumFractionDigits: decimals, maximumFractionDigits: decimals },
-  ).format(Math.abs(n));
+  const useCompact = compact && Math.abs(n) >= 1_000_000;
+  const abs = useCompact
+    ? shortMillions(Math.abs(n))
+    : new Intl.NumberFormat(localeTag(locale), { minimumFractionDigits: decimals, maximumFractionDigits: decimals }).format(Math.abs(n));
   const rounded = Number(Math.abs(n).toFixed(decimals));
   const sign = n < 0 && rounded !== 0 ? "-" : signed && n > 0 && rounded !== 0 ? "+" : "";
   return `⁦${sign}${abs} ${CURRENCY}⁩`;

@@ -509,7 +509,12 @@
     "activityNone": "Tidak aktif",
     "reliabilityStatusNone": "Belum ada skor",
     "gaugeTipActivity": "Seberapa sering trader bertransaksi: transaksi ditutup per minggu selama 90 hari terakhir. Sangat aktif mulai 5 per minggu, aktif mulai 1.",
-    "stopCopyingConfirm": "Berhenti menyalin {name}? Anda dapat mulai menyalin lagi kapan saja."
+    "stopCopyingConfirm": "Berhenti menyalin {name}? Anda dapat mulai menyalin lagi kapan saja.",
+    "aumOver": "Lebih dari {amount}",
+    "statTotalReturn": "Total imbal hasil",
+    "advancedStats": "Statistik lanjutan",
+    "statProfitFactor": "Faktor profit",
+    "statAvgWinLoss": "Rata-rata untung / rugi"
   },
   "Discover": {
     "title": "Temukan trader",
@@ -617,7 +622,8 @@
     "stopCopyingConfirm": "Berhenti menyalin {name}? Anda dapat mulai menyalin lagi kapan saja.",
     "insufficientData": "Data tidak cukup untuk periode ini",
     "tabTraders": "Trader",
-    "tabMarkets": "Pasar"
+    "tabMarkets": "Pasar",
+    "aumOver": "Lebih dari {amount}"
   },
   "Countries": {
     "US": "Amerika Serikat",

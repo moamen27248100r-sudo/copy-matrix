@@ -509,7 +509,12 @@
     "activityNone": "Inactive",
     "reliabilityStatusNone": "No score yet",
     "gaugeTipActivity": "How often the trader trades: closed trades per week over the last 90 days. Very active from 5 a week, active from 1.",
-    "stopCopyingConfirm": "Stop copying {name}? You can start copying again at any time."
+    "stopCopyingConfirm": "Stop copying {name}? You can start copying again at any time.",
+    "aumOver": "Over {amount}",
+    "statTotalReturn": "Total return",
+    "advancedStats": "Advanced statistics",
+    "statProfitFactor": "Profit factor",
+    "statAvgWinLoss": "Avg. win / loss"
   },
   "Discover": {
     "title": "Discover traders",
@@ -617,7 +622,8 @@
     "stopCopyingConfirm": "Stop copying {name}? You can start copying again at any time.",
     "insufficientData": "Not enough data for this period",
     "tabTraders": "Traders",
-    "tabMarkets": "Markets"
+    "tabMarkets": "Markets",
+    "aumOver": "Over {amount}"
   },
   "Countries": {
     "US": "United States",

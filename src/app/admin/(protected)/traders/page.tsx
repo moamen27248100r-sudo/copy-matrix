@@ -51,7 +51,7 @@ export default async function AdminTradersPage({
     leaderIds.length > 0
       ? await supabase
           .from("provider_cards")
-          .select("provider_id, followers_count, win_rate_pct, avg_return_pct, tier, rating_score, closed_signals, roi_all, mdd_all, total_profit")
+          .select("provider_id, followers_count, win_rate_pct, avg_return_pct, tier, rating_score, closed_signals, roi_all, mdd_all")
           .in("provider_id", leaderIds)
       : { data: [] };
 
@@ -189,7 +189,7 @@ export default async function AdminTradersPage({
                     {Number(l.card?.closed_signals ?? 0) > 0 ? `-${Number(l.card?.mdd_all).toFixed(2)}%` : "—"} تراجع
                   </span>
                   <span className="rounded border border-border px-2 py-0.5" dir="ltr">
-                    {formatMoney(Number(l.card?.total_profit ?? 0), "ar", { signed: true })} ربح
+                    {formatMoney(Number(l.total_profit ?? 0), "ar", { signed: true })} ربح
                   </span>
                 </span>
               </summary>

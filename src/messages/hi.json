@@ -509,7 +509,12 @@
     "activityNone": "निष्क्रिय",
     "reliabilityStatusNone": "अभी कोई स्कोर नहीं",
     "gaugeTipActivity": "ट्रेडर कितनी बार ट्रेड करता है: पिछले 90 दिनों में प्रति सप्ताह बंद हुए ट्रेड। सप्ताह में 5 से बहुत सक्रिय, 1 से सक्रिय।",
-    "stopCopyingConfirm": "{name} को कॉपी करना बंद करें? आप कभी भी फिर से कॉपी करना शुरू कर सकते हैं।"
+    "stopCopyingConfirm": "{name} को कॉपी करना बंद करें? आप कभी भी फिर से कॉपी करना शुरू कर सकते हैं।",
+    "aumOver": "{amount} से अधिक",
+    "statTotalReturn": "कुल रिटर्न",
+    "advancedStats": "उन्नत आँकड़े",
+    "statProfitFactor": "प्रॉफिट फैक्टर",
+    "statAvgWinLoss": "औसत लाभ / हानि"
   },
   "Discover": {
     "title": "ट्रेडर खोजें",
@@ -617,7 +622,8 @@
     "stopCopyingConfirm": "{name} को कॉपी करना बंद करें? आप कभी भी फिर से कॉपी करना शुरू कर सकते हैं।",
     "insufficientData": "इस अवधि के लिए पर्याप्त डेटा नहीं",
     "tabTraders": "ट्रेडर्स",
-    "tabMarkets": "बाज़ार"
+    "tabMarkets": "बाज़ार",
+    "aumOver": "{amount} से अधिक"
   },
   "Countries": {
     "US": "संयुक्त राज्य अमेरिका",

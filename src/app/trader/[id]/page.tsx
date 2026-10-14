@@ -27,6 +27,7 @@ import { getBioTranslator } from "@/lib/bio-translations";
 import type { Locale } from "@/i18n/locales";
 import { leaderScores } from "@/lib/leader-scores";
 import { fmtDrawdown, fmtReturn, fmtWinRate } from "@/lib/format-stats";
+import { aumBandFloor } from "@/lib/aum-band";
 import { adjustedMaxDrawdown, hasEnoughSample } from "@/lib/leader-scores";
 import { adjustedDrawdowns } from "@/lib/leader-drawdown";
 import { isUuid } from "@/lib/uuid";
@@ -182,7 +183,6 @@ export default async function TraderPage({
     enoughData && provider.mdd_all != null && Number(provider.closed_signals) > 0
       ? adjustedMaxDrawdown(Number(provider.mdd_all), adjustedAll)
       : null;
-  const aum = Number(provider.aum ?? 0);
   const startRefusal = user
     ? copyRefusal({
         isStarting: true,
@@ -420,22 +420,10 @@ export default async function TraderPage({
             <p className="text-xs text-muted">{t("statCopiers")}</p>
           </div>
           <div>
-            <p className={Number(provider.total_profit) >= 0 ? "font-semibold text-success" : "font-semibold text-danger"}>
-              {money(Number(provider.total_profit), { signed: true, compact: true })}
+            <p className={Number(provider.roi_all) >= 0 ? "font-semibold text-success" : "font-semibold text-danger"} dir="ltr">
+              {enoughData ? fmtReturn(provider.roi_all != null ? Number(provider.roi_all) : null) : "—"}
             </p>
-            <p className="text-xs text-muted">{t("statTotalProfit")}</p>
-          </div>
-          <div>
-            <p className="font-semibold">
-              {money(Number(provider.total_withdrawals), { compact: true })}
-            </p>
-            <p className="text-xs text-muted">{t("statTotalWithdrawals")}</p>
-          </div>
-          <div>
-            <p className="font-semibold">
-              {money(Number(provider.account_capital ?? 0), { compact: true })}
-            </p>
-            <p className="text-xs text-muted">{t("statCurrentCapital")}</p>
+            <p className="text-xs text-muted">{t("statTotalReturn")}</p>
           </div>
           <div>
             <p className="font-semibold">
@@ -451,7 +439,7 @@ export default async function TraderPage({
           </div>
           <div>
             <p className="font-semibold" dir="ltr">
-              {aum > 0 ? money(aum, { compact: true }) : "—"}
+              {aumBandFloor(provider.aum_band) != null ? t("aumOver", { amount: money(aumBandFloor(provider.aum_band) as number, { compact: true }) }) : "—"}
             </p>
             <p className="text-xs text-muted">{t("statAum")}</p>
           </div>
@@ -465,17 +453,39 @@ export default async function TraderPage({
           )}
           <div>
             <p className="font-semibold tabular-nums" dir="ltr">
-              {sharpe ?? "—"}
-            </p>
-            <p className="text-xs text-muted">{t("statSharpe")}</p>
-          </div>
-          <div>
-            <p className="font-semibold tabular-nums" dir="ltr">
               {avgHoldHours != null ? t("hoursShort", { hours: Math.round(avgHoldHours * 10) / 10 }) : "—"}
             </p>
             <p className="text-xs text-muted">{t("statAvgDuration")}</p>
           </div>
         </div>
+
+        {/* Advanced statistics: collapsed by default so the headline numbers stay readable. */}
+        <details className="group rounded-lg border border-border bg-surface/60 px-4 py-3 text-sm">
+          <summary className="cursor-pointer list-none font-medium [&::-webkit-details-marker]:hidden">
+            {t("advancedStats")}
+          </summary>
+          <div className="mt-3 grid grid-cols-2 gap-3 text-center sm:grid-cols-3">
+            <div>
+              <p className="font-semibold tabular-nums" dir="ltr">
+                {enoughData ? (sharpe ?? "—") : "—"}
+              </p>
+              <p className="text-xs text-muted">{t("statSharpe")}</p>
+            </div>
+            <div>
+              <p className="font-semibold tabular-nums" dir="ltr">
+                {enoughData && provider.profit_factor != null ? Number(provider.profit_factor).toFixed(2) : "—"}
+              </p>
+              <p className="text-xs text-muted">{t("statProfitFactor")}</p>
+            </div>
+            <div>
+              <p className="font-semibold tabular-nums" dir="ltr">
+                {enoughData && provider.avg_win_pct != null ? `+${Number(provider.avg_win_pct).toFixed(2)}%` : "—"} /{" "}
+                {enoughData && provider.avg_loss_pct != null ? `${Number(provider.avg_loss_pct).toFixed(2)}%` : "—"}
+              </p>
+              <p className="text-xs text-muted">{t("statAvgWinLoss")}</p>
+            </div>
+          </div>
+        </details>
 
         <div className="border-t border-slate-700/70 pt-4">
           <ExnessReliabilitySection

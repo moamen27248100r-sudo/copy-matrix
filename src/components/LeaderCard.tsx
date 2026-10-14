@@ -8,6 +8,7 @@ import { ConfirmButton } from "@/components/ConfirmButton";
 import { periodStats, DEFAULT_PERIOD, type Period } from "@/lib/leader-period";
 import { fmtDrawdown, fmtReturn, fmtWinRate } from "@/lib/format-stats";
 import { adjustedMaxDrawdown } from "@/lib/leader-scores";
+import { aumBandFloor } from "@/lib/aum-band";
 
 type ProviderCard = {
   provider_id: string;
@@ -180,10 +181,10 @@ export async function LeaderCard({
 
       <div className="grid grid-cols-3 gap-1 text-center text-[11px] text-muted">
         <div>
-          <p dir="ltr" className={stats.pnl != null && stats.pnl < 0 ? "font-medium text-danger" : "font-medium text-foreground"}>
-            {stats.pnl != null ? money(stats.pnl, { signed: true, compact: true }) : "—"} <PeriodTag label={periodLabel} />
+          <p dir="ltr" className="font-medium text-foreground" title={hint}>
+            {fmtWinRate(stats.winRate)} <PeriodTag label={periodLabel} />
           </p>
-          <p>{t("pnlLabel")}</p>
+          <p>{t("winRate")}</p>
         </div>
         <div>
           <p dir="ltr" className="font-medium text-foreground" title={hint}>
@@ -192,7 +193,7 @@ export async function LeaderCard({
           <p>{t("maxDrawdown")}</p>
         </div>
         <div>
-          <p dir="ltr" className="font-medium text-foreground">{p.aum ? money(Number(p.aum), { compact: true }) : "—"}</p>
+          <p dir="ltr" className="font-medium text-foreground">{aumBandFloor(p.aum_band) != null ? t("aumOver", { amount: money(aumBandFloor(p.aum_band) as number, { compact: true }) }) : "—"}</p>
           <p>{t("aumLabel")}</p>
         </div>
       </div>

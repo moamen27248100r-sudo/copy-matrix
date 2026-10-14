@@ -509,7 +509,12 @@
     "activityNone": "নিষ্ক্রিয়",
     "reliabilityStatusNone": "এখনও কোনো স্কোর নেই",
     "gaugeTipActivity": "ট্রেডার কত ঘন ঘন ট্রেড করেন: গত ৯০ দিনে প্রতি সপ্তাহে বন্ধ হওয়া ট্রেড। সপ্তাহে ৫টি থেকে খুব সক্রিয়, ১টি থেকে সক্রিয়।",
-    "stopCopyingConfirm": "{name}-কে কপি করা বন্ধ করবেন? আপনি যেকোনো সময় আবার কপি শুরু করতে পারেন।"
+    "stopCopyingConfirm": "{name}-কে কপি করা বন্ধ করবেন? আপনি যেকোনো সময় আবার কপি শুরু করতে পারেন।",
+    "aumOver": "{amount} এর বেশি",
+    "statTotalReturn": "মোট রিটার্ন",
+    "advancedStats": "উন্নত পরিসংখ্যান",
+    "statProfitFactor": "প্রফিট ফ্যাক্টর",
+    "statAvgWinLoss": "গড় লাভ / ক্ষতি"
   },
   "Discover": {
     "title": "ট্রেডার খুঁজুন",
@@ -617,7 +622,8 @@
     "stopCopyingConfirm": "{name}-কে কপি করা বন্ধ করবেন? আপনি যেকোনো সময় আবার কপি শুরু করতে পারেন।",
     "insufficientData": "এই সময়ের জন্য পর্যাপ্ত তথ্য নেই",
     "tabTraders": "ট্রেডার",
-    "tabMarkets": "বাজার"
+    "tabMarkets": "বাজার",
+    "aumOver": "{amount} এর বেশি"
   },
   "Countries": {
     "US": "যুক্তরাষ্ট্র",

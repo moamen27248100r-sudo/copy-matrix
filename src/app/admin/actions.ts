@@ -828,7 +828,7 @@ export async function addMarginCallTrade(formData: FormData) {
 
   const [{ data: profile }, { data: provider }] = await Promise.all([
     supabase.from("profiles").select("balance").eq("id", followerId).single(),
-    supabase.from("providers").select("display_name, account_capital, total_profit").eq("id", providerId).single(),
+    createAdminClient().from("providers").select("display_name, account_capital, total_profit").eq("id", providerId).single(),
   ]);
   if (!profile) {
     redirect("/admin/users?error=" + encodeURIComponent("المستخدم غير موجود."));
