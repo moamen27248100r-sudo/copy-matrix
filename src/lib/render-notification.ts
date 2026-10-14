@@ -18,7 +18,7 @@ type Translator = (key: string, values?: Record<string, string | number>) => str
 
 type Money = (value: number, opts?: { signed?: boolean }) => string;
 
-export function renderNotification(t: Translator, n: NotificationRow, money: Money): { title: string; body: string | null } {
+export function renderNotification(t: Translator, n: NotificationRow, rawMoney: Money): { title: string; body: string | null } {
   // null/undefined means this row predates migration 0168 (no `data` column
   // yet) -- fall back to its originally-stored Arabic text. An empty object
   // is a deliberate, valid value (a type with no interpolated parameters).
@@ -26,6 +26,9 @@ export function renderNotification(t: Translator, n: NotificationRow, money: Mon
     return { title: n.title, body: n.body };
   }
   const d = n.data;
+  // An amount inside right-to-left text must stay one left-to-right unit, otherwise "-$0.17" is
+  // drawn as "$0.17-". U+2066 .. U+2069 isolate it without changing how it reads.
+  const money: Money = (value, opts) => "⁦" + rawMoney(value, opts) + "⁩";
   // ICU select matches against the stringified value -- "true" for the
   // positive case, anything else (here always "false") falls through to
   // the message's "other" case.
