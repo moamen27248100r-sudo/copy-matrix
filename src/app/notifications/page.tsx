@@ -111,7 +111,7 @@ function formatNotificationTime(iso: string, locale: Locale, timeZone: string) {
 
 const CATEGORY_TYPES: Record<string, string[]> = {
   trades: ["followed_trade_opened", "followed_trade_closed"],
-  copy: ["copy_opened", "copy_closed", "auto_stop_copy"],
+  copy: ["copy_started", "copy_stopped", "copy_opened", "copy_closed", "auto_stop_copy", "loss_alert", "leader_stopped"],
   account: ["wallet_deposit_approved", "wallet_withdrawal_approved", "kyc_approved", "kyc_rejected"],
 };
 const CATEGORY_KEYS = ["all", "trades", "copy", "account", "security"] as const;

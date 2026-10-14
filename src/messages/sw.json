@@ -312,7 +312,21 @@
     "prefsEmailNote": "Barua pepe hutumwa kwa akaunti yako halisi pekee; biashara za akaunti ya majaribio hubaki ndani ya programu. Barua pepe za usalama hutumwa kila mara.",
     "lossAlertTitle": "Arifa ya hasara",
     "lossAlertBodyCopy": "Nakala yako ya {providerName} ina hasara ya {loss}% (kiwango chako cha arifa ni {threshold}%).",
-    "lossAlertBodyPortfolio": "Jalada lako lina hasara ya {loss}% ya fedha ulizowekeza (kiwango chako cha arifa ni {threshold}%)."
+    "lossAlertBodyPortfolio": "Jalada lako lina hasara ya {loss}% ya fedha ulizowekeza (kiwango chako cha arifa ni {threshold}%).",
+    "cat_copy_trades": "Kila biashara iliyonakiliwa (kufunguliwa / kufungwa)",
+    "prefsCopyTradesNote": "Imezimwa kwa chaguo-msingi. Ikiwashwa, biashara kadhaa za mfanyabiashara mmoja zilizokaribiana huunganishwa kuwa arifa moja.",
+    "copyStartedTitle": "Kunakili kumeanza",
+    "copyStartedBody": "Umeanza kunakili {providerName} kwa {amount}.",
+    "copyStoppedTitle": "Kunakili kumesimamishwa",
+    "copyStoppedBody": "Umesimamisha kunakili {providerName}.",
+    "leaderStoppedTitle": "Mfanyabiashara unayemnakili ameacha kufanya biashara",
+    "leaderStoppedBody": "{providerName} hafanyi biashara tena. Hakuna biashara mpya zitakazonakiliwa.",
+    "securityNewLoginTitle": "Uingiaji mpya kwenye akaunti yako",
+    "securityNewLoginBody": "Uingiaji kutoka mahali papya umegunduliwa. Kama si wewe, badilisha nenosiri sasa.",
+    "copyOpenedBulkTitle": "Biashara {count} zimenakiliwa",
+    "copyOpenedBulkBody": "Biashara {count} za {providerName} zimenakiliwa kwenye akaunti yako.",
+    "copyClosedBulkTitle": "Biashara {count} zimefungwa",
+    "copyClosedBulkBody": "Biashara {count} zilizonakiliwa kutoka {providerName} zimefungwa kwa matokeo ya jumla {amount}."
   },
   "Portfolio": {
     "title": "Jalada Langu",

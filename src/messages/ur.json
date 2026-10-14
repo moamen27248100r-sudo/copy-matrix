@@ -312,7 +312,21 @@
     "prefsEmailNote": "ای میلز صرف آپ کے ریئل اکاؤنٹ کے لیے بھیجی جاتی ہیں؛ ڈیمو اکاؤنٹ کی ٹریڈز ایپ میں ہی رہتی ہیں۔ سیکیورٹی ای میلز ہمیشہ بھیجی جاتی ہیں۔",
     "lossAlertTitle": "نقصان کا الرٹ",
     "lossAlertBodyCopy": "{providerName} کی آپ کی کاپی {loss}% نقصان میں ہے (آپ کی الرٹ حد {threshold}% ہے)۔",
-    "lossAlertBodyPortfolio": "آپ کا پورٹ فولیو سرمایہ کاری شدہ رقم کے {loss}% نقصان میں ہے (آپ کی الرٹ حد {threshold}% ہے)۔"
+    "lossAlertBodyPortfolio": "آپ کا پورٹ فولیو سرمایہ کاری شدہ رقم کے {loss}% نقصان میں ہے (آپ کی الرٹ حد {threshold}% ہے)۔",
+    "cat_copy_trades": "ہر کاپی شدہ ٹریڈ (کھلنا / بند ہونا)",
+    "prefsCopyTradesNote": "بطورِ طے شدہ بند۔ آن کرنے پر ایک ہی ٹریڈر کی قریب قریب ٹریڈز ایک اطلاع میں مدغم ہو جاتی ہیں۔",
+    "copyStartedTitle": "کاپی شروع ہوئی",
+    "copyStartedBody": "آپ نے {amount} کے ساتھ {providerName} کو کاپی کرنا شروع کیا۔",
+    "copyStoppedTitle": "کاپی بند ہوئی",
+    "copyStoppedBody": "آپ نے {providerName} کو کاپی کرنا بند کر دیا۔",
+    "leaderStoppedTitle": "آپ کے کاپی کیے گئے ٹریڈر نے ٹریڈنگ بند کر دی",
+    "leaderStoppedBody": "{providerName} اب ٹریڈ نہیں کر رہے۔ ان سے کوئی نئی ٹریڈ کاپی نہیں ہوگی۔",
+    "securityNewLoginTitle": "آپ کے اکاؤنٹ میں نیا لاگ اِن",
+    "securityNewLoginBody": "نئی جگہ سے لاگ اِن کا پتا چلا۔ اگر یہ آپ نہیں تھے تو ابھی پاس ورڈ بدلیں۔",
+    "copyOpenedBulkTitle": "{count} ٹریڈز کاپی ہوئیں",
+    "copyOpenedBulkBody": "{providerName} کی {count} ٹریڈز آپ کے اکاؤنٹ میں کاپی ہوئیں۔",
+    "copyClosedBulkTitle": "{count} ٹریڈز بند ہوئیں",
+    "copyClosedBulkBody": "{providerName} سے کاپی کی گئی {count} ٹریڈز مجموعی نتیجہ {amount} کے ساتھ بند ہوئیں۔"
   },
   "Portfolio": {
     "title": "میرا پورٹ فولیو",

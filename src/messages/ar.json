@@ -312,7 +312,21 @@
     "prefsEmailNote": "تُرسل رسائل البريد لحسابك الحقيقي فقط، وتبقى صفقات الحساب التجريبي داخل المنصة. رسائل الأمان تُرسل دائمًا.",
     "lossAlertTitle": "تنبيه خسارة",
     "lossAlertBodyCopy": "وصلت خسارة نسخك لـ {providerName} إلى {loss}% (حد التنبيه الذي حددته {threshold}%).",
-    "lossAlertBodyPortfolio": "وصلت خسارة محفظتك إلى {loss}% من المبلغ المستثمر (حد التنبيه الذي حددته {threshold}%)."
+    "lossAlertBodyPortfolio": "وصلت خسارة محفظتك إلى {loss}% من المبلغ المستثمر (حد التنبيه الذي حددته {threshold}%).",
+    "cat_copy_trades": "كل صفقة منسوخة (فتح / إغلاق)",
+    "prefsCopyTradesNote": "معطّلة افتراضيًا. عند تفعيلها تُدمج الصفقات المتقاربة للمتداول نفسه في إشعار واحد.",
+    "copyStartedTitle": "بدأ النسخ",
+    "copyStartedBody": "بدأت نسخ {providerName} بمبلغ {amount}.",
+    "copyStoppedTitle": "توقف النسخ",
+    "copyStoppedBody": "أوقفت نسخ {providerName}.",
+    "leaderStoppedTitle": "توقف متداول تنسخه عن التداول",
+    "leaderStoppedBody": "{providerName} لم يعد يتداول، ولن تُنسخ منه صفقات جديدة.",
+    "securityNewLoginTitle": "تسجيل دخول جديد إلى حسابك",
+    "securityNewLoginBody": "تم رصد تسجيل دخول من موقع جديد. إن لم تكن أنت، غيّر كلمة المرور الآن.",
+    "copyOpenedBulkTitle": "تم فتح {count} صفقات",
+    "copyOpenedBulkBody": "تم فتح {count} صفقات من نسخ {providerName} في حسابك.",
+    "copyClosedBulkTitle": "تم إغلاق {count} صفقات",
+    "copyClosedBulkBody": "أُغلقت {count} صفقات منسوخة من {providerName} بنتيجة إجمالية {amount}."
   },
   "Portfolio": {
     "title": "محفظتي",

@@ -312,7 +312,21 @@
     "prefsEmailNote": "Les e-mails concernent uniquement votre compte réel ; les trades du compte démo restent dans l'app. Les e-mails de sécurité sont toujours envoyés.",
     "lossAlertTitle": "Alerte de perte",
     "lossAlertBodyCopy": "Votre copie de {providerName} est en perte de {loss}% (votre seuil d'alerte est de {threshold}%).",
-    "lossAlertBodyPortfolio": "Votre portefeuille est en perte de {loss}% des fonds investis (votre seuil d'alerte est de {threshold}%)."
+    "lossAlertBodyPortfolio": "Votre portefeuille est en perte de {loss}% des fonds investis (votre seuil d'alerte est de {threshold}%).",
+    "cat_copy_trades": "Chaque trade copié (ouverture / clôture)",
+    "prefsCopyTradesNote": "Désactivé par défaut. Activé, plusieurs trades du même trader rapprochés sont regroupés en une seule notification.",
+    "copyStartedTitle": "Copie démarrée",
+    "copyStartedBody": "Vous avez commencé à copier {providerName} avec {amount}.",
+    "copyStoppedTitle": "Copie arrêtée",
+    "copyStoppedBody": "Vous avez arrêté de copier {providerName}.",
+    "leaderStoppedTitle": "Un trader que vous copiez a cessé de trader",
+    "leaderStoppedBody": "{providerName} ne trade plus. Plus aucun nouveau trade ne sera copié.",
+    "securityNewLoginTitle": "Nouvelle connexion à votre compte",
+    "securityNewLoginBody": "Une connexion depuis un nouvel emplacement a été détectée. Si ce n'était pas vous, changez votre mot de passe maintenant.",
+    "copyOpenedBulkTitle": "{count} trades copiés",
+    "copyOpenedBulkBody": "{count} trades de {providerName} ont été copiés sur votre compte.",
+    "copyClosedBulkTitle": "{count} trades clôturés",
+    "copyClosedBulkBody": "{count} trades copiés de {providerName} ont été clôturés avec un résultat cumulé de {amount}."
   },
   "Portfolio": {
     "title": "Mon portefeuille",

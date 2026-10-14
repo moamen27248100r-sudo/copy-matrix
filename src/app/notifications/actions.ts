@@ -38,7 +38,7 @@ export async function markOneRead(formData: FormData) {
   revalidatePath("/notifications");
 }
 
-const PREFERENCE_CATEGORIES = ["trades", "copy", "account"] as const;
+const PREFERENCE_CATEGORIES = ["trades", "copy", "copy_trades", "account"] as const;
 
 // Per-category in-app and email delivery. Security alerts are not
 // configurable. The DB enforces what is saved here

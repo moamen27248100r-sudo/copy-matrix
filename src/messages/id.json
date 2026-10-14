@@ -312,7 +312,21 @@
     "prefsEmailNote": "Surel hanya dikirim untuk akun riil Anda; transaksi akun demo tetap di aplikasi. Surel keamanan selalu dikirim.",
     "lossAlertTitle": "Peringatan kerugian",
     "lossAlertBodyCopy": "Salinan {providerName} Anda rugi {loss}% (batas peringatan Anda {threshold}%).",
-    "lossAlertBodyPortfolio": "Portofolio Anda rugi {loss}% dari dana yang diinvestasikan (batas peringatan Anda {threshold}%)."
+    "lossAlertBodyPortfolio": "Portofolio Anda rugi {loss}% dari dana yang diinvestasikan (batas peringatan Anda {threshold}%).",
+    "cat_copy_trades": "Setiap trade yang disalin (dibuka / ditutup)",
+    "prefsCopyTradesNote": "Nonaktif secara default. Jika aktif, beberapa trade dari trader yang sama yang berdekatan digabung menjadi satu notifikasi.",
+    "copyStartedTitle": "Penyalinan dimulai",
+    "copyStartedBody": "Anda mulai menyalin {providerName} dengan {amount}.",
+    "copyStoppedTitle": "Penyalinan dihentikan",
+    "copyStoppedBody": "Anda berhenti menyalin {providerName}.",
+    "leaderStoppedTitle": "Trader yang Anda salin berhenti trading",
+    "leaderStoppedBody": "{providerName} tidak lagi trading. Tidak ada trade baru yang akan disalin.",
+    "securityNewLoginTitle": "Masuk baru ke akun Anda",
+    "securityNewLoginBody": "Terdeteksi masuk dari lokasi baru. Jika bukan Anda, segera ubah kata sandi.",
+    "copyOpenedBulkTitle": "{count} trade disalin",
+    "copyOpenedBulkBody": "{count} trade dari {providerName} disalin ke akun Anda.",
+    "copyClosedBulkTitle": "{count} trade ditutup",
+    "copyClosedBulkBody": "{count} trade salinan dari {providerName} ditutup dengan hasil gabungan {amount}."
   },
   "Portfolio": {
     "title": "Portofolio Saya",

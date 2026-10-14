@@ -312,7 +312,21 @@
     "prefsEmailNote": "ईमेल केवल आपके रियल अकाउंट के लिए भेजे जाते हैं; डेमो अकाउंट के ट्रेड ऐप में ही रहते हैं। सुरक्षा ईमेल हमेशा भेजे जाते हैं।",
     "lossAlertTitle": "घाटे की चेतावनी",
     "lossAlertBodyCopy": "{providerName} की आपकी कॉपी {loss}% घाटे में है (आपकी अलर्ट सीमा {threshold}% है)।",
-    "lossAlertBodyPortfolio": "आपका पोर्टफोलियो निवेशित राशि के {loss}% घाटे में है (आपकी अलर्ट सीमा {threshold}% है)।"
+    "lossAlertBodyPortfolio": "आपका पोर्टफोलियो निवेशित राशि के {loss}% घाटे में है (आपकी अलर्ट सीमा {threshold}% है)।",
+    "cat_copy_trades": "हर कॉपी किया गया ट्रेड (खुला / बंद)",
+    "prefsCopyTradesNote": "डिफ़ॉल्ट रूप से बंद। चालू करने पर एक ही ट्रेडर के पास-पास आए कई ट्रेड एक सूचना में जुड़ जाते हैं।",
+    "copyStartedTitle": "कॉपी शुरू हुई",
+    "copyStartedBody": "आपने {amount} के साथ {providerName} को कॉपी करना शुरू किया।",
+    "copyStoppedTitle": "कॉपी बंद हुई",
+    "copyStoppedBody": "आपने {providerName} को कॉपी करना बंद कर दिया।",
+    "leaderStoppedTitle": "आपके कॉपी किए ट्रेडर ने ट्रेडिंग बंद कर दी",
+    "leaderStoppedBody": "{providerName} अब ट्रेड नहीं कर रहे। उनसे कोई नया ट्रेड कॉपी नहीं होगा।",
+    "securityNewLoginTitle": "आपके खाते में नया साइन-इन",
+    "securityNewLoginBody": "नई जगह से साइन-इन का पता चला। अगर यह आप नहीं थे, तो अभी पासवर्ड बदलें।",
+    "copyOpenedBulkTitle": "{count} ट्रेड कॉपी हुए",
+    "copyOpenedBulkBody": "{providerName} के {count} ट्रेड आपके खाते में कॉपी हुए।",
+    "copyClosedBulkTitle": "{count} ट्रेड बंद हुए",
+    "copyClosedBulkBody": "{providerName} से कॉपी किए {count} ट्रेड {amount} के कुल परिणाम के साथ बंद हुए।"
   },
   "Portfolio": {
     "title": "मेरा पोर्टफोलियो",

@@ -32,7 +32,25 @@ export function renderNotification(t: Translator, n: NotificationRow, money: Mon
   const sign = (v: unknown) => (v ? "true" : "false");
 
   switch (n.type) {
+    case "copy_started":
+      return {
+        title: t("copyStartedTitle"),
+        body: t("copyStartedBody", { providerName: String(d.providerName ?? ""), amount: money(Number(d.amount ?? 0)) }),
+      };
+    case "copy_stopped":
+      return { title: t("copyStoppedTitle"), body: t("copyStoppedBody", { providerName: String(d.providerName ?? "") }) };
+    case "leader_stopped":
+      return { title: t("leaderStoppedTitle"), body: t("leaderStoppedBody", { providerName: String(d.providerName ?? "") }) };
+    case "security_new_login":
+      return { title: t("securityNewLoginTitle"), body: t("securityNewLoginBody") };
     case "copy_opened":
+      // Several opens of one trader merged by the database into a single notice (0256).
+      if (Number(d.count ?? 1) > 1) {
+        return {
+          title: t("copyOpenedBulkTitle", { count: Number(d.count) }),
+          body: t("copyOpenedBulkBody", { count: Number(d.count), providerName: String(d.providerName ?? "") }),
+        };
+      }
       // Rows from before 0231 only carry symbol + side.
       if (d.providerName == null || d.size == null) {
         return {
@@ -51,6 +69,16 @@ export function renderNotification(t: Translator, n: NotificationRow, money: Mon
         }),
       };
     case "copy_closed": {
+      if (Number(d.count ?? 1) > 1) {
+        return {
+          title: t("copyClosedBulkTitle", { count: Number(d.count) }),
+          body: t("copyClosedBulkBody", {
+            count: Number(d.count),
+            providerName: String(d.providerName ?? ""),
+            amount: money(d.positive ? Number(d.amount ?? 0) : -Number(d.amount ?? 0), { signed: true }),
+          }),
+        };
+      }
       const values = {
         providerName: String(d.providerName ?? ""),
         symbol: String(d.symbol ?? ""),

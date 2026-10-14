@@ -312,7 +312,21 @@
     "prefsEmailNote": "邮件仅针对您的真实账户发送；模拟账户的交易只在站内显示。安全邮件始终发送。",
     "lossAlertTitle": "亏损提醒",
     "lossAlertBodyCopy": "您对 {providerName} 的跟单亏损已达 {loss}%（您设置的提醒线为 {threshold}%）。",
-    "lossAlertBodyPortfolio": "您的投资组合亏损已达投入资金的 {loss}%（您设置的提醒线为 {threshold}%）。"
+    "lossAlertBodyPortfolio": "您的投资组合亏损已达投入资金的 {loss}%（您设置的提醒线为 {threshold}%）。",
+    "cat_copy_trades": "每笔跟单交易（开仓 / 平仓）",
+    "prefsCopyTradesNote": "默认关闭。开启后，同一交易员短时间内的多笔交易会合并为一条通知。",
+    "copyStartedTitle": "已开始跟单",
+    "copyStartedBody": "您已开始以 {amount} 跟单 {providerName}。",
+    "copyStoppedTitle": "已停止跟单",
+    "copyStoppedBody": "您已停止跟单 {providerName}。",
+    "leaderStoppedTitle": "您跟单的交易员已停止交易",
+    "leaderStoppedBody": "{providerName} 已不再交易，不会再有新的交易被复制。",
+    "securityNewLoginTitle": "您的账户有新的登录",
+    "securityNewLoginBody": "检测到来自新位置的登录。如果不是您本人，请立即修改密码。",
+    "copyOpenedBulkTitle": "已复制 {count} 笔交易",
+    "copyOpenedBulkBody": "已将 {providerName} 的 {count} 笔交易复制到您的账户。",
+    "copyClosedBulkTitle": "{count} 笔交易已平仓",
+    "copyClosedBulkBody": "来自 {providerName} 的 {count} 笔跟单交易已平仓，合计结果 {amount}。"
   },
   "Portfolio": {
     "title": "我的资产",

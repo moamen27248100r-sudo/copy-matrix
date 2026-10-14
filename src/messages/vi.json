@@ -312,7 +312,21 @@
     "prefsEmailNote": "Thư chỉ được gửi cho tài khoản thực; giao dịch của tài khoản demo chỉ hiển thị trong ứng dụng. Thư bảo mật luôn được gửi.",
     "lossAlertTitle": "Cảnh báo lỗ",
     "lossAlertBodyCopy": "Bản sao {providerName} của bạn đang lỗ {loss}% (ngưỡng cảnh báo của bạn là {threshold}%).",
-    "lossAlertBodyPortfolio": "Danh mục của bạn đang lỗ {loss}% vốn đã đầu tư (ngưỡng cảnh báo của bạn là {threshold}%)."
+    "lossAlertBodyPortfolio": "Danh mục của bạn đang lỗ {loss}% vốn đã đầu tư (ngưỡng cảnh báo của bạn là {threshold}%).",
+    "cat_copy_trades": "Mỗi lệnh sao chép (mở / đóng)",
+    "prefsCopyTradesNote": "Mặc định tắt. Khi bật, nhiều lệnh gần nhau của cùng một trader được gộp thành một thông báo.",
+    "copyStartedTitle": "Đã bắt đầu sao chép",
+    "copyStartedBody": "Bạn đã bắt đầu sao chép {providerName} với {amount}.",
+    "copyStoppedTitle": "Đã dừng sao chép",
+    "copyStoppedBody": "Bạn đã dừng sao chép {providerName}.",
+    "leaderStoppedTitle": "Trader bạn sao chép đã ngừng giao dịch",
+    "leaderStoppedBody": "{providerName} không còn giao dịch. Sẽ không có lệnh mới nào được sao chép.",
+    "securityNewLoginTitle": "Đăng nhập mới vào tài khoản",
+    "securityNewLoginBody": "Phát hiện đăng nhập từ vị trí mới. Nếu không phải bạn, hãy đổi mật khẩu ngay.",
+    "copyOpenedBulkTitle": "Đã sao chép {count} lệnh",
+    "copyOpenedBulkBody": "{count} lệnh của {providerName} đã được sao chép vào tài khoản của bạn.",
+    "copyClosedBulkTitle": "Đã đóng {count} lệnh",
+    "copyClosedBulkBody": "{count} lệnh sao chép từ {providerName} đã đóng với kết quả tổng {amount}."
   },
   "Portfolio": {
     "title": "Danh mục của tôi",

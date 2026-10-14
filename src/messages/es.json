@@ -312,7 +312,21 @@
     "prefsEmailNote": "Los correos se envían solo para tu cuenta real; las operaciones de la cuenta demo se quedan en la app. Los correos de seguridad se envían siempre.",
     "lossAlertTitle": "Alerta de pérdida",
     "lossAlertBodyCopy": "Su copia de {providerName} acumula una pérdida del {loss}% (su nivel de alerta es {threshold}%).",
-    "lossAlertBodyPortfolio": "Su cartera acumula una pérdida del {loss}% de los fondos invertidos (su nivel de alerta es {threshold}%)."
+    "lossAlertBodyPortfolio": "Su cartera acumula una pérdida del {loss}% de los fondos invertidos (su nivel de alerta es {threshold}%).",
+    "cat_copy_trades": "Cada operación copiada (apertura / cierre)",
+    "prefsCopyTradesNote": "Desactivado por defecto. Al activarlo, varias operaciones seguidas del mismo trader se agrupan en un solo aviso.",
+    "copyStartedTitle": "Copia iniciada",
+    "copyStartedBody": "Empezó a copiar a {providerName} con {amount}.",
+    "copyStoppedTitle": "Copia detenida",
+    "copyStoppedBody": "Dejó de copiar a {providerName}.",
+    "leaderStoppedTitle": "Un trader que copia dejó de operar",
+    "leaderStoppedBody": "{providerName} ya no opera. No se copiarán nuevas operaciones.",
+    "securityNewLoginTitle": "Nuevo inicio de sesión en su cuenta",
+    "securityNewLoginBody": "Se detectó un inicio de sesión desde una ubicación nueva. Si no fue usted, cambie su contraseña ahora.",
+    "copyOpenedBulkTitle": "{count} operaciones copiadas",
+    "copyOpenedBulkBody": "Se copiaron {count} operaciones de {providerName} en su cuenta.",
+    "copyClosedBulkTitle": "{count} operaciones cerradas",
+    "copyClosedBulkBody": "Se cerraron {count} operaciones copiadas de {providerName} con un resultado conjunto de {amount}."
   },
   "Portfolio": {
     "title": "Mi cartera",

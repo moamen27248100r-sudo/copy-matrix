@@ -312,7 +312,21 @@
     "prefsEmailNote": "Emails are sent for your real account only; demo-account trades stay in the app. Security emails are always sent.",
     "lossAlertTitle": "Loss alert",
     "lossAlertBodyCopy": "Your copy of {providerName} is down {loss}% (your alert level is {threshold}%).",
-    "lossAlertBodyPortfolio": "Your portfolio is down {loss}% of your invested funds (your alert level is {threshold}%)."
+    "lossAlertBodyPortfolio": "Your portfolio is down {loss}% of your invested funds (your alert level is {threshold}%).",
+    "cat_copy_trades": "Each copied trade (opened / closed)",
+    "prefsCopyTradesNote": "Off by default. When on, several trades of the same trader arriving close together are merged into one notice.",
+    "copyStartedTitle": "Copying started",
+    "copyStartedBody": "You started copying {providerName} with {amount}.",
+    "copyStoppedTitle": "Copying stopped",
+    "copyStoppedBody": "You stopped copying {providerName}.",
+    "leaderStoppedTitle": "A trader you copy stopped trading",
+    "leaderStoppedBody": "{providerName} is no longer trading. No new trades will be copied from them.",
+    "securityNewLoginTitle": "New sign-in to your account",
+    "securityNewLoginBody": "A sign-in from a new location was detected. If this was not you, change your password now.",
+    "copyOpenedBulkTitle": "{count} trades copied",
+    "copyOpenedBulkBody": "{count} trades from {providerName} were copied to your account.",
+    "copyClosedBulkTitle": "{count} trades closed",
+    "copyClosedBulkBody": "{count} copied trades from {providerName} closed with a combined result of {amount}."
   },
   "Portfolio": {
     "title": "My Portfolio",

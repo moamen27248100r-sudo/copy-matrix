@@ -312,7 +312,21 @@
     "prefsEmailNote": "อีเมลจะส่งสำหรับบัญชีจริงเท่านั้น การเทรดของบัญชีทดลองจะแสดงในแอปเท่านั้น อีเมลด้านความปลอดภัยจะส่งเสมอ",
     "lossAlertTitle": "แจ้งเตือนการขาดทุน",
     "lossAlertBodyCopy": "การคัดลอก {providerName} ของคุณขาดทุน {loss}% (เกณฑ์แจ้งเตือนของคุณคือ {threshold}%)",
-    "lossAlertBodyPortfolio": "พอร์ตของคุณขาดทุน {loss}% ของเงินลงทุน (เกณฑ์แจ้งเตือนของคุณคือ {threshold}%)"
+    "lossAlertBodyPortfolio": "พอร์ตของคุณขาดทุน {loss}% ของเงินลงทุน (เกณฑ์แจ้งเตือนของคุณคือ {threshold}%)",
+    "cat_copy_trades": "ทุกเทรดที่คัดลอก (เปิด / ปิด)",
+    "prefsCopyTradesNote": "ปิดไว้ตามค่าเริ่มต้น เมื่อเปิด เทรดหลายรายการของเทรดเดอร์คนเดียวกันที่เกิดใกล้กันจะรวมเป็นการแจ้งเตือนเดียว",
+    "copyStartedTitle": "เริ่มการคัดลอกแล้ว",
+    "copyStartedBody": "คุณเริ่มคัดลอก {providerName} ด้วยจำนวน {amount}",
+    "copyStoppedTitle": "หยุดการคัดลอกแล้ว",
+    "copyStoppedBody": "คุณหยุดคัดลอก {providerName} แล้ว",
+    "leaderStoppedTitle": "เทรดเดอร์ที่คุณคัดลอกหยุดเทรดแล้ว",
+    "leaderStoppedBody": "{providerName} ไม่ได้เทรดอีกต่อไป จะไม่มีการคัดลอกเทรดใหม่",
+    "securityNewLoginTitle": "มีการเข้าสู่ระบบใหม่ในบัญชีของคุณ",
+    "securityNewLoginBody": "ตรวจพบการเข้าสู่ระบบจากตำแหน่งใหม่ หากไม่ใช่คุณ โปรดเปลี่ยนรหัสผ่านทันที",
+    "copyOpenedBulkTitle": "คัดลอก {count} เทรด",
+    "copyOpenedBulkBody": "คัดลอก {count} เทรดจาก {providerName} เข้าบัญชีของคุณแล้ว",
+    "copyClosedBulkTitle": "ปิด {count} เทรดแล้ว",
+    "copyClosedBulkBody": "เทรดที่คัดลอกจาก {providerName} จำนวน {count} รายการปิดแล้ว ผลรวม {amount}"
   },
   "Portfolio": {
     "title": "พอร์ตของฉัน",

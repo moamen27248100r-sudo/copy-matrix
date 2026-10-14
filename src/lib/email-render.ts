@@ -31,7 +31,7 @@ async function loadMessages(locale: Locale): Promise<Messages> {
 
 // Which page the email's button opens.
 function target(kind: string): { path: string; cta: string } {
-  if (kind === "loss_alert") return { path: "/dashboard", cta: "ctaDashboard" };
+  if (["loss_alert", "copy_started", "copy_stopped", "leader_stopped"].includes(kind)) return { path: "/dashboard", cta: "ctaDashboard" };
   if (kind === "copy_opened" || kind === "copy_closed" || kind === "auto_stop_copy") return { path: "/trades", cta: "ctaTrades" };
   if (kind.startsWith("wallet_")) return { path: "/portfolio/history", cta: "ctaWallet" };
   if (kind.startsWith("kyc_")) return { path: "/kyc", cta: "ctaKyc" };

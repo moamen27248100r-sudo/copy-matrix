@@ -312,7 +312,21 @@
     "prefsEmailNote": "ইমেইল শুধু আপনার রিয়েল অ্যাকাউন্টের জন্য পাঠানো হয়; ডেমো অ্যাকাউন্টের ট্রেড অ্যাপেই থাকে। নিরাপত্তা ইমেইল সবসময় পাঠানো হয়।",
     "lossAlertTitle": "লোকসানের সতর্কতা",
     "lossAlertBodyCopy": "{providerName} এর আপনার কপিতে {loss}% লোকসান হয়েছে (আপনার সতর্কতা সীমা {threshold}%)।",
-    "lossAlertBodyPortfolio": "আপনার পোর্টফোলিও বিনিয়োগকৃত অর্থের {loss}% লোকসানে আছে (আপনার সতর্কতা সীমা {threshold}%)।"
+    "lossAlertBodyPortfolio": "আপনার পোর্টফোলিও বিনিয়োগকৃত অর্থের {loss}% লোকসানে আছে (আপনার সতর্কতা সীমা {threshold}%)।",
+    "cat_copy_trades": "প্রতিটি কপি করা ট্রেড (খোলা / বন্ধ)",
+    "prefsCopyTradesNote": "ডিফল্টভাবে বন্ধ। চালু করলে একই ট্রেডারের কাছাকাছি সময়ের কয়েকটি ট্রেড একটি বিজ্ঞপ্তিতে মিলিত হয়।",
+    "copyStartedTitle": "কপি শুরু হয়েছে",
+    "copyStartedBody": "আপনি {amount} দিয়ে {providerName} কে কপি করা শুরু করেছেন।",
+    "copyStoppedTitle": "কপি বন্ধ হয়েছে",
+    "copyStoppedBody": "আপনি {providerName} কে কপি করা বন্ধ করেছেন।",
+    "leaderStoppedTitle": "আপনি যে ট্রেডারকে কপি করছেন তিনি ট্রেডিং বন্ধ করেছেন",
+    "leaderStoppedBody": "{providerName} আর ট্রেড করছেন না। তাঁর কাছ থেকে নতুন কোনো ট্রেড কপি হবে না।",
+    "securityNewLoginTitle": "আপনার অ্যাকাউন্টে নতুন সাইন-ইন",
+    "securityNewLoginBody": "নতুন অবস্থান থেকে সাইন-ইন শনাক্ত হয়েছে। এটি আপনি না হলে এখনই পাসওয়ার্ড বদলান।",
+    "copyOpenedBulkTitle": "{count}টি ট্রেড কপি হয়েছে",
+    "copyOpenedBulkBody": "{providerName} এর {count}টি ট্রেড আপনার অ্যাকাউন্টে কপি হয়েছে।",
+    "copyClosedBulkTitle": "{count}টি ট্রেড বন্ধ হয়েছে",
+    "copyClosedBulkBody": "{providerName} থেকে কপি করা {count}টি ট্রেড মোট ফলাফল {amount} সহ বন্ধ হয়েছে।"
   },
   "Portfolio": {
     "title": "আমার পোর্টফোলিও",

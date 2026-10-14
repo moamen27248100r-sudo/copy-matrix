@@ -6,7 +6,9 @@ import { AppNav } from "@/components/AppNav";
 import { AutoDismissMessage } from "@/components/AutoDismissMessage";
 import { saveNotificationPreferences } from "@/app/notifications/actions";
 
-const CATEGORIES = ["trades", "copy", "account"] as const;
+// "copy_trades" (one notice per opened / closed copied trade) is opt-in: off until switched on.
+const CATEGORIES = ["copy", "copy_trades", "trades", "account"] as const;
+const OFF_BY_DEFAULT: readonly string[] = ["copy_trades"];
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
@@ -28,10 +30,10 @@ export default async function NotificationPreferencesPage({
 
   const { data: prefs } = await supabase.from("notification_preferences").select("category, in_app, email").eq("user_id", user.id);
   const inApp = new Map((prefs ?? []).map((p) => [p.category as string, p.in_app as boolean]));
-  // No saved choice: copy and account emails on, followed-leader trades off
-  // (same defaults as email_category_enabled, migration 0242).
+  // No saved choice: copy and account emails on; followed-leader trades and each copied trade off
+  // (same defaults as email_category_enabled, migration 0256).
   const email = new Map((prefs ?? []).map((p) => [p.category as string, p.email as boolean | null]));
-  const emailOn = (cat: string) => email.get(cat) ?? cat !== "trades";
+  const emailOn = (cat: string) => email.get(cat) ?? (cat !== "trades" && !OFF_BY_DEFAULT.includes(cat));
 
   return (
     <>
@@ -63,7 +65,7 @@ export default async function NotificationPreferencesPage({
               <div key={cat} className="flex items-center gap-3 border-b border-border px-4 py-3 text-sm">
                 <span className="flex-1 font-medium">{t(`cat_${cat}`)}</span>
                 <label className="flex w-16 cursor-pointer justify-center">
-                  <input type="checkbox" name={`cat_${cat}`} aria-label={`${t(`cat_${cat}`)} · ${t("prefsInApp")}`} defaultChecked={inApp.get(cat) ?? true} className="h-4 w-4 accent-accent" />
+                  <input type="checkbox" name={`cat_${cat}`} aria-label={`${t(`cat_${cat}`)} · ${t("prefsInApp")}`} defaultChecked={inApp.get(cat) ?? !OFF_BY_DEFAULT.includes(cat)} className="h-4 w-4 accent-accent" />
                 </label>
                 <label className="flex w-16 cursor-pointer justify-center">
                   <input type="checkbox" name={`email_${cat}`} aria-label={`${t(`cat_${cat}`)} · ${t("prefsEmail")}`} defaultChecked={emailOn(cat)} className="h-4 w-4 accent-accent" />
@@ -75,6 +77,7 @@ export default async function NotificationPreferencesPage({
               <span className="text-xs text-muted">{t("prefsSecurityAlways")}</span>
             </div>
           </div>
+          <p className="text-xs text-muted">{t("prefsCopyTradesNote")}</p>
           <p className="text-xs text-muted">{t("prefsEmailNote")}</p>
           <button
             type="submit"
