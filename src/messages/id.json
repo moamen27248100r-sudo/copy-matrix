@@ -415,7 +415,9 @@
     "copy": "Salin",
     "loadMore": "Muat lebih banyak",
     "swap": "Swap",
-    "charges": "Biaya"
+    "charges": "Biaya",
+    "sideBuy": "Beli",
+    "sideSell": "Jual"
   },
   "Symbols": {
     "XAUUSD": "Emas",

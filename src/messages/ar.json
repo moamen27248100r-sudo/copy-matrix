@@ -415,7 +415,9 @@
     "copy": "نسخ",
     "loadMore": "عرض المزيد",
     "swap": "التبييت",
-    "charges": "الرسوم"
+    "charges": "الرسوم",
+    "sideBuy": "شراء",
+    "sideSell": "بيع"
   },
   "Symbols": {
     "XAUUSD": "الذهب",

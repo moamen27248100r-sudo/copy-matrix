@@ -263,7 +263,7 @@ export function TraderTradeHistory({
                           <p className="text-base" dir="ltr">
                             <span className="font-bold">{x.symbol}</span>{" "}
                             <span className={`font-medium ${dirTone}`}>
-                              {x.side}
+                              {x.side === "buy" ? tp("sideBuy") : tp("sideSell")}
                               {x.lot != null && ` ${formatLot(x.lot)}`}
                             </span>
                           </p>

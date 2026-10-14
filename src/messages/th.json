@@ -415,7 +415,9 @@
     "copy": "คัดลอก",
     "loadMore": "โหลดเพิ่มเติม",
     "swap": "สวอป",
-    "charges": "ค่าธรรมเนียม"
+    "charges": "ค่าธรรมเนียม",
+    "sideBuy": "ซื้อ",
+    "sideSell": "ขาย"
   },
   "Symbols": {
     "XAUUSD": "ทองคำ",

@@ -415,7 +415,9 @@
     "copy": "跟单",
     "loadMore": "加载更多",
     "swap": "隔夜利息",
-    "charges": "费用"
+    "charges": "费用",
+    "sideBuy": "买入",
+    "sideSell": "卖出"
   },
   "Symbols": {
     "XAUUSD": "黄金",

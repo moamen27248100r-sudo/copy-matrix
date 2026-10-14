@@ -415,7 +415,9 @@
     "copy": "कॉपी करें",
     "loadMore": "और दिखाएं",
     "swap": "स्वैप",
-    "charges": "शुल्क"
+    "charges": "शुल्क",
+    "sideBuy": "खरीद",
+    "sideSell": "बिक्री"
   },
   "Symbols": {
     "XAUUSD": "सोना",

@@ -415,7 +415,9 @@
     "copy": "کاپی کریں",
     "loadMore": "مزید دکھائیں",
     "swap": "سواپ",
-    "charges": "چارجز"
+    "charges": "چارجز",
+    "sideBuy": "خرید",
+    "sideSell": "فروخت"
   },
   "Symbols": {
     "XAUUSD": "سونا",

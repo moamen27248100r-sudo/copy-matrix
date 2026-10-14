@@ -415,7 +415,9 @@
     "copy": "Copy",
     "loadMore": "Load more",
     "swap": "Swap",
-    "charges": "Charges"
+    "charges": "Charges",
+    "sideBuy": "Buy",
+    "sideSell": "Sell"
   },
   "Symbols": {
     "XAUUSD": "Gold",

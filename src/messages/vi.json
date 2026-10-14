@@ -415,7 +415,9 @@
     "copy": "Sao chép",
     "loadMore": "Xem thêm",
     "swap": "Swap",
-    "charges": "Phí"
+    "charges": "Phí",
+    "sideBuy": "Mua",
+    "sideSell": "Bán"
   },
   "Symbols": {
     "XAUUSD": "Vàng",

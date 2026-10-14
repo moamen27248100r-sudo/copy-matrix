@@ -415,7 +415,9 @@
     "copy": "Nakili",
     "loadMore": "Onyesha zaidi",
     "swap": "Swap",
-    "charges": "Ada"
+    "charges": "Ada",
+    "sideBuy": "Nunua",
+    "sideSell": "Uza"
   },
   "Symbols": {
     "XAUUSD": "Dhahabu",

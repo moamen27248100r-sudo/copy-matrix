@@ -415,7 +415,9 @@
     "copy": "Copier",
     "loadMore": "Afficher plus",
     "swap": "Swap",
-    "charges": "Frais"
+    "charges": "Frais",
+    "sideBuy": "Achat",
+    "sideSell": "Vente"
   },
   "Symbols": {
     "XAUUSD": "Or",

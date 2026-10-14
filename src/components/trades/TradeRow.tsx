@@ -1,4 +1,5 @@
 import { Roboto_Condensed } from "next/font/google";
+import { useTranslations } from "next-intl";
 import { formatTradeDate, formatTradeLots, formatTradePnl, formatTradePrice } from "@/lib/trade-format";
 
 // The one row every trade list renders, laid out like the History tab of
@@ -41,7 +42,9 @@ export function TradeRow({
   date?: string | null;
   className?: string;
 }) {
+  const tSide = useTranslations("TradeHistory");
   const buy = side === "buy";
+  const sideLabel = buy ? tSide("sideBuy") : tSide("sideSell");
   const sideColor = buy ? TRADE_BLUE : TRADE_RED;
   const result = pnl ?? pct ?? null;
   const resultColor = result == null ? TRADE_GRAY : result >= 0 ? TRADE_BLUE : TRADE_RED;
@@ -55,7 +58,7 @@ export function TradeRow({
         <span className="flex min-w-0 items-baseline gap-2 truncate">
           <span className="font-semibold text-white">{symbol}</span>
           <span className="font-semibold" style={{ color: sideColor }}>
-            {side}
+            {sideLabel}
             {lots != null && ` ${formatTradeLots(lots)}`}
           </span>
         </span>

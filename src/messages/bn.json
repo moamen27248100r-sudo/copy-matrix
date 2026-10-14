@@ -415,7 +415,9 @@
     "copy": "কপি করুন",
     "loadMore": "আরও দেখুন",
     "swap": "সোয়াপ",
-    "charges": "চার্জ"
+    "charges": "চার্জ",
+    "sideBuy": "কেনা",
+    "sideSell": "বিক্রি"
   },
   "Symbols": {
     "XAUUSD": "সোনা",
