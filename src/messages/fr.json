@@ -2306,5 +2306,23 @@
     "text": "Le trading et la copie de transactions comportent un risque élevé et vous pouvez perdre la totalité de votre capital. Les performances passées ne garantissent pas les résultats futurs.",
     "readFull": "Lire l’avertissement complet sur les risques",
     "demoNote": "Ceci est un compte démo : les fonds et les transactions sont simulés."
+  },
+  "Pwa": {
+    "installTitle": "Installez l’application sur votre téléphone",
+    "installBody": "Ouvrez Copy Matrix depuis l’écran d’accueil, en plein écran et sans barre de navigateur.",
+    "installCta": "Installer l’application",
+    "later": "Plus tard",
+    "iosTitle": "Ajouter l’application à l’écran d’accueil",
+    "iosStep1": "Touchez le bouton Partager en bas de Safari",
+    "iosStep2": "Choisissez « Sur l’écran d’accueil », puis touchez « Ajouter »",
+    "pushTitle": "Notifications sur votre téléphone",
+    "pushBody": "Pour savoir immédiatement quand une copie s’arrête, qu’une alerte de perte se déclenche ou qu’un marché suivi bouge fortement, même plateforme fermée. Mêmes réglages de notification.",
+    "pushEnable": "Activer les notifications du téléphone",
+    "pushEnabled": "Les notifications sont activées sur cet appareil",
+    "pushDisable": "Désactiver sur cet appareil",
+    "pushDenied": "Les notifications sont bloquées dans le navigateur. Autorisez-les dans les réglages du site puis réessayez.",
+    "pushUnsupported": "Ce navigateur ou appareil ne prend pas en charge les notifications. Sur iPhone, installez d’abord l’application sur l’écran d’accueil.",
+    "pushNotConfigured": "Les notifications téléphone ne sont pas encore activées sur la plateforme.",
+    "pushFailed": "Impossible d’activer les notifications. Réessayez."
   }
 }

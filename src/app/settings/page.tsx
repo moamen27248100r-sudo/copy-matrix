@@ -11,6 +11,8 @@ import { setTimezone } from "@/app/actions/locale";
 import type { Locale } from "@/i18n/locales";
 import { hasVerifiedTotp } from "@/lib/mfa";
 import { LossAlertsSection } from "@/components/LossAlertsSection";
+import { InstallApp } from "@/components/pwa/InstallApp";
+import { PushPermission } from "@/components/pwa/PushPermission";
 import { FlashMessage } from "@/components/ui/Toast";
 
 const TIMEZONES = [
@@ -133,6 +135,9 @@ export default async function SettingsPage({
             </button>
           </form>
         </section>
+
+        <PushPermission publicKey={process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? ""} />
+        <InstallApp variant="button" />
 
         <section id="change-password" className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
           <h2 className="font-medium">{t("changePasswordTitle")}</h2>

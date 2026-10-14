@@ -6,6 +6,7 @@ import { AppNav } from "@/components/AppNav";
 import { AutoDismissMessage } from "@/components/AutoDismissMessage";
 import { saveNotificationPreferences } from "@/app/notifications/actions";
 import { FlashMessage } from "@/components/ui/Toast";
+import { PushPermission } from "@/components/pwa/PushPermission";
 
 // "copy_trades" (one notice per opened / closed copied trade) is opt-in: off until switched on.
 const CATEGORIES = ["copy", "copy_trades", "trades", "market", "account"] as const;
@@ -54,6 +55,8 @@ export default async function NotificationPreferencesPage({
         {error && (
           <FlashMessage tone="error">{t("prefsSaveFailed")}</FlashMessage>
         )}
+
+        <PushPermission publicKey={process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? ""} />
 
         <form action={saveNotificationPreferences} className="flex flex-col gap-4">
           <div className="overflow-hidden rounded-xl border border-border bg-surface">

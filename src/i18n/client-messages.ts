@@ -28,6 +28,7 @@ export const GLOBAL_CLIENT_NAMESPACES = [
   "Notifications",
   "OpenOrders",
   "Portfolio",
+  "Pwa",
   "SiteFooter",
   "Support",
   "Symbols",

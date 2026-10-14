@@ -2305,5 +2305,23 @@
     "text": "Trading dan menyalin transaksi memiliki risiko tinggi, dan Anda dapat kehilangan seluruh modal. Kinerja masa lalu tidak menjamin hasil di masa depan.",
     "readFull": "Baca pengungkapan risiko lengkap",
     "demoNote": "Ini akun demo: dana dan transaksinya adalah simulasi."
+  },
+  "Pwa": {
+    "installTitle": "Pasang aplikasi di ponsel Anda",
+    "installBody": "Buka Copy Matrix dari layar utama, layar penuh tanpa bilah browser.",
+    "installCta": "Pasang aplikasi",
+    "later": "Nanti",
+    "iosTitle": "Tambahkan aplikasi ke layar utama",
+    "iosStep1": "Ketuk tombol Bagikan di bagian bawah Safari",
+    "iosStep2": "Pilih “Tambah ke Layar Utama”, lalu ketuk “Tambah”",
+    "pushTitle": "Notifikasi di ponsel Anda",
+    "pushBody": "Agar Anda langsung tahu saat salinan berhenti otomatis, peringatan rugi menyala, atau pasar yang Anda ikuti bergerak besar, bahkan saat platform ditutup. Pengaturan notifikasi sama.",
+    "pushEnable": "Aktifkan notifikasi ponsel",
+    "pushEnabled": "Notifikasi aktif di perangkat ini",
+    "pushDisable": "Matikan di perangkat ini",
+    "pushDenied": "Notifikasi diblokir di pengaturan browser. Izinkan di pengaturan situs lalu coba lagi.",
+    "pushUnsupported": "Browser atau perangkat ini tidak mendukung notifikasi ponsel. Di iPhone, pasang dulu aplikasi ke layar utama.",
+    "pushNotConfigured": "Notifikasi ponsel belum diaktifkan di platform.",
+    "pushFailed": "Gagal mengaktifkan notifikasi. Coba lagi."
   }
 }

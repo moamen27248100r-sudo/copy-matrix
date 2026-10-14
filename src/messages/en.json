@@ -2309,5 +2309,23 @@
     "text": "Trading and copying trades carry a high level of risk, and you may lose all of your capital. Past performance does not guarantee future results.",
     "readFull": "Read the full risk disclosure",
     "demoNote": "This is a demo account: the funds and trades in it are simulated."
+  },
+  "Pwa": {
+    "installTitle": "Install the app on your phone",
+    "installBody": "Open Copy Matrix from your home screen, full screen and without the browser bar.",
+    "installCta": "Install the app",
+    "later": "Not now",
+    "iosTitle": "Add the app to your home screen",
+    "iosStep1": "Tap the Share button at the bottom of Safari",
+    "iosStep2": "Choose “Add to Home Screen”, then tap “Add”",
+    "pushTitle": "Notifications on your phone",
+    "pushBody": "So you know right away when a copy stops automatically, a loss alert fires or a market you follow moves a lot, even when the platform is closed. Same notification settings you chose.",
+    "pushEnable": "Turn on phone notifications",
+    "pushEnabled": "Phone notifications are on for this device",
+    "pushDisable": "Turn off on this device",
+    "pushDenied": "Notifications are blocked in the browser settings. Allow them in the site settings and try again.",
+    "pushUnsupported": "This browser or device does not support phone notifications. On iPhone, install the app to the home screen first.",
+    "pushNotConfigured": "Phone notifications are not enabled on the platform yet.",
+    "pushFailed": "Could not turn notifications on. Please try again."
   }
 }

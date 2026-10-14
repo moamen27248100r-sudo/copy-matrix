@@ -2305,5 +2305,23 @@
     "text": "Giao dịch và sao chép giao dịch có rủi ro cao, bạn có thể mất toàn bộ vốn. Hiệu suất trong quá khứ không đảm bảo kết quả trong tương lai.",
     "readFull": "Đọc đầy đủ công bố rủi ro",
     "demoNote": "Đây là tài khoản demo: tiền và giao dịch đều là mô phỏng."
+  },
+  "Pwa": {
+    "installTitle": "Cài ứng dụng lên điện thoại",
+    "installBody": "Mở Copy Matrix từ màn hình chính, toàn màn hình và không có thanh trình duyệt.",
+    "installCta": "Cài ứng dụng",
+    "later": "Để sau",
+    "iosTitle": "Thêm ứng dụng vào màn hình chính",
+    "iosStep1": "Nhấn nút Chia sẻ ở cuối Safari",
+    "iosStep2": "Chọn “Thêm vào Màn hình chính”, rồi nhấn “Thêm”",
+    "pushTitle": "Thông báo trên điện thoại",
+    "pushBody": "Để biết ngay khi một bản sao tự dừng, cảnh báo lỗ kích hoạt hoặc thị trường bạn theo dõi biến động mạnh, kể cả khi đã đóng nền tảng. Dùng đúng cài đặt thông báo của bạn.",
+    "pushEnable": "Bật thông báo điện thoại",
+    "pushEnabled": "Thông báo đã bật trên thiết bị này",
+    "pushDisable": "Tắt trên thiết bị này",
+    "pushDenied": "Thông báo đang bị chặn trong cài đặt trình duyệt. Hãy cho phép trong cài đặt trang web rồi thử lại.",
+    "pushUnsupported": "Trình duyệt hoặc thiết bị này không hỗ trợ thông báo. Trên iPhone, hãy thêm ứng dụng vào màn hình chính trước.",
+    "pushNotConfigured": "Nền tảng chưa bật thông báo điện thoại.",
+    "pushFailed": "Không bật được thông báo. Vui lòng thử lại."
   }
 }

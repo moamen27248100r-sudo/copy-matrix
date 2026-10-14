@@ -38,6 +38,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  themeColor: "#0b1726",
 };
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -45,6 +46,8 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Copy Matrix",
     description: t("siteDescription"),
+    applicationName: "Copy Matrix",
+    appleWebApp: { capable: true, title: "Copy Matrix", statusBarStyle: "black-translucent" },
     ...(SEARCH_INDEXING_ENABLED ? {} : { robots: { index: false, follow: false, googleBot: { index: false, follow: false } } }),
   };
 }

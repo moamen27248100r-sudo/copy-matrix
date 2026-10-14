@@ -2305,5 +2305,23 @@
     "text": "Biashara na kunakili biashara kuna hatari kubwa, na unaweza kupoteza mtaji wako wote. Utendaji wa zamani hauhakikishi matokeo ya baadaye.",
     "readFull": "Soma ufichuzi kamili wa hatari",
     "demoNote": "Huu ni akaunti ya majaribio: fedha na biashara ni za kuigiza."
+  },
+  "Pwa": {
+    "installTitle": "Sakinisha programu kwenye simu yako",
+    "installBody": "Fungua Copy Matrix kutoka skrini ya nyumbani, skrini nzima bila upau wa kivinjari.",
+    "installCta": "Sakinisha programu",
+    "later": "Baadaye",
+    "iosTitle": "Ongeza programu kwenye skrini ya nyumbani",
+    "iosStep1": "Gusa kitufe cha Shiriki chini ya Safari",
+    "iosStep2": "Chagua “Ongeza kwenye Skrini ya Nyumbani”, kisha gusa “Ongeza”",
+    "pushTitle": "Arifa kwenye simu yako",
+    "pushBody": "Ili ujue mara moja nakala inaposimama yenyewe, tahadhari ya hasara inapotolewa au soko unalofuata linaposogea sana, hata jukwaa likiwa limefungwa. Mipangilio ileile ya arifa.",
+    "pushEnable": "Washa arifa za simu",
+    "pushEnabled": "Arifa zimewashwa kwenye kifaa hiki",
+    "pushDisable": "Zima kwenye kifaa hiki",
+    "pushDenied": "Arifa zimezuiwa kwenye mipangilio ya kivinjari. Ziruhusu kwenye mipangilio ya tovuti kisha ujaribu tena.",
+    "pushUnsupported": "Kivinjari au kifaa hiki hakiauni arifa za simu. Kwenye iPhone, sakinisha programu kwenye skrini ya nyumbani kwanza.",
+    "pushNotConfigured": "Arifa za simu bado hazijawashwa kwenye jukwaa.",
+    "pushFailed": "Imeshindwa kuwasha arifa. Tafadhali jaribu tena."
   }
 }

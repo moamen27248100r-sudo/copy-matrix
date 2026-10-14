@@ -19,6 +19,8 @@ import { countryDisplay } from "@/lib/country-metadata";
 import { formatDate } from "@/lib/locale-format";
 import { CopyBar } from "@/components/CopyBar";
 import { ManageCopySheet } from "@/components/ManageCopySheet";
+import { InstallApp } from "@/components/pwa/InstallApp";
+import { PushPermission } from "@/components/pwa/PushPermission";
 import { ConfirmButton } from "@/components/ConfirmButton";
 import { defaultCopyAmount } from "@/lib/copy-amount";
 import { TabStrip } from "@/components/TabStrip";
@@ -300,6 +302,14 @@ export default async function TraderPage({
               amount: money(Number(mySub.allocated_amount)),
             })}
           </FlashMessage>
+        )}
+
+        {/* Right after the first copy: the natural moment to offer phone alerts and the home-screen app. */}
+        {success === "started" && (
+          <div className="flex flex-col gap-3">
+            <PushPermission publicKey={process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? ""} />
+            <InstallApp variant="card" />
+          </div>
         )}
 
       <div className="flex flex-col gap-6">

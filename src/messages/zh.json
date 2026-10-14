@@ -2306,5 +2306,23 @@
     "text": "交易和跟单交易具有高风险，您可能会损失全部本金。过往业绩不代表未来表现。",
     "readFull": "阅读完整风险披露",
     "demoNote": "这是模拟账户：其中的资金和交易均为模拟。"
+  },
+  "Pwa": {
+    "installTitle": "把应用安装到手机",
+    "installBody": "从主屏幕全屏打开 Copy Matrix，没有浏览器地址栏。",
+    "installCta": "安装应用",
+    "later": "稍后",
+    "iosTitle": "添加到主屏幕",
+    "iosStep1": "点按 Safari 底部的分享按钮",
+    "iosStep2": "选择“添加到主屏幕”，然后点按“添加”",
+    "pushTitle": "手机通知",
+    "pushBody": "当跟单自动停止、触发亏损提醒或您关注的市场大幅波动时立刻知晓，即使平台已关闭。沿用您的通知设置。",
+    "pushEnable": "开启手机通知",
+    "pushEnabled": "此设备已开启通知",
+    "pushDisable": "在此设备上关闭",
+    "pushDenied": "浏览器已屏蔽通知。请在网站设置中允许后重试。",
+    "pushUnsupported": "此浏览器或设备不支持手机通知。在 iPhone 上请先把应用添加到主屏幕。",
+    "pushNotConfigured": "平台尚未开启手机通知。",
+    "pushFailed": "无法开启通知，请重试。"
   }
 }

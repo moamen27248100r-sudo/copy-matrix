@@ -2308,5 +2308,23 @@
     "text": "Negociar e copiar operações envolve risco elevado e você pode perder todo o seu capital. O desempenho passado não garante resultados futuros.",
     "readFull": "Ler o aviso de risco completo",
     "demoNote": "Esta é uma conta demo: os fundos e as operações são simulados."
+  },
+  "Pwa": {
+    "installTitle": "Instale o aplicativo no seu celular",
+    "installBody": "Abra o Copy Matrix pela tela inicial, em tela cheia e sem a barra do navegador.",
+    "installCta": "Instalar o aplicativo",
+    "later": "Agora não",
+    "iosTitle": "Adicione o aplicativo à tela inicial",
+    "iosStep1": "Toque no botão Compartilhar na parte inferior do Safari",
+    "iosStep2": "Escolha «Adicionar à Tela de Início» e toque em «Adicionar»",
+    "pushTitle": "Notificações no seu celular",
+    "pushBody": "Para saber na hora quando uma cópia para sozinha, um alerta de perda dispara ou um mercado que você acompanha se mexe muito, mesmo com a plataforma fechada. Mesmas configurações de notificação.",
+    "pushEnable": "Ativar notificações do celular",
+    "pushEnabled": "As notificações estão ativadas neste dispositivo",
+    "pushDisable": "Desativar neste dispositivo",
+    "pushDenied": "As notificações estão bloqueadas no navegador. Permita-as nas configurações do site e tente de novo.",
+    "pushUnsupported": "Este navegador ou dispositivo não suporta notificações. No iPhone, instale primeiro o aplicativo na tela inicial.",
+    "pushNotConfigured": "As notificações do celular ainda não estão ativadas na plataforma.",
+    "pushFailed": "Não foi possível ativar as notificações. Tente novamente."
   }
 }
