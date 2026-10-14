@@ -75,7 +75,7 @@
     "menuAriaLabel": "Menu",
     "navHome": "Home",
     "navDiscover": "Discover",
-    "navMyCopies": "My Copies",
+    "navMyCopies": "Copies",
     "navTrades": "Trades",
     "navPortfolio": "Portfolio",
     "menuMarkets": "Markets",
@@ -101,7 +101,8 @@
     "menuLeadCenter": "Lead trader center",
     "menuBecomeLeader": "Become a lead trader",
     "menuProfitShareHistory": "Profit-share history",
-    "demoStripSwitch": "Trade with a real account"
+    "demoStripSwitch": "Trade with a real account",
+    "menuCloseAriaLabel": "Close menu"
   },
   "LangSwitcher": {
     "label": "Language"
@@ -234,7 +235,17 @@
     "newsViewAll": "View all",
     "newsSourceLine": "{source} via Investing.com · {time}",
     "newsNote": "Headlines are published by Investing.com in English and open on their site.",
-    "newsSourceOnly": "{source} · {time}"
+    "newsSourceOnly": "{source} · {time}",
+    "topMoversTitle": "Biggest movers today",
+    "topMoversAll": "All markets",
+    "investedInCopies": "Invested in copies",
+    "periodSummaryDay": "today",
+    "periodSummaryWeek": "this week",
+    "periodSummaryMonth": "this month",
+    "periodSummary3Months": "last 3 months",
+    "periodSummaryYear": "last year",
+    "periodSummaryAll": "since the start",
+    "walletChartEmpty": "Your performance will appear after your first closed trade"
   },
   "Common": {
     "level": "Level {level}",
@@ -385,7 +396,10 @@
     "txFee": "Fee",
     "kycRequiredNotice": "Identity verification is required to withdraw from a real account. Complete verification to continue.",
     "kycRequiredCta": "Verify identity",
-    "txWithdrawalRefund": "Withdrawal returned"
+    "txWithdrawalRefund": "Withdrawal returned",
+    "walletMenuLabel": "Wallet options",
+    "temporarilyUnavailable": "Temporarily unavailable",
+    "transactionsTitle": "Transaction history"
   },
   "TradeHistory": {
     "periodToday": "Today",
@@ -601,7 +615,9 @@
     "nextPage": "Next",
     "perPageLabel": "Per page:",
     "stopCopyingConfirm": "Stop copying {name}? You can start copying again at any time.",
-    "insufficientData": "Not enough data for this period"
+    "insufficientData": "Not enough data for this period",
+    "tabTraders": "Traders",
+    "tabMarkets": "Markets"
   },
   "Countries": {
     "US": "United States",
@@ -1438,7 +1454,13 @@
     "discover": "Discover traders",
     "activeCopies": "Active copies",
     "totalAllocated": "Allocated",
-    "realizedPnl": "Realized P&L"
+    "realizedPnl": "Realized P&L",
+    "tabActive": "Active",
+    "tabEnded": "Ended",
+    "tabProfitShare": "Profit sharing",
+    "endedEmpty": "No ended copies yet. When you stop copying a trader, it appears here with its result.",
+    "endedLastTrade": "Last trade: {date}",
+    "endedNoTrades": "No closed trades"
   },
   "LeadTrader": {
     "apply": {
@@ -2041,7 +2063,9 @@
     "logoutConfirmBody": "You’ll need to sign in again to access your account.",
     "cancel": "Cancel",
     "version": "Version {version}",
-    "accountNumber": "Account No."
+    "accountNumber": "Account No.",
+    "collapseSidebar": "Collapse sidebar",
+    "expandSidebar": "Expand sidebar"
   },
   "AccountSecurityPage": {
     "title": "Security",
@@ -2243,5 +2267,10 @@
     "resetLinkNote": "Or open this button on the same device where you requested the reset:",
     "ignoreNote": "If you didn't request this, you can safely ignore this email.",
     "linkFallback": "If the button doesn't work, copy this link into your browser:"
+  },
+  "RiskFooter": {
+    "text": "Trading and copying trades carry a high level of risk, and you may lose all of your capital. Past performance does not guarantee future results.",
+    "readFull": "Read the full risk disclosure",
+    "demoNote": "This is a demo account: the funds and trades in it are simulated."
   }
 }

@@ -1,43 +1,7 @@
 import { redirect } from "next/navigation";
-import { getTranslations } from "next-intl/server";
-import { createClient } from "@/lib/supabase/server";
-import { AppNav } from "@/components/AppNav";
-import { TradingViewChart } from "@/components/TradingViewChart";
-import { symbolTradingViewTicker } from "@/lib/symbol-icons";
 
-export async function generateMetadata() {
-  const t = await getTranslations("Metadata");
-  return { title: t("marketsTitle"), description: t("marketsDesc") };
-}
-
-export default async function MarketsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ symbol?: string }>;
-}) {
+// Markets is a tab of Discover now; the old address keeps working.
+export default async function MarketsPage({ searchParams }: { searchParams: Promise<{ symbol?: string }> }) {
   const { symbol } = await searchParams;
-  const t = await getTranslations("Markets");
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect("/login?next=%2Fmarkets");
-  }
-
-  return (
-    <>
-      <AppNav />
-      <main className="mx-auto flex w-full max-w-5xl flex-col gap-4 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-64 lg:me-0 lg:pb-6">
-        <div>
-          <h1 className="text-page-title">{t("title")}</h1>
-          <p className="mt-1 text-sm text-muted">{t("subtitle")}</p>
-        </div>
-        <div className="overflow-hidden rounded-lg border border-border">
-          <TradingViewChart symbol={symbol ? symbolTradingViewTicker(symbol) : undefined} />
-        </div>
-      </main>
-    </>
-  );
+  redirect(symbol ? `/discover?tab=markets&symbol=${encodeURIComponent(symbol)}` : "/discover?tab=markets");
 }

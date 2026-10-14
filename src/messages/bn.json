@@ -75,7 +75,7 @@
     "menuAriaLabel": "মেনু",
     "navHome": "হোম",
     "navDiscover": "খুঁজুন",
-    "navMyCopies": "আমার কপি",
+    "navMyCopies": "কপি",
     "navTrades": "ট্রেডস",
     "navPortfolio": "পোর্টফোলিও",
     "menuMarkets": "বাজার",
@@ -101,7 +101,8 @@
     "menuLeadCenter": "লিড ট্রেডার সেন্টার",
     "menuBecomeLeader": "লিড ট্রেডার হন",
     "menuProfitShareHistory": "মুনাফা ভাগাভাগির ইতিহাস",
-    "demoStripSwitch": "রিয়াল অ্যাকাউন্টে ট্রেড করুন"
+    "demoStripSwitch": "রিয়াল অ্যাকাউন্টে ট্রেড করুন",
+    "menuCloseAriaLabel": "মেনু বন্ধ করুন"
   },
   "LangSwitcher": {
     "label": "ভাষা"
@@ -234,7 +235,17 @@
     "newsViewAll": "সব দেখুন",
     "newsSourceLine": "{source}, Investing.com এর মাধ্যমে · {time}",
     "newsNote": "শিরোনামগুলো Investing.com ইংরেজিতে প্রকাশ করে এবং তাদের সাইটে খোলে।",
-    "newsSourceOnly": "{source} · {time}"
+    "newsSourceOnly": "{source} · {time}",
+    "topMoversTitle": "আজ সবচেয়ে বেশি নড়াচড়া",
+    "topMoversAll": "সব বাজার",
+    "investedInCopies": "কপিতে বিনিয়োগ",
+    "periodSummaryDay": "আজ",
+    "periodSummaryWeek": "এই সপ্তাহে",
+    "periodSummaryMonth": "এই মাসে",
+    "periodSummary3Months": "গত ৩ মাসে",
+    "periodSummaryYear": "গত বছরে",
+    "periodSummaryAll": "শুরু থেকে",
+    "walletChartEmpty": "আপনার প্রথম বন্ধ ট্রেডের পর পারফরম্যান্স দেখা যাবে"
   },
   "Common": {
     "level": "লেভেল {level}",
@@ -385,7 +396,10 @@
     "txFee": "ফি",
     "kycRequiredNotice": "রিয়েল অ্যাকাউন্ট থেকে উত্তোলনের জন্য পরিচয় যাচাই প্রয়োজন। চালিয়ে যেতে যাচাই সম্পন্ন করুন।",
     "kycRequiredCta": "পরিচয় যাচাই করুন",
-    "txWithdrawalRefund": "উত্তোলন ফেরত"
+    "txWithdrawalRefund": "উত্তোলন ফেরত",
+    "walletMenuLabel": "ওয়ালেট অপশন",
+    "temporarilyUnavailable": "সাময়িকভাবে অনুপলব্ধ",
+    "transactionsTitle": "লেনদেনের ইতিহাস"
   },
   "TradeHistory": {
     "periodToday": "আজ",
@@ -601,7 +615,9 @@
     "nextPage": "পরের",
     "perPageLabel": "প্রতি পৃষ্ঠায়:",
     "stopCopyingConfirm": "{name}-কে কপি করা বন্ধ করবেন? আপনি যেকোনো সময় আবার কপি শুরু করতে পারেন।",
-    "insufficientData": "এই সময়ের জন্য পর্যাপ্ত তথ্য নেই"
+    "insufficientData": "এই সময়ের জন্য পর্যাপ্ত তথ্য নেই",
+    "tabTraders": "ট্রেডার",
+    "tabMarkets": "বাজার"
   },
   "Countries": {
     "US": "যুক্তরাষ্ট্র",
@@ -1434,7 +1450,13 @@
     "discover": "ট্রেডার খুঁজুন",
     "activeCopies": "সক্রিয় কপি",
     "totalAllocated": "বরাদ্দকৃত",
-    "realizedPnl": "অর্জিত লাভ/ক্ষতি"
+    "realizedPnl": "অর্জিত লাভ/ক্ষতি",
+    "tabActive": "সক্রিয়",
+    "tabEnded": "শেষ হয়েছে",
+    "tabProfitShare": "মুনাফা ভাগ",
+    "endedEmpty": "এখনও কোনো শেষ হওয়া কপি নেই। কোনো ট্রেডারকে কপি করা বন্ধ করলে ফলাফলসহ এখানে দেখা যাবে।",
+    "endedLastTrade": "সর্বশেষ ট্রেড: {date}",
+    "endedNoTrades": "কোনো বন্ধ ট্রেড নেই"
   },
   "LeadTrader": {
     "apply": {
@@ -2037,7 +2059,9 @@
     "logoutConfirmBody": "অ্যাকাউন্টে যেতে আবার সাইন ইন করতে হবে।",
     "cancel": "বাতিল",
     "version": "সংস্করণ {version}",
-    "accountNumber": "অ্যাকাউন্ট নম্বর"
+    "accountNumber": "অ্যাকাউন্ট নম্বর",
+    "collapseSidebar": "সাইডবার ছোট করুন",
+    "expandSidebar": "সাইডবার বড় করুন"
   },
   "AccountSecurityPage": {
     "title": "নিরাপত্তা",
@@ -2239,5 +2263,10 @@
     "resetLinkNote": "অথবা যে ডিভাইস থেকে অনুরোধ করেছেন সেখানে এই বোতামটি চাপুন:",
     "ignoreNote": "আপনি অনুরোধ না করে থাকলে এই ইমেইলটি উপেক্ষা করুন।",
     "linkFallback": "বোতাম কাজ না করলে এই লিংকটি ব্রাউজারে কপি করুন:"
+  },
+  "RiskFooter": {
+    "text": "ট্রেডিং ও ট্রেড কপি করায় ঝুঁকি অনেক বেশি, আপনি পুরো মূলধন হারাতে পারেন। অতীতের পারফরম্যান্স ভবিষ্যতের ফলাফলের নিশ্চয়তা দেয় না।",
+    "readFull": "সম্পূর্ণ ঝুঁকি প্রকাশ পড়ুন",
+    "demoNote": "এটি ডেমো অ্যাকাউন্ট: এখানকার অর্থ ও ট্রেড কাল্পনিক।"
   }
 }

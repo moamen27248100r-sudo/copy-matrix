@@ -75,7 +75,7 @@
     "menuAriaLabel": "Menu",
     "navHome": "Accueil",
     "navDiscover": "Découvrir",
-    "navMyCopies": "Mes copies",
+    "navMyCopies": "Copies",
     "navTrades": "Transactions",
     "navPortfolio": "Portefeuille",
     "menuMarkets": "Marchés",
@@ -101,7 +101,8 @@
     "menuLeadCenter": "Espace trader leader",
     "menuBecomeLeader": "Devenir trader leader",
     "menuProfitShareHistory": "Historique du partage des profits",
-    "demoStripSwitch": "Trader avec un compte réel"
+    "demoStripSwitch": "Trader avec un compte réel",
+    "menuCloseAriaLabel": "Fermer le menu"
   },
   "LangSwitcher": {
     "label": "Langue"
@@ -234,7 +235,17 @@
     "newsViewAll": "Tout voir",
     "newsSourceLine": "{source} via Investing.com · {time}",
     "newsNote": "Les titres sont publiés par Investing.com en anglais et s'ouvrent sur leur site.",
-    "newsSourceOnly": "{source} · {time}"
+    "newsSourceOnly": "{source} · {time}",
+    "topMoversTitle": "Plus fortes variations du jour",
+    "topMoversAll": "Tous les marchés",
+    "investedInCopies": "Investi dans les copies",
+    "periodSummaryDay": "aujourd’hui",
+    "periodSummaryWeek": "cette semaine",
+    "periodSummaryMonth": "ce mois-ci",
+    "periodSummary3Months": "3 derniers mois",
+    "periodSummaryYear": "cette dernière année",
+    "periodSummaryAll": "depuis le début",
+    "walletChartEmpty": "Vos performances apparaîtront après votre première transaction clôturée"
   },
   "Common": {
     "level": "Niveau {level}",
@@ -385,7 +396,10 @@
     "txFee": "Frais",
     "kycRequiredNotice": "La vérification d'identité est requise pour retirer des fonds d'un compte réel. Terminez la vérification pour continuer.",
     "kycRequiredCta": "Vérifier mon identité",
-    "txWithdrawalRefund": "Retrait restitué"
+    "txWithdrawalRefund": "Retrait restitué",
+    "walletMenuLabel": "Options du portefeuille",
+    "temporarilyUnavailable": "Temporairement indisponible",
+    "transactionsTitle": "Historique des transactions"
   },
   "TradeHistory": {
     "periodToday": "Aujourd'hui",
@@ -601,7 +615,9 @@
     "nextPage": "Suivant",
     "perPageLabel": "Par page :",
     "stopCopyingConfirm": "Arrêter de copier {name} ? Vous pourrez recommencer à tout moment.",
-    "insufficientData": "Données insuffisantes pour cette période"
+    "insufficientData": "Données insuffisantes pour cette période",
+    "tabTraders": "Traders",
+    "tabMarkets": "Marchés"
   },
   "Countries": {
     "US": "États-Unis",
@@ -1435,7 +1451,13 @@
     "discover": "Découvrir des traders",
     "activeCopies": "Copies actives",
     "totalAllocated": "Alloué",
-    "realizedPnl": "P&L réalisé"
+    "realizedPnl": "P&L réalisé",
+    "tabActive": "Actives",
+    "tabEnded": "Terminées",
+    "tabProfitShare": "Partage des profits",
+    "endedEmpty": "Aucune copie terminée pour l’instant. Lorsque vous arrêtez de copier un trader, elle apparaît ici avec son résultat.",
+    "endedLastTrade": "Dernière transaction : {date}",
+    "endedNoTrades": "Aucune transaction clôturée"
   },
   "LeadTrader": {
     "apply": {
@@ -2038,7 +2060,9 @@
     "logoutConfirmBody": "Vous devrez vous reconnecter pour accéder à votre compte.",
     "cancel": "Annuler",
     "version": "Version {version}",
-    "accountNumber": "N° de compte"
+    "accountNumber": "N° de compte",
+    "collapseSidebar": "Réduire le menu",
+    "expandSidebar": "Agrandir le menu"
   },
   "AccountSecurityPage": {
     "title": "Sécurité",
@@ -2240,5 +2264,10 @@
     "resetLinkNote": "Ou utilisez ce bouton sur l'appareil depuis lequel vous avez fait la demande :",
     "ignoreNote": "Si vous n'êtes pas à l'origine de cette demande, ignorez simplement cet e-mail.",
     "linkFallback": "Si le bouton ne fonctionne pas, copiez ce lien dans votre navigateur :"
+  },
+  "RiskFooter": {
+    "text": "Le trading et la copie de transactions comportent un risque élevé et vous pouvez perdre la totalité de votre capital. Les performances passées ne garantissent pas les résultats futurs.",
+    "readFull": "Lire l’avertissement complet sur les risques",
+    "demoNote": "Ceci est un compte démo : les fonds et les transactions sont simulés."
   }
 }

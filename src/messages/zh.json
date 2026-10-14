@@ -75,7 +75,7 @@
     "menuAriaLabel": "菜单",
     "navHome": "首页",
     "navDiscover": "发现",
-    "navMyCopies": "我的跟单",
+    "navMyCopies": "跟单",
     "navTrades": "交易",
     "navPortfolio": "投资组合",
     "menuMarkets": "市场",
@@ -101,7 +101,8 @@
     "menuLeadCenter": "带单员中心",
     "menuBecomeLeader": "成为带单员",
     "menuProfitShareHistory": "分润记录",
-    "demoStripSwitch": "使用真实账户交易"
+    "demoStripSwitch": "使用真实账户交易",
+    "menuCloseAriaLabel": "关闭菜单"
   },
   "LangSwitcher": {
     "label": "语言"
@@ -234,7 +235,17 @@
     "newsViewAll": "查看全部",
     "newsSourceLine": "{source}，来自 Investing.com · {time}",
     "newsNote": "标题由 Investing.com 以英文发布，点击后在其网站打开。",
-    "newsSourceOnly": "{source} · {time}"
+    "newsSourceOnly": "{source} · {time}",
+    "topMoversTitle": "今日涨跌最大",
+    "topMoversAll": "全部市场",
+    "investedInCopies": "跟单投入",
+    "periodSummaryDay": "今日",
+    "periodSummaryWeek": "本周",
+    "periodSummaryMonth": "本月",
+    "periodSummary3Months": "近 3 个月",
+    "periodSummaryYear": "近一年",
+    "periodSummaryAll": "自开始以来",
+    "walletChartEmpty": "首笔交易平仓后将显示您的表现"
   },
   "Common": {
     "level": "等级 {level}",
@@ -385,7 +396,10 @@
     "txFee": "手续费",
     "kycRequiredNotice": "从真实账户提现需要完成身份验证。请先完成验证后继续。",
     "kycRequiredCta": "前往验证",
-    "txWithdrawalRefund": "提币退回"
+    "txWithdrawalRefund": "提币退回",
+    "walletMenuLabel": "钱包选项",
+    "temporarilyUnavailable": "暂不可用",
+    "transactionsTitle": "交易记录"
   },
   "TradeHistory": {
     "periodToday": "今天",
@@ -601,7 +615,9 @@
     "nextPage": "下一页",
     "perPageLabel": "每页：",
     "stopCopyingConfirm": "停止跟单 {name}？你可以随时重新开始跟单。",
-    "insufficientData": "该时段数据不足"
+    "insufficientData": "该时段数据不足",
+    "tabTraders": "交易员",
+    "tabMarkets": "市场"
   },
   "Countries": {
     "US": "美国",
@@ -1435,7 +1451,13 @@
     "discover": "发现交易员",
     "activeCopies": "进行中的跟单",
     "totalAllocated": "已分配",
-    "realizedPnl": "已实现盈亏"
+    "realizedPnl": "已实现盈亏",
+    "tabActive": "进行中",
+    "tabEnded": "已结束",
+    "tabProfitShare": "利润分成",
+    "endedEmpty": "暂无已结束的跟单。停止跟单某位交易员后，会连同结果显示在这里。",
+    "endedLastTrade": "最后一笔交易：{date}",
+    "endedNoTrades": "没有已平仓交易"
   },
   "LeadTrader": {
     "apply": {
@@ -2038,7 +2060,9 @@
     "logoutConfirmBody": "您需要重新登录才能访问账户。",
     "cancel": "取消",
     "version": "版本 {version}",
-    "accountNumber": "账号"
+    "accountNumber": "账号",
+    "collapseSidebar": "收起侧边栏",
+    "expandSidebar": "展开侧边栏"
   },
   "AccountSecurityPage": {
     "title": "安全",
@@ -2240,5 +2264,10 @@
     "resetLinkNote": "或在您发起请求的同一设备上点击此按钮：",
     "ignoreNote": "如果这不是您本人的请求，请忽略此邮件。",
     "linkFallback": "如果按钮无法使用，请将此链接复制到浏览器："
+  },
+  "RiskFooter": {
+    "text": "交易和跟单交易具有高风险，您可能会损失全部本金。过往业绩不代表未来表现。",
+    "readFull": "阅读完整风险披露",
+    "demoNote": "这是模拟账户：其中的资金和交易均为模拟。"
   }
 }

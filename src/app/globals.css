@@ -475,3 +475,11 @@ th {
 body[data-shell="public"] {
   --bottom-nav-h: 0px;
 }
+
+/* Signed-in desktop shell: the width of the fixed sidebar (16rem, or 4.5rem when collapsed). Pages
+   offset themselves with lg:ms-[var(--sidebar-w)]; below 1024px there is no sidebar. */
+:root { --sidebar-w: 0px; }
+@media (min-width: 1024px) {
+  body[data-shell="app"] { --sidebar-w: 16rem; }
+  body[data-shell="app"][data-sidebar="collapsed"] { --sidebar-w: 4.5rem; }
+}

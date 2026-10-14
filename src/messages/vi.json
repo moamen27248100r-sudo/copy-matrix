@@ -75,7 +75,7 @@
     "menuAriaLabel": "Menu",
     "navHome": "Trang chủ",
     "navDiscover": "Khám phá",
-    "navMyCopies": "Bản sao của tôi",
+    "navMyCopies": "Bản sao",
     "navTrades": "Giao dịch",
     "navPortfolio": "Danh mục",
     "menuMarkets": "Thị trường",
@@ -101,7 +101,8 @@
     "menuLeadCenter": "Trung tâm nhà giao dịch dẫn đầu",
     "menuBecomeLeader": "Trở thành nhà giao dịch dẫn đầu",
     "menuProfitShareHistory": "Lịch sử chia sẻ lợi nhuận",
-    "demoStripSwitch": "Giao dịch bằng tài khoản thật"
+    "demoStripSwitch": "Giao dịch bằng tài khoản thật",
+    "menuCloseAriaLabel": "Đóng menu"
   },
   "LangSwitcher": {
     "label": "Ngôn ngữ"
@@ -234,7 +235,17 @@
     "newsViewAll": "Xem tất cả",
     "newsSourceLine": "{source} qua Investing.com · {time}",
     "newsNote": "Tiêu đề do Investing.com đăng bằng tiếng Anh và mở trên trang của họ.",
-    "newsSourceOnly": "{source} · {time}"
+    "newsSourceOnly": "{source} · {time}",
+    "topMoversTitle": "Biến động mạnh nhất hôm nay",
+    "topMoversAll": "Tất cả thị trường",
+    "investedInCopies": "Đã đầu tư vào sao chép",
+    "periodSummaryDay": "hôm nay",
+    "periodSummaryWeek": "tuần này",
+    "periodSummaryMonth": "tháng này",
+    "periodSummary3Months": "3 tháng qua",
+    "periodSummaryYear": "năm qua",
+    "periodSummaryAll": "từ đầu",
+    "walletChartEmpty": "Hiệu suất của bạn sẽ hiển thị sau giao dịch đóng đầu tiên"
   },
   "Common": {
     "level": "Cấp độ {level}",
@@ -385,7 +396,10 @@
     "txFee": "Phí",
     "kycRequiredNotice": "Cần xác minh danh tính để rút tiền từ tài khoản thực. Hãy hoàn tất xác minh để tiếp tục.",
     "kycRequiredCta": "Xác minh danh tính",
-    "txWithdrawalRefund": "Hoàn lệnh rút"
+    "txWithdrawalRefund": "Hoàn lệnh rút",
+    "walletMenuLabel": "Tùy chọn ví",
+    "temporarilyUnavailable": "Tạm thời không khả dụng",
+    "transactionsTitle": "Lịch sử giao dịch"
   },
   "TradeHistory": {
     "periodToday": "Hôm nay",
@@ -601,7 +615,9 @@
     "nextPage": "Tiếp",
     "perPageLabel": "Mỗi trang:",
     "stopCopyingConfirm": "Dừng sao chép {name}? Bạn có thể bắt đầu sao chép lại bất cứ lúc nào.",
-    "insufficientData": "Không đủ dữ liệu cho giai đoạn này"
+    "insufficientData": "Không đủ dữ liệu cho giai đoạn này",
+    "tabTraders": "Nhà giao dịch",
+    "tabMarkets": "Thị trường"
   },
   "Countries": {
     "US": "Hoa Kỳ",
@@ -1434,7 +1450,13 @@
     "discover": "Khám phá nhà giao dịch",
     "activeCopies": "Lệnh sao chép đang hoạt động",
     "totalAllocated": "Đã phân bổ",
-    "realizedPnl": "Lãi/lỗ đã chốt"
+    "realizedPnl": "Lãi/lỗ đã chốt",
+    "tabActive": "Đang chạy",
+    "tabEnded": "Đã kết thúc",
+    "tabProfitShare": "Chia sẻ lợi nhuận",
+    "endedEmpty": "Chưa có bản sao nào đã kết thúc. Khi bạn dừng sao chép một nhà giao dịch, bản sao đó sẽ hiện ở đây cùng kết quả.",
+    "endedLastTrade": "Giao dịch gần nhất: {date}",
+    "endedNoTrades": "Không có giao dịch đã đóng"
   },
   "LeadTrader": {
     "apply": {
@@ -2037,7 +2059,9 @@
     "logoutConfirmBody": "Bạn sẽ cần đăng nhập lại để truy cập tài khoản.",
     "cancel": "Hủy",
     "version": "Phiên bản {version}",
-    "accountNumber": "Số tài khoản"
+    "accountNumber": "Số tài khoản",
+    "collapseSidebar": "Thu gọn thanh bên",
+    "expandSidebar": "Mở rộng thanh bên"
   },
   "AccountSecurityPage": {
     "title": "Bảo mật",
@@ -2239,5 +2263,10 @@
     "resetLinkNote": "Hoặc nhấn nút này trên chính thiết bị bạn đã yêu cầu:",
     "ignoreNote": "Nếu bạn không yêu cầu, bạn có thể bỏ qua thư này.",
     "linkFallback": "Nếu nút không hoạt động, hãy sao chép liên kết này vào trình duyệt:"
+  },
+  "RiskFooter": {
+    "text": "Giao dịch và sao chép giao dịch có rủi ro cao, bạn có thể mất toàn bộ vốn. Hiệu suất trong quá khứ không đảm bảo kết quả trong tương lai.",
+    "readFull": "Đọc đầy đủ công bố rủi ro",
+    "demoNote": "Đây là tài khoản demo: tiền và giao dịch đều là mô phỏng."
   }
 }

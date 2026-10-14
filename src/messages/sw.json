@@ -75,7 +75,7 @@
     "menuAriaLabel": "Menyu",
     "navHome": "Nyumbani",
     "navDiscover": "Gundua",
-    "navMyCopies": "Nakala Zangu",
+    "navMyCopies": "Nakala",
     "navTrades": "Biashara",
     "navPortfolio": "Kwingi la Uwekezaji",
     "menuMarkets": "Masoko",
@@ -101,7 +101,8 @@
     "menuLeadCenter": "Kituo cha mfanyabiashara kiongozi",
     "menuBecomeLeader": "Kuwa mfanyabiashara kiongozi",
     "menuProfitShareHistory": "Historia ya mgao wa faida",
-    "demoStripSwitch": "Fanya biashara kwa akaunti halisi"
+    "demoStripSwitch": "Fanya biashara kwa akaunti halisi",
+    "menuCloseAriaLabel": "Funga menyu"
   },
   "LangSwitcher": {
     "label": "Lugha"
@@ -234,7 +235,17 @@
     "newsViewAll": "Tazama zote",
     "newsSourceLine": "{source} kupitia Investing.com · {time}",
     "newsNote": "Vichwa vya habari vinachapishwa na Investing.com kwa Kiingereza na hufunguka kwenye tovuti yao.",
-    "newsSourceOnly": "{source} · {time}"
+    "newsSourceOnly": "{source} · {time}",
+    "topMoversTitle": "Mabadiliko makubwa leo",
+    "topMoversAll": "Masoko yote",
+    "investedInCopies": "Imewekezwa kwenye nakala",
+    "periodSummaryDay": "leo",
+    "periodSummaryWeek": "wiki hii",
+    "periodSummaryMonth": "mwezi huu",
+    "periodSummary3Months": "miezi 3 iliyopita",
+    "periodSummaryYear": "mwaka uliopita",
+    "periodSummaryAll": "tangu mwanzo",
+    "walletChartEmpty": "Utendaji wako utaonekana baada ya biashara yako ya kwanza kufungwa"
   },
   "Common": {
     "level": "Kiwango {level}",
@@ -385,7 +396,10 @@
     "txFee": "Ada",
     "kycRequiredNotice": "Uthibitisho wa utambulisho unahitajika ili kutoa pesa kutoka akaunti halisi. Kamilisha uthibitisho ili kuendelea.",
     "kycRequiredCta": "Thibitisha utambulisho",
-    "txWithdrawalRefund": "Utoaji uliorudishwa"
+    "txWithdrawalRefund": "Utoaji uliorudishwa",
+    "walletMenuLabel": "Chaguo za pochi",
+    "temporarilyUnavailable": "Haipatikani kwa muda",
+    "transactionsTitle": "Historia ya miamala"
   },
   "TradeHistory": {
     "periodToday": "Leo",
@@ -601,7 +615,9 @@
     "nextPage": "Inayofuata",
     "perPageLabel": "Kwa ukurasa:",
     "stopCopyingConfirm": "Acha kunakili {name}? Unaweza kuanza kunakili tena wakati wowote.",
-    "insufficientData": "Data haitoshi kwa kipindi hiki"
+    "insufficientData": "Data haitoshi kwa kipindi hiki",
+    "tabTraders": "Wafanyabiashara",
+    "tabMarkets": "Masoko"
   },
   "Countries": {
     "US": "Marekani",
@@ -1434,7 +1450,13 @@
     "discover": "Gundua wafanyabiashara",
     "activeCopies": "Nakala zinazotumika",
     "totalAllocated": "Kilichotengwa",
-    "realizedPnl": "Faida/hasara iliyotimia"
+    "realizedPnl": "Faida/hasara iliyotimia",
+    "tabActive": "Zinazoendelea",
+    "tabEnded": "Zilizoisha",
+    "tabProfitShare": "Mgawanyo wa faida",
+    "endedEmpty": "Bado hakuna nakala zilizoisha. Ukiacha kumnakili mfanyabiashara, itaonekana hapa pamoja na matokeo.",
+    "endedLastTrade": "Biashara ya mwisho: {date}",
+    "endedNoTrades": "Hakuna biashara zilizofungwa"
   },
   "LeadTrader": {
     "apply": {
@@ -2037,7 +2059,9 @@
     "logoutConfirmBody": "Utahitaji kuingia tena ili kufikia akaunti yako.",
     "cancel": "Ghairi",
     "version": "Toleo {version}",
-    "accountNumber": "Namba ya Akaunti"
+    "accountNumber": "Namba ya Akaunti",
+    "collapseSidebar": "Punguza menyu ya pembeni",
+    "expandSidebar": "Panua menyu ya pembeni"
   },
   "AccountSecurityPage": {
     "title": "Usalama",
@@ -2239,5 +2263,10 @@
     "resetLinkNote": "Au bonyeza kitufe hiki kwenye kifaa kilekile ulichoombea:",
     "ignoreNote": "Kama hukuomba hili, unaweza kupuuza barua pepe hii.",
     "linkFallback": "Kama kitufe hakifanyi kazi, nakili kiungo hiki kwenye kivinjari:"
+  },
+  "RiskFooter": {
+    "text": "Biashara na kunakili biashara kuna hatari kubwa, na unaweza kupoteza mtaji wako wote. Utendaji wa zamani hauhakikishi matokeo ya baadaye.",
+    "readFull": "Soma ufichuzi kamili wa hatari",
+    "demoNote": "Huu ni akaunti ya majaribio: fedha na biashara ni za kuigiza."
   }
 }

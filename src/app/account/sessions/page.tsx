@@ -73,7 +73,7 @@ export default async function AccountSessionsPage({
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-2xl flex-col gap-4 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-64 lg:me-0 lg:pb-6">
+      <main className="mx-auto flex w-full max-w-2xl flex-col gap-4 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-[var(--sidebar-w)] lg:me-0 lg:pb-6">
         <h1 className="text-page-title">{ts("devices")}</h1>
         <p className="text-sm text-muted">{t("subtitle")}</p>
 

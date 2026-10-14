@@ -75,7 +75,7 @@
     "menuAriaLabel": "เมนู",
     "navHome": "หน้าแรก",
     "navDiscover": "ค้นหา",
-    "navMyCopies": "การคัดลอกของฉัน",
+    "navMyCopies": "การคัดลอก",
     "navTrades": "การเทรด",
     "navPortfolio": "พอร์ตโฟลิโอ",
     "menuMarkets": "ตลาด",
@@ -101,7 +101,8 @@
     "menuLeadCenter": "ศูนย์ลีดเทรดเดอร์",
     "menuBecomeLeader": "สมัครเป็นลีดเทรดเดอร์",
     "menuProfitShareHistory": "ประวัติการแบ่งกำไร",
-    "demoStripSwitch": "เทรดด้วยบัญชีจริง"
+    "demoStripSwitch": "เทรดด้วยบัญชีจริง",
+    "menuCloseAriaLabel": "ปิดเมนู"
   },
   "LangSwitcher": {
     "label": "ภาษา"
@@ -234,7 +235,17 @@
     "newsViewAll": "ดูทั้งหมด",
     "newsSourceLine": "{source} ผ่าน Investing.com · {time}",
     "newsNote": "พาดหัวเผยแพร่โดย Investing.com เป็นภาษาอังกฤษ และเปิดบนเว็บไซต์ของเขา",
-    "newsSourceOnly": "{source} · {time}"
+    "newsSourceOnly": "{source} · {time}",
+    "topMoversTitle": "เคลื่อนไหวมากที่สุดวันนี้",
+    "topMoversAll": "ตลาดทั้งหมด",
+    "investedInCopies": "ลงทุนในการคัดลอก",
+    "periodSummaryDay": "วันนี้",
+    "periodSummaryWeek": "สัปดาห์นี้",
+    "periodSummaryMonth": "เดือนนี้",
+    "periodSummary3Months": "3 เดือนที่ผ่านมา",
+    "periodSummaryYear": "ปีที่ผ่านมา",
+    "periodSummaryAll": "ตั้งแต่เริ่มต้น",
+    "walletChartEmpty": "ผลงานของคุณจะแสดงหลังจากเทรดแรกถูกปิด"
   },
   "Common": {
     "level": "ระดับ {level}",
@@ -385,7 +396,10 @@
     "txFee": "ค่าธรรมเนียม",
     "kycRequiredNotice": "ต้องยืนยันตัวตนก่อนจึงจะถอนเงินจากบัญชีจริงได้ โปรดยืนยันตัวตนให้เสร็จเพื่อดำเนินการต่อ",
     "kycRequiredCta": "ยืนยันตัวตน",
-    "txWithdrawalRefund": "คืนเงินถอน"
+    "txWithdrawalRefund": "คืนเงินถอน",
+    "walletMenuLabel": "ตัวเลือกกระเป๋าเงิน",
+    "temporarilyUnavailable": "ไม่พร้อมใช้งานชั่วคราว",
+    "transactionsTitle": "ประวัติธุรกรรม"
   },
   "TradeHistory": {
     "periodToday": "วันนี้",
@@ -601,7 +615,9 @@
     "nextPage": "ถัดไป",
     "perPageLabel": "ต่อหน้า:",
     "stopCopyingConfirm": "หยุดคัดลอก {name} หรือไม่? คุณสามารถเริ่มคัดลอกใหม่ได้ทุกเมื่อ",
-    "insufficientData": "ข้อมูลไม่เพียงพอสำหรับช่วงเวลานี้"
+    "insufficientData": "ข้อมูลไม่เพียงพอสำหรับช่วงเวลานี้",
+    "tabTraders": "เทรดเดอร์",
+    "tabMarkets": "ตลาด"
   },
   "Countries": {
     "US": "สหรัฐอเมริกา",
@@ -1434,7 +1450,13 @@
     "discover": "ค้นหาเทรดเดอร์",
     "activeCopies": "การคัดลอกที่ใช้งานอยู่",
     "totalAllocated": "ที่จัดสรรแล้ว",
-    "realizedPnl": "กำไร/ขาดทุนที่รับรู้แล้ว"
+    "realizedPnl": "กำไร/ขาดทุนที่รับรู้แล้ว",
+    "tabActive": "ที่ใช้งานอยู่",
+    "tabEnded": "สิ้นสุดแล้ว",
+    "tabProfitShare": "การแบ่งกำไร",
+    "endedEmpty": "ยังไม่มีการคัดลอกที่สิ้นสุด เมื่อคุณหยุดคัดลอกเทรดเดอร์ จะแสดงที่นี่พร้อมผลลัพธ์",
+    "endedLastTrade": "เทรดล่าสุด: {date}",
+    "endedNoTrades": "ไม่มีเทรดที่ปิดแล้ว"
   },
   "LeadTrader": {
     "apply": {
@@ -2037,7 +2059,9 @@
     "logoutConfirmBody": "คุณต้องเข้าสู่ระบบอีกครั้งเพื่อใช้บัญชี",
     "cancel": "ยกเลิก",
     "version": "เวอร์ชัน {version}",
-    "accountNumber": "เลขที่บัญชี"
+    "accountNumber": "เลขที่บัญชี",
+    "collapseSidebar": "ย่อแถบด้านข้าง",
+    "expandSidebar": "ขยายแถบด้านข้าง"
   },
   "AccountSecurityPage": {
     "title": "ความปลอดภัย",
@@ -2239,5 +2263,10 @@
     "resetLinkNote": "หรือกดปุ่มนี้บนอุปกรณ์เดียวกับที่คุณขอรีเซ็ต:",
     "ignoreNote": "หากคุณไม่ได้ขอ คุณสามารถเพิกเฉยต่ออีเมลนี้ได้",
     "linkFallback": "หากปุ่มใช้งานไม่ได้ ให้คัดลอกลิงก์นี้ไปที่เบราว์เซอร์:"
+  },
+  "RiskFooter": {
+    "text": "การเทรดและการคัดลอกการเทรดมีความเสี่ยงสูง คุณอาจสูญเสียเงินทุนทั้งหมด ผลงานในอดีตไม่ได้รับประกันผลลัพธ์ในอนาคต",
+    "readFull": "อ่านการเปิดเผยความเสี่ยงฉบับเต็ม",
+    "demoNote": "นี่คือบัญชีทดลอง: เงินและการเทรดเป็นการจำลอง"
   }
 }

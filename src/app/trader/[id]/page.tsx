@@ -22,6 +22,7 @@ import { ConfirmButton } from "@/components/ConfirmButton";
 import { defaultCopyAmount } from "@/lib/copy-amount";
 import { TabStrip } from "@/components/TabStrip";
 import { CopyDialog } from "@/components/CopyDialog";
+import { RiskFooter } from "@/components/RiskFooter";
 import { getBioTranslator } from "@/lib/bio-translations";
 import type { Locale } from "@/i18n/locales";
 import { leaderScores } from "@/lib/leader-scores";
@@ -238,7 +239,7 @@ export default async function TraderPage({
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+var(--copy-bar-h,7rem)+1rem)] lg:pb-6 lg:ms-64 lg:me-0">
+      <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+var(--copy-bar-h,7rem)+1rem)] lg:pb-6 lg:ms-[var(--sidebar-w)] lg:me-0">
         {error && (
           <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
             {error}
@@ -570,6 +571,8 @@ export default async function TraderPage({
           )}
         </section>
       )}
+
+      <RiskFooter demo={!!user && myProfile?.account_type !== "real"} />
       </main>
     </>
   );

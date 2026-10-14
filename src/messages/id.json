@@ -75,7 +75,7 @@
     "menuAriaLabel": "Menu",
     "navHome": "Beranda",
     "navDiscover": "Jelajahi",
-    "navMyCopies": "Salinan Saya",
+    "navMyCopies": "Salinan",
     "navTrades": "Transaksi",
     "navPortfolio": "Portofolio",
     "menuMarkets": "Pasar",
@@ -101,7 +101,8 @@
     "menuLeadCenter": "Pusat lead trader",
     "menuBecomeLeader": "Jadi lead trader",
     "menuProfitShareHistory": "Riwayat bagi hasil",
-    "demoStripSwitch": "Trading dengan akun nyata"
+    "demoStripSwitch": "Trading dengan akun nyata",
+    "menuCloseAriaLabel": "Tutup menu"
   },
   "LangSwitcher": {
     "label": "Bahasa"
@@ -234,7 +235,17 @@
     "newsViewAll": "Lihat semua",
     "newsSourceLine": "{source} melalui Investing.com · {time}",
     "newsNote": "Judul diterbitkan Investing.com dalam bahasa Inggris dan dibuka di situs mereka.",
-    "newsSourceOnly": "{source} · {time}"
+    "newsSourceOnly": "{source} · {time}",
+    "topMoversTitle": "Pergerakan terbesar hari ini",
+    "topMoversAll": "Semua pasar",
+    "investedInCopies": "Diinvestasikan di salinan",
+    "periodSummaryDay": "hari ini",
+    "periodSummaryWeek": "minggu ini",
+    "periodSummaryMonth": "bulan ini",
+    "periodSummary3Months": "3 bulan terakhir",
+    "periodSummaryYear": "setahun terakhir",
+    "periodSummaryAll": "sejak awal",
+    "walletChartEmpty": "Kinerja Anda akan muncul setelah transaksi pertama ditutup"
   },
   "Common": {
     "level": "Level {level}",
@@ -385,7 +396,10 @@
     "txFee": "Biaya",
     "kycRequiredNotice": "Verifikasi identitas diperlukan untuk menarik dana dari akun riil. Selesaikan verifikasi untuk melanjutkan.",
     "kycRequiredCta": "Verifikasi identitas",
-    "txWithdrawalRefund": "Penarikan dikembalikan"
+    "txWithdrawalRefund": "Penarikan dikembalikan",
+    "walletMenuLabel": "Opsi dompet",
+    "temporarilyUnavailable": "Sementara tidak tersedia",
+    "transactionsTitle": "Riwayat transaksi"
   },
   "TradeHistory": {
     "periodToday": "Hari ini",
@@ -601,7 +615,9 @@
     "nextPage": "Berikutnya",
     "perPageLabel": "Per halaman:",
     "stopCopyingConfirm": "Berhenti menyalin {name}? Anda dapat mulai menyalin lagi kapan saja.",
-    "insufficientData": "Data tidak cukup untuk periode ini"
+    "insufficientData": "Data tidak cukup untuk periode ini",
+    "tabTraders": "Trader",
+    "tabMarkets": "Pasar"
   },
   "Countries": {
     "US": "Amerika Serikat",
@@ -1434,7 +1450,13 @@
     "discover": "Temukan trader",
     "activeCopies": "Salinan aktif",
     "totalAllocated": "Dialokasikan",
-    "realizedPnl": "P&L terealisasi"
+    "realizedPnl": "P&L terealisasi",
+    "tabActive": "Aktif",
+    "tabEnded": "Berakhir",
+    "tabProfitShare": "Bagi hasil",
+    "endedEmpty": "Belum ada salinan yang berakhir. Saat Anda berhenti menyalin trader, salinan itu muncul di sini beserta hasilnya.",
+    "endedLastTrade": "Transaksi terakhir: {date}",
+    "endedNoTrades": "Tidak ada transaksi tertutup"
   },
   "LeadTrader": {
     "apply": {
@@ -2037,7 +2059,9 @@
     "logoutConfirmBody": "Anda perlu masuk lagi untuk mengakses akun.",
     "cancel": "Batal",
     "version": "Versi {version}",
-    "accountNumber": "No. Akun"
+    "accountNumber": "No. Akun",
+    "collapseSidebar": "Ciutkan bilah samping",
+    "expandSidebar": "Perluas bilah samping"
   },
   "AccountSecurityPage": {
     "title": "Keamanan",
@@ -2239,5 +2263,10 @@
     "resetLinkNote": "Atau tekan tombol ini di perangkat yang sama tempat Anda memintanya:",
     "ignoreNote": "Jika Anda tidak memintanya, abaikan saja surel ini.",
     "linkFallback": "Jika tombol tidak berfungsi, salin tautan ini ke peramban:"
+  },
+  "RiskFooter": {
+    "text": "Trading dan menyalin transaksi memiliki risiko tinggi, dan Anda dapat kehilangan seluruh modal. Kinerja masa lalu tidak menjamin hasil di masa depan.",
+    "readFull": "Baca pengungkapan risiko lengkap",
+    "demoNote": "Ini akun demo: dana dan transaksinya adalah simulasi."
   }
 }

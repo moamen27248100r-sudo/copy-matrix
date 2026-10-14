@@ -75,7 +75,7 @@
     "menuAriaLabel": "القائمة",
     "navHome": "الرئيسية",
     "navDiscover": "اكتشف",
-    "navMyCopies": "نسخاتي",
+    "navMyCopies": "النسخ",
     "navTrades": "الصفقات",
     "navPortfolio": "المحفظة",
     "menuMarkets": "الأسواق",
@@ -101,7 +101,8 @@
     "menuLeadCenter": "لوحة المتداول القائد",
     "menuBecomeLeader": "كن متداولًا قائدًا",
     "menuProfitShareHistory": "سجل مشاركة الأرباح",
-    "demoStripSwitch": "التداول بحساب حقيقي"
+    "demoStripSwitch": "التداول بحساب حقيقي",
+    "menuCloseAriaLabel": "إغلاق القائمة"
   },
   "LangSwitcher": {
     "label": "اللغة"
@@ -234,7 +235,17 @@
     "newsViewAll": "عرض الكل",
     "newsSourceLine": "{source} عبر Investing.com · {time}",
     "newsNote": "العناوين تنشرها Investing.com بالإنجليزية وتُفتح على موقعها.",
-    "newsSourceOnly": "{source} · {time}"
+    "newsSourceOnly": "{source} · {time}",
+    "topMoversTitle": "الأكثر تحرّكاً اليوم",
+    "topMoversAll": "كل الأسواق",
+    "investedInCopies": "المستثمر في النسخ",
+    "periodSummaryDay": "اليوم",
+    "periodSummaryWeek": "هذا الأسبوع",
+    "periodSummaryMonth": "هذا الشهر",
+    "periodSummary3Months": "آخر 3 أشهر",
+    "periodSummaryYear": "آخر سنة",
+    "periodSummaryAll": "منذ البداية",
+    "walletChartEmpty": "سيظهر أداؤك بعد أول صفقة مغلقة"
   },
   "Common": {
     "level": "المستوى {level}",
@@ -385,7 +396,10 @@
     "txFee": "رسوم",
     "kycRequiredNotice": "يلزم توثيق الهوية للسحب من الحساب الحقيقي. أكمل التوثيق للمتابعة.",
     "kycRequiredCta": "توثيق الهوية",
-    "txWithdrawalRefund": "استرجاع سحب"
+    "txWithdrawalRefund": "استرجاع سحب",
+    "walletMenuLabel": "خيارات المحفظة",
+    "temporarilyUnavailable": "غير متاح مؤقتاً",
+    "transactionsTitle": "سجل المعاملات"
   },
   "TradeHistory": {
     "periodToday": "اليوم",
@@ -601,7 +615,9 @@
     "nextPage": "التالي",
     "perPageLabel": "لكل صفحة:",
     "stopCopyingConfirm": "إيقاف نسخ {name}؟ يمكنك بدء النسخ مجدداً في أي وقت.",
-    "insufficientData": "بيانات غير كافية لهذه الفترة"
+    "insufficientData": "بيانات غير كافية لهذه الفترة",
+    "tabTraders": "المتداولون",
+    "tabMarkets": "الأسواق"
   },
   "Countries": {
     "US": "الولايات المتحدة",
@@ -1499,7 +1515,13 @@
     "discover": "استكشف المتداولين",
     "activeCopies": "النسخ النشطة",
     "totalAllocated": "المبلغ المخصص",
-    "realizedPnl": "الربح المحقق"
+    "realizedPnl": "الربح المحقق",
+    "tabActive": "النشطة",
+    "tabEnded": "المنتهية",
+    "tabProfitShare": "مشاركة الأرباح",
+    "endedEmpty": "لا توجد نسخ منتهية بعد. عند إيقاف نسخ متداول تظهر هنا مع نتيجتها.",
+    "endedLastTrade": "آخر صفقة: {date}",
+    "endedNoTrades": "بدون صفقات مغلقة"
   },
   "LeadTrader": {
     "apply": {
@@ -2102,7 +2124,9 @@
     "logoutConfirmBody": "ستحتاج إلى تسجيل الدخول مرة أخرى للوصول إلى حسابك.",
     "cancel": "إلغاء",
     "version": "الإصدار {version}",
-    "accountNumber": "رقم الحساب"
+    "accountNumber": "رقم الحساب",
+    "collapseSidebar": "تصغير القائمة",
+    "expandSidebar": "توسيع القائمة"
   },
   "AccountSecurityPage": {
     "title": "الأمان",
@@ -2304,5 +2328,10 @@
     "resetLinkNote": "أو اضغط هذا الزر على نفس الجهاز الذي طلبت منه إعادة التعيين:",
     "ignoreNote": "إذا لم تطلب ذلك، يمكنك تجاهل هذه الرسالة بأمان.",
     "linkFallback": "إذا لم يعمل الزر، انسخ هذا الرابط في المتصفح:"
+  },
+  "RiskFooter": {
+    "text": "التداول ونسخ الصفقات ينطويان على مخاطر عالية، وقد تخسر كامل رأس المال. الأداء السابق لا يضمن النتائج المستقبلية.",
+    "readFull": "اقرأ إفصاح المخاطر الكامل",
+    "demoNote": "هذا حساب تجريبي: الأموال والصفقات فيه افتراضية."
   }
 }

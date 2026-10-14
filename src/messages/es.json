@@ -75,7 +75,7 @@
     "menuAriaLabel": "Menú",
     "navHome": "Inicio",
     "navDiscover": "Descubrir",
-    "navMyCopies": "Mis copias",
+    "navMyCopies": "Copias",
     "navTrades": "Operaciones",
     "navPortfolio": "Cartera",
     "menuMarkets": "Mercados",
@@ -101,7 +101,8 @@
     "menuLeadCenter": "Centro de trader líder",
     "menuBecomeLeader": "Conviértete en trader líder",
     "menuProfitShareHistory": "Historial de reparto de beneficios",
-    "demoStripSwitch": "Operar con una cuenta real"
+    "demoStripSwitch": "Operar con una cuenta real",
+    "menuCloseAriaLabel": "Cerrar menú"
   },
   "LangSwitcher": {
     "label": "Idioma"
@@ -234,7 +235,17 @@
     "newsViewAll": "Ver todas",
     "newsSourceLine": "{source} vía Investing.com · {time}",
     "newsNote": "Los titulares los publica Investing.com en inglés y se abren en su sitio.",
-    "newsSourceOnly": "{source} · {time}"
+    "newsSourceOnly": "{source} · {time}",
+    "topMoversTitle": "Mayores movimientos de hoy",
+    "topMoversAll": "Todos los mercados",
+    "investedInCopies": "Invertido en copias",
+    "periodSummaryDay": "hoy",
+    "periodSummaryWeek": "esta semana",
+    "periodSummaryMonth": "este mes",
+    "periodSummary3Months": "últimos 3 meses",
+    "periodSummaryYear": "último año",
+    "periodSummaryAll": "desde el inicio",
+    "walletChartEmpty": "Tu rendimiento aparecerá después de tu primera operación cerrada"
   },
   "Common": {
     "level": "Nivel {level}",
@@ -385,7 +396,10 @@
     "txFee": "Comisión",
     "kycRequiredNotice": "Se requiere verificación de identidad para retirar fondos de una cuenta real. Completa la verificación para continuar.",
     "kycRequiredCta": "Verificar identidad",
-    "txWithdrawalRefund": "Retiro devuelto"
+    "txWithdrawalRefund": "Retiro devuelto",
+    "walletMenuLabel": "Opciones de la cartera",
+    "temporarilyUnavailable": "No disponible temporalmente",
+    "transactionsTitle": "Historial de transacciones"
   },
   "TradeHistory": {
     "periodToday": "Hoy",
@@ -601,7 +615,9 @@
     "nextPage": "Siguiente",
     "perPageLabel": "Por página:",
     "stopCopyingConfirm": "¿Dejar de copiar a {name}? Puedes volver a copiar cuando quieras.",
-    "insufficientData": "Datos insuficientes para este periodo"
+    "insufficientData": "Datos insuficientes para este periodo",
+    "tabTraders": "Traders",
+    "tabMarkets": "Mercados"
   },
   "Countries": {
     "US": "Estados Unidos",
@@ -1435,7 +1451,13 @@
     "discover": "Descubrir traders",
     "activeCopies": "Copias activas",
     "totalAllocated": "Asignado",
-    "realizedPnl": "P&L realizado"
+    "realizedPnl": "P&L realizado",
+    "tabActive": "Activas",
+    "tabEnded": "Finalizadas",
+    "tabProfitShare": "Reparto de beneficios",
+    "endedEmpty": "Aún no hay copias finalizadas. Cuando dejes de copiar a un trader, aparecerá aquí con su resultado.",
+    "endedLastTrade": "Última operación: {date}",
+    "endedNoTrades": "Sin operaciones cerradas"
   },
   "LeadTrader": {
     "apply": {
@@ -2038,7 +2060,9 @@
     "logoutConfirmBody": "Tendrás que iniciar sesión de nuevo para acceder a tu cuenta.",
     "cancel": "Cancelar",
     "version": "Versión {version}",
-    "accountNumber": "N.º de cuenta"
+    "accountNumber": "N.º de cuenta",
+    "collapseSidebar": "Contraer menú",
+    "expandSidebar": "Expandir menú"
   },
   "AccountSecurityPage": {
     "title": "Seguridad",
@@ -2240,5 +2264,10 @@
     "resetLinkNote": "O pulsa este botón en el mismo dispositivo desde el que lo solicitaste:",
     "ignoreNote": "Si no lo solicitaste, puedes ignorar este correo sin problema.",
     "linkFallback": "Si el botón no funciona, copia este enlace en tu navegador:"
+  },
+  "RiskFooter": {
+    "text": "Operar y copiar operaciones conlleva un riesgo alto y puedes perder todo tu capital. El rendimiento pasado no garantiza resultados futuros.",
+    "readFull": "Leer la divulgación completa de riesgos",
+    "demoNote": "Esta es una cuenta demo: los fondos y las operaciones son simulados."
   }
 }

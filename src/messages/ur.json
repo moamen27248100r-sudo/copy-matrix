@@ -75,7 +75,7 @@
     "menuAriaLabel": "مینو",
     "navHome": "ہوم",
     "navDiscover": "دریافت کریں",
-    "navMyCopies": "میری کاپیاں",
+    "navMyCopies": "کاپیاں",
     "navTrades": "ٹریڈز",
     "navPortfolio": "پورٹ فولیو",
     "menuMarkets": "مارکیٹس",
@@ -101,7 +101,8 @@
     "menuLeadCenter": "لیڈ ٹریڈر سینٹر",
     "menuBecomeLeader": "لیڈ ٹریڈر بنیں",
     "menuProfitShareHistory": "منافع کی تقسیم کی تاریخ",
-    "demoStripSwitch": "حقیقی اکاؤنٹ سے ٹریڈ کریں"
+    "demoStripSwitch": "حقیقی اکاؤنٹ سے ٹریڈ کریں",
+    "menuCloseAriaLabel": "مینو بند کریں"
   },
   "LangSwitcher": {
     "label": "زبان"
@@ -234,7 +235,17 @@
     "newsViewAll": "سب دیکھیں",
     "newsSourceLine": "{source} بذریعہ Investing.com · {time}",
     "newsNote": "سرخیاں Investing.com انگریزی میں شائع کرتا ہے اور ان کی سائٹ پر کھلتی ہیں۔",
-    "newsSourceOnly": "{source} · {time}"
+    "newsSourceOnly": "{source} · {time}",
+    "topMoversTitle": "آج سب سے زیادہ حرکت",
+    "topMoversAll": "تمام مارکیٹس",
+    "investedInCopies": "کاپیز میں سرمایہ کاری",
+    "periodSummaryDay": "آج",
+    "periodSummaryWeek": "اس ہفتے",
+    "periodSummaryMonth": "اس مہینے",
+    "periodSummary3Months": "پچھلے 3 ماہ",
+    "periodSummaryYear": "پچھلے سال",
+    "periodSummaryAll": "آغاز سے",
+    "walletChartEmpty": "آپ کی کارکردگی پہلی بند ٹریڈ کے بعد نظر آئے گی"
   },
   "Common": {
     "level": "لیول {level}",
@@ -385,7 +396,10 @@
     "txFee": "فیس",
     "kycRequiredNotice": "حقیقی اکاؤنٹ سے رقم نکالنے کے لیے شناخت کی تصدیق ضروری ہے۔ جاری رکھنے کے لیے تصدیق مکمل کریں۔",
     "kycRequiredCta": "شناخت کی تصدیق کریں",
-    "txWithdrawalRefund": "واپس شدہ رقم"
+    "txWithdrawalRefund": "واپس شدہ رقم",
+    "walletMenuLabel": "والیٹ کے اختیارات",
+    "temporarilyUnavailable": "عارضی طور پر دستیاب نہیں",
+    "transactionsTitle": "لین دین کی تاریخ"
   },
   "TradeHistory": {
     "periodToday": "آج",
@@ -601,7 +615,9 @@
     "nextPage": "اگلا",
     "perPageLabel": "فی صفحہ:",
     "stopCopyingConfirm": "{name} کو کاپی کرنا بند کریں؟ آپ کسی بھی وقت دوبارہ کاپی شروع کر سکتے ہیں۔",
-    "insufficientData": "اس مدت کے لیے ڈیٹا ناکافی ہے"
+    "insufficientData": "اس مدت کے لیے ڈیٹا ناکافی ہے",
+    "tabTraders": "ٹریڈرز",
+    "tabMarkets": "مارکیٹس"
   },
   "Countries": {
     "US": "امریکا",
@@ -1434,7 +1450,13 @@
     "discover": "ٹریڈرز دریافت کریں",
     "activeCopies": "فعال کاپیاں",
     "totalAllocated": "مختص شدہ",
-    "realizedPnl": "حاصل شدہ منافع/نقصان"
+    "realizedPnl": "حاصل شدہ منافع/نقصان",
+    "tabActive": "فعال",
+    "tabEnded": "ختم شدہ",
+    "tabProfitShare": "منافع کی تقسیم",
+    "endedEmpty": "ابھی کوئی ختم شدہ کاپی نہیں۔ کسی ٹریڈر کو کاپی کرنا روکنے پر وہ نتیجے کے ساتھ یہاں نظر آئے گا۔",
+    "endedLastTrade": "آخری ٹریڈ: {date}",
+    "endedNoTrades": "کوئی بند ٹریڈ نہیں"
   },
   "LeadTrader": {
     "apply": {
@@ -2037,7 +2059,9 @@
     "logoutConfirmBody": "اپنے اکاؤنٹ تک رسائی کے لیے دوبارہ سائن ان کرنا ہوگا۔",
     "cancel": "منسوخ کریں",
     "version": "ورژن {version}",
-    "accountNumber": "اکاؤنٹ نمبر"
+    "accountNumber": "اکاؤنٹ نمبر",
+    "collapseSidebar": "سائیڈبار چھوٹا کریں",
+    "expandSidebar": "سائیڈبار بڑا کریں"
   },
   "AccountSecurityPage": {
     "title": "سیکیورٹی",
@@ -2239,5 +2263,10 @@
     "resetLinkNote": "یا جس ڈیوائس سے درخواست کی تھی اسی پر یہ بٹن دبائیں:",
     "ignoreNote": "اگر آپ نے یہ درخواست نہیں کی تو اس ای میل کو نظر انداز کر دیں۔",
     "linkFallback": "اگر بٹن کام نہ کرے تو یہ لنک براؤزر میں کاپی کریں:"
+  },
+  "RiskFooter": {
+    "text": "ٹریڈنگ اور ٹریڈز کاپی کرنے میں زیادہ خطرہ ہے اور آپ اپنا پورا سرمایہ کھو سکتے ہیں۔ ماضی کی کارکردگی مستقبل کے نتائج کی ضمانت نہیں۔",
+    "readFull": "مکمل رسک ڈسکلوزر پڑھیں",
+    "demoNote": "یہ ڈیمو اکاؤنٹ ہے: اس میں رقم اور ٹریڈز فرضی ہیں۔"
   }
 }

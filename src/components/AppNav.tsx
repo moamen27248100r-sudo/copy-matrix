@@ -4,7 +4,6 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { MainMenu } from "@/components/MainMenu";
 import { NotificationsMenu } from "@/components/NotificationsMenu";
-import { DemoStrip } from "@/components/DemoStrip";
 import { GuestHeader } from "@/components/GuestHeader";
 import { SidebarNav } from "@/components/SidebarNav";
 import { NavDrawerProvider } from "@/components/nav-drawer-context";
@@ -60,7 +59,7 @@ export async function AppNav({ sidebar = true }: { sidebar?: boolean } = {}) {
 
   return (
     <>
-    <nav className="sticky top-0 z-[9999] w-full border-b border-border bg-[#0b1726]">
+    <nav className={`sticky top-0 z-[9999] w-full border-b border-border bg-[#0b1726] ${sidebar ? "lg:ps-[var(--sidebar-w)]" : ""}`}>
       <NavDrawerProvider>
       <div className="mx-auto grid h-14 max-w-5xl grid-cols-[auto_1fr_auto] items-center gap-1 px-2 sm:h-16 sm:gap-2 sm:px-6">
         <div className="flex min-w-0 justify-start">
@@ -71,7 +70,6 @@ export async function AppNav({ sidebar = true }: { sidebar?: boolean } = {}) {
               accountNumber={accountNumber}
               displayName={displayName}
               email={email}
-              locale={locale}
               kycStatus={kycStatus}
               accountType={accountType ?? "demo"}
             />
@@ -109,8 +107,17 @@ export async function AppNav({ sidebar = true }: { sidebar?: boolean } = {}) {
       </div>
       </NavDrawerProvider>
     </nav>
-    {user && accountType === "demo" && <DemoStrip />}
-    {user && sidebar && <SidebarNav isAdmin={isAdmin} />}
+    {user && sidebar && (
+      <SidebarNav
+        isAdmin={isAdmin}
+        isLeadTrader={isLeadTrader}
+        accountNumber={accountNumber}
+        displayName={displayName}
+        email={email}
+        kycStatus={kycStatus}
+        accountType={accountType ?? "demo"}
+      />
+    )}
     </>
   );
 }

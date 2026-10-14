@@ -6,72 +6,36 @@ import { createClient } from "@/lib/supabase/server";
 import { formatDate, formatDateTime } from "@/lib/locale-format";
 import { getUserTimeZone } from "@/lib/timezone";
 import type { Locale } from "@/i18n/locales";
-import { unfollowProvider } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
-import { PortfolioTabs } from "@/components/PortfolioTabs";
-import { TradeHistory } from "@/components/TradeHistory";
-import { PortfolioValueBreakdown } from "@/components/PortfolioValueBreakdown";
-import { MyEquityChart, type Benchmarks } from "@/components/MyEquityChart";
+import { WalletCard } from "@/components/WalletCard";
+import type { Benchmarks } from "@/components/MyEquityChart";
 import { AutoDismissMessage } from "@/components/AutoDismissMessage";
-import { ConfirmButton } from "@/components/ConfirmButton";
-import { resetDemoBalance } from "@/app/portfolio/actions";
-import { MyOpenPositions } from "@/components/MyOpenPositions";
-import { PositionTabs } from "@/components/PositionTabs";
-import { PendingOrdersEmpty } from "@/components/PendingOrdersEmpty";
+import { AllocationCard } from "@/components/AllocationCard";
+import { PortfolioRiskCard } from "@/components/PortfolioRiskCard";
 import { WalletStatusBadge } from "@/components/wallet/WalletStatus";
-import { TraderAvatar } from "@/components/TraderAvatar";
+import { RiskFooter } from "@/components/RiskFooter";
 import { depositsEnabled } from "@/lib/deposits-enabled";
-
-type PositionSignal = {
-  symbol: string;
-  side: string;
-  provider_id: string;
-  stop_loss: number | null;
-  take_profit: number | null;
-};
-type Position = {
-  id: string;
-  entry_price: number;
-  exit_price: number | null;
-  size: number;
-  status: string;
-  pnl: number | null;
-  opened_at: string;
-  closed_at: string | null;
-  take_profit: number | null;
-  stop_loss: number | null;
-  signals: PositionSignal | PositionSignal[] | null;
-};
-
-function positionSignal(pos: Position): PositionSignal | null {
-  return Array.isArray(pos.signals) ? pos.signals[0] ?? null : pos.signals;
-}
-
-// The history list shows the latest closed trades; totals cover all of them (CSV export has the rest).
-const CLOSED_HISTORY_LIMIT = 200;
-
-function signedReturnPct(pos: Position) {
-  const signal = positionSignal(pos);
-  if (!signal || pos.exit_price == null) return 0;
-  const raw = (pos.exit_price - pos.entry_price) / pos.entry_price;
-  return (signal.side === "sell" ? -raw : raw) * 100;
-}
+import { computeRisk, currentDrawdownPct, leaderRiskLevel } from "@/lib/portfolio-risk";
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
   return { title: t("portfolioTitle"), description: t("portfolioDesc") };
 }
 
+// The wallet is the one place for money: the balance card, the comparison with a reference market,
+// the asset mix, the risk indicator, deposit / withdraw, the transaction log and the demo reset.
+// (Open positions and the trade history live in "Trades"; the copies in "Copies".)
 export default async function PortfolioPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string; tab?: string; demo?: string; tpsl?: string }>;
+  searchParams: Promise<{ error?: string; tab?: string; demo?: string }>;
 }) {
-  const { error, tab, demo, tpsl } = await searchParams;
+  const { error, tab, demo } = await searchParams;
+  // The old "Positions" tab moved to Trades.
+  if (tab === "positions") redirect("/trades");
   const locale = (await getLocale()) as Locale;
   const t = await getTranslations("Portfolio");
   const td = await getTranslations("Dashboard");
-  const tTrades = await getTranslations("Trades");
   const tw = await getTranslations("Wallet");
   const money = await getMoney();
   const userTz = await getUserTimeZone();
@@ -93,90 +57,73 @@ export default async function PortfolioPage({
     redirect("/login?next=%2Fportfolio");
   }
 
-  // Wallet history is per account: the demo and real ledgers never mix.
-  const { data: accountRow } = await supabase.from("profiles").select("account_type").eq("id", user.id).single();
-  const profileAccountType: "demo" | "real" = accountRow?.account_type === "real" ? "real" : "demo";
-  const isDemo = profileAccountType === "demo";
-  const depositsOn = await depositsEnabled(supabase);
-
-  const { data: subscriptions } = await supabase
-    .from("subscriptions")
-    .select("provider_id, allocated_amount")
-    .eq("follower_id", user.id)
-    .eq("is_active", true);
-
-  const providerIds = (subscriptions ?? []).map((s) => s.provider_id);
-  const allocationByProvider = new Map((subscriptions ?? []).map((s) => [s.provider_id, s.allocated_amount]));
+  const { data: accountRow } = await supabase.from("profiles").select("account_type, balance").eq("id", user.id).single();
+  const accountType: "demo" | "real" = accountRow?.account_type === "real" ? "real" : "demo";
+  const isDemo = accountType === "demo";
+  const balance = Number(accountRow?.balance ?? 0);
 
   const [
-    { data: profile },
-    { data: followedProviders },
-    { data: openRows },
-    { data: closedRows },
+    { data: subscriptions },
     { data: transactions },
     { data: pendingDeposits },
     { data: openWithdrawals },
+    { data: portfolioSummary },
     { data: dashSummary },
     { data: benchmarkBundle },
+    depositsOn,
   ] = await Promise.all([
-      supabase.from("profiles").select("balance, account_type").eq("id", user.id).single(),
-      providerIds.length > 0
-        ? supabase.from("provider_cards").select("*").in("provider_id", providerIds)
-        : Promise.resolve({ data: [] as never[] }),
-      // Open positions (few) and the latest closed trades for the history list; every total and the
-      // monthly report come from portfolio_summary (migration 0255), not from these rows.
-      supabase
-        .from("simulated_positions")
-        .select(
-          "id, entry_price, exit_price, size, status, pnl, opened_at, closed_at, take_profit, stop_loss, signals(symbol, side, provider_id, stop_loss, take_profit)",
-        )
-        .eq("follower_id", user.id)
-        .eq("account_type", profileAccountType)
-        .eq("status", "open")
-        .order("opened_at", { ascending: false })
-        .limit(200),
-      supabase
-        .from("simulated_positions")
-        .select(
-          "id, entry_price, exit_price, size, status, pnl, opened_at, closed_at, take_profit, stop_loss, signals(symbol, side, provider_id, stop_loss, take_profit)",
-        )
-        .eq("follower_id", user.id)
-        .eq("account_type", profileAccountType)
-        .eq("status", "closed")
-        .order("closed_at", { ascending: false })
-        .limit(CLOSED_HISTORY_LIMIT),
-      supabase
-        .from("wallet_transactions")
-        .select("id, type, amount, balance_after, note, created_at")
-        .eq("user_id", user.id)
-        .eq("account_type", profileAccountType)
-        .order("created_at", { ascending: false })
-        .limit(20),
-      supabase
-        .from("crypto_deposits")
-        .select("id, network, amount, status, confirmations, required_confirmations, created_at")
-        .eq("user_id", user.id)
-        .eq("status", "pending")
-        .order("created_at", { ascending: false }),
-      supabase
-        .from("crypto_withdrawals")
-        .select("id, network, amount, status, created_at")
-        .eq("user_id", user.id)
-        .in("status", ["processing", "sending"])
-        .order("created_at", { ascending: false }),
-      // Net invested funds: the base of the return % (same definition as the dashboard, lib/profit-pct.ts).
-      supabase.rpc("portfolio_summary", { p_tz: userTz }),
-      supabase.rpc("benchmark_bundle"),
-    ]);
-  type Summary = {
+    supabase.from("subscriptions").select("provider_id, allocated_amount").eq("follower_id", user.id).eq("is_active", true),
+    // Wallet history is per account: the demo and real ledgers never mix.
+    supabase
+      .from("wallet_transactions")
+      .select("id, type, amount, balance_after, note, created_at")
+      .eq("user_id", user.id)
+      .eq("account_type", accountType)
+      .order("created_at", { ascending: false })
+      .limit(20),
+    supabase
+      .from("crypto_deposits")
+      .select("id, network, amount, status, confirmations, required_confirmations, created_at")
+      .eq("user_id", user.id)
+      .eq("status", "pending")
+      .order("created_at", { ascending: false }),
+    supabase
+      .from("crypto_withdrawals")
+      .select("id, network, amount, status, created_at")
+      .eq("user_id", user.id)
+      .in("status", ["processing", "sending"])
+      .order("created_at", { ascending: false }),
+    // Net invested funds, the monthly report and the closed-trade series (migration 0255).
+    supabase.rpc("portfolio_summary", { p_tz: userTz }),
+    // Per trader / per asset class breakdown and the open result (migration 0254).
+    supabase.rpc("dashboard_summary", { p_tz: userTz }),
+    supabase.rpc("benchmark_bundle"),
+    depositsEnabled(supabase),
+  ]);
+
+  type PortfolioSummary = {
     net_invested: number;
     avg_return_pct: number | null;
     closed: { closed_count: number; wins: number; realized: number };
     series: { t: number; v: number }[];
     monthly: { key: string; trades: number; wins: number; pnl: number; deposits: number; withdrawals: number }[];
   };
-  const summary = (dashSummary ?? null) as Summary | null;
+  type DashSummary = {
+    open: { count: number; unrealized: number; invested: number };
+    by_provider: { provider_id: string; display_name: string | null; risk_level: string | null; allocated: number }[];
+    by_class: { class: string; value: number }[];
+    series: { t: number; v: number }[];
+  };
+  const summary = (portfolioSummary ?? null) as PortfolioSummary | null;
+  const dash = (dashSummary ?? null) as DashSummary | null;
   const netInvested = summary ? Number(summary.net_invested) : null;
+  const unrealized = Number(dash?.open?.unrealized ?? 0);
+  const totalAllocated = (subscriptions ?? []).reduce((sum, s) => sum + Number(s.allocated_amount), 0);
+  const realized = summary ? Number(summary.closed.realized) : 0;
+  const closedCount = summary ? Number(summary.closed.closed_count) : 0;
+  const wins = summary ? Number(summary.closed.wins) : 0;
+  const winRatePct = closedCount > 0 ? Math.round((wins / closedCount) * 100) : null;
+  const avgReturnPct = summary?.avg_return_pct == null ? null : Number(summary.avg_return_pct);
 
   // Real-wallet movements still in progress: deposits awaiting confirmations, withdrawals not yet sent.
   const pendingRequests = isDemo
@@ -186,86 +133,30 @@ export default async function PortfolioPage({
         ...(openWithdrawals ?? []).map((w) => ({ ...w, kind: "withdrawal" as const, confirmations: 0, required_confirmations: 0 })),
       ].sort((a, b) => b.created_at.localeCompare(a.created_at));
 
-  const allPositions = [...((openRows ?? []) as Position[]), ...((closedRows ?? []) as Position[])];
-  const closedPositions = allPositions.filter((p) => p.status === "closed");
-  const openPositions = allPositions.filter((p) => p.status === "open");
-  const closedCount = summary ? Number(summary.closed.closed_count) : closedPositions.length;
-  const totalRealizedPnl = summary ? Number(summary.closed.realized) : closedPositions.reduce((sum, p) => sum + (p.pnl ?? 0), 0);
-
-  const openSymbols = Array.from(
-    new Set(openPositions.map((p) => positionSignal(p)?.symbol).filter((s): s is string => !!s)),
-  );
-  const { data: livePrices } =
-    openSymbols.length > 0
-      ? await supabase.from("market_prices").select("symbol, price").in("symbol", openSymbols)
-      : { data: [] as { symbol: string; price: number }[] };
-  const initialPrices: Record<string, number> = Object.fromEntries(
-    (livePrices ?? []).map((p) => [p.symbol, Number(p.price)]),
-  );
-
-  const myOpenPositions = openPositions
-    .map((pos) => {
-      const signal = positionSignal(pos);
-      if (!signal) return null;
-      return {
-        id: pos.id,
-        symbol: signal.symbol,
-        side: signal.side,
-        entry_price: Number(pos.entry_price),
-        size: Number(pos.size),
-        opened_at: (pos.opened_at as string | null) ?? null,
-        take_profit: pos.take_profit ?? signal.take_profit,
-        stop_loss: pos.stop_loss ?? signal.stop_loss,
-      };
-    })
-    .filter((p): p is NonNullable<typeof p> => p != null);
-  const totalUnrealizedPnl = myOpenPositions.reduce((sum, p) => {
-    const current = initialPrices[p.symbol];
-    if (current == null) return sum;
-    const pct = ((current - p.entry_price) / p.entry_price) * (p.side === "sell" ? -1 : 1);
-    return sum + pct * p.size;
-  }, 0);
-  const totalAllocated = Array.from(allocationByProvider.values()).reduce((sum, a) => sum + Number(a), 0);
-
-  const myWins = summary ? Number(summary.closed.wins) : closedPositions.filter((p) => (p.pnl ?? 0) > 0).length;
-  const myWinRatePct = closedCount > 0 ? Math.round((myWins / closedCount) * 100) : null;
-  const myAvgReturnPct = summary ? (summary.avg_return_pct == null ? null : Number(summary.avg_return_pct)) : null;
-
-  const historyProviderIds = Array.from(
-    new Set(
-      allPositions
-        .map((p) => positionSignal(p)?.provider_id)
-        .filter((id): id is string => !!id),
-    ),
-  );
-
-  const { data: historyProviders } =
-    historyProviderIds.length > 0
-      ? await supabase.from("provider_cards").select("provider_id, display_name").in("provider_id", historyProviderIds)
-      : { data: [] as { provider_id: string; display_name: string }[] };
-
-  const providerNameById = new Map(
-    (historyProviders ?? []).map((p) => [p.provider_id, p.display_name]),
-  );
-
-  const closedHistory = closedPositions.map((pos) => {
-    const signal = positionSignal(pos);
-    return {
-      id: pos.id,
-      symbol: signal?.symbol ?? "—",
-      side: signal?.side ?? "buy",
-      size: Number(pos.size),
-      entry: Number(pos.entry_price),
-      exit: pos.exit_price != null ? Number(pos.exit_price) : null,
-      pnl: pos.pnl ?? 0,
-      pct: signedReturnPct(pos),
-      openedAt: pos.opened_at,
-      closedAt: pos.closed_at,
-      copyHref: signal?.provider_id ? `/trader/${signal.provider_id}#copy` : undefined,
-      providerName: signal ? providerNameById.get(signal.provider_id) ?? "—" : "—",
-      stopLoss: signal?.stop_loss ?? null,
-      takeProfit: signal?.take_profit ?? null,
-    };
+  // Allocation views and the risk indicator (formula and weights in lib/portfolio-risk.ts).
+  const byProvider = dash?.by_provider ?? [];
+  const assetClassLabel: Record<string, string> = {
+    metal: td("assetClassMetal"),
+    forex: td("assetClassForex"),
+    crypto: td("assetClassCrypto"),
+    other: td("assetClassOther"),
+  };
+  const allocationByTrader = [
+    ...byProvider.map((p) => ({ label: p.display_name ?? "", value: Number(p.allocated) })),
+    { label: td("allocationAvailableCash"), value: Math.max(0, balance - totalAllocated) },
+  ];
+  const allocationByAsset = [
+    ...(dash?.by_class ?? []).map((c) => ({ label: assetClassLabel[c.class] ?? assetClassLabel.other, value: Math.max(0, Number(c.value)) })),
+    { label: td("allocationNotInvested"), value: Math.max(0, balance - Number(dash?.open?.invested ?? 0)) },
+  ];
+  const drawdownPct = currentDrawdownPct(dash?.series ?? [], netInvested ?? 0, realized, unrealized);
+  const risk = computeRisk({
+    reservedRatio: balance > 0 ? totalAllocated / balance : 0,
+    drawdownPct,
+    leaders: byProvider.flatMap((p) => {
+      const level = leaderRiskLevel(p.risk_level);
+      return level ? [{ level, amount: Number(p.allocated) }] : [];
+    }),
   });
 
   // Last 6 months (UTC), newest first -- computed by the database from every closed trade and every
@@ -279,311 +170,193 @@ export default async function PortfolioPage({
     withdrawals: Number(m.withdrawals),
   }));
 
-  const overview = (
-    <div className="flex flex-col gap-6">
-      <section id="wallet" className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-4 scroll-mt-20">
-        <PortfolioValueBreakdown
-          balance={Number(profile?.balance ?? 0)}
-          totalAllocated={totalAllocated}
-          totalUnrealizedPnl={totalUnrealizedPnl}
-          totalProfit={totalRealizedPnl + totalUnrealizedPnl}
-          netInvested={netInvested}
-        />
-        <div className={`grid gap-3 ${isDemo || depositsOn ? "grid-cols-3" : "grid-cols-2"}`}>
-          <Link href="/portfolio/withdraw" className="flex flex-col items-center gap-2">
-            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-background text-foreground transition group-hover:bg-accent/10">
-              <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M5 12l7-7 7 7" />
-                <path d="M12 5v14" />
-              </svg>
-            </span>
-            <span className="text-sm text-foreground">{td("withdraw")}</span>
-          </Link>
-          {(isDemo || depositsOn) && (
-            <Link href="/portfolio/deposit" className="flex flex-col items-center gap-2">
-              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-background text-foreground">
-                <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M12 5v14" />
-                  <path d="M5 12l7 7 7-7" />
-                </svg>
-              </span>
-              <span className="text-sm text-foreground">{td("deposit")}</span>
-            </Link>
-          )}
-          <Link href="/discover" className="flex flex-col items-center gap-2">
-            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-accent-foreground">
-              <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="10" />
-                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
-              </svg>
-            </span>
-            <span className="text-sm text-foreground">{td("copy")}</span>
-          </Link>
-        </div>
-        <p className="text-xs text-muted">{isDemo ? t("demoWalletNote") : t("reviewProcessingNote")}</p>
-
-        {isDemo && (
-          <form action={resetDemoBalance} className="self-start">
-            <ConfirmButton
-              confirmText={t("resetDemoConfirm")}
-              className="rounded border border-border px-3 py-1.5 text-xs font-medium text-muted transition hover:text-foreground"
-            >
-              {t("resetDemoButton")}
-            </ConfirmButton>
-          </form>
-        )}
-
-        {pendingRequests.length > 0 && (
-          <div className="flex flex-col gap-2">
-            <p className="text-xs font-medium text-muted">{t("pendingRequestsLabel")}</p>
-            {pendingRequests.map((r) => (
-              <Link
-                key={r.id}
-                href={r.kind === "deposit" ? "/portfolio/history" : "/portfolio/history?tab=withdrawals"}
-                className="flex items-center justify-between gap-2 rounded border border-border bg-background px-3 py-2 text-sm transition hover:border-accent/40"
-              >
-                <span>
-                  {r.kind === "deposit" ? td("deposit") : td("withdraw")} {r.amount != null ? money(Number(r.amount)) : ""}{" "}
-                  <span className="text-xs text-muted">· {r.network}</span>
-                </span>
-                <WalletStatusBadge status={r.status} confirmations={r.confirmations} required={r.required_confirmations} />
-              </Link>
-            ))}
-          </div>
-        )}
-        {!isDemo && (
-          <Link href="/portfolio/history" className="self-start text-xs font-medium text-accent hover:underline">
-            {tw("historyTitle")}
-          </Link>
-        )}
-      </section>
-
-      <section className="flex flex-col gap-3">
-        <h2 className="font-medium">{t("cumulativePerformance")}</h2>
-        <MyEquityChart
-          positions={(summary?.series ?? []).map((p) => ({ pnl: p.v, closed_at: new Date(p.t).toISOString() }))}
-          netInvested={netInvested}
-          benchmarks={(benchmarkBundle ?? null) as Benchmarks | null}
-        />
-      </section>
-
-      <section className="flex flex-col gap-3">
-        <h2 className="font-medium">{t("myPerformance")}</h2>
-        <div className="grid grid-cols-2 gap-3 text-center text-sm sm:grid-cols-4">
-          <div className="rounded-lg border border-border bg-surface p-3">
-            <p className={totalRealizedPnl >= 0 ? "text-lg font-semibold text-success" : "text-lg font-semibold text-danger"} dir="ltr">
-              {money(totalRealizedPnl, { signed: true })}
-            </p>
-            <p className="text-xs text-muted">{td("netRealizedProfit")}</p>
-          </div>
-          <div className="rounded-lg border border-border bg-surface p-3">
-            <p className="text-lg font-semibold">{myWinRatePct != null ? `${myWinRatePct}%` : "—"}</p>
-            <p className="text-xs text-muted">{t("myWinRate")}</p>
-          </div>
-          <div className="rounded-lg border border-border bg-surface p-3">
-            <p
-              className={
-                myAvgReturnPct != null && myAvgReturnPct < 0
-                  ? "text-lg font-semibold text-danger"
-                  : "text-lg font-semibold text-success"
-              }
-              dir="ltr"
-            >
-              {myAvgReturnPct != null ? `${myAvgReturnPct > 0 ? "+" : ""}${myAvgReturnPct.toFixed(2)}%` : "—"}
-            </p>
-            <p className="text-xs text-muted">{t("avgTradeReturn")}</p>
-          </div>
-          <div className="rounded-lg border border-border bg-surface p-3">
-            <p className="text-lg font-semibold">{closedCount}</p>
-            <p className="text-xs text-muted">{t("closedTradesCount")}</p>
-          </div>
-        </div>
-      </section>
-
-      <section className="flex flex-col gap-3">
-        <h2 className="font-medium">{t("monthlyReportTitle")}</h2>
-        {monthlyReport.length === 0 ? (
-          <p className="text-sm text-muted">{t("monthlyReportEmpty")}</p>
-        ) : (
-          <div className="overflow-x-auto rounded-lg border border-border bg-surface">
-            <table className="w-full min-w-[420px] text-sm tabular-nums">
-              <thead>
-                <tr className="border-b border-border text-xs text-muted">
-                  <th className="px-3 py-2 text-start font-normal">{t("date")}</th>
-                  <th className="px-3 py-2 text-start font-normal">{t("closedTradesCount")}</th>
-                  <th className="px-3 py-2 text-start font-normal">{t("myWinRate")}</th>
-                  <th className="px-3 py-2 text-start font-normal">{t("txPnl")}</th>
-                  <th className="px-3 py-2 text-start font-normal">{t("txDeposit")} / {t("txWithdrawal")}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {monthlyReport.map((m) => (
-                  <tr key={m.key} className="border-b border-border/60 last:border-b-0">
-                    <td className="px-3 py-2 whitespace-nowrap">
-                      {formatDate(`${m.key}-01T00:00:00Z`, locale, { month: "long", year: "numeric", timeZone: "UTC" })}
-                    </td>
-                    <td className="px-3 py-2">{m.trades}</td>
-                    <td className="px-3 py-2">{m.trades ? `${Math.round((m.wins / m.trades) * 100)}%` : "—"}</td>
-                    <td className={`px-3 py-2 ${m.pnl >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
-                      {money(m.pnl, { signed: true })}
-                    </td>
-                    <td className="px-3 py-2 whitespace-nowrap" dir="ltr">
-                      {money(m.deposits, { signed: true })} / {money(-m.withdrawals)}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </section>
-
-      <section className="flex flex-col gap-3">
-        <h2 className="font-medium">{td("traderYouCopy")}</h2>
-        {(followedProviders ?? []).length === 0 ? (
-          <p className="text-sm text-muted">
-            {t.rich("notCopyingYet", {
-              link: (chunks) => (
-                <Link href="/discover" className="underline">
-                  {chunks}
-                </Link>
-              ),
-            })}
-          </p>
-        ) : (
-          followedProviders!.map((p) => (
-            <div
-              key={p.provider_id}
-              className="flex items-center justify-between rounded-lg border border-border bg-surface p-3"
-            >
-              <Link href={`/trader/${p.provider_id}`} className="flex items-center gap-3">
-                <TraderAvatar providerId={p.provider_id} name={p.display_name} avatarUrl={p.avatar_url} ratingScore={p.rating_score} size={40} />
-                <div>
-                  <p className="text-sm font-medium underline-offset-2 hover:underline">
-                    {p.display_name}
-                  </p>
-                  <p className="text-xs text-muted">
-                    {td("startedWith", { amount: money(Number(allocationByProvider.get(p.provider_id) ?? 0)) })}
-                  </p>
-                </div>
-              </Link>
-              <form action={unfollowProvider}>
-                <input type="hidden" name="providerId" value={p.provider_id} />
-                <input type="hidden" name="returnTo" value="/portfolio" />
-                <ConfirmButton
-                  confirmText={td("stopCopyingConfirm")}
-                  className="min-h-11 rounded border border-border px-3 py-1 text-xs"
-                >
-                  {t("stopCopying")}
-                </ConfirmButton>
-              </form>
-            </div>
-          ))
-        )}
-      </section>
-    </div>
-  );
-
-  const positionsPanel = (
-    <PositionTabs
-      openCount={myOpenPositions.length}
-      closedCount={closedHistory.length}
-      open={<MyOpenPositions positions={myOpenPositions} initialPrices={initialPrices} />}
-      pending={<PendingOrdersEmpty />}
-      closed={
-        closedHistory.length === 0 ? (
-          <p className="text-sm text-muted">{t("noClosedCopiedTrades")}</p>
-        ) : (
-          <TradeHistory trades={closedHistory} />
-        )
-      }
-    />
-  );
-
-  const walletMovements = (transactions ?? []).filter((t) => t.type === "deposit" || t.type === "withdrawal" || t.type === "demo_reset");
-
-  const activity = (
-    <div className="flex flex-col gap-6">
-      <section className="flex flex-col gap-2">
-        <h2 className="font-medium">{t("walletMovements")}</h2>
-        {walletMovements.length === 0 ? (
-          <p className="text-sm text-muted">{t("noWalletMovements")}</p>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[420px] text-sm">
-              <thead>
-                <tr className="border-b border-border text-right text-xs text-muted">
-                  <th className="py-2 pl-3">{t("date")}</th>
-                  <th className="py-2 pl-3">{t("type")}</th>
-                  <th className="py-2 pl-3">{t("amount")}</th>
-                  <th className="py-2">{t("balanceAfter")}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {walletMovements.map((t) => (
-                  <tr key={t.id} className="border-b border-border/60">
-                    <td className="py-2 pl-3 whitespace-nowrap text-xs text-muted">
-                      {formatDateTime(t.created_at, locale, { dateStyle: "medium", timeStyle: "short", timeZone: userTz })}
-                    </td>
-                    <td className="py-2 pl-3 whitespace-nowrap">{TX_LABELS[t.type] ?? t.type}</td>
-                    <td className={Number(t.amount) >= 0 ? "py-2 pl-3 whitespace-nowrap text-success" : "py-2 pl-3 whitespace-nowrap text-danger"}>
-                      {money(Number(t.amount), { signed: true })}
-                    </td>
-                    <td className="py-2 whitespace-nowrap">{money(Number(t.balance_after))}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </section>
-
-      {!isDemo && (
-        <section className="flex flex-col gap-2">
-          <h2 className="font-medium">{t("depositWithdrawRequests")}</h2>
-          <p className="text-sm text-muted">{tw("historyTeaser")}</p>
-          <div className="flex gap-3 text-sm">
-            <Link href="/portfolio/history" className="font-medium text-accent hover:underline">
-              {tw("tabDeposits")}
-            </Link>
-            <Link href="/portfolio/history?tab=withdrawals" className="font-medium text-accent hover:underline">
-              {tw("tabWithdrawals")}
-            </Link>
-          </div>
-        </section>
-      )}
-    </div>
-  );
+  const walletMovements = (transactions ?? []).filter((x) => x.type === "deposit" || x.type === "withdrawal" || x.type === "demo_reset");
 
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-64 lg:me-0 lg:pb-6">
+      <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-[var(--sidebar-w)] lg:me-0 lg:pb-6">
         <h1 className="text-page-title">{t("title")}</h1>
 
-        {error && (
-          <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
-            {error}
-          </p>
-        )}
-        {tpsl && (
-          <AutoDismissMessage
-            className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success"
-            clearParams={["tpsl"]}
-          >
-            {tTrades("tpSlSaved")}
-          </AutoDismissMessage>
-        )}
+        {error && <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>}
         {demo && (
-          <AutoDismissMessage
-            className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success"
-            clearParams={["demo"]}
-          >
+          <AutoDismissMessage className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success" clearParams={["demo"]}>
             {demo === "deposit" ? t("demoDepositDone") : demo === "withdraw" ? t("demoWithdrawDone") : t("demoResetDone")}
           </AutoDismissMessage>
         )}
 
-        <PortfolioTabs overview={overview} positions={positionsPanel} activity={activity} initialTab={tab} />
+        <div className="grid items-start gap-6 lg:grid-cols-2">
+          <div className="flex flex-col gap-4">
+            <WalletCard
+              isDemo={isDemo}
+              depositsOn={depositsOn}
+              totalValue={balance + unrealized}
+              cash={Math.max(0, balance - totalAllocated)}
+              invested={totalAllocated}
+              unrealized={unrealized}
+              series={(summary?.series ?? []).map((p) => ({ pnl: p.v, closed_at: new Date(p.t).toISOString() }))}
+              netInvested={netInvested}
+              benchmarks={(benchmarkBundle ?? null) as Benchmarks | null}
+            />
+
+            {pendingRequests.length > 0 && (
+              <section className="flex flex-col gap-2 rounded-2xl border border-border bg-surface p-4">
+                <p className="text-xs font-medium text-muted">{t("pendingRequestsLabel")}</p>
+                {pendingRequests.map((r) => (
+                  <Link
+                    key={r.id}
+                    href={r.kind === "deposit" ? "/portfolio/history" : "/portfolio/history?tab=withdrawals"}
+                    className="flex items-center justify-between gap-2 rounded border border-border bg-background px-3 py-2 text-sm transition hover:border-accent/40"
+                  >
+                    <span>
+                      {r.kind === "deposit" ? td("deposit") : td("withdraw")} {r.amount != null ? money(Number(r.amount)) : ""}{" "}
+                      <span className="text-xs text-muted">· {r.network}</span>
+                    </span>
+                    <WalletStatusBadge status={r.status} confirmations={r.confirmations} required={r.required_confirmations} />
+                  </Link>
+                ))}
+              </section>
+            )}
+            <p className="text-xs text-muted">{isDemo ? t("demoWalletNote") : t("reviewProcessingNote")}</p>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <section className="flex flex-col gap-3">
+              <h2 className="text-base font-semibold">{td("portfolioAllocationTitle")}</h2>
+              <div className="rounded-2xl border border-border bg-surface p-5">
+                <AllocationCard
+                  byTrader={allocationByTrader}
+                  byAsset={allocationByAsset}
+                  totalLabel={td("portfolioValue")}
+                  totalValue={balance + unrealized}
+                />
+              </div>
+            </section>
+            <PortfolioRiskCard
+              risk={risk}
+              reservedPct={balance > 0 ? Math.min(100, (totalAllocated / balance) * 100) : 0}
+              drawdownPct={drawdownPct}
+              hasCopies={byProvider.length > 0}
+            />
+          </div>
+        </div>
+
+        <section className="flex flex-col gap-3">
+          <h2 className="font-medium">{t("myPerformance")}</h2>
+          <div className="grid grid-cols-2 gap-3 text-center text-sm sm:grid-cols-4">
+            <div className="rounded-lg border border-border bg-surface p-3">
+              <p className={realized >= 0 ? "text-lg font-semibold text-success" : "text-lg font-semibold text-danger"} dir="ltr">
+                {money(realized, { signed: true })}
+              </p>
+              <p className="text-xs text-muted">{td("netRealizedProfit")}</p>
+            </div>
+            <div className="rounded-lg border border-border bg-surface p-3">
+              <p className="text-lg font-semibold">{winRatePct != null ? `${winRatePct}%` : "—"}</p>
+              <p className="text-xs text-muted">{t("myWinRate")}</p>
+            </div>
+            <div className="rounded-lg border border-border bg-surface p-3">
+              <p
+                className={avgReturnPct != null && avgReturnPct < 0 ? "text-lg font-semibold text-danger" : "text-lg font-semibold text-success"}
+                dir="ltr"
+              >
+                {avgReturnPct != null ? `${avgReturnPct > 0 ? "+" : ""}${avgReturnPct.toFixed(2)}%` : "—"}
+              </p>
+              <p className="text-xs text-muted">{t("avgTradeReturn")}</p>
+            </div>
+            <div className="rounded-lg border border-border bg-surface p-3">
+              <p className="text-lg font-semibold">{closedCount}</p>
+              <p className="text-xs text-muted">{t("closedTradesCount")}</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-3">
+          <h2 className="font-medium">{t("monthlyReportTitle")}</h2>
+          {monthlyReport.length === 0 ? (
+            <p className="text-sm text-muted">{t("monthlyReportEmpty")}</p>
+          ) : (
+            <div className="overflow-x-auto rounded-lg border border-border bg-surface">
+              <table className="w-full min-w-[420px] text-sm tabular-nums">
+                <thead>
+                  <tr className="border-b border-border text-xs text-muted">
+                    <th className="px-3 py-2 text-start font-normal">{t("date")}</th>
+                    <th className="px-3 py-2 text-start font-normal">{t("closedTradesCount")}</th>
+                    <th className="px-3 py-2 text-start font-normal">{t("myWinRate")}</th>
+                    <th className="px-3 py-2 text-start font-normal">{t("txPnl")}</th>
+                    <th className="px-3 py-2 text-start font-normal">
+                      {t("txDeposit")} / {t("txWithdrawal")}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {monthlyReport.map((m) => (
+                    <tr key={m.key} className="border-b border-border/60 last:border-b-0">
+                      <td className="px-3 py-2 whitespace-nowrap">
+                        {formatDate(`${m.key}-01T00:00:00Z`, locale, { month: "long", year: "numeric", timeZone: "UTC" })}
+                      </td>
+                      <td className="px-3 py-2">{m.trades}</td>
+                      <td className="px-3 py-2">{m.trades ? `${Math.round((m.wins / m.trades) * 100)}%` : "—"}</td>
+                      <td className={`px-3 py-2 ${m.pnl >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
+                        {money(m.pnl, { signed: true })}
+                      </td>
+                      <td className="px-3 py-2 whitespace-nowrap" dir="ltr">
+                        {money(m.deposits, { signed: true })} / {money(-m.withdrawals)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
+
+        <section className="flex flex-col gap-2">
+          <h2 className="font-medium">{t("transactionsTitle")}</h2>
+          {walletMovements.length === 0 ? (
+            <p className="text-sm text-muted">{t("noWalletMovements")}</p>
+          ) : (
+            <div className="overflow-x-auto rounded-lg border border-border bg-surface">
+              <table className="w-full min-w-[420px] text-sm">
+                <thead>
+                  <tr className="border-b border-border text-xs text-muted">
+                    <th className="px-3 py-2 text-start font-normal">{t("date")}</th>
+                    <th className="px-3 py-2 text-start font-normal">{t("type")}</th>
+                    <th className="px-3 py-2 text-start font-normal">{t("amount")}</th>
+                    <th className="px-3 py-2 text-start font-normal">{t("balanceAfter")}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {walletMovements.map((x) => (
+                    <tr key={x.id} className="border-b border-border/60 last:border-b-0">
+                      <td className="whitespace-nowrap px-3 py-2 text-xs text-muted">
+                        {formatDateTime(x.created_at, locale, { dateStyle: "medium", timeStyle: "short", timeZone: userTz })}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-2">{TX_LABELS[x.type] ?? x.type}</td>
+                      <td className={Number(x.amount) >= 0 ? "whitespace-nowrap px-3 py-2 text-success" : "whitespace-nowrap px-3 py-2 text-danger"} dir="ltr">
+                        {money(Number(x.amount), { signed: true })}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-2" dir="ltr">
+                        {money(Number(x.balance_after))}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+          {!isDemo && (
+            <div className="flex gap-3 text-sm">
+              <Link href="/portfolio/history" className="font-medium text-accent hover:underline">
+                {tw("tabDeposits")}
+              </Link>
+              <Link href="/portfolio/history?tab=withdrawals" className="font-medium text-accent hover:underline">
+                {tw("tabWithdrawals")}
+              </Link>
+            </div>
+          )}
+        </section>
+
+        <RiskFooter demo={isDemo} />
       </main>
     </>
   );

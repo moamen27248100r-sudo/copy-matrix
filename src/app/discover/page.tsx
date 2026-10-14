@@ -7,6 +7,10 @@ import { redirect } from "next/navigation";
 import { emptyPageTarget } from "@/lib/discover-paging";
 import { unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
+import { DiscoverTabs } from "@/app/discover/DiscoverTabs";
+import { TradingViewChart } from "@/components/TradingViewChart";
+import { symbolTradingViewTicker } from "@/lib/symbol-icons";
+import { RiskFooter } from "@/components/RiskFooter";
 import { LeaderCard } from "@/components/LeaderCard";
 import { DiscoverFilterSheet } from "@/components/DiscoverFilterSheet";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -85,6 +89,8 @@ type Params = {
   period?: string;
   dd?: string;
   compare?: string;
+  tab?: string;
+  symbol?: string;
   page?: string;
   per?: string;
 };
@@ -124,6 +130,25 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  // The Markets tab: the live chart (signed-in customers only, as the old Markets page was).
+  if (params.tab === "markets" && user) {
+    const tMarkets = await getTranslations("Markets");
+    return (
+      <>
+        <AppNav />
+        <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-[var(--sidebar-w)] lg:me-0 lg:pb-6">
+          <h1 className="text-page-title">{t("title")}</h1>
+          <DiscoverTabs active="markets" />
+          <p className="text-sm text-muted">{tMarkets("subtitle")}</p>
+          <div className="overflow-hidden rounded-lg border border-border">
+            <TradingViewChart symbol={params.symbol ? symbolTradingViewTicker(params.symbol) : undefined} />
+          </div>
+          <RiskFooter />
+        </main>
+      </>
+    );
+  }
 
   // Whether a self-service lead trader has cleared the checklist is a platform
   // fact, not something to read through the viewer's row-level security: a
@@ -300,8 +325,9 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-4xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-64 lg:me-0 lg:pb-6">
+      <main className="mx-auto flex w-full max-w-4xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-[var(--sidebar-w)] lg:me-0 lg:pb-6">
         <h1 className="text-page-title">{t("title")}</h1>
+        {user && <DiscoverTabs active="traders" />}
 
         {error && <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>}
 

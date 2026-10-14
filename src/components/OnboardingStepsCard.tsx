@@ -1,27 +1,29 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 
-// Shown instead of the empty "no copy yet" box for a brand-new customer
-// (dashboard/page.tsx only renders this while copiedProviders.length === 0).
-// Copying a first trader is itself one of the four steps, so the card's
-// job is naturally done once the customer does that -- the section then
-// switches to the real active-copies view instead of a stale "3/4" card.
+// The "start in 4 steps" checklist on the home page. It stays until all four steps are done, then
+// it disappears for good.
 export async function OnboardingStepsCard({
   profileComplete,
+  firstCopyDone,
   protectionReady,
+  notificationsReady,
 }: {
   profileComplete: boolean;
+  firstCopyDone: boolean;
   protectionReady: boolean;
+  notificationsReady: boolean;
 }) {
   const t = await getTranslations("Dashboard");
 
   const steps = [
     { done: profileComplete, href: "/settings", label: t("stepProfile") },
-    { done: false, href: "/discover", label: t("stepFirstCopy") },
+    { done: firstCopyDone, href: "/discover", label: t("stepFirstCopy") },
     { done: protectionReady, href: "/kyc", label: t("stepProtection") },
-    { done: false, href: "/notifications", label: t("stepNotifications") },
+    { done: notificationsReady, href: "/notifications/preferences", label: t("stepNotifications") },
   ];
   const doneCount = steps.filter((s) => s.done).length;
+  if (doneCount === steps.length) return null;
   const progressPct = (doneCount / steps.length) * 100;
 
   return (

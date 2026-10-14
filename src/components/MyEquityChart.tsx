@@ -28,14 +28,27 @@ type Bench = "off" | "BTCUSDT" | "XAUUSD";
 // the database cache (benchmark_bundle, refreshed every few minutes) so switching is instant.
 export type Benchmarks = Record<string, Record<string, { t: number; p: number }[]>>;
 
+const PERIOD_SUMMARY_KEY: Record<string, string> = {
+  periodDay: "periodSummaryDay",
+  periodWeek: "periodSummaryWeek",
+  periodMonth: "periodSummaryMonth",
+  period3Months: "periodSummary3Months",
+  periodYear: "periodSummaryYear",
+  periodAll: "periodSummaryAll",
+};
+
 export function MyEquityChart({
   positions,
   netInvested = null,
   benchmarks = null,
+  wallet = false,
 }: {
   positions: ClosedPosition[];
   netInvested?: number | null;
   benchmarks?: Benchmarks | null;
+  /** The wallet card layout: result line for the period above the chart, the period buttons in one
+   *  rounded bar under it, and a calm flat line (with a hint) while there is no closed trade yet. */
+  wallet?: boolean;
 }) {
   const t = useTranslations("Dashboard");
   const money = useMoney();
@@ -97,27 +110,67 @@ export function MyEquityChart({
     { key: "XAUUSD", label: t("benchmarkGold") },
   ];
 
+  const periodBar = wallet ? (
+    <div className="flex rounded-full bg-black/25 p-1" role="group">
+      {PERIODS.map((p, i) => (
+        <button
+          key={p.labelKey}
+          type="button"
+          aria-pressed={i === periodIdx}
+          onClick={() => choosePeriod(i)}
+          className={`tap-44 min-h-8 flex-1 rounded-full px-1 py-1 text-xs transition-colors duration-200 motion-reduce:transition-none ${
+            i === periodIdx ? "bg-brand/25 text-white" : "text-muted hover:text-foreground"
+          }`}
+        >
+          {t(p.labelKey)}
+        </button>
+      ))}
+    </div>
+  ) : (
+    <div className="flex flex-wrap gap-1">
+      {PERIODS.map((p, i) => (
+        <button
+          key={p.labelKey}
+          type="button"
+          onClick={() => choosePeriod(i)}
+          className={
+            i === periodIdx
+              ? "rounded-full bg-brand/25 px-2 py-1 text-xs text-white"
+              : "rounded-full px-2 py-1 text-xs text-muted"
+          }
+        >
+          {t(p.labelKey)}
+        </button>
+      ))}
+    </div>
+  );
+
+  // The result of the selected period: "+$120 (+1.2%) this month".
+  const periodPct = profitPct(last, netInvested);
+  const summaryLine = wallet && hasData && (
+    <p className="text-sm">
+      <span dir="ltr" className={`inline-block font-semibold ${last >= 0 ? "text-success" : "text-danger"}`}>
+        {money(last, { signed: true })}
+        {periodPct != null ? ` (${formatPct(periodPct)})` : ""}
+      </span>{" "}
+      <span className="text-muted">{t(PERIOD_SUMMARY_KEY[PERIODS[periodIdx].labelKey])}</span>
+    </p>
+  );
+
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex flex-wrap gap-1">
-        {PERIODS.map((p, i) => (
-          <button
-            key={p.labelKey}
-            type="button"
-            onClick={() => choosePeriod(i)}
-            className={
-              i === periodIdx
-                ? "rounded-full bg-brand/25 px-2 py-1 text-xs text-white"
-                : "rounded-full px-2 py-1 text-xs text-muted"
-            }
-          >
-            {t(p.labelKey)}
-          </button>
-        ))}
-      </div>
+      {!wallet && periodBar}
+      {summaryLine}
 
       {!hasData ? (
-        <p className="text-sm text-muted">{t("noEnoughClosedTrades")}</p>
+        wallet ? (
+          <div className="flex flex-col items-center gap-3 rounded-lg border border-border/50 bg-background px-3 py-8">
+            <div className="h-px w-full bg-accent/50" aria-hidden="true" />
+            <p className="text-center text-xs text-muted">{t("walletChartEmpty")}</p>
+          </div>
+        ) : (
+          <p className="text-sm text-muted">{t("noEnoughClosedTrades")}</p>
+        )
       ) : (
         <div className="rounded-lg border border-border bg-background p-3">
           {compare ? (
@@ -162,6 +215,8 @@ export function MyEquityChart({
           </div>
         </div>
       )}
+
+      {wallet && periodBar}
 
       {hasData && canCompare && (
         <div className="flex flex-wrap items-center gap-1.5" role="group" aria-label={t("benchmarkLabel")}>

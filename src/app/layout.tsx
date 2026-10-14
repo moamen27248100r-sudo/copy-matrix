@@ -86,6 +86,11 @@ export default async function RootLayout({
     >
       <body data-shell={hasSession ? "app" : "public"} className="min-h-full flex flex-col bg-background text-foreground">
         <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(localStorage.getItem("cm.sidebar")==="collapsed")document.body.dataset.sidebar="collapsed"}catch(e){}`,
+          }}
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />

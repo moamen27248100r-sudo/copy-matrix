@@ -75,7 +75,7 @@
     "menuAriaLabel": "मेनू",
     "navHome": "होम",
     "navDiscover": "खोजें",
-    "navMyCopies": "मेरी कॉपियां",
+    "navMyCopies": "कॉपियां",
     "navTrades": "ट्रेड्स",
     "navPortfolio": "पोर्टफोलियो",
     "menuMarkets": "बाज़ार",
@@ -101,7 +101,8 @@
     "menuLeadCenter": "लीड ट्रेडर सेंटर",
     "menuBecomeLeader": "लीड ट्रेडर बनें",
     "menuProfitShareHistory": "लाभ साझा इतिहास",
-    "demoStripSwitch": "वास्तविक खाते से ट्रेड करें"
+    "demoStripSwitch": "वास्तविक खाते से ट्रेड करें",
+    "menuCloseAriaLabel": "मेनू बंद करें"
   },
   "LangSwitcher": {
     "label": "भाषा"
@@ -234,7 +235,17 @@
     "newsViewAll": "सभी देखें",
     "newsSourceLine": "{source}, Investing.com के माध्यम से · {time}",
     "newsNote": "शीर्षक Investing.com द्वारा अंग्रेज़ी में प्रकाशित होते हैं और उनकी साइट पर खुलते हैं।",
-    "newsSourceOnly": "{source} · {time}"
+    "newsSourceOnly": "{source} · {time}",
+    "topMoversTitle": "आज सबसे ज़्यादा चाल",
+    "topMoversAll": "सभी बाज़ार",
+    "investedInCopies": "कॉपी में निवेशित",
+    "periodSummaryDay": "आज",
+    "periodSummaryWeek": "इस सप्ताह",
+    "periodSummaryMonth": "इस महीने",
+    "periodSummary3Months": "पिछले 3 महीने",
+    "periodSummaryYear": "पिछले साल",
+    "periodSummaryAll": "शुरुआत से",
+    "walletChartEmpty": "आपका प्रदर्शन पहले बंद ट्रेड के बाद दिखेगा"
   },
   "Common": {
     "level": "लेवल {level}",
@@ -385,7 +396,10 @@
     "txFee": "शुल्क",
     "kycRequiredNotice": "वास्तविक खाते से निकासी के लिए पहचान सत्यापन आवश्यक है। जारी रखने के लिए सत्यापन पूरा करें।",
     "kycRequiredCta": "पहचान सत्यापित करें",
-    "txWithdrawalRefund": "निकासी वापसी"
+    "txWithdrawalRefund": "निकासी वापसी",
+    "walletMenuLabel": "वॉलेट विकल्प",
+    "temporarilyUnavailable": "अस्थायी रूप से अनुपलब्ध",
+    "transactionsTitle": "लेन-देन का इतिहास"
   },
   "TradeHistory": {
     "periodToday": "आज",
@@ -601,7 +615,9 @@
     "nextPage": "अगला",
     "perPageLabel": "प्रति पृष्ठ:",
     "stopCopyingConfirm": "{name} को कॉपी करना बंद करें? आप कभी भी फिर से कॉपी करना शुरू कर सकते हैं।",
-    "insufficientData": "इस अवधि के लिए पर्याप्त डेटा नहीं"
+    "insufficientData": "इस अवधि के लिए पर्याप्त डेटा नहीं",
+    "tabTraders": "ट्रेडर्स",
+    "tabMarkets": "बाज़ार"
   },
   "Countries": {
     "US": "संयुक्त राज्य अमेरिका",
@@ -1434,7 +1450,13 @@
     "discover": "ट्रेडर खोजें",
     "activeCopies": "सक्रिय कॉपी",
     "totalAllocated": "आवंटित",
-    "realizedPnl": "वास्तविक लाभ/हानि"
+    "realizedPnl": "वास्तविक लाभ/हानि",
+    "tabActive": "सक्रिय",
+    "tabEnded": "समाप्त",
+    "tabProfitShare": "लाभ साझेदारी",
+    "endedEmpty": "अभी कोई समाप्त कॉपी नहीं है। किसी ट्रेडर को कॉपी करना रोकने पर वह नतीजे के साथ यहां दिखेगा।",
+    "endedLastTrade": "आखिरी ट्रेड: {date}",
+    "endedNoTrades": "कोई बंद ट्रेड नहीं"
   },
   "LeadTrader": {
     "apply": {
@@ -2037,7 +2059,9 @@
     "logoutConfirmBody": "अपने खाते तक पहुँचने के लिए फिर से साइन इन करना होगा।",
     "cancel": "रद्द करें",
     "version": "संस्करण {version}",
-    "accountNumber": "खाता संख्या"
+    "accountNumber": "खाता संख्या",
+    "collapseSidebar": "साइडबार छोटा करें",
+    "expandSidebar": "साइडबार बड़ा करें"
   },
   "AccountSecurityPage": {
     "title": "सुरक्षा",
@@ -2239,5 +2263,10 @@
     "resetLinkNote": "या जिस डिवाइस से अनुरोध किया था उसी पर यह बटन दबाएँ:",
     "ignoreNote": "अगर आपने यह अनुरोध नहीं किया, तो इस ईमेल को अनदेखा कर दें।",
     "linkFallback": "अगर बटन काम न करे, तो यह लिंक ब्राउज़र में कॉपी करें:"
+  },
+  "RiskFooter": {
+    "text": "ट्रेडिंग और ट्रेड कॉपी करने में उच्च जोखिम है और आप अपनी पूरी पूंजी खो सकते हैं। पिछला प्रदर्शन भविष्य के नतीजों की गारंटी नहीं है।",
+    "readFull": "पूरा जोखिम प्रकटीकरण पढ़ें",
+    "demoNote": "यह डेमो खाता है: इसमें फंड और ट्रेड काल्पनिक हैं।"
   }
 }
