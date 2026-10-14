@@ -5,7 +5,22 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { instrumentBySymbol } from "@/lib/markets";
 
-// The star on an instrument: adds it to / removes it from the customer's watchlist.
+// The star on an instrument, from a page that stays where it is (optimistic UI): add / remove.
+export async function setWatch(symbol: string, on: boolean) {
+  if (!instrumentBySymbol(symbol)) return { ok: false as const };
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { ok: false as const };
+
+  const { error } = on
+    ? await supabase.from("market_watchlist").upsert({ user_id: user.id, symbol }, { onConflict: "user_id,symbol", ignoreDuplicates: true })
+    : await supabase.from("market_watchlist").delete().eq("user_id", user.id).eq("symbol", symbol);
+  return { ok: !error };
+}
+
+// The star as a plain form (the instrument page): toggles and comes back to the page.
 export async function toggleWatch(formData: FormData) {
   const symbol = String(formData.get("symbol") ?? "");
   const returnTo = String(formData.get("returnTo") ?? "/discover?tab=markets");
@@ -23,6 +38,5 @@ export async function toggleWatch(formData: FormData) {
 
   revalidatePath("/discover");
   revalidatePath(`/markets/${symbol}`);
-  // only same-site paths
   redirect(returnTo.startsWith("/") && !returnTo.startsWith("//") ? returnTo : "/discover?tab=markets");
 }

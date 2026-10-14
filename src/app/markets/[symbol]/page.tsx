@@ -4,10 +4,12 @@ import { ArrowLeft, Star } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
-import { InstrumentChart } from "@/components/markets/InstrumentChart";
+import { InstrumentChart, LivePrice } from "@/components/markets/InstrumentChart";
+import { InstrumentIcon } from "@/components/markets/MarketsBoard";
 import { TraderAvatar } from "@/components/TraderAvatar";
 import { RiskFooter } from "@/components/RiskFooter";
-import { formatPrice, instrumentBySymbol, parseSnapshot } from "@/lib/markets";
+import { formatPrice, instrumentBySymbol, liveRows } from "@/lib/markets";
+import { get52Week, getHistory, getSnapshot, getVolumes } from "@/lib/market-data";
 import { getMarketNewsFor, topicsForSymbols } from "@/lib/market-news";
 import { localeTag } from "@/lib/locale-format";
 import { nowMs } from "@/lib/now";
@@ -20,8 +22,25 @@ export async function generateMetadata({ params }: { params: Promise<{ symbol: s
   return { title: inst ? `${inst.label} | Copy Matrix` : "Copy Matrix" };
 }
 
-// One instrument: live price, 24-hour change, an interactive chart in the platform style, today
-// range, the headlines that concern it and the leaders who trade it most.
+const compactVolume = (v: number) => (v >= 1e9 ? `$${(v / 1e9).toFixed(2)}B` : v >= 1e6 ? `$${(v / 1e6).toFixed(1)}M` : `$${Math.round(v).toLocaleString("en-US")}`);
+
+function RangeBar({ lo, hi, price, decimals }: { lo: number; hi: number; price: number; decimals: number }) {
+  const position = hi > lo ? Math.min(100, Math.max(0, ((price - lo) / (hi - lo)) * 100)) : 50;
+  return (
+    <div className="flex items-center gap-3 text-xs tabular-nums" dir="ltr">
+      <span>{formatPrice(lo, decimals)}</span>
+      <div className="relative h-1.5 flex-1 rounded-full bg-border">
+        <span className="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent" style={{ left: `${position}%` }} />
+      </div>
+      <span>{formatPrice(hi, decimals)}</span>
+    </div>
+  );
+}
+
+// One instrument: live price (refreshing without a reload), an interactive chart with 1D | 1W | 1M |
+// 3M | 1Y, today's and the 52-week range, the volume for crypto, a short description, the headlines
+// that concern it and the leaders who trade it most. An instrument whose price source is not
+// answering is not shown at all.
 export default async function InstrumentPage({ params }: { params: Promise<{ symbol: string }> }) {
   const { symbol } = await params;
   const inst = instrumentBySymbol(symbol);
@@ -36,17 +55,17 @@ export default async function InstrumentPage({ params }: { params: Promise<{ sym
   } = await supabase.auth.getUser();
   if (!user) redirect(`/login?next=${encodeURIComponent(`/markets/${symbol}`)}`);
 
-  const [{ data: snap }, { data: day }, { data: week }, { data: leaders }, { data: watch }, news] = await Promise.all([
-    supabase.rpc("market_snapshot"),
-    supabase.rpc("market_series", { p_symbol: symbol, p_hours: 24 }),
-    supabase.rpc("market_series", { p_symbol: symbol, p_hours: 168 }),
+  const [snapshot, volumes, initial, range52, { data: leaders }, { data: watch }, news] = await Promise.all([
+    getSnapshot(),
+    inst.kind === "crypto" ? getVolumes() : Promise.resolve({} as Awaited<ReturnType<typeof getVolumes>>),
+    getHistory(inst, "1D"),
+    get52Week(inst),
     supabase.rpc("top_leaders_for_symbol", { p_symbol: symbol, p_limit: 5 }),
     supabase.from("market_watchlist").select("symbol").eq("user_id", user.id).eq("symbol", symbol).maybeSingle(),
     getMarketNewsFor(topicsForSymbols([symbol]), 5),
   ]);
-  const row = parseSnapshot(snap).find((r) => r.symbol === symbol);
-  const toPoints = (rows: unknown) =>
-    ((rows ?? []) as { t: string; price: number | string }[]).map((r) => ({ t: new Date(r.t).getTime(), v: Number(r.price) }));
+  const row = liveRows(snapshot).find((r) => r.symbol === symbol);
+  if (!row) notFound();
 
   const leaderRows = (leaders ?? []) as { provider_id: string; trades: number | string }[];
   const { data: cards } = leaderRows.length
@@ -60,11 +79,11 @@ export default async function InstrumentPage({ params }: { params: Promise<{ sym
     : { data: [] as { provider_id: string; display_name: string; avatar_url: string | null; rating_score: number | null }[] };
   const cardById = new Map((cards ?? []).map((c) => [c.provider_id, c]));
 
-  const change = row?.change_pct ?? null;
   const starred = !!watch;
-  const lo = row?.low_24h ?? null;
-  const hi = row?.high_24h ?? null;
-  const position = row && lo != null && hi != null && hi > lo ? Math.min(100, Math.max(0, ((row.price - lo) / (hi - lo)) * 100)) : null;
+  const volume = volumes[symbol]?.quoteVolume ?? null;
+  const lo = row.low_24h;
+  const hi = row.high_24h;
+  const about = `${inst.name} (${inst.label}) — ${t(`type_${inst.about}`)}. ${inst.daily ? t("source_ecb") : t("source_binance")}`;
 
   const rtf = new Intl.RelativeTimeFormat(localeTag(locale), { numeric: "auto" });
   const ago = (iso: string) => {
@@ -85,21 +104,17 @@ export default async function InstrumentPage({ params }: { params: Promise<{ sym
         </Link>
 
         <header className="flex items-start justify-between gap-3">
-          <div className="min-w-0">
-            <h1 className="text-page-title" dir="ltr">
-              {inst.label}
-            </h1>
-            {row ? (
-              <p className="mt-1 flex flex-wrap items-baseline gap-x-3" dir="ltr">
-                <span className="text-3xl font-bold tabular-nums">{formatPrice(row.price, inst.decimals)}</span>
-                <span className={`text-sm font-semibold tabular-nums ${change == null ? "text-muted" : change >= 0 ? "text-success" : "text-danger"}`}>
-                  {change == null ? "—" : `${change >= 0 ? "+" : ""}${change.toFixed(2)}%`}
-                </span>
-                <span className="text-xs text-muted">{t("last24h")}</span>
+          <div className="flex min-w-0 items-start gap-3">
+            <InstrumentIcon glyph={inst.glyph} toneClass={inst.tone} size="h-12 w-12" />
+            <div className="min-w-0">
+              <h1 className="text-page-title" dir="ltr">
+                {inst.label}
+              </h1>
+              <p className="text-sm text-muted" dir="ltr">
+                {inst.name}
               </p>
-            ) : (
-              <p className="mt-1 text-sm text-muted">{t("noData")}</p>
-            )}
+              <LivePrice symbol={symbol} price={row.price} change={row.change_pct} decimals={inst.decimals} daily={!!inst.daily} />
+            </div>
           </div>
           <form action={toggleWatch}>
             <input type="hidden" name="symbol" value={symbol} />
@@ -116,27 +131,44 @@ export default async function InstrumentPage({ params }: { params: Promise<{ sym
         </header>
 
         <section className="rounded-2xl border border-border bg-surface p-4">
-          <InstrumentChart day={toPoints(day)} week={toPoints(week)} decimals={inst.decimals} label={inst.label} />
+          <InstrumentChart symbol={symbol} initial={initial} decimals={inst.decimals} label={inst.label} />
         </section>
 
-        {row && lo != null && hi != null && (
-          <section className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4">
-            <h2 className="text-sm font-semibold">{t("dayRange")}</h2>
-            <div className="flex items-center gap-3 text-xs tabular-nums" dir="ltr">
-              <span>{formatPrice(lo, inst.decimals)}</span>
-              <div className="relative h-1.5 flex-1 rounded-full bg-border">
-                {position != null && (
-                  <span className="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent" style={{ left: `${position}%` }} />
-                )}
+        <div className="grid gap-4 sm:grid-cols-2">
+          {lo != null && hi != null && (
+            <section className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4">
+              <h2 className="text-sm font-semibold">{t("dayRange")}</h2>
+              <RangeBar lo={lo} hi={hi} price={row.price} decimals={inst.decimals} />
+              <div className="flex justify-between text-[11px] text-muted">
+                <span>{t("low")}</span>
+                <span>{t("high")}</span>
               </div>
-              <span>{formatPrice(hi, inst.decimals)}</span>
-            </div>
-            <div className="flex justify-between text-[11px] text-muted">
-              <span>{t("low")}</span>
-              <span>{t("high")}</span>
-            </div>
-          </section>
-        )}
+            </section>
+          )}
+          {range52 && (
+            <section className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4">
+              <h2 className="text-sm font-semibold">{t("range52")}</h2>
+              <RangeBar lo={range52.low} hi={range52.high} price={row.price} decimals={inst.decimals} />
+              <div className="flex justify-between text-[11px] text-muted">
+                <span>{t("low")}</span>
+                <span>{t("high")}</span>
+              </div>
+            </section>
+          )}
+          {volume != null && (
+            <section className="flex flex-col gap-1 rounded-2xl border border-border bg-surface p-4">
+              <h2 className="text-sm font-semibold">{t("volume24h")}</h2>
+              <p dir="ltr" className="text-xl font-bold tabular-nums">
+                {compactVolume(volume)}
+              </p>
+            </section>
+          )}
+        </div>
+
+        <section className="flex flex-col gap-2 rounded-2xl border border-border bg-surface p-4">
+          <h2 className="text-sm font-semibold">{t("aboutTitle")}</h2>
+          <p className="text-sm leading-relaxed text-muted">{about}</p>
+        </section>
 
         <div className="grid items-start gap-6 lg:grid-cols-2">
           <section className="flex flex-col gap-3">
