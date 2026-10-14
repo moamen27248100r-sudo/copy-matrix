@@ -166,9 +166,9 @@
     "todayProfit": "Today's profit",
     "totalProfit": "Total profit",
     "resetBalance": "Reset balance",
-    "onboardingCardTitle": "Get started in 4 steps",
+    "onboardingCardTitle": "Start here",
     "stepProfile": "Complete your profile",
-    "stepFirstCopy": "Copy your first trader",
+    "stepFirstCopy": "Start your first demo copy",
     "stepProtection": "Enable copy protection",
     "stepNotifications": "Turn on notifications",
     "suggestedTradersTitle": "Suggested traders for you",
@@ -245,7 +245,14 @@
     "periodSummary3Months": "last 3 months",
     "periodSummaryYear": "last year",
     "periodSummaryAll": "since the start",
-    "walletChartEmpty": "Your performance will appear after your first closed trade"
+    "walletChartEmpty": "Your performance will appear after your first closed trade",
+    "stepKyc": "Verify your identity",
+    "marketPulseTitle": "Market moves today",
+    "watchlistTitle": "Your watchlist",
+    "watchlistEmpty": "Add instruments to follow with the star on the Markets page.",
+    "topTradersWeekTitle": "Top traders this week",
+    "topTradersWeekNote": "By actual return over the last 7 days, only for traders with enough closed trades. Past performance does not guarantee future results.",
+    "learnTitle": "Learn"
   },
   "Common": {
     "level": "Level {level}",
@@ -2353,5 +2360,38 @@
     "pushUnsupported": "This browser or device does not support phone notifications. On iPhone, install the app to the home screen first.",
     "pushNotConfigured": "Phone notifications are not enabled on the platform yet.",
     "pushFailed": "Could not turn notifications on. Please try again."
+  },
+  "Learn": {
+    "readMore": "Read the article",
+    "back": "Home",
+    "notAdvice": "General educational content, not investment advice and not a promise of profit. Trading and copying trades carry a high level of risk and you may lose all of your capital.",
+    "how_copy_works": {
+      "title": "How copy trading works",
+      "summary": "Pick a trader and the platform mirrors their trades on your account, in proportion to the amount you set.",
+      "p1": "When you copy a trader, every trade they open and close is repeated on your account automatically, sized in proportion to the amount you allocated to that trader.",
+      "p2": "You stay in control: you can change the settings, set a loss limit, or stop copying at any time. Trades already open keep their own rules.",
+      "p3": "Results follow the trader’s results, so gains and losses both pass through to you. Start small, and with the demo account if you are new."
+    },
+    "choose_trader": {
+      "title": "How to choose a trader",
+      "summary": "Look at consistency and risk, not just the highest return.",
+      "p1": "Check the track record: a long history with enough closed trades says more than a few big wins. Numbers shown as “—” mean there is not enough data yet.",
+      "p2": "Compare return with risk: the maximum drawdown shows the deepest fall the account went through. A lower drawdown with steady results is easier to follow than a high return with big swings.",
+      "p3": "Look at the profit-share percentage, the minimum copy amount, and how many people already copy the trader. Diversify instead of putting everything on one trader."
+    },
+    "risk_management": {
+      "title": "Risk management and the loss limit",
+      "summary": "Decide how much you can afford to lose before you start.",
+      "p1": "Only use money you can afford to lose. Trading and copying carry a high risk and you can lose the whole amount.",
+      "p2": "Every copy has a loss limit: when the loss reaches it, copying stops automatically. A lower limit protects more of your capital but can stop a copy earlier.",
+      "p3": "Spread your amount across more than one trader and market, and review your copies regularly instead of reacting to a single trade."
+    },
+    "demo_vs_real": {
+      "title": "Demo account vs. real account",
+      "summary": "Practice with virtual money first, then switch when you are ready.",
+      "p1": "The demo account uses virtual funds and simulated trades. It is for learning how the platform works and how copying behaves, with no real money involved.",
+      "p2": "The real account uses real money: deposits, withdrawals and identity verification apply, and results are real. The two accounts are kept completely separate.",
+      "p3": "You can switch between them from the menu. Switching stops your current copies, so start the ones you want again on the account you choose."
+    }
   }
 }

@@ -166,9 +166,9 @@
     "todayProfit": "Profit du jour",
     "totalProfit": "Profit total",
     "resetBalance": "Réinitialiser le solde",
-    "onboardingCardTitle": "Commencez en 4 étapes",
+    "onboardingCardTitle": "Commencez ici",
     "stepProfile": "Complétez votre profil",
-    "stepFirstCopy": "Copiez votre premier trader",
+    "stepFirstCopy": "Lancez votre première copie démo",
     "stepProtection": "Activez la protection de copie",
     "stepNotifications": "Activez les notifications",
     "suggestedTradersTitle": "Traders suggérés pour vous",
@@ -245,7 +245,14 @@
     "periodSummary3Months": "3 derniers mois",
     "periodSummaryYear": "cette dernière année",
     "periodSummaryAll": "depuis le début",
-    "walletChartEmpty": "Vos performances apparaîtront après votre première transaction clôturée"
+    "walletChartEmpty": "Vos performances apparaîtront après votre première transaction clôturée",
+    "stepKyc": "Vérifiez votre identité",
+    "marketPulseTitle": "Mouvements des marchés aujourd’hui",
+    "watchlistTitle": "Votre liste de suivi",
+    "watchlistEmpty": "Ajoutez des instruments à suivre avec l’étoile dans la page Marchés.",
+    "topTradersWeekTitle": "Meilleurs traders de la semaine",
+    "topTradersWeekNote": "Selon le rendement réel des 7 derniers jours, uniquement pour les traders avec assez de transactions clôturées. Les performances passées ne garantissent pas les résultats futurs.",
+    "learnTitle": "Apprendre"
   },
   "Common": {
     "level": "Niveau {level}",
@@ -2350,5 +2357,38 @@
     "pushUnsupported": "Ce navigateur ou appareil ne prend pas en charge les notifications. Sur iPhone, installez d’abord l’application sur l’écran d’accueil.",
     "pushNotConfigured": "Les notifications téléphone ne sont pas encore activées sur la plateforme.",
     "pushFailed": "Impossible d’activer les notifications. Réessayez."
+  },
+  "Learn": {
+    "readMore": "Lire l’article",
+    "back": "Accueil",
+    "notAdvice": "Contenu pédagogique général, ni conseil en investissement ni promesse de gain. Le trading et la copie de transactions comportent un risque élevé et vous pouvez perdre la totalité de votre capital.",
+    "how_copy_works": {
+      "title": "Comment fonctionne la copie de trading",
+      "summary": "Choisissez un trader et la plateforme reproduit ses transactions sur votre compte, proportionnellement au montant fixé.",
+      "p1": "Quand vous copiez un trader, chaque transaction qu’il ouvre et clôture est répétée automatiquement sur votre compte, à une taille proportionnelle au montant que vous lui avez alloué.",
+      "p2": "Vous gardez le contrôle : vous pouvez modifier les réglages, fixer une limite de perte ou arrêter la copie à tout moment. Les transactions déjà ouvertes gardent leurs propres règles.",
+      "p3": "Vos résultats suivent ceux du trader : gains et pertes vous sont tous deux répercutés. Commencez petit, et avec le compte démo si vous débutez."
+    },
+    "choose_trader": {
+      "title": "Comment choisir un trader",
+      "summary": "Regardez la régularité et le risque, pas seulement le rendement le plus élevé.",
+      "p1": "Vérifiez l’historique : un long parcours avec assez de transactions clôturées en dit plus que quelques gros gains. Les chiffres affichés « — » signifient qu’il n’y a pas encore assez de données.",
+      "p2": "Comparez rendement et risque : le repli maximal montre la plus forte baisse subie par le compte. Un repli plus faible avec des résultats réguliers est plus facile à suivre qu’un rendement élevé avec de grandes variations.",
+      "p3": "Regardez le pourcentage de partage des profits, le montant minimum de copie et le nombre de personnes qui copient déjà le trader. Diversifiez plutôt que de tout miser sur un seul trader."
+    },
+    "risk_management": {
+      "title": "Gestion du risque et limite de perte",
+      "summary": "Décidez avant de commencer combien vous pouvez vous permettre de perdre.",
+      "p1": "N’utilisez que de l’argent que vous pouvez vous permettre de perdre. Le trading et la copie comportent un risque élevé et vous pouvez perdre la totalité du montant.",
+      "p2": "Chaque copie a une limite de perte : quand la perte l’atteint, la copie s’arrête automatiquement. Une limite plus basse protège davantage votre capital mais peut arrêter une copie plus tôt.",
+      "p3": "Répartissez votre montant sur plusieurs traders et marchés, et passez vos copies en revue régulièrement au lieu de réagir à une seule transaction."
+    },
+    "demo_vs_real": {
+      "title": "Compte démo ou compte réel",
+      "summary": "Entraînez-vous d’abord avec de l’argent virtuel, puis passez au réel quand vous êtes prêt.",
+      "p1": "Le compte démo utilise des fonds virtuels et des transactions simulées. Il sert à apprendre le fonctionnement de la plateforme et de la copie, sans argent réel.",
+      "p2": "Le compte réel utilise de l’argent réel : dépôts, retraits et vérification d’identité s’appliquent, et les résultats sont réels. Les deux comptes sont totalement séparés.",
+      "p3": "Vous pouvez passer de l’un à l’autre depuis le menu. Changer arrête vos copies en cours : relancez celles que vous voulez sur le compte choisi."
+    }
   }
 }

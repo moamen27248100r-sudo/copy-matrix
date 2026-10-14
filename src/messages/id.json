@@ -166,9 +166,9 @@
     "todayProfit": "Untung hari ini",
     "totalProfit": "Total untung",
     "resetBalance": "Atur ulang saldo",
-    "onboardingCardTitle": "Mulai dalam 4 langkah",
+    "onboardingCardTitle": "Mulai di sini",
     "stepProfile": "Lengkapi profil Anda",
-    "stepFirstCopy": "Salin trader pertama Anda",
+    "stepFirstCopy": "Mulai salinan demo pertama Anda",
     "stepProtection": "Aktifkan proteksi copy",
     "stepNotifications": "Aktifkan notifikasi",
     "suggestedTradersTitle": "Trader yang disarankan untuk Anda",
@@ -245,7 +245,14 @@
     "periodSummary3Months": "3 bulan terakhir",
     "periodSummaryYear": "setahun terakhir",
     "periodSummaryAll": "sejak awal",
-    "walletChartEmpty": "Kinerja Anda akan muncul setelah transaksi pertama ditutup"
+    "walletChartEmpty": "Kinerja Anda akan muncul setelah transaksi pertama ditutup",
+    "stepKyc": "Verifikasi identitas Anda",
+    "marketPulseTitle": "Pergerakan pasar hari ini",
+    "watchlistTitle": "Daftar pantauan Anda",
+    "watchlistEmpty": "Tambahkan instrumen untuk dipantau dengan bintang di halaman Pasar.",
+    "topTradersWeekTitle": "Trader terbaik minggu ini",
+    "topTradersWeekNote": "Berdasarkan imbal hasil nyata 7 hari terakhir, hanya trader dengan transaksi tertutup yang cukup. Kinerja masa lalu tidak menjamin hasil di masa depan.",
+    "learnTitle": "Belajar"
   },
   "Common": {
     "level": "Level {level}",
@@ -2349,5 +2356,38 @@
     "pushUnsupported": "Browser atau perangkat ini tidak mendukung notifikasi ponsel. Di iPhone, pasang dulu aplikasi ke layar utama.",
     "pushNotConfigured": "Notifikasi ponsel belum diaktifkan di platform.",
     "pushFailed": "Gagal mengaktifkan notifikasi. Coba lagi."
+  },
+  "Learn": {
+    "readMore": "Baca artikel",
+    "back": "Beranda",
+    "notAdvice": "Konten edukasi umum, bukan saran investasi dan bukan janji keuntungan. Trading dan menyalin transaksi berisiko tinggi dan Anda bisa kehilangan seluruh modal.",
+    "how_copy_works": {
+      "title": "Cara kerja copy trading",
+      "summary": "Pilih trader dan platform menyalin transaksinya ke akun Anda, sebanding dengan jumlah yang Anda tetapkan.",
+      "p1": "Saat Anda menyalin trader, setiap transaksi yang ia buka dan tutup diulang otomatis di akun Anda, dengan ukuran sebanding jumlah yang Anda alokasikan.",
+      "p2": "Anda tetap memegang kendali: ubah pengaturan, tetapkan batas rugi, atau hentikan salinan kapan saja. Transaksi yang sudah terbuka tetap mengikuti aturannya.",
+      "p3": "Hasil mengikuti hasil trader, jadi untung dan rugi sama-sama sampai ke Anda. Mulai kecil, dan dengan akun demo jika Anda baru."
+    },
+    "choose_trader": {
+      "title": "Cara memilih trader",
+      "summary": "Lihat konsistensi dan risiko, bukan hanya imbal hasil tertinggi.",
+      "p1": "Periksa rekam jejak: riwayat panjang dengan transaksi tertutup yang cukup lebih berarti daripada beberapa untung besar. Angka “—” berarti data belum cukup.",
+      "p2": "Bandingkan imbal hasil dengan risiko: penurunan maksimum menunjukkan penurunan terdalam yang dialami akun. Penurunan lebih kecil dengan hasil stabil lebih mudah diikuti daripada imbal hasil tinggi dengan gejolak besar.",
+      "p3": "Lihat persentase bagi hasil, jumlah salin minimum, dan berapa banyak orang yang sudah menyalin trader. Diversifikasi, jangan menaruh semuanya pada satu trader."
+    },
+    "risk_management": {
+      "title": "Manajemen risiko dan batas rugi",
+      "summary": "Tentukan sebelum mulai berapa kerugian yang sanggup Anda tanggung.",
+      "p1": "Gunakan hanya uang yang sanggup Anda rugikan. Trading dan menyalin berisiko tinggi dan seluruh jumlah bisa hilang.",
+      "p2": "Setiap salinan punya batas rugi: saat kerugian mencapainya, penyalinan berhenti otomatis. Batas lebih rendah melindungi lebih banyak modal tetapi bisa menghentikan salinan lebih awal.",
+      "p3": "Sebar jumlah Anda ke lebih dari satu trader dan pasar, dan tinjau salinan secara berkala alih-alih bereaksi pada satu transaksi."
+    },
+    "demo_vs_real": {
+      "title": "Akun demo dan akun nyata",
+      "summary": "Berlatih dulu dengan uang virtual, lalu beralih saat Anda siap.",
+      "p1": "Akun demo memakai dana virtual dan transaksi simulasi. Untuk belajar cara kerja platform dan penyalinan tanpa uang sungguhan.",
+      "p2": "Akun nyata memakai uang sungguhan: setoran, penarikan, dan verifikasi identitas berlaku, dan hasilnya nyata. Kedua akun dipisahkan sepenuhnya.",
+      "p3": "Anda dapat beralih dari menu. Beralih menghentikan salinan Anda saat ini, jadi mulai lagi yang Anda inginkan di akun pilihan."
+    }
   }
 }

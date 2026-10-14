@@ -166,9 +166,9 @@
     "todayProfit": "Lợi nhuận hôm nay",
     "totalProfit": "Tổng lợi nhuận",
     "resetBalance": "Đặt lại số dư",
-    "onboardingCardTitle": "Bắt đầu trong 4 bước",
+    "onboardingCardTitle": "Bắt đầu từ đây",
     "stepProfile": "Hoàn thiện hồ sơ của bạn",
-    "stepFirstCopy": "Sao chép nhà giao dịch đầu tiên",
+    "stepFirstCopy": "Bắt đầu bản sao demo đầu tiên",
     "stepProtection": "Bật bảo vệ sao chép",
     "stepNotifications": "Bật thông báo",
     "suggestedTradersTitle": "Nhà giao dịch được đề xuất cho bạn",
@@ -245,7 +245,14 @@
     "periodSummary3Months": "3 tháng qua",
     "periodSummaryYear": "năm qua",
     "periodSummaryAll": "từ đầu",
-    "walletChartEmpty": "Hiệu suất của bạn sẽ hiển thị sau giao dịch đóng đầu tiên"
+    "walletChartEmpty": "Hiệu suất của bạn sẽ hiển thị sau giao dịch đóng đầu tiên",
+    "stepKyc": "Xác minh danh tính",
+    "marketPulseTitle": "Biến động thị trường hôm nay",
+    "watchlistTitle": "Danh sách theo dõi",
+    "watchlistEmpty": "Thêm công cụ cần theo dõi bằng ngôi sao ở trang Thị trường.",
+    "topTradersWeekTitle": "Nhà giao dịch nổi bật tuần này",
+    "topTradersWeekNote": "Theo lợi suất thực tế 7 ngày qua, chỉ gồm nhà giao dịch có đủ giao dịch đã đóng. Hiệu suất quá khứ không đảm bảo kết quả tương lai.",
+    "learnTitle": "Tìm hiểu"
   },
   "Common": {
     "level": "Cấp độ {level}",
@@ -2349,5 +2356,38 @@
     "pushUnsupported": "Trình duyệt hoặc thiết bị này không hỗ trợ thông báo. Trên iPhone, hãy thêm ứng dụng vào màn hình chính trước.",
     "pushNotConfigured": "Nền tảng chưa bật thông báo điện thoại.",
     "pushFailed": "Không bật được thông báo. Vui lòng thử lại."
+  },
+  "Learn": {
+    "readMore": "Đọc bài viết",
+    "back": "Trang chủ",
+    "notAdvice": "Nội dung giáo dục chung, không phải lời khuyên đầu tư hay cam kết lợi nhuận. Giao dịch và sao chép giao dịch có rủi ro cao, bạn có thể mất toàn bộ vốn.",
+    "how_copy_works": {
+      "title": "Copy trading hoạt động thế nào",
+      "summary": "Chọn một nhà giao dịch, nền tảng sẽ sao chép giao dịch của họ vào tài khoản của bạn theo tỷ lệ số tiền bạn đặt.",
+      "p1": "Khi bạn sao chép một nhà giao dịch, mọi giao dịch họ mở và đóng đều được lặp lại tự động trong tài khoản của bạn, theo tỷ lệ số tiền bạn phân bổ.",
+      "p2": "Bạn luôn kiểm soát: có thể đổi cài đặt, đặt giới hạn lỗ hoặc dừng sao chép bất cứ lúc nào. Giao dịch đã mở giữ quy tắc riêng.",
+      "p3": "Kết quả theo kết quả của nhà giao dịch, nên cả lãi lẫn lỗ đều đến với bạn. Hãy bắt đầu nhỏ, và dùng tài khoản demo nếu bạn mới."
+    },
+    "choose_trader": {
+      "title": "Cách chọn nhà giao dịch",
+      "summary": "Hãy xem sự ổn định và rủi ro, không chỉ lợi suất cao nhất.",
+      "p1": "Xem lịch sử: một quá trình dài với đủ giao dịch đã đóng nói lên nhiều hơn vài lần lãi lớn. Số liệu hiện “—” nghĩa là chưa đủ dữ liệu.",
+      "p2": "So sánh lợi suất với rủi ro: mức sụt giảm tối đa cho thấy lần giảm sâu nhất của tài khoản. Sụt giảm thấp với kết quả ổn định dễ theo hơn lợi suất cao nhưng biến động mạnh.",
+      "p3": "Xem tỷ lệ chia sẻ lợi nhuận, số tiền sao chép tối thiểu và số người đang sao chép. Hãy đa dạng hóa thay vì dồn tất cả cho một nhà giao dịch."
+    },
+    "risk_management": {
+      "title": "Quản lý rủi ro và giới hạn lỗ",
+      "summary": "Hãy quyết định trước khi bắt đầu bạn có thể chịu lỗ bao nhiêu.",
+      "p1": "Chỉ dùng số tiền bạn có thể chấp nhận mất. Giao dịch và sao chép có rủi ro cao, bạn có thể mất toàn bộ số tiền.",
+      "p2": "Mỗi bản sao có giới hạn lỗ: khi lỗ chạm mức đó, việc sao chép tự động dừng. Giới hạn thấp bảo vệ vốn nhiều hơn nhưng có thể dừng bản sao sớm hơn.",
+      "p3": "Phân bổ số tiền cho nhiều nhà giao dịch và thị trường, và xem lại các bản sao thường xuyên thay vì phản ứng với một giao dịch."
+    },
+    "demo_vs_real": {
+      "title": "Tài khoản demo và tài khoản thật",
+      "summary": "Luyện tập với tiền ảo trước, rồi chuyển khi bạn sẵn sàng.",
+      "p1": "Tài khoản demo dùng tiền ảo và giao dịch mô phỏng. Dùng để học cách nền tảng và sao chép vận hành, không có tiền thật.",
+      "p2": "Tài khoản thật dùng tiền thật: áp dụng nạp, rút và xác minh danh tính, kết quả là thật. Hai tài khoản tách biệt hoàn toàn.",
+      "p3": "Bạn có thể chuyển qua lại từ menu. Việc chuyển sẽ dừng các bản sao hiện tại, nên hãy bắt đầu lại những bản bạn muốn trên tài khoản đã chọn."
+    }
   }
 }

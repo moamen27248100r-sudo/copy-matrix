@@ -166,9 +166,9 @@
     "todayProfit": "Faida ya leo",
     "totalProfit": "Faida jumla",
     "resetBalance": "Weka upya salio",
-    "onboardingCardTitle": "Anza kwa hatua 4",
+    "onboardingCardTitle": "Anzia hapa",
     "stepProfile": "Kamilisha wasifu wako",
-    "stepFirstCopy": "Nakili mfanyabiashara wako wa kwanza",
+    "stepFirstCopy": "Anza nakala yako ya kwanza ya majaribio",
     "stepProtection": "Washa ulinzi wa kunakili",
     "stepNotifications": "Washa arifa",
     "suggestedTradersTitle": "Wafanyabiashara waliopendekezwa kwako",
@@ -245,7 +245,14 @@
     "periodSummary3Months": "miezi 3 iliyopita",
     "periodSummaryYear": "mwaka uliopita",
     "periodSummaryAll": "tangu mwanzo",
-    "walletChartEmpty": "Utendaji wako utaonekana baada ya biashara yako ya kwanza kufungwa"
+    "walletChartEmpty": "Utendaji wako utaonekana baada ya biashara yako ya kwanza kufungwa",
+    "stepKyc": "Thibitisha utambulisho wako",
+    "marketPulseTitle": "Mwendo wa masoko leo",
+    "watchlistTitle": "Orodha yako ya ufuatiliaji",
+    "watchlistEmpty": "Ongeza vyombo vya kufuatilia kwa nyota kwenye ukurasa wa Masoko.",
+    "topTradersWeekTitle": "Wafanyabiashara bora wa wiki hii",
+    "topTradersWeekNote": "Kwa faida halisi ya siku 7 zilizopita, kwa wafanyabiashara wenye biashara zilizofungwa za kutosha tu. Utendaji wa zamani hauhakikishi matokeo ya baadaye.",
+    "learnTitle": "Jifunze"
   },
   "Common": {
     "level": "Kiwango {level}",
@@ -2349,5 +2356,38 @@
     "pushUnsupported": "Kivinjari au kifaa hiki hakiauni arifa za simu. Kwenye iPhone, sakinisha programu kwenye skrini ya nyumbani kwanza.",
     "pushNotConfigured": "Arifa za simu bado hazijawashwa kwenye jukwaa.",
     "pushFailed": "Imeshindwa kuwasha arifa. Tafadhali jaribu tena."
+  },
+  "Learn": {
+    "readMore": "Soma makala",
+    "back": "Mwanzo",
+    "notAdvice": "Maudhui ya jumla ya elimu, si ushauri wa uwekezaji wala ahadi ya faida. Biashara na kunakili kuna hatari kubwa na unaweza kupoteza mtaji wote.",
+    "how_copy_works": {
+      "title": "Jinsi kunakili biashara kunavyofanya kazi",
+      "summary": "Chagua mfanyabiashara na jukwaa linarudia biashara zake kwenye akaunti yako kulingana na kiasi ulichoweka.",
+      "p1": "Unaponakili mfanyabiashara, kila biashara anayofungua na kufunga hurudiwa kwenye akaunti yako kiotomatiki, kwa ukubwa unaolingana na kiasi ulichomtengea.",
+      "p2": "Unabaki na udhibiti: unaweza kubadilisha mipangilio, kuweka kikomo cha hasara au kuacha kunakili wakati wowote. Biashara zilizokwisha funguliwa zinabaki na kanuni zake.",
+      "p3": "Matokeo yanafuata ya mfanyabiashara, kwa hiyo faida na hasara vyote vinakufikia. Anza kidogo, na kwa akaunti ya majaribio ukiwa mgeni."
+    },
+    "choose_trader": {
+      "title": "Jinsi ya kuchagua mfanyabiashara",
+      "summary": "Angalia uthabiti na hatari, si faida kubwa pekee.",
+      "p1": "Angalia rekodi: historia ndefu yenye biashara zilizofungwa za kutosha inasema zaidi ya faida chache kubwa. Namba zinazoonyesha “—” zinamaanisha data haitoshi bado.",
+      "p2": "Linganisha faida na hatari: kushuka kwa juu kabisa kunaonyesha anguko kubwa zaidi la akaunti. Kushuka kidogo na matokeo thabiti ni rahisi kufuata kuliko faida kubwa yenye mabadiliko makubwa.",
+      "p3": "Angalia asilimia ya mgawanyo wa faida, kiasi cha chini cha kunakili na watu wangapi wanamnakili tayari. Sambaza badala ya kuweka kila kitu kwa mfanyabiashara mmoja."
+    },
+    "risk_management": {
+      "title": "Usimamizi wa hatari na kikomo cha hasara",
+      "summary": "Amua kabla ya kuanza ni kiasi gani unaweza kumudu kupoteza.",
+      "p1": "Tumia pesa unazoweza kumudu kupoteza tu. Biashara na kunakili kuna hatari kubwa na unaweza kupoteza kiasi chote.",
+      "p2": "Kila nakala ina kikomo cha hasara: hasara ikikifikia, kunakili husimama kiotomatiki. Kikomo cha chini kinalinda mtaji zaidi lakini kinaweza kusimamisha nakala mapema.",
+      "p3": "Gawanya kiasi chako kwa wafanyabiashara na masoko zaidi ya mmoja, na pitia nakala zako mara kwa mara badala ya kuguswa na biashara moja."
+    },
+    "demo_vs_real": {
+      "title": "Akaunti ya majaribio na akaunti halisi",
+      "summary": "Fanya mazoezi kwa pesa za kuigiza kwanza, kisha ubadilishe ukiwa tayari.",
+      "p1": "Akaunti ya majaribio hutumia fedha za kuigiza na biashara za kuiga. Ni ya kujifunza jinsi jukwaa na kunakili kunavyofanya kazi bila pesa halisi.",
+      "p2": "Akaunti halisi hutumia pesa halisi: uwekaji, utoaji na uthibitisho wa utambulisho vinatumika, na matokeo ni halisi. Akaunti hizo mbili zimetenganishwa kabisa.",
+      "p3": "Unaweza kubadilisha kati yao kutoka kwenye menyu. Kubadilisha husimamisha nakala zako za sasa, kwa hiyo anza upya unazotaka kwenye akaunti uliyochagua."
+    }
   }
 }

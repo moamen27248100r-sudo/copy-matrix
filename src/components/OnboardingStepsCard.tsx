@@ -5,21 +5,21 @@ import { getTranslations } from "next-intl/server";
 // it disappears for good.
 export async function OnboardingStepsCard({
   profileComplete,
+  kycDone,
   firstCopyDone,
-  protectionReady,
   notificationsReady,
 }: {
   profileComplete: boolean;
+  kycDone: boolean;
   firstCopyDone: boolean;
-  protectionReady: boolean;
   notificationsReady: boolean;
 }) {
   const t = await getTranslations("Dashboard");
 
   const steps = [
     { done: profileComplete, href: "/settings", label: t("stepProfile") },
+    { done: kycDone, href: "/kyc", label: t("stepKyc") },
     { done: firstCopyDone, href: "/discover", label: t("stepFirstCopy") },
-    { done: protectionReady, href: "/kyc", label: t("stepProtection") },
     { done: notificationsReady, href: "/notifications/preferences", label: t("stepNotifications") },
   ];
   const doneCount = steps.filter((s) => s.done).length;

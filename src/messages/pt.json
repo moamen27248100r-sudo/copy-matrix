@@ -166,9 +166,9 @@
     "todayProfit": "Lucro de hoje",
     "totalProfit": "Lucro total",
     "resetBalance": "Redefinir saldo",
-    "onboardingCardTitle": "Comece em 4 passos",
+    "onboardingCardTitle": "Comece aqui",
     "stepProfile": "Complete seu perfil",
-    "stepFirstCopy": "Copie seu primeiro trader",
+    "stepFirstCopy": "Comece sua primeira cópia demo",
     "stepProtection": "Ative a proteção de cópia",
     "stepNotifications": "Ative as notificações",
     "suggestedTradersTitle": "Traders sugeridos para você",
@@ -245,7 +245,14 @@
     "periodSummary3Months": "últimos 3 meses",
     "periodSummaryYear": "último ano",
     "periodSummaryAll": "desde o início",
-    "walletChartEmpty": "Seu desempenho aparecerá após a primeira operação encerrada"
+    "walletChartEmpty": "Seu desempenho aparecerá após a primeira operação encerrada",
+    "stepKyc": "Verifique sua identidade",
+    "marketPulseTitle": "Movimentos do mercado hoje",
+    "watchlistTitle": "Sua lista de observação",
+    "watchlistEmpty": "Adicione instrumentos para acompanhar com a estrela na página Mercados.",
+    "topTradersWeekTitle": "Melhores traders da semana",
+    "topTradersWeekNote": "Pelo retorno real dos últimos 7 dias, apenas traders com operações encerradas suficientes. O desempenho passado não garante resultados futuros.",
+    "learnTitle": "Aprenda"
   },
   "Common": {
     "level": "Nível {level}",
@@ -2352,5 +2359,38 @@
     "pushUnsupported": "Este navegador ou dispositivo não suporta notificações. No iPhone, instale primeiro o aplicativo na tela inicial.",
     "pushNotConfigured": "As notificações do celular ainda não estão ativadas na plataforma.",
     "pushFailed": "Não foi possível ativar as notificações. Tente novamente."
+  },
+  "Learn": {
+    "readMore": "Ler o artigo",
+    "back": "Início",
+    "notAdvice": "Conteúdo educativo geral, não é aconselhamento de investimento nem promessa de lucro. Negociar e copiar operações envolve risco elevado e você pode perder todo o seu capital.",
+    "how_copy_works": {
+      "title": "Como funciona o copy trading",
+      "summary": "Escolha um trader e a plataforma replica as operações dele na sua conta, proporcionalmente ao valor definido.",
+      "p1": "Ao copiar um trader, cada operação que ele abre e fecha é repetida automaticamente na sua conta, com tamanho proporcional ao valor que você destinou a ele.",
+      "p2": "Você continua no controle: pode alterar as configurações, definir um limite de perda ou parar de copiar a qualquer momento. As operações já abertas mantêm suas próprias regras.",
+      "p3": "Os resultados acompanham os do trader, então ganhos e perdas chegam a você. Comece pequeno e, se for novo, com a conta demo."
+    },
+    "choose_trader": {
+      "title": "Como escolher um trader",
+      "summary": "Veja a consistência e o risco, não apenas o maior retorno.",
+      "p1": "Verifique o histórico: uma trajetória longa com operações encerradas suficientes diz mais do que alguns grandes ganhos. Números com «—» significam que ainda não há dados suficientes.",
+      "p2": "Compare retorno e risco: a queda máxima mostra a maior queda que a conta já teve. Uma queda menor com resultados estáveis é mais fácil de acompanhar do que um retorno alto com grandes oscilações.",
+      "p3": "Veja a porcentagem de partilha de lucros, o valor mínimo de cópia e quantas pessoas já copiam o trader. Diversifique em vez de colocar tudo em um só trader."
+    },
+    "risk_management": {
+      "title": "Gestão de risco e limite de perda",
+      "summary": "Decida antes de começar quanto você pode se dar ao luxo de perder.",
+      "p1": "Use apenas dinheiro que você pode se dar ao luxo de perder. Negociar e copiar envolve risco elevado e você pode perder todo o valor.",
+      "p2": "Cada cópia tem um limite de perda: quando a perda o atinge, a cópia para automaticamente. Um limite menor protege mais seu capital, mas pode parar uma cópia mais cedo.",
+      "p3": "Distribua seu valor entre mais de um trader e mercado, e revise suas cópias regularmente em vez de reagir a uma única operação."
+    },
+    "demo_vs_real": {
+      "title": "Conta demo e conta real",
+      "summary": "Pratique primeiro com dinheiro virtual e mude quando estiver pronto.",
+      "p1": "A conta demo usa fundos virtuais e operações simuladas. Serve para aprender como a plataforma e a cópia funcionam, sem dinheiro real.",
+      "p2": "A conta real usa dinheiro real: depósitos, saques e verificação de identidade se aplicam, e os resultados são reais. As duas contas são totalmente separadas.",
+      "p3": "Você pode alternar entre elas pelo menu. Alternar interrompe as cópias atuais, então inicie de novo as que quiser na conta escolhida."
+    }
   }
 }

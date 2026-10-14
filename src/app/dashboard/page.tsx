@@ -9,7 +9,9 @@ import { createClient } from "@/lib/supabase/server";
 import { getUserTimeZone } from "@/lib/timezone";
 import { AppNav } from "@/components/AppNav";
 import { OnboardingStepsCard } from "@/components/OnboardingStepsCard";
-import { SuggestedTraders } from "@/components/SuggestedTraders";
+import { TopTradersWeek } from "@/components/TopTradersWeek";
+import { HomeWatchlist } from "@/components/HomeWatchlist";
+import { LearnCards } from "@/components/LearnCards";
 import { RecentActivityTimeline, type ActivityEvent } from "@/components/RecentActivityTimeline";
 import { TopMovers } from "@/components/TopMovers";
 import { TraderAvatar } from "@/components/TraderAvatar";
@@ -65,6 +67,7 @@ export default async function DashboardPage({
     { data: walletRequests },
     depositsOn,
     { count: prefsCount },
+    { count: everCopied },
   ] = await Promise.all([
     supabase.from("profiles").select("account_type, balance, country").eq("id", user.id).single(),
     supabase
@@ -120,6 +123,8 @@ export default async function DashboardPage({
     depositsEnabled(supabase),
     // Saved notification preferences: the "turn on alerts" step is done once they were visited and saved.
     supabase.from("notification_preferences").select("category", { count: "exact", head: true }).eq("user_id", user.id),
+    // Any copy ever started counts for the "first copy" step (a finished one too).
+    supabase.from("subscriptions").select("id", { count: "exact", head: true }).eq("follower_id", user.id),
   ]);
 
   type ProviderResult = {
@@ -273,55 +278,85 @@ export default async function DashboardPage({
           </div>
         )}
 
-        <OnboardingStepsCard
-          profileComplete={!!profile?.country}
-          firstCopyDone={copies.length > 0}
-          protectionReady={activeType === "demo" || kycStatus === "approved"}
-          notificationsReady={(prefsCount ?? 0) > 0}
-        />
-
-        <div className="grid gap-6 lg:grid-cols-2">
-          {topCopies.length > 0 && (
-            <section className="flex flex-col gap-3">
-              <div className="flex items-baseline justify-between gap-3">
-                <h2 className="text-base font-semibold">{t("traderYouCopy")}</h2>
-                <Link href="/copies" className="text-sm text-accent hover:underline">
-                  {tNav("viewAll")}
-                </Link>
-              </div>
-              <div className="flex flex-col gap-2">
-                {topCopies.map((c) => (
-                  <Link
-                    key={c.subscriptionId}
-                    href="/copies"
-                    className="flex items-center gap-3 rounded-2xl border border-border bg-surface p-3 transition hover:border-accent/40"
-                  >
-                    <TraderAvatar providerId={c.providerId} name={c.name} avatarUrl={c.avatarUrl} ratingScore={c.rating} size={40} />
-                    <span className="min-w-0 flex-1">
-                      <span className="block truncate text-sm font-medium">{c.name}</span>
-                      <span className="block text-xs text-muted" dir="ltr">
-                        {money(c.allocated)}
-                      </span>
-                    </span>
-                    <span dir="ltr" className={`shrink-0 text-sm font-semibold tabular-nums ${c.total >= 0 ? "text-success" : "text-danger"}`}>
-                      {money(c.total, { signed: true })}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            </section>
-          )}
-
-          <RecentActivityTimeline events={activityEvents} />
-        </div>
-
-        <Suspense fallback={<SectionSkeleton />}>
-          <SuggestedTraders excludeProviderIds={providerIds} />
-        </Suspense>
-
-        <Suspense fallback={null}>
-          <TopMovers />
-        </Suspense>
+        {(() => {
+          const startHere = (
+            <OnboardingStepsCard
+              profileComplete={!!profile?.country}
+              kycDone={kycStatus === "approved" || kycStatus === "pending"}
+              firstCopyDone={(everCopied ?? 0) > 0 || copies.length > 0}
+              notificationsReady={(prefsCount ?? 0) > 0}
+            />
+          );
+          const copiesAndActivity = (
+            <div className="grid gap-6 lg:grid-cols-2">
+              {topCopies.length > 0 && (
+                <section className="flex flex-col gap-3">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <h2 className="text-base font-semibold">{t("traderYouCopy")}</h2>
+                    <Link href="/copies" className="text-sm text-accent hover:underline">
+                      {tNav("viewAll")}
+                    </Link>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    {topCopies.map((c) => (
+                      <Link
+                        key={c.subscriptionId}
+                        href="/copies"
+                        className="flex items-center gap-3 rounded-2xl border border-border bg-surface p-3 transition hover:border-accent/40"
+                      >
+                        <TraderAvatar providerId={c.providerId} name={c.name} avatarUrl={c.avatarUrl} ratingScore={c.rating} size={40} />
+                        <span className="min-w-0 flex-1">
+                          <span className="block truncate text-sm font-medium">{c.name}</span>
+                          <span className="block text-xs text-muted" dir="ltr">
+                            {money(c.allocated)}
+                          </span>
+                        </span>
+                        <span dir="ltr" className={`shrink-0 text-sm font-semibold tabular-nums ${c.total >= 0 ? "text-success" : "text-danger"}`}>
+                          {money(c.total, { signed: true })}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              )}
+              <RecentActivityTimeline events={activityEvents} />
+            </div>
+          );
+          const markets = (
+            <>
+              <Suspense fallback={null}>
+                <HomeWatchlist userId={user.id} />
+              </Suspense>
+              <Suspense fallback={null}>
+                <TopMovers />
+              </Suspense>
+            </>
+          );
+          const traders = (
+            <Suspense fallback={<SectionSkeleton />}>
+              <TopTradersWeek excludeProviderIds={providerIds} />
+            </Suspense>
+          );
+          // A customer who already copies sees their copies first; the getting-started checklist and
+          // the learning cards move down. A new customer sees the checklist first.
+          return copies.length > 0 ? (
+            <>
+              {copiesAndActivity}
+              {markets}
+              {traders}
+              {startHere}
+              <LearnCards />
+            </>
+          ) : (
+            <>
+              {startHere}
+              {markets}
+              {traders}
+              {copiesAndActivity}
+              <LearnCards />
+            </>
+          );
+        })()}
 
         <RiskFooter demo={activeType === "demo"} />
       </main>
