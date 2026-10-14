@@ -200,7 +200,12 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
   if (statSort) {
     const enough = (q: ReturnType<typeof buildQuery>) => q.gte(cols.trades, MIN_CLOSED_TRADES);
     const notEnough = (q: ReturnType<typeof buildQuery>) => q.or(`${cols.trades}.lt.${MIN_CLOSED_TRADES},${cols.trades}.is.null`);
-    const [{ count: nA }, { count: nB }] = await Promise.all([enough(buildQuery(true)), notEnough(buildQuery(true))]);
+    // A count that failed must not silently shrink the list: ask again once.
+    const counts = async () => Promise.all([enough(buildQuery(true)), notEnough(buildQuery(true))]);
+    let first = await counts();
+    if (first[0].error || first[1].error || first[0].count == null || first[1].count == null) first = await counts();
+    const nA = first[0].count;
+    const nB = first[1].count;
     const sufficientCount = nA ?? 0;
     count = sufficientCount + (nB ?? 0);
     const rows: unknown[] = [];
