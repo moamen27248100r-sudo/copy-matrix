@@ -4,7 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
 import { Suspense } from "react";
-import { cookies } from "next/headers";
+import { headers } from "next/headers";
 import { BottomNav } from "@/components/BottomNav";
 import { ImpersonationBanner } from "@/components/ImpersonationBanner";
 import { StripFlashParams } from "@/components/StripFlashParams";
@@ -57,9 +57,9 @@ export default async function RootLayout({
   // Only the namespaces client components read (i18n/client-messages.ts), not the whole catalog.
   const messages = pickMessages(await getMessages(), GLOBAL_CLIENT_NAMESPACES);
   const dir = isRtlLocale(locale) ? "rtl" : "ltr";
-  // Cheap presence check (no network): the mobile bottom nav lives here so it persists
-  // across navigations and loading states. Pages still verify the session themselves.
-  const hasSession = (await cookies()).getAll().some((c) => c.name.startsWith("sb-") && c.name.includes("-auth-token"));
+  // Set by the proxy from the validated session: the signed-in app shell (bottom nav, sidebar offset)
+  // appears only for a real signed-in user, never for a visitor.
+  const hasSession = (await headers()).get("x-cm-authed") === "1";
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -84,7 +84,7 @@ export default async function RootLayout({
       dir={dir}
       className={`${plexSansArabic.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
+      <body data-shell={hasSession ? "app" : "public"} className="min-h-full flex flex-col bg-background text-foreground">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

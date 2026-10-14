@@ -1,22 +1,10 @@
-import Link from "next/link";
-import { getTranslations } from "next-intl/server";
-import { Logo } from "@/components/Logo";
+import { headers } from "next/headers";
+import { AppNav } from "@/components/AppNav";
+import { GuestHeader } from "@/components/GuestHeader";
 
+// Header of the public information pages (terms, privacy, risk, about, security): the public header
+// for a visitor, the signed-in header (without the sidebar) for a customer.
 export async function LegalNav() {
-  const t = await getTranslations("Legal");
-  return (
-    <nav className="sticky top-0 z-[9999] flex items-center justify-between border-b border-border bg-background px-6 py-4">
-      <Link href="/" className="flex items-center">
-        <Logo iconClassName="h-5 w-5" textClassName="text-xl" />
-      </Link>
-      <div className="flex items-center gap-3">
-        <Link
-          href="/"
-          className="rounded border border-border px-3 py-1.5 text-sm font-medium text-foreground transition hover:border-accent hover:text-accent"
-        >
-          {t("backToHome")}
-        </Link>
-      </div>
-    </nav>
-  );
+  const authed = (await headers()).get("x-cm-authed") === "1";
+  return authed ? <AppNav sidebar={false} /> : <GuestHeader />;
 }

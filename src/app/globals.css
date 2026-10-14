@@ -463,3 +463,15 @@ th {
 @media (prefers-reduced-motion: reduce) {
   .glass-nav-pill { animation: none; }
 }
+
+/* Public shell: a visitor has no side navigation and no bottom bar, so the page content is simply
+   centred (several pages reserve room for the signed-in sidebar and bottom nav). */
+@media (min-width: 1024px) {
+  body[data-shell="public"] main {
+    margin-inline-start: auto !important;
+    margin-inline-end: auto !important;
+  }
+}
+body[data-shell="public"] {
+  --bottom-nav-h: 0px;
+}

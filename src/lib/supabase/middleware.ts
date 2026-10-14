@@ -53,6 +53,15 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
+  // Tell the pages whether this request has a valid signed-in user (validated above, so an expired
+  // or leftover cookie of a signed-out visitor never shows the app shell). The header is always
+  // overwritten here, so a client can't spoof it.
+  const forwarded = new Headers(request.headers);
+  forwarded.set("x-cm-authed", user ? "1" : "0");
+  const withCookies = supabaseResponse;
+  supabaseResponse = NextResponse.next({ request: { headers: forwarded } });
+  withCookies.cookies.getAll().forEach((cookie) => supabaseResponse.cookies.set(cookie));
+
   // "Online status" needs last_seen_at to move while someone is actively
   // browsing, not just at login -- but this middleware runs on nearly every
   // request platform-wide, so writing on every single one would repeat

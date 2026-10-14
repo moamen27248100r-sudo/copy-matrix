@@ -151,9 +151,9 @@ export default async function Home() {
             >
               {t("hero.start")}
             </Link>
-            <a href="#traders" className="text-sm font-medium text-muted md:rounded md:border md:border-border md:px-6 md:py-3 md:text-base md:text-foreground">
+            <Link href="/discover" className="text-sm font-medium text-muted md:rounded md:border md:border-border md:px-6 md:py-3 md:text-base md:text-foreground">
               {t("hero.browse")} <span className="md:hidden">{dir === "rtl" ? "←" : "→"}</span>
-            </a>
+            </Link>
           </div>
           {/* Desktop: three marks with their full text. */}
           <div className="hidden flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-4 text-xs text-muted md:flex lg:justify-start">

@@ -5,19 +5,23 @@ import { createClient } from "@/lib/supabase/server";
 import { MainMenu } from "@/components/MainMenu";
 import { NotificationsMenu } from "@/components/NotificationsMenu";
 import { DemoStrip } from "@/components/DemoStrip";
+import { GuestHeader } from "@/components/GuestHeader";
 import { SidebarNav } from "@/components/SidebarNav";
 import { NavDrawerProvider } from "@/components/nav-drawer-context";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/Logo";
 import type { Locale } from "@/i18n/locales";
 
-export async function AppNav() {
+export async function AppNav({ sidebar = true }: { sidebar?: boolean } = {}) {
   const supabase = await createClient();
   const t = await getTranslations("Nav");
   const locale = (await getLocale()) as Locale;
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  // A visitor gets the public header only: logo, language, log in, sign up.
+  if (!user) return <GuestHeader />;
 
   let isAdmin = false;
   let displayName: string | null = null;
@@ -106,11 +110,7 @@ export async function AppNav() {
       </NavDrawerProvider>
     </nav>
     {user && accountType === "demo" && <DemoStrip />}
-    {user && (
-      <>
-        <SidebarNav isAdmin={isAdmin} />
-      </>
-    )}
+    {user && sidebar && <SidebarNav isAdmin={isAdmin} />}
     </>
   );
 }
