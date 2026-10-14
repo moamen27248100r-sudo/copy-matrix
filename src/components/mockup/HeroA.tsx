@@ -158,7 +158,7 @@ export async function HeroMockupA() {
 
         {/* floating glass cards, partly outside the phone, floating slowly one after another */}
         <div
-          className={`mockup-float absolute -end-[17%] top-[35%] flex w-max max-w-[196px] lg:-end-[30%] lg:top-[13%] lg:max-w-[250px] items-center gap-2.5 rounded-2xl px-3 py-2.5 ${GLASS}`}
+          className={`mockup-float absolute -end-[17%] top-[35%] flex w-max max-w-[190px] lg:-end-[30%] lg:top-[33%] lg:max-w-[250px] items-center gap-2.5 rounded-2xl px-3 py-2.5 ${GLASS}`}
           style={{ animationDelay: "-1s" }}
         >
           <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#2f6fed]/25 text-[#8fb4ff]">
@@ -168,7 +168,7 @@ export async function HeroMockupA() {
             </svg>
           </span>
           <span className="min-w-0 flex-1">
-            <span className="block whitespace-nowrap text-[12px] font-semibold text-white">
+            <span className="block text-[12px] font-semibold leading-snug text-white lg:whitespace-nowrap">
               {t("tradeCopied")} · <span dir="ltr">{SYMBOL}</span> {t("buy")}
             </span>
             <span className="block text-[10.5px] text-[#9AA6BC]">{t("now")}</span>
@@ -176,7 +176,7 @@ export async function HeroMockupA() {
         </div>
 
         <div
-          className={`mockup-float-slow absolute -start-[24%] top-[60%] flex w-max max-w-[190px] flex-col lg:-start-[38%] lg:top-[47%] lg:max-w-none lg:min-w-[176px] gap-2 rounded-2xl px-3.5 py-3 ${GLASS}`}
+          className={`mockup-float-slow absolute -start-[24%] top-[62%] flex w-max max-w-[190px] flex-col lg:-start-[38%] lg:top-[56%] lg:max-w-none lg:min-w-[176px] gap-2 rounded-2xl px-3.5 py-3 ${GLASS}`}
           style={{ animationDelay: "-3.5s" }}
         >
           <span className="flex items-center gap-2.5">
