@@ -339,7 +339,10 @@
     "copyOpenedBulkBody": "{providerName} এর {count}টি ট্রেড আপনার অ্যাকাউন্টে কপি হয়েছে।",
     "copyClosedBulkTitle": "{count}টি ট্রেড বন্ধ হয়েছে",
     "copyClosedBulkBody": "{providerName} থেকে কপি করা {count}টি ট্রেড মোট ফলাফল {amount} সহ বন্ধ হয়েছে।",
-    "cat_market": "বাজার"
+    "cat_market": "বাজার",
+    "marketMoveTitle": "{symbol}-এ বড় নড়াচড়া",
+    "marketMoveBody": "{symbol} গত ২৪ ঘণ্টায় {pct} {direction, select, up {বেড়েছে} other {কমেছে}} এবং এখন {price}।",
+    "prefsMarket": "বাজারের নড়াচড়া"
   },
   "Portfolio": {
     "title": "আমার পোর্টফোলিও",
@@ -795,7 +798,26 @@
   },
   "Markets": {
     "title": "বাজার",
-    "subtitle": "মুহূর্তে মুহূর্তে দামের গতিবিধি অনুসরণ করুন, এবং চার্টের ভেতর থেকেই জোড়া পরিবর্তন করুন।"
+    "subtitle": "প্ল্যাটফর্মের সব ইন্সট্রুমেন্টের লাইভ দাম ও গত ২৪ ঘণ্টার পরিবর্তন।",
+    "watch": "ওয়াচলিস্টে যোগ করুন",
+    "unwatch": "ওয়াচলিস্ট থেকে সরান",
+    "topRisers": "আজ সবচেয়ে বেশি বৃদ্ধি",
+    "topFallers": "আজ সবচেয়ে বেশি পতন",
+    "allInstruments": "সব ইন্সট্রুমেন্ট",
+    "noData": "এখন কোনো দামের তথ্য নেই।",
+    "dataNote": "পরিবর্তন প্ল্যাটফর্মের গত ২৪ ঘণ্টার দামের ভিত্তিতে হিসাব করা। অতীতের পারফরম্যান্স ভবিষ্যতের ফলাফলের নিশ্চয়তা দেয় না।",
+    "rangeDay": "দিন",
+    "rangeWeek": "সপ্তাহ",
+    "backToMarkets": "বাজার",
+    "last24h": "গত ২৪ ঘণ্টা",
+    "dayRange": "আজকের পরিসর",
+    "low": "সর্বনিম্ন",
+    "high": "সর্বোচ্চ",
+    "relatedNews": "এই ইন্সট্রুমেন্টের খবর",
+    "noNews": "এই ইন্সট্রুমেন্টের কোনো সাম্প্রতিক খবর নেই।",
+    "topTraders": "যারা এটি সবচেয়ে বেশি ট্রেড করেন",
+    "noTopTraders": "এখন কেউ এটি ট্রেড করছেন না।",
+    "tradesIn30d": "৩০ দিনে {count}টি ট্রেড"
   },
   "Support": {
     "pageTitle": "সহায়তা — Copy Matrix",

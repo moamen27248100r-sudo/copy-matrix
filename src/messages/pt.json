@@ -339,7 +339,10 @@
     "copyOpenedBulkBody": "Foram copiadas {count} operações de {providerName} para a sua conta.",
     "copyClosedBulkTitle": "{count} operações fechadas",
     "copyClosedBulkBody": "Foram fechadas {count} operações copiadas de {providerName} com um resultado conjunto de {amount}.",
-    "cat_market": "Mercado"
+    "cat_market": "Mercado",
+    "marketMoveTitle": "Grande movimento em {symbol}",
+    "marketMoveBody": "{symbol} {direction, select, up {subiu} other {caiu}} {pct} nas últimas 24 horas e agora está em {price}.",
+    "prefsMarket": "Movimentos do mercado"
   },
   "Portfolio": {
     "title": "Minha carteira",
@@ -795,7 +798,26 @@
   },
   "Markets": {
     "title": "Mercados",
-    "subtitle": "Acompanhe o movimento dos preços momento a momento e altere o par diretamente no gráfico."
+    "subtitle": "Preços ao vivo de todos os instrumentos da plataforma, com a variação das últimas 24 horas.",
+    "watch": "Adicionar à lista",
+    "unwatch": "Remover da lista",
+    "topRisers": "Maiores altas de hoje",
+    "topFallers": "Maiores quedas de hoje",
+    "allInstruments": "Todos os instrumentos",
+    "noData": "Sem dados de preço no momento.",
+    "dataNote": "A variação é calculada nas últimas 24 horas dos preços da plataforma. O desempenho passado não garante resultados futuros.",
+    "rangeDay": "Dia",
+    "rangeWeek": "Semana",
+    "backToMarkets": "Mercados",
+    "last24h": "últimas 24 horas",
+    "dayRange": "Intervalo do dia",
+    "low": "Mínima",
+    "high": "Máxima",
+    "relatedNews": "Notícias deste instrumento",
+    "noNews": "Não há notícias recentes deste instrumento.",
+    "topTraders": "Líderes que mais o negociam",
+    "noTopTraders": "Nenhum líder o negocia agora.",
+    "tradesIn30d": "{count, plural, one {# operação} other {# operações}} em 30 dias"
   },
   "Support": {
     "pageTitle": "Suporte — Copy Matrix",

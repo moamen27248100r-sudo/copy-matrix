@@ -23,6 +23,7 @@ export const GLOBAL_CLIENT_NAMESPACES = [
   "LeadTrader.nav",
   "LivePrices",
   "MarketOverview",
+  "Markets",
   "Nav",
   "Notifications",
   "OpenOrders",

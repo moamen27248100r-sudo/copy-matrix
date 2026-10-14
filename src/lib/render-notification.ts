@@ -44,6 +44,19 @@ export function renderNotification(t: Translator, n: NotificationRow, rawMoney: 
       return { title: t("copyStoppedTitle"), body: t("copyStoppedBody", { providerName: String(d.providerName ?? "") }) };
     case "leader_stopped":
       return { title: t("leaderStoppedTitle"), body: t("leaderStoppedBody", { providerName: String(d.providerName ?? "") }) };
+    case "market_move": {
+      const pct = Number(d.changePct ?? 0);
+      const price = Number(d.price ?? 0);
+      return {
+        title: t("marketMoveTitle", { symbol: String(d.symbol ?? "") }),
+        body: t("marketMoveBody", {
+          symbol: String(d.symbol ?? ""),
+          direction: pct >= 0 ? "up" : "down",
+          pct: `${Math.abs(pct).toFixed(2)}%`,
+          price: price >= 1000 ? price.toLocaleString("en-US", { maximumFractionDigits: 0 }) : String(Number(price.toFixed(price >= 10 ? 2 : 4))),
+        }),
+      };
+    }
     case "security_new_login":
       return { title: t("securityNewLoginTitle"), body: t("securityNewLoginBody") };
     case "copy_opened":

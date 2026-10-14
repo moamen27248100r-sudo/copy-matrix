@@ -339,7 +339,10 @@
     "copyOpenedBulkBody": "{count} trades from {providerName} were copied to your account.",
     "copyClosedBulkTitle": "{count} trades closed",
     "copyClosedBulkBody": "{count} copied trades from {providerName} closed with a combined result of {amount}.",
-    "cat_market": "Market"
+    "cat_market": "Market",
+    "marketMoveTitle": "Big move in {symbol}",
+    "marketMoveBody": "{symbol} {direction, select, up {rose} other {fell}} {pct} over the last 24 hours and now trades at {price}.",
+    "prefsMarket": "Market moves"
   },
   "Portfolio": {
     "title": "My Portfolio",
@@ -795,7 +798,26 @@
   },
   "Markets": {
     "title": "Markets",
-    "subtitle": "Track price movement moment by moment, and change the pair right from the chart."
+    "subtitle": "Live prices for every instrument on the platform, with the change over the last 24 hours.",
+    "watch": "Add to watchlist",
+    "unwatch": "Remove from watchlist",
+    "topRisers": "Top risers today",
+    "topFallers": "Top fallers today",
+    "allInstruments": "All instruments",
+    "noData": "There is no price data right now.",
+    "dataNote": "The change is calculated over the last 24 hours of the platform prices. Past performance does not guarantee future results.",
+    "rangeDay": "Day",
+    "rangeWeek": "Week",
+    "backToMarkets": "Markets",
+    "last24h": "last 24 hours",
+    "dayRange": "Day range",
+    "low": "Low",
+    "high": "High",
+    "relatedNews": "News about this instrument",
+    "noNews": "There is no recent news for this instrument right now.",
+    "topTraders": "Leaders who trade it most",
+    "noTopTraders": "No leader is trading it right now.",
+    "tradesIn30d": "{count, plural, one {# trade} other {# trades}} in 30 days"
   },
   "Support": {
     "pageTitle": "Support — Copy Matrix",

@@ -8,8 +8,7 @@ import { emptyPageTarget } from "@/lib/discover-paging";
 import { unfollowProvider, followTrader, unfollowTrader } from "@/app/discover/actions";
 import { AppNav } from "@/components/AppNav";
 import { DiscoverTabs } from "@/app/discover/DiscoverTabs";
-import { TradingViewChart } from "@/components/TradingViewChart";
-import { symbolTradingViewTicker } from "@/lib/symbol-icons";
+import { MarketsTab } from "@/components/markets/MarketsTab";
 import { RiskFooter } from "@/components/RiskFooter";
 import { LeaderCard } from "@/components/LeaderCard";
 import { DiscoverFilterSheet } from "@/components/DiscoverFilterSheet";
@@ -136,19 +135,17 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
   if (params.tab === "markets" && !user) {
     redirect(`/login?next=${encodeURIComponent(`/discover?tab=markets${params.symbol ? `&symbol=${params.symbol}` : ""}`)}`);
   }
-  // The Markets tab: the live chart.
+  // A symbol in the address opens that instrument.
+  if (params.tab === "markets" && params.symbol) redirect(`/markets/${encodeURIComponent(params.symbol)}`);
+  // The Markets tab: the instruments.
   if (params.tab === "markets" && user) {
-    const tMarkets = await getTranslations("Markets");
     return (
       <>
         <AppNav />
         <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-[var(--sidebar-w)] lg:me-0 lg:pb-6">
           <h1 className="text-page-title">{t("title")}</h1>
           <DiscoverTabs active="markets" />
-          <p className="text-sm text-muted">{tMarkets("subtitle")}</p>
-          <div className="overflow-hidden rounded-lg border border-border">
-            <TradingViewChart symbol={params.symbol ? symbolTradingViewTicker(params.symbol) : undefined} />
-          </div>
+          <MarketsTab userId={user.id} />
           <RiskFooter />
         </main>
       </>

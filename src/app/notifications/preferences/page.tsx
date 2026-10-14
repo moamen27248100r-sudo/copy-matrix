@@ -8,7 +8,7 @@ import { saveNotificationPreferences } from "@/app/notifications/actions";
 import { FlashMessage } from "@/components/ui/Toast";
 
 // "copy_trades" (one notice per opened / closed copied trade) is opt-in: off until switched on.
-const CATEGORIES = ["copy", "copy_trades", "trades", "account"] as const;
+const CATEGORIES = ["copy", "copy_trades", "trades", "market", "account"] as const;
 const OFF_BY_DEFAULT: readonly string[] = ["copy_trades"];
 
 export async function generateMetadata() {
@@ -34,7 +34,7 @@ export default async function NotificationPreferencesPage({
   // No saved choice: copy and account emails on; followed-leader trades and each copied trade off
   // (same defaults as email_category_enabled, migration 0256).
   const email = new Map((prefs ?? []).map((p) => [p.category as string, p.email as boolean | null]));
-  const emailOn = (cat: string) => email.get(cat) ?? (cat !== "trades" && !OFF_BY_DEFAULT.includes(cat));
+  const emailOn = (cat: string) => email.get(cat) ?? (cat !== "trades" && cat !== "market" && !OFF_BY_DEFAULT.includes(cat));
 
   return (
     <>

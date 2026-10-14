@@ -73,6 +73,12 @@ const ICONS = {
       <polyline points="9 12 11 14 15 10" />
     </>
   ),
+  market_move: (
+    <>
+      <polyline points="3 17 9 11 13 15 21 7" />
+      <polyline points="15 7 21 7 21 13" />
+    </>
+  ),
   default: (
     <>
       <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
@@ -89,6 +95,7 @@ const ICON_TONE: Record<string, string> = {
   wallet_deposit_approved: "bg-success/10 text-success",
   wallet_withdrawal_approved: "bg-foreground/10 text-foreground",
   kyc_approved: "bg-success/10 text-success",
+  market_move: "bg-warning/10 text-warning",
 };
 
 function NotificationIcon({ type }: { type: string }) {

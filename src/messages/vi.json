@@ -339,7 +339,10 @@
     "copyOpenedBulkBody": "{count} lệnh của {providerName} đã được sao chép vào tài khoản của bạn.",
     "copyClosedBulkTitle": "Đã đóng {count} lệnh",
     "copyClosedBulkBody": "{count} lệnh sao chép từ {providerName} đã đóng với kết quả tổng {amount}.",
-    "cat_market": "Thị trường"
+    "cat_market": "Thị trường",
+    "marketMoveTitle": "{symbol} biến động mạnh",
+    "marketMoveBody": "{symbol} {direction, select, up {tăng} other {giảm}} {pct} trong 24 giờ qua, hiện ở mức {price}.",
+    "prefsMarket": "Biến động thị trường"
   },
   "Portfolio": {
     "title": "Danh mục của tôi",
@@ -795,7 +798,26 @@
   },
   "Markets": {
     "title": "Thị trường",
-    "subtitle": "Theo dõi biến động giá theo từng khoảnh khắc và đổi cặp giao dịch ngay trong biểu đồ."
+    "subtitle": "Giá trực tiếp của mọi công cụ trên nền tảng, cùng mức thay đổi trong 24 giờ qua.",
+    "watch": "Thêm vào theo dõi",
+    "unwatch": "Bỏ theo dõi",
+    "topRisers": "Tăng mạnh nhất hôm nay",
+    "topFallers": "Giảm mạnh nhất hôm nay",
+    "allInstruments": "Tất cả công cụ",
+    "noData": "Hiện chưa có dữ liệu giá.",
+    "dataNote": "Mức thay đổi tính trên 24 giờ gần nhất của giá nền tảng. Hiệu suất trong quá khứ không đảm bảo kết quả tương lai.",
+    "rangeDay": "Ngày",
+    "rangeWeek": "Tuần",
+    "backToMarkets": "Thị trường",
+    "last24h": "24 giờ qua",
+    "dayRange": "Biên độ trong ngày",
+    "low": "Thấp nhất",
+    "high": "Cao nhất",
+    "relatedNews": "Tin tức về công cụ này",
+    "noNews": "Chưa có tin mới về công cụ này.",
+    "topTraders": "Nhà dẫn đầu giao dịch nhiều nhất",
+    "noTopTraders": "Hiện chưa có nhà dẫn đầu nào giao dịch.",
+    "tradesIn30d": "{count} giao dịch trong 30 ngày"
   },
   "Support": {
     "pageTitle": "Hỗ trợ — Copy Matrix",

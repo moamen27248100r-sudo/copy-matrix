@@ -339,7 +339,10 @@
     "copyOpenedBulkBody": "تم فتح {count} صفقات من نسخ {providerName} في حسابك.",
     "copyClosedBulkTitle": "تم إغلاق {count} صفقات",
     "copyClosedBulkBody": "أُغلقت {count} صفقات منسوخة من {providerName} بنتيجة إجمالية {amount}.",
-    "cat_market": "السوق"
+    "cat_market": "السوق",
+    "marketMoveTitle": "حركة كبيرة في {symbol}",
+    "marketMoveBody": "{symbol} {direction, select, up {ارتفع} other {انخفض}} بنسبة {pct} خلال آخر 24 ساعة، والسعر الآن {price}.",
+    "prefsMarket": "حركة السوق"
   },
   "Portfolio": {
     "title": "محفظتي",
@@ -795,7 +798,26 @@
   },
   "Markets": {
     "title": "الأسواق",
-    "subtitle": "تابع حركة الأسعار لحظة بلحظة، وغيّر الزوج من داخل الشارت."
+    "subtitle": "الأسعار الحية لكل الأدوات المتاحة على المنصة، والتغيّر خلال آخر 24 ساعة.",
+    "watch": "أضف للمراقبة",
+    "unwatch": "إزالة من المراقبة",
+    "topRisers": "الأعلى ارتفاعاً اليوم",
+    "topFallers": "الأكثر انخفاضاً اليوم",
+    "allInstruments": "كل الأدوات",
+    "noData": "لا توجد بيانات أسعار حالياً.",
+    "dataNote": "التغيّر محسوب على آخر 24 ساعة من أسعار المنصة. الأداء السابق لا يضمن النتائج المستقبلية.",
+    "rangeDay": "يوم",
+    "rangeWeek": "أسبوع",
+    "backToMarkets": "الأسواق",
+    "last24h": "آخر 24 ساعة",
+    "dayRange": "نطاق اليوم",
+    "low": "الأدنى",
+    "high": "الأعلى",
+    "relatedNews": "أخبار هذه الأداة",
+    "noNews": "لا توجد أخبار حديثة لهذه الأداة الآن.",
+    "topTraders": "القادة الأكثر تداولاً لها",
+    "noTopTraders": "لا يوجد قادة يتداولونها حالياً.",
+    "tradesIn30d": "{count, plural, one {صفقة واحدة} two {صفقتان} few {# صفقات} many {# صفقة} other {# صفقة}} في 30 يوماً"
   },
   "Support": {
     "pageTitle": "الدعم الفني — Copy Matrix",

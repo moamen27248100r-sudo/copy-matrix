@@ -339,7 +339,10 @@
     "copyOpenedBulkBody": "{providerName} के {count} ट्रेड आपके खाते में कॉपी हुए।",
     "copyClosedBulkTitle": "{count} ट्रेड बंद हुए",
     "copyClosedBulkBody": "{providerName} से कॉपी किए {count} ट्रेड {amount} के कुल परिणाम के साथ बंद हुए।",
-    "cat_market": "बाज़ार"
+    "cat_market": "बाज़ार",
+    "marketMoveTitle": "{symbol} में बड़ी हलचल",
+    "marketMoveBody": "{symbol} पिछले 24 घंटे में {pct} {direction, select, up {बढ़ा} other {गिरा}} और अब {price} पर है।",
+    "prefsMarket": "बाज़ार की हलचल"
   },
   "Portfolio": {
     "title": "मेरा पोर्टफोलियो",
@@ -795,7 +798,26 @@
   },
   "Markets": {
     "title": "बाज़ार",
-    "subtitle": "कीमतों की हलचल को पल-पल ट्रैक करें, और चार्ट के अंदर से ही जोड़ी बदलें।"
+    "subtitle": "प्लेटफ़ॉर्म के हर इंस्ट्रूमेंट की लाइव कीमत और पिछले 24 घंटे का बदलाव।",
+    "watch": "वॉचलिस्ट में जोड़ें",
+    "unwatch": "वॉचलिस्ट से हटाएँ",
+    "topRisers": "आज सबसे ज़्यादा बढ़त",
+    "topFallers": "आज सबसे ज़्यादा गिरावट",
+    "allInstruments": "सभी इंस्ट्रूमेंट",
+    "noData": "अभी कीमत का डेटा उपलब्ध नहीं है।",
+    "dataNote": "बदलाव प्लेटफ़ॉर्म की कीमतों के पिछले 24 घंटों पर गिना गया है। पिछला प्रदर्शन भविष्य के नतीजों की गारंटी नहीं है।",
+    "rangeDay": "दिन",
+    "rangeWeek": "सप्ताह",
+    "backToMarkets": "बाज़ार",
+    "last24h": "पिछले 24 घंटे",
+    "dayRange": "आज की रेंज",
+    "low": "निम्न",
+    "high": "उच्च",
+    "relatedNews": "इस इंस्ट्रूमेंट की ख़बरें",
+    "noNews": "इस इंस्ट्रूमेंट की अभी कोई ताज़ा ख़बर नहीं।",
+    "topTraders": "इसे सबसे ज़्यादा ट्रेड करने वाले लीडर",
+    "noTopTraders": "अभी कोई लीडर इसे ट्रेड नहीं कर रहा।",
+    "tradesIn30d": "30 दिन में {count} ट्रेड"
   },
   "Support": {
     "pageTitle": "सहायता — Copy Matrix",

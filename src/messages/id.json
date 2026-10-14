@@ -339,7 +339,10 @@
     "copyOpenedBulkBody": "{count} trade dari {providerName} disalin ke akun Anda.",
     "copyClosedBulkTitle": "{count} trade ditutup",
     "copyClosedBulkBody": "{count} trade salinan dari {providerName} ditutup dengan hasil gabungan {amount}.",
-    "cat_market": "Pasar"
+    "cat_market": "Pasar",
+    "marketMoveTitle": "Pergerakan besar di {symbol}",
+    "marketMoveBody": "{symbol} {direction, select, up {naik} other {turun}} {pct} dalam 24 jam terakhir dan kini di {price}.",
+    "prefsMarket": "Pergerakan pasar"
   },
   "Portfolio": {
     "title": "Portofolio Saya",
@@ -795,7 +798,26 @@
   },
   "Markets": {
     "title": "Pasar",
-    "subtitle": "Pantau pergerakan harga dari waktu ke waktu, dan ubah pasangan langsung dari grafik."
+    "subtitle": "Harga langsung semua instrumen di platform, beserta perubahan 24 jam terakhir.",
+    "watch": "Tambah ke pantauan",
+    "unwatch": "Hapus dari pantauan",
+    "topRisers": "Kenaikan terbesar hari ini",
+    "topFallers": "Penurunan terbesar hari ini",
+    "allInstruments": "Semua instrumen",
+    "noData": "Belum ada data harga saat ini.",
+    "dataNote": "Perubahan dihitung dari 24 jam terakhir harga platform. Kinerja masa lalu tidak menjamin hasil di masa depan.",
+    "rangeDay": "Hari",
+    "rangeWeek": "Minggu",
+    "backToMarkets": "Pasar",
+    "last24h": "24 jam terakhir",
+    "dayRange": "Rentang hari ini",
+    "low": "Terendah",
+    "high": "Tertinggi",
+    "relatedNews": "Berita instrumen ini",
+    "noNews": "Belum ada berita terbaru untuk instrumen ini.",
+    "topTraders": "Leader yang paling sering memperdagangkannya",
+    "noTopTraders": "Belum ada leader yang memperdagangkannya.",
+    "tradesIn30d": "{count} transaksi dalam 30 hari"
   },
   "Support": {
     "pageTitle": "Dukungan — Copy Matrix",

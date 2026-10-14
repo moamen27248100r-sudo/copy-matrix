@@ -339,7 +339,10 @@
     "copyOpenedBulkBody": "已将 {providerName} 的 {count} 笔交易复制到您的账户。",
     "copyClosedBulkTitle": "{count} 笔交易已平仓",
     "copyClosedBulkBody": "来自 {providerName} 的 {count} 笔跟单交易已平仓，合计结果 {amount}。",
-    "cat_market": "市场"
+    "cat_market": "市场",
+    "marketMoveTitle": "{symbol} 大幅波动",
+    "marketMoveBody": "{symbol} 过去 24 小时{direction, select, up {上涨} other {下跌}} {pct}，现价 {price}。",
+    "prefsMarket": "市场波动"
   },
   "Portfolio": {
     "title": "我的资产",
@@ -795,7 +798,26 @@
   },
   "Markets": {
     "title": "市场",
-    "subtitle": "实时追踪价格走势，并直接在图表中切换交易对。"
+    "subtitle": "平台上所有品种的实时价格及过去 24 小时的涨跌幅。",
+    "watch": "加入自选",
+    "unwatch": "移出自选",
+    "topRisers": "今日涨幅榜",
+    "topFallers": "今日跌幅榜",
+    "allInstruments": "全部品种",
+    "noData": "暂无价格数据。",
+    "dataNote": "涨跌幅按平台价格最近 24 小时计算。过往业绩不代表未来表现。",
+    "rangeDay": "日",
+    "rangeWeek": "周",
+    "backToMarkets": "市场",
+    "last24h": "过去 24 小时",
+    "dayRange": "今日区间",
+    "low": "最低",
+    "high": "最高",
+    "relatedNews": "该品种相关新闻",
+    "noNews": "该品种暂无最新新闻。",
+    "topTraders": "交易该品种最多的领航员",
+    "noTopTraders": "目前没有领航员交易该品种。",
+    "tradesIn30d": "30 天内 {count} 笔交易"
   },
   "Support": {
     "pageTitle": "支持 — Copy Matrix",

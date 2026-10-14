@@ -339,7 +339,10 @@
     "copyOpenedBulkBody": "{providerName} کی {count} ٹریڈز آپ کے اکاؤنٹ میں کاپی ہوئیں۔",
     "copyClosedBulkTitle": "{count} ٹریڈز بند ہوئیں",
     "copyClosedBulkBody": "{providerName} سے کاپی کی گئی {count} ٹریڈز مجموعی نتیجہ {amount} کے ساتھ بند ہوئیں۔",
-    "cat_market": "مارکیٹ"
+    "cat_market": "مارکیٹ",
+    "marketMoveTitle": "{symbol} میں بڑی حرکت",
+    "marketMoveBody": "{symbol} پچھلے 24 گھنٹوں میں {pct} {direction, select, up {بڑھا} other {گرا}} اور اب {price} پر ہے۔",
+    "prefsMarket": "مارکیٹ کی حرکت"
   },
   "Portfolio": {
     "title": "میرا پورٹ فولیو",
@@ -795,7 +798,26 @@
   },
   "Markets": {
     "title": "مارکیٹس",
-    "subtitle": "قیمتوں کی حرکت لمحہ بہ لمحہ دیکھیں، اور چارٹ کے اندر سے ہی جوڑا تبدیل کریں۔"
+    "subtitle": "پلیٹ فارم کے ہر انسٹرومنٹ کی لائیو قیمتیں اور پچھلے 24 گھنٹوں کی تبدیلی۔",
+    "watch": "واچ لسٹ میں شامل کریں",
+    "unwatch": "واچ لسٹ سے ہٹائیں",
+    "topRisers": "آج سب سے زیادہ اضافہ",
+    "topFallers": "آج سب سے زیادہ کمی",
+    "allInstruments": "تمام انسٹرومنٹس",
+    "noData": "اس وقت قیمت کا ڈیٹا دستیاب نہیں۔",
+    "dataNote": "تبدیلی پلیٹ فارم کی قیمتوں کے پچھلے 24 گھنٹوں پر نکالی گئی ہے۔ ماضی کی کارکردگی مستقبل کے نتائج کی ضمانت نہیں۔",
+    "rangeDay": "دن",
+    "rangeWeek": "ہفتہ",
+    "backToMarkets": "مارکیٹس",
+    "last24h": "پچھلے 24 گھنٹے",
+    "dayRange": "آج کی رینج",
+    "low": "کم از کم",
+    "high": "زیادہ سے زیادہ",
+    "relatedNews": "اس انسٹرومنٹ کی خبریں",
+    "noNews": "اس انسٹرومنٹ کی ابھی کوئی تازہ خبر نہیں۔",
+    "topTraders": "اسے سب سے زیادہ ٹریڈ کرنے والے لیڈرز",
+    "noTopTraders": "اس وقت کوئی لیڈر اسے ٹریڈ نہیں کر رہا۔",
+    "tradesIn30d": "30 دن میں {count} ٹریڈز"
   },
   "Support": {
     "pageTitle": "سپورٹ — Copy Matrix",

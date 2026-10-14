@@ -339,7 +339,10 @@
     "copyOpenedBulkBody": "Biashara {count} za {providerName} zimenakiliwa kwenye akaunti yako.",
     "copyClosedBulkTitle": "Biashara {count} zimefungwa",
     "copyClosedBulkBody": "Biashara {count} zilizonakiliwa kutoka {providerName} zimefungwa kwa matokeo ya jumla {amount}.",
-    "cat_market": "Soko"
+    "cat_market": "Soko",
+    "marketMoveTitle": "Mabadiliko makubwa kwenye {symbol}",
+    "marketMoveBody": "{symbol} {direction, select, up {imepanda} other {imeshuka}} {pct} ndani ya saa 24 zilizopita na sasa iko {price}.",
+    "prefsMarket": "Mabadiliko ya soko"
   },
   "Portfolio": {
     "title": "Jalada Langu",
@@ -795,7 +798,26 @@
   },
   "Markets": {
     "title": "Masoko",
-    "subtitle": "Fuatilia mwendo wa bei kila wakati, na badilisha jozi moja kwa moja kutoka kwenye chati."
+    "subtitle": "Bei za moja kwa moja za vyombo vyote kwenye jukwaa, pamoja na mabadiliko ya saa 24 zilizopita.",
+    "watch": "Ongeza kwenye orodha",
+    "unwatch": "Ondoa kwenye orodha",
+    "topRisers": "Zilizopanda zaidi leo",
+    "topFallers": "Zilizoshuka zaidi leo",
+    "allInstruments": "Vyombo vyote",
+    "noData": "Hakuna data ya bei kwa sasa.",
+    "dataNote": "Mabadiliko yamekokotolewa kwa saa 24 zilizopita za bei za jukwaa. Utendaji wa zamani hauhakikishi matokeo ya baadaye.",
+    "rangeDay": "Siku",
+    "rangeWeek": "Wiki",
+    "backToMarkets": "Masoko",
+    "last24h": "saa 24 zilizopita",
+    "dayRange": "Wigo wa leo",
+    "low": "Chini",
+    "high": "Juu",
+    "relatedNews": "Habari za chombo hiki",
+    "noNews": "Hakuna habari mpya za chombo hiki sasa.",
+    "topTraders": "Viongozi wanaoifanyia biashara zaidi",
+    "noTopTraders": "Hakuna kiongozi anayeifanyia biashara sasa.",
+    "tradesIn30d": "Biashara {count} ndani ya siku 30"
   },
   "Support": {
     "pageTitle": "Msaada — Copy Matrix",

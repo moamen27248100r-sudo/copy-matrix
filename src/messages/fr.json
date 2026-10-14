@@ -339,7 +339,10 @@
     "copyOpenedBulkBody": "{count} trades de {providerName} ont été copiés sur votre compte.",
     "copyClosedBulkTitle": "{count} trades clôturés",
     "copyClosedBulkBody": "{count} trades copiés de {providerName} ont été clôturés avec un résultat cumulé de {amount}.",
-    "cat_market": "Marché"
+    "cat_market": "Marché",
+    "marketMoveTitle": "Gros mouvement sur {symbol}",
+    "marketMoveBody": "{symbol} {direction, select, up {a progressé de} other {a reculé de}} {pct} sur 24 heures et s’échange à {price}.",
+    "prefsMarket": "Mouvements du marché"
   },
   "Portfolio": {
     "title": "Mon portefeuille",
@@ -795,7 +798,26 @@
   },
   "Markets": {
     "title": "Marchés",
-    "subtitle": "Suivez l'évolution des prix en temps réel et changez de paire directement depuis le graphique."
+    "subtitle": "Les prix en direct de tous les instruments de la plateforme, avec la variation sur 24 heures.",
+    "watch": "Ajouter à la liste de suivi",
+    "unwatch": "Retirer de la liste de suivi",
+    "topRisers": "Plus fortes hausses du jour",
+    "topFallers": "Plus fortes baisses du jour",
+    "allInstruments": "Tous les instruments",
+    "noData": "Aucune donnée de prix pour le moment.",
+    "dataNote": "La variation est calculée sur les 24 dernières heures des prix de la plateforme. Les performances passées ne garantissent pas les résultats futurs.",
+    "rangeDay": "Jour",
+    "rangeWeek": "Semaine",
+    "backToMarkets": "Marchés",
+    "last24h": "24 dernières heures",
+    "dayRange": "Fourchette du jour",
+    "low": "Plus bas",
+    "high": "Plus haut",
+    "relatedNews": "Actualités de cet instrument",
+    "noNews": "Aucune actualité récente pour cet instrument.",
+    "topTraders": "Leaders qui le tradent le plus",
+    "noTopTraders": "Aucun leader ne le trade actuellement.",
+    "tradesIn30d": "{count, plural, one {# transaction} other {# transactions}} en 30 jours"
   },
   "Support": {
     "pageTitle": "Support — Copy Matrix",
