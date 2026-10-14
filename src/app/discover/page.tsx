@@ -131,7 +131,11 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
     data: { user },
   } = await supabase.auth.getUser();
 
-  // The Markets tab: the live chart (signed-in customers only, as the old Markets page was).
+  // The Markets tab is for signed-in customers (as the old Markets page was).
+  if (params.tab === "markets" && !user) {
+    redirect(`/login?next=${encodeURIComponent(`/discover?tab=markets${params.symbol ? `&symbol=${params.symbol}` : ""}`)}`);
+  }
+  // The Markets tab: the live chart.
   if (params.tab === "markets" && user) {
     const tMarkets = await getTranslations("Markets");
     return (

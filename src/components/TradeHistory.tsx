@@ -242,7 +242,7 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
 
                       <div className="flex gap-2">
                         <Link
-                          href={`/markets?symbol=${t.symbol}`}
+                          href={`/discover?tab=markets&symbol=${t.symbol}`}
                           className="flex-1 rounded border border-border py-2 text-center text-sm font-medium text-accent transition hover:bg-background"
                         >
                           {tt("chart")}

@@ -1446,7 +1446,7 @@
     "tpSlSaved": "止盈/止损已更新。"
   },
   "Copies": {
-    "title": "我的跟单",
+    "title": "跟单",
     "empty": "您还没有跟随任何人。",
     "discover": "发现交易员",
     "activeCopies": "进行中的跟单",

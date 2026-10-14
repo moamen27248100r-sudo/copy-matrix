@@ -229,10 +229,10 @@ export default async function DashboardPage({
         {/* One quiet line: the wallet value, a link to the wallet. */}
         <Link
           href="/portfolio"
-          className="flex items-center justify-between gap-3 rounded-2xl border border-border bg-surface px-4 py-3 transition hover:border-accent/40"
+          className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 rounded-2xl border border-border bg-surface px-4 py-3 transition hover:border-accent/40"
         >
-          <span className="flex min-w-0 items-center gap-2 text-sm text-muted">
-            <span className="truncate">{t("portfolioValue")}</span>
+          <span className="flex min-w-0 flex-wrap items-center gap-2 text-sm text-muted">
+            <span>{t("portfolioValue")}</span>
             {activeType === "demo" && (
               <span className="shrink-0 rounded-full border border-warning/40 bg-warning/10 px-2 py-0.5 text-[10px] font-semibold text-warning">
                 {t("accountDemo")}

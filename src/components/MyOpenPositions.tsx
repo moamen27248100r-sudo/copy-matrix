@@ -121,7 +121,7 @@ export function MyOpenPositions({
   const t = useTranslations("Portfolio");
   const money = useMoney();
   const pathname = usePathname();
-  const returnTo = pathname === "/portfolio" ? "/portfolio?tab=positions" : pathname;
+  const returnTo = pathname;
   const symbols = Array.from(new Set(positions.map((p) => p.symbol)));
   const { prices, forexAsOf } = useLivePricesMeta(symbols, initialPrices);
 

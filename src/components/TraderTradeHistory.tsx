@@ -308,7 +308,7 @@ export function TraderTradeHistory({
 
                       <div className="flex flex-col gap-2">
                         <Link
-                          href={`/markets?symbol=${x.symbol}`}
+                          href={`/discover?tab=markets&symbol=${x.symbol}`}
                           tabIndex={open ? 0 : -1}
                           className="rounded-xl bg-white/[0.06] py-3 text-center text-base font-medium text-accent-hover transition hover:bg-white/[0.1] motion-reduce:transition-none"
                         >
