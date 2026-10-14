@@ -67,7 +67,18 @@
       "cardTopLabel": "Trader teratas berdasarkan imbal hasil (rata-rata harian)",
       "live": "Data langsung"
     },
-    "metaTitle": "Copy Matrix — Salin transaksi trader terbaik secara otomatis"
+    "metaTitle": "Copy Matrix — Salin transaksi trader terbaik secara otomatis",
+    "mockup": {
+      "discoverTitle": "Temukan trader dengan jelas",
+      "discoverDesc": "Bandingkan imbal hasil, risiko, penurunan maksimum, dan tingkat kemenangan dari data nyata, lalu saring sesuai kebutuhan.",
+      "profileTitle": "Profil trader dan rekam jejak lengkap",
+      "profileDesc": "Kurva kinerja interaktif, statistik yang jelas, dan riwayat transaksi yang bisa Anda tinjau sebelum memutuskan.",
+      "copyTitle": "Mulai menyalin dengan pengaturan yang Anda kendalikan",
+      "copyDesc": "Tetapkan jumlah dan batas rugi, hentikan penyalinan kapan saja. Gunakan hanya yang sanggup Anda rugikan.",
+      "marketsTitle": "Pasar dengan harga langsung",
+      "marketsDesc": "Ikuti kripto, emas, dan forex, lalu tambahkan yang penting ke daftar pantauan dengan bintang.",
+      "heroAria": "Ilustrasi platform di ponsel dan laptop"
+    }
   },
   "Nav": {
     "createAccount": "Daftar",

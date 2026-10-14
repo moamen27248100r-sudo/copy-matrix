@@ -67,7 +67,18 @@
       "cardTopLabel": "Trader có lợi nhuận cao nhất (trung bình ngày)",
       "live": "Dữ liệu trực tiếp"
     },
-    "metaTitle": "Copy Matrix — Tự động sao chép giao dịch của những trader hàng đầu"
+    "metaTitle": "Copy Matrix — Tự động sao chép giao dịch của những trader hàng đầu",
+    "mockup": {
+      "discoverTitle": "Khám phá nhà giao dịch rõ ràng",
+      "discoverDesc": "So sánh lợi suất, rủi ro, mức sụt giảm tối đa và tỷ lệ thắng từ dữ liệu thật, rồi lọc theo nhu cầu.",
+      "profileTitle": "Hồ sơ nhà giao dịch và lịch sử đầy đủ",
+      "profileDesc": "Đường cong hiệu suất tương tác, thống kê rõ ràng và lịch sử giao dịch để xem trước khi quyết định.",
+      "copyTitle": "Bắt đầu sao chép với cài đặt do bạn kiểm soát",
+      "copyDesc": "Đặt số tiền và giới hạn lỗ, dừng sao chép bất cứ lúc nào. Chỉ dùng số tiền bạn có thể chấp nhận mất.",
+      "marketsTitle": "Thị trường với giá trực tiếp",
+      "marketsDesc": "Theo dõi tiền mã hóa, vàng và ngoại hối, thêm thứ bạn quan tâm vào danh sách theo dõi bằng ngôi sao.",
+      "heroAria": "Hình minh họa nền tảng trên điện thoại và laptop"
+    }
   },
   "Nav": {
     "createAccount": "Đăng ký",

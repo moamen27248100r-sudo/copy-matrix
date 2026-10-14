@@ -39,6 +39,63 @@ export function InstrumentIcon({ glyph, toneClass, size = "h-9 w-9" }: { glyph: 
 
 const compactVolume = (v: number) => (v >= 1e9 ? `$${(v / 1e9).toFixed(2)}B` : v >= 1e6 ? `$${(v / 1e6).toFixed(1)}M` : `$${Math.round(v).toLocaleString("en-US")}`);
 
+// One instrument row: icon, name, live price (soft flash when it changes), day change, small chart
+// and the watchlist star. Also used, with fixed values, by the home-page mock-up.
+export function MarketRow({
+  r,
+  flash,
+  starred,
+  onToggle,
+  phoneWidth = false,
+}: {
+  r: Omit<BoardRow, "volume" | "high" | "low">;
+  flash?: "up" | "down";
+  starred: boolean;
+  onToggle: () => void;
+  /** Drawn on a phone-width canvas inside a wider page (the home-page mock-up): no small chart, as on a phone. */
+  phoneWidth?: boolean;
+}) {
+  const t = useTranslations("Markets");
+  const f = flash;
+  const spark = r.spark && r.spark.length >= 3 && r.spark[0] > 0 ? r.spark.map((p) => (p / (r.spark as number[])[0] - 1) * 100) : null;
+  return (
+    <li className="flex items-center gap-1 rounded-2xl border border-border bg-surface pe-1.5 transition hover:border-accent/40">
+      <Link href={`/markets/${r.symbol}`} className="flex min-w-0 flex-1 items-center gap-3 px-3 py-3">
+        <InstrumentIcon glyph={r.glyph} toneClass={r.tone} />
+        <span className="w-28 shrink-0">
+          <span className="block truncate text-sm font-semibold">{r.name}</span>
+          <span dir="ltr" className="block truncate text-xs text-muted">
+            {r.label}
+          </span>
+        </span>
+        <span className={phoneWidth ? "hidden" : "hidden min-w-0 flex-1 sm:block"}>{spark && <Sparkline values={spark} className="h-9 w-full" />}</span>
+        <span className="ms-auto shrink-0 text-end">
+          <span
+            dir="ltr"
+            className={`inline-block rounded px-1 text-sm tabular-nums transition-colors duration-500 ${f === "up" ? "bg-success/25" : f === "down" ? "bg-danger/25" : "bg-transparent"}`}
+          >
+            {formatPrice(r.price, r.decimals)}
+          </span>
+          <span dir="ltr" className={`block text-xs font-semibold tabular-nums ${tone(r.change)}`}>
+            {r.daily ? <span className="me-1 font-normal text-muted">{t("daily")}</span> : null}
+            {pct(r.change)}
+          </span>
+        </span>
+      </Link>
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-pressed={starred}
+        aria-label={starred ? t("unwatch") : t("watch")}
+        title={starred ? t("unwatch") : t("watch")}
+        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-muted transition hover:bg-white/5 hover:text-warning"
+      >
+        <Star className={`h-5 w-5 ${starred ? "fill-warning text-warning" : ""}`} aria-hidden="true" />
+      </button>
+    </li>
+  );
+}
+
 // The Markets view: top risers / fallers / most traded, tabs per market, search, and one row per
 // instrument with its live price (a soft green / red flash when it changes), the day change, a small
 // chart and the watchlist star. Prices refresh through one batched request while the page is visible.
@@ -167,47 +224,9 @@ export function MarketsBoard({ rows, watched: initialWatched }: { rows: BoardRow
         <p className="rounded-2xl border border-border bg-surface p-5 text-sm text-muted">{query ? t("noResults") : t("noData")}</p>
       ) : (
         <ul className="flex flex-col gap-2">
-          {list.map((r) => {
-            const f = flash[r.symbol];
-            const starred = watched.has(r.symbol);
-            const spark = r.spark && r.spark.length >= 3 && r.spark[0] > 0 ? r.spark.map((p) => (p / (r.spark as number[])[0] - 1) * 100) : null;
-            return (
-              <li key={r.symbol} className="flex items-center gap-1 rounded-2xl border border-border bg-surface pe-1.5 transition hover:border-accent/40">
-                <Link href={`/markets/${r.symbol}`} className="flex min-w-0 flex-1 items-center gap-3 px-3 py-3">
-                  <InstrumentIcon glyph={r.glyph} toneClass={r.tone} />
-                  <span className="w-28 shrink-0">
-                    <span className="block truncate text-sm font-semibold">{r.name}</span>
-                    <span dir="ltr" className="block truncate text-xs text-muted">
-                      {r.label}
-                    </span>
-                  </span>
-                  <span className="hidden min-w-0 flex-1 sm:block">{spark && <Sparkline values={spark} className="h-9 w-full" />}</span>
-                  <span className="ms-auto shrink-0 text-end">
-                    <span
-                      dir="ltr"
-                      className={`inline-block rounded px-1 text-sm tabular-nums transition-colors duration-500 ${f === "up" ? "bg-success/25" : f === "down" ? "bg-danger/25" : "bg-transparent"}`}
-                    >
-                      {formatPrice(r.price, r.decimals)}
-                    </span>
-                    <span dir="ltr" className={`block text-xs font-semibold tabular-nums ${tone(r.change)}`}>
-                      {r.daily ? <span className="me-1 font-normal text-muted">{t("daily")}</span> : null}
-                      {pct(r.change)}
-                    </span>
-                  </span>
-                </Link>
-                <button
-                  type="button"
-                  onClick={() => toggle(r.symbol)}
-                  aria-pressed={starred}
-                  aria-label={starred ? t("unwatch") : t("watch")}
-                  title={starred ? t("unwatch") : t("watch")}
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-muted transition hover:bg-white/5 hover:text-warning"
-                >
-                  <Star className={`h-5 w-5 ${starred ? "fill-warning text-warning" : ""}`} aria-hidden="true" />
-                </button>
-              </li>
-            );
-          })}
+          {list.map((r) => (
+            <MarketRow key={r.symbol} r={r} flash={flash[r.symbol]} starred={watched.has(r.symbol)} onToggle={() => toggle(r.symbol)} />
+          ))}
         </ul>
       )}
       <p className="text-[11px] text-muted">{t("dataNote")}</p>

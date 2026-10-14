@@ -14,7 +14,7 @@ import { HomeWatchlist } from "@/components/HomeWatchlist";
 import { LearnCards } from "@/components/LearnCards";
 import { RecentActivityTimeline, type ActivityEvent } from "@/components/RecentActivityTimeline";
 import { TopMovers } from "@/components/TopMovers";
-import { TraderAvatar } from "@/components/TraderAvatar";
+import { CopySummaryList } from "@/components/CopySummaryList";
 import { RiskFooter } from "@/components/RiskFooter";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { FlashMessage } from "@/components/ui/Toast";
@@ -297,26 +297,7 @@ export default async function DashboardPage({
                       {tNav("viewAll")}
                     </Link>
                   </div>
-                  <div className="flex flex-col gap-2">
-                    {topCopies.map((c) => (
-                      <Link
-                        key={c.subscriptionId}
-                        href="/copies"
-                        className="flex items-center gap-3 rounded-2xl border border-border bg-surface p-3 transition hover:border-accent/40"
-                      >
-                        <TraderAvatar providerId={c.providerId} name={c.name} avatarUrl={c.avatarUrl} ratingScore={c.rating} size={40} />
-                        <span className="min-w-0 flex-1">
-                          <span className="block truncate text-sm font-medium">{c.name}</span>
-                          <span className="block text-xs text-muted" dir="ltr">
-                            {money(c.allocated)}
-                          </span>
-                        </span>
-                        <span dir="ltr" className={`shrink-0 text-sm font-semibold tabular-nums ${c.total >= 0 ? "text-success" : "text-danger"}`}>
-                          {money(c.total, { signed: true })}
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
+                  <CopySummaryList items={topCopies.map((c) => ({ id: c.subscriptionId, providerId: c.providerId, name: c.name, avatarUrl: c.avatarUrl, rating: c.rating, allocated: c.allocated, total: c.total }))} />
                 </section>
               )}
               <RecentActivityTimeline events={activityEvents} />

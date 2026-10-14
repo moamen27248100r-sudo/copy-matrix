@@ -67,7 +67,18 @@
       "cardTopLabel": "Wafanyabiashara bora kwa faida (wastani wa kila siku)",
       "live": "Data ya moja kwa moja"
     },
-    "metaTitle": "Copy Matrix — Nakili biashara za wafanyabiashara bora kiotomatiki"
+    "metaTitle": "Copy Matrix — Nakili biashara za wafanyabiashara bora kiotomatiki",
+    "mockup": {
+      "discoverTitle": "Gundua wafanyabiashara kwa uwazi",
+      "discoverDesc": "Linganisha faida, hatari, kushuka kwa juu kabisa na kiwango cha ushindi kutoka data halisi, kisha chuja kulingana na mahitaji yako.",
+      "profileTitle": "Wasifu wa mfanyabiashara na rekodi kamili",
+      "profileDesc": "Mkunjo wa utendaji unaoshirikiana, takwimu wazi na historia ya biashara unayoweza kukagua kabla ya kuamua.",
+      "copyTitle": "Anza kunakili kwa mipangilio unayoidhibiti",
+      "copyDesc": "Weka kiasi na kikomo cha hasara, na uache kunakili wakati wowote. Tumia tu unachoweza kumudu kupoteza.",
+      "marketsTitle": "Masoko yenye bei za moja kwa moja",
+      "marketsDesc": "Fuatilia sarafu za kidijitali, dhahabu na forex, na uongeze unachojali kwenye orodha yako kwa nyota.",
+      "heroAria": "Mchoro wa jukwaa kwenye simu na kompyuta mpakato"
+    }
   },
   "Nav": {
     "createAccount": "Jisajili",

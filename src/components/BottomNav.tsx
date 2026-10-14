@@ -103,7 +103,9 @@ const SHELL_PREFIXES = [
   "/become-lead-trader",
 ];
 
-export function BottomNav() {
+// `embedded` draws only the capsule, in place, with a given active tab: the device mock-up on the public
+// home page uses it, so visitors see the real navigation bar.
+export function BottomNav({ embedded = false, activeHref }: { embedded?: boolean; activeHref?: string } = {}) {
   const t = useTranslations("Nav");
   const pathname = usePathname();
   // The tab the user just tapped: the indicator moves immediately, before the
@@ -124,8 +126,8 @@ export function BottomNav() {
     { href: "/portfolio", label: t("navPortfolio"), icon: ICONS.portfolio },
   ];
 
-  const visible = SHELL_PREFIXES.some((p) => pathname === p || pathname.startsWith(p.endsWith("/") ? p : `${p}/`));
-  const current = pending ?? pathname;
+  const visible = embedded || SHELL_PREFIXES.some((p) => pathname === p || pathname.startsWith(p.endsWith("/") ? p : `${p}/`));
+  const current = embedded ? (activeHref ?? "") : (pending ?? pathname);
   const activeIndex = items.findIndex((item) => current === item.href || current.startsWith(`${item.href}/`));
 
   const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
@@ -150,6 +152,63 @@ export function BottomNav() {
 
   if (!visible) return null;
 
+  const navEl = (
+      <nav
+        className="glass-nav pointer-events-auto relative mx-auto flex h-[58px] max-w-md items-stretch gap-1 rounded-full p-1 transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
+        aria-label={t("menuAriaLabel")}
+      >
+        {box && (
+          <span
+            aria-hidden="true"
+            className={`pointer-events-none absolute left-0 top-1 bottom-1 ${
+              ready ? "transition-transform duration-[350ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] motion-reduce:transition-none" : ""
+            }`}
+            style={{ width: box.w, transform: `translateX(${box.x}px)` }}
+          >
+            <span key={activeIndex} className="glass-nav-pill block h-full w-full rounded-full" />
+          </span>
+        )}
+        {items.map((item, i) => {
+          const active = i === activeIndex;
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              // Full prefetch: the whole page payload is fetched as soon as the nav is
+              // on screen, so the first tap renders instantly (mutations clear the cache).
+              prefetch={true}
+              ref={(el) => {
+                itemRefs.current[i] = el;
+              }}
+              onClick={() => {
+                setPending(item.href !== pathname ? item.href : null);
+              }}
+              aria-current={active ? "page" : undefined}
+              className={`relative z-10 flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-full px-1 text-[11px] font-medium transition-colors duration-200 motion-reduce:transition-none ${
+                active ? "text-accent-text" : "text-muted active:text-foreground"
+              }`}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                className="h-[22px] w-[22px] shrink-0"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.75}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                {active ? item.icon.filled : item.icon.outline}
+              </svg>
+              <span className="line-clamp-2 w-full break-words text-center leading-[1.1]">{item.label}</span>
+            </Link>
+          );
+        })}
+      </nav>
+  );
+
+  if (embedded) return navEl;
+
   return (
     <>
       {/* Publishes the nav's full footprint (capsule + its offset from the
@@ -161,58 +220,7 @@ export function BottomNav() {
         className="pointer-events-none fixed inset-x-0 bottom-0 z-[9998] px-3 lg:hidden"
         style={{ paddingBottom: "calc(12px + env(safe-area-inset-bottom, 0px))" }}
       >
-        <nav
-          className="glass-nav pointer-events-auto relative mx-auto flex h-[58px] max-w-md items-stretch gap-1 rounded-full p-1 transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
-          aria-label={t("menuAriaLabel")}
-        >
-          {box && (
-            <span
-              aria-hidden="true"
-              className={`pointer-events-none absolute left-0 top-1 bottom-1 ${
-                ready ? "transition-transform duration-[350ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] motion-reduce:transition-none" : ""
-              }`}
-              style={{ width: box.w, transform: `translateX(${box.x}px)` }}
-            >
-              <span key={activeIndex} className="glass-nav-pill block h-full w-full rounded-full" />
-            </span>
-          )}
-          {items.map((item, i) => {
-            const active = i === activeIndex;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                // Full prefetch: the whole page payload is fetched as soon as the nav is
-                // on screen, so the first tap renders instantly (mutations clear the cache).
-                prefetch={true}
-                ref={(el) => {
-                  itemRefs.current[i] = el;
-                }}
-                onClick={() => {
-                  setPending(item.href !== pathname ? item.href : null);
-                }}
-                aria-current={active ? "page" : undefined}
-                className={`relative z-10 flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-full px-1 text-[11px] font-medium transition-colors duration-200 motion-reduce:transition-none ${
-                  active ? "text-accent-text" : "text-muted active:text-foreground"
-                }`}
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-[22px] w-[22px] shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={1.75}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  {active ? item.icon.filled : item.icon.outline}
-                </svg>
-                <span className="line-clamp-2 w-full break-words text-center leading-[1.1]">{item.label}</span>
-              </Link>
-            );
-          })}
-        </nav>
+        {navEl}
       </div>
     </>
   );

@@ -29,34 +29,43 @@ export async function TopMovers() {
           {t("topMoversAll")}
         </Link>
       </div>
-      <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
-        {picked.map((r) => {
-          const pct = r.change_pct as number;
-          return (
-            <Link
-              key={r.symbol}
-              href={`/markets/${r.symbol}`}
-              className="flex flex-col gap-2 rounded-2xl border border-border bg-surface px-3 py-3 transition hover:border-accent/40"
-            >
-              <span className="flex items-center gap-2">
-                <InstrumentIcon glyph={r.instrument.glyph} toneClass={r.instrument.tone} size="h-7 w-7" />
-                <span dir="ltr" className="truncate text-sm font-semibold">
-                  {r.instrument.label}
-                </span>
-              </span>
-              <span className="flex items-baseline justify-between gap-2">
-                <span dir="ltr" className="truncate text-sm tabular-nums">
-                  {formatPrice(r.price, r.instrument.decimals)}
-                </span>
-                <span dir="ltr" className={`text-xs font-semibold tabular-nums ${pct >= 0 ? "text-success" : "text-danger"}`}>
-                  {pct >= 0 ? "+" : ""}
-                  {pct.toFixed(2)}%
-                </span>
-              </span>
-            </Link>
-          );
-        })}
-      </div>
+      <MarketPulseGrid items={picked.map((r) => ({ symbol: r.symbol, label: r.instrument.label, glyph: r.instrument.glyph, tone: r.instrument.tone, price: r.price, decimals: r.instrument.decimals, change: r.change_pct as number }))} />
     </section>
+  );
+}
+
+export type PulseItem = { symbol: string; label: string; glyph: string; tone: string; price: number; decimals: number; change: number };
+
+// The four tiles themselves. The home-page mock-up renders the same grid with fixed values.
+export function MarketPulseGrid({ items }: { items: PulseItem[] }) {
+  return (
+    <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
+      {items.map((r) => {
+        const pct = r.change;
+        return (
+          <Link
+            key={r.symbol}
+            href={`/markets/${r.symbol}`}
+            className="flex flex-col gap-2 rounded-2xl border border-border bg-surface px-3 py-3 transition hover:border-accent/40"
+          >
+            <span className="flex items-center gap-2">
+              <InstrumentIcon glyph={r.glyph} toneClass={r.tone} size="h-7 w-7" />
+              <span dir="ltr" className="truncate text-sm font-semibold">
+                {r.label}
+              </span>
+            </span>
+            <span className="flex items-baseline justify-between gap-2">
+              <span dir="ltr" className="truncate text-sm tabular-nums">
+                {formatPrice(r.price, r.decimals)}
+              </span>
+              <span dir="ltr" className={`text-xs font-semibold tabular-nums ${pct >= 0 ? "text-success" : "text-danger"}`}>
+                {pct >= 0 ? "+" : ""}
+                {pct.toFixed(2)}%
+              </span>
+            </span>
+          </Link>
+        );
+      })}
+    </div>
   );
 }

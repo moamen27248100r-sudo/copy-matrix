@@ -179,19 +179,41 @@ export async function LeaderCard({
         </div>
       </div>
 
+      {/* Second row: what the first row does not already show. With the drawdown in the first row
+          (the home page passes it) the return and the number of closed trades follow; otherwise the
+          number of closed trades and the drawdown. */}
       <div className="grid grid-cols-3 gap-1 text-center text-[11px] text-muted">
-        <div>
-          <p dir="ltr" className="font-medium text-foreground" title={hint}>
-            {fmtWinRate(stats.winRate)} <PeriodTag label={periodLabel} />
-          </p>
-          <p>{t("winRate")}</p>
-        </div>
-        <div>
-          <p dir="ltr" className="font-medium text-foreground" title={hint}>
-            {fmtDrawdown(mdd)} <PeriodTag label={periodLabel} />
-          </p>
-          <p>{t("maxDrawdown")}</p>
-        </div>
+        {maxDrawdownPct !== undefined ? (
+          <>
+            <div>
+              <p dir="ltr" className={isDown ? "font-medium text-danger" : "font-medium text-success"} title={hint}>
+                {fmtReturn(stats.roi)} <PeriodTag label={periodLabel} />
+              </p>
+              <p>{t("roiLabel", { period: periodLabel })}</p>
+            </div>
+            <div>
+              <p dir="ltr" className="font-medium text-foreground">
+                {stats.trades ?? "—"}
+              </p>
+              <p>{t("compareTrades")}</p>
+            </div>
+          </>
+        ) : (
+          <>
+            <div>
+              <p dir="ltr" className="font-medium text-foreground">
+                {stats.trades ?? "—"}
+              </p>
+              <p>{t("compareTrades")}</p>
+            </div>
+            <div>
+              <p dir="ltr" className="font-medium text-foreground" title={hint}>
+                {fmtDrawdown(mdd)} <PeriodTag label={periodLabel} />
+              </p>
+              <p>{t("maxDrawdown")}</p>
+            </div>
+          </>
+        )}
         <div>
           <p dir="ltr" className="font-medium text-foreground">{aumBandFloor(p.aum_band) != null ? t("aumOver", { amount: money(aumBandFloor(p.aum_band) as number, { compact: true }) }) : "—"}</p>
           <p>{t("aumLabel")}</p>

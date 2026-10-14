@@ -47,15 +47,11 @@ export function CopyDialog({
   };
 }) {
   const t = useTranslations("CopyDialog");
-  const money = useMoney();
   const [open, setOpen] = useState(false);
   const [ack, setAck] = useState(!!edit);
   const [advanced, setAdvanced] = useState(!!edit);
   const [mode, setMode] = useState<"ratio" | "fixed">(edit?.mode ?? "ratio");
-  const locked = !!edit?.locked;
   const [amount, setAmount] = useState(String(defaultAmount));
-  const amountIssue = locked || amount.trim() === "" ? null : copyAmountIssue(Number(amount), minAmount, edit ? null : balance);
-  const belowMinimum = !edit && balance != null && balance < minAmount;
 
   // A visitor who pressed "copy", signed up / logged in and came back lands here with #copy:
   // open the dialog for them instead of leaving them to find the button again.
@@ -105,8 +101,6 @@ export function CopyDialog({
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const inputCls = "rounded-lg border border-border bg-surface px-3 py-2.5 text-foreground focus:outline-none";
-
   return (
     <>
       <button
@@ -124,148 +118,231 @@ export function CopyDialog({
       {open && createPortal(
         <div className="fixed inset-0 z-[10000] flex items-end justify-center sm:items-center" role="dialog" aria-modal="true" aria-label={edit ? t("editTitle", { name: providerName }) : t("title", { name: providerName })}>
           <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" onClick={() => setOpen(false)} aria-hidden="true" />
-          <form
+          <CopyFormView
             action={action}
-            className="relative z-10 flex max-h-[90vh] w-full max-w-md flex-col gap-4 overflow-y-auto rounded-t-3xl border border-white/[0.08] bg-[#0B132B] p-5 shadow-2xl sm:rounded-3xl"
-          >
-            <input type="hidden" name="providerId" value={providerId} />
-            <div className="flex items-center justify-between">
-              <h2 className="text-base font-semibold">{edit ? t("editTitle", { name: providerName }) : t("title", { name: providerName })}</h2>
-              <button type="button" onClick={() => setOpen(false)} aria-label={t("close")} className="-m-2 flex h-11 w-11 items-center justify-center text-muted hover:text-foreground">
-                ✕
-              </button>
-            </div>
-
-            {locked && <p className="rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-xs text-warning">{t("lockedNotice")}</p>}
-
-            {belowMinimum && (
-              <p className="rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-xs text-warning" role="alert">
-                {t("balanceBelowMin", { balance: money(balance ?? 0), min: money(minAmount) })}{" "}
-                {depositHref && (
-                  <Link href={depositHref} className="font-semibold underline">
-                    {t("depositCta")}
-                  </Link>
-                )}
-              </p>
-            )}
-
-            <label className="flex flex-col gap-1.5 text-sm">
-              <span className="text-muted">{t("amountLabel")}</span>
-              <input
-                name="allocatedAmount"
-                type="number"
-                step="any"
-                min={minAmount}
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                aria-invalid={amountIssue != null}
-                aria-describedby={amountIssue ? "copy-amount-issue" : undefined}
-                required
-                readOnly={locked}
-                className={inputCls + (locked ? " opacity-60" : "")}
-              />
-              <span className="text-xs text-muted">
-                {t("minAmount")} <span dir="ltr">{money(minAmount)}</span>
-              </span>
-              {amountIssue && (
-                <span id="copy-amount-issue" role="alert" className="text-xs font-medium text-danger">
-                  {amountIssue === "below_min" ? t("amountBelowMin", { min: money(minAmount) }) : t("amountAboveBalance", { balance: money(balance ?? 0) })}
-                </span>
-              )}
-            </label>
-
-            {profitSharePct != null && (
-              <p className="rounded-lg border border-border bg-surface px-3 py-2 text-xs text-muted">
-                {t("profitShare")} <span dir="ltr" className="font-semibold text-foreground">{profitSharePct}%</span>
-              </p>
-            )}
-
-            <fieldset className="flex flex-col gap-2">
-              <legend className="pb-1 text-sm text-muted">{t("modeLabel")}</legend>
-              {locked && <input type="hidden" name="mode" value={mode} />}
-              <label className="flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm">
-                <input type="radio" name="mode" value="ratio" checked={mode === "ratio"} disabled={locked} onChange={() => setMode("ratio")} /> {t("modeRatio")}
-              </label>
-              <label className="flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm">
-                <input type="radio" name="mode" value="fixed" checked={mode === "fixed"} disabled={locked} onChange={() => setMode("fixed")} /> {t("modeFixed")}
-              </label>
-              {mode === "fixed" && (
-                <label className="flex flex-col gap-1.5 text-sm">
-                  <span className="text-muted">{t("fixedAmountLabel")}</span>
-                  <input name="fixedAmount" type="number" step="any" min={1} max={Number(amount) > 0 ? Number(amount) : defaultAmount} required readOnly={locked} defaultValue={edit?.fixedAmount ?? undefined} className={inputCls + (locked ? " opacity-60" : "")} dir="ltr" />
-                </label>
-              )}
-            </fieldset>
-
-            <div className="flex flex-col gap-2 rounded-lg border border-border">
-              <button
-                type="button"
-                onClick={() => setAdvanced((v) => !v)}
-                aria-expanded={advanced}
-                className="flex items-center justify-between px-3 py-2 text-sm font-medium"
-              >
-                <span>{t("advanced")}</span>
-                <span aria-hidden="true">{advanced ? "−" : "+"}</span>
-              </button>
-              <div className={advanced ? "flex flex-col gap-3 px-3 pb-3" : "hidden"}>
-                <label className="flex flex-col gap-1 text-xs text-muted">
-                  {t("maxPerTrade")}
-                  <input name="maxPerTrade" type="number" step="any" min={1} readOnly={locked} defaultValue={edit?.maxPerTrade ?? undefined} className={"rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" + (locked ? " opacity-60" : "")} dir="ltr" />
-                </label>
-                <label className="flex flex-col gap-1 text-xs text-muted">
-                  {t("copyStopLoss")}
-                  <input
-                    name="stopLossPct"
-                    type="number"
-                    step="1"
-                    min={1}
-                    max={90}
-                    defaultValue={edit?.stopLossPct ?? 50}
-                    readOnly={locked}
-                    className={"rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" + (locked ? " opacity-60" : "")}
-                    dir="ltr"
-                  />
-                  <span>{t("copyStopLossHint")}</span>
-                </label>
-                <p className="border-t border-border pt-3 text-xs font-semibold text-foreground">{t("tradeRiskTitle")}</p>
-                <label className="flex flex-col gap-1 text-xs text-muted">
-                  {t("takeProfitLabel")}
-                  <input name="takeProfitPct" type="number" step="any" min={1} max={500} defaultValue={edit?.takeProfitPct ?? undefined} className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" dir="ltr" />
-                </label>
-                <label className="flex flex-col gap-1 text-xs text-muted">
-                  {t("stopLossLabel")}
-                  <input name="tradeStopLossPct" type="number" step="any" min={1} max={90} defaultValue={edit?.tradeStopLossPct ?? undefined} className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" dir="ltr" />
-                </label>
-                <label className="flex flex-col gap-1 text-xs text-muted">
-                  {t("trailingLabel")}
-                  <input name="trailingPct" type="number" step="any" min={0.5} max={50} defaultValue={edit?.trailingPct ?? undefined} className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" dir="ltr" />
-                  <span>{t("trailingHint")}</span>
-                </label>
-                <span className="text-xs text-muted">{t("tpslHint")}</span>
-                {!edit && <label className="flex items-start gap-2 border-t border-border pt-3 text-xs text-muted">
-                  <input type="checkbox" name="copyOpen" className="mt-0.5" />
-                  <span>
-                    {t("copyOpenLabel")}
-                    <span className="block">{t("copyOpenHint")}</span>
-                  </span>
-                </label>}
-              </div>
-            </div>
-
-            {!edit && <label className="flex items-start gap-2 text-xs text-muted">
-              <input type="checkbox" checked={ack} onChange={(e) => setAck(e.target.checked)} className="mt-0.5" />
-              <span>{t("riskAck")}</span>
-            </label>}
-
-            <div className="sticky bottom-0 -mx-5 -mb-5 bg-[#0B132B] px-5 pb-5 pt-3">
-              <SubmitButton disabled={!ack || belowMinimum || amountIssue != null} className="w-full rounded-lg bg-accent px-6 py-3 text-base font-bold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50">
-              {edit ? t("editConfirm") : t("confirm")}
-            </SubmitButton>
-            </div>
-          </form>
+            providerId={providerId}
+            providerName={providerName}
+            defaultAmount={defaultAmount}
+            minAmount={minAmount}
+            balance={balance}
+            depositHref={depositHref}
+            profitSharePct={profitSharePct}
+            edit={edit}
+            amount={amount}
+            setAmount={setAmount}
+            mode={mode}
+            setMode={setMode}
+            advanced={advanced}
+            setAdvanced={setAdvanced}
+            ack={ack}
+            setAck={setAck}
+            onClose={() => setOpen(false)}
+          />
         </div>,
         document.body,
       )}
     </>
+  );
+}
+
+type EditValues = {
+  mode: "ratio" | "fixed";
+  fixedAmount: number | null;
+  maxPerTrade: number | null;
+  stopLossPct: number;
+  takeProfitPct: number | null;
+  tradeStopLossPct: number | null;
+  trailingPct: number | null;
+  locked: boolean;
+};
+
+// The copy form itself. The dialog renders it in a modal; the marketing mock-up renders the very same
+// markup inline with fixed values, so what visitors see on the home page is the real form.
+export function CopyFormView({
+  action,
+  providerId,
+  providerName,
+  defaultAmount,
+  minAmount,
+  balance,
+  depositHref,
+  profitSharePct,
+  edit,
+  amount,
+  setAmount,
+  mode,
+  setMode,
+  advanced,
+  setAdvanced,
+  ack,
+  setAck,
+  onClose,
+}: {
+  action?: (formData: FormData) => void | Promise<void>;
+  providerId: string;
+  providerName: string;
+  defaultAmount: number;
+  minAmount: number;
+  balance?: number;
+  depositHref?: string | null;
+  profitSharePct?: number | null;
+  edit?: EditValues;
+  amount: string;
+  setAmount: (v: string) => void;
+  mode: "ratio" | "fixed";
+  setMode: (v: "ratio" | "fixed") => void;
+  advanced: boolean;
+  setAdvanced: (v: boolean | ((cur: boolean) => boolean)) => void;
+  ack: boolean;
+  setAck: (v: boolean) => void;
+  onClose: () => void;
+}) {
+  const t = useTranslations("CopyDialog");
+  const money = useMoney();
+  const locked = !!edit?.locked;
+  const amountIssue = locked || amount.trim() === "" ? null : copyAmountIssue(Number(amount), minAmount, edit ? null : balance);
+  const belowMinimum = !edit && balance != null && balance < minAmount;
+  const inputCls = "rounded-lg border border-border bg-surface px-3 py-2.5 text-foreground focus:outline-none";
+
+  return (
+        <form
+          action={action}
+          className="relative z-10 flex max-h-[90vh] w-full max-w-md flex-col gap-4 overflow-y-auto rounded-t-3xl border border-white/[0.08] bg-[#0B132B] p-5 shadow-2xl sm:rounded-3xl"
+        >
+          <input type="hidden" name="providerId" value={providerId} />
+          <div className="flex items-center justify-between">
+            <h2 className="text-base font-semibold">{edit ? t("editTitle", { name: providerName }) : t("title", { name: providerName })}</h2>
+            <button type="button" onClick={onClose} aria-label={t("close")} className="-m-2 flex h-11 w-11 items-center justify-center text-muted hover:text-foreground">
+              ✕
+            </button>
+          </div>
+    
+          {locked && <p className="rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-xs text-warning">{t("lockedNotice")}</p>}
+    
+          {belowMinimum && (
+            <p className="rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-xs text-warning" role="alert">
+              {t("balanceBelowMin", { balance: money(balance ?? 0), min: money(minAmount) })}{" "}
+              {depositHref && (
+                <Link href={depositHref} className="font-semibold underline">
+                  {t("depositCta")}
+                </Link>
+              )}
+            </p>
+          )}
+    
+          <label className="flex flex-col gap-1.5 text-sm">
+            <span className="text-muted">{t("amountLabel")}</span>
+            <input
+              name="allocatedAmount"
+              type="number"
+              step="any"
+              min={minAmount}
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              aria-invalid={amountIssue != null}
+              aria-describedby={amountIssue ? "copy-amount-issue" : undefined}
+              required
+              readOnly={locked}
+              className={inputCls + (locked ? " opacity-60" : "")}
+            />
+            <span className="text-xs text-muted">
+              {t("minAmount")} <span dir="ltr">{money(minAmount)}</span>
+            </span>
+            {amountIssue && (
+              <span id="copy-amount-issue" role="alert" className="text-xs font-medium text-danger">
+                {amountIssue === "below_min" ? t("amountBelowMin", { min: money(minAmount) }) : t("amountAboveBalance", { balance: money(balance ?? 0) })}
+              </span>
+            )}
+          </label>
+    
+          {profitSharePct != null && (
+            <p className="rounded-lg border border-border bg-surface px-3 py-2 text-xs text-muted">
+              {t("profitShare")} <span dir="ltr" className="font-semibold text-foreground">{profitSharePct}%</span>
+            </p>
+          )}
+    
+          <fieldset className="flex flex-col gap-2">
+            <legend className="pb-1 text-sm text-muted">{t("modeLabel")}</legend>
+            {locked && <input type="hidden" name="mode" value={mode} />}
+            <label className="flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm">
+              <input type="radio" name="mode" value="ratio" checked={mode === "ratio"} disabled={locked} onChange={() => setMode("ratio")} /> {t("modeRatio")}
+            </label>
+            <label className="flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm">
+              <input type="radio" name="mode" value="fixed" checked={mode === "fixed"} disabled={locked} onChange={() => setMode("fixed")} /> {t("modeFixed")}
+            </label>
+            {mode === "fixed" && (
+              <label className="flex flex-col gap-1.5 text-sm">
+                <span className="text-muted">{t("fixedAmountLabel")}</span>
+                <input name="fixedAmount" type="number" step="any" min={1} max={Number(amount) > 0 ? Number(amount) : defaultAmount} required readOnly={locked} defaultValue={edit?.fixedAmount ?? undefined} className={inputCls + (locked ? " opacity-60" : "")} dir="ltr" />
+              </label>
+            )}
+          </fieldset>
+    
+          <div className="flex flex-col gap-2 rounded-lg border border-border">
+            <button
+              type="button"
+              onClick={() => setAdvanced((v) => !v)}
+              aria-expanded={advanced}
+              className="flex items-center justify-between px-3 py-2 text-sm font-medium"
+            >
+              <span>{t("advanced")}</span>
+              <span aria-hidden="true">{advanced ? "−" : "+"}</span>
+            </button>
+            <div className={advanced ? "flex flex-col gap-3 px-3 pb-3" : "hidden"}>
+              <label className="flex flex-col gap-1 text-xs text-muted">
+                {t("maxPerTrade")}
+                <input name="maxPerTrade" type="number" step="any" min={1} readOnly={locked} defaultValue={edit?.maxPerTrade ?? undefined} className={"rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" + (locked ? " opacity-60" : "")} dir="ltr" />
+              </label>
+              <label className="flex flex-col gap-1 text-xs text-muted">
+                {t("copyStopLoss")}
+                <input
+                  name="stopLossPct"
+                  type="number"
+                  step="1"
+                  min={1}
+                  max={90}
+                  defaultValue={edit?.stopLossPct ?? 50}
+                  readOnly={locked}
+                  className={"rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" + (locked ? " opacity-60" : "")}
+                  dir="ltr"
+                />
+                <span>{t("copyStopLossHint")}</span>
+              </label>
+              <p className="border-t border-border pt-3 text-xs font-semibold text-foreground">{t("tradeRiskTitle")}</p>
+              <label className="flex flex-col gap-1 text-xs text-muted">
+                {t("takeProfitLabel")}
+                <input name="takeProfitPct" type="number" step="any" min={1} max={500} defaultValue={edit?.takeProfitPct ?? undefined} className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" dir="ltr" />
+              </label>
+              <label className="flex flex-col gap-1 text-xs text-muted">
+                {t("stopLossLabel")}
+                <input name="tradeStopLossPct" type="number" step="any" min={1} max={90} defaultValue={edit?.tradeStopLossPct ?? undefined} className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" dir="ltr" />
+              </label>
+              <label className="flex flex-col gap-1 text-xs text-muted">
+                {t("trailingLabel")}
+                <input name="trailingPct" type="number" step="any" min={0.5} max={50} defaultValue={edit?.trailingPct ?? undefined} className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" dir="ltr" />
+                <span>{t("trailingHint")}</span>
+              </label>
+              <span className="text-xs text-muted">{t("tpslHint")}</span>
+              {!edit && <label className="flex items-start gap-2 border-t border-border pt-3 text-xs text-muted">
+                <input type="checkbox" name="copyOpen" className="mt-0.5" />
+                <span>
+                  {t("copyOpenLabel")}
+                  <span className="block">{t("copyOpenHint")}</span>
+                </span>
+              </label>}
+            </div>
+          </div>
+    
+          {!edit && <label className="flex items-start gap-2 text-xs text-muted">
+            <input type="checkbox" checked={ack} onChange={(e) => setAck(e.target.checked)} className="mt-0.5" />
+            <span>{t("riskAck")}</span>
+          </label>}
+    
+          <div className="sticky bottom-0 -mx-5 -mb-5 bg-[#0B132B] px-5 pb-5 pt-3">
+            <SubmitButton disabled={!ack || belowMinimum || amountIssue != null} className="w-full rounded-lg bg-accent px-6 py-3 text-base font-bold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50">
+            {edit ? t("editConfirm") : t("confirm")}
+          </SubmitButton>
+          </div>
+        </form>
   );
 }

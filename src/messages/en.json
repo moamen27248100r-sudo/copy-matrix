@@ -67,7 +67,18 @@
       "stopLossTitle": "Automatic loss limit on every copy",
       "stopLossDesc": "Copying stops when the loss limit is reached"
     },
-    "metaTitle": "Copy Matrix — Automatically copy the best traders' trades"
+    "metaTitle": "Copy Matrix — Automatically copy the best traders' trades",
+    "mockup": {
+      "discoverTitle": "Discover traders clearly",
+      "discoverDesc": "Compare return, risk, maximum drawdown and win rate from real data, and filter the results to what suits you.",
+      "profileTitle": "A trader’s profile and full record",
+      "profileDesc": "An interactive performance curve, clear statistics and a trade history you can review before you decide.",
+      "copyTitle": "Start copying with settings you control",
+      "copyDesc": "Set the amount and a loss limit, and stop copying at any time. Only use what you can afford to lose.",
+      "marketsTitle": "Markets with live prices",
+      "marketsDesc": "Follow crypto, gold and forex, and add what matters to you to your watchlist with a star.",
+      "heroAria": "An illustration of the platform on a phone and a laptop"
+    }
   },
   "Nav": {
     "createAccount": "Sign up",

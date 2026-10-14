@@ -56,6 +56,8 @@ export function SidebarNav({
   email,
   kycStatus,
   accountType,
+  embedded = false,
+  activePath,
 }: {
   isAdmin: boolean;
   isLeadTrader?: boolean;
@@ -64,6 +66,10 @@ export function SidebarNav({
   email?: string | null;
   kycStatus: string;
   accountType: "real" | "demo";
+  /** Rendered inside another element (the home-page device mock-up) instead of fixed to the screen edge. */
+  embedded?: boolean;
+  /** The page to show as current (the mock-up has no real route of its own). */
+  activePath?: string;
 }) {
   const t = useTranslations("Nav");
   const tm = useTranslations("AccountMenu");
@@ -96,14 +102,19 @@ export function SidebarNav({
     { href: "/trades", label: t("navTrades"), icon: ICONS.trades },
     { href: "/portfolio", label: t("navPortfolio"), icon: ICONS.portfolio },
   ];
+  const here = activePath ?? pathname;
   const isActive = (href: string) =>
-    pathname === href || pathname.startsWith(`${href}/`) || (href === "/discover" && pathname.startsWith("/trader/"));
+    here === href || here.startsWith(`${href}/`) || (href === "/discover" && here.startsWith("/trader/"));
 
   const Collapse = collapsed ? ChevronsRight : ChevronsLeft;
 
   return (
     <aside
-      className="fixed inset-y-0 start-0 z-[10000] hidden w-[var(--sidebar-w)] flex-col border-e border-white/[0.06] bg-[#0B132B] lg:flex"
+      className={
+        embedded
+          ? "flex h-full w-64 shrink-0 flex-col border-e border-white/[0.06] bg-[#0B132B]"
+          : "fixed inset-y-0 start-0 z-[10000] hidden w-[var(--sidebar-w)] flex-col border-e border-white/[0.06] bg-[#0B132B] lg:flex"
+      }
       aria-label={t("menuAriaLabel")}
     >
       <div className={`flex h-16 shrink-0 items-center ${collapsed ? "justify-center" : "justify-between ps-5 pe-3"}`}>

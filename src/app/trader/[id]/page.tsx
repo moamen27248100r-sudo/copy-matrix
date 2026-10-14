@@ -1,6 +1,6 @@
 import { getMoney } from "@/lib/money-server";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { followProvider, unfollowProvider } from "@/app/discover/actions";
@@ -81,6 +81,8 @@ export default async function TraderPage({
   searchParams: Promise<{ error?: string; success?: string; tab?: string }>;
 }) {
   const { id } = await params;
+  // The ids used by the device mock-up on the public home page belong to no account.
+  if (/^00000000-0000-4000-8000-00000000000[0-9]$/.test(id)) redirect("/discover");
   const { error, success, tab } = await searchParams;
   const TABS = ["history", "performance", "openTrades", "allocation"] as const;
   const activeTab: (typeof TABS)[number] = (TABS as readonly string[]).includes(tab ?? "") ? (tab as (typeof TABS)[number]) : "history";

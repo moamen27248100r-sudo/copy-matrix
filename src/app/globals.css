@@ -483,3 +483,11 @@ body[data-shell="public"] {
   body[data-shell="app"] { --sidebar-w: 16rem; }
   body[data-shell="app"][data-sidebar="collapsed"] { --sidebar-w: 4.5rem; }
 }
+
+/* Home-page device mock-up: a very light float; nothing moves with reduced motion. */
+@keyframes mockup-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+.mockup-float { animation: mockup-float 6.5s ease-in-out infinite; }
+.mockup-float-slow { animation: mockup-float 8.5s ease-in-out -2s infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .mockup-float, .mockup-float-slow { animation: none; }
+}

@@ -32,36 +32,45 @@ export async function HomeWatchlist({ userId }: { userId: string }) {
       {rows.length === 0 ? (
         <p className="rounded-2xl border border-border bg-surface p-4 text-sm text-muted">{t("watchlistEmpty")}</p>
       ) : (
-        <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-          {rows.slice(0, 6).map((r) => {
-            const pct = r.change_pct;
-            return (
-              <li key={r.symbol}>
-                <Link
-                  href={`/markets/${r.symbol}`}
-                  className="flex items-center gap-3 rounded-2xl border border-border bg-surface px-3 py-2.5 transition hover:border-accent/40"
-                >
-                  <InstrumentIcon glyph={r.instrument.glyph} toneClass={r.instrument.tone} size="h-8 w-8" />
-                  <span className="min-w-0 flex-1">
-                    <span dir="ltr" className="block truncate text-sm font-semibold">
-                      {r.instrument.label}
-                    </span>
-                    <span className="block truncate text-xs text-muted">{r.instrument.name}</span>
-                  </span>
-                  <span className="shrink-0 text-end">
-                    <span dir="ltr" className="block text-sm tabular-nums">
-                      {formatPrice(r.price, r.instrument.decimals)}
-                    </span>
-                    <span dir="ltr" className={`block text-xs font-semibold tabular-nums ${pct == null ? "text-muted" : pct >= 0 ? "text-success" : "text-danger"}`}>
-                      {pct == null ? "—" : `${pct >= 0 ? "+" : ""}${pct.toFixed(2)}%`}
-                    </span>
-                  </span>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        <WatchlistGrid items={rows.slice(0, 6).map((r) => ({ symbol: r.symbol, label: r.instrument.label, name: r.instrument.name, glyph: r.instrument.glyph, tone: r.instrument.tone, price: r.price, decimals: r.instrument.decimals, change: r.change_pct }))} />
       )}
     </section>
+  );
+}
+
+export type WatchItem = { symbol: string; label: string; name: string; glyph: string; tone: string; price: number; decimals: number; change: number | null };
+
+// The watchlist rows. The home-page mock-up renders the same rows with fixed values.
+export function WatchlistGrid({ items }: { items: WatchItem[] }) {
+  return (
+    <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+      {items.map((r) => {
+        const pct = r.change;
+        return (
+          <li key={r.symbol}>
+            <Link
+              href={`/markets/${r.symbol}`}
+              className="flex items-center gap-3 rounded-2xl border border-border bg-surface px-3 py-2.5 transition hover:border-accent/40"
+            >
+              <InstrumentIcon glyph={r.glyph} toneClass={r.tone} size="h-8 w-8" />
+              <span className="min-w-0 flex-1">
+                <span dir="ltr" className="block truncate text-sm font-semibold">
+                  {r.label}
+                </span>
+                <span className="block truncate text-xs text-muted">{r.name}</span>
+              </span>
+              <span className="shrink-0 text-end">
+                <span dir="ltr" className="block text-sm tabular-nums">
+                  {formatPrice(r.price, r.decimals)}
+                </span>
+                <span dir="ltr" className={`block text-xs font-semibold tabular-nums ${pct == null ? "text-muted" : pct >= 0 ? "text-success" : "text-danger"}`}>
+                  {pct == null ? "—" : `${pct >= 0 ? "+" : ""}${pct.toFixed(2)}%`}
+                </span>
+              </span>
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
   );
 }

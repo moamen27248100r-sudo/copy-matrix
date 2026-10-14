@@ -6,7 +6,7 @@ import { LeaderCard } from "@/components/LeaderCard";
 import { INTERNATIONAL_COUNTRY_CODES } from "@/lib/country-metadata";
 import { TryCopySection } from "@/components/TryCopySection";
 import { Header } from "@/components/Header";
-import { ProductShowcase } from "@/components/showcase/ProductShowcase";
+import { HeroMockup, FeatureMockups } from "@/components/mockup/Mockups";
 import { FeaturesGrid } from "@/components/FeaturesGrid";
 import { HowItWorks } from "@/components/HowItWorks";
 import { FAQAccordion } from "@/components/FAQAccordion";
@@ -180,7 +180,7 @@ export default async function Home() {
           </div>
         </div>
 
-        <ProductShowcase />
+        <HeroMockup />
       </section>
 
       <section className="px-6 py-6">
@@ -200,6 +200,8 @@ export default async function Home() {
       </section>
 
       <FeaturesGrid />
+
+      <FeatureMockups />
 
       {t.has("tryCopy.title") && tryCopyLeaders.length >= 3 && (
         <TryCopySection

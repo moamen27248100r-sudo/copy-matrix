@@ -67,7 +67,18 @@
       "cardTopLabel": "Meilleurs traders par rendement (moyenne quotidienne)",
       "live": "Données en direct"
     },
-    "metaTitle": "Copy Matrix — Copiez automatiquement les trades des meilleurs traders"
+    "metaTitle": "Copy Matrix — Copiez automatiquement les trades des meilleurs traders",
+    "mockup": {
+      "discoverTitle": "Découvrez les traders en toute clarté",
+      "discoverDesc": "Comparez rendement, risque, repli maximal et taux de réussite à partir de données réelles, et filtrez selon vos besoins.",
+      "profileTitle": "Le profil d’un trader et son historique complet",
+      "profileDesc": "Une courbe de performance interactive, des statistiques claires et un historique de transactions à consulter avant de décider.",
+      "copyTitle": "Commencez à copier avec des réglages que vous contrôlez",
+      "copyDesc": "Fixez le montant et une limite de perte, et arrêtez la copie à tout moment. N’utilisez que ce que vous pouvez vous permettre de perdre.",
+      "marketsTitle": "Les marchés avec prix en direct",
+      "marketsDesc": "Suivez la crypto, l’or et le forex, et ajoutez ce qui vous intéresse à votre liste de suivi d’une étoile.",
+      "heroAria": "Illustration de la plateforme sur téléphone et ordinateur portable"
+    }
   },
   "Nav": {
     "createAccount": "S'inscrire",

@@ -2,7 +2,7 @@
 
 import { Fragment } from "react";
 import { useTranslations } from "next-intl";
-import { useInView } from "@/components/showcase/hooks";
+import { useInView } from "@/lib/use-in-view";
 
 type Step = { title: string; desc: string };
 

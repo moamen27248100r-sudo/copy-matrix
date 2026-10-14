@@ -67,7 +67,18 @@
       "cardTopLabel": "收益最高的交易员（日均）",
       "live": "实时数据"
     },
-    "metaTitle": "Copy Matrix — 自动跟单顶尖交易员的交易"
+    "metaTitle": "Copy Matrix — 自动跟单顶尖交易员的交易",
+    "mockup": {
+      "discoverTitle": "清晰地发现交易员",
+      "discoverDesc": "基于真实数据比较收益、风险、最大回撤和胜率，并按需筛选。",
+      "profileTitle": "交易员主页与完整记录",
+      "profileDesc": "可交互的业绩曲线、清晰的统计数据和可在决定前查看的交易记录。",
+      "copyTitle": "用您可控的设置开始跟单",
+      "copyDesc": "设定金额和亏损限额，随时停止跟单。只使用您能承受损失的资金。",
+      "marketsTitle": "实时报价的市场",
+      "marketsDesc": "关注加密货币、黄金和外汇，用星标把重要品种加入自选。",
+      "heroAria": "平台在手机和笔记本上的示意图"
+    }
   },
   "Nav": {
     "createAccount": "注册",
