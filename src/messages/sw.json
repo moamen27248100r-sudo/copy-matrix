@@ -78,6 +78,17 @@
       "marketsTitle": "Masoko yenye bei za moja kwa moja",
       "marketsDesc": "Fuatilia sarafu za kidijitali, dhahabu na forex, na uongeze unachojali kwenye orodha yako kwa nyota.",
       "heroAria": "Mchoro wa jukwaa kwenye simu na kompyuta mpakato"
+    },
+    "heroPreview": {
+      "portfolioValue": "Thamani ya jalada",
+      "thisMonth": "mwezi huu",
+      "copyingNow": "Unanakili sasa",
+      "tradeCopied": "Biashara imenakiliwa",
+      "buy": "Nunua",
+      "now": "sasa",
+      "lowRisk": "Hatari ndogo",
+      "lossLimit": "Kikomo cha hasara kimewashwa",
+      "aria": "Mchoro wa jukwaa kwenye simu"
     }
   },
   "Nav": {

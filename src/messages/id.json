@@ -78,6 +78,17 @@
       "marketsTitle": "Pasar dengan harga langsung",
       "marketsDesc": "Ikuti kripto, emas, dan forex, lalu tambahkan yang penting ke daftar pantauan dengan bintang.",
       "heroAria": "Ilustrasi platform di ponsel dan laptop"
+    },
+    "heroPreview": {
+      "portfolioValue": "Nilai portofolio",
+      "thisMonth": "bulan ini",
+      "copyingNow": "Sedang disalin",
+      "tradeCopied": "Transaksi disalin",
+      "buy": "Beli",
+      "now": "sekarang",
+      "lowRisk": "Risiko rendah",
+      "lossLimit": "Batas rugi aktif",
+      "aria": "Ilustrasi platform di ponsel"
     }
   },
   "Nav": {

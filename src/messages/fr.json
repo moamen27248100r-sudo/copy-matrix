@@ -78,6 +78,17 @@
       "marketsTitle": "Les marchés avec prix en direct",
       "marketsDesc": "Suivez la crypto, l’or et le forex, et ajoutez ce qui vous intéresse à votre liste de suivi d’une étoile.",
       "heroAria": "Illustration de la plateforme sur téléphone et ordinateur portable"
+    },
+    "heroPreview": {
+      "portfolioValue": "Valeur du portefeuille",
+      "thisMonth": "ce mois-ci",
+      "copyingNow": "Vous copiez",
+      "tradeCopied": "Transaction copiée",
+      "buy": "Achat",
+      "now": "maintenant",
+      "lowRisk": "Risque faible",
+      "lossLimit": "Limite de perte active",
+      "aria": "Illustration de la plateforme sur un téléphone"
     }
   },
   "Nav": {

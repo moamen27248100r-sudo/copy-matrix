@@ -78,6 +78,17 @@
       "marketsTitle": "Markets with live prices",
       "marketsDesc": "Follow crypto, gold and forex, and add what matters to you to your watchlist with a star.",
       "heroAria": "An illustration of the platform on a phone and a laptop"
+    },
+    "heroPreview": {
+      "portfolioValue": "Portfolio value",
+      "thisMonth": "this month",
+      "copyingNow": "Copying now",
+      "tradeCopied": "Trade copied",
+      "buy": "Buy",
+      "now": "now",
+      "lowRisk": "Low risk",
+      "lossLimit": "Loss limit on",
+      "aria": "An illustration of the platform on a phone"
     }
   },
   "Nav": {

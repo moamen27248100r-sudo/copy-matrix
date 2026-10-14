@@ -78,6 +78,17 @@
       "marketsTitle": "Mercados con precios en vivo",
       "marketsDesc": "Sigue cripto, oro y forex, y añade lo que te importa a tu lista de seguimiento con una estrella.",
       "heroAria": "Ilustración de la plataforma en un teléfono y un portátil"
+    },
+    "heroPreview": {
+      "portfolioValue": "Valor de la cartera",
+      "thisMonth": "este mes",
+      "copyingNow": "Copiando ahora",
+      "tradeCopied": "Operación copiada",
+      "buy": "Compra",
+      "now": "ahora",
+      "lowRisk": "Riesgo bajo",
+      "lossLimit": "Límite de pérdida activo",
+      "aria": "Ilustración de la plataforma en un teléfono"
     }
   },
   "Nav": {

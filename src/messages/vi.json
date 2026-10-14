@@ -78,6 +78,17 @@
       "marketsTitle": "Thị trường với giá trực tiếp",
       "marketsDesc": "Theo dõi tiền mã hóa, vàng và ngoại hối, thêm thứ bạn quan tâm vào danh sách theo dõi bằng ngôi sao.",
       "heroAria": "Hình minh họa nền tảng trên điện thoại và laptop"
+    },
+    "heroPreview": {
+      "portfolioValue": "Giá trị danh mục",
+      "thisMonth": "tháng này",
+      "copyingNow": "Đang sao chép",
+      "tradeCopied": "Đã sao chép giao dịch",
+      "buy": "Mua",
+      "now": "vừa xong",
+      "lowRisk": "Rủi ro thấp",
+      "lossLimit": "Giới hạn lỗ đã bật",
+      "aria": "Hình minh họa nền tảng trên điện thoại"
     }
   },
   "Nav": {
