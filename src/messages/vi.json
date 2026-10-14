@@ -600,7 +600,8 @@
     "prevPage": "Trước",
     "nextPage": "Tiếp",
     "perPageLabel": "Mỗi trang:",
-    "stopCopyingConfirm": "Dừng sao chép {name}? Bạn có thể bắt đầu sao chép lại bất cứ lúc nào."
+    "stopCopyingConfirm": "Dừng sao chép {name}? Bạn có thể bắt đầu sao chép lại bất cứ lúc nào.",
+    "insufficientData": "Không đủ dữ liệu cho giai đoạn này"
   },
   "Countries": {
     "US": "Hoa Kỳ",

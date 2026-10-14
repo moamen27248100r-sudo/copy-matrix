@@ -600,7 +600,8 @@
     "prevPage": "Iliyotangulia",
     "nextPage": "Inayofuata",
     "perPageLabel": "Kwa ukurasa:",
-    "stopCopyingConfirm": "Acha kunakili {name}? Unaweza kuanza kunakili tena wakati wowote."
+    "stopCopyingConfirm": "Acha kunakili {name}? Unaweza kuanza kunakili tena wakati wowote.",
+    "insufficientData": "Data haitoshi kwa kipindi hiki"
   },
   "Countries": {
     "US": "Marekani",

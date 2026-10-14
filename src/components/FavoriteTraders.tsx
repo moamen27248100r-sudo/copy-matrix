@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { TraderAvatar } from "@/components/TraderAvatar";
 import { fmtReturn, fmtWinRate } from "@/lib/format-stats";
+import { hasEnoughSample } from "@/lib/leader-scores";
 
 type Card = {
   provider_id: string;
@@ -11,6 +12,8 @@ type Card = {
   rating_score: number | null;
   win_rate_pct: number | null;
   roi_30d: number | null;
+  trades_30d: number | null;
+  closed_signals: number | null;
 };
 
 // The traders the customer bookmarked in Discover, with a quick look at how they are doing.
@@ -22,7 +25,7 @@ export async function FavoriteTraders({ userId }: { userId: string }) {
   if (ids.length === 0) return null;
   const { data } = await supabase
     .from("provider_cards")
-    .select("provider_id, display_name, avatar_url, rating_score, win_rate_pct, roi_30d")
+    .select("provider_id, display_name, avatar_url, rating_score, win_rate_pct, roi_30d, trades_30d, closed_signals")
     .in("provider_id", ids)
     .order("rating_score", { ascending: false, nullsFirst: false })
     .limit(4);
@@ -39,7 +42,8 @@ export async function FavoriteTraders({ userId }: { userId: string }) {
       </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {cards.map((c) => {
-          const roi = c.roi_30d == null ? null : Number(c.roi_30d);
+          const roi = c.roi_30d == null || !hasEnoughSample(c.trades_30d) ? null : Number(c.roi_30d);
+          const winRate = c.win_rate_pct == null || !hasEnoughSample(c.closed_signals) ? null : Number(c.win_rate_pct);
           return (
             <Link
               key={c.provider_id}
@@ -50,7 +54,7 @@ export async function FavoriteTraders({ userId }: { userId: string }) {
               <div className="min-w-0 flex-1 text-start">
                 <p className="truncate text-sm font-medium">{c.display_name}</p>
                 <p className="text-xs text-muted">
-                  {t("favoritesWinRate")} <span dir="ltr" className="inline-block text-foreground">{fmtWinRate(c.win_rate_pct == null ? null : Number(c.win_rate_pct))}</span>
+                  {t("favoritesWinRate")} <span dir="ltr" className="inline-block text-foreground">{fmtWinRate(winRate)}</span>
                 </p>
               </div>
               <div className="shrink-0 text-end">

@@ -600,7 +600,8 @@
     "prevPage": "پچھلا",
     "nextPage": "اگلا",
     "perPageLabel": "فی صفحہ:",
-    "stopCopyingConfirm": "{name} کو کاپی کرنا بند کریں؟ آپ کسی بھی وقت دوبارہ کاپی شروع کر سکتے ہیں۔"
+    "stopCopyingConfirm": "{name} کو کاپی کرنا بند کریں؟ آپ کسی بھی وقت دوبارہ کاپی شروع کر سکتے ہیں۔",
+    "insufficientData": "اس مدت کے لیے ڈیٹا ناکافی ہے"
   },
   "Countries": {
     "US": "امریکا",

@@ -11,6 +11,8 @@ import { LeaderCard } from "@/components/LeaderCard";
 import { DiscoverFilterSheet } from "@/components/DiscoverFilterSheet";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { fmtDrawdown, fmtReturn, fmtWinRate } from "@/lib/format-stats";
+import { MIN_CLOSED_TRADES, adjustedMaxDrawdown } from "@/lib/leader-scores";
+import { adjustedDrawdowns } from "@/lib/leader-drawdown";
 import { isSelfServiceLeadTraderEligible } from "@/lib/lead-trader-tasks";
 import {
   PERIODS,
@@ -148,7 +150,10 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
     )
   ).filter((x): x is string => !!x);
 
-  let query = supabase.from("provider_cards").select("*", { count: "exact" }).eq("is_archived", false);
+  // The same filters are used for the leaders with enough closed trades in the period and for the
+  // rest, which follow them (a leader with too little data never takes a top place).
+  const buildQuery = (headOnly: boolean) => {
+  let query = supabase.from("provider_cards").select("*", { count: "exact", head: headOnly }).eq("is_archived", false);
   if (hiddenIds.length) query = query.not("provider_id", "in", `(${hiddenIds.join(",")})`);
   if (q) query = query.ilike("display_name", `%${q}%`);
   if (favoritesOnly) query = query.in("provider_id", watchingIds.length ? watchingIds : ["00000000-0000-0000-0000-000000000000"]);
@@ -170,6 +175,8 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
   if (minEntry) query = query.lte("min_copy_amount", Number(minEntry));
   if (assetClass) query = query.eq("primary_asset", assetClass);
   if (trackRecord) query = query.gte("track_days", trackRecord === "3m" ? 90 : 365);
+  return query;
+  };
 
   const order: Record<SortKey, [string, boolean]> = {
     best: ["rating_score", false],
@@ -183,13 +190,49 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
     newest: ["joined_at", false],
   };
   const [orderColumn, ascending] = order[sortKey];
-  query = query
-    .order(orderColumn, { ascending, nullsFirst: false })
-    .order("provider_id", { ascending: true })
-    .range((page - 1) * perPage, page * perPage - 1);
+  const statSort = sortKey !== "followers" && sortKey !== "aum" && sortKey !== "newest";
+  const fromRow = (page - 1) * perPage;
+  const toRow = page * perPage; // exclusive
 
-  const { data: providers, count } = await query;
-  const total = count ?? 0;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let providers: any[] | null = [];
+  let count = 0;
+  if (statSort) {
+    const enough = (q: ReturnType<typeof buildQuery>) => q.gte(cols.trades, MIN_CLOSED_TRADES);
+    const notEnough = (q: ReturnType<typeof buildQuery>) => q.or(`${cols.trades}.lt.${MIN_CLOSED_TRADES},${cols.trades}.is.null`);
+    const [{ count: nA }, { count: nB }] = await Promise.all([enough(buildQuery(true)), notEnough(buildQuery(true))]);
+    const sufficientCount = nA ?? 0;
+    count = sufficientCount + (nB ?? 0);
+    const rows: unknown[] = [];
+    if (fromRow < sufficientCount) {
+      const { data } = await enough(buildQuery(false))
+        .order(orderColumn, { ascending, nullsFirst: false })
+        .order("provider_id", { ascending: true })
+        .range(fromRow, Math.min(toRow, sufficientCount) - 1);
+      rows.push(...(data ?? []));
+    }
+    if (toRow > sufficientCount) {
+      const { data } = await notEnough(buildQuery(false))
+        .order(orderColumn, { ascending, nullsFirst: false })
+        .order("provider_id", { ascending: true })
+        .range(Math.max(fromRow - sufficientCount, 0), toRow - sufficientCount - 1);
+      rows.push(...(data ?? []));
+    }
+    providers = rows;
+  } else {
+    const { data, count: n } = await buildQuery(false)
+      .order(orderColumn, { ascending, nullsFirst: false })
+      .order("provider_id", { ascending: true })
+      .range(fromRow, toRow - 1);
+    providers = data;
+    count = n ?? 0;
+  }
+  const adjustedDd = await adjustedDrawdowns(
+    supabase,
+    (providers ?? []).map((p) => String(p.provider_id)),
+    period,
+  );
+  const total = count;
   const pageCount = Math.max(1, Math.ceil(total / perPage));
   // A stale or hand-typed page past the end lands on a real page, not on a
   // misleading "no results".
@@ -465,14 +508,16 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
                           {p.display_name}
                         </Link>
                       </td>
-                      <td className={`px-3 py-3 text-sm ${s.roi != null && s.roi < 0 ? "text-danger" : "text-success"}`} dir="ltr">
+                      <td className={`px-3 py-3 text-sm ${s.roi != null && s.roi < 0 ? "text-danger" : "text-success"}`} dir="ltr" title={s.sufficient ? undefined : t("insufficientData")}>
                         {fmtReturn(s.roi)}
                       </td>
                       <td className={`px-3 py-3 text-sm ${s.pnl != null && s.pnl < 0 ? "text-danger" : ""}`} dir="ltr">
                         {s.pnl != null ? money(s.pnl, { signed: true, compact: true }) : "—"}
                       </td>
-                      <td className="px-3 py-3 text-sm" dir="ltr">{fmtWinRate(s.winRate)}</td>
-                      <td className="px-3 py-3 text-sm" dir="ltr">{fmtDrawdown(s.mdd)}</td>
+                      <td className="px-3 py-3 text-sm" dir="ltr" title={s.sufficient ? undefined : t("insufficientData")}>{fmtWinRate(s.winRate)}</td>
+                      <td className="px-3 py-3 text-sm" dir="ltr" title={s.sufficient ? undefined : t("insufficientData")}>
+                        {fmtDrawdown(s.sufficient ? adjustedMaxDrawdown(s.mdd, adjustedDd.get(String(p.provider_id)) ?? null) : null)}
+                      </td>
                       <td className="px-3 py-3 text-sm">{p.followers_count}</td>
                       <td className="px-3 py-3 text-sm" dir="ltr">{p.aum ? money(Number(p.aum), { compact: true }) : "—"}</td>
                       <td className="px-3 py-3 text-sm" dir="ltr">{p.profit_share_pct != null ? `${Number(p.profit_share_pct)}%` : "—"}</td>
@@ -502,6 +547,7 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
                   <LeaderCard
                     provider={p}
                     period={period}
+                    adjustedMdd={adjustedDd.get(String(p.provider_id)) ?? null}
                     copyHref={copyHref}
                     isWatching={isWatching}
                     onFollowAction={isWatching ? unfollowTrader : followTrader}

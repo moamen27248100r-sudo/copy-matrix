@@ -600,7 +600,8 @@
     "prevPage": "上一页",
     "nextPage": "下一页",
     "perPageLabel": "每页：",
-    "stopCopyingConfirm": "停止跟单 {name}？你可以随时重新开始跟单。"
+    "stopCopyingConfirm": "停止跟单 {name}？你可以随时重新开始跟单。",
+    "insufficientData": "该时段数据不足"
   },
   "Countries": {
     "US": "美国",

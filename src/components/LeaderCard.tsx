@@ -7,6 +7,7 @@ import { Sparkline } from "@/components/Sparkline";
 import { ConfirmButton } from "@/components/ConfirmButton";
 import { periodStats, DEFAULT_PERIOD, type Period } from "@/lib/leader-period";
 import { fmtDrawdown, fmtReturn, fmtWinRate } from "@/lib/format-stats";
+import { adjustedMaxDrawdown } from "@/lib/leader-scores";
 
 type ProviderCard = {
   provider_id: string;
@@ -44,6 +45,7 @@ export async function LeaderCard({
   bio,
   sparkline,
   maxDrawdownPct,
+  adjustedMdd,
   isWatching,
   onFollowAction,
   followFormField = "providerId",
@@ -57,6 +59,8 @@ export async function LeaderCard({
   sparkline?: number[];
   /** When passed (even as null), the middle stat shows max drawdown instead of the average daily return. */
   maxDrawdownPct?: number | null;
+  /** drawdown of the card's period including floating losses (leader_adjusted_drawdown) */
+  adjustedMdd?: number | null;
   /** When provided (i.e. the viewer is logged in), renders a small
    * bookmark-icon follow toggle in the header instead of a full text
    * pill -- keeps the header uncluttered. */
@@ -75,6 +79,9 @@ export async function LeaderCard({
   const money = await getMoney();
   const stats = periodStats(p, period);
   const isDown = stats.roi != null && stats.roi < 0;
+  // Few trades in the period: the percentages are hidden and say why.
+  const hint = stats.sufficient ? undefined : t("insufficientData");
+  const mdd = stats.sufficient ? adjustedMaxDrawdown(stats.mdd, adjustedMdd ?? null) : null;
   const periodLabel = t(`periodShort_${period}`);
   const isStopped = p.trading_status === "stopped";
 
@@ -145,7 +152,7 @@ export async function LeaderCard({
           lighter muted label underneath). */}
       <div className="flex items-center overflow-hidden rounded-xl border border-white/[0.06] bg-background/60">
         <div className="flex-1 border-e border-white/10 px-2 py-2.5 text-center">
-          <p className="text-sm font-semibold text-success">
+          <p className="text-sm font-semibold text-success" title={hint}>
             {fmtWinRate(stats.winRate)} <PeriodTag label={periodLabel} />
           </p>
           <p className="text-[11px] font-normal text-muted">{t("winRate")}</p>
@@ -158,7 +165,7 @@ export async function LeaderCard({
             </>
           ) : (
             <>
-              <p className={isDown ? "text-sm font-semibold text-danger" : "text-sm font-semibold text-success"} dir="ltr">
+              <p className={isDown ? "text-sm font-semibold text-danger" : "text-sm font-semibold text-success"} dir="ltr" title={hint}>
                 {fmtReturn(stats.roi)}
               </p>
               <p className="text-[11px] font-normal text-muted">{t("roiLabel", { period: periodLabel })}</p>
@@ -179,8 +186,8 @@ export async function LeaderCard({
           <p>{t("pnlLabel")}</p>
         </div>
         <div>
-          <p dir="ltr" className="font-medium text-foreground">
-            {fmtDrawdown(stats.mdd)} <PeriodTag label={periodLabel} />
+          <p dir="ltr" className="font-medium text-foreground" title={hint}>
+            {fmtDrawdown(mdd)} <PeriodTag label={periodLabel} />
           </p>
           <p>{t("maxDrawdown")}</p>
         </div>

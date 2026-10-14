@@ -600,7 +600,8 @@
     "prevPage": "السابق",
     "nextPage": "التالي",
     "perPageLabel": "لكل صفحة:",
-    "stopCopyingConfirm": "إيقاف نسخ {name}؟ يمكنك بدء النسخ مجدداً في أي وقت."
+    "stopCopyingConfirm": "إيقاف نسخ {name}؟ يمكنك بدء النسخ مجدداً في أي وقت.",
+    "insufficientData": "بيانات غير كافية لهذه الفترة"
   },
   "Countries": {
     "US": "الولايات المتحدة",

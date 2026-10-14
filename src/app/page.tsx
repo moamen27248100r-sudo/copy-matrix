@@ -88,6 +88,7 @@ export default async function Home() {
       .eq("is_archived", false)
       .gt("roi_90d", 0)
       .gte("win_rate_all", 55)
+      .gte("trades_30d", 20) // enough closed trades in the period the cards show
       .order("rating_score", { ascending: false, nullsFirst: false })
       .limit(10);
     if (!error) {

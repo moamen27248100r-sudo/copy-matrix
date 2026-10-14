@@ -2,6 +2,7 @@ import { ImageResponse } from "next/og";
 import { createClient } from "@supabase/supabase-js";
 import { fmtReturn, fmtWinRate } from "@/lib/format-stats";
 import { isUuid } from "@/lib/uuid";
+import { hasEnoughSample } from "@/lib/leader-scores";
 
 // Share image of one leader's page (1200x630): the brand mark and the three
 // numbers that matter -- 30-day return, win rate and copiers. The leader's
@@ -23,10 +24,11 @@ export default async function Image({ params }: { params: Promise<{ id: string }
     const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY, {
       auth: { persistSession: false },
     });
-    const { data } = await supabase.from("provider_cards").select("roi_30d, win_rate_all, followers_count").eq("provider_id", id).maybeSingle();
+    const { data } = await supabase.from("provider_cards").select("roi_30d, win_rate_all, followers_count, trades_30d, closed_signals").eq("provider_id", id).maybeSingle();
     if (data) {
-      roi = data.roi_30d != null ? Number(data.roi_30d) : null;
-      win = data.win_rate_all != null ? Number(data.win_rate_all) : null;
+      // fewer than the minimum number of closed trades: no percentage on the share image either
+      roi = data.roi_30d != null && hasEnoughSample(data.trades_30d) ? Number(data.roi_30d) : null;
+      win = data.win_rate_all != null && hasEnoughSample(data.closed_signals) ? Number(data.win_rate_all) : null;
       copiers = data.followers_count != null ? Number(data.followers_count) : null;
     }
   }

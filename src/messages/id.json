@@ -600,7 +600,8 @@
     "prevPage": "Sebelumnya",
     "nextPage": "Berikutnya",
     "perPageLabel": "Per halaman:",
-    "stopCopyingConfirm": "Berhenti menyalin {name}? Anda dapat mulai menyalin lagi kapan saja."
+    "stopCopyingConfirm": "Berhenti menyalin {name}? Anda dapat mulai menyalin lagi kapan saja.",
+    "insufficientData": "Data tidak cukup untuk periode ini"
   },
   "Countries": {
     "US": "Amerika Serikat",

@@ -25,7 +25,11 @@ export function periodColumns(p: Period) {
   } as const;
 }
 
+import { hasEnoughSample } from "@/lib/leader-scores";
+
 export type PeriodStats = {
+  /** false when fewer than MIN_CLOSED_TRADES trades closed in the period: return, win rate, drawdown and Sharpe are then null */
+  sufficient: boolean;
   roi: number | null;
   pnl: number | null;
   winRate: number | null;
@@ -38,13 +42,17 @@ const num = (v: unknown) => (v == null || v === "" ? null : Number(v));
 
 export function periodStats(row: Record<string, unknown>, p: Period): PeriodStats {
   const c = periodColumns(p);
+  const trades = num(row[c.trades]);
+  // Below the minimum sample the percentages swing on a handful of trades: show nothing.
+  const sufficient = hasEnoughSample(trades);
   return {
-    roi: num(row[c.roi]),
+    sufficient,
+    roi: sufficient ? num(row[c.roi]) : null,
     pnl: num(row[c.pnl]),
-    winRate: num(row[c.winRate]),
-    mdd: num(row[c.mdd]),
-    sharpe: num(row[c.sharpe]),
-    trades: num(row[c.trades]),
+    winRate: sufficient ? num(row[c.winRate]) : null,
+    mdd: sufficient ? num(row[c.mdd]) : null,
+    sharpe: sufficient ? num(row[c.sharpe]) : null,
+    trades,
   };
 }
 

@@ -6,6 +6,8 @@ import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
 import { parsePeriod, periodStats } from "@/lib/leader-period";
 import { fmtReturn } from "@/lib/format-stats";
+import { adjustedMaxDrawdown } from "@/lib/leader-scores";
+import { adjustedDrawdowns } from "@/lib/leader-drawdown";
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
@@ -23,6 +25,8 @@ export default async function ComparePage({ searchParams }: { searchParams: Prom
   const supabase = await createClient();
   const { data: providers } = await supabase.from("provider_cards").select("*").in("provider_id", idList);
   const list = idList.map((id) => providers?.find((p) => p.provider_id === id)).filter((p) => !!p);
+  const adjustedDd = await adjustedDrawdowns(supabase, list.map((p) => String(p.provider_id)), period);
+  const notEnough = t("insufficientData");
 
   const pct = (v: number | null | undefined, signed = false) => (v == null ? "—" : signed ? fmtReturn(v) : `${v.toFixed(2)}%`);
   const periodLabel = t(`periodShort_${period}`);
@@ -30,9 +34,9 @@ export default async function ComparePage({ searchParams }: { searchParams: Prom
     { label: t("roiLabel", { period: periodLabel }), value: (p) => pct(periodStats(p, period).roi, true) },
     { label: `${t("pnlLabel")} (${periodLabel})`, value: (p) => { const v = periodStats(p, period).pnl; return v == null ? "—" : money(v, { signed: true }); } },
     { label: t("winRate"), value: (p) => pct(periodStats(p, period).winRate) },
-    { label: t("compareMaxDrawdown"), value: (p) => pct(periodStats(p, period).mdd) },
+    { label: t("compareMaxDrawdown"), value: (p) => { const s = periodStats(p, period); return s.sufficient ? pct(adjustedMaxDrawdown(s.mdd, adjustedDd.get(String(p.provider_id)) ?? null)) : "—"; } },
     { label: t("compareSharpe"), value: (p) => String(periodStats(p, period).sharpe ?? "—") },
-    { label: t("compareTrades"), value: (p) => String(periodStats(p, period).trades ?? 0) },
+    { label: t("compareTrades"), value: (p) => { const s = periodStats(p, period); return `${s.trades ?? 0}${s.sufficient ? "" : " ⓘ"}`; } },
     { label: t("compareTotalReturn"), value: (p) => pct(p.roi_all != null ? Number(p.roi_all) : null, true) },
     { label: t("copiersLabel"), value: (p) => String(p.followers_count) },
     { label: t("aumLabel"), value: (p) => (p.aum ? money(Number(p.aum), { compact: true }) : "—") },

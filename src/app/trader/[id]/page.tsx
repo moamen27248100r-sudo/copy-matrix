@@ -26,6 +26,8 @@ import { getBioTranslator } from "@/lib/bio-translations";
 import type { Locale } from "@/i18n/locales";
 import { leaderScores } from "@/lib/leader-scores";
 import { fmtDrawdown, fmtReturn, fmtWinRate } from "@/lib/format-stats";
+import { adjustedMaxDrawdown, hasEnoughSample } from "@/lib/leader-scores";
+import { adjustedDrawdowns } from "@/lib/leader-drawdown";
 import { isUuid } from "@/lib/uuid";
 import { depositsEnabled } from "@/lib/deposits-enabled";
 import { copyRefusal } from "@/lib/copy-rules";
@@ -172,7 +174,13 @@ export default async function TraderPage({
       ? await supabase.from("simulated_positions").select("id", { count: "exact", head: true }).eq("subscription_id", mySub.id).eq("status", "open")
       : { count: 0 };
   const isWatching = !!myFollow;
-  const maxDrawdown = provider.mdd_all != null && Number(provider.closed_signals) > 0 ? Number(provider.mdd_all) : null;
+  // Statistics need a minimum sample; the drawdown also counts the floating losses of open trades.
+  const enoughData = hasEnoughSample(provider.closed_signals);
+  const adjustedAll = (await adjustedDrawdowns(supabase, [String(provider.provider_id)], "all")).get(String(provider.provider_id)) ?? null;
+  const maxDrawdown =
+    enoughData && provider.mdd_all != null && Number(provider.closed_signals) > 0
+      ? adjustedMaxDrawdown(Number(provider.mdd_all), adjustedAll)
+      : null;
   const aum = Number(provider.aum ?? 0);
   const startRefusal = user
     ? copyRefusal({
@@ -430,7 +438,7 @@ export default async function TraderPage({
           </div>
           <div>
             <p className="font-semibold">
-              {fmtWinRate(provider.win_rate_pct != null ? Number(provider.win_rate_pct) : null)}
+              {enoughData ? fmtWinRate(provider.win_rate_pct != null ? Number(provider.win_rate_pct) : null) : "—"}
             </p>
             <p className="text-xs text-muted">{t("statOverallWinRate")}</p>
           </div>
@@ -515,10 +523,10 @@ export default async function TraderPage({
                 <div key={p.labelKey} className="rounded-lg border border-border bg-surface p-3 text-center">
                   <p className="text-xs text-muted">{tp(p.labelKey)}</p>
                   <p className={p.roi != null && p.roi < 0 ? "text-lg font-semibold text-danger" : "text-lg font-semibold text-success"} dir="ltr">
-                    {p.roi != null && p.trades > 0 ? fmtReturn(p.roi) : "—"}
+                    {p.roi != null && hasEnoughSample(p.trades) ? fmtReturn(p.roi) : "—"}
                   </p>
                   <p className="text-xs text-muted">
-                    {p.winRate != null && p.trades > 0 ? t("winRateInline", { pct: p.winRate }) : t("noTradesLabel")}
+                    {p.winRate != null && hasEnoughSample(p.trades) ? t("winRateInline", { pct: p.winRate }) : p.trades > 0 ? t("insufficientData") : t("noTradesLabel")}
                   </p>
                 </div>
               ))}

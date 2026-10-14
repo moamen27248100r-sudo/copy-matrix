@@ -68,3 +68,107 @@ export function leaderScores(row: LeaderStatsRow): LeaderScores {
     activeDays: num(row.active_days) ?? 0,
   };
 }
+
+// ---------------------------------------------------------------------------------------------
+// Sample size and a drawdown that includes floating losses
+//
+// MIN_CLOSED_TRADES: the win rate, the maximum drawdown and the return of a period are shown only
+// when the leader closed at least this many trades in it. Below that the numbers swing on one or
+// two trades, so the app shows "—" with a hint ("not enough data for this period") and keeps those
+// leaders out of the top places of performance rankings.
+//
+// Maximum drawdown with floating losses (adjustedMaxDrawdown)
+//   The stored figure (provider_stats.mdd_*) is the largest peak-to-trough drop of the DAILY
+//   closed-trade equity curve. A trade that went deep into loss and recovered, or one still open,
+//   never shows there. This function adds what the open trades went through:
+//
+//     realized(t)   start equity + results of the trades closed up to t
+//     peak(t)       highest realized(t') for t' <= t
+//     worstMoment_i the time of trade i's lowest floating result (from price history), or its close
+//                   when no price history covers it
+//     floor_i       min(0, worst floating result, final result) of trade i
+//     equity_i      realized(worstMoment_i) + floor_i
+//     drawdown_i    (peak(worstMoment_i) - equity_i) / peak(worstMoment_i)
+//
+//   The result is the largest drawdown_i, also considering the closed-only drop after every close,
+//   as a percentage. Limits, stated plainly: price history exists only for the most recent days,
+//   so older trades are bounded by their own final result; and the floating losses of trades open
+//   at the same time are not added together (each trade is taken at its own worst moment).
+//   adjustedMaxDrawdown never returns less than the stored figure it is given.
+// ---------------------------------------------------------------------------------------------
+
+export const MIN_CLOSED_TRADES = 20;
+
+export function hasEnoughSample(closedTrades: number | string | null | undefined): boolean {
+  const n = num(closedTrades);
+  return n != null && n >= MIN_CLOSED_TRADES;
+}
+
+export type ExtremeTrade = {
+  /** opened / closed in epoch ms; closed is null while the trade is open */
+  o: number;
+  c: number | null;
+  /** final result in USD (null while open) */
+  pnl: number | null;
+  /** lowest floating result seen while open (USD), null when no price history covers the trade */
+  worst: number | null;
+  /** when that happened, epoch ms */
+  wt: number | null;
+};
+
+export function maxDrawdownWithFloating(trades: ExtremeTrade[], startEquity: number, nowMs: number): number | null {
+  if (!(startEquity > 0)) return null;
+
+  const closed = trades
+    .filter((t) => t.c != null && t.pnl != null)
+    .map((t) => ({ c: t.c as number, pnl: t.pnl as number }))
+    .sort((a, b) => a.c - b.c);
+
+  // realized equity after every close, with the running peak
+  const times: number[] = [];
+  const equity: number[] = [];
+  const peaks: number[] = [];
+  let cum = startEquity;
+  let peak = startEquity;
+  let worst = 0;
+  for (const t of closed) {
+    cum += t.pnl;
+    peak = Math.max(peak, cum);
+    times.push(t.c);
+    equity.push(cum);
+    peaks.push(peak);
+    worst = Math.max(worst, peak > 0 ? (peak - cum) / peak : 0);
+  }
+
+  // last close strictly before a moment (binary search): the trade itself is not yet realized then
+  const stateAt = (t: number): { eq: number; pk: number } => {
+    let lo = 0;
+    let hi = times.length - 1;
+    let idx = -1;
+    while (lo <= hi) {
+      const mid = (lo + hi) >> 1;
+      if (times[mid] < t) {
+        idx = mid;
+        lo = mid + 1;
+      } else hi = mid - 1;
+    }
+    return idx < 0 ? { eq: startEquity, pk: startEquity } : { eq: equity[idx], pk: peaks[idx] };
+  };
+
+  for (const t of trades) {
+    const floor = Math.min(0, t.worst ?? 0, t.pnl ?? 0);
+    if (floor >= 0) continue;
+    const moment = t.wt ?? t.c ?? nowMs;
+    const { eq, pk } = stateAt(moment);
+    const dd = pk > 0 ? (pk - (eq + floor)) / pk : 0;
+    worst = Math.max(worst, dd);
+  }
+  return Math.round(worst * 10000) / 100;
+}
+
+// Never below the stored (closed-trade, daily) figure.
+export function adjustedMaxDrawdown(stored: number | null | undefined, computed: number | null): number | null {
+  const s = num(stored);
+  if (computed == null) return s;
+  return s == null ? computed : Math.max(s, computed);
+}

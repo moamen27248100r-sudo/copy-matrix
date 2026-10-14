@@ -24,7 +24,8 @@ export async function SuggestedTraders({ excludeProviderIds }: { excludeProvider
     .eq("is_archived", false)
     .neq("trading_status", "stopped")
     .gt("roi_90d", 0)
-    .gte("win_rate_all", 50);
+    .gte("win_rate_all", 50)
+    .gte("trades_30d", 20); // the cards show 30-day figures: only leaders with enough closed trades
   if (riskLevel) query = query.eq("risk_level", riskLevel);
   const { data: rawProviders } = await query
     .order("rating_score", { ascending: false, nullsFirst: false })

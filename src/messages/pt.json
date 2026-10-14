@@ -600,7 +600,8 @@
     "prevPage": "Anterior",
     "nextPage": "Seguinte",
     "perPageLabel": "Por página:",
-    "stopCopyingConfirm": "Parar de copiar {name}? Você pode voltar a copiar quando quiser."
+    "stopCopyingConfirm": "Parar de copiar {name}? Você pode voltar a copiar quando quiser.",
+    "insufficientData": "Dados insuficientes para este período"
   },
   "Countries": {
     "US": "Estados Unidos",
