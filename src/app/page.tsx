@@ -6,7 +6,8 @@ import { LeaderCard } from "@/components/LeaderCard";
 import { INTERNATIONAL_COUNTRY_CODES } from "@/lib/country-metadata";
 import { TryCopySection } from "@/components/TryCopySection";
 import { Header } from "@/components/Header";
-import { HeroMockup, FeatureMockups } from "@/components/mockup/Mockups";
+import { FeatureMockups } from "@/components/mockup/Mockups";
+import { HeroMockupA } from "@/components/mockup/HeroA";
 import { FeaturesGrid } from "@/components/FeaturesGrid";
 import { HowItWorks } from "@/components/HowItWorks";
 import { FAQAccordion } from "@/components/FAQAccordion";
@@ -56,6 +57,7 @@ export default async function Home() {
   } = await supabase.auth.getUser();
 
   const t = await getTranslations("Home");
+  const tShowcase = await getTranslations("HomeShowcase");
   const locale = (await getLocale()) as Locale;
   const translateBio = await getBioTranslator();
 
@@ -180,7 +182,10 @@ export default async function Home() {
           </div>
         </div>
 
-        <HeroMockup />
+        <div className="flex flex-col">
+          <HeroMockupA />
+          <p className="mx-auto mt-2 max-w-sm px-3 text-center text-[11px] text-muted">{tShowcase("disclaimer")}</p>
+        </div>
       </section>
 
       <section className="px-6 py-6">
