@@ -80,10 +80,10 @@ export default async function BecomeLeadTraderPage({
         ) : (
           <DraftForm draftKey="lead-application" action={submitLeadTraderApplication} className="flex flex-col gap-4 rounded-2xl border border-border bg-surface p-5">
             {status.kind === "rejected" && (
-              <FlashMessage tone="error">
+              <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
                 {t("rejectedNotice")}
                 {status.reason ? ` — ${status.reason}` : ""}
-              </FlashMessage>
+              </p>
             )}
             <label className="flex flex-col gap-1.5 text-sm">
               {t("displayNameLabel")}

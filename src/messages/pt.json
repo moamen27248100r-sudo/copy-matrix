@@ -518,7 +518,9 @@
     "statTotalReturn": "Retorno total",
     "advancedStats": "Estatísticas avançadas",
     "statProfitFactor": "Fator de lucro",
-    "statAvgWinLoss": "Ganho / perda médios"
+    "statAvgWinLoss": "Ganho / perda médios",
+    "copyingBadge": "Copiando · {amount}",
+    "manageCopy": "Gerenciar cópia"
   },
   "Discover": {
     "title": "Descobrir traders",
@@ -936,7 +938,8 @@
         "title": "6. Cookies",
         "body": "A plataforma utiliza apenas cookies essenciais para manter sua sessão de login e preferência de aparência (modo escuro/claro), nunca para fins de rastreamento publicitário."
       }
-    ]
+    ],
+    "platformNature": "Copy Matrix é uma plataforma de software para execução e cópia de sinais de negociação — não é uma instituição financeira, um banco ou uma corretora licenciada."
   },
   "MarketOverview": {
     "crypto": "Criptomoedas",
@@ -1967,7 +1970,7 @@
     "terms": "Termos e condições",
     "privacy": "Política de privacidade",
     "rights": "Todos os direitos reservados.",
-    "riskDisclaimer": "Copy Matrix é uma plataforma de software para copiar sinais de negociação — não é uma instituição financeira, banco ou corretora licenciada. Negociar e copiar operações envolve alto risco e pode resultar na perda total do capital investido; desempenho passado não garante resultados futuros."
+    "riskDisclaimer": "Negociar e copiar operações envolve risco elevado e você pode perder todo o seu capital. O desempenho passado não garante resultados futuros."
   },
   "AccountSecurity": {
     "title": "Segurança da sua conta",

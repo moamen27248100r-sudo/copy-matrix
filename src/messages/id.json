@@ -518,7 +518,9 @@
     "statTotalReturn": "Total imbal hasil",
     "advancedStats": "Statistik lanjutan",
     "statProfitFactor": "Faktor profit",
-    "statAvgWinLoss": "Rata-rata untung / rugi"
+    "statAvgWinLoss": "Rata-rata untung / rugi",
+    "copyingBadge": "Disalin · {amount}",
+    "manageCopy": "Kelola salinan"
   },
   "Discover": {
     "title": "Temukan trader",
@@ -936,7 +938,8 @@
         "title": "6. Cookie",
         "body": "Platform hanya menggunakan cookie esensial untuk mempertahankan sesi login dan preferensi tampilan Anda (mode gelap/terang), dan tidak pernah untuk tujuan pelacakan iklan."
       }
-    ]
+    ],
+    "platformNature": "Copy Matrix adalah platform perangkat lunak untuk mengeksekusi dan menyalin sinyal trading — bukan lembaga keuangan, bank, atau pialang berlisensi."
   },
   "MarketOverview": {
     "crypto": "Kripto",
@@ -1964,7 +1967,7 @@
     "terms": "Syarat & ketentuan",
     "privacy": "Kebijakan privasi",
     "rights": "Seluruh hak dilindungi.",
-    "riskDisclaimer": "Copy Matrix adalah platform perangkat lunak untuk menyalin sinyal trading — bukan lembaga keuangan, bank, atau pialang berlisensi. Trading dan copy trading mengandung risiko tinggi dan dapat mengakibatkan kerugian total modal yang diinvestasikan; kinerja masa lalu tidak menjamin hasil di masa depan."
+    "riskDisclaimer": "Trading dan menyalin transaksi memiliki risiko tinggi, dan Anda dapat kehilangan seluruh modal. Kinerja masa lalu tidak menjamin hasil di masa depan."
   },
   "AccountSecurity": {
     "title": "Keamanan akun Anda",

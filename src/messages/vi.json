@@ -518,7 +518,9 @@
     "statTotalReturn": "Tổng lợi suất",
     "advancedStats": "Thống kê nâng cao",
     "statProfitFactor": "Hệ số lợi nhuận",
-    "statAvgWinLoss": "Lãi / lỗ trung bình"
+    "statAvgWinLoss": "Lãi / lỗ trung bình",
+    "copyingBadge": "Đang sao chép · {amount}",
+    "manageCopy": "Quản lý sao chép"
   },
   "Discover": {
     "title": "Khám phá nhà giao dịch",
@@ -936,7 +938,8 @@
         "title": "6. Cookie",
         "body": "Nền tảng chỉ sử dụng các cookie thiết yếu để duy trì phiên đăng nhập và tùy chọn giao diện (chế độ tối/sáng) của bạn, không bao giờ nhằm mục đích theo dõi quảng cáo."
       }
-    ]
+    ],
+    "platformNature": "Copy Matrix là nền tảng phần mềm để thực thi và sao chép tín hiệu giao dịch — không phải là tổ chức tài chính, ngân hàng hay công ty môi giới được cấp phép."
   },
   "MarketOverview": {
     "crypto": "Tiền điện tử",
@@ -1964,7 +1967,7 @@
     "terms": "Điều khoản & điều kiện",
     "privacy": "Chính sách bảo mật",
     "rights": "Đã đăng ký bản quyền.",
-    "riskDisclaimer": "Copy Matrix là nền tảng phần mềm để sao chép tín hiệu giao dịch — không phải là tổ chức tài chính, ngân hàng hay công ty môi giới được cấp phép. Giao dịch và sao chép giao dịch tiềm ẩn rủi ro cao và có thể dẫn đến mất toàn bộ vốn đầu tư; hiệu suất trong quá khứ không đảm bảo kết quả trong tương lai."
+    "riskDisclaimer": "Giao dịch và sao chép giao dịch có rủi ro cao, bạn có thể mất toàn bộ vốn. Hiệu suất trong quá khứ không đảm bảo kết quả trong tương lai."
   },
   "AccountSecurity": {
     "title": "Bảo mật tài khoản của bạn",

@@ -23,6 +23,8 @@ export default async function TermsPage() {
           <p className="text-xs text-muted">{t("lastUpdated", { date: formatDate(new Date().toISOString(), locale) })}</p>
         </div>
 
+        <p className="rounded-lg border border-border bg-surface px-4 py-3 text-sm leading-relaxed">{t("platformNature")}</p>
+
         <div className="flex flex-col gap-5">
           {sections.map((s) => (
             <section key={s.title} className="flex flex-col gap-2">

@@ -518,7 +518,9 @@
     "statTotalReturn": "Faida ya jumla",
     "advancedStats": "Takwimu za kina",
     "statProfitFactor": "Kigezo cha faida",
-    "statAvgWinLoss": "Wastani wa faida / hasara"
+    "statAvgWinLoss": "Wastani wa faida / hasara",
+    "copyingBadge": "Unanakili · {amount}",
+    "manageCopy": "Simamia nakala"
   },
   "Discover": {
     "title": "Gundua wafanyabiashara",
@@ -936,7 +938,8 @@
         "title": "6. Vidakuzi",
         "body": "Jukwaa hutumia vidakuzi muhimu tu kudumisha kikao chako cha kuingia na upendeleo wa mwonekano (hali ya giza/mwanga), na kamwe si kwa madhumuni ya ufuatiliaji wa matangazo."
       }
-    ]
+    ],
+    "platformNature": "Copy Matrix ni jukwaa la programu la kutekeleza na kunakili ishara za biashara — si taasisi ya kifedha, benki, au wakala wa dalali aliyeidhinishwa."
   },
   "MarketOverview": {
     "crypto": "Sarafu za Kripto",
@@ -1964,7 +1967,7 @@
     "terms": "Masharti na vigezo",
     "privacy": "Sera ya faragha",
     "rights": "Haki zote zimehifadhiwa.",
-    "riskDisclaimer": "Copy Matrix ni jukwaa la programu kwa ajili ya kunakili ishara za biashara — si taasisi ya kifedha, benki, au wakala wa udalali wenye leseni. Biashara na kunakili biashara hubeba hatari kubwa na inaweza kusababisha hasara kamili ya mtaji uliowekezwa; utendaji wa zamani hauhakikishi matokeo ya baadaye."
+    "riskDisclaimer": "Biashara na kunakili biashara kuna hatari kubwa, na unaweza kupoteza mtaji wako wote. Utendaji wa zamani hauhakikishi matokeo ya baadaye."
   },
   "AccountSecurity": {
     "title": "Usalama wa akaunti yako",

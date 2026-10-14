@@ -18,6 +18,7 @@ import { TraderAvatar } from "@/components/TraderAvatar";
 import { countryDisplay } from "@/lib/country-metadata";
 import { formatDate } from "@/lib/locale-format";
 import { CopyBar } from "@/components/CopyBar";
+import { ManageCopySheet } from "@/components/ManageCopySheet";
 import { ConfirmButton } from "@/components/ConfirmButton";
 import { defaultCopyAmount } from "@/lib/copy-amount";
 import { TabStrip } from "@/components/TabStrip";
@@ -87,6 +88,7 @@ export default async function TraderPage({
   const tp = await getTranslations("TradeHistory");
   const tc = await getTranslations("Countries");
   const tdAct = await getTranslations("Actions.discover");
+  const tCommon = await getTranslations("Common");
   const translateBio = await getBioTranslator();
   const supabase = await createClient();
   const {
@@ -237,10 +239,50 @@ export default async function TraderPage({
     })),
   ];
 
+  // A copy that is running is managed from a small button next to the leader's name (a bottom sheet
+  // with "edit settings" and "stop copying"), not from a bar fixed to the bottom of the screen.
+  const manageSheet =
+    isFollowing && !isStopped ? (
+      <>
+        <span className="rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 text-xs font-medium text-success">
+          {t("copyingBadge", { amount: money(Number(mySub?.allocated_amount ?? 0)) })}
+        </span>
+        <ManageCopySheet label={t("manageCopy")} title={t("manageCopy")} closeLabel={tCommon("dismiss")}>
+          <CopyDialog
+            action={followProvider}
+            providerId={id}
+            providerName={provider.display_name}
+            defaultAmount={Number(mySub?.allocated_amount ?? 0)}
+            minAmount={Number(provider.min_copy_amount)}
+            edit={{
+              mode: mySub?.copy_mode === "fixed" ? "fixed" : "ratio",
+              fixedAmount: mySub?.fixed_amount == null ? null : Number(mySub.fixed_amount),
+              maxPerTrade: mySub?.max_per_trade == null ? null : Number(mySub.max_per_trade),
+              stopLossPct: Number(mySub?.max_drawdown_pct ?? 50),
+              takeProfitPct: mySub?.tp_pct == null ? null : Number(mySub.tp_pct),
+              tradeStopLossPct: mySub?.sl_pct == null ? null : Number(mySub.sl_pct),
+              trailingPct: mySub?.trailing_pct == null ? null : Number(mySub.trailing_pct),
+              locked: (openCopiedCount ?? 0) > 0,
+            }}
+          />
+          <form action={unfollowProvider}>
+            <input type="hidden" name="providerId" value={id} />
+            <input type="hidden" name="returnTo" value={`/trader/${id}`} />
+            <ConfirmButton
+              confirmText={t("stopCopyingConfirm", { name: provider.display_name })}
+              className="rounded-lg border border-border px-4 py-2 text-sm disabled:opacity-60"
+            >
+              {t("stopCopyingCta")}
+            </ConfirmButton>
+          </form>
+        </ManageCopySheet>
+      </>
+    ) : null;
+
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+var(--copy-bar-h,7rem)+1rem)] lg:pb-6 lg:ms-[var(--sidebar-w)] lg:me-0">
+      <main className={`mx-auto flex w-full max-w-3xl flex-col gap-6 p-6 ${isFollowing && !isStopped ? "pb-[calc(var(--bottom-nav-h)+1.5rem)]" : "pb-[calc(var(--bottom-nav-h)+var(--copy-bar-h,7rem)+1rem)]"} lg:pb-6 lg:ms-[var(--sidebar-w)] lg:me-0`}>
         {error && (
           <FlashMessage tone="error">
             {error}
@@ -287,6 +329,7 @@ export default async function TraderPage({
                 </Link>
               )}
             </div>
+            {manageSheet && <div className="mt-1.5 flex flex-wrap items-center gap-2">{manageSheet}</div>}
             {isWatching && (
               <p className="mt-0.5 text-[11px] text-muted">
                 {t("followNotifyNote")}
@@ -313,12 +356,13 @@ export default async function TraderPage({
             to the bottom of the viewport on phones so it's always
             reachable while scrolling; a normal inline bar right here,
             under the bio, from sm up. */}
+        {!(isFollowing && !isStopped) && (
         <CopyBar>
           {isStopped ? (
             <div className="flex flex-col gap-2">
-              <FlashMessage tone="error">
+              <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-3 text-center text-sm text-danger">
                 {t("stoppedTradingNotice", { name: provider.display_name })}
-              </FlashMessage>
+              </p>
               {/* A follower of a leader who stopped trading can still end the copy. */}
               {isFollowing && (
                 <form action={unfollowProvider} className="flex justify-center">
@@ -344,46 +388,6 @@ export default async function TraderPage({
               <p className="text-center text-xs text-muted">
                 {t("minCopyBadgeLabel")} <span dir="ltr">{money(Number(provider.min_copy_amount))}</span>
               </p>
-            </div>
-          ) : isFollowing ? (
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <p className="flex min-w-0 items-center gap-2 text-sm">
-                <span className="h-2 w-2 shrink-0 rounded-full bg-success" aria-hidden="true" />
-                <span>
-                  {t("currentlyCopyingAmount", {
-                    amount: money(Number(mySub?.allocated_amount ?? 0)),
-                  })}
-                </span>
-              </p>
-              <div className="flex shrink-0 items-center gap-2 [&>*]:flex-1 sm:[&>*]:flex-none">
-              <CopyDialog
-                action={followProvider}
-                providerId={id}
-                providerName={provider.display_name}
-                defaultAmount={Number(mySub?.allocated_amount ?? 0)}
-                minAmount={Number(provider.min_copy_amount)}
-                edit={{
-                  mode: mySub?.copy_mode === "fixed" ? "fixed" : "ratio",
-                  fixedAmount: mySub?.fixed_amount == null ? null : Number(mySub.fixed_amount),
-                  maxPerTrade: mySub?.max_per_trade == null ? null : Number(mySub.max_per_trade),
-                  stopLossPct: Number(mySub?.max_drawdown_pct ?? 50),
-                  takeProfitPct: mySub?.tp_pct == null ? null : Number(mySub.tp_pct),
-                  tradeStopLossPct: mySub?.sl_pct == null ? null : Number(mySub.sl_pct),
-                  trailingPct: mySub?.trailing_pct == null ? null : Number(mySub.trailing_pct),
-                  locked: (openCopiedCount ?? 0) > 0,
-                }}
-              />
-              <form action={unfollowProvider}>
-                <input type="hidden" name="providerId" value={id} />
-                <input type="hidden" name="returnTo" value={`/trader/${id}`} />
-                <ConfirmButton
-                  confirmText={t("stopCopyingConfirm", { name: provider.display_name })}
-                  className="shrink-0 rounded-lg border border-border px-4 py-2 text-sm disabled:opacity-60"
-                >
-                  {t("stopCopyingCta")}
-                </ConfirmButton>
-              </form>
-              </div>
             </div>
           ) : startRefusal === "not_accepting_followers" ? (
             <p className="rounded-lg border border-warning/30 bg-warning/10 px-3 py-3 text-center text-sm text-warning">
@@ -414,6 +418,7 @@ export default async function TraderPage({
             </div>
           )}
         </CopyBar>
+        )}
 
         <div className="grid grid-cols-2 gap-3 border-t border-slate-700/70 pt-4 text-center text-sm sm:grid-cols-3">
           <div>
