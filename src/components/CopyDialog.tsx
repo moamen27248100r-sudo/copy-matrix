@@ -61,10 +61,9 @@ export function CopyDialog({
   // open the dialog for them instead of leaving them to find the button again.
   useEffect(() => {
     if (edit || typeof window === "undefined" || window.location.hash !== "#copy") return;
-    const timer = setTimeout(() => {
-      setOpen(true);
-      window.history.replaceState(null, "", window.location.pathname + window.location.search);
-    }, 0);
+    // The hash is left in place: rewriting the URL here makes the router re-render the page and
+    // the freshly opened dialog was closed again.
+    const timer = setTimeout(() => setOpen(true), 0);
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
