@@ -58,6 +58,7 @@ export async function updateSession(request: NextRequest) {
   // overwritten here, so a client can't spoof it.
   const forwarded = new Headers(request.headers);
   forwarded.set("x-cm-authed", user ? "1" : "0");
+  forwarded.set("x-cm-path", request.nextUrl.pathname);
   const withCookies = supabaseResponse;
   supabaseResponse = NextResponse.next({ request: { headers: forwarded } });
   withCookies.cookies.getAll().forEach((cookie) => supabaseResponse.cookies.set(cookie));
