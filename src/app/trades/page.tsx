@@ -9,6 +9,7 @@ import { MyOpenPositions } from "@/components/MyOpenPositions";
 import { TradeHistory } from "@/components/TradeHistory";
 import { closeAllPositions } from "@/app/trades/actions";
 import { fetchClosedTrades } from "@/lib/my-trades";
+import { FlashMessage } from "@/components/ui/Toast";
 
 type PositionSignal = { symbol: string; side: string; stop_loss: number | null; take_profit: number | null };
 
@@ -82,7 +83,7 @@ export default async function TradesPage({
       <AppNav />
       <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-[var(--sidebar-w)] lg:me-0 lg:pb-6">
         <h1 className="text-page-title">{t("title")}</h1>
-        {error && <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>}
+        {error && <FlashMessage tone="error">{error}</FlashMessage>}
         {tpsl && (
           <AutoDismissMessage className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success" clearParams={["tpsl"]}>
             {t("tpSlSaved")}

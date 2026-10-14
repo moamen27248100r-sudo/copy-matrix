@@ -14,6 +14,7 @@ import {
 import { TraderAvatar } from "@/components/TraderAvatar";
 import { ConfirmButton } from "@/components/ConfirmButton";
 import { SYMBOL_ICONS, symbolFullName } from "@/lib/symbol-icons";
+import { FlashMessage } from "@/components/ui/Toast";
 
 const PAGE_SIZE = 25;
 const SYMBOLS = Object.keys(SYMBOL_ICONS);
@@ -88,7 +89,7 @@ export default async function AdminTradersPage({
       </div>
 
       {error && (
-        <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>
+        <FlashMessage tone="error">{error}</FlashMessage>
       )}
 
       <form className="flex gap-2">

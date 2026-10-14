@@ -251,7 +251,8 @@
     "level": "ระดับ {level}",
     "other": "อื่นๆ",
     "errorGeneric": "เกิดข้อผิดพลาดบางอย่าง",
-    "retry": "ลองอีกครั้ง"
+    "retry": "ลองอีกครั้ง",
+    "dismiss": "ปิด"
   },
   "Notifications": {
     "copyOpenedTitle": "คัดลอกออเดอร์ใหม่แล้ว",
@@ -337,7 +338,8 @@
     "copyOpenedBulkTitle": "คัดลอก {count} เทรด",
     "copyOpenedBulkBody": "คัดลอก {count} เทรดจาก {providerName} เข้าบัญชีของคุณแล้ว",
     "copyClosedBulkTitle": "ปิด {count} เทรดแล้ว",
-    "copyClosedBulkBody": "เทรดที่คัดลอกจาก {providerName} จำนวน {count} รายการปิดแล้ว ผลรวม {amount}"
+    "copyClosedBulkBody": "เทรดที่คัดลอกจาก {providerName} จำนวน {count} รายการปิดแล้ว ผลรวม {amount}",
+    "cat_market": "ตลาด"
   },
   "Portfolio": {
     "title": "พอร์ตของฉัน",
@@ -871,7 +873,9 @@
     "passwordLabel": "รหัสผ่าน",
     "nameLabel": "ชื่อ-นามสกุล",
     "phoneLabel": "หมายเลขโทรศัพท์",
-    "confirmLabel": "ยืนยันรหัสผ่าน"
+    "confirmLabel": "ยืนยันรหัสผ่าน",
+    "stepOf": "ขั้นตอนที่ {step} จาก {total}",
+    "stepBack": "ย้อนกลับ"
   },
   "Legal": {
     "backToHome": "กลับสู่หน้าแรก",

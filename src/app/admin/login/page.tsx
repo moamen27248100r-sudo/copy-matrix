@@ -1,4 +1,5 @@
 import { adminLogin } from "@/app/admin/login/actions";
+import { FlashMessage } from "@/components/ui/Toast";
 
 export default async function AdminLoginPage({
   searchParams,
@@ -15,9 +16,9 @@ export default async function AdminLoginPage({
       </div>
 
       {error && (
-        <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
+        <FlashMessage tone="error">
           {error}
-        </p>
+        </FlashMessage>
       )}
 
       <form action={adminLogin} className="flex flex-col gap-3">

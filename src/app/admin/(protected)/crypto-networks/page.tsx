@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { updateCryptoNetwork } from "@/app/admin/actions";
 import { SubmitButton } from "@/components/SubmitButton";
 import { CHAINS, estimatedMinutes, isNetworkId, networkLabel } from "@/lib/crypto/networks";
+import { FlashMessage } from "@/components/ui/Toast";
 
 export default async function AdminCryptoNetworksPage({ searchParams }: { searchParams: Promise<{ error?: string; saved?: string }> }) {
   const { error, saved } = await searchParams;
@@ -20,8 +21,8 @@ export default async function AdminCryptoNetworksPage({ searchParams }: { search
         </p>
       </div>
 
-      {error && <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>}
-      {saved && <p className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">تم حفظ إعدادات {saved}.</p>}
+      {error && <FlashMessage tone="error">{error}</FlashMessage>}
+      {saved && <FlashMessage tone="success">تم حفظ إعدادات {saved}.</FlashMessage>}
 
       <div className="grid gap-4 xl:grid-cols-3">
         {(networks ?? []).filter((n) => isNetworkId(n.id)).map((n) => {

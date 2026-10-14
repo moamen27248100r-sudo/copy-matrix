@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
 import { AutoDismissMessage } from "@/components/AutoDismissMessage";
 import { saveNotificationPreferences } from "@/app/notifications/actions";
+import { FlashMessage } from "@/components/ui/Toast";
 
 // "copy_trades" (one notice per opened / closed copied trade) is opt-in: off until switched on.
 const CATEGORIES = ["copy", "copy_trades", "trades", "account"] as const;
@@ -51,7 +52,7 @@ export default async function NotificationPreferencesPage({
           </AutoDismissMessage>
         )}
         {error && (
-          <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{t("prefsSaveFailed")}</p>
+          <FlashMessage tone="error">{t("prefsSaveFailed")}</FlashMessage>
         )}
 
         <form action={saveNotificationPreferences} className="flex flex-col gap-4">

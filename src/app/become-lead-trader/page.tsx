@@ -3,6 +3,8 @@ import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
 import { submitLeadTraderApplication } from "@/app/become-lead-trader/actions";
 import { LEAD_TRADER_MARKETS, LEAD_TRADER_STYLES, LEAD_TRADER_MIN_INVESTMENT_DEFAULT } from "@/config/lead-trader";
+import { FlashMessage } from "@/components/ui/Toast";
+import { DraftForm } from "@/components/ui/DraftForm";
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
@@ -48,8 +50,8 @@ export default async function BecomeLeadTraderPage({
         <h1 className="text-page-title">{t("title")}</h1>
         <p className="text-sm text-muted">{t("subtitle")}</p>
 
-        {error && <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>}
-        {success && <p className="rounded-lg border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">{t("submitted")}</p>}
+        {error && <FlashMessage tone="error">{error}</FlashMessage>}
+        {success && <FlashMessage tone="success">{t("submitted")}</FlashMessage>}
 
         <section className="grid gap-4 rounded-2xl border border-border bg-surface p-5 sm:grid-cols-2">
           {benefits.map((b) => (
@@ -76,12 +78,12 @@ export default async function BecomeLeadTraderPage({
         ) : status.kind === "pending" ? (
           <p className="rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-warning">{t("pendingNotice")}</p>
         ) : (
-          <form action={submitLeadTraderApplication} className="flex flex-col gap-4 rounded-2xl border border-border bg-surface p-5">
+          <DraftForm draftKey="lead-application" action={submitLeadTraderApplication} className="flex flex-col gap-4 rounded-2xl border border-border bg-surface p-5">
             {status.kind === "rejected" && (
-              <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
+              <FlashMessage tone="error">
                 {t("rejectedNotice")}
                 {status.reason ? ` — ${status.reason}` : ""}
-              </p>
+              </FlashMessage>
             )}
             <label className="flex flex-col gap-1.5 text-sm">
               {t("displayNameLabel")}
@@ -134,7 +136,7 @@ export default async function BecomeLeadTraderPage({
             <button type="submit" className="rounded-xl bg-accent px-4 py-3 text-sm font-semibold text-accent-foreground transition hover:bg-accent-hover">
               {t("submit")}
             </button>
-          </form>
+          </DraftForm>
         )}
       </main>
     </>

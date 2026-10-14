@@ -3,6 +3,8 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { chooseAccountType } from "@/app/auth/actions";
 import { safeNextPath } from "@/lib/safe-next";
+import { AuthSteps } from "@/components/auth/AuthSteps";
+import { ClearSignupDraft } from "@/components/auth/ClearSignupDraft";
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
@@ -63,6 +65,8 @@ export default async function ChooseAccountTypePage({
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-md flex-col justify-center gap-6 p-6">
+      <ClearSignupDraft />
+      <AuthSteps step={3} />
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-xl font-semibold">{t("chooseAccountTypeTitle")}</h1>
         <p className="text-sm text-muted">{t("chooseAccountTypeSubtitle")}</p>

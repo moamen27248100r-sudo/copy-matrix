@@ -12,6 +12,7 @@ import { LinkTabs } from "@/components/LinkTabs";
 import { ProfitShareLedger } from "@/components/ProfitShareLedger";
 import { RiskFooter } from "@/components/RiskFooter";
 import { TraderAvatar } from "@/components/TraderAvatar";
+import { FlashMessage } from "@/components/ui/Toast";
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
@@ -119,8 +120,8 @@ export default async function CopiesPage({
             { key: "profit-share", href: href("profit-share"), label: t("tabProfitShare") },
           ]}
         />
-        {saved && <p className="rounded-lg border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">{tr("saved")}</p>}
-        {error && <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>}
+        {saved && <FlashMessage tone="success">{tr("saved")}</FlashMessage>}
+        {error && <FlashMessage tone="error">{error}</FlashMessage>}
 
         {tab === "active" &&
           (copies.length === 0 ? (

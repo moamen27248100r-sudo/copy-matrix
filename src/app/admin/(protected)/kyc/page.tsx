@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { approveKyc, rejectKyc } from "@/app/admin/actions";
+import { FlashMessage } from "@/components/ui/Toast";
 
 const STATUS_LABELS: Record<string, string> = {
   pending: "قيد المراجعة",
@@ -44,7 +45,7 @@ export default async function AdminKycPage({
       <h1 className="text-2xl font-semibold">طلبات التوثيق</h1>
 
       {error && (
-        <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>
+        <FlashMessage tone="error">{error}</FlashMessage>
       )}
 
       <section className="flex flex-col gap-3">

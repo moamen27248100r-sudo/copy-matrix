@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getOwnProviderId } from "@/lib/lead-trader";
 import { placeLeadOrder, closeLeadOrder } from "@/app/lead/trades/actions";
 import { TradeRow } from "@/components/trades/TradeRow";
+import { FlashMessage } from "@/components/ui/Toast";
 
 const SYMBOLS = ["BTCUSDT", "ETHUSDT", "SOLUSDT", "BNBUSDT", "XRPUSDT", "XAUUSD", "EURUSD", "GBPUSD", "USDJPY"];
 
@@ -88,7 +89,7 @@ export default async function LeadTradesPage({
   return (
     <div className="flex flex-col gap-6">
       <h1 className="text-page-title">{t("title")}</h1>
-      {error && <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>}
+      {error && <FlashMessage tone="error">{error}</FlashMessage>}
 
       <section className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-5">
         <p className="text-sm text-muted">{t("copiedToFollowers", { count: activeFollowers ?? 0 })}</p>

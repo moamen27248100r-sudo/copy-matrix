@@ -141,6 +141,8 @@ function CountryCodeSelect({ country, onChange }: { country: Country; onChange: 
   );
 }
 
+const DRAFT_KEY = "cm.signup.draft";
+
 const field = "w-full rounded-xl border bg-surface px-3.5 py-3 text-base text-foreground placeholder:text-text-3 focus:border-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40";
 const labelCls = "text-sm font-medium";
 const errCls = "text-sm text-down";
@@ -158,14 +160,42 @@ export function SignupForm({ next }: { next?: string | null }) {
   const [password, setPassword] = useState("");
   const [passwordTouched, setPasswordTouched] = useState(false);
   const [confirm, setConfirm] = useState("");
+  const draftReady = useRef(false);
 
   // Pick the country code from the visitor's time zone / browser language
-  // instead of always defaulting to Saudi Arabia.
+  // instead of always defaulting to Saudi Arabia -- unless the visitor already typed something in
+  // this tab and came back (Back button, a failed submit): then everything but the password returns.
   useEffect(() => {
-    const detected = detectCountry();
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- syncs state with a browser API on mount
-    if (detected) setCountry(detected);
+    const timer = setTimeout(() => {
+      let draft: { name?: string; email?: string; phone?: string; iso?: string } | null = null;
+      try {
+        draft = JSON.parse(sessionStorage.getItem(DRAFT_KEY) ?? "null");
+      } catch {
+        draft = null;
+      }
+      const detected = detectCountry();
+      const saved = COUNTRY_CODES.find((c) => c.iso === draft?.iso);
+      if (draft) {
+        if (draft.name) setName(draft.name);
+        if (draft.email) setEmail(draft.email);
+        if (draft.phone) setNationalNumber(draft.phone);
+      }
+      const chosen = saved ?? detected;
+      if (chosen) setCountry(chosen);
+      draftReady.current = true;
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
+
+  // Keep the draft up to date. The password and its confirmation are never stored.
+  useEffect(() => {
+    if (!draftReady.current) return;
+    try {
+      sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ name, email, phone: nationalNumber, iso: country.iso }));
+    } catch {
+      // storage unavailable (private mode): nothing is kept, the form still works
+    }
+  }, [name, email, nationalNumber, country]);
 
   const nameValid = name.trim().length >= 2;
   const mismatch = confirm.length > 0 && password !== confirm;

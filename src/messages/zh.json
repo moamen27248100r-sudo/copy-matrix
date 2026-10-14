@@ -251,7 +251,8 @@
     "level": "等级 {level}",
     "other": "其他",
     "errorGeneric": "出了点问题。",
-    "retry": "重试"
+    "retry": "重试",
+    "dismiss": "关闭"
   },
   "Notifications": {
     "copyOpenedTitle": "已复制新交易",
@@ -337,7 +338,8 @@
     "copyOpenedBulkTitle": "已复制 {count} 笔交易",
     "copyOpenedBulkBody": "已将 {providerName} 的 {count} 笔交易复制到您的账户。",
     "copyClosedBulkTitle": "{count} 笔交易已平仓",
-    "copyClosedBulkBody": "来自 {providerName} 的 {count} 笔跟单交易已平仓，合计结果 {amount}。"
+    "copyClosedBulkBody": "来自 {providerName} 的 {count} 笔跟单交易已平仓，合计结果 {amount}。",
+    "cat_market": "市场"
   },
   "Portfolio": {
     "title": "我的资产",
@@ -871,7 +873,9 @@
     "passwordLabel": "密码",
     "nameLabel": "全名",
     "phoneLabel": "手机号",
-    "confirmLabel": "确认密码"
+    "confirmLabel": "确认密码",
+    "stepOf": "第 {step} 步，共 {total} 步",
+    "stepBack": "返回"
   },
   "Legal": {
     "backToHome": "返回首页",

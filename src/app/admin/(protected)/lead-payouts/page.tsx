@@ -1,6 +1,7 @@
 import { formatMoney } from "@/lib/money";
 import { createClient } from "@/lib/supabase/server";
 import { approveLeadPayout, rejectLeadPayout } from "@/app/admin/actions";
+import { FlashMessage } from "@/components/ui/Toast";
 
 const STATUS_LABELS: Record<string, string> = {
   pending: "قيد المراجعة",
@@ -27,7 +28,7 @@ export default async function AdminLeadPayoutsPage({ searchParams }: { searchPar
   return (
     <div className="flex flex-col gap-6">
       <h1 className="text-xl font-bold">سحب أرباح القادة</h1>
-      {error && <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>}
+      {error && <FlashMessage tone="error">{error}</FlashMessage>}
 
       <section className="flex flex-col gap-3">
         <h2 className="font-semibold">قيد المراجعة ({pending.length})</h2>

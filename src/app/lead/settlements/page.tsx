@@ -8,6 +8,7 @@ import { getOwnProviderId } from "@/lib/lead-trader";
 import { LEAD_TRADER_MONEY_ENABLED } from "@/config/lead-trader";
 import { runOwnSettlement, requestPayout, cancelPayout } from "@/app/lead/settlements/actions";
 import { ConfirmButton } from "@/components/ConfirmButton";
+import { FlashMessage } from "@/components/ui/Toast";
 
 function maskEmail(name: string | null, id: string) {
   return name ?? `${id.slice(0, 4)}****`;
@@ -102,8 +103,8 @@ export default async function LeadSettlementsPage({ searchParams }: { searchPara
 
       {!LEAD_TRADER_MONEY_ENABLED && <p className="rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-warning">{t("flagOffNotice")}</p>}
 
-      {err && <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{t(["payoutErrMin", "payoutErrDestination", "payoutErrPending", "payoutErrAvailable"].includes(err) ? err : "payoutErrGeneric")}</p>}
-      {ok && <p className="rounded-lg border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">{t("payoutRequested")}</p>}
+      {err && <FlashMessage tone="error">{t(["payoutErrMin", "payoutErrDestination", "payoutErrPending", "payoutErrAvailable"].includes(err) ? err : "payoutErrGeneric")}</FlashMessage>}
+      {ok && <FlashMessage tone="success">{t("payoutRequested")}</FlashMessage>}
 
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Stat label={t("availableToWithdraw")} value={money(Number(earnings?.available ?? 0))} />

@@ -251,7 +251,8 @@
     "level": "المستوى {level}",
     "other": "أخرى",
     "errorGeneric": "حدث خطأ ما.",
-    "retry": "إعادة المحاولة"
+    "retry": "إعادة المحاولة",
+    "dismiss": "إغلاق"
   },
   "Notifications": {
     "copyOpenedTitle": "تم نسخ صفقة جديدة",
@@ -337,7 +338,8 @@
     "copyOpenedBulkTitle": "تم فتح {count} صفقات",
     "copyOpenedBulkBody": "تم فتح {count} صفقات من نسخ {providerName} في حسابك.",
     "copyClosedBulkTitle": "تم إغلاق {count} صفقات",
-    "copyClosedBulkBody": "أُغلقت {count} صفقات منسوخة من {providerName} بنتيجة إجمالية {amount}."
+    "copyClosedBulkBody": "أُغلقت {count} صفقات منسوخة من {providerName} بنتيجة إجمالية {amount}.",
+    "cat_market": "السوق"
   },
   "Portfolio": {
     "title": "محفظتي",
@@ -871,7 +873,9 @@
     "passwordLabel": "كلمة المرور",
     "nameLabel": "الاسم الكامل",
     "phoneLabel": "رقم الهاتف",
-    "confirmLabel": "تأكيد كلمة المرور"
+    "confirmLabel": "تأكيد كلمة المرور",
+    "stepOf": "الخطوة {step} من {total}",
+    "stepBack": "رجوع"
   },
   "Legal": {
     "backToHome": "العودة إلى الرئيسية",

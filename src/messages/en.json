@@ -251,7 +251,8 @@
     "level": "Level {level}",
     "other": "Other",
     "errorGeneric": "Something went wrong.",
-    "retry": "Try again"
+    "retry": "Try again",
+    "dismiss": "Close"
   },
   "Notifications": {
     "copyOpenedTitle": "New trade copied",
@@ -337,7 +338,8 @@
     "copyOpenedBulkTitle": "{count} trades copied",
     "copyOpenedBulkBody": "{count} trades from {providerName} were copied to your account.",
     "copyClosedBulkTitle": "{count} trades closed",
-    "copyClosedBulkBody": "{count} copied trades from {providerName} closed with a combined result of {amount}."
+    "copyClosedBulkBody": "{count} copied trades from {providerName} closed with a combined result of {amount}.",
+    "cat_market": "Market"
   },
   "Portfolio": {
     "title": "My Portfolio",
@@ -871,7 +873,9 @@
     "passwordLabel": "Password",
     "nameLabel": "Full name",
     "phoneLabel": "Phone number",
-    "confirmLabel": "Confirm password"
+    "confirmLabel": "Confirm password",
+    "stepOf": "Step {step} of {total}",
+    "stepBack": "Back"
   },
   "Legal": {
     "backToHome": "Back to home",

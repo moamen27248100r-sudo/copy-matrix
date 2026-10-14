@@ -251,7 +251,8 @@
     "level": "लेवल {level}",
     "other": "अन्य",
     "errorGeneric": "कुछ गलत हो गया।",
-    "retry": "फिर से कोशिश करें"
+    "retry": "फिर से कोशिश करें",
+    "dismiss": "बंद करें"
   },
   "Notifications": {
     "copyOpenedTitle": "नया ट्रेड कॉपी हुआ",
@@ -337,7 +338,8 @@
     "copyOpenedBulkTitle": "{count} ट्रेड कॉपी हुए",
     "copyOpenedBulkBody": "{providerName} के {count} ट्रेड आपके खाते में कॉपी हुए।",
     "copyClosedBulkTitle": "{count} ट्रेड बंद हुए",
-    "copyClosedBulkBody": "{providerName} से कॉपी किए {count} ट्रेड {amount} के कुल परिणाम के साथ बंद हुए।"
+    "copyClosedBulkBody": "{providerName} से कॉपी किए {count} ट्रेड {amount} के कुल परिणाम के साथ बंद हुए।",
+    "cat_market": "बाज़ार"
   },
   "Portfolio": {
     "title": "मेरा पोर्टफोलियो",
@@ -871,7 +873,9 @@
     "passwordLabel": "पासवर्ड",
     "nameLabel": "पूरा नाम",
     "phoneLabel": "फ़ोन नंबर",
-    "confirmLabel": "पासवर्ड की पुष्टि करें"
+    "confirmLabel": "पासवर्ड की पुष्टि करें",
+    "stepOf": "चरण {step} / {total}",
+    "stepBack": "वापस"
   },
   "Legal": {
     "backToHome": "होम पर वापस जाएं",

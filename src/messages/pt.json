@@ -251,7 +251,8 @@
     "level": "Nível {level}",
     "other": "Outro",
     "errorGeneric": "Ocorreu um erro.",
-    "retry": "Tentar novamente"
+    "retry": "Tentar novamente",
+    "dismiss": "Fechar"
   },
   "Notifications": {
     "copyOpenedTitle": "Nova operação copiada",
@@ -337,7 +338,8 @@
     "copyOpenedBulkTitle": "{count} operações copiadas",
     "copyOpenedBulkBody": "Foram copiadas {count} operações de {providerName} para a sua conta.",
     "copyClosedBulkTitle": "{count} operações fechadas",
-    "copyClosedBulkBody": "Foram fechadas {count} operações copiadas de {providerName} com um resultado conjunto de {amount}."
+    "copyClosedBulkBody": "Foram fechadas {count} operações copiadas de {providerName} com um resultado conjunto de {amount}.",
+    "cat_market": "Mercado"
   },
   "Portfolio": {
     "title": "Minha carteira",
@@ -871,7 +873,9 @@
     "passwordLabel": "Palavra-passe",
     "nameLabel": "Nome completo",
     "phoneLabel": "Número de telefone",
-    "confirmLabel": "Confirmar palavra-passe"
+    "confirmLabel": "Confirmar palavra-passe",
+    "stepOf": "Passo {step} de {total}",
+    "stepBack": "Voltar"
   },
   "Legal": {
     "backToHome": "Voltar ao início",

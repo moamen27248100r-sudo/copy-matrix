@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getOwnProviderId } from "@/lib/lead-trader";
 import { saveLeadPublicProfile, uploadLeadAvatar } from "@/app/lead/profile/actions";
 import { TraderAvatar } from "@/components/TraderAvatar";
+import { FlashMessage } from "@/components/ui/Toast";
 
 const PROFILE_ERRORS = ["saveFailed", "tooLong", "avatarMissing", "avatarType", "avatarSize"];
 
@@ -43,8 +44,8 @@ export default async function LeadProfilePage({ searchParams }: { searchParams: 
           {t("viewPublic")}
         </Link>
       </div>
-      {err && <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{t(PROFILE_ERRORS.includes(err) ? `err_${err}` : "err_saveFailed")}</p>}
-      {ok && <p className="rounded-lg border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">{t("saved")}</p>}
+      {err && <FlashMessage tone="error">{t(PROFILE_ERRORS.includes(err) ? `err_${err}` : "err_saveFailed")}</FlashMessage>}
+      {ok && <FlashMessage tone="success">{t("saved")}</FlashMessage>}
 
       <form action={uploadLeadAvatar} className="flex flex-wrap items-center gap-4 rounded-2xl border border-border bg-surface p-4">
         <TraderAvatar providerId={providerId} name={provider?.display_name ?? ""} avatarUrl={provider?.avatar_url ?? null} size={64} />

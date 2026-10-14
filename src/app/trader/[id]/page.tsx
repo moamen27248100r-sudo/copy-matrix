@@ -33,6 +33,7 @@ import { adjustedDrawdowns } from "@/lib/leader-drawdown";
 import { isUuid } from "@/lib/uuid";
 import { depositsEnabled } from "@/lib/deposits-enabled";
 import { copyRefusal } from "@/lib/copy-rules";
+import { FlashMessage } from "@/components/ui/Toast";
 
 type DailyRows = DailySeries & { trades: number[]; wins: number[] };
 
@@ -241,22 +242,22 @@ export default async function TraderPage({
       <AppNav />
       <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+var(--copy-bar-h,7rem)+1rem)] lg:pb-6 lg:ms-[var(--sidebar-w)] lg:me-0">
         {error && (
-          <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
+          <FlashMessage tone="error">
             {error}
-          </p>
+          </FlashMessage>
         )}
 
         {success === "saved" && (
-          <p className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">{tdAct("copySettingsSaved")}</p>
+          <FlashMessage tone="success">{tdAct("copySettingsSaved")}</FlashMessage>
         )}
 
         {success === "started" && mySub && (
-          <p className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">
+          <FlashMessage tone="success">
             {t("copyStartedSuccess", {
               name: provider.display_name,
               amount: money(Number(mySub.allocated_amount)),
             })}
-          </p>
+          </FlashMessage>
         )}
 
       <div className="flex flex-col gap-6">
@@ -315,9 +316,9 @@ export default async function TraderPage({
         <CopyBar>
           {isStopped ? (
             <div className="flex flex-col gap-2">
-              <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-3 text-center text-sm text-danger">
+              <FlashMessage tone="error">
                 {t("stoppedTradingNotice", { name: provider.display_name })}
-              </p>
+              </FlashMessage>
               {/* A follower of a leader who stopped trading can still end the copy. */}
               {isFollowing && (
                 <form action={unfollowProvider} className="flex justify-center">

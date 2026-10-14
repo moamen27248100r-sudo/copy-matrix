@@ -9,6 +9,7 @@ import { getOwnProviderId, currentTier } from "@/lib/lead-trader";
 import { computeActiveTradingDays } from "@/lib/reliability";
 import { removeFollower, createFollowerInvite } from "@/app/lead/followers/actions";
 import { setWhitelistEnabled } from "@/app/lead/followers/toggle-whitelist";
+import { FlashMessage } from "@/components/ui/Toast";
 
 const PAGE_SIZE = 20;
 
@@ -82,7 +83,7 @@ export default async function LeadFollowersPage({
   return (
     <div className="flex flex-col gap-6">
       <h1 className="text-page-title">{t("title")}</h1>
-      {error && <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>}
+      {error && <FlashMessage tone="error">{error}</FlashMessage>}
 
       <section className="rounded-2xl border border-border bg-surface p-4">
         <p className="text-sm font-medium">{t("seats", { current: activeSubs.length, max: tier.maxFollowers })}</p>

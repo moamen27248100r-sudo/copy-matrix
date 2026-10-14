@@ -10,6 +10,7 @@ import Link from "next/link";
 import { getLocale } from "next-intl/server";
 import { formatDateTime } from "@/lib/locale-format";
 import type { Locale } from "@/i18n/locales";
+import { FlashMessage } from "@/components/ui/Toast";
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
@@ -52,8 +53,8 @@ export default async function LeadSettingsPage({
   return (
     <div className="flex flex-col gap-6">
       <h1 className="text-page-title">{t("title")}</h1>
-      {error && <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>}
-      {success && <p className="rounded-lg border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">{t("saved")}</p>}
+      {error && <FlashMessage tone="error">{error}</FlashMessage>}
+      {success && <FlashMessage tone="success">{t("saved")}</FlashMessage>}
 
       <form action={updateLeadTraderSettings} className="flex flex-col gap-5 rounded-2xl border border-border bg-surface p-5">
         <h2 className="text-section-title">{t("accountInfo")}</h2>

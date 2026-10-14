@@ -6,6 +6,7 @@ import { SubmitButton } from "@/components/SubmitButton";
 import { ConfirmButton } from "@/components/ConfirmButton";
 import { ADMIN_STATUS_TONE, ADMIN_WITHDRAWAL_STATUS } from "@/lib/crypto/admin-labels";
 import { displayTxHash, explorerAddressUrl, explorerTxUrl, isNetworkId, shortAddress } from "@/lib/crypto/networks";
+import { FlashMessage } from "@/components/ui/Toast";
 
 type ProfileRef = { display_name: string | null; email: string | null } | { display_name: string | null; email: string | null }[] | null;
 const oneProfile = (p: ProfileRef) => (Array.isArray(p) ? p[0] : p);
@@ -116,7 +117,7 @@ export default async function AdminWithdrawalsPage({ searchParams }: { searchPar
           الرفض يعيد المبلغ كاملاً لرصيد العميل.
         </p>
       </div>
-      {error && <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>}
+      {error && <FlashMessage tone="error">{error}</FlashMessage>}
 
       <section className="flex flex-col gap-3">
         <h2 className="font-medium">بانتظار التنفيذ ({(queue ?? []).length})</h2>

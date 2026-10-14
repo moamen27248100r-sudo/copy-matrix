@@ -11,6 +11,7 @@ import { setTimezone } from "@/app/actions/locale";
 import type { Locale } from "@/i18n/locales";
 import { hasVerifiedTotp } from "@/lib/mfa";
 import { LossAlertsSection } from "@/components/LossAlertsSection";
+import { FlashMessage } from "@/components/ui/Toast";
 
 const TIMEZONES = [
   "UTC", "Africa/Cairo", "Africa/Lagos", "Africa/Nairobi", "Asia/Riyadh", "Asia/Dubai", "Asia/Karachi",
@@ -55,14 +56,14 @@ export default async function SettingsPage({
         <h1 className="text-page-title">{t("title")}</h1>
 
         {error && (
-          <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
+          <FlashMessage tone="error">
             {error}
-          </p>
+          </FlashMessage>
         )}
         {success && (
-          <p className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">
+          <FlashMessage tone="success">
             {t("savedSuccess")}
-          </p>
+          </FlashMessage>
         )}
 
         <section className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">

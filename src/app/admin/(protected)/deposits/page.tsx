@@ -5,6 +5,7 @@ import { recheckCryptoDeposit } from "@/app/admin/actions";
 import { SubmitButton } from "@/components/SubmitButton";
 import { ADMIN_DEPOSIT_FAILURE, ADMIN_DEPOSIT_STATUS, ADMIN_STATUS_TONE } from "@/lib/crypto/admin-labels";
 import { displayTxHash, explorerTxUrl, isNetworkId, shortAddress } from "@/lib/crypto/networks";
+import { FlashMessage } from "@/components/ui/Toast";
 
 type ProfileRef = { display_name: string | null; email: string | null } | { display_name: string | null; email: string | null }[] | null;
 const oneProfile = (p: ProfileRef) => (Array.isArray(p) ? p[0] : p);
@@ -50,7 +51,7 @@ export default async function AdminDepositsPage({ searchParams }: { searchParams
           يُعاد فحصها تلقائياً كل دقيقة.
         </p>
       </div>
-      {error && <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>}
+      {error && <FlashMessage tone="error">{error}</FlashMessage>}
 
       <nav className="flex flex-wrap gap-2">
         {Object.entries(FILTERS).map(([key, label]) => (

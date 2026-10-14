@@ -14,6 +14,7 @@ import {
 } from "@/app/admin/actions";
 import { SYMBOL_ICONS, symbolFullName } from "@/lib/symbol-icons";
 import { MarginCallForm } from "@/components/MarginCallForm";
+import { FlashMessage } from "@/components/ui/Toast";
 
 const SYMBOLS = Object.keys(SYMBOL_ICONS);
 
@@ -121,7 +122,7 @@ export default async function AdminUserDetailPage({
       </div>
 
       {error && (
-        <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>
+        <FlashMessage tone="error">{error}</FlashMessage>
       )}
 
       <section className="grid grid-cols-1 gap-3 sm:grid-cols-3">

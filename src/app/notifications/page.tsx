@@ -6,6 +6,8 @@ import { getUserTimeZone } from "@/lib/timezone";
 import { createClient } from "@/lib/supabase/server";
 import { markAllRead, markOneRead } from "@/app/notifications/actions";
 import { AppNav } from "@/components/AppNav";
+import { LinkTabs } from "@/components/LinkTabs";
+import { Settings } from "lucide-react";
 import { renderNotification } from "@/lib/render-notification";
 import { localeTag } from "@/lib/locale-format";
 import type { Locale } from "@/i18n/locales";
@@ -109,16 +111,27 @@ function formatNotificationTime(iso: string, locale: Locale, timeZone: string) {
   return `${date} · ${time}`;
 }
 
+// Four tabs: everything, copying (copies, followed traders, loss alerts), the account (money, identity,
+// security) and the market (big moves of an instrument, important news).
 const CATEGORY_TYPES: Record<string, string[]> = {
-  trades: ["followed_trade_opened", "followed_trade_closed"],
-  copy: ["copy_started", "copy_stopped", "copy_opened", "copy_closed", "auto_stop_copy", "loss_alert", "leader_stopped"],
-  account: ["wallet_deposit_approved", "wallet_withdrawal_approved", "kyc_approved", "kyc_rejected"],
+  copy: [
+    "followed_trade_opened",
+    "followed_trade_closed",
+    "copy_started",
+    "copy_stopped",
+    "copy_opened",
+    "copy_closed",
+    "auto_stop_copy",
+    "loss_alert",
+    "leader_stopped",
+  ],
+  market: ["market_move", "market_news"],
 };
-const CATEGORY_KEYS = ["all", "trades", "copy", "account", "security"] as const;
+const CATEGORY_KEYS = ["all", "copy", "account", "market"] as const;
 
 function categoryOf(type: string): string {
   for (const [cat, types] of Object.entries(CATEGORY_TYPES)) if (types.includes(type)) return cat;
-  return type.startsWith("kyc") || type.startsWith("wallet") ? "account" : "security";
+  return "account";
 }
 
 export async function generateMetadata() {
@@ -164,22 +177,24 @@ export default async function NotificationsPage({ searchParams }: { searchParams
           )}
         </div>
 
-        <div className="flex flex-wrap items-center gap-1.5">
-          {CATEGORY_KEYS.map((k) => (
-            <Link
-              key={k}
-              href={k === "all" ? "/notifications" : `/notifications?cat=${k}`}
-              className={
-                activeCat === k
-                  ? "rounded-full border border-accent bg-accent/10 px-3 py-1 text-xs font-medium text-accent"
-                  : "rounded-full border border-border px-3 py-1 text-xs text-muted hover:border-accent/40"
-              }
-            >
-              {tn(`cat_${k}`)}
-            </Link>
-          ))}
-          <Link href="/notifications/preferences" className="tap-44 ms-auto text-xs text-accent hover:underline">
-            {tn("prefsLink")}
+        <div className="flex items-center gap-2">
+          <div className="min-w-0 flex-1">
+            <LinkTabs
+              active={activeCat}
+              items={CATEGORY_KEYS.map((k) => ({
+                key: k,
+                href: k === "all" ? "/notifications" : `/notifications?cat=${k}`,
+                label: tn(`cat_${k}`),
+              }))}
+            />
+          </div>
+          <Link
+            href="/notifications/preferences"
+            aria-label={tn("prefsLink")}
+            title={tn("prefsLink")}
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-border bg-surface text-muted transition hover:text-foreground"
+          >
+            <Settings className="h-5 w-5" aria-hidden="true" />
           </Link>
         </div>
 

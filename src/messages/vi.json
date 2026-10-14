@@ -251,7 +251,8 @@
     "level": "Cấp độ {level}",
     "other": "Khác",
     "errorGeneric": "Đã xảy ra lỗi.",
-    "retry": "Thử lại"
+    "retry": "Thử lại",
+    "dismiss": "Đóng"
   },
   "Notifications": {
     "copyOpenedTitle": "Đã sao chép giao dịch mới",
@@ -337,7 +338,8 @@
     "copyOpenedBulkTitle": "Đã sao chép {count} lệnh",
     "copyOpenedBulkBody": "{count} lệnh của {providerName} đã được sao chép vào tài khoản của bạn.",
     "copyClosedBulkTitle": "Đã đóng {count} lệnh",
-    "copyClosedBulkBody": "{count} lệnh sao chép từ {providerName} đã đóng với kết quả tổng {amount}."
+    "copyClosedBulkBody": "{count} lệnh sao chép từ {providerName} đã đóng với kết quả tổng {amount}.",
+    "cat_market": "Thị trường"
   },
   "Portfolio": {
     "title": "Danh mục của tôi",
@@ -871,7 +873,9 @@
     "passwordLabel": "Mật khẩu",
     "nameLabel": "Họ và tên",
     "phoneLabel": "Số điện thoại",
-    "confirmLabel": "Xác nhận mật khẩu"
+    "confirmLabel": "Xác nhận mật khẩu",
+    "stepOf": "Bước {step}/{total}",
+    "stepBack": "Quay lại"
   },
   "Legal": {
     "backToHome": "Về trang chủ",

@@ -251,7 +251,8 @@
     "level": "লেভেল {level}",
     "other": "অন্যান্য",
     "errorGeneric": "কিছু ভুল হয়েছে।",
-    "retry": "আবার চেষ্টা করুন"
+    "retry": "আবার চেষ্টা করুন",
+    "dismiss": "বন্ধ করুন"
   },
   "Notifications": {
     "copyOpenedTitle": "নতুন ট্রেড কপি হয়েছে",
@@ -337,7 +338,8 @@
     "copyOpenedBulkTitle": "{count}টি ট্রেড কপি হয়েছে",
     "copyOpenedBulkBody": "{providerName} এর {count}টি ট্রেড আপনার অ্যাকাউন্টে কপি হয়েছে।",
     "copyClosedBulkTitle": "{count}টি ট্রেড বন্ধ হয়েছে",
-    "copyClosedBulkBody": "{providerName} থেকে কপি করা {count}টি ট্রেড মোট ফলাফল {amount} সহ বন্ধ হয়েছে।"
+    "copyClosedBulkBody": "{providerName} থেকে কপি করা {count}টি ট্রেড মোট ফলাফল {amount} সহ বন্ধ হয়েছে।",
+    "cat_market": "বাজার"
   },
   "Portfolio": {
     "title": "আমার পোর্টফোলিও",
@@ -871,7 +873,9 @@
     "passwordLabel": "পাসওয়ার্ড",
     "nameLabel": "পূর্ণ নাম",
     "phoneLabel": "ফোন নম্বর",
-    "confirmLabel": "পাসওয়ার্ড নিশ্চিত করুন"
+    "confirmLabel": "পাসওয়ার্ড নিশ্চিত করুন",
+    "stepOf": "ধাপ {step}/{total}",
+    "stepBack": "ফিরে যান"
   },
   "Legal": {
     "backToHome": "হোমে ফিরে যান",

@@ -251,7 +251,8 @@
     "level": "لیول {level}",
     "other": "دیگر",
     "errorGeneric": "کچھ غلط ہو گیا۔",
-    "retry": "دوبارہ کوشش کریں"
+    "retry": "دوبارہ کوشش کریں",
+    "dismiss": "بند کریں"
   },
   "Notifications": {
     "copyOpenedTitle": "نئی ٹریڈ کاپی ہوگئی",
@@ -337,7 +338,8 @@
     "copyOpenedBulkTitle": "{count} ٹریڈز کاپی ہوئیں",
     "copyOpenedBulkBody": "{providerName} کی {count} ٹریڈز آپ کے اکاؤنٹ میں کاپی ہوئیں۔",
     "copyClosedBulkTitle": "{count} ٹریڈز بند ہوئیں",
-    "copyClosedBulkBody": "{providerName} سے کاپی کی گئی {count} ٹریڈز مجموعی نتیجہ {amount} کے ساتھ بند ہوئیں۔"
+    "copyClosedBulkBody": "{providerName} سے کاپی کی گئی {count} ٹریڈز مجموعی نتیجہ {amount} کے ساتھ بند ہوئیں۔",
+    "cat_market": "مارکیٹ"
   },
   "Portfolio": {
     "title": "میرا پورٹ فولیو",
@@ -871,7 +873,9 @@
     "passwordLabel": "پاس ورڈ",
     "nameLabel": "پورا نام",
     "phoneLabel": "فون نمبر",
-    "confirmLabel": "پاس ورڈ کی تصدیق کریں"
+    "confirmLabel": "پاس ورڈ کی تصدیق کریں",
+    "stepOf": "مرحلہ {step} از {total}",
+    "stepBack": "واپس"
   },
   "Legal": {
     "backToHome": "ہوم پیج پر واپس جائیں",

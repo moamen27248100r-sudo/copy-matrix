@@ -251,7 +251,8 @@
     "level": "Kiwango {level}",
     "other": "Nyingine",
     "errorGeneric": "Kuna tatizo limetokea.",
-    "retry": "Jaribu tena"
+    "retry": "Jaribu tena",
+    "dismiss": "Funga"
   },
   "Notifications": {
     "copyOpenedTitle": "Biashara mpya imenakiliwa",
@@ -337,7 +338,8 @@
     "copyOpenedBulkTitle": "Biashara {count} zimenakiliwa",
     "copyOpenedBulkBody": "Biashara {count} za {providerName} zimenakiliwa kwenye akaunti yako.",
     "copyClosedBulkTitle": "Biashara {count} zimefungwa",
-    "copyClosedBulkBody": "Biashara {count} zilizonakiliwa kutoka {providerName} zimefungwa kwa matokeo ya jumla {amount}."
+    "copyClosedBulkBody": "Biashara {count} zilizonakiliwa kutoka {providerName} zimefungwa kwa matokeo ya jumla {amount}.",
+    "cat_market": "Soko"
   },
   "Portfolio": {
     "title": "Jalada Langu",
@@ -871,7 +873,9 @@
     "passwordLabel": "Nenosiri",
     "nameLabel": "Jina kamili",
     "phoneLabel": "Nambari ya simu",
-    "confirmLabel": "Thibitisha nenosiri"
+    "confirmLabel": "Thibitisha nenosiri",
+    "stepOf": "Hatua {step} ya {total}",
+    "stepBack": "Rudi"
   },
   "Legal": {
     "backToHome": "Rudi mwanzo",

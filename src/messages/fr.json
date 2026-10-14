@@ -251,7 +251,8 @@
     "level": "Niveau {level}",
     "other": "Autre",
     "errorGeneric": "Une erreur est survenue.",
-    "retry": "Réessayer"
+    "retry": "Réessayer",
+    "dismiss": "Fermer"
   },
   "Notifications": {
     "copyOpenedTitle": "Nouvelle position copiée",
@@ -337,7 +338,8 @@
     "copyOpenedBulkTitle": "{count} trades copiés",
     "copyOpenedBulkBody": "{count} trades de {providerName} ont été copiés sur votre compte.",
     "copyClosedBulkTitle": "{count} trades clôturés",
-    "copyClosedBulkBody": "{count} trades copiés de {providerName} ont été clôturés avec un résultat cumulé de {amount}."
+    "copyClosedBulkBody": "{count} trades copiés de {providerName} ont été clôturés avec un résultat cumulé de {amount}.",
+    "cat_market": "Marché"
   },
   "Portfolio": {
     "title": "Mon portefeuille",
@@ -871,7 +873,9 @@
     "passwordLabel": "Mot de passe",
     "nameLabel": "Nom complet",
     "phoneLabel": "Numéro de téléphone",
-    "confirmLabel": "Confirmer le mot de passe"
+    "confirmLabel": "Confirmer le mot de passe",
+    "stepOf": "Étape {step} sur {total}",
+    "stepBack": "Retour"
   },
   "Legal": {
     "backToHome": "Retour à l'accueil",

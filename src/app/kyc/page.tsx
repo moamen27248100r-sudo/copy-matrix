@@ -5,6 +5,8 @@ import { submitKyc } from "@/app/kyc/actions";
 import { AppNav } from "@/components/AppNav";
 import { formatDate } from "@/lib/locale-format";
 import type { Locale } from "@/i18n/locales";
+import { FlashMessage } from "@/components/ui/Toast";
+import { DraftForm } from "@/components/ui/DraftForm";
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
@@ -74,12 +76,12 @@ export default async function KycPage({
           </p>
 
           {error && (
-            <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
+            <FlashMessage tone="error">
               {error}
-            </p>
+            </FlashMessage>
           )}
 
-          <form action={submitKyc} className="flex flex-col gap-3">
+          <DraftForm draftKey="kyc" action={submitKyc} className="flex flex-col gap-3">
             <input
               name="fullName"
               type="text"
@@ -116,7 +118,7 @@ export default async function KycPage({
             <button type="submit" className="rounded bg-accent px-3 py-2 font-medium text-accent-foreground transition hover:bg-accent-hover">
               {t("submitForReview")}
             </button>
-          </form>
+          </DraftForm>
         </>
       )}
       </main>

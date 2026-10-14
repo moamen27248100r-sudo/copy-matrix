@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { VerifyCodeForm } from "@/components/VerifyCodeForm";
+import { FlashMessage } from "@/components/ui/Toast";
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
@@ -24,9 +25,9 @@ export default async function VerifyCodePage({
       </p>
 
       {error && (
-        <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
+        <FlashMessage tone="error">
           {error}
-        </p>
+        </FlashMessage>
       )}
 
       <VerifyCodeForm email={email ?? ""} />

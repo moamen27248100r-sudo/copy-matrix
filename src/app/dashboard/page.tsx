@@ -15,6 +15,7 @@ import { TopMovers } from "@/components/TopMovers";
 import { TraderAvatar } from "@/components/TraderAvatar";
 import { RiskFooter } from "@/components/RiskFooter";
 import { Skeleton } from "@/components/ui/Skeleton";
+import { FlashMessage } from "@/components/ui/Toast";
 
 function SectionSkeleton() {
   return (
@@ -224,7 +225,7 @@ export default async function DashboardPage({
       <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-[var(--sidebar-w)] lg:me-0 lg:pb-6">
         <h1 className="sr-only">{tNav("navHome")}</h1>
 
-        {error && <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>}
+        {error && <FlashMessage tone="error">{error}</FlashMessage>}
 
         {/* One quiet line: the wallet value, a link to the wallet. */}
         <Link

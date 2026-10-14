@@ -19,6 +19,7 @@ import { MIN_CLOSED_TRADES, adjustedMaxDrawdown } from "@/lib/leader-scores";
 import { adjustedDrawdowns } from "@/lib/leader-drawdown";
 import { aumBandAtLeast, aumBandFloor } from "@/lib/aum-band";
 import { isSelfServiceLeadTraderEligible } from "@/lib/lead-trader-tasks";
+import { FlashMessage } from "@/components/ui/Toast";
 import {
   PERIODS,
   RISK_DB_VALUE,
@@ -332,7 +333,7 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
         <h1 className="text-page-title">{t("title")}</h1>
         {user && <DiscoverTabs active="traders" />}
 
-        {error && <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>}
+        {error && <FlashMessage tone="error">{error}</FlashMessage>}
 
         <div className="flex items-center gap-2">
           <form method="get" className="relative min-w-0 flex-1">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMoney } from "@/lib/money-client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
@@ -67,6 +67,33 @@ export function CopyDialog({
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // What was typed in the dialog survives closing it, Back and a reload (this tab only).
+  const draftKey = `cm.draft.copy.${providerId}`;
+  const draftReady = useRef(false);
+  useEffect(() => {
+    if (edit) return;
+    const timer = setTimeout(() => {
+      try {
+        const d = JSON.parse(sessionStorage.getItem(draftKey) ?? "null") as { amount?: string; mode?: string } | null;
+        if (d?.amount) setAmount(d.amount);
+        if (d?.mode === "ratio" || d?.mode === "fixed") setMode(d.mode);
+      } catch {
+        // no draft
+      }
+      draftReady.current = true;
+    }, 0);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    if (edit || !draftReady.current) return;
+    try {
+      sessionStorage.setItem(draftKey, JSON.stringify({ amount, mode }));
+    } catch {
+      // storage unavailable
+    }
+  }, [amount, mode, edit, draftKey]);
 
   useBodyScrollLock(open);
   useEffect(() => {

@@ -16,6 +16,7 @@ import { WalletStatusBadge } from "@/components/wallet/WalletStatus";
 import { RiskFooter } from "@/components/RiskFooter";
 import { depositsEnabled } from "@/lib/deposits-enabled";
 import { computeRisk, currentDrawdownPct, leaderRiskLevel } from "@/lib/portfolio-risk";
+import { FlashMessage } from "@/components/ui/Toast";
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
@@ -178,7 +179,7 @@ export default async function PortfolioPage({
       <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-[var(--sidebar-w)] lg:me-0 lg:pb-6">
         <h1 className="text-page-title">{t("title")}</h1>
 
-        {error && <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>}
+        {error && <FlashMessage tone="error">{error}</FlashMessage>}
         {demo && (
           <AutoDismissMessage className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success" clearParams={["demo"]}>
             {demo === "deposit" ? t("demoDepositDone") : demo === "withdraw" ? t("demoWithdrawDone") : t("demoResetDone")}

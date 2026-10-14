@@ -4,6 +4,7 @@ import { SignupForm } from "@/components/SignupForm";
 import { AuthShell } from "@/components/auth/AuthShell";
 import { safeNextPath } from "@/lib/safe-next";
 import { GoogleSignInButton } from "@/components/GoogleSignInButton";
+import { AuthSteps } from "@/components/auth/AuthSteps";
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
@@ -22,6 +23,7 @@ export default async function SignupPage({
 
   return (
     <AuthShell title={t("signupTitle")} subtitle={t("signupSubtitle")}>
+      <AuthSteps step={1} />
       {error && (
         <p role="alert" className="rounded-xl border border-down/40 bg-down/10 px-4 py-3 text-sm text-foreground">
           {error}

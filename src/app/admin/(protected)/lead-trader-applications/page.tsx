@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { approveLeadTraderApplication, rejectLeadTraderApplication } from "@/app/admin/actions";
+import { FlashMessage } from "@/components/ui/Toast";
 
 const STATUS_LABELS: Record<string, string> = {
   pending: "قيد المراجعة",
@@ -33,7 +34,7 @@ export default async function AdminLeadTraderApplicationsPage({
     <>
       <h1 className="text-2xl font-semibold">طلبات المتداول القائد</h1>
 
-      {error && <p className="rounded border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>}
+      {error && <FlashMessage tone="error">{error}</FlashMessage>}
 
       <section className="flex flex-col gap-3">
         <h2 className="font-medium">طلبات معلقة</h2>

@@ -8,6 +8,7 @@ import { headers } from "next/headers";
 import { BottomNav } from "@/components/BottomNav";
 import { ImpersonationBanner } from "@/components/ImpersonationBanner";
 import { StripFlashParams } from "@/components/StripFlashParams";
+import { ToastProvider } from "@/components/ui/Toast";
 import { SEARCH_INDEXING_ENABLED } from "@/lib/indexing";
 import { GLOBAL_CLIENT_NAMESPACES, pickMessages } from "@/i18n/client-messages";
 import "./globals.css";
@@ -99,7 +100,7 @@ export default async function RootLayout({
           <Suspense fallback={null}>
             <StripFlashParams />
           </Suspense>
-          {children}
+          <ToastProvider>{children}</ToastProvider>
           {hasSession && <BottomNav />}
         </NextIntlClientProvider>
       </body>

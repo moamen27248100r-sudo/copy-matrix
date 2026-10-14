@@ -6,6 +6,7 @@ import { sendAnnouncement, deleteAnnouncement } from "@/app/lead/announcements/a
 import { ConfirmButton } from "@/components/ConfirmButton";
 import { formatDateTime } from "@/lib/locale-format";
 import type { Locale } from "@/i18n/locales";
+import { FlashMessage } from "@/components/ui/Toast";
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
@@ -33,8 +34,8 @@ export default async function LeadAnnouncementsPage({ searchParams }: { searchPa
   return (
     <div className="flex flex-col gap-6">
       <h1 className="text-page-title">{t("title")}</h1>
-      {err && <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">{t(err === "empty" ? "err_empty" : "err_failed")}</p>}
-      {ok && <p className="rounded-lg border border-success/30 bg-success/10 px-3 py-2 text-sm text-success">{t("sent")}</p>}
+      {err && <FlashMessage tone="error">{t(err === "empty" ? "err_empty" : "err_failed")}</FlashMessage>}
+      {ok && <FlashMessage tone="success">{t("sent")}</FlashMessage>}
 
       <form action={sendAnnouncement} className="flex flex-col gap-2 rounded-2xl border border-border bg-surface p-4">
         <textarea name="body" rows={3} maxLength={280} required placeholder={t("placeholder")} className="rounded-lg border border-border bg-background px-3 py-2 text-base" />

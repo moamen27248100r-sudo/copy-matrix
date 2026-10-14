@@ -251,7 +251,8 @@
     "level": "Level {level}",
     "other": "Lainnya",
     "errorGeneric": "Terjadi kesalahan.",
-    "retry": "Coba lagi"
+    "retry": "Coba lagi",
+    "dismiss": "Tutup"
   },
   "Notifications": {
     "copyOpenedTitle": "Trade baru disalin",
@@ -337,7 +338,8 @@
     "copyOpenedBulkTitle": "{count} trade disalin",
     "copyOpenedBulkBody": "{count} trade dari {providerName} disalin ke akun Anda.",
     "copyClosedBulkTitle": "{count} trade ditutup",
-    "copyClosedBulkBody": "{count} trade salinan dari {providerName} ditutup dengan hasil gabungan {amount}."
+    "copyClosedBulkBody": "{count} trade salinan dari {providerName} ditutup dengan hasil gabungan {amount}.",
+    "cat_market": "Pasar"
   },
   "Portfolio": {
     "title": "Portofolio Saya",
@@ -871,7 +873,9 @@
     "passwordLabel": "Kata sandi",
     "nameLabel": "Nama lengkap",
     "phoneLabel": "Nomor telepon",
-    "confirmLabel": "Konfirmasi kata sandi"
+    "confirmLabel": "Konfirmasi kata sandi",
+    "stepOf": "Langkah {step} dari {total}",
+    "stepBack": "Kembali"
   },
   "Legal": {
     "backToHome": "Kembali ke beranda",
