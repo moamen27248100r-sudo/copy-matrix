@@ -78,7 +78,7 @@ export async function RecentActivityTimeline({ events }: { events: ActivityEvent
           <div key={e.id} className="flex items-center gap-3">
             <EventIcon type={e.type} />
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm">{label(e)}</p>
+              <p className="line-clamp-2 text-sm">{label(e)}</p>
             </div>
             <span className="shrink-0 text-xs text-muted" dir="ltr">
               {formatDate(e.at, locale, { month: "short", day: "numeric" })}

@@ -78,7 +78,7 @@ function Row({ item, active, compact, onNavigate }: { item: Item; active: boolea
       </span>
       {!compact && (
         <>
-          <span className="min-w-0 flex-1 truncate">{item.label}</span>
+          <span className="min-w-0 flex-1 leading-snug">{item.label}</span>
           <ChevronRight className="h-4 w-4 shrink-0 text-muted rtl:rotate-180" aria-hidden="true" />
         </>
       )}
@@ -190,7 +190,7 @@ export function MenuBody({
               </p>
               <div className="mt-1 flex items-center gap-1.5 text-xs text-muted">
                 <span className="shrink-0">{tm("accountNumber")}</span>
-                <span className="min-w-0 truncate font-mono text-muted" dir="ltr" title={accountDisplay}>
+                <span className="shrink-0 font-mono text-muted" dir="ltr" title={accountDisplay}>
                   {accountDisplay}
                 </span>
                 <button
