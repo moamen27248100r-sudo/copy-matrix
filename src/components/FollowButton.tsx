@@ -77,7 +77,7 @@ export function FollowButton({
           role="status"
           className="fixed top-4 start-4 z-50 flex max-w-xs flex-col gap-0.5 rounded-lg border border-slate-700/70 bg-[#0b1222] p-3 shadow-lg shadow-black/30 sm:top-6 sm:start-6"
         >
-          <p className="flex items-center gap-1.5 text-sm font-semibold text-emerald-400">
+          <p className="flex items-center gap-1.5 text-sm font-bold text-emerald-400">
             <CheckIcon className="h-4 w-4 shrink-0" />
             {toast.title}
           </p>

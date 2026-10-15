@@ -25,7 +25,7 @@ export async function TopTradersWeek({ excludeProviderIds }: { excludeProviderId
 
   return (
     <section className="flex flex-col gap-3">
-      <h2 className="text-base font-semibold">{t("topTradersWeekTitle")}</h2>
+      <h2 className="text-section-title">{t("topTradersWeekTitle")}</h2>
       <div className="-mx-6 flex gap-3 overflow-x-auto px-6 pb-1 sm:mx-0 sm:px-0">
         {providers.map((p) => (
           <div key={p.provider_id} className="w-64 shrink-0">
@@ -33,7 +33,7 @@ export async function TopTradersWeek({ excludeProviderIds }: { excludeProviderId
           </div>
         ))}
       </div>
-      <p className="text-[11px] text-muted">{t("topTradersWeekNote")}</p>
+      <p className="text-xs text-muted">{t("topTradersWeekNote")}</p>
     </section>
   );
 }

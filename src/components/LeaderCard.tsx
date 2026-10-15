@@ -6,7 +6,7 @@ import { TierBadge, RiskBadge, StoppedBadge } from "@/components/TraderBadges";
 import { Sparkline } from "@/components/Sparkline";
 import { ConfirmButton } from "@/components/ConfirmButton";
 import { periodStats, DEFAULT_PERIOD, type Period } from "@/lib/leader-period";
-import { fmtDrawdown, fmtReturn, fmtWinRate } from "@/lib/format-stats";
+import { fmtDrawdown, fmtReturn, fmtWinRate, ltrIsolate } from "@/lib/format-stats";
 import { adjustedMaxDrawdown } from "@/lib/leader-scores";
 import { aumBandFloor } from "@/lib/aum-band";
 
@@ -28,7 +28,7 @@ type ProviderCard = {
 // The period a number was computed over (7D / 30D / ...), small and grey beside it.
 function PeriodTag({ label }: { label: string }) {
   return (
-    <span dir="ltr" className="ms-0.5 text-[9px] font-medium uppercase tracking-wide text-muted/70">
+    <span dir="ltr" className="ms-0.5 text-xs font-medium uppercase tracking-wide text-dim">
       {label}
     </span>
   );
@@ -106,7 +106,7 @@ export async function LeaderCard({
             showLevel
           />
           <div className="min-w-0">
-            <p className="min-w-0 truncate text-base font-semibold tracking-tight">{p.display_name}</p>
+            <p className="min-w-0 truncate text-base font-bold tracking-tight">{p.display_name}</p>
             <div className="mt-1 flex flex-wrap items-center gap-1.5">
               <TierBadge tier={p.tier} />
               <RiskBadge level={p.risk_level} />
@@ -138,8 +138,8 @@ export async function LeaderCard({
 
       {sparkline && sparkline.length >= 3 && (
         <div className="relative z-10 rounded-xl border border-white/5 bg-background p-3">
-          <div className="flex items-center justify-end text-[11px] text-muted">
-            <span dir="ltr" className={`font-semibold ${sparkline[sparkline.length - 1] >= 0 ? "text-success" : "text-danger"}`}>
+          <div className="flex items-center justify-end text-xs text-muted">
+            <span dir="ltr" className={`font-bold ${sparkline[sparkline.length - 1] >= 0 ? "text-success" : "text-danger"}`}>
               {fmtReturn(sparkline[sparkline.length - 1])}
             </span>
           </div>
@@ -153,36 +153,36 @@ export async function LeaderCard({
           lighter muted label underneath). */}
       <div className="flex items-center overflow-hidden rounded-xl border border-white/[0.06] bg-background/60">
         <div className="flex-1 border-e border-white/10 px-2 py-2.5 text-center">
-          <p className="text-sm font-semibold text-success" title={hint}>
+          <p className="text-sm font-bold text-success" title={hint}>
             {fmtWinRate(stats.winRate)} <PeriodTag label={periodLabel} />
           </p>
-          <p className="text-[11px] font-normal text-muted">{t("winRate")}</p>
+          <p className="text-xs font-normal text-muted">{t("winRate")}</p>
         </div>
         <div className="flex-1 border-e border-white/10 px-2 py-2.5 text-center">
           {maxDrawdownPct !== undefined ? (
             <>
-              <p className="text-sm font-semibold text-foreground">{fmtDrawdown(maxDrawdownPct)}</p>
-              <p className="text-[11px] font-normal text-muted">{t("maxDrawdown")}</p>
+              <p dir="ltr" className="text-sm font-bold text-foreground">{fmtDrawdown(maxDrawdownPct)}</p>
+              <p className="text-xs font-normal text-muted">{t("maxDrawdown")}</p>
             </>
           ) : (
             <>
-              <p className={isDown ? "text-sm font-semibold text-danger" : "text-sm font-semibold text-success"} dir="ltr" title={hint}>
+              <p className={isDown ? "text-sm font-bold text-danger" : "text-sm font-bold text-success"} dir="ltr" title={hint}>
                 {fmtReturn(stats.roi)}
               </p>
-              <p className="text-[11px] font-normal text-muted">{t("roiLabel", { period: periodLabel })}</p>
+              <p className="text-xs font-normal text-muted">{t("roiLabel", { period: periodLabel })}</p>
             </>
           )}
         </div>
         <div className="flex-1 px-2 py-2.5 text-center">
-          <p className="text-sm font-semibold">{p.followers_count}</p>
-          <p className="text-[11px] font-normal text-muted">{t("copiersLabel")}</p>
+          <p className="text-sm font-bold">{p.followers_count}</p>
+          <p className="text-xs font-normal text-muted">{t("copiersLabel")}</p>
         </div>
       </div>
 
       {/* Second row: what the first row does not already show. With the drawdown in the first row
           (the home page passes it) the return and the number of closed trades follow; otherwise the
           number of closed trades and the drawdown. */}
-      <div className="grid grid-cols-3 gap-1 text-center text-[11px] text-muted">
+      <div className="grid grid-cols-3 gap-1 text-center text-xs text-muted">
         {maxDrawdownPct !== undefined ? (
           <>
             <div>
@@ -215,7 +215,7 @@ export async function LeaderCard({
           </>
         )}
         <div>
-          <p dir="ltr" className="font-medium text-foreground">{aumBandFloor(p.aum_band) != null ? t("aumOver", { amount: money(aumBandFloor(p.aum_band) as number, { compact: true }) }) : "—"}</p>
+          <p className="font-medium text-foreground">{aumBandFloor(p.aum_band) != null ? t("aumOver", { amount: ltrIsolate(money(aumBandFloor(p.aum_band) as number, { compact: true })) }) : "—"}</p>
           <p>{t("aumLabel")}</p>
         </div>
       </div>
@@ -267,7 +267,7 @@ export async function LeaderCard({
         ) : (
           <Link
             href={copyHref}
-            className="w-full rounded-lg bg-accent px-3 py-3 text-center text-sm font-semibold text-accent-foreground shadow-md shadow-accent/20 transition hover:bg-accent-hover"
+            className="w-full rounded-lg bg-accent px-3 py-3 text-center text-sm font-bold text-accent-foreground shadow-md shadow-accent/20 transition hover:bg-accent-hover"
           >
             {t("copy")}
           </Link>

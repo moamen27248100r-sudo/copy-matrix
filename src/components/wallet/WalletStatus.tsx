@@ -40,7 +40,7 @@ export function WalletStatusBadge({
           cancelled: t("statusCancelled"),
         } as Record<string, string>)[status] ?? status;
   return (
-    <span className={`inline-flex whitespace-nowrap rounded border px-2 py-0.5 text-[11px] font-medium ${TONE[status] ?? "border-border text-muted"}`}>
+    <span className={`inline-flex whitespace-nowrap rounded border px-2 py-0.5 text-xs font-medium ${TONE[status] ?? "border-border text-muted"}`}>
       {label}
     </span>
   );

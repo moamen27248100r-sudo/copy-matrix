@@ -17,7 +17,7 @@ export default async function ResetPasswordPage({
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col justify-center gap-4 p-6">
-      <h1 className="text-2xl font-semibold">{t("resetTitle")}</h1>
+      <h1 className="text-page-title">{t("resetTitle")}</h1>
 
       <p className="text-sm text-muted">{t("resetSubtitle")}</p>
 

@@ -41,7 +41,7 @@ function StepBadge({ index }: { index: number }) {
   return (
     <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-accent/40 bg-accent/10 text-accent shadow-[0_0_18px_-3px_var(--accent)]">
       <StepIcon index={index} />
-      <span className="absolute -bottom-1 -end-1 flex h-5 w-5 items-center justify-center rounded-full border-2 border-background bg-accent text-[10px] font-bold text-accent-foreground">
+      <span className="absolute -bottom-1 -end-1 flex h-5 w-5 items-center justify-center rounded-full border-2 border-background bg-accent text-xs font-bold text-accent-foreground">
         {index + 1}
       </span>
     </div>
@@ -60,8 +60,8 @@ function StepCard({ title, desc, horizontal = false }: { title: string; desc: st
       ref={ref}
       className={`${CARD_BASE} ${inView ? CARD_GLOW : CARD_IDLE} ${horizontal ? "flex h-full flex-col gap-1 text-center" : ""}`}
     >
-      <p className="line-clamp-2 text-sm font-semibold text-slate-100">{title}</p>
-      <p className={`line-clamp-2 text-sm leading-relaxed text-slate-400 ${horizontal ? "" : "mt-1"}`}>{desc}</p>
+      <p className="line-clamp-2 text-sm font-bold text-foreground">{title}</p>
+      <p className={`line-clamp-2 text-sm leading-relaxed text-muted ${horizontal ? "" : "mt-1"}`}>{desc}</p>
     </div>
   );
 }
@@ -74,11 +74,11 @@ export function HowItWorks() {
   return (
     <section id="how-it-works" className="flex flex-col gap-10 px-6 py-16">
       <div className="mx-auto flex max-w-xl flex-col items-center gap-2 text-center">
-        <span className="line-clamp-1 inline-flex w-fit items-center rounded-md border border-slate-700/50 bg-slate-800/60 px-2 py-0.5 text-[11px] font-medium text-slate-300">
+        <span className="line-clamp-1 inline-flex w-fit items-center rounded-md border border-slate-700/50 bg-slate-800/60 px-2 py-0.5 text-xs font-medium text-muted">
           {t("badge")}
         </span>
-        <h2 className="line-clamp-1 text-2xl font-semibold text-slate-100 sm:text-3xl">{t("title")}</h2>
-        <p className="line-clamp-2 text-sm text-slate-400">{t("subtitle")}</p>
+        <h2 className="line-clamp-1 text-2xl font-bold text-foreground sm:text-3xl">{t("title")}</h2>
+        <p className="line-clamp-2 text-sm text-muted">{t("subtitle")}</p>
       </div>
 
       {/* Mobile / tablet: vertical stepper, a glowing icon badge fused

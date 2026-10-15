@@ -29,7 +29,7 @@ import { RiskFooter } from "@/components/RiskFooter";
 import { getBioTranslator } from "@/lib/bio-translations";
 import type { Locale } from "@/i18n/locales";
 import { leaderScores } from "@/lib/leader-scores";
-import { fmtDrawdown, fmtReturn, fmtWinRate } from "@/lib/format-stats";
+import { fmtDrawdown, fmtReturn, fmtWinRate, ltrIsolate } from "@/lib/format-stats";
 import { aumBandFloor } from "@/lib/aum-band";
 import { adjustedMaxDrawdown, hasEnoughSample } from "@/lib/leader-scores";
 import { adjustedDrawdowns } from "@/lib/leader-drawdown";
@@ -319,7 +319,7 @@ export default async function TraderPage({
           <TraderAvatar providerId={id} name={provider.display_name} avatarUrl={provider.avatar_url} ratingScore={provider.rating_score} size={64} priority />
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
-              <h1 className="max-w-full break-words text-xl font-semibold [overflow-wrap:anywhere]">{provider.display_name}</h1>
+              <h1 className="max-w-full break-words text-xl font-bold [overflow-wrap:anywhere]">{provider.display_name}</h1>
               {countryDisplay(provider.country) && (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -343,7 +343,7 @@ export default async function TraderPage({
             </div>
             {manageSheet && <div className="mt-1.5 flex flex-wrap items-center gap-2">{manageSheet}</div>}
             {isWatching && (
-              <p className="mt-0.5 text-[11px] text-muted">
+              <p className="mt-0.5 text-xs text-muted">
                 {t("followNotifyNote")}
               </p>
             )}
@@ -353,13 +353,13 @@ export default async function TraderPage({
         {provider.bio && <p dir="auto" className="text-start text-sm text-muted">{translateBio(provider.bio)}</p>}
         {ltPublic?.strategy_description && (
           <div className="rounded-xl border border-border bg-surface p-3">
-            <p className="mb-1 text-xs font-semibold">{t("strategyTitle")}</p>
+            <p className="mb-1 text-xs font-bold">{t("strategyTitle")}</p>
             <p className="whitespace-pre-line text-sm text-muted">{ltPublic.strategy_description}</p>
           </div>
         )}
         {ltPublic?.risk_disclosure && (
           <div className="rounded-xl border border-warning/30 bg-warning/5 p-3">
-            <p className="mb-1 text-xs font-semibold text-warning">{t("riskDisclosureTitle")}</p>
+            <p className="mb-1 text-xs font-bold text-warning">{t("riskDisclosureTitle")}</p>
             <p className="whitespace-pre-line text-sm text-muted">{ltPublic.risk_disclosure}</p>
           </div>
         )}
@@ -434,43 +434,43 @@ export default async function TraderPage({
 
         <div className="grid grid-cols-2 gap-3 border-t border-slate-700/70 pt-4 text-center text-sm sm:grid-cols-3">
           <div>
-            <p className="font-semibold">{provider.followers_count}</p>
+            <p className="font-bold">{provider.followers_count}</p>
             <p className="text-xs text-muted">{t("statCopiers")}</p>
           </div>
           <div>
-            <p className={Number(provider.roi_all) >= 0 ? "font-semibold text-success" : "font-semibold text-danger"} dir="ltr">
+            <p className={Number(provider.roi_all) >= 0 ? "font-bold text-success" : "font-bold text-danger"} dir="ltr">
               {enoughData ? fmtReturn(provider.roi_all != null ? Number(provider.roi_all) : null) : "—"}
             </p>
             <p className="text-xs text-muted">{t("statTotalReturn")}</p>
           </div>
           <div>
-            <p className="font-semibold">
+            <p className="font-bold">
               {enoughData ? fmtWinRate(provider.win_rate_pct != null ? Number(provider.win_rate_pct) : null) : "—"}
             </p>
             <p className="text-xs text-muted">{t("statOverallWinRate")}</p>
           </div>
           <div>
-            <p className="font-semibold text-danger" dir="ltr">
+            <p className="font-bold text-danger" dir="ltr">
               {fmtDrawdown(maxDrawdown)}
             </p>
             <p className="text-xs text-muted">{t("statMaxDrawdown")}</p>
           </div>
           <div>
-            <p className="font-semibold" dir="ltr">
-              {aumBandFloor(provider.aum_band) != null ? t("aumOver", { amount: money(aumBandFloor(provider.aum_band) as number, { compact: true }) }) : "—"}
+            <p className="font-bold">
+              {aumBandFloor(provider.aum_band) != null ? t("aumOver", { amount: ltrIsolate(money(aumBandFloor(provider.aum_band) as number, { compact: true })) }) : "—"}
             </p>
             <p className="text-xs text-muted">{t("statAum")}</p>
           </div>
           {profitShare != null && (
             <div>
-              <p className="font-semibold" dir="ltr">
+              <p className="font-bold" dir="ltr">
                 {profitShare}%
               </p>
               <p className="text-xs text-muted">{t("statProfitShare")}</p>
             </div>
           )}
           <div>
-            <p className="font-semibold tabular-nums" dir="ltr">
+            <p className="font-bold tabular-nums" dir="ltr">
               {avgHoldHours != null ? t("hoursShort", { hours: Math.round(avgHoldHours * 10) / 10 }) : "—"}
             </p>
             <p className="text-xs text-muted">{t("statAvgDuration")}</p>
@@ -484,19 +484,19 @@ export default async function TraderPage({
           </summary>
           <div className="mt-3 grid grid-cols-2 gap-3 text-center sm:grid-cols-3">
             <div>
-              <p className="font-semibold tabular-nums" dir="ltr">
+              <p className="font-bold tabular-nums" dir="ltr">
                 {enoughData ? (sharpe ?? "—") : "—"}
               </p>
               <p className="text-xs text-muted">{t("statSharpe")}</p>
             </div>
             <div>
-              <p className="font-semibold tabular-nums" dir="ltr">
+              <p className="font-bold tabular-nums" dir="ltr">
                 {enoughData && provider.profit_factor != null ? Number(provider.profit_factor).toFixed(2) : "—"}
               </p>
               <p className="text-xs text-muted">{t("statProfitFactor")}</p>
             </div>
             <div>
-              <p className="font-semibold tabular-nums" dir="ltr">
+              <p className="font-bold tabular-nums" dir="ltr">
                 {enoughData && provider.avg_win_pct != null ? `+${Number(provider.avg_win_pct).toFixed(2)}%` : "—"} /{" "}
                 {enoughData && provider.avg_loss_pct != null ? `${Number(provider.avg_loss_pct).toFixed(2)}%` : "—"}
               </p>
@@ -546,12 +546,12 @@ export default async function TraderPage({
       {activeTab === "performance" && (
         <section className="flex flex-col gap-6">
           <div className="flex flex-col gap-3">
-            <h2 className="font-medium">{t("periodsPerformanceTitle")}</h2>
+            <h2 className="text-section-title">{t("periodsPerformanceTitle")}</h2>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
               {periods.map((p) => (
                 <div key={p.labelKey} className="rounded-lg border border-border bg-surface p-3 text-center">
                   <p className="text-xs text-muted">{tp(p.labelKey)}</p>
-                  <p className={p.roi != null && p.roi < 0 ? "text-lg font-semibold text-danger" : "text-lg font-semibold text-success"} dir="ltr">
+                  <p className={p.roi != null && p.roi < 0 ? "text-lg font-bold text-danger" : "text-lg font-bold text-success"} dir="ltr">
                     {p.roi != null && hasEnoughSample(p.trades) ? fmtReturn(p.roi) : "—"}
                   </p>
                   <p className="text-xs text-muted">
@@ -563,7 +563,7 @@ export default async function TraderPage({
           </div>
 
           <div className="flex flex-col gap-3">
-            <h2 className="font-medium">{t("monthlyReturnsTitle")}</h2>
+            <h2 className="text-section-title">{t("monthlyReturnsTitle")}</h2>
             <MonthlyReturnsCalendar daily={dailyForClient} locale={locale} />
           </div>
         </section>

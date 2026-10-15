@@ -68,12 +68,12 @@ export default async function SettingsPage({
           </FlashMessage>
         )}
 
-        <section className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
-          <h2 className="font-medium">{t("profileTitle")}</h2>
+        <section className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
+          <h2 className="text-section-title">{t("profileTitle")}</h2>
           <p className="text-xs text-muted">{user.email}</p>
           {profile?.account_number != null && (
             <p className="text-xs text-muted">
-              {tMenu("accountNumber")} <span dir="ltr" className="inline-block font-mono text-foreground/80">#{profile.account_number}</span>
+              {tMenu("accountNumber")} <span dir="ltr" className="inline-block font-mono text-muted">#{profile.account_number}</span>
             </p>
           )}
           <form action={updateProfile} className="flex flex-col gap-3">
@@ -94,8 +94,8 @@ export default async function SettingsPage({
           </form>
         </section>
 
-        <section className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
-          <h2 className="font-medium">{t("accountTypeTitle")}</h2>
+        <section className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
+          <h2 className="text-section-title">{t("accountTypeTitle")}</h2>
           <p className="text-xs text-muted">
             {t("accountTypeDesc")}
           </p>
@@ -113,7 +113,7 @@ export default async function SettingsPage({
                 value="demo"
                 defaultChecked={(profile?.account_type ?? "demo") === "demo"}
               />
-              <span className="font-semibold text-warning">{t("demoAccount")}</span>
+              <span className="font-bold text-warning">{t("demoAccount")}</span>
               <span className="text-xs text-muted">{t("demoAccountDesc")}</span>
             </label>
             <label
@@ -124,7 +124,7 @@ export default async function SettingsPage({
               }
             >
               <input type="radio" name="accountType" value="real" defaultChecked={profile?.account_type === "real"} />
-              <span className="font-semibold text-success">{t("realAccount")}</span>
+              <span className="font-bold text-success">{t("realAccount")}</span>
               <span className="text-xs text-muted">{t("realAccountDesc")}</span>
             </label>
             <button
@@ -139,8 +139,8 @@ export default async function SettingsPage({
         <PushPermission publicKey={process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? ""} />
         <InstallApp variant="button" />
 
-        <section id="change-password" className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
-          <h2 className="font-medium">{t("changePasswordTitle")}</h2>
+        <section id="change-password" className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
+          <h2 className="text-section-title">{t("changePasswordTitle")}</h2>
           <form action={changePassword} className="flex flex-col gap-3">
             <input
               name="password"
@@ -159,8 +159,8 @@ export default async function SettingsPage({
           </form>
         </section>
 
-        <section className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
-          <h2 className="font-medium">{t("notificationPrefsTitle")}</h2>
+        <section className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
+          <h2 className="text-section-title">{t("notificationPrefsTitle")}</h2>
           <p className="text-xs text-muted">{t("notificationPrefsDesc")}</p>
           <Link href="/notifications/preferences" className="rounded border border-border px-3 py-2 text-center text-sm transition hover:bg-white/5">
             {t("notificationPrefsLink")}
@@ -171,8 +171,8 @@ export default async function SettingsPage({
 
         <RiskQuestionnaire current={(await cookies()).get("risk_profile")?.value} />
 
-        <section className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
-          <h2 className="font-medium">{t("languageTimezoneTitle")}</h2>
+        <section className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
+          <h2 className="text-section-title">{t("languageTimezoneTitle")}</h2>
           <div className="flex items-center justify-between gap-3 text-sm">
             <span className="text-muted">{t("languageLabel")}</span>
             <LanguageSwitcher currentLocale={locale} />
@@ -199,13 +199,13 @@ export default async function SettingsPage({
           </form>
         </section>
 
-        <section className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
-          <h2 className="font-medium">{t("securityTitle")}</h2>
+        <section className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
+          <h2 className="text-section-title">{t("securityTitle")}</h2>
           <div className="flex flex-col gap-2 rounded border border-border bg-background p-3">
             <div className="flex items-center justify-between gap-2">
               <span className="text-sm font-medium">{t("twoFactorTitle")}</span>
               {hasVerifiedTotp(user) && (
-                <span className="rounded-full border border-up/40 bg-up/10 px-2 py-0.5 text-[10px] font-semibold text-up">
+                <span className="rounded-full border border-up/40 bg-up/10 px-2 py-0.5 text-xs font-bold text-up">
                   {t("twoFactorOn")}
                 </span>
               )}

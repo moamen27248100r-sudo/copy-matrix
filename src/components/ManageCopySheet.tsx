@@ -55,10 +55,10 @@ export function ManageCopySheet({
               aria-modal="true"
               aria-label={title}
               onClick={(e) => e.stopPropagation()}
-              className="flex w-full max-w-md flex-col gap-4 rounded-t-2xl border border-border bg-[#0B132B] p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-2xl sm:rounded-2xl"
+              className="flex w-full max-w-md flex-col gap-4 rounded-t-2xl border border-border bg-[#0B132B] p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-2xl sm:rounded-[20px]"
             >
               <div className="flex items-center justify-between gap-3">
-                <h2 className="text-base font-semibold">{title}</h2>
+                <h2 className="text-section-title">{title}</h2>
                 <button
                   type="button"
                   onClick={() => setOpen(false)}

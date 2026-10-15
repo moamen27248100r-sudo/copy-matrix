@@ -11,7 +11,7 @@ export default async function AdminLoginPage({
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col justify-center gap-4 p-6">
       <div>
-        <h1 className="text-2xl font-semibold">لوحة الإدارة</h1>
+        <h1 className="text-page-title">لوحة الإدارة</h1>
         <p className="mt-1 text-sm text-muted">دخول مخصص لفريق الإدارة فقط.</p>
       </div>
 

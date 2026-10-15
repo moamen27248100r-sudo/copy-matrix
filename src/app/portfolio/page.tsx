@@ -201,7 +201,7 @@ export default async function PortfolioPage({
             />
 
             {pendingRequests.length > 0 && (
-              <section className="flex flex-col gap-2 rounded-2xl border border-border bg-surface p-4">
+              <section className="flex flex-col gap-2 rounded-[20px] border border-border bg-surface p-5">
                 <p className="text-xs font-medium text-muted">{t("pendingRequestsLabel")}</p>
                 {pendingRequests.map((r) => (
                   <Link
@@ -223,8 +223,8 @@ export default async function PortfolioPage({
 
           <div className="flex flex-col gap-4">
             <section className="flex flex-col gap-3">
-              <h2 className="text-base font-semibold">{td("portfolioAllocationTitle")}</h2>
-              <div className="rounded-2xl border border-border bg-surface p-5">
+              <h2 className="text-section-title">{td("portfolioAllocationTitle")}</h2>
+              <div className="rounded-[20px] border border-border bg-surface p-5">
                 <AllocationCard
                   byTrader={allocationByTrader}
                   byAsset={allocationByAsset}
@@ -243,21 +243,21 @@ export default async function PortfolioPage({
         </div>
 
         <section className="flex flex-col gap-3">
-          <h2 className="font-medium">{t("myPerformance")}</h2>
+          <h2 className="text-section-title">{t("myPerformance")}</h2>
           <div className="grid grid-cols-2 gap-3 text-center text-sm sm:grid-cols-4">
             <div className="rounded-lg border border-border bg-surface p-3">
-              <p className={realized >= 0 ? "text-lg font-semibold text-success" : "text-lg font-semibold text-danger"} dir="ltr">
+              <p className={realized >= 0 ? "text-lg font-bold text-success" : "text-lg font-bold text-danger"} dir="ltr">
                 {money(realized, { signed: true })}
               </p>
               <p className="text-xs text-muted">{td("netRealizedProfit")}</p>
             </div>
             <div className="rounded-lg border border-border bg-surface p-3">
-              <p className="text-lg font-semibold">{winRatePct != null ? `${winRatePct}%` : "—"}</p>
+              <p className="text-lg font-bold">{winRatePct != null ? `${winRatePct}%` : "—"}</p>
               <p className="text-xs text-muted">{t("myWinRate")}</p>
             </div>
             <div className="rounded-lg border border-border bg-surface p-3">
               <p
-                className={avgReturnPct != null && avgReturnPct < 0 ? "text-lg font-semibold text-danger" : "text-lg font-semibold text-success"}
+                className={avgReturnPct != null && avgReturnPct < 0 ? "text-lg font-bold text-danger" : "text-lg font-bold text-success"}
                 dir="ltr"
               >
                 {avgReturnPct != null ? `${avgReturnPct > 0 ? "+" : ""}${avgReturnPct.toFixed(2)}%` : "—"}
@@ -265,14 +265,14 @@ export default async function PortfolioPage({
               <p className="text-xs text-muted">{t("avgTradeReturn")}</p>
             </div>
             <div className="rounded-lg border border-border bg-surface p-3">
-              <p className="text-lg font-semibold">{closedCount}</p>
+              <p className="text-lg font-bold">{closedCount}</p>
               <p className="text-xs text-muted">{t("closedTradesCount")}</p>
             </div>
           </div>
         </section>
 
         <section className="flex flex-col gap-3">
-          <h2 className="font-medium">{t("monthlyReportTitle")}</h2>
+          <h2 className="text-section-title">{t("monthlyReportTitle")}</h2>
           {monthlyReport.length === 0 ? (
             <p className="text-sm text-muted">{t("monthlyReportEmpty")}</p>
           ) : (
@@ -312,7 +312,7 @@ export default async function PortfolioPage({
         </section>
 
         <section className="flex flex-col gap-2">
-          <h2 className="font-medium">{t("transactionsTitle")}</h2>
+          <h2 className="text-section-title">{t("transactionsTitle")}</h2>
           {walletMovements.length === 0 ? (
             <p className="text-sm text-muted">{t("noWalletMovements")}</p>
           ) : (

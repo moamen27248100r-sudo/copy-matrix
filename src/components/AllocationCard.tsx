@@ -38,7 +38,7 @@ export function AllocationCard({
             onClick={() => setView(tab.key)}
             className={
               view === tab.key
-                ? "min-h-9 rounded-full bg-accent px-4 text-xs font-semibold text-accent-foreground"
+                ? "min-h-9 rounded-full bg-accent px-4 text-xs font-bold text-accent-foreground"
                 : "min-h-9 rounded-full px-4 text-xs font-medium text-muted transition hover:text-foreground"
             }
           >

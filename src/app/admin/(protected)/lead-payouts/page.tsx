@@ -27,14 +27,14 @@ export default async function AdminLeadPayoutsPage({ searchParams }: { searchPar
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="text-xl font-bold">سحب أرباح القادة</h1>
+      <h1 className="text-page-title">سحب أرباح القادة</h1>
       {error && <FlashMessage tone="error">{error}</FlashMessage>}
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-semibold">قيد المراجعة ({pending.length})</h2>
+        <h2 className="text-section-title">قيد المراجعة ({pending.length})</h2>
         {pending.length === 0 && <p className="text-sm text-muted">لا توجد طلبات.</p>}
         {pending.map((r) => (
-          <div key={r.id} className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
+          <div key={r.id} className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
             <div>
               <p className="font-medium">
                 {formatMoney(Number(r.amount), "ar")} · {name(r)}
@@ -59,7 +59,7 @@ export default async function AdminLeadPayoutsPage({ searchParams }: { searchPar
       </section>
 
       <section className="flex flex-col gap-2">
-        <h2 className="font-semibold">آخر الطلبات</h2>
+        <h2 className="text-section-title">آخر الطلبات</h2>
         {recent.map((r) => (
           <div key={r.id} className="flex items-center justify-between rounded-lg border border-border px-3 py-2 text-sm">
             <span>

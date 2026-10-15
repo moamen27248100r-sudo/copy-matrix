@@ -130,17 +130,17 @@ export default async function CopiesPage({
             <>
               <section className="grid grid-cols-3 rounded-2xl border border-border bg-surface text-center">
                 <div className="p-4">
-                  <p className="text-lg font-semibold tabular-nums">{copies.length}</p>
+                  <p className="text-lg font-bold tabular-nums">{copies.length}</p>
                   <p className="text-xs text-muted">{t("activeCopies")}</p>
                 </div>
                 <div className="border-s border-border p-4">
-                  <p className="text-lg font-semibold tabular-nums" dir="ltr">
+                  <p className="text-lg font-bold tabular-nums" dir="ltr">
                     {money(totalAllocated)}
                   </p>
                   <p className="text-xs text-muted">{t("totalAllocated")}</p>
                 </div>
                 <div className="border-s border-border p-4">
-                  <p className={`text-lg font-semibold tabular-nums ${totalPnl >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
+                  <p className={`text-lg font-bold tabular-nums ${totalPnl >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
                     {money(totalPnl, { signed: true })}
                   </p>
                   <p className="text-xs text-muted">{t("realizedPnl")}</p>
@@ -156,7 +156,7 @@ export default async function CopiesPage({
 
         {tab === "ended" &&
           (ended.length === 0 ? (
-            <p className="rounded-2xl border border-border bg-surface p-5 text-sm text-muted">{t("endedEmpty")}</p>
+            <p className="rounded-[20px] border border-border bg-surface p-5 text-sm text-muted">{t("endedEmpty")}</p>
           ) : (
             <div className="grid gap-2 lg:grid-cols-2">
               {ended.map((c) => (
@@ -173,7 +173,7 @@ export default async function CopiesPage({
                     </span>
                   </span>
                   <span className="shrink-0 text-end">
-                    <span dir="ltr" className={`block text-sm font-semibold tabular-nums ${c.pnl >= 0 ? "text-success" : "text-danger"}`}>
+                    <span dir="ltr" className={`block text-sm font-bold tabular-nums ${c.pnl >= 0 ? "text-success" : "text-danger"}`}>
                       {money(c.pnl, { signed: true })}
                     </span>
                     <span dir="ltr" className="block text-xs text-muted">

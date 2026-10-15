@@ -5,12 +5,12 @@ export async function RiskQuestionnaire({ current }: { current?: string }) {
   const t = await getTranslations("Settings");
   const questions = ["q1", "q2", "q3"] as const;
   return (
-    <section className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
-      <h2 className="font-medium">{t("riskTitle")}</h2>
+    <section className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
+      <h2 className="text-section-title">{t("riskTitle")}</h2>
       <p className="text-xs text-muted">{t("riskDesc")}</p>
       {current && (
         <p className="text-xs">
-          {t("riskCurrent")} <span className="font-semibold text-accent">{t(`riskProfile_${current}`)}</span>
+          {t("riskCurrent")} <span className="font-bold text-accent">{t(`riskProfile_${current}`)}</span>
         </p>
       )}
       <form action={saveRiskProfile} className="flex flex-col gap-4">

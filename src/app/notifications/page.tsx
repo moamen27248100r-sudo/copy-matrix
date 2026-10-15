@@ -231,7 +231,7 @@ export default async function NotificationsPage({ searchParams }: { searchParams
                         {!n.is_read && <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />}
                       </div>
                       {body && <p className="whitespace-pre-line text-xs text-muted" dir="auto">{renderBody(body)}</p>}
-                      <p className="mt-1 text-[11px] text-muted/70" dir="ltr">
+                      <p className="mt-1 text-xs text-dim" dir="ltr">
                         {formatNotificationTime(n.created_at, locale, userTz)}
                       </p>
                     </div>

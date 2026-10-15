@@ -49,7 +49,7 @@ export default async function LeadPerformancePage({ searchParams }: { searchPara
       </div>
 
       {!perf || perf.trades === 0 ? (
-        <p className="rounded-2xl border border-border bg-surface p-6 text-sm text-muted">{t("noData")}</p>
+        <p className="rounded-[20px] border border-border bg-surface p-6 text-sm text-muted">{t("noData")}</p>
       ) : (
         <>
           <section className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -61,7 +61,7 @@ export default async function LeadPerformancePage({ searchParams }: { searchPara
             <Card label={t("riskScore")} value={risk != null ? `${risk} / 10` : "—"} cls={riskTone} />
           </section>
 
-          <section className="flex flex-col gap-2 rounded-2xl border border-border bg-surface p-4">
+          <section className="flex flex-col gap-2 rounded-[20px] border border-border bg-surface p-5">
             <h2 className="text-section-title">{t("equityCurve")}</h2>
             <EquityCurve points={perf.curve} label={t("equityCurve")} />
             <p className="text-xs text-muted">{t("curveNote")}</p>
@@ -106,9 +106,9 @@ export default async function LeadPerformancePage({ searchParams }: { searchPara
 
 function Card({ label, value, cls = "" }: { label: string; value: string; cls?: string }) {
   return (
-    <div className="flex flex-col gap-1 rounded-xl border border-border bg-surface p-4">
+    <div className="flex flex-col gap-1 rounded-[20px] border border-border bg-surface p-5">
       <p className="text-xs text-muted">{label}</p>
-      <p className={`num text-lg font-semibold ${cls}`} dir="ltr">
+      <p className={`num text-lg font-bold ${cls}`} dir="ltr">
         {value}
       </p>
     </div>

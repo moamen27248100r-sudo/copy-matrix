@@ -16,7 +16,7 @@ export function SimpleDepositForm() {
       <p className="text-sm text-muted">{t("enterDepositAmount")}</p>
 
       <div className="flex items-center gap-3">
-        <span className="shrink-0 text-lg font-semibold text-muted">{CURRENCY}</span>
+        <span className="shrink-0 text-lg font-bold text-muted">{CURRENCY}</span>
         <div className="flex-1 rounded-lg border border-border bg-surface px-4 py-3">
           <input
             name="amount"
@@ -26,14 +26,14 @@ export function SimpleDepositForm() {
             value={amount}
             onChange={(e) => setAmount(e.target.value.replace(/[^\d.]/g, ""))}
             placeholder="0"
-            className="w-full bg-transparent text-right text-2xl font-semibold text-foreground outline-none"
+            className="w-full bg-transparent text-right text-2xl font-bold text-foreground outline-none"
             dir="ltr"
           />
         </div>
       </div>
 
       <div className="mt-auto">
-        <SubmitButton disabled={!amount || Number(amount) <= 0} className="w-full rounded-lg bg-accent px-4 py-3 text-center text-sm font-semibold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50">
+        <SubmitButton disabled={!amount || Number(amount) <= 0} className="w-full rounded-lg bg-accent px-4 py-3 text-center text-sm font-bold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50">
           {td("deposit")}
         </SubmitButton>
       </div>

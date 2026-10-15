@@ -52,7 +52,7 @@ export async function SuggestedTraders({ excludeProviderIds }: { excludeProvider
 
   return (
     <section className="flex flex-col gap-3">
-      <h2 className="text-base font-semibold">{t("suggestedTradersTitle")}</h2>
+      <h2 className="text-section-title">{t("suggestedTradersTitle")}</h2>
       <div className="-mx-6 flex gap-3 overflow-x-auto px-6 pb-1 sm:mx-0 sm:px-0">
         {providers.map((p) => (
           <div key={p.provider_id} className="w-64 shrink-0">

@@ -63,7 +63,7 @@ export function MarketRow({
       <Link href={`/markets/${r.symbol}`} className="flex min-w-0 flex-1 items-center gap-3 px-3 py-3">
         <InstrumentIcon glyph={r.glyph} toneClass={r.tone} />
         <span className="w-28 shrink-0">
-          <span className="block truncate text-sm font-semibold">{r.name}</span>
+          <span className="block truncate text-sm font-bold">{r.name}</span>
           <span dir="ltr" className="block truncate text-xs text-muted">
             {r.label}
           </span>
@@ -76,7 +76,7 @@ export function MarketRow({
           >
             {formatPrice(r.price, r.decimals)}
           </span>
-          <span dir="ltr" className={`block text-xs font-semibold tabular-nums ${tone(r.change)}`}>
+          <span dir="ltr" className={`block text-xs font-bold tabular-nums ${tone(r.change)}`}>
             {r.daily ? <span className="me-1 font-normal text-muted">{t("daily")}</span> : null}
             {pct(r.change)}
           </span>
@@ -158,7 +158,7 @@ export function MarketsBoard({ rows, watched: initialWatched }: { rows: BoardRow
   const miniList = (title: string, items: typeof live, value: (r: (typeof live)[number]) => { text: string; cls: string }) =>
     items.length > 0 && (
       <section className="flex min-w-0 flex-col gap-2 rounded-2xl border border-border bg-surface p-3">
-        <h2 className="text-xs font-semibold text-muted">{title}</h2>
+        <h2 className="text-xs font-bold text-muted">{title}</h2>
         <ul className="flex flex-col gap-1">
           {items.map((r) => {
             const v = value(r);
@@ -171,7 +171,7 @@ export function MarketsBoard({ rows, watched: initialWatched }: { rows: BoardRow
                       {r.label}
                     </span>
                   </span>
-                  <span dir="ltr" className={`shrink-0 text-sm font-semibold tabular-nums ${v.cls}`}>
+                  <span dir="ltr" className={`shrink-0 text-sm font-bold tabular-nums ${v.cls}`}>
                     {v.text}
                   </span>
                 </Link>
@@ -221,7 +221,7 @@ export function MarketsBoard({ rows, watched: initialWatched }: { rows: BoardRow
       </div>
 
       {list.length === 0 ? (
-        <p className="rounded-2xl border border-border bg-surface p-5 text-sm text-muted">{query ? t("noResults") : t("noData")}</p>
+        <p className="rounded-[20px] border border-border bg-surface p-5 text-sm text-muted">{query ? t("noResults") : t("noData")}</p>
       ) : (
         <ul className="flex flex-col gap-2">
           {list.map((r) => (
@@ -229,7 +229,7 @@ export function MarketsBoard({ rows, watched: initialWatched }: { rows: BoardRow
           ))}
         </ul>
       )}
-      <p className="text-[11px] text-muted">{t("dataNote")}</p>
+      <p className="text-xs text-muted">{t("dataNote")}</p>
     </div>
   );
 }

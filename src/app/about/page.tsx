@@ -25,7 +25,7 @@ export default async function AboutPage() {
       <LegalNav />
       <main dir={dir} className="mx-auto flex w-full max-w-2xl flex-col gap-6 p-6">
         <div className="flex flex-col gap-2">
-          <h1 className="text-2xl font-semibold">{t("title")}</h1>
+          <h1 className="text-page-title">{t("title")}</h1>
           <p className="text-sm leading-relaxed text-muted">{t("intro")}</p>
         </div>
 
@@ -33,21 +33,21 @@ export default async function AboutPage() {
           {sections.map((s) => (
             <section
               key={s.title}
-              className="flex flex-col gap-2 rounded-2xl border border-glass-border bg-glass-surface p-5 backdrop-blur-xl"
+              className="flex flex-col gap-2 rounded-[20px] border border-glass-border bg-glass-surface p-5 backdrop-blur-xl"
             >
-              <h2 className="font-medium">{s.title}</h2>
+              <h2 className="text-section-title">{s.title}</h2>
               <p className="text-sm leading-relaxed text-muted">{s.body}</p>
             </section>
           ))}
-          <Link href="/risk-disclosure" className="text-sm text-accent hover:underline">
+          <Link href="/risk-disclosure" className="text-sm text-accent-text hover:underline">
             {t("riskLink")}
           </Link>
 
-          <section className="flex flex-col gap-2 rounded-2xl border border-glass-border bg-glass-surface p-5 backdrop-blur-xl">
-            <h2 className="font-medium">{t("contactTitle")}</h2>
+          <section className="flex flex-col gap-2 rounded-[20px] border border-glass-border bg-glass-surface p-5 backdrop-blur-xl">
+            <h2 className="text-section-title">{t("contactTitle")}</h2>
             <p className="text-sm leading-relaxed text-muted">
               {t("contactBody")}{" "}
-              <a href={`mailto:${SUPPORT_EMAIL}`} dir="ltr" className="text-accent hover:underline">
+              <a href={`mailto:${SUPPORT_EMAIL}`} dir="ltr" className="text-accent-text underline underline-offset-2">
                 {SUPPORT_EMAIL}
               </a>
             </p>

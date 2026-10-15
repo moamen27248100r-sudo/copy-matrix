@@ -14,9 +14,9 @@ import type { Locale } from "@/i18n/locales";
 
 function StatCard({ label, value, tone }: { label: string; value: string; tone?: "up" | "down" }) {
   return (
-    <div className="flex flex-col gap-1 rounded-xl border border-border bg-surface p-4">
+    <div className="flex flex-col gap-1 rounded-[20px] border border-border bg-surface p-5">
       <p className="text-xs text-muted">{label}</p>
-      <p className={`num text-lg font-semibold ${tone === "up" ? "text-success" : tone === "down" ? "text-danger" : ""}`}>{value}</p>
+      <p className={`num text-lg font-bold ${tone === "up" ? "text-success" : tone === "down" ? "text-danger" : ""}`}>{value}</p>
     </div>
   );
 }
@@ -118,7 +118,7 @@ export default async function LeadOverviewPage() {
           <h1 className="text-page-title">{t("title")}</h1>
           <p className="text-sm text-muted">{provider?.display_name}</p>
         </div>
-        <span className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-sm font-semibold text-accent">{tierLabel(tier.key, t)}</span>
+        <span className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-sm font-bold text-accent">{tierLabel(tier.key, t)}</span>
       </div>
 
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -134,7 +134,7 @@ export default async function LeadOverviewPage() {
       </section>
 
       {next && (
-        <div className="rounded-xl border border-border bg-surface p-4">
+        <div className="rounded-[20px] border border-border bg-surface p-5">
           <p className="mb-2 text-sm font-medium">{t("nextTier", { tier: tierLabel(next.key, t) })}</p>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             <ProgressItem label={t("progressDays")} value={activeDays} target={next.minActiveDays} />
@@ -159,8 +159,8 @@ export default async function LeadOverviewPage() {
         <h2 className="text-section-title">{t("periodReturns")}</h2>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {periodRows.map((r) => (
-            <div key={r.label} className="rounded-xl border border-border bg-surface p-4 text-center">
-              <p className={`num text-lg font-semibold ${(r.roi ?? 0) >= 0 ? "text-success" : "text-danger"}`}>
+            <div key={r.label} className="rounded-[20px] border border-border bg-surface p-5 text-center">
+              <p className={`num text-lg font-bold ${(r.roi ?? 0) >= 0 ? "text-success" : "text-danger"}`}>
                 {r.roi != null ? `${r.roi > 0 ? "+" : ""}${r.roi.toFixed(2)}%` : "—"}
               </p>
               <p className="text-xs text-muted">{r.label}</p>

@@ -85,8 +85,8 @@ export default async function AccountSessionsPage({
             const { label, mobile } = describeAgent(s.user_agent);
             const Icon = mobile ? Smartphone : Monitor;
             return (
-              <li key={s.id} className="flex items-start gap-3 rounded-xl border border-border bg-surface p-4 text-sm">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/5 text-foreground/70">
+              <li key={s.id} className="flex items-start gap-3 rounded-[20px] border border-border bg-surface p-5 text-sm">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/5 text-muted">
                   <Icon className="h-4 w-4" aria-hidden="true" />
                 </span>
                 <div className="min-w-0 flex-1">
@@ -95,7 +95,7 @@ export default async function AccountSessionsPage({
                       {label ?? t("unknownDevice")}
                     </span>
                     {s.is_current && (
-                      <span className="rounded-full border border-success/40 bg-success/10 px-2 py-0.5 text-[10px] font-semibold text-success">
+                      <span className="rounded-full border border-success/40 bg-success/10 px-2 py-0.5 text-xs font-bold text-success">
                         {t("thisDevice")}
                       </span>
                     )}
@@ -117,7 +117,7 @@ export default async function AccountSessionsPage({
           <form action={signOutOtherSessions}>
             <button
               type="submit"
-              className="w-full rounded-xl border border-danger/40 bg-danger/10 px-4 py-3 text-sm font-semibold text-danger transition hover:bg-danger/20"
+              className="w-full rounded-xl border border-danger/40 bg-danger/10 px-4 py-3 text-sm font-bold text-danger transition hover:bg-danger/20"
             >
               {t("signOutOthers")}
             </button>

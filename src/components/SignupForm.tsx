@@ -107,7 +107,7 @@ function CountryCodeSelect({ country, onChange }: { country: Country; onChange: 
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        aria-label={t("countryCodeAria")}
+        aria-label={`${t("countryCodeAria")} ${country.code}`}
         aria-expanded={open}
         className="flex h-full w-full items-center justify-center gap-1.5 rounded-xl border border-border-strong bg-surface px-2 py-3 text-sm"
       >

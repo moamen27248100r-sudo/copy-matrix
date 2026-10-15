@@ -97,7 +97,7 @@ export function LivePrice({ symbol, price, change, decimals, daily }: { symbol: 
       <span className={`rounded px-1 text-3xl font-bold tabular-nums transition-colors duration-500 ${f === "up" ? "bg-success/25" : f === "down" ? "bg-danger/25" : ""}`}>
         {formatPrice(q?.p ?? price, decimals)}
       </span>
-      <span className={`text-sm font-semibold tabular-nums ${c == null ? "text-muted" : c >= 0 ? "text-success" : "text-danger"}`}>
+      <span className={`text-sm font-bold tabular-nums ${c == null ? "text-muted" : c >= 0 ? "text-success" : "text-danger"}`}>
         {c == null ? "—" : `${c >= 0 ? "+" : ""}${c.toFixed(2)}%`}
       </span>
       <span className="text-xs text-muted">{daily ? t("dailyRate") : t("last24h")}</span>

@@ -11,7 +11,7 @@ export default async function NotFound() {
         <span className="flex items-center gap-1.5 text-5xl font-bold text-brand" dir="ltr">
           404
         </span>
-        <h1 className="text-xl font-semibold">{t("notFoundTitle")}</h1>
+        <h1 className="text-page-title">{t("notFoundTitle")}</h1>
         <p className="text-sm text-muted">
           {t("notFoundDesc")}
         </p>

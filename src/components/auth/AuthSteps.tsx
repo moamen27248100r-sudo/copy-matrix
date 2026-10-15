@@ -17,7 +17,7 @@ export async function AuthSteps({ step, total = 3, backHref }: { step: number; t
           </Link>
         )}
       </div>
-      <div className="flex gap-1" role="progressbar" aria-valuemin={1} aria-valuemax={total} aria-valuenow={step}>
+      <div className="flex gap-1" role="progressbar" aria-label={t("stepOf", { step, total })} aria-valuemin={1} aria-valuemax={total} aria-valuenow={step}>
         {Array.from({ length: total }, (_, i) => (
           <span key={i} className={`h-1 flex-1 rounded-full ${i < step ? "bg-accent" : "bg-border"}`} />
         ))}

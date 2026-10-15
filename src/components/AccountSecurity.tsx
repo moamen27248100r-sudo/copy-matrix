@@ -17,7 +17,7 @@ export function AccountSecurity({ className = "" }: { className?: string }) {
   const items = t.raw("items") as string[];
   return (
     <div className={`flex flex-col gap-3 ${className}`}>
-      <h3 className="text-sm font-semibold text-foreground">{t("title")}</h3>
+      <h3 className="text-sm font-bold text-foreground">{t("title")}</h3>
       <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((item) => (
           <li
@@ -27,7 +27,7 @@ export function AccountSecurity({ className = "" }: { className?: string }) {
             <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-accent/30 bg-accent/10 text-accent">
               <CheckIcon />
             </span>
-            <span className="min-w-0 text-[13px] font-medium text-foreground">{item}</span>
+            <span className="min-w-0 text-sm font-medium text-foreground">{item}</span>
           </li>
         ))}
       </ul>

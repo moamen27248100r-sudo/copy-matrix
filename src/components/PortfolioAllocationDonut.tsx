@@ -53,7 +53,7 @@ export function PortfolioAllocationDonut({
           <p className="text-lg font-bold" dir="ltr">
             {money(totalValue)}
           </p>
-          <p className="text-[11px] text-muted">{totalLabel}</p>
+          <p className="text-xs text-muted">{totalLabel}</p>
         </div>
       </div>
 

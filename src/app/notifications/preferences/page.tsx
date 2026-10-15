@@ -85,7 +85,7 @@ export default async function NotificationPreferencesPage({
           <p className="text-xs text-muted">{t("prefsEmailNote")}</p>
           <button
             type="submit"
-            className="rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-accent-foreground transition hover:bg-accent-hover"
+            className="rounded-lg bg-accent px-4 py-2.5 text-sm font-bold text-accent-foreground transition hover:bg-accent-hover"
           >
             {t("prefsSave")}
           </button>

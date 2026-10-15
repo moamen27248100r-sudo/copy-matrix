@@ -18,7 +18,7 @@ export default async function ForgotPasswordPage({
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col justify-center gap-4 p-6">
-      <h1 className="text-2xl font-semibold">{t("forgotTitle")}</h1>
+      <h1 className="text-page-title">{t("forgotTitle")}</h1>
 
       <p className="text-sm text-muted">
         {t("forgotSubtitle")}

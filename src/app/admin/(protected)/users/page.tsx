@@ -130,7 +130,7 @@ export default async function AdminUsersPage({
   return (
     <>
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">إدارة المستخدمين</h1>
+        <h1 className="text-page-title">إدارة المستخدمين</h1>
         <span className="text-sm text-muted">{count ?? 0} مستخدم</span>
       </div>
 

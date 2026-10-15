@@ -147,7 +147,7 @@ export function SupportChatPage() {
       <div className="flex items-center gap-3 border-b border-border bg-[#0b1726] px-3 py-3 sm:px-4">
         <div className="flex min-w-0 flex-col gap-0.5">
           <span className="truncate text-sm font-bold text-foreground">{t("headerTitle")}</span>
-          <span className="flex items-center gap-1.5 text-[11px] text-muted">
+          <span className="flex items-center gap-1.5 text-xs text-muted">
             <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-success" />
             {t("onlineStatus")}
           </span>

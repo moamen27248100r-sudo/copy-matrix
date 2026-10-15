@@ -24,7 +24,7 @@ export async function TopMovers() {
   return (
     <section className="flex flex-col gap-3">
       <div className="flex items-baseline justify-between gap-3">
-        <h2 className="text-base font-semibold">{t("marketPulseTitle")}</h2>
+        <h2 className="text-section-title">{t("marketPulseTitle")}</h2>
         <Link href="/discover?tab=markets" className="text-sm text-accent hover:underline">
           {t("topMoversAll")}
         </Link>
@@ -50,7 +50,7 @@ export function MarketPulseGrid({ items }: { items: PulseItem[] }) {
           >
             <span className="flex items-center gap-2">
               <InstrumentIcon glyph={r.glyph} toneClass={r.tone} size="h-7 w-7" />
-              <span dir="ltr" className="truncate text-sm font-semibold">
+              <span dir="ltr" className="truncate text-sm font-bold">
                 {r.label}
               </span>
             </span>
@@ -58,7 +58,7 @@ export function MarketPulseGrid({ items }: { items: PulseItem[] }) {
               <span dir="ltr" className="truncate text-sm tabular-nums">
                 {formatPrice(r.price, r.decimals)}
               </span>
-              <span dir="ltr" className={`text-xs font-semibold tabular-nums ${pct >= 0 ? "text-success" : "text-danger"}`}>
+              <span dir="ltr" className={`text-xs font-bold tabular-nums ${pct >= 0 ? "text-success" : "text-danger"}`}>
                 {pct >= 0 ? "+" : ""}
                 {pct.toFixed(2)}%
               </span>

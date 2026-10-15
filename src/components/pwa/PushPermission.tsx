@@ -90,13 +90,13 @@ export function PushPermission({ publicKey }: { publicKey: string }) {
   if (state === "loading") return null;
 
   return (
-    <section className="flex flex-col gap-2 rounded-xl border border-border bg-surface p-4">
+    <section className="flex flex-col gap-2 rounded-[20px] border border-border bg-surface p-5">
       <div className="flex items-start gap-3">
         <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent">
           <BellRing className="h-4 w-4" aria-hidden="true" />
         </span>
         <div className="min-w-0 flex-1">
-          <h2 className="text-sm font-semibold">{t("pushTitle")}</h2>
+          <h2 className="text-section-title">{t("pushTitle")}</h2>
           <p className="mt-1 text-xs text-muted">{t("pushBody")}</p>
         </div>
       </div>
@@ -109,7 +109,7 @@ export function PushPermission({ publicKey }: { publicKey: string }) {
           type="button"
           onClick={enable}
           disabled={busy}
-          className="tap-44 self-start rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground transition hover:bg-accent-hover disabled:opacity-60"
+          className="tap-44 self-start rounded-lg bg-accent px-4 py-2 text-sm font-bold text-accent-foreground transition hover:bg-accent-hover disabled:opacity-60"
         >
           {t("pushEnable")}
         </button>

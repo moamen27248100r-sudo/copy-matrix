@@ -13,7 +13,7 @@ const TIER_COLOR: Record<ColorTier, { text: string; ring: string }> = {
   bad: { text: "text-rose-500", ring: "#f43f5e" },
   medium: { text: "text-amber-400", ring: "#fbbf24" },
   good: { text: "text-emerald-400", ring: "#34d399" },
-  neutral: { text: "text-slate-500", ring: "#64748b" },
+  neutral: { text: "text-dim", ring: "#64748b" },
 };
 
 // Every ring is the same size, with a slightly thinner stroke.
@@ -188,8 +188,8 @@ function MainRing({ value, status, tier, icon, tip }: { value: number | null; st
         {icon}
       </IconCircle>
       <div className="flex min-w-0 flex-col items-start leading-tight">
-        <span className={`text-xs font-semibold ${colors.text}`}>{status}</span>
-        <span className={`text-base font-extrabold ${colors.text}`} dir="ltr">
+        <span className={`text-xs font-bold ${colors.text}`}>{status}</span>
+        <span className={`text-base font-bold ${colors.text}`} dir="ltr">
           {value == null ? "—" : `${clampScore(value)}/100`}
         </span>
       </div>
@@ -206,7 +206,7 @@ function SubRing({ tipKey, value, label, icon, inverted, percent, tip }: { tipKe
         {icon}
       </IconCircle>
       <div className="flex min-w-0 flex-col items-start leading-tight">
-        <span className="text-xs text-slate-400">{label}</span>
+        <span className="text-xs text-muted">{label}</span>
         <span className={`text-sm font-bold ${colors.text}`} dir="ltr">
           {value == null ? "—" : percent ? `${clampScore(value)}%` : `${clampScore(value)}/100`}
         </span>
@@ -225,7 +225,7 @@ function ActivityBadge({ level, label, status, tip }: { level: ActivityLevel; la
         <BoltIcon className="h-5 w-5" />
       </IconCircle>
       <div className="flex min-w-0 flex-col items-start leading-tight">
-        <span className="text-xs text-slate-400">{label}</span>
+        <span className="text-xs text-muted">{label}</span>
         <span className={`text-sm font-bold ${TIER_COLOR[tier].text}`}>{status}</span>
       </div>
     </Row>
@@ -240,7 +240,7 @@ function SubNumber({ tipKey, value, label, icon, tip }: { tipKey: TipKey; value:
         {icon}
       </IconCircle>
       <div className="flex min-w-0 flex-col items-start leading-tight">
-        <span className="text-xs text-slate-400">{label}</span>
+        <span className="text-xs text-muted">{label}</span>
         <span className="text-sm font-bold text-foreground" dir="ltr">{value}</span>
       </div>
     </Row>
@@ -349,7 +349,7 @@ export function ExnessReliabilitySection({
 
   return (
     <div className="flex flex-col gap-5">
-      <h2 className="font-display text-base font-extrabold">{t("reliabilitySectionTitle")}</h2>
+      <h2 className="font-display text-base font-bold">{t("reliabilitySectionTitle")}</h2>
 
       <div ref={gridRef} className="relative grid grid-cols-2 gap-x-2 gap-y-6 sm:gap-x-8">
         {/* First in DOM = right column under RTL: the main reliability node. */}
@@ -389,7 +389,7 @@ export function ExnessReliabilitySection({
       </div>
 
       <div className="flex flex-col gap-2.5 border-t border-slate-700/70 pt-4">
-        <h3 className="font-display text-base font-semibold">{t("equityChartTitle")}</h3>
+        <h3 className="font-display text-base font-bold">{t("equityChartTitle")}</h3>
         <TraderEquityChart daily={daily} />
       </div>
     </div>

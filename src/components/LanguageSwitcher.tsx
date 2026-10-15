@@ -87,7 +87,7 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: Locale }) {
         type="button"
         onClick={() => setOpen((v) => !v)}
         className="tap-44 flex items-center gap-1.5 whitespace-nowrap rounded-full border border-white/10 bg-white/5 px-2 py-2 text-sm text-foreground backdrop-blur-sm transition hover:bg-white/10 sm:px-2.5"
-        aria-label={tl("label")}
+        aria-label={`${tl("label")} ${LOCALE_SHORT[currentLocale]}`}
         aria-expanded={open}
       >
         <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

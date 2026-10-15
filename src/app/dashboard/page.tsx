@@ -240,7 +240,7 @@ export default async function DashboardPage({
           <span className="flex min-w-0 flex-wrap items-center gap-2 text-sm text-muted">
             <span>{t("portfolioValue")}</span>
             {activeType === "demo" && (
-              <span className="shrink-0 rounded-full border border-warning/40 bg-warning/10 px-2 py-0.5 text-[10px] font-semibold text-warning">
+              <span className="shrink-0 rounded-full border border-warning/40 bg-warning/10 px-2 py-0.5 text-xs font-bold text-warning">
                 {t("accountDemo")}
               </span>
             )}
@@ -254,7 +254,7 @@ export default async function DashboardPage({
         </Link>
 
         {kycCopy && (
-          <div className="flex flex-col gap-4 rounded-2xl border border-warning/30 bg-warning/10 p-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-4 rounded-[20px] border border-warning/30 bg-warning/10 p-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-sm font-medium">{kycCopy.title}</p>
               <p className="mt-0.5 text-xs text-muted">{kycCopy.desc}</p>
@@ -263,7 +263,7 @@ export default async function DashboardPage({
               <div className="flex shrink-0 gap-2">
                 <Link
                   href="/kyc"
-                  className="rounded-lg bg-warning px-4 py-2 text-center text-sm font-semibold text-background transition hover:brightness-110"
+                  className="rounded-lg bg-warning px-4 py-2 text-center text-sm font-bold text-background transition hover:brightness-110"
                 >
                   {kycCopy.action}
                 </Link>
@@ -292,7 +292,7 @@ export default async function DashboardPage({
               {topCopies.length > 0 && (
                 <section className="flex flex-col gap-3">
                   <div className="flex items-baseline justify-between gap-3">
-                    <h2 className="text-base font-semibold">{t("traderYouCopy")}</h2>
+                    <h2 className="text-section-title">{t("traderYouCopy")}</h2>
                     <Link href="/copies" className="text-sm text-accent hover:underline">
                       {tNav("viewAll")}
                     </Link>

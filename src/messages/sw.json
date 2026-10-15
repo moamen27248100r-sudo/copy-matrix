@@ -89,6 +89,25 @@
       "lowRisk": "Hatari ndogo",
       "lossLimit": "Kikomo cha hasara kimewashwa",
       "aria": "Mchoro wa jukwaa kwenye simu"
+    },
+    "landing": {
+      "stepsTitle": "Inavyofanya kazi kwa hatua 3",
+      "step1Title": "Gundua",
+      "step1Desc": "Vinjari rekodi za utendaji za wafanyabiashara na ulinganishe faida, hatari na kushuka kwa kiwango cha juu.",
+      "step2Title": "Nakili",
+      "step2Desc": "Chagua kiasi na kikomo cha hasara, na uache kunakili wakati wowote.",
+      "step3Title": "Fuatilia",
+      "step3Desc": "Fuatilia jalada lako na biashara ulizonakili kutoka skrini moja.",
+      "cardsTitle": "Anza bila hatari",
+      "card1Title": "Fungua akaunti ya majaribio bila malipo",
+      "card1Desc": "Kufungua akaunti ya majaribio hakugharimu chochote.",
+      "card2Title": "Salio la kuanzia la kidhahania",
+      "card2Desc": "Kila akaunti ya majaribio huanza na fedha za kidhahania za $10,000 za kufanya mazoezi ya kunakili.",
+      "card3Title": "Bei za soko za moja kwa moja",
+      "card3Desc": "Fuatilia bei za crypto, dhahabu na sarafu mahali pamoja.",
+      "traderSubtitle": "Faida, idadi ya wanaonakili na rekodi kamili, vyote mbele yako kabla ya kuamua.",
+      "prev": "Iliyotangulia",
+      "next": "Inayofuata"
     }
   },
   "Nav": {

@@ -14,7 +14,7 @@ export default async function AdminCryptoNetworksPage({ searchParams }: { search
   return (
     <>
       <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-semibold">إعدادات الإيداع والسحب (USDT)</h1>
+        <h1 className="text-page-title">إعدادات الإيداع والسحب (USDT)</h1>
         <p className="text-sm text-muted">
           الشبكة التي ليس لها عنوان إيداع لا تظهر للعميل في صفحة الإيداع. لو لم تتوفر أي شبكة تظهر للعميل رسالة &quot;الإيداع غير متاح مؤقتاً&quot;.
           التغييرات تُطبّق فوراً على الطلبات الجديدة.
@@ -29,15 +29,15 @@ export default async function AdminCryptoNetworksPage({ searchParams }: { search
           const id = n.id as keyof typeof CHAINS;
           const visible = n.deposit_enabled && !!n.deposit_address;
           return (
-            <form key={n.id} action={updateCryptoNetwork} className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
+            <form key={n.id} action={updateCryptoNetwork} className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
               <input type="hidden" name="id" value={n.id} />
               <div className="flex items-center justify-between gap-2">
-                <p className="font-semibold">{networkLabel(id)}</p>
+                <p className="font-bold">{networkLabel(id)}</p>
                 <span className={`rounded border px-2 py-0.5 text-xs ${visible ? "border-success/40 text-success" : "border-warning/40 text-warning"}`}>
                   {visible ? "ظاهرة للإيداع" : "مخفية عن الإيداع"}
                 </span>
               </div>
-              <p className="text-[11px] text-muted" dir="ltr">
+              <p className="text-xs text-muted" dir="ltr">
                 USDT contract: {CHAINS[id].usdtContract}
               </p>
 
@@ -81,7 +81,7 @@ export default async function AdminCryptoNetworksPage({ searchParams }: { search
               <SubmitButton className="rounded bg-accent px-3 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover disabled:opacity-50">
                 حفظ {n.id}
               </SubmitButton>
-              {n.updated_at && <p className="text-[11px] text-muted">آخر تعديل: {new Date(n.updated_at).toLocaleString("ar-EG")}</p>}
+              {n.updated_at && <p className="text-xs text-muted">آخر تعديل: {new Date(n.updated_at).toLocaleString("ar-EG")}</p>}
             </form>
           );
         })}

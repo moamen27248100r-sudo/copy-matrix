@@ -42,20 +42,20 @@ export default async function AdminKycPage({
 
   return (
     <>
-      <h1 className="text-2xl font-semibold">طلبات التوثيق</h1>
+      <h1 className="text-page-title">طلبات التوثيق</h1>
 
       {error && (
         <FlashMessage tone="error">{error}</FlashMessage>
       )}
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">طلبات معلقة</h2>
+        <h2 className="text-section-title">طلبات معلقة</h2>
         {withUrls.length === 0 ? (
           <p className="text-sm text-muted">لا توجد طلبات توثيق معلقة.</p>
         ) : (
           <div className="flex flex-col gap-4">
             {withUrls.map((s) => (
-              <div key={s.id} className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
+              <div key={s.id} className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-medium">{s.full_name}</p>
@@ -99,7 +99,7 @@ export default async function AdminKycPage({
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">آخر القرارات</h2>
+        <h2 className="text-section-title">آخر القرارات</h2>
         {(recent ?? []).length === 0 ? (
           <p className="text-sm text-muted">لا توجد قرارات سابقة بعد.</p>
         ) : (

@@ -89,6 +89,25 @@
       "lowRisk": "Rủi ro thấp",
       "lossLimit": "Giới hạn lỗ đã bật",
       "aria": "Hình minh họa nền tảng trên điện thoại"
+    },
+    "landing": {
+      "stepsTitle": "Cách hoạt động trong 3 bước",
+      "step1Title": "Khám phá",
+      "step1Desc": "Xem hồ sơ hiệu suất của trader và so sánh lợi nhuận, rủi ro và mức sụt giảm tối đa.",
+      "step2Title": "Sao chép",
+      "step2Desc": "Chọn số tiền và giới hạn lỗ, và dừng sao chép bất cứ lúc nào.",
+      "step3Title": "Theo dõi",
+      "step3Desc": "Theo dõi danh mục và các giao dịch đã sao chép trên một màn hình.",
+      "cardsTitle": "Bắt đầu không rủi ro",
+      "card1Title": "Mở tài khoản demo miễn phí",
+      "card1Desc": "Mở tài khoản demo không mất phí.",
+      "card2Title": "Số dư ảo ban đầu",
+      "card2Desc": "Mỗi tài khoản demo bắt đầu với $10.000 tiền ảo để bạn tập sao chép.",
+      "card3Title": "Giá thị trường trực tiếp",
+      "card3Desc": "Theo dõi giá tiền số, vàng và tiền tệ ở một nơi.",
+      "traderSubtitle": "Lợi nhuận, số người sao chép và toàn bộ hồ sơ, tất cả ngay trước mắt bạn trước khi quyết định.",
+      "prev": "Trước",
+      "next": "Tiếp theo"
     }
   },
   "Nav": {

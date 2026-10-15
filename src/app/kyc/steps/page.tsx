@@ -62,13 +62,13 @@ export default async function KycStepsPage() {
         {STEPS.map((step, i) => (
           <div key={step.n} className="flex items-start gap-4">
             <div className="flex flex-col items-center self-stretch">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface text-sm font-semibold text-foreground">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface text-sm font-bold text-foreground">
                 {step.n}
               </span>
               {i < STEPS.length - 1 && <span className="w-px flex-1 bg-border" />}
             </div>
             <div className={`flex flex-col gap-2 ${i < STEPS.length - 1 ? "pb-8" : ""}`}>
-              <p className="pt-1 text-sm font-semibold">{step.title}</p>
+              <p className="pt-1 text-sm font-bold">{step.title}</p>
               {step.benefits && (
                 <div className="flex flex-col gap-1.5">
                   <p className="text-xs text-muted">{step.benefitsLabel}</p>
@@ -90,7 +90,7 @@ export default async function KycStepsPage() {
       <div className="mt-auto flex flex-col gap-2">
         <Link
           href="/kyc"
-          className="rounded-lg bg-brand px-4 py-3 text-center text-sm font-semibold text-brand-foreground transition hover:bg-brand-hover"
+          className="rounded-lg bg-brand px-4 py-3 text-center text-sm font-bold text-brand-foreground transition hover:bg-brand-hover"
         >
           {t("startNow")}
         </Link>

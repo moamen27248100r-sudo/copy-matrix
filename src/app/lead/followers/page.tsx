@@ -85,7 +85,7 @@ export default async function LeadFollowersPage({
       <h1 className="text-page-title">{t("title")}</h1>
       {error && <FlashMessage tone="error">{error}</FlashMessage>}
 
-      <section className="rounded-2xl border border-border bg-surface p-4">
+      <section className="rounded-[20px] border border-border bg-surface p-5">
         <p className="text-sm font-medium">{t("seats", { current: activeSubs.length, max: tier.maxFollowers })}</p>
         <form action={setWhitelistEnabled} className="mt-3 flex items-center justify-between gap-3 border-t border-border pt-3">
           <div>
@@ -97,7 +97,7 @@ export default async function LeadFollowersPage({
             type="submit"
             className={
               ltProfile?.whitelist_enabled
-                ? "shrink-0 rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-accent-foreground"
+                ? "shrink-0 rounded-full bg-accent px-3 py-1.5 text-xs font-bold text-accent-foreground"
                 : "shrink-0 rounded-full border border-border px-3 py-1.5 text-xs text-muted"
             }
           >
@@ -206,12 +206,12 @@ export default async function LeadFollowersPage({
         </div>
       )}
 
-      <section className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4">
+      <section className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
         <h2 className="text-section-title">{t("invitesTitle")}</h2>
         <p className="text-xs text-muted">{t("invitesStats", { used: (invites ?? []).filter((i) => i.used_by).length, total: (invites ?? []).length })}</p>
         <form action={createFollowerInvite} className="flex flex-wrap gap-2">
           <input name="email" type="email" placeholder={t("invitedEmailPlaceholder")} className="min-w-0 flex-1 rounded-lg border border-border bg-background px-3 py-2 text-base" />
-          <button type="submit" className="rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-accent-foreground">
+          <button type="submit" className="rounded-lg bg-accent px-3 py-2 text-sm font-bold text-accent-foreground">
             {t("createInvite")}
           </button>
         </form>

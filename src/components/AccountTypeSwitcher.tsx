@@ -13,8 +13,8 @@ const VARIANT_CLASSES = {
   },
   pill: {
     group: "flex rounded-full bg-black/25 p-1",
-    active: "flex-1 rounded-full bg-white/10 px-3 py-1.5 text-center text-xs font-semibold text-foreground",
-    inactive: "flex-1 rounded-full px-3 py-1.5 text-center text-xs font-semibold text-muted transition hover:text-foreground",
+    active: "flex-1 rounded-full bg-white/10 px-3 py-1.5 text-center text-xs font-bold text-foreground",
+    inactive: "flex-1 rounded-full px-3 py-1.5 text-center text-xs font-bold text-muted transition hover:text-foreground",
   },
 };
 
@@ -99,10 +99,10 @@ export function AccountTypeSwitcher({
           onClick={() => setPending(null)}
         >
           <div
-            className="w-full max-w-sm rounded-2xl border border-border bg-surface p-5 shadow-2xl"
+            className="w-full max-w-sm rounded-[20px] border border-border bg-surface p-5 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="text-base font-semibold text-foreground">{confirmTitle}</h3>
+            <h3 className="text-base font-bold text-foreground">{confirmTitle}</h3>
             <p className="mt-2 text-sm text-muted">{confirmText}</p>
             <div className="mt-5 flex gap-2">
               <button

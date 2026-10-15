@@ -84,7 +84,7 @@ export default async function WithdrawPage({ searchParams }: { searchParams: Pro
 
   const inProgressList = inProgress.length > 0 && (
     <section className="flex flex-col gap-2">
-      <h2 className="text-sm font-semibold">{tw("pendingWithdrawals")}</h2>
+      <h2 className="text-section-title">{tw("pendingWithdrawals")}</h2>
       <ul className="flex flex-col gap-2">
         {inProgress.map((r) => (
           <li key={r.id} className="flex items-center justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2.5 text-sm">
@@ -92,10 +92,10 @@ export default async function WithdrawPage({ searchParams }: { searchParams: Pro
               <span className="font-medium">
                 {money(Number(r.amount))} <span className="text-xs text-muted">· {r.network}</span>
               </span>
-              <span dir="ltr" className="truncate font-mono text-[11px] text-muted">
+              <span dir="ltr" className="truncate font-mono text-xs text-muted">
                 {shortAddress(r.address, 8, 6)}
               </span>
-              <span className="text-[11px] text-muted">{formatDateTime(r.created_at, locale, { dateStyle: "medium", timeStyle: "short", timeZone })}</span>
+              <span className="text-xs text-muted">{formatDateTime(r.created_at, locale, { dateStyle: "medium", timeStyle: "short", timeZone })}</span>
             </div>
             <div className="flex shrink-0 flex-col items-end gap-1.5">
               <WalletStatusBadge status={r.status} />

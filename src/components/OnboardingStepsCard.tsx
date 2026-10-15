@@ -27,9 +27,9 @@ export async function OnboardingStepsCard({
   const progressPct = (doneCount / steps.length) * 100;
 
   return (
-    <div className="flex flex-col gap-4 rounded-2xl border border-border bg-surface p-5">
+    <div className="flex flex-col gap-4 rounded-[20px] border border-border bg-surface p-5">
       <div className="flex items-center justify-between">
-        <h2 className="text-base font-semibold">{t("onboardingCardTitle")}</h2>
+        <h2 className="text-section-title">{t("onboardingCardTitle")}</h2>
         <span className="text-xs text-muted" dir="ltr">
           {doneCount}/{steps.length}
         </span>

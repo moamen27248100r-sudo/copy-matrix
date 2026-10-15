@@ -32,18 +32,18 @@ export default async function AdminLeadTraderApplicationsPage({
 
   return (
     <>
-      <h1 className="text-2xl font-semibold">طلبات المتداول القائد</h1>
+      <h1 className="text-page-title">طلبات المتداول القائد</h1>
 
       {error && <FlashMessage tone="error">{error}</FlashMessage>}
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">طلبات معلقة</h2>
+        <h2 className="text-section-title">طلبات معلقة</h2>
         {(pending ?? []).length === 0 ? (
           <p className="text-sm text-muted">لا توجد طلبات معلقة.</p>
         ) : (
           <div className="flex flex-col gap-4">
             {pending!.map((a) => (
-              <div key={a.id} className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
+              <div key={a.id} className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <p className="font-medium">{a.display_name}</p>
@@ -85,7 +85,7 @@ export default async function AdminLeadTraderApplicationsPage({
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">آخر القرارات</h2>
+        <h2 className="text-section-title">آخر القرارات</h2>
         {(recent ?? []).length === 0 ? (
           <p className="text-sm text-muted">لا توجد قرارات سابقة بعد.</p>
         ) : (

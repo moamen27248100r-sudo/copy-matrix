@@ -31,7 +31,7 @@ export async function CopySummaryList({ items }: { items: CopySummaryItem[] }) {
               {money(c.allocated)}
             </span>
           </span>
-          <span dir="ltr" className={`shrink-0 text-sm font-semibold tabular-nums ${c.total >= 0 ? "text-success" : "text-danger"}`}>
+          <span dir="ltr" className={`shrink-0 text-sm font-bold tabular-nums ${c.total >= 0 ? "text-success" : "text-danger"}`}>
             {money(c.total, { signed: true })}
           </span>
         </Link>

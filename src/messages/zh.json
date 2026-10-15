@@ -89,6 +89,25 @@
       "lowRisk": "低风险",
       "lossLimit": "亏损限额已开启",
       "aria": "平台在手机上的示意图"
+    },
+    "landing": {
+      "stepsTitle": "三步了解如何使用",
+      "step1Title": "发现",
+      "step1Desc": "浏览交易员的业绩记录，比较收益、风险和最大回撤。",
+      "step2Title": "跟单",
+      "step2Desc": "设定金额和亏损限额，可随时停止跟单。",
+      "step3Title": "跟踪",
+      "step3Desc": "在一个界面中查看您的投资组合和已跟单的交易。",
+      "cardsTitle": "零风险开始",
+      "card1Title": "免费开通模拟账户",
+      "card1Desc": "开通模拟账户无需任何费用。",
+      "card2Title": "虚拟起始资金",
+      "card2Desc": "每个模拟账户都有 $10,000 虚拟资金，供您练习跟单。",
+      "card3Title": "实时市场价格",
+      "card3Desc": "在一个地方查看加密货币、黄金和外汇价格。",
+      "traderSubtitle": "收益、跟单人数和完整记录，决定之前一目了然。",
+      "prev": "上一个",
+      "next": "下一个"
     }
   },
   "Nav": {

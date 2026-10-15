@@ -21,7 +21,7 @@ export async function AuthShell({ title, subtitle, children }: { title: string; 
       </header>
       <main className="mx-auto flex w-full max-w-[420px] flex-col gap-6 px-4 pb-16 pt-8 sm:px-0 sm:pt-14">
         <div className="flex flex-col gap-2">
-          <h1 className="text-[28px] font-semibold leading-9">{title}</h1>
+          <h1 className="text-3xl font-bold leading-9">{title}</h1>
           {subtitle && <p className="text-base leading-7 text-muted">{subtitle}</p>}
         </div>
         {children}

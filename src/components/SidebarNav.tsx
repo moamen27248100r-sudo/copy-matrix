@@ -147,8 +147,8 @@ export function SidebarNav({
                 aria-current={active ? "page" : undefined}
                 className={`relative flex items-center rounded-xl py-2.5 text-sm transition ${collapsed ? "justify-center px-0" : "gap-3 px-3"} ${
                   active
-                    ? "bg-gradient-to-r from-accent/25 to-brand/10 font-semibold text-accent"
-                    : "font-medium text-foreground/90 hover:bg-white/5"
+                    ? "bg-gradient-to-r from-accent/25 to-brand/10 font-bold text-accent"
+                    : "font-medium text-muted hover:bg-white/5"
                 }`}
               >
                 {active && <span className="absolute inset-y-1 start-0 w-[3px] rounded-full bg-gradient-to-b from-accent to-brand" aria-hidden="true" />}

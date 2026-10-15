@@ -211,7 +211,7 @@ export function CopyFormView({
         >
           <input type="hidden" name="providerId" value={providerId} />
           <div className="flex items-center justify-between">
-            <h2 className="text-base font-semibold">{edit ? t("editTitle", { name: providerName }) : t("title", { name: providerName })}</h2>
+            <h2 className="text-section-title">{edit ? t("editTitle", { name: providerName }) : t("title", { name: providerName })}</h2>
             <button type="button" onClick={onClose} aria-label={t("close")} className="-m-2 flex h-11 w-11 items-center justify-center text-muted hover:text-foreground">
               ✕
             </button>
@@ -223,7 +223,7 @@ export function CopyFormView({
             <p className="rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-xs text-warning" role="alert">
               {t("balanceBelowMin", { balance: money(balance ?? 0), min: money(minAmount) })}{" "}
               {depositHref && (
-                <Link href={depositHref} className="font-semibold underline">
+                <Link href={depositHref} className="font-bold underline">
                   {t("depositCta")}
                 </Link>
               )}
@@ -257,7 +257,7 @@ export function CopyFormView({
     
           {profitSharePct != null && (
             <p className="rounded-lg border border-border bg-surface px-3 py-2 text-xs text-muted">
-              {t("profitShare")} <span dir="ltr" className="font-semibold text-foreground">{profitSharePct}%</span>
+              {t("profitShare")} <span dir="ltr" className="font-bold text-foreground">{profitSharePct}%</span>
             </p>
           )}
     
@@ -308,7 +308,7 @@ export function CopyFormView({
                 />
                 <span>{t("copyStopLossHint")}</span>
               </label>
-              <p className="border-t border-border pt-3 text-xs font-semibold text-foreground">{t("tradeRiskTitle")}</p>
+              <p className="border-t border-border pt-3 text-xs font-bold text-foreground">{t("tradeRiskTitle")}</p>
               <label className="flex flex-col gap-1 text-xs text-muted">
                 {t("takeProfitLabel")}
                 <input name="takeProfitPct" type="number" step="any" min={1} max={500} defaultValue={edit?.takeProfitPct ?? undefined} className="rounded border border-border bg-surface px-2 py-1.5 text-sm text-foreground" dir="ltr" />

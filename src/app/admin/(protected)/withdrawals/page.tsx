@@ -37,10 +37,10 @@ function QueueCard({ w }: { w: Withdrawal }) {
   const profile = oneProfile(w.profiles);
   const net = isNetworkId(w.network) ? w.network : null;
   return (
-    <div className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
+    <div className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div>
-          <p className="text-lg font-semibold">
+          <p className="text-lg font-bold">
             {formatUsdt(Number(w.net_amount), "ar", { decimals: 6 })} <span className="text-xs font-normal text-muted">(المبلغ المطلوب إرساله)</span>
           </p>
           <p className="text-xs text-muted">
@@ -55,12 +55,12 @@ function QueueCard({ w }: { w: Withdrawal }) {
       </div>
 
       <div className="rounded border border-border bg-background px-3 py-2">
-        <p className="text-[11px] text-muted">عنوان العميل ({w.network})</p>
+        <p className="text-xs text-muted">عنوان العميل ({w.network})</p>
         <p dir="ltr" className="select-all break-all font-mono text-sm">
           {w.address}
         </p>
         {net && (
-          <a href={explorerAddressUrl(net, w.address)} target="_blank" rel="noopener noreferrer" className="text-[11px] text-accent hover:underline">
+          <a href={explorerAddressUrl(net, w.address)} target="_blank" rel="noopener noreferrer" className="text-xs text-accent hover:underline">
             عرض العنوان في المستكشف
           </a>
         )}
@@ -111,7 +111,7 @@ export default async function AdminWithdrawalsPage({ searchParams }: { searchPar
   return (
     <>
       <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-semibold">طلبات السحب</h1>
+        <h1 className="text-page-title">طلبات السحب</h1>
         <p className="text-sm text-muted">
           المبلغ مجمّد من رصيد العميل منذ لحظة الطلب. اضغط &quot;بدء التنفيذ&quot; قبل الإرسال من المحفظة حتى لا يستطيع العميل الإلغاء، ثم أدخل TxID.
           الرفض يعيد المبلغ كاملاً لرصيد العميل.
@@ -120,7 +120,7 @@ export default async function AdminWithdrawalsPage({ searchParams }: { searchPar
       {error && <FlashMessage tone="error">{error}</FlashMessage>}
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">بانتظار التنفيذ ({(queue ?? []).length})</h2>
+        <h2 className="text-section-title">بانتظار التنفيذ ({(queue ?? []).length})</h2>
         {(queue ?? []).length === 0 ? (
           <p className="text-sm text-muted">لا توجد طلبات سحب معلقة.</p>
         ) : (
@@ -133,7 +133,7 @@ export default async function AdminWithdrawalsPage({ searchParams }: { searchPar
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">آخر الطلبات المعالجة</h2>
+        <h2 className="text-section-title">آخر الطلبات المعالجة</h2>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[760px] text-sm">
             <thead>

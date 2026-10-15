@@ -51,17 +51,17 @@ export function TwoFactorSection({ enabled }: { enabled: boolean }) {
   }
 
   return (
-    <section className="flex flex-col gap-4 rounded-xl border border-border bg-surface p-4 text-sm">
+    <section className="flex flex-col gap-4 rounded-[20px] border border-border bg-surface p-5 text-sm">
       <div className="flex items-center gap-3">
-        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/5 text-foreground/70">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/5 text-muted">
           <ShieldCheck className="h-4 w-4" aria-hidden="true" />
         </span>
         <h2 className="flex-1 font-medium">{t("title")}</h2>
         <span
           className={
             enabled
-              ? "rounded-full border border-up/40 bg-up/10 px-2 py-0.5 text-[10px] font-semibold text-up"
-              : "rounded-full border border-border px-2 py-0.5 text-[10px] font-semibold text-muted"
+              ? "rounded-full border border-up/40 bg-up/10 px-2 py-0.5 text-xs font-bold text-up"
+              : "rounded-full border border-border px-2 py-0.5 text-xs font-bold text-muted"
           }
         >
           {enabled ? t("statusOn") : t("statusOff")}

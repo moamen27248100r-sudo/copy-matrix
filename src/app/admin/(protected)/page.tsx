@@ -88,7 +88,7 @@ export default async function AdminOverviewPage({
 
   return (
     <>
-      <h1 className="text-2xl font-semibold">نظرة عامة</h1>
+      <h1 className="text-page-title">نظرة عامة</h1>
 
       {latestIntegrity?.status === "issues" && (
         <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-red-500/40 bg-red-500/10 p-3 text-sm text-red-300">
@@ -100,7 +100,7 @@ export default async function AdminOverviewPage({
       )}
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">إحصائيات المنصة</h2>
+        <h2 className="text-section-title">إحصائيات المنصة</h2>
 
         <div className="flex flex-wrap gap-2">
           {STATS_TABS.map((tab) => (
@@ -122,7 +122,7 @@ export default async function AdminOverviewPage({
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
             {activityStats.map((s) => (
               <div key={s.label} className="rounded-lg border border-border bg-surface p-3 text-center">
-                <p className="text-lg font-semibold">{s.value}</p>
+                <p className="text-lg font-bold">{s.value}</p>
                 <p className="text-xs text-muted">{s.label}</p>
               </div>
             ))}
@@ -131,7 +131,7 @@ export default async function AdminOverviewPage({
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             {financialStats.map((s) => (
               <div key={s.label} className="rounded-lg border border-accent/30 bg-accent/5 p-3 text-center">
-                <p className="text-lg font-semibold">{s.value}</p>
+                <p className="text-lg font-bold">{s.value}</p>
                 <p className="text-xs text-muted">{s.label}</p>
               </div>
             ))}
@@ -140,7 +140,7 @@ export default async function AdminOverviewPage({
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">يحتاج مراجعة</h2>
+        <h2 className="text-section-title">يحتاج مراجعة</h2>
 
         <Link
           href={kycLink.href}
@@ -150,7 +150,7 @@ export default async function AdminOverviewPage({
         >
           <span className="font-medium">{kycLink.label}</span>
           <span className="flex items-center gap-2">
-            <span className={`text-lg font-semibold ${kycLink.urgent ? "text-warning" : ""}`}>{kycLink.value}</span>
+            <span className={`text-lg font-bold ${kycLink.urgent ? "text-warning" : ""}`}>{kycLink.value}</span>
             <span className="text-muted">←</span>
           </span>
         </Link>
@@ -173,21 +173,21 @@ export default async function AdminOverviewPage({
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">الأقسام</h2>
+        <h2 className="text-section-title">الأقسام</h2>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <Link href="/admin/users" className="rounded-lg border border-border bg-surface p-4 transition hover:bg-background">
+          <Link href="/admin/users" className="rounded-[20px] border border-border bg-surface p-5 transition hover:bg-background">
             <p className="font-medium">إدارة المستخدمين</p>
             <p className="text-xs text-muted">بحث، صلاحيات، تعليق، وتعديل الرصيد يدويًا</p>
           </Link>
-          <Link href="/admin/traders" className="rounded-lg border border-border bg-surface p-4 transition hover:bg-background">
+          <Link href="/admin/traders" className="rounded-[20px] border border-border bg-surface p-5 transition hover:bg-background">
             <p className="font-medium">إدارة المتداولين</p>
             <p className="text-xs text-muted">إنشاء وتعديل وحذف المتداولين</p>
           </Link>
-          <Link href="/admin/subscriptions" className="rounded-lg border border-border bg-surface p-4 transition hover:bg-background">
+          <Link href="/admin/subscriptions" className="rounded-[20px] border border-border bg-surface p-5 transition hover:bg-background">
             <p className="font-medium">نشاط النسخ</p>
             <p className="text-xs text-muted">كل اشتراكات النسخ النشطة على المنصة</p>
           </Link>
-          <Link href="/admin/audit-log" className="rounded-lg border border-border bg-surface p-4 transition hover:bg-background">
+          <Link href="/admin/audit-log" className="rounded-[20px] border border-border bg-surface p-5 transition hover:bg-background">
             <p className="font-medium">سجل الإجراءات</p>
             <p className="text-xs text-muted">كل قرار اتخذته أنت أو أي أدمن آخر</p>
           </Link>

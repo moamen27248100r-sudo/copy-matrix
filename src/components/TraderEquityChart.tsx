@@ -91,7 +91,7 @@ function EquityPanel({
         <div className="mb-2 flex items-start justify-between gap-3">
           <div className="min-w-0" aria-live="polite">
             <span
-              className={`flex items-baseline gap-1.5 text-[28px] font-bold leading-tight tabular-nums ${gain ? "text-success" : "text-danger"}`}
+              className={`flex items-baseline gap-1.5 text-3xl font-bold leading-tight tabular-nums ${gain ? "text-success" : "text-danger"}`}
               dir="ltr"
             >
               <span className="text-sm" aria-hidden="true">
@@ -124,7 +124,7 @@ function EquityPanel({
           </span>
           <span>
             {t("current")}:{" "}
-            <bdi dir="ltr" className={`font-semibold ${last < 0 ? "text-danger" : "text-foreground"}`}>
+            <bdi dir="ltr" className={`font-bold ${last < 0 ? "text-danger" : "text-foreground"}`}>
               {fmtPct(last)}
             </bdi>
           </span>

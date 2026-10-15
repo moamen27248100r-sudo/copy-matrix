@@ -68,7 +68,7 @@ export function FeaturesGrid() {
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-10">
         <div className="mx-auto flex flex-col items-center gap-1.5 text-center">
           <h2 className="line-clamp-1 text-2xl font-bold text-white sm:text-3xl">{t("title")}</h2>
-          <p className="line-clamp-2 text-sm leading-relaxed text-slate-400">{t("subtitle")}</p>
+          <p className="line-clamp-2 text-sm leading-relaxed text-muted">{t("subtitle")}</p>
         </div>
 
         {/* No cards, no fills — features are separated by a hairline and
@@ -80,7 +80,7 @@ export function FeaturesGrid() {
             <div className="flex flex-wrap items-center gap-2">
               <h3 className="line-clamp-1 text-lg font-bold text-white">{t("card1.title")}</h3>
             </div>
-            <p className="line-clamp-2 max-w-xl text-sm leading-relaxed text-slate-400">{t("card1.desc")}</p>
+            <p className="line-clamp-2 max-w-xl text-sm leading-relaxed text-muted">{t("card1.desc")}</p>
           </div>
 
           {/* Feature 2: markets, as a real live-price ticker (no cards,
@@ -88,15 +88,15 @@ export function FeaturesGrid() {
           <div className="flex flex-col gap-3 py-8">
             <IconBadge name="globe" />
             <h3 className="line-clamp-1 text-lg font-bold text-white">{t("card2.title")}</h3>
-            <p className="line-clamp-2 max-w-xl text-sm leading-relaxed text-slate-400">{t("card2.desc")}</p>
+            <p className="line-clamp-2 max-w-xl text-sm leading-relaxed text-muted">{t("card2.desc")}</p>
           </div>
 
           {/* Feature 3: smart control & risk gauge */}
           <div className="flex flex-col gap-3 py-8 last:pb-0">
             <IconBadge name="settings" />
             <h3 className="line-clamp-1 text-lg font-bold text-white">{t("card3.title")}</h3>
-            <p className="line-clamp-2 max-w-xl text-sm leading-relaxed text-slate-400">{t("card3.desc")}</p>
-            <div className="mt-1 flex max-w-xs items-center justify-between text-xs text-slate-400">
+            <p className="line-clamp-2 max-w-xl text-sm leading-relaxed text-muted">{t("card3.desc")}</p>
+            <div className="mt-1 flex max-w-xs items-center justify-between text-xs text-muted">
               <span>{t("card3.riskLabel")}</span>
               <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium ${RISK_LEVEL_CLASSES[CARD3_RISK_LEVEL]}`}>
                 {t("card3.riskValue")}
