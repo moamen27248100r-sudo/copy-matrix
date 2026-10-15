@@ -39,7 +39,7 @@ export default async function AboutPage() {
               <p className="text-sm leading-relaxed text-muted">{s.body}</p>
             </section>
           ))}
-          <Link href="/risk-disclosure" className="text-sm text-accent hover:underline">
+          <Link href="/risk-disclosure" className="text-sm text-accent-text hover:underline">
             {t("riskLink")}
           </Link>
 
@@ -47,7 +47,7 @@ export default async function AboutPage() {
             <h2 className="text-section-title">{t("contactTitle")}</h2>
             <p className="text-sm leading-relaxed text-muted">
               {t("contactBody")}{" "}
-              <a href={`mailto:${SUPPORT_EMAIL}`} dir="ltr" className="text-accent hover:underline">
+              <a href={`mailto:${SUPPORT_EMAIL}`} dir="ltr" className="text-accent-text underline underline-offset-2">
                 {SUPPORT_EMAIL}
               </a>
             </p>
