@@ -200,7 +200,7 @@
     "closeTradeConfirm": "क्या आप अभी इस पोज़िशन को मौजूदा बाज़ार मूल्य पर बंद करना चाहते हैं?",
     "noCopiedPositions": "अभी कोई ओपन कॉपी की गई पोज़िशन नहीं है।",
     "riskProtectionLabel": "कॉपी की नुकसान सीमा",
-    "riskProtectionUsed": "{maxPct}% में से {pct}% उपयोग",
+    "riskProtectionUsed": "{maxPct} में से {pct} उपयोग",
     "stopCopying": "कॉपी करना बंद करें",
     "stopCopyingConfirm": "इस कॉपी के खुले ट्रेड बंद कर दिए जाएँगे और कॉपी तुरंत रुक जाएगी।",
     "greetingMorning": "सुप्रभात, {name}",
@@ -1573,10 +1573,7 @@
     "emptyHistoryBody": "आपके कॉपी किए गए ट्रेड बंद होने के बाद यहां अपने नतीजे के साथ दिखते हैं।",
     "sumOpen": "खुले ट्रेड",
     "sumFloating": "फ़्लोटिंग लाभ/हानि",
-    "sumInTrades": "खुले ट्रेड में राशि",
-    "sumClosed": "बंद ट्रेड",
-    "sumWinRate": "जीत दर",
-    "sumNet": "शुद्ध परिणाम"
+    "sumInTrades": "खुले ट्रेड में राशि"
   },
   "Copies": {
     "title": "कॉपियां",

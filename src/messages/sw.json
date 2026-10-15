@@ -200,7 +200,7 @@
     "closeTradeConfirm": "Funga nafasi hii sasa kwa bei ya sasa ya soko?",
     "noCopiedPositions": "Hakuna nafasi zilizonakiliwa zilizo wazi kwa sasa.",
     "riskProtectionLabel": "Kikomo cha hasara cha kunakili",
-    "riskProtectionUsed": "Imetumika {pct}% kati ya {maxPct}%",
+    "riskProtectionUsed": "Imetumika {pct} kati ya {maxPct}",
     "stopCopying": "Acha Kunakili",
     "stopCopyingConfirm": "Biashara zilizo wazi za nakala hii zitafungwa na kunakili kutasimama mara moja.",
     "greetingMorning": "Habari za asubuhi, {name}",
@@ -1573,10 +1573,7 @@
     "emptyHistoryBody": "Biashara ulizonakili zinaonekana hapa zikishafungwa, kila moja na matokeo yake.",
     "sumOpen": "Biashara zilizo wazi",
     "sumFloating": "Faida/hasara inayoelea",
-    "sumInTrades": "Katika biashara zilizo wazi",
-    "sumClosed": "Biashara zilizofungwa",
-    "sumWinRate": "Kiwango cha ushindi",
-    "sumNet": "Matokeo halisi"
+    "sumInTrades": "Katika biashara zilizo wazi"
   },
   "Copies": {
     "title": "Nakala",

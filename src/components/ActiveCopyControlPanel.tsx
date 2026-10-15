@@ -131,7 +131,7 @@ export async function ActiveCopyControlPanel({
         <div className="flex items-center justify-between text-xs">
           <span className="text-muted">{t("riskProtectionLabel")}</span>
           <span className={usedPct >= 80 ? "text-danger" : usedPct >= 50 ? "text-warning" : "text-success"}>
-            {t("riskProtectionUsed", { pct: ltrIsolate(usedPct.toFixed(0)), maxPct: ltrIsolate(String(provider.maxDrawdownPct)) })}
+            {t("riskProtectionUsed", { pct: ltrIsolate(`${usedPct.toFixed(0)}%`), maxPct: ltrIsolate(`${provider.maxDrawdownPct}%`) })}
           </span>
         </div>
         <div className="h-2 w-full overflow-hidden rounded-full bg-slate-800">

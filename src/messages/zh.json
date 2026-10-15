@@ -200,7 +200,7 @@
     "closeTradeConfirm": "确定要以当前市场价格立即平掉此仓位吗？",
     "noCopiedPositions": "目前没有未平仓的跟单仓位。",
     "riskProtectionLabel": "跟单亏损限额",
-    "riskProtectionUsed": "已用 {pct}%（上限 {maxPct}%）",
+    "riskProtectionUsed": "已用 {pct}（上限 {maxPct}）",
     "stopCopying": "停止跟单",
     "stopCopyingConfirm": "此跟单的未平仓交易将被平仓，并立即停止跟单。",
     "greetingMorning": "早上好，{name}",
@@ -1574,10 +1574,7 @@
     "emptyHistoryBody": "跟单交易平仓后会显示在这里，并附每笔结果。",
     "sumOpen": "持仓交易",
     "sumFloating": "浮动盈亏",
-    "sumInTrades": "持仓金额",
-    "sumClosed": "已平仓交易",
-    "sumWinRate": "胜率",
-    "sumNet": "净结果"
+    "sumInTrades": "持仓金额"
   },
   "Copies": {
     "title": "跟单",

@@ -200,7 +200,7 @@
     "closeTradeConfirm": "هل أنت متأكد من إغلاق هذه الصفقة الآن بسعر السوق الحالي؟",
     "noCopiedPositions": "لا توجد صفقات منسوخة مفتوحة حاليًا.",
     "riskProtectionLabel": "حد الخسارة للنسخ",
-    "riskProtectionUsed": "استُخدم {pct}% من {maxPct}%",
+    "riskProtectionUsed": "استُخدم {pct} من {maxPct}",
     "stopCopying": "إيقاف النسخ",
     "stopCopyingConfirm": "سيتم إغلاق الصفقات المفتوحة لهذه النسخة وإيقاف النسخ فورًا",
     "greetingMorning": "صباح الخير، {name}",
@@ -1638,10 +1638,7 @@
     "emptyHistoryBody": "تظهر صفقاتك المنسوخة هنا بعد إغلاقها، مع نتيجة كل صفقة.",
     "sumOpen": "صفقات مفتوحة",
     "sumFloating": "الربح/الخسارة العائمة",
-    "sumInTrades": "المبلغ في الصفقات",
-    "sumClosed": "صفقات مغلقة",
-    "sumWinRate": "نسبة الربح",
-    "sumNet": "صافي النتيجة"
+    "sumInTrades": "المبلغ في الصفقات"
   },
   "Copies": {
     "title": "النسخ",

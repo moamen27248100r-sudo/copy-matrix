@@ -200,7 +200,7 @@
     "closeTradeConfirm": "বর্তমান বাজার মূল্যে এখনই এই পজিশন বন্ধ করতে চান?",
     "noCopiedPositions": "বর্তমানে কোনো খোলা কপি করা পজিশন নেই।",
     "riskProtectionLabel": "কপির ক্ষতির সীমা",
-    "riskProtectionUsed": "{maxPct}% এর মধ্যে {pct}% ব্যবহৃত",
+    "riskProtectionUsed": "{maxPct} এর মধ্যে {pct} ব্যবহৃত",
     "stopCopying": "কপি করা বন্ধ করুন",
     "stopCopyingConfirm": "এই কপির খোলা ট্রেডগুলো বন্ধ হবে এবং কপি সঙ্গে সঙ্গে থেমে যাবে।",
     "greetingMorning": "শুভ সকাল, {name}",
@@ -1573,10 +1573,7 @@
     "emptyHistoryBody": "আপনার কপি করা ট্রেড বন্ধ হলে এখানে প্রতিটির ফলাফলসহ দেখা যাবে।",
     "sumOpen": "খোলা ট্রেড",
     "sumFloating": "ভাসমান লাভ/ক্ষতি",
-    "sumInTrades": "খোলা ট্রেডে অর্থ",
-    "sumClosed": "বন্ধ ট্রেড",
-    "sumWinRate": "জয়ের হার",
-    "sumNet": "নিট ফলাফল"
+    "sumInTrades": "খোলা ট্রেডে অর্থ"
   },
   "Copies": {
     "title": "কপি",

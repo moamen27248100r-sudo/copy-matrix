@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { getMoney } from "@/lib/money-server";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
@@ -78,9 +77,6 @@ export default async function TradesPage({
     activeTab === "history"
       ? await fetchClosedTrades(supabase, user.id, filters)
       : { trades: [], symbols: [] as string[], providers: [] as { id: string; name: string }[] };
-
-  const historyNet = history.trades.reduce((sum, x) => sum + x.pnl, 0);
-  const money = await getMoney();
 
   const exportQs = new URLSearchParams(Object.entries({ symbol, provider, result, days }).filter(([, v]) => !!v) as [string, string][]);
   const select = "min-h-11 rounded border border-border bg-background px-2 py-1.5 text-sm lg:min-h-0";
@@ -184,27 +180,7 @@ export default async function TradesPage({
             ) : history.trades.length === 0 ? (
               <p className="text-sm text-muted">{t("noHistory")}</p>
             ) : (
-              <>
-                <dl className="grid grid-cols-3 gap-2 rounded-[20px] border border-border bg-surface p-3 text-center">
-                  <div>
-                    <dd className="text-lg font-bold tabular-nums">{history.trades.length}</dd>
-                    <dt className="text-xs text-muted">{t("sumClosed")}</dt>
-                  </div>
-                  <div className="border-x border-border">
-                    <dd className="text-lg font-bold tabular-nums">
-                      <bdi dir="ltr">{Math.round((history.trades.filter((x) => x.pnl > 0).length / history.trades.length) * 100)}%</bdi>
-                    </dd>
-                    <dt className="text-xs text-muted">{t("sumWinRate")}</dt>
-                  </div>
-                  <div>
-                    <dd className={`text-lg font-bold tabular-nums ${historyNet > 0 ? "text-success" : historyNet < 0 ? "text-danger" : ""}`}>
-                      <bdi dir="ltr">{money(historyNet, { signed: historyNet !== 0 })}</bdi>
-                    </dd>
-                    <dt className="text-xs text-muted">{t("sumNet")}</dt>
-                  </div>
-                </dl>
-                <TradeHistory trades={history.trades} />
-              </>
+              <TradeHistory trades={history.trades} />
             )}
           </>
         )}

@@ -200,7 +200,7 @@
     "closeTradeConfirm": "ปิดโพซิชันนี้ตอนนี้ที่ราคาตลาดปัจจุบันหรือไม่?",
     "noCopiedPositions": "ไม่มีโพซิชันคัดลอกที่เปิดอยู่ในขณะนี้",
     "riskProtectionLabel": "วงเงินขาดทุนของการคัดลอก",
-    "riskProtectionUsed": "ใช้ไป {pct}% จาก {maxPct}%",
+    "riskProtectionUsed": "ใช้ไป {pct} จาก {maxPct}",
     "stopCopying": "หยุดคัดลอก",
     "stopCopyingConfirm": "ออเดอร์ที่เปิดอยู่ของการคัดลอกนี้จะถูกปิดและหยุดคัดลอกทันที",
     "greetingMorning": "อรุณสวัสดิ์ {name}",
@@ -1573,10 +1573,7 @@
     "emptyHistoryBody": "การเทรดที่คัดลอกจะแสดงที่นี่เมื่อปิดแล้ว พร้อมผลลัพธ์ของแต่ละรายการ",
     "sumOpen": "การเทรดที่เปิดอยู่",
     "sumFloating": "กำไร/ขาดทุนลอยตัว",
-    "sumInTrades": "เงินในการเทรดที่เปิด",
-    "sumClosed": "การเทรดที่ปิดแล้ว",
-    "sumWinRate": "อัตราชนะ",
-    "sumNet": "ผลสุทธิ"
+    "sumInTrades": "เงินในการเทรดที่เปิด"
   },
   "Copies": {
     "title": "การคัดลอก",

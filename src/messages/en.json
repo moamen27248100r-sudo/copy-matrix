@@ -200,7 +200,7 @@
     "closeTradeConfirm": "Close this position now at the current market price?",
     "noCopiedPositions": "No open copied positions right now.",
     "riskProtectionLabel": "Copy loss limit",
-    "riskProtectionUsed": "Used {pct}% of {maxPct}%",
+    "riskProtectionUsed": "Used {pct} of {maxPct}",
     "stopCopying": "Stop Copying",
     "stopCopyingConfirm": "Open trades for this copy will be closed and copying will stop immediately.",
     "greetingMorning": "Good morning, {name}",
@@ -1577,10 +1577,7 @@
     "emptyHistoryBody": "Your copied trades appear here once they close, each with its result.",
     "sumOpen": "Open trades",
     "sumFloating": "Floating P/L",
-    "sumInTrades": "In open trades",
-    "sumClosed": "Closed trades",
-    "sumWinRate": "Win rate",
-    "sumNet": "Net result"
+    "sumInTrades": "In open trades"
   },
   "Copies": {
     "title": "Copies",

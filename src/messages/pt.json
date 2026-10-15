@@ -200,7 +200,7 @@
     "closeTradeConfirm": "Fechar esta posição agora pelo preço de mercado atual?",
     "noCopiedPositions": "Nenhuma posição copiada aberta no momento.",
     "riskProtectionLabel": "Limite de perda da cópia",
-    "riskProtectionUsed": "Usado {pct}% de {maxPct}%",
+    "riskProtectionUsed": "Usado {pct} de {maxPct}",
     "stopCopying": "Parar de copiar",
     "stopCopyingConfirm": "As operações abertas desta cópia serão encerradas e a cópia será interrompida imediatamente.",
     "greetingMorning": "Bom dia, {name}",
@@ -1576,10 +1576,7 @@
     "emptyHistoryBody": "Suas operações copiadas aparecem aqui quando fecham, cada uma com o resultado.",
     "sumOpen": "Operações abertas",
     "sumFloating": "P/L flutuante",
-    "sumInTrades": "Em operações abertas",
-    "sumClosed": "Operações fechadas",
-    "sumWinRate": "Taxa de acerto",
-    "sumNet": "Resultado líquido"
+    "sumInTrades": "Em operações abertas"
   },
   "Copies": {
     "title": "Cópias",

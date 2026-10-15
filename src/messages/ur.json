@@ -200,7 +200,7 @@
     "closeTradeConfirm": "کیا آپ اس پوزیشن کو ابھی موجودہ مارکیٹ قیمت پر بند کرنا چاہتے ہیں؟",
     "noCopiedPositions": "فی الحال کوئی کھلی کاپی شدہ پوزیشن نہیں ہے۔",
     "riskProtectionLabel": "کاپی کی نقصان کی حد",
-    "riskProtectionUsed": "{maxPct}% میں سے {pct}% استعمال",
+    "riskProtectionUsed": "{maxPct} میں سے {pct} استعمال",
     "stopCopying": "کاپی کرنا بند کریں",
     "stopCopyingConfirm": "اس کاپی کے کھلے ٹریڈز بند کر دیے جائیں گے اور کاپی فوراً رک جائے گی۔",
     "greetingMorning": "صبح بخیر، {name}",
@@ -1573,10 +1573,7 @@
     "emptyHistoryBody": "آپ کے کاپی کیے گئے ٹریڈ بند ہونے کے بعد یہاں اپنے نتیجے کے ساتھ نظر آتے ہیں۔",
     "sumOpen": "کھلے ٹریڈ",
     "sumFloating": "فلوٹنگ نفع/نقصان",
-    "sumInTrades": "کھلے ٹریڈز میں رقم",
-    "sumClosed": "بند ٹریڈ",
-    "sumWinRate": "جیت کی شرح",
-    "sumNet": "خالص نتیجہ"
+    "sumInTrades": "کھلے ٹریڈز میں رقم"
   },
   "Copies": {
     "title": "کاپیاں",

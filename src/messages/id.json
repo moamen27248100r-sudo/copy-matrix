@@ -200,7 +200,7 @@
     "closeTradeConfirm": "Tutup posisi ini sekarang pada harga pasar saat ini?",
     "noCopiedPositions": "Tidak ada posisi salinan yang terbuka saat ini.",
     "riskProtectionLabel": "Batas rugi salinan",
-    "riskProtectionUsed": "Terpakai {pct}% dari {maxPct}%",
+    "riskProtectionUsed": "Terpakai {pct} dari {maxPct}",
     "stopCopying": "Hentikan Menyalin",
     "stopCopyingConfirm": "Posisi terbuka untuk salinan ini akan ditutup dan penyalinan berhenti seketika.",
     "greetingMorning": "Selamat pagi, {name}",
@@ -1573,10 +1573,7 @@
     "emptyHistoryBody": "Transaksi salinan Anda muncul di sini setelah ditutup, masing-masing dengan hasilnya.",
     "sumOpen": "Transaksi terbuka",
     "sumFloating": "L/R mengambang",
-    "sumInTrades": "Dalam transaksi terbuka",
-    "sumClosed": "Transaksi ditutup",
-    "sumWinRate": "Tingkat menang",
-    "sumNet": "Hasil bersih"
+    "sumInTrades": "Dalam transaksi terbuka"
   },
   "Copies": {
     "title": "Salinan",

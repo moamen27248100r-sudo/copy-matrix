@@ -200,7 +200,7 @@
     "closeTradeConfirm": "Đóng vị thế này ngay bây giờ theo giá thị trường hiện tại?",
     "noCopiedPositions": "Hiện không có vị thế sao chép nào đang mở.",
     "riskProtectionLabel": "Giới hạn lỗ của bản sao",
-    "riskProtectionUsed": "Đã dùng {pct}% trên {maxPct}%",
+    "riskProtectionUsed": "Đã dùng {pct} trên {maxPct}",
     "stopCopying": "Dừng sao chép",
     "stopCopyingConfirm": "Các lệnh đang mở của lượt sao chép này sẽ được đóng và việc sao chép dừng ngay lập tức.",
     "greetingMorning": "Chào buổi sáng, {name}",
@@ -1573,10 +1573,7 @@
     "emptyHistoryBody": "Các giao dịch sao chép sẽ hiện ở đây khi đóng, kèm kết quả từng giao dịch.",
     "sumOpen": "Giao dịch đang mở",
     "sumFloating": "Lãi/lỗ thả nổi",
-    "sumInTrades": "Trong giao dịch mở",
-    "sumClosed": "Giao dịch đã đóng",
-    "sumWinRate": "Tỷ lệ thắng",
-    "sumNet": "Kết quả ròng"
+    "sumInTrades": "Trong giao dịch mở"
   },
   "Copies": {
     "title": "Bản sao",
