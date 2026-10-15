@@ -820,7 +820,9 @@
     "lossAlertsFailed": "Não foi possível salvar os alertas. Tente novamente.",
     "notificationPrefsTitle": "Notificações",
     "notificationPrefsDesc": "Escolha quais avisos recebe na aplicação e por e-mail.",
-    "notificationPrefsLink": "Preferências de notificação"
+    "notificationPrefsLink": "Preferências de notificação",
+    "securityLinkDesc": "Autenticação em duas etapas, senha e dispositivos conectados.",
+    "sectionsNav": "Seções de configurações"
   },
   "Kyc": {
     "title": "Verificação de identidade",

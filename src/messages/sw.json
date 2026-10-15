@@ -820,7 +820,9 @@
     "lossAlertsFailed": "Imeshindwa kuhifadhi arifa. Tafadhali jaribu tena.",
     "notificationPrefsTitle": "Arifa",
     "notificationPrefsDesc": "Chagua arifa unazopokea kwenye programu na kwa barua pepe.",
-    "notificationPrefsLink": "Mapendeleo ya arifa"
+    "notificationPrefsLink": "Mapendeleo ya arifa",
+    "securityLinkDesc": "Uthibitishaji wa hatua mbili, nenosiri na vifaa vilivyoingia.",
+    "sectionsNav": "Sehemu za mipangilio"
   },
   "Kyc": {
     "title": "Uthibitishaji wa Utambulisho",

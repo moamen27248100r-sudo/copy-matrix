@@ -820,7 +820,9 @@
     "lossAlertsFailed": "تعذّر حفظ التنبيهات. حاول مرة أخرى.",
     "notificationPrefsTitle": "التنبيهات",
     "notificationPrefsDesc": "اختر الإشعارات التي تصلك داخل المنصة وعبر البريد.",
-    "notificationPrefsLink": "تفضيلات التنبيهات"
+    "notificationPrefsLink": "تفضيلات التنبيهات",
+    "securityLinkDesc": "التحقق بخطوتين، وكلمة المرور، والأجهزة المسجّل دخولها.",
+    "sectionsNav": "أقسام الإعدادات"
   },
   "Kyc": {
     "title": "توثيق الهوية",

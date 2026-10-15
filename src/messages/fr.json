@@ -820,7 +820,9 @@
     "lossAlertsFailed": "Impossible d'enregistrer les alertes. Réessayez.",
     "notificationPrefsTitle": "Notifications",
     "notificationPrefsDesc": "Choisissez les notifications reçues dans l'application et par e-mail.",
-    "notificationPrefsLink": "Préférences de notification"
+    "notificationPrefsLink": "Préférences de notification",
+    "securityLinkDesc": "Authentification à deux facteurs, mot de passe et appareils connectés.",
+    "sectionsNav": "Sections des paramètres"
   },
   "Kyc": {
     "title": "Vérification d'identité",

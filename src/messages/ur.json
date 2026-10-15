@@ -820,7 +820,9 @@
     "lossAlertsFailed": "الرٹ محفوظ نہیں ہو سکے۔ دوبارہ کوشش کریں۔",
     "notificationPrefsTitle": "اطلاعات",
     "notificationPrefsDesc": "منتخب کریں کہ ایپ میں اور ای میل پر کون سی اطلاعات ملیں۔",
-    "notificationPrefsLink": "اطلاعات کی ترجیحات"
+    "notificationPrefsLink": "اطلاعات کی ترجیحات",
+    "securityLinkDesc": "دو مرحلہ تصدیق، پاس ورڈ اور سائن ان شدہ ڈیوائسز۔",
+    "sectionsNav": "ترتیبات کے حصے"
   },
   "Kyc": {
     "title": "شناخت کی تصدیق",

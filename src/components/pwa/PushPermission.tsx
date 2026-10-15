@@ -87,7 +87,7 @@ export function PushPermission({ publicKey }: { publicKey: string }) {
     }
   }
 
-  if (state === "loading") return null;
+  if (state === "loading" || state === "unconfigured" || state === "unsupported") return null;
 
   return (
     <section className="flex flex-col gap-2 rounded-[20px] border border-border bg-surface p-5">
@@ -100,8 +100,6 @@ export function PushPermission({ publicKey }: { publicKey: string }) {
           <p className="mt-1 text-xs text-muted">{t("pushBody")}</p>
         </div>
       </div>
-      {state === "unsupported" && <p className="text-xs text-muted">{t("pushUnsupported")}</p>}
-      {state === "unconfigured" && <p className="text-xs text-muted">{t("pushNotConfigured")}</p>}
       {state === "denied" && <p className="text-xs text-warning">{t("pushDenied")}</p>}
       {failed && <p className="text-xs text-danger">{t("pushFailed")}</p>}
       {state === "off" && (

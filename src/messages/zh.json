@@ -820,7 +820,9 @@
     "lossAlertsFailed": "无法保存提醒，请重试。",
     "notificationPrefsTitle": "通知",
     "notificationPrefsDesc": "选择您在应用内和邮件中接收的通知。",
-    "notificationPrefsLink": "通知偏好设置"
+    "notificationPrefsLink": "通知偏好设置",
+    "securityLinkDesc": "双重验证、密码和已登录设备。",
+    "sectionsNav": "设置分区"
   },
   "Kyc": {
     "title": "身份验证",

@@ -820,7 +820,9 @@
     "lossAlertsFailed": "Peringatan tidak dapat disimpan. Silakan coba lagi.",
     "notificationPrefsTitle": "Notifikasi",
     "notificationPrefsDesc": "Pilih pemberitahuan yang Anda terima di aplikasi dan lewat email.",
-    "notificationPrefsLink": "Preferensi notifikasi"
+    "notificationPrefsLink": "Preferensi notifikasi",
+    "securityLinkDesc": "Autentikasi dua faktor, kata sandi, dan perangkat yang masuk.",
+    "sectionsNav": "Bagian pengaturan"
   },
   "Kyc": {
     "title": "Verifikasi Identitas",

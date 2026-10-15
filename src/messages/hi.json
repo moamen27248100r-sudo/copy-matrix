@@ -820,7 +820,9 @@
     "lossAlertsFailed": "अलर्ट सहेजे नहीं जा सके। कृपया फिर कोशिश करें।",
     "notificationPrefsTitle": "सूचनाएँ",
     "notificationPrefsDesc": "चुनें कि आपको ऐप में और ईमेल से कौन-सी सूचनाएँ मिलें।",
-    "notificationPrefsLink": "सूचना प्राथमिकताएँ"
+    "notificationPrefsLink": "सूचना प्राथमिकताएँ",
+    "securityLinkDesc": "दो-चरणीय सत्यापन, पासवर्ड और साइन-इन किए गए डिवाइस।",
+    "sectionsNav": "सेटिंग्स के भाग"
   },
   "Kyc": {
     "title": "पहचान सत्यापन",

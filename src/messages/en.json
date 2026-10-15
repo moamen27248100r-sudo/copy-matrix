@@ -820,7 +820,9 @@
     "lossAlertsFailed": "Could not save the alerts. Please try again.",
     "notificationPrefsTitle": "Notifications",
     "notificationPrefsDesc": "Choose which notices you receive in the app and by email.",
-    "notificationPrefsLink": "Notification preferences"
+    "notificationPrefsLink": "Notification preferences",
+    "securityLinkDesc": "Two-factor authentication, password and signed-in devices.",
+    "sectionsNav": "Settings sections"
   },
   "Kyc": {
     "title": "Identity Verification",

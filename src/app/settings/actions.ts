@@ -73,14 +73,15 @@ export async function changePassword(formData: FormData) {
   if (!user) redirect("/login");
 
   const password = formData.get("password") as string;
+  const back = formData.get("returnTo") === "/account/security" ? "/account/security" : "/settings";
   const { error } = await supabase.auth.updateUser({ password });
 
   if (error) {
     const ta = await getTranslations("Actions.auth");
-    redirect("/settings?error=" + encodeURIComponent(translateAuthError(error.message, ta)));
+    redirect(back + "?error=" + encodeURIComponent(translateAuthError(error.message, ta)));
   }
 
-  redirect("/settings?success=1");
+  redirect(back + "?success=1");
 }
 
 // Risk questionnaire: three 1-3 answers -> a profile stored in a cookie that

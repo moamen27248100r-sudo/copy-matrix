@@ -820,7 +820,9 @@
     "lossAlertsFailed": "Không thể lưu cảnh báo. Vui lòng thử lại.",
     "notificationPrefsTitle": "Thông báo",
     "notificationPrefsDesc": "Chọn thông báo bạn nhận trong ứng dụng và qua email.",
-    "notificationPrefsLink": "Tùy chọn thông báo"
+    "notificationPrefsLink": "Tùy chọn thông báo",
+    "securityLinkDesc": "Xác thực hai bước, mật khẩu và thiết bị đã đăng nhập.",
+    "sectionsNav": "Các mục cài đặt"
   },
   "Kyc": {
     "title": "Xác minh danh tính",

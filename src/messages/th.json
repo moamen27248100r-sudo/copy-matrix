@@ -820,7 +820,9 @@
     "lossAlertsFailed": "ไม่สามารถบันทึกการแจ้งเตือนได้ โปรดลองอีกครั้ง",
     "notificationPrefsTitle": "การแจ้งเตือน",
     "notificationPrefsDesc": "เลือกการแจ้งเตือนที่คุณต้องการรับในแอปและทางอีเมล",
-    "notificationPrefsLink": "การตั้งค่าการแจ้งเตือน"
+    "notificationPrefsLink": "การตั้งค่าการแจ้งเตือน",
+    "securityLinkDesc": "การยืนยันสองขั้นตอน รหัสผ่าน และอุปกรณ์ที่ลงชื่อเข้าใช้",
+    "sectionsNav": "หมวดการตั้งค่า"
   },
   "Kyc": {
     "title": "การยืนยันตัวตน",

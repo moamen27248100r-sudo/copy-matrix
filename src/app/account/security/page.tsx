@@ -7,6 +7,8 @@ import { AppNav } from "@/components/AppNav";
 import { TwoFactorSection } from "@/components/account/TwoFactorSection";
 import { ExtraMessages } from "@/components/ExtraMessages";
 import { hasVerifiedTotp } from "@/lib/mfa";
+import { changePassword } from "@/app/settings/actions";
+import { FlashMessage } from "@/components/ui/Toast";
 
 export async function generateMetadata() {
   const t = await getTranslations("AccountSecurityPage");
@@ -14,10 +16,12 @@ export async function generateMetadata() {
 }
 
 // Account security hub linked from the account menu: two-factor (Supabase
-// TOTP MFA), password change (lives on /settings) and the devices & sessions
+// TOTP MFA), password change and the devices & sessions
 // page.
-export default async function AccountSecurityPage() {
+export default async function AccountSecurityPage({ searchParams }: { searchParams: Promise<{ error?: string; success?: string }> }) {
+  const { error, success } = await searchParams;
   const t = await getTranslations("AccountSecurityPage");
+  const ts = await getTranslations("Settings");
   const supabase = await createClient();
   const {
     data: { user },
@@ -38,13 +42,32 @@ export default async function AccountSecurityPage() {
           <TwoFactorSection enabled={hasVerifiedTotp(user)} />
         </ExtraMessages>
 
-        <Link href="/settings#change-password" className={`${rowClass} transition hover:bg-white/5`}>
-          <span className={iconClass}>
-            <KeyRound className="h-4 w-4" aria-hidden="true" />
-          </span>
-          <span className="flex-1 font-medium">{t("changePassword")}</span>
-          <ChevronRight className="h-4 w-4 text-muted rtl:rotate-180" aria-hidden="true" />
-        </Link>
+        {error && <FlashMessage tone="error">{error}</FlashMessage>}
+        {success && <FlashMessage tone="success">{ts("savedSuccess")}</FlashMessage>}
+
+        <section id="change-password" className={`${rowClass} scroll-mt-20 flex-col items-stretch`}>
+          <div className="flex items-center gap-3">
+            <span className={iconClass}>
+              <KeyRound className="h-4 w-4" aria-hidden="true" />
+            </span>
+            <h2 className="flex-1 font-medium">{t("changePassword")}</h2>
+          </div>
+          <form action={changePassword} className="flex flex-col gap-3">
+            <input type="hidden" name="returnTo" value="/account/security" />
+            <input
+              name="password"
+              type="password"
+              placeholder={ts("newPasswordPlaceholder")}
+              required
+              minLength={6}
+              autoComplete="new-password"
+              className="min-h-11 rounded border border-border bg-background px-3 py-2"
+            />
+            <button type="submit" className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground">
+              {ts("updatePassword")}
+            </button>
+          </form>
+        </section>
 
         <Link href="/account/sessions" className={`${rowClass} transition hover:bg-white/5`}>
           <span className={iconClass}>

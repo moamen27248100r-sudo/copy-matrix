@@ -820,7 +820,9 @@
     "lossAlertsFailed": "No se pudieron guardar las alertas. Inténtelo de nuevo.",
     "notificationPrefsTitle": "Notificaciones",
     "notificationPrefsDesc": "Elija qué avisos recibe en la aplicación y por correo.",
-    "notificationPrefsLink": "Preferencias de notificación"
+    "notificationPrefsLink": "Preferencias de notificación",
+    "securityLinkDesc": "Verificación en dos pasos, contraseña y dispositivos con sesión iniciada.",
+    "sectionsNav": "Secciones de ajustes"
   },
   "Kyc": {
     "title": "Verificación de identidad",

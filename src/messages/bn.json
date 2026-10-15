@@ -820,7 +820,9 @@
     "lossAlertsFailed": "সতর্কতা সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।",
     "notificationPrefsTitle": "বিজ্ঞপ্তি",
     "notificationPrefsDesc": "অ্যাপে এবং ইমেইলে কোন বিজ্ঞপ্তি পাবেন তা বেছে নিন।",
-    "notificationPrefsLink": "বিজ্ঞপ্তির পছন্দ"
+    "notificationPrefsLink": "বিজ্ঞপ্তির পছন্দ",
+    "securityLinkDesc": "দুই-ধাপ যাচাই, পাসওয়ার্ড ও সাইন-ইন করা ডিভাইস।",
+    "sectionsNav": "সেটিংসের অংশ"
   },
   "Kyc": {
     "title": "পরিচয় যাচাইকরণ",

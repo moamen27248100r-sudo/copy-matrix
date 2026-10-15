@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
-import { updateProfile, updateAccountType, changePassword } from "@/app/settings/actions";
+import { updateProfile, updateAccountType } from "@/app/settings/actions";
 import { AppNav } from "@/components/AppNav";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { RiskQuestionnaire } from "@/components/RiskQuestionnaire";
@@ -54,7 +54,7 @@ export default async function SettingsPage({
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-sm flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-[var(--sidebar-w)] lg:me-0 lg:pb-6">
+      <main className="mx-auto flex w-full max-w-2xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-[var(--sidebar-w)] lg:me-0 lg:pb-6">
         <h1 className="text-page-title">{t("title")}</h1>
 
         {error && (
@@ -68,7 +68,23 @@ export default async function SettingsPage({
           </FlashMessage>
         )}
 
-        <section className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
+        <nav aria-label={t("sectionsNav")} className="no-scrollbar -mx-6 flex gap-2 overflow-x-auto px-6 sm:mx-0 sm:flex-wrap sm:px-0">
+          {[
+            ["profile", t("profileTitle")],
+            ["account", t("accountTypeTitle")],
+            ["notifications", t("notificationPrefsTitle")],
+            ["alerts", t("lossAlertsTitle")],
+            ["risk", t("riskTitle")],
+            ["language", t("languageTimezoneTitle")],
+            ["security", t("securityTitle")],
+          ].map(([id, label]) => (
+            <a key={id} href={`#${id}`} className="shrink-0 rounded-full border border-border px-3 py-1.5 text-sm text-muted transition hover:border-accent/50 hover:text-foreground">
+              {label}
+            </a>
+          ))}
+        </nav>
+
+        <section id="profile" className="flex scroll-mt-20 flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
           <h2 className="text-section-title">{t("profileTitle")}</h2>
           <p className="text-xs text-muted">{user.email}</p>
           {profile?.account_number != null && (
@@ -94,7 +110,7 @@ export default async function SettingsPage({
           </form>
         </section>
 
-        <section className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
+        <section id="account" className="flex scroll-mt-20 flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
           <h2 className="text-section-title">{t("accountTypeTitle")}</h2>
           <p className="text-xs text-muted">
             {t("accountTypeDesc")}
@@ -136,30 +152,7 @@ export default async function SettingsPage({
           </form>
         </section>
 
-        <PushPermission publicKey={process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? ""} />
-        <InstallApp variant="button" />
-
-        <section id="change-password" className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
-          <h2 className="text-section-title">{t("changePasswordTitle")}</h2>
-          <form action={changePassword} className="flex flex-col gap-3">
-            <input
-              name="password"
-              type="password"
-              placeholder={t("newPasswordPlaceholder")}
-              required
-              minLength={6}
-              className="min-h-11 rounded border border-border bg-background px-3 py-2"
-            />
-            <button
-              type="submit"
-              className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground"
-            >
-              {t("updatePassword")}
-            </button>
-          </form>
-        </section>
-
-        <section className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
+        <section id="notifications" className="flex scroll-mt-20 flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
           <h2 className="text-section-title">{t("notificationPrefsTitle")}</h2>
           <p className="text-xs text-muted">{t("notificationPrefsDesc")}</p>
           <Link href="/notifications/preferences" className="rounded border border-border px-3 py-2 text-center text-sm transition hover:bg-white/5">
@@ -167,11 +160,18 @@ export default async function SettingsPage({
           </Link>
         </section>
 
-        <LossAlertsSection userId={user.id} />
+        <PushPermission publicKey={process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? ""} />
+        <InstallApp variant="button" />
 
-        <RiskQuestionnaire current={(await cookies()).get("risk_profile")?.value} />
+        <div id="alerts" className="scroll-mt-20">
+          <LossAlertsSection userId={user.id} />
+        </div>
 
-        <section className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
+        <div id="risk" className="scroll-mt-20">
+          <RiskQuestionnaire current={(await cookies()).get("risk_profile")?.value} />
+        </div>
+
+        <section id="language" className="flex scroll-mt-20 flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
           <h2 className="text-section-title">{t("languageTimezoneTitle")}</h2>
           <div className="flex items-center justify-between gap-3 text-sm">
             <span className="text-muted">{t("languageLabel")}</span>
@@ -199,29 +199,17 @@ export default async function SettingsPage({
           </form>
         </section>
 
-        <section className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
-          <h2 className="text-section-title">{t("securityTitle")}</h2>
-          <div className="flex flex-col gap-2 rounded border border-border bg-background p-3">
-            <div className="flex items-center justify-between gap-2">
-              <span className="text-sm font-medium">{t("twoFactorTitle")}</span>
-              {hasVerifiedTotp(user) && (
-                <span className="rounded-full border border-up/40 bg-up/10 px-2 py-0.5 text-xs font-bold text-up">
-                  {t("twoFactorOn")}
-                </span>
-              )}
-            </div>
-            <p className="text-xs text-muted">{t("twoFactorDesc")}</p>
-            <Link href="/account/security" className="rounded border border-border px-3 py-2 text-center text-sm transition hover:bg-white/5">
-              {hasVerifiedTotp(user) ? t("twoFactorManage") : t("twoFactorEnable")}
-            </Link>
+        <section id="security" className="flex scroll-mt-20 flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
+          <div className="flex items-center justify-between gap-2">
+            <h2 className="text-section-title">{t("securityTitle")}</h2>
+            {hasVerifiedTotp(user) && (
+              <span className="rounded-full border border-up/40 bg-up/10 px-2 py-0.5 text-xs font-bold text-up">{t("twoFactorOn")}</span>
+            )}
           </div>
-          <div className="flex flex-col gap-2 rounded border border-border bg-background p-3">
-            <span className="text-sm font-medium">{t("sessionsTitle")}</span>
-            <p className="text-xs text-muted">{t("sessionsDesc")}</p>
-            <Link href="/account/sessions" className="rounded border border-border px-3 py-2 text-center text-sm transition hover:bg-white/5">
-              {t("sessionsManage")}
-            </Link>
-          </div>
+          <p className="text-sm text-muted">{t("securityLinkDesc")}</p>
+          <Link href="/account/security" className="rounded border border-border px-3 py-2 text-center text-sm transition hover:bg-white/5">
+            {t("securityTitle")}
+          </Link>
         </section>
       </main>
     </>
