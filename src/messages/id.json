@@ -143,7 +143,12 @@
     "menuBecomeLeader": "Jadi lead trader",
     "menuProfitShareHistory": "Riwayat bagi hasil",
     "demoStripSwitch": "Trading dengan akun nyata",
-    "menuCloseAriaLabel": "Tutup menu"
+    "menuCloseAriaLabel": "Tutup menu",
+    "searchPlaceholder": "Cari trader dan pasar",
+    "searchTraders": "Trader",
+    "searchMarkets": "Pasar",
+    "searchEmpty": "Tidak ada hasil",
+    "searchClose": "Tutup pencarian"
   },
   "LangSwitcher": {
     "label": "Bahasa"

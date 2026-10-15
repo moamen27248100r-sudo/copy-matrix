@@ -95,6 +95,7 @@ export function MenuBody({
   kycStatus,
   accountType,
   compact = false,
+  inSidebar = false,
   onNavigate,
 }: {
   isAdmin: boolean;
@@ -105,6 +106,8 @@ export function MenuBody({
   kycStatus: string;
   accountType: "real" | "demo";
   compact?: boolean;
+  /** The desktop sidebar (scrolls as a whole), not the phone drawer (footer pinned to the bottom). */
+  inSidebar?: boolean;
   onNavigate?: () => void;
 }) {
   const t = useTranslations("Nav");
@@ -162,7 +165,6 @@ export function MenuBody({
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
   const kyc = KYC_BADGE[kycStatus] ?? KYC_BADGE.none;
-  const version = process.env.NEXT_PUBLIC_APP_VERSION;
   const initial = (displayName ?? email ?? "?").charAt(0).toUpperCase();
   const avatar = (
     <span
@@ -273,7 +275,7 @@ export function MenuBody({
         ))}
       </nav>
 
-      <div className="sticky bottom-0 mt-auto bg-[#0B132B]">
+      <div className={`${inSidebar ? "" : "sticky bottom-0"} mt-auto bg-[#0B132B]`}>
         <div className="mx-4 h-px bg-white/[0.06]" aria-hidden="true" />
         {!compact && (
           <p className="flex flex-wrap gap-x-3 gap-y-1 px-5 pt-3 text-xs text-muted">
@@ -298,7 +300,6 @@ export function MenuBody({
             {!compact && t("logout")}
           </button>
         </div>
-        {version && !compact && <p className="pb-4 text-center text-xs text-dim">{tm("version", { version })}</p>}
       </div>
 
       {confirmLogout && (

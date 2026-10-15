@@ -143,7 +143,12 @@
     "menuBecomeLeader": "Devenir trader leader",
     "menuProfitShareHistory": "Historique du partage des profits",
     "demoStripSwitch": "Trader avec un compte réel",
-    "menuCloseAriaLabel": "Fermer le menu"
+    "menuCloseAriaLabel": "Fermer le menu",
+    "searchPlaceholder": "Rechercher des traders et des marchés",
+    "searchTraders": "Traders",
+    "searchMarkets": "Marchés",
+    "searchEmpty": "Aucun résultat",
+    "searchClose": "Fermer la recherche"
   },
   "LangSwitcher": {
     "label": "Langue"

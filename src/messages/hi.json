@@ -143,7 +143,12 @@
     "menuBecomeLeader": "लीड ट्रेडर बनें",
     "menuProfitShareHistory": "लाभ साझा इतिहास",
     "demoStripSwitch": "वास्तविक खाते से ट्रेड करें",
-    "menuCloseAriaLabel": "मेनू बंद करें"
+    "menuCloseAriaLabel": "मेनू बंद करें",
+    "searchPlaceholder": "ट्रेडर और बाज़ार खोजें",
+    "searchTraders": "ट्रेडर",
+    "searchMarkets": "बाज़ार",
+    "searchEmpty": "कोई परिणाम नहीं",
+    "searchClose": "खोज बंद करें"
   },
   "LangSwitcher": {
     "label": "भाषा"

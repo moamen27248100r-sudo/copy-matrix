@@ -143,7 +143,12 @@
     "menuBecomeLeader": "লিড ট্রেডার হন",
     "menuProfitShareHistory": "মুনাফা ভাগাভাগির ইতিহাস",
     "demoStripSwitch": "রিয়াল অ্যাকাউন্টে ট্রেড করুন",
-    "menuCloseAriaLabel": "মেনু বন্ধ করুন"
+    "menuCloseAriaLabel": "মেনু বন্ধ করুন",
+    "searchPlaceholder": "ট্রেডার ও বাজার খুঁজুন",
+    "searchTraders": "ট্রেডার",
+    "searchMarkets": "বাজার",
+    "searchEmpty": "কোনো ফলাফল নেই",
+    "searchClose": "অনুসন্ধান বন্ধ করুন"
   },
   "LangSwitcher": {
     "label": "ভাষা"

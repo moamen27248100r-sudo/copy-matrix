@@ -143,7 +143,12 @@
     "menuBecomeLeader": "Kuwa mfanyabiashara kiongozi",
     "menuProfitShareHistory": "Historia ya mgao wa faida",
     "demoStripSwitch": "Fanya biashara kwa akaunti halisi",
-    "menuCloseAriaLabel": "Funga menyu"
+    "menuCloseAriaLabel": "Funga menyu",
+    "searchPlaceholder": "Tafuta wafanyabiashara na masoko",
+    "searchTraders": "Wafanyabiashara",
+    "searchMarkets": "Masoko",
+    "searchEmpty": "Hakuna matokeo",
+    "searchClose": "Funga utafutaji"
   },
   "LangSwitcher": {
     "label": "Lugha"

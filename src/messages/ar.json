@@ -143,7 +143,12 @@
     "menuBecomeLeader": "كن متداولًا قائدًا",
     "menuProfitShareHistory": "سجل مشاركة الأرباح",
     "demoStripSwitch": "التداول بحساب حقيقي",
-    "menuCloseAriaLabel": "إغلاق القائمة"
+    "menuCloseAriaLabel": "إغلاق القائمة",
+    "searchPlaceholder": "ابحث عن متداول أو سوق",
+    "searchTraders": "المتداولون",
+    "searchMarkets": "الأسواق",
+    "searchEmpty": "لا توجد نتائج",
+    "searchClose": "إغلاق البحث"
   },
   "LangSwitcher": {
     "label": "اللغة"

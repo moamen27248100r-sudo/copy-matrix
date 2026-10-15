@@ -143,7 +143,12 @@
     "menuBecomeLeader": "لیڈ ٹریڈر بنیں",
     "menuProfitShareHistory": "منافع کی تقسیم کی تاریخ",
     "demoStripSwitch": "حقیقی اکاؤنٹ سے ٹریڈ کریں",
-    "menuCloseAriaLabel": "مینو بند کریں"
+    "menuCloseAriaLabel": "مینو بند کریں",
+    "searchPlaceholder": "ٹریڈر اور مارکیٹ تلاش کریں",
+    "searchTraders": "ٹریڈرز",
+    "searchMarkets": "مارکیٹس",
+    "searchEmpty": "کوئی نتیجہ نہیں",
+    "searchClose": "تلاش بند کریں"
   },
   "LangSwitcher": {
     "label": "زبان"

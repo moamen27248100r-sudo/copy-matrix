@@ -143,7 +143,12 @@
     "menuBecomeLeader": "สมัครเป็นลีดเทรดเดอร์",
     "menuProfitShareHistory": "ประวัติการแบ่งกำไร",
     "demoStripSwitch": "เทรดด้วยบัญชีจริง",
-    "menuCloseAriaLabel": "ปิดเมนู"
+    "menuCloseAriaLabel": "ปิดเมนู",
+    "searchPlaceholder": "ค้นหาเทรดเดอร์และตลาด",
+    "searchTraders": "เทรดเดอร์",
+    "searchMarkets": "ตลาด",
+    "searchEmpty": "ไม่พบผลลัพธ์",
+    "searchClose": "ปิดการค้นหา"
   },
   "LangSwitcher": {
     "label": "ภาษา"

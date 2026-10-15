@@ -161,7 +161,7 @@ export function SidebarNav({
           })}
         </nav>
 
-        <div className="mt-2 flex min-h-0 flex-1 flex-col border-t border-white/[0.06]">
+        <div className="mt-2 flex flex-1 flex-col border-t border-white/[0.06]">
           <MenuBody
             isAdmin={isAdmin}
             isLeadTrader={isLeadTrader}
@@ -171,6 +171,7 @@ export function SidebarNav({
             kycStatus={kycStatus}
             accountType={accountType}
             compact={collapsed}
+            inSidebar
           />
         </div>
       </div>

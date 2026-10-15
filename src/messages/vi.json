@@ -143,7 +143,12 @@
     "menuBecomeLeader": "Trở thành nhà giao dịch dẫn đầu",
     "menuProfitShareHistory": "Lịch sử chia sẻ lợi nhuận",
     "demoStripSwitch": "Giao dịch bằng tài khoản thật",
-    "menuCloseAriaLabel": "Đóng menu"
+    "menuCloseAriaLabel": "Đóng menu",
+    "searchPlaceholder": "Tìm trader và thị trường",
+    "searchTraders": "Trader",
+    "searchMarkets": "Thị trường",
+    "searchEmpty": "Không có kết quả",
+    "searchClose": "Đóng tìm kiếm"
   },
   "LangSwitcher": {
     "label": "Ngôn ngữ"
