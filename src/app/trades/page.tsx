@@ -10,6 +10,8 @@ import { TradeHistory } from "@/components/TradeHistory";
 import { closeAllPositions } from "@/app/trades/actions";
 import { fetchClosedTrades } from "@/lib/my-trades";
 import { FlashMessage } from "@/components/ui/Toast";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { SuggestedLeaders } from "@/components/SuggestedLeaders";
 
 type PositionSignal = { symbol: string; side: string; stop_loss: number | null; take_profit: number | null };
 
@@ -26,6 +28,7 @@ export default async function TradesPage({
   const { tab, symbol, provider, result, days, error, tpsl } = await searchParams;
   const activeTab = tab === "history" ? "history" : "open";
   const t = await getTranslations("Trades");
+  const tc = await getTranslations("Copies");
   const supabase = await createClient();
   const {
     data: { user },
@@ -120,7 +123,14 @@ export default async function TradesPage({
                 </form>
               </div>
             )}
-            <MyOpenPositions positions={open} initialPrices={initialPrices} />
+            {open.length === 0 ? (
+              <>
+                <EmptyState title={t("emptyOpenTitle")} message={t("emptyOpenBody")} actionHref="/discover" actionLabel={tc("discover")} />
+                <SuggestedLeaders />
+              </>
+            ) : (
+              <MyOpenPositions positions={open} initialPrices={initialPrices} />
+            )}
           </>
         ) : (
           <>
@@ -165,7 +175,9 @@ export default async function TradesPage({
                 {t("exportCsv")}
               </a>
             </form>
-            {history.trades.length === 0 ? (
+            {history.trades.length === 0 && history.symbols.length === 0 ? (
+              <EmptyState title={t("emptyHistoryTitle")} message={t("emptyHistoryBody")} actionHref="/discover" actionLabel={tc("discover")} />
+            ) : history.trades.length === 0 ? (
               <p className="text-sm text-muted">{t("noHistory")}</p>
             ) : (
               <TradeHistory trades={history.trades} />

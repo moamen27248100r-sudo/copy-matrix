@@ -453,7 +453,9 @@
     "txWithdrawalRefund": "Hoàn lệnh rút",
     "walletMenuLabel": "Tùy chọn ví",
     "temporarilyUnavailable": "Tạm thời không khả dụng",
-    "transactionsTitle": "Lịch sử giao dịch"
+    "transactionsTitle": "Lịch sử giao dịch",
+    "performanceEmptyTitle": "Chưa có giao dịch sao chép",
+    "performanceEmptyBody": "Kết quả, tỷ lệ thắng và báo cáo hằng tháng sẽ hiện ở đây sau khi giao dịch sao chép đầu tiên đóng."
   },
   "TradeHistory": {
     "periodToday": "Hôm nay",
@@ -1554,7 +1556,11 @@
     "tpSlSave": "Lưu",
     "tpSlCancel": "Hủy",
     "tpSlHint": "Để trống một ô để xóa nó. Chốt lời phải nằm ở phía có lãi so với giá hiện tại, cắt lỗ ở phía thua lỗ.",
-    "tpSlSaved": "Đã cập nhật TP/SL."
+    "tpSlSaved": "Đã cập nhật TP/SL.",
+    "emptyOpenTitle": "Hiện chưa có giao dịch đang mở",
+    "emptyOpenBody": "Khi trader bạn sao chép mở giao dịch, giao dịch sẽ hiện ở đây kèm kết quả trực tiếp.",
+    "emptyHistoryTitle": "Chưa có giao dịch đã đóng",
+    "emptyHistoryBody": "Các giao dịch sao chép sẽ hiện ở đây khi đóng, kèm kết quả từng giao dịch."
   },
   "Copies": {
     "title": "Bản sao",
@@ -1568,7 +1574,9 @@
     "tabProfitShare": "Chia sẻ lợi nhuận",
     "endedEmpty": "Chưa có bản sao nào đã kết thúc. Khi bạn dừng sao chép một nhà giao dịch, bản sao đó sẽ hiện ở đây cùng kết quả.",
     "endedLastTrade": "Giao dịch gần nhất: {date}",
-    "endedNoTrades": "Không có giao dịch đã đóng"
+    "endedNoTrades": "Không có giao dịch đã đóng",
+    "emptyBody": "Chọn một trader, đặt số tiền và giới hạn lỗ, các giao dịch mới của họ sẽ tự động được sao chép vào tài khoản của bạn.",
+    "endedEmptyTitle": "Không có bản sao đã kết thúc"
   },
   "LeadTrader": {
     "apply": {

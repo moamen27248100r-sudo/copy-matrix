@@ -1,4 +1,6 @@
 import { getMoney } from "@/lib/money-server";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { SuggestedLeaders } from "@/components/SuggestedLeaders";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations, getLocale } from "next-intl/server";
@@ -37,6 +39,7 @@ export default async function PortfolioPage({
   const locale = (await getLocale()) as Locale;
   const t = await getTranslations("Portfolio");
   const td = await getTranslations("Dashboard");
+  const tc = await getTranslations("Copies");
   const tw = await getTranslations("Wallet");
   const money = await getMoney();
   const userTz = await getUserTimeZone();
@@ -242,74 +245,83 @@ export default async function PortfolioPage({
           </div>
         </div>
 
-        <section className="flex flex-col gap-3">
-          <h2 className="text-section-title">{t("myPerformance")}</h2>
-          <div className="grid grid-cols-2 gap-3 text-center text-sm sm:grid-cols-4">
-            <div className="rounded-lg border border-border bg-surface p-3">
-              <p className={realized >= 0 ? "text-lg font-bold text-success" : "text-lg font-bold text-danger"} dir="ltr">
-                {money(realized, { signed: true })}
-              </p>
-              <p className="text-xs text-muted">{td("netRealizedProfit")}</p>
+        {closedCount === 0 ? (
+          <>
+            <EmptyState title={t("performanceEmptyTitle")} message={t("performanceEmptyBody")} actionHref="/discover" actionLabel={tc("discover")} />
+            <SuggestedLeaders excludeProviderIds={byProvider.map((p) => p.provider_id)} />
+          </>
+        ) : (
+          <>
+          <section className="flex flex-col gap-3">
+            <h2 className="text-section-title">{t("myPerformance")}</h2>
+            <div className="grid grid-cols-2 gap-3 text-center text-sm sm:grid-cols-4">
+              <div className="rounded-lg border border-border bg-surface p-3">
+                <p className={realized >= 0 ? "text-lg font-bold text-success" : "text-lg font-bold text-danger"} dir="ltr">
+                  {money(realized, { signed: true })}
+                </p>
+                <p className="text-xs text-muted">{td("netRealizedProfit")}</p>
+              </div>
+              <div className="rounded-lg border border-border bg-surface p-3">
+                <p className="text-lg font-bold">{winRatePct != null ? `${winRatePct}%` : "—"}</p>
+                <p className="text-xs text-muted">{t("myWinRate")}</p>
+              </div>
+              <div className="rounded-lg border border-border bg-surface p-3">
+                <p
+                  className={avgReturnPct != null && avgReturnPct < 0 ? "text-lg font-bold text-danger" : "text-lg font-bold text-success"}
+                  dir="ltr"
+                >
+                  {avgReturnPct != null ? `${avgReturnPct > 0 ? "+" : ""}${avgReturnPct.toFixed(2)}%` : "—"}
+                </p>
+                <p className="text-xs text-muted">{t("avgTradeReturn")}</p>
+              </div>
+              <div className="rounded-lg border border-border bg-surface p-3">
+                <p className="text-lg font-bold">{closedCount}</p>
+                <p className="text-xs text-muted">{t("closedTradesCount")}</p>
+              </div>
             </div>
-            <div className="rounded-lg border border-border bg-surface p-3">
-              <p className="text-lg font-bold">{winRatePct != null ? `${winRatePct}%` : "—"}</p>
-              <p className="text-xs text-muted">{t("myWinRate")}</p>
-            </div>
-            <div className="rounded-lg border border-border bg-surface p-3">
-              <p
-                className={avgReturnPct != null && avgReturnPct < 0 ? "text-lg font-bold text-danger" : "text-lg font-bold text-success"}
-                dir="ltr"
-              >
-                {avgReturnPct != null ? `${avgReturnPct > 0 ? "+" : ""}${avgReturnPct.toFixed(2)}%` : "—"}
-              </p>
-              <p className="text-xs text-muted">{t("avgTradeReturn")}</p>
-            </div>
-            <div className="rounded-lg border border-border bg-surface p-3">
-              <p className="text-lg font-bold">{closedCount}</p>
-              <p className="text-xs text-muted">{t("closedTradesCount")}</p>
-            </div>
-          </div>
-        </section>
+          </section>
 
-        <section className="flex flex-col gap-3">
-          <h2 className="text-section-title">{t("monthlyReportTitle")}</h2>
-          {monthlyReport.length === 0 ? (
-            <p className="text-sm text-muted">{t("monthlyReportEmpty")}</p>
-          ) : (
-            <div className="overflow-x-auto rounded-lg border border-border bg-surface">
-              <table className="w-full min-w-[420px] text-sm tabular-nums">
-                <thead>
-                  <tr className="border-b border-border text-xs text-muted">
-                    <th className="px-3 py-2 text-start font-normal">{t("date")}</th>
-                    <th className="px-3 py-2 text-start font-normal">{t("closedTradesCount")}</th>
-                    <th className="px-3 py-2 text-start font-normal">{t("myWinRate")}</th>
-                    <th className="px-3 py-2 text-start font-normal">{t("txPnl")}</th>
-                    <th className="px-3 py-2 text-start font-normal">
-                      {t("txDeposit")} / {t("txWithdrawal")}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {monthlyReport.map((m) => (
-                    <tr key={m.key} className="border-b border-border/60 last:border-b-0">
-                      <td className="px-3 py-2 whitespace-nowrap">
-                        {formatDate(`${m.key}-01T00:00:00Z`, locale, { month: "long", year: "numeric", timeZone: "UTC" })}
-                      </td>
-                      <td className="px-3 py-2">{m.trades}</td>
-                      <td className="px-3 py-2">{m.trades ? `${Math.round((m.wins / m.trades) * 100)}%` : "—"}</td>
-                      <td className={`px-3 py-2 ${m.pnl >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
-                        {money(m.pnl, { signed: true })}
-                      </td>
-                      <td className="px-3 py-2 whitespace-nowrap" dir="ltr">
-                        {money(m.deposits, { signed: true })} / {money(-m.withdrawals)}
-                      </td>
+          <section className="flex flex-col gap-3">
+            <h2 className="text-section-title">{t("monthlyReportTitle")}</h2>
+            {monthlyReport.length === 0 ? (
+              <p className="text-sm text-muted">{t("monthlyReportEmpty")}</p>
+            ) : (
+              <div className="overflow-x-auto rounded-lg border border-border bg-surface">
+                <table className="w-full min-w-[420px] text-sm tabular-nums">
+                  <thead>
+                    <tr className="border-b border-border text-xs text-muted">
+                      <th className="px-3 py-2 text-start font-normal">{t("date")}</th>
+                      <th className="px-3 py-2 text-start font-normal">{t("closedTradesCount")}</th>
+                      <th className="px-3 py-2 text-start font-normal">{t("myWinRate")}</th>
+                      <th className="px-3 py-2 text-start font-normal">{t("txPnl")}</th>
+                      <th className="px-3 py-2 text-start font-normal">
+                        {t("txDeposit")} / {t("txWithdrawal")}
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </section>
+                  </thead>
+                  <tbody>
+                    {monthlyReport.map((m) => (
+                      <tr key={m.key} className="border-b border-border/60 last:border-b-0">
+                        <td className="px-3 py-2 whitespace-nowrap">
+                          {formatDate(`${m.key}-01T00:00:00Z`, locale, { month: "long", year: "numeric", timeZone: "UTC" })}
+                        </td>
+                        <td className="px-3 py-2">{m.trades}</td>
+                        <td className="px-3 py-2">{m.trades ? `${Math.round((m.wins / m.trades) * 100)}%` : "—"}</td>
+                        <td className={`px-3 py-2 ${m.pnl >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
+                          {money(m.pnl, { signed: true })}
+                        </td>
+                        <td className="px-3 py-2 whitespace-nowrap" dir="ltr">
+                          {money(m.deposits, { signed: true })} / {money(-m.withdrawals)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </section>
+          </>
+        )}
 
         <section className="flex flex-col gap-2">
           <h2 className="text-section-title">{t("transactionsTitle")}</h2>

@@ -453,7 +453,9 @@
     "txWithdrawalRefund": "Retiro devuelto",
     "walletMenuLabel": "Opciones de la cartera",
     "temporarilyUnavailable": "No disponible temporalmente",
-    "transactionsTitle": "Historial de transacciones"
+    "transactionsTitle": "Historial de transacciones",
+    "performanceEmptyTitle": "Aún no hay operaciones copiadas",
+    "performanceEmptyBody": "Tus resultados, tasa de acierto e informe mensual aparecen aquí cuando se cierre tu primera operación copiada."
   },
   "TradeHistory": {
     "periodToday": "Hoy",
@@ -1555,7 +1557,11 @@
     "tpSlSave": "Guardar",
     "tpSlCancel": "Cancelar",
     "tpSlHint": "Deja un campo vacío para quitarlo. El take profit debe estar del lado de beneficio del precio actual y el stop loss del lado de pérdida.",
-    "tpSlSaved": "TP/SL actualizado."
+    "tpSlSaved": "TP/SL actualizado.",
+    "emptyOpenTitle": "No hay operaciones abiertas ahora",
+    "emptyOpenBody": "Cuando un trader que copias abre una operación, aparece aquí con su resultado en vivo.",
+    "emptyHistoryTitle": "Aún no hay operaciones cerradas",
+    "emptyHistoryBody": "Tus operaciones copiadas aparecen aquí al cerrarse, cada una con su resultado."
   },
   "Copies": {
     "title": "Copias",
@@ -1569,7 +1575,9 @@
     "tabProfitShare": "Reparto de beneficios",
     "endedEmpty": "Aún no hay copias finalizadas. Cuando dejes de copiar a un trader, aparecerá aquí con su resultado.",
     "endedLastTrade": "Última operación: {date}",
-    "endedNoTrades": "Sin operaciones cerradas"
+    "endedNoTrades": "Sin operaciones cerradas",
+    "emptyBody": "Elige un trader, fija un importe y un límite de pérdida, y sus nuevas operaciones se copian automáticamente en tu cuenta.",
+    "endedEmptyTitle": "No hay copias finalizadas"
   },
   "LeadTrader": {
     "apply": {

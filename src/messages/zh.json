@@ -453,7 +453,9 @@
     "txWithdrawalRefund": "提币退回",
     "walletMenuLabel": "钱包选项",
     "temporarilyUnavailable": "暂不可用",
-    "transactionsTitle": "交易记录"
+    "transactionsTitle": "交易记录",
+    "performanceEmptyTitle": "还没有跟单交易",
+    "performanceEmptyBody": "第一笔跟单交易平仓后，您的结果、胜率和月度报告将显示在这里。"
   },
   "TradeHistory": {
     "periodToday": "今天",
@@ -1555,7 +1557,11 @@
     "tpSlSave": "保存",
     "tpSlCancel": "取消",
     "tpSlHint": "留空即可移除。止盈须在当前价格的盈利一侧，止损须在亏损一侧。",
-    "tpSlSaved": "止盈/止损已更新。"
+    "tpSlSaved": "止盈/止损已更新。",
+    "emptyOpenTitle": "目前没有持仓交易",
+    "emptyOpenBody": "您跟单的交易员开仓后，交易会显示在这里并附实时结果。",
+    "emptyHistoryTitle": "还没有已平仓交易",
+    "emptyHistoryBody": "跟单交易平仓后会显示在这里，并附每笔结果。"
   },
   "Copies": {
     "title": "跟单",
@@ -1569,7 +1575,9 @@
     "tabProfitShare": "利润分成",
     "endedEmpty": "暂无已结束的跟单。停止跟单某位交易员后，会连同结果显示在这里。",
     "endedLastTrade": "最后一笔交易：{date}",
-    "endedNoTrades": "没有已平仓交易"
+    "endedNoTrades": "没有已平仓交易",
+    "emptyBody": "选择交易员，设定金额和亏损限额，其新交易会自动复制到您的账户。",
+    "endedEmptyTitle": "没有已结束的跟单"
   },
   "LeadTrader": {
     "apply": {

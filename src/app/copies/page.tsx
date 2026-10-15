@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getMoney } from "@/lib/money-server";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { SuggestedLeaders } from "@/components/SuggestedLeaders";
 import { redirect } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
@@ -125,7 +126,10 @@ export default async function CopiesPage({
 
         {tab === "active" &&
           (copies.length === 0 ? (
-            <EmptyState message={t("empty")} actionHref="/discover" actionLabel={t("discover")} />
+            <>
+              <EmptyState title={t("empty")} message={t("emptyBody")} actionHref="/discover" actionLabel={t("discover")} />
+              <SuggestedLeaders />
+            </>
           ) : (
             <>
               <section className="grid grid-cols-3 rounded-2xl border border-border bg-surface text-center">
@@ -156,7 +160,7 @@ export default async function CopiesPage({
 
         {tab === "ended" &&
           (ended.length === 0 ? (
-            <p className="rounded-[20px] border border-border bg-surface p-5 text-sm text-muted">{t("endedEmpty")}</p>
+            <EmptyState title={t("endedEmptyTitle")} message={t("endedEmpty")} />
           ) : (
             <div className="grid gap-2 lg:grid-cols-2">
               {ended.map((c) => (

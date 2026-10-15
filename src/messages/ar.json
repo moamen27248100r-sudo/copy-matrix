@@ -453,7 +453,9 @@
     "txWithdrawalRefund": "استرجاع سحب",
     "walletMenuLabel": "خيارات المحفظة",
     "temporarilyUnavailable": "غير متاح مؤقتاً",
-    "transactionsTitle": "سجل المعاملات"
+    "transactionsTitle": "سجل المعاملات",
+    "performanceEmptyTitle": "لا توجد صفقات منسوخة بعد",
+    "performanceEmptyBody": "تظهر هنا نتائجك ونسبة نجاحك وتقريرك الشهري بعد إغلاق أول صفقة منسوخة."
   },
   "TradeHistory": {
     "periodToday": "اليوم",
@@ -1619,7 +1621,11 @@
     "tpSlSave": "حفظ",
     "tpSlCancel": "إلغاء",
     "tpSlHint": "اترك الحقل فارغًا لإزالته. يجب أن يكون جني الأرباح في جهة الربح من السعر الحالي، ووقف الخسارة في جهة الخسارة.",
-    "tpSlSaved": "تم تحديث جني الأرباح/وقف الخسارة."
+    "tpSlSaved": "تم تحديث جني الأرباح/وقف الخسارة.",
+    "emptyOpenTitle": "لا توجد صفقات مفتوحة الآن",
+    "emptyOpenBody": "عندما يفتح متداول تنسخه صفقة، تظهر هنا مع نتيجتها المباشرة.",
+    "emptyHistoryTitle": "لا توجد صفقات مغلقة بعد",
+    "emptyHistoryBody": "تظهر صفقاتك المنسوخة هنا بعد إغلاقها، مع نتيجة كل صفقة."
   },
   "Copies": {
     "title": "النسخ",
@@ -1633,7 +1639,9 @@
     "tabProfitShare": "مشاركة الأرباح",
     "endedEmpty": "لا توجد نسخ منتهية بعد. عند إيقاف نسخ متداول تظهر هنا مع نتيجتها.",
     "endedLastTrade": "آخر صفقة: {date}",
-    "endedNoTrades": "بدون صفقات مغلقة"
+    "endedNoTrades": "بدون صفقات مغلقة",
+    "emptyBody": "اختر متداولاً، وحدّد المبلغ وحد الخسارة، وتُنسخ صفقاته الجديدة إلى حسابك تلقائياً.",
+    "endedEmptyTitle": "لا توجد نسخ منتهية"
   },
   "LeadTrader": {
     "apply": {

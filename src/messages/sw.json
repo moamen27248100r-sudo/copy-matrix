@@ -453,7 +453,9 @@
     "txWithdrawalRefund": "Utoaji uliorudishwa",
     "walletMenuLabel": "Chaguo za pochi",
     "temporarilyUnavailable": "Haipatikani kwa muda",
-    "transactionsTitle": "Historia ya miamala"
+    "transactionsTitle": "Historia ya miamala",
+    "performanceEmptyTitle": "Bado hakuna biashara zilizonakiliwa",
+    "performanceEmptyBody": "Matokeo yako, kiwango cha ushindi na ripoti ya mwezi vitaonekana hapa baada ya biashara yako ya kwanza iliyonakiliwa kufungwa."
   },
   "TradeHistory": {
     "periodToday": "Leo",
@@ -1554,7 +1556,11 @@
     "tpSlSave": "Hifadhi",
     "tpSlCancel": "Ghairi",
     "tpSlHint": "Acha sehemu wazi ili kuiondoa. Take profit lazima iwe upande wa faida wa bei ya sasa, stop loss upande wa hasara.",
-    "tpSlSaved": "TP/SL imesasishwa."
+    "tpSlSaved": "TP/SL imesasishwa.",
+    "emptyOpenTitle": "Hakuna biashara iliyo wazi sasa",
+    "emptyOpenBody": "Mfanyabiashara unayemnakili akifungua biashara, itaonekana hapa pamoja na matokeo yake ya moja kwa moja.",
+    "emptyHistoryTitle": "Bado hakuna biashara zilizofungwa",
+    "emptyHistoryBody": "Biashara ulizonakili zinaonekana hapa zikishafungwa, kila moja na matokeo yake."
   },
   "Copies": {
     "title": "Nakala",
@@ -1568,7 +1574,9 @@
     "tabProfitShare": "Mgawanyo wa faida",
     "endedEmpty": "Bado hakuna nakala zilizoisha. Ukiacha kumnakili mfanyabiashara, itaonekana hapa pamoja na matokeo.",
     "endedLastTrade": "Biashara ya mwisho: {date}",
-    "endedNoTrades": "Hakuna biashara zilizofungwa"
+    "endedNoTrades": "Hakuna biashara zilizofungwa",
+    "emptyBody": "Chagua mfanyabiashara, weka kiasi na kikomo cha hasara, na biashara zake mpya zitanakiliwa kwenye akaunti yako kiotomatiki.",
+    "endedEmptyTitle": "Hakuna unakili uliomalizika"
   },
   "LeadTrader": {
     "apply": {

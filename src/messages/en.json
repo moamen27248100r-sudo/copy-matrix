@@ -453,7 +453,9 @@
     "txWithdrawalRefund": "Withdrawal returned",
     "walletMenuLabel": "Wallet options",
     "temporarilyUnavailable": "Temporarily unavailable",
-    "transactionsTitle": "Transaction history"
+    "transactionsTitle": "Transaction history",
+    "performanceEmptyTitle": "No copied trades yet",
+    "performanceEmptyBody": "Your results, win rate and monthly report appear here after your first copied trade closes."
   },
   "TradeHistory": {
     "periodToday": "Today",
@@ -1558,7 +1560,11 @@
     "tpSlSave": "Save",
     "tpSlCancel": "Cancel",
     "tpSlHint": "Leave a field empty to remove it. Take profit must be on the profit side of the current price, stop loss on the loss side.",
-    "tpSlSaved": "TP/SL updated."
+    "tpSlSaved": "TP/SL updated.",
+    "emptyOpenTitle": "No open trades right now",
+    "emptyOpenBody": "When a trader you copy opens a trade, it appears here with its live result.",
+    "emptyHistoryTitle": "No closed trades yet",
+    "emptyHistoryBody": "Your copied trades appear here once they close, each with its result."
   },
   "Copies": {
     "title": "Copies",
@@ -1572,7 +1578,9 @@
     "tabProfitShare": "Profit sharing",
     "endedEmpty": "No ended copies yet. When you stop copying a trader, it appears here with its result.",
     "endedLastTrade": "Last trade: {date}",
-    "endedNoTrades": "No closed trades"
+    "endedNoTrades": "No closed trades",
+    "emptyBody": "Choose a trader, set an amount and a loss limit, and their new trades are copied to your account automatically.",
+    "endedEmptyTitle": "No ended copies"
   },
   "LeadTrader": {
     "apply": {

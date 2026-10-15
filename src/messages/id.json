@@ -453,7 +453,9 @@
     "txWithdrawalRefund": "Penarikan dikembalikan",
     "walletMenuLabel": "Opsi dompet",
     "temporarilyUnavailable": "Sementara tidak tersedia",
-    "transactionsTitle": "Riwayat transaksi"
+    "transactionsTitle": "Riwayat transaksi",
+    "performanceEmptyTitle": "Belum ada transaksi salinan",
+    "performanceEmptyBody": "Hasil, tingkat kemenangan, dan laporan bulanan Anda muncul di sini setelah transaksi salinan pertama ditutup."
   },
   "TradeHistory": {
     "periodToday": "Hari ini",
@@ -1554,7 +1556,11 @@
     "tpSlSave": "Simpan",
     "tpSlCancel": "Batal",
     "tpSlHint": "Kosongkan kolom untuk menghapusnya. Take profit harus di sisi untung dari harga saat ini, stop loss di sisi rugi.",
-    "tpSlSaved": "TP/SL diperbarui."
+    "tpSlSaved": "TP/SL diperbarui.",
+    "emptyOpenTitle": "Belum ada transaksi terbuka",
+    "emptyOpenBody": "Saat trader yang Anda salin membuka transaksi, transaksi itu muncul di sini dengan hasil langsung.",
+    "emptyHistoryTitle": "Belum ada transaksi yang ditutup",
+    "emptyHistoryBody": "Transaksi salinan Anda muncul di sini setelah ditutup, masing-masing dengan hasilnya."
   },
   "Copies": {
     "title": "Salinan",
@@ -1568,7 +1574,9 @@
     "tabProfitShare": "Bagi hasil",
     "endedEmpty": "Belum ada salinan yang berakhir. Saat Anda berhenti menyalin trader, salinan itu muncul di sini beserta hasilnya.",
     "endedLastTrade": "Transaksi terakhir: {date}",
-    "endedNoTrades": "Tidak ada transaksi tertutup"
+    "endedNoTrades": "Tidak ada transaksi tertutup",
+    "emptyBody": "Pilih trader, tentukan jumlah dan batas rugi, lalu transaksi barunya disalin otomatis ke akun Anda.",
+    "endedEmptyTitle": "Tidak ada salinan yang berakhir"
   },
   "LeadTrader": {
     "apply": {
