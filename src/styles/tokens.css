@@ -1,0 +1,74 @@
+/* Typography + text-colour tokens: the one place the type system is defined.
+   Fonts (loaded with next/font in app/layout.tsx): IBM Plex Sans Arabic for Arabic, Inter for
+   Latin text and every digit. Weights used: 400, 500, 700 only.
+   Opt-in: the .ty-* classes and --text-* variables are used by the landing page first and can be
+   adopted by the rest of the platform later without changing anything else. */
+
+:root {
+  /* Text colours, measured on the page background #0b0f17 and the card surface #1a2234. */
+  --text-primary: #f3f5f8; /* 17.6:1 / 14.5:1 */
+  --text-secondary: #a9b3c2; /* 9.1:1 / 7.5:1 */
+  --text-dim: #8190a5; /* 5.9:1 / 4.9:1 -- small notes and warnings only */
+  --text-accent: #7fa8f8; /* 8.1:1 / 6.7:1 -- blue text on dark */
+
+  /* Type scale: phone size first, growing with the viewport up to the desktop size. */
+  --fs-display: clamp(2.25rem, 1.8rem + 2vw, 3.5rem); /* 36px -> 56px */
+  --fs-section: clamp(1.625rem, 1.4rem + 1vw, 2.25rem); /* 26px -> 36px */
+  --fs-card: clamp(1.1875rem, 1.1rem + 0.3vw, 1.375rem); /* 19px -> 22px */
+  --fs-body: clamp(1rem, 0.97rem + 0.1vw, 1.0625rem); /* 16px -> 17px */
+  --fs-small: clamp(0.8125rem, 0.78rem + 0.1vw, 0.875rem); /* 13px -> 14px */
+  --fs-stat: clamp(2.5rem, 2rem + 2vw, 3.25rem); /* big figure on a card */
+
+  --lh-display: 1.1;
+  --lh-section: 1.2;
+  --lh-card: 1.3;
+  --lh-body: 1.5;
+  --lh-body-ar: 1.6;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-bold: 700;
+}
+
+.ty-display {
+  font-size: var(--fs-display);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-display);
+  color: var(--text-primary);
+}
+.ty-section {
+  font-size: var(--fs-section);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-section);
+  color: var(--text-primary);
+}
+.ty-card {
+  font-size: var(--fs-card);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-card);
+  color: var(--text-primary);
+}
+.ty-body {
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-body);
+  color: var(--text-secondary);
+}
+.ty-small {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-body);
+  color: var(--text-dim);
+}
+.ty-stat {
+  font-size: var(--fs-stat);
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+html:lang(ar) .ty-body,
+html:lang(ur) .ty-body,
+html:lang(ar) .ty-small,
+html:lang(ur) .ty-small {
+  line-height: var(--lh-body-ar);
+}

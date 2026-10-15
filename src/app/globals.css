@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "../styles/tokens.css";
 
 :root {
   --bottom-nav-h: 0px;
@@ -490,4 +491,11 @@ body[data-shell="public"] {
 .mockup-float-slow { animation: mockup-float 8.5s ease-in-out -2s infinite; }
 @media (prefers-reduced-motion: reduce) {
   .mockup-float, .mockup-float-slow { animation: none; }
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }

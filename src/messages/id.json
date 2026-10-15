@@ -89,6 +89,26 @@
       "lowRisk": "Risiko rendah",
       "lossLimit": "Batas rugi aktif",
       "aria": "Ilustrasi platform di ponsel"
+    },
+    "landing": {
+      "stepsTitle": "Cara kerjanya dalam 3 langkah",
+      "step1Title": "Temukan",
+      "step1Desc": "Telusuri rekam kinerja trader dan bandingkan imbal hasil, risiko, dan penurunan maksimum.",
+      "step2Title": "Salin",
+      "step2Desc": "Pilih jumlah dan batas rugi, lalu hentikan penyalinan kapan saja.",
+      "step3Title": "Pantau",
+      "step3Desc": "Pantau portofolio dan transaksi yang disalin dari satu layar.",
+      "cardsTitle": "Mulai tanpa risiko",
+      "card1Title": "Buka akun demo gratis",
+      "card1Desc": "Membuka akun demo tidak dikenai biaya.",
+      "card2Title": "Saldo awal virtual",
+      "card2Desc": "Setiap akun demo dimulai dengan dana virtual $10.000 untuk berlatih menyalin.",
+      "card3Title": "Harga pasar langsung",
+      "card3Desc": "Pantau harga kripto, emas, dan mata uang di satu tempat.",
+      "traderTitle": "Profil trader sekilas",
+      "traderSubtitle": "Imbal hasil, jumlah penyalin, dan rekam lengkap, semuanya di depan Anda sebelum memutuskan.",
+      "return30": "Imbal hasil 30 hari",
+      "traderNote": "Contoh ilustrasi. Kinerja masa lalu tidak menjamin hasil."
     }
   },
   "Nav": {

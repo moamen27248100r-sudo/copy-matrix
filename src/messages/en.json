@@ -89,6 +89,26 @@
       "lowRisk": "Low risk",
       "lossLimit": "Loss limit on",
       "aria": "An illustration of the platform on a phone"
+    },
+    "landing": {
+      "stepsTitle": "How it works in 3 steps",
+      "step1Title": "Discover",
+      "step1Desc": "Browse traders' performance records and compare return, risk and drawdown.",
+      "step2Title": "Copy",
+      "step2Desc": "Choose an amount and a loss limit, and stop copying at any time.",
+      "step3Title": "Track",
+      "step3Desc": "Follow your portfolio and copied trades from one screen.",
+      "cardsTitle": "Start without risk",
+      "card1Title": "Open a free demo account",
+      "card1Desc": "Opening a demo account costs nothing.",
+      "card2Title": "A virtual starting balance",
+      "card2Desc": "Every demo account starts with $10,000 in virtual funds to practice copying.",
+      "card3Title": "Live market prices",
+      "card3Desc": "Follow crypto, gold and currency prices in one place.",
+      "traderTitle": "A trader's profile at a glance",
+      "traderSubtitle": "Return, number of copiers and the full record, all in front of you before you decide.",
+      "return30": "30-day return",
+      "traderNote": "Illustrative example. Past performance does not guarantee results."
     }
   },
   "Nav": {

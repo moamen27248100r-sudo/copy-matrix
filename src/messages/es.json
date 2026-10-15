@@ -89,6 +89,26 @@
       "lowRisk": "Riesgo bajo",
       "lossLimit": "Límite de pérdida activo",
       "aria": "Ilustración de la plataforma en un teléfono"
+    },
+    "landing": {
+      "stepsTitle": "Cómo funciona en 3 pasos",
+      "step1Title": "Descubre",
+      "step1Desc": "Explora los historiales de los traders y compara rendimiento, riesgo y caída máxima.",
+      "step2Title": "Copia",
+      "step2Desc": "Elige un importe y un límite de pérdida, y detén la copia en cualquier momento.",
+      "step3Title": "Sigue",
+      "step3Desc": "Sigue tu cartera y tus operaciones copiadas desde una sola pantalla.",
+      "cardsTitle": "Empieza sin riesgo",
+      "card1Title": "Abre una cuenta demo gratis",
+      "card1Desc": "Abrir una cuenta demo no cuesta nada.",
+      "card2Title": "Un saldo virtual inicial",
+      "card2Desc": "Cada cuenta demo empieza con $10,000 en fondos virtuales para practicar la copia.",
+      "card3Title": "Precios de mercado en vivo",
+      "card3Desc": "Sigue los precios de cripto, oro y divisas en un solo lugar.",
+      "traderTitle": "El perfil de un trader de un vistazo",
+      "traderSubtitle": "Rendimiento, número de copiadores y el historial completo, todo ante ti antes de decidir.",
+      "return30": "Rendimiento a 30 días",
+      "traderNote": "Ejemplo ilustrativo. El rendimiento pasado no garantiza resultados."
     }
   },
   "Nav": {
