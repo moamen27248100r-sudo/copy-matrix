@@ -13,7 +13,7 @@ import { RiskFooter } from "@/components/RiskFooter";
 import { LeaderCard } from "@/components/LeaderCard";
 import { DiscoverFilterSheet } from "@/components/DiscoverFilterSheet";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { fmtDrawdown, fmtReturn, fmtWinRate } from "@/lib/format-stats";
+import { fmtDrawdown, fmtReturn, fmtWinRate, ltrIsolate } from "@/lib/format-stats";
 import { MIN_CLOSED_TRADES, adjustedMaxDrawdown } from "@/lib/leader-scores";
 import { adjustedDrawdowns } from "@/lib/leader-drawdown";
 import { aumBandAtLeast, aumBandFloor } from "@/lib/aum-band";
@@ -500,7 +500,7 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
                 {t("compareClear")}
               </Link>
               {compareIds.length >= 2 && (
-                <Link href={`/discover/compare?ids=${compareIds.join(",")}&period=${period}`} className="rounded-full bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground">
+                <Link href={`/discover/compare?ids=${compareIds.join(",")}&period=${period}`} className="rounded-full bg-accent px-3 py-1 text-xs font-bold text-accent-foreground">
                   {t("compareNow")}
                 </Link>
               )}
@@ -547,7 +547,7 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
                         {fmtDrawdown(s.sufficient ? adjustedMaxDrawdown(s.mdd, adjustedDd.get(String(p.provider_id)) ?? null) : null)}
                       </td>
                       <td className="px-3 py-3 text-sm">{p.followers_count}</td>
-                      <td className="px-3 py-3 text-sm" dir="ltr">{aumBandFloor(p.aum_band) != null ? t("aumOver", { amount: money(aumBandFloor(p.aum_band) as number, { compact: true }) }) : "—"}</td>
+                      <td className="px-3 py-3 text-sm">{aumBandFloor(p.aum_band) != null ? t("aumOver", { amount: ltrIsolate(money(aumBandFloor(p.aum_band) as number, { compact: true })) }) : "—"}</td>
                       <td className="px-3 py-3 text-sm" dir="ltr">{p.profit_share_pct != null ? `${Number(p.profit_share_pct)}%` : "—"}</td>
                       <td className="px-3 py-3 text-end">
                         <Link href={compareHref(p.provider_id)} className="me-3 text-xs text-muted hover:text-accent">

@@ -22,18 +22,7 @@ export async function generateMetadata() {
 
 const NAV_HASHES = ["how-it-works", "traders", "markets", "faq"] as const;
 
-// Preview only: the colour of the highlighted words in the headline, chosen with ?accent=a|b.
-//   a  one solid blue from the platform's blue family (#7FA2F5)
-//   b  a soft gradient from #A8C0FF to #3D6FD9
-const ACCENT_CLASS = {
-  a: "text-[#7FA2F5]",
-  b: "bg-gradient-to-r from-[#A8C0FF] to-[#3D6FD9] bg-clip-text text-transparent rtl:bg-gradient-to-l",
-} as const;
-
-export default async function Home({ searchParams }: { searchParams: Promise<{ accent?: string }> }) {
-  const { accent } = await searchParams;
-  const accentClass = accent === "b" ? ACCENT_CLASS.b : ACCENT_CLASS.a;
-
+export default async function Home() {
   const supabase = await createClient();
   const {
     data: { user },
@@ -44,8 +33,9 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ a
   const locale = (await getLocale()) as Locale;
   const translateBio = await getBioTranslator();
 
-  // The six leaders with the highest 30-day return among those with enough closed trades in the
-  // period (a return over a handful of trades says nothing), archived and stopped ones excluded.
+  // The six leaders with the highest 30-day return among low- and medium-risk ones with enough
+  // closed trades in the period (a return over a handful of trades says nothing); archived and
+  // stopped ones excluded.
   // Same two retries as before: the cards should be on the page, not there only when the first try
   // happens to succeed.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -56,6 +46,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ a
       .select("*")
       .eq("is_archived", false)
       .neq("trading_status", "stopped")
+      .in("risk_level", ["منخفضة", "متوسطة"])
       .gt("roi_30d", 0)
       .gte("trades_30d", 20)
       .order("roi_30d", { ascending: false })
@@ -93,7 +84,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ a
       <section className="mx-auto w-full max-w-6xl px-5 pb-6 pt-8 md:px-6 md:pb-12 md:pt-16 lg:grid lg:grid-cols-2 lg:items-center lg:gap-12">
         <div className="flex flex-col items-stretch gap-5 text-start lg:items-start">
           <h1 className="ty-display max-w-xl">
-            {t.rich("hero.title", { accent: (chunks) => <span className={accentClass}>{chunks}</span> })}
+            {t.rich("hero.title", { accent: (chunks) => <span className="text-[#7FA2F5]">{chunks}</span> })}
           </h1>
           <p className="ty-body max-w-md">{t("hero.subtitle")}</p>
           <div className="flex w-full flex-col items-center gap-3 pt-1 md:w-auto md:flex-row md:flex-wrap">

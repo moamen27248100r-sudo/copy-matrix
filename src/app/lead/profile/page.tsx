@@ -47,7 +47,7 @@ export default async function LeadProfilePage({ searchParams }: { searchParams: 
       {err && <FlashMessage tone="error">{t(PROFILE_ERRORS.includes(err) ? `err_${err}` : "err_saveFailed")}</FlashMessage>}
       {ok && <FlashMessage tone="success">{t("saved")}</FlashMessage>}
 
-      <form action={uploadLeadAvatar} className="flex flex-wrap items-center gap-4 rounded-2xl border border-border bg-surface p-4">
+      <form action={uploadLeadAvatar} className="flex flex-wrap items-center gap-4 rounded-[20px] border border-border bg-surface p-5">
         <TraderAvatar providerId={providerId} name={provider?.display_name ?? ""} avatarUrl={provider?.avatar_url ?? null} size={64} />
         <div className="flex min-w-0 flex-1 flex-col gap-2">
           <label className="text-sm font-medium" htmlFor="avatar">
@@ -61,7 +61,7 @@ export default async function LeadProfilePage({ searchParams }: { searchParams: 
         </button>
       </form>
 
-      <form action={saveLeadPublicProfile} className="flex flex-col gap-5 rounded-2xl border border-border bg-surface p-5">
+      <form action={saveLeadPublicProfile} className="flex flex-col gap-5 rounded-[20px] border border-border bg-surface p-5">
         <label className="flex flex-col gap-1.5 text-sm">
           {t("bio")}
           <textarea name="bio" rows={3} maxLength={600} defaultValue={provider?.bio ?? ""} className={field} />
@@ -81,12 +81,12 @@ export default async function LeadProfilePage({ searchParams }: { searchParams: 
             <span className="block text-xs text-muted">{t("acceptingHint")}</span>
           </span>
         </label>
-        <button type="submit" className="self-start rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-accent-foreground">
+        <button type="submit" className="self-start rounded-lg bg-accent px-4 py-2.5 text-sm font-bold text-accent-foreground">
           {t("save")}
         </button>
       </form>
 
-      <section className="flex flex-col gap-2 rounded-2xl border border-border bg-surface p-5 text-sm">
+      <section className="flex flex-col gap-2 rounded-[20px] border border-border bg-surface p-5 text-sm">
         <h2 className="text-section-title">{t("publicFacts")}</h2>
         <p>
           <span className="text-muted">{t("assets")}: </span>

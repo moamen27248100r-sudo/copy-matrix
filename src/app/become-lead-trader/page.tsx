@@ -53,7 +53,7 @@ export default async function BecomeLeadTraderPage({
         {error && <FlashMessage tone="error">{error}</FlashMessage>}
         {success && <FlashMessage tone="success">{t("submitted")}</FlashMessage>}
 
-        <section className="grid gap-4 rounded-2xl border border-border bg-surface p-5 sm:grid-cols-2">
+        <section className="grid gap-4 rounded-[20px] border border-border bg-surface p-5 sm:grid-cols-2">
           {benefits.map((b) => (
             <div key={b} className="flex items-start gap-2 text-sm">
               <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
@@ -62,7 +62,7 @@ export default async function BecomeLeadTraderPage({
           ))}
         </section>
 
-        <section className="flex flex-col gap-2 rounded-2xl border border-border bg-surface p-5">
+        <section className="flex flex-col gap-2 rounded-[20px] border border-border bg-surface p-5">
           <h2 className="text-section-title">{t("requirementsTitle")}</h2>
           <ul className="flex flex-col gap-1.5 text-sm text-muted">
             {requirements.map((r) => (
@@ -72,13 +72,13 @@ export default async function BecomeLeadTraderPage({
         </section>
 
         {status.kind === "approved" ? (
-          <a href="/lead" className="rounded-xl bg-accent px-4 py-3 text-center text-sm font-semibold text-accent-foreground">
+          <a href="/lead" className="rounded-xl bg-accent px-4 py-3 text-center text-sm font-bold text-accent-foreground">
             {t("goToCenter")}
           </a>
         ) : status.kind === "pending" ? (
           <p className="rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-warning">{t("pendingNotice")}</p>
         ) : (
-          <DraftForm draftKey="lead-application" action={submitLeadTraderApplication} className="flex flex-col gap-4 rounded-2xl border border-border bg-surface p-5">
+          <DraftForm draftKey="lead-application" action={submitLeadTraderApplication} className="flex flex-col gap-4 rounded-[20px] border border-border bg-surface p-5">
             {status.kind === "rejected" && (
               <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
                 {t("rejectedNotice")}
@@ -133,7 +133,7 @@ export default async function BecomeLeadTraderPage({
               <input type="checkbox" name="agree" required className="mt-0.5" />
               {t("agreeLabel")}
             </label>
-            <button type="submit" className="rounded-xl bg-accent px-4 py-3 text-sm font-semibold text-accent-foreground transition hover:bg-accent-hover">
+            <button type="submit" className="rounded-xl bg-accent px-4 py-3 text-sm font-bold text-accent-foreground transition hover:bg-accent-hover">
               {t("submit")}
             </button>
           </DraftForm>

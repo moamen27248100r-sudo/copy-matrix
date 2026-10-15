@@ -57,7 +57,7 @@ const KYC_BADGE: Record<string, { tone: string; key: "kycVerified" | "kycUnverif
 type Item = { href: string; label: string; icon: LucideIcon };
 
 function GroupTitle({ children }: { children: string }) {
-  return <p className="px-3 pt-3 pb-1 text-[11px] font-semibold uppercase tracking-wide text-muted">{children}</p>;
+  return <p className="px-3 pt-3 pb-1 text-xs font-bold uppercase tracking-wide text-muted">{children}</p>;
 }
 
 function Row({ item, active, compact, onNavigate }: { item: Item; active: boolean; compact: boolean; onNavigate?: () => void }) {
@@ -69,11 +69,11 @@ function Row({ item, active, compact, onNavigate }: { item: Item; active: boolea
       title={compact ? item.label : undefined}
       aria-label={compact ? item.label : undefined}
       aria-current={active ? "page" : undefined}
-      className={`flex items-center rounded-xl py-2 text-[15px] transition ${compact ? "justify-center px-0" : "gap-3 px-3"} ${
-        active ? "bg-accent/15 font-semibold text-accent" : "font-medium text-foreground/90 hover:bg-white/5"
+      className={`flex items-center rounded-xl py-2 text-base transition ${compact ? "justify-center px-0" : "gap-3 px-3"} ${
+        active ? "bg-accent/15 font-bold text-accent" : "font-medium text-muted hover:bg-white/5"
       }`}
     >
-      <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ${active ? "bg-accent/20 text-accent" : "bg-white/5 text-foreground/70"}`}>
+      <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ${active ? "bg-accent/20 text-accent" : "bg-white/5 text-muted"}`}>
         <Icon className="h-4 w-4" strokeWidth={2} aria-hidden="true" />
       </span>
       {!compact && (
@@ -184,13 +184,13 @@ export function MenuBody({
           <div className="flex items-start gap-3 px-4 pt-4 pb-3">
             {avatar}
             <div className="min-w-0 flex-1 text-start">
-              {displayName && <p className="truncate text-sm font-semibold">{displayName}</p>}
+              {displayName && <p className="truncate text-sm font-bold">{displayName}</p>}
               <p className="truncate text-xs text-muted" dir="ltr">
                 {email ? maskEmail(email) : "—"}
               </p>
-              <div className="mt-1 flex items-center gap-1.5 text-[11px] text-muted">
+              <div className="mt-1 flex items-center gap-1.5 text-xs text-muted">
                 <span className="shrink-0">{tm("accountNumber")}</span>
-                <span className="min-w-0 truncate font-mono text-foreground/80" dir="ltr" title={accountDisplay}>
+                <span className="min-w-0 truncate font-mono text-muted" dir="ltr" title={accountDisplay}>
                   {accountDisplay}
                 </span>
                 <button
@@ -203,13 +203,13 @@ export function MenuBody({
                   {copied ? <Check className="h-3.5 w-3.5 text-success" aria-hidden="true" /> : <Copy className="h-3.5 w-3.5" aria-hidden="true" />}
                 </button>
               </div>
-              <span aria-live="polite" className={copied ? "mt-0.5 block text-[11px] font-medium text-success" : "sr-only"}>
+              <span aria-live="polite" className={copied ? "mt-0.5 block text-xs font-medium text-success" : "sr-only"}>
                 {copied ? tm("copied") : ""}
               </span>
               <Link
                 href="/kyc"
                 onClick={onNavigate}
-                className={`mt-2 inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-semibold transition hover:opacity-80 ${kyc.tone}`}
+                className={`mt-2 inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-bold transition hover:opacity-80 ${kyc.tone}`}
               >
                 {tm(kyc.key)}
                 {kycStatus !== "approved" && <ChevronRight className="h-3 w-3 rtl:rotate-180" aria-hidden="true" />}
@@ -276,7 +276,7 @@ export function MenuBody({
       <div className="sticky bottom-0 mt-auto bg-[#0B132B]">
         <div className="mx-4 h-px bg-white/[0.06]" aria-hidden="true" />
         {!compact && (
-          <p className="flex flex-wrap gap-x-3 gap-y-1 px-5 pt-3 text-[11px] text-muted">
+          <p className="flex flex-wrap gap-x-3 gap-y-1 px-5 pt-3 text-xs text-muted">
             {legal.map((l) => (
               <Link key={l.href} href={l.href} onClick={onNavigate} className="transition hover:text-foreground">
                 {l.label}
@@ -290,7 +290,7 @@ export function MenuBody({
             onClick={() => setConfirmLogout(true)}
             title={compact ? t("logout") : undefined}
             aria-label={compact ? t("logout") : undefined}
-            className={`flex w-full items-center rounded-xl py-2.5 text-[15px] font-semibold text-danger transition hover:bg-danger/10 ${compact ? "justify-center" : "gap-3 px-3"}`}
+            className={`flex w-full items-center rounded-xl py-2.5 text-base font-bold text-danger transition hover:bg-danger/10 ${compact ? "justify-center" : "gap-3 px-3"}`}
           >
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-danger/10 text-danger">
               <LogOut className="h-4 w-4" strokeWidth={2} aria-hidden="true" />
@@ -298,7 +298,7 @@ export function MenuBody({
             {!compact && t("logout")}
           </button>
         </div>
-        {version && !compact && <p className="pb-4 text-center text-[11px] text-muted/70">{tm("version", { version })}</p>}
+        {version && !compact && <p className="pb-4 text-center text-xs text-dim">{tm("version", { version })}</p>}
       </div>
 
       {confirmLogout && (
@@ -309,9 +309,9 @@ export function MenuBody({
             aria-labelledby="logout-confirm-title"
             aria-describedby="logout-confirm-body"
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-sm rounded-2xl border border-white/10 bg-[#0B132B] p-5 shadow-2xl"
+            className="w-full max-w-sm rounded-[20px] border border-white/10 bg-[#0B132B] p-5 shadow-2xl"
           >
-            <h2 id="logout-confirm-title" className="text-lg font-semibold">
+            <h2 id="logout-confirm-title" className="text-section-title">
               {tm("logoutConfirmTitle")}
             </h2>
             <p id="logout-confirm-body" className="mt-2 text-sm text-muted">
@@ -327,7 +327,7 @@ export function MenuBody({
                 {tm("cancel")}
               </button>
               <form action={logout} className="flex-1">
-                <button type="submit" className="w-full rounded-xl bg-danger px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-danger/90">
+                <button type="submit" className="w-full rounded-xl bg-danger px-4 py-2.5 text-sm font-bold text-white transition hover:bg-danger/90">
                   {t("logout")}
                 </button>
               </form>

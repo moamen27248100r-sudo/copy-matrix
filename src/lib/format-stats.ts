@@ -26,3 +26,7 @@ export function fmtWinRate(v: number | null | undefined): string {
   if (!finite(v)) return DASH;
   return `${v.toFixed(1)}%`;
 }
+
+/** Wraps a number or amount that is placed inside a translated sentence, so a reversed-direction
+ *  sentence ("أكثر من $100,000") keeps the figure intact and in order. */
+export const ltrIsolate = (s: string): string => `\u2066${s}\u2069`;

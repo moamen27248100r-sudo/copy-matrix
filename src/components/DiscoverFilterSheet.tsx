@@ -49,7 +49,7 @@ export function DiscoverFilterSheet({
         </svg>
         {triggerLabel}
         {activeCount > 0 && (
-          <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold leading-none text-accent-foreground">
+          <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-xs font-bold leading-none text-accent-foreground">
             {activeCount}
           </span>
         )}
@@ -66,7 +66,7 @@ export function DiscoverFilterSheet({
             {Object.entries(hidden).map(([name, value]) => (value ? <input key={name} type="hidden" name={name} value={value} /> : null))}
 
             <div className="flex items-center justify-between">
-              <p className="text-base font-semibold text-foreground">{triggerLabel}</p>
+              <p className="text-base font-bold text-foreground">{triggerLabel}</p>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
@@ -111,7 +111,7 @@ export function DiscoverFilterSheet({
               </Link>
               <button
                 type="submit"
-                className="flex-1 rounded-full bg-accent px-4 py-2.5 text-sm font-semibold text-accent-foreground transition hover:bg-accent-hover"
+                className="flex-1 rounded-full bg-accent px-4 py-2.5 text-sm font-bold text-accent-foreground transition hover:bg-accent-hover"
               >
                 {applyLabel}
               </button>

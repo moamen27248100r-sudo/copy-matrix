@@ -80,7 +80,7 @@ export default async function AdminSubscriptionsPage({
   return (
     <>
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">نشاط النسخ</h1>
+        <h1 className="text-page-title">نشاط النسخ</h1>
         <span className="text-sm text-muted">{count ?? 0} عميل</span>
       </div>
       <p className="text-xs text-muted">كل عميل مسجّل على المنصة (تجريبي أو حقيقي)، وهل ينسخ متداولًا حاليًا أم لا.</p>

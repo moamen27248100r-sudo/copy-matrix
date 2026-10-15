@@ -43,7 +43,7 @@ export async function ActiveCopyControlPanel({
   const barColor = usedPct >= 80 ? "bg-danger" : usedPct >= 50 ? "bg-warning" : "bg-success";
 
   return (
-    <div className="flex flex-col gap-4 rounded-2xl border border-slate-800 bg-surface p-5">
+    <div className="flex flex-col gap-4 rounded-[20px] border border-slate-800 bg-surface p-5">
       <div className="flex items-center justify-between gap-3">
         <Link href={`/trader/${provider.providerId}`} className="flex min-w-0 items-center gap-3">
           <TraderAvatar

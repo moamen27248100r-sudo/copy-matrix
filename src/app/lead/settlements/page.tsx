@@ -95,7 +95,7 @@ export default async function LeadSettlementsPage({ searchParams }: { searchPara
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-page-title">{t("title")}</h1>
         <form action={runOwnSettlement}>
-          <button type="submit" className="rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-accent-foreground">
+          <button type="submit" className="rounded-lg bg-accent px-3 py-2 text-sm font-bold text-accent-foreground">
             {t("runNow")}
           </button>
         </form>
@@ -113,7 +113,7 @@ export default async function LeadSettlementsPage({ searchParams }: { searchPara
       </section>
       <p className="-mt-4 text-xs text-muted">{t("hwmNote")}</p>
 
-      <section className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4">
+      <section className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
         <h2 className="text-section-title">{t("payoutTitle")}</h2>
         {hasPending ? (
           <p className="text-sm text-muted">{t("payoutPendingNotice")}</p>
@@ -121,7 +121,7 @@ export default async function LeadSettlementsPage({ searchParams }: { searchPara
           <form action={requestPayout} className="flex flex-col gap-2 sm:flex-row">
             <input name="amount" type="number" min={10} step="any" max={Number(earnings?.available ?? 0)} required placeholder={t("payoutAmount")} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-base sm:w-32" dir="ltr" />
             <input name="destination" type="text" minLength={3} maxLength={300} required placeholder={t("payoutDestination")} className="min-w-0 flex-1 rounded-lg border border-border bg-background px-3 py-2 text-base" dir="auto" />
-            <button type="submit" disabled={Number(earnings?.available ?? 0) < 10} className="rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-accent-foreground disabled:cursor-not-allowed disabled:opacity-40">
+            <button type="submit" disabled={Number(earnings?.available ?? 0) < 10} className="rounded-lg bg-accent px-3 py-2 text-sm font-bold text-accent-foreground disabled:cursor-not-allowed disabled:opacity-40">
               {t("payoutRequest")}
             </button>
           </form>
@@ -238,9 +238,9 @@ export default async function LeadSettlementsPage({ searchParams }: { searchPara
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex flex-col gap-1 rounded-xl border border-border bg-surface p-4">
+    <div className="flex flex-col gap-1 rounded-[20px] border border-border bg-surface p-5">
       <p className="text-xs text-muted">{label}</p>
-      <p className="num text-lg font-semibold" dir="ltr">
+      <p className="num text-lg font-bold" dir="ltr">
         {value}
       </p>
     </div>

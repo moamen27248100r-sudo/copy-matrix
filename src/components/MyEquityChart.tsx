@@ -149,7 +149,7 @@ export function MyEquityChart({
   const periodPct = profitPct(last, netInvested);
   const summaryLine = wallet && hasData && (
     <p className="text-sm">
-      <span dir="ltr" className={`inline-block font-semibold ${last >= 0 ? "text-success" : "text-danger"}`}>
+      <span dir="ltr" className={`inline-block font-bold ${last >= 0 ? "text-success" : "text-danger"}`}>
         {money(last, { signed: true })}
         {periodPct != null ? ` (${formatPct(periodPct)})` : ""}
       </span>{" "}
@@ -200,14 +200,14 @@ export function MyEquityChart({
                   {bench === "BTCUSDT" ? t("benchmarkBtc") : t("benchmarkGold")}{" "}
                   <span dir="ltr">{formatPct(compare.refLast)}</span>
                 </span>
-                <span className={`font-semibold ${compare.ownLast >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
+                <span className={`font-bold ${compare.ownLast >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
                   {t("benchmarkYou")} {formatPct(compare.ownLast)}
                 </span>
               </>
             ) : (
               <>
                 <span>{t("startingPoint", { amount: money(0) })}</span>
-                <span className={`font-semibold ${last >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
+                <span className={`font-bold ${last >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
                   {money(last, { signed: true })}
                 </span>
               </>

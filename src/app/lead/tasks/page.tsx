@@ -39,7 +39,7 @@ export default async function LeadTasksPage() {
 
       <div className="flex flex-col gap-2">
         {tasks.map((task) => (
-          <div key={task.key} className="flex items-center justify-between gap-3 rounded-xl border border-border bg-surface p-4">
+          <div key={task.key} className="flex items-center justify-between gap-3 rounded-[20px] border border-border bg-surface p-5">
             <div>
               <p className="text-sm font-medium">{t(`task_${task.key}_title`)}</p>
               <p className="text-xs text-muted">{t(`task_${task.key}_desc`)}</p>

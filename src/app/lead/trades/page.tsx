@@ -91,7 +91,7 @@ export default async function LeadTradesPage({
       <h1 className="text-page-title">{t("title")}</h1>
       {error && <FlashMessage tone="error">{error}</FlashMessage>}
 
-      <section className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-5">
+      <section className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
         <p className="text-sm text-muted">{t("copiedToFollowers", { count: activeFollowers ?? 0 })}</p>
         <form action={placeLeadOrder} className="grid grid-cols-2 gap-3 sm:grid-cols-3">
           <select name="symbol" required className="rounded-lg border border-border bg-background px-3 py-2 text-base" defaultValue={SYMBOLS[0]}>
@@ -108,7 +108,7 @@ export default async function LeadTradesPage({
           <input name="size" type="number" step="any" min={0} placeholder={t("size")} required className="rounded-lg border border-border bg-background px-3 py-2 text-base" />
           <input name="takeProfit" type="number" step="any" placeholder={t("takeProfit")} className="rounded-lg border border-border bg-background px-3 py-2 text-base" />
           <input name="stopLoss" type="number" step="any" placeholder={t("stopLoss")} className="rounded-lg border border-border bg-background px-3 py-2 text-base" />
-          <button type="submit" className="rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-accent-foreground">
+          <button type="submit" className="rounded-lg bg-accent px-3 py-2 text-sm font-bold text-accent-foreground">
             {t("submitOrder")}
           </button>
         </form>

@@ -86,7 +86,7 @@ export default async function DepositPage({ searchParams }: { searchParams: Prom
       {rows.length > 0 && (
         <section className="flex flex-col gap-2">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-semibold">{tw("recentDeposits")}</h2>
+            <h2 className="text-section-title">{tw("recentDeposits")}</h2>
             <Link href="/portfolio/history" className="text-xs text-accent hover:underline">
               {tw("viewAllHistory")}
             </Link>
@@ -105,12 +105,12 @@ export default async function DepositPage({ searchParams }: { searchParams: Prom
                       target="_blank"
                       rel="noopener noreferrer"
                       dir="ltr"
-                      className="truncate font-mono text-[11px] text-muted hover:text-accent"
+                      className="truncate font-mono text-xs text-muted hover:text-accent"
                     >
                       {shortAddress(displayTxHash(r.network, r.tx_hash), 10, 6)}
                     </a>
                   )}
-                  <span className="text-[11px] text-muted">{formatDateTime(r.created_at, locale, { dateStyle: "medium", timeStyle: "short", timeZone })}</span>
+                  <span className="text-xs text-muted">{formatDateTime(r.created_at, locale, { dateStyle: "medium", timeStyle: "short", timeZone })}</span>
                 </div>
                 <WalletStatusBadge status={r.status} confirmations={r.confirmations} required={r.required_confirmations} />
               </li>

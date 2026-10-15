@@ -70,16 +70,11 @@ export function CardsCarousel({ children, prevLabel, nextLabel }: { children: Re
         ))}
       </div>
 
-      <div className="mt-5 flex items-center justify-center gap-2 md:hidden" role="group">
+      <div className="mt-5 flex items-center justify-center gap-0.5 md:hidden" role="group">
         {items.map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            onClick={() => goTo(i)}
-            aria-label={String(i + 1)}
-            aria-current={i === active}
-            className={`h-2 rounded-full transition-all ${i === active ? "w-5 bg-[var(--text-accent)]" : "w-2 bg-white/25"}`}
-          />
+          <button key={i} type="button" onClick={() => goTo(i)} aria-label={String(i + 1)} aria-current={i === active} className="flex h-6 w-6 items-center justify-center">
+            <span className={`block h-2 rounded-full transition-all ${i === active ? "w-5 bg-[var(--text-accent)]" : "w-2 bg-white/25"}`} />
+          </button>
         ))}
       </div>
     </div>

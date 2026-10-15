@@ -80,7 +80,7 @@ export function InstallApp({ variant = "button" }: { variant?: "card" | "button"
     <button
       type="button"
       onClick={install}
-      className="tap-44 inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-accent-foreground transition hover:bg-accent-hover"
+      className="tap-44 inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-4 py-2.5 text-sm font-bold text-accent-foreground transition hover:bg-accent-hover"
     >
       <Download className="h-4 w-4" aria-hidden="true" />
       {t("installCta")}
@@ -90,10 +90,10 @@ export function InstallApp({ variant = "button" }: { variant?: "card" | "button"
   return (
     <>
       {variant === "card" ? (
-        <div className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4">
+        <div className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <p className="text-sm font-semibold">{t("installTitle")}</p>
+              <p className="text-sm font-bold">{t("installTitle")}</p>
               <p className="mt-1 text-xs text-muted">{t("installBody")}</p>
             </div>
             <button type="button" onClick={dismiss} aria-label={t("later")} className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-muted hover:bg-white/10">
@@ -117,10 +117,10 @@ export function InstallApp({ variant = "button" }: { variant?: "card" | "button"
               aria-modal="true"
               aria-label={t("iosTitle")}
               onClick={(e) => e.stopPropagation()}
-              className="flex w-full max-w-md flex-col gap-4 rounded-t-2xl border border-border bg-[#0B132B] p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-2xl sm:rounded-2xl"
+              className="flex w-full max-w-md flex-col gap-4 rounded-t-2xl border border-border bg-[#0B132B] p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-2xl sm:rounded-[20px]"
             >
               <div className="flex items-center justify-between gap-3">
-                <h2 className="text-base font-semibold">{t("iosTitle")}</h2>
+                <h2 className="text-section-title">{t("iosTitle")}</h2>
                 <button type="button" onClick={() => setGuide(false)} aria-label={t("later")} className="flex h-9 w-9 items-center justify-center rounded-lg text-muted hover:bg-white/10">
                   <X className="h-5 w-5" aria-hidden="true" />
                 </button>

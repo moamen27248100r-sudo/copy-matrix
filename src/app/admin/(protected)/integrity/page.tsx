@@ -32,7 +32,7 @@ export default async function AdminIntegrityPage() {
 
   return (
     <>
-      <h1 className="text-2xl font-semibold">{t("title")}</h1>
+      <h1 className="text-page-title">{t("title")}</h1>
       <p className="text-xs text-muted">{t("subtitle")}</p>
 
       {reports.length === 0 ? (

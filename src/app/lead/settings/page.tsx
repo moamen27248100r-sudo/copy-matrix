@@ -56,7 +56,7 @@ export default async function LeadSettingsPage({
       {error && <FlashMessage tone="error">{error}</FlashMessage>}
       {success && <FlashMessage tone="success">{t("saved")}</FlashMessage>}
 
-      <form action={updateLeadTraderSettings} className="flex flex-col gap-5 rounded-2xl border border-border bg-surface p-5">
+      <form action={updateLeadTraderSettings} className="flex flex-col gap-5 rounded-[20px] border border-border bg-surface p-5">
         <h2 className="text-section-title">{t("accountInfo")}</h2>
         <label className="flex flex-col gap-1.5 text-sm">
           {t("displayNameLabel")}
@@ -117,12 +117,12 @@ export default async function LeadSettingsPage({
           </select>
         </label>
 
-        <button type="submit" className="self-start rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-accent-foreground">
+        <button type="submit" className="self-start rounded-lg bg-accent px-4 py-2.5 text-sm font-bold text-accent-foreground">
           {t("save")}
         </button>
       </form>
 
-      <section className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-5">
+      <section className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
         <h2 className="text-section-title">{t("securityTitle")}</h2>
         <p className="text-sm text-muted">
           {t("securityLastSeen")}: {me?.last_seen_at ? formatDateTime(me.last_seen_at, locale) : "—"} · {t("securityLogins")}: {me?.login_count ?? 0}
@@ -138,7 +138,7 @@ export default async function LeadSettingsPage({
         <p className="text-xs text-muted">{t("securityNote")}</p>
       </section>
 
-      <section className="flex flex-col gap-3 rounded-2xl border border-danger/30 bg-danger/5 p-5">
+      <section className="flex flex-col gap-3 rounded-[20px] border border-danger/30 bg-danger/5 p-5">
         <h2 className="text-section-title text-danger">{t("endRoleTitle")}</h2>
         <p className="text-sm text-muted">{t("endRoleDesc")}</p>
         {hasOpenTrades && <p className="text-sm text-warning">{t("endRoleHasOpenTrades")}</p>}

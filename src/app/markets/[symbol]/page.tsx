@@ -130,34 +130,34 @@ export default async function InstrumentPage({ params }: { params: Promise<{ sym
           </form>
         </header>
 
-        <section className="rounded-2xl border border-border bg-surface p-4">
+        <section className="rounded-[20px] border border-border bg-surface p-5">
           <InstrumentChart symbol={symbol} initial={initial} decimals={inst.decimals} label={inst.label} />
         </section>
 
         <div className="grid gap-4 sm:grid-cols-2">
           {lo != null && hi != null && (
-            <section className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4">
-              <h2 className="text-sm font-semibold">{t("dayRange")}</h2>
+            <section className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
+              <h2 className="text-section-title">{t("dayRange")}</h2>
               <RangeBar lo={lo} hi={hi} price={row.price} decimals={inst.decimals} />
-              <div className="flex justify-between text-[11px] text-muted">
+              <div className="flex justify-between text-xs text-muted">
                 <span>{t("low")}</span>
                 <span>{t("high")}</span>
               </div>
             </section>
           )}
           {range52 && (
-            <section className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4">
-              <h2 className="text-sm font-semibold">{t("range52")}</h2>
+            <section className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
+              <h2 className="text-section-title">{t("range52")}</h2>
               <RangeBar lo={range52.low} hi={range52.high} price={row.price} decimals={inst.decimals} />
-              <div className="flex justify-between text-[11px] text-muted">
+              <div className="flex justify-between text-xs text-muted">
                 <span>{t("low")}</span>
                 <span>{t("high")}</span>
               </div>
             </section>
           )}
           {volume != null && (
-            <section className="flex flex-col gap-1 rounded-2xl border border-border bg-surface p-4">
-              <h2 className="text-sm font-semibold">{t("volume24h")}</h2>
+            <section className="flex flex-col gap-1 rounded-[20px] border border-border bg-surface p-5">
+              <h2 className="text-section-title">{t("volume24h")}</h2>
               <p dir="ltr" className="text-xl font-bold tabular-nums">
                 {compactVolume(volume)}
               </p>
@@ -165,16 +165,16 @@ export default async function InstrumentPage({ params }: { params: Promise<{ sym
           )}
         </div>
 
-        <section className="flex flex-col gap-2 rounded-2xl border border-border bg-surface p-4">
-          <h2 className="text-sm font-semibold">{t("aboutTitle")}</h2>
+        <section className="flex flex-col gap-2 rounded-[20px] border border-border bg-surface p-5">
+          <h2 className="text-section-title">{t("aboutTitle")}</h2>
           <p className="text-sm leading-relaxed text-muted">{about}</p>
         </section>
 
         <div className="grid items-start gap-6 lg:grid-cols-2">
           <section className="flex flex-col gap-3">
-            <h2 className="text-base font-semibold">{t("relatedNews")}</h2>
+            <h2 className="text-section-title">{t("relatedNews")}</h2>
             {news.length === 0 ? (
-              <p className="rounded-2xl border border-border bg-surface p-4 text-sm text-muted">{t("noNews")}</p>
+              <p className="rounded-[20px] border border-border bg-surface p-5 text-sm text-muted">{t("noNews")}</p>
             ) : (
               <ul className="flex flex-col divide-y divide-border rounded-2xl border border-border bg-surface">
                 {news.map((n) => (
@@ -200,9 +200,9 @@ export default async function InstrumentPage({ params }: { params: Promise<{ sym
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="text-base font-semibold">{t("topTraders")}</h2>
+            <h2 className="text-section-title">{t("topTraders")}</h2>
             {leaderRows.length === 0 ? (
-              <p className="rounded-2xl border border-border bg-surface p-4 text-sm text-muted">{t("noTopTraders")}</p>
+              <p className="rounded-[20px] border border-border bg-surface p-5 text-sm text-muted">{t("noTopTraders")}</p>
             ) : (
               <ul className="flex flex-col gap-2">
                 {leaderRows.map((l) => {

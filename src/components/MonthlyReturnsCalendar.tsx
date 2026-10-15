@@ -48,8 +48,8 @@ export function MonthlyReturnsCalendar({ daily, locale }: { daily: DailySeries |
                 : undefined
             }
           >
-            <span className="text-[11px] text-muted">{m.label}</span>
-            <span className={`text-xs font-semibold ${value == null ? "text-muted" : value >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
+            <span className="text-xs text-muted">{m.label}</span>
+            <span className={`text-xs font-bold ${value == null ? "text-muted" : value >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
               {value != null ? `${value > 0 ? "+" : ""}${value.toFixed(1)}%` : "—"}
             </span>
           </div>

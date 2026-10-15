@@ -32,9 +32,9 @@ export default async function LearnArticlePage({ params }: { params: Promise<{ s
         </Link>
         <article className="flex flex-col gap-4">
           <h1 className="text-page-title">{t(`${slug}.title`)}</h1>
-          <p className="text-base font-medium text-foreground/90">{t(`${slug}.summary`)}</p>
+          <p className="text-base font-medium text-muted">{t(`${slug}.summary`)}</p>
           {(["p1", "p2", "p3"] as const).map((p) => (
-            <p key={p} className="text-[15px] leading-relaxed text-muted">
+            <p key={p} className="text-base leading-relaxed text-muted">
               {t(`${slug}.${p}`)}
             </p>
           ))}

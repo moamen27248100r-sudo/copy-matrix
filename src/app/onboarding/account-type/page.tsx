@@ -68,7 +68,7 @@ export default async function ChooseAccountTypePage({
       <ClearSignupDraft />
       <AuthSteps step={3} />
       <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-xl font-semibold">{t("chooseAccountTypeTitle")}</h1>
+        <h1 className="text-page-title">{t("chooseAccountTypeTitle")}</h1>
         <p className="text-sm text-muted">{t("chooseAccountTypeSubtitle")}</p>
       </div>
 
@@ -79,7 +79,7 @@ export default async function ChooseAccountTypePage({
             {next && <input type="hidden" name="next" value={next} />}
             <button
               type="submit"
-              className="flex w-full items-start gap-4 rounded-xl border border-border bg-surface p-5 text-start transition hover:border-accent/50 hover:shadow-lg"
+              className="flex w-full items-start gap-4 rounded-[20px] border border-border bg-surface p-5 text-start transition hover:border-accent/50 hover:shadow-lg"
             >
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent/10">
                 <svg

@@ -45,7 +45,7 @@ export default async function AdminDepositsPage({ searchParams }: { searchParams
   return (
     <>
       <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-semibold">الإيداعات</h1>
+        <h1 className="text-page-title">الإيداعات</h1>
         <p className="text-sm text-muted">
           يتم التحقق من كل إيداع تلقائياً على البلوكتشين (المستلم، عقد USDT الرسمي، التأكيدات)، والمبلغ يُؤخذ من البلوكتشين نفسه. العمليات المعلقة
           يُعاد فحصها تلقائياً كل دقيقة.
@@ -99,7 +99,7 @@ export default async function AdminDepositsPage({ searchParams }: { searchParams
                         {ADMIN_DEPOSIT_STATUS[d.status] ?? d.status}
                         {d.status === "pending" && ` (${d.confirmations}/${d.required_confirmations})`}
                       </span>
-                      {d.failure_reason && <p className="mt-1 text-[11px] text-muted">{ADMIN_DEPOSIT_FAILURE[d.failure_reason] ?? d.failure_reason}</p>}
+                      {d.failure_reason && <p className="mt-1 text-xs text-muted">{ADMIN_DEPOSIT_FAILURE[d.failure_reason] ?? d.failure_reason}</p>}
                     </td>
                     <td className="py-2 pe-3 text-xs">
                       {isNetworkId(d.network) ? (

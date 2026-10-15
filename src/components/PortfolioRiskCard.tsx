@@ -22,16 +22,16 @@ export async function PortfolioRiskCard({
   const pct = Math.min(100, Math.max(0, risk.score));
 
   return (
-    <section className="relative flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4" aria-labelledby="portfolio-risk-title">
+    <section className="relative flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5" aria-labelledby="portfolio-risk-title">
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <h2 id="portfolio-risk-title" className="text-base font-semibold">
+          <h2 id="portfolio-risk-title" className="text-section-title">
             {t("riskTitle")}
           </h2>
           <details className="group">
             <summary
               aria-label={t("riskInfoLabel")}
-              className="flex h-7 w-7 cursor-pointer list-none items-center justify-center rounded-full border border-border text-xs font-semibold text-muted transition hover:text-foreground"
+              className="flex h-7 w-7 cursor-pointer list-none items-center justify-center rounded-full border border-border text-xs font-bold text-muted transition hover:text-foreground"
             >
               i
             </summary>
@@ -57,19 +57,19 @@ export async function PortfolioRiskCard({
       <dl className="grid grid-cols-3 gap-2 text-center text-xs">
         <div>
           <dt className="text-muted">{t("riskPartReserved")}</dt>
-          <dd className="mt-0.5 font-semibold" dir="ltr">
+          <dd className="mt-0.5 font-bold" dir="ltr">
             {reservedPct.toFixed(0)}%
           </dd>
         </div>
         <div>
           <dt className="text-muted">{t("riskPartDrawdown")}</dt>
-          <dd className="mt-0.5 font-semibold" dir="ltr">
+          <dd className="mt-0.5 font-bold" dir="ltr">
             {drawdownPct.toFixed(1)}%
           </dd>
         </div>
         <div>
           <dt className="text-muted">{t("riskPartTraders")}</dt>
-          <dd className="mt-0.5 font-semibold">{hasCopies ? `${risk.parts.leaders.toFixed(0)}/${RISK_WEIGHTS.leaders}` : "—"}</dd>
+          <dd className="mt-0.5 font-bold">{hasCopies ? `${risk.parts.leaders.toFixed(0)}/${RISK_WEIGHTS.leaders}` : "—"}</dd>
         </div>
       </dl>
     </section>

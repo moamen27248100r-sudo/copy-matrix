@@ -13,7 +13,7 @@ export function ForexAsOfNote({ asOf }: { asOf: string | undefined }) {
     ? new Date(`${asOf}T00:00:00Z`).toLocaleDateString(localeTag(locale), { month: "short", day: "numeric", timeZone: "UTC" })
     : null;
   return (
-    <span className="block text-[10px] font-normal text-muted">
+    <span className="block text-xs font-normal text-muted">
       {date ? t("forexDaily", { date }) : t("forexDailyNoDate")}
     </span>
   );

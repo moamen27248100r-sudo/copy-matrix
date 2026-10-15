@@ -26,8 +26,8 @@ export async function LossAlertsSection({ userId }: { userId: string }) {
   const inputClass = "min-h-11 w-24 rounded border border-border bg-background px-3 py-2 text-base text-end";
 
   return (
-    <section id="loss-alerts" className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
-      <h2 className="font-medium">{t("lossAlertsTitle")}</h2>
+    <section id="loss-alerts" className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
+      <h2 className="text-section-title">{t("lossAlertsTitle")}</h2>
       <p className="text-xs text-muted">{t("lossAlertsDesc")}</p>
       <form action={saveLossAlerts} className="flex flex-col gap-3">
         <label className="flex items-center justify-between gap-3 text-sm">

@@ -138,7 +138,7 @@ export default async function WalletHistoryPage({
                     <td className={td}>
                       <div className="flex flex-col items-start gap-1">
                         <WalletStatusBadge status={d.status} confirmations={d.confirmations} required={d.required_confirmations} />
-                        {d.failure_reason && <span className="max-w-[220px] whitespace-normal text-[11px] text-muted">{tw(`reason_${d.failure_reason}`)}</span>}
+                        {d.failure_reason && <span className="max-w-[220px] whitespace-normal text-xs text-muted">{tw(`reason_${d.failure_reason}`)}</span>}
                       </div>
                     </td>
                     <td className={td}>
@@ -184,10 +184,10 @@ export default async function WalletHistoryPage({
                       <div className="flex flex-col items-start gap-1">
                         <WalletStatusBadge status={w.status} />
                         {(w.status === "rejected" || w.status === "cancelled") && (
-                          <span className="text-[11px] text-muted">{tw("refundedNote")}</span>
+                          <span className="text-xs text-muted">{tw("refundedNote")}</span>
                         )}
                         {w.status === "rejected" && w.reject_reason && (
-                          <span className="max-w-[220px] whitespace-normal text-[11px] text-muted">{w.reject_reason}</span>
+                          <span className="max-w-[220px] whitespace-normal text-xs text-muted">{w.reject_reason}</span>
                         )}
                         {w.status === "processing" && (
                           <form action={cancelCryptoWithdrawal}>

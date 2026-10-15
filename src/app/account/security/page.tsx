@@ -25,7 +25,7 @@ export default async function AccountSecurityPage() {
   if (!user) redirect("/login?next=%2Faccount%2Fsecurity");
 
   const rowClass = "flex items-center gap-3 rounded-xl border border-border bg-surface p-4 text-sm";
-  const iconClass = "flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/5 text-foreground/70";
+  const iconClass = "flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/5 text-muted";
 
   return (
     <>

@@ -27,9 +27,9 @@ export async function ProfitShareLedger({ userId }: { userId: string }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="rounded-xl border border-border bg-surface p-4">
+      <div className="rounded-[20px] border border-border bg-surface p-5">
         <p className="text-xs text-muted">{t("totalDeducted")}</p>
-        <p className="num text-lg font-semibold" dir="ltr">
+        <p className="num text-lg font-bold" dir="ltr">
           {money(totalDeducted)}
         </p>
       </div>
@@ -47,7 +47,7 @@ export async function ProfitShareLedger({ userId }: { userId: string }) {
                 </p>
               </div>
               <div className="text-end">
-                <p className="num font-semibold text-danger" dir="ltr">
+                <p className="num font-bold text-danger" dir="ltr">
                   {money(-Number(r.profit_share_amount))}
                 </p>
                 <p className="text-xs text-muted">{t(`status_${r.status}`)}</p>

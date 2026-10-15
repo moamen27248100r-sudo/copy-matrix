@@ -52,7 +52,7 @@ export function DepositPanel({ networks }: { networks: DepositNetworkOption[] })
           <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#26A17B] text-xs font-bold text-white" aria-hidden="true">
             ₮
           </span>
-          <span className="text-sm font-semibold text-foreground">USDT</span>
+          <span className="text-sm font-bold text-foreground">USDT</span>
           <span className="text-xs text-muted">Tether</span>
         </div>
       </div>
@@ -73,15 +73,15 @@ export function DepositPanel({ networks }: { networks: DepositNetworkOption[] })
             >
               <NetworkIcon network={CHAINS[n.id].chainName} size={24} />
               <span className="flex flex-col">
-                <span className="text-sm font-semibold text-foreground">{n.id}</span>
-                <span className="text-[11px] text-muted">{CHAINS[n.id].chainName}</span>
+                <span className="text-sm font-bold text-foreground">{n.id}</span>
+                <span className="text-xs text-muted">{CHAINS[n.id].chainName}</span>
               </span>
             </button>
           ))}
         </div>
       </div>
 
-      <div className="flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+      <div className="flex flex-col items-center gap-4 rounded-[20px] border border-white/10 bg-white/[0.03] p-5">
         <div className="rounded-xl bg-white p-2.5">
           {qr && qr.address === selected.address ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -99,7 +99,7 @@ export function DepositPanel({ networks }: { networks: DepositNetworkOption[] })
             <button
               type="button"
               onClick={copyAddress}
-              className="shrink-0 rounded-lg border border-accent/40 bg-accent/10 px-3 py-1.5 text-[11px] font-medium text-accent transition hover:bg-accent/20"
+              className="shrink-0 rounded-lg border border-accent/40 bg-accent/10 px-3 py-1.5 text-xs font-medium text-accent transition hover:bg-accent/20"
             >
               {copied ? t("copied") : t("copy")}
             </button>
@@ -133,10 +133,10 @@ export function DepositPanel({ networks }: { networks: DepositNetworkOption[] })
         </div>
       </div>
 
-      <form action={formAction} className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+      <form action={formAction} className="flex flex-col gap-3 rounded-[20px] border border-white/10 bg-white/[0.03] p-5">
         <input type="hidden" name="network" value={selected.id} />
         <div>
-          <p className="text-sm font-semibold text-foreground">{t("txStepTitle")}</p>
+          <p className="text-sm font-bold text-foreground">{t("txStepTitle")}</p>
           <p className="mt-1 text-xs text-muted">{t("txStepDesc")}</p>
         </div>
         <label className="flex flex-col gap-1.5 text-xs text-muted">
@@ -177,7 +177,7 @@ export function DepositPanel({ networks }: { networks: DepositNetworkOption[] })
         <SubmitButton
           disabled={!hashValid}
           pendingLabel={t("verifying")}
-          className="rounded-xl bg-gradient-to-r from-accent to-brand px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-accent/20 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-xl bg-gradient-to-r from-accent to-brand px-4 py-3 text-sm font-bold text-white shadow-lg shadow-accent/20 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {t("submitTx")}
         </SubmitButton>

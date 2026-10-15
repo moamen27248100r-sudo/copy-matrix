@@ -45,7 +45,7 @@ export default async function KycPage({
         <h1 className="text-page-title">{t("title")}</h1>
 
       {submission ? (
-        <div className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
+        <div className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
           <p className="text-sm">
             {t("statusLabel")}{" "}
             <span className="font-medium">

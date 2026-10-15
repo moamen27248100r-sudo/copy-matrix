@@ -106,7 +106,7 @@ export default async function AdminUserDetailPage({
 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold">{profile.display_name}</h1>
+          <h1 className="text-page-title">{profile.display_name}</h1>
           <p className="text-sm text-muted">{profile.email}</p>
         </div>
         <div className="flex flex-wrap gap-1.5">
@@ -127,24 +127,24 @@ export default async function AdminUserDetailPage({
 
       <section className="grid grid-cols-1 gap-3 sm:grid-cols-3">
         <div className="rounded-lg border border-border bg-surface p-3 text-center">
-          <p className="text-lg font-semibold">
+          <p className="text-lg font-bold">
             {formatMoney(Number(profile.balance ?? 0), "ar")}
           </p>
           <p className="text-xs text-muted">الرصيد الحالي</p>
         </div>
         <div className="rounded-lg border border-border bg-surface p-3 text-center">
-          <p className="text-lg font-semibold">{new Date(profile.created_at).toLocaleDateString("ar-EG")}</p>
+          <p className="text-lg font-bold">{new Date(profile.created_at).toLocaleDateString("ar-EG")}</p>
           <p className="text-xs text-muted">تاريخ الانضمام</p>
         </div>
         <div className="rounded-lg border border-border bg-surface p-3 text-center">
-          <p className="text-lg font-semibold">{profile.phone ?? "—"}</p>
+          <p className="text-lg font-bold">{profile.phone ?? "—"}</p>
           <p className="text-xs text-muted">رقم الهاتف</p>
         </div>
       </section>
 
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <div className="rounded-lg border border-border bg-surface p-3 text-center">
-          <p className="text-sm font-semibold">
+          <p className="text-sm font-bold">
             {profile.last_seen_at && nowMs() - new Date(profile.last_seen_at).getTime() < 5 * 60 * 1000 ? (
               <span className="text-success">متصل الآن</span>
             ) : profile.last_seen_at ? (
@@ -156,15 +156,15 @@ export default async function AdminUserDetailPage({
           <p className="text-xs text-muted">آخر ظهور</p>
         </div>
         <div className="rounded-lg border border-border bg-surface p-3 text-center">
-          <p className="text-sm font-semibold">{profile.login_count ?? 0}</p>
+          <p className="text-sm font-bold">{profile.login_count ?? 0}</p>
           <p className="text-xs text-muted">مرات الدخول</p>
         </div>
         <div className="rounded-lg border border-border bg-surface p-3 text-center">
-          <p className="text-sm font-semibold">{profile.country ?? "—"}</p>
+          <p className="text-sm font-bold">{profile.country ?? "—"}</p>
           <p className="text-xs text-muted">الدولة</p>
         </div>
         <div className="rounded-lg border border-border bg-surface p-3 text-center">
-          <p className="text-sm font-semibold" dir="ltr">
+          <p className="text-sm font-bold" dir="ltr">
             {profile.last_login_ip ?? profile.signup_ip ?? "—"}
           </p>
           <p className="text-xs text-muted">آخر IP</p>
@@ -172,8 +172,8 @@ export default async function AdminUserDetailPage({
       </section>
 
       {!isSelf && (
-        <section className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
-          <h2 className="font-medium">إجراءات الحساب</h2>
+        <section className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
+          <h2 className="text-section-title">إجراءات الحساب</h2>
           <div className="flex flex-wrap gap-3">
             <form action={toggleAdmin}>
               <input type="hidden" name="userId" value={profile.id} />
@@ -208,8 +208,8 @@ export default async function AdminUserDetailPage({
         </section>
       )}
 
-      <section className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
-        <h2 className="font-medium">تعديل الرصيد يدويًا</h2>
+      <section className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
+        <h2 className="text-section-title">تعديل الرصيد يدويًا</h2>
         <p className="text-xs text-muted">
           استخدمها لتصحيح رصيد خاطئ فقط. أي تعديل هنا يتسجل في سجل الإجراءات وفي سجل معاملات المستخدم نفسه.
         </p>
@@ -246,7 +246,7 @@ export default async function AdminUserDetailPage({
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">طلبات التوثيق</h2>
+        <h2 className="text-section-title">طلبات التوثيق</h2>
         {(kyc ?? []).length === 0 ? (
           <p className="text-sm text-muted">لا توجد طلبات توثيق.</p>
         ) : (
@@ -269,7 +269,7 @@ export default async function AdminUserDetailPage({
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">الإيداعات والسحوبات</h2>
+        <h2 className="text-section-title">الإيداعات والسحوبات</h2>
         {(walletHistory ?? []).length === 0 ? (
           <p className="text-sm text-muted">لا توجد إيداعات أو سحوبات.</p>
         ) : (
@@ -292,7 +292,7 @@ export default async function AdminUserDetailPage({
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">اشتراكات النسخ</h2>
+        <h2 className="text-section-title">اشتراكات النسخ</h2>
         {(subscriptions ?? []).length === 0 ? (
           <p className="text-sm text-muted">لا يتابع/ينسخ أي متداول حاليًا.</p>
         ) : (
@@ -325,7 +325,7 @@ export default async function AdminUserDetailPage({
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-medium">صفقات العميل</h2>
+        <h2 className="text-section-title">صفقات العميل</h2>
         <p className="text-xs text-muted">
           صفقات فردية خاصة بهذا العميل وحده — لا يؤثر ما يُنفَّذ هنا على أي عميل آخر حتى لو كان يتابع المتداول نفسه.
         </p>
@@ -398,7 +398,7 @@ export default async function AdminUserDetailPage({
           </div>
         )}
 
-        <details className="rounded-lg border border-border bg-surface p-4">
+        <details className="rounded-[20px] border border-border bg-surface p-5">
           <summary className="cursor-pointer text-sm font-medium">+ صفقة فردية جديدة</summary>
           <form action={addClientTrade} className="mt-4 flex flex-col gap-3">
             <input type="hidden" name="followerId" value={id} />
@@ -442,7 +442,7 @@ export default async function AdminUserDetailPage({
           </form>
         </details>
 
-        <details className="rounded-lg border border-border bg-surface p-4">
+        <details className="rounded-[20px] border border-border bg-surface p-5">
           <summary className="cursor-pointer text-sm font-medium">🎯 صفقة خسارة واقعية (مارجن كول)</summary>
           <p className="mt-2 text-xs text-muted">
             تُحسب كل التفاصيل مثل MT5: تُؤخذ آخر قيمتين حقيقيتين لنفس الرمز على المنصة لتحديد اتجاه السوق، ثم تُختار

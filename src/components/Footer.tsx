@@ -18,8 +18,8 @@ export function Footer({ dir, navLinks }: { dir: "rtl" | "ltr"; navLinks: NavLin
         </div>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-          <div className="flex h-full flex-col justify-between gap-2 rounded-2xl border border-glass-border bg-glass-surface p-5 backdrop-blur-xl">
-            <p className="line-clamp-1 text-xs font-semibold text-slate-400">{t("platform")}</p>
+          <div className="flex h-full flex-col justify-between gap-2 rounded-[20px] border border-glass-border bg-glass-surface p-5 backdrop-blur-xl">
+            <p className="line-clamp-1 text-xs font-bold text-muted">{t("platform")}</p>
             <div className="flex flex-col gap-2 text-sm">
               {navLinks.map((l) => (
                 <a key={l.href} href={l.href} className="-my-3 line-clamp-1 py-3 text-muted hover:text-foreground">
@@ -32,8 +32,8 @@ export function Footer({ dir, navLinks }: { dir: "rtl" | "ltr"; navLinks: NavLin
             </div>
           </div>
 
-          <div className="flex h-full flex-col justify-between gap-2 rounded-2xl border border-glass-border bg-glass-surface p-5 backdrop-blur-xl">
-            <p className="line-clamp-1 text-xs font-semibold text-slate-400">{t("security")}</p>
+          <div className="flex h-full flex-col justify-between gap-2 rounded-[20px] border border-glass-border bg-glass-surface p-5 backdrop-blur-xl">
+            <p className="line-clamp-1 text-xs font-bold text-muted">{t("security")}</p>
             <div className="flex flex-col gap-2 text-sm">
               <Link href="/security" className="-my-3 line-clamp-1 py-3 text-muted hover:text-foreground">
                 {t("securityCenter")}
@@ -44,8 +44,8 @@ export function Footer({ dir, navLinks }: { dir: "rtl" | "ltr"; navLinks: NavLin
             </div>
           </div>
 
-          <div className="flex h-full flex-col justify-between gap-2 rounded-2xl border border-glass-border bg-glass-surface p-5 backdrop-blur-xl">
-            <p className="line-clamp-1 text-xs font-semibold text-slate-400">{t("support")}</p>
+          <div className="flex h-full flex-col justify-between gap-2 rounded-[20px] border border-glass-border bg-glass-surface p-5 backdrop-blur-xl">
+            <p className="line-clamp-1 text-xs font-bold text-muted">{t("support")}</p>
             <div className="flex flex-col gap-2 text-sm">
               <Link href="/support" className="-my-3 line-clamp-1 py-3 text-muted hover:text-foreground">
                 {t("supportLink")}
@@ -67,7 +67,7 @@ export function Footer({ dir, navLinks }: { dir: "rtl" | "ltr"; navLinks: NavLin
       </div>
 
       <div className="mx-auto mt-8 w-full max-w-5xl border-t border-glass-border pt-6 text-center">
-        <p className="mx-auto max-w-2xl text-[11px] leading-relaxed text-muted/80">{t("riskDisclaimer")}</p>
+        <p className="mx-auto max-w-2xl text-xs leading-relaxed text-dim">{t("riskDisclaimer")}</p>
         <p className="mt-3 text-xs text-muted">
           © {new Date().getFullYear()} {PLATFORM_NAME}. {t("rights")}
         </p>

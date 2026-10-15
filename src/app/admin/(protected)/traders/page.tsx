@@ -84,7 +84,7 @@ export default async function AdminTradersPage({
   return (
     <>
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">إدارة المتداولين</h1>
+        <h1 className="text-page-title">إدارة المتداولين</h1>
         <span className="text-sm text-muted">{count ?? 0} متداول</span>
       </div>
 
@@ -105,7 +105,7 @@ export default async function AdminTradersPage({
         </button>
       </form>
 
-      <details className="rounded-lg border border-border bg-surface p-4">
+      <details className="rounded-[20px] border border-border bg-surface p-5">
         <summary className="cursor-pointer text-sm font-medium">+ إضافة متداول جديد</summary>
         <form action={createLeader} className="mt-4 flex flex-col gap-3">
           <input
@@ -168,7 +168,7 @@ export default async function AdminTradersPage({
       ) : (
         <div className="flex flex-col gap-2">
           {leaderRows.map((l) => (
-            <details key={l.id} className="rounded-lg border border-border bg-surface p-4">
+            <details key={l.id} className="rounded-[20px] border border-border bg-surface p-5">
               <summary className="flex cursor-pointer flex-wrap items-center justify-between gap-2 text-sm">
                 <span className="flex items-center gap-2.5 font-medium">
                   <TraderAvatar providerId={l.id} name={l.display_name} avatarUrl={l.avatar_url} ratingScore={l.card?.rating_score} size={32} />
@@ -217,7 +217,7 @@ export default async function AdminTradersPage({
                       الصورة الافتراضية
                     </button>
                   </form>
-                  <p className="w-full text-[11px] text-muted">PNG أو JPG أو WebP، حتى 1 ميجابايت، ويفضّل صورة مربعة.</p>
+                  <p className="w-full text-xs text-muted">PNG أو JPG أو WebP، حتى 1 ميجابايت، ويفضّل صورة مربعة.</p>
                 </div>
 
                 <form action={updateLeader} className="flex flex-col gap-3">

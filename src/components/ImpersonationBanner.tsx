@@ -21,7 +21,7 @@ export async function ImpersonationBanner() {
         أنت تتصفح الآن كحساب عميل{adminEmail ? ` — الأدمن: ${adminEmail}` : ""}. أي إجراء تنفّذه هيتم باسم هذا العميل.
       </span>
       <form action={returnToAdmin}>
-        <button type="submit" className="rounded-full bg-background px-3 py-1 text-xs font-semibold text-warning">
+        <button type="submit" className="rounded-full bg-background px-3 py-1 text-xs font-bold text-warning">
           العودة لحساب الأدمن
         </button>
       </form>

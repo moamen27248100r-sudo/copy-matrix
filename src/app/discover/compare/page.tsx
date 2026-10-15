@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
 import { parsePeriod, periodStats } from "@/lib/leader-period";
 import { aumBandFloor } from "@/lib/aum-band";
-import { fmtReturn } from "@/lib/format-stats";
+import { fmtReturn, ltrIsolate } from "@/lib/format-stats";
 import { adjustedMaxDrawdown } from "@/lib/leader-scores";
 import { adjustedDrawdowns } from "@/lib/leader-drawdown";
 
@@ -39,7 +39,7 @@ export default async function ComparePage({ searchParams }: { searchParams: Prom
     { label: t("compareTrades"), value: (p) => { const s = periodStats(p, period); return `${s.trades ?? 0}${s.sufficient ? "" : " ⓘ"}`; } },
     { label: t("compareTotalReturn"), value: (p) => pct(p.roi_all != null ? Number(p.roi_all) : null, true) },
     { label: t("copiersLabel"), value: (p) => String(p.followers_count) },
-    { label: t("aumLabel"), value: (p) => (aumBandFloor(p.aum_band) != null ? t("aumOver", { amount: money(aumBandFloor(p.aum_band) as number, { compact: true }) }) : "—") },
+    { label: t("aumLabel"), value: (p) => (aumBandFloor(p.aum_band) != null ? t("aumOver", { amount: ltrIsolate(money(aumBandFloor(p.aum_band) as number, { compact: true })) }) : "—") },
     { label: t("profitShareLabel"), value: (p) => (p.profit_share_pct != null ? `${Number(p.profit_share_pct)}%` : "—") },
     { label: t("minCopyAmountLabel"), value: (p) => money(Number(p.min_copy_amount)) },
   ];
@@ -60,7 +60,7 @@ export default async function ComparePage({ searchParams }: { searchParams: Prom
               <tr className="border-b border-border bg-surface text-xs">
                 <th className="px-4 py-3" />
                 {list.map((p) => (
-                  <th key={p.provider_id} className="px-4 py-3 text-start font-semibold">
+                  <th key={p.provider_id} className="px-4 py-3 text-start font-bold">
                     <Link href={`/trader/${p.provider_id}`} className="hover:text-accent">
                       {p.display_name}
                     </Link>
@@ -74,7 +74,7 @@ export default async function ComparePage({ searchParams }: { searchParams: Prom
                   <td className="px-4 py-3 text-xs text-muted">{r.label}</td>
                   {list.map((p) => (
                     <td key={p.provider_id} className="px-4 py-3 text-sm tabular-nums" dir="ltr">
-                      {r.value(p)}
+                      <bdi>{r.value(p)}</bdi>
                     </td>
                   ))}
                 </tr>

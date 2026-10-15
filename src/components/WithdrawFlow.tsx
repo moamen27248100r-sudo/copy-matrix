@@ -29,7 +29,7 @@ function AmountStep({
   const money = useUsdt();
   return (
     <div className="flex flex-1 flex-col gap-6">
-      <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-md">
+      <div className="rounded-[20px] border border-white/10 bg-white/[0.03] p-5 backdrop-blur-md">
         <p className="text-xs text-muted">{t("availableToWithdraw")}</p>
         <p className="mt-1 text-xl font-bold text-foreground" dir="ltr">
           {money(maxAvailable)}
@@ -39,7 +39,7 @@ function AmountStep({
       <p className="text-sm text-muted">{t("enterWithdrawAmount")}</p>
 
       <div className="flex items-center gap-2">
-        <span className="shrink-0 text-lg font-semibold text-muted">{CURRENCY}</span>
+        <span className="shrink-0 text-lg font-bold text-muted">{CURRENCY}</span>
         <div className="flex flex-1 items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 backdrop-blur-md">
           <input
             type="text"
@@ -50,7 +50,7 @@ function AmountStep({
               const v = e.target.value.replace(/[^\d.]/g, "");
               setAmount(v);
             }}
-            className="w-full bg-transparent text-right text-2xl font-semibold text-foreground outline-none"
+            className="w-full bg-transparent text-right text-2xl font-bold text-foreground outline-none"
             dir="ltr"
           />
           <button
@@ -64,7 +64,7 @@ function AmountStep({
       </div>
 
       <div className="mt-auto">
-        <SubmitButton disabled={!amount || Number(amount) <= 0 || Number(amount) > maxAvailable} className="w-full rounded-xl bg-gradient-to-r from-accent to-brand px-4 py-3 text-center text-sm font-semibold text-white shadow-lg shadow-accent/20 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50">
+        <SubmitButton disabled={!amount || Number(amount) <= 0 || Number(amount) > maxAvailable} className="w-full rounded-xl bg-gradient-to-r from-accent to-brand px-4 py-3 text-center text-sm font-bold text-white shadow-lg shadow-accent/20 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50">
           {buttonLabel}
         </SubmitButton>
       </div>

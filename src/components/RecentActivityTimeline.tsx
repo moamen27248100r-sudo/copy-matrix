@@ -72,8 +72,8 @@ export async function RecentActivityTimeline({ events }: { events: ActivityEvent
 
   return (
     <section className="flex flex-col gap-3">
-      <h2 className="text-base font-semibold">{t("recentActivityTitle")}</h2>
-      <div className="flex flex-col gap-4 rounded-2xl border border-border bg-surface p-5">
+      <h2 className="text-section-title">{t("recentActivityTitle")}</h2>
+      <div className="flex flex-col gap-4 rounded-[20px] border border-border bg-surface p-5">
         {events.map((e) => (
           <div key={e.id} className="flex items-center gap-3">
             <EventIcon type={e.type} />

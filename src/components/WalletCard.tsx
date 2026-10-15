@@ -57,12 +57,12 @@ export async function WalletCard({
   const money = await getMoney();
 
   return (
-    <section className="flex flex-col gap-4 rounded-2xl border border-border bg-surface p-5">
+    <section className="flex flex-col gap-4 rounded-[20px] border border-border bg-surface p-5">
       <div className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-center gap-2">
           <span className="text-sm text-muted">{t("portfolioValue")}</span>
           {isDemo && (
-            <span className="shrink-0 rounded-full border border-warning/40 bg-warning/10 px-2 py-0.5 text-[10px] font-semibold text-warning">
+            <span className="shrink-0 rounded-full border border-warning/40 bg-warning/10 px-2 py-0.5 text-xs font-bold text-warning">
               {t("accountDemo")}
             </span>
           )}
@@ -90,7 +90,7 @@ export async function WalletCard({
         )}
       </div>
 
-      <p className="font-display text-4xl font-extrabold tracking-tight" dir="ltr">
+      <p className="font-display text-4xl font-bold tracking-tight" dir="ltr">
         <span dir="ltr" className="inline-block">
           <CountUp value={totalValue} money />
         </span>
@@ -105,10 +105,10 @@ export async function WalletCard({
           { label: t("unrealizedPnl"), value: money(unrealized, { signed: true }), tone: unrealized >= 0 ? "text-success" : "text-danger" },
         ].map((tile) => (
           <div key={tile.label} className="flex flex-col items-center justify-center gap-1 rounded-xl border border-border bg-background px-2 py-3 text-center">
-            <p className={`text-sm font-semibold tabular-nums ${tile.tone}`} dir="ltr">
+            <p className={`text-sm font-bold tabular-nums ${tile.tone}`} dir="ltr">
               {tile.value}
             </p>
-            <p className="text-[11px] leading-tight text-muted">{tile.label}</p>
+            <p className="text-xs leading-tight text-muted">{tile.label}</p>
           </div>
         ))}
       </div>
@@ -132,7 +132,7 @@ export async function WalletCard({
                 <Arrow down />
                 {t("deposit")}
               </span>
-              <span className="text-[11px] font-normal">{tp("temporarilyUnavailable")}</span>
+              <span className="text-xs font-normal">{tp("temporarilyUnavailable")}</span>
             </span>
           )}
           <Link

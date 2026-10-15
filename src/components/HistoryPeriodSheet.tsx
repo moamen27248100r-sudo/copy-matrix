@@ -118,7 +118,7 @@ export function HistoryPeriodSheet({
       >
         <div className="mx-auto h-1 w-10 shrink-0 rounded-full bg-white/20 sm:hidden" aria-hidden="true" />
         <div className="flex items-center justify-between">
-          <p className="text-base font-semibold">{t("sheetTitle")}</p>
+          <p className="text-base font-bold">{t("sheetTitle")}</p>
           <button
             type="button"
             onClick={onClose}
@@ -157,7 +157,7 @@ export function HistoryPeriodSheet({
               type="button"
               onClick={() => onSelectPeriod(key)}
               aria-pressed={period === key}
-              className={`flex w-full items-center justify-between px-4 py-3.5 text-start text-[15px] transition hover:bg-white/[0.04] ${
+              className={`flex w-full items-center justify-between px-4 py-3.5 text-start text-base transition hover:bg-white/[0.04] ${
                 i > 0 ? "border-t border-white/[0.06]" : ""
               }`}
             >
@@ -169,7 +169,7 @@ export function HistoryPeriodSheet({
             type="button"
             onClick={() => setCustomOpen((v) => !v)}
             aria-expanded={customOpen}
-            className="flex w-full items-center justify-between border-t border-white/[0.06] px-4 py-3.5 text-start text-[15px] transition hover:bg-white/[0.04]"
+            className="flex w-full items-center justify-between border-t border-white/[0.06] px-4 py-3.5 text-start text-base transition hover:bg-white/[0.04]"
           >
             <span>{t("custom")}</span>
             <span className="flex items-center gap-2">
@@ -222,7 +222,7 @@ export function HistoryPeriodSheet({
                   type="button"
                   onClick={applyCustom}
                   tabIndex={customOpen ? 0 : -1}
-                  className="rounded-xl bg-accent py-2.5 text-sm font-semibold text-accent-foreground transition hover:bg-accent-hover"
+                  className="rounded-xl bg-accent py-2.5 text-sm font-bold text-accent-foreground transition hover:bg-accent-hover"
                 >
                   {t("apply")}
                 </button>

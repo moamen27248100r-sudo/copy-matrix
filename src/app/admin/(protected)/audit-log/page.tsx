@@ -40,7 +40,7 @@ export default async function AdminAuditLogPage({
   return (
     <>
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">سجل الإجراءات</h1>
+        <h1 className="text-page-title">سجل الإجراءات</h1>
         <span className="text-sm text-muted">{count ?? 0} إجراء</span>
       </div>
       <p className="text-xs text-muted">كل إجراء اتخذه أي أدمن على المنصة، بالترتيب الزمني الأحدث أولًا.</p>

@@ -69,8 +69,8 @@ export function WithdrawForm({ networks, available }: { networks: WithdrawNetwor
             >
               <NetworkIcon network={CHAINS[n.id].chainName} size={24} />
               <span className="flex flex-col">
-                <span className="text-sm font-semibold text-foreground">{n.id}</span>
-                <span className="text-[11px] text-muted">
+                <span className="text-sm font-bold text-foreground">{n.id}</span>
+                <span className="text-xs text-muted">
                   {t("feeShort")} {money(n.fee)}
                 </span>
               </span>
@@ -118,7 +118,7 @@ export function WithdrawForm({ networks, available }: { networks: WithdrawNetwor
             onChange={(e) => setAmount(e.target.value.replace(/[^\d.]/g, ""))}
             placeholder={t("amountPlaceholder", { amount: money(net.minWithdraw) })}
             dir="ltr"
-            className="min-w-0 flex-1 bg-transparent text-lg font-semibold text-foreground outline-none"
+            className="min-w-0 flex-1 bg-transparent text-lg font-bold text-foreground outline-none"
           />
           <span className="text-xs text-muted">{CURRENCY}</span>
           <button
@@ -179,11 +179,11 @@ export function WithdrawForm({ networks, available }: { networks: WithdrawNetwor
       <SubmitButton
         disabled={!canSubmit}
         pendingLabel={t("submittingWithdraw")}
-        className="rounded-xl bg-gradient-to-r from-accent to-brand px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-accent/20 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
+        className="rounded-xl bg-gradient-to-r from-accent to-brand px-4 py-3 text-sm font-bold text-white shadow-lg shadow-accent/20 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {t("submitWithdraw")}
       </SubmitButton>
-      <p className="text-center text-[11px] text-muted">{t("processingTime")}</p>
+      <p className="text-center text-xs text-muted">{t("processingTime")}</p>
     </form>
   );
 }

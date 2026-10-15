@@ -123,8 +123,8 @@ export function SecurityBadges({ locale, className = "" }: { locale: Locale; cla
             <b.Icon />
           </span>
           <div className="min-w-0">
-            <p className="truncate text-[13px] font-medium text-foreground">{b.title}</p>
-            <p className="truncate text-[11px] text-muted">{b.desc}</p>
+            <p className="truncate text-sm font-medium text-foreground">{b.title}</p>
+            <p className="truncate text-xs text-muted">{b.desc}</p>
           </div>
         </div>
       ))}

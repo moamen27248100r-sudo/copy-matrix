@@ -4,7 +4,7 @@
 :root {
   --bottom-nav-h: 0px;
   --background: #0b0f17;
-  --foreground: #ffffff;
+  --foreground: #f3f5f8; /* primary text */
   --surface: #1a2234;
   --border: #2a3448;
   --brand: #2f6fed;
@@ -18,7 +18,8 @@
   --success: #0ecb81;
   --danger: #f6465d;
   --warning: #f0a020;
-  --muted: #94a3b8;
+  --muted: #a9b3c2; /* secondary text */
+  --dim: #8190a5; /* small notes and warnings only */
 
   /* Dark-navy glass system: every card/icon-badge surface across the
      platform draws from these instead of ad-hoc gray/light-blue
@@ -27,6 +28,32 @@
   --glass-surface: rgba(15, 23, 35, 0.6);
   --glass-surface-soft: rgba(30, 41, 59, 0.4);
   --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+@theme {
+  /* Type scale (src/styles/tokens.css): every text-* size in the app lands on it. */
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.25rem;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.375rem;
+  --text-base: 1rem;
+  --text-base--line-height: 1.5rem;
+  --text-lg: 1.1875rem;
+  --text-lg--line-height: 1.5rem;
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 1.625rem;
+  --text-2xl: 1.625rem;
+  --text-2xl--line-height: 2rem;
+  --text-3xl: 1.75rem;
+  --text-3xl--line-height: 2.125rem;
+  --text-4xl: 2.25rem;
+  --text-4xl--line-height: 2.5rem;
+  --text-5xl: 3rem;
+  --text-5xl--line-height: 1.1;
+  /* Weights: 400, 500 and 700 only. */
+  --font-weight-semibold: 700;
+  --font-weight-extrabold: 700;
+  --font-weight-light: 400;
 }
 
 @theme inline {
@@ -45,6 +72,7 @@
   --color-danger: var(--danger);
   --color-warning: var(--warning);
   --color-muted: var(--muted);
+  --color-dim: var(--dim);
   --color-glass-surface: var(--glass-surface);
   --color-glass-surface-soft: var(--glass-surface-soft);
   --color-glass-border: var(--glass-border);
@@ -283,22 +311,24 @@ body {
    Type scale (utility classes below): page title / section title / body /
    secondary. */
 @utility text-page-title {
-  font-size: 1.5rem;
-  line-height: 2rem;
-  font-weight: 600;
+  font-size: var(--fs-section);
+  line-height: var(--lh-section);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
 }
 @utility text-section-title {
-  font-size: 1rem;
-  line-height: 1.5rem;
-  font-weight: 600;
+  font-size: var(--fs-card);
+  line-height: var(--lh-card);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
 }
 @utility text-body {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
 }
 @utility text-secondary {
-  font-size: 0.75rem;
-  line-height: 1rem;
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
   color: var(--muted);
 }
 

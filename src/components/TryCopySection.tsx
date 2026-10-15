@@ -60,10 +60,10 @@ export function TryCopySection({
     <section className="border-y border-border bg-surface/30 px-6 py-16 sm:py-20">
       <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-12 lg:flex-row lg:justify-between lg:gap-16">
         <div className="flex max-w-lg flex-1 flex-col items-start gap-5 text-start">
-          <span className="rounded-full border border-success/40 bg-success/10 px-3 py-1 text-xs font-semibold text-success">
+          <span className="rounded-full border border-success/40 bg-success/10 px-3 py-1 text-xs font-bold text-success">
             {badgeLabel}
           </span>
-          <h2 className="text-3xl font-semibold leading-tight sm:text-4xl">{title}</h2>
+          <h2 className="text-3xl font-bold leading-tight sm:text-4xl">{title}</h2>
           <p className="leading-relaxed text-muted">{description}</p>
           <Link
             href={ctaHref}
@@ -79,7 +79,7 @@ export function TryCopySection({
           </div>
 
           <div className="try-copy-float rounded-3xl border border-border bg-background p-5 shadow-2xl shadow-black/40 transition duration-300 hover:border-accent/40 sm:p-6">
-            <p className="text-sm font-semibold">{cardWelcome}</p>
+            <p className="text-sm font-bold">{cardWelcome}</p>
             <p className="mt-3 text-xs text-muted">{cardPortfolioLabel}</p>
             <p className="text-4xl font-bold text-foreground" dir="ltr">
               {formatMoney(portfolioValue, locale)}
@@ -88,10 +88,10 @@ export function TryCopySection({
               +0.00 (0%)
             </p>
 
-            <div className="mt-5 rounded-2xl border border-border bg-surface/60 p-4">
+            <div className="mt-5 rounded-[20px] border border-border bg-surface/60 p-5">
               <div className="mb-3 flex items-center justify-between">
-                <p className="text-sm font-semibold">{cardTopLabel}</p>
-                <span className="flex items-center gap-1 text-[10px] text-muted">
+                <p className="text-sm font-bold">{cardTopLabel}</p>
+                <span className="flex items-center gap-1 text-xs text-muted">
                   <span className="h-1.5 w-1.5 rounded-full bg-success shadow-[0_0_6px_theme(colors.success)]" aria-hidden="true" />
                   {liveLabel}
                 </span>
@@ -109,11 +109,11 @@ export function TryCopySection({
                   >
                     <span
                       role="tooltip"
-                      className="pointer-events-none absolute -top-7 z-10 whitespace-nowrap rounded-md bg-background px-2 py-1 text-[10px] font-medium text-foreground opacity-0 shadow-lg shadow-black/30 ring-1 ring-border transition duration-150 group-hover/bar:opacity-100 group-focus-visible/bar:opacity-100"
+                      className="pointer-events-none absolute -top-7 z-10 whitespace-nowrap rounded-md bg-background px-2 py-1 text-xs font-medium text-foreground opacity-0 shadow-lg shadow-black/30 ring-1 ring-border transition duration-150 group-hover/bar:opacity-100 group-focus-visible/bar:opacity-100"
                     >
                       {l.name}
                     </span>
-                    <span className="text-[11px] font-semibold text-success transition group-hover/bar:text-success">
+                    <span className="text-xs font-bold text-success transition group-hover/bar:text-success">
                       {l.returnPct.toFixed(1)}%
                     </span>
                     <div

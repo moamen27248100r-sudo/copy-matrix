@@ -116,7 +116,7 @@ export function CircularGauge({
       </div>
       <div className="flex flex-col items-center gap-0.5">
         <p className="text-center text-xs text-muted">{label}</p>
-        {statusText && <p className={`text-center text-[11px] font-medium ${text}`}>{statusText}</p>}
+        {statusText && <p className={`text-center text-xs font-medium ${text}`}>{statusText}</p>}
       </div>
     </div>
   );

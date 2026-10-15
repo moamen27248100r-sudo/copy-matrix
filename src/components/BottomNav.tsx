@@ -184,7 +184,7 @@ export function BottomNav({ embedded = false, activeHref }: { embedded?: boolean
                 setPending(item.href !== pathname ? item.href : null);
               }}
               aria-current={active ? "page" : undefined}
-              className={`relative z-10 flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-full px-1 text-[11px] font-medium transition-colors duration-200 motion-reduce:transition-none ${
+              className={`relative z-10 flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-full px-1 text-xs font-medium transition-colors duration-200 motion-reduce:transition-none ${
                 active ? "text-accent-text" : "text-muted active:text-foreground"
               }`}
             >

@@ -37,11 +37,11 @@ export default async function LeadAnnouncementsPage({ searchParams }: { searchPa
       {err && <FlashMessage tone="error">{t(err === "empty" ? "err_empty" : "err_failed")}</FlashMessage>}
       {ok && <FlashMessage tone="success">{t("sent")}</FlashMessage>}
 
-      <form action={sendAnnouncement} className="flex flex-col gap-2 rounded-2xl border border-border bg-surface p-4">
+      <form action={sendAnnouncement} className="flex flex-col gap-2 rounded-[20px] border border-border bg-surface p-5">
         <textarea name="body" rows={3} maxLength={280} required placeholder={t("placeholder")} className="rounded-lg border border-border bg-background px-3 py-2 text-base" />
         <div className="flex flex-wrap items-center justify-between gap-2">
           <p className="text-xs text-muted">{t("audience", { count: count ?? 0 })}</p>
-          <button type="submit" className="rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-accent-foreground">
+          <button type="submit" className="rounded-lg bg-accent px-3 py-2 text-sm font-bold text-accent-foreground">
             {t("send")}
           </button>
         </div>
