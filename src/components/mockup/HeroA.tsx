@@ -15,7 +15,7 @@ const START = 12_084;
 const END = 12_480;
 
 /** The portfolio value over the month: from 12,084 to 12,480 with a natural dip, no axes. */
-function portfolioPath(w: number, h: number) {
+export function portfolioPath(w: number, h: number) {
   const n = 36;
   const pts: number[] = [];
   for (let i = 0; i < n; i++) {
@@ -96,7 +96,7 @@ async function HeroPhoneScreen() {
   );
 }
 
-function HeroPhoneFrame({ children }: { children: React.ReactNode }) {
+export function HeroPhoneFrame({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative w-full" style={{ aspectRatio: "390 / 844" }}>
       <span className="absolute -start-[3px] top-[14%] h-[3.2%] w-[4px] rounded-s-sm bg-gradient-to-b from-[#6b7384] to-[#3b4250]" />
@@ -126,7 +126,7 @@ function HeroPhoneFrame({ children }: { children: React.ReactNode }) {
   );
 }
 
-const GLASS = "border border-white/[0.16] bg-white/[0.07] shadow-[0_22px_48px_-16px_rgba(0,0,0,0.7)] backdrop-blur-xl";
+export const GLASS = "border border-white/[0.16] bg-white/[0.07] shadow-[0_22px_48px_-16px_rgba(0,0,0,0.7)] backdrop-blur-xl";
 
 export async function HeroMockupA() {
   const t = await getTranslations("Home.heroPreview");

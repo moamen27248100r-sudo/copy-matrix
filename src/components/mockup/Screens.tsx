@@ -38,7 +38,7 @@ import {
 export const PHONE = { width: 390, height: 844 } as const;
 export const LAPTOP = { width: 1280, height: 800 } as const;
 
-function StatusBar() {
+export function StatusBar() {
   return (
     <div dir="ltr" className="flex h-11 shrink-0 items-end justify-between px-7 pb-1 text-[15px] font-semibold text-white" aria-hidden="true">
       <span>9:41</span>
@@ -60,7 +60,7 @@ function StatusBar() {
   );
 }
 
-function AppHeader() {
+export function AppHeader() {
   return (
     <div className="grid h-14 shrink-0 grid-cols-[auto_1fr_auto] items-center gap-1 border-b border-border bg-[#0b1726] px-3">
       <span className="flex h-9 w-9 items-center justify-center rounded border border-border">
