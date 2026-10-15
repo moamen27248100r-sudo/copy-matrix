@@ -28,6 +28,11 @@ function SectionSkeleton() {
   );
 }
 
+// Request time, read once per render: the start of the rolling 24-hour window on the summary card.
+function since24h() {
+  return new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+}
+
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
   return { title: t("dashboardTitle"), description: t("dashboardDesc") };
@@ -133,7 +138,7 @@ export default async function DashboardPage({
       .select("pnl, account_type")
       .eq("follower_id", user.id)
       .eq("status", "closed")
-      .gte("closed_at", new Date(Date.now() - 24 * 3600 * 1000).toISOString()),
+      .gte("closed_at", since24h()),
   ]);
 
   type ProviderResult = {
