@@ -194,8 +194,8 @@
     "closeTrade": "إغلاق",
     "closeTradeConfirm": "هل أنت متأكد من إغلاق هذه الصفقة الآن بسعر السوق الحالي؟",
     "noCopiedPositions": "لا توجد صفقات منسوخة مفتوحة حاليًا.",
-    "riskProtectionLabel": "حماية الرصيد من الخسارة",
-    "riskProtectionUsed": "{pct}% من {maxPct}%",
+    "riskProtectionLabel": "حد الخسارة للنسخ",
+    "riskProtectionUsed": "استُخدم {pct}% من {maxPct}%",
     "stopCopying": "إيقاف النسخ",
     "stopCopyingConfirm": "سيتم إغلاق الصفقات المفتوحة لهذه النسخة وإيقاف النسخ فورًا",
     "greetingMorning": "صباح الخير، {name}",
@@ -271,7 +271,7 @@
     "riskExplainNote": "هذا مؤشر مبسّط يساعدك على رؤية تعرّضك للمخاطر، وهو ليس توقعًا.",
     "riskPartReserved": "المحجوز",
     "riskPartDrawdown": "التراجع",
-    "riskPartTraders": "المتداولون",
+    "riskPartTraders": "مخاطرة المتداولين",
     "newsTitle": "أخبار الأسواق",
     "newsViewAll": "عرض الكل",
     "newsSourceLine": "{source} عبر Investing.com · {time}",
@@ -280,11 +280,11 @@
     "topMoversTitle": "الأكثر تحرّكاً اليوم",
     "topMoversAll": "كل الأسواق",
     "investedInCopies": "المستثمر في النسخ",
-    "periodSummaryDay": "اليوم",
-    "periodSummaryWeek": "هذا الأسبوع",
-    "periodSummaryMonth": "هذا الشهر",
+    "periodSummaryDay": "آخر 24 ساعة",
+    "periodSummaryWeek": "آخر 7 أيام",
+    "periodSummaryMonth": "آخر 30 يوماً",
     "periodSummary3Months": "آخر 3 أشهر",
-    "periodSummaryYear": "آخر سنة",
+    "periodSummaryYear": "آخر 12 شهراً",
     "periodSummaryAll": "منذ البداية",
     "walletChartEmpty": "سيظهر أداؤك بعد أول صفقة مغلقة",
     "stepKyc": "وثّق هويتك",
@@ -293,7 +293,8 @@
     "watchlistEmpty": "أضف أدوات لمتابعتها بنجمة في صفحة الأسواق.",
     "topTradersWeekTitle": "أبرز المتداولين هذا الأسبوع",
     "topTradersWeekNote": "حسب العائد الفعلي آخر 7 أيام، لمن لديه صفقات مغلقة كافية فقط. الأداء السابق لا يضمن نتائج مستقبلية.",
-    "learnTitle": "تعلّم"
+    "learnTitle": "تعلّم",
+    "pnlForPeriod": "الربح/الخسارة خلال الفترة"
   },
   "Common": {
     "level": "المستوى {level}",
@@ -2301,7 +2302,7 @@
     "impersonationRequires2fa": "لعرض حساب عميل، فعّل أولاً التحقق الثنائي على حساب الأدمن الخاص بك (الحساب ← الأمان) وسجّل الدخول به."
   },
   "CopyRisk": {
-    "title": "إعدادات الصفقات (جني الربح / وقف الخسارة / المتحرك)",
+    "title": "جني الربح ووقف الخسارة لكل صفقة",
     "off": "متوقف",
     "tpShort": "جني",
     "slShort": "وقف",
@@ -2312,7 +2313,8 @@
     "hint": "نسب من هامش الصفقة. اترك الحقل فارغًا لإيقافه. تُطبَّق على كل صفقة جديدة تُنسخ من الآن.",
     "applyToOpen": "طبّقها أيضًا على صفقاتي المفتوحة حاليًا",
     "save": "حفظ الإعدادات",
-    "saved": "تم حفظ إعدادات النسخ."
+    "saved": "تم حفظ إعدادات النسخ.",
+    "allOff": "غير مضبوطة"
   },
   "Wallet": {
     "coinLabel": "العملة",

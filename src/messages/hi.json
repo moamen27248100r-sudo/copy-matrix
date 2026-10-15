@@ -194,8 +194,8 @@
     "closeTrade": "बंद करें",
     "closeTradeConfirm": "क्या आप अभी इस पोज़िशन को मौजूदा बाज़ार मूल्य पर बंद करना चाहते हैं?",
     "noCopiedPositions": "अभी कोई ओपन कॉपी की गई पोज़िशन नहीं है।",
-    "riskProtectionLabel": "नुकसान से बैलेंस सुरक्षा",
-    "riskProtectionUsed": "{maxPct}% में से {pct}%",
+    "riskProtectionLabel": "कॉपी की नुकसान सीमा",
+    "riskProtectionUsed": "{maxPct}% में से {pct}% उपयोग",
     "stopCopying": "कॉपी करना बंद करें",
     "stopCopyingConfirm": "इस कॉपी के खुले ट्रेड बंद कर दिए जाएँगे और कॉपी तुरंत रुक जाएगी।",
     "greetingMorning": "सुप्रभात, {name}",
@@ -271,7 +271,7 @@
     "riskExplainNote": "यह आपके जोखिम को समझने के लिए एक सरल मार्गदर्शक है; यह कोई पूर्वानुमान नहीं है।",
     "riskPartReserved": "रिज़र्व",
     "riskPartDrawdown": "गिरावट",
-    "riskPartTraders": "ट्रेडर",
+    "riskPartTraders": "ट्रेडर्स का जोखिम",
     "newsTitle": "बाज़ार समाचार",
     "newsViewAll": "सभी देखें",
     "newsSourceLine": "{source}, Investing.com के माध्यम से · {time}",
@@ -280,11 +280,11 @@
     "topMoversTitle": "आज सबसे ज़्यादा चाल",
     "topMoversAll": "सभी बाज़ार",
     "investedInCopies": "कॉपी में निवेशित",
-    "periodSummaryDay": "आज",
-    "periodSummaryWeek": "इस सप्ताह",
-    "periodSummaryMonth": "इस महीने",
+    "periodSummaryDay": "पिछले 24 घंटे",
+    "periodSummaryWeek": "पिछले 7 दिन",
+    "periodSummaryMonth": "पिछले 30 दिन",
     "periodSummary3Months": "पिछले 3 महीने",
-    "periodSummaryYear": "पिछले साल",
+    "periodSummaryYear": "पिछले 12 महीने",
     "periodSummaryAll": "शुरुआत से",
     "walletChartEmpty": "आपका प्रदर्शन पहले बंद ट्रेड के बाद दिखेगा",
     "stepKyc": "अपनी पहचान सत्यापित करें",
@@ -293,7 +293,8 @@
     "watchlistEmpty": "बाज़ार पेज पर तारे से ट्रैक करने के लिए इंस्ट्रूमेंट जोड़ें।",
     "topTradersWeekTitle": "इस सप्ताह के शीर्ष ट्रेडर",
     "topTradersWeekNote": "पिछले 7 दिनों के वास्तविक रिटर्न के आधार पर, केवल पर्याप्त बंद ट्रेड वाले ट्रेडर। पिछला प्रदर्शन भविष्य के नतीजों की गारंटी नहीं।",
-    "learnTitle": "सीखें"
+    "learnTitle": "सीखें",
+    "pnlForPeriod": "अवधि का लाभ/हानि"
   },
   "Common": {
     "level": "लेवल {level}",
@@ -2236,7 +2237,7 @@
     "impersonationRequires2fa": "किसी ग्राहक का खाता देखने के लिए, पहले अपने एडमिन खाते पर टू-फ़ैक्टर ऑथेंटिकेशन चालू करें (खाता → सुरक्षा) और उसके साथ साइन इन करें।"
   },
   "CopyRisk": {
-    "title": "ट्रेड सेटिंग्स (टेक प्रॉफिट / स्टॉप लॉस / ट्रेलिंग)",
+    "title": "हर ट्रेड पर टेक प्रॉफिट और स्टॉप लॉस",
     "off": "बंद",
     "tpShort": "TP",
     "slShort": "SL",
@@ -2247,7 +2248,8 @@
     "hint": "ये ट्रेड के मार्जिन के प्रतिशत हैं। किसी फ़ील्ड को खाली छोड़ने पर वह बंद रहेगा। अब से कॉपी की गई हर नई ट्रेड पर लागू होगा।",
     "applyToOpen": "मेरी वर्तमान में खुली ट्रेडों पर भी लागू करें",
     "save": "सेटिंग्स सहेजें",
-    "saved": "कॉपी सेटिंग्स सहेज ली गईं।"
+    "saved": "कॉपी सेटिंग्स सहेज ली गईं।",
+    "allOff": "सेट नहीं"
   },
   "Wallet": {
     "coinLabel": "कॉइन",

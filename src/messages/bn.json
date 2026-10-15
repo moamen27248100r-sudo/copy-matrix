@@ -194,8 +194,8 @@
     "closeTrade": "বন্ধ করুন",
     "closeTradeConfirm": "বর্তমান বাজার মূল্যে এখনই এই পজিশন বন্ধ করতে চান?",
     "noCopiedPositions": "বর্তমানে কোনো খোলা কপি করা পজিশন নেই।",
-    "riskProtectionLabel": "ক্ষতি থেকে ব্যালেন্স সুরক্ষা",
-    "riskProtectionUsed": "{maxPct}% এর মধ্যে {pct}%",
+    "riskProtectionLabel": "কপির ক্ষতির সীমা",
+    "riskProtectionUsed": "{maxPct}% এর মধ্যে {pct}% ব্যবহৃত",
     "stopCopying": "কপি করা বন্ধ করুন",
     "stopCopyingConfirm": "এই কপির খোলা ট্রেডগুলো বন্ধ হবে এবং কপি সঙ্গে সঙ্গে থেমে যাবে।",
     "greetingMorning": "শুভ সকাল, {name}",
@@ -271,7 +271,7 @@
     "riskExplainNote": "এটি আপনার ঝুঁকি বুঝতে সাহায্য করার একটি সহজ নির্দেশিকা; পূর্বাভাস নয়।",
     "riskPartReserved": "সংরক্ষিত",
     "riskPartDrawdown": "পতন",
-    "riskPartTraders": "ট্রেডার",
+    "riskPartTraders": "ট্রেডারদের ঝুঁকি",
     "newsTitle": "বাজারের খবর",
     "newsViewAll": "সব দেখুন",
     "newsSourceLine": "{source}, Investing.com এর মাধ্যমে · {time}",
@@ -280,11 +280,11 @@
     "topMoversTitle": "আজ সবচেয়ে বেশি নড়াচড়া",
     "topMoversAll": "সব বাজার",
     "investedInCopies": "কপিতে বিনিয়োগ",
-    "periodSummaryDay": "আজ",
-    "periodSummaryWeek": "এই সপ্তাহে",
-    "periodSummaryMonth": "এই মাসে",
+    "periodSummaryDay": "গত ২৪ ঘণ্টা",
+    "periodSummaryWeek": "গত ৭ দিন",
+    "periodSummaryMonth": "গত ৩০ দিন",
     "periodSummary3Months": "গত ৩ মাসে",
-    "periodSummaryYear": "গত বছরে",
+    "periodSummaryYear": "গত ১২ মাস",
     "periodSummaryAll": "শুরু থেকে",
     "walletChartEmpty": "আপনার প্রথম বন্ধ ট্রেডের পর পারফরম্যান্স দেখা যাবে",
     "stepKyc": "আপনার পরিচয় যাচাই করুন",
@@ -293,7 +293,8 @@
     "watchlistEmpty": "বাজার পেজে তারা চিহ্ন দিয়ে ট্র্যাক করার ইন্সট্রুমেন্ট যোগ করুন।",
     "topTradersWeekTitle": "এই সপ্তাহের সেরা ট্রেডার",
     "topTradersWeekNote": "গত ৭ দিনের প্রকৃত রিটার্ন অনুযায়ী, শুধু পর্যাপ্ত বন্ধ ট্রেড থাকা ট্রেডার। অতীতের পারফরম্যান্স ভবিষ্যতের নিশ্চয়তা নয়।",
-    "learnTitle": "শিখুন"
+    "learnTitle": "শিখুন",
+    "pnlForPeriod": "এই সময়ের লাভ/ক্ষতি"
   },
   "Common": {
     "level": "লেভেল {level}",
@@ -2236,7 +2237,7 @@
     "impersonationRequires2fa": "কোনো গ্রাহকের অ্যাকাউন্ট দেখতে, প্রথমে আপনার নিজের অ্যাডমিন অ্যাকাউন্টে টু-ফ্যাক্টর অথেন্টিকেশন চালু করুন (অ্যাকাউন্ট → নিরাপত্তা) এবং তা দিয়ে সাইন ইন করুন।"
   },
   "CopyRisk": {
-    "title": "ট্রেড সেটিংস (টেক প্রফিট / স্টপ লস / ট্রেইলিং)",
+    "title": "প্রতি ট্রেডে টেক প্রফিট ও স্টপ লস",
     "off": "বন্ধ",
     "tpShort": "TP",
     "slShort": "SL",
@@ -2247,7 +2248,8 @@
     "hint": "এগুলো ট্রেডের মার্জিনের শতাংশ। বন্ধ করতে ঘরটি খালি রাখুন। এখন থেকে কপি হওয়া প্রতিটি নতুন ট্রেডে প্রযোজ্য।",
     "applyToOpen": "আমার বর্তমানে খোলা ট্রেডগুলোতেও প্রয়োগ করুন",
     "save": "সেটিংস সংরক্ষণ করুন",
-    "saved": "কপি সেটিংস সংরক্ষিত হয়েছে।"
+    "saved": "কপি সেটিংস সংরক্ষিত হয়েছে।",
+    "allOff": "সেট করা নেই"
   },
   "Wallet": {
     "coinLabel": "কয়েন",

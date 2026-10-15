@@ -194,8 +194,8 @@
     "closeTrade": "Cerrar",
     "closeTradeConfirm": "¿Cerrar esta posición ahora al precio de mercado actual?",
     "noCopiedPositions": "No hay posiciones copiadas abiertas actualmente.",
-    "riskProtectionLabel": "Protección del saldo contra pérdidas",
-    "riskProtectionUsed": "{pct}% de {maxPct}%",
+    "riskProtectionLabel": "Límite de pérdida de la copia",
+    "riskProtectionUsed": "Usado {pct}% de {maxPct}%",
     "stopCopying": "Dejar de copiar",
     "stopCopyingConfirm": "Se cerrarán las operaciones abiertas de esta copia y la copia se detendrá de inmediato.",
     "greetingMorning": "Buenos días, {name}",
@@ -271,7 +271,7 @@
     "riskExplainNote": "Es una guía sencilla para ver su exposición; no es una previsión.",
     "riskPartReserved": "Reservado",
     "riskPartDrawdown": "Caída",
-    "riskPartTraders": "Traders",
+    "riskPartTraders": "Riesgo de los traders",
     "newsTitle": "Noticias del mercado",
     "newsViewAll": "Ver todas",
     "newsSourceLine": "{source} vía Investing.com · {time}",
@@ -280,11 +280,11 @@
     "topMoversTitle": "Mayores movimientos de hoy",
     "topMoversAll": "Todos los mercados",
     "investedInCopies": "Invertido en copias",
-    "periodSummaryDay": "hoy",
-    "periodSummaryWeek": "esta semana",
-    "periodSummaryMonth": "este mes",
+    "periodSummaryDay": "últimas 24 horas",
+    "periodSummaryWeek": "últimos 7 días",
+    "periodSummaryMonth": "últimos 30 días",
     "periodSummary3Months": "últimos 3 meses",
-    "periodSummaryYear": "último año",
+    "periodSummaryYear": "últimos 12 meses",
     "periodSummaryAll": "desde el inicio",
     "walletChartEmpty": "Tu rendimiento aparecerá después de tu primera operación cerrada",
     "stepKyc": "Verifica tu identidad",
@@ -293,7 +293,8 @@
     "watchlistEmpty": "Añade instrumentos para seguir con la estrella en la página Mercados.",
     "topTradersWeekTitle": "Mejores traders de la semana",
     "topTradersWeekNote": "Según el rendimiento real de los últimos 7 días, solo traders con suficientes operaciones cerradas. El rendimiento pasado no garantiza resultados futuros.",
-    "learnTitle": "Aprende"
+    "learnTitle": "Aprende",
+    "pnlForPeriod": "Ganancia/pérdida del período"
   },
   "Common": {
     "level": "Nivel {level}",
@@ -2237,7 +2238,7 @@
     "impersonationRequires2fa": "Para ver la cuenta de un cliente, primero activa la autenticación de dos factores en tu propia cuenta de administrador (Cuenta → Seguridad) e inicia sesión con ella."
   },
   "CopyRisk": {
-    "title": "Ajustes de operaciones (toma de beneficios / stop loss / dinámico)",
+    "title": "Toma de ganancias y stop loss por operación",
     "off": "Desactivado",
     "tpShort": "TP",
     "slShort": "SL",
@@ -2248,7 +2249,8 @@
     "hint": "Porcentajes del margen de la operación. Deje un campo vacío para desactivarlo. Se aplica a cada nueva operación copiada a partir de ahora.",
     "applyToOpen": "Aplicar también a mis operaciones abiertas actualmente",
     "save": "Guardar ajustes",
-    "saved": "Ajustes de copia guardados."
+    "saved": "Ajustes de copia guardados.",
+    "allOff": "Sin configurar"
   },
   "Wallet": {
     "coinLabel": "Moneda",

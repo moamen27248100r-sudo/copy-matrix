@@ -194,8 +194,8 @@
     "closeTrade": "Close",
     "closeTradeConfirm": "Close this position now at the current market price?",
     "noCopiedPositions": "No open copied positions right now.",
-    "riskProtectionLabel": "Balance loss protection",
-    "riskProtectionUsed": "{pct}% of {maxPct}%",
+    "riskProtectionLabel": "Copy loss limit",
+    "riskProtectionUsed": "Used {pct}% of {maxPct}%",
     "stopCopying": "Stop Copying",
     "stopCopyingConfirm": "Open trades for this copy will be closed and copying will stop immediately.",
     "greetingMorning": "Good morning, {name}",
@@ -271,7 +271,7 @@
     "riskExplainNote": "This is a simple guide to help you see your exposure; it is not a forecast.",
     "riskPartReserved": "Reserved",
     "riskPartDrawdown": "Drawdown",
-    "riskPartTraders": "Traders",
+    "riskPartTraders": "Traders' risk",
     "newsTitle": "Market news",
     "newsViewAll": "View all",
     "newsSourceLine": "{source} via Investing.com · {time}",
@@ -280,11 +280,11 @@
     "topMoversTitle": "Biggest movers today",
     "topMoversAll": "All markets",
     "investedInCopies": "Invested in copies",
-    "periodSummaryDay": "today",
-    "periodSummaryWeek": "this week",
-    "periodSummaryMonth": "this month",
+    "periodSummaryDay": "last 24 hours",
+    "periodSummaryWeek": "last 7 days",
+    "periodSummaryMonth": "last 30 days",
     "periodSummary3Months": "last 3 months",
-    "periodSummaryYear": "last year",
+    "periodSummaryYear": "last 12 months",
     "periodSummaryAll": "since the start",
     "walletChartEmpty": "Your performance will appear after your first closed trade",
     "stepKyc": "Verify your identity",
@@ -293,7 +293,8 @@
     "watchlistEmpty": "Add instruments to follow with the star on the Markets page.",
     "topTradersWeekTitle": "Top traders this week",
     "topTradersWeekNote": "By actual return over the last 7 days, only for traders with enough closed trades. Past performance does not guarantee future results.",
-    "learnTitle": "Learn"
+    "learnTitle": "Learn",
+    "pnlForPeriod": "Profit/loss for the period"
   },
   "Common": {
     "level": "Level {level}",
@@ -2240,7 +2241,7 @@
     "impersonationRequires2fa": "To view a customer’s account, first enable two-factor authentication on your own admin account (Account → Security) and sign in with it."
   },
   "CopyRisk": {
-    "title": "Trade settings (take profit / stop loss / trailing)",
+    "title": "Take profit & stop loss per trade",
     "off": "Off",
     "tpShort": "TP",
     "slShort": "SL",
@@ -2251,7 +2252,8 @@
     "hint": "Percentages of the trade margin. Leave a field empty to turn it off. Applied to every new trade copied from now on.",
     "applyToOpen": "Also apply to my currently open trades",
     "save": "Save settings",
-    "saved": "Copy settings saved."
+    "saved": "Copy settings saved.",
+    "allOff": "Not set"
   },
   "Wallet": {
     "coinLabel": "Coin",

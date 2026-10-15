@@ -1,4 +1,5 @@
 import { getMoney } from "@/lib/money-server";
+import { ltrIsolate } from "@/lib/format-stats";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { TraderAvatar } from "@/components/TraderAvatar";
@@ -81,8 +82,8 @@ export async function ActiveCopyControlPanel({
       <div className="flex flex-col gap-1.5 border-t border-slate-800 pt-4">
         <div className="flex items-center justify-between text-xs">
           <span className="text-muted">{t("riskProtectionLabel")}</span>
-          <span className={usedPct >= 80 ? "text-danger" : usedPct >= 50 ? "text-warning" : "text-success"} dir="ltr">
-            {t("riskProtectionUsed", { pct: usedPct.toFixed(0), maxPct: provider.maxDrawdownPct })}
+          <span className={usedPct >= 80 ? "text-danger" : usedPct >= 50 ? "text-warning" : "text-success"}>
+            {t("riskProtectionUsed", { pct: ltrIsolate(usedPct.toFixed(0)), maxPct: ltrIsolate(String(provider.maxDrawdownPct)) })}
           </span>
         </div>
         <div className="h-2 w-full overflow-hidden rounded-full bg-slate-800">
@@ -93,8 +94,14 @@ export async function ActiveCopyControlPanel({
         <details className="group border-t border-slate-800 pt-4">
           <summary className="flex cursor-pointer list-none items-center justify-between text-xs">
             <span className="font-medium">{tr("title")}</span>
-            <span className="text-muted" dir="ltr">
-              {tr("tpShort")} {pct(provider.takeProfitPct)} · {tr("slShort")} {pct(provider.stopLossPct)} · {tr("trailingShort")} {pct(provider.trailingPct)}
+            <span className="text-muted">
+              {provider.takeProfitPct == null && provider.stopLossPct == null && provider.trailingPct == null
+                ? tr("allOff")
+                : [
+                    `${tr("tpShort")} ${pct(provider.takeProfitPct)}`,
+                    `${tr("slShort")} ${pct(provider.stopLossPct)}`,
+                    `${tr("trailingShort")} ${pct(provider.trailingPct)}`,
+                  ].join(" · ")}
             </span>
           </summary>
           <form action={updateCopyRiskSettings} className="mt-3 flex flex-col gap-3">

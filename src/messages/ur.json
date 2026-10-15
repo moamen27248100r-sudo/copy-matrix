@@ -194,8 +194,8 @@
     "closeTrade": "بند کریں",
     "closeTradeConfirm": "کیا آپ اس پوزیشن کو ابھی موجودہ مارکیٹ قیمت پر بند کرنا چاہتے ہیں؟",
     "noCopiedPositions": "فی الحال کوئی کھلی کاپی شدہ پوزیشن نہیں ہے۔",
-    "riskProtectionLabel": "نقصان سے بیلنس کا تحفظ",
-    "riskProtectionUsed": "{maxPct}% میں سے {pct}%",
+    "riskProtectionLabel": "کاپی کی نقصان کی حد",
+    "riskProtectionUsed": "{maxPct}% میں سے {pct}% استعمال",
     "stopCopying": "کاپی کرنا بند کریں",
     "stopCopyingConfirm": "اس کاپی کے کھلے ٹریڈز بند کر دیے جائیں گے اور کاپی فوراً رک جائے گی۔",
     "greetingMorning": "صبح بخیر، {name}",
@@ -271,7 +271,7 @@
     "riskExplainNote": "یہ آپ کے خطرے کو سمجھنے کے لیے ایک سادہ رہنما ہے؛ یہ پیش گوئی نہیں ہے۔",
     "riskPartReserved": "محفوظ",
     "riskPartDrawdown": "گراوٹ",
-    "riskPartTraders": "ٹریڈرز",
+    "riskPartTraders": "ٹریڈرز کا خطرہ",
     "newsTitle": "مارکیٹ کی خبریں",
     "newsViewAll": "سب دیکھیں",
     "newsSourceLine": "{source} بذریعہ Investing.com · {time}",
@@ -280,11 +280,11 @@
     "topMoversTitle": "آج سب سے زیادہ حرکت",
     "topMoversAll": "تمام مارکیٹس",
     "investedInCopies": "کاپیز میں سرمایہ کاری",
-    "periodSummaryDay": "آج",
-    "periodSummaryWeek": "اس ہفتے",
-    "periodSummaryMonth": "اس مہینے",
+    "periodSummaryDay": "پچھلے 24 گھنٹے",
+    "periodSummaryWeek": "پچھلے 7 دن",
+    "periodSummaryMonth": "پچھلے 30 دن",
     "periodSummary3Months": "پچھلے 3 ماہ",
-    "periodSummaryYear": "پچھلے سال",
+    "periodSummaryYear": "پچھلے 12 مہینے",
     "periodSummaryAll": "آغاز سے",
     "walletChartEmpty": "آپ کی کارکردگی پہلی بند ٹریڈ کے بعد نظر آئے گی",
     "stepKyc": "اپنی شناخت کی تصدیق کریں",
@@ -293,7 +293,8 @@
     "watchlistEmpty": "مارکیٹس صفحے پر ستارے سے ٹریک کرنے کے لیے انسٹرومنٹس شامل کریں۔",
     "topTradersWeekTitle": "اس ہفتے کے نمایاں ٹریڈرز",
     "topTradersWeekNote": "پچھلے 7 دنوں کے حقیقی منافع کے مطابق، صرف کافی بند ٹریڈز والے ٹریڈرز۔ ماضی کی کارکردگی مستقبل کے نتائج کی ضمانت نہیں۔",
-    "learnTitle": "سیکھیں"
+    "learnTitle": "سیکھیں",
+    "pnlForPeriod": "مدت کا نفع/نقصان"
   },
   "Common": {
     "level": "لیول {level}",
@@ -2236,7 +2237,7 @@
     "impersonationRequires2fa": "کسی صارف کا اکاؤنٹ دیکھنے کے لیے پہلے اپنے ایڈمن اکاؤنٹ پر دو مرحلہ تصدیق فعال کریں (اکاؤنٹ ← سیکیورٹی) اور اس کے ساتھ سائن اِن کریں۔"
   },
   "CopyRisk": {
-    "title": "ٹریڈ سیٹنگز (ٹیک پرافٹ / اسٹاپ لاس / ٹریلنگ)",
+    "title": "ہر ٹریڈ پر ٹیک پرافٹ اور اسٹاپ لاس",
     "off": "بند",
     "tpShort": "TP",
     "slShort": "SL",
@@ -2247,7 +2248,8 @@
     "hint": "یہ ٹریڈ کے مارجن کے فیصد ہیں۔ کسی خانے کو خالی چھوڑنے سے وہ بند رہے گا۔ اب سے کاپی ہونے والی ہر نئی ٹریڈ پر لاگو ہوگا۔",
     "applyToOpen": "میری موجودہ کھلی ٹریڈز پر بھی لاگو کریں",
     "save": "سیٹنگز محفوظ کریں",
-    "saved": "کاپی سیٹنگز محفوظ ہو گئیں۔"
+    "saved": "کاپی سیٹنگز محفوظ ہو گئیں۔",
+    "allOff": "سیٹ نہیں"
   },
   "Wallet": {
     "coinLabel": "کوائن",

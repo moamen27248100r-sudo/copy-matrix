@@ -194,8 +194,8 @@
     "closeTrade": "平仓",
     "closeTradeConfirm": "确定要以当前市场价格立即平掉此仓位吗？",
     "noCopiedPositions": "目前没有未平仓的跟单仓位。",
-    "riskProtectionLabel": "余额亏损保护",
-    "riskProtectionUsed": "已用 {pct}%，上限 {maxPct}%",
+    "riskProtectionLabel": "跟单亏损限额",
+    "riskProtectionUsed": "已用 {pct}%（上限 {maxPct}%）",
     "stopCopying": "停止跟单",
     "stopCopyingConfirm": "此跟单的未平仓交易将被平仓，并立即停止跟单。",
     "greetingMorning": "早上好，{name}",
@@ -271,7 +271,7 @@
     "riskExplainNote": "这只是帮助您了解风险敞口的简单参考，并非预测。",
     "riskPartReserved": "已占用",
     "riskPartDrawdown": "回撤",
-    "riskPartTraders": "交易员",
+    "riskPartTraders": "交易员风险",
     "newsTitle": "市场新闻",
     "newsViewAll": "查看全部",
     "newsSourceLine": "{source}，来自 Investing.com · {time}",
@@ -280,11 +280,11 @@
     "topMoversTitle": "今日涨跌最大",
     "topMoversAll": "全部市场",
     "investedInCopies": "跟单投入",
-    "periodSummaryDay": "今日",
-    "periodSummaryWeek": "本周",
-    "periodSummaryMonth": "本月",
+    "periodSummaryDay": "过去 24 小时",
+    "periodSummaryWeek": "过去 7 天",
+    "periodSummaryMonth": "过去 30 天",
     "periodSummary3Months": "近 3 个月",
-    "periodSummaryYear": "近一年",
+    "periodSummaryYear": "过去 12 个月",
     "periodSummaryAll": "自开始以来",
     "walletChartEmpty": "首笔交易平仓后将显示您的表现",
     "stepKyc": "完成身份验证",
@@ -293,7 +293,8 @@
     "watchlistEmpty": "在市场页用星标添加要关注的品种。",
     "topTradersWeekTitle": "本周优秀交易员",
     "topTradersWeekNote": "按最近 7 天的实际收益排序，仅包含已平仓交易足够多的交易员。过往业绩不代表未来表现。",
-    "learnTitle": "学习"
+    "learnTitle": "学习",
+    "pnlForPeriod": "期间盈亏"
   },
   "Common": {
     "level": "等级 {level}",
@@ -2237,7 +2238,7 @@
     "impersonationRequires2fa": "如需查看客户账户，请先为您自己的管理员账户启用双重验证（账户 → 安全），并使用双重验证登录。"
   },
   "CopyRisk": {
-    "title": "交易设置（止盈 / 止损 / 移动止损）",
+    "title": "每笔交易的止盈和止损",
     "off": "关闭",
     "tpShort": "止盈",
     "slShort": "止损",
@@ -2248,7 +2249,8 @@
     "hint": "均为交易保证金的百分比。留空即关闭。适用于此后每一笔新复制的交易。",
     "applyToOpen": "同时应用于我当前持有的未平仓交易",
     "save": "保存设置",
-    "saved": "跟单设置已保存。"
+    "saved": "跟单设置已保存。",
+    "allOff": "未设置"
   },
   "Wallet": {
     "coinLabel": "币种",

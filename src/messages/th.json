@@ -194,8 +194,8 @@
     "closeTrade": "ปิด",
     "closeTradeConfirm": "ปิดโพซิชันนี้ตอนนี้ที่ราคาตลาดปัจจุบันหรือไม่?",
     "noCopiedPositions": "ไม่มีโพซิชันคัดลอกที่เปิดอยู่ในขณะนี้",
-    "riskProtectionLabel": "การปกป้องยอดคงเหลือจากการขาดทุน",
-    "riskProtectionUsed": "{pct}% จาก {maxPct}%",
+    "riskProtectionLabel": "วงเงินขาดทุนของการคัดลอก",
+    "riskProtectionUsed": "ใช้ไป {pct}% จาก {maxPct}%",
     "stopCopying": "หยุดคัดลอก",
     "stopCopyingConfirm": "ออเดอร์ที่เปิดอยู่ของการคัดลอกนี้จะถูกปิดและหยุดคัดลอกทันที",
     "greetingMorning": "อรุณสวัสดิ์ {name}",
@@ -271,7 +271,7 @@
     "riskExplainNote": "นี่เป็นเพียงแนวทางง่าย ๆ เพื่อให้เห็นความเสี่ยงของคุณ ไม่ใช่การคาดการณ์",
     "riskPartReserved": "กันไว้",
     "riskPartDrawdown": "การลดลง",
-    "riskPartTraders": "เทรดเดอร์",
+    "riskPartTraders": "ความเสี่ยงของเทรดเดอร์",
     "newsTitle": "ข่าวตลาด",
     "newsViewAll": "ดูทั้งหมด",
     "newsSourceLine": "{source} ผ่าน Investing.com · {time}",
@@ -280,11 +280,11 @@
     "topMoversTitle": "เคลื่อนไหวมากที่สุดวันนี้",
     "topMoversAll": "ตลาดทั้งหมด",
     "investedInCopies": "ลงทุนในการคัดลอก",
-    "periodSummaryDay": "วันนี้",
-    "periodSummaryWeek": "สัปดาห์นี้",
-    "periodSummaryMonth": "เดือนนี้",
+    "periodSummaryDay": "24 ชั่วโมงที่ผ่านมา",
+    "periodSummaryWeek": "7 วันที่ผ่านมา",
+    "periodSummaryMonth": "30 วันที่ผ่านมา",
     "periodSummary3Months": "3 เดือนที่ผ่านมา",
-    "periodSummaryYear": "ปีที่ผ่านมา",
+    "periodSummaryYear": "12 เดือนที่ผ่านมา",
     "periodSummaryAll": "ตั้งแต่เริ่มต้น",
     "walletChartEmpty": "ผลงานของคุณจะแสดงหลังจากเทรดแรกถูกปิด",
     "stepKyc": "ยืนยันตัวตนของคุณ",
@@ -293,7 +293,8 @@
     "watchlistEmpty": "เพิ่มเครื่องมือที่ต้องการติดตามด้วยดาวในหน้าตลาด",
     "topTradersWeekTitle": "เทรดเดอร์เด่นประจำสัปดาห์",
     "topTradersWeekNote": "ตามผลตอบแทนจริง 7 วันล่าสุด เฉพาะเทรดเดอร์ที่มีเทรดปิดเพียงพอ ผลงานในอดีตไม่ได้รับประกันผลลัพธ์ในอนาคต",
-    "learnTitle": "เรียนรู้"
+    "learnTitle": "เรียนรู้",
+    "pnlForPeriod": "กำไร/ขาดทุนในช่วงนี้"
   },
   "Common": {
     "level": "ระดับ {level}",
@@ -2236,7 +2237,7 @@
     "impersonationRequires2fa": "หากต้องการดูบัญชีของลูกค้า โปรดเปิดการยืนยันตัวตนสองขั้นตอนในบัญชีแอดมินของคุณก่อน (บัญชี → ความปลอดภัย) แล้วเข้าสู่ระบบด้วยการยืนยันนั้น"
   },
   "CopyRisk": {
-    "title": "การตั้งค่าการเทรด (ทำกำไร / หยุดขาดทุน / เทรลลิ่ง)",
+    "title": "ทำกำไรและตัดขาดทุนต่อการเทรด",
     "off": "ปิด",
     "tpShort": "TP",
     "slShort": "SL",
@@ -2247,7 +2248,8 @@
     "hint": "เป็นเปอร์เซ็นต์ของมาร์จินในการเทรด เว้นช่องว่างไว้เพื่อปิดใช้งาน ใช้กับทุกการเทรดใหม่ที่คัดลอกจากนี้ไป",
     "applyToOpen": "ใช้กับการเทรดที่เปิดอยู่ของฉันด้วย",
     "save": "บันทึกการตั้งค่า",
-    "saved": "บันทึกการตั้งค่าการคัดลอกแล้ว"
+    "saved": "บันทึกการตั้งค่าการคัดลอกแล้ว",
+    "allOff": "ยังไม่ได้ตั้ง"
   },
   "Wallet": {
     "coinLabel": "เหรียญ",

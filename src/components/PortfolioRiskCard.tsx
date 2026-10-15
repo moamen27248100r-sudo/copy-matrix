@@ -69,7 +69,7 @@ export async function PortfolioRiskCard({
         </div>
         <div>
           <dt className="text-muted">{t("riskPartTraders")}</dt>
-          <dd className="mt-0.5 font-bold">{hasCopies ? `${risk.parts.leaders.toFixed(0)}/${RISK_WEIGHTS.leaders}` : "—"}</dd>
+          <dd className="mt-0.5 font-bold">{hasCopies ? (risk.parts.leaders <= RISK_WEIGHTS.leaders / 3 ? t("riskLow") : risk.parts.leaders <= (RISK_WEIGHTS.leaders * 2) / 3 ? t("riskMedium") : t("riskHigh")) : "—"}</dd>
         </div>
       </dl>
     </section>

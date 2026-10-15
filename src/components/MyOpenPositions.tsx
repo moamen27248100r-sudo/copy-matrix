@@ -134,9 +134,10 @@ export function MyOpenPositions({
 
   return (
     <div className="flex flex-col gap-3">
+      {positions.length > 0 && (
       <div className="flex items-center justify-between">
         <span className="text-sm text-muted">{t("totalFloatingPnl")}</span>
-        {positions.length > 0 && (
+        {(
           <span
             className={totalUnrealizedPnl >= 0 ? "text-sm font-semibold text-success" : "text-sm font-semibold text-danger"}
             dir="ltr"
@@ -145,6 +146,7 @@ export function MyOpenPositions({
           </span>
         )}
       </div>
+      )}
       {positions.length === 0 ? (
         <p className="text-sm text-muted">{t("noOpenPositions")}</p>
       ) : (

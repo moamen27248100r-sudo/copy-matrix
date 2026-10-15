@@ -194,8 +194,8 @@
     "closeTrade": "Fermer",
     "closeTradeConfirm": "Fermer cette position maintenant au prix du marché actuel ?",
     "noCopiedPositions": "Aucune position copiée ouverte actuellement.",
-    "riskProtectionLabel": "Protection du solde contre les pertes",
-    "riskProtectionUsed": "{pct}% sur {maxPct}%",
+    "riskProtectionLabel": "Limite de perte de la copie",
+    "riskProtectionUsed": "{pct} % utilisés sur {maxPct} %",
     "stopCopying": "Arrêter la copie",
     "stopCopyingConfirm": "Les trades ouverts de cette copie seront clôturés et la copie s'arrêtera immédiatement.",
     "greetingMorning": "Bonjour, {name}",
@@ -271,7 +271,7 @@
     "riskExplainNote": "C'est un repère simple pour visualiser votre exposition ; ce n'est pas une prévision.",
     "riskPartReserved": "Réservé",
     "riskPartDrawdown": "Repli",
-    "riskPartTraders": "Traders",
+    "riskPartTraders": "Risque des traders",
     "newsTitle": "Actualités des marchés",
     "newsViewAll": "Tout voir",
     "newsSourceLine": "{source} via Investing.com · {time}",
@@ -280,11 +280,11 @@
     "topMoversTitle": "Plus fortes variations du jour",
     "topMoversAll": "Tous les marchés",
     "investedInCopies": "Investi dans les copies",
-    "periodSummaryDay": "aujourd’hui",
-    "periodSummaryWeek": "cette semaine",
-    "periodSummaryMonth": "ce mois-ci",
+    "periodSummaryDay": "sur 24 heures",
+    "periodSummaryWeek": "sur 7 jours",
+    "periodSummaryMonth": "sur 30 jours",
     "periodSummary3Months": "3 derniers mois",
-    "periodSummaryYear": "cette dernière année",
+    "periodSummaryYear": "sur 12 mois",
     "periodSummaryAll": "depuis le début",
     "walletChartEmpty": "Vos performances apparaîtront après votre première transaction clôturée",
     "stepKyc": "Vérifiez votre identité",
@@ -293,7 +293,8 @@
     "watchlistEmpty": "Ajoutez des instruments à suivre avec l’étoile dans la page Marchés.",
     "topTradersWeekTitle": "Meilleurs traders de la semaine",
     "topTradersWeekNote": "Selon le rendement réel des 7 derniers jours, uniquement pour les traders avec assez de transactions clôturées. Les performances passées ne garantissent pas les résultats futurs.",
-    "learnTitle": "Apprendre"
+    "learnTitle": "Apprendre",
+    "pnlForPeriod": "Gains/pertes sur la période"
   },
   "Common": {
     "level": "Niveau {level}",
@@ -2237,7 +2238,7 @@
     "impersonationRequires2fa": "Pour consulter le compte d’un client, activez d’abord l’authentification à deux facteurs sur votre propre compte administrateur (Compte → Sécurité) et connectez-vous avec."
   },
   "CopyRisk": {
-    "title": "Réglages des trades (prise de profit / stop loss / suiveur)",
+    "title": "Prise de bénéfice et stop loss par transaction",
     "off": "Désactivé",
     "tpShort": "TP",
     "slShort": "SL",
@@ -2248,7 +2249,8 @@
     "hint": "Pourcentages de la marge du trade. Laissez un champ vide pour le désactiver. Appliqué à chaque nouveau trade copié à partir de maintenant.",
     "applyToOpen": "Appliquer aussi à mes trades actuellement ouverts",
     "save": "Enregistrer les réglages",
-    "saved": "Réglages de copie enregistrés."
+    "saved": "Réglages de copie enregistrés.",
+    "allOff": "Non définis"
   },
   "Wallet": {
     "coinLabel": "Crypto",

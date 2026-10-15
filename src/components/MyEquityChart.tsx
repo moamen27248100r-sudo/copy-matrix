@@ -189,7 +189,7 @@ export function MyEquityChart({
               points={points}
               format={(v) => money(v)}
               axisFormat={(v) => formatNumber(v, locale, Number.isInteger(v) ? 0 : 2)}
-              ariaLabel={t("startingPoint", { amount: money(0) })}
+              ariaLabel={t("pnlForPeriod")}
             />
           )}
           <div className="flex items-center justify-between text-xs text-muted">
@@ -206,7 +206,7 @@ export function MyEquityChart({
               </>
             ) : (
               <>
-                <span>{t("startingPoint", { amount: money(0) })}</span>
+                <span>{t("pnlForPeriod")}</span>
                 <span className={`font-bold ${last >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
                   {money(last, { signed: true })}
                 </span>

@@ -194,8 +194,8 @@
     "closeTrade": "Funga",
     "closeTradeConfirm": "Funga nafasi hii sasa kwa bei ya sasa ya soko?",
     "noCopiedPositions": "Hakuna nafasi zilizonakiliwa zilizo wazi kwa sasa.",
-    "riskProtectionLabel": "Ulinzi wa salio dhidi ya hasara",
-    "riskProtectionUsed": "{pct}% kati ya {maxPct}%",
+    "riskProtectionLabel": "Kikomo cha hasara cha kunakili",
+    "riskProtectionUsed": "Imetumika {pct}% kati ya {maxPct}%",
     "stopCopying": "Acha Kunakili",
     "stopCopyingConfirm": "Biashara zilizo wazi za nakala hii zitafungwa na kunakili kutasimama mara moja.",
     "greetingMorning": "Habari za asubuhi, {name}",
@@ -271,7 +271,7 @@
     "riskExplainNote": "Huu ni mwongozo rahisi wa kukusaidia kuona mfiduo wako; si utabiri.",
     "riskPartReserved": "Iliyohifadhiwa",
     "riskPartDrawdown": "Kushuka",
-    "riskPartTraders": "Wafanyabiashara",
+    "riskPartTraders": "Hatari ya wafanyabiashara",
     "newsTitle": "Habari za soko",
     "newsViewAll": "Tazama zote",
     "newsSourceLine": "{source} kupitia Investing.com · {time}",
@@ -280,11 +280,11 @@
     "topMoversTitle": "Mabadiliko makubwa leo",
     "topMoversAll": "Masoko yote",
     "investedInCopies": "Imewekezwa kwenye nakala",
-    "periodSummaryDay": "leo",
-    "periodSummaryWeek": "wiki hii",
-    "periodSummaryMonth": "mwezi huu",
+    "periodSummaryDay": "saa 24 zilizopita",
+    "periodSummaryWeek": "siku 7 zilizopita",
+    "periodSummaryMonth": "siku 30 zilizopita",
     "periodSummary3Months": "miezi 3 iliyopita",
-    "periodSummaryYear": "mwaka uliopita",
+    "periodSummaryYear": "miezi 12 iliyopita",
     "periodSummaryAll": "tangu mwanzo",
     "walletChartEmpty": "Utendaji wako utaonekana baada ya biashara yako ya kwanza kufungwa",
     "stepKyc": "Thibitisha utambulisho wako",
@@ -293,7 +293,8 @@
     "watchlistEmpty": "Ongeza vyombo vya kufuatilia kwa nyota kwenye ukurasa wa Masoko.",
     "topTradersWeekTitle": "Wafanyabiashara bora wa wiki hii",
     "topTradersWeekNote": "Kwa faida halisi ya siku 7 zilizopita, kwa wafanyabiashara wenye biashara zilizofungwa za kutosha tu. Utendaji wa zamani hauhakikishi matokeo ya baadaye.",
-    "learnTitle": "Jifunze"
+    "learnTitle": "Jifunze",
+    "pnlForPeriod": "Faida/hasara ya kipindi"
   },
   "Common": {
     "level": "Kiwango {level}",
@@ -2236,7 +2237,7 @@
     "impersonationRequires2fa": "Ili kuona akaunti ya mteja, kwanza washa uthibitishaji wa hatua mbili kwenye akaunti yako ya msimamizi (Akaunti → Usalama) kisha uingie ukitumia."
   },
   "CopyRisk": {
-    "title": "Mipangilio ya biashara (chukua faida / komesha hasara / inayofuata)",
+    "title": "Kuchukua faida na kusimamisha hasara kwa kila biashara",
     "off": "Imezimwa",
     "tpShort": "TP",
     "slShort": "SL",
@@ -2247,7 +2248,8 @@
     "hint": "Asilimia za margin ya biashara. Acha sehemu wazi ili kuizima. Hutumika kwa kila biashara mpya itakayonakiliwa kuanzia sasa.",
     "applyToOpen": "Tumia pia kwa biashara zangu zilizo wazi sasa",
     "save": "Hifadhi mipangilio",
-    "saved": "Mipangilio ya kunakili imehifadhiwa."
+    "saved": "Mipangilio ya kunakili imehifadhiwa.",
+    "allOff": "Haijawekwa"
   },
   "Wallet": {
     "coinLabel": "Sarafu",

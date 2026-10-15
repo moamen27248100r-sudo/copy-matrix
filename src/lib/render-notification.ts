@@ -14,6 +14,14 @@ type NotificationRow = {
   data?: Record<string, unknown> | null;
 };
 
+// Prices in notices: 2 decimals from 1,000 up, 5 for forex-sized prices, 5 significant digits below 1.
+function fmtNotifPrice(p: number): string {
+  if (!Number.isFinite(p)) return "";
+  if (p >= 1000) return p.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  if (p >= 1) return p.toLocaleString("en-US", { maximumFractionDigits: 5 });
+  return p.toLocaleString("en-US", { maximumSignificantDigits: 5 });
+}
+
 type Translator = (key: string, values?: Record<string, string | number>) => string;
 
 type Money = (value: number, opts?: { signed?: boolean }) => string;
@@ -81,7 +89,7 @@ export function renderNotification(t: Translator, n: NotificationRow, rawMoney: 
           symbol: String(d.symbol ?? ""),
           side: String(d.side ?? "buy"),
           size: money(Number(d.size)),
-          price: Number(d.price ?? 0).toLocaleString("en-US", { maximumFractionDigits: 8 }),
+          price: fmtNotifPrice(Number(d.price ?? 0)),
         }),
       };
     case "copy_closed": {
@@ -103,7 +111,7 @@ export function renderNotification(t: Translator, n: NotificationRow, rawMoney: 
       // Why it closed (0231): the take profit / stop loss / trailing stop the customer set,
       // their own manual close, or the trader closing the trade.
       const reason = ({ tp: "Tp", sl: "Sl", trailing: "Trailing", manual: "Manual", leader: "Leader" } as Record<string, string>)[String(d.reason ?? "")];
-      if (!reason) return { title: t("copyClosedTitle", { providerName: values.providerName }), body: t("copyClosedBody", values) };
+      if (!reason) return { title: t("copyClosedLeaderTitle", values), body: t("copyClosedBody", values) };
       return { title: t(`copyClosed${reason}Title`, values), body: t(`copyClosed${reason}Body`, values) };
     }
     case "auto_stop_copy":

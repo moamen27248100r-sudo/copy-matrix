@@ -194,8 +194,8 @@
     "closeTrade": "Đóng",
     "closeTradeConfirm": "Đóng vị thế này ngay bây giờ theo giá thị trường hiện tại?",
     "noCopiedPositions": "Hiện không có vị thế sao chép nào đang mở.",
-    "riskProtectionLabel": "Bảo vệ số dư khỏi thua lỗ",
-    "riskProtectionUsed": "{pct}% trên {maxPct}%",
+    "riskProtectionLabel": "Giới hạn lỗ của bản sao",
+    "riskProtectionUsed": "Đã dùng {pct}% trên {maxPct}%",
     "stopCopying": "Dừng sao chép",
     "stopCopyingConfirm": "Các lệnh đang mở của lượt sao chép này sẽ được đóng và việc sao chép dừng ngay lập tức.",
     "greetingMorning": "Chào buổi sáng, {name}",
@@ -271,7 +271,7 @@
     "riskExplainNote": "Đây là hướng dẫn đơn giản để bạn thấy mức độ rủi ro; không phải là dự báo.",
     "riskPartReserved": "Đã dành",
     "riskPartDrawdown": "Mức giảm",
-    "riskPartTraders": "Trader",
+    "riskPartTraders": "Rủi ro của trader",
     "newsTitle": "Tin thị trường",
     "newsViewAll": "Xem tất cả",
     "newsSourceLine": "{source} qua Investing.com · {time}",
@@ -280,11 +280,11 @@
     "topMoversTitle": "Biến động mạnh nhất hôm nay",
     "topMoversAll": "Tất cả thị trường",
     "investedInCopies": "Đã đầu tư vào sao chép",
-    "periodSummaryDay": "hôm nay",
-    "periodSummaryWeek": "tuần này",
-    "periodSummaryMonth": "tháng này",
+    "periodSummaryDay": "24 giờ qua",
+    "periodSummaryWeek": "7 ngày qua",
+    "periodSummaryMonth": "30 ngày qua",
     "periodSummary3Months": "3 tháng qua",
-    "periodSummaryYear": "năm qua",
+    "periodSummaryYear": "12 tháng qua",
     "periodSummaryAll": "từ đầu",
     "walletChartEmpty": "Hiệu suất của bạn sẽ hiển thị sau giao dịch đóng đầu tiên",
     "stepKyc": "Xác minh danh tính",
@@ -293,7 +293,8 @@
     "watchlistEmpty": "Thêm công cụ cần theo dõi bằng ngôi sao ở trang Thị trường.",
     "topTradersWeekTitle": "Nhà giao dịch nổi bật tuần này",
     "topTradersWeekNote": "Theo lợi suất thực tế 7 ngày qua, chỉ gồm nhà giao dịch có đủ giao dịch đã đóng. Hiệu suất quá khứ không đảm bảo kết quả tương lai.",
-    "learnTitle": "Tìm hiểu"
+    "learnTitle": "Tìm hiểu",
+    "pnlForPeriod": "Lãi/lỗ trong kỳ"
   },
   "Common": {
     "level": "Cấp độ {level}",
@@ -2236,7 +2237,7 @@
     "impersonationRequires2fa": "Để xem tài khoản của khách hàng, trước tiên hãy bật xác thực hai yếu tố cho tài khoản quản trị của bạn (Tài khoản → Bảo mật) và đăng nhập bằng nó."
   },
   "CopyRisk": {
-    "title": "Cài đặt lệnh (chốt lời / cắt lỗ / dừng lỗ động)",
+    "title": "Chốt lời và cắt lỗ cho mỗi giao dịch",
     "off": "Tắt",
     "tpShort": "TP",
     "slShort": "SL",
@@ -2247,7 +2248,8 @@
     "hint": "Tính theo phần trăm ký quỹ của lệnh. Để trống ô để tắt. Áp dụng cho mọi lệnh mới được sao chép từ bây giờ.",
     "applyToOpen": "Áp dụng cả cho các lệnh đang mở của tôi",
     "save": "Lưu cài đặt",
-    "saved": "Đã lưu cài đặt sao chép."
+    "saved": "Đã lưu cài đặt sao chép.",
+    "allOff": "Chưa đặt"
   },
   "Wallet": {
     "coinLabel": "Đồng coin",
