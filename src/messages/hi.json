@@ -296,7 +296,8 @@
     "learnTitle": "सीखें",
     "pnlForPeriod": "अवधि का लाभ/हानि",
     "result24h": "पिछले 24 घंटे",
-    "openTradesCount": "{count, plural, =0 {कोई खुला ट्रेड नहीं} one {# खुला ट्रेड} other {# खुले ट्रेड}}"
+    "openTradesCount": "{count, plural, =0 {कोई खुला ट्रेड नहीं} one {# खुला ट्रेड} other {# खुले ट्रेड}}",
+    "watchlistSuggestHint": "किसी इंस्ट्रूमेंट को स्टार से फ़ॉलो करें ताकि वह यहां दिखे।"
   },
   "Common": {
     "level": "लेवल {level}",

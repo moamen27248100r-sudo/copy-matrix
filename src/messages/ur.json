@@ -296,7 +296,8 @@
     "learnTitle": "سیکھیں",
     "pnlForPeriod": "مدت کا نفع/نقصان",
     "result24h": "پچھلے 24 گھنٹے",
-    "openTradesCount": "{count, plural, =0 {کوئی کھلا ٹریڈ نہیں} one {# کھلا ٹریڈ} other {# کھلے ٹریڈ}}"
+    "openTradesCount": "{count, plural, =0 {کوئی کھلا ٹریڈ نہیں} one {# کھلا ٹریڈ} other {# کھلے ٹریڈ}}",
+    "watchlistSuggestHint": "کسی انسٹرومنٹ کو اسٹار سے فالو کریں تاکہ وہ یہاں نظر آئے۔"
   },
   "Common": {
     "level": "لیول {level}",

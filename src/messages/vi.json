@@ -296,7 +296,8 @@
     "learnTitle": "Tìm hiểu",
     "pnlForPeriod": "Lãi/lỗ trong kỳ",
     "result24h": "24 giờ qua",
-    "openTradesCount": "{count, plural, =0 {Không có giao dịch mở} other {# giao dịch đang mở}}"
+    "openTradesCount": "{count, plural, =0 {Không có giao dịch mở} other {# giao dịch đang mở}}",
+    "watchlistSuggestHint": "Theo dõi một công cụ bằng dấu sao để thấy nó ở đây."
   },
   "Common": {
     "level": "Cấp độ {level}",

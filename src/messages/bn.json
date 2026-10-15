@@ -296,7 +296,8 @@
     "learnTitle": "শিখুন",
     "pnlForPeriod": "এই সময়ের লাভ/ক্ষতি",
     "result24h": "গত ২৪ ঘণ্টা",
-    "openTradesCount": "{count, plural, =0 {কোনো খোলা ট্রেড নেই} one {# টি খোলা ট্রেড} other {# টি খোলা ট্রেড}}"
+    "openTradesCount": "{count, plural, =0 {কোনো খোলা ট্রেড নেই} one {# টি খোলা ট্রেড} other {# টি খোলা ট্রেড}}",
+    "watchlistSuggestHint": "তারকা দিয়ে কোনো ইনস্ট্রুমেন্ট ফলো করুন, এখানে দেখা যাবে।"
   },
   "Common": {
     "level": "লেভেল {level}",

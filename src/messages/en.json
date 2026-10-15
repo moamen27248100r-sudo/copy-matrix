@@ -296,7 +296,8 @@
     "learnTitle": "Learn",
     "pnlForPeriod": "Profit/loss for the period",
     "result24h": "Last 24 hours",
-    "openTradesCount": "{count, plural, =0 {No open trades} one {# open trade} other {# open trades}}"
+    "openTradesCount": "{count, plural, =0 {No open trades} one {# open trade} other {# open trades}}",
+    "watchlistSuggestHint": "Follow an instrument with the star to see it here."
   },
   "Common": {
     "level": "Level {level}",

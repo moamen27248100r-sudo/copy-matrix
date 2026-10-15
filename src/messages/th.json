@@ -296,7 +296,8 @@
     "learnTitle": "เรียนรู้",
     "pnlForPeriod": "กำไร/ขาดทุนในช่วงนี้",
     "result24h": "24 ชั่วโมงที่ผ่านมา",
-    "openTradesCount": "{count, plural, =0 {ไม่มีการเทรดที่เปิดอยู่} other {เปิดอยู่ # รายการ}}"
+    "openTradesCount": "{count, plural, =0 {ไม่มีการเทรดที่เปิดอยู่} other {เปิดอยู่ # รายการ}}",
+    "watchlistSuggestHint": "กดดาวเพื่อติดตามตราสารให้แสดงที่นี่"
   },
   "Common": {
     "level": "ระดับ {level}",

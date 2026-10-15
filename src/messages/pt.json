@@ -296,7 +296,8 @@
     "learnTitle": "Aprenda",
     "pnlForPeriod": "Lucro/prejuízo do período",
     "result24h": "Últimas 24 horas",
-    "openTradesCount": "{count, plural, =0 {Nenhuma operação aberta} one {# operação aberta} other {# operações abertas}}"
+    "openTradesCount": "{count, plural, =0 {Nenhuma operação aberta} one {# operação aberta} other {# operações abertas}}",
+    "watchlistSuggestHint": "Siga um instrumento com a estrela para vê-lo aqui."
   },
   "Common": {
     "level": "Nível {level}",

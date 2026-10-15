@@ -3,7 +3,8 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { InstrumentIcon } from "@/components/markets/MarketsBoard";
 import { getLiveInstruments } from "@/lib/market-data";
-import { formatPrice } from "@/lib/markets";
+import { DEFAULT_WATCHLIST, formatPrice } from "@/lib/markets";
+import { toggleWatch } from "@/app/markets/actions";
 
 // The customer's watchlist on the home page (six well-known instruments are put there when the
 // account is created; the star on any instrument adds or removes one).
@@ -30,7 +31,43 @@ export async function HomeWatchlist({ userId }: { userId: string }) {
         </Link>
       </div>
       {rows.length === 0 ? (
-        <p className="rounded-[20px] border border-border bg-surface p-5 text-sm text-muted">{t("watchlistEmpty")}</p>
+        <div className="flex flex-col gap-2">
+          <p className="text-sm text-muted">{t("watchlistSuggestHint")}</p>
+          <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+            {DEFAULT_WATCHLIST.flatMap((sym) => {
+              const r = bySymbol.get(sym);
+              return r ? [r] : [];
+            })
+              .slice(0, 4)
+              .map((r) => (
+                <li key={r.symbol} className="flex items-center gap-3 rounded-2xl border border-border bg-surface px-3 py-2.5">
+                  <Link href={`/markets/${r.symbol}`} className="flex min-w-0 flex-1 items-center gap-3">
+                    <InstrumentIcon glyph={r.instrument.glyph} toneClass={r.instrument.tone} size="h-8 w-8" />
+                    <span className="min-w-0">
+                      <span dir="ltr" className="block truncate text-sm font-bold">
+                        {r.instrument.label}
+                      </span>
+                      <span className="block truncate text-xs text-muted">{r.instrument.name}</span>
+                    </span>
+                  </Link>
+                  <form action={toggleWatch} className="shrink-0">
+                    <input type="hidden" name="symbol" value={r.symbol} />
+                    <input type="hidden" name="returnTo" value="/dashboard" />
+                    <button
+                      type="submit"
+                      aria-label={`${tm("watch")} ${r.instrument.label}`}
+                      title={tm("watch")}
+                      className="tap-44 flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted transition hover:border-warning/50 hover:text-warning"
+                    >
+                      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z" />
+                      </svg>
+                    </button>
+                  </form>
+                </li>
+              ))}
+          </ul>
+        </div>
       ) : (
         <WatchlistGrid items={rows.slice(0, 6).map((r) => ({ symbol: r.symbol, label: r.instrument.label, name: r.instrument.name, glyph: r.instrument.glyph, tone: r.instrument.tone, price: r.price, decimals: r.instrument.decimals, change: r.change_pct }))} />
       )}

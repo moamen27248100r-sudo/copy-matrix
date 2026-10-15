@@ -69,7 +69,7 @@ export async function SuggestedLeaders({
               <div className="grid grid-cols-2 gap-2">
                 <div>
                   <p className="text-xl font-bold text-success">
-                    <bdi>{fmtReturn(Number(p.roi_30d))}</bdi>
+                    <bdi dir="ltr">{fmtReturn(Number(p.roi_30d))}</bdi>
                   </p>
                   <p className="text-xs text-muted">{t("roiLabel", { period: t("periodShort_30") })}</p>
                 </div>

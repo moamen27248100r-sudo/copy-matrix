@@ -296,7 +296,8 @@
     "learnTitle": "Apprendre",
     "pnlForPeriod": "Gains/pertes sur la période",
     "result24h": "Sur 24 heures",
-    "openTradesCount": "{count, plural, =0 {Aucune transaction ouverte} one {# transaction ouverte} other {# transactions ouvertes}}"
+    "openTradesCount": "{count, plural, =0 {Aucune transaction ouverte} one {# transaction ouverte} other {# transactions ouvertes}}",
+    "watchlistSuggestHint": "Suivez un instrument avec l'étoile pour le voir ici."
   },
   "Common": {
     "level": "Niveau {level}",

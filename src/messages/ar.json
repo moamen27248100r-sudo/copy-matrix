@@ -296,7 +296,8 @@
     "learnTitle": "تعلّم",
     "pnlForPeriod": "الربح/الخسارة خلال الفترة",
     "result24h": "نتيجة آخر 24 ساعة",
-    "openTradesCount": "{count, plural, =0 {لا صفقات مفتوحة} one {صفقة مفتوحة واحدة} two {صفقتان مفتوحتان} few {# صفقات مفتوحة} many {# صفقة مفتوحة} other {# صفقة مفتوحة}}"
+    "openTradesCount": "{count, plural, =0 {لا صفقات مفتوحة} one {صفقة مفتوحة واحدة} two {صفقتان مفتوحتان} few {# صفقات مفتوحة} many {# صفقة مفتوحة} other {# صفقة مفتوحة}}",
+    "watchlistSuggestHint": "تابع أداة بالنجمة لتظهر هنا."
   },
   "Common": {
     "level": "المستوى {level}",

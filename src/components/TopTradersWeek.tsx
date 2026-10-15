@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { LeaderCard } from "@/components/LeaderCard";
 import { MIN_CLOSED_TRADES } from "@/lib/leader-scores";
 
-// "Top traders this week": ranked by the real return of the last 7 days, and only leaders with
+// "Top traders this week": low- and medium-risk leaders ranked by the real return of the last 7 days, and only leaders with
 // enough closed trades in that week (the same minimum sample as everywhere else), not archived and
 // still trading. Leaders the customer already copies are left out. Hides itself when none qualify.
 export async function TopTradersWeek({ excludeProviderIds }: { excludeProviderIds: string[] }) {
@@ -15,6 +15,7 @@ export async function TopTradersWeek({ excludeProviderIds }: { excludeProviderId
     .select("*")
     .eq("is_archived", false)
     .neq("trading_status", "stopped")
+    .in("risk_level", ["منخفضة", "متوسطة"])
     .gt("roi_7d", 0)
     .gte("trades_7d", MIN_CLOSED_TRADES)
     .order("roi_7d", { ascending: false })

@@ -296,7 +296,8 @@
     "learnTitle": "Belajar",
     "pnlForPeriod": "Laba/rugi periode ini",
     "result24h": "24 jam terakhir",
-    "openTradesCount": "{count, plural, =0 {Tidak ada transaksi terbuka} other {# transaksi terbuka}}"
+    "openTradesCount": "{count, plural, =0 {Tidak ada transaksi terbuka} other {# transaksi terbuka}}",
+    "watchlistSuggestHint": "Ikuti instrumen dengan bintang agar muncul di sini."
   },
   "Common": {
     "level": "Level {level}",

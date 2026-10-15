@@ -270,12 +270,12 @@ export default async function DashboardPage({
           </div>
           <div className="flex flex-col gap-1.5">
             <p className="text-4xl font-bold tabular-nums">
-              <bdi>{money(walletValue)}</bdi>
+              <bdi dir="ltr">{money(walletValue)}</bdi>
             </p>
             <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
               <span>
                 <span className="text-muted">{t("result24h")} </span>
-                <bdi className={`font-bold ${result24h > 0 ? "text-success" : result24h < 0 ? "text-danger" : "text-foreground"}`}>
+                <bdi dir="ltr" className={`font-bold ${result24h > 0 ? "text-success" : result24h < 0 ? "text-danger" : "text-foreground"}`}>
                   {money(result24h, { signed: result24h !== 0 })}
                 </bdi>
               </span>
@@ -288,19 +288,19 @@ export default async function DashboardPage({
           <dl className="grid grid-cols-3 gap-2 rounded-2xl bg-background/60 p-3 text-center">
             <div>
               <dd className={`text-base font-bold ${unrealized > 0 ? "text-success" : unrealized < 0 ? "text-danger" : ""}`}>
-                <bdi>{money(unrealized, { signed: unrealized !== 0 })}</bdi>
+                <bdi dir="ltr">{money(unrealized, { signed: unrealized !== 0 })}</bdi>
               </dd>
               <dt className="mt-0.5 text-xs text-muted">{t("unrealizedPnl")}</dt>
             </div>
             <div className="border-x border-border">
               <dd className="text-base font-bold">
-                <bdi>{money(availableCash)}</bdi>
+                <bdi dir="ltr">{money(availableCash)}</bdi>
               </dd>
               <dt className="mt-0.5 text-xs text-muted">{t("allocationAvailableCash")}</dt>
             </div>
             <div>
               <dd className="text-base font-bold">
-                <bdi>{money(investedInCopies)}</bdi>
+                <bdi dir="ltr">{money(investedInCopies)}</bdi>
               </dd>
               <dt className="mt-0.5 text-xs text-muted">{t("investedInCopies")}</dt>
             </div>
@@ -355,53 +355,54 @@ export default async function DashboardPage({
               notificationsReady={(prefsCount ?? 0) > 0}
             />
           );
-          const copiesAndActivity = (
-            <div className="grid gap-6 lg:grid-cols-2">
-              {topCopies.length > 0 && (
-                <section className="flex flex-col gap-3">
-                  <div className="flex items-baseline justify-between gap-3">
-                    <h2 className="text-section-title">{t("traderYouCopy")}</h2>
-                    <Link href="/copies" className="text-sm text-accent hover:underline">
-                      {tNav("viewAll")}
-                    </Link>
-                  </div>
-                  <CopySummaryList items={topCopies.map((c) => ({ id: c.subscriptionId, providerId: c.providerId, name: c.name, avatarUrl: c.avatarUrl, rating: c.rating, allocated: c.allocated, total: c.total }))} />
-                </section>
-              )}
-              <RecentActivityTimeline events={activityEvents} />
-            </div>
+          const yourCopies =
+            topCopies.length > 0 ? (
+              <section className="flex flex-col gap-3">
+                <div className="flex items-baseline justify-between gap-3">
+                  <h2 className="text-section-title">{t("traderYouCopy")}</h2>
+                  <Link href="/copies" className="text-sm text-accent-text hover:underline">
+                    {tNav("viewAll")}
+                  </Link>
+                </div>
+                <CopySummaryList items={topCopies.map((c) => ({ id: c.subscriptionId, providerId: c.providerId, name: c.name, avatarUrl: c.avatarUrl, rating: c.rating, allocated: c.allocated, total: c.total }))} />
+              </section>
+            ) : null;
+          const watchlist = (
+            <Suspense fallback={null}>
+              <HomeWatchlist userId={user.id} />
+            </Suspense>
           );
-          const markets = (
-            <>
-              <Suspense fallback={null}>
-                <HomeWatchlist userId={user.id} />
-              </Suspense>
-              <Suspense fallback={null}>
-                <TopMovers />
-              </Suspense>
-            </>
+          const moves = (
+            <Suspense fallback={null}>
+              <TopMovers />
+            </Suspense>
           );
           const traders = (
             <Suspense fallback={<SectionSkeleton />}>
               <TopTradersWeek excludeProviderIds={providerIds} />
             </Suspense>
           );
-          // A customer who already copies sees their copies first; the getting-started checklist and
-          // the learning cards move down. A new customer sees the checklist first.
+          // A customer who copies: their copies first, then what happened and what they follow,
+          // the market, other traders and the learning cards (the getting-started list is done once
+          // they copy). A new customer: the getting-started list first, then traders to pick from.
           return copies.length > 0 ? (
             <>
-              {copiesAndActivity}
-              {markets}
+              {yourCopies}
+              <div className="grid items-start gap-6 lg:grid-cols-2">
+                <RecentActivityTimeline events={activityEvents} />
+                {watchlist}
+              </div>
+              {moves}
               {traders}
-              {startHere}
               <LearnCards />
             </>
           ) : (
             <>
               {startHere}
-              {markets}
               {traders}
-              {copiesAndActivity}
+              {watchlist}
+              {moves}
+              <RecentActivityTimeline events={activityEvents} />
               <LearnCards />
             </>
           );

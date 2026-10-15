@@ -4,21 +4,19 @@ import { InstrumentIcon } from "@/components/markets/MarketsBoard";
 import { getLiveInstruments } from "@/lib/market-data";
 import { formatPrice } from "@/lib/markets";
 
-// "Market moves today" on the home page: the two biggest risers and the two biggest fallers of the
-// last 24 hours among the instruments with a working price (4 in all), each opening its page.
+// "Market moves today" on the home page: the main instruments (Bitcoin, gold, Ether, the euro and
+// two large coins) with their last-24-hour change, each opening its page. An instrument without a
+// working price is left out.
+const KEY_SYMBOLS = ["BTCUSDT", "XAUUSD", "ETHUSDT", "EURUSD", "SOLUSDT", "XRPUSDT"] as const;
 export async function TopMovers() {
   const t = await getTranslations("Dashboard");
   const rows = (await getLiveInstruments()).filter((r) => r.change_pct != null);
 
-  const sorted = [...rows].sort((a, b) => (b.change_pct as number) - (a.change_pct as number));
-  const risers = sorted.filter((r) => (r.change_pct as number) > 0).slice(0, 2);
-  const fallers = [...sorted].reverse().filter((r) => (r.change_pct as number) < 0).slice(0, 2);
-  const picked = [...risers, ...fallers];
-  // fewer than two on one side: fill from the biggest absolute moves left
-  for (const r of [...rows].sort((a, b) => Math.abs(b.change_pct as number) - Math.abs(a.change_pct as number))) {
-    if (picked.length >= 4) break;
-    if (!picked.some((p) => p.symbol === r.symbol)) picked.push(r);
-  }
+  const bySymbol = new Map(rows.map((r) => [r.symbol, r]));
+  const picked = KEY_SYMBOLS.flatMap((sym) => {
+    const r = bySymbol.get(sym);
+    return r ? [r] : [];
+  });
   if (picked.length === 0) return null;
 
   return (
@@ -29,7 +27,7 @@ export async function TopMovers() {
           {t("topMoversAll")}
         </Link>
       </div>
-      <MarketPulseGrid items={picked.map((r) => ({ symbol: r.symbol, label: r.instrument.label, glyph: r.instrument.glyph, tone: r.instrument.tone, price: r.price, decimals: r.instrument.decimals, change: r.change_pct as number }))} />
+      <MarketPulseGrid wide items={picked.map((r) => ({ symbol: r.symbol, label: r.instrument.label, glyph: r.instrument.glyph, tone: r.instrument.tone, price: r.price, decimals: r.instrument.decimals, change: r.change_pct as number }))} />
     </section>
   );
 }
@@ -37,9 +35,9 @@ export async function TopMovers() {
 export type PulseItem = { symbol: string; label: string; glyph: string; tone: string; price: number; decimals: number; change: number };
 
 // The four tiles themselves. The home-page mock-up renders the same grid with fixed values.
-export function MarketPulseGrid({ items }: { items: PulseItem[] }) {
+export function MarketPulseGrid({ items, wide = false }: { items: PulseItem[]; wide?: boolean }) {
   return (
-    <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
+    <div className={`grid grid-cols-2 gap-2 ${wide ? "sm:grid-cols-3" : "lg:grid-cols-4"}`}>
       {items.map((r) => {
         const pct = r.change;
         return (
