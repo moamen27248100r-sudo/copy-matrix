@@ -1579,7 +1579,13 @@
     "endedLastTrade": "সর্বশেষ ট্রেড: {date}",
     "endedNoTrades": "কোনো বন্ধ ট্রেড নেই",
     "emptyBody": "একজন ট্রেডার বেছে নিন, পরিমাণ ও ক্ষতির সীমা ঠিক করুন, তার নতুন ট্রেড স্বয়ংক্রিয়ভাবে আপনার অ্যাকাউন্টে কপি হবে।",
-    "endedEmptyTitle": "কোনো শেষ হওয়া কপি নেই"
+    "endedEmptyTitle": "কোনো শেষ হওয়া কপি নেই",
+    "currentValue": "বর্তমান মূল্য",
+    "unrealized": "অবাস্তবায়িত",
+    "realized": "বাস্তবায়িত",
+    "since": "{date} থেকে",
+    "allocated": "পরিমাণ",
+    "unrealizedTotal": "অবাস্তবায়িত লাভ/ক্ষতি"
   },
   "LeadTrader": {
     "apply": {

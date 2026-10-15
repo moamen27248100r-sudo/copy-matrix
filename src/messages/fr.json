@@ -1580,7 +1580,13 @@
     "endedLastTrade": "Dernière transaction : {date}",
     "endedNoTrades": "Aucune transaction clôturée",
     "emptyBody": "Choisissez un trader, fixez un montant et une limite de perte : ses nouvelles transactions sont copiées automatiquement sur votre compte.",
-    "endedEmptyTitle": "Aucune copie terminée"
+    "endedEmptyTitle": "Aucune copie terminée",
+    "currentValue": "Valeur actuelle",
+    "unrealized": "Latent",
+    "realized": "Réalisé",
+    "since": "Depuis le {date}",
+    "allocated": "Montant",
+    "unrealizedTotal": "P&L latent"
   },
   "LeadTrader": {
     "apply": {

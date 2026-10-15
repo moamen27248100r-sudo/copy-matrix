@@ -1583,7 +1583,13 @@
     "endedLastTrade": "Last trade: {date}",
     "endedNoTrades": "No closed trades",
     "emptyBody": "Choose a trader, set an amount and a loss limit, and their new trades are copied to your account automatically.",
-    "endedEmptyTitle": "No ended copies"
+    "endedEmptyTitle": "No ended copies",
+    "currentValue": "Current value",
+    "unrealized": "Unrealized",
+    "realized": "Realized",
+    "since": "Since {date}",
+    "allocated": "Amount",
+    "unrealizedTotal": "Unrealized P&L"
   },
   "LeadTrader": {
     "apply": {

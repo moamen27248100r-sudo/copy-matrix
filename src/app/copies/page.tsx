@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getUserTimeZone } from "@/lib/timezone";
 import { getMoney } from "@/lib/money-server";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { SuggestedLeaders } from "@/components/SuggestedLeaders";
@@ -40,14 +41,23 @@ export default async function CopiesPage({
   } = await supabase.auth.getUser();
   if (!user) redirect(`/login?next=${encodeURIComponent(tab === "active" ? "/copies" : `/copies?tab=${tab}`)}`);
 
-  const [{ data: profile }, { data: allSubs }, { data: closed }] = await Promise.all([
+  const timeZone = await getUserTimeZone();
+  const [{ data: profile }, { data: allSubs }, { data: closed }, { data: summaryRaw }, { data: openRows }] = await Promise.all([
     supabase.from("profiles").select("account_type").eq("id", user.id).single(),
     supabase
       .from("subscriptions")
-      .select("id, provider_id, allocated_amount, max_drawdown_pct, tp_pct, sl_pct, trailing_pct, is_active")
+      .select("id, provider_id, allocated_amount, max_drawdown_pct, tp_pct, sl_pct, trailing_pct, is_active, copy_started_at")
       .eq("follower_id", user.id),
     supabase.from("simulated_positions").select("subscription_id, pnl, closed_at").eq("follower_id", user.id).eq("status", "closed"),
+    // Live result of the open trades per trader (same totals as the home page, migration 0254).
+    supabase.rpc("dashboard_summary", { p_tz: timeZone }),
+    supabase.from("simulated_positions").select("subscription_id").eq("follower_id", user.id).eq("status", "open"),
   ]);
+  const unrealizedByProvider = new Map(
+    (((summaryRaw ?? null) as { by_provider?: { provider_id: string; unrealized: number }[] } | null)?.by_provider ?? []).map((p) => [p.provider_id, Number(p.unrealized ?? 0)]),
+  );
+  const openBySub = new Map<string, number>();
+  for (const r of openRows ?? []) openBySub.set(r.subscription_id, (openBySub.get(r.subscription_id) ?? 0) + 1);
 
   const pnlBySub = new Map<string, number>();
   const lastClosedBySub = new Map<string, string>();
@@ -81,11 +91,15 @@ export default async function CopiesPage({
         takeProfitPct: s.tp_pct == null ? null : Number(s.tp_pct),
         stopLossPct: s.sl_pct == null ? null : Number(s.sl_pct),
         trailingPct: s.trailing_pct == null ? null : Number(s.trailing_pct),
+        unrealized: unrealizedByProvider.get(s.provider_id) ?? 0,
+        openCount: openBySub.get(s.id) ?? 0,
+        startedAt: (s.copy_started_at as string | null) ?? null,
       },
     ];
   });
   const totalAllocated = copies.reduce((sum, c) => sum + c.allocatedAmount, 0);
   const totalPnl = copies.reduce((sum, c) => sum + c.cumulativePnl, 0);
+  const totalUnrealized = copies.reduce((sum, c) => sum + c.unrealized, 0);
 
   const ended = endedSubs
     .flatMap((s) => {
@@ -132,7 +146,7 @@ export default async function CopiesPage({
             </>
           ) : (
             <>
-              <section className="grid grid-cols-3 rounded-2xl border border-border bg-surface text-center">
+              <section className="grid grid-cols-2 rounded-[20px] border border-border bg-surface text-center sm:grid-cols-4">
                 <div className="p-4">
                   <p className="text-lg font-bold tabular-nums">{copies.length}</p>
                   <p className="text-xs text-muted">{t("activeCopies")}</p>
@@ -143,14 +157,20 @@ export default async function CopiesPage({
                   </p>
                   <p className="text-xs text-muted">{t("totalAllocated")}</p>
                 </div>
-                <div className="border-s border-border p-4">
+                <div className="border-t border-border p-4 sm:border-s sm:border-t-0">
+                  <p className={`text-lg font-bold tabular-nums ${totalUnrealized > 0 ? "text-success" : totalUnrealized < 0 ? "text-danger" : ""}`}>
+                    <bdi dir="ltr">{money(totalUnrealized, { signed: totalUnrealized !== 0 })}</bdi>
+                  </p>
+                  <p className="text-xs text-muted">{t("unrealizedTotal")}</p>
+                </div>
+                <div className="border-s border-t border-border p-4 sm:border-t-0">
                   <p className={`text-lg font-bold tabular-nums ${totalPnl >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
                     {money(totalPnl, { signed: true })}
                   </p>
                   <p className="text-xs text-muted">{t("realizedPnl")}</p>
                 </div>
               </section>
-              <div className="grid items-start gap-3 lg:grid-cols-2">
+              <div className={`grid items-start gap-3 ${copies.length > 1 ? "lg:grid-cols-2" : ""}`}>
                 {copies.map((c) => (
                   <ActiveCopyControlPanel key={c.subscriptionId} provider={c} returnTo="/copies" editable />
                 ))}

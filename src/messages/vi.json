@@ -1579,7 +1579,13 @@
     "endedLastTrade": "Giao dịch gần nhất: {date}",
     "endedNoTrades": "Không có giao dịch đã đóng",
     "emptyBody": "Chọn một trader, đặt số tiền và giới hạn lỗ, các giao dịch mới của họ sẽ tự động được sao chép vào tài khoản của bạn.",
-    "endedEmptyTitle": "Không có bản sao đã kết thúc"
+    "endedEmptyTitle": "Không có bản sao đã kết thúc",
+    "currentValue": "Giá trị hiện tại",
+    "unrealized": "Chưa thực hiện",
+    "realized": "Đã thực hiện",
+    "since": "Từ {date}",
+    "allocated": "Số tiền",
+    "unrealizedTotal": "Lãi/lỗ chưa thực hiện"
   },
   "LeadTrader": {
     "apply": {

@@ -1644,7 +1644,13 @@
     "endedLastTrade": "آخر صفقة: {date}",
     "endedNoTrades": "بدون صفقات مغلقة",
     "emptyBody": "اختر متداولاً، وحدّد المبلغ وحد الخسارة، وتُنسخ صفقاته الجديدة إلى حسابك تلقائياً.",
-    "endedEmptyTitle": "لا توجد نسخ منتهية"
+    "endedEmptyTitle": "لا توجد نسخ منتهية",
+    "currentValue": "القيمة الحالية",
+    "unrealized": "غير محقق",
+    "realized": "محقق",
+    "since": "منذ {date}",
+    "allocated": "المبلغ المخصص",
+    "unrealizedTotal": "غير المحقق"
   },
   "LeadTrader": {
     "apply": {

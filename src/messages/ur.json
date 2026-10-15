@@ -1579,7 +1579,13 @@
     "endedLastTrade": "آخری ٹریڈ: {date}",
     "endedNoTrades": "کوئی بند ٹریڈ نہیں",
     "emptyBody": "ایک ٹریڈر چنیں، رقم اور نقصان کی حد طے کریں، اور اس کے نئے ٹریڈ خود بخود آپ کے اکاؤنٹ میں کاپی ہوں گے۔",
-    "endedEmptyTitle": "کوئی ختم شدہ کاپی نہیں"
+    "endedEmptyTitle": "کوئی ختم شدہ کاپی نہیں",
+    "currentValue": "موجودہ قدر",
+    "unrealized": "غیر حاصل شدہ",
+    "realized": "حاصل شدہ",
+    "since": "{date} سے",
+    "allocated": "رقم",
+    "unrealizedTotal": "غیر حاصل شدہ نفع/نقصان"
   },
   "LeadTrader": {
     "apply": {

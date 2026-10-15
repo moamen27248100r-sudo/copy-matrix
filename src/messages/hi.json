@@ -1579,7 +1579,13 @@
     "endedLastTrade": "आखिरी ट्रेड: {date}",
     "endedNoTrades": "कोई बंद ट्रेड नहीं",
     "emptyBody": "एक ट्रेडर चुनें, राशि और नुकसान सीमा तय करें, और उसके नए ट्रेड अपने आप आपके खाते में कॉपी होंगे।",
-    "endedEmptyTitle": "कोई समाप्त कॉपी नहीं"
+    "endedEmptyTitle": "कोई समाप्त कॉपी नहीं",
+    "currentValue": "मौजूदा मूल्य",
+    "unrealized": "अप्राप्त",
+    "realized": "प्राप्त",
+    "since": "{date} से",
+    "allocated": "राशि",
+    "unrealizedTotal": "अप्राप्त लाभ/हानि"
   },
   "LeadTrader": {
     "apply": {

@@ -1579,7 +1579,13 @@
     "endedLastTrade": "Biashara ya mwisho: {date}",
     "endedNoTrades": "Hakuna biashara zilizofungwa",
     "emptyBody": "Chagua mfanyabiashara, weka kiasi na kikomo cha hasara, na biashara zake mpya zitanakiliwa kwenye akaunti yako kiotomatiki.",
-    "endedEmptyTitle": "Hakuna unakili uliomalizika"
+    "endedEmptyTitle": "Hakuna unakili uliomalizika",
+    "currentValue": "Thamani ya sasa",
+    "unrealized": "Haijafikiwa",
+    "realized": "Imefikiwa",
+    "since": "Tangu {date}",
+    "allocated": "Kiasi",
+    "unrealizedTotal": "Faida/hasara isiyofikiwa"
   },
   "LeadTrader": {
     "apply": {

@@ -1580,7 +1580,13 @@
     "endedLastTrade": "最后一笔交易：{date}",
     "endedNoTrades": "没有已平仓交易",
     "emptyBody": "选择交易员，设定金额和亏损限额，其新交易会自动复制到您的账户。",
-    "endedEmptyTitle": "没有已结束的跟单"
+    "endedEmptyTitle": "没有已结束的跟单",
+    "currentValue": "当前价值",
+    "unrealized": "未实现",
+    "realized": "已实现",
+    "since": "自 {date} 起",
+    "allocated": "金额",
+    "unrealizedTotal": "未实现盈亏"
   },
   "LeadTrader": {
     "apply": {

@@ -1582,7 +1582,13 @@
     "endedLastTrade": "Última operação: {date}",
     "endedNoTrades": "Sem operações encerradas",
     "emptyBody": "Escolha um trader, defina um valor e um limite de perda, e as novas operações dele são copiadas automaticamente para sua conta.",
-    "endedEmptyTitle": "Nenhuma cópia encerrada"
+    "endedEmptyTitle": "Nenhuma cópia encerrada",
+    "currentValue": "Valor atual",
+    "unrealized": "Não realizado",
+    "realized": "Realizado",
+    "since": "Desde {date}",
+    "allocated": "Valor",
+    "unrealizedTotal": "P&L não realizado"
   },
   "LeadTrader": {
     "apply": {

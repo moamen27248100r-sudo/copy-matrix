@@ -1579,7 +1579,13 @@
     "endedLastTrade": "Transaksi terakhir: {date}",
     "endedNoTrades": "Tidak ada transaksi tertutup",
     "emptyBody": "Pilih trader, tentukan jumlah dan batas rugi, lalu transaksi barunya disalin otomatis ke akun Anda.",
-    "endedEmptyTitle": "Tidak ada salinan yang berakhir"
+    "endedEmptyTitle": "Tidak ada salinan yang berakhir",
+    "currentValue": "Nilai saat ini",
+    "unrealized": "Belum terealisasi",
+    "realized": "Terealisasi",
+    "since": "Sejak {date}",
+    "allocated": "Jumlah",
+    "unrealizedTotal": "L/R belum terealisasi"
   },
   "LeadTrader": {
     "apply": {
