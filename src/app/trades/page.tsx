@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AppMain } from "@/components/AppMain";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
@@ -84,7 +85,7 @@ export default async function TradesPage({
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-[var(--sidebar-w)] lg:me-0 lg:pb-6">
+      <AppMain>
         <h1 className="text-page-title">{t("title")}</h1>
         {error && <FlashMessage tone="error">{error}</FlashMessage>}
         {tpsl && (
@@ -184,7 +185,7 @@ export default async function TradesPage({
             )}
           </>
         )}
-      </main>
+      </AppMain>
     </>
   );
 }

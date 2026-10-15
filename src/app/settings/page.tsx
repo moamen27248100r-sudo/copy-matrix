@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AppMain } from "@/components/AppMain";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -54,7 +55,7 @@ export default async function SettingsPage({
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-2xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-[var(--sidebar-w)] lg:me-0 lg:pb-6">
+      <AppMain>
         <h1 className="text-page-title">{t("title")}</h1>
 
         {error && (
@@ -211,7 +212,7 @@ export default async function SettingsPage({
             {t("securityTitle")}
           </Link>
         </section>
-      </main>
+      </AppMain>
     </>
   );
 }

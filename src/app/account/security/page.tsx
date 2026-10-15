@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AppMain } from "@/components/AppMain";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { KeyRound, MonitorSmartphone, ChevronRight } from "lucide-react";
@@ -34,7 +35,7 @@ export default async function AccountSecurityPage({ searchParams }: { searchPara
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-2xl flex-col gap-4 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-[var(--sidebar-w)] lg:me-0 lg:pb-6">
+      <AppMain>
         <h1 className="text-page-title">{t("title")}</h1>
         <p className="text-sm text-muted">{t("subtitle")}</p>
 
@@ -76,7 +77,7 @@ export default async function AccountSecurityPage({ searchParams }: { searchPara
           <span className="flex-1 font-medium">{t("devices")}</span>
           <ChevronRight className="h-4 w-4 text-muted rtl:rotate-180" aria-hidden="true" />
         </Link>
-      </main>
+      </AppMain>
     </>
   );
 }

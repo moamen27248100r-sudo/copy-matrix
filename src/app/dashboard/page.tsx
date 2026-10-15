@@ -1,4 +1,5 @@
 import { getMoney } from "@/lib/money-server";
+import { AppMain } from "@/components/AppMain";
 import { depositsEnabled } from "@/lib/deposits-enabled";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -247,7 +248,7 @@ export default async function DashboardPage({
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-[var(--sidebar-w)] lg:me-0 lg:pb-6">
+      <AppMain>
         <h1 className="sr-only">{tNav("navHome")}</h1>
 
         {error && <FlashMessage tone="error">{error}</FlashMessage>}
@@ -409,7 +410,7 @@ export default async function DashboardPage({
         })()}
 
         <RiskFooter demo={activeType === "demo"} />
-      </main>
+      </AppMain>
     </>
   );
 }

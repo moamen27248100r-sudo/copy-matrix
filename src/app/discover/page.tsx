@@ -1,4 +1,5 @@
 import { getMoney } from "@/lib/money-server";
+import { AppMain } from "@/components/AppMain";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
@@ -142,12 +143,12 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
     return (
       <>
         <AppNav />
-        <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-[var(--sidebar-w)] lg:me-0 lg:pb-6">
+        <AppMain>
           <h1 className="text-page-title">{t("title")}</h1>
           <DiscoverTabs active="markets" />
           <MarketsTab userId={user.id} />
           <RiskFooter />
-        </main>
+        </AppMain>
       </>
     );
   }
@@ -326,7 +327,7 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-4xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-[var(--sidebar-w)] lg:me-0 lg:pb-6">
+      <AppMain>
         <h1 className="text-page-title">{t("title")}</h1>
         {user && <DiscoverTabs active="traders" />}
 
@@ -641,7 +642,7 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
             </div>
           </nav>
         )}
-      </main>
+      </AppMain>
     </>
   );
 }

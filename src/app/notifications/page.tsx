@@ -1,4 +1,5 @@
 import { getMoney } from "@/lib/money-server";
+import { AppMain } from "@/components/AppMain";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations, getLocale } from "next-intl/server";
@@ -172,7 +173,7 @@ export default async function NotificationsPage({ searchParams }: { searchParams
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-lg flex-col gap-4 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-[var(--sidebar-w)] lg:me-0 lg:pb-6">
+      <AppMain>
         <div className="flex items-center justify-between">
           <h1 className="text-page-title">{t("notificationsTitle")}</h1>
           {hasUnread && (
@@ -241,7 +242,7 @@ export default async function NotificationsPage({ searchParams }: { searchParams
             })}
           </div>
         )}
-      </main>
+      </AppMain>
     </>
   );
 }

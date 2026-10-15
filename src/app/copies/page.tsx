@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AppMain } from "@/components/AppMain";
 import { getUserTimeZone } from "@/lib/timezone";
 import { getMoney } from "@/lib/money-server";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -125,7 +126,7 @@ export default async function CopiesPage({
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-[var(--sidebar-w)] lg:me-0 lg:pb-6">
+      <AppMain>
         <h1 className="text-page-title">{t("title")}</h1>
         <LinkTabs
           active={tab}
@@ -212,7 +213,7 @@ export default async function CopiesPage({
         {tab === "profit-share" && <ProfitShareLedger userId={user.id} />}
 
         <RiskFooter demo={profile?.account_type !== "real"} />
-      </main>
+      </AppMain>
     </>
   );
 }
