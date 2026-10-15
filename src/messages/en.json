@@ -294,7 +294,9 @@
     "topTradersWeekTitle": "Top traders this week",
     "topTradersWeekNote": "By actual return over the last 7 days, only for traders with enough closed trades. Past performance does not guarantee future results.",
     "learnTitle": "Learn",
-    "pnlForPeriod": "Profit/loss for the period"
+    "pnlForPeriod": "Profit/loss for the period",
+    "result24h": "Last 24 hours",
+    "openTradesCount": "{count, plural, =0 {No open trades} one {# open trade} other {# open trades}}"
   },
   "Common": {
     "level": "Level {level}",

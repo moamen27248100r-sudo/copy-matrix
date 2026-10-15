@@ -294,7 +294,9 @@
     "topTradersWeekTitle": "Trader terbaik minggu ini",
     "topTradersWeekNote": "Berdasarkan imbal hasil nyata 7 hari terakhir, hanya trader dengan transaksi tertutup yang cukup. Kinerja masa lalu tidak menjamin hasil di masa depan.",
     "learnTitle": "Belajar",
-    "pnlForPeriod": "Laba/rugi periode ini"
+    "pnlForPeriod": "Laba/rugi periode ini",
+    "result24h": "24 jam terakhir",
+    "openTradesCount": "{count, plural, =0 {Tidak ada transaksi terbuka} other {# transaksi terbuka}}"
   },
   "Common": {
     "level": "Level {level}",

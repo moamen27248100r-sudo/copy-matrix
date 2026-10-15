@@ -294,7 +294,9 @@
     "topTradersWeekTitle": "本周优秀交易员",
     "topTradersWeekNote": "按最近 7 天的实际收益排序，仅包含已平仓交易足够多的交易员。过往业绩不代表未来表现。",
     "learnTitle": "学习",
-    "pnlForPeriod": "期间盈亏"
+    "pnlForPeriod": "期间盈亏",
+    "result24h": "过去 24 小时",
+    "openTradesCount": "{count, plural, =0 {没有持仓交易} other {# 笔持仓交易}}"
   },
   "Common": {
     "level": "等级 {level}",

@@ -294,7 +294,9 @@
     "topTradersWeekTitle": "Wafanyabiashara bora wa wiki hii",
     "topTradersWeekNote": "Kwa faida halisi ya siku 7 zilizopita, kwa wafanyabiashara wenye biashara zilizofungwa za kutosha tu. Utendaji wa zamani hauhakikishi matokeo ya baadaye.",
     "learnTitle": "Jifunze",
-    "pnlForPeriod": "Faida/hasara ya kipindi"
+    "pnlForPeriod": "Faida/hasara ya kipindi",
+    "result24h": "Saa 24 zilizopita",
+    "openTradesCount": "{count, plural, =0 {Hakuna biashara iliyo wazi} one {Biashara # iliyo wazi} other {Biashara # zilizo wazi}}"
   },
   "Common": {
     "level": "Kiwango {level}",

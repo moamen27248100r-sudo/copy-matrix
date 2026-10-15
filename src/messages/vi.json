@@ -294,7 +294,9 @@
     "topTradersWeekTitle": "Nhà giao dịch nổi bật tuần này",
     "topTradersWeekNote": "Theo lợi suất thực tế 7 ngày qua, chỉ gồm nhà giao dịch có đủ giao dịch đã đóng. Hiệu suất quá khứ không đảm bảo kết quả tương lai.",
     "learnTitle": "Tìm hiểu",
-    "pnlForPeriod": "Lãi/lỗ trong kỳ"
+    "pnlForPeriod": "Lãi/lỗ trong kỳ",
+    "result24h": "24 giờ qua",
+    "openTradesCount": "{count, plural, =0 {Không có giao dịch mở} other {# giao dịch đang mở}}"
   },
   "Common": {
     "level": "Cấp độ {level}",

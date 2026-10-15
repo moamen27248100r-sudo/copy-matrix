@@ -294,7 +294,9 @@
     "topTradersWeekTitle": "اس ہفتے کے نمایاں ٹریڈرز",
     "topTradersWeekNote": "پچھلے 7 دنوں کے حقیقی منافع کے مطابق، صرف کافی بند ٹریڈز والے ٹریڈرز۔ ماضی کی کارکردگی مستقبل کے نتائج کی ضمانت نہیں۔",
     "learnTitle": "سیکھیں",
-    "pnlForPeriod": "مدت کا نفع/نقصان"
+    "pnlForPeriod": "مدت کا نفع/نقصان",
+    "result24h": "پچھلے 24 گھنٹے",
+    "openTradesCount": "{count, plural, =0 {کوئی کھلا ٹریڈ نہیں} one {# کھلا ٹریڈ} other {# کھلے ٹریڈ}}"
   },
   "Common": {
     "level": "لیول {level}",

@@ -46,6 +46,7 @@ export default async function DashboardPage({
   const t = await getTranslations("Dashboard");
   const money = await getMoney();
   const tNav = await getTranslations("Nav");
+  const tCopies = await getTranslations("Copies");
   const supabase = await createClient();
   const {
     data: { user },
@@ -68,6 +69,7 @@ export default async function DashboardPage({
     depositsOn,
     { count: prefsCount },
     { count: everCopied },
+    { data: closed24h },
   ] = await Promise.all([
     supabase.from("profiles").select("account_type, balance, country").eq("id", user.id).single(),
     supabase
@@ -125,6 +127,13 @@ export default async function DashboardPage({
     supabase.from("notification_preferences").select("category", { count: "exact", head: true }).eq("user_id", user.id),
     // Any copy ever started counts for the "first copy" step (a finished one too).
     supabase.from("subscriptions").select("id", { count: "exact", head: true }).eq("follower_id", user.id),
+    // Copied trades closed in the last 24 hours: the summary card's result for the day.
+    supabase
+      .from("simulated_positions")
+      .select("pnl, account_type")
+      .eq("follower_id", user.id)
+      .eq("status", "closed")
+      .gte("closed_at", new Date(Date.now() - 24 * 3600 * 1000).toISOString()),
   ]);
 
   type ProviderResult = {
@@ -145,6 +154,12 @@ export default async function DashboardPage({
   const activeType: "real" | "demo" = profile?.account_type === "real" ? "real" : "demo";
   const providerIds = (subscriptions ?? []).map((s) => s.provider_id);
   const walletValue = Number(profile?.balance ?? 0) + unrealized;
+  const investedInCopies = (subscriptions ?? []).reduce((sum, s) => sum + Number(s.allocated_amount ?? 0), 0);
+  const availableCash = Math.max(0, Number(profile?.balance ?? 0) - investedInCopies);
+  const result24h = ((closed24h ?? []) as { pnl: number | null; account_type: string }[])
+    .filter((r) => r.account_type === activeType)
+    .reduce((sum, r) => sum + Number(r.pnl ?? 0), 0);
+  const openCount = Number(summary?.open?.count ?? 0);
 
   type PositionSignal = { symbol: string; side: string };
   type DashPosition = {
@@ -232,26 +247,74 @@ export default async function DashboardPage({
 
         {error && <FlashMessage tone="error">{error}</FlashMessage>}
 
-        {/* One quiet line: the wallet value, a link to the wallet. */}
-        <Link
-          href="/portfolio"
-          className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 rounded-2xl border border-border bg-surface px-4 py-3 transition hover:border-accent/40"
-        >
-          <span className="flex min-w-0 flex-wrap items-center gap-2 text-sm text-muted">
-            <span>{t("portfolioValue")}</span>
-            {activeType === "demo" && (
-              <span className="shrink-0 rounded-full border border-warning/40 bg-warning/10 px-2 py-0.5 text-xs font-bold text-warning">
-                {t("accountDemo")}
-              </span>
-            )}
-          </span>
-          <span className="flex shrink-0 items-center gap-1.5">
-            <span dir="ltr" className="text-lg font-bold tabular-nums">
-              {money(walletValue)}
+        {/* Portfolio summary: value, the last 24 hours, open trades, then how it is split, and the two
+            next steps (deposit, find a trader). The full wallet with its chart is one tap away. */}
+        <section className="flex flex-col gap-5 rounded-[20px] border border-border bg-surface p-5 md:p-6">
+          <div className="flex items-center justify-between gap-3">
+            <span className="flex min-w-0 flex-wrap items-center gap-2 text-sm text-muted">
+              <span>{t("portfolioValue")}</span>
+              {activeType === "demo" && (
+                <span className="shrink-0 rounded-full border border-warning/40 bg-warning/10 px-2 py-0.5 text-xs font-bold text-warning">
+                  {t("accountDemo")}
+                </span>
+              )}
             </span>
-            <ChevronRight className="h-4 w-4 text-muted rtl:rotate-180" aria-hidden="true" />
-          </span>
-        </Link>
+            <Link href="/portfolio" aria-label={tNav("navPortfolio")} className="tap-44 shrink-0 rounded-full p-1 text-muted transition hover:text-foreground">
+              <ChevronRight className="h-5 w-5 rtl:rotate-180" aria-hidden="true" />
+            </Link>
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <p className="text-4xl font-bold tabular-nums">
+              <bdi>{money(walletValue)}</bdi>
+            </p>
+            <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+              <span>
+                <span className="text-muted">{t("result24h")} </span>
+                <bdi className={`font-bold ${result24h > 0 ? "text-success" : result24h < 0 ? "text-danger" : "text-foreground"}`}>
+                  {money(result24h, { signed: result24h !== 0 })}
+                </bdi>
+              </span>
+              <span className="text-muted" aria-hidden="true">·</span>
+              <Link href="/trades" className="text-muted hover:text-foreground">
+                {t("openTradesCount", { count: openCount })}
+              </Link>
+            </p>
+          </div>
+          <dl className="grid grid-cols-3 gap-2 rounded-2xl bg-background/60 p-3 text-center">
+            <div>
+              <dd className={`text-base font-bold ${unrealized > 0 ? "text-success" : unrealized < 0 ? "text-danger" : ""}`}>
+                <bdi>{money(unrealized, { signed: unrealized !== 0 })}</bdi>
+              </dd>
+              <dt className="mt-0.5 text-xs text-muted">{t("unrealizedPnl")}</dt>
+            </div>
+            <div className="border-x border-border">
+              <dd className="text-base font-bold">
+                <bdi>{money(availableCash)}</bdi>
+              </dd>
+              <dt className="mt-0.5 text-xs text-muted">{t("allocationAvailableCash")}</dt>
+            </div>
+            <div>
+              <dd className="text-base font-bold">
+                <bdi>{money(investedInCopies)}</bdi>
+              </dd>
+              <dt className="mt-0.5 text-xs text-muted">{t("investedInCopies")}</dt>
+            </div>
+          </dl>
+          <div className="grid grid-cols-2 gap-3">
+            <Link
+              href="/portfolio/deposit"
+              className="rounded-lg bg-accent px-4 py-3 text-center text-sm font-bold text-accent-foreground transition hover:bg-accent-hover"
+            >
+              {t("deposit")}
+            </Link>
+            <Link
+              href="/discover"
+              className="rounded-lg border border-border px-4 py-3 text-center text-sm font-bold text-foreground transition hover:border-accent/50"
+            >
+              {tCopies("discover")}
+            </Link>
+          </div>
+        </section>
 
         {kycCopy && (
           <div className="flex flex-col gap-4 rounded-[20px] border border-warning/30 bg-warning/10 p-5 sm:flex-row sm:items-center sm:justify-between">

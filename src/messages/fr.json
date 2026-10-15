@@ -294,7 +294,9 @@
     "topTradersWeekTitle": "Meilleurs traders de la semaine",
     "topTradersWeekNote": "Selon le rendement réel des 7 derniers jours, uniquement pour les traders avec assez de transactions clôturées. Les performances passées ne garantissent pas les résultats futurs.",
     "learnTitle": "Apprendre",
-    "pnlForPeriod": "Gains/pertes sur la période"
+    "pnlForPeriod": "Gains/pertes sur la période",
+    "result24h": "Sur 24 heures",
+    "openTradesCount": "{count, plural, =0 {Aucune transaction ouverte} one {# transaction ouverte} other {# transactions ouvertes}}"
   },
   "Common": {
     "level": "Niveau {level}",
