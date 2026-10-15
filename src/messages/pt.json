@@ -302,7 +302,19 @@
     "pnlForPeriod": "Lucro/prejuízo do período",
     "result24h": "Últimas 24 horas",
     "openTradesCount": "{count, plural, =0 {Nenhuma operação aberta} one {# operação aberta} other {# operações abertas}}",
-    "watchlistSuggestHint": "Siga um instrumento com a estrela para vê-lo aqui."
+    "watchlistSuggestHint": "Siga um instrumento com a estrela para vê-lo aqui.",
+    "quickActionsTitle": "Ações rápidas",
+    "copiesPerfTitle": "Desempenho das suas cópias",
+    "copiesPerfInvested": "Investido",
+    "copiesPerfResult": "Resultado",
+    "marketNewsTitle": "Notícias do mercado",
+    "whatsNewTitle": "Novidades",
+    "whatsNew1Title": "Toda operação do trader é copiada",
+    "whatsNew1Desc": "Cada operação copiada usa a mesma parte do seu valor que o trader usa do saldo dele, então todas as operações simultâneas são copiadas, e você é avisado quando uma abre com menos.",
+    "whatsNew2Title": "Busca rápida",
+    "whatsNew2Desc": "Encontre qualquer trader ou mercado no topo de qualquer página.",
+    "whatsNew3Title": "Configurações mais claras",
+    "whatsNew3Desc": "Configurações em seções claras e tudo sobre segurança em uma só página."
   },
   "Common": {
     "level": "Nível {level}",

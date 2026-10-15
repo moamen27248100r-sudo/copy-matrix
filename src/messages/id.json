@@ -302,7 +302,19 @@
     "pnlForPeriod": "Laba/rugi periode ini",
     "result24h": "24 jam terakhir",
     "openTradesCount": "{count, plural, =0 {Tidak ada transaksi terbuka} other {# transaksi terbuka}}",
-    "watchlistSuggestHint": "Ikuti instrumen dengan bintang agar muncul di sini."
+    "watchlistSuggestHint": "Ikuti instrumen dengan bintang agar muncul di sini.",
+    "quickActionsTitle": "Tindakan cepat",
+    "copiesPerfTitle": "Kinerja salinan Anda",
+    "copiesPerfInvested": "Diinvestasikan",
+    "copiesPerfResult": "Hasil",
+    "marketNewsTitle": "Berita pasar",
+    "whatsNewTitle": "Yang baru",
+    "whatsNew1Title": "Setiap transaksi trader disalin",
+    "whatsNew1Desc": "Setiap transaksi salinan memakai bagian yang sama dari jumlah Anda seperti trader dari saldonya, jadi semua transaksinya yang bersamaan ikut disalin, dan Anda diberi tahu bila satu dibuka dengan jumlah lebih kecil.",
+    "whatsNew2Title": "Pencarian cepat",
+    "whatsNew2Desc": "Cari trader atau pasar mana pun dari bagian atas halaman mana saja.",
+    "whatsNew3Title": "Pengaturan lebih jelas",
+    "whatsNew3Desc": "Pengaturan dalam bagian yang jelas, dan semua soal keamanan di satu halaman."
   },
   "Common": {
     "level": "Level {level}",

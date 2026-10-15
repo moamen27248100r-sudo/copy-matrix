@@ -302,7 +302,19 @@
     "pnlForPeriod": "期间盈亏",
     "result24h": "过去 24 小时",
     "openTradesCount": "{count, plural, =0 {没有持仓交易} other {# 笔持仓交易}}",
-    "watchlistSuggestHint": "点击星标关注品种，它会显示在这里。"
+    "watchlistSuggestHint": "点击星标关注品种，它会显示在这里。",
+    "quickActionsTitle": "快捷操作",
+    "copiesPerfTitle": "您的跟单表现",
+    "copiesPerfInvested": "投入",
+    "copiesPerfResult": "结果",
+    "marketNewsTitle": "市场新闻",
+    "whatsNewTitle": "新功能",
+    "whatsNew1Title": "交易员的每笔交易都会被复制",
+    "whatsNew1Desc": "每笔跟单交易占用您金额的比例与交易员占用其余额的比例相同，因此他同时开的交易都会被复制；若某笔以较少金额开仓，您会收到通知。",
+    "whatsNew2Title": "快速搜索",
+    "whatsNew2Desc": "在任意页面顶部查找交易员或市场。",
+    "whatsNew3Title": "更清晰的设置",
+    "whatsNew3Desc": "设置分区清晰，安全相关内容集中在一个页面。"
   },
   "Common": {
     "level": "等级 {level}",

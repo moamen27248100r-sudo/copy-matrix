@@ -302,7 +302,19 @@
     "pnlForPeriod": "الربح/الخسارة خلال الفترة",
     "result24h": "نتيجة آخر 24 ساعة",
     "openTradesCount": "{count, plural, =0 {لا صفقات مفتوحة} one {صفقة مفتوحة واحدة} two {صفقتان مفتوحتان} few {# صفقات مفتوحة} many {# صفقة مفتوحة} other {# صفقة مفتوحة}}",
-    "watchlistSuggestHint": "تابع أداة بالنجمة لتظهر هنا."
+    "watchlistSuggestHint": "تابع أداة بالنجمة لتظهر هنا.",
+    "quickActionsTitle": "إجراءات سريعة",
+    "copiesPerfTitle": "أداء نسخك",
+    "copiesPerfInvested": "المستثمر",
+    "copiesPerfResult": "النتيجة",
+    "marketNewsTitle": "أخبار السوق",
+    "whatsNewTitle": "الجديد في المنصة",
+    "whatsNew1Title": "كل صفقات المتداول تُنسخ",
+    "whatsNew1Desc": "كل صفقة منسوخة تأخذ من مبلغك نفس النسبة التي يضعها المتداول من رصيده، فتُنسخ صفقاته المتزامنة كلها، ويصلك إشعار إذا فُتحت صفقة بمبلغ أقل.",
+    "whatsNew2Title": "بحث سريع",
+    "whatsNew2Desc": "ابحث عن أي متداول أو سوق من أعلى أي صفحة.",
+    "whatsNew3Title": "إعدادات أوضح",
+    "whatsNew3Desc": "أقسام مرتبة للإعدادات، وكل ما يخص الأمان في صفحة واحدة."
   },
   "Common": {
     "level": "المستوى {level}",

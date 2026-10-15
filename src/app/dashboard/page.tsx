@@ -15,7 +15,10 @@ import { HomeWatchlist } from "@/components/HomeWatchlist";
 import { LearnCards } from "@/components/LearnCards";
 import { RecentActivityTimeline, type ActivityEvent } from "@/components/RecentActivityTimeline";
 import { TopMovers } from "@/components/TopMovers";
-import { CopySummaryList } from "@/components/CopySummaryList";
+import { QuickActions } from "@/components/home/QuickActions";
+import { CopiesPerformance } from "@/components/home/CopiesPerformance";
+import { HomeNews } from "@/components/home/HomeNews";
+import { WhatsNew } from "@/components/home/WhatsNew";
 import { RiskFooter } from "@/components/RiskFooter";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { FlashMessage } from "@/components/ui/Toast";
@@ -52,7 +55,6 @@ export default async function DashboardPage({
   const t = await getTranslations("Dashboard");
   const money = await getMoney();
   const tNav = await getTranslations("Nav");
-  const tCopies = await getTranslations("Copies");
   const supabase = await createClient();
   const {
     data: { user },
@@ -76,6 +78,7 @@ export default async function DashboardPage({
     { count: prefsCount },
     { count: everCopied },
     { data: closed24h },
+    { data: watchRows },
   ] = await Promise.all([
     supabase.from("profiles").select("account_type, balance, country").eq("id", user.id).single(),
     supabase
@@ -140,6 +143,7 @@ export default async function DashboardPage({
       .eq("follower_id", user.id)
       .eq("status", "closed")
       .gte("closed_at", since24h()),
+    supabase.from("market_watchlist").select("symbol").eq("user_id", user.id),
   ]);
 
   type ProviderResult = {
@@ -151,6 +155,7 @@ export default async function DashboardPage({
     realized: number;
     unrealized: number;
     total: number;
+    open_count?: number;
   };
   type Summary = { open: { count: number; unrealized: number }; by_provider: ProviderResult[] };
   const summary = (summaryRaw ?? null) as Summary | null;
@@ -199,7 +204,6 @@ export default async function DashboardPage({
       ];
     })
     .sort((a, b) => b.allocated - a.allocated);
-  const topCopies = copies.slice(0, 3);
   const providerNameBySubscription = new Map(copies.map((c) => [c.subscriptionId, c.name]));
 
   const activityEvents: ActivityEvent[] = [
@@ -306,20 +310,6 @@ export default async function DashboardPage({
               <dt className="mt-0.5 text-xs text-muted">{t("investedInCopies")}</dt>
             </div>
           </dl>
-          <div className="grid grid-cols-2 gap-3">
-            <Link
-              href="/portfolio/deposit"
-              className="rounded-lg bg-accent px-4 py-3 text-center text-sm font-bold text-accent-foreground transition hover:bg-accent-hover"
-            >
-              {t("deposit")}
-            </Link>
-            <Link
-              href="/discover"
-              className="rounded-lg border border-border px-4 py-3 text-center text-sm font-bold text-foreground transition hover:border-accent/50"
-            >
-              {tCopies("discover")}
-            </Link>
-          </div>
         </section>
 
         {kycCopy && (
@@ -356,18 +346,22 @@ export default async function DashboardPage({
               notificationsReady={(prefsCount ?? 0) > 0}
             />
           );
-          const yourCopies =
-            topCopies.length > 0 ? (
-              <section className="flex flex-col gap-3">
-                <div className="flex items-baseline justify-between gap-3">
-                  <h2 className="text-section-title">{t("traderYouCopy")}</h2>
-                  <Link href="/copies" className="text-sm text-accent-text hover:underline">
-                    {tNav("viewAll")}
-                  </Link>
-                </div>
-                <CopySummaryList items={topCopies.map((c) => ({ id: c.subscriptionId, providerId: c.providerId, name: c.name, avatarUrl: c.avatarUrl, rating: c.rating, allocated: c.allocated, total: c.total }))} />
-              </section>
-            ) : null;
+          const performance = (
+            <CopiesPerformance
+              rows={copies.map((c) => {
+                const row = byProvider.find((r) => r.provider_id === c.providerId);
+                return {
+                  providerId: c.providerId,
+                  name: c.name,
+                  avatarUrl: c.avatarUrl,
+                  rating: c.rating,
+                  invested: c.allocated,
+                  result: c.total,
+                  openCount: Number(row?.open_count ?? 0),
+                };
+              })}
+            />
+          );
           const watchlist = (
             <Suspense fallback={null}>
               <HomeWatchlist userId={user.id} />
@@ -378,33 +372,43 @@ export default async function DashboardPage({
               <TopMovers />
             </Suspense>
           );
+          const news = (
+            <Suspense fallback={null}>
+              <HomeNews symbols={(watchRows ?? []).map((w) => String(w.symbol))} />
+            </Suspense>
+          );
           const traders = (
             <Suspense fallback={<SectionSkeleton />}>
               <TopTradersWeek excludeProviderIds={providerIds} />
             </Suspense>
           );
-          // A customer who copies: their copies first, then what happened and what they follow,
-          // the market, other traders and the learning cards (the getting-started list is done once
-          // they copy). A new customer: the getting-started list first, then traders to pick from.
-          return copies.length > 0 ? (
+          // Active customer (eToro / Bybit order): how their copies are doing, what they follow, the
+          // market, what happened, then other traders and learning. New customer (Bybit Lite /
+          // Bitget new-user steps): the first steps, traders to start with, the market, learning.
+          // Decided by the active copies themselves, so a slow totals call never shows the new-customer page.
+          return (subscriptions ?? []).length > 0 ? (
             <>
-              {yourCopies}
-              <div className="grid items-start gap-6 lg:grid-cols-2">
-                <RecentActivityTimeline events={activityEvents} />
-                {watchlist}
-              </div>
+              <QuickActions />
+              {performance}
+              {watchlist}
               {moves}
+              {news}
+              <RecentActivityTimeline events={activityEvents} />
               {traders}
               <LearnCards />
+              <WhatsNew />
             </>
           ) : (
             <>
+              <QuickActions />
               {startHere}
               {traders}
-              {watchlist}
               {moves}
+              {watchlist}
+              {news}
               <RecentActivityTimeline events={activityEvents} />
               <LearnCards />
+              <WhatsNew />
             </>
           );
         })()}

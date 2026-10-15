@@ -302,7 +302,19 @@
     "pnlForPeriod": "Faida/hasara ya kipindi",
     "result24h": "Saa 24 zilizopita",
     "openTradesCount": "{count, plural, =0 {Hakuna biashara iliyo wazi} one {Biashara # iliyo wazi} other {Biashara # zilizo wazi}}",
-    "watchlistSuggestHint": "Fuata chombo kwa nyota ili kionekane hapa."
+    "watchlistSuggestHint": "Fuata chombo kwa nyota ili kionekane hapa.",
+    "quickActionsTitle": "Vitendo vya haraka",
+    "copiesPerfTitle": "Utendaji wa unakili wako",
+    "copiesPerfInvested": "Imewekezwa",
+    "copiesPerfResult": "Matokeo",
+    "marketNewsTitle": "Habari za soko",
+    "whatsNewTitle": "Mapya",
+    "whatsNew1Title": "Kila biashara ya mfanyabiashara inanakiliwa",
+    "whatsNew1Desc": "Kila biashara iliyonakiliwa inachukua sehemu ile ile ya kiasi chako ambayo mfanyabiashara anaweka kutoka salio lake, hivyo biashara zake zote za wakati mmoja zinanakiliwa, na unaarifiwa moja ikifunguliwa kwa kiasi kidogo.",
+    "whatsNew2Title": "Utafutaji wa haraka",
+    "whatsNew2Desc": "Tafuta mfanyabiashara au soko lolote kutoka juu ya ukurasa wowote.",
+    "whatsNew3Title": "Mipangilio iliyo wazi zaidi",
+    "whatsNew3Desc": "Mipangilio katika sehemu zilizo wazi, na kila kitu cha usalama kwenye ukurasa mmoja."
   },
   "Common": {
     "level": "Kiwango {level}",

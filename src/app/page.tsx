@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getSparklines } from "@/lib/sparklines";
 import { getTranslations, getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { MarketOverview } from "@/components/MarketOverview";
@@ -58,21 +59,8 @@ export default async function Home() {
     console.error(`provider_cards fetch attempt ${attempt} failed:`, error.message);
   }
 
-  // Return (%) over each featured leader's last 30 days, for the sparkline on the card.
-  const sparkSeries: Record<string, number[]> = {};
-  await Promise.all(
-    (topProviders ?? []).map(async (p) => {
-      const { data } = await supabase.rpc("provider_daily_series", { p_provider_id: p.provider_id });
-      const ret = ((data as { ret?: number[] } | null)?.ret ?? []).slice(-30);
-      let index = 1;
-      const series = [0];
-      for (const r of ret) {
-        index *= 1 + Number(r);
-        series.push((index - 1) * 100);
-      }
-      sparkSeries[String(p.provider_id)] = series;
-    }),
-  );
+  // Return (%) over each featured leader's last 30 days, for the curve on the card.
+  const sparkSeries = await getSparklines(supabase, (topProviders ?? []).map((p) => String(p.provider_id)));
 
   const navLinks = NAV_HASHES.map((h) => ({ href: `#${h}`, label: t(`nav.${h === "how-it-works" ? "howItWorks" : h}`) }));
   const dir = isRtlLocale(locale) ? "rtl" : "ltr";

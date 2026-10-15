@@ -1,4 +1,5 @@
 import { getMoney } from "@/lib/money-server";
+import { getSparklines } from "@/lib/sparklines";
 import { AppMain } from "@/components/AppMain";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
@@ -259,11 +260,17 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
     providers = data;
     count = n ?? 0;
   }
-  const adjustedDd = await adjustedDrawdowns(
-    supabase,
-    (providers ?? []).map((p) => String(p.provider_id)),
-    period,
-  );
+  const [adjustedDd, spark] = await Promise.all([
+    adjustedDrawdowns(
+      supabase,
+      (providers ?? []).map((p) => String(p.provider_id)),
+      period,
+    ),
+    getSparklines(
+      supabase,
+      (providers ?? []).map((p) => String(p.provider_id)),
+    ),
+  ]);
   const total = count;
   const pageCount = Math.max(1, Math.ceil(total / perPage));
   // A stale or hand-typed page past the end lands on a real page, not on a
@@ -565,7 +572,7 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
             </table>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div className="grid grid-cols-[repeat(auto-fill,17.5rem)] justify-center gap-4 sm:justify-start">
             {providers.map((p) => {
               const isFollowing = followingIds.has(p.provider_id);
               const isStopped = p.trading_status === "stopped";
@@ -577,6 +584,7 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
                     provider={p}
                     period={period}
                     adjustedMdd={adjustedDd.get(String(p.provider_id)) ?? null}
+                    sparkline={spark[String(p.provider_id)]}
                     copyHref={copyHref}
                     isWatching={isWatching}
                     onFollowAction={isWatching ? unfollowTrader : followTrader}

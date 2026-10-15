@@ -64,7 +64,7 @@ export function CardsCarousel({ children, prevLabel, nextLabel }: { children: Re
         className="no-scrollbar -my-2 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth py-2"
       >
         {items.map((child, i) => (
-          <div key={i} className="w-[85%] shrink-0 snap-start md:w-[calc((100%-2rem)/3)]">
+          <div key={i} className="shrink-0 snap-start">
             {child}
           </div>
         ))}

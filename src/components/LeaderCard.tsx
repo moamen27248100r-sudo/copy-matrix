@@ -1,14 +1,12 @@
-import { getMoney } from "@/lib/money-server";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { TraderAvatar } from "@/components/TraderAvatar";
-import { TierBadge, RiskBadge, StoppedBadge } from "@/components/TraderBadges";
+import { RiskBadge, StoppedBadge } from "@/components/TraderBadges";
 import { Sparkline } from "@/components/Sparkline";
 import { ConfirmButton } from "@/components/ConfirmButton";
 import { periodStats, DEFAULT_PERIOD, type Period } from "@/lib/leader-period";
-import { fmtDrawdown, fmtReturn, fmtWinRate, ltrIsolate } from "@/lib/format-stats";
+import { fmtDrawdown, fmtReturn, fmtWinRate } from "@/lib/format-stats";
 import { adjustedMaxDrawdown } from "@/lib/leader-scores";
-import { aumBandFloor } from "@/lib/aum-band";
 
 type ProviderCard = {
   provider_id: string;
@@ -20,32 +18,19 @@ type ProviderCard = {
   trading_status: string | null;
   followers_count: number | null;
   min_copy_amount: number | null;
-  aum?: number | null;
-  profit_share_pct?: number | null;
   [column: string]: unknown;
 };
 
-// The period a number was computed over (7D / 30D / ...), small and grey beside it.
-function PeriodTag({ label }: { label: string }) {
-  return (
-    <span dir="ltr" className="ms-0.5 text-xs font-medium uppercase tracking-wide text-dim">
-      {label}
-    </span>
-  );
-}
+/** One size for every trader card in the platform (home, discover, markets, empty states, landing). */
+export const LEADER_CARD_SIZE = "w-[17.5rem] h-[24rem]";
 
-// One card, used by both the homepage's featured-leaders section and the
-// full discover grid -- a single shared component so a future visual
-// change only has to happen once. Everything beyond the always-shown
-// core (avatar, name, badges, stats, min-copy, primary/secondary CTAs)
-// is opt-in via props so each page only pays for what it actually needs
-// (homepage's bio/sparkline; discover's follow toggle and copy-state).
+// The one trader card. Same size and the same order everywhere: picture and name, risk, the return
+// of the period with its small curve, three key figures, and the copy button. The whole card opens
+// the trader's profile.
 export async function LeaderCard({
   provider: p,
   copyHref,
-  bio,
   sparkline,
-  maxDrawdownPct,
   adjustedMdd,
   isWatching,
   onFollowAction,
@@ -56,65 +41,44 @@ export async function LeaderCard({
 }: {
   provider: ProviderCard;
   copyHref: string;
-  bio?: string | null;
+  /** Cumulative return series in percent (provider_sparklines). */
   sparkline?: number[];
-  /** When passed (even as null), the middle stat shows max drawdown instead of the average daily return. */
+  /** Kept for callers that still pass it; the card shows the period's drawdown. */
   maxDrawdownPct?: number | null;
-  /** drawdown of the card's period including floating losses (leader_adjusted_drawdown) */
+  /** Drawdown of the period including floating losses (leader_adjusted_drawdown). */
   adjustedMdd?: number | null;
-  /** When provided (i.e. the viewer is logged in), renders a small
-   * bookmark-icon follow toggle in the header instead of a full text
-   * pill -- keeps the header uncluttered. */
+  /** Kept for callers that still pass it; the card no longer shows a bio. */
+  bio?: string | null;
+  /** With a follow action (signed in), a small bookmark toggle sits in the header. */
   isWatching?: boolean;
   onFollowAction?: (formData: FormData) => void | Promise<void>;
   followFormField?: string;
-  /** "copy" (default primary CTA), "stopCopying" (already copying this
-   * leader), "stoppedDisabled" / "blockedDisabled" (copy button disabled
-   * with an explanatory tooltip). */
   copyState?: "copy" | "stopCopying" | "stoppedDisabled" | "blockedDisabled";
   onStopCopyingAction?: (formData: FormData) => void | Promise<void>;
-  /** Stats period shown on the card (ROI, PnL, win rate, drawdown). */
   period?: Period;
 }) {
   const t = await getTranslations("Discover");
-  const money = await getMoney();
   const stats = periodStats(p, period);
   const isDown = stats.roi != null && stats.roi < 0;
-  // Few trades in the period: the percentages are hidden and say why.
   const hint = stats.sufficient ? undefined : t("insufficientData");
   const mdd = stats.sufficient ? adjustedMaxDrawdown(stats.mdd, adjustedMdd ?? null) : null;
   const periodLabel = t(`periodShort_${period}`);
   const isStopped = p.trading_status === "stopped";
+  const button = "w-full rounded-lg px-3 py-2.5 text-center text-sm font-bold transition";
 
   return (
-    <div className="group relative flex h-full min-h-[21rem] flex-col gap-3 overflow-hidden rounded-2xl border border-white/[0.08] bg-surface/70 p-4 shadow-lg shadow-black/20 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/10">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-accent/[0.07] to-transparent" />
-
+    <div className={`group relative flex shrink-0 flex-col gap-3 overflow-hidden rounded-[20px] border border-white/[0.08] bg-surface p-4 transition hover:border-accent/30 ${LEADER_CARD_SIZE}`}>
       <Link href={`/trader/${p.provider_id}`} aria-label={p.display_name ?? ""} className="absolute inset-0 z-0" />
 
-      {/* Header: avatar fixed at the start, name + a soft sub-header row
-          of badges underneath it (never sharing the name's own line), a
-          bookmark-style follow toggle pinned to the far end. */}
-      <div className="flex items-start justify-between gap-2">
-        <div className="flex min-w-0 items-center gap-2.5">
-          <TraderAvatar
-            providerId={p.provider_id}
-            name={p.display_name}
-            avatarUrl={p.avatar_url}
-            ratingScore={p.rating_score}
-            size={48}
-            showLevel
-          />
-          <div className="min-w-0">
-            <p className="min-w-0 truncate text-base font-bold tracking-tight">{p.display_name}</p>
-            <div className="mt-1 flex flex-wrap items-center gap-1.5">
-              <TierBadge tier={p.tier} />
-              <RiskBadge level={p.risk_level} />
-              <StoppedBadge stopped={isStopped} />
-            </div>
+      <div className="flex items-start gap-2.5">
+        <TraderAvatar providerId={p.provider_id} name={p.display_name} avatarUrl={p.avatar_url} ratingScore={p.rating_score} size={44} showLevel />
+        <div className="min-w-0 flex-1">
+          <p className="line-clamp-2 break-words text-base font-bold leading-snug">{p.display_name}</p>
+          <div className="mt-1 flex flex-wrap items-center gap-1.5">
+            <RiskBadge level={p.risk_level} />
+            <StoppedBadge stopped={isStopped} />
           </div>
         </div>
-
         {onFollowAction && (
           <form action={onFollowAction} className="relative z-10 shrink-0">
             <input type="hidden" name={followFormField} value={p.provider_id} />
@@ -122,11 +86,9 @@ export async function LeaderCard({
               type="submit"
               aria-label={isWatching ? t("unfollow") : t("follow")}
               title={isWatching ? t("unfollow") : t("follow")}
-              className={
-                isWatching
-                  ? "tap-44 flex h-8 w-8 items-center justify-center rounded-full border border-accent/40 bg-accent/10 text-accent transition hover:bg-accent/15"
-                  : "tap-44 flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted transition hover:border-accent/40 hover:text-accent"
-              }
+              className={`tap-44 flex h-8 w-8 items-center justify-center rounded-full border transition ${
+                isWatching ? "border-accent/40 bg-accent/10 text-accent" : "border-border text-muted hover:border-accent/40 hover:text-accent"
+              }`}
             >
               <svg viewBox="0 0 24 24" className="h-4 w-4" fill={isWatching ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
@@ -136,139 +98,55 @@ export async function LeaderCard({
         )}
       </div>
 
-      {sparkline && sparkline.length >= 3 && (
-        <div className="relative z-10 rounded-xl border border-white/5 bg-background p-3">
-          <div className="flex items-center justify-end text-xs text-muted">
-            <span dir="ltr" className={`font-bold ${sparkline[sparkline.length - 1] >= 0 ? "text-success" : "text-danger"}`}>
-              {fmtReturn(sparkline[sparkline.length - 1])}
-            </span>
-          </div>
-          <Sparkline values={sparkline} className="mt-2" />
-        </div>
-      )}
-      {bio && <p className="relative z-10 line-clamp-2 text-xs leading-relaxed text-muted">{bio}</p>}
-
-      {/* Stats grid: identical three-way center-aligned layout on every
-          card, standardized padding/typography (value weight/size and a
-          lighter muted label underneath). */}
-      <div className="flex items-center overflow-hidden rounded-xl border border-white/[0.06] bg-background/60">
-        <div className="flex-1 border-e border-white/10 px-2 py-2.5 text-center">
-          <p className="text-sm font-bold text-success" title={hint}>
-            {fmtWinRate(stats.winRate)} <PeriodTag label={periodLabel} />
+      <div className="flex items-end justify-between gap-2">
+        <div title={hint}>
+          <p className={`text-2xl font-bold tabular-nums ${stats.roi == null ? "text-muted" : isDown ? "text-danger" : "text-success"}`}>
+            <bdi dir="ltr">{fmtReturn(stats.roi)}</bdi>
           </p>
-          <p className="text-xs font-normal text-muted">{t("winRate")}</p>
-        </div>
-        <div className="flex-1 border-e border-white/10 px-2 py-2.5 text-center">
-          {maxDrawdownPct !== undefined ? (
-            <>
-              <p dir="ltr" className="text-sm font-bold text-foreground">{fmtDrawdown(maxDrawdownPct)}</p>
-              <p className="text-xs font-normal text-muted">{t("maxDrawdown")}</p>
-            </>
-          ) : (
-            <>
-              <p className={isDown ? "text-sm font-bold text-danger" : "text-sm font-bold text-success"} dir="ltr" title={hint}>
-                {fmtReturn(stats.roi)}
-              </p>
-              <p className="text-xs font-normal text-muted">{t("roiLabel", { period: periodLabel })}</p>
-            </>
-          )}
-        </div>
-        <div className="flex-1 px-2 py-2.5 text-center">
-          <p className="text-sm font-bold">{p.followers_count}</p>
-          <p className="text-xs font-normal text-muted">{t("copiersLabel")}</p>
+          <p className="text-xs text-muted">{t("roiLabel", { period: periodLabel })}</p>
         </div>
       </div>
+      <div className="h-16">{sparkline && sparkline.length >= 3 ? <Sparkline values={sparkline} /> : null}</div>
 
-      {/* Second row: what the first row does not already show. With the drawdown in the first row
-          (the home page passes it) the return and the number of closed trades follow; otherwise the
-          number of closed trades and the drawdown. */}
-      <div className="grid grid-cols-3 gap-1 text-center text-xs text-muted">
-        {maxDrawdownPct !== undefined ? (
-          <>
-            <div>
-              <p dir="ltr" className={isDown ? "font-medium text-danger" : "font-medium text-success"} title={hint}>
-                {fmtReturn(stats.roi)} <PeriodTag label={periodLabel} />
-              </p>
-              <p>{t("roiLabel", { period: periodLabel })}</p>
-            </div>
-            <div>
-              <p dir="ltr" className="font-medium text-foreground">
-                {stats.trades ?? "—"}
-              </p>
-              <p>{t("compareTrades")}</p>
-            </div>
-          </>
-        ) : (
-          <>
-            <div>
-              <p dir="ltr" className="font-medium text-foreground">
-                {stats.trades ?? "—"}
-              </p>
-              <p>{t("compareTrades")}</p>
-            </div>
-            <div>
-              <p dir="ltr" className="font-medium text-foreground" title={hint}>
-                {fmtDrawdown(mdd)} <PeriodTag label={periodLabel} />
-              </p>
-              <p>{t("maxDrawdown")}</p>
-            </div>
-          </>
-        )}
+      <dl className="grid grid-cols-3 gap-1 rounded-xl bg-background/60 px-1 py-2 text-center">
+        <div title={hint}>
+          <dd className="text-sm font-bold tabular-nums">
+            <bdi dir="ltr">{fmtWinRate(stats.winRate)}</bdi>
+          </dd>
+          <dt className="text-xs text-muted">{t("winRate")}</dt>
+        </div>
+        <div className="border-x border-white/10" title={hint}>
+          <dd className="text-sm font-bold tabular-nums">
+            <bdi dir="ltr">{fmtDrawdown(mdd)}</bdi>
+          </dd>
+          <dt className="text-xs text-muted">{t("maxDrawdown")}</dt>
+        </div>
         <div>
-          <p className="font-medium text-foreground">{aumBandFloor(p.aum_band) != null ? t("aumOver", { amount: ltrIsolate(money(aumBandFloor(p.aum_band) as number, { compact: true })) }) : "—"}</p>
-          <p>{t("aumLabel")}</p>
+          <dd className="text-sm font-bold tabular-nums">{p.followers_count}</dd>
+          <dt className="text-xs text-muted">{t("copiersLabel")}</dt>
         </div>
-      </div>
+      </dl>
 
-      <div className="flex items-center justify-between text-xs text-muted">
-        <span>
-          {t("minCopyAmountLabel")} <span dir="ltr">{money(Number(p.min_copy_amount))}</span>
-        </span>
-        {p.profit_share_pct != null && (
-          <span>
-            {t("profitShareLabel")} <span dir="ltr">{Number(p.profit_share_pct)}%</span>
-          </span>
-        )}
-        <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 shrink-0 rtl:rotate-180" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M9 18l6-6-6-6" />
-        </svg>
-      </div>
-
-      {/* CTAs: "نسخ" is always the prominent, rounded primary button at
-          the very bottom; "عرض الملف الشخصي" is a quieter secondary
-          ghost button directly above it (the whole card is already a
-          click-through to the profile too, via the stretched Link). */}
-      <div className="relative z-10 mt-auto flex flex-col gap-2">
-        <Link
-          href={`/trader/${p.provider_id}`}
-          className="rounded-lg border border-border bg-transparent px-3 py-2.5 text-center text-sm font-medium text-foreground transition hover:border-accent/50 hover:bg-accent/5"
-        >
-          {t("viewProfile")}
-        </Link>
+      <div className="relative z-10 mt-auto">
         {copyState === "stopCopying" && onStopCopyingAction ? (
           <form action={onStopCopyingAction}>
             <input type="hidden" name="providerId" value={p.provider_id} />
             <input type="hidden" name="returnTo" value="/discover" />
-            <ConfirmButton
-              confirmText={t("stopCopyingConfirm", { name: p.display_name })}
-              className="w-full rounded-lg border border-border px-3 py-2.5 text-sm transition hover:border-muted disabled:opacity-60"
-            >
+            <ConfirmButton confirmText={t("stopCopyingConfirm", { name: p.display_name })} className={`${button} border border-border hover:border-muted`}>
               {t("stopCopying")}
             </ConfirmButton>
           </form>
-        ) : copyState === "stoppedDisabled" ? (
-          <button type="button" disabled title={t("stoppedTooltip")} className="w-full cursor-not-allowed rounded-lg bg-border px-3 py-2.5 text-sm font-medium text-muted">
-            {t("copy")}
-          </button>
-        ) : copyState === "blockedDisabled" ? (
-          <button type="button" disabled title={t("blockedTooltip")} className="w-full cursor-not-allowed rounded-lg bg-border px-3 py-2.5 text-sm font-medium text-muted">
+        ) : copyState === "stoppedDisabled" || copyState === "blockedDisabled" ? (
+          <button
+            type="button"
+            disabled
+            title={copyState === "stoppedDisabled" ? t("stoppedTooltip") : t("blockedTooltip")}
+            className={`${button} cursor-not-allowed bg-border text-muted`}
+          >
             {t("copy")}
           </button>
         ) : (
-          <Link
-            href={copyHref}
-            className="w-full rounded-lg bg-accent px-3 py-3 text-center text-sm font-bold text-accent-foreground shadow-md shadow-accent/20 transition hover:bg-accent-hover"
-          >
+          <Link href={copyHref} className={`${button} block bg-accent text-accent-foreground hover:bg-accent-hover`}>
             {t("copy")}
           </Link>
         )}

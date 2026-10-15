@@ -302,7 +302,19 @@
     "pnlForPeriod": "Ganancia/pérdida del período",
     "result24h": "Últimas 24 horas",
     "openTradesCount": "{count, plural, =0 {Sin operaciones abiertas} one {# operación abierta} other {# operaciones abiertas}}",
-    "watchlistSuggestHint": "Sigue un instrumento con la estrella para verlo aquí."
+    "watchlistSuggestHint": "Sigue un instrumento con la estrella para verlo aquí.",
+    "quickActionsTitle": "Acciones rápidas",
+    "copiesPerfTitle": "Rendimiento de tus copias",
+    "copiesPerfInvested": "Invertido",
+    "copiesPerfResult": "Resultado",
+    "marketNewsTitle": "Noticias del mercado",
+    "whatsNewTitle": "Novedades",
+    "whatsNew1Title": "Se copia cada operación del trader",
+    "whatsNew1Desc": "Cada operación copiada toma la misma proporción de tu importe que el trader de su saldo, así se copian todas sus operaciones simultáneas, y te avisamos si una se abre con menos.",
+    "whatsNew2Title": "Búsqueda rápida",
+    "whatsNew2Desc": "Encuentra cualquier trader o mercado desde la parte superior de cualquier página.",
+    "whatsNew3Title": "Ajustes más claros",
+    "whatsNew3Desc": "Ajustes en secciones claras y todo lo de seguridad en una sola página."
   },
   "Common": {
     "level": "Nivel {level}",

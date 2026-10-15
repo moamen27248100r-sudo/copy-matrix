@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { getSparklines } from "@/lib/sparklines";
+import { LeaderCard } from "@/components/LeaderCard";
 import { notFound, redirect } from "next/navigation";
 import { ArrowLeft, Star } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -6,7 +8,6 @@ import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
 import { InstrumentChart, LivePrice } from "@/components/markets/InstrumentChart";
 import { InstrumentIcon } from "@/components/markets/MarketsBoard";
-import { TraderAvatar } from "@/components/TraderAvatar";
 import { RiskFooter } from "@/components/RiskFooter";
 import { formatPrice, instrumentBySymbol, liveRows } from "@/lib/markets";
 import { get52Week, getHistory, getSnapshot, getVolumes } from "@/lib/market-data";
@@ -71,13 +72,15 @@ export default async function InstrumentPage({ params }: { params: Promise<{ sym
   const { data: cards } = leaderRows.length
     ? await supabase
         .from("provider_cards")
-        .select("provider_id, display_name, avatar_url, rating_score")
+        .select("*")
         .in(
           "provider_id",
           leaderRows.map((l) => l.provider_id),
         )
-    : { data: [] as { provider_id: string; display_name: string; avatar_url: string | null; rating_score: number | null }[] };
-  const cardById = new Map((cards ?? []).map((c) => [c.provider_id, c]));
+    : { data: [] };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const cardById = new Map(((cards ?? []) as any[]).map((c) => [String(c.provider_id), c]));
+  const spark = await getSparklines(supabase, leaderRows.map((l) => l.provider_id));
 
   const starred = !!watch;
   const volume = volumes[symbol]?.quoteVolume ?? null;
@@ -204,24 +207,13 @@ export default async function InstrumentPage({ params }: { params: Promise<{ sym
             {leaderRows.length === 0 ? (
               <p className="rounded-[20px] border border-border bg-surface p-5 text-sm text-muted">{t("noTopTraders")}</p>
             ) : (
-              <ul className="flex flex-col gap-2">
+              <div className="no-scrollbar -mx-6 flex gap-3 overflow-x-auto px-6 pb-1 sm:mx-0 sm:px-0">
                 {leaderRows.map((l) => {
                   const c = cardById.get(l.provider_id);
                   if (!c) return null;
-                  return (
-                    <li key={l.provider_id}>
-                      <Link
-                        href={`/trader/${l.provider_id}`}
-                        className="flex items-center gap-3 rounded-2xl border border-border bg-surface p-3 transition hover:border-accent/40"
-                      >
-                        <TraderAvatar providerId={l.provider_id} name={c.display_name} avatarUrl={c.avatar_url} ratingScore={c.rating_score} size={40} />
-                        <span className="min-w-0 flex-1 truncate text-sm font-medium">{c.display_name}</span>
-                        <span className="shrink-0 text-xs text-muted">{t("tradesIn30d", { count: Number(l.trades) })}</span>
-                      </Link>
-                    </li>
-                  );
+                  return <LeaderCard key={l.provider_id} provider={c} copyHref={`/trader/${l.provider_id}#copy`} sparkline={spark[l.provider_id]} />;
                 })}
-              </ul>
+              </div>
             )}
           </section>
         </div>

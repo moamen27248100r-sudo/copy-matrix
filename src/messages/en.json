@@ -302,7 +302,19 @@
     "pnlForPeriod": "Profit/loss for the period",
     "result24h": "Last 24 hours",
     "openTradesCount": "{count, plural, =0 {No open trades} one {# open trade} other {# open trades}}",
-    "watchlistSuggestHint": "Follow an instrument with the star to see it here."
+    "watchlistSuggestHint": "Follow an instrument with the star to see it here.",
+    "quickActionsTitle": "Quick actions",
+    "copiesPerfTitle": "Your copies' performance",
+    "copiesPerfInvested": "Invested",
+    "copiesPerfResult": "Result",
+    "marketNewsTitle": "Market news",
+    "whatsNewTitle": "What's new",
+    "whatsNew1Title": "Every trade of a trader is copied",
+    "whatsNew1Desc": "Each copied trade takes the same share of your amount that the trader puts in from their balance, so their simultaneous trades are all copied, and you're told when one opens with less.",
+    "whatsNew2Title": "Quick search",
+    "whatsNew2Desc": "Find any trader or market from the top of any page.",
+    "whatsNew3Title": "Clearer settings",
+    "whatsNew3Desc": "Settings in clear sections, and everything about security on one page."
   },
   "Common": {
     "level": "Level {level}",

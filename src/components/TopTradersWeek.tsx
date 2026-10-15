@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { getSparklines } from "@/lib/sparklines";
 import { createClient } from "@/lib/supabase/server";
 import { LeaderCard } from "@/components/LeaderCard";
 import { MIN_CLOSED_TRADES } from "@/lib/leader-scores";
@@ -23,15 +24,14 @@ export async function TopTradersWeek({ excludeProviderIds }: { excludeProviderId
 
   const providers = (data ?? []).filter((p) => !excludeProviderIds.includes(p.provider_id)).slice(0, 6);
   if (providers.length === 0) return null;
+  const spark = await getSparklines(supabase, providers.map((p) => String(p.provider_id)));
 
   return (
     <section className="flex flex-col gap-3">
       <h2 className="text-section-title">{t("topTradersWeekTitle")}</h2>
-      <div className="-mx-6 flex gap-3 overflow-x-auto px-6 pb-1 sm:mx-0 sm:px-0">
+      <div className="no-scrollbar -mx-6 flex gap-3 overflow-x-auto px-6 pb-1 sm:mx-0 sm:px-0">
         {providers.map((p) => (
-          <div key={p.provider_id} className="w-64 shrink-0">
-            <LeaderCard provider={p} copyHref={`/trader/${p.provider_id}#copy`} period="7" />
-          </div>
+          <LeaderCard key={p.provider_id} provider={p} copyHref={`/trader/${p.provider_id}#copy`} period="7" sparkline={spark[String(p.provider_id)]} />
         ))}
       </div>
       <p className="text-xs text-muted">{t("topTradersWeekNote")}</p>
