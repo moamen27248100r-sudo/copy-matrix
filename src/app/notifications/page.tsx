@@ -90,6 +90,8 @@ const ICONS = {
 
 const ICON_TONE: Record<string, string> = {
   copy_opened: "bg-accent/10 text-accent",
+  copy_reduced: "bg-warning/10 text-warning",
+  copy_skipped: "bg-danger/10 text-danger",
   copy_closed: "bg-foreground/10 text-foreground",
   auto_stop_copy: "bg-danger/10 text-danger",
   followed_trade_closed: "bg-accent/10 text-accent",
@@ -129,6 +131,8 @@ const CATEGORY_TYPES: Record<string, string[]> = {
     "copy_stopped",
     "copy_opened",
     "copy_closed",
+    "copy_reduced",
+    "copy_skipped",
     "auto_stop_copy",
     "loss_alert",
     "leader_stopped",

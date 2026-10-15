@@ -87,7 +87,9 @@ before(async () => {
   // A real (non-simulated) leader of its own: simulated leaders can only be
   // copied from demo accounts (0235), and both account types are tested here.
   const { rows } = await db.query(
-    "insert into public.providers (display_name, min_copy_amount, trading_status, is_simulated) values ('Copy Risk Test Leader', 100, 'active', false) returning id",
+    // account_capital 1: each test trade is far larger than the leader's balance, so its margin share is
+    // 100% of the copy (migration 0263 sizing), the amounts these tests check.
+    "insert into public.providers (display_name, min_copy_amount, trading_status, is_simulated, account_capital) values ('Copy Risk Test Leader', 100, 'active', false, 1) returning id",
   );
   provider = rows[0].id;
   // No other open trades of this leader, so only the ones created here exist.
@@ -214,6 +216,9 @@ for (const [label, user] of [
 
   test(`${label}: copying open trades uses the market price and the new settings`, async () => {
     await setPrice(4000);
+    // Only this trade is open: each copied trade here takes the whole copy (100% share), so a
+    // leftover open trade from an earlier step would leave nothing free for it.
+    await db.query("update public.signals set status='closed', exit_price=entry_price, closed_at=now() where provider_id=$1 and status='open'", [provider]);
     const open = await leaderTrade("buy", 3900); // the leader entered lower
     await startCopy(user, { tp: 5, sl: 4, trail: 2, open: true });
     const p = await position(open, user);

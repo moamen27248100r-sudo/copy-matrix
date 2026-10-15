@@ -17,6 +17,8 @@ type Position = {
   side: string;
   entry_price: number;
   size: number;
+  /** Money put into the trade; the exposure (size) is margin x leverage. Older trades: = size. */
+  margin?: number | null;
   opened_at?: string | null;
   take_profit: number | null;
   stop_loss: number | null;
@@ -149,7 +151,7 @@ export function MyOpenPositions({
           </div>
           <div>
             <dd className="text-lg font-bold tabular-nums">
-              <bdi dir="ltr">{money(positions.reduce((sum, p) => sum + Number(p.size), 0))}</bdi>
+              <bdi dir="ltr">{money(positions.reduce((sum, p) => sum + Number(p.margin ?? p.size), 0))}</bdi>
             </dd>
             <dt className="text-xs text-muted">{tt("sumInTrades")}</dt>
           </div>

@@ -399,7 +399,12 @@
     "cat_market": "Mercado",
     "marketMoveTitle": "Grande movimento em {symbol}",
     "marketMoveBody": "{symbol} {direction, select, up {subiu} other {caiu}} {pct} nas últimas 24 horas e agora está em {price}.",
-    "prefsMarket": "Movimentos do mercado"
+    "prefsMarket": "Movimentos do mercado",
+    "copyReducedTitle": "Operação copiada com valor menor",
+    "copyReducedBody": "A operação {symbol} de {providerName} foi copiada com {opened} em vez de {required}, porque havia {available} livre nesta cópia.",
+    "copySkippedTitle": "Uma operação não foi copiada",
+    "copySkippedFreeBody": "A operação {symbol} de {providerName} não foi copiada porque o valor livre desta cópia ({available}) está em uso em operações abertas. Você pode aumentar o valor quando não houver operações abertas.",
+    "copySkippedMinBody": "A operação {symbol} de {providerName} não foi copiada porque sua parte do valor da cópia é menor que o tamanho mínimo de operação."
   },
   "Portfolio": {
     "title": "Minha carteira",
@@ -1328,7 +1333,7 @@
           "como funciona a cópia",
           "seguir um trader"
         ],
-        "answer": "O copy trading permite vincular parte do seu saldo a um trader escolhido por você, para que cada operação aberta por ele seja automaticamente refletida na sua carteira na mesma proporção, e fechada automaticamente quando ele a fechar. Você pode parar de copiar ou ajustar o valor alocado a qualquer momento na página do trader."
+        "answer": "O copy trading permite vincular parte do seu saldo a um trader que você escolher. Cada operação que ele abre é replicada automaticamente na sua carteira e fecha quando ele a fecha. Cada operação copiada usa a mesma parte do seu valor de cópia que o trader coloca a partir do saldo dele, com a mesma alavancagem: se ele coloca 5% do saldo numa operação, 5% do seu valor de cópia entra nela. Se o valor livre da cópia não bastar, a operação abre com o que está livre; se ficar abaixo do tamanho mínimo, não abre; você recebe um aviso nos dois casos. Você pode parar de copiar a qualquer momento e alterar o valor enquanto não houver operação copiada aberta."
       },
       {
         "id": "multiple-traders",
@@ -2009,7 +2014,7 @@
     "items": [
       {
         "q": "Como funciona a cópia?",
-        "a": "Você escolhe um trader e define um valor. Quando o trader abre uma operação, uma operação equivalente é aberta na sua conta, dimensionada conforme o valor alocado."
+        "a": "Você escolhe um trader e define um valor. Quando o trader abre uma operação, uma operação equivalente abre na sua conta usando a mesma parte do seu valor que o trader usa do saldo dele."
       },
       {
         "q": "Posso perder meu dinheiro?",
@@ -2437,7 +2442,7 @@
     "how_copy_works": {
       "title": "Como funciona o copy trading",
       "summary": "Escolha um trader e a plataforma replica as operações dele na sua conta, proporcionalmente ao valor definido.",
-      "p1": "Ao copiar um trader, cada operação que ele abre e fecha é repetida automaticamente na sua conta, com tamanho proporcional ao valor que você destinou a ele.",
+      "p1": "Quando você copia um trader, cada operação que ele abre e fecha é repetida automaticamente na sua conta. Cada operação copiada usa a mesma parte do seu valor de cópia que o trader coloca na operação a partir do próprio saldo, com a mesma alavancagem, então seu resultado em porcentagem acompanha o dele. Várias operações podem ficar abertas ao mesmo tempo; se o valor livre da cópia não bastar para a parte completa, a operação abre com o que está livre e você recebe um aviso, e se ficar abaixo do tamanho mínimo ela não abre e você recebe um aviso.",
       "p2": "Você continua no controle: pode alterar as configurações, definir um limite de perda ou parar de copiar a qualquer momento. As operações já abertas mantêm suas próprias regras.",
       "p3": "Os resultados acompanham os do trader, então ganhos e perdas chegam a você. Comece pequeno e, se for novo, com a conta demo."
     },

@@ -399,7 +399,12 @@
     "cat_market": "Market",
     "marketMoveTitle": "Big move in {symbol}",
     "marketMoveBody": "{symbol} {direction, select, up {rose} other {fell}} {pct} over the last 24 hours and now trades at {price}.",
-    "prefsMarket": "Market moves"
+    "prefsMarket": "Market moves",
+    "copyReducedTitle": "Trade copied with a smaller amount",
+    "copyReducedBody": "The {symbol} trade from {providerName} was copied with {opened} instead of {required}, because {available} was free in this copy.",
+    "copySkippedTitle": "A trade was not copied",
+    "copySkippedFreeBody": "The {symbol} trade from {providerName} was not copied because the free amount in this copy ({available}) is in use by open trades. You can raise the copy amount when no trade is open.",
+    "copySkippedMinBody": "The {symbol} trade from {providerName} was not copied because its share of the copy amount is below the minimum trade size."
   },
   "Portfolio": {
     "title": "My Portfolio",
@@ -1328,7 +1333,7 @@
           "how does copying work",
           "following a trader"
         ],
-        "answer": "Copy trading lets you link part of your balance to a trader you choose, so every trade that trader opens is automatically mirrored into your portfolio at the same proportion, and automatically closes when they close it. You can stop copying or adjust the allocated amount anytime from the trader's page."
+        "answer": "Copy trading lets you link part of your balance to a trader you choose. Every trade that trader opens is mirrored into your portfolio automatically and closes when they close it. Each copied trade takes the same share of your copy amount that the trader puts in from their own balance, at the same leverage: if the trader puts 5% of their balance into a trade, 5% of your copy amount goes into it. If the free amount in the copy is not enough, the trade opens with what is free; if it is below the minimum trade size it is not opened; you get a notice either way. You can stop copying at any time, and change the amount while no copied trade is open."
       },
       {
         "id": "multiple-traders",
@@ -2010,7 +2015,7 @@
     "items": [
       {
         "q": "How does copying work?",
-        "a": "You choose a trader and set an amount. When the trader opens a trade, a matching trade opens in your account, sized to the amount you allocated."
+        "a": "You choose a trader and set an amount. When the trader opens a trade, a matching trade opens in your account using the same share of your amount that the trader uses from their balance."
       },
       {
         "q": "Can I lose my money?",
@@ -2438,7 +2443,7 @@
     "how_copy_works": {
       "title": "How copy trading works",
       "summary": "Pick a trader and the platform mirrors their trades on your account, in proportion to the amount you set.",
-      "p1": "When you copy a trader, every trade they open and close is repeated on your account automatically, sized in proportion to the amount you allocated to that trader.",
+      "p1": "When you copy a trader, every trade they open and close is repeated on your account automatically. Each copied trade takes the same share of your copy amount that the trader puts into the trade from their own balance, at the same leverage, so your result in percent follows theirs. Several trades can be open at once; if the free amount in your copy is not enough for a trade's full share, it opens with what is free and you get a notice, and if it would be below the minimum trade size it is not opened and you get a notice.",
       "p2": "You stay in control: you can change the settings, set a loss limit, or stop copying at any time. Trades already open keep their own rules.",
       "p3": "Results follow the trader’s results, so gains and losses both pass through to you. Start small, and with the demo account if you are new."
     },

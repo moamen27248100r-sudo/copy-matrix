@@ -399,7 +399,12 @@
     "cat_market": "Thị trường",
     "marketMoveTitle": "{symbol} biến động mạnh",
     "marketMoveBody": "{symbol} {direction, select, up {tăng} other {giảm}} {pct} trong 24 giờ qua, hiện ở mức {price}.",
-    "prefsMarket": "Biến động thị trường"
+    "prefsMarket": "Biến động thị trường",
+    "copyReducedTitle": "Giao dịch được sao chép với số tiền nhỏ hơn",
+    "copyReducedBody": "Giao dịch {symbol} từ {providerName} được sao chép với {opened} thay vì {required}, vì bản sao này chỉ còn trống {available}.",
+    "copySkippedTitle": "Một giao dịch không được sao chép",
+    "copySkippedFreeBody": "Giao dịch {symbol} từ {providerName} không được sao chép vì số tiền trống của bản sao này ({available}) đang dùng cho các giao dịch mở. Bạn có thể tăng số tiền sao chép khi không có giao dịch nào mở.",
+    "copySkippedMinBody": "Giao dịch {symbol} từ {providerName} không được sao chép vì phần của nó trong số tiền sao chép thấp hơn quy mô giao dịch tối thiểu."
   },
   "Portfolio": {
     "title": "Danh mục của tôi",
@@ -1328,7 +1333,7 @@
           "sao chép hoạt động thế nào",
           "theo dõi nhà giao dịch"
         ],
-        "answer": "Sao chép giao dịch cho phép bạn liên kết một phần số dư của mình với một nhà giao dịch bạn chọn, để mỗi giao dịch mà nhà giao dịch đó mở đều tự động được phản ánh vào danh mục đầu tư của bạn theo cùng tỷ lệ, và tự động đóng khi họ đóng giao dịch đó. Bạn có thể dừng sao chép hoặc điều chỉnh số tiền phân bổ bất cứ lúc nào từ trang của nhà giao dịch."
+        "answer": "Copy trading cho phép bạn liên kết một phần số dư với trader bạn chọn. Mọi giao dịch họ mở sẽ tự động được sao chép vào danh mục của bạn và đóng khi họ đóng. Mỗi giao dịch sao chép dùng cùng tỷ lệ trên số tiền sao chép của bạn như tỷ lệ trader bỏ vào từ số dư của họ, với cùng đòn bẩy: nếu trader dùng 5% số dư cho một giao dịch, 5% số tiền sao chép của bạn được dùng cho giao dịch đó. Nếu số tiền trống trong bản sao không đủ, giao dịch mở với số tiền còn trống; nếu thấp hơn quy mô tối thiểu thì không mở; bạn đều nhận thông báo. Bạn có thể dừng sao chép bất cứ lúc nào và thay đổi số tiền khi không có giao dịch sao chép nào đang mở."
       },
       {
         "id": "multiple-traders",
@@ -2006,7 +2011,7 @@
     "items": [
       {
         "q": "Sao chép hoạt động như thế nào?",
-        "a": "Bạn chọn một trader và đặt số tiền. Khi trader mở lệnh, một lệnh tương ứng sẽ mở trong tài khoản của bạn, với quy mô theo số tiền bạn đã phân bổ."
+        "a": "Bạn chọn một trader và đặt số tiền. Khi trader mở giao dịch, một giao dịch tương ứng mở trong tài khoản của bạn, dùng cùng tỷ lệ trên số tiền của bạn như tỷ lệ trader dùng từ số dư của họ."
       },
       {
         "q": "Tôi có thể mất tiền không?",
@@ -2434,7 +2439,7 @@
     "how_copy_works": {
       "title": "Copy trading hoạt động thế nào",
       "summary": "Chọn một nhà giao dịch, nền tảng sẽ sao chép giao dịch của họ vào tài khoản của bạn theo tỷ lệ số tiền bạn đặt.",
-      "p1": "Khi bạn sao chép một nhà giao dịch, mọi giao dịch họ mở và đóng đều được lặp lại tự động trong tài khoản của bạn, theo tỷ lệ số tiền bạn phân bổ.",
+      "p1": "Khi bạn sao chép một trader, mọi giao dịch họ mở và đóng sẽ tự động lặp lại trên tài khoản của bạn. Mỗi giao dịch sao chép dùng cùng tỷ lệ trên số tiền sao chép của bạn như tỷ lệ trader bỏ vào giao dịch từ số dư của họ, với cùng đòn bẩy, nên kết quả phần trăm của bạn đi theo họ. Có thể mở nhiều giao dịch cùng lúc; nếu số tiền trống trong bản sao không đủ cho toàn bộ phần, giao dịch mở với số tiền còn trống và bạn nhận thông báo, còn nếu thấp hơn quy mô giao dịch tối thiểu thì không mở và bạn nhận thông báo.",
       "p2": "Bạn luôn kiểm soát: có thể đổi cài đặt, đặt giới hạn lỗ hoặc dừng sao chép bất cứ lúc nào. Giao dịch đã mở giữ quy tắc riêng.",
       "p3": "Kết quả theo kết quả của nhà giao dịch, nên cả lãi lẫn lỗ đều đến với bạn. Hãy bắt đầu nhỏ, và dùng tài khoản demo nếu bạn mới."
     },

@@ -399,7 +399,12 @@
     "cat_market": "Soko",
     "marketMoveTitle": "Mabadiliko makubwa kwenye {symbol}",
     "marketMoveBody": "{symbol} {direction, select, up {imepanda} other {imeshuka}} {pct} ndani ya saa 24 zilizopita na sasa iko {price}.",
-    "prefsMarket": "Mabadiliko ya soko"
+    "prefsMarket": "Mabadiliko ya soko",
+    "copyReducedTitle": "Biashara imenakiliwa kwa kiasi kidogo",
+    "copyReducedBody": "Biashara ya {symbol} kutoka kwa {providerName} imenakiliwa kwa {opened} badala ya {required}, kwa sababu {available} ndicho kilichokuwa huru katika unakili huu.",
+    "copySkippedTitle": "Biashara moja haikunakiliwa",
+    "copySkippedFreeBody": "Biashara ya {symbol} kutoka kwa {providerName} haikunakiliwa kwa sababu kiasi huru cha unakili huu ({available}) kinatumika katika biashara zilizo wazi. Unaweza kuongeza kiasi wakati hakuna biashara iliyo wazi.",
+    "copySkippedMinBody": "Biashara ya {symbol} kutoka kwa {providerName} haikunakiliwa kwa sababu sehemu yake ya kiasi cha unakili iko chini ya ukubwa wa chini wa biashara."
   },
   "Portfolio": {
     "title": "Jalada Langu",
@@ -1328,7 +1333,7 @@
           "kunakili hufanya kazi vipi",
           "kumfuata mfanyabiashara"
         ],
-        "answer": "Kunakili biashara kunakuruhusu kuunganisha sehemu ya salio lako na mfanyabiashara unayemchagua, ili kila biashara anayofungua mfanyabiashara huyo ionekane kiotomatiki kwenye portfolio yako kwa uwiano sawa, na kufungwa kiotomatiki anapoifunga. Unaweza kuacha kunakili au kurekebisha kiasi kilichotengwa wakati wowote kutoka ukurasa wa mfanyabiashara."
+        "answer": "Unakili wa biashara unakuruhusu kuunganisha sehemu ya salio lako na mfanyabiashara unayemchagua. Kila biashara anayofungua inanakiliwa kwenye jalada lako kiotomatiki na kufungwa anapoifunga. Kila biashara iliyonakiliwa inachukua sehemu ile ile ya kiasi chako cha unakili ambayo mfanyabiashara anaweka kutoka salio lake, kwa leverage ile ile: akiweka 5% ya salio lake kwenye biashara, 5% ya kiasi chako cha unakili kinaingia humo. Kama kiasi huru katika unakili hakitoshi, biashara inafunguliwa kwa kilichopo; kama iko chini ya ukubwa wa chini haifunguliwi; unapata taarifa katika hali zote mbili. Unaweza kuacha kunakili wakati wowote, na kubadilisha kiasi wakati hakuna biashara iliyonakiliwa iliyo wazi."
       },
       {
         "id": "multiple-traders",
@@ -2006,7 +2011,7 @@
     "items": [
       {
         "q": "Kunakili hufanyaje kazi?",
-        "a": "Unachagua mfanyabiashara na kuweka kiasi. Mfanyabiashara anapofungua biashara, biashara inayolingana inafunguka kwenye akaunti yako, kwa ukubwa unaolingana na kiasi ulichotenga."
+        "a": "Unachagua mfanyabiashara na kuweka kiasi. Mfanyabiashara akifungua biashara, biashara inayolingana inafunguliwa kwenye akaunti yako ikitumia sehemu ile ile ya kiasi chako ambayo mfanyabiashara anatumia kutoka salio lake."
       },
       {
         "q": "Je, naweza kupoteza pesa zangu?",
@@ -2434,7 +2439,7 @@
     "how_copy_works": {
       "title": "Jinsi kunakili biashara kunavyofanya kazi",
       "summary": "Chagua mfanyabiashara na jukwaa linarudia biashara zake kwenye akaunti yako kulingana na kiasi ulichoweka.",
-      "p1": "Unaponakili mfanyabiashara, kila biashara anayofungua na kufunga hurudiwa kwenye akaunti yako kiotomatiki, kwa ukubwa unaolingana na kiasi ulichomtengea.",
+      "p1": "Unapomnakili mfanyabiashara, kila biashara anayofungua na kufunga inarudiwa kwenye akaunti yako kiotomatiki. Kila biashara iliyonakiliwa inachukua sehemu ile ile ya kiasi chako cha unakili ambayo mfanyabiashara anaweka kwenye biashara kutoka salio lake, kwa leverage ile ile, hivyo matokeo yako kwa asilimia yanafuata yake. Biashara kadhaa zinaweza kuwa wazi kwa wakati mmoja; kama kiasi huru katika unakili hakitoshi kwa sehemu kamili, biashara inafunguliwa kwa kilichopo na unapata taarifa, na kama iko chini ya ukubwa wa chini wa biashara haifunguliwi na unapata taarifa.",
       "p2": "Unabaki na udhibiti: unaweza kubadilisha mipangilio, kuweka kikomo cha hasara au kuacha kunakili wakati wowote. Biashara zilizokwisha funguliwa zinabaki na kanuni zake.",
       "p3": "Matokeo yanafuata ya mfanyabiashara, kwa hiyo faida na hasara vyote vinakufikia. Anza kidogo, na kwa akaunti ya majaribio ukiwa mgeni."
     },

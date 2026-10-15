@@ -399,7 +399,12 @@
     "cat_market": "Marché",
     "marketMoveTitle": "Gros mouvement sur {symbol}",
     "marketMoveBody": "{symbol} {direction, select, up {a progressé de} other {a reculé de}} {pct} sur 24 heures et s’échange à {price}.",
-    "prefsMarket": "Mouvements du marché"
+    "prefsMarket": "Mouvements du marché",
+    "copyReducedTitle": "Transaction copiée avec un montant réduit",
+    "copyReducedBody": "La transaction {symbol} de {providerName} a été copiée avec {opened} au lieu de {required}, car {available} était disponible dans cette copie.",
+    "copySkippedTitle": "Une transaction n'a pas été copiée",
+    "copySkippedFreeBody": "La transaction {symbol} de {providerName} n'a pas été copiée car le montant libre de cette copie ({available}) est utilisé par des transactions ouvertes. Vous pouvez augmenter le montant de la copie lorsqu'aucune transaction n'est ouverte.",
+    "copySkippedMinBody": "La transaction {symbol} de {providerName} n'a pas été copiée car sa part du montant de la copie est inférieure à la taille minimale d'une transaction."
   },
   "Portfolio": {
     "title": "Mon portefeuille",
@@ -1328,7 +1333,7 @@
           "comment fonctionne la copie",
           "suivre un trader"
         ],
-        "answer": "Le copy trading vous permet de lier une partie de votre solde à un trader de votre choix, afin que chaque trade qu'il ouvre soit automatiquement reflété dans votre portefeuille dans la même proportion, et se ferme automatiquement quand il le ferme. Vous pouvez arrêter de copier ou ajuster le montant alloué à tout moment depuis la page du trader."
+        "answer": "Le copy trading vous permet de lier une partie de votre solde à un trader de votre choix. Chaque transaction qu'il ouvre est reproduite automatiquement dans votre portefeuille et se ferme quand il la ferme. Chaque transaction copiée prend la même part de votre montant de copie que celle qu'il engage depuis son solde, avec le même effet de levier : s'il engage 5 % de son solde dans une transaction, 5 % de votre montant de copie y est engagé. Si le montant libre de la copie ne suffit pas, la transaction s'ouvre avec ce qui est libre ; si elle est inférieure à la taille minimale, elle n'est pas ouverte ; vous êtes averti dans les deux cas. Vous pouvez arrêter la copie à tout moment et modifier le montant tant qu'aucune transaction copiée n'est ouverte."
       },
       {
         "id": "multiple-traders",
@@ -2007,7 +2012,7 @@
     "items": [
       {
         "q": "Comment fonctionne la copie ?",
-        "a": "Vous choisissez un trader et fixez un montant. Quand le trader ouvre un trade, un trade identique s'ouvre sur votre compte, dimensionné selon le montant alloué."
+        "a": "Vous choisissez un trader et fixez un montant. Lorsque le trader ouvre une transaction, une transaction équivalente s'ouvre sur votre compte avec la même part de votre montant que celle qu'il engage depuis son solde."
       },
       {
         "q": "Puis-je perdre mon argent ?",
@@ -2435,7 +2440,7 @@
     "how_copy_works": {
       "title": "Comment fonctionne la copie de trading",
       "summary": "Choisissez un trader et la plateforme reproduit ses transactions sur votre compte, proportionnellement au montant fixé.",
-      "p1": "Quand vous copiez un trader, chaque transaction qu’il ouvre et clôture est répétée automatiquement sur votre compte, à une taille proportionnelle au montant que vous lui avez alloué.",
+      "p1": "Lorsque vous copiez un trader, chaque transaction qu'il ouvre et ferme est reproduite automatiquement sur votre compte. Chaque transaction copiée prend la même part de votre montant de copie que celle que le trader engage depuis son propre solde, avec le même effet de levier : votre résultat en pourcentage suit le sien. Plusieurs transactions peuvent être ouvertes en même temps ; si le montant libre de votre copie ne suffit pas pour la part complète, la transaction s'ouvre avec ce qui est libre et vous êtes averti, et si elle est inférieure à la taille minimale, elle n'est pas ouverte et vous êtes averti.",
       "p2": "Vous gardez le contrôle : vous pouvez modifier les réglages, fixer une limite de perte ou arrêter la copie à tout moment. Les transactions déjà ouvertes gardent leurs propres règles.",
       "p3": "Vos résultats suivent ceux du trader : gains et pertes vous sont tous deux répercutés. Commencez petit, et avec le compte démo si vous débutez."
     },

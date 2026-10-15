@@ -399,7 +399,12 @@
     "cat_market": "Pasar",
     "marketMoveTitle": "Pergerakan besar di {symbol}",
     "marketMoveBody": "{symbol} {direction, select, up {naik} other {turun}} {pct} dalam 24 jam terakhir dan kini di {price}.",
-    "prefsMarket": "Pergerakan pasar"
+    "prefsMarket": "Pergerakan pasar",
+    "copyReducedTitle": "Transaksi disalin dengan jumlah lebih kecil",
+    "copyReducedBody": "Transaksi {symbol} dari {providerName} disalin dengan {opened}, bukan {required}, karena dana bebas di salinan ini {available}.",
+    "copySkippedTitle": "Satu transaksi tidak disalin",
+    "copySkippedFreeBody": "Transaksi {symbol} dari {providerName} tidak disalin karena dana bebas di salinan ini ({available}) sedang dipakai transaksi terbuka. Anda bisa menambah jumlah salinan saat tidak ada transaksi terbuka.",
+    "copySkippedMinBody": "Transaksi {symbol} dari {providerName} tidak disalin karena bagiannya dari jumlah salinan di bawah ukuran transaksi minimum."
   },
   "Portfolio": {
     "title": "Portofolio Saya",
@@ -1328,7 +1333,7 @@
           "cara kerja salin",
           "mengikuti trader"
         ],
-        "answer": "Copy trading memungkinkan Anda menghubungkan sebagian saldo Anda ke trader pilihan Anda, sehingga setiap trade yang dibuka trader tersebut otomatis tercermin ke portofolio Anda dengan proporsi yang sama, dan otomatis ditutup saat mereka menutupnya. Anda dapat berhenti menyalin atau menyesuaikan jumlah yang dialokasikan kapan saja dari halaman trader."
+        "answer": "Copy trading memungkinkan Anda menautkan sebagian saldo ke trader pilihan Anda. Setiap transaksi yang ia buka disalin otomatis ke portofolio Anda dan ditutup saat ia menutupnya. Setiap transaksi salinan mengambil bagian yang sama dari jumlah salinan Anda seperti yang dipakai trader dari saldonya, dengan leverage yang sama: jika trader memakai 5% saldonya dalam satu transaksi, 5% dari jumlah salinan Anda masuk ke dalamnya. Jika dana bebas di salinan tidak cukup, transaksi dibuka dengan dana yang ada; jika di bawah ukuran minimum, tidak dibuka; Anda mendapat pemberitahuan dalam kedua kasus. Anda bisa berhenti menyalin kapan saja, dan mengubah jumlah selama tidak ada transaksi salinan yang terbuka."
       },
       {
         "id": "multiple-traders",
@@ -2006,7 +2011,7 @@
     "items": [
       {
         "q": "Bagaimana cara kerja penyalinan?",
-        "a": "Anda memilih trader dan menentukan jumlah. Saat trader membuka transaksi, transaksi yang sama terbuka di akun Anda dengan ukuran sesuai jumlah yang Anda alokasikan."
+        "a": "Anda memilih trader dan menentukan jumlah. Saat trader membuka transaksi, transaksi yang sesuai terbuka di akun Anda dengan bagian yang sama dari jumlah Anda seperti yang dipakai trader dari saldonya."
       },
       {
         "q": "Apakah saya bisa kehilangan uang?",
@@ -2434,7 +2439,7 @@
     "how_copy_works": {
       "title": "Cara kerja copy trading",
       "summary": "Pilih trader dan platform menyalin transaksinya ke akun Anda, sebanding dengan jumlah yang Anda tetapkan.",
-      "p1": "Saat Anda menyalin trader, setiap transaksi yang ia buka dan tutup diulang otomatis di akun Anda, dengan ukuran sebanding jumlah yang Anda alokasikan.",
+      "p1": "Saat Anda menyalin seorang trader, setiap transaksi yang ia buka dan tutup diulang otomatis di akun Anda. Setiap transaksi salinan mengambil bagian yang sama dari jumlah salinan Anda seperti yang dipakai trader dari saldonya sendiri, dengan leverage yang sama, sehingga hasil Anda dalam persen mengikuti hasilnya. Beberapa transaksi bisa terbuka bersamaan; jika dana bebas di salinan tidak cukup untuk bagian penuh, transaksi dibuka dengan dana yang ada dan Anda mendapat pemberitahuan, dan jika di bawah ukuran minimum transaksi tidak dibuka dan Anda mendapat pemberitahuan.",
       "p2": "Anda tetap memegang kendali: ubah pengaturan, tetapkan batas rugi, atau hentikan salinan kapan saja. Transaksi yang sudah terbuka tetap mengikuti aturannya.",
       "p3": "Hasil mengikuti hasil trader, jadi untung dan rugi sama-sama sampai ke Anda. Mulai kecil, dan dengan akun demo jika Anda baru."
     },

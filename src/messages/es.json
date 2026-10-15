@@ -399,7 +399,12 @@
     "cat_market": "Mercado",
     "marketMoveTitle": "Gran movimiento en {symbol}",
     "marketMoveBody": "{symbol} {direction, select, up {subió} other {bajó}} {pct} en las últimas 24 horas y ahora cotiza a {price}.",
-    "prefsMarket": "Movimientos del mercado"
+    "prefsMarket": "Movimientos del mercado",
+    "copyReducedTitle": "Operación copiada con un importe menor",
+    "copyReducedBody": "La operación {symbol} de {providerName} se copió con {opened} en lugar de {required}, porque había {available} libre en esta copia.",
+    "copySkippedTitle": "Una operación no se copió",
+    "copySkippedFreeBody": "La operación {symbol} de {providerName} no se copió porque el importe libre de esta copia ({available}) está en uso en operaciones abiertas. Puedes aumentar el importe cuando no haya operaciones abiertas.",
+    "copySkippedMinBody": "La operación {symbol} de {providerName} no se copió porque su parte del importe de la copia es menor que el tamaño mínimo de operación."
   },
   "Portfolio": {
     "title": "Mi cartera",
@@ -1328,7 +1333,7 @@
           "cómo funciona la copia",
           "seguir a un trader"
         ],
-        "answer": "El copy trading te permite vincular parte de tu saldo a un trader que elijas, para que cada operación que abra se refleje automáticamente en tu cartera en la misma proporción, y se cierre automáticamente cuando él la cierre. Puedes dejar de copiar o ajustar el monto asignado en cualquier momento desde la página del trader."
+        "answer": "El copy trading te permite vincular parte de tu saldo a un trader que elijas. Cada operación que abre se replica automáticamente en tu cartera y se cierra cuando él la cierra. Cada operación copiada toma de tu importe de copia la misma proporción que el trader pone desde su saldo, con el mismo apalancamiento: si pone el 5 % de su saldo en una operación, entra el 5 % de tu importe de copia. Si el importe libre de la copia no alcanza, la operación se abre con lo disponible; si queda por debajo del tamaño mínimo, no se abre; recibes un aviso en ambos casos. Puedes detener la copia en cualquier momento y cambiar el importe mientras no haya operaciones copiadas abiertas."
       },
       {
         "id": "multiple-traders",
@@ -2007,7 +2012,7 @@
     "items": [
       {
         "q": "¿Cómo funciona la copia?",
-        "a": "Eliges a un trader y fijas un monto. Cuando el trader abre una operación, se abre una idéntica en tu cuenta, con un tamaño proporcional al monto asignado."
+        "a": "Eliges un trader y fijas un importe. Cuando el trader abre una operación, se abre una equivalente en tu cuenta con la misma proporción de tu importe que el trader usa de su saldo."
       },
       {
         "q": "¿Puedo perder mi dinero?",
@@ -2435,7 +2440,7 @@
     "how_copy_works": {
       "title": "Cómo funciona el copy trading",
       "summary": "Elige un trader y la plataforma replica sus operaciones en tu cuenta, en proporción al importe que fijes.",
-      "p1": "Cuando copias a un trader, cada operación que abre y cierra se repite automáticamente en tu cuenta, con un tamaño proporcional al importe que le asignaste.",
+      "p1": "Cuando copias a un trader, cada operación que abre y cierra se repite automáticamente en tu cuenta. Cada operación copiada toma de tu importe de copia la misma proporción que el trader dedica a la operación desde su propio saldo, con el mismo apalancamiento, así tu resultado en porcentaje sigue al suyo. Puede haber varias operaciones abiertas a la vez; si el importe libre de tu copia no alcanza para la parte completa, se abre con lo disponible y recibes un aviso, y si queda por debajo del tamaño mínimo no se abre y recibes un aviso.",
       "p2": "Mantienes el control: puedes cambiar los ajustes, fijar un límite de pérdida o dejar de copiar en cualquier momento. Las operaciones ya abiertas conservan sus propias reglas.",
       "p3": "Los resultados siguen a los del trader, así que tanto las ganancias como las pérdidas te llegan. Empieza con poco y, si eres nuevo, con la cuenta demo."
     },

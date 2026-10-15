@@ -114,6 +114,27 @@ export function renderNotification(t: Translator, n: NotificationRow, rawMoney: 
       if (!reason) return { title: t("copyClosedLeaderTitle", values), body: t("copyClosedBody", values) };
       return { title: t(`copyClosed${reason}Title`, values), body: t(`copyClosed${reason}Body`, values) };
     }
+    // A copied trade opened with less than its share, or not opened, and why (migration 0263).
+    case "copy_reduced":
+      return {
+        title: t("copyReducedTitle"),
+        body: t("copyReducedBody", {
+          providerName: String(d.providerName ?? ""),
+          symbol: String(d.symbol ?? ""),
+          opened: money(Number(d.opened ?? 0)),
+          required: money(Number(d.required ?? 0)),
+          available: money(Number(d.available ?? 0)),
+        }),
+      };
+    case "copy_skipped":
+      return {
+        title: t("copySkippedTitle"),
+        body: t(d.reason === "below_minimum_size" ? "copySkippedMinBody" : "copySkippedFreeBody", {
+          providerName: String(d.providerName ?? ""),
+          symbol: String(d.symbol ?? ""),
+          available: money(Number(d.available ?? 0)),
+        }),
+      };
     case "auto_stop_copy":
       return {
         title: t("autoStopCopyTitle"),
