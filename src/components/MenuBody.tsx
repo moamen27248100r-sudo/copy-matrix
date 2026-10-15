@@ -116,7 +116,6 @@ export function MenuBody({
   const pathname = usePathname();
   const accountDisplay = `#${accountNumber}`;
   const [copied, setCopied] = useState(false);
-  const [confirmLogout, setConfirmLogout] = useState(false);
 
   useEffect(() => {
     if (!copied) return;
@@ -275,24 +274,55 @@ export function MenuBody({
         ))}
       </nav>
 
-      <div className={`${inSidebar ? "" : "sticky bottom-0"} mt-auto bg-[#0B132B]`}>
-        <div className="mx-4 h-px bg-white/[0.06]" aria-hidden="true" />
-        {!compact && (
-          <p className="flex flex-wrap gap-x-3 gap-y-1 px-5 pt-3 text-xs text-muted">
-            {legal.map((l) => (
-              <Link key={l.href} href={l.href} onClick={onNavigate} className="transition hover:text-foreground">
-                {l.label}
-              </Link>
-            ))}
-          </p>
-        )}
+      {inSidebar ? (
+        // Desktop sidebar: the legal links end the scrolling list; log out lives in the pinned footer.
+        !compact && (
+          <div className="mt-auto">
+            <div className="mx-4 h-px bg-white/[0.06]" aria-hidden="true" />
+            {!compact && (
+              <p className="flex flex-wrap gap-x-3 gap-y-1 px-5 py-3 text-xs text-muted">
+                {legal.map((l) => (
+                  <Link key={l.href} href={l.href} onClick={onNavigate} className="transition hover:text-foreground">
+                    {l.label}
+                  </Link>
+                ))}
+              </p>
+            )}
+              </div>
+        )
+      ) : (
+        <div className="sticky bottom-0 mt-auto bg-[#0B132B]">
+          <div className="mx-4 h-px bg-white/[0.06]" aria-hidden="true" />
+          {!compact && (
+            <p className="flex flex-wrap gap-x-3 gap-y-1 px-5 pt-3 text-xs text-muted">
+              {legal.map((l) => (
+                <Link key={l.href} href={l.href} onClick={onNavigate} className="transition hover:text-foreground">
+                  {l.label}
+                </Link>
+              ))}
+            </p>
+          )}
+            <MenuLogout compact={compact} />
+        </div>
+      )}
+    </>
+  );
+}
+
+// Log out with a confirmation: the drawer's footer and the desktop sidebar's pinned footer.
+export function MenuLogout({ compact = false }: { compact?: boolean }) {
+  const t = useTranslations("Nav");
+  const tm = useTranslations("AccountMenu");
+  const [confirmLogout, setConfirmLogout] = useState(false);
+  return (
+    <>
         <div className="px-2 py-2">
           <button
             type="button"
             onClick={() => setConfirmLogout(true)}
             title={compact ? t("logout") : undefined}
             aria-label={compact ? t("logout") : undefined}
-            className={`flex w-full items-center rounded-xl py-2.5 text-base font-bold text-danger transition hover:bg-danger/10 ${compact ? "justify-center" : "gap-3 px-3"}`}
+            className={`flex w-full items-center whitespace-nowrap rounded-xl py-2.5 text-base font-bold text-danger transition hover:bg-danger/10 ${compact ? "justify-center" : "gap-2.5 px-2"}`}
           >
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-danger/10 text-danger">
               <LogOut className="h-4 w-4" strokeWidth={2} aria-hidden="true" />
@@ -300,8 +330,6 @@ export function MenuBody({
             {!compact && t("logout")}
           </button>
         </div>
-      </div>
-
       {confirmLogout && (
         <div className="fixed inset-0 z-[10002] flex items-center justify-center bg-black/70 p-4" onClick={() => setConfirmLogout(false)}>
           <div

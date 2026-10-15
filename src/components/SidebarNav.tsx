@@ -5,7 +5,10 @@ import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { ChevronsLeft, ChevronsRight } from "lucide-react";
-import { MenuBody } from "@/components/MenuBody";
+import { MenuBody, MenuLogout } from "@/components/MenuBody";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { useLocale } from "next-intl";
+import type { Locale } from "@/i18n/locales";
 import { Logo } from "@/components/Logo";
 
 const ICONS = {
@@ -75,6 +78,7 @@ export function SidebarNav({
   const tm = useTranslations("AccountMenu");
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
+  const locale = useLocale() as Locale;
 
   // The layout's inline script already put data-sidebar on <body> before paint (no jump); this
   // just brings the React state in line with it.
@@ -173,6 +177,16 @@ export function SidebarNav({
             compact={collapsed}
             inSidebar
           />
+        </div>
+      </div>
+
+      {/* Pinned to the bottom of the sidebar at every window height: language and log out. */}
+      <div className={`shrink-0 border-t border-white/[0.06] bg-[#0B132B] px-2 py-2 ${collapsed ? "flex flex-col items-center gap-2" : "flex items-center gap-2"}`}>
+        <div className={collapsed ? "" : "shrink-0 ps-1"}>
+          <LanguageSwitcher currentLocale={locale} />
+        </div>
+        <div className="min-w-0 flex-1">
+          <MenuLogout compact={collapsed} />
         </div>
       </div>
     </aside>
