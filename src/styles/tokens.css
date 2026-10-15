@@ -72,3 +72,9 @@ html:lang(ar) .ty-small,
 html:lang(ur) .ty-small {
   line-height: var(--lh-body-ar);
 }
+.ty-stat-sm {
+  font-size: clamp(1.75rem, 1.5rem + 1vw, 2.25rem); /* 28px -> 36px, for figures inside a small tile */
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}

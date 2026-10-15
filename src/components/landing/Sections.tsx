@@ -103,8 +103,8 @@ export async function FactCards() {
       <ul className="mt-8 grid gap-4 md:mt-10 md:grid-cols-3 md:gap-5">
         {cards.map((c) => (
           <li key={c.title} className={CARD}>
-            <span dir="ltr" className={`ty-stat block text-start ${c.color}`}>
-              {c.value}
+            <span className={`ty-stat block text-start ${c.color}`}>
+              <bdi dir="ltr">{c.value}</bdi>
             </span>
             <h3 className="ty-card mt-5">{c.title}</h3>
             <p className="ty-body mt-2">{c.desc}</p>
@@ -138,14 +138,14 @@ export async function TraderShowcase() {
         </div>
         <div className="mt-6 grid grid-cols-2 gap-3">
           <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-            <span dir="ltr" className="ty-stat block text-start text-[var(--text-primary)]">
-              {DEMO_TRADER.copiers}
+            <span className="ty-stat-sm block text-start text-[var(--text-primary)]">
+              <bdi dir="ltr">{DEMO_TRADER.copiers}</bdi>
             </span>
             <span className="ty-body mt-2 block">{t("traders.copiers")}</span>
           </div>
           <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-            <span dir="ltr" className="ty-stat block text-start text-[#0ecb81]">
-              {DEMO_TRADER.ret}
+            <span className="ty-stat-sm block text-start text-[#0ecb81]">
+              <bdi dir="ltr">{DEMO_TRADER.ret}</bdi>
             </span>
             <span className="ty-body mt-2 block">{tl("return30")}</span>
           </div>
