@@ -66,7 +66,7 @@ export function TradeRow({
           {resultText}
         </span>
       </div>
-      <div className="flex items-baseline justify-between gap-3 text-base leading-tight md:text-sm" style={{ color: TRADE_GRAY }}>
+      <div className="flex flex-wrap items-baseline justify-between gap-x-3 text-base leading-tight md:text-sm" style={{ color: TRADE_GRAY }}>
         <span className="whitespace-nowrap">
           {from != null ? formatTradePrice(from, symbol) : "—"} → {to != null ? formatTradePrice(to, symbol) : "—"}
         </span>

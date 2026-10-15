@@ -1567,7 +1567,13 @@
     "emptyOpenTitle": "No open trades right now",
     "emptyOpenBody": "When a trader you copy opens a trade, it appears here with its live result.",
     "emptyHistoryTitle": "No closed trades yet",
-    "emptyHistoryBody": "Your copied trades appear here once they close, each with its result."
+    "emptyHistoryBody": "Your copied trades appear here once they close, each with its result.",
+    "sumOpen": "Open trades",
+    "sumFloating": "Floating P/L",
+    "sumInTrades": "In open trades",
+    "sumClosed": "Closed trades",
+    "sumWinRate": "Win rate",
+    "sumNet": "Net result"
   },
   "Copies": {
     "title": "Copies",

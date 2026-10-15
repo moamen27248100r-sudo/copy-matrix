@@ -1564,7 +1564,13 @@
     "emptyOpenTitle": "Aucune transaction ouverte pour le moment",
     "emptyOpenBody": "Quand un trader que vous copiez ouvre une transaction, elle apparaît ici avec son résultat en direct.",
     "emptyHistoryTitle": "Aucune transaction clôturée pour l'instant",
-    "emptyHistoryBody": "Vos transactions copiées apparaissent ici une fois clôturées, chacune avec son résultat."
+    "emptyHistoryBody": "Vos transactions copiées apparaissent ici une fois clôturées, chacune avec son résultat.",
+    "sumOpen": "Transactions ouvertes",
+    "sumFloating": "P/L flottant",
+    "sumInTrades": "Engagé",
+    "sumClosed": "Transactions clôturées",
+    "sumWinRate": "Taux de réussite",
+    "sumNet": "Résultat net"
   },
   "Copies": {
     "title": "Copies",

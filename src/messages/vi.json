@@ -1563,7 +1563,13 @@
     "emptyOpenTitle": "Hiện chưa có giao dịch đang mở",
     "emptyOpenBody": "Khi trader bạn sao chép mở giao dịch, giao dịch sẽ hiện ở đây kèm kết quả trực tiếp.",
     "emptyHistoryTitle": "Chưa có giao dịch đã đóng",
-    "emptyHistoryBody": "Các giao dịch sao chép sẽ hiện ở đây khi đóng, kèm kết quả từng giao dịch."
+    "emptyHistoryBody": "Các giao dịch sao chép sẽ hiện ở đây khi đóng, kèm kết quả từng giao dịch.",
+    "sumOpen": "Giao dịch đang mở",
+    "sumFloating": "Lãi/lỗ thả nổi",
+    "sumInTrades": "Trong giao dịch mở",
+    "sumClosed": "Giao dịch đã đóng",
+    "sumWinRate": "Tỷ lệ thắng",
+    "sumNet": "Kết quả ròng"
   },
   "Copies": {
     "title": "Bản sao",

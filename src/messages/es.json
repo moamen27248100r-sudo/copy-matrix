@@ -1564,7 +1564,13 @@
     "emptyOpenTitle": "No hay operaciones abiertas ahora",
     "emptyOpenBody": "Cuando un trader que copias abre una operación, aparece aquí con su resultado en vivo.",
     "emptyHistoryTitle": "Aún no hay operaciones cerradas",
-    "emptyHistoryBody": "Tus operaciones copiadas aparecen aquí al cerrarse, cada una con su resultado."
+    "emptyHistoryBody": "Tus operaciones copiadas aparecen aquí al cerrarse, cada una con su resultado.",
+    "sumOpen": "Operaciones abiertas",
+    "sumFloating": "P/L flotante",
+    "sumInTrades": "En operaciones abiertas",
+    "sumClosed": "Operaciones cerradas",
+    "sumWinRate": "Tasa de acierto",
+    "sumNet": "Resultado neto"
   },
   "Copies": {
     "title": "Copias",

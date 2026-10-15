@@ -1563,7 +1563,13 @@
     "emptyOpenTitle": "Hakuna biashara iliyo wazi sasa",
     "emptyOpenBody": "Mfanyabiashara unayemnakili akifungua biashara, itaonekana hapa pamoja na matokeo yake ya moja kwa moja.",
     "emptyHistoryTitle": "Bado hakuna biashara zilizofungwa",
-    "emptyHistoryBody": "Biashara ulizonakili zinaonekana hapa zikishafungwa, kila moja na matokeo yake."
+    "emptyHistoryBody": "Biashara ulizonakili zinaonekana hapa zikishafungwa, kila moja na matokeo yake.",
+    "sumOpen": "Biashara zilizo wazi",
+    "sumFloating": "Faida/hasara inayoelea",
+    "sumInTrades": "Katika biashara zilizo wazi",
+    "sumClosed": "Biashara zilizofungwa",
+    "sumWinRate": "Kiwango cha ushindi",
+    "sumNet": "Matokeo halisi"
   },
   "Copies": {
     "title": "Nakala",

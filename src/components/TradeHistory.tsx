@@ -104,7 +104,7 @@ export function TradeHistory({ trades }: { trades: Trade[] }) {
   const currentLabel = tt(PERIOD_LABEL_KEYS[period]);
 
   return (
-    <div className="relative flex flex-col gap-3 overflow-hidden rounded-[20px] border border-white/[0.08] bg-surface p-5 shadow-lg shadow-black/20">
+    <div className="relative flex flex-col gap-3 overflow-hidden rounded-[20px] border border-white/[0.08] bg-surface p-4 shadow-lg shadow-black/20">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-accent/[0.06] to-transparent" />
       <div className="relative flex items-center justify-between">
         <p className="text-sm text-muted">

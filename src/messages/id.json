@@ -1563,7 +1563,13 @@
     "emptyOpenTitle": "Belum ada transaksi terbuka",
     "emptyOpenBody": "Saat trader yang Anda salin membuka transaksi, transaksi itu muncul di sini dengan hasil langsung.",
     "emptyHistoryTitle": "Belum ada transaksi yang ditutup",
-    "emptyHistoryBody": "Transaksi salinan Anda muncul di sini setelah ditutup, masing-masing dengan hasilnya."
+    "emptyHistoryBody": "Transaksi salinan Anda muncul di sini setelah ditutup, masing-masing dengan hasilnya.",
+    "sumOpen": "Transaksi terbuka",
+    "sumFloating": "L/R mengambang",
+    "sumInTrades": "Dalam transaksi terbuka",
+    "sumClosed": "Transaksi ditutup",
+    "sumWinRate": "Tingkat menang",
+    "sumNet": "Hasil bersih"
   },
   "Copies": {
     "title": "Salinan",

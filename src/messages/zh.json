@@ -1564,7 +1564,13 @@
     "emptyOpenTitle": "目前没有持仓交易",
     "emptyOpenBody": "您跟单的交易员开仓后，交易会显示在这里并附实时结果。",
     "emptyHistoryTitle": "还没有已平仓交易",
-    "emptyHistoryBody": "跟单交易平仓后会显示在这里，并附每笔结果。"
+    "emptyHistoryBody": "跟单交易平仓后会显示在这里，并附每笔结果。",
+    "sumOpen": "持仓交易",
+    "sumFloating": "浮动盈亏",
+    "sumInTrades": "持仓金额",
+    "sumClosed": "已平仓交易",
+    "sumWinRate": "胜率",
+    "sumNet": "净结果"
   },
   "Copies": {
     "title": "跟单",

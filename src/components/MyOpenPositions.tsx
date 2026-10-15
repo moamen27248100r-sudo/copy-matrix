@@ -120,6 +120,7 @@ export function MyOpenPositions({
 }) {
   const t = useTranslations("Portfolio");
   const money = useMoney();
+  const tt = useTranslations("Trades");
   const pathname = usePathname();
   const returnTo = pathname;
   const symbols = Array.from(new Set(positions.map((p) => p.symbol)));
@@ -135,17 +136,24 @@ export function MyOpenPositions({
   return (
     <div className="flex flex-col gap-3">
       {positions.length > 0 && (
-      <div className="flex items-center justify-between">
-        <span className="text-sm text-muted">{t("totalFloatingPnl")}</span>
-        {(
-          <span
-            className={totalUnrealizedPnl >= 0 ? "text-sm font-semibold text-success" : "text-sm font-semibold text-danger"}
-            dir="ltr"
-          >
-            {money(totalUnrealizedPnl, { signed: true })}
-          </span>
-        )}
-      </div>
+        <dl className="grid grid-cols-3 gap-2 rounded-[20px] border border-border bg-surface p-3 text-center">
+          <div>
+            <dd className="text-lg font-bold tabular-nums">{positions.length}</dd>
+            <dt className="text-xs text-muted">{tt("sumOpen")}</dt>
+          </div>
+          <div className="border-x border-border">
+            <dd className={`text-lg font-bold tabular-nums ${totalUnrealizedPnl > 0 ? "text-success" : totalUnrealizedPnl < 0 ? "text-danger" : ""}`}>
+              <bdi dir="ltr">{money(totalUnrealizedPnl, { signed: totalUnrealizedPnl !== 0 })}</bdi>
+            </dd>
+            <dt className="text-xs text-muted">{tt("sumFloating")}</dt>
+          </div>
+          <div>
+            <dd className="text-lg font-bold tabular-nums">
+              <bdi dir="ltr">{money(positions.reduce((sum, p) => sum + Number(p.size), 0))}</bdi>
+            </dd>
+            <dt className="text-xs text-muted">{tt("sumInTrades")}</dt>
+          </div>
+        </dl>
       )}
       {positions.length === 0 ? (
         <p className="text-sm text-muted">{t("noOpenPositions")}</p>
