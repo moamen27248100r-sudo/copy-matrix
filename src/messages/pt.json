@@ -105,10 +105,9 @@
       "card2Desc": "Cada conta demo começa com $10.000 em fundos virtuais para praticar a cópia.",
       "card3Title": "Preços de mercado ao vivo",
       "card3Desc": "Acompanhe os preços de cripto, ouro e moedas em um só lugar.",
-      "traderTitle": "O perfil de um trader num relance",
       "traderSubtitle": "Retorno, número de copiadores e o histórico completo, tudo à sua frente antes de decidir.",
-      "return30": "Retorno em 30 dias",
-      "traderNote": "Exemplo ilustrativo. O desempenho passado não garante resultados."
+      "prev": "Anterior",
+      "next": "Próximo"
     }
   },
   "Nav": {

@@ -105,10 +105,9 @@
       "card2Desc": "Mỗi tài khoản demo bắt đầu với $10.000 tiền ảo để bạn tập sao chép.",
       "card3Title": "Giá thị trường trực tiếp",
       "card3Desc": "Theo dõi giá tiền số, vàng và tiền tệ ở một nơi.",
-      "traderTitle": "Hồ sơ trader trong một cái nhìn",
       "traderSubtitle": "Lợi nhuận, số người sao chép và toàn bộ hồ sơ, tất cả ngay trước mắt bạn trước khi quyết định.",
-      "return30": "Lợi nhuận 30 ngày",
-      "traderNote": "Ví dụ minh họa. Hiệu suất trong quá khứ không đảm bảo kết quả."
+      "prev": "Trước",
+      "next": "Tiếp theo"
     }
   },
   "Nav": {

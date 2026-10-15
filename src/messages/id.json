@@ -105,10 +105,9 @@
       "card2Desc": "Setiap akun demo dimulai dengan dana virtual $10.000 untuk berlatih menyalin.",
       "card3Title": "Harga pasar langsung",
       "card3Desc": "Pantau harga kripto, emas, dan mata uang di satu tempat.",
-      "traderTitle": "Profil trader sekilas",
       "traderSubtitle": "Imbal hasil, jumlah penyalin, dan rekam lengkap, semuanya di depan Anda sebelum memutuskan.",
-      "return30": "Imbal hasil 30 hari",
-      "traderNote": "Contoh ilustrasi. Kinerja masa lalu tidak menjamin hasil."
+      "prev": "Sebelumnya",
+      "next": "Berikutnya"
     }
   },
   "Nav": {

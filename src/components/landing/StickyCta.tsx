@@ -35,7 +35,7 @@ export function StickyCta({ href, label, heroId, endId }: { href: string; label:
       <Link
         href={href}
         tabIndex={visible ? 0 : -1}
-        className="block w-full rounded-xl bg-accent py-3.5 text-center text-base font-bold text-accent-foreground transition hover:bg-accent-hover"
+        className="block w-full rounded bg-accent py-3 text-center font-medium text-accent-foreground transition hover:bg-accent-hover"
       >
         {label}
       </Link>

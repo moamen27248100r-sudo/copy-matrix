@@ -105,10 +105,9 @@
       "card2Desc": "Chaque compte démo démarre avec 10 000 $ de fonds virtuels pour s'exercer à la copie.",
       "card3Title": "Prix de marché en direct",
       "card3Desc": "Suivez les prix des cryptos, de l'or et des devises au même endroit.",
-      "traderTitle": "Le profil d'un trader en un coup d'œil",
       "traderSubtitle": "Rendement, nombre de copieurs et historique complet, tout sous vos yeux avant de décider.",
-      "return30": "Rendement sur 30 jours",
-      "traderNote": "Exemple illustratif. Les performances passées ne garantissent pas les résultats."
+      "prev": "Précédent",
+      "next": "Suivant"
     }
   },
   "Nav": {

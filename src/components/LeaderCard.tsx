@@ -161,7 +161,7 @@ export async function LeaderCard({
         <div className="flex-1 border-e border-white/10 px-2 py-2.5 text-center">
           {maxDrawdownPct !== undefined ? (
             <>
-              <p className="text-sm font-semibold text-foreground">{fmtDrawdown(maxDrawdownPct)}</p>
+              <p dir="ltr" className="text-sm font-semibold text-foreground">{fmtDrawdown(maxDrawdownPct)}</p>
               <p className="text-[11px] font-normal text-muted">{t("maxDrawdown")}</p>
             </>
           ) : (
@@ -215,7 +215,7 @@ export async function LeaderCard({
           </>
         )}
         <div>
-          <p dir="ltr" className="font-medium text-foreground">{aumBandFloor(p.aum_band) != null ? t("aumOver", { amount: money(aumBandFloor(p.aum_band) as number, { compact: true }) }) : "—"}</p>
+          <p className="font-medium text-foreground">{aumBandFloor(p.aum_band) != null ? t("aumOver", { amount: "⁦" + money(aumBandFloor(p.aum_band) as number, { compact: true }) + "⁩" }) : "—"}</p>
           <p>{t("aumLabel")}</p>
         </div>
       </div>

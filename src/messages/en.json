@@ -105,10 +105,9 @@
       "card2Desc": "Every demo account starts with $10,000 in virtual funds to practice copying.",
       "card3Title": "Live market prices",
       "card3Desc": "Follow crypto, gold and currency prices in one place.",
-      "traderTitle": "A trader's profile at a glance",
       "traderSubtitle": "Return, number of copiers and the full record, all in front of you before you decide.",
-      "return30": "30-day return",
-      "traderNote": "Illustrative example. Past performance does not guarantee results."
+      "prev": "Previous",
+      "next": "Next"
     }
   },
   "Nav": {

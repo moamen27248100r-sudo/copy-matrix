@@ -105,10 +105,9 @@
       "card2Desc": "Kila akaunti ya majaribio huanza na fedha za kidhahania za $10,000 za kufanya mazoezi ya kunakili.",
       "card3Title": "Bei za soko za moja kwa moja",
       "card3Desc": "Fuatilia bei za crypto, dhahabu na sarafu mahali pamoja.",
-      "traderTitle": "Wasifu wa mfanyabiashara kwa muhtasari",
       "traderSubtitle": "Faida, idadi ya wanaonakili na rekodi kamili, vyote mbele yako kabla ya kuamua.",
-      "return30": "Faida ya siku 30",
-      "traderNote": "Mfano wa kielelezo. Utendaji wa zamani hauhakikishi matokeo."
+      "prev": "Iliyotangulia",
+      "next": "Inayofuata"
     }
   },
   "Nav": {

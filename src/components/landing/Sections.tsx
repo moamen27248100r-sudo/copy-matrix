@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
-import { initialsAvatar } from "@/data/mockup-fixtures";
 
 // Landing sections (eToro-like: start-aligned text, wide even spacing, thin 20px cards). Typography
 // comes from the .ty-* classes in src/styles/tokens.css.
@@ -111,47 +110,6 @@ export async function FactCards() {
           </li>
         ))}
       </ul>
-    </section>
-  );
-}
-
-// An invented trader (fictional name, symbolic avatar, moderate figures), labelled as an illustration.
-const DEMO_TRADER = { name: "Avery Northfield", copiers: "86", ret: "+4.1%" };
-
-export async function TraderShowcase() {
-  const t = await getTranslations("Home");
-  const tl = await getTranslations("Home.landing");
-  return (
-    <section id="traders" className={`${SECTION} md:grid md:grid-cols-2 md:items-center md:gap-14`}>
-      <div>
-        <h2 className="ty-section">{tl("traderTitle")}</h2>
-        <p className="ty-body mt-3 max-w-md">{tl("traderSubtitle")}</p>
-      </div>
-      <div className={`${CARD} mt-8 md:mt-0`}>
-        <div className="flex items-center gap-4">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={initialsAvatar(DEMO_TRADER.name, 1)} alt="" width={56} height={56} className="h-14 w-14 shrink-0 rounded-full" />
-          <div className="min-w-0">
-            <p className="ty-card">{DEMO_TRADER.name}</p>
-            <span className="mt-1 inline-block rounded-full bg-[#0ecb81]/12 px-2.5 py-0.5 text-sm font-medium text-[#0ecb81]">{t("heroPreview.lowRisk")}</span>
-          </div>
-        </div>
-        <div className="mt-6 grid grid-cols-2 gap-3">
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-            <span className="ty-stat-sm block text-start text-[var(--text-primary)]">
-              <bdi dir="ltr">{DEMO_TRADER.copiers}</bdi>
-            </span>
-            <span className="ty-body mt-2 block">{t("traders.copiers")}</span>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-            <span className="ty-stat-sm block text-start text-[#0ecb81]">
-              <bdi dir="ltr">{DEMO_TRADER.ret}</bdi>
-            </span>
-            <span className="ty-body mt-2 block">{tl("return30")}</span>
-          </div>
-        </div>
-        <p className="ty-small mt-5">{tl("traderNote")}</p>
-      </div>
     </section>
   );
 }
