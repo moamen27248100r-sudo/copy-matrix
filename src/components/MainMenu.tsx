@@ -6,7 +6,6 @@ import { Menu, X } from "lucide-react";
 import { useNavDrawer } from "@/components/nav-drawer-context";
 import { useBodyScrollLock } from "@/lib/use-body-scroll-lock";
 import { MenuBody } from "@/components/MenuBody";
-import { Logo } from "@/components/Logo";
 
 // The phone menu: a panel the full height of the screen, from the top edge to the bottom edge.
 // (On a desktop screen the same content lives in the fixed sidebar -- see SidebarNav.)
@@ -33,19 +32,6 @@ export function MainMenu({
 
   useBodyScrollLock(open);
 
-  // Swipe toward the panel's own edge (left in LTR, right in RTL) to close.
-  const touchStartX = useRef<number | null>(null);
-  const onTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-  const onTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const dx = e.changedTouches[0].clientX - touchStartX.current;
-    touchStartX.current = null;
-    const rtl = document.documentElement.dir === "rtl";
-    if ((rtl && dx > 60) || (!rtl && dx < -60)) close();
-  };
-
   // The panel can otherwise open already scrolled a few hundred pixels down.
   useEffect(() => {
     if (open && panelRef.current) panelRef.current.scrollTop = 0;
@@ -65,45 +51,22 @@ export function MainMenu({
       <button
         type="button"
         onClick={toggle}
-        aria-label={t("menuAriaLabel")}
+        aria-label={open ? t("menuCloseAriaLabel") : t("menuAriaLabel")}
         aria-expanded={open}
-        className="relative flex h-9 w-9 shrink-0 items-center justify-center"
+        className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded border border-border text-foreground"
       >
-        <span className="flex h-9 w-9 items-center justify-center rounded border border-border text-foreground">
-          <Menu className="h-5 w-5" strokeWidth={2} aria-hidden="true" />
-        </span>
+        {open ? <X className="h-5 w-5" strokeWidth={2} aria-hidden="true" /> : <Menu className="h-5 w-5" strokeWidth={2} aria-hidden="true" />}
       </button>
 
-      <div
-        className={
-          open
-            ? "fixed inset-0 z-[10000] bg-black/60 backdrop-blur-[2px] transition-opacity duration-300"
-            : "pointer-events-none fixed inset-0 z-[10000] bg-black/60 opacity-0 transition-opacity duration-300"
-        }
-        onClick={close}
-        aria-hidden="true"
-      />
+      {/* Full width, from under the top bar to the bottom of the screen; the top bar stays and the same button closes it. */}
       <div
         ref={panelRef}
-        onTouchStart={onTouchStart}
-        onTouchEnd={onTouchEnd}
         aria-hidden={!open}
         inert={!open}
-        className={`fixed inset-y-0 start-0 z-[10001] flex w-[86%] max-w-xs scroll-subtle flex-col overflow-y-auto overscroll-contain border-e border-white/[0.06] bg-[#0B132B] shadow-2xl shadow-black/50 transition-transform duration-300 ease-out ${
-          open ? "translate-x-0" : "-translate-x-full rtl:translate-x-full"
+        className={`fixed inset-x-0 top-14 bottom-0 z-10 scroll-subtle flex flex-col overflow-y-auto overscroll-contain bg-surface transition-opacity duration-200 sm:top-16 ${
+          open ? "opacity-100" : "pointer-events-none invisible opacity-0"
         }`}
       >
-        <div className="flex items-center justify-between gap-2 px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-1">
-          <Logo iconClassName="h-4 w-4" textClassName="text-base" />
-          <button
-            type="button"
-            onClick={close}
-            aria-label={t("menuCloseAriaLabel")}
-            className="flex h-9 w-9 items-center justify-center rounded border border-border text-foreground"
-          >
-            <X className="h-5 w-5" strokeWidth={2} aria-hidden="true" />
-          </button>
-        </div>
         <MenuBody
           isAdmin={isAdmin}
           isLeadTrader={isLeadTrader}

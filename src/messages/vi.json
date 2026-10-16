@@ -171,14 +171,6 @@
     "greeting": "Chào mừng, {name}",
     "accountReal": "Tài khoản thực",
     "accountDemo": "Tài khoản demo",
-    "kycNoneTitle": "Chào mừng! Vui lòng điền thông tin tài khoản và hoàn tất lần nạp tiền đầu tiên.",
-    "kycNoneDesc": "Cần xác minh để mở khóa mọi tính năng của nền tảng, bao gồm cả yêu cầu rút tiền.",
-    "kycNoneAction": "Hoàn tất",
-    "kycPendingTitle": "Yêu cầu xác minh đang được xem xét",
-    "kycPendingDesc": "Bạn sẽ được thông báo ngay khi quá trình xác minh hoàn tất.",
-    "kycRejectedTitle": "Yêu cầu xác minh bị từ chối",
-    "kycRejectedDesc": "Vui lòng gửi lại hoặc liên hệ hỗ trợ để biết lý do.",
-    "kycRejectedAction": "Gửi lại",
     "learnMore": "Tìm hiểu thêm",
     "portfolioValue": "Tổng giá trị danh mục",
     "accountTypeShortReal": "Thực",
@@ -228,7 +220,7 @@
     "resetBalance": "Đặt lại số dư",
     "onboardingCardTitle": "Bắt đầu từ đây",
     "stepProfile": "Hoàn thiện hồ sơ của bạn",
-    "stepFirstCopy": "Bắt đầu bản sao demo đầu tiên",
+    "stepFirstCopy": "Bắt đầu lệnh sao chép đầu tiên",
     "stepProtection": "Bật bảo vệ sao chép",
     "stepNotifications": "Bật thông báo",
     "suggestedTradersTitle": "Nhà giao dịch được đề xuất cho bạn",
@@ -276,7 +268,6 @@
     "benchmarkChartLabel": "Lợi suất danh mục so với thị trường",
     "returnOnInvested": "Lợi suất trên vốn ròng",
     "netInvestedLabel": "Vốn ròng",
-    "kycNoneTitleNoDeposit": "Chào mừng! Vui lòng hoàn tất thông tin tài khoản để bắt đầu.",
     "riskTitle": "Rủi ro danh mục",
     "riskLow": "Thấp",
     "riskMedium": "Trung bình",
@@ -310,8 +301,6 @@
     "marketPulseTitle": "Biến động thị trường hôm nay",
     "watchlistTitle": "Danh sách theo dõi",
     "watchlistEmpty": "Thêm công cụ cần theo dõi bằng ngôi sao ở trang Thị trường.",
-    "topTradersWeekTitle": "Nhà giao dịch nổi bật tuần này",
-    "topTradersWeekNote": "Theo lợi suất thực tế 7 ngày qua, chỉ gồm nhà giao dịch có đủ giao dịch đã đóng. Hiệu suất quá khứ không đảm bảo kết quả tương lai.",
     "learnTitle": "Tìm hiểu",
     "pnlForPeriod": "Lãi/lỗ trong kỳ",
     "result24h": "24 giờ qua",
@@ -322,13 +311,16 @@
     "copiesPerfInvested": "Đã đầu tư",
     "copiesPerfResult": "Kết quả",
     "marketNewsTitle": "Tin thị trường",
-    "whatsNewTitle": "Có gì mới",
-    "whatsNew1Title": "Mọi giao dịch của trader đều được sao chép",
-    "whatsNew1Desc": "Mỗi giao dịch sao chép dùng cùng tỷ lệ trên số tiền của bạn như trader dùng từ số dư, nên mọi giao dịch đồng thời của họ đều được sao chép, và bạn được báo khi một giao dịch mở với số tiền nhỏ hơn.",
-    "whatsNew2Title": "Tìm kiếm nhanh",
-    "whatsNew2Desc": "Tìm bất kỳ trader hoặc thị trường nào từ đầu mọi trang.",
-    "whatsNew3Title": "Cài đặt rõ ràng hơn",
-    "whatsNew3Desc": "Cài đặt chia mục rõ ràng, mọi thứ về bảo mật nằm trên một trang."
+    "stepConfirmEmail": "Xác nhận email của bạn",
+    "stepFirstDeposit": "Nạp khoản tiền đầu tiên",
+    "shortcutCopies": "Sao chép",
+    "shortcutReset": "Đặt lại số dư",
+    "depositsOpenSoon": "Sắp mở",
+    "depositsOpenSoonNote": "Tính năng nạp tiền sẽ sớm mở.",
+    "withdrawNoBalance": "Không có số dư",
+    "moversGainers": "Tăng mạnh",
+    "moversLosers": "Giảm mạnh",
+    "moversNone": "Hiện chưa có biến động để hiển thị."
   },
   "Common": {
     "level": "Cấp độ {level}",
@@ -440,7 +432,8 @@
     "group_yesterday": "Hôm qua",
     "group_week": "Tuần này",
     "group_earlier": "Trước đó",
-    "zeroClosedSummary": "{count} giao dịch sao chép đóng không lãi không lỗ."
+    "zeroClosedSummary": "{count} giao dịch sao chép đóng không lãi không lỗ.",
+    "unreadDot": "Chưa đọc"
   },
   "Portfolio": {
     "title": "Danh mục của tôi",
@@ -745,7 +738,9 @@
     "insufficientData": "Không đủ dữ liệu cho giai đoạn này",
     "tabTraders": "Nhà giao dịch",
     "tabMarkets": "Thị trường",
-    "aumOver": "Trên {amount}"
+    "aumOver": "Trên {amount}",
+    "maxDrawdownAll": "Sụt giảm tối đa (tất cả)",
+    "maxDrawdownAllHint": "Mức sụt giảm lớn nhất từ đỉnh trong toàn bộ lịch sử, gồm cả lỗ tạm tính. Mức rủi ro dựa trên con số này."
   },
   "Countries": {
     "US": "Hoa Kỳ",
@@ -2506,9 +2501,8 @@
     "linkFallback": "Nếu nút không hoạt động, hãy sao chép liên kết này vào trình duyệt:"
   },
   "RiskFooter": {
-    "text": "Giao dịch và sao chép giao dịch có rủi ro cao, bạn có thể mất toàn bộ vốn. Hiệu suất trong quá khứ không đảm bảo kết quả trong tương lai.",
-    "readFull": "Đọc đầy đủ công bố rủi ro",
-    "demoNote": "Đây là tài khoản demo: tiền và giao dịch đều là mô phỏng."
+    "text": "Giao dịch có rủi ro thua lỗ cao.",
+    "readFull": "Công bố rủi ro"
   },
   "Pwa": {
     "installTitle": "Cài ứng dụng lên điện thoại",
@@ -2552,13 +2546,6 @@
       "p1": "Chỉ dùng số tiền bạn có thể chấp nhận mất. Giao dịch và sao chép có rủi ro cao, bạn có thể mất toàn bộ số tiền.",
       "p2": "Mỗi bản sao có giới hạn lỗ: khi lỗ chạm mức đó, việc sao chép tự động dừng. Giới hạn thấp bảo vệ vốn nhiều hơn nhưng có thể dừng bản sao sớm hơn.",
       "p3": "Phân bổ số tiền cho nhiều nhà giao dịch và thị trường, và xem lại các bản sao thường xuyên thay vì phản ứng với một giao dịch."
-    },
-    "demo_vs_real": {
-      "title": "Tài khoản demo và tài khoản thật",
-      "summary": "Luyện tập với tiền ảo trước, rồi chuyển khi bạn sẵn sàng.",
-      "p1": "Tài khoản demo dùng tiền ảo và giao dịch mô phỏng. Dùng để học cách nền tảng và sao chép vận hành, không có tiền thật.",
-      "p2": "Tài khoản thật dùng tiền thật: áp dụng nạp, rút và xác minh danh tính, kết quả là thật. Hai tài khoản tách biệt hoàn toàn.",
-      "p3": "Bạn có thể chuyển qua lại từ menu. Việc chuyển sẽ dừng các bản sao hiện tại, nên hãy bắt đầu lại những bản bạn muốn trên tài khoản đã chọn."
     }
   },
   "CopyCalculator": {
@@ -2578,5 +2565,16 @@
     "note": "Bản sao đi theo kết quả của nhà giao dịch theo tỷ lệ số tiền của bạn, nên phép tính này áp dụng lợi nhuận hằng ngày thực tế của họ lên số tiền bạn chọn.",
     "noteWithShare": "Bản sao đi theo kết quả của nhà giao dịch theo tỷ lệ số tiền của bạn; phép tính áp dụng lợi nhuận hằng ngày thực tế lên số tiền bạn chọn, sau khi trừ {pct}% chia sẻ lợi nhuận trên phần lãi.",
     "pastPerformance": "Kết quả trong quá khứ không đảm bảo kết quả trong tương lai."
+  },
+  "Featured": {
+    "title": "Trader được đề xuất",
+    "viewAll": "Xem tất cả",
+    "regionLabel": "Trader được đề xuất",
+    "verified": "Trader đã xác minh",
+    "return12m": "Lợi nhuận 12 tháng",
+    "copiers": "Người sao chép",
+    "viewProfile": "Xem hồ sơ",
+    "dotsLabel": "Chọn một trader",
+    "goTo": "Hiện trader {n}"
   }
 }

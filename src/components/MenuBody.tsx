@@ -291,7 +291,7 @@ export function MenuBody({
               </div>
         )
       ) : (
-        <div className="sticky bottom-0 mt-auto bg-[#0B132B]">
+        <div className="sticky bottom-0 mt-auto bg-surface">
           <div className="mx-4 h-px bg-white/[0.06]" aria-hidden="true" />
           {!compact && (
             <p className="flex flex-wrap gap-x-3 gap-y-1 px-5 pt-3 text-xs text-muted">

@@ -169,3 +169,11 @@ export function adjustedMaxDrawdown(stored: number | null | undefined, computed:
 export function riskLevelKey(level: string | null | undefined): "low" | "medium" | "high" | null {
   return level === "منخفضة" ? "low" : level === "متوسطة" ? "medium" : level === "مرتفعة" ? "high" : null;
 }
+
+/** The drawdown (in percent) the risk level is built on: the larger of the closed-trade drawdown of the
+ *  whole record and the same with open trades' floating losses (provider_cards.mdd_all /
+ *  mdd_floating_all, migration 0272). null when the record is too short to say anything. */
+export function drawdownBehindRisk(card: Record<string, unknown>): number | null {
+  if (!hasEnoughSample(num(card.trades_all))) return null;
+  return adjustedMaxDrawdown(num(card.mdd_all), num(card.mdd_floating_all));
+}

@@ -16,8 +16,7 @@ import { LeaderCard } from "@/components/LeaderCard";
 import { DiscoverFilterSheet } from "@/components/DiscoverFilterSheet";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { fmtDrawdown, fmtReturn, fmtWinRate, ltrIsolate } from "@/lib/format-stats";
-import { MIN_CLOSED_TRADES, adjustedMaxDrawdown } from "@/lib/leader-scores";
-import { adjustedDrawdowns } from "@/lib/leader-drawdown";
+import { MIN_CLOSED_TRADES, drawdownBehindRisk } from "@/lib/leader-scores";
 import { aumBandAtLeast, aumBandFloor } from "@/lib/aum-band";
 import { isSelfServiceLeadTraderEligible } from "@/lib/lead-trader-tasks";
 import { FlashMessage } from "@/components/ui/Toast";
@@ -28,6 +27,7 @@ import {
   parsePeriod,
   periodColumns,
   periodStats,
+  sparkDays,
   type RiskKey,
 } from "@/lib/leader-period";
 
@@ -260,17 +260,12 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
     providers = data;
     count = n ?? 0;
   }
-  const [adjustedDd, spark] = await Promise.all([
-    adjustedDrawdowns(
-      supabase,
-      (providers ?? []).map((p) => String(p.provider_id)),
-      period,
-    ),
-    getSparklines(
-      supabase,
-      (providers ?? []).map((p) => String(p.provider_id)),
-    ),
-  ]);
+  // The small curve of each card covers the same period as the return printed next to it.
+  const spark = await getSparklines(
+    supabase,
+    (providers ?? []).map((p) => String(p.provider_id)),
+    sparkDays(period),
+  );
   const total = count;
   const pageCount = Math.max(1, Math.ceil(total / perPage));
   // A stale or hand-typed page past the end lands on a real page, not on a
@@ -530,7 +525,7 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
                   <th className="px-4 py-3 text-start font-normal">{t("tableName")}</th>
                   <th className="px-3 py-3 text-start font-normal">{t("roiLabel", { period: periodLabel(period) })}</th>
                   <th className="px-3 py-3 text-start font-normal">{t("winRate")}</th>
-                  <th className="px-3 py-3 text-start font-normal">{t("maxDrawdown")}</th>
+                  <th className="px-3 py-3 text-start font-normal">{t("maxDrawdownAll")}</th>
                   <th className="px-3 py-3 text-start font-normal">{t("copiersLabel")}</th>
                   <th className="px-3 py-3 text-start font-normal">{t("aumLabel")}</th>
                   <th className="px-3 py-3 text-start font-normal">{t("profitShareLabel")}</th>
@@ -543,7 +538,7 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
                   return (
                     <tr key={p.provider_id} className="border-b border-border last:border-b-0 hover:bg-surface/60">
                       <td className="px-4 py-3">
-                        <Link href={`/trader/${p.provider_id}`} className="text-sm font-medium hover:text-accent">
+                        <Link href={`/trader/${p.provider_id}`} translate="no" className="text-sm font-medium hover:text-accent">
                           {p.display_name}
                         </Link>
                       </td>
@@ -552,7 +547,7 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
                       </td>
                       <td className="px-3 py-3 text-sm" dir="ltr" title={s.sufficient ? undefined : t("insufficientData")}>{fmtWinRate(s.winRate)}</td>
                       <td className="px-3 py-3 text-sm" dir="ltr" title={s.sufficient ? undefined : t("insufficientData")}>
-                        {fmtDrawdown(s.sufficient ? adjustedMaxDrawdown(s.mdd, adjustedDd.get(String(p.provider_id)) ?? null) : null)}
+                        {fmtDrawdown(drawdownBehindRisk(p))}
                       </td>
                       <td className="px-3 py-3 text-sm">{p.followers_count}</td>
                       <td className="px-3 py-3 text-sm">{aumBandFloor(p.aum_band) != null ? t("aumOver", { amount: ltrIsolate(money(aumBandFloor(p.aum_band) as number, { compact: true })) }) : "—"}</td>
@@ -583,7 +578,6 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
                   <LeaderCard
                     provider={p}
                     period={period}
-                    adjustedMdd={adjustedDd.get(String(p.provider_id)) ?? null}
                     sparkline={spark[String(p.provider_id)]}
                     copyHref={copyHref}
                     isWatching={isWatching}

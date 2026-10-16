@@ -171,14 +171,6 @@
     "greeting": "Selamat datang, {name}",
     "accountReal": "Akun real",
     "accountDemo": "Akun demo",
-    "kycNoneTitle": "Selamat datang! Silakan isi detail akun Anda dan selesaikan setoran pertama Anda.",
-    "kycNoneDesc": "Verifikasi diperlukan untuk membuka semua fitur platform, termasuk permintaan penarikan.",
-    "kycNoneAction": "Selesaikan",
-    "kycPendingTitle": "Permintaan verifikasi sedang ditinjau",
-    "kycPendingDesc": "Anda akan diberi tahu segera setelah verifikasi selesai.",
-    "kycRejectedTitle": "Permintaan verifikasi ditolak",
-    "kycRejectedDesc": "Silakan ajukan ulang atau hubungi dukungan untuk mengetahui alasannya.",
-    "kycRejectedAction": "Ajukan ulang",
     "learnMore": "Pelajari lebih lanjut",
     "portfolioValue": "Nilai total portofolio",
     "accountTypeShortReal": "Riil",
@@ -228,7 +220,7 @@
     "resetBalance": "Atur ulang saldo",
     "onboardingCardTitle": "Mulai di sini",
     "stepProfile": "Lengkapi profil Anda",
-    "stepFirstCopy": "Mulai salinan demo pertama Anda",
+    "stepFirstCopy": "Mulai salinan pertama Anda",
     "stepProtection": "Aktifkan proteksi copy",
     "stepNotifications": "Aktifkan notifikasi",
     "suggestedTradersTitle": "Trader yang disarankan untuk Anda",
@@ -276,7 +268,6 @@
     "benchmarkChartLabel": "Imbal hasil portofolio dibandingkan pasar",
     "returnOnInvested": "Imbal hasil atas dana bersih",
     "netInvestedLabel": "Dana bersih",
-    "kycNoneTitleNoDeposit": "Selamat datang! Lengkapi data akun Anda untuk memulai.",
     "riskTitle": "Risiko portofolio",
     "riskLow": "Rendah",
     "riskMedium": "Sedang",
@@ -310,8 +301,6 @@
     "marketPulseTitle": "Pergerakan pasar hari ini",
     "watchlistTitle": "Daftar pantauan Anda",
     "watchlistEmpty": "Tambahkan instrumen untuk dipantau dengan bintang di halaman Pasar.",
-    "topTradersWeekTitle": "Trader terbaik minggu ini",
-    "topTradersWeekNote": "Berdasarkan imbal hasil nyata 7 hari terakhir, hanya trader dengan transaksi tertutup yang cukup. Kinerja masa lalu tidak menjamin hasil di masa depan.",
     "learnTitle": "Belajar",
     "pnlForPeriod": "Laba/rugi periode ini",
     "result24h": "24 jam terakhir",
@@ -322,13 +311,16 @@
     "copiesPerfInvested": "Diinvestasikan",
     "copiesPerfResult": "Hasil",
     "marketNewsTitle": "Berita pasar",
-    "whatsNewTitle": "Yang baru",
-    "whatsNew1Title": "Setiap transaksi trader disalin",
-    "whatsNew1Desc": "Setiap transaksi salinan memakai bagian yang sama dari jumlah Anda seperti trader dari saldonya, jadi semua transaksinya yang bersamaan ikut disalin, dan Anda diberi tahu bila satu dibuka dengan jumlah lebih kecil.",
-    "whatsNew2Title": "Pencarian cepat",
-    "whatsNew2Desc": "Cari trader atau pasar mana pun dari bagian atas halaman mana saja.",
-    "whatsNew3Title": "Pengaturan lebih jelas",
-    "whatsNew3Desc": "Pengaturan dalam bagian yang jelas, dan semua soal keamanan di satu halaman."
+    "stepConfirmEmail": "Konfirmasi email Anda",
+    "stepFirstDeposit": "Lakukan setoran pertama Anda",
+    "shortcutCopies": "Salinan",
+    "shortcutReset": "Atur ulang saldo",
+    "depositsOpenSoon": "Segera dibuka",
+    "depositsOpenSoonNote": "Setoran akan segera dibuka.",
+    "withdrawNoBalance": "Tidak ada saldo",
+    "moversGainers": "Naik terbanyak",
+    "moversLosers": "Turun terbanyak",
+    "moversNone": "Belum ada pergerakan untuk ditampilkan."
   },
   "Common": {
     "level": "Level {level}",
@@ -440,7 +432,8 @@
     "group_yesterday": "Kemarin",
     "group_week": "Minggu ini",
     "group_earlier": "Sebelumnya",
-    "zeroClosedSummary": "{count} transaksi salinan ditutup tanpa untung atau rugi."
+    "zeroClosedSummary": "{count} transaksi salinan ditutup tanpa untung atau rugi.",
+    "unreadDot": "Belum dibaca"
   },
   "Portfolio": {
     "title": "Portofolio Saya",
@@ -745,7 +738,9 @@
     "insufficientData": "Data tidak cukup untuk periode ini",
     "tabTraders": "Trader",
     "tabMarkets": "Pasar",
-    "aumOver": "Lebih dari {amount}"
+    "aumOver": "Lebih dari {amount}",
+    "maxDrawdownAll": "Penurunan maks. (semua)",
+    "maxDrawdownAllHint": "Penurunan terbesar dari puncak sepanjang rekam jejak, termasuk kerugian mengambang. Tingkat risiko didasarkan padanya."
   },
   "Countries": {
     "US": "Amerika Serikat",
@@ -2506,9 +2501,8 @@
     "linkFallback": "Jika tombol tidak berfungsi, salin tautan ini ke peramban:"
   },
   "RiskFooter": {
-    "text": "Trading dan menyalin transaksi memiliki risiko tinggi, dan Anda dapat kehilangan seluruh modal. Kinerja masa lalu tidak menjamin hasil di masa depan.",
-    "readFull": "Baca pengungkapan risiko lengkap",
-    "demoNote": "Ini akun demo: dana dan transaksinya adalah simulasi."
+    "text": "Trading memiliki risiko kerugian yang tinggi.",
+    "readFull": "Pengungkapan risiko"
   },
   "Pwa": {
     "installTitle": "Pasang aplikasi di ponsel Anda",
@@ -2552,13 +2546,6 @@
       "p1": "Gunakan hanya uang yang sanggup Anda rugikan. Trading dan menyalin berisiko tinggi dan seluruh jumlah bisa hilang.",
       "p2": "Setiap salinan punya batas rugi: saat kerugian mencapainya, penyalinan berhenti otomatis. Batas lebih rendah melindungi lebih banyak modal tetapi bisa menghentikan salinan lebih awal.",
       "p3": "Sebar jumlah Anda ke lebih dari satu trader dan pasar, dan tinjau salinan secara berkala alih-alih bereaksi pada satu transaksi."
-    },
-    "demo_vs_real": {
-      "title": "Akun demo dan akun nyata",
-      "summary": "Berlatih dulu dengan uang virtual, lalu beralih saat Anda siap.",
-      "p1": "Akun demo memakai dana virtual dan transaksi simulasi. Untuk belajar cara kerja platform dan penyalinan tanpa uang sungguhan.",
-      "p2": "Akun nyata memakai uang sungguhan: setoran, penarikan, dan verifikasi identitas berlaku, dan hasilnya nyata. Kedua akun dipisahkan sepenuhnya.",
-      "p3": "Anda dapat beralih dari menu. Beralih menghentikan salinan Anda saat ini, jadi mulai lagi yang Anda inginkan di akun pilihan."
     }
   },
   "CopyCalculator": {
@@ -2578,5 +2565,16 @@
     "note": "Salinan mengikuti hasil trader sebanding dengan jumlah Anda, jadi perhitungan ini menerapkan imbal hasil harian aktualnya pada jumlah yang Anda pilih.",
     "noteWithShare": "Salinan mengikuti hasil trader sebanding dengan jumlah Anda; perhitungan ini menerapkan imbal hasil harian aktualnya pada jumlah Anda, setelah bagi hasil {pct}% dari keuntungan.",
     "pastPerformance": "Kinerja masa lalu tidak menjamin hasil di masa depan."
+  },
+  "Featured": {
+    "title": "Trader yang disarankan",
+    "viewAll": "Lihat semua",
+    "regionLabel": "Trader yang disarankan",
+    "verified": "Trader terverifikasi",
+    "return12m": "Imbal hasil 12 bulan",
+    "copiers": "Penyalin",
+    "viewProfile": "Lihat profil",
+    "dotsLabel": "Pilih trader",
+    "goTo": "Tampilkan trader {n}"
   }
 }

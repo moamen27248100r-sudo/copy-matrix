@@ -17,6 +17,7 @@ export const GLOBAL_CLIENT_NAMESPACES = [
   "Countries",
   "Dashboard",
   "Discover",
+  "Featured",
   "HomeFeatures",
   "HomeHowItWorks",
   "HomeShowcase",

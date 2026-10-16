@@ -45,6 +45,11 @@ export function initialsOf(name: string): string[] {
   return [words[0][0], words[1][0]].map((c) => c.toUpperCase());
 }
 
+/** The badge colours of a leader (the same set the initials avatar uses), for a bigger portrait on a card. */
+export function badgeColors(seed: string): { from: string; to: string; text: string } {
+  return BADGES[hash(seed + "|badge") % BADGES.length];
+}
+
 export function generateInitialsSvg(seed: string, name: string): string {
   const badge = BADGES[hash(seed + "|badge") % BADGES.length];
   const [c0, c1] = [badge.from, badge.to];

@@ -1,4 +1,5 @@
 import { nameIsolate } from "@/lib/format-stats";
+import { prettySymbol } from "@/lib/notification-meta";
 
 // Notification title/body used to be pre-rendered Arabic strings baked in
 // at insert time by SQL triggers, so no amount of frontend translation work
@@ -58,9 +59,9 @@ export function renderNotification(t: Translator, n: NotificationRow, rawMoney: 
       const pct = Number(d.changePct ?? 0);
       const price = Number(d.price ?? 0);
       return {
-        title: t("marketMoveTitle", { symbol: String(d.symbol ?? "") }),
+        title: t("marketMoveTitle", { symbol: prettySymbol(d.symbol) }),
         body: t("marketMoveBody", {
-          symbol: String(d.symbol ?? ""),
+          symbol: prettySymbol(d.symbol),
           direction: pct >= 0 ? "up" : "down",
           pct: `${Math.abs(pct).toFixed(2)}%`,
           price: price >= 1000 ? price.toLocaleString("en-US", { maximumFractionDigits: 0 }) : String(Number(price.toFixed(price >= 10 ? 2 : 4))),
@@ -79,9 +80,9 @@ export function renderNotification(t: Translator, n: NotificationRow, rawMoney: 
       };
     case "market_price_alert":
       return {
-        title: t("priceAlertTitle", { symbol: String(d.symbol ?? "") }),
+        title: t("priceAlertTitle", { symbol: prettySymbol(d.symbol) }),
         body: t("priceAlertBody", {
-          symbol: String(d.symbol ?? ""),
+          symbol: prettySymbol(d.symbol),
           direction: d.direction === "above" ? "above" : "below",
           target: "\u2066" + fmtNotifPrice(Number(d.target ?? 0)) + "\u2069",
           price: "\u2066" + fmtNotifPrice(Number(d.price ?? 0)) + "\u2069",
@@ -101,14 +102,14 @@ export function renderNotification(t: Translator, n: NotificationRow, rawMoney: 
       if (d.providerName == null || d.size == null) {
         return {
           title: t("copyOpenedTitle"),
-          body: t("copyOpenedBodyLegacy", { symbol: String(d.symbol ?? ""), side: String(d.side ?? "buy") }),
+          body: t("copyOpenedBodyLegacy", { symbol: prettySymbol(d.symbol), side: String(d.side ?? "buy") }),
         };
       }
       return {
         title: t("copyOpenedTitle"),
         body: t("copyOpenedBody", {
           providerName: nameIsolate(d.providerName),
-          symbol: String(d.symbol ?? ""),
+          symbol: prettySymbol(d.symbol),
           side: String(d.side ?? "buy"),
           size: money(Number(d.size)),
           price: fmtNotifPrice(Number(d.price ?? 0)),
@@ -127,7 +128,7 @@ export function renderNotification(t: Translator, n: NotificationRow, rawMoney: 
       }
       const values = {
         providerName: nameIsolate(d.providerName),
-        symbol: String(d.symbol ?? ""),
+        symbol: prettySymbol(d.symbol),
         amount: money(d.positive ? Number(d.amount ?? 0) : -Number(d.amount ?? 0), { signed: true }),
       };
       // Why it closed (0231): the take profit / stop loss / trailing stop the customer set,
@@ -142,7 +143,7 @@ export function renderNotification(t: Translator, n: NotificationRow, rawMoney: 
         title: t("copyReducedTitle"),
         body: t("copyReducedBody", {
           providerName: nameIsolate(d.providerName),
-          symbol: String(d.symbol ?? ""),
+          symbol: prettySymbol(d.symbol),
           opened: money(Number(d.opened ?? 0)),
           required: money(Number(d.required ?? 0)),
           available: money(Number(d.available ?? 0)),
@@ -153,7 +154,7 @@ export function renderNotification(t: Translator, n: NotificationRow, rawMoney: 
         title: t("copySkippedTitle"),
         body: t(d.reason === "below_minimum_size" ? "copySkippedMinBody" : "copySkippedFreeBody", {
           providerName: nameIsolate(d.providerName),
-          symbol: String(d.symbol ?? ""),
+          symbol: prettySymbol(d.symbol),
           available: money(Number(d.available ?? 0)),
         }),
       };
@@ -173,12 +174,12 @@ export function renderNotification(t: Translator, n: NotificationRow, rawMoney: 
     case "followed_trade_closed":
       return {
         title: t("followedTradeClosedTitle"),
-        body: t("followedTradeClosedBody", { providerName: nameIsolate(d.providerName), symbol: String(d.symbol ?? ""), pct: Number(d.pct ?? 0), positive: sign(d.positive) }),
+        body: t("followedTradeClosedBody", { providerName: nameIsolate(d.providerName), symbol: prettySymbol(d.symbol), pct: Number(d.pct ?? 0), positive: sign(d.positive) }),
       };
     case "followed_trade_opened":
       return {
         title: t("followedTradeOpenedTitle", { providerName: nameIsolate(d.providerName) }),
-        body: t("followedTradeOpenedBody", { providerName: nameIsolate(d.providerName), symbol: String(d.symbol ?? ""), side: String(d.side ?? "buy") }),
+        body: t("followedTradeOpenedBody", { providerName: nameIsolate(d.providerName), symbol: prettySymbol(d.symbol), side: String(d.side ?? "buy") }),
       };
     case "kyc_approved":
       return { title: t("kycApprovedTitle"), body: t("kycApprovedBody") };

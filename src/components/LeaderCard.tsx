@@ -6,7 +6,7 @@ import { Sparkline } from "@/components/Sparkline";
 import { ConfirmButton } from "@/components/ConfirmButton";
 import { periodStats, DEFAULT_PERIOD, type Period } from "@/lib/leader-period";
 import { fmtDrawdown, fmtReturn, fmtWinRate, nameIsolate } from "@/lib/format-stats";
-import { adjustedMaxDrawdown } from "@/lib/leader-scores";
+import { drawdownBehindRisk } from "@/lib/leader-scores";
 
 type ProviderCard = {
   provider_id: string;
@@ -31,7 +31,6 @@ export async function LeaderCard({
   provider: p,
   copyHref,
   sparkline,
-  adjustedMdd,
   isWatching,
   onFollowAction,
   followFormField = "providerId",
@@ -43,9 +42,9 @@ export async function LeaderCard({
   copyHref: string;
   /** Cumulative return series in percent (provider_sparklines). */
   sparkline?: number[];
-  /** Kept for callers that still pass it; the card shows the period's drawdown. */
+  /** Kept for callers that still pass it; the card shows the drawdown the risk level is built on. */
   maxDrawdownPct?: number | null;
-  /** Drawdown of the period including floating losses (leader_adjusted_drawdown). */
+  /** Kept for callers that still pass it. */
   adjustedMdd?: number | null;
   /** Kept for callers that still pass it; the card no longer shows a bio. */
   bio?: string | null;
@@ -61,7 +60,8 @@ export async function LeaderCard({
   const stats = periodStats(p, period);
   const isDown = stats.roi != null && stats.roi < 0;
   const hint = stats.sufficient ? undefined : t("insufficientData");
-  const mdd = stats.sufficient ? adjustedMaxDrawdown(stats.mdd, adjustedMdd ?? null) : null;
+  // The drawdown shown is the one the risk badge is built on: the whole record, floating losses included.
+  const mdd = drawdownBehindRisk(p);
   const periodLabel = t(`periodShort_${period}`);
   const isStopped = p.trading_status === "stopped";
   const button = "w-full rounded-lg px-3 py-2.5 text-center text-sm font-bold transition";
@@ -71,9 +71,9 @@ export async function LeaderCard({
       <Link href={`/trader/${p.provider_id}`} aria-label={p.display_name ?? ""} className="absolute inset-0 z-0" />
 
       <div className="flex items-start gap-2.5">
-        <TraderAvatar providerId={p.provider_id} name={p.display_name} avatarUrl={p.avatar_url} ratingScore={p.rating_score} size={44} showLevel />
+        <TraderAvatar providerId={p.provider_id} name={p.display_name} avatarUrl={p.avatar_url} ratingScore={p.rating_score} size={44} />
         <div className="min-w-0 flex-1">
-          <p className="line-clamp-2 break-words text-base font-bold leading-snug">{p.display_name}</p>
+          <p translate="no" className="line-clamp-2 break-words text-base font-bold leading-snug">{p.display_name}</p>
           <div className="mt-1 flex flex-wrap items-center gap-1.5">
             <RiskBadge level={p.risk_level} />
             <StoppedBadge stopped={isStopped} />
@@ -115,11 +115,11 @@ export async function LeaderCard({
           </dd>
           <dt className="text-xs text-muted">{t("winRate")}</dt>
         </div>
-        <div className="border-x border-white/10" title={hint}>
+        <div className="border-x border-white/10" title={t("maxDrawdownAllHint")}>
           <dd className="text-sm font-bold tabular-nums">
             <bdi dir="ltr">{fmtDrawdown(mdd)}</bdi>
           </dd>
-          <dt className="text-xs text-muted">{t("maxDrawdown")}</dt>
+          <dt className="text-xs text-muted">{t("maxDrawdownAll")}</dt>
         </div>
         <div>
           <dd className="text-sm font-bold tabular-nums">{p.followers_count}</dd>

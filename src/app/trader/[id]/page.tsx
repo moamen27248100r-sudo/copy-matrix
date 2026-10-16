@@ -321,7 +321,7 @@ export default async function TraderPage({
           <TraderAvatar providerId={id} name={provider.display_name} avatarUrl={provider.avatar_url} ratingScore={provider.rating_score} size={64} priority />
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
-              <h1 className="max-w-full break-words text-xl font-bold [overflow-wrap:anywhere]">{provider.display_name}</h1>
+              <h1 translate="no" className="max-w-full break-words text-xl font-bold [overflow-wrap:anywhere]">{provider.display_name}</h1>
               {countryDisplay(provider.country) && (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -614,7 +614,7 @@ export default async function TraderPage({
         </section>
       )}
 
-      <RiskFooter demo={!!user && myProfile?.account_type !== "real"} />
+      <RiskFooter />
       </main>
     </>
   );

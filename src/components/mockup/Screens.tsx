@@ -264,7 +264,13 @@ export async function DashboardScreen() {
               <RecentActivityTimeline events={mockActivity()} />
             </div>
             <div className="flex flex-col gap-5">
-              <OnboardingStepsCard profileComplete kycDone firstCopyDone={false} notificationsReady={false} />
+              <OnboardingStepsCard
+                steps={[
+                  { key: "email", done: true, href: "#", label: t("stepConfirmEmail") },
+                  { key: "copy", done: false, href: "#", label: t("stepFirstCopy") },
+                  { key: "notifications", done: false, href: "#", label: t("stepNotifications") },
+                ]}
+              />
               <section className="flex flex-col gap-3">
                 <h2 className="text-base font-semibold">{t("marketPulseTitle")}</h2>
                 <MarketPulseGrid items={MOCK_PULSE} />

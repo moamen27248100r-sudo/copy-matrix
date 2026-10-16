@@ -69,7 +69,7 @@ export function Footer({ dir, navLinks }: { dir: "rtl" | "ltr"; navLinks: NavLin
       <div className="mx-auto mt-8 w-full max-w-5xl border-t border-glass-border pt-6 text-center">
         <p className="mx-auto max-w-2xl text-xs leading-relaxed text-dim">{t("riskDisclaimer")}</p>
         <p className="mt-3 text-xs text-muted">
-          © {new Date().getFullYear()} {PLATFORM_NAME}. {t("rights")}
+          © {new Date().getFullYear()} <span translate="no">{PLATFORM_NAME}</span>. {t("rights")}
         </p>
       </div>
     </footer>

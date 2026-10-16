@@ -90,7 +90,7 @@ export default async function Home() {
       {/* Hero: headline, three short points, the button, the film, then a strip of places to go. */}
       <section className="mx-auto w-full max-w-6xl px-4 pb-6 pt-8 md:px-6 md:pb-12 md:pt-14">
         <h1 className={`${dir === "rtl" ? "max-w-[6em] md:max-w-4xl" : "max-w-4xl"} text-[2.75rem] font-bold leading-[1.08] tracking-tight text-foreground md:text-6xl md:leading-[1.05] lg:text-7xl`}>
-          {t.rich("hero.title", { accent: (chunks) => <span className="text-[#7FA2F5]">{chunks}</span> })}
+          {t.rich("hero.title", { accent: (chunks) => chunks })}
         </h1>
         <div className="mt-6 flex flex-col gap-6 md:mt-8 md:flex-row md:items-center md:justify-between">
           <ul className="flex flex-col gap-3 md:flex-row md:gap-8">

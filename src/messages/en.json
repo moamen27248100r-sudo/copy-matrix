@@ -171,14 +171,6 @@
     "greeting": "Welcome, {name}",
     "accountReal": "Real account",
     "accountDemo": "Demo account",
-    "kycNoneTitle": "Welcome! Please fill in your account details and complete your first deposit.",
-    "kycNoneDesc": "Verification is required to unlock every platform feature, including withdrawal requests.",
-    "kycNoneAction": "Complete",
-    "kycPendingTitle": "Verification request under review",
-    "kycPendingDesc": "You'll be notified as soon as the verification is complete.",
-    "kycRejectedTitle": "Verification request rejected",
-    "kycRejectedDesc": "Please resubmit or contact support to find out why.",
-    "kycRejectedAction": "Resubmit",
     "learnMore": "Learn more",
     "portfolioValue": "Total portfolio value",
     "accountTypeShortReal": "Real",
@@ -228,7 +220,7 @@
     "resetBalance": "Reset balance",
     "onboardingCardTitle": "Start here",
     "stepProfile": "Complete your profile",
-    "stepFirstCopy": "Start your first demo copy",
+    "stepFirstCopy": "Start your first copy",
     "stepProtection": "Enable copy protection",
     "stepNotifications": "Turn on notifications",
     "suggestedTradersTitle": "Suggested traders for you",
@@ -276,7 +268,6 @@
     "benchmarkChartLabel": "Portfolio return compared with the market",
     "returnOnInvested": "Return on net invested",
     "netInvestedLabel": "Net invested",
-    "kycNoneTitleNoDeposit": "Welcome! Please fill in your account details to get started.",
     "riskTitle": "Portfolio risk",
     "riskLow": "Low",
     "riskMedium": "Medium",
@@ -310,8 +301,6 @@
     "marketPulseTitle": "Market moves today",
     "watchlistTitle": "Your watchlist",
     "watchlistEmpty": "Add instruments to follow with the star on the Markets page.",
-    "topTradersWeekTitle": "Top traders this week",
-    "topTradersWeekNote": "By actual return over the last 7 days, only for traders with enough closed trades. Past performance does not guarantee future results.",
     "learnTitle": "Learn",
     "pnlForPeriod": "Profit/loss for the period",
     "result24h": "Last 24 hours",
@@ -322,13 +311,16 @@
     "copiesPerfInvested": "Invested",
     "copiesPerfResult": "Result",
     "marketNewsTitle": "Market news",
-    "whatsNewTitle": "What's new",
-    "whatsNew1Title": "Every trade of a trader is copied",
-    "whatsNew1Desc": "Each copied trade takes the same share of your amount that the trader puts in from their balance, so their simultaneous trades are all copied, and you're told when one opens with less.",
-    "whatsNew2Title": "Quick search",
-    "whatsNew2Desc": "Find any trader or market from the top of any page.",
-    "whatsNew3Title": "Clearer settings",
-    "whatsNew3Desc": "Settings in clear sections, and everything about security on one page."
+    "stepConfirmEmail": "Confirm your email",
+    "stepFirstDeposit": "Make your first deposit",
+    "shortcutCopies": "Copies",
+    "shortcutReset": "Reset balance",
+    "depositsOpenSoon": "Opens soon",
+    "depositsOpenSoonNote": "Deposits will open soon.",
+    "withdrawNoBalance": "No balance",
+    "moversGainers": "Gainers",
+    "moversLosers": "Losers",
+    "moversNone": "No moves to show right now."
   },
   "Common": {
     "level": "Level {level}",
@@ -440,7 +432,8 @@
     "group_yesterday": "Yesterday",
     "group_week": "This week",
     "group_earlier": "Earlier",
-    "zeroClosedSummary": "{count, plural, one {# copied trade} other {# copied trades}} closed with no profit or loss."
+    "zeroClosedSummary": "{count, plural, one {# copied trade} other {# copied trades}} closed with no profit or loss.",
+    "unreadDot": "Unread"
   },
   "Portfolio": {
     "title": "My Portfolio",
@@ -745,7 +738,9 @@
     "insufficientData": "Not enough data for this period",
     "tabTraders": "Traders",
     "tabMarkets": "Markets",
-    "aumOver": "Over {amount}"
+    "aumOver": "Over {amount}",
+    "maxDrawdownAll": "Max drawdown (all)",
+    "maxDrawdownAllHint": "The largest fall from a peak over the whole record, floating losses included. The risk level is built on it."
   },
   "Countries": {
     "US": "United States",
@@ -2510,9 +2505,8 @@
     "linkFallback": "If the button doesn't work, copy this link into your browser:"
   },
   "RiskFooter": {
-    "text": "Trading and copying trades carry a high level of risk, and you may lose all of your capital. Past performance does not guarantee future results.",
-    "readFull": "Read the full risk disclosure",
-    "demoNote": "This is a demo account: the funds and trades in it are simulated."
+    "text": "Trading carries a high risk of loss.",
+    "readFull": "Risk disclosure"
   },
   "Pwa": {
     "installTitle": "Install the app on your phone",
@@ -2556,13 +2550,6 @@
       "p1": "Only use money you can afford to lose. Trading and copying carry a high risk and you can lose the whole amount.",
       "p2": "Every copy has a loss limit: when the loss reaches it, copying stops automatically. A lower limit protects more of your capital but can stop a copy earlier.",
       "p3": "Spread your amount across more than one trader and market, and review your copies regularly instead of reacting to a single trade."
-    },
-    "demo_vs_real": {
-      "title": "Demo account vs. real account",
-      "summary": "Practice with virtual money first, then switch when you are ready.",
-      "p1": "The demo account uses virtual funds and simulated trades. It is for learning how the platform works and how copying behaves, with no real money involved.",
-      "p2": "The real account uses real money: deposits, withdrawals and identity verification apply, and results are real. The two accounts are kept completely separate.",
-      "p3": "You can switch between them from the menu. Switching stops your current copies, so start the ones you want again on the account you choose."
     }
   },
   "CopyCalculator": {
@@ -2582,5 +2569,16 @@
     "note": "A copy follows the trader's results in proportion to your amount, so this applies the trader's actual daily returns to the amount you chose.",
     "noteWithShare": "A copy follows the trader's results in proportion to your amount, so this applies the trader's actual daily returns to the amount you chose, after the {pct}% profit share on the profit.",
     "pastPerformance": "Past performance does not guarantee future results."
+  },
+  "Featured": {
+    "title": "Suggested traders",
+    "viewAll": "View all",
+    "regionLabel": "Suggested traders",
+    "verified": "Verified trader",
+    "return12m": "12-month return",
+    "copiers": "Copiers",
+    "viewProfile": "View profile",
+    "dotsLabel": "Choose a trader",
+    "goTo": "Show trader {n}"
   }
 }

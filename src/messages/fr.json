@@ -171,14 +171,6 @@
     "greeting": "Bienvenue, {name}",
     "accountReal": "Compte réel",
     "accountDemo": "Compte démo",
-    "kycNoneTitle": "Bienvenue ! Veuillez renseigner les détails de votre compte et effectuer votre premier dépôt.",
-    "kycNoneDesc": "La vérification est requise pour débloquer toutes les fonctionnalités de la plateforme, y compris les demandes de retrait.",
-    "kycNoneAction": "Compléter",
-    "kycPendingTitle": "Demande de vérification en cours d'examen",
-    "kycPendingDesc": "Vous serez averti dès que la vérification sera terminée.",
-    "kycRejectedTitle": "Demande de vérification rejetée",
-    "kycRejectedDesc": "Veuillez soumettre à nouveau ou contacter le support pour en connaître la raison.",
-    "kycRejectedAction": "Soumettre à nouveau",
     "learnMore": "En savoir plus",
     "portfolioValue": "Valeur totale du portefeuille",
     "accountTypeShortReal": "Réel",
@@ -228,7 +220,7 @@
     "resetBalance": "Réinitialiser le solde",
     "onboardingCardTitle": "Commencez ici",
     "stepProfile": "Complétez votre profil",
-    "stepFirstCopy": "Lancez votre première copie démo",
+    "stepFirstCopy": "Lancez votre première copie",
     "stepProtection": "Activez la protection de copie",
     "stepNotifications": "Activez les notifications",
     "suggestedTradersTitle": "Traders suggérés pour vous",
@@ -276,7 +268,6 @@
     "benchmarkChartLabel": "Rendement du portefeuille comparé au marché",
     "returnOnInvested": "Rendement sur le net investi",
     "netInvestedLabel": "Net investi",
-    "kycNoneTitleNoDeposit": "Bienvenue ! Veuillez compléter les informations de votre compte pour commencer.",
     "riskTitle": "Risque du portefeuille",
     "riskLow": "Faible",
     "riskMedium": "Moyen",
@@ -310,8 +301,6 @@
     "marketPulseTitle": "Mouvements des marchés aujourd’hui",
     "watchlistTitle": "Votre liste de suivi",
     "watchlistEmpty": "Ajoutez des instruments à suivre avec l’étoile dans la page Marchés.",
-    "topTradersWeekTitle": "Meilleurs traders de la semaine",
-    "topTradersWeekNote": "Selon le rendement réel des 7 derniers jours, uniquement pour les traders avec assez de transactions clôturées. Les performances passées ne garantissent pas les résultats futurs.",
     "learnTitle": "Apprendre",
     "pnlForPeriod": "Gains/pertes sur la période",
     "result24h": "Sur 24 heures",
@@ -322,13 +311,16 @@
     "copiesPerfInvested": "Investi",
     "copiesPerfResult": "Résultat",
     "marketNewsTitle": "Actualités du marché",
-    "whatsNewTitle": "Nouveautés",
-    "whatsNew1Title": "Chaque transaction du trader est copiée",
-    "whatsNew1Desc": "Chaque transaction copiée prend la même part de votre montant que celle du trader sur son solde : ses transactions simultanées sont toutes copiées, et vous êtes averti si l'une s'ouvre avec moins.",
-    "whatsNew2Title": "Recherche rapide",
-    "whatsNew2Desc": "Trouvez un trader ou un marché depuis le haut de chaque page.",
-    "whatsNew3Title": "Des paramètres plus clairs",
-    "whatsNew3Desc": "Des paramètres en sections claires, et tout ce qui concerne la sécurité sur une seule page."
+    "stepConfirmEmail": "Confirmez votre e-mail",
+    "stepFirstDeposit": "Faites votre premier dépôt",
+    "shortcutCopies": "Copies",
+    "shortcutReset": "Réinitialiser le solde",
+    "depositsOpenSoon": "Bientôt",
+    "depositsOpenSoonNote": "Les dépôts ouvriront bientôt.",
+    "withdrawNoBalance": "Aucun solde",
+    "moversGainers": "Hausses",
+    "moversLosers": "Baisses",
+    "moversNone": "Aucun mouvement à afficher pour le moment."
   },
   "Common": {
     "level": "Niveau {level}",
@@ -440,7 +432,8 @@
     "group_yesterday": "Hier",
     "group_week": "Cette semaine",
     "group_earlier": "Plus tôt",
-    "zeroClosedSummary": "{count, plural, one {# trade copié clôturé} other {# trades copiés clôturés}} sans gain ni perte."
+    "zeroClosedSummary": "{count, plural, one {# trade copié clôturé} other {# trades copiés clôturés}} sans gain ni perte.",
+    "unreadDot": "Non lu"
   },
   "Portfolio": {
     "title": "Mon portefeuille",
@@ -745,7 +738,9 @@
     "insufficientData": "Données insuffisantes pour cette période",
     "tabTraders": "Traders",
     "tabMarkets": "Marchés",
-    "aumOver": "Plus de {amount}"
+    "aumOver": "Plus de {amount}",
+    "maxDrawdownAll": "Repli max. (total)",
+    "maxDrawdownAllHint": "La plus forte baisse depuis un sommet sur tout l'historique, pertes latentes comprises. Le niveau de risque en découle."
   },
   "Countries": {
     "US": "États-Unis",
@@ -2507,9 +2502,8 @@
     "linkFallback": "Si le bouton ne fonctionne pas, copiez ce lien dans votre navigateur :"
   },
   "RiskFooter": {
-    "text": "Le trading et la copie de transactions comportent un risque élevé et vous pouvez perdre la totalité de votre capital. Les performances passées ne garantissent pas les résultats futurs.",
-    "readFull": "Lire l’avertissement complet sur les risques",
-    "demoNote": "Ceci est un compte démo : les fonds et les transactions sont simulés."
+    "text": "Le trading comporte un risque élevé de perte.",
+    "readFull": "Avertissement sur les risques"
   },
   "Pwa": {
     "installTitle": "Installez l’application sur votre téléphone",
@@ -2553,13 +2547,6 @@
       "p1": "N’utilisez que de l’argent que vous pouvez vous permettre de perdre. Le trading et la copie comportent un risque élevé et vous pouvez perdre la totalité du montant.",
       "p2": "Chaque copie a une limite de perte : quand la perte l’atteint, la copie s’arrête automatiquement. Une limite plus basse protège davantage votre capital mais peut arrêter une copie plus tôt.",
       "p3": "Répartissez votre montant sur plusieurs traders et marchés, et passez vos copies en revue régulièrement au lieu de réagir à une seule transaction."
-    },
-    "demo_vs_real": {
-      "title": "Compte démo ou compte réel",
-      "summary": "Entraînez-vous d’abord avec de l’argent virtuel, puis passez au réel quand vous êtes prêt.",
-      "p1": "Le compte démo utilise des fonds virtuels et des transactions simulées. Il sert à apprendre le fonctionnement de la plateforme et de la copie, sans argent réel.",
-      "p2": "Le compte réel utilise de l’argent réel : dépôts, retraits et vérification d’identité s’appliquent, et les résultats sont réels. Les deux comptes sont totalement séparés.",
-      "p3": "Vous pouvez passer de l’un à l’autre depuis le menu. Changer arrête vos copies en cours : relancez celles que vous voulez sur le compte choisi."
     }
   },
   "CopyCalculator": {
@@ -2579,5 +2566,16 @@
     "note": "Une copie suit les résultats du trader en proportion de votre montant ; ce calcul applique donc ses rendements quotidiens réels au montant choisi.",
     "noteWithShare": "Une copie suit les résultats du trader en proportion de votre montant ; ce calcul applique ses rendements quotidiens réels au montant choisi, après le partage des bénéfices de {pct} % sur le gain.",
     "pastPerformance": "Les performances passées ne garantissent pas les résultats futurs."
+  },
+  "Featured": {
+    "title": "Traders suggérés",
+    "viewAll": "Tout voir",
+    "regionLabel": "Traders suggérés",
+    "verified": "Trader vérifié",
+    "return12m": "Rendement sur 12 mois",
+    "copiers": "Copieurs",
+    "viewProfile": "Voir le profil",
+    "dotsLabel": "Choisir un trader",
+    "goTo": "Afficher le trader {n}"
   }
 }

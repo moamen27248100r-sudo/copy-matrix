@@ -9,7 +9,6 @@ import { SidebarNav } from "@/components/SidebarNav";
 import { NavDrawerProvider } from "@/components/nav-drawer-context";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/Logo";
-import { HeaderSearch } from "@/components/HeaderSearch";
 import type { Locale } from "@/i18n/locales";
 
 export async function AppNav({ sidebar = true }: { sidebar?: boolean } = {}) {
@@ -90,18 +89,10 @@ export async function AppNav({ sidebar = true }: { sidebar?: boolean } = {}) {
         >
           <Logo iconClassName="h-4 w-4 sm:h-5 sm:w-5" textClassName="text-base sm:text-xl" />
         </Link>
-        {user && sidebar && (
-          <div className="hidden min-w-0 justify-center lg:flex">
-            <HeaderSearch />
-          </div>
-        )}
 
         <div className="flex min-w-0 items-center justify-end gap-0.5 sm:gap-3">
           {user ? (
             <>
-              <span className={sidebar ? "lg:hidden" : ""}>
-                <HeaderSearch />
-              </span>
               <NotificationsMenu notifications={notifications} unreadCount={unreadCount} />
             </>
           ) : (

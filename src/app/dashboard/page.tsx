@@ -9,8 +9,8 @@ import { ChevronRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getUserTimeZone } from "@/lib/timezone";
 import { AppNav } from "@/components/AppNav";
-import { OnboardingStepsCard } from "@/components/OnboardingStepsCard";
-import { TopTradersWeek } from "@/components/TopTradersWeek";
+import { OnboardingStepsCard, type StartStep } from "@/components/OnboardingStepsCard";
+import { FeaturedLeadersSection } from "@/components/home/FeaturedLeadersSection";
 import { HomeWatchlist } from "@/components/HomeWatchlist";
 import { LearnCards } from "@/components/LearnCards";
 import { RecentActivityTimeline, type ActivityEvent } from "@/components/RecentActivityTimeline";
@@ -18,7 +18,6 @@ import { TopMovers } from "@/components/TopMovers";
 import { QuickActions } from "@/components/home/QuickActions";
 import { CopiesPerformance } from "@/components/home/CopiesPerformance";
 import { HomeNews } from "@/components/home/HomeNews";
-import { WhatsNew } from "@/components/home/WhatsNew";
 import { RiskFooter } from "@/components/RiskFooter";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { FlashMessage } from "@/components/ui/Toast";
@@ -82,7 +81,7 @@ export default async function DashboardPage({
     { data: closed24h },
     { data: watchRows },
   ] = await Promise.all([
-    supabase.from("profiles").select("account_type, balance, country").eq("id", user.id).single(),
+    supabase.from("profiles").select("account_type, balance, country, email_verified_at").eq("id", user.id).single(),
     supabase
       .from("kyc_submissions")
       .select("status")
@@ -242,14 +241,44 @@ export default async function DashboardPage({
     .sort((x, y) => new Date(y.at).getTime() - new Date(x.at).getTime())
     .slice(0, 6);
 
-  const kycCopyByStatus: Record<string, { title: string; desc: string; action?: string }> = {
-    none: { title: depositsOn ? t("kycNoneTitle") : t("kycNoneTitleNoDeposit"), desc: t("kycNoneDesc"), action: t("kycNoneAction") },
-    pending: { title: t("kycPendingTitle"), desc: t("kycPendingDesc") },
-    rejected: { title: t("kycRejectedTitle"), desc: t("kycRejectedDesc"), action: t("kycRejectedAction") },
-  };
   const kycStatus = kyc?.status ?? "none";
-  // Identity verification is a real-account matter: a demo account never needs it.
-  const kycCopy = activeType === "real" && kycStatus !== "approved" ? kycCopyByStatus[kycStatus] ?? kycCopyByStatus.none : null;
+  const hasCopies = (subscriptions ?? []).length > 0;
+  const firstCopyDone = (everCopied ?? 0) > 0 || copies.length > 0;
+  const firstDepositDone = (walletRequests ?? []).some((w) => w.type === "deposit");
+
+  // "Start here": each step is ticked only when it is truly done (a verification still under review
+  // is not done; a deposit counts when one was completed).
+  const startSteps: StartStep[] =
+    activeType === "real"
+      ? [
+          { key: "kyc", done: kycStatus === "approved", href: "/kyc", label: t("stepKyc") },
+          { key: "deposit", done: firstDepositDone, href: "/portfolio/deposit", label: t("stepFirstDeposit") },
+          { key: "copy", done: firstCopyDone, href: "/discover", label: t("stepFirstCopy") },
+        ]
+      : [
+          { key: "email", done: !!profile?.email_verified_at, href: "/settings", label: t("stepConfirmEmail") },
+          { key: "copy", done: firstCopyDone, href: "/discover", label: t("stepFirstCopy") },
+          { key: "notifications", done: (prefsCount ?? 0) > 0, href: "/notifications/preferences", label: t("stepNotifications") },
+        ];
+
+  const watchSymbols = (watchRows ?? []).map((w) => String(w.symbol));
+
+  const performance = (
+    <CopiesPerformance
+      rows={copies.map((c) => {
+        const row = byProvider.find((r) => r.provider_id === c.providerId);
+        return {
+          providerId: c.providerId,
+          name: c.name,
+          avatarUrl: c.avatarUrl,
+          rating: c.rating,
+          invested: c.allocated,
+          result: c.total,
+          openCount: Number(row?.open_count ?? 0),
+        };
+      })}
+    />
+  );
 
   return (
     <>
@@ -259,8 +288,8 @@ export default async function DashboardPage({
 
         {error && <FlashMessage tone="error">{error}</FlashMessage>}
 
-        {/* Portfolio summary: value, the last 24 hours, open trades, then how it is split, and the two
-            next steps (deposit, find a trader). The full wallet with its chart is one tap away. */}
+        {/* 1. The balance card: value, the last 24 hours, open trades, then how it is split. The full
+            wallet with its chart is one tap away. */}
         <section className="flex flex-col gap-5 rounded-[20px] border border-border bg-surface p-5 md:p-6">
           <div className="flex items-center justify-between gap-3">
             <span className="flex min-w-0 flex-wrap items-center gap-2 text-sm text-muted">
@@ -314,108 +343,36 @@ export default async function DashboardPage({
           </dl>
         </section>
 
-        {kycCopy && (
-          <div className="flex flex-col gap-4 rounded-[20px] border border-warning/30 bg-warning/10 p-5 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="text-sm font-medium">{kycCopy.title}</p>
-              <p className="mt-0.5 text-xs text-muted">{kycCopy.desc}</p>
-            </div>
-            {kycCopy.action && (
-              <div className="flex shrink-0 gap-2">
-                <Link
-                  href="/kyc"
-                  className="rounded-lg bg-warning px-4 py-2 text-center text-sm font-bold text-background transition hover:brightness-110"
-                >
-                  {kycCopy.action}
-                </Link>
-                <Link
-                  href="/kyc/steps"
-                  className="rounded-lg border border-border px-4 py-2 text-center text-sm text-foreground transition hover:border-accent hover:text-accent"
-                >
-                  {t("learnMore")}
-                </Link>
-              </div>
-            )}
-          </div>
-        )}
+        {/* 2. Shortcuts. */}
+        <QuickActions mode={activeType === "demo" ? "practice" : "real"} depositsOn={depositsOn} hasBalance={Number(profile?.balance ?? 0) > 0} />
+        {activeType === "real" && !depositsOn && <p className="-mt-3 text-center text-xs text-muted">{t("depositsOpenSoonNote")}</p>}
 
-        {(() => {
-          const startHere = (
-            <OnboardingStepsCard
-              profileComplete={!!profile?.country}
-              kycDone={kycStatus === "approved" || kycStatus === "pending"}
-              firstCopyDone={(everCopied ?? 0) > 0 || copies.length > 0}
-              notificationsReady={(prefsCount ?? 0) > 0}
-            />
-          );
-          const performance = (
-            <CopiesPerformance
-              rows={copies.map((c) => {
-                const row = byProvider.find((r) => r.provider_id === c.providerId);
-                return {
-                  providerId: c.providerId,
-                  name: c.name,
-                  avatarUrl: c.avatarUrl,
-                  rating: c.rating,
-                  invested: c.allocated,
-                  result: c.total,
-                  openCount: Number(row?.open_count ?? 0),
-                };
-              })}
-            />
-          );
-          const watchlist = (
-            <Suspense fallback={<SectionSkeleton height="h-[347px] md:h-[206px]" />}>
-              <HomeWatchlist userId={user.id} />
-            </Suspense>
-          );
-          const moves = (
-            <Suspense fallback={<SectionSkeleton height="h-[305px] md:h-[216px]" />}>
-              <TopMovers />
-            </Suspense>
-          );
-          const news = (
-            <Suspense fallback={<SectionSkeleton height="h-[388px] md:h-[314px]" />}>
-              <HomeNews symbols={(watchRows ?? []).map((w) => String(w.symbol))} />
-            </Suspense>
-          );
-          const traders = (
-            <Suspense fallback={<SectionSkeleton height="h-[497px] md:h-[460px]" />}>
-              <TopTradersWeek excludeProviderIds={providerIds} />
-            </Suspense>
-          );
-          // Active customer (eToro / Bybit order): how their copies are doing, what they follow, the
-          // market, what happened, then other traders and learning. New customer (Bybit Lite /
-          // Bitget new-user steps): the first steps, traders to start with, the market, learning.
-          // Decided by the active copies themselves, so a slow totals call never shows the new-customer page.
-          return (subscriptions ?? []).length > 0 ? (
-            <>
-              <QuickActions />
-              {performance}
-              {watchlist}
-              {moves}
-              {news}
-              <RecentActivityTimeline events={activityEvents} />
-              {traders}
-              <LearnCards />
-              <WhatsNew />
-            </>
-          ) : (
-            <>
-              <QuickActions />
-              {startHere}
-              {traders}
-              {moves}
-              {watchlist}
-              {news}
-              <RecentActivityTimeline events={activityEvents} />
-              <LearnCards />
-              <WhatsNew />
-            </>
-          );
-        })()}
+        {/* An active customer sees how the copies are doing straight after the shortcuts. */}
+        {hasCopies && performance}
 
-        <RiskFooter demo={activeType === "demo"} />
+        {/* 3. Start here (until every step is done). */}
+        <OnboardingStepsCard steps={startSteps} />
+
+        {/* 4. Suggested traders: big portrait cards. 5. Watchlist. 6. Market moves. 7. News. */}
+        <Suspense fallback={<SectionSkeleton height="h-[497px] md:h-[460px]" />}>
+          <FeaturedLeadersSection excludeProviderIds={providerIds} />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton height="h-[347px] md:h-[206px]" />}>
+          <HomeWatchlist userId={user.id} />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton height="h-[305px] md:h-[216px]" />}>
+          <TopMovers excludeSymbols={watchSymbols} />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton height="h-[388px] md:h-[314px]" />}>
+          <HomeNews symbols={watchSymbols} />
+        </Suspense>
+
+        {hasCopies && <RecentActivityTimeline events={activityEvents} />}
+
+        {/* 8. Learn, then the risk warning. */}
+        <LearnCards />
+
+        <RiskFooter />
       </AppMain>
     </>
   );

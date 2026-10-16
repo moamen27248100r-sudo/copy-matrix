@@ -171,14 +171,6 @@
     "greeting": "欢迎，{name}",
     "accountReal": "真实账户",
     "accountDemo": "模拟账户",
-    "kycNoneTitle": "欢迎！请填写您的账户信息并完成首次存款。",
-    "kycNoneDesc": "需要完成身份验证才能解锁平台的所有功能，包括提现申请。",
-    "kycNoneAction": "完成",
-    "kycPendingTitle": "验证申请审核中",
-    "kycPendingDesc": "验证完成后我们会立即通知您。",
-    "kycRejectedTitle": "验证申请被拒绝",
-    "kycRejectedDesc": "请重新提交或联系客服了解原因。",
-    "kycRejectedAction": "重新提交",
     "learnMore": "了解更多",
     "portfolioValue": "投资组合总价值",
     "accountTypeShortReal": "真实",
@@ -228,7 +220,7 @@
     "resetBalance": "重置余额",
     "onboardingCardTitle": "从这里开始",
     "stepProfile": "完善个人资料",
-    "stepFirstCopy": "开始第一次模拟跟单",
+    "stepFirstCopy": "开始你的第一次跟单",
     "stepProtection": "启用跟单保护",
     "stepNotifications": "开启通知",
     "suggestedTradersTitle": "为你推荐的交易者",
@@ -276,7 +268,6 @@
     "benchmarkChartLabel": "投资组合收益与市场对比",
     "returnOnInvested": "净投入收益率",
     "netInvestedLabel": "净投入",
-    "kycNoneTitleNoDeposit": "欢迎！请先完善您的账户资料。",
     "riskTitle": "组合风险",
     "riskLow": "低",
     "riskMedium": "中",
@@ -310,8 +301,6 @@
     "marketPulseTitle": "今日市场动态",
     "watchlistTitle": "我的自选",
     "watchlistEmpty": "在市场页用星标添加要关注的品种。",
-    "topTradersWeekTitle": "本周优秀交易员",
-    "topTradersWeekNote": "按最近 7 天的实际收益排序，仅包含已平仓交易足够多的交易员。过往业绩不代表未来表现。",
     "learnTitle": "学习",
     "pnlForPeriod": "期间盈亏",
     "result24h": "过去 24 小时",
@@ -322,13 +311,16 @@
     "copiesPerfInvested": "投入",
     "copiesPerfResult": "结果",
     "marketNewsTitle": "市场新闻",
-    "whatsNewTitle": "新功能",
-    "whatsNew1Title": "交易员的每笔交易都会被复制",
-    "whatsNew1Desc": "每笔跟单交易占用您金额的比例与交易员占用其余额的比例相同，因此他同时开的交易都会被复制；若某笔以较少金额开仓，您会收到通知。",
-    "whatsNew2Title": "快速搜索",
-    "whatsNew2Desc": "在任意页面顶部查找交易员或市场。",
-    "whatsNew3Title": "更清晰的设置",
-    "whatsNew3Desc": "设置分区清晰，安全相关内容集中在一个页面。"
+    "stepConfirmEmail": "确认你的邮箱",
+    "stepFirstDeposit": "完成你的第一笔存款",
+    "shortcutCopies": "跟单",
+    "shortcutReset": "重置余额",
+    "depositsOpenSoon": "即将开放",
+    "depositsOpenSoonNote": "存款功能即将开放。",
+    "withdrawNoBalance": "无余额",
+    "moversGainers": "涨幅榜",
+    "moversLosers": "跌幅榜",
+    "moversNone": "目前没有可显示的行情变动。"
   },
   "Common": {
     "level": "等级 {level}",
@@ -440,7 +432,8 @@
     "group_yesterday": "昨天",
     "group_week": "本周",
     "group_earlier": "更早",
-    "zeroClosedSummary": "{count} 笔跟单交易以不盈不亏平仓。"
+    "zeroClosedSummary": "{count} 笔跟单交易以不盈不亏平仓。",
+    "unreadDot": "未读"
   },
   "Portfolio": {
     "title": "我的资产",
@@ -745,7 +738,9 @@
     "insufficientData": "该时段数据不足",
     "tabTraders": "交易员",
     "tabMarkets": "市场",
-    "aumOver": "超过 {amount}"
+    "aumOver": "超过 {amount}",
+    "maxDrawdownAll": "最大回撤（全部）",
+    "maxDrawdownAllHint": "整个历史记录中从峰值起的最大跌幅，包含浮动亏损。风险等级以此为依据。"
   },
   "Countries": {
     "US": "美国",
@@ -2507,9 +2502,8 @@
     "linkFallback": "如果按钮无法使用，请将此链接复制到浏览器："
   },
   "RiskFooter": {
-    "text": "交易和跟单交易具有高风险，您可能会损失全部本金。过往业绩不代表未来表现。",
-    "readFull": "阅读完整风险披露",
-    "demoNote": "这是模拟账户：其中的资金和交易均为模拟。"
+    "text": "交易存在较高的亏损风险。",
+    "readFull": "风险披露"
   },
   "Pwa": {
     "installTitle": "把应用安装到手机",
@@ -2553,13 +2547,6 @@
       "p1": "只使用您能承受损失的资金。交易和跟单风险很高，您可能损失全部金额。",
       "p2": "每个跟单都有亏损限额：亏损达到后会自动停止跟单。限额越低越能保护本金，但可能更早停止跟单。",
       "p3": "把资金分散到多位交易员和多个市场，并定期检查跟单，而不是对单笔交易作出反应。"
-    },
-    "demo_vs_real": {
-      "title": "模拟账户与真实账户",
-      "summary": "先用虚拟资金练习，准备好后再切换。",
-      "p1": "模拟账户使用虚拟资金和模拟交易，用于了解平台和跟单的运作方式，不涉及真实资金。",
-      "p2": "真实账户使用真实资金：涉及入金、出金和身份验证，结果也是真实的。两个账户完全分开。",
-      "p3": "您可以在菜单中切换。切换会停止当前的跟单，请在所选账户中重新开始想要的跟单。"
     }
   },
   "CopyCalculator": {
@@ -2579,5 +2566,16 @@
     "note": "跟单按您的金额比例跟随交易员的结果，因此此计算将其实际每日收益应用于您选择的金额。",
     "noteWithShare": "跟单按您的金额比例跟随交易员的结果，因此此计算将其实际每日收益应用于您选择的金额，并扣除盈利部分 {pct}% 的利润分成。",
     "pastPerformance": "过往业绩不代表未来结果。"
+  },
+  "Featured": {
+    "title": "推荐交易员",
+    "viewAll": "查看全部",
+    "regionLabel": "推荐交易员",
+    "verified": "已验证交易员",
+    "return12m": "12 个月收益",
+    "copiers": "跟单人数",
+    "viewProfile": "查看资料",
+    "dotsLabel": "选择交易员",
+    "goTo": "显示第 {n} 位交易员"
   }
 }

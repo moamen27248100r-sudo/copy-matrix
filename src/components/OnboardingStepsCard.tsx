@@ -1,29 +1,16 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 
-// The "start in 4 steps" checklist on the home page. It stays until all four steps are done, then
-// it disappears for good.
-export async function OnboardingStepsCard({
-  profileComplete,
-  kycDone,
-  firstCopyDone,
-  notificationsReady,
-}: {
-  profileComplete: boolean;
-  kycDone: boolean;
-  firstCopyDone: boolean;
-  notificationsReady: boolean;
-}) {
-  const t = await getTranslations("Dashboard");
+export type StartStep = { key: string; done: boolean; href: string; label: string };
 
-  const steps = [
-    { done: profileComplete, href: "/settings", label: t("stepProfile") },
-    { done: kycDone, href: "/kyc", label: t("stepKyc") },
-    { done: firstCopyDone, href: "/discover", label: t("stepFirstCopy") },
-    { done: notificationsReady, href: "/notifications/preferences", label: t("stepNotifications") },
-  ];
+// "Start here" on the home page: a short checklist whose steps are ticked only when they are truly
+// done. A practice account: confirm the email, make the first copy, turn on notifications. A real
+// account: verify the identity, make the first deposit, make the first copy. It disappears for good
+// once every step is done.
+export async function OnboardingStepsCard({ steps }: { steps: StartStep[] }) {
+  const t = await getTranslations("Dashboard");
   const doneCount = steps.filter((s) => s.done).length;
-  if (doneCount === steps.length) return null;
+  if (steps.length === 0 || doneCount === steps.length) return null;
   const progressPct = (doneCount / steps.length) * 100;
 
   return (
@@ -41,11 +28,7 @@ export async function OnboardingStepsCard({
 
       <div className="flex flex-col gap-1">
         {steps.map((step) => (
-          <Link
-            key={step.label}
-            href={step.href}
-            className="flex items-center gap-3 rounded-xl px-2 py-2 transition hover:bg-white/5"
-          >
+          <Link key={step.key} href={step.href} className="flex items-center gap-3 rounded-xl px-2 py-2 transition hover:bg-white/5">
             <span
               className={
                 step.done
@@ -59,9 +42,7 @@ export async function OnboardingStepsCard({
                 </svg>
               )}
             </span>
-            <span className={step.done ? "text-sm text-muted line-through" : "text-sm text-foreground"}>
-              {step.label}
-            </span>
+            <span className={step.done ? "text-sm text-muted line-through" : "text-sm text-foreground"}>{step.label}</span>
           </Link>
         ))}
       </div>

@@ -1,3 +1,4 @@
+import { NoTranslateMarker } from "@/components/NoTranslateMarker";
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans_Arabic, Inter } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
@@ -103,6 +104,7 @@ export default async function RootLayout({
           <Suspense fallback={null}>
             <StripFlashParams />
           </Suspense>
+          <NoTranslateMarker />
           <ToastProvider>{children}</ToastProvider>
           {hasSession && <BottomNav />}
         </NextIntlClientProvider>

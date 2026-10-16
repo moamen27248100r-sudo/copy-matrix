@@ -10,7 +10,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import { defaultAvatarUrl } from "@/lib/avatar-url";
+import { avatarSrc, defaultAvatarUrl } from "@/lib/avatar-url";
 import { leaderLevel } from "@/lib/leader-level";
 
 const LEVEL_STYLES: Record<number, string> = {
@@ -59,7 +59,7 @@ export function TraderAvatar({
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         ref={imgRef}
-        src={failed ? fallback : avatarUrl || fallback}
+        src={failed ? fallback : avatarSrc(providerId, avatarUrl)}
         onError={() => setFailed(true)}
         alt={name ?? ""}
         width={size}

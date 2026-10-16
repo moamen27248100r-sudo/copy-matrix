@@ -14,8 +14,12 @@ export const SUPPORTED_LOCALES = [
   "sw",
 ] as const;
 export type Locale = (typeof SUPPORTED_LOCALES)[number];
-export const DEFAULT_LOCALE: Locale = "ar";
-export const LOCALE_COOKIE = "locale";
+// The platform always opens in English; the language only changes when the visitor picks one in the
+// language switcher. There is no detection from the device or browser language.
+export const DEFAULT_LOCALE: Locale = "en";
+// A new cookie name: the old "locale" cookie was set automatically from the browser language, so it
+// is ignored and every visitor starts in English once.
+export const LOCALE_COOKIE = "cm_lang";
 
 const RTL_LOCALES: readonly Locale[] = ["ar", "ur"];
 

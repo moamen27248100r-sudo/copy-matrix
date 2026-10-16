@@ -171,14 +171,6 @@
     "greeting": "Karibu, {name}",
     "accountReal": "Akaunti halisi",
     "accountDemo": "Akaunti ya majaribio",
-    "kycNoneTitle": "Karibu! Tafadhali jaza maelezo ya akaunti yako na kamilisha amana yako ya kwanza.",
-    "kycNoneDesc": "Uthibitisho unahitajika ili kufungua vipengele vyote vya jukwaa, ikiwa ni pamoja na maombi ya kutoa fedha.",
-    "kycNoneAction": "Kamilisha",
-    "kycPendingTitle": "Ombi la uthibitisho linakaguliwa",
-    "kycPendingDesc": "Utaarifiwa mara tu uthibitishaji utakapokamilika.",
-    "kycRejectedTitle": "Ombi la uthibitisho limekataliwa",
-    "kycRejectedDesc": "Tafadhali wasilisha tena au wasiliana na msaada ili kujua sababu.",
-    "kycRejectedAction": "Wasilisha tena",
     "learnMore": "Jifunze zaidi",
     "portfolioValue": "Thamani jumla ya jalada",
     "accountTypeShortReal": "Halisi",
@@ -228,7 +220,7 @@
     "resetBalance": "Weka upya salio",
     "onboardingCardTitle": "Anzia hapa",
     "stepProfile": "Kamilisha wasifu wako",
-    "stepFirstCopy": "Anza nakala yako ya kwanza ya majaribio",
+    "stepFirstCopy": "Anza nakala yako ya kwanza",
     "stepProtection": "Washa ulinzi wa kunakili",
     "stepNotifications": "Washa arifa",
     "suggestedTradersTitle": "Wafanyabiashara waliopendekezwa kwako",
@@ -276,7 +268,6 @@
     "benchmarkChartLabel": "Mapato ya jalada dhidi ya soko",
     "returnOnInvested": "Mapato kwa uwekezaji halisi",
     "netInvestedLabel": "Uwekezaji halisi",
-    "kycNoneTitleNoDeposit": "Karibu! Tafadhali jaza maelezo ya akaunti yako ili kuanza.",
     "riskTitle": "Hatari ya jalada",
     "riskLow": "Chini",
     "riskMedium": "Wastani",
@@ -310,8 +301,6 @@
     "marketPulseTitle": "Mwendo wa masoko leo",
     "watchlistTitle": "Orodha yako ya ufuatiliaji",
     "watchlistEmpty": "Ongeza vyombo vya kufuatilia kwa nyota kwenye ukurasa wa Masoko.",
-    "topTradersWeekTitle": "Wafanyabiashara bora wa wiki hii",
-    "topTradersWeekNote": "Kwa faida halisi ya siku 7 zilizopita, kwa wafanyabiashara wenye biashara zilizofungwa za kutosha tu. Utendaji wa zamani hauhakikishi matokeo ya baadaye.",
     "learnTitle": "Jifunze",
     "pnlForPeriod": "Faida/hasara ya kipindi",
     "result24h": "Saa 24 zilizopita",
@@ -322,13 +311,16 @@
     "copiesPerfInvested": "Imewekezwa",
     "copiesPerfResult": "Matokeo",
     "marketNewsTitle": "Habari za soko",
-    "whatsNewTitle": "Mapya",
-    "whatsNew1Title": "Kila biashara ya mfanyabiashara inanakiliwa",
-    "whatsNew1Desc": "Kila biashara iliyonakiliwa inachukua sehemu ile ile ya kiasi chako ambayo mfanyabiashara anaweka kutoka salio lake, hivyo biashara zake zote za wakati mmoja zinanakiliwa, na unaarifiwa moja ikifunguliwa kwa kiasi kidogo.",
-    "whatsNew2Title": "Utafutaji wa haraka",
-    "whatsNew2Desc": "Tafuta mfanyabiashara au soko lolote kutoka juu ya ukurasa wowote.",
-    "whatsNew3Title": "Mipangilio iliyo wazi zaidi",
-    "whatsNew3Desc": "Mipangilio katika sehemu zilizo wazi, na kila kitu cha usalama kwenye ukurasa mmoja."
+    "stepConfirmEmail": "Thibitisha barua pepe yako",
+    "stepFirstDeposit": "Weka amana yako ya kwanza",
+    "shortcutCopies": "Nakala",
+    "shortcutReset": "Weka upya salio",
+    "depositsOpenSoon": "Inafunguliwa hivi karibuni",
+    "depositsOpenSoonNote": "Kuweka pesa kutafunguliwa hivi karibuni.",
+    "withdrawNoBalance": "Hakuna salio",
+    "moversGainers": "Zilizopanda zaidi",
+    "moversLosers": "Zilizoshuka zaidi",
+    "moversNone": "Hakuna mabadiliko ya kuonyesha sasa."
   },
   "Common": {
     "level": "Kiwango {level}",
@@ -440,7 +432,8 @@
     "group_yesterday": "Jana",
     "group_week": "Wiki hii",
     "group_earlier": "Awali",
-    "zeroClosedSummary": "Biashara {count} zilizonakiliwa zimefungwa bila faida wala hasara."
+    "zeroClosedSummary": "Biashara {count} zilizonakiliwa zimefungwa bila faida wala hasara.",
+    "unreadDot": "Haijasomwa"
   },
   "Portfolio": {
     "title": "Jalada Langu",
@@ -745,7 +738,9 @@
     "insufficientData": "Data haitoshi kwa kipindi hiki",
     "tabTraders": "Wafanyabiashara",
     "tabMarkets": "Masoko",
-    "aumOver": "Zaidi ya {amount}"
+    "aumOver": "Zaidi ya {amount}",
+    "maxDrawdownAll": "Kushuka juu zaidi (yote)",
+    "maxDrawdownAllHint": "Kushuka kukubwa zaidi kutoka kilele katika rekodi nzima, ikijumuisha hasara zinazoelea. Kiwango cha hatari kinatokana nayo."
   },
   "Countries": {
     "US": "Marekani",
@@ -2506,9 +2501,8 @@
     "linkFallback": "Kama kitufe hakifanyi kazi, nakili kiungo hiki kwenye kivinjari:"
   },
   "RiskFooter": {
-    "text": "Biashara na kunakili biashara kuna hatari kubwa, na unaweza kupoteza mtaji wako wote. Utendaji wa zamani hauhakikishi matokeo ya baadaye.",
-    "readFull": "Soma ufichuzi kamili wa hatari",
-    "demoNote": "Huu ni akaunti ya majaribio: fedha na biashara ni za kuigiza."
+    "text": "Biashara ina hatari kubwa ya hasara.",
+    "readFull": "Ufichuzi wa hatari"
   },
   "Pwa": {
     "installTitle": "Sakinisha programu kwenye simu yako",
@@ -2552,13 +2546,6 @@
       "p1": "Tumia pesa unazoweza kumudu kupoteza tu. Biashara na kunakili kuna hatari kubwa na unaweza kupoteza kiasi chote.",
       "p2": "Kila nakala ina kikomo cha hasara: hasara ikikifikia, kunakili husimama kiotomatiki. Kikomo cha chini kinalinda mtaji zaidi lakini kinaweza kusimamisha nakala mapema.",
       "p3": "Gawanya kiasi chako kwa wafanyabiashara na masoko zaidi ya mmoja, na pitia nakala zako mara kwa mara badala ya kuguswa na biashara moja."
-    },
-    "demo_vs_real": {
-      "title": "Akaunti ya majaribio na akaunti halisi",
-      "summary": "Fanya mazoezi kwa pesa za kuigiza kwanza, kisha ubadilishe ukiwa tayari.",
-      "p1": "Akaunti ya majaribio hutumia fedha za kuigiza na biashara za kuiga. Ni ya kujifunza jinsi jukwaa na kunakili kunavyofanya kazi bila pesa halisi.",
-      "p2": "Akaunti halisi hutumia pesa halisi: uwekaji, utoaji na uthibitisho wa utambulisho vinatumika, na matokeo ni halisi. Akaunti hizo mbili zimetenganishwa kabisa.",
-      "p3": "Unaweza kubadilisha kati yao kutoka kwenye menyu. Kubadilisha husimamisha nakala zako za sasa, kwa hiyo anza upya unazotaka kwenye akaunti uliyochagua."
     }
   },
   "CopyCalculator": {
@@ -2578,5 +2565,16 @@
     "note": "Nakala hufuata matokeo ya mfanyabiashara kwa uwiano wa kiasi chako, kwa hiyo hesabu hii inatumia faida zake halisi za kila siku kwenye kiasi ulichochagua.",
     "noteWithShare": "Nakala hufuata matokeo ya mfanyabiashara kwa uwiano wa kiasi chako; hesabu hii inatumia faida zake halisi za kila siku kwenye kiasi chako, baada ya mgao wa faida wa {pct}% kwenye faida.",
     "pastPerformance": "Utendaji wa zamani hauhakikishi matokeo ya baadaye."
+  },
+  "Featured": {
+    "title": "Wafanyabiashara waliopendekezwa",
+    "viewAll": "Tazama wote",
+    "regionLabel": "Wafanyabiashara waliopendekezwa",
+    "verified": "Mfanyabiashara aliyethibitishwa",
+    "return12m": "Faida ya miezi 12",
+    "copiers": "Wanakili",
+    "viewProfile": "Tazama wasifu",
+    "dotsLabel": "Chagua mfanyabiashara",
+    "goTo": "Onyesha mfanyabiashara {n}"
   }
 }

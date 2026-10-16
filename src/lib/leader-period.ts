@@ -11,6 +11,9 @@ export function parsePeriod(value: string | undefined): Period {
   return (PERIODS as readonly string[]).includes(value ?? "") ? (value as Period) : DEFAULT_PERIOD;
 }
 
+/** Days of history the small curve of a card covers: the same window as the return shown next to it ("all" = the last 12 months, the longest curve the database serves). */
+export const sparkDays = (p: Period): number => (p === "all" ? 365 : Number(p));
+
 const suffix = (p: Period) => (p === "all" ? "all" : `${p}d`);
 
 export function periodColumns(p: Period) {

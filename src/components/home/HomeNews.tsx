@@ -1,5 +1,5 @@
 import { getLocale, getTranslations } from "next-intl/server";
-import { getMarketNewsFor, topicsForSymbols, type NewsTopic } from "@/lib/market-news";
+import { getMarketNewsFor, relatedAsset, topicsForSymbols, type NewsTopic } from "@/lib/market-news";
 import { formatRelativeTime } from "@/lib/locale-format";
 import type { Locale } from "@/i18n/locales";
 
@@ -19,10 +19,20 @@ export async function HomeNews({ symbols, limit = 4 }: { symbols: string[]; limi
           <li key={n.link}>
             <a href={n.link} target="_blank" rel="noopener noreferrer" dir="auto" className="flex min-h-14 flex-col gap-1 px-4 py-3 text-start transition hover:bg-white/[0.03]">
               <span className="text-sm font-medium leading-snug">{n.title}</span>
-              <span className="text-xs text-muted">
+              <span className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted">
+                {(() => {
+                  const asset = relatedAsset(n.title);
+                  return asset ? (
+                    <span translate="no" dir="ltr" className="rounded-full border border-border bg-background px-2 py-0.5 font-medium text-foreground">
+                      {asset.label}
+                    </span>
+                  ) : null;
+                })()}
+                <span>
                 {n.source === "Investing.com"
                   ? t("newsSourceOnly", { source: n.source, time: formatRelativeTime(n.pubDate, locale) })
                   : t("newsSourceLine", { source: n.source, time: formatRelativeTime(n.pubDate, locale) })}
+                </span>
               </span>
             </a>
           </li>

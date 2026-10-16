@@ -212,7 +212,7 @@ export default async function CopiesPage({
 
         {tab === "profit-share" && <ProfitShareLedger userId={user.id} />}
 
-        <RiskFooter demo={profile?.account_type !== "real"} />
+        <RiskFooter />
       </AppMain>
     </>
   );

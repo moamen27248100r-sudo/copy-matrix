@@ -363,7 +363,7 @@ export default async function PortfolioPage({
           </Link>
         </section>
 
-        <RiskFooter demo={isDemo} />
+        <RiskFooter />
       </AppMain>
     </>
   );

@@ -171,14 +171,6 @@
     "greeting": "Bem-vindo, {name}",
     "accountReal": "Conta real",
     "accountDemo": "Conta demo",
-    "kycNoneTitle": "Bem-vindo! Preencha os detalhes da sua conta e conclua seu primeiro depósito.",
-    "kycNoneDesc": "A verificação é necessária para desbloquear todos os recursos da plataforma, incluindo solicitações de saque.",
-    "kycNoneAction": "Concluir",
-    "kycPendingTitle": "Solicitação de verificação em análise",
-    "kycPendingDesc": "Será notificado assim que a verificação for concluída.",
-    "kycRejectedTitle": "Solicitação de verificação rejeitada",
-    "kycRejectedDesc": "Reenvie ou entre em contato com o suporte para saber o motivo.",
-    "kycRejectedAction": "Reenviar",
     "learnMore": "Saiba mais",
     "portfolioValue": "Valor total da carteira",
     "accountTypeShortReal": "Real",
@@ -228,7 +220,7 @@
     "resetBalance": "Redefinir saldo",
     "onboardingCardTitle": "Comece aqui",
     "stepProfile": "Complete seu perfil",
-    "stepFirstCopy": "Comece sua primeira cópia demo",
+    "stepFirstCopy": "Comece a sua primeira cópia",
     "stepProtection": "Ative a proteção de cópia",
     "stepNotifications": "Ative as notificações",
     "suggestedTradersTitle": "Traders sugeridos para você",
@@ -276,7 +268,6 @@
     "benchmarkChartLabel": "Retorno da carteira em comparação com o mercado",
     "returnOnInvested": "Retorno sobre o líquido investido",
     "netInvestedLabel": "Líquido investido",
-    "kycNoneTitleNoDeposit": "Bem-vindo! Preencha os dados da sua conta para começar.",
     "riskTitle": "Risco da carteira",
     "riskLow": "Baixo",
     "riskMedium": "Médio",
@@ -310,8 +301,6 @@
     "marketPulseTitle": "Movimentos do mercado hoje",
     "watchlistTitle": "Sua lista de observação",
     "watchlistEmpty": "Adicione instrumentos para acompanhar com a estrela na página Mercados.",
-    "topTradersWeekTitle": "Melhores traders da semana",
-    "topTradersWeekNote": "Pelo retorno real dos últimos 7 dias, apenas traders com operações encerradas suficientes. O desempenho passado não garante resultados futuros.",
     "learnTitle": "Aprenda",
     "pnlForPeriod": "Lucro/prejuízo do período",
     "result24h": "Últimas 24 horas",
@@ -322,13 +311,16 @@
     "copiesPerfInvested": "Investido",
     "copiesPerfResult": "Resultado",
     "marketNewsTitle": "Notícias do mercado",
-    "whatsNewTitle": "Novidades",
-    "whatsNew1Title": "Toda operação do trader é copiada",
-    "whatsNew1Desc": "Cada operação copiada usa a mesma parte do seu valor que o trader usa do saldo dele, então todas as operações simultâneas são copiadas, e você é avisado quando uma abre com menos.",
-    "whatsNew2Title": "Busca rápida",
-    "whatsNew2Desc": "Encontre qualquer trader ou mercado no topo de qualquer página.",
-    "whatsNew3Title": "Configurações mais claras",
-    "whatsNew3Desc": "Configurações em seções claras e tudo sobre segurança em uma só página."
+    "stepConfirmEmail": "Confirme o seu e-mail",
+    "stepFirstDeposit": "Faça o seu primeiro depósito",
+    "shortcutCopies": "Cópias",
+    "shortcutReset": "Redefinir saldo",
+    "depositsOpenSoon": "Em breve",
+    "depositsOpenSoonNote": "Os depósitos abrirão em breve.",
+    "withdrawNoBalance": "Sem saldo",
+    "moversGainers": "Maiores altas",
+    "moversLosers": "Maiores quedas",
+    "moversNone": "Nenhum movimento para mostrar agora."
   },
   "Common": {
     "level": "Nível {level}",
@@ -440,7 +432,8 @@
     "group_yesterday": "Ontem",
     "group_week": "Esta semana",
     "group_earlier": "Anteriores",
-    "zeroClosedSummary": "{count, plural, one {# operação copiada fechada} other {# operações copiadas fechadas}} sem lucro nem prejuízo."
+    "zeroClosedSummary": "{count, plural, one {# operação copiada fechada} other {# operações copiadas fechadas}} sem lucro nem prejuízo.",
+    "unreadDot": "Não lida"
   },
   "Portfolio": {
     "title": "Minha carteira",
@@ -745,7 +738,9 @@
     "insufficientData": "Dados insuficientes para este período",
     "tabTraders": "Traders",
     "tabMarkets": "Mercados",
-    "aumOver": "Mais de {amount}"
+    "aumOver": "Mais de {amount}",
+    "maxDrawdownAll": "Queda máx. (total)",
+    "maxDrawdownAllHint": "A maior queda a partir de um pico em todo o histórico, incluindo perdas flutuantes. O nível de risco baseia-se nela."
   },
   "Countries": {
     "US": "Estados Unidos",
@@ -2509,9 +2504,8 @@
     "linkFallback": "Se o botão não funcionar, copie este link para o navegador:"
   },
   "RiskFooter": {
-    "text": "Negociar e copiar operações envolve risco elevado e você pode perder todo o seu capital. O desempenho passado não garante resultados futuros.",
-    "readFull": "Ler o aviso de risco completo",
-    "demoNote": "Esta é uma conta demo: os fundos e as operações são simulados."
+    "text": "Negociar envolve alto risco de perda.",
+    "readFull": "Aviso de risco"
   },
   "Pwa": {
     "installTitle": "Instale o aplicativo no seu celular",
@@ -2555,13 +2549,6 @@
       "p1": "Use apenas dinheiro que você pode se dar ao luxo de perder. Negociar e copiar envolve risco elevado e você pode perder todo o valor.",
       "p2": "Cada cópia tem um limite de perda: quando a perda o atinge, a cópia para automaticamente. Um limite menor protege mais seu capital, mas pode parar uma cópia mais cedo.",
       "p3": "Distribua seu valor entre mais de um trader e mercado, e revise suas cópias regularmente em vez de reagir a uma única operação."
-    },
-    "demo_vs_real": {
-      "title": "Conta demo e conta real",
-      "summary": "Pratique primeiro com dinheiro virtual e mude quando estiver pronto.",
-      "p1": "A conta demo usa fundos virtuais e operações simuladas. Serve para aprender como a plataforma e a cópia funcionam, sem dinheiro real.",
-      "p2": "A conta real usa dinheiro real: depósitos, saques e verificação de identidade se aplicam, e os resultados são reais. As duas contas são totalmente separadas.",
-      "p3": "Você pode alternar entre elas pelo menu. Alternar interrompe as cópias atuais, então inicie de novo as que quiser na conta escolhida."
     }
   },
   "CopyCalculator": {
@@ -2581,5 +2568,16 @@
     "note": "Uma cópia acompanha os resultados do trader na proporção do seu valor, então isto aplica os retornos diários reais dele ao valor escolhido.",
     "noteWithShare": "Uma cópia acompanha os resultados do trader na proporção do seu valor; isto aplica os retornos diários reais dele ao valor escolhido, após a participação nos lucros de {pct}% sobre o lucro.",
     "pastPerformance": "Desempenho passado não garante resultados futuros."
+  },
+  "Featured": {
+    "title": "Traders sugeridos",
+    "viewAll": "Ver todos",
+    "regionLabel": "Traders sugeridos",
+    "verified": "Trader verificado",
+    "return12m": "Retorno em 12 meses",
+    "copiers": "Copiadores",
+    "viewProfile": "Ver perfil",
+    "dotsLabel": "Escolha um trader",
+    "goTo": "Mostrar trader {n}"
   }
 }
