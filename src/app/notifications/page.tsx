@@ -284,10 +284,11 @@ export default async function NotificationsPage({ searchParams }: { searchParams
                     <NotificationIcon type={n.type} />
                     <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                       <div className="flex items-start justify-between gap-2">
-                        <p className="text-sm font-medium" dir="auto">{title}</p>
+                        {/* Rendered in the page language (names are isolated inside); only old stored texts guess their direction. */}
+                        <p className="text-sm font-medium" dir={n.data == null ? "auto" : undefined}>{title}</p>
                         {!n.is_read && <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />}
                       </div>
-                      {body && <p className="whitespace-pre-line text-xs text-muted" dir="auto">{renderBody(body)}</p>}
+                      {body && <p className="whitespace-pre-line text-xs text-muted" dir={n.data == null ? "auto" : undefined}>{renderBody(body)}</p>}
                       <p className="mt-1 text-xs text-dim" dir="ltr">
                         {formatNotificationTime(n.created_at, locale, userTz)}
                       </p>

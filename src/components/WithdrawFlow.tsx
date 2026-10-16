@@ -8,10 +8,10 @@ import { CURRENCY } from "@/lib/money";
 import { SubmitButton } from "@/components/SubmitButton";
 
 // The "All" amount must never exceed the balance, or the form refuses its own
-// value. Balances carry up to 6 decimals, so round DOWN at 6 (rounding to cents
-// could land above the balance), and drop trailing zeros ("1000", not "1000.000000").
+// value. Balances carry up to 6 decimals; show cents, rounded DOWN (never above the
+// balance), without trailing zeros ("1000", not "1000.00").
 function formatAmount(n: number): string {
-  return String(Math.floor(n * 1e6) / 1e6);
+  return String(Math.floor(n * 100) / 100);
 }
 
 function AmountStep({

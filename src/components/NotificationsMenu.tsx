@@ -107,8 +107,8 @@ export function NotificationsMenu({ notifications, unreadCount }: { notification
                         : "flex w-full flex-col gap-1 rounded-lg border border-brand/40 bg-brand/5 p-3 text-start"
                     }
                   >
-                    <p className="text-sm font-medium" dir="auto">{title}</p>
-                    {body && <p className="whitespace-pre-line text-xs text-muted" dir="auto">{renderBody(body)}</p>}
+                    <p className="text-sm font-medium" dir={n.data == null ? "auto" : undefined}>{title}</p>
+                    {body && <p className="whitespace-pre-line text-xs text-muted" dir={n.data == null ? "auto" : undefined}>{renderBody(body)}</p>}
                   </button>
                 </form>
               );
