@@ -151,7 +151,7 @@ export function FeaturedLeaders({ leaders, hrefBase = "/trader" }: { leaders: Fe
           const tone = badgeColors(l.id);
           const [a, b] = initialsOf(l.name);
           return (
-            <article
+            <div
               key={l.id}
               role="group"
               aria-roledescription="slide"
@@ -204,7 +204,7 @@ export function FeaturedLeaders({ leaders, hrefBase = "/trader" }: { leaders: Fe
                   {t("viewProfile")}
                 </Link>
               </div>
-            </article>
+            </div>
           );
         })}
       </div>
@@ -218,7 +218,7 @@ export function FeaturedLeaders({ leaders, hrefBase = "/trader" }: { leaders: Fe
               onClick={() => goTo(i)}
               aria-label={t("goTo", { n: i + 1 })}
               aria-current={i === active ? "true" : undefined}
-              className="flex h-6 w-4 items-center justify-center"
+              className="flex h-6 w-6 items-center justify-center"
             >
               <span className={`h-1.5 rounded-full transition-all ${i === active ? "w-4 bg-accent" : "w-1.5 bg-white/30"}`} />
             </button>

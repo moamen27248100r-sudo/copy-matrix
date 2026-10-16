@@ -446,7 +446,6 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
             href={href({ favorites: favoritesOnly ? null : "1", page: null })}
             aria-label={t("favoritesOnly")}
             title={t("favoritesOnly")}
-            aria-pressed={favoritesOnly}
             className={`tap-44 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition ${
               favoritesOnly ? "border-accent bg-accent/10 text-accent" : "border-border text-muted hover:border-accent/40"
             }`}

@@ -91,7 +91,6 @@ export async function LeaderCard({
             href={compare.href}
             aria-label={compare.label}
             title={compare.label}
-            aria-pressed={compare.active}
             className={`tap-44 relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition ${
               compare.active ? "border-accent/40 bg-accent/10 text-accent" : "border-border text-muted hover:border-accent/40 hover:text-accent"
             }`}

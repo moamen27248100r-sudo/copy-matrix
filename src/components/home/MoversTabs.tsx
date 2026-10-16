@@ -36,7 +36,8 @@ export function MoversTabs({ gainers, losers }: { gainers: Mover[]; losers: Move
           </button>
         ))}
       </div>
-      <ul id={`${id}-panel`} role="tabpanel" aria-labelledby={`${id}-${tab}`} className="flex flex-col divide-y divide-border rounded-[20px] border border-border bg-surface">
+      <div id={`${id}-panel`} role="tabpanel" aria-labelledby={`${id}-${tab}`}>
+      <ul className="flex flex-col divide-y divide-border rounded-[20px] border border-border bg-surface">
         {rows.length === 0 && <li className="px-4 py-4 text-sm text-muted">{t("moversNone")}</li>}
         {rows.map((r) => (
           <li key={r.symbol}>
@@ -56,6 +57,7 @@ export function MoversTabs({ gainers, losers }: { gainers: Mover[]; losers: Move
           </li>
         ))}
       </ul>
+      </div>
     </div>
   );
 }
