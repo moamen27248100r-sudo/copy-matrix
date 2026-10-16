@@ -59,11 +59,11 @@
     },
     "tryCopy": {
       "badge": "Dùng thử miễn phí rủi ro",
-      "title": "Dùng thử với tài khoản demo",
-      "description": "Bắt đầu với $10.000 tiền ảo và luyện tập sao chép trước khi dùng tiền thật của bạn.",
-      "cta": "Mở tài khoản demo",
-      "cardWelcome": "Tài khoản demo miễn phí của bạn",
-      "cardPortfolioLabel": "Giá trị danh mục demo",
+      "title": "Dùng thử với tài khoản luyện tập",
+      "description": "Bắt đầu với $10.000 và thử sao chép trước khi dùng tiền của chính bạn.",
+      "cta": "Mở tài khoản luyện tập",
+      "cardWelcome": "Tài khoản luyện tập miễn phí của bạn",
+      "cardPortfolioLabel": "Giá trị danh mục luyện tập",
       "cardTopLabel": "Trader có lợi nhuận cao nhất (trung bình ngày)",
       "live": "Dữ liệu trực tiếp"
     },
@@ -99,10 +99,10 @@
       "step3Title": "Theo dõi",
       "step3Desc": "Theo dõi danh mục và các giao dịch đã sao chép trên một màn hình.",
       "cardsTitle": "Bắt đầu không rủi ro",
-      "card1Title": "Mở tài khoản demo miễn phí",
-      "card1Desc": "Mở tài khoản demo không mất phí.",
-      "card2Title": "Số dư ảo ban đầu",
-      "card2Desc": "Mỗi tài khoản demo bắt đầu với $10.000 tiền ảo để bạn tập sao chép.",
+      "card1Title": "Mở tài khoản luyện tập miễn phí",
+      "card1Desc": "Mở tài khoản luyện tập không mất phí.",
+      "card2Title": "Số dư luyện tập ban đầu",
+      "card2Desc": "Mỗi tài khoản luyện tập bắt đầu với $10.000 để bạn thử sao chép.",
       "card3Title": "Giá thị trường trực tiếp",
       "card3Desc": "Theo dõi giá tiền số, vàng và tiền tệ ở một nơi.",
       "traderSubtitle": "Lợi nhuận, số người sao chép và toàn bộ hồ sơ, tất cả ngay trước mắt bạn trước khi quyết định.",
@@ -141,7 +141,7 @@
     "menuAdmin": "Bảng quản trị",
     "logout": "Đăng xuất",
     "switchAccountAriaLabel": "Chuyển loại tài khoản",
-    "switchAccountWarning": "Số dư demo và số dư thực của bạn được tách biệt. Chuyển tài khoản sẽ dừng sao chép hiện tại. Tiếp tục?",
+    "switchAccountWarning": "Số dư luyện tập và số dư thực của bạn được tách biệt. Chuyển tài khoản sẽ dừng sao chép hiện tại. Tiếp tục?",
     "switchAccountConfirmTitle": "Xác nhận chuyển tài khoản",
     "switchAccountConfirmCta": "Chuyển",
     "switchAccountCancelCta": "Hủy",
@@ -150,7 +150,7 @@
     "notificationsEmpty": "Chưa có thông báo nào.",
     "viewAll": "Xem tất cả",
     "markAllRead": "Đánh dấu tất cả đã đọc",
-    "demoStrip": "Chế độ demo: tiền ảo",
+    "demoStrip": "Chế độ luyện tập",
     "switchToLeaderMode": "Trung tâm nhà giao dịch dẫn đầu",
     "switchToCopierMode": "Bảng điều khiển người sao chép",
     "menuLeadCenter": "Trung tâm nhà giao dịch dẫn đầu",
@@ -236,7 +236,7 @@
     "mostCopiedThisWeekTitle": "Được sao chép nhiều nhất tuần này",
     "copiersThisWeek": "{count} người sao chép mới tuần này",
     "viewAllPositions": "Xem tất cả {count} vị thế",
-    "resetBalanceConfirm": "Đặt lại số dư demo về $10.000? Các lệnh sao chép hiện tại sẽ dừng lại.",
+    "resetBalanceConfirm": "Đặt lại số dư luyện tập về $10.000? Các lệnh sao chép hiện tại sẽ dừng lại.",
     "perfTitle": "Tóm tắt giao dịch",
     "perfWinRate": "Tỷ lệ thắng",
     "perfClosedTrades": "Lệnh đã đóng",
@@ -393,10 +393,10 @@
     "walletDepositFailedTitle": "Khoản nạp chưa được ghi có",
     "walletDepositFailedBody": "Khoản nạp USDT trên {network} không thể ghi có. Mở lịch sử nạp để xem lý do.",
     "scopeReal": "Thông báo của tài khoản thực, cùng các cảnh báo tài khoản và bảo mật.",
-    "scopeDemo": "Thông báo của tài khoản demo, cùng các cảnh báo tài khoản và bảo mật.",
+    "scopeDemo": "Thông báo của tài khoản luyện tập, cùng các cảnh báo tài khoản và bảo mật.",
     "prefsInApp": "Trong ứng dụng",
     "prefsEmail": "Thư điện tử",
-    "prefsEmailNote": "Thư chỉ được gửi cho tài khoản thực; giao dịch của tài khoản demo chỉ hiển thị trong ứng dụng. Thư bảo mật luôn được gửi.",
+    "prefsEmailNote": "Thư chỉ được gửi cho tài khoản thực; giao dịch của tài khoản luyện tập chỉ hiển thị trong ứng dụng. Thư bảo mật luôn được gửi.",
     "lossAlertTitle": "Cảnh báo lỗ",
     "lossAlertBodyCopy": "Bản sao {providerName} của bạn đang lỗ {loss}% (ngưỡng cảnh báo của bạn là {threshold}%).",
     "lossAlertBodyPortfolio": "Danh mục của bạn đang lỗ {loss}% vốn đã đầu tư (ngưỡng cảnh báo của bạn là {threshold}%).",
@@ -480,13 +480,13 @@
     "monthlyReportEmpty": "Chưa có hoạt động.",
     "reviewProcessingNote": "Khoản nạp được cộng tự động khi được xác nhận trên blockchain. Lệnh rút thường được xử lý trong 24 giờ.",
     "demoDepositNote": "Số tiền được cộng vào số dư tài khoản này ngay lập tức.",
-    "demoWithdrawNote": "Rút tiền demo diễn ra ngay lập tức và chỉ ảnh hưởng đến số dư demo của bạn.",
-    "demoWalletNote": "Số dư demo của bạn là ảo và hoàn toàn tách biệt với tài khoản thực. Nạp và rút tiền diễn ra ngay lập tức.",
-    "resetDemoButton": "Đặt lại số dư demo",
-    "resetDemoConfirm": "Đặt lại số dư demo về $10.000? Các lệnh sao chép hiện tại sẽ dừng lại.",
-    "demoDepositDone": "Tiền demo đã được cộng vào số dư của bạn.",
-    "demoWithdrawDone": "Tiền demo đã được rút khỏi số dư của bạn.",
-    "demoResetDone": "Số dư demo của bạn đã được đặt lại về $10.000.",
+    "demoWithdrawNote": "Rút tiền luyện tập diễn ra ngay lập tức và chỉ ảnh hưởng đến số dư luyện tập của bạn.",
+    "demoWalletNote": "Số dư luyện tập của bạn hoàn toàn tách biệt với tài khoản thực. Nạp và rút tiền diễn ra ngay lập tức.",
+    "resetDemoButton": "Đặt lại số dư luyện tập",
+    "resetDemoConfirm": "Đặt lại số dư luyện tập về $10.000? Các lệnh sao chép hiện tại sẽ dừng lại.",
+    "demoDepositDone": "Tiền luyện tập đã được cộng vào số dư của bạn.",
+    "demoWithdrawDone": "Tiền luyện tập đã được rút khỏi số dư của bạn.",
+    "demoResetDone": "Số dư luyện tập của bạn đã được đặt lại về $10.000.",
     "txDemoReset": "Đặt lại số dư",
     "txAdjustment": "Điều chỉnh số dư",
     "txFee": "Phí",
@@ -828,13 +828,6 @@
     "profileTitle": "Hồ sơ",
     "fullNamePlaceholder": "Họ và tên",
     "saveName": "Lưu tên",
-    "accountTypeTitle": "Loại tài khoản",
-    "accountTypeDesc": "Tài khoản thực cho phép nạp và rút tiền thật. Tài khoản demo dùng để luyện tập với tiền ảo. Hai số dư hoàn toàn tách biệt và việc chuyển tài khoản không bao giờ chuyển tiền giữa chúng.",
-    "demoAccount": "Tài khoản demo",
-    "demoAccountDesc": "— để luyện tập và khám phá",
-    "realAccount": "Tài khoản thật",
-    "realAccountDesc": "— nạp và rút tiền thật",
-    "saveAccountType": "Lưu loại tài khoản",
     "changePasswordTitle": "Đổi mật khẩu",
     "newPasswordPlaceholder": "Mật khẩu mới (tối thiểu 6 ký tự)",
     "updatePassword": "Cập nhật mật khẩu",
@@ -1194,10 +1187,10 @@
       "withdrawInsufficientAvailable": "Số dư khả dụng để rút tiền của bạn không đủ — một phần số dư của bạn hiện đang được giữ cho việc sao chép đang hoạt động. Hãy dừng sao chép trước để hoàn trả số tiền này vào số dư khả dụng của bạn.",
       "withdrawRequestFailed": "Không thể gửi yêu cầu rút tiền. Vui lòng thử lại.",
       "realOnly": "Nạp và rút tiền thực chỉ khả dụng trên tài khoản thực. Hãy chuyển sang tài khoản thực để tiếp tục.",
-      "demoLimitExceeded": "Khoản nạp này sẽ vượt quá số dư demo tối đa 1.000.000 USDT.",
-      "demoResetOpenPositions": "Hãy đóng tất cả vị thế đang mở trước khi đặt lại số dư demo.",
-      "demoOnly": "Thao tác này chỉ khả dụng trên tài khoản demo.",
-      "demoWalletFailed": "Không thể hoàn tất giao dịch demo. Vui lòng thử lại.",
+      "demoLimitExceeded": "Khoản nạp này sẽ vượt quá số dư luyện tập tối đa 1.000.000 USDT.",
+      "demoResetOpenPositions": "Hãy đóng tất cả vị thế đang mở trước khi đặt lại số dư luyện tập.",
+      "demoOnly": "Thao tác này chỉ khả dụng trên tài khoản luyện tập.",
+      "demoWalletFailed": "Không thể hoàn tất giao dịch luyện tập. Vui lòng thử lại.",
       "withdrawAddressInvalid": "Địa chỉ ví có vẻ không hợp lệ với mạng đã chọn. Hãy kiểm tra địa chỉ và mạng rồi thử lại.",
       "kycRequired": "Cần xác minh danh tính để rút tiền từ tài khoản thực. Hãy hoàn tất xác minh để tiếp tục.",
       "depositNetworkUnavailable": "Tạm thời không thể nạp trên mạng này. Vui lòng chọn mạng khác.",
@@ -1359,7 +1352,7 @@
           "về nền tảng",
           "copy matrix là gì"
         ],
-        "answer": "Copy Matrix là nền tảng sao chép giao dịch tự động, cho phép bạn theo dõi các nhà giao dịch có thành tích đã được xác minh và liên kết một phần số dư của bạn với họ, để các giao dịch của họ được tự động phản ánh vào danh mục đầu tư của bạn. Xin lưu ý đây là môi trường demo với mục đích trình diễn và thực hành, không phải một công ty môi giới tài chính được cấp phép."
+        "answer": "Copy Matrix là nền tảng sao chép giao dịch tự động, cho phép bạn theo dõi các nhà giao dịch có thành tích đã được xác minh và liên kết một phần số dư của bạn với họ, để các giao dịch của họ được tự động phản ánh vào danh mục đầu tư của bạn. Xin lưu ý Copy Matrix là một nền tảng phần mềm, không phải công ty môi giới tài chính được cấp phép."
       },
       {
         "id": "how-to-start",
@@ -1369,7 +1362,7 @@
           "bắt đầu",
           "bước đầu tiên"
         ],
-        "answer": "Để bắt đầu, hãy tạo tài khoản từ trang đăng ký, sau đó chọn loại tài khoản của bạn (demo hoặc thực). Sau đó, bạn có thể duyệt trang \"Khám phá nhà giao dịch\" và chọn người bạn muốn sao chép dựa trên thành tích và mức độ rủi ro của họ."
+        "answer": "Để bắt đầu, hãy tạo tài khoản từ trang đăng ký; tài khoản mở ngay dưới dạng tài khoản luyện tập. Sau đó, bạn có thể duyệt trang \"Khám phá nhà giao dịch\" và chọn người bạn muốn sao chép dựa trên thành tích và mức độ rủi ro của họ."
       },
       {
         "id": "deposit",
@@ -1379,7 +1372,7 @@
           "thêm tiền",
           "nạp thêm"
         ],
-        "answer": "Chọn \"Nạp tiền\" trong mục ví, chọn mạng USDT (TRC20, BEP20 hoặc ERC20) và gửi USDT đến địa chỉ hiển thị. Sau đó dán mã giao dịch (TxID): chúng tôi tự động xác minh trên blockchain và ghi có số tiền thực nhận khi đủ số xác nhận mạng. Nạp vào tài khoản demo được cộng ngay."
+        "answer": "Chọn \"Nạp tiền\" trong mục ví, chọn mạng USDT (TRC20, BEP20 hoặc ERC20) và gửi USDT đến địa chỉ hiển thị. Sau đó dán mã giao dịch (TxID): chúng tôi tự động xác minh trên blockchain và ghi có số tiền thực nhận khi đủ số xác nhận mạng. Nạp vào tài khoản luyện tập được cộng ngay."
       },
       {
         "id": "withdraw",
@@ -1389,7 +1382,7 @@
           "rút",
           "rút lợi nhuận"
         ],
-        "answer": "Chọn \"Rút tiền\", chọn mạng USDT, nhập địa chỉ ví và số tiền, rồi xác nhận bằng mã từ ứng dụng xác thực. Rút tiền yêu cầu xác minh danh tính (KYC) và xác thực hai lớp. Số tiền được tạm giữ ngay từ số dư; bạn có thể hủy khi yêu cầu còn đang xử lý, và thường hoàn tất trong 24 giờ. Rút từ tài khoản demo diễn ra ngay lập tức."
+        "answer": "Chọn \"Rút tiền\", chọn mạng USDT, nhập địa chỉ ví và số tiền, rồi xác nhận bằng mã từ ứng dụng xác thực. Rút tiền yêu cầu xác minh danh tính (KYC) và xác thực hai lớp. Số tiền được tạm giữ ngay từ số dư; bạn có thể hủy khi yêu cầu còn đang xử lý, và thường hoàn tất trong 24 giờ. Rút từ tài khoản luyện tập diễn ra ngay lập tức."
       },
       {
         "id": "withdraw-time",
@@ -1552,13 +1545,13 @@
       },
       {
         "id": "demo-vs-real",
-        "question": "Sự khác biệt giữa tài khoản demo và tài khoản thực là gì?",
+        "question": "Sự khác biệt giữa tài khoản luyện tập và tài khoản thực là gì?",
         "keywords": [
           "tài khoản demo",
           "tài khoản thực",
           "sự khác biệt"
         ],
-        "answer": "Tài khoản demo cho phép bạn thử sao chép giao dịch với tiền ảo mà không có rủi ro thực sự, trong khi tài khoản thực dựa trên số dư thực tế của bạn, và phản ánh kết quả sao chép thực về lãi hoặc lỗ."
+        "answer": "Tài khoản luyện tập cho phép bạn thử sao chép giao dịch với tiền luyện tập mà không có rủi ro thực sự, trong khi tài khoản thực dựa trên số dư thực tế của bạn, và phản ánh kết quả sao chép thực về lãi hoặc lỗ."
       },
       {
         "id": "suspend-account",
@@ -2070,8 +2063,6 @@
     "notificationsDesc": "Xem thông báo tài khoản của bạn.",
     "notificationPreferencesTitle": "Tùy chọn thông báo | Copy Matrix",
     "notificationPreferencesDesc": "Quản lý những thông báo bạn nhận được.",
-    "onboardingAccountTypeTitle": "Chọn loại tài khoản | Copy Matrix",
-    "onboardingAccountTypeDesc": "Chọn giữa tài khoản giao dịch demo và tài khoản thực.",
     "portfolioTitle": "Danh mục đầu tư | Copy Matrix",
     "portfolioDesc": "Xem số dư tài khoản và hiệu suất danh mục đầu tư của bạn.",
     "portfolioDepositTitle": "Nạp tiền | Copy Matrix",
@@ -2135,8 +2126,8 @@
         "a": "Gửi yêu cầu rút tiền từ trang Ví. Rút tiền yêu cầu xác minh danh tính và thường hoàn tất trong 24 giờ."
       },
       {
-        "q": "Có tài khoản demo không?",
-        "a": "Có. Tài khoản demo bắt đầu với $10.000 tiền ảo, giúp bạn luyện tập mà không mạo hiểm tiền của mình."
+        "q": "Có tài khoản luyện tập không?",
+        "a": "Có. Tài khoản luyện tập bắt đầu với $10.000, giúp bạn luyện tập mà không rủi ro tiền của mình."
       }
     ]
   },
@@ -2201,7 +2192,7 @@
       "Xác minh danh tính",
       "Khoản rút trải qua kiểm tra an ninh trước khi hoàn tất",
       "Giới hạn lỗ tự động cho mỗi lệnh sao chép",
-      "Tách biệt hoàn toàn giữa tài khoản demo và tài khoản thực",
+      "Tách biệt hoàn toàn giữa tài khoản luyện tập và tài khoản thực",
       "Dữ liệu của bạn chỉ mình bạn xem được"
     ]
   },
@@ -2477,7 +2468,7 @@
     "greeting": "Xin chào,",
     "greetingName": "Xin chào {name},",
     "accountReal": "Tài khoản thực",
-    "accountDemo": "Tài khoản demo",
+    "accountDemo": "Tài khoản luyện tập",
     "ctaTrades": "Xem giao dịch của tôi",
     "ctaWallet": "Mở ví của tôi",
     "ctaKyc": "Xem xác minh",
@@ -2538,7 +2529,7 @@
       "summary": "Chọn một nhà giao dịch, nền tảng sẽ sao chép giao dịch của họ vào tài khoản của bạn theo tỷ lệ số tiền bạn đặt.",
       "p1": "Khi bạn sao chép một trader, mọi giao dịch họ mở và đóng sẽ tự động lặp lại trên tài khoản của bạn. Mỗi giao dịch sao chép dùng cùng tỷ lệ trên số tiền sao chép của bạn như tỷ lệ trader bỏ vào giao dịch từ số dư của họ, với cùng đòn bẩy, nên kết quả phần trăm của bạn đi theo họ. Có thể mở nhiều giao dịch cùng lúc; nếu số tiền trống trong bản sao không đủ cho toàn bộ phần, giao dịch mở với số tiền còn trống và bạn nhận thông báo, còn nếu thấp hơn quy mô giao dịch tối thiểu thì không mở và bạn nhận thông báo.",
       "p2": "Bạn luôn kiểm soát: có thể đổi cài đặt, đặt giới hạn lỗ hoặc dừng sao chép bất cứ lúc nào. Giao dịch đã mở giữ quy tắc riêng.",
-      "p3": "Kết quả theo kết quả của nhà giao dịch, nên cả lãi lẫn lỗ đều đến với bạn. Hãy bắt đầu nhỏ, và dùng tài khoản demo nếu bạn mới."
+      "p3": "Kết quả theo kết quả của nhà giao dịch, nên cả lãi lẫn lỗ đều đến với bạn. Hãy bắt đầu nhỏ, và dùng tài khoản luyện tập nếu bạn mới."
     },
     "choose_trader": {
       "title": "Cách chọn nhà giao dịch",

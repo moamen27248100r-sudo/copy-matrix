@@ -261,10 +261,10 @@ export default async function NotificationsPage({ searchParams }: { searchParams
             <section key={g} className="flex flex-col gap-2">
               <h2 className="text-xs font-bold uppercase tracking-wide text-muted">{tn(`group_${g}`)}</h2>
             {zero.length > 0 && (
-              <p className="flex items-center gap-3 rounded-lg border border-border bg-surface p-3.5 text-xs text-muted">
+              <div className="flex items-center gap-3 rounded-lg border border-border bg-surface p-3.5 text-xs text-muted">
                 <NotificationIcon type="copy_closed" />
-                {tn("zeroClosedSummary", { count: zero.length })}
-              </p>
+                <p>{tn("zeroClosedSummary", { count: zero.length })}</p>
+              </div>
             )}
             {items.map((n) => {
               const { title, body } = renderNotification(tn, n, money);

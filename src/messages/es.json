@@ -59,11 +59,11 @@
     },
     "tryCopy": {
       "badge": "Pruébalo sin riesgo",
-      "title": "Pruébalo con una cuenta demo",
-      "description": "Empieza con $10 000 en fondos virtuales y practica el copy trading antes de usar tu propio dinero.",
-      "cta": "Abrir una cuenta demo",
-      "cardWelcome": "Tu cuenta demo gratuita",
-      "cardPortfolioLabel": "Valor de la cartera demo",
+      "title": "Pruébalo con una cuenta de práctica",
+      "description": "Empieza con $10.000 y prueba a copiar antes de usar tu propio dinero.",
+      "cta": "Abrir una cuenta de práctica",
+      "cardWelcome": "Tu cuenta de práctica gratuita",
+      "cardPortfolioLabel": "Valor de la cartera de práctica",
       "cardTopLabel": "Mejores traders por rentabilidad (promedio diario)",
       "live": "Datos en vivo"
     },
@@ -99,10 +99,10 @@
       "step3Title": "Sigue",
       "step3Desc": "Sigue tu cartera y tus operaciones copiadas desde una sola pantalla.",
       "cardsTitle": "Empieza sin riesgo",
-      "card1Title": "Abre una cuenta demo gratis",
-      "card1Desc": "Abrir una cuenta demo no cuesta nada.",
-      "card2Title": "Un saldo virtual inicial",
-      "card2Desc": "Cada cuenta demo empieza con $10,000 en fondos virtuales para practicar la copia.",
+      "card1Title": "Abre una cuenta de práctica gratis",
+      "card1Desc": "Abrir una cuenta de práctica no cuesta nada.",
+      "card2Title": "Un saldo de práctica inicial",
+      "card2Desc": "Cada cuenta de práctica empieza con $10.000 para que pruebes a copiar.",
       "card3Title": "Precios de mercado en vivo",
       "card3Desc": "Sigue los precios de cripto, oro y divisas en un solo lugar.",
       "traderSubtitle": "Rendimiento, número de copiadores y el historial completo, todo ante ti antes de decidir.",
@@ -141,7 +141,7 @@
     "menuAdmin": "Panel de administración",
     "logout": "Cerrar sesión",
     "switchAccountAriaLabel": "Cambiar tipo de cuenta",
-    "switchAccountWarning": "Tus saldos demo y real están separados. Cambiar de cuenta detiene tus copias actuales. ¿Continuar?",
+    "switchAccountWarning": "Tus saldos de práctica y real están separados. Cambiar de cuenta detiene tus copias actuales. ¿Continuar?",
     "switchAccountConfirmTitle": "Confirmar cambio de cuenta",
     "switchAccountConfirmCta": "Cambiar",
     "switchAccountCancelCta": "Cancelar",
@@ -150,7 +150,7 @@
     "notificationsEmpty": "Aún no hay notificaciones.",
     "viewAll": "Ver todo",
     "markAllRead": "Marcar todo como leído",
-    "demoStrip": "Modo demo: fondos virtuales",
+    "demoStrip": "Modo práctica",
     "switchToLeaderMode": "Centro de trader líder",
     "switchToCopierMode": "Panel de copiador",
     "menuLeadCenter": "Centro de trader líder",
@@ -236,7 +236,7 @@
     "mostCopiedThisWeekTitle": "Los más copiados esta semana",
     "copiersThisWeek": "{count, plural, one {# nuevo copiador esta semana} other {# nuevos copiadores esta semana}}",
     "viewAllPositions": "Ver las {count} posiciones",
-    "resetBalanceConfirm": "¿Restablecer tu saldo demo a $10.000? Tus copias actuales se detendrán.",
+    "resetBalanceConfirm": "¿Restablecer tu saldo de práctica a $10.000? Tus copias actuales se detendrán.",
     "perfTitle": "Resumen de trading",
     "perfWinRate": "Tasa de acierto",
     "perfClosedTrades": "Operaciones cerradas",
@@ -393,10 +393,10 @@
     "walletDepositFailedTitle": "Depósito no acreditado",
     "walletDepositFailedBody": "Tu depósito de USDT en {network} no se pudo acreditar. Consulta el historial de depósitos para ver el motivo.",
     "scopeReal": "Notificaciones de tu cuenta real, además de las alertas de cuenta y seguridad.",
-    "scopeDemo": "Notificaciones de tu cuenta demo, además de las alertas de cuenta y seguridad.",
+    "scopeDemo": "Notificaciones de tu cuenta de práctica, además de las alertas de cuenta y seguridad.",
     "prefsInApp": "En la app",
     "prefsEmail": "Correo",
-    "prefsEmailNote": "Los correos se envían solo para tu cuenta real; las operaciones de la cuenta demo se quedan en la app. Los correos de seguridad se envían siempre.",
+    "prefsEmailNote": "Los correos se envían solo para tu cuenta real; las operaciones de la cuenta de práctica se quedan en la app. Los correos de seguridad se envían siempre.",
     "lossAlertTitle": "Alerta de pérdida",
     "lossAlertBodyCopy": "Su copia de {providerName} acumula una pérdida del {loss}% (su nivel de alerta es {threshold}%).",
     "lossAlertBodyPortfolio": "Su cartera acumula una pérdida del {loss}% de los fondos invertidos (su nivel de alerta es {threshold}%).",
@@ -480,13 +480,13 @@
     "monthlyReportEmpty": "Aún no hay actividad.",
     "reviewProcessingNote": "Los depósitos se acreditan automáticamente al confirmarse en la blockchain. Los retiros suelen procesarse en 24 horas.",
     "demoDepositNote": "El monto se añade al saldo de esta cuenta al instante.",
-    "demoWithdrawNote": "Los retiros demo son instantáneos y solo afectan a tu saldo demo.",
-    "demoWalletNote": "Tu saldo demo es virtual y está totalmente separado de tu cuenta real. Los depósitos y retiros son instantáneos.",
-    "resetDemoButton": "Restablecer saldo demo",
-    "resetDemoConfirm": "¿Restablecer tu saldo demo a $10.000? Tus copias actuales se detendrán.",
-    "demoDepositDone": "Los fondos demo se añadieron a tu saldo.",
-    "demoWithdrawDone": "Los fondos demo se retiraron de tu saldo.",
-    "demoResetDone": "Tu saldo demo se restableció a $10.000.",
+    "demoWithdrawNote": "Los retiros de práctica son instantáneos y solo afectan a tu saldo de práctica.",
+    "demoWalletNote": "Tu saldo de práctica está totalmente separado de tu cuenta real. Los depósitos y retiros son instantáneos.",
+    "resetDemoButton": "Restablecer saldo de práctica",
+    "resetDemoConfirm": "¿Restablecer tu saldo de práctica a $10.000? Tus copias actuales se detendrán.",
+    "demoDepositDone": "Los fondos de práctica se añadieron a tu saldo.",
+    "demoWithdrawDone": "Los fondos de práctica se retiraron de tu saldo.",
+    "demoResetDone": "Tu saldo de práctica se restableció a $10.000.",
     "txDemoReset": "Restablecimiento de saldo",
     "txAdjustment": "Ajuste de saldo",
     "txFee": "Comisión",
@@ -828,13 +828,6 @@
     "profileTitle": "Perfil",
     "fullNamePlaceholder": "Nombre completo",
     "saveName": "Guardar nombre",
-    "accountTypeTitle": "Tipo de cuenta",
-    "accountTypeDesc": "Una cuenta real permite depositar y retirar dinero real. Una cuenta demo sirve para practicar con fondos virtuales. Los dos saldos están totalmente separados y cambiar de cuenta nunca mueve fondos entre ellos.",
-    "demoAccount": "Cuenta demo",
-    "demoAccountDesc": "— para practicar y explorar",
-    "realAccount": "Cuenta real",
-    "realAccountDesc": "— depósito y retiro de dinero real",
-    "saveAccountType": "Guardar tipo de cuenta",
     "changePasswordTitle": "Cambiar contraseña",
     "newPasswordPlaceholder": "Nueva contraseña (mínimo 6 caracteres)",
     "updatePassword": "Actualizar contraseña",
@@ -1194,10 +1187,10 @@
       "withdrawInsufficientAvailable": "Tu saldo disponible para retirar es insuficiente — parte de tu saldo está retenido actualmente para una copia activa. Deja de copiar primero para devolver este monto a tu saldo disponible.",
       "withdrawRequestFailed": "No se pudo enviar la solicitud de retiro. Inténtalo de nuevo.",
       "realOnly": "Los depósitos y retiros reales están disponibles en tu cuenta real. Cambia a tu cuenta real para continuar.",
-      "demoLimitExceeded": "Este depósito superaría el saldo demo máximo de 1.000.000 USDT.",
-      "demoResetOpenPositions": "Cierra todas las posiciones abiertas antes de restablecer tu saldo demo.",
-      "demoOnly": "Esta acción solo está disponible en una cuenta demo.",
-      "demoWalletFailed": "No se pudo completar la transacción demo. Inténtalo de nuevo.",
+      "demoLimitExceeded": "Este depósito superaría el saldo de práctica máximo de 1.000.000 USDT.",
+      "demoResetOpenPositions": "Cierra todas las posiciones abiertas antes de restablecer tu saldo de práctica.",
+      "demoOnly": "Esta acción solo está disponible en una cuenta de práctica.",
+      "demoWalletFailed": "No se pudo completar la transacción de práctica. Inténtalo de nuevo.",
       "withdrawAddressInvalid": "La dirección de la billetera no parece válida para la red seleccionada. Revisa la dirección y la red e inténtalo de nuevo.",
       "kycRequired": "Se requiere verificación de identidad para retirar fondos de una cuenta real. Completa la verificación para continuar.",
       "depositNetworkUnavailable": "Los depósitos en esta red no están disponibles temporalmente. Elige otra red.",
@@ -1359,7 +1352,7 @@
           "sobre la plataforma",
           "qué es copy matrix"
         ],
-        "answer": "Copy Matrix es una plataforma para copiar operaciones automáticamente, que te permite seguir a traders con un historial verificado y vincular parte de tu saldo a ellos, para que sus operaciones se reflejen automáticamente en tu cartera. Ten en cuenta que este es un entorno de demostración con fines de práctica, no una correduría financiera autorizada."
+        "answer": "Copy Matrix es una plataforma para copiar operaciones automáticamente, que te permite seguir a traders con un historial verificado y vincular parte de tu saldo a ellos, para que sus operaciones se reflejen automáticamente en tu cartera. Ten en cuenta que Copy Matrix es una plataforma de software, no un bróker financiero autorizado."
       },
       {
         "id": "how-to-start",
@@ -1369,7 +1362,7 @@
           "primeros pasos",
           "empezar"
         ],
-        "answer": "Para empezar, crea una cuenta desde la página de registro y elige tu tipo de cuenta (demo o real). Después, puedes explorar la página «Descubrir traders» y elegir a quién quieres copiar según su historial y nivel de riesgo."
+        "answer": "Para empezar, crea una cuenta desde la página de registro; se abre directamente como cuenta de práctica. Después, puedes explorar la página «Descubrir traders» y elegir a quién quieres copiar según su historial y nivel de riesgo."
       },
       {
         "id": "deposit",
@@ -1379,7 +1372,7 @@
           "añadir fondos",
           "recargar"
         ],
-        "answer": "Elige «Depositar» en la sección de billetera, selecciona la red USDT (TRC20, BEP20 o ERC20) y envía USDT a la dirección mostrada. Después pega el ID de transacción (TxID): lo verificamos automáticamente en la blockchain y acreditamos el monto recibido cuando se completan las confirmaciones de red. Los depósitos de la cuenta demo son instantáneos."
+        "answer": "Elige «Depositar» en la sección de billetera, selecciona la red USDT (TRC20, BEP20 o ERC20) y envía USDT a la dirección mostrada. Después pega el ID de transacción (TxID): lo verificamos automáticamente en la blockchain y acreditamos el monto recibido cuando se completan las confirmaciones de red. Los depósitos de la cuenta de práctica son instantáneos."
       },
       {
         "id": "withdraw",
@@ -1389,7 +1382,7 @@
           "retirar",
           "retirar ganancias"
         ],
-        "answer": "Elige «Retirar», selecciona la red USDT, introduce la dirección de tu billetera y el monto, y confirma con el código de tu app de autenticación. Los retiros requieren verificación de identidad (KYC) y verificación en dos pasos. El monto se reserva de tu saldo al instante; puedes cancelar mientras la solicitud esté en proceso y suele completarse en 24 horas. Los retiros de la cuenta demo son instantáneos."
+        "answer": "Elige «Retirar», selecciona la red USDT, introduce la dirección de tu billetera y el monto, y confirma con el código de tu app de autenticación. Los retiros requieren verificación de identidad (KYC) y verificación en dos pasos. El monto se reserva de tu saldo al instante; puedes cancelar mientras la solicitud esté en proceso y suele completarse en 24 horas. Los retiros de la cuenta de práctica son instantáneos."
       },
       {
         "id": "withdraw-time",
@@ -1553,13 +1546,13 @@
       },
       {
         "id": "demo-vs-real",
-        "question": "¿Cuál es la diferencia entre una cuenta demo y una cuenta real?",
+        "question": "¿Cuál es la diferencia entre una cuenta de práctica y una cuenta real?",
         "keywords": [
           "cuenta demo",
           "cuenta real",
           "diferencia entre"
         ],
-        "answer": "Una cuenta demo te permite probar el copy trading con fondos virtuales sin riesgo real, mientras que una cuenta real se basa en tu saldo efectivo, y refleja resultados reales de copia en ganancias o pérdidas."
+        "answer": "Una cuenta de práctica te permite probar el copy trading con fondos de práctica sin riesgo real, mientras que una cuenta real se basa en tu saldo efectivo, y refleja resultados reales de copia en ganancias o pérdidas."
       },
       {
         "id": "suspend-account",
@@ -2071,8 +2064,6 @@
     "notificationsDesc": "Consulta las notificaciones de tu cuenta.",
     "notificationPreferencesTitle": "Preferencias de notificaciones | Copy Matrix",
     "notificationPreferencesDesc": "Gestiona qué notificaciones recibes.",
-    "onboardingAccountTypeTitle": "Elegir tipo de cuenta | Copy Matrix",
-    "onboardingAccountTypeDesc": "Elige entre una cuenta de trading demo y una real.",
     "portfolioTitle": "Cartera | Copy Matrix",
     "portfolioDesc": "Consulta el saldo de tu cuenta y el rendimiento de tu cartera.",
     "portfolioDepositTitle": "Depositar | Copy Matrix",
@@ -2136,8 +2127,8 @@
         "a": "Envía una solicitud de retiro desde la página Cartera. Los retiros requieren verificación de identidad y suelen completarse en 24 horas."
       },
       {
-        "q": "¿Hay una cuenta demo?",
-        "a": "Sí. Una cuenta demo empieza con $10.000 en fondos virtuales, para practicar sin arriesgar tu dinero."
+        "q": "¿Hay una cuenta de práctica?",
+        "a": "Sí. Una cuenta de práctica empieza con $10.000, para que practiques sin arriesgar tu propio dinero."
       }
     ]
   },
@@ -2202,7 +2193,7 @@
       "Verificación de identidad",
       "Los retiros pasan por controles de seguridad antes de completarse",
       "Límite de pérdida automático en cada copia",
-      "Separación total entre cuenta demo y real",
+      "Separación total entre cuenta de práctica y real",
       "Tus datos solo los ves tú"
     ]
   },
@@ -2478,7 +2469,7 @@
     "greeting": "Hola:",
     "greetingName": "Hola, {name}:",
     "accountReal": "Cuenta real",
-    "accountDemo": "Cuenta demo",
+    "accountDemo": "Cuenta de práctica",
     "ctaTrades": "Ver mis operaciones",
     "ctaWallet": "Abrir mi billetera",
     "ctaKyc": "Ver la verificación",
@@ -2539,7 +2530,7 @@
       "summary": "Elige un trader y la plataforma replica sus operaciones en tu cuenta, en proporción al importe que fijes.",
       "p1": "Cuando copias a un trader, cada operación que abre y cierra se repite automáticamente en tu cuenta. Cada operación copiada toma de tu importe de copia la misma proporción que el trader dedica a la operación desde su propio saldo, con el mismo apalancamiento, así tu resultado en porcentaje sigue al suyo. Puede haber varias operaciones abiertas a la vez; si el importe libre de tu copia no alcanza para la parte completa, se abre con lo disponible y recibes un aviso, y si queda por debajo del tamaño mínimo no se abre y recibes un aviso.",
       "p2": "Mantienes el control: puedes cambiar los ajustes, fijar un límite de pérdida o dejar de copiar en cualquier momento. Las operaciones ya abiertas conservan sus propias reglas.",
-      "p3": "Los resultados siguen a los del trader, así que tanto las ganancias como las pérdidas te llegan. Empieza con poco y, si eres nuevo, con la cuenta demo."
+      "p3": "Los resultados siguen a los del trader, así que tanto las ganancias como las pérdidas te llegan. Empieza con poco y, si eres nuevo, con la cuenta de práctica."
     },
     "choose_trader": {
       "title": "Cómo elegir un trader",

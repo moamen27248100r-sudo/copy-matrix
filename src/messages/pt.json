@@ -59,11 +59,11 @@
     },
     "tryCopy": {
       "badge": "Experimente sem risco",
-      "title": "Experimente com uma conta demo",
-      "description": "Comece com $10 000 em fundos virtuais e pratique o copy trading antes de usar o seu próprio dinheiro.",
-      "cta": "Abrir uma conta demo",
-      "cardWelcome": "Sua conta demo gratuita",
-      "cardPortfolioLabel": "Valor da carteira demo",
+      "title": "Experimente com uma conta de treino",
+      "description": "Comece com $10.000 e experimente copiar antes de usar o seu próprio dinheiro.",
+      "cta": "Abrir uma conta de treino",
+      "cardWelcome": "Sua conta de treino gratuita",
+      "cardPortfolioLabel": "Valor da carteira de treino",
       "cardTopLabel": "Melhores traders por retorno (média diária)",
       "live": "Dados ao vivo"
     },
@@ -99,10 +99,10 @@
       "step3Title": "Acompanhe",
       "step3Desc": "Acompanhe sua carteira e as operações copiadas em uma única tela.",
       "cardsTitle": "Comece sem risco",
-      "card1Title": "Abra uma conta demo grátis",
-      "card1Desc": "Abrir uma conta demo não custa nada.",
-      "card2Title": "Um saldo virtual inicial",
-      "card2Desc": "Cada conta demo começa com $10.000 em fundos virtuais para praticar a cópia.",
+      "card1Title": "Abra uma conta de treino grátis",
+      "card1Desc": "Abrir uma conta de treino não custa nada.",
+      "card2Title": "Um saldo de treino inicial",
+      "card2Desc": "Cada conta de treino começa com $10.000 para você experimentar copiar.",
       "card3Title": "Preços de mercado ao vivo",
       "card3Desc": "Acompanhe os preços de cripto, ouro e moedas em um só lugar.",
       "traderSubtitle": "Retorno, número de copiadores e o histórico completo, tudo à sua frente antes de decidir.",
@@ -141,7 +141,7 @@
     "menuAdmin": "Painel de administração",
     "logout": "Sair",
     "switchAccountAriaLabel": "Alternar tipo de conta",
-    "switchAccountWarning": "Os seus saldos demo e real são separados. Trocar de conta interrompe as suas cópias atuais. Continuar?",
+    "switchAccountWarning": "Os seus saldos de treino e real são separados. Trocar de conta interrompe as suas cópias atuais. Continuar?",
     "switchAccountConfirmTitle": "Confirmar troca de conta",
     "switchAccountConfirmCta": "Trocar",
     "switchAccountCancelCta": "Cancelar",
@@ -150,7 +150,7 @@
     "notificationsEmpty": "Ainda não há notificações.",
     "viewAll": "Ver tudo",
     "markAllRead": "Marcar tudo como lido",
-    "demoStrip": "Modo demo: fundos virtuais",
+    "demoStrip": "Modo treino",
     "switchToLeaderMode": "Centro de trader líder",
     "switchToCopierMode": "Painel do copiador",
     "menuLeadCenter": "Centro de trader líder",
@@ -236,7 +236,7 @@
     "mostCopiedThisWeekTitle": "Mais copiados esta semana",
     "copiersThisWeek": "{count, plural, one {# novo copiador esta semana} other {# novos copiadores esta semana}}",
     "viewAllPositions": "Ver todas as {count} posições",
-    "resetBalanceConfirm": "Redefinir o seu saldo demo para $10.000? As suas cópias atuais serão interrompidas.",
+    "resetBalanceConfirm": "Redefinir o seu saldo de treino para $10.000? As suas cópias atuais serão interrompidas.",
     "perfTitle": "Resumo de trading",
     "perfWinRate": "Taxa de acerto",
     "perfClosedTrades": "Operações fechadas",
@@ -393,10 +393,10 @@
     "walletDepositFailedTitle": "Depósito não creditado",
     "walletDepositFailedBody": "Seu depósito de USDT na rede {network} não pôde ser creditado. Veja o motivo no histórico de depósitos.",
     "scopeReal": "Notificações da sua conta real, mais os alertas de conta e segurança.",
-    "scopeDemo": "Notificações da sua conta demo, mais os alertas de conta e segurança.",
+    "scopeDemo": "Notificações da sua conta de treino, mais os alertas de conta e segurança.",
     "prefsInApp": "No app",
     "prefsEmail": "E-mail",
-    "prefsEmailNote": "Os e-mails são enviados apenas para sua conta real; as operações da conta demo ficam no app. Os e-mails de segurança são sempre enviados.",
+    "prefsEmailNote": "Os e-mails são enviados apenas para sua conta real; as operações da conta de treino ficam no app. Os e-mails de segurança são sempre enviados.",
     "lossAlertTitle": "Alerta de perda",
     "lossAlertBodyCopy": "A sua cópia de {providerName} está com perda de {loss}% (o seu nível de alerta é {threshold}%).",
     "lossAlertBodyPortfolio": "A sua carteira está com perda de {loss}% dos fundos investidos (o seu nível de alerta é {threshold}%).",
@@ -480,13 +480,13 @@
     "monthlyReportEmpty": "Ainda sem atividade.",
     "reviewProcessingNote": "Os depósitos são creditados automaticamente após a confirmação na blockchain. Os saques costumam ser processados em até 24 horas.",
     "demoDepositNote": "O valor é adicionado ao saldo desta conta na hora.",
-    "demoWithdrawNote": "Os saques demo são instantâneos e afetam apenas o seu saldo demo.",
-    "demoWalletNote": "O seu saldo demo é virtual e totalmente separado da sua conta real. Depósitos e saques são instantâneos.",
-    "resetDemoButton": "Redefinir saldo demo",
-    "resetDemoConfirm": "Redefinir o seu saldo demo para $10.000? As suas cópias atuais serão interrompidas.",
-    "demoDepositDone": "Os fundos demo foram adicionados ao seu saldo.",
-    "demoWithdrawDone": "Os fundos demo foram retirados do seu saldo.",
-    "demoResetDone": "O seu saldo demo foi redefinido para $10.000.",
+    "demoWithdrawNote": "Os saques de treino são instantâneos e afetam apenas o seu saldo de treino.",
+    "demoWalletNote": "O seu saldo de treino é totalmente separado da sua conta real. Depósitos e saques são instantâneos.",
+    "resetDemoButton": "Redefinir saldo de treino",
+    "resetDemoConfirm": "Redefinir o seu saldo de treino para $10.000? As suas cópias atuais serão interrompidas.",
+    "demoDepositDone": "Os fundos de treino foram adicionados ao seu saldo.",
+    "demoWithdrawDone": "Os fundos de treino foram retirados do seu saldo.",
+    "demoResetDone": "O seu saldo de treino foi redefinido para $10.000.",
     "txDemoReset": "Redefinição de saldo",
     "txAdjustment": "Ajuste de saldo",
     "txFee": "Taxa",
@@ -828,13 +828,6 @@
     "profileTitle": "Perfil",
     "fullNamePlaceholder": "Nome completo",
     "saveName": "Salvar nome",
-    "accountTypeTitle": "Tipo de conta",
-    "accountTypeDesc": "Uma conta real permite depositar e sacar dinheiro real. Uma conta demo serve para praticar com fundos virtuais. Os dois saldos são totalmente separados e trocar de conta nunca move fundos entre eles.",
-    "demoAccount": "Conta demo",
-    "demoAccountDesc": "— para praticar e explorar",
-    "realAccount": "Conta real",
-    "realAccountDesc": "— depósito e saque de dinheiro real",
-    "saveAccountType": "Salvar tipo de conta",
     "changePasswordTitle": "Alterar senha",
     "newPasswordPlaceholder": "Nova senha (mínimo 6 caracteres)",
     "updatePassword": "Atualizar senha",
@@ -1194,10 +1187,10 @@
       "withdrawInsufficientAvailable": "Seu saldo disponível para saque é insuficiente — parte do seu saldo está atualmente retido para uma cópia ativa. Pare de copiar primeiro para devolver esse valor ao seu saldo disponível.",
       "withdrawRequestFailed": "Não foi possível enviar a solicitação de saque. Tente novamente.",
       "realOnly": "Depósitos e saques reais estão disponíveis na sua conta real. Mude para a sua conta real para continuar.",
-      "demoLimitExceeded": "Este depósito excederia o saldo demo máximo de 1.000.000 USDT.",
-      "demoResetOpenPositions": "Feche todas as posições abertas antes de redefinir o seu saldo demo.",
-      "demoOnly": "Esta ação só está disponível numa conta demo.",
-      "demoWalletFailed": "Não foi possível concluir a transação demo. Tente novamente.",
+      "demoLimitExceeded": "Este depósito excederia o saldo de treino máximo de 1.000.000 USDT.",
+      "demoResetOpenPositions": "Feche todas as posições abertas antes de redefinir o seu saldo de treino.",
+      "demoOnly": "Esta ação só está disponível numa conta de treino.",
+      "demoWalletFailed": "Não foi possível concluir a transação de treino. Tente novamente.",
       "withdrawAddressInvalid": "O endereço da carteira não parece válido para a rede selecionada. Verifique o endereço e a rede e tente novamente.",
       "kycRequired": "É necessária a verificação de identidade para levantar fundos de uma conta real. Conclua a verificação para continuar.",
       "depositNetworkUnavailable": "Depósitos nesta rede estão temporariamente indisponíveis. Escolha outra rede.",
@@ -1359,7 +1352,7 @@
           "sobre a plataforma",
           "o que é copy matrix"
         ],
-        "answer": "Copy Matrix é uma plataforma para copiar operações de negociação automaticamente, permitindo que você siga traders com histórico verificado e vincule parte do seu saldo a eles, para que suas operações sejam refletidas automaticamente na sua carteira. Observe que este é um ambiente de demonstração para fins de prática, não uma corretora financeira licenciada."
+        "answer": "Copy Matrix é uma plataforma para copiar operações de negociação automaticamente, permitindo que você siga traders com histórico verificado e vincule parte do seu saldo a eles, para que suas operações sejam refletidas automaticamente na sua carteira. Observe que a Copy Matrix é uma plataforma de software, não uma corretora financeira licenciada."
       },
       {
         "id": "how-to-start",
@@ -1369,7 +1362,7 @@
           "primeiros passos",
           "começar"
         ],
-        "answer": "Para começar, crie uma conta na página de cadastro e escolha o tipo de conta (demo ou real). Depois, você pode navegar pela página «Descobrir Traders» e escolher quem deseja copiar com base no histórico e nível de risco de cada um."
+        "answer": "Para começar, crie uma conta na página de cadastro; ela abre diretamente como conta de treino. Depois, você pode navegar pela página «Descobrir Traders» e escolher quem deseja copiar com base no histórico e nível de risco de cada um."
       },
       {
         "id": "deposit",
@@ -1379,7 +1372,7 @@
           "adicionar fundos",
           "recarregar"
         ],
-        "answer": "Escolha \"Depositar\" na seção da carteira, selecione a rede USDT (TRC20, BEP20 ou ERC20) e envie USDT para o endereço exibido. Depois cole o ID da transação (TxID): verificamos automaticamente na blockchain e creditamos o valor recebido assim que as confirmações da rede forem concluídas. Depósitos da conta demo são instantâneos."
+        "answer": "Escolha \"Depositar\" na seção da carteira, selecione a rede USDT (TRC20, BEP20 ou ERC20) e envie USDT para o endereço exibido. Depois cole o ID da transação (TxID): verificamos automaticamente na blockchain e creditamos o valor recebido assim que as confirmações da rede forem concluídas. Depósitos da conta de treino são instantâneos."
       },
       {
         "id": "withdraw",
@@ -1389,7 +1382,7 @@
           "sacar",
           "sacar lucros"
         ],
-        "answer": "Escolha \"Sacar\", selecione a rede USDT, informe o endereço da sua carteira e o valor e confirme com o código do app autenticador. Saques exigem verificação de identidade (KYC) e autenticação de dois fatores. O valor é reservado do seu saldo na hora; você pode cancelar enquanto a solicitação estiver em processamento, e ela costuma ser concluída em até 24 horas. Saques da conta demo são instantâneos."
+        "answer": "Escolha \"Sacar\", selecione a rede USDT, informe o endereço da sua carteira e o valor e confirme com o código do app autenticador. Saques exigem verificação de identidade (KYC) e autenticação de dois fatores. O valor é reservado do seu saldo na hora; você pode cancelar enquanto a solicitação estiver em processamento, e ela costuma ser concluída em até 24 horas. Saques da conta de treino são instantâneos."
       },
       {
         "id": "withdraw-time",
@@ -1553,13 +1546,13 @@
       },
       {
         "id": "demo-vs-real",
-        "question": "Qual a diferença entre conta demo e conta real?",
+        "question": "Qual a diferença entre conta de treino e conta real?",
         "keywords": [
           "conta demo",
           "conta real",
           "diferença entre"
         ],
-        "answer": "Uma conta demo permite experimentar o copy trading com fundos virtuais sem risco real, enquanto uma conta real depende do seu saldo efetivo, refletindo resultados reais de cópia em lucros ou perdas."
+        "answer": "Uma conta de treino permite experimentar o copy trading com fundos de treino sem risco real, enquanto uma conta real depende do seu saldo efetivo, refletindo resultados reais de cópia em lucros ou perdas."
       },
       {
         "id": "suspend-account",
@@ -2073,8 +2066,6 @@
     "notificationsDesc": "Veja as notificações da sua conta.",
     "notificationPreferencesTitle": "Preferências de notificação | Copy Matrix",
     "notificationPreferencesDesc": "Gira as notificações que recebe.",
-    "onboardingAccountTypeTitle": "Escolher tipo de conta | Copy Matrix",
-    "onboardingAccountTypeDesc": "Escolha entre uma conta de trading demo e uma conta real.",
     "portfolioTitle": "Carteira | Copy Matrix",
     "portfolioDesc": "Veja o saldo da sua conta e o desempenho da sua carteira.",
     "portfolioDepositTitle": "Depositar | Copy Matrix",
@@ -2138,8 +2129,8 @@
         "a": "Envie um pedido de saque na página Carteira. Os saques exigem verificação de identidade e costumam ser concluídos em 24 horas."
       },
       {
-        "q": "Existe conta demo?",
-        "a": "Sim. Uma conta demo começa com $10.000 em fundos virtuais, para você praticar sem arriscar seu dinheiro."
+        "q": "Existe conta de treino?",
+        "a": "Sim. Uma conta de treino começa com $10.000, para você praticar sem arriscar o seu próprio dinheiro."
       }
     ]
   },
@@ -2204,7 +2195,7 @@
       "Verificação de identidade",
       "Os saques passam por verificações de segurança antes de serem concluídos",
       "Limite de perda automático em cada cópia",
-      "Separação total entre conta demo e real",
+      "Separação total entre conta de treino e real",
       "Seus dados só são visíveis para você"
     ]
   },
@@ -2480,7 +2471,7 @@
     "greeting": "Olá,",
     "greetingName": "Olá, {name},",
     "accountReal": "Conta real",
-    "accountDemo": "Conta demo",
+    "accountDemo": "Conta de treino",
     "ctaTrades": "Ver minhas operações",
     "ctaWallet": "Abrir minha carteira",
     "ctaKyc": "Ver a verificação",
@@ -2541,7 +2532,7 @@
       "summary": "Escolha um trader e a plataforma replica as operações dele na sua conta, proporcionalmente ao valor definido.",
       "p1": "Quando você copia um trader, cada operação que ele abre e fecha é repetida automaticamente na sua conta. Cada operação copiada usa a mesma parte do seu valor de cópia que o trader coloca na operação a partir do próprio saldo, com a mesma alavancagem, então seu resultado em porcentagem acompanha o dele. Várias operações podem ficar abertas ao mesmo tempo; se o valor livre da cópia não bastar para a parte completa, a operação abre com o que está livre e você recebe um aviso, e se ficar abaixo do tamanho mínimo ela não abre e você recebe um aviso.",
       "p2": "Você continua no controle: pode alterar as configurações, definir um limite de perda ou parar de copiar a qualquer momento. As operações já abertas mantêm suas próprias regras.",
-      "p3": "Os resultados acompanham os do trader, então ganhos e perdas chegam a você. Comece pequeno e, se for novo, com a conta demo."
+      "p3": "Os resultados acompanham os do trader, então ganhos e perdas chegam a você. Comece pequeno e, se for novo, com a conta de treino."
     },
     "choose_trader": {
       "title": "Como escolher um trader",

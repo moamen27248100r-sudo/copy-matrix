@@ -59,11 +59,11 @@
     },
     "tryCopy": {
       "badge": "Jaribu bila hatari",
-      "title": "Jaribu kwa akaunti ya demo",
-      "description": "Anza na $10,000 za fedha za kidhahania na ufanye mazoezi ya kunakili kabla ya kutumia pesa zako.",
-      "cta": "Fungua akaunti ya demo",
+      "title": "Jaribu kwa akaunti ya mazoezi",
+      "description": "Anza na $10,000 na ujaribu kunakili kabla ya kutumia pesa zako mwenyewe.",
+      "cta": "Fungua akaunti ya mazoezi",
       "cardWelcome": "Akaunti yako ya bure ya majaribio",
-      "cardPortfolioLabel": "Thamani ya jalada la majaribio",
+      "cardPortfolioLabel": "Thamani ya jalada la mazoezi",
       "cardTopLabel": "Wafanyabiashara bora kwa faida (wastani wa kila siku)",
       "live": "Data ya moja kwa moja"
     },
@@ -99,10 +99,10 @@
       "step3Title": "Fuatilia",
       "step3Desc": "Fuatilia jalada lako na biashara ulizonakili kutoka skrini moja.",
       "cardsTitle": "Anza bila hatari",
-      "card1Title": "Fungua akaunti ya majaribio bila malipo",
-      "card1Desc": "Kufungua akaunti ya majaribio hakugharimu chochote.",
-      "card2Title": "Salio la kuanzia la kidhahania",
-      "card2Desc": "Kila akaunti ya majaribio huanza na fedha za kidhahania za $10,000 za kufanya mazoezi ya kunakili.",
+      "card1Title": "Fungua akaunti ya mazoezi bila malipo",
+      "card1Desc": "Kufungua akaunti ya mazoezi hakugharimu chochote.",
+      "card2Title": "Salio la kuanzia la mazoezi",
+      "card2Desc": "Kila akaunti ya mazoezi huanza na $10,000 ili ujaribu kunakili.",
       "card3Title": "Bei za soko za moja kwa moja",
       "card3Desc": "Fuatilia bei za crypto, dhahabu na sarafu mahali pamoja.",
       "traderSubtitle": "Faida, idadi ya wanaonakili na rekodi kamili, vyote mbele yako kabla ya kuamua.",
@@ -141,7 +141,7 @@
     "menuAdmin": "Paneli ya msimamizi",
     "logout": "Toka",
     "switchAccountAriaLabel": "Badilisha aina ya akaunti",
-    "switchAccountWarning": "Salio lako la demo na halisi limetenganishwa. Kubadili akaunti kunasimamisha unakili wa sasa. Endelea?",
+    "switchAccountWarning": "Salio lako la mazoezi na halisi limetenganishwa. Kubadili akaunti kunasimamisha unakili wa sasa. Endelea?",
     "switchAccountConfirmTitle": "Thibitisha kubadili akaunti",
     "switchAccountConfirmCta": "Badilisha",
     "switchAccountCancelCta": "Ghairi",
@@ -150,7 +150,7 @@
     "notificationsEmpty": "Hakuna arifa bado.",
     "viewAll": "Ona zote",
     "markAllRead": "Weka alama zote kama zimesomwa",
-    "demoStrip": "Hali ya majaribio: fedha pepe",
+    "demoStrip": "Hali ya mazoezi",
     "switchToLeaderMode": "Kituo cha mfanyabiashara kiongozi",
     "switchToCopierMode": "Dashibodi ya mnakili",
     "menuLeadCenter": "Kituo cha mfanyabiashara kiongozi",
@@ -236,7 +236,7 @@
     "mostCopiedThisWeekTitle": "Waliyonakiliwa zaidi wiki hii",
     "copiersThisWeek": "{count, plural, one {Mnakili # mpya wiki hii} other {Wanakili # wapya wiki hii}}",
     "viewAllPositions": "Tazama nafasi zote {count}",
-    "resetBalanceConfirm": "Weka upya salio lako la demo hadi $10,000? Nakala zako za sasa zitasimama.",
+    "resetBalanceConfirm": "Weka upya salio lako la mazoezi hadi $10,000? Nakala zako za sasa zitasimama.",
     "perfTitle": "Muhtasari wa biashara",
     "perfWinRate": "Kiwango cha ushindi",
     "perfClosedTrades": "Biashara zilizofungwa",
@@ -396,7 +396,7 @@
     "scopeDemo": "Arifa za akaunti yako ya majaribio, pamoja na tahadhari za akaunti na usalama.",
     "prefsInApp": "Ndani ya programu",
     "prefsEmail": "Barua pepe",
-    "prefsEmailNote": "Barua pepe hutumwa kwa akaunti yako halisi pekee; biashara za akaunti ya majaribio hubaki ndani ya programu. Barua pepe za usalama hutumwa kila mara.",
+    "prefsEmailNote": "Barua pepe hutumwa kwa akaunti yako halisi pekee; biashara za akaunti ya mazoezi hubaki ndani ya programu. Barua pepe za usalama hutumwa kila mara.",
     "lossAlertTitle": "Arifa ya hasara",
     "lossAlertBodyCopy": "Nakala yako ya {providerName} ina hasara ya {loss}% (kiwango chako cha arifa ni {threshold}%).",
     "lossAlertBodyPortfolio": "Jalada lako lina hasara ya {loss}% ya fedha ulizowekeza (kiwango chako cha arifa ni {threshold}%).",
@@ -480,13 +480,13 @@
     "monthlyReportEmpty": "Bado hakuna shughuli.",
     "reviewProcessingNote": "Amana huingizwa kiotomatiki mara zinapothibitishwa kwenye blockchain. Utoaji kwa kawaida hushughulikiwa ndani ya saa 24.",
     "demoDepositNote": "Kiasi kinaongezwa kwenye salio la akaunti hii papo hapo.",
-    "demoWithdrawNote": "Uondoaji wa demo ni wa papo hapo na unaathiri salio lako la demo pekee.",
-    "demoWalletNote": "Salio lako la demo ni la kidhahania na limetenganishwa kabisa na akaunti yako halisi. Amana na uondoaji ni wa papo hapo.",
-    "resetDemoButton": "Weka upya salio la demo",
-    "resetDemoConfirm": "Weka upya salio lako la demo hadi $10,000? Nakala zako za sasa zitasimama.",
-    "demoDepositDone": "Fedha za demo zimeongezwa kwenye salio lako.",
-    "demoWithdrawDone": "Fedha za demo zimetolewa kwenye salio lako.",
-    "demoResetDone": "Salio lako la demo limewekwa upya hadi $10,000.",
+    "demoWithdrawNote": "Uondoaji wa mazoezi ni wa papo hapo na unaathiri salio lako la mazoezi pekee.",
+    "demoWalletNote": "Salio lako la mazoezi limetenganishwa kabisa na akaunti yako halisi. Amana na uondoaji ni wa papo hapo.",
+    "resetDemoButton": "Weka upya salio la mazoezi",
+    "resetDemoConfirm": "Weka upya salio lako la mazoezi hadi $10,000? Nakala zako za sasa zitasimama.",
+    "demoDepositDone": "Fedha za mazoezi zimeongezwa kwenye salio lako.",
+    "demoWithdrawDone": "Fedha za mazoezi zimetolewa kwenye salio lako.",
+    "demoResetDone": "Salio lako la mazoezi limewekwa upya hadi $10,000.",
     "txDemoReset": "Kuweka upya salio",
     "txAdjustment": "Marekebisho ya salio",
     "txFee": "Ada",
@@ -828,13 +828,6 @@
     "profileTitle": "Wasifu",
     "fullNamePlaceholder": "Jina kamili",
     "saveName": "Hifadhi jina",
-    "accountTypeTitle": "Aina ya akaunti",
-    "accountTypeDesc": "Akaunti halisi hukuruhusu kuweka na kutoa pesa halisi. Akaunti ya demo ni ya mazoezi kwa fedha za kidhahania. Salio hizi mbili zimetenganishwa kabisa, na kubadili akaunti hakuhamishi fedha kati yake.",
-    "demoAccount": "Akaunti ya majaribio",
-    "demoAccountDesc": "— kwa mazoezi na uchunguzi",
-    "realAccount": "Akaunti halisi",
-    "realAccountDesc": "— weka na toa pesa halisi",
-    "saveAccountType": "Hifadhi aina ya akaunti",
     "changePasswordTitle": "Badilisha nenosiri",
     "newPasswordPlaceholder": "Nenosiri jipya (herufi 6 angalau)",
     "updatePassword": "Sasisha nenosiri",
@@ -1194,10 +1187,10 @@
       "withdrawInsufficientAvailable": "Salio lako linalopatikana la kuondoa halitoshi — sehemu ya salio lako kwa sasa imehifadhiwa kwa unakili unaoendelea. Acha kunakili kwanza ili kurejesha kiasi hiki kwenye salio lako linalopatikana.",
       "withdrawRequestFailed": "Imeshindwa kutuma ombi la kuondoa fedha. Tafadhali jaribu tena.",
       "realOnly": "Amana na uondoaji halisi unapatikana kwenye akaunti yako halisi. Badili hadi akaunti halisi ili kuendelea.",
-      "demoLimitExceeded": "Amana hii itazidi salio la juu zaidi la demo la USDT 1,000,000.",
-      "demoResetOpenPositions": "Funga nafasi zote zilizo wazi kabla ya kuweka upya salio lako la demo.",
-      "demoOnly": "Kitendo hiki kinapatikana kwenye akaunti ya demo pekee.",
-      "demoWalletFailed": "Imeshindwa kukamilisha muamala wa demo. Tafadhali jaribu tena.",
+      "demoLimitExceeded": "Amana hii itazidi salio la juu zaidi la mazoezi la USDT 1,000,000.",
+      "demoResetOpenPositions": "Funga nafasi zote zilizo wazi kabla ya kuweka upya salio lako la mazoezi.",
+      "demoOnly": "Kitendo hiki kinapatikana kwenye akaunti ya mazoezi pekee.",
+      "demoWalletFailed": "Imeshindwa kukamilisha muamala wa mazoezi. Tafadhali jaribu tena.",
       "withdrawAddressInvalid": "Anwani ya pochi haionekani kuwa sahihi kwa mtandao uliochaguliwa. Kagua anwani na mtandao, kisha ujaribu tena.",
       "kycRequired": "Uthibitisho wa utambulisho unahitajika ili kutoa pesa kutoka akaunti halisi. Kamilisha uthibitisho ili kuendelea.",
       "depositNetworkUnavailable": "Kuweka kwenye mtandao huu hakupatikani kwa muda. Tafadhali chagua mtandao mwingine.",
@@ -1359,7 +1352,7 @@
           "kuhusu jukwaa",
           "copy matrix ni nini"
         ],
-        "answer": "Copy Matrix ni jukwaa la kunakili biashara kiotomatiki, linalokuruhusu kufuata wafanyabiashara wenye rekodi ya utendaji iliyothibitishwa na kuunganisha sehemu ya salio lako nao, ili biashara zao zionekane kiotomatiki kwenye portfolio yako. Tafadhali kumbuka kuwa huu ni mazingira ya mfano kwa madhumuni ya maonyesho na mazoezi, si wakala wa fedha aliyeidhinishwa."
+        "answer": "Copy Matrix ni jukwaa la kunakili biashara kiotomatiki, linalokuruhusu kufuata wafanyabiashara wenye rekodi ya utendaji iliyothibitishwa na kuunganisha sehemu ya salio lako nao, ili biashara zao zionekane kiotomatiki kwenye portfolio yako. Tafadhali kumbuka kuwa Copy Matrix ni jukwaa la programu, si wakala wa fedha mwenye leseni."
       },
       {
         "id": "how-to-start",
@@ -1369,7 +1362,7 @@
           "kuanza",
           "hatua ya kwanza"
         ],
-        "answer": "Ili kuanza, fungua akaunti kutoka ukurasa wa kujisajili, kisha chagua aina ya akaunti yako (majaribio au halisi). Baada ya hapo, unaweza kuvinjari ukurasa wa \"Gundua Wafanyabiashara\" na kuchagua nani unataka kumnakili kulingana na rekodi yake ya utendaji na kiwango cha hatari."
+        "answer": "Ili kuanza, fungua akaunti kutoka ukurasa wa kujisajili; inafunguka moja kwa moja kama akaunti ya mazoezi. Baada ya hapo, unaweza kuvinjari ukurasa wa \"Gundua Wafanyabiashara\" na kuchagua nani unataka kumnakili kulingana na rekodi yake ya utendaji na kiwango cha hatari."
       },
       {
         "id": "deposit",
@@ -1379,7 +1372,7 @@
           "ongeza fedha",
           "jaza upya"
         ],
-        "answer": "Chagua \"Weka\" kwenye sehemu ya pochi, chagua mtandao wa USDT (TRC20, BEP20 au ERC20) na utume USDT kwenye anwani inayoonyeshwa. Kisha bandika kitambulisho cha muamala (TxID): tunakithibitisha kiotomatiki kwenye blockchain na kuingiza kiasi kilichopokelewa mara uthibitisho wa mtandao unapokamilika. Amana za akaunti ya majaribio ni za papo hapo."
+        "answer": "Chagua \"Weka\" kwenye sehemu ya pochi, chagua mtandao wa USDT (TRC20, BEP20 au ERC20) na utume USDT kwenye anwani inayoonyeshwa. Kisha bandika kitambulisho cha muamala (TxID): tunakithibitisha kiotomatiki kwenye blockchain na kuingiza kiasi kilichopokelewa mara uthibitisho wa mtandao unapokamilika. Amana za akaunti ya mazoezi ni za papo hapo."
       },
       {
         "id": "withdraw",
@@ -1389,7 +1382,7 @@
           "toa fedha",
           "toa faida"
         ],
-        "answer": "Chagua \"Toa\", chagua mtandao wa USDT, weka anwani ya pochi yako na kiasi, kisha thibitisha kwa msimbo kutoka kwa programu ya uthibitishaji. Utoaji unahitaji uthibitishaji wa utambulisho (KYC) na uthibitishaji wa hatua mbili. Kiasi huhifadhiwa kutoka kwenye salio lako mara moja; unaweza kughairi ombi likiwa bado linashughulikiwa, na kwa kawaida hukamilika ndani ya saa 24. Utoaji wa akaunti ya majaribio ni wa papo hapo."
+        "answer": "Chagua \"Toa\", chagua mtandao wa USDT, weka anwani ya pochi yako na kiasi, kisha thibitisha kwa msimbo kutoka kwa programu ya uthibitishaji. Utoaji unahitaji uthibitishaji wa utambulisho (KYC) na uthibitishaji wa hatua mbili. Kiasi huhifadhiwa kutoka kwenye salio lako mara moja; unaweza kughairi ombi likiwa bado linashughulikiwa, na kwa kawaida hukamilika ndani ya saa 24. Utoaji wa akaunti ya mazoezi ni wa papo hapo."
       },
       {
         "id": "withdraw-time",
@@ -1552,13 +1545,13 @@
       },
       {
         "id": "demo-vs-real",
-        "question": "Tofauti kati ya akaunti ya majaribio na akaunti halisi ni nini?",
+        "question": "Tofauti kati ya akaunti ya mazoezi na akaunti halisi ni nini?",
         "keywords": [
           "akaunti ya majaribio",
           "akaunti halisi",
           "tofauti"
         ],
-        "answer": "Akaunti ya majaribio inakuruhusu kujaribu kunakili biashara kwa fedha za dhahania bila hatari halisi, wakati akaunti halisi inategemea salio lako halisi, na huakisi matokeo halisi ya unakili katika faida au hasara."
+        "answer": "Akaunti ya mazoezi inakuruhusu kujaribu kunakili biashara kwa fedha za mazoezi bila hatari halisi, wakati akaunti halisi inategemea salio lako halisi, na huakisi matokeo halisi ya unakili katika faida au hasara."
       },
       {
         "id": "suspend-account",
@@ -2070,8 +2063,6 @@
     "notificationsDesc": "Tazama arifa za akaunti yako.",
     "notificationPreferencesTitle": "Mapendeleo ya Arifa | Copy Matrix",
     "notificationPreferencesDesc": "Dhibiti arifa unazopokea.",
-    "onboardingAccountTypeTitle": "Chagua Aina ya Akaunti | Copy Matrix",
-    "onboardingAccountTypeDesc": "Chagua kati ya akaunti ya biashara ya demo na halisi.",
     "portfolioTitle": "Portfolio | Copy Matrix",
     "portfolioDesc": "Tazama salio la akaunti yako na utendaji wa portfolio.",
     "portfolioDepositTitle": "Weka Amana | Copy Matrix",
@@ -2135,8 +2126,8 @@
         "a": "Wasilisha ombi la uondoaji kutoka ukurasa wa Pochi. Uondoaji unahitaji uthibitishaji wa utambulisho na kwa kawaida hukamilika ndani ya saa 24."
       },
       {
-        "q": "Je, kuna akaunti ya majaribio?",
-        "a": "Ndiyo. Akaunti ya majaribio huanza na fedha pepe za $10,000, ikikuwezesha kujizoeza bila kuhatarisha pesa zako."
+        "q": "Je, kuna akaunti ya mazoezi?",
+        "a": "Ndiyo. Akaunti ya mazoezi huanza na $10,000, ikikuwezesha kujizoeza bila kuhatarisha pesa zako mwenyewe."
       }
     ]
   },
@@ -2201,7 +2192,7 @@
       "Uthibitishaji wa utambulisho",
       "Uondoaji hupitia ukaguzi wa usalama kabla ya kukamilika",
       "Kikomo cha hasara kiotomatiki kwa kila nakala",
-      "Utengano kamili kati ya akaunti ya majaribio na halisi",
+      "Utengano kamili kati ya akaunti ya mazoezi na halisi",
       "Data yako haionekani kwa mtu mwingine yeyote ila wewe"
     ]
   },
@@ -2477,7 +2468,7 @@
     "greeting": "Habari,",
     "greetingName": "Habari {name},",
     "accountReal": "Akaunti halisi",
-    "accountDemo": "Akaunti ya majaribio",
+    "accountDemo": "Akaunti ya mazoezi",
     "ctaTrades": "Angalia biashara zangu",
     "ctaWallet": "Fungua pochi yangu",
     "ctaKyc": "Angalia uthibitisho",
@@ -2538,7 +2529,7 @@
       "summary": "Chagua mfanyabiashara na jukwaa linarudia biashara zake kwenye akaunti yako kulingana na kiasi ulichoweka.",
       "p1": "Unapomnakili mfanyabiashara, kila biashara anayofungua na kufunga inarudiwa kwenye akaunti yako kiotomatiki. Kila biashara iliyonakiliwa inachukua sehemu ile ile ya kiasi chako cha unakili ambayo mfanyabiashara anaweka kwenye biashara kutoka salio lake, kwa leverage ile ile, hivyo matokeo yako kwa asilimia yanafuata yake. Biashara kadhaa zinaweza kuwa wazi kwa wakati mmoja; kama kiasi huru katika unakili hakitoshi kwa sehemu kamili, biashara inafunguliwa kwa kilichopo na unapata taarifa, na kama iko chini ya ukubwa wa chini wa biashara haifunguliwi na unapata taarifa.",
       "p2": "Unabaki na udhibiti: unaweza kubadilisha mipangilio, kuweka kikomo cha hasara au kuacha kunakili wakati wowote. Biashara zilizokwisha funguliwa zinabaki na kanuni zake.",
-      "p3": "Matokeo yanafuata ya mfanyabiashara, kwa hiyo faida na hasara vyote vinakufikia. Anza kidogo, na kwa akaunti ya majaribio ukiwa mgeni."
+      "p3": "Matokeo yanafuata ya mfanyabiashara, kwa hiyo faida na hasara vyote vinakufikia. Anza kidogo, na kwa akaunti ya mazoezi ukiwa mgeni."
     },
     "choose_trader": {
       "title": "Jinsi ya kuchagua mfanyabiashara",

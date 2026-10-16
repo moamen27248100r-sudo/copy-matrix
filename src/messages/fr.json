@@ -59,11 +59,11 @@
     },
     "tryCopy": {
       "badge": "Essayez sans risque",
-      "title": "Essayez avec un compte démo",
-      "description": "Démarrez avec $10 000 de fonds virtuels et entraînez-vous à copier avant d'utiliser votre propre argent.",
-      "cta": "Ouvrir un compte démo",
-      "cardWelcome": "Votre compte démo gratuit",
-      "cardPortfolioLabel": "Valeur du portefeuille démo",
+      "title": "Essayez avec un compte d'entraînement",
+      "description": "Démarrez avec 10 000 $ et essayez la copie avant d'utiliser votre propre argent.",
+      "cta": "Ouvrir un compte d'entraînement",
+      "cardWelcome": "Votre compte d'entraînement gratuit",
+      "cardPortfolioLabel": "Valeur du portefeuille d'entraînement",
       "cardTopLabel": "Meilleurs traders par rendement (moyenne quotidienne)",
       "live": "Données en direct"
     },
@@ -99,10 +99,10 @@
       "step3Title": "Suivez",
       "step3Desc": "Suivez votre portefeuille et vos transactions copiées depuis un seul écran.",
       "cardsTitle": "Commencez sans risque",
-      "card1Title": "Ouvrez un compte démo gratuit",
-      "card1Desc": "L'ouverture d'un compte démo ne coûte rien.",
-      "card2Title": "Un solde virtuel de départ",
-      "card2Desc": "Chaque compte démo démarre avec 10 000 $ de fonds virtuels pour s'exercer à la copie.",
+      "card1Title": "Ouvrez un compte d'entraînement gratuit",
+      "card1Desc": "L'ouverture d'un compte d'entraînement ne coûte rien.",
+      "card2Title": "Un solde d'entraînement de départ",
+      "card2Desc": "Chaque compte d'entraînement démarre avec 10 000 $ pour que vous puissiez essayer la copie.",
       "card3Title": "Prix de marché en direct",
       "card3Desc": "Suivez les prix des cryptos, de l'or et des devises au même endroit.",
       "traderSubtitle": "Rendement, nombre de copieurs et historique complet, tout sous vos yeux avant de décider.",
@@ -141,7 +141,7 @@
     "menuAdmin": "Panneau d'administration",
     "logout": "Déconnexion",
     "switchAccountAriaLabel": "Changer de type de compte",
-    "switchAccountWarning": "Vos soldes démo et réel sont séparés. Changer de compte arrête vos copies en cours. Continuer ?",
+    "switchAccountWarning": "Vos soldes d'entraînement et réel sont séparés. Changer de compte arrête vos copies en cours. Continuer ?",
     "switchAccountConfirmTitle": "Confirmer le changement de compte",
     "switchAccountConfirmCta": "Changer",
     "switchAccountCancelCta": "Annuler",
@@ -150,7 +150,7 @@
     "notificationsEmpty": "Aucune notification pour le moment.",
     "viewAll": "Tout voir",
     "markAllRead": "Tout marquer comme lu",
-    "demoStrip": "Mode démo : fonds virtuels",
+    "demoStrip": "Mode entraînement",
     "switchToLeaderMode": "Espace trader leader",
     "switchToCopierMode": "Tableau de bord copieur",
     "menuLeadCenter": "Espace trader leader",
@@ -236,7 +236,7 @@
     "mostCopiedThisWeekTitle": "Les plus copiés cette semaine",
     "copiersThisWeek": "{count, plural, one {# nouveau copieur cette semaine} other {# nouveaux copieurs cette semaine}}",
     "viewAllPositions": "Voir les {count} positions",
-    "resetBalanceConfirm": "Réinitialiser votre solde démo à $10 000 ? Vos copies en cours seront arrêtées.",
+    "resetBalanceConfirm": "Réinitialiser votre solde d'entraînement à $10 000 ? Vos copies en cours seront arrêtées.",
     "perfTitle": "Résumé du trading",
     "perfWinRate": "Taux de réussite",
     "perfClosedTrades": "Trades clôturés",
@@ -393,10 +393,10 @@
     "walletDepositFailedTitle": "Dépôt non crédité",
     "walletDepositFailedBody": "Votre dépôt USDT sur {network} n'a pas pu être crédité. Consultez l'historique des dépôts pour en connaître la raison.",
     "scopeReal": "Notifications de votre compte réel, ainsi que les alertes de compte et de sécurité.",
-    "scopeDemo": "Notifications de votre compte démo, ainsi que les alertes de compte et de sécurité.",
+    "scopeDemo": "Notifications de votre compte d'entraînement, ainsi que les alertes de compte et de sécurité.",
     "prefsInApp": "Dans l'app",
     "prefsEmail": "E-mail",
-    "prefsEmailNote": "Les e-mails concernent uniquement votre compte réel ; les trades du compte démo restent dans l'app. Les e-mails de sécurité sont toujours envoyés.",
+    "prefsEmailNote": "Les e-mails concernent uniquement votre compte réel ; les trades du compte d'entraînement restent dans l'app. Les e-mails de sécurité sont toujours envoyés.",
     "lossAlertTitle": "Alerte de perte",
     "lossAlertBodyCopy": "Votre copie de {providerName} est en perte de {loss}% (votre seuil d'alerte est de {threshold}%).",
     "lossAlertBodyPortfolio": "Votre portefeuille est en perte de {loss}% des fonds investis (votre seuil d'alerte est de {threshold}%).",
@@ -480,13 +480,13 @@
     "monthlyReportEmpty": "Aucune activité pour le moment.",
     "reviewProcessingNote": "Les dépôts sont crédités automatiquement dès leur confirmation sur la blockchain. Les retraits sont généralement traités sous 24 heures.",
     "demoDepositNote": "Le montant est ajouté immédiatement au solde de ce compte.",
-    "demoWithdrawNote": "Les retraits démo sont instantanés et n'affectent que votre solde démo.",
-    "demoWalletNote": "Votre solde démo est virtuel et totalement distinct de votre compte réel. Les dépôts et retraits sont instantanés.",
-    "resetDemoButton": "Réinitialiser le solde démo",
-    "resetDemoConfirm": "Réinitialiser votre solde démo à $10 000 ? Vos copies en cours seront arrêtées.",
-    "demoDepositDone": "Les fonds démo ont été ajoutés à votre solde.",
-    "demoWithdrawDone": "Les fonds démo ont été retirés de votre solde.",
-    "demoResetDone": "Votre solde démo a été réinitialisé à $10 000.",
+    "demoWithdrawNote": "Les retraits d'entraînement sont instantanés et n'affectent que votre solde d'entraînement.",
+    "demoWalletNote": "Votre solde d'entraînement est totalement distinct de votre compte réel. Les dépôts et retraits sont instantanés.",
+    "resetDemoButton": "Réinitialiser le solde d'entraînement",
+    "resetDemoConfirm": "Réinitialiser votre solde d'entraînement à $10 000 ? Vos copies en cours seront arrêtées.",
+    "demoDepositDone": "Les fonds d'entraînement ont été ajoutés à votre solde.",
+    "demoWithdrawDone": "Les fonds d'entraînement ont été retirés de votre solde.",
+    "demoResetDone": "Votre solde d'entraînement a été réinitialisé à $10 000.",
     "txDemoReset": "Réinitialisation du solde",
     "txAdjustment": "Ajustement du solde",
     "txFee": "Frais",
@@ -828,13 +828,6 @@
     "profileTitle": "Profil",
     "fullNamePlaceholder": "Nom complet",
     "saveName": "Enregistrer le nom",
-    "accountTypeTitle": "Type de compte",
-    "accountTypeDesc": "Un compte réel permet de déposer et de retirer de l'argent réel. Un compte démo sert à s'entraîner avec des fonds virtuels. Les deux soldes sont totalement séparés et changer de compte ne transfère jamais de fonds.",
-    "demoAccount": "Compte démo",
-    "demoAccountDesc": "— pour s'entraîner et explorer",
-    "realAccount": "Compte réel",
-    "realAccountDesc": "— dépôt et retrait d'argent réel",
-    "saveAccountType": "Enregistrer le type de compte",
     "changePasswordTitle": "Changer le mot de passe",
     "newPasswordPlaceholder": "Nouveau mot de passe (6 caractères minimum)",
     "updatePassword": "Mettre à jour le mot de passe",
@@ -1194,10 +1187,10 @@
       "withdrawInsufficientAvailable": "Votre solde disponible pour le retrait est insuffisant — une partie de votre solde est actuellement retenue pour une copie active. Arrêtez d'abord de copier pour restituer ce montant à votre solde disponible.",
       "withdrawRequestFailed": "Impossible d'envoyer la demande de retrait. Veuillez réessayer.",
       "realOnly": "Les dépôts et retraits réels sont disponibles sur votre compte réel. Passez à votre compte réel pour continuer.",
-      "demoLimitExceeded": "Ce dépôt dépasserait le solde démo maximal de 1 000 000 USDT.",
-      "demoResetOpenPositions": "Fermez toutes les positions ouvertes avant de réinitialiser votre solde démo.",
-      "demoOnly": "Cette action n'est disponible que sur un compte démo.",
-      "demoWalletFailed": "Impossible de terminer la transaction démo. Veuillez réessayer.",
+      "demoLimitExceeded": "Ce dépôt dépasserait le solde d'entraînement maximal de 1 000 000 USDT.",
+      "demoResetOpenPositions": "Fermez toutes les positions ouvertes avant de réinitialiser votre solde d'entraînement.",
+      "demoOnly": "Cette action n'est disponible que sur un compte d'entraînement.",
+      "demoWalletFailed": "Impossible de terminer la transaction d'entraînement. Veuillez réessayer.",
       "withdrawAddressInvalid": "L'adresse du portefeuille ne semble pas valide pour le réseau sélectionné. Vérifiez l'adresse et le réseau, puis réessayez.",
       "kycRequired": "La vérification d'identité est requise pour retirer des fonds d'un compte réel. Terminez la vérification pour continuer.",
       "depositNetworkUnavailable": "Les dépôts sur ce réseau sont temporairement indisponibles. Veuillez choisir un autre réseau.",
@@ -1359,7 +1352,7 @@
           "à propos de la plateforme",
           "c'est quoi copy matrix"
         ],
-        "answer": "Copy Matrix est une plateforme de copie automatique de trades, qui vous permet de suivre des traders au historique vérifié et de leur lier une partie de votre solde, afin que leurs trades soient automatiquement reflétés dans votre portefeuille. Veuillez noter qu'il s'agit d'un environnement de démonstration à des fins d'essai, et non d'un courtier financier agréé."
+        "answer": "Copy Matrix est une plateforme de copie automatique de trades, qui vous permet de suivre des traders au historique vérifié et de leur lier une partie de votre solde, afin que leurs trades soient automatiquement reflétés dans votre portefeuille. Veuillez noter que Copy Matrix est une plateforme logicielle, et non un courtier financier agréé."
       },
       {
         "id": "how-to-start",
@@ -1369,7 +1362,7 @@
           "premiers pas",
           "débuter"
         ],
-        "answer": "Pour commencer, créez un compte depuis la page d'inscription, puis choisissez votre type de compte (démo ou réel). Ensuite, vous pouvez parcourir la page « Découvrir les traders » et choisir qui vous souhaitez copier selon leur historique et leur niveau de risque."
+        "answer": "Pour commencer, créez un compte depuis la page d'inscription ; il s'ouvre directement sur un compte d'entraînement. Ensuite, vous pouvez parcourir la page « Découvrir les traders » et choisir qui vous souhaitez copier selon leur historique et leur niveau de risque."
       },
       {
         "id": "deposit",
@@ -1379,7 +1372,7 @@
           "ajouter des fonds",
           "recharger"
         ],
-        "answer": "Choisissez « Dépôt » dans la section portefeuille, sélectionnez le réseau USDT (TRC20, BEP20 ou ERC20) et envoyez des USDT à l'adresse affichée. Collez ensuite l'identifiant de transaction (TxID) : nous le vérifions automatiquement sur la blockchain et créditons le montant reçu dès que les confirmations réseau sont atteintes. Les dépôts du compte démo sont instantanés."
+        "answer": "Choisissez « Dépôt » dans la section portefeuille, sélectionnez le réseau USDT (TRC20, BEP20 ou ERC20) et envoyez des USDT à l'adresse affichée. Collez ensuite l'identifiant de transaction (TxID) : nous le vérifions automatiquement sur la blockchain et créditons le montant reçu dès que les confirmations réseau sont atteintes. Les dépôts du compte d'entraînement sont instantanés."
       },
       {
         "id": "withdraw",
@@ -1389,7 +1382,7 @@
           "retirer",
           "retirer les bénéfices"
         ],
-        "answer": "Choisissez « Retrait », sélectionnez le réseau USDT, saisissez l'adresse de votre portefeuille et le montant, puis confirmez avec le code de votre application d'authentification. Les retraits exigent la vérification d'identité (KYC) et l'authentification à deux facteurs. Le montant est réservé immédiatement sur votre solde ; vous pouvez annuler tant que la demande est en traitement, et elle est généralement finalisée sous 24 heures. Les retraits du compte démo sont instantanés."
+        "answer": "Choisissez « Retrait », sélectionnez le réseau USDT, saisissez l'adresse de votre portefeuille et le montant, puis confirmez avec le code de votre application d'authentification. Les retraits exigent la vérification d'identité (KYC) et l'authentification à deux facteurs. Le montant est réservé immédiatement sur votre solde ; vous pouvez annuler tant que la demande est en traitement, et elle est généralement finalisée sous 24 heures. Les retraits du compte d'entraînement sont instantanés."
       },
       {
         "id": "withdraw-time",
@@ -1553,13 +1546,13 @@
       },
       {
         "id": "demo-vs-real",
-        "question": "Quelle est la différence entre un compte démo et un compte réel ?",
+        "question": "Quelle est la différence entre un compte d'entraînement et un compte réel ?",
         "keywords": [
           "compte démo",
           "compte réel",
           "différence entre"
         ],
-        "answer": "Un compte démo vous permet d'essayer le copy trading avec des fonds virtuels sans risque réel, tandis qu'un compte réel repose sur votre solde effectif, et les résultats réels de la copie (gains ou pertes) y sont reflétés."
+        "answer": "Un compte d'entraînement vous permet d'essayer le copy trading avec des fonds d'entraînement sans risque réel, tandis qu'un compte réel repose sur votre solde effectif, et les résultats réels de la copie (gains ou pertes) y sont reflétés."
       },
       {
         "id": "suspend-account",
@@ -2071,8 +2064,6 @@
     "notificationsDesc": "Consultez les notifications de votre compte.",
     "notificationPreferencesTitle": "Préférences de notification | Copy Matrix",
     "notificationPreferencesDesc": "Gérez les notifications que vous recevez.",
-    "onboardingAccountTypeTitle": "Choisir le type de compte | Copy Matrix",
-    "onboardingAccountTypeDesc": "Choisissez entre un compte de trading démo et un compte réel.",
     "portfolioTitle": "Portefeuille | Copy Matrix",
     "portfolioDesc": "Consultez le solde de votre compte et la performance de votre portefeuille.",
     "portfolioDepositTitle": "Dépôt | Copy Matrix",
@@ -2136,8 +2127,8 @@
         "a": "Envoyez une demande de retrait depuis la page Portefeuille. Les retraits nécessitent une vérification d'identité et sont généralement terminés sous 24 heures."
       },
       {
-        "q": "Existe-t-il un compte démo ?",
-        "a": "Oui. Un compte démo démarre avec $10 000 de fonds virtuels, pour vous entraîner sans risquer votre propre argent."
+        "q": "Existe-t-il un compte d'entraînement ?",
+        "a": "Oui. Un compte d'entraînement démarre avec 10 000 $, pour vous entraîner sans risquer votre propre argent."
       }
     ]
   },
@@ -2202,7 +2193,7 @@
       "Vérification d'identité",
       "Les retraits passent par des contrôles de sécurité avant d'être finalisés",
       "Limite de perte automatique sur chaque copie",
-      "Séparation totale entre compte démo et compte réel",
+      "Séparation totale entre compte d'entraînement et compte réel",
       "Vos données ne sont visibles que par vous"
     ]
   },
@@ -2478,7 +2469,7 @@
     "greeting": "Bonjour,",
     "greetingName": "Bonjour {name},",
     "accountReal": "Compte réel",
-    "accountDemo": "Compte démo",
+    "accountDemo": "Compte d'entraînement",
     "ctaTrades": "Voir mes trades",
     "ctaWallet": "Ouvrir mon portefeuille",
     "ctaKyc": "Voir la vérification",
@@ -2539,7 +2530,7 @@
       "summary": "Choisissez un trader et la plateforme reproduit ses transactions sur votre compte, proportionnellement au montant fixé.",
       "p1": "Lorsque vous copiez un trader, chaque transaction qu'il ouvre et ferme est reproduite automatiquement sur votre compte. Chaque transaction copiée prend la même part de votre montant de copie que celle que le trader engage depuis son propre solde, avec le même effet de levier : votre résultat en pourcentage suit le sien. Plusieurs transactions peuvent être ouvertes en même temps ; si le montant libre de votre copie ne suffit pas pour la part complète, la transaction s'ouvre avec ce qui est libre et vous êtes averti, et si elle est inférieure à la taille minimale, elle n'est pas ouverte et vous êtes averti.",
       "p2": "Vous gardez le contrôle : vous pouvez modifier les réglages, fixer une limite de perte ou arrêter la copie à tout moment. Les transactions déjà ouvertes gardent leurs propres règles.",
-      "p3": "Vos résultats suivent ceux du trader : gains et pertes vous sont tous deux répercutés. Commencez petit, et avec le compte démo si vous débutez."
+      "p3": "Vos résultats suivent ceux du trader : gains et pertes vous sont tous deux répercutés. Commencez petit, et avec le compte d'entraînement si vous débutez."
     },
     "choose_trader": {
       "title": "Comment choisir un trader",

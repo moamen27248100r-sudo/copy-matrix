@@ -2,11 +2,11 @@
   "Home": {
     "tryCopy": {
       "badge": "Try it risk-free",
-      "title": "Try it with a demo account",
-      "description": "Start with $10,000 in virtual funds and practice copying before using your own money.",
-      "cta": "Open a demo account",
-      "cardWelcome": "Your free demo account",
-      "cardPortfolioLabel": "Demo portfolio value",
+      "title": "Try it with a practice account",
+      "description": "Start with $10,000 and try copying before using your own money.",
+      "cta": "Open a practice account",
+      "cardWelcome": "Your free practice account",
+      "cardPortfolioLabel": "Practice portfolio value",
       "cardTopLabel": "Top traders by return (daily average)",
       "live": "Live data"
     },
@@ -99,10 +99,10 @@
       "step3Title": "Track",
       "step3Desc": "Follow your portfolio and copied trades from one screen.",
       "cardsTitle": "Start without risk",
-      "card1Title": "Open a free demo account",
-      "card1Desc": "Opening a demo account costs nothing.",
-      "card2Title": "A virtual starting balance",
-      "card2Desc": "Every demo account starts with $10,000 in virtual funds to practice copying.",
+      "card1Title": "Open a free practice account",
+      "card1Desc": "Opening a practice account costs nothing.",
+      "card2Title": "A practice starting balance",
+      "card2Desc": "Every practice account starts with $10,000 so you can try copying.",
       "card3Title": "Live market prices",
       "card3Desc": "Follow crypto, gold and currency prices in one place.",
       "traderSubtitle": "Return, number of copiers and the full record, all in front of you before you decide.",
@@ -141,7 +141,7 @@
     "menuAdmin": "Admin panel",
     "logout": "Log out",
     "switchAccountAriaLabel": "Switch account type",
-    "switchAccountWarning": "Your demo and real balances are kept separate. Switching accounts stops your current copying. Continue?",
+    "switchAccountWarning": "Your practice and real balances are kept separate. Switching accounts stops your current copying. Continue?",
     "switchAccountConfirmTitle": "Confirm account switch",
     "switchAccountConfirmCta": "Switch",
     "switchAccountCancelCta": "Cancel",
@@ -150,7 +150,7 @@
     "notificationsEmpty": "No notifications yet.",
     "viewAll": "View all",
     "markAllRead": "Mark all as read",
-    "demoStrip": "Demo mode: virtual funds",
+    "demoStrip": "Practice mode",
     "switchToLeaderMode": "Lead trader center",
     "switchToCopierMode": "Copier dashboard",
     "menuLeadCenter": "Lead trader center",
@@ -236,7 +236,7 @@
     "mostCopiedThisWeekTitle": "Most copied this week",
     "copiersThisWeek": "{count, plural, one {# new copier this week} other {# new copiers this week}}",
     "viewAllPositions": "View all {count} positions",
-    "resetBalanceConfirm": "Reset your demo balance to $10,000? Your current copies will stop.",
+    "resetBalanceConfirm": "Reset your practice balance to $10,000? Your current copies will stop.",
     "perfTitle": "Trading summary",
     "perfWinRate": "Win rate",
     "perfClosedTrades": "Closed trades",
@@ -393,10 +393,10 @@
     "walletDepositFailedTitle": "Deposit not credited",
     "walletDepositFailedBody": "Your USDT deposit on {network} could not be credited. Open your deposit history for the reason.",
     "scopeReal": "Notifications for your real account, plus account and security alerts.",
-    "scopeDemo": "Notifications for your demo account, plus account and security alerts.",
+    "scopeDemo": "Notifications for your practice account, plus account and security alerts.",
     "prefsInApp": "In app",
     "prefsEmail": "Email",
-    "prefsEmailNote": "Emails are sent for your real account only; demo-account trades stay in the app. Security emails are always sent.",
+    "prefsEmailNote": "Emails are sent for your real account only; practice-account trades stay in the app. Security emails are always sent.",
     "lossAlertTitle": "Loss alert",
     "lossAlertBodyCopy": "Your copy of {providerName} is down {loss}% (your alert level is {threshold}%).",
     "lossAlertBodyPortfolio": "Your portfolio is down {loss}% of your invested funds (your alert level is {threshold}%).",
@@ -480,13 +480,13 @@
     "monthlyReportEmpty": "No activity yet.",
     "reviewProcessingNote": "Deposits are credited automatically once confirmed on the blockchain. Withdrawals are usually processed within 24 hours.",
     "demoDepositNote": "The amount is added to this account's balance instantly.",
-    "demoWithdrawNote": "Demo withdrawals are instant and only affect your demo balance.",
-    "demoWalletNote": "Your demo balance is virtual and completely separate from your real account. Deposits and withdrawals are instant.",
-    "resetDemoButton": "Reset demo balance",
-    "resetDemoConfirm": "Reset your demo balance to $10,000? Your current copies will stop.",
-    "demoDepositDone": "Demo funds added to your balance.",
-    "demoWithdrawDone": "Demo funds withdrawn from your balance.",
-    "demoResetDone": "Your demo balance was reset to $10,000.",
+    "demoWithdrawNote": "Practice withdrawals are instant and only affect your practice balance.",
+    "demoWalletNote": "Your practice balance is completely separate from your real account. Deposits and withdrawals are instant.",
+    "resetDemoButton": "Reset practice balance",
+    "resetDemoConfirm": "Reset your practice balance to $10,000? Your current copies will stop.",
+    "demoDepositDone": "Practice funds added to your balance.",
+    "demoWithdrawDone": "Practice funds withdrawn from your balance.",
+    "demoResetDone": "Your practice balance was reset to $10,000.",
     "txDemoReset": "Balance reset",
     "txAdjustment": "Balance adjustment",
     "txFee": "Fee",
@@ -828,13 +828,6 @@
     "profileTitle": "Profile",
     "fullNamePlaceholder": "Full name",
     "saveName": "Save name",
-    "accountTypeTitle": "Account type",
-    "accountTypeDesc": "A real account lets you deposit and withdraw actual money. A demo account is for practicing with virtual funds. The two balances are kept completely separate, and switching never moves funds between them.",
-    "demoAccount": "Demo account",
-    "demoAccountDesc": "— for practicing and exploring",
-    "realAccount": "Real account",
-    "realAccountDesc": "— deposit and withdraw actual money",
-    "saveAccountType": "Save account type",
     "changePasswordTitle": "Change password",
     "newPasswordPlaceholder": "New password (at least 6 characters)",
     "updatePassword": "Update password",
@@ -1194,10 +1187,10 @@
       "withdrawInsufficientAvailable": "Your available balance for withdrawal is insufficient — part of your balance is currently held for an active copy. Stop copying first to return this amount to your available balance.",
       "withdrawRequestFailed": "Could not send the withdrawal request. Please try again.",
       "realOnly": "Deposits and withdrawals to a real wallet are available on your real account. Switch to your real account to continue.",
-      "demoLimitExceeded": "This deposit would exceed the maximum demo balance of 1,000,000 USDT.",
-      "demoResetOpenPositions": "Close all open positions before resetting your demo balance.",
-      "demoOnly": "This action is only available on a demo account.",
-      "demoWalletFailed": "Could not complete the demo transaction. Please try again.",
+      "demoLimitExceeded": "This deposit would exceed the maximum practice balance of 1,000,000 USDT.",
+      "demoResetOpenPositions": "Close all open positions before resetting your practice balance.",
+      "demoOnly": "This action is only available on a practice account.",
+      "demoWalletFailed": "Could not complete the practice transaction. Please try again.",
       "withdrawAddressInvalid": "The wallet address doesn't look valid for the selected network. Check the address and network, then try again.",
       "kycRequired": "Identity verification is required to withdraw from a real account. Complete verification to continue.",
       "depositNetworkUnavailable": "Deposits on this network are temporarily unavailable. Please choose another network.",
@@ -1359,7 +1352,7 @@
           "about the platform",
           "what is copy matrix"
         ],
-        "answer": "Copy Matrix is a platform for automatically copying trades, letting you follow traders with a verified track record and link part of your balance to them, so their trades are mirrored into your portfolio automatically. Please note this is a demo environment for demonstration and practice purposes, not a licensed financial brokerage."
+        "answer": "Copy Matrix is a platform for automatically copying trades, letting you follow traders with a verified track record and link part of your balance to them, so their trades are mirrored into your portfolio automatically. Please note Copy Matrix is a software platform, not a licensed financial broker."
       },
       {
         "id": "how-to-start",
@@ -1369,7 +1362,7 @@
           "getting started",
           "first step"
         ],
-        "answer": "To get started, create an account from the sign-up page, then choose your account type (demo or real). After that, you can browse the \"Discover Traders\" page and pick who you'd like to copy based on their track record and risk level."
+        "answer": "To get started, create an account from the sign-up page; it opens straight on a practice account. After that, you can browse the \"Discover Traders\" page and pick who you'd like to copy based on their track record and risk level."
       },
       {
         "id": "deposit",
@@ -1379,7 +1372,7 @@
           "add funds",
           "top up"
         ],
-        "answer": "Choose \"Deposit\" in the wallet section, pick the USDT network (TRC20, BEP20 or ERC20) and send USDT to the address shown. Then paste the transaction ID (TxID): we verify it on the blockchain automatically and credit the amount received once the network confirmations are complete. Demo-account deposits are instant."
+        "answer": "Choose \"Deposit\" in the wallet section, pick the USDT network (TRC20, BEP20 or ERC20) and send USDT to the address shown. Then paste the transaction ID (TxID): we verify it on the blockchain automatically and credit the amount received once the network confirmations are complete. Practice-account deposits are instant."
       },
       {
         "id": "withdraw",
@@ -1389,7 +1382,7 @@
           "cash out",
           "withdraw profits"
         ],
-        "answer": "Choose \"Withdraw\", pick the USDT network, enter your wallet address and the amount, then confirm with the code from your authenticator app. Withdrawals require identity verification (KYC) and two-factor authentication. The amount is reserved from your balance right away; you can cancel while the request is still processing, and it is usually completed within 24 hours. Demo withdrawals are instant."
+        "answer": "Choose \"Withdraw\", pick the USDT network, enter your wallet address and the amount, then confirm with the code from your authenticator app. Withdrawals require identity verification (KYC) and two-factor authentication. The amount is reserved from your balance right away; you can cancel while the request is still processing, and it is usually completed within 24 hours. Practice withdrawals are instant."
       },
       {
         "id": "withdraw-time",
@@ -1553,13 +1546,13 @@
       },
       {
         "id": "demo-vs-real",
-        "question": "What's the difference between a demo and a real account?",
+        "question": "What's the difference between a practice and a real account?",
         "keywords": [
           "demo account",
           "real account",
           "difference between"
         ],
-        "answer": "A demo account lets you try copy trading with virtual funds with no actual risk, while a real account is based on your actual balance, and reflects real copying results in profit or loss."
+        "answer": "A practice account lets you try copy trading with practice funds with no actual risk, while a real account is based on your actual balance, and reflects real copying results in profit or loss."
       },
       {
         "id": "suspend-account",
@@ -2074,8 +2067,6 @@
     "notificationsDesc": "View your account notifications.",
     "notificationPreferencesTitle": "Notification Preferences | Copy Matrix",
     "notificationPreferencesDesc": "Manage which notifications you receive.",
-    "onboardingAccountTypeTitle": "Choose Account Type | Copy Matrix",
-    "onboardingAccountTypeDesc": "Choose between a demo and a real trading account.",
     "portfolioTitle": "Portfolio | Copy Matrix",
     "portfolioDesc": "View your account balance and portfolio performance.",
     "portfolioDepositTitle": "Deposit | Copy Matrix",
@@ -2139,8 +2130,8 @@
         "a": "Submit a withdrawal request from the Wallet page. Withdrawals require identity verification and are usually completed within 24 hours."
       },
       {
-        "q": "Is there a demo account?",
-        "a": "Yes. A demo account starts with $10,000 in virtual funds, letting you practice without risking your own money."
+        "q": "Is there a practice account?",
+        "a": "Yes. A practice account starts with $10,000, letting you practice without risking your own money."
       }
     ]
   },
@@ -2205,7 +2196,7 @@
       "Identity verification",
       "Withdrawals go through security checks before they are completed",
       "An automatic loss limit on every copy",
-      "Full separation between demo and real accounts",
+      "Full separation between practice and real accounts",
       "Your data is visible only to you"
     ]
   },
@@ -2481,7 +2472,7 @@
     "greeting": "Hello,",
     "greetingName": "Hello {name},",
     "accountReal": "Real account",
-    "accountDemo": "Demo account",
+    "accountDemo": "Practice account",
     "ctaTrades": "View my trades",
     "ctaWallet": "Open my wallet",
     "ctaKyc": "View verification",
@@ -2542,7 +2533,7 @@
       "summary": "Pick a trader and the platform mirrors their trades on your account, in proportion to the amount you set.",
       "p1": "When you copy a trader, every trade they open and close is repeated on your account automatically. Each copied trade takes the same share of your copy amount that the trader puts into the trade from their own balance, at the same leverage, so your result in percent follows theirs. Several trades can be open at once; if the free amount in your copy is not enough for a trade's full share, it opens with what is free and you get a notice, and if it would be below the minimum trade size it is not opened and you get a notice.",
       "p2": "You stay in control: you can change the settings, set a loss limit, or stop copying at any time. Trades already open keep their own rules.",
-      "p3": "Results follow the trader’s results, so gains and losses both pass through to you. Start small, and with the demo account if you are new."
+      "p3": "Results follow the trader’s results, so gains and losses both pass through to you. Start small, and with the practice account if you are new."
     },
     "choose_trader": {
       "title": "How to choose a trader",

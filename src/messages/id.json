@@ -59,11 +59,11 @@
     },
     "tryCopy": {
       "badge": "Coba tanpa risiko",
-      "title": "Coba dengan akun demo",
-      "description": "Mulai dengan dana virtual $10.000 dan berlatih menyalin sebelum menggunakan uang Anda sendiri.",
-      "cta": "Buka akun demo",
-      "cardWelcome": "Akun demo gratis Anda",
-      "cardPortfolioLabel": "Nilai portofolio demo",
+      "title": "Coba dengan akun latihan",
+      "description": "Mulai dengan $10.000 dan coba menyalin sebelum memakai uang Anda sendiri.",
+      "cta": "Buka akun latihan",
+      "cardWelcome": "Akun latihan gratis Anda",
+      "cardPortfolioLabel": "Nilai portofolio latihan",
       "cardTopLabel": "Trader teratas berdasarkan imbal hasil (rata-rata harian)",
       "live": "Data langsung"
     },
@@ -99,10 +99,10 @@
       "step3Title": "Pantau",
       "step3Desc": "Pantau portofolio dan transaksi yang disalin dari satu layar.",
       "cardsTitle": "Mulai tanpa risiko",
-      "card1Title": "Buka akun demo gratis",
-      "card1Desc": "Membuka akun demo tidak dikenai biaya.",
-      "card2Title": "Saldo awal virtual",
-      "card2Desc": "Setiap akun demo dimulai dengan dana virtual $10.000 untuk berlatih menyalin.",
+      "card1Title": "Buka akun latihan gratis",
+      "card1Desc": "Membuka akun latihan tidak dikenai biaya.",
+      "card2Title": "Saldo awal latihan",
+      "card2Desc": "Setiap akun latihan dimulai dengan $10.000 agar Anda bisa mencoba menyalin.",
       "card3Title": "Harga pasar langsung",
       "card3Desc": "Pantau harga kripto, emas, dan mata uang di satu tempat.",
       "traderSubtitle": "Imbal hasil, jumlah penyalin, dan rekam lengkap, semuanya di depan Anda sebelum memutuskan.",
@@ -141,7 +141,7 @@
     "menuAdmin": "Panel admin",
     "logout": "Keluar",
     "switchAccountAriaLabel": "Ganti jenis akun",
-    "switchAccountWarning": "Saldo demo dan riil Anda terpisah. Berganti akun akan menghentikan penyalinan saat ini. Lanjutkan?",
+    "switchAccountWarning": "Saldo latihan dan riil Anda terpisah. Berganti akun akan menghentikan penyalinan saat ini. Lanjutkan?",
     "switchAccountConfirmTitle": "Konfirmasi ganti akun",
     "switchAccountConfirmCta": "Ganti",
     "switchAccountCancelCta": "Batal",
@@ -150,7 +150,7 @@
     "notificationsEmpty": "Belum ada notifikasi.",
     "viewAll": "Lihat semua",
     "markAllRead": "Tandai semua sebagai dibaca",
-    "demoStrip": "Mode demo: dana virtual",
+    "demoStrip": "Mode latihan",
     "switchToLeaderMode": "Pusat lead trader",
     "switchToCopierMode": "Dasbor penyalin",
     "menuLeadCenter": "Pusat lead trader",
@@ -236,7 +236,7 @@
     "mostCopiedThisWeekTitle": "Paling banyak disalin minggu ini",
     "copiersThisWeek": "{count} penyalin baru minggu ini",
     "viewAllPositions": "Lihat semua {count} posisi",
-    "resetBalanceConfirm": "Atur ulang saldo demo ke $10.000? Salinan Anda saat ini akan dihentikan.",
+    "resetBalanceConfirm": "Atur ulang saldo latihan ke $10.000? Salinan Anda saat ini akan dihentikan.",
     "perfTitle": "Ringkasan trading",
     "perfWinRate": "Rasio menang",
     "perfClosedTrades": "Trade ditutup",
@@ -393,10 +393,10 @@
     "walletDepositFailedTitle": "Deposit tidak dikreditkan",
     "walletDepositFailedBody": "Deposit USDT Anda di {network} tidak dapat dikreditkan. Buka riwayat deposit untuk melihat alasannya.",
     "scopeReal": "Notifikasi akun riil Anda, ditambah peringatan akun dan keamanan.",
-    "scopeDemo": "Notifikasi akun demo Anda, ditambah peringatan akun dan keamanan.",
+    "scopeDemo": "Notifikasi akun latihan Anda, ditambah peringatan akun dan keamanan.",
     "prefsInApp": "Di aplikasi",
     "prefsEmail": "Surel",
-    "prefsEmailNote": "Surel hanya dikirim untuk akun riil Anda; transaksi akun demo tetap di aplikasi. Surel keamanan selalu dikirim.",
+    "prefsEmailNote": "Surel hanya dikirim untuk akun riil Anda; transaksi akun latihan tetap di aplikasi. Surel keamanan selalu dikirim.",
     "lossAlertTitle": "Peringatan kerugian",
     "lossAlertBodyCopy": "Salinan {providerName} Anda rugi {loss}% (batas peringatan Anda {threshold}%).",
     "lossAlertBodyPortfolio": "Portofolio Anda rugi {loss}% dari dana yang diinvestasikan (batas peringatan Anda {threshold}%).",
@@ -480,13 +480,13 @@
     "monthlyReportEmpty": "Belum ada aktivitas.",
     "reviewProcessingNote": "Deposit dikreditkan otomatis setelah dikonfirmasi di blockchain. Penarikan biasanya diproses dalam 24 jam.",
     "demoDepositNote": "Jumlahnya langsung ditambahkan ke saldo akun ini.",
-    "demoWithdrawNote": "Penarikan demo bersifat instan dan hanya memengaruhi saldo demo Anda.",
-    "demoWalletNote": "Saldo demo Anda bersifat virtual dan sepenuhnya terpisah dari akun riil. Setoran dan penarikan bersifat instan.",
-    "resetDemoButton": "Atur ulang saldo demo",
-    "resetDemoConfirm": "Atur ulang saldo demo ke $10.000? Salinan Anda saat ini akan dihentikan.",
-    "demoDepositDone": "Dana demo telah ditambahkan ke saldo Anda.",
-    "demoWithdrawDone": "Dana demo telah ditarik dari saldo Anda.",
-    "demoResetDone": "Saldo demo Anda telah diatur ulang ke $10.000.",
+    "demoWithdrawNote": "Penarikan latihan bersifat instan dan hanya memengaruhi saldo latihan Anda.",
+    "demoWalletNote": "Saldo latihan Anda sepenuhnya terpisah dari akun riil. Setoran dan penarikan bersifat instan.",
+    "resetDemoButton": "Atur ulang saldo latihan",
+    "resetDemoConfirm": "Atur ulang saldo latihan ke $10.000? Salinan Anda saat ini akan dihentikan.",
+    "demoDepositDone": "Dana latihan telah ditambahkan ke saldo Anda.",
+    "demoWithdrawDone": "Dana latihan telah ditarik dari saldo Anda.",
+    "demoResetDone": "Saldo latihan Anda telah diatur ulang ke $10.000.",
     "txDemoReset": "Pengaturan ulang saldo",
     "txAdjustment": "Penyesuaian saldo",
     "txFee": "Biaya",
@@ -828,13 +828,6 @@
     "profileTitle": "Profil",
     "fullNamePlaceholder": "Nama lengkap",
     "saveName": "Simpan nama",
-    "accountTypeTitle": "Jenis akun",
-    "accountTypeDesc": "Akun riil memungkinkan Anda menyetor dan menarik uang sungguhan. Akun demo untuk berlatih dengan dana virtual. Kedua saldo sepenuhnya terpisah, dan berganti akun tidak pernah memindahkan dana di antara keduanya.",
-    "demoAccount": "Akun demo",
-    "demoAccountDesc": "— untuk berlatih dan mengeksplorasi",
-    "realAccount": "Akun nyata",
-    "realAccountDesc": "— setor dan tarik uang sungguhan",
-    "saveAccountType": "Simpan jenis akun",
     "changePasswordTitle": "Ubah kata sandi",
     "newPasswordPlaceholder": "Kata sandi baru (minimal 6 karakter)",
     "updatePassword": "Perbarui kata sandi",
@@ -1194,10 +1187,10 @@
       "withdrawInsufficientAvailable": "Saldo yang tersedia untuk penarikan tidak mencukupi — sebagian saldo Anda saat ini ditahan untuk penyalinan aktif. Hentikan penyalinan terlebih dahulu untuk mengembalikan jumlah ini ke saldo tersedia Anda.",
       "withdrawRequestFailed": "Tidak dapat mengirim permintaan penarikan. Silakan coba lagi.",
       "realOnly": "Setoran dan penarikan riil tersedia di akun riil Anda. Beralih ke akun riil untuk melanjutkan.",
-      "demoLimitExceeded": "Setoran ini akan melebihi saldo demo maksimum 1.000.000 USDT.",
-      "demoResetOpenPositions": "Tutup semua posisi terbuka sebelum mengatur ulang saldo demo.",
-      "demoOnly": "Tindakan ini hanya tersedia di akun demo.",
-      "demoWalletFailed": "Tidak dapat menyelesaikan transaksi demo. Silakan coba lagi.",
+      "demoLimitExceeded": "Setoran ini akan melebihi saldo latihan maksimum 1.000.000 USDT.",
+      "demoResetOpenPositions": "Tutup semua posisi terbuka sebelum mengatur ulang saldo latihan.",
+      "demoOnly": "Tindakan ini hanya tersedia di akun latihan.",
+      "demoWalletFailed": "Tidak dapat menyelesaikan transaksi latihan. Silakan coba lagi.",
       "withdrawAddressInvalid": "Alamat dompet tampaknya tidak valid untuk jaringan yang dipilih. Periksa alamat dan jaringan, lalu coba lagi.",
       "kycRequired": "Verifikasi identitas diperlukan untuk menarik dana dari akun riil. Selesaikan verifikasi untuk melanjutkan.",
       "depositNetworkUnavailable": "Deposit di jaringan ini sementara tidak tersedia. Silakan pilih jaringan lain.",
@@ -1359,7 +1352,7 @@
           "tentang platform",
           "apa itu copy matrix"
         ],
-        "answer": "Copy Matrix adalah platform untuk menyalin trade secara otomatis, memungkinkan Anda mengikuti trader dengan rekam jejak terverifikasi dan menghubungkan sebagian saldo Anda kepada mereka, sehingga trade mereka tercermin secara otomatis di portofolio Anda. Harap dicatat bahwa ini adalah lingkungan demo untuk tujuan demonstrasi dan latihan, bukan broker keuangan berlisensi."
+        "answer": "Copy Matrix adalah platform untuk menyalin trade secara otomatis, memungkinkan Anda mengikuti trader dengan rekam jejak terverifikasi dan menghubungkan sebagian saldo Anda kepada mereka, sehingga trade mereka tercermin secara otomatis di portofolio Anda. Harap dicatat bahwa Copy Matrix adalah platform perangkat lunak, bukan broker keuangan berlisensi."
       },
       {
         "id": "how-to-start",
@@ -1369,7 +1362,7 @@
           "memulai",
           "langkah pertama"
         ],
-        "answer": "Untuk memulai, buat akun dari halaman pendaftaran, lalu pilih jenis akun Anda (demo atau nyata). Setelah itu, Anda dapat menjelajahi halaman \"Temukan Trader\" dan memilih siapa yang ingin Anda salin berdasarkan rekam jejak dan tingkat risiko masing-masing."
+        "answer": "Untuk memulai, buat akun dari halaman pendaftaran; akun langsung terbuka sebagai akun latihan. Setelah itu, Anda dapat menjelajahi halaman \"Temukan Trader\" dan memilih siapa yang ingin Anda salin berdasarkan rekam jejak dan tingkat risiko masing-masing."
       },
       {
         "id": "deposit",
@@ -1379,7 +1372,7 @@
           "tambah dana",
           "isi ulang"
         ],
-        "answer": "Pilih \"Deposit\" di bagian dompet, pilih jaringan USDT (TRC20, BEP20, atau ERC20) dan kirim USDT ke alamat yang ditampilkan. Lalu tempel ID transaksi (TxID): kami memverifikasinya otomatis di blockchain dan mengkreditkan jumlah yang diterima setelah konfirmasi jaringan selesai. Deposit akun demo bersifat instan."
+        "answer": "Pilih \"Deposit\" di bagian dompet, pilih jaringan USDT (TRC20, BEP20, atau ERC20) dan kirim USDT ke alamat yang ditampilkan. Lalu tempel ID transaksi (TxID): kami memverifikasinya otomatis di blockchain dan mengkreditkan jumlah yang diterima setelah konfirmasi jaringan selesai. Deposit akun latihan bersifat instan."
       },
       {
         "id": "withdraw",
@@ -1389,7 +1382,7 @@
           "tarik dana",
           "tarik keuntungan"
         ],
-        "answer": "Pilih \"Tarik\", pilih jaringan USDT, masukkan alamat dompet dan jumlahnya, lalu konfirmasi dengan kode dari aplikasi autentikator. Penarikan memerlukan verifikasi identitas (KYC) dan autentikasi dua faktor. Jumlahnya langsung dicadangkan dari saldo Anda; Anda dapat membatalkan selama permintaan masih diproses, dan biasanya selesai dalam 24 jam. Penarikan akun demo bersifat instan."
+        "answer": "Pilih \"Tarik\", pilih jaringan USDT, masukkan alamat dompet dan jumlahnya, lalu konfirmasi dengan kode dari aplikasi autentikator. Penarikan memerlukan verifikasi identitas (KYC) dan autentikasi dua faktor. Jumlahnya langsung dicadangkan dari saldo Anda; Anda dapat membatalkan selama permintaan masih diproses, dan biasanya selesai dalam 24 jam. Penarikan akun latihan bersifat instan."
       },
       {
         "id": "withdraw-time",
@@ -1552,13 +1545,13 @@
       },
       {
         "id": "demo-vs-real",
-        "question": "Apa perbedaan antara akun demo dan akun nyata?",
+        "question": "Apa perbedaan antara akun latihan dan akun nyata?",
         "keywords": [
           "akun demo",
           "akun nyata",
           "perbedaan"
         ],
-        "answer": "Akun demo memungkinkan Anda mencoba copy trading dengan dana virtual tanpa risiko nyata, sedangkan akun nyata didasarkan pada saldo aktual Anda, dan mencerminkan hasil penyalinan nyata berupa keuntungan atau kerugian."
+        "answer": "Akun latihan memungkinkan Anda mencoba copy trading dengan dana latihan tanpa risiko nyata, sedangkan akun nyata didasarkan pada saldo aktual Anda, dan mencerminkan hasil penyalinan nyata berupa keuntungan atau kerugian."
       },
       {
         "id": "suspend-account",
@@ -2070,8 +2063,6 @@
     "notificationsDesc": "Lihat notifikasi akun Anda.",
     "notificationPreferencesTitle": "Preferensi Notifikasi | Copy Matrix",
     "notificationPreferencesDesc": "Atur notifikasi yang Anda terima.",
-    "onboardingAccountTypeTitle": "Pilih Jenis Akun | Copy Matrix",
-    "onboardingAccountTypeDesc": "Pilih antara akun trading demo dan akun riil.",
     "portfolioTitle": "Portofolio | Copy Matrix",
     "portfolioDesc": "Lihat saldo akun dan performa portofolio Anda.",
     "portfolioDepositTitle": "Setor | Copy Matrix",
@@ -2135,8 +2126,8 @@
         "a": "Ajukan permintaan penarikan dari halaman Dompet. Penarikan memerlukan verifikasi identitas dan biasanya selesai dalam 24 jam."
       },
       {
-        "q": "Apakah ada akun demo?",
-        "a": "Ya. Akun demo dimulai dengan dana virtual $10.000, sehingga Anda bisa berlatih tanpa mempertaruhkan uang sendiri."
+        "q": "Apakah ada akun latihan?",
+        "a": "Ya. Akun latihan dimulai dengan $10.000, sehingga Anda bisa berlatih tanpa mempertaruhkan uang sendiri."
       }
     ]
   },
@@ -2201,7 +2192,7 @@
       "Verifikasi identitas",
       "Penarikan melewati pemeriksaan keamanan sebelum selesai",
       "Batas kerugian otomatis pada setiap salinan",
-      "Pemisahan penuh antara akun demo dan akun riil",
+      "Pemisahan penuh antara akun latihan dan akun riil",
       "Data Anda tidak dapat dilihat siapa pun selain Anda"
     ]
   },
@@ -2477,7 +2468,7 @@
     "greeting": "Halo,",
     "greetingName": "Halo {name},",
     "accountReal": "Akun riil",
-    "accountDemo": "Akun demo",
+    "accountDemo": "Akun latihan",
     "ctaTrades": "Lihat transaksi saya",
     "ctaWallet": "Buka dompet saya",
     "ctaKyc": "Lihat verifikasi",
@@ -2538,7 +2529,7 @@
       "summary": "Pilih trader dan platform menyalin transaksinya ke akun Anda, sebanding dengan jumlah yang Anda tetapkan.",
       "p1": "Saat Anda menyalin seorang trader, setiap transaksi yang ia buka dan tutup diulang otomatis di akun Anda. Setiap transaksi salinan mengambil bagian yang sama dari jumlah salinan Anda seperti yang dipakai trader dari saldonya sendiri, dengan leverage yang sama, sehingga hasil Anda dalam persen mengikuti hasilnya. Beberapa transaksi bisa terbuka bersamaan; jika dana bebas di salinan tidak cukup untuk bagian penuh, transaksi dibuka dengan dana yang ada dan Anda mendapat pemberitahuan, dan jika di bawah ukuran minimum transaksi tidak dibuka dan Anda mendapat pemberitahuan.",
       "p2": "Anda tetap memegang kendali: ubah pengaturan, tetapkan batas rugi, atau hentikan salinan kapan saja. Transaksi yang sudah terbuka tetap mengikuti aturannya.",
-      "p3": "Hasil mengikuti hasil trader, jadi untung dan rugi sama-sama sampai ke Anda. Mulai kecil, dan dengan akun demo jika Anda baru."
+      "p3": "Hasil mengikuti hasil trader, jadi untung dan rugi sama-sama sampai ke Anda. Mulai kecil, dan dengan akun latihan jika Anda baru."
     },
     "choose_trader": {
       "title": "Cara memilih trader",

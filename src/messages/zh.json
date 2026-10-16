@@ -59,11 +59,11 @@
     },
     "tryCopy": {
       "badge": "免费试用",
-      "title": "使用模拟账户体验",
-      "description": "从 $10,000虚拟资金开始，在动用自己的资金之前先练习跟单。",
-      "cta": "开通模拟账户",
-      "cardWelcome": "您的免费模拟账户",
-      "cardPortfolioLabel": "模拟账户组合价值",
+      "title": "使用练习账户体验",
+      "description": "从 $10,000 开始，在动用自己的资金之前先试试跟单。",
+      "cta": "开通练习账户",
+      "cardWelcome": "您的免费练习账户",
+      "cardPortfolioLabel": "练习账户组合价值",
       "cardTopLabel": "收益最高的交易员（日均）",
       "live": "实时数据"
     },
@@ -99,10 +99,10 @@
       "step3Title": "跟踪",
       "step3Desc": "在一个界面中查看您的投资组合和已跟单的交易。",
       "cardsTitle": "零风险开始",
-      "card1Title": "免费开通模拟账户",
-      "card1Desc": "开通模拟账户无需任何费用。",
-      "card2Title": "虚拟起始资金",
-      "card2Desc": "每个模拟账户都有 $10,000 虚拟资金，供您练习跟单。",
+      "card1Title": "免费开通练习账户",
+      "card1Desc": "开通练习账户无需任何费用。",
+      "card2Title": "练习起始资金",
+      "card2Desc": "每个练习账户都有 $10,000，供您尝试跟单。",
       "card3Title": "实时市场价格",
       "card3Desc": "在一个地方查看加密货币、黄金和外汇价格。",
       "traderSubtitle": "收益、跟单人数和完整记录，决定之前一目了然。",
@@ -141,7 +141,7 @@
     "menuAdmin": "管理面板",
     "logout": "退出登录",
     "switchAccountAriaLabel": "切换账户类型",
-    "switchAccountWarning": "模拟余额与真实余额相互独立。切换账户会停止当前的跟单。是否继续？",
+    "switchAccountWarning": "练习余额与真实余额相互独立。切换账户会停止当前的跟单。是否继续？",
     "switchAccountConfirmTitle": "确认切换账户",
     "switchAccountConfirmCta": "切换",
     "switchAccountCancelCta": "取消",
@@ -150,7 +150,7 @@
     "notificationsEmpty": "暂无通知。",
     "viewAll": "查看全部",
     "markAllRead": "全部标记为已读",
-    "demoStrip": "演示模式：虚拟资金",
+    "demoStrip": "练习模式",
     "switchToLeaderMode": "带单员中心",
     "switchToCopierMode": "跟单员面板",
     "menuLeadCenter": "带单员中心",
@@ -236,7 +236,7 @@
     "mostCopiedThisWeekTitle": "本周最多人跟单",
     "copiersThisWeek": "本周新增 {count} 位跟单者",
     "viewAllPositions": "查看全部 {count} 个持仓",
-    "resetBalanceConfirm": "将模拟余额重置为 $10,000？当前的跟单将会停止。",
+    "resetBalanceConfirm": "将练习余额重置为 $10,000？当前的跟单将会停止。",
     "perfTitle": "交易摘要",
     "perfWinRate": "胜率",
     "perfClosedTrades": "已平仓交易",
@@ -393,10 +393,10 @@
     "walletDepositFailedTitle": "充值未入账",
     "walletDepositFailedBody": "您在 {network} 上的 USDT 充值未能入账，请在充值记录中查看原因。",
     "scopeReal": "您真实账户的通知，以及账户和安全提醒。",
-    "scopeDemo": "您模拟账户的通知，以及账户和安全提醒。",
+    "scopeDemo": "您练习账户的通知，以及账户和安全提醒。",
     "prefsInApp": "站内",
     "prefsEmail": "邮件",
-    "prefsEmailNote": "邮件仅针对您的真实账户发送；模拟账户的交易只在站内显示。安全邮件始终发送。",
+    "prefsEmailNote": "邮件仅针对您的真实账户发送；练习账户的交易只在站内显示。安全邮件始终发送。",
     "lossAlertTitle": "亏损提醒",
     "lossAlertBodyCopy": "您对 {providerName} 的跟单亏损已达 {loss}%（您设置的提醒线为 {threshold}%）。",
     "lossAlertBodyPortfolio": "您的投资组合亏损已达投入资金的 {loss}%（您设置的提醒线为 {threshold}%）。",
@@ -480,13 +480,13 @@
     "monthlyReportEmpty": "暂无活动。",
     "reviewProcessingNote": "充值在区块链确认后自动入账，提币通常在 24 小时内处理。",
     "demoDepositNote": "金额会立即加入此账户余额。",
-    "demoWithdrawNote": "模拟提现即时完成，仅影响您的模拟余额。",
-    "demoWalletNote": "模拟余额为虚拟资金，与您的真实账户完全独立。充值和提现即时到账。",
-    "resetDemoButton": "重置模拟余额",
-    "resetDemoConfirm": "将模拟余额重置为 $10,000？当前的跟单将会停止。",
-    "demoDepositDone": "模拟资金已添加到您的余额。",
-    "demoWithdrawDone": "模拟资金已从您的余额中提取。",
-    "demoResetDone": "您的模拟余额已重置为 $10,000。",
+    "demoWithdrawNote": "练习提现即时完成，仅影响您的练习余额。",
+    "demoWalletNote": "练习余额与您的真实账户完全独立。充值和提现即时到账。",
+    "resetDemoButton": "重置练习余额",
+    "resetDemoConfirm": "将练习余额重置为 $10,000？当前的跟单将会停止。",
+    "demoDepositDone": "练习资金已添加到您的余额。",
+    "demoWithdrawDone": "练习资金已从您的余额中提取。",
+    "demoResetDone": "您的练习余额已重置为 $10,000。",
     "txDemoReset": "余额重置",
     "txAdjustment": "余额调整",
     "txFee": "手续费",
@@ -828,13 +828,6 @@
     "profileTitle": "个人资料",
     "fullNamePlaceholder": "全名",
     "saveName": "保存姓名",
-    "accountTypeTitle": "账户类型",
-    "accountTypeDesc": "真实账户可进行真实资金的充值和提现，模拟账户使用虚拟资金进行练习。两个余额完全独立，切换账户不会在二者之间转移任何资金。",
-    "demoAccount": "模拟账户",
-    "demoAccountDesc": "— 用于练习和探索",
-    "realAccount": "真实账户",
-    "realAccountDesc": "— 存取真实资金",
-    "saveAccountType": "保存账户类型",
     "changePasswordTitle": "修改密码",
     "newPasswordPlaceholder": "新密码（至少6个字符）",
     "updatePassword": "更新密码",
@@ -1194,10 +1187,10 @@
       "withdrawInsufficientAvailable": "您可用于提款的余额不足 — 部分余额目前被锁定用于活跃跟单。请先停止跟单，将该金额返还到您的可用余额。",
       "withdrawRequestFailed": "无法发送提款申请，请重试。",
       "realOnly": "真实充值和提现仅适用于真实账户。请切换到真实账户后继续。",
-      "demoLimitExceeded": "此次充值将超过 1,000,000 USDT 的模拟余额上限。",
-      "demoResetOpenPositions": "重置模拟余额前，请先平掉所有持仓。",
-      "demoOnly": "此操作仅适用于模拟账户。",
-      "demoWalletFailed": "无法完成模拟交易，请重试。",
+      "demoLimitExceeded": "此次充值将超过 1,000,000 USDT 的练习余额上限。",
+      "demoResetOpenPositions": "重置练习余额前，请先平掉所有持仓。",
+      "demoOnly": "此操作仅适用于练习账户。",
+      "demoWalletFailed": "无法完成练习交易，请重试。",
       "withdrawAddressInvalid": "该钱包地址对所选网络似乎无效。请检查地址和网络后重试。",
       "kycRequired": "从真实账户提现需要完成身份验证。请先完成验证后继续。",
       "depositNetworkUnavailable": "该网络暂停充值，请选择其他网络。",
@@ -1359,7 +1352,7 @@
           "关于平台",
           "copy matrix是什么"
         ],
-        "answer": "Copy Matrix 是一个自动跟单交易平台，让您可以关注具有可验证业绩记录的交易员，并将部分资金与他们关联，从而使他们的交易自动镜像到您的投资组合中。请注意，这是一个用于演示和练习目的的模拟环境，并非持牌金融经纪商。"
+        "answer": "Copy Matrix 是一个自动跟单交易平台，让您可以关注具有可验证业绩记录的交易员，并将部分资金与他们关联，从而使他们的交易自动镜像到您的投资组合中。请注意，Copy Matrix 是一个软件平台，并非持牌金融经纪商。"
       },
       {
         "id": "how-to-start",
@@ -1369,7 +1362,7 @@
           "新手入门",
           "第一步"
         ],
-        "answer": "首先，请在注册页面创建账户，然后选择账户类型（模拟或真实）。之后，您可以浏览「发现交易员」页面，根据每位交易员的业绩记录和风险等级选择您想跟单的对象。"
+        "answer": "首先，请在注册页面创建账户；账户会直接以练习账户开通。之后，您可以浏览「发现交易员」页面，根据每位交易员的业绩记录和风险等级选择您想跟单的对象。"
       },
       {
         "id": "deposit",
@@ -1379,7 +1372,7 @@
           "充值",
           "添加资金"
         ],
-        "answer": "在钱包页面选择「充值」，选择 USDT 网络（TRC20、BEP20 或 ERC20），并将 USDT 发送到显示的地址。然后粘贴交易 ID（TxID）：我们会自动在区块链上核验，并在网络确认完成后按实际到账金额入账。模拟账户充值即时到账。"
+        "answer": "在钱包页面选择「充值」，选择 USDT 网络（TRC20、BEP20 或 ERC20），并将 USDT 发送到显示的地址。然后粘贴交易 ID（TxID）：我们会自动在区块链上核验，并在网络确认完成后按实际到账金额入账。练习账户充值即时到账。"
       },
       {
         "id": "withdraw",
@@ -1389,7 +1382,7 @@
           "取款",
           "提取利润"
         ],
-        "answer": "选择「提币」，选择 USDT 网络，输入钱包地址和金额，并用身份验证器中的验证码确认。提币需要完成身份认证（KYC）并开启双重验证。金额会立即从余额中冻结；处理中时可以取消，通常在 24 小时内完成。模拟账户提币即时完成。"
+        "answer": "选择「提币」，选择 USDT 网络，输入钱包地址和金额，并用身份验证器中的验证码确认。提币需要完成身份认证（KYC）并开启双重验证。金额会立即从余额中冻结；处理中时可以取消，通常在 24 小时内完成。练习账户提币即时完成。"
       },
       {
         "id": "withdraw-time",
@@ -1552,13 +1545,13 @@
       },
       {
         "id": "demo-vs-real",
-        "question": "模拟账户和真实账户有什么区别？",
+        "question": "练习账户和真实账户有什么区别？",
         "keywords": [
           "模拟账户",
           "真实账户",
           "区别"
         ],
-        "answer": "模拟账户允许您使用虚拟资金尝试跟单交易，无任何实际风险；而真实账户则基于您的实际余额，跟单的盈亏结果都会真实反映在其中。"
+        "answer": "练习账户允许您使用练习资金尝试跟单交易，无任何实际风险；而真实账户则基于您的实际余额，跟单的盈亏结果都会真实反映在其中。"
       },
       {
         "id": "suspend-account",
@@ -2071,8 +2064,6 @@
     "notificationsDesc": "查看您的账户通知。",
     "notificationPreferencesTitle": "通知偏好 | Copy Matrix",
     "notificationPreferencesDesc": "管理您接收的通知。",
-    "onboardingAccountTypeTitle": "选择账户类型 | Copy Matrix",
-    "onboardingAccountTypeDesc": "在模拟账户和真实交易账户之间选择。",
     "portfolioTitle": "资产 | Copy Matrix",
     "portfolioDesc": "查看您的账户余额和资产表现。",
     "portfolioDepositTitle": "充值 | Copy Matrix",
@@ -2136,8 +2127,8 @@
         "a": "在钱包页面提交提现申请。提现需要完成身份验证，通常在 24 小时内完成。"
       },
       {
-        "q": "有模拟账户吗？",
-        "a": "有。模拟账户初始拥有 $10,000虚拟资金，让你无需动用自己的钱即可练习。"
+        "q": "有练习账户吗？",
+        "a": "有。练习账户从 $10,000 开始，让你在不动用自己资金的情况下练习。"
       }
     ]
   },
@@ -2202,7 +2193,7 @@
       "身份验证",
       "提现在完成前会经过安全校验",
       "每笔跟单都有自动止损上限",
-      "模拟账户与真实账户完全分离",
+      "练习账户与真实账户完全分离",
       "你的数据仅你自己可见"
     ]
   },
@@ -2478,7 +2469,7 @@
     "greeting": "您好，",
     "greetingName": "{name}，您好：",
     "accountReal": "真实账户",
-    "accountDemo": "模拟账户",
+    "accountDemo": "练习账户",
     "ctaTrades": "查看我的交易",
     "ctaWallet": "打开我的钱包",
     "ctaKyc": "查看身份验证",
@@ -2539,7 +2530,7 @@
       "summary": "选择一位交易员，平台会按您设定的金额比例在您的账户中复制其交易。",
       "p1": "跟单某位交易员后，他开仓和平仓的每笔交易都会自动在您的账户中重复。每笔跟单交易从您的跟单金额中占用的比例，与交易员从自己余额中投入该交易的比例相同，杠杆也相同，因此您的百分比收益与其一致。可以同时持有多笔交易；如果跟单中的可用金额不足以覆盖该交易的完整份额，将以可用金额开仓并通知您；如果低于最小交易规模，则不会开仓并通知您。",
       "p2": "您始终掌控：可随时修改设置、设置亏损限额或停止跟单。已开仓的交易保持其原有规则。",
-      "p3": "您的结果随交易员的结果而变，盈利和亏损都会传导给您。从小额开始，新手建议先用模拟账户。"
+      "p3": "您的结果随交易员的结果而变，盈利和亏损都会传导给您。从小额开始，新手建议先用练习账户。"
     },
     "choose_trader": {
       "title": "如何选择交易员",
