@@ -112,6 +112,9 @@ export default async function Home() {
         </div>
 
         <div className="mt-8 md:mt-10">
+          {/* The poster is the largest thing on a phone: fetched first, the right size for the screen. */}
+          <link rel="preload" as="image" href={`/video/hero-${locale === "ar" ? "ar" : "en"}-mobile.jpg`} media="(max-width: 767px)" fetchPriority="high" />
+          <link rel="preload" as="image" href={`/video/hero-${locale === "ar" ? "ar" : "en"}-desktop.jpg`} media="(min-width: 768px)" fetchPriority="high" />
           <HeroVideo lang={locale === "ar" ? "ar" : "en"} />
           <p className="ty-small mt-2 px-3 text-center">{tShowcase("disclaimer")}</p>
         </div>
