@@ -109,7 +109,7 @@ export default async function RootLayout({
             <StripFlashParams />
           </Suspense>
           <NoTranslateMarker />
-          <ToastProvider>{children}</ToastProvider>
+          <ToastProvider>{showFooter ? <div className="min-h-svh">{children}</div> : children}</ToastProvider>
           {showFooter && <VisitorFooter />}
           {hasSession && <BottomNav />}
         </NextIntlClientProvider>
