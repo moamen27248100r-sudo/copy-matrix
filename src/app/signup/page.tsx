@@ -4,7 +4,6 @@ import { SignupForm } from "@/components/SignupForm";
 import { AuthShell } from "@/components/auth/AuthShell";
 import { safeNextPath } from "@/lib/safe-next";
 import { GoogleSignInButton } from "@/components/GoogleSignInButton";
-import { AuthSteps } from "@/components/auth/AuthSteps";
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
@@ -14,16 +13,15 @@ export async function generateMetadata() {
 export default async function SignupPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string; next?: string }>;
+  searchParams: Promise<{ error?: string; code?: string; email?: string; next?: string }>;
 }) {
-  const { error, next: rawNext } = await searchParams;
+  const { error, code, email, next: rawNext } = await searchParams;
   const next = safeNextPath(rawNext);
   const loginHref = next ? `/login?next=${encodeURIComponent(next)}` : "/login";
   const t = await getTranslations("Auth");
 
   return (
     <AuthShell title={t("signupTitle")} subtitle={t("signupSubtitle")}>
-      <AuthSteps step={1} />
       {error && (
         <p role="alert" className="rounded-xl border border-down/40 bg-down/10 px-4 py-3 text-sm text-foreground">
           {error}
@@ -38,7 +36,7 @@ export default async function SignupPage({
         <span className="h-px flex-1 bg-border" />
       </div>
 
-      <SignupForm next={next} />
+      <SignupForm next={next} initialEmail={email?.slice(0, 254) ?? ""} serverCode={code ?? null} loginHref={loginHref} />
 
       <p className="text-center text-sm">
         <Link href={loginHref} className="tap-44 font-medium text-foreground underline underline-offset-4">

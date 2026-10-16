@@ -506,7 +506,11 @@
     "performanceEmptyTitle": "لا توجد صفقات منسوخة بعد",
     "performanceEmptyBody": "تظهر هنا نتائجك ونسبة نجاحك وتقريرك الشهري بعد إغلاق أول صفقة منسوخة.",
     "balanceAfterDeposit": "الرصيد بعد الإيداع",
-    "withdrawRuleNote": "يمكنك سحب المبلغ غير المستخدم في النسخ. أثناء وجود صفقة منسوخة مفتوحة يتوقف السحب حتى تُغلق."
+    "withdrawRuleNote": "يمكنك سحب المبلغ غير المستخدم في النسخ. أثناء وجود صفقة منسوخة مفتوحة يتوقف السحب حتى تُغلق.",
+    "amountDecimalsError": "استخدم رقمين عشريين على الأكثر.",
+    "amountMinError": "الحد الأدنى {min} USDT.",
+    "amountMaxError": "الحد الأقصى {max} USDT.",
+    "amountAboveAvailable": "المبلغ أكبر من رصيدك المتاح."
   },
   "TradeHistory": {
     "periodToday": "اليوم",
@@ -877,7 +881,26 @@
     "notificationPrefsDesc": "اختر الإشعارات التي تصلك داخل المنصة وعبر البريد.",
     "notificationPrefsLink": "تفضيلات التنبيهات",
     "securityLinkDesc": "التحقق بخطوتين، وكلمة المرور، والأجهزة المسجّل دخولها.",
-    "sectionsNav": "أقسام الإعدادات"
+    "sectionsNav": "أقسام الإعدادات",
+    "profileCompleteHint": "أضف اسمك ورقم هاتفك لإكمال ملفك. هما مطلوبان قبل الإيداع والسحب.",
+    "emailVerified": "البريد الإلكتروني مؤكَّد",
+    "emailNotVerified": "البريد الإلكتروني غير مؤكَّد",
+    "emailVerifyHint": "أكّد بريدك الإلكتروني لفتح الإيداع والسحب في الحساب الحقيقي.",
+    "sending": "جارٍ الإرسال…",
+    "resendVerify": "إعادة إرسال الرابط",
+    "sendVerify": "إرسال رابط التأكيد",
+    "verifyCodePlaceholder": "الرمز من الرسالة",
+    "verifyCodeButton": "تأكيد",
+    "verify_done": "تم تأكيد بريدك الإلكتروني.",
+    "verify_sent": "أرسلنا لك رابطًا ورمزًا. تحقّق من بريدك.",
+    "verify_failed": "تعذّر إرسال الرسالة. حاول مرة أخرى لاحقًا.",
+    "verify_limit": "طلبات كثيرة. انتظر قليلًا قبل المحاولة مرة أخرى.",
+    "verify_code_invalid": "الرمز غير صحيح أو منتهي الصلاحية.",
+    "nameLabel": "الاسم الكامل",
+    "phoneCurrent": "الرقم الحالي:",
+    "phoneLabel": "رقم الهاتف",
+    "phoneInvalid": "اكتب رقم هاتف صحيحًا.",
+    "savePhone": "حفظ رقم الهاتف"
   },
   "Kyc": {
     "title": "توثيق الهوية",
@@ -916,7 +939,11 @@
     "whatNext": "تعبئة الطلب تستغرق بضع دقائق. يراجع فريقنا المستندات، ويصلك إشعار بالقرار.",
     "chooseFile": "اختر ملفًا",
     "changeFile": "تغيير الملف",
-    "noFileChosen": "لم يتم اختيار ملف"
+    "noFileChosen": "لم يتم اختيار ملف",
+    "fileTooLarge": "حجم الملف أكبر من 8 ميجابايت.",
+    "phoneLabel": "رقم الهاتف",
+    "phoneInvalid": "اكتب رقم هاتف صحيحًا.",
+    "submitting": "جارٍ الإرسال…"
   },
   "Markets": {
     "title": "الأسواق",
@@ -1007,12 +1034,10 @@
     "noAccount": "ألا تملك حسابًا؟",
     "createNewAccount": "إنشاء حساب جديد",
     "signupTitle": "إنشاء حساب جديد",
-    "signupSubtitle": "أنشئ حسابك في دقائق وابدأ بحساب التدريب.",
+    "signupSubtitle": "أنشئ حسابك في دقائق وابدأ بدون مخاطرة",
     "alreadyHaveAccount": "لدي حساب بالفعل — تسجيل الدخول",
     "fullNamePlaceholder": "الاسم الكامل",
     "emailInvalidError": "اكتب بريدًا إلكترونيًا حقيقيًا (مثل name@gmail.com).",
-    "phoneInvalidError": "رقم الهاتف غير صحيح لهذه الدولة، تأكد من كتابته بالكامل.",
-    "passwordPlaceholder6": "كلمة المرور (6 أحرف على الأقل)",
     "showPassword": "إظهار كلمة المرور",
     "hidePassword": "إخفاء كلمة المرور",
     "passwordMismatch": "كلمتا المرور غير متطابقتين.",
@@ -1035,34 +1060,27 @@
     "requestNewCode": "اطلب كودًا جديدًا",
     "resetTitle": "تعيين كلمة مرور جديدة",
     "resetSubtitle": "أدخل كلمة المرور الجديدة لحسابك.",
-    "newPasswordPlaceholder6": "كلمة المرور الجديدة (6 أحرف على الأقل)",
     "confirmNewPasswordPlaceholder": "تأكيد كلمة المرور الجديدة",
     "updating": "جارٍ التحديث...",
     "updatePasswordButton": "تحديث كلمة المرور",
     "checkEmailTitle": "تحقق من بريدك الإلكتروني",
     "checkEmailDesc": "لقد أرسلنا رابط تأكيد إلى بريدك الإلكتروني. يرجى فتح الرابط لتفعيل حسابك، ثم تسجيل الدخول.",
-    "chooseAccountTypeTitle": "اختر نوع حسابك",
-    "chooseAccountTypeSubtitle": "يمكنك تغيير هذا الاختيار لاحقًا من الإعدادات في أي وقت.",
-    "demoAccountTitle": "حساب التدريب",
-    "demoAccountDesc": "تدرّب على نسخ الصفقات برصيد غير حقيقي دون أي مخاطرة، وتعرّف على المنصة قبل استخدام أموالك الحقيقية.",
-    "realAccountTitle": "حساب حقيقي",
-    "realAccountDesc": "ابدأ بنسخ الصفقات برصيدك الفعلي، وتُطبَّق عليه كل نتائج النسخ الحقيقية من أرباح أو خسائر.",
-    "nameRequiredError": "اكتب اسمك الكامل.",
-    "passwordTooShortError": "كلمة المرور يجب ألا تقل عن 6 أحرف.",
-    "missingPrefix": "المطلوب لإكمال الطلب:",
-    "missingName": "الاسم الكامل",
     "missingEmail": "بريد إلكتروني صحيح",
-    "missingPhone": "رقم هاتف صحيح",
     "missingPassword": "كلمة مرور من 6 أحرف أو أكثر",
-    "missingConfirm": "تأكيد مطابق لكلمة المرور",
     "backHome": "العودة إلى الرئيسية",
     "emailLabel": "البريد الإلكتروني",
     "passwordLabel": "كلمة المرور",
     "nameLabel": "الاسم الكامل",
     "phoneLabel": "رقم الهاتف",
-    "confirmLabel": "تأكيد كلمة المرور",
-    "stepOf": "الخطوة {step} من {total}",
-    "stepBack": "رجوع"
+    "passwordPlaceholder8": "كلمة المرور (8 أحرف على الأقل)",
+    "newPasswordPlaceholder8": "كلمة المرور الجديدة (8 أحرف على الأقل)",
+    "passwordMin8Error": "يجب ألا تقل كلمة المرور عن 8 أحرف.",
+    "passwordCommonError": "كلمة المرور هذه شائعة جدًا. اختر كلمة أصعب.",
+    "passwordEmailError": "يجب ألا تحتوي كلمة المرور على بريدك الإلكتروني.",
+    "passwordBreachedError": "كلمة المرور هذه ظهرت في تسريبات بيانات معروفة. اختر غيرها.",
+    "emailTakenError": "هذا البريد الإلكتروني مسجّل بالفعل.",
+    "emailTakenLogin": "تسجيل الدخول",
+    "emailTakenReset": "إعادة تعيين كلمة المرور"
   },
   "Legal": {
     "backToHome": "العودة إلى الرئيسية",
@@ -1155,12 +1173,16 @@
       "passwordTooShort": "كلمة المرور يجب أن تتكوّن من 6 أحرف على الأقل.",
       "emailInvalid": "البريد الإلكتروني المُدخل غير صالح.",
       "waitBeforeRetry": "يرجى الانتظار قليلًا قبل إعادة المحاولة.",
-      "genericError": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى."
+      "genericError": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.",
+      "tooManyFailedLogins": "محاولات فاشلة كثيرة. حاول مرة أخرى بعد دقائق."
     },
     "kyc": {
       "idDocumentRequired": "صورة إثبات الهوية مطلوبة.",
       "uploadFailed": "تعذّر رفع مستند إثبات الهوية. حاول مرة أخرى.",
-      "submitFailed": "تعذّر إرسال طلب التوثيق. حاول مرة أخرى."
+      "submitFailed": "تعذّر إرسال طلب التوثيق. حاول مرة أخرى.",
+      "fullNameInvalid": "اكتب اسمك الكامل كما هو في وثيقة الهوية.",
+      "idNumberInvalid": "اكتب رقم هوية صحيحًا.",
+      "phoneInvalid": "اكتب رقم هاتف صحيحًا مع رمز الدولة."
     },
     "portfolio": {
       "depositAmountInvalid": "مبلغ الإيداع يجب أن يكون رقمًا أكبر من صفر.",
@@ -1193,7 +1215,8 @@
       "nameEmpty": "الاسم لا يمكن أن يكون فارغًا.",
       "nameSaveFailed": "تعذّر حفظ الاسم. حاول مرة أخرى.",
       "accountTypeUpdateFailed": "تعذّر تحديث نوع الحساب. حاول مرة أخرى.",
-      "accountSwitchOpenPositions": "أغلق جميع الصفقات المفتوحة قبل التبديل بين الحسابات."
+      "accountSwitchOpenPositions": "أغلق جميع الصفقات المفتوحة قبل التبديل بين الحسابات.",
+      "phoneInvalid": "اكتب رقم هاتف صحيحًا مع رمز الدولة."
     },
     "discover": {
       "copyAmountInvalid": "مبلغ النسخ يجب أن يكون رقمًا أكبر من صفر.",
@@ -1683,7 +1706,8 @@
     "balanceBelowMin": "رصيدك ({balance}) أقل من الحد الأدنى لهذا المتداول ({min}).",
     "depositCta": "إضافة رصيد",
     "amountBelowMin": "المبلغ أقل من الحد الأدنى لهذا المتداول ({min}).",
-    "amountAboveBalance": "المبلغ أكبر من رصيدك المتاح ({balance})."
+    "amountAboveBalance": "المبلغ أكبر من رصيدك المتاح ({balance}).",
+    "amountDecimals": "استخدم رقمين عشريين على الأكثر."
   },
   "Trades": {
     "title": "الصفقات",
@@ -2509,7 +2533,8 @@
     "colTxid": "رقم العملية (TxID)",
     "colAddress": "العنوان",
     "refundedNote": "أُعيد المبلغ إلى رصيدك",
-    "historyMovementsNote": "كل الإيداعات والسحوبات وتعديلات رصيد هذا الحساب. نتائج الصفقات في سجل الصفقات."
+    "historyMovementsNote": "كل الإيداعات والسحوبات وتعديلات رصيد هذا الحساب. نتائج الصفقات في سجل الصفقات.",
+    "amountDecimalsError6": "استخدم 6 أرقام عشرية على الأكثر."
   },
   "Email": {
     "greeting": "مرحبًا،",

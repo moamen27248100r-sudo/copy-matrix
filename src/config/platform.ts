@@ -7,7 +7,7 @@ export const PLATFORM_NAME = "Copy Matrix";
 export const SUPPORT_EMAIL = "support@copy-matrix.com";
 
 // Balance every new demo account starts with (src/app/auth/actions.ts
-// chooseAccountType).
+// switchAccountType).
 export const DEMO_START_BALANCE = 10000;
 
 // Instruments offered for trading, grouped as on the markets widget. The

@@ -60,7 +60,7 @@ export default async function AccountSecurityPage({ searchParams }: { searchPara
               type="password"
               placeholder={ts("newPasswordPlaceholder")}
               required
-              minLength={6}
+              minLength={8}
               autoComplete="new-password"
               className="min-h-11 rounded border border-border bg-background px-3 py-2"
             />

@@ -59,7 +59,9 @@ before(async () => {
       [id, email],
     );
   }
-  await db.query("update public.profiles set is_admin = true where id=$1", [ADMIN]);
+  await db.query("update public.profiles set is_admin = true, email_verified_at = now() where id=$1", [ADMIN]);
+  // real deposits and withdrawals need a verified e-mail (0270); the verified-address rule has its own test below
+  await db.query("update public.profiles set email_verified_at = now() where id=$1", [USER]);
   // Real deposits are behind the platform switch (0252); the deposit rules below are tested with it
   // on, inside this rolled-back transaction. The switch itself is tested on its own.
   await db.query("insert into public.platform_settings (key, value) values ('deposits_enabled', 'true'::jsonb) on conflict (key) do update set value = 'true'::jsonb");

@@ -1,22 +1,17 @@
 import { getTranslations } from "next-intl/server";
-import { AuthSteps } from "@/components/auth/AuthSteps";
-import { safeNextPath } from "@/lib/safe-next";
+import { AuthShell } from "@/components/auth/AuthShell";
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
   return { title: t("signupCheckEmailTitle"), description: t("signupCheckEmailDesc") };
 }
 
-export default async function CheckEmailPage({ searchParams }: { searchParams: Promise<{ next?: string }> }) {
-  const next = safeNextPath((await searchParams).next);
+// Only reached if the project is switched to "confirm the address before the first sign-in".
+export default async function CheckEmailPage() {
   const t = await getTranslations("Auth");
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col justify-center gap-3 p-6 text-center">
-      <AuthSteps step={2} backHref={next ? `/signup?next=${encodeURIComponent(next)}` : "/signup"} />
-      <h1 className="text-page-title">{t("checkEmailTitle")}</h1>
-      <p className="text-sm text-muted">
-        {t("checkEmailDesc")}
-      </p>
-    </main>
+    <AuthShell title={t("checkEmailTitle")} subtitle={t("checkEmailDesc")}>
+      <span />
+    </AuthShell>
   );
 }

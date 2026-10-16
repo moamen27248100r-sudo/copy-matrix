@@ -4,7 +4,10 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
-import { updateProfile, updateAccountType } from "@/app/settings/actions";
+import { updateProfile, updatePhone } from "@/app/settings/actions";
+import { sendEmailVerification, verifyEmailCode } from "@/app/auth/actions";
+import { PhoneInput } from "@/components/PhoneInput";
+import { SubmitButton } from "@/components/SubmitButton";
 import { AppNav } from "@/components/AppNav";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { RiskQuestionnaire } from "@/components/RiskQuestionnaire";
@@ -31,9 +34,9 @@ export async function generateMetadata() {
 export default async function SettingsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string; success?: string }>;
+  searchParams: Promise<{ error?: string; success?: string; verify?: string; field?: string }>;
 }) {
-  const { error, success } = await searchParams;
+  const { error, success, verify, field } = await searchParams;
   const t = await getTranslations("Settings");
   const tMenu = await getTranslations("AccountMenu");
   const locale = (await getLocale()) as Locale;
@@ -48,7 +51,7 @@ export default async function SettingsPage({
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("display_name, account_type, account_number")
+    .select("display_name, account_type, account_number, phone, email_verified_at")
     .eq("id", user.id)
     .single();
 
@@ -58,7 +61,7 @@ export default async function SettingsPage({
       <AppMain>
         <h1 className="text-page-title">{t("title")}</h1>
 
-        {error && (
+        {error && !field && (
           <FlashMessage tone="error">
             {error}
           </FlashMessage>
@@ -72,7 +75,6 @@ export default async function SettingsPage({
         <nav aria-label={t("sectionsNav")} className="no-scrollbar -mx-6 flex gap-2 overflow-x-auto px-6 sm:mx-0 sm:flex-wrap sm:px-0">
           {[
             ["profile", t("profileTitle")],
-            ["account", t("accountTypeTitle")],
             ["notifications", t("notificationPrefsTitle")],
             ["alerts", t("lossAlertsTitle")],
             ["risk", t("riskTitle")],
@@ -85,70 +87,92 @@ export default async function SettingsPage({
           ))}
         </nav>
 
-        <section id="profile" className="flex scroll-mt-20 flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
+        <section id="profile" className="flex scroll-mt-20 flex-col gap-4 rounded-[20px] border border-border bg-surface p-5">
           <h2 className="text-section-title">{t("profileTitle")}</h2>
-          <p className="text-xs text-muted">{user.email}</p>
+          {(!profile?.phone || !profile?.display_name) && <p className="text-xs text-muted">{t("profileCompleteHint")}</p>}
           {profile?.account_number != null && (
             <p className="text-xs text-muted">
               {tMenu("accountNumber")} <span dir="ltr" className="inline-block font-mono text-muted">#{profile.account_number}</span>
             </p>
           )}
-          <form action={updateProfile} className="flex flex-col gap-3">
+
+          <div className="flex flex-col gap-2 rounded-xl bg-background/60 p-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <p className="text-sm" dir="ltr">
+                {user.email}
+              </p>
+              <span
+                className={`rounded-full border px-2 py-0.5 text-xs font-bold ${profile?.email_verified_at ? "border-up/40 bg-up/10 text-up" : "border-warning/40 bg-warning/10 text-warning"}`}
+              >
+                {profile?.email_verified_at ? t("emailVerified") : t("emailNotVerified")}
+              </span>
+            </div>
+            {!profile?.email_verified_at && (
+              <>
+                <p className="text-xs text-muted">{t("emailVerifyHint")}</p>
+                {verify && (
+                  <p role="status" className={`text-xs ${verify === "sent" || verify === "done" ? "text-up" : "text-danger"}`}>
+                    {t(`verify_${verify}` as never)}
+                  </p>
+                )}
+                <form action={sendEmailVerification}>
+                  <SubmitButton pendingLabel={t("sending")} className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground disabled:opacity-60">
+                    {verify === "sent" ? t("resendVerify") : t("sendVerify")}
+                  </SubmitButton>
+                </form>
+                <form action={verifyEmailCode} className="flex gap-2" dir="ltr">
+                  <input
+                    name="code"
+                    inputMode="numeric"
+                    autoComplete="one-time-code"
+                    maxLength={8}
+                    placeholder={t("verifyCodePlaceholder")}
+                    aria-label={t("verifyCodePlaceholder")}
+                    className="min-h-11 min-w-0 flex-1 rounded border border-border bg-background px-3 py-2 text-base"
+                  />
+                  <SubmitButton className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground">{t("verifyCodeButton")}</SubmitButton>
+                </form>
+              </>
+            )}
+            {profile?.email_verified_at && verify === "done" && (
+              <p role="status" className="text-xs text-up">
+                {t("verify_done")}
+              </p>
+            )}
+          </div>
+
+          <form action={updateProfile} className="flex flex-col gap-2">
+            <label htmlFor="st-name" className="text-sm font-medium">
+              {t("nameLabel")}
+            </label>
             <input
+              id="st-name"
               name="displayName"
               type="text"
               defaultValue={profile?.display_name ?? ""}
               placeholder={t("fullNamePlaceholder")}
               required
-              className="min-h-11 rounded border border-border bg-background px-3 py-2"
+              minLength={2}
+              maxLength={60}
+              aria-invalid={field === "name" && error ? true : undefined}
+              className={`min-h-11 rounded border bg-background px-3 py-2 ${field === "name" && error ? "border-danger" : "border-border"}`}
             />
-            <button
-              type="submit"
-              className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground"
-            >
+            {field === "name" && error && <p className="text-xs text-danger">{error}</p>}
+            <button type="submit" className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground">
               {t("saveName")}
             </button>
           </form>
-        </section>
 
-        <section id="account" className="flex scroll-mt-20 flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
-          <h2 className="text-section-title">{t("accountTypeTitle")}</h2>
-          <p className="text-xs text-muted">
-            {t("accountTypeDesc")}
-          </p>
-          <form action={updateAccountType} className="flex flex-col gap-2">
-            <label
-              className={
-                (profile?.account_type ?? "demo") === "demo"
-                  ? "flex items-center gap-2 rounded border border-warning/40 bg-warning/10 px-3 py-2 text-sm"
-                  : "flex items-center gap-2 rounded border border-border bg-background px-3 py-2 text-sm"
-              }
-            >
-              <input
-                type="radio"
-                name="accountType"
-                value="demo"
-                defaultChecked={(profile?.account_type ?? "demo") === "demo"}
-              />
-              <span className="font-bold text-warning">{t("demoAccount")}</span>
-              <span className="text-xs text-muted">{t("demoAccountDesc")}</span>
-            </label>
-            <label
-              className={
-                profile?.account_type === "real"
-                  ? "flex items-center gap-2 rounded border border-success/40 bg-success/10 px-3 py-2 text-sm"
-                  : "flex items-center gap-2 rounded border border-border bg-background px-3 py-2 text-sm"
-              }
-            >
-              <input type="radio" name="accountType" value="real" defaultChecked={profile?.account_type === "real"} />
-              <span className="font-bold text-success">{t("realAccount")}</span>
-              <span className="text-xs text-muted">{t("realAccountDesc")}</span>
-            </label>
-            <button
-              type="submit"
-              className="mt-1 rounded border border-border bg-background px-3 py-2 text-sm text-foreground"
-            >
-              {t("saveAccountType")}
+          <form action={updatePhone} className="flex flex-col gap-2">
+            {profile?.phone && (
+              <p className="text-xs text-muted">
+                {t("phoneCurrent")} <span dir="ltr">{profile.phone}</span>
+              </p>
+            )}
+            <PhoneInput label={t("phoneLabel")} errorText={t("phoneInvalid")} />
+            {field === "phone" && error && <p className="text-xs text-danger">{error}</p>}
+            <button type="submit" className="rounded border border-border bg-background px-3 py-2 text-sm text-foreground">
+              {t("savePhone")}
             </button>
           </form>
         </section>

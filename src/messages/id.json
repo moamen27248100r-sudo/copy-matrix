@@ -506,7 +506,11 @@
     "performanceEmptyTitle": "Belum ada transaksi salinan",
     "performanceEmptyBody": "Hasil, tingkat kemenangan, dan laporan bulanan Anda muncul di sini setelah transaksi salinan pertama ditutup.",
     "balanceAfterDeposit": "Saldo setelah deposit",
-    "withdrawRuleNote": "Anda dapat menarik jumlah yang tidak dipakai untuk salinan. Selama ada transaksi salinan yang terbuka, penarikan dijeda sampai ditutup."
+    "withdrawRuleNote": "Anda dapat menarik jumlah yang tidak dipakai untuk salinan. Selama ada transaksi salinan yang terbuka, penarikan dijeda sampai ditutup.",
+    "amountDecimalsError": "Gunakan maksimal 2 angka desimal.",
+    "amountMinError": "Minimum adalah {min} USDT.",
+    "amountMaxError": "Maksimum adalah {max} USDT.",
+    "amountAboveAvailable": "Jumlah ini melebihi saldo tersedia Anda."
   },
   "TradeHistory": {
     "periodToday": "Hari ini",
@@ -877,7 +881,26 @@
     "notificationPrefsDesc": "Pilih pemberitahuan yang Anda terima di aplikasi dan lewat email.",
     "notificationPrefsLink": "Preferensi notifikasi",
     "securityLinkDesc": "Autentikasi dua faktor, kata sandi, dan perangkat yang masuk.",
-    "sectionsNav": "Bagian pengaturan"
+    "sectionsNav": "Bagian pengaturan",
+    "profileCompleteHint": "Tambahkan nama dan nomor telepon untuk melengkapi profil. Keduanya diperlukan sebelum setoran dan penarikan.",
+    "emailVerified": "Email terverifikasi",
+    "emailNotVerified": "Email belum terverifikasi",
+    "emailVerifyHint": "Verifikasi email untuk membuka setoran dan penarikan di akun nyata.",
+    "sending": "Mengirim…",
+    "resendVerify": "Kirim ulang tautan",
+    "sendVerify": "Kirim tautan verifikasi",
+    "verifyCodePlaceholder": "Kode dari email",
+    "verifyCodeButton": "Konfirmasi",
+    "verify_done": "Email Anda sudah terverifikasi.",
+    "verify_sent": "Kami mengirim tautan dan kode. Periksa kotak masuk Anda.",
+    "verify_failed": "Email tidak dapat dikirim. Coba lagi nanti.",
+    "verify_limit": "Terlalu banyak permintaan. Tunggu sebelum mencoba lagi.",
+    "verify_code_invalid": "Kode salah atau sudah kedaluwarsa.",
+    "nameLabel": "Nama lengkap",
+    "phoneCurrent": "Nomor saat ini:",
+    "phoneLabel": "Nomor telepon",
+    "phoneInvalid": "Masukkan nomor telepon yang valid.",
+    "savePhone": "Simpan nomor telepon"
   },
   "Kyc": {
     "title": "Verifikasi Identitas",
@@ -916,7 +939,11 @@
     "whatNext": "Pengisian hanya beberapa menit. Tim kami meninjau dokumen dan Anda menerima notifikasi berisi keputusannya.",
     "chooseFile": "Pilih file",
     "changeFile": "Ganti file",
-    "noFileChosen": "Belum ada file yang dipilih"
+    "noFileChosen": "Belum ada file yang dipilih",
+    "fileTooLarge": "Ukuran berkas lebih dari 8 MB.",
+    "phoneLabel": "Nomor telepon",
+    "phoneInvalid": "Masukkan nomor telepon yang valid.",
+    "submitting": "Mengirim…"
   },
   "Markets": {
     "title": "Pasar",
@@ -1007,12 +1034,10 @@
     "noAccount": "Belum punya akun?",
     "createNewAccount": "Buat akun baru",
     "signupTitle": "Buat akun baru",
-    "signupSubtitle": "Bergabunglah dan mulai menyalin trade trader terbaik secara otomatis.",
+    "signupSubtitle": "Buat akun Anda dalam hitungan menit dan mulai tanpa risiko",
     "alreadyHaveAccount": "Saya sudah punya akun — Masuk",
     "fullNamePlaceholder": "Nama lengkap",
     "emailInvalidError": "Masukkan alamat email asli (mis. name@gmail.com).",
-    "phoneInvalidError": "Nomor telepon ini tidak valid untuk negara ini, pastikan Anda mengetiknya lengkap.",
-    "passwordPlaceholder6": "Kata sandi (minimal 6 karakter)",
     "showPassword": "Tampilkan kata sandi",
     "hidePassword": "Sembunyikan kata sandi",
     "passwordMismatch": "Kata sandi tidak cocok.",
@@ -1035,34 +1060,27 @@
     "requestNewCode": "Minta kode baru",
     "resetTitle": "Atur kata sandi baru",
     "resetSubtitle": "Masukkan kata sandi baru untuk akun Anda.",
-    "newPasswordPlaceholder6": "Kata sandi baru (minimal 6 karakter)",
     "confirmNewPasswordPlaceholder": "Konfirmasi kata sandi baru",
     "updating": "Memperbarui...",
     "updatePasswordButton": "Perbarui kata sandi",
     "checkEmailTitle": "Periksa email Anda",
     "checkEmailDesc": "Kami telah mengirimkan tautan konfirmasi ke email Anda. Silakan buka tautan untuk mengaktifkan akun Anda, lalu masuk.",
-    "chooseAccountTypeTitle": "Pilih jenis akun Anda",
-    "chooseAccountTypeSubtitle": "Anda dapat mengubah pilihan ini nanti dari pengaturan kapan saja.",
-    "demoAccountTitle": "Akun demo",
-    "demoAccountDesc": "Berlatih menyalin trade dengan dana virtual tanpa risiko, dan kenali platform sebelum menggunakan uang sungguhan Anda.",
-    "realAccountTitle": "Akun nyata",
-    "realAccountDesc": "Mulai menyalin trade dengan saldo asli Anda, dengan semua hasil penyalinan nyata dalam untung atau rugi diterapkan padanya.",
-    "nameRequiredError": "Masukkan nama lengkap Anda.",
-    "passwordTooShortError": "Kata sandi harus terdiri dari minimal 6 karakter.",
-    "missingPrefix": "Masih diperlukan:",
-    "missingName": "nama lengkap",
     "missingEmail": "email yang valid",
-    "missingPhone": "nomor telepon yang valid",
     "missingPassword": "kata sandi 6+ karakter",
-    "missingConfirm": "konfirmasi kata sandi yang cocok",
     "backHome": "Kembali ke beranda",
     "emailLabel": "Email",
     "passwordLabel": "Kata sandi",
     "nameLabel": "Nama lengkap",
     "phoneLabel": "Nomor telepon",
-    "confirmLabel": "Konfirmasi kata sandi",
-    "stepOf": "Langkah {step} dari {total}",
-    "stepBack": "Kembali"
+    "passwordPlaceholder8": "Kata sandi (minimal 8 karakter)",
+    "newPasswordPlaceholder8": "Kata sandi baru (minimal 8 karakter)",
+    "passwordMin8Error": "Kata sandi harus minimal 8 karakter.",
+    "passwordCommonError": "Kata sandi ini terlalu umum. Pilih yang lebih sulit ditebak.",
+    "passwordEmailError": "Kata sandi tidak boleh memuat email Anda.",
+    "passwordBreachedError": "Kata sandi ini muncul dalam kebocoran data yang diketahui. Pilih yang lain.",
+    "emailTakenError": "Email ini sudah terdaftar.",
+    "emailTakenLogin": "Masuk",
+    "emailTakenReset": "Atur ulang kata sandi"
   },
   "Legal": {
     "backToHome": "Kembali ke beranda",
@@ -1155,12 +1173,16 @@
       "passwordTooShort": "Kata sandi harus terdiri dari minimal 6 karakter.",
       "emailInvalid": "Alamat email yang dimasukkan tidak valid.",
       "waitBeforeRetry": "Harap tunggu sebentar sebelum mencoba lagi.",
-      "genericError": "Terjadi kesalahan tak terduga. Silakan coba lagi."
+      "genericError": "Terjadi kesalahan tak terduga. Silakan coba lagi.",
+      "tooManyFailedLogins": "Terlalu banyak percobaan gagal. Coba lagi dalam beberapa menit."
     },
     "kyc": {
       "idDocumentRequired": "Foto dokumen identitas diperlukan.",
       "uploadFailed": "Tidak dapat mengunggah dokumen identitas. Silakan coba lagi.",
-      "submitFailed": "Tidak dapat mengirim permintaan verifikasi. Silakan coba lagi."
+      "submitFailed": "Tidak dapat mengirim permintaan verifikasi. Silakan coba lagi.",
+      "fullNameInvalid": "Masukkan nama lengkap persis seperti di kartu identitas.",
+      "idNumberInvalid": "Masukkan nomor identitas yang valid.",
+      "phoneInvalid": "Masukkan nomor telepon yang valid beserta kode negara."
     },
     "portfolio": {
       "depositAmountInvalid": "Jumlah setoran harus berupa angka lebih besar dari nol.",
@@ -1193,7 +1215,8 @@
       "nameEmpty": "Nama tidak boleh kosong.",
       "nameSaveFailed": "Tidak dapat menyimpan nama. Silakan coba lagi.",
       "accountTypeUpdateFailed": "Tidak dapat memperbarui jenis akun. Silakan coba lagi.",
-      "accountSwitchOpenPositions": "Tutup semua posisi terbuka sebelum berganti akun."
+      "accountSwitchOpenPositions": "Tutup semua posisi terbuka sebelum berganti akun.",
+      "phoneInvalid": "Masukkan nomor telepon yang valid beserta kode negara."
     },
     "discover": {
       "copyAmountInvalid": "Jumlah salinan harus berupa angka lebih besar dari nol.",
@@ -1618,7 +1641,8 @@
     "balanceBelowMin": "Saldo Anda ({balance}) di bawah minimum trader ini ({min}).",
     "depositCta": "Tambah dana",
     "amountBelowMin": "Jumlah di bawah minimum trader ini ({min}).",
-    "amountAboveBalance": "Jumlah melebihi saldo tersedia Anda ({balance})."
+    "amountAboveBalance": "Jumlah melebihi saldo tersedia Anda ({balance}).",
+    "amountDecimals": "Gunakan maksimal 2 angka desimal."
   },
   "Trades": {
     "title": "Transaksi",
@@ -2444,7 +2468,8 @@
     "colTxid": "Transaksi (TxID)",
     "colAddress": "Alamat",
     "refundedNote": "Jumlah dikembalikan ke saldo Anda",
-    "historyMovementsNote": "Semua deposit, penarikan, dan perubahan saldo akun ini. Hasil transaksi ada di riwayat transaksi."
+    "historyMovementsNote": "Semua deposit, penarikan, dan perubahan saldo akun ini. Hasil transaksi ada di riwayat transaksi.",
+    "amountDecimalsError6": "Gunakan maksimal 6 angka desimal."
   },
   "Email": {
     "greeting": "Halo,",

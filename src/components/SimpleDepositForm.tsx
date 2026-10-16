@@ -5,6 +5,10 @@ import { useState } from "react";
 import { CURRENCY } from "@/lib/money";
 import { SubmitButton } from "@/components/SubmitButton";
 import { demoDeposit } from "@/app/portfolio/actions";
+import { IdempotencyField } from "@/components/IdempotencyField";
+
+const MIN = 1;
+const MAX = 1_000_000;
 
 const QUICK = [100, 500, 1000, 5000];
 
@@ -13,10 +17,13 @@ export function SimpleDepositForm({ balance }: { balance: number }) {
   const td = useTranslations("Dashboard");
   const [amount, setAmount] = useState("");
   const value = Number(amount);
+  const decimalsOver = /\.\d{3,}/.test(amount);
+  const problem = amount === "" ? null : decimalsOver ? "decimals" : value < MIN ? "min" : value > MAX ? "max" : null;
   const fmt = (v: number) => v.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   return (
     <form action={demoDeposit} className="flex flex-1 flex-col gap-6">
+      <IdempotencyField />
       <p className="text-sm text-muted">{t("enterDepositAmount")}</p>
 
       <div className="flex items-center gap-3">
@@ -36,6 +43,9 @@ export function SimpleDepositForm({ balance }: { balance: number }) {
         </div>
       </div>
 
+      <p aria-live="polite" className="-mt-4 min-h-0 text-sm text-danger">
+        {problem === "decimals" ? t("amountDecimalsError") : problem === "min" ? t("amountMinError", { min: MIN }) : problem === "max" ? t("amountMaxError", { max: MAX.toLocaleString("en-US") }) : ""}
+      </p>
       <div className="flex flex-wrap gap-2" dir="ltr">
         {QUICK.map((q) => (
           <button
@@ -58,7 +68,7 @@ export function SimpleDepositForm({ balance }: { balance: number }) {
       </dl>
 
       <div className="mt-auto">
-        <SubmitButton disabled={!amount || value <= 0} className="w-full rounded-lg bg-accent px-4 py-3 text-center text-sm font-bold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50">
+        <SubmitButton disabled={!amount || value <= 0 || !!problem} className="w-full rounded-lg bg-accent px-4 py-3 text-center text-sm font-bold text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50">
           {td("deposit")}
         </SubmitButton>
       </div>

@@ -506,7 +506,11 @@
     "performanceEmptyTitle": "Bado hakuna biashara zilizonakiliwa",
     "performanceEmptyBody": "Matokeo yako, kiwango cha ushindi na ripoti ya mwezi vitaonekana hapa baada ya biashara yako ya kwanza iliyonakiliwa kufungwa.",
     "balanceAfterDeposit": "Salio baada ya kuweka",
-    "withdrawRuleNote": "Unaweza kutoa kiasi kisichotumika kwenye nakala. Wakati biashara iliyonakiliwa iko wazi, utoaji unasimama hadi ifungwe."
+    "withdrawRuleNote": "Unaweza kutoa kiasi kisichotumika kwenye nakala. Wakati biashara iliyonakiliwa iko wazi, utoaji unasimama hadi ifungwe.",
+    "amountDecimalsError": "Tumia desimali zisizozidi 2.",
+    "amountMinError": "Kiwango cha chini ni {min} USDT.",
+    "amountMaxError": "Kiwango cha juu ni {max} USDT.",
+    "amountAboveAvailable": "Kiasi hiki ni kikubwa kuliko salio lako linalopatikana."
   },
   "TradeHistory": {
     "periodToday": "Leo",
@@ -877,7 +881,26 @@
     "notificationPrefsDesc": "Chagua arifa unazopokea kwenye programu na kwa barua pepe.",
     "notificationPrefsLink": "Mapendeleo ya arifa",
     "securityLinkDesc": "Uthibitishaji wa hatua mbili, nenosiri na vifaa vilivyoingia.",
-    "sectionsNav": "Sehemu za mipangilio"
+    "sectionsNav": "Sehemu za mipangilio",
+    "profileCompleteHint": "Ongeza jina na nambari ya simu ili kukamilisha wasifu. Vinahitajika kabla ya kuweka na kutoa pesa.",
+    "emailVerified": "Barua pepe imethibitishwa",
+    "emailNotVerified": "Barua pepe haijathibitishwa",
+    "emailVerifyHint": "Thibitisha barua pepe yako ili kufungua kuweka na kutoa pesa kwenye akaunti halisi.",
+    "sending": "Inatuma…",
+    "resendVerify": "Tuma kiungo tena",
+    "sendVerify": "Tuma kiungo cha uthibitisho",
+    "verifyCodePlaceholder": "Msimbo kutoka kwenye barua pepe",
+    "verifyCodeButton": "Thibitisha",
+    "verify_done": "Barua pepe yako imethibitishwa.",
+    "verify_sent": "Tumekutumia kiungo na msimbo. Angalia kikasha chako.",
+    "verify_failed": "Hatukuweza kutuma barua pepe. Jaribu tena baadaye.",
+    "verify_limit": "Maombi mengi mno. Subiri kabla ya kujaribu tena.",
+    "verify_code_invalid": "Msimbo si sahihi au umeisha muda.",
+    "nameLabel": "Jina kamili",
+    "phoneCurrent": "Nambari ya sasa:",
+    "phoneLabel": "Nambari ya simu",
+    "phoneInvalid": "Weka nambari halali ya simu.",
+    "savePhone": "Hifadhi nambari ya simu"
   },
   "Kyc": {
     "title": "Uthibitishaji wa Utambulisho",
@@ -916,7 +939,11 @@
     "whatNext": "Kujaza huchukua dakika chache. Timu yetu hukagua nyaraka na unapokea arifa yenye uamuzi.",
     "chooseFile": "Chagua faili",
     "changeFile": "Badilisha faili",
-    "noFileChosen": "Hakuna faili iliyochaguliwa"
+    "noFileChosen": "Hakuna faili iliyochaguliwa",
+    "fileTooLarge": "Faili ni kubwa kuliko MB 8.",
+    "phoneLabel": "Nambari ya simu",
+    "phoneInvalid": "Weka nambari halali ya simu.",
+    "submitting": "Inatuma…"
   },
   "Markets": {
     "title": "Masoko",
@@ -1007,12 +1034,10 @@
     "noAccount": "Huna akaunti?",
     "createNewAccount": "Fungua akaunti mpya",
     "signupTitle": "Fungua akaunti mpya",
-    "signupSubtitle": "Jiunge na uanze kunakili biashara za wafanyabiashara bora kiotomatiki.",
+    "signupSubtitle": "Fungua akaunti yako kwa dakika chache na uanze bila hatari",
     "alreadyHaveAccount": "Tayari nina akaunti — Ingia",
     "fullNamePlaceholder": "Jina kamili",
     "emailInvalidError": "Andika anwani halisi ya barua pepe (mfano name@gmail.com).",
-    "phoneInvalidError": "Namba hii ya simu si sahihi kwa nchi hii, hakikisha umeiandika kikamilifu.",
-    "passwordPlaceholder6": "Nenosiri (angalau herufi 6)",
     "showPassword": "Onyesha nenosiri",
     "hidePassword": "Ficha nenosiri",
     "passwordMismatch": "Manenosiri hayafanani.",
@@ -1035,34 +1060,27 @@
     "requestNewCode": "Omba msimbo mpya",
     "resetTitle": "Weka nenosiri jipya",
     "resetSubtitle": "Weka nenosiri jipya kwa akaunti yako.",
-    "newPasswordPlaceholder6": "Nenosiri jipya (herufi 6 angalau)",
     "confirmNewPasswordPlaceholder": "Thibitisha nenosiri jipya",
     "updating": "Inasasisha...",
     "updatePasswordButton": "Sasisha nenosiri",
     "checkEmailTitle": "Angalia barua pepe yako",
     "checkEmailDesc": "Tumetuma kiungo cha uthibitisho kwenye barua pepe yako. Tafadhali fungua kiungo ili kuamilisha akaunti yako, kisha uingie.",
-    "chooseAccountTypeTitle": "Chagua aina ya akaunti yako",
-    "chooseAccountTypeSubtitle": "Unaweza kubadilisha chaguo hili baadaye kutoka mipangilio wakati wowote.",
-    "demoAccountTitle": "Akaunti ya majaribio",
-    "demoAccountDesc": "Fanya mazoezi ya kunakili biashara kwa fedha za dhahania bila hatari, na ujue jukwaa kabla ya kutumia pesa yako halisi.",
-    "realAccountTitle": "Akaunti halisi",
-    "realAccountDesc": "Anza kunakili biashara kwa salio lako halisi, huku matokeo yote halisi ya unakili ya faida au hasara yakiwekwa juu yake.",
-    "nameRequiredError": "Ingiza jina lako kamili.",
-    "passwordTooShortError": "Nenosiri lazima liwe na angalau herufi 6.",
-    "missingPrefix": "Bado inahitajika:",
-    "missingName": "jina kamili",
     "missingEmail": "barua pepe halali",
-    "missingPhone": "nambari halali ya simu",
     "missingPassword": "nenosiri la herufi 6 au zaidi",
-    "missingConfirm": "uthibitisho wa nenosiri unaolingana",
     "backHome": "Rudi mwanzo",
     "emailLabel": "Barua pepe",
     "passwordLabel": "Nenosiri",
     "nameLabel": "Jina kamili",
     "phoneLabel": "Nambari ya simu",
-    "confirmLabel": "Thibitisha nenosiri",
-    "stepOf": "Hatua {step} ya {total}",
-    "stepBack": "Rudi"
+    "passwordPlaceholder8": "Nenosiri (angalau herufi 8)",
+    "newPasswordPlaceholder8": "Nenosiri jipya (angalau herufi 8)",
+    "passwordMin8Error": "Nenosiri lazima liwe na angalau herufi 8.",
+    "passwordCommonError": "Nenosiri hili ni la kawaida mno. Chagua lililo gumu zaidi.",
+    "passwordEmailError": "Nenosiri lisiwe na barua pepe yako.",
+    "passwordBreachedError": "Nenosiri hili limeonekana katika uvujaji wa data unaojulikana. Chagua jingine.",
+    "emailTakenError": "Barua pepe hii tayari imesajiliwa.",
+    "emailTakenLogin": "Ingia",
+    "emailTakenReset": "Weka upya nenosiri"
   },
   "Legal": {
     "backToHome": "Rudi mwanzo",
@@ -1155,12 +1173,16 @@
       "passwordTooShort": "Nenosiri lazima liwe na angalau herufi 6.",
       "emailInvalid": "Anwani ya barua pepe iliyowekwa si sahihi.",
       "waitBeforeRetry": "Tafadhali subiri kidogo kabla ya kujaribu tena.",
-      "genericError": "Hitilafu isiyotarajiwa imetokea. Tafadhali jaribu tena."
+      "genericError": "Hitilafu isiyotarajiwa imetokea. Tafadhali jaribu tena.",
+      "tooManyFailedLogins": "Majaribio mengi yameshindwa. Jaribu tena baada ya dakika chache."
     },
     "kyc": {
       "idDocumentRequired": "Picha ya kitambulisho inahitajika.",
       "uploadFailed": "Imeshindwa kupakia hati ya kitambulisho. Tafadhali jaribu tena.",
-      "submitFailed": "Imeshindwa kuwasilisha ombi la uthibitisho. Tafadhali jaribu tena."
+      "submitFailed": "Imeshindwa kuwasilisha ombi la uthibitisho. Tafadhali jaribu tena.",
+      "fullNameInvalid": "Weka jina lako kamili kama linavyoonekana kwenye kitambulisho.",
+      "idNumberInvalid": "Weka nambari halali ya kitambulisho.",
+      "phoneInvalid": "Weka nambari halali ya simu pamoja na msimbo wa nchi."
     },
     "portfolio": {
       "depositAmountInvalid": "Kiasi cha amana lazima kiwe namba kubwa kuliko sifuri.",
@@ -1193,7 +1215,8 @@
       "nameEmpty": "Jina haliwezi kuwa tupu.",
       "nameSaveFailed": "Imeshindwa kuhifadhi jina. Tafadhali jaribu tena.",
       "accountTypeUpdateFailed": "Imeshindwa kusasisha aina ya akaunti. Tafadhali jaribu tena.",
-      "accountSwitchOpenPositions": "Funga nafasi zote zilizo wazi kabla ya kubadili akaunti."
+      "accountSwitchOpenPositions": "Funga nafasi zote zilizo wazi kabla ya kubadili akaunti.",
+      "phoneInvalid": "Weka nambari halali ya simu pamoja na msimbo wa nchi."
     },
     "discover": {
       "copyAmountInvalid": "Kiasi cha kunakili lazima kiwe namba kubwa kuliko sifuri.",
@@ -1618,7 +1641,8 @@
     "balanceBelowMin": "Salio lako ({balance}) liko chini ya kiwango cha chini cha mfanyabiashara huyu ({min}).",
     "depositCta": "Ongeza fedha",
     "amountBelowMin": "Kiasi ni chini ya kiwango cha chini cha mfanyabiashara huyu ({min}).",
-    "amountAboveBalance": "Kiasi kinazidi salio lako linalopatikana ({balance})."
+    "amountAboveBalance": "Kiasi kinazidi salio lako linalopatikana ({balance}).",
+    "amountDecimals": "Tumia desimali zisizozidi 2."
   },
   "Trades": {
     "title": "Biashara",
@@ -2444,7 +2468,8 @@
     "colTxid": "Muamala (TxID)",
     "colAddress": "Anwani",
     "refundedNote": "Kiasi kimerudishwa kwenye salio lako",
-    "historyMovementsNote": "Kila uwekaji, utoaji na mabadiliko ya salio ya akaunti hii. Matokeo ya biashara yako kwenye historia ya biashara."
+    "historyMovementsNote": "Kila uwekaji, utoaji na mabadiliko ya salio ya akaunti hii. Matokeo ya biashara yako kwenye historia ya biashara.",
+    "amountDecimalsError6": "Tumia desimali zisizozidi 6."
   },
   "Email": {
     "greeting": "Habari,",

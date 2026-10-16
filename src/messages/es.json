@@ -506,7 +506,11 @@
     "performanceEmptyTitle": "Aún no hay operaciones copiadas",
     "performanceEmptyBody": "Tus resultados, tasa de acierto e informe mensual aparecen aquí cuando se cierre tu primera operación copiada.",
     "balanceAfterDeposit": "Saldo después del depósito",
-    "withdrawRuleNote": "Puedes retirar el monto no usado en copias. Mientras haya una operación copiada abierta, los retiros se pausan hasta que se cierre."
+    "withdrawRuleNote": "Puedes retirar el monto no usado en copias. Mientras haya una operación copiada abierta, los retiros se pausan hasta que se cierre.",
+    "amountDecimalsError": "Usa como máximo 2 decimales.",
+    "amountMinError": "El mínimo es {min} USDT.",
+    "amountMaxError": "El máximo es {max} USDT.",
+    "amountAboveAvailable": "Este importe supera tu saldo disponible."
   },
   "TradeHistory": {
     "periodToday": "Hoy",
@@ -877,7 +881,26 @@
     "notificationPrefsDesc": "Elija qué avisos recibe en la aplicación y por correo.",
     "notificationPrefsLink": "Preferencias de notificación",
     "securityLinkDesc": "Verificación en dos pasos, contraseña y dispositivos con sesión iniciada.",
-    "sectionsNav": "Secciones de ajustes"
+    "sectionsNav": "Secciones de ajustes",
+    "profileCompleteHint": "Añade tu nombre y teléfono para completar tu perfil. Se necesitan antes de depositar o retirar.",
+    "emailVerified": "Correo verificado",
+    "emailNotVerified": "Correo sin verificar",
+    "emailVerifyHint": "Verifica tu correo para habilitar depósitos y retiros en una cuenta real.",
+    "sending": "Enviando…",
+    "resendVerify": "Reenviar el enlace",
+    "sendVerify": "Enviar enlace de verificación",
+    "verifyCodePlaceholder": "Código del correo",
+    "verifyCodeButton": "Confirmar",
+    "verify_done": "Tu correo está verificado.",
+    "verify_sent": "Te enviamos un enlace y un código. Revisa tu bandeja de entrada.",
+    "verify_failed": "No pudimos enviar el correo. Inténtalo más tarde.",
+    "verify_limit": "Demasiadas solicitudes. Espera antes de volver a intentarlo.",
+    "verify_code_invalid": "El código es incorrecto o ha caducado.",
+    "nameLabel": "Nombre completo",
+    "phoneCurrent": "Número actual:",
+    "phoneLabel": "Número de teléfono",
+    "phoneInvalid": "Introduce un número de teléfono válido.",
+    "savePhone": "Guardar teléfono"
   },
   "Kyc": {
     "title": "Verificación de identidad",
@@ -916,7 +939,11 @@
     "whatNext": "Completarlo lleva unos minutos. Nuestro equipo revisa los documentos y recibes una notificación con la decisión.",
     "chooseFile": "Elegir un archivo",
     "changeFile": "Cambiar archivo",
-    "noFileChosen": "Ningún archivo elegido"
+    "noFileChosen": "Ningún archivo elegido",
+    "fileTooLarge": "El archivo supera los 8 MB.",
+    "phoneLabel": "Número de teléfono",
+    "phoneInvalid": "Introduce un número de teléfono válido.",
+    "submitting": "Enviando…"
   },
   "Markets": {
     "title": "Mercados",
@@ -1007,12 +1034,10 @@
     "noAccount": "¿No tienes una cuenta?",
     "createNewAccount": "Crear cuenta nueva",
     "signupTitle": "Crear cuenta nueva",
-    "signupSubtitle": "Únete y empieza a copiar automáticamente las operaciones de los mejores traders.",
+    "signupSubtitle": "Crea tu cuenta en minutos y empieza sin riesgo",
     "alreadyHaveAccount": "Ya tengo una cuenta — Iniciar sesión",
     "fullNamePlaceholder": "Nombre completo",
     "emailInvalidError": "Escribe un correo electrónico real (p. ej. name@gmail.com).",
-    "phoneInvalidError": "Este número de teléfono no es válido para este país, asegúrate de escribirlo completo.",
-    "passwordPlaceholder6": "Contraseña (mínimo 6 caracteres)",
     "showPassword": "Mostrar contraseña",
     "hidePassword": "Ocultar contraseña",
     "passwordMismatch": "Las contraseñas no coinciden.",
@@ -1035,34 +1060,27 @@
     "requestNewCode": "Solicitar un nuevo código",
     "resetTitle": "Establecer una nueva contraseña",
     "resetSubtitle": "Ingresa una nueva contraseña para tu cuenta.",
-    "newPasswordPlaceholder6": "Nueva contraseña (mínimo 6 caracteres)",
     "confirmNewPasswordPlaceholder": "Confirmar nueva contraseña",
     "updating": "Actualizando...",
     "updatePasswordButton": "Actualizar contraseña",
     "checkEmailTitle": "Revisa tu correo electrónico",
     "checkEmailDesc": "Hemos enviado un enlace de confirmación a tu correo electrónico. Abre el enlace para activar tu cuenta y luego inicia sesión.",
-    "chooseAccountTypeTitle": "Elige tu tipo de cuenta",
-    "chooseAccountTypeSubtitle": "Puedes cambiar esta elección más tarde desde la configuración en cualquier momento.",
-    "demoAccountTitle": "Cuenta demo",
-    "demoAccountDesc": "Practica copiando operaciones con fondos virtuales sin riesgo, y familiarízate con la plataforma antes de usar tu dinero real.",
-    "realAccountTitle": "Cuenta real",
-    "realAccountDesc": "Empieza a copiar operaciones con tu saldo real, aplicándose todos los resultados reales de copia en ganancia o pérdida.",
-    "nameRequiredError": "Introduce tu nombre completo.",
-    "passwordTooShortError": "La contraseña debe tener al menos 6 caracteres.",
-    "missingPrefix": "Todavía falta:",
-    "missingName": "nombre completo",
     "missingEmail": "un correo válido",
-    "missingPhone": "un número de teléfono válido",
     "missingPassword": "una contraseña de 6 o más caracteres",
-    "missingConfirm": "confirmación de contraseña coincidente",
     "backHome": "Volver al inicio",
     "emailLabel": "Correo electrónico",
     "passwordLabel": "Contraseña",
     "nameLabel": "Nombre completo",
     "phoneLabel": "Número de teléfono",
-    "confirmLabel": "Confirmar contraseña",
-    "stepOf": "Paso {step} de {total}",
-    "stepBack": "Atrás"
+    "passwordPlaceholder8": "Contraseña (mínimo 8 caracteres)",
+    "newPasswordPlaceholder8": "Nueva contraseña (mínimo 8 caracteres)",
+    "passwordMin8Error": "La contraseña debe tener al menos 8 caracteres.",
+    "passwordCommonError": "Esta contraseña es demasiado común. Elige una más difícil de adivinar.",
+    "passwordEmailError": "La contraseña no debe contener tu correo electrónico.",
+    "passwordBreachedError": "Esta contraseña aparece en filtraciones de datos conocidas. Elige otra.",
+    "emailTakenError": "Este correo electrónico ya está registrado.",
+    "emailTakenLogin": "Iniciar sesión",
+    "emailTakenReset": "Restablecer contraseña"
   },
   "Legal": {
     "backToHome": "Volver al inicio",
@@ -1155,12 +1173,16 @@
       "passwordTooShort": "La contraseña debe tener al menos 6 caracteres.",
       "emailInvalid": "La dirección de correo introducida no es válida.",
       "waitBeforeRetry": "Espera un momento antes de volver a intentarlo.",
-      "genericError": "Ocurrió un error inesperado. Inténtalo de nuevo."
+      "genericError": "Ocurrió un error inesperado. Inténtalo de nuevo.",
+      "tooManyFailedLogins": "Demasiados intentos fallidos. Inténtalo de nuevo en unos minutos."
     },
     "kyc": {
       "idDocumentRequired": "Se requiere una foto del documento de identidad.",
       "uploadFailed": "No se pudo subir el documento de identidad. Inténtalo de nuevo.",
-      "submitFailed": "No se pudo enviar la solicitud de verificación. Inténtalo de nuevo."
+      "submitFailed": "No se pudo enviar la solicitud de verificación. Inténtalo de nuevo.",
+      "fullNameInvalid": "Introduce tu nombre completo tal como aparece en tu documento.",
+      "idNumberInvalid": "Introduce un número de documento válido.",
+      "phoneInvalid": "Introduce un número de teléfono válido con el prefijo del país."
     },
     "portfolio": {
       "depositAmountInvalid": "El monto del depósito debe ser un número mayor que cero.",
@@ -1193,7 +1215,8 @@
       "nameEmpty": "El nombre no puede estar vacío.",
       "nameSaveFailed": "No se pudo guardar el nombre. Inténtalo de nuevo.",
       "accountTypeUpdateFailed": "No se pudo actualizar el tipo de cuenta. Inténtalo de nuevo.",
-      "accountSwitchOpenPositions": "Cierra todas las posiciones abiertas antes de cambiar de cuenta."
+      "accountSwitchOpenPositions": "Cierra todas las posiciones abiertas antes de cambiar de cuenta.",
+      "phoneInvalid": "Introduce un número de teléfono válido con el prefijo del país."
     },
     "discover": {
       "copyAmountInvalid": "El monto a copiar debe ser un número mayor que cero.",
@@ -1619,7 +1642,8 @@
     "balanceBelowMin": "Tu saldo ({balance}) es inferior al mínimo de este trader ({min}).",
     "depositCta": "Añadir fondos",
     "amountBelowMin": "El importe es inferior al mínimo de este trader ({min}).",
-    "amountAboveBalance": "El importe supera tu saldo disponible ({balance})."
+    "amountAboveBalance": "El importe supera tu saldo disponible ({balance}).",
+    "amountDecimals": "Usa como máximo 2 decimales."
   },
   "Trades": {
     "title": "Operaciones",
@@ -2445,7 +2469,8 @@
     "colTxid": "Transacción (TxID)",
     "colAddress": "Dirección",
     "refundedNote": "Monto devuelto a tu saldo",
-    "historyMovementsNote": "Todos los depósitos, retiros y cambios de saldo de esta cuenta. Los resultados de las operaciones están en el historial de operaciones."
+    "historyMovementsNote": "Todos los depósitos, retiros y cambios de saldo de esta cuenta. Los resultados de las operaciones están en el historial de operaciones.",
+    "amountDecimalsError6": "Usa como máximo 6 decimales."
   },
   "Email": {
     "greeting": "Hola:",

@@ -9,6 +9,7 @@ import { useBodyScrollLock } from "@/lib/use-body-scroll-lock";
 import { SubmitButton } from "@/components/SubmitButton";
 import { copyAmountIssue } from "@/lib/copy-amount";
 import { nameIsolate } from "@/lib/format-stats";
+import { IdempotencyField } from "@/components/IdempotencyField";
 
 // Copy-start dialog. Every field is applied by the followProvider action and
 // stored on the subscription: the copy mode and max-per-trade size each copied
@@ -201,7 +202,7 @@ export function CopyFormView({
   const t = useTranslations("CopyDialog");
   const money = useMoney();
   const locked = !!edit?.locked;
-  const amountIssue = locked || amount.trim() === "" ? null : copyAmountIssue(Number(amount), minAmount, edit ? null : balance);
+  const amountIssue = locked || amount.trim() === "" ? null : copyAmountIssue(Number(amount), minAmount, edit ? null : balance, amount);
   const belowMinimum = !edit && balance != null && balance < minAmount;
   const inputCls = "rounded-lg border border-border bg-surface px-3 py-2.5 text-foreground focus:outline-none";
 
@@ -211,6 +212,7 @@ export function CopyFormView({
           className="relative z-10 flex max-h-[90vh] w-full max-w-md flex-col gap-4 overflow-y-auto rounded-t-3xl border border-white/[0.08] bg-[#0B132B] p-5 shadow-2xl sm:rounded-3xl"
         >
           <input type="hidden" name="providerId" value={providerId} />
+          <IdempotencyField />
           <div className="flex items-center justify-between">
             <h2 className="text-section-title">{edit ? t("editTitle", { name: nameIsolate(providerName) }) : t("title", { name: nameIsolate(providerName) })}</h2>
             <button type="button" onClick={onClose} aria-label={t("close")} className="-m-2 flex h-11 w-11 items-center justify-center text-muted hover:text-foreground">
@@ -251,7 +253,7 @@ export function CopyFormView({
             </span>
             {amountIssue && (
               <span id="copy-amount-issue" role="alert" className="text-xs font-medium text-danger">
-                {amountIssue === "below_min" ? t("amountBelowMin", { min: money(minAmount) }) : t("amountAboveBalance", { balance: money(balance ?? 0) })}
+                {amountIssue === "below_min" ? t("amountBelowMin", { min: money(minAmount) }) : amountIssue === "decimals" ? t("amountDecimals") : t("amountAboveBalance", { balance: money(balance ?? 0) })}
               </span>
             )}
           </label>

@@ -506,7 +506,11 @@
     "performanceEmptyTitle": "Chưa có giao dịch sao chép",
     "performanceEmptyBody": "Kết quả, tỷ lệ thắng và báo cáo hằng tháng sẽ hiện ở đây sau khi giao dịch sao chép đầu tiên đóng.",
     "balanceAfterDeposit": "Số dư sau khi nạp",
-    "withdrawRuleNote": "Bạn có thể rút số tiền không dùng cho sao chép. Khi còn giao dịch sao chép đang mở, việc rút tiền tạm dừng cho đến khi giao dịch đóng."
+    "withdrawRuleNote": "Bạn có thể rút số tiền không dùng cho sao chép. Khi còn giao dịch sao chép đang mở, việc rút tiền tạm dừng cho đến khi giao dịch đóng.",
+    "amountDecimalsError": "Chỉ dùng tối đa 2 chữ số thập phân.",
+    "amountMinError": "Mức tối thiểu là {min} USDT.",
+    "amountMaxError": "Mức tối đa là {max} USDT.",
+    "amountAboveAvailable": "Số tiền này vượt quá số dư khả dụng của bạn."
   },
   "TradeHistory": {
     "periodToday": "Hôm nay",
@@ -877,7 +881,26 @@
     "notificationPrefsDesc": "Chọn thông báo bạn nhận trong ứng dụng và qua email.",
     "notificationPrefsLink": "Tùy chọn thông báo",
     "securityLinkDesc": "Xác thực hai bước, mật khẩu và thiết bị đã đăng nhập.",
-    "sectionsNav": "Các mục cài đặt"
+    "sectionsNav": "Các mục cài đặt",
+    "profileCompleteHint": "Thêm họ tên và số điện thoại để hoàn tất hồ sơ. Cần có trước khi nạp và rút tiền.",
+    "emailVerified": "Email đã xác minh",
+    "emailNotVerified": "Email chưa xác minh",
+    "emailVerifyHint": "Xác minh email để mở nạp và rút tiền trên tài khoản thật.",
+    "sending": "Đang gửi…",
+    "resendVerify": "Gửi lại liên kết",
+    "sendVerify": "Gửi liên kết xác minh",
+    "verifyCodePlaceholder": "Mã trong email",
+    "verifyCodeButton": "Xác nhận",
+    "verify_done": "Email của bạn đã được xác minh.",
+    "verify_sent": "Chúng tôi đã gửi liên kết và mã. Hãy kiểm tra hộp thư.",
+    "verify_failed": "Không gửi được email. Vui lòng thử lại sau.",
+    "verify_limit": "Quá nhiều yêu cầu. Vui lòng chờ trước khi thử lại.",
+    "verify_code_invalid": "Mã không đúng hoặc đã hết hạn.",
+    "nameLabel": "Họ và tên",
+    "phoneCurrent": "Số hiện tại:",
+    "phoneLabel": "Số điện thoại",
+    "phoneInvalid": "Nhập số điện thoại hợp lệ.",
+    "savePhone": "Lưu số điện thoại"
   },
   "Kyc": {
     "title": "Xác minh danh tính",
@@ -916,7 +939,11 @@
     "whatNext": "Điền mất vài phút. Đội ngũ của chúng tôi xét duyệt giấy tờ và bạn sẽ nhận thông báo kết quả.",
     "chooseFile": "Chọn tệp",
     "changeFile": "Đổi tệp",
-    "noFileChosen": "Chưa chọn tệp"
+    "noFileChosen": "Chưa chọn tệp",
+    "fileTooLarge": "Tệp lớn hơn 8 MB.",
+    "phoneLabel": "Số điện thoại",
+    "phoneInvalid": "Nhập số điện thoại hợp lệ.",
+    "submitting": "Đang gửi…"
   },
   "Markets": {
     "title": "Thị trường",
@@ -1007,12 +1034,10 @@
     "noAccount": "Chưa có tài khoản?",
     "createNewAccount": "Tạo tài khoản mới",
     "signupTitle": "Tạo tài khoản mới",
-    "signupSubtitle": "Tham gia và bắt đầu tự động sao chép giao dịch của các nhà giao dịch hàng đầu.",
+    "signupSubtitle": "Tạo tài khoản trong vài phút và bắt đầu không rủi ro",
     "alreadyHaveAccount": "Tôi đã có tài khoản — Đăng nhập",
     "fullNamePlaceholder": "Họ và tên",
     "emailInvalidError": "Nhập địa chỉ email thật (ví dụ: name@gmail.com).",
-    "phoneInvalidError": "Số điện thoại này không hợp lệ đối với quốc gia này, hãy đảm bảo bạn đã nhập đầy đủ.",
-    "passwordPlaceholder6": "Mật khẩu (ít nhất 6 ký tự)",
     "showPassword": "Hiện mật khẩu",
     "hidePassword": "Ẩn mật khẩu",
     "passwordMismatch": "Mật khẩu không khớp.",
@@ -1035,34 +1060,27 @@
     "requestNewCode": "Yêu cầu mã mới",
     "resetTitle": "Đặt mật khẩu mới",
     "resetSubtitle": "Nhập mật khẩu mới cho tài khoản của bạn.",
-    "newPasswordPlaceholder6": "Mật khẩu mới (tối thiểu 6 ký tự)",
     "confirmNewPasswordPlaceholder": "Xác nhận mật khẩu mới",
     "updating": "Đang cập nhật...",
     "updatePasswordButton": "Cập nhật mật khẩu",
     "checkEmailTitle": "Kiểm tra email của bạn",
     "checkEmailDesc": "Chúng tôi đã gửi liên kết xác nhận đến email của bạn. Vui lòng mở liên kết để kích hoạt tài khoản, sau đó đăng nhập.",
-    "chooseAccountTypeTitle": "Chọn loại tài khoản của bạn",
-    "chooseAccountTypeSubtitle": "Bạn có thể thay đổi lựa chọn này sau bất kỳ lúc nào từ phần cài đặt.",
-    "demoAccountTitle": "Tài khoản demo",
-    "demoAccountDesc": "Luyện tập sao chép giao dịch với tiền ảo không rủi ro, và làm quen với nền tảng trước khi sử dụng tiền thật của bạn.",
-    "realAccountTitle": "Tài khoản thật",
-    "realAccountDesc": "Bắt đầu sao chép giao dịch với số dư thực của bạn, với tất cả kết quả sao chép thực về lãi hoặc lỗ được áp dụng cho nó.",
-    "nameRequiredError": "Nhập họ và tên đầy đủ của bạn.",
-    "passwordTooShortError": "Mật khẩu phải có ít nhất 6 ký tự.",
-    "missingPrefix": "Còn thiếu:",
-    "missingName": "họ và tên",
     "missingEmail": "email hợp lệ",
-    "missingPhone": "số điện thoại hợp lệ",
     "missingPassword": "mật khẩu từ 6 ký tự trở lên",
-    "missingConfirm": "xác nhận mật khẩu trùng khớp",
     "backHome": "Về trang chủ",
     "emailLabel": "Email",
     "passwordLabel": "Mật khẩu",
     "nameLabel": "Họ và tên",
     "phoneLabel": "Số điện thoại",
-    "confirmLabel": "Xác nhận mật khẩu",
-    "stepOf": "Bước {step}/{total}",
-    "stepBack": "Quay lại"
+    "passwordPlaceholder8": "Mật khẩu (ít nhất 8 ký tự)",
+    "newPasswordPlaceholder8": "Mật khẩu mới (ít nhất 8 ký tự)",
+    "passwordMin8Error": "Mật khẩu phải có ít nhất 8 ký tự.",
+    "passwordCommonError": "Mật khẩu này quá phổ biến. Hãy chọn mật khẩu khó đoán hơn.",
+    "passwordEmailError": "Mật khẩu không được chứa email của bạn.",
+    "passwordBreachedError": "Mật khẩu này từng xuất hiện trong các vụ rò rỉ dữ liệu. Hãy chọn mật khẩu khác.",
+    "emailTakenError": "Email này đã được đăng ký.",
+    "emailTakenLogin": "Đăng nhập",
+    "emailTakenReset": "Đặt lại mật khẩu"
   },
   "Legal": {
     "backToHome": "Về trang chủ",
@@ -1155,12 +1173,16 @@
       "passwordTooShort": "Mật khẩu phải có ít nhất 6 ký tự.",
       "emailInvalid": "Địa chỉ email đã nhập không hợp lệ.",
       "waitBeforeRetry": "Vui lòng đợi một chút trước khi thử lại.",
-      "genericError": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại."
+      "genericError": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại.",
+      "tooManyFailedLogins": "Quá nhiều lần thử thất bại. Hãy thử lại sau vài phút."
     },
     "kyc": {
       "idDocumentRequired": "Cần có ảnh giấy tờ tùy thân.",
       "uploadFailed": "Không thể tải lên giấy tờ tùy thân. Vui lòng thử lại.",
-      "submitFailed": "Không thể gửi yêu cầu xác minh. Vui lòng thử lại."
+      "submitFailed": "Không thể gửi yêu cầu xác minh. Vui lòng thử lại.",
+      "fullNameInvalid": "Nhập họ tên đầy đủ đúng như trên giấy tờ tùy thân.",
+      "idNumberInvalid": "Nhập số giấy tờ tùy thân hợp lệ.",
+      "phoneInvalid": "Nhập số điện thoại hợp lệ kèm mã quốc gia."
     },
     "portfolio": {
       "depositAmountInvalid": "Số tiền nạp phải là một số lớn hơn không.",
@@ -1193,7 +1215,8 @@
       "nameEmpty": "Tên không được để trống.",
       "nameSaveFailed": "Không thể lưu tên. Vui lòng thử lại.",
       "accountTypeUpdateFailed": "Không thể cập nhật loại tài khoản. Vui lòng thử lại.",
-      "accountSwitchOpenPositions": "Hãy đóng tất cả vị thế đang mở trước khi chuyển tài khoản."
+      "accountSwitchOpenPositions": "Hãy đóng tất cả vị thế đang mở trước khi chuyển tài khoản.",
+      "phoneInvalid": "Nhập số điện thoại hợp lệ kèm mã quốc gia."
     },
     "discover": {
       "copyAmountInvalid": "Số tiền sao chép phải là một số lớn hơn không.",
@@ -1618,7 +1641,8 @@
     "balanceBelowMin": "Số dư của bạn ({balance}) thấp hơn mức tối thiểu của nhà giao dịch này ({min}).",
     "depositCta": "Nạp tiền",
     "amountBelowMin": "Số tiền thấp hơn mức tối thiểu của trader này ({min}).",
-    "amountAboveBalance": "Số tiền vượt quá số dư khả dụng của bạn ({balance})."
+    "amountAboveBalance": "Số tiền vượt quá số dư khả dụng của bạn ({balance}).",
+    "amountDecimals": "Chỉ dùng tối đa 2 chữ số thập phân."
   },
   "Trades": {
     "title": "Giao dịch",
@@ -2444,7 +2468,8 @@
     "colTxid": "Giao dịch (TxID)",
     "colAddress": "Địa chỉ",
     "refundedNote": "Đã hoàn tiền về số dư",
-    "historyMovementsNote": "Mọi khoản nạp, rút và thay đổi số dư của tài khoản này. Kết quả giao dịch nằm trong lịch sử giao dịch."
+    "historyMovementsNote": "Mọi khoản nạp, rút và thay đổi số dư của tài khoản này. Kết quả giao dịch nằm trong lịch sử giao dịch.",
+    "amountDecimalsError6": "Chỉ dùng tối đa 6 chữ số thập phân."
   },
   "Email": {
     "greeting": "Xin chào,",

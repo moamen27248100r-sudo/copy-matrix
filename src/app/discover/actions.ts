@@ -11,6 +11,8 @@ import { formatDate } from "@/lib/locale-format";
 import { translateBio } from "@/lib/bio-translations";
 import { isUuid } from "@/lib/uuid";
 import { nameIsolate } from "@/lib/format-stats";
+import { parseMoney } from "@/lib/validate-money";
+import { claimIdempotency } from "@/lib/idempotency";
 
 type FollowEmailTranslator = (key: string, values?: Record<string, string | number>) => string;
 
@@ -73,11 +75,13 @@ export async function followProvider(formData: FormData) {
 
   const td = await getTranslations("Actions.discover");
 
-  const allocatedAmount = Number(formData.get("allocatedAmount"));
-
-  if (!Number.isFinite(allocatedAmount) || allocatedAmount <= 0) {
+  const parsedAmount = parseMoney(formData.get("allocatedAmount"));
+  if (!parsedAmount.ok) {
     redirect(`/trader/${providerId}?error=${encodeURIComponent(td("copyAmountInvalid"))}`);
   }
+  const allocatedAmount = parsedAmount.value;
+  // a second press of the same form (double tap, two tabs) is a duplicate: back to the trader, nothing done
+  if (!(await claimIdempotency(supabase, formData))) redirect(`/trader/${providerId}`);
 
   // Whether this call is starting a brand-new copy or editing an existing
   // one, purely for the success-redirect message below -- every actual
@@ -108,7 +112,8 @@ export async function followProvider(formData: FormData) {
   const optionalNumber = (name: string) => {
     const raw = String(formData.get(name) ?? "").trim();
     if (raw === "") return null;
-    const n = Number(raw);
+    if (!/^\d+([.,]\d+)?$/.test(raw)) return NaN; // no signs, no exponents, no spaces
+    const n = Number(raw.replace(",", "."));
     return Number.isFinite(n) ? n : NaN;
   };
   const copyMode = formData.get("mode") === "fixed" ? "fixed" : "ratio";

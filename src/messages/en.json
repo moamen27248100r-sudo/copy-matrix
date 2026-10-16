@@ -506,7 +506,11 @@
     "performanceEmptyTitle": "No copied trades yet",
     "performanceEmptyBody": "Your results, win rate and monthly report appear here after your first copied trade closes.",
     "balanceAfterDeposit": "Balance after the deposit",
-    "withdrawRuleNote": "You can withdraw the amount not used in copies. While a copied trade is open, withdrawals pause until it closes."
+    "withdrawRuleNote": "You can withdraw the amount not used in copies. While a copied trade is open, withdrawals pause until it closes.",
+    "amountDecimalsError": "Use at most 2 decimal places.",
+    "amountMinError": "The minimum is {min} USDT.",
+    "amountMaxError": "The maximum is {max} USDT.",
+    "amountAboveAvailable": "This is more than your available balance."
   },
   "TradeHistory": {
     "periodToday": "Today",
@@ -877,7 +881,26 @@
     "notificationPrefsDesc": "Choose which notices you receive in the app and by email.",
     "notificationPrefsLink": "Notification preferences",
     "securityLinkDesc": "Two-factor authentication, password and signed-in devices.",
-    "sectionsNav": "Settings sections"
+    "sectionsNav": "Settings sections",
+    "profileCompleteHint": "Add your name and phone number to complete your profile. They are needed before deposits and withdrawals.",
+    "emailVerified": "Email verified",
+    "emailNotVerified": "Email not verified",
+    "emailVerifyHint": "Verify your email to unlock deposits and withdrawals on a real account.",
+    "sending": "Sending…",
+    "resendVerify": "Resend the link",
+    "sendVerify": "Send a verification link",
+    "verifyCodePlaceholder": "Code from the email",
+    "verifyCodeButton": "Confirm",
+    "verify_done": "Your email is verified.",
+    "verify_sent": "We sent you a link and a code. Check your inbox.",
+    "verify_failed": "We could not send the email. Please try again later.",
+    "verify_limit": "Too many requests. Please wait before trying again.",
+    "verify_code_invalid": "The code is incorrect or has expired.",
+    "nameLabel": "Full name",
+    "phoneCurrent": "Current number:",
+    "phoneLabel": "Phone number",
+    "phoneInvalid": "Enter a valid phone number.",
+    "savePhone": "Save phone number"
   },
   "Kyc": {
     "title": "Identity Verification",
@@ -916,7 +939,11 @@
     "whatNext": "Filling this in takes a few minutes. Our team reviews the documents and you get a notification with the decision.",
     "chooseFile": "Choose a file",
     "changeFile": "Change file",
-    "noFileChosen": "No file chosen"
+    "noFileChosen": "No file chosen",
+    "fileTooLarge": "The file is larger than 8 MB.",
+    "phoneLabel": "Phone number",
+    "phoneInvalid": "Enter a valid phone number.",
+    "submitting": "Submitting…"
   },
   "Markets": {
     "title": "Markets",
@@ -1007,12 +1034,10 @@
     "noAccount": "Don't have an account?",
     "createNewAccount": "Create new account",
     "signupTitle": "Create new account",
-    "signupSubtitle": "Create your account in minutes and start with a demo account.",
+    "signupSubtitle": "Create your account in minutes and start risk-free",
     "alreadyHaveAccount": "I already have an account — Log in",
     "fullNamePlaceholder": "Full name",
     "emailInvalidError": "Enter a real email address (e.g. name@gmail.com).",
-    "phoneInvalidError": "This phone number is not valid for this country, make sure you typed it in full.",
-    "passwordPlaceholder6": "Password (at least 6 characters)",
     "showPassword": "Show password",
     "hidePassword": "Hide password",
     "passwordMismatch": "The passwords do not match.",
@@ -1035,34 +1060,27 @@
     "requestNewCode": "Request a new code",
     "resetTitle": "Set a new password",
     "resetSubtitle": "Enter a new password for your account.",
-    "newPasswordPlaceholder6": "New password (at least 6 characters)",
     "confirmNewPasswordPlaceholder": "Confirm new password",
     "updating": "Updating...",
     "updatePasswordButton": "Update password",
     "checkEmailTitle": "Check your email",
     "checkEmailDesc": "We have sent a confirmation link to your email. Please open the link to activate your account, then log in.",
-    "chooseAccountTypeTitle": "Choose your account type",
-    "chooseAccountTypeSubtitle": "You can change this choice later from settings at any time.",
-    "demoAccountTitle": "Demo account",
-    "demoAccountDesc": "Practice copying trades with virtual funds risk-free, and get familiar with the platform before using your real money.",
-    "realAccountTitle": "Real account",
-    "realAccountDesc": "Start copying trades with your actual balance, with all real copying results in profit or loss applied to it.",
-    "nameRequiredError": "Enter your full name.",
-    "passwordTooShortError": "The password must be at least 6 characters.",
-    "missingPrefix": "Still needed:",
-    "missingName": "full name",
     "missingEmail": "a valid email",
-    "missingPhone": "a valid phone number",
     "missingPassword": "a password of 6+ characters",
-    "missingConfirm": "matching password confirmation",
     "backHome": "Back to home",
     "emailLabel": "Email",
     "passwordLabel": "Password",
     "nameLabel": "Full name",
     "phoneLabel": "Phone number",
-    "confirmLabel": "Confirm password",
-    "stepOf": "Step {step} of {total}",
-    "stepBack": "Back"
+    "passwordPlaceholder8": "Password (at least 8 characters)",
+    "newPasswordPlaceholder8": "New password (at least 8 characters)",
+    "passwordMin8Error": "The password must be at least 8 characters.",
+    "passwordCommonError": "This password is too common. Choose a harder one.",
+    "passwordEmailError": "The password must not contain your email.",
+    "passwordBreachedError": "This password appeared in known data leaks. Choose another one.",
+    "emailTakenError": "This email is already registered.",
+    "emailTakenLogin": "Log in",
+    "emailTakenReset": "Reset password"
   },
   "Legal": {
     "backToHome": "Back to home",
@@ -1155,12 +1173,16 @@
       "passwordTooShort": "Password must be at least 6 characters.",
       "emailInvalid": "The email address entered is invalid.",
       "waitBeforeRetry": "Please wait a moment before trying again.",
-      "genericError": "An unexpected error occurred. Please try again."
+      "genericError": "An unexpected error occurred. Please try again.",
+      "tooManyFailedLogins": "Too many failed attempts. Try again in a few minutes."
     },
     "kyc": {
       "idDocumentRequired": "An ID document photo is required.",
       "uploadFailed": "Could not upload the ID document. Please try again.",
-      "submitFailed": "Could not submit the verification request. Please try again."
+      "submitFailed": "Could not submit the verification request. Please try again.",
+      "fullNameInvalid": "Enter your full name exactly as it appears on your ID.",
+      "idNumberInvalid": "Enter a valid ID number.",
+      "phoneInvalid": "Enter a valid phone number with its country code."
     },
     "portfolio": {
       "depositAmountInvalid": "The deposit amount must be a number greater than zero.",
@@ -1193,7 +1215,8 @@
       "nameEmpty": "The name cannot be empty.",
       "nameSaveFailed": "Could not save the name. Please try again.",
       "accountTypeUpdateFailed": "Could not update the account type. Please try again.",
-      "accountSwitchOpenPositions": "Close all open positions before switching accounts."
+      "accountSwitchOpenPositions": "Close all open positions before switching accounts.",
+      "phoneInvalid": "Enter a valid phone number with its country code."
     },
     "discover": {
       "copyAmountInvalid": "The copy amount must be a number greater than zero.",
@@ -1622,7 +1645,8 @@
     "balanceBelowMin": "Your balance ({balance}) is below this trader's minimum ({min}).",
     "depositCta": "Add funds",
     "amountBelowMin": "Amount is below this trader's minimum ({min}).",
-    "amountAboveBalance": "Amount is more than your available balance ({balance})."
+    "amountAboveBalance": "Amount is more than your available balance ({balance}).",
+    "amountDecimals": "Use at most 2 decimal places."
   },
   "Trades": {
     "title": "Trades",
@@ -2448,7 +2472,8 @@
     "colTxid": "Transaction (TxID)",
     "colAddress": "Address",
     "refundedNote": "Amount returned to your balance",
-    "historyMovementsNote": "Every deposit, withdrawal and balance change of this account. Trade results are in the trades history."
+    "historyMovementsNote": "Every deposit, withdrawal and balance change of this account. Trade results are in the trades history.",
+    "amountDecimalsError6": "Use at most 6 decimal places."
   },
   "Email": {
     "greeting": "Hello,",

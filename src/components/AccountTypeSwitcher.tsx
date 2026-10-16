@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { chooseAccountType } from "@/app/auth/actions";
+import { switchAccountType } from "@/app/auth/actions";
 
 type AccountType = "real" | "demo";
 
@@ -57,11 +57,11 @@ export function AccountTypeSwitcher({
 
   return (
     <>
-      <form ref={realFormRef} action={chooseAccountType} className="hidden">
+      <form ref={realFormRef} action={switchAccountType} className="hidden">
         <input type="hidden" name="accountType" value="real" />
         <input type="hidden" name="next" value={next} />
       </form>
-      <form ref={demoFormRef} action={chooseAccountType} className="hidden">
+      <form ref={demoFormRef} action={switchAccountType} className="hidden">
         <input type="hidden" name="accountType" value="demo" />
         <input type="hidden" name="next" value={next} />
       </form>

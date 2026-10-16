@@ -11,6 +11,8 @@ import { attemptAllowed, CODE_PATTERN, readCode, verifiedTotpFactorId, verifyErr
 import { CHAINS, isNetworkId, isValidAddress, normalizeTxHash, tronAddressChecksumOk } from "@/lib/crypto/networks";
 import { checkDeposit, processDueDeposits } from "@/lib/crypto/deposits";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { parseMoney, type MoneyProblem } from "@/lib/validate-money";
+import { claimIdempotency } from "@/lib/idempotency";
 
 export type DepositFormState = { error?: string; submitted?: { status: string; confirmations: number; required: number; reason: string | null } };
 export type WithdrawFormState = { error?: string };
@@ -94,6 +96,7 @@ const WITHDRAW_ERRORS: Record<string, string> = {
   CM044: "withdrawAddressInvalid",
   CM045: "withdrawBelowMin",
   CM046: "withdrawDailyLimit",
+  CM071: "emailUnverified",
 };
 
 export async function requestCryptoWithdrawal(_prev: WithdrawFormState, formData: FormData): Promise<WithdrawFormState> {
@@ -106,15 +109,18 @@ export async function requestCryptoWithdrawal(_prev: WithdrawFormState, formData
 
   const network = String(formData.get("network") ?? "");
   const address = String(formData.get("address") ?? "").trim();
-  const amount = Number(formData.get("amount"));
+  const parsed = parseMoney(formData.get("amount"), { min: 0.000001, decimals: 6 });
+  const amount = parsed.ok ? parsed.value : NaN;
   const code = readCode(formData);
 
   if (!isNetworkId(network)) return { error: tp("withdrawNetworkUnavailable") };
   if (!isValidAddress(network, address) || (CHAINS[network].kind === "tron" && !(await tronAddressChecksumOk(address)))) {
     return { error: tp("withdrawAddressInvalid") };
   }
-  if (!Number.isFinite(amount) || amount <= 0) return { error: tp("withdrawAmountInvalid") };
+  if (!parsed.ok) return { error: parsed.reason === "decimals" ? (await getTranslations("Wallet"))("amountDecimalsError6") : tp("withdrawAmountInvalid") };
   if (!hasVerifiedTotp(user)) return { error: tp("mfaNotEnabled") };
+  // pressed twice (or from two tabs): the second request is a duplicate and does nothing
+  if (!(await claimIdempotency(supabase, formData))) redirect("/portfolio/history?tab=withdrawals&requested=1");
 
   // The 2FA code is checked by Supabase; the fresh aal2 token it returns is what the database
   // accepts as "code entered just now" (withdraw_mfa_check).
@@ -197,27 +203,40 @@ async function runDemoWallet(
   redirect(okPath);
 }
 
-function parseAmount(formData: FormData) {
-  const amount = Number(formData.get("amount"));
-  return Number.isFinite(amount) && amount > 0 ? amount : null;
+const DEMO_MIN = 1;
+const DEMO_MAX = 1_000_000;
+
+async function amountError(reason: MoneyProblem, invalidKey: string) {
+  const tp = await getTranslations("Actions.portfolio");
+  const tPort = await getTranslations("Portfolio");
+  if (reason === "decimals") return tPort("amountDecimalsError");
+  if (reason === "min") return tPort("amountMinError", { min: DEMO_MIN });
+  if (reason === "max") return tPort("amountMaxError", { max: DEMO_MAX.toLocaleString("en-US") });
+  return tp(invalidKey);
+}
+
+// The same key twice is the same press: the money moves once.
+async function firstPress(formData: FormData): Promise<boolean> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+  return claimIdempotency(supabase, formData);
 }
 
 export async function demoDeposit(formData: FormData) {
-  const amount = parseAmount(formData);
-  if (amount == null) {
-    const tp = await getTranslations("Actions.portfolio");
-    redirect("/portfolio/deposit?error=" + encodeURIComponent(tp("depositAmountInvalid")));
-  }
-  await runDemoWallet("demo_deposit", amount, "/portfolio/deposit", "/portfolio?demo=deposit");
+  const parsed = parseMoney(formData.get("amount"), { min: DEMO_MIN, max: DEMO_MAX });
+  if (!parsed.ok) redirect("/portfolio/deposit?error=" + encodeURIComponent(await amountError(parsed.reason, "depositAmountInvalid")));
+  if (!(await firstPress(formData))) redirect("/portfolio?demo=deposit");
+  await runDemoWallet("demo_deposit", parsed.value, "/portfolio/deposit", "/portfolio?demo=deposit");
 }
 
 export async function demoWithdraw(formData: FormData) {
-  const amount = parseAmount(formData);
-  if (amount == null) {
-    const tp = await getTranslations("Actions.portfolio");
-    redirect("/portfolio/withdraw?error=" + encodeURIComponent(tp("withdrawAmountInvalid")));
-  }
-  await runDemoWallet("demo_withdraw", amount, "/portfolio/withdraw", "/portfolio?demo=withdraw");
+  const parsed = parseMoney(formData.get("amount"), { min: DEMO_MIN, max: DEMO_MAX });
+  if (!parsed.ok) redirect("/portfolio/withdraw?error=" + encodeURIComponent(await amountError(parsed.reason, "withdrawAmountInvalid")));
+  if (!(await firstPress(formData))) redirect("/portfolio?demo=withdraw");
+  await runDemoWallet("demo_withdraw", parsed.value, "/portfolio/withdraw", "/portfolio?demo=withdraw");
 }
 
 export async function resetDemoBalance(formData?: FormData) {

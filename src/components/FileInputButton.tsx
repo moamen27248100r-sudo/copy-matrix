@@ -11,15 +11,21 @@ export function FileInputButton({
   accept,
   required,
   texts,
+  maxMb = 8,
+  error,
 }: {
   name: string;
   label: string;
   accept?: string;
   required?: boolean;
-  texts: { choose: string; change: string; none: string };
+  texts: { choose: string; change: string; none: string; tooLarge?: string };
+  /** Largest file in MB (checked here and again on the server). */
+  maxMb?: number;
+  error?: string | null;
 }) {
   const id = useId();
   const [fileName, setFileName] = useState<string | null>(null);
+  const [tooLarge, setTooLarge] = useState(false);
   return (
     <div className="flex flex-col gap-1.5 text-sm">
       <span>{label}</span>
@@ -30,7 +36,17 @@ export function FileInputButton({
         accept={accept}
         required={required}
         aria-label={label}
-        onChange={(e) => setFileName(e.target.files?.[0]?.name ?? null)}
+        onChange={(e) => {
+          const f = e.target.files?.[0];
+          if (f && f.size > maxMb * 1024 * 1024) {
+            e.target.value = "";
+            setFileName(null);
+            setTooLarge(true);
+            return;
+          }
+          setTooLarge(false);
+          setFileName(f?.name ?? null);
+        }}
         className="peer sr-only"
       />
       <label
@@ -43,6 +59,11 @@ export function FileInputButton({
       <span className={`break-all text-xs ${fileName ? "text-foreground" : "text-muted"}`} aria-live="polite">
         {fileName ? <bdi>{fileName}</bdi> : texts.none}
       </span>
+      {(tooLarge || error) && (
+        <p role="alert" className="text-xs text-danger">
+          {tooLarge ? texts.tooLarge : error}
+        </p>
+      )}
     </div>
   );
 }

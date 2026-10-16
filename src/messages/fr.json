@@ -506,7 +506,11 @@
     "performanceEmptyTitle": "Aucune transaction copiée pour l'instant",
     "performanceEmptyBody": "Vos résultats, votre taux de réussite et votre rapport mensuel apparaissent ici après la clôture de votre première transaction copiée.",
     "balanceAfterDeposit": "Solde après le dépôt",
-    "withdrawRuleNote": "Vous pouvez retirer le montant non utilisé dans les copies. Tant qu'un trade copié est ouvert, les retraits sont suspendus jusqu'à sa clôture."
+    "withdrawRuleNote": "Vous pouvez retirer le montant non utilisé dans les copies. Tant qu'un trade copié est ouvert, les retraits sont suspendus jusqu'à sa clôture.",
+    "amountDecimalsError": "Utilisez au maximum 2 décimales.",
+    "amountMinError": "Le minimum est de {min} USDT.",
+    "amountMaxError": "Le maximum est de {max} USDT.",
+    "amountAboveAvailable": "Ce montant dépasse votre solde disponible."
   },
   "TradeHistory": {
     "periodToday": "Aujourd'hui",
@@ -877,7 +881,26 @@
     "notificationPrefsDesc": "Choisissez les notifications reçues dans l'application et par e-mail.",
     "notificationPrefsLink": "Préférences de notification",
     "securityLinkDesc": "Authentification à deux facteurs, mot de passe et appareils connectés.",
-    "sectionsNav": "Sections des paramètres"
+    "sectionsNav": "Sections des paramètres",
+    "profileCompleteHint": "Ajoutez votre nom et votre téléphone pour compléter votre profil. Ils sont requis avant tout dépôt ou retrait.",
+    "emailVerified": "E-mail vérifié",
+    "emailNotVerified": "E-mail non vérifié",
+    "emailVerifyHint": "Vérifiez votre e-mail pour débloquer les dépôts et retraits sur un compte réel.",
+    "sending": "Envoi…",
+    "resendVerify": "Renvoyer le lien",
+    "sendVerify": "Envoyer un lien de vérification",
+    "verifyCodePlaceholder": "Code reçu par e-mail",
+    "verifyCodeButton": "Confirmer",
+    "verify_done": "Votre e-mail est vérifié.",
+    "verify_sent": "Nous vous avons envoyé un lien et un code. Consultez votre boîte de réception.",
+    "verify_failed": "Impossible d'envoyer l'e-mail. Réessayez plus tard.",
+    "verify_limit": "Trop de demandes. Patientez avant de réessayer.",
+    "verify_code_invalid": "Le code est incorrect ou a expiré.",
+    "nameLabel": "Nom complet",
+    "phoneCurrent": "Numéro actuel :",
+    "phoneLabel": "Numéro de téléphone",
+    "phoneInvalid": "Saisissez un numéro de téléphone valide.",
+    "savePhone": "Enregistrer le numéro"
   },
   "Kyc": {
     "title": "Vérification d'identité",
@@ -916,7 +939,11 @@
     "whatNext": "Le remplissage prend quelques minutes. Notre équipe vérifie les documents et vous recevez une notification avec la décision.",
     "chooseFile": "Choisir un fichier",
     "changeFile": "Changer de fichier",
-    "noFileChosen": "Aucun fichier choisi"
+    "noFileChosen": "Aucun fichier choisi",
+    "fileTooLarge": "Le fichier dépasse 8 Mo.",
+    "phoneLabel": "Numéro de téléphone",
+    "phoneInvalid": "Saisissez un numéro de téléphone valide.",
+    "submitting": "Envoi…"
   },
   "Markets": {
     "title": "Marchés",
@@ -1007,12 +1034,10 @@
     "noAccount": "Vous n'avez pas de compte ?",
     "createNewAccount": "Créer un nouveau compte",
     "signupTitle": "Créer un nouveau compte",
-    "signupSubtitle": "Rejoignez-nous et commencez à copier automatiquement les trades des meilleurs traders.",
+    "signupSubtitle": "Créez votre compte en quelques minutes et commencez sans risque",
     "alreadyHaveAccount": "J'ai déjà un compte — Connexion",
     "fullNamePlaceholder": "Nom complet",
     "emailInvalidError": "Saisissez une adresse e-mail réelle (ex. name@gmail.com).",
-    "phoneInvalidError": "Ce numéro de téléphone n'est pas valide pour ce pays, assurez-vous de l'avoir saisi en entier.",
-    "passwordPlaceholder6": "Mot de passe (6 caractères minimum)",
     "showPassword": "Afficher le mot de passe",
     "hidePassword": "Masquer le mot de passe",
     "passwordMismatch": "Les mots de passe ne correspondent pas.",
@@ -1035,34 +1060,27 @@
     "requestNewCode": "Demander un nouveau code",
     "resetTitle": "Définir un nouveau mot de passe",
     "resetSubtitle": "Saisissez un nouveau mot de passe pour votre compte.",
-    "newPasswordPlaceholder6": "Nouveau mot de passe (6 caractères minimum)",
     "confirmNewPasswordPlaceholder": "Confirmer le nouveau mot de passe",
     "updating": "Mise à jour en cours...",
     "updatePasswordButton": "Mettre à jour le mot de passe",
     "checkEmailTitle": "Vérifiez votre e-mail",
     "checkEmailDesc": "Nous avons envoyé un lien de confirmation à votre e-mail. Veuillez ouvrir le lien pour activer votre compte, puis vous connecter.",
-    "chooseAccountTypeTitle": "Choisissez votre type de compte",
-    "chooseAccountTypeSubtitle": "Vous pouvez modifier ce choix plus tard depuis les paramètres à tout moment.",
-    "demoAccountTitle": "Compte démo",
-    "demoAccountDesc": "Entraînez-vous à copier des trades avec des fonds virtuels sans risque, et familiarisez-vous avec la plateforme avant d'utiliser votre argent réel.",
-    "realAccountTitle": "Compte réel",
-    "realAccountDesc": "Commencez à copier des trades avec votre solde réel, tous les résultats réels de copie en profit ou perte y étant appliqués.",
-    "nameRequiredError": "Saisissez votre nom complet.",
-    "passwordTooShortError": "Le mot de passe doit contenir au moins 6 caractères.",
-    "missingPrefix": "Il manque encore :",
-    "missingName": "nom complet",
     "missingEmail": "un e-mail valide",
-    "missingPhone": "un numéro de téléphone valide",
     "missingPassword": "un mot de passe de 6 caractères ou plus",
-    "missingConfirm": "une confirmation de mot de passe identique",
     "backHome": "Retour à l'accueil",
     "emailLabel": "E-mail",
     "passwordLabel": "Mot de passe",
     "nameLabel": "Nom complet",
     "phoneLabel": "Numéro de téléphone",
-    "confirmLabel": "Confirmer le mot de passe",
-    "stepOf": "Étape {step} sur {total}",
-    "stepBack": "Retour"
+    "passwordPlaceholder8": "Mot de passe (8 caractères minimum)",
+    "newPasswordPlaceholder8": "Nouveau mot de passe (8 caractères minimum)",
+    "passwordMin8Error": "Le mot de passe doit contenir au moins 8 caractères.",
+    "passwordCommonError": "Ce mot de passe est trop courant. Choisissez-en un plus difficile à deviner.",
+    "passwordEmailError": "Le mot de passe ne doit pas contenir votre e-mail.",
+    "passwordBreachedError": "Ce mot de passe figure dans des fuites de données connues. Choisissez-en un autre.",
+    "emailTakenError": "Cet e-mail est déjà enregistré.",
+    "emailTakenLogin": "Se connecter",
+    "emailTakenReset": "Réinitialiser le mot de passe"
   },
   "Legal": {
     "backToHome": "Retour à l'accueil",
@@ -1155,12 +1173,16 @@
       "passwordTooShort": "Le mot de passe doit comporter au moins 6 caractères.",
       "emailInvalid": "L'adresse e-mail saisie n'est pas valide.",
       "waitBeforeRetry": "Veuillez patienter un instant avant de réessayer.",
-      "genericError": "Une erreur inattendue s'est produite. Veuillez réessayer."
+      "genericError": "Une erreur inattendue s'est produite. Veuillez réessayer.",
+      "tooManyFailedLogins": "Trop de tentatives échouées. Réessayez dans quelques minutes."
     },
     "kyc": {
       "idDocumentRequired": "Une photo de pièce d'identité est requise.",
       "uploadFailed": "Impossible de télécharger le document d'identité. Veuillez réessayer.",
-      "submitFailed": "Impossible d'envoyer la demande de vérification. Veuillez réessayer."
+      "submitFailed": "Impossible d'envoyer la demande de vérification. Veuillez réessayer.",
+      "fullNameInvalid": "Saisissez votre nom complet tel qu'il figure sur votre pièce d'identité.",
+      "idNumberInvalid": "Saisissez un numéro de pièce d'identité valide.",
+      "phoneInvalid": "Saisissez un numéro de téléphone valide avec l'indicatif du pays."
     },
     "portfolio": {
       "depositAmountInvalid": "Le montant du dépôt doit être un nombre supérieur à zéro.",
@@ -1193,7 +1215,8 @@
       "nameEmpty": "Le nom ne peut pas être vide.",
       "nameSaveFailed": "Impossible d'enregistrer le nom. Veuillez réessayer.",
       "accountTypeUpdateFailed": "Impossible de mettre à jour le type de compte. Veuillez réessayer.",
-      "accountSwitchOpenPositions": "Fermez toutes les positions ouvertes avant de changer de compte."
+      "accountSwitchOpenPositions": "Fermez toutes les positions ouvertes avant de changer de compte.",
+      "phoneInvalid": "Saisissez un numéro de téléphone valide avec l'indicatif du pays."
     },
     "discover": {
       "copyAmountInvalid": "Le montant à copier doit être un nombre supérieur à zéro.",
@@ -1619,7 +1642,8 @@
     "balanceBelowMin": "Votre solde ({balance}) est inférieur au minimum de ce trader ({min}).",
     "depositCta": "Ajouter des fonds",
     "amountBelowMin": "Le montant est inférieur au minimum de ce trader ({min}).",
-    "amountAboveBalance": "Le montant dépasse votre solde disponible ({balance})."
+    "amountAboveBalance": "Le montant dépasse votre solde disponible ({balance}).",
+    "amountDecimals": "Utilisez au maximum 2 décimales."
   },
   "Trades": {
     "title": "Trades",
@@ -2445,7 +2469,8 @@
     "colTxid": "Transaction (TxID)",
     "colAddress": "Adresse",
     "refundedNote": "Montant restitué sur votre solde",
-    "historyMovementsNote": "Tous les dépôts, retraits et changements de solde de ce compte. Les résultats des trades sont dans l'historique des trades."
+    "historyMovementsNote": "Tous les dépôts, retraits et changements de solde de ce compte. Les résultats des trades sont dans l'historique des trades.",
+    "amountDecimalsError6": "Utilisez au maximum 6 décimales."
   },
   "Email": {
     "greeting": "Bonjour,",

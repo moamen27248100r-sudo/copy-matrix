@@ -506,7 +506,11 @@
     "performanceEmptyTitle": "अभी तक कोई कॉपी किया गया ट्रेड नहीं",
     "performanceEmptyBody": "पहला कॉपी किया गया ट्रेड बंद होने के बाद आपके नतीजे, जीत दर और मासिक रिपोर्ट यहां दिखेंगे।",
     "balanceAfterDeposit": "जमा के बाद बैलेंस",
-    "withdrawRuleNote": "आप कॉपी में इस्तेमाल न हुई राशि निकाल सकते हैं। जब तक कोई कॉपी किया ट्रेड खुला है, निकासी रुकी रहती है।"
+    "withdrawRuleNote": "आप कॉपी में इस्तेमाल न हुई राशि निकाल सकते हैं। जब तक कोई कॉपी किया ट्रेड खुला है, निकासी रुकी रहती है।",
+    "amountDecimalsError": "अधिकतम 2 दशमलव स्थान रखें।",
+    "amountMinError": "न्यूनतम राशि {min} USDT है।",
+    "amountMaxError": "अधिकतम राशि {max} USDT है।",
+    "amountAboveAvailable": "यह राशि आपके उपलब्ध बैलेंस से अधिक है।"
   },
   "TradeHistory": {
     "periodToday": "आज",
@@ -877,7 +881,26 @@
     "notificationPrefsDesc": "चुनें कि आपको ऐप में और ईमेल से कौन-सी सूचनाएँ मिलें।",
     "notificationPrefsLink": "सूचना प्राथमिकताएँ",
     "securityLinkDesc": "दो-चरणीय सत्यापन, पासवर्ड और साइन-इन किए गए डिवाइस।",
-    "sectionsNav": "सेटिंग्स के भाग"
+    "sectionsNav": "सेटिंग्स के भाग",
+    "profileCompleteHint": "प्रोफ़ाइल पूरी करने के लिए अपना नाम और फ़ोन नंबर जोड़ें। जमा और निकासी से पहले ये ज़रूरी हैं।",
+    "emailVerified": "ईमेल सत्यापित",
+    "emailNotVerified": "ईमेल सत्यापित नहीं",
+    "emailVerifyHint": "वास्तविक खाते में जमा और निकासी खोलने के लिए अपना ईमेल सत्यापित करें।",
+    "sending": "भेजा जा रहा है…",
+    "resendVerify": "लिंक दोबारा भेजें",
+    "sendVerify": "सत्यापन लिंक भेजें",
+    "verifyCodePlaceholder": "ईमेल में मिला कोड",
+    "verifyCodeButton": "पुष्टि करें",
+    "verify_done": "आपका ईमेल सत्यापित हो गया है।",
+    "verify_sent": "हमने आपको एक लिंक और कोड भेजा है। अपना इनबॉक्स देखें।",
+    "verify_failed": "ईमेल नहीं भेजा जा सका। कृपया बाद में फिर कोशिश करें।",
+    "verify_limit": "बहुत अधिक अनुरोध। दोबारा कोशिश करने से पहले प्रतीक्षा करें।",
+    "verify_code_invalid": "कोड गलत है या समाप्त हो चुका है।",
+    "nameLabel": "पूरा नाम",
+    "phoneCurrent": "वर्तमान नंबर:",
+    "phoneLabel": "फ़ोन नंबर",
+    "phoneInvalid": "मान्य फ़ोन नंबर दर्ज करें।",
+    "savePhone": "फ़ोन नंबर सहेजें"
   },
   "Kyc": {
     "title": "पहचान सत्यापन",
@@ -916,7 +939,11 @@
     "whatNext": "इसे भरने में कुछ मिनट लगते हैं। हमारी टीम दस्तावेज़ों की समीक्षा करती है और आपको फ़ैसले की सूचना मिलती है।",
     "chooseFile": "फ़ाइल चुनें",
     "changeFile": "फ़ाइल बदलें",
-    "noFileChosen": "कोई फ़ाइल नहीं चुनी गई"
+    "noFileChosen": "कोई फ़ाइल नहीं चुनी गई",
+    "fileTooLarge": "फ़ाइल 8 MB से बड़ी है।",
+    "phoneLabel": "फ़ोन नंबर",
+    "phoneInvalid": "मान्य फ़ोन नंबर दर्ज करें।",
+    "submitting": "भेजा जा रहा है…"
   },
   "Markets": {
     "title": "बाज़ार",
@@ -1007,12 +1034,10 @@
     "noAccount": "खाता नहीं है?",
     "createNewAccount": "नया खाता बनाएं",
     "signupTitle": "नया खाता बनाएं",
-    "signupSubtitle": "जुड़ें और सर्वश्रेष्ठ ट्रेडर्स के ट्रेड्स को स्वचालित रूप से कॉपी करना शुरू करें।",
+    "signupSubtitle": "कुछ ही मिनटों में अपना खाता बनाएँ और बिना जोखिम शुरू करें",
     "alreadyHaveAccount": "मेरे पास पहले से खाता है — लॉग इन करें",
     "fullNamePlaceholder": "पूरा नाम",
     "emailInvalidError": "एक वास्तविक ईमेल पता लिखें (जैसे name@gmail.com)।",
-    "phoneInvalidError": "यह फ़ोन नंबर इस देश के लिए मान्य नहीं है, सुनिश्चित करें कि आपने इसे पूरा लिखा है।",
-    "passwordPlaceholder6": "पासवर्ड (कम से कम 6 अक्षर)",
     "showPassword": "पासवर्ड दिखाएं",
     "hidePassword": "पासवर्ड छुपाएं",
     "passwordMismatch": "पासवर्ड मेल नहीं खाते।",
@@ -1035,34 +1060,27 @@
     "requestNewCode": "नया कोड मांगें",
     "resetTitle": "नया पासवर्ड सेट करें",
     "resetSubtitle": "अपने खाते के लिए एक नया पासवर्ड दर्ज करें।",
-    "newPasswordPlaceholder6": "नया पासवर्ड (कम से कम 6 अक्षर)",
     "confirmNewPasswordPlaceholder": "नए पासवर्ड की पुष्टि करें",
     "updating": "अपडेट किया जा रहा है...",
     "updatePasswordButton": "पासवर्ड अपडेट करें",
     "checkEmailTitle": "अपना ईमेल जांचें",
     "checkEmailDesc": "हमने आपके ईमेल पर एक पुष्टिकरण लिंक भेजा है। अपना खाता सक्रिय करने के लिए कृपया लिंक खोलें, फिर लॉग इन करें।",
-    "chooseAccountTypeTitle": "अपना खाता प्रकार चुनें",
-    "chooseAccountTypeSubtitle": "आप इस चुनाव को बाद में कभी भी सेटिंग्स से बदल सकते हैं।",
-    "demoAccountTitle": "डेमो खाता",
-    "demoAccountDesc": "वर्चुअल फंड के साथ बिना किसी जोखिम के ट्रेड कॉपी करने का अभ्यास करें, और अपने वास्तविक पैसे का उपयोग करने से पहले प्लेटफ़ॉर्म से परिचित हों।",
-    "realAccountTitle": "रियल खाता",
-    "realAccountDesc": "अपने वास्तविक बैलेंस के साथ ट्रेड कॉपी करना शुरू करें, जिस पर सभी वास्तविक कॉपी लाभ या हानि के परिणाम लागू होते हैं।",
-    "nameRequiredError": "अपना पूरा नाम दर्ज करें।",
-    "passwordTooShortError": "पासवर्ड कम से कम 6 अक्षरों का होना चाहिए।",
-    "missingPrefix": "अभी भी आवश्यक:",
-    "missingName": "पूरा नाम",
     "missingEmail": "एक मान्य ईमेल",
-    "missingPhone": "एक मान्य फ़ोन नंबर",
     "missingPassword": "6+ अक्षरों का पासवर्ड",
-    "missingConfirm": "मेल खाती पासवर्ड पुष्टि",
     "backHome": "होम पर वापस जाएं",
     "emailLabel": "ईमेल",
     "passwordLabel": "पासवर्ड",
     "nameLabel": "पूरा नाम",
     "phoneLabel": "फ़ोन नंबर",
-    "confirmLabel": "पासवर्ड की पुष्टि करें",
-    "stepOf": "चरण {step} / {total}",
-    "stepBack": "वापस"
+    "passwordPlaceholder8": "पासवर्ड (कम से कम 8 अक्षर)",
+    "newPasswordPlaceholder8": "नया पासवर्ड (कम से कम 8 अक्षर)",
+    "passwordMin8Error": "पासवर्ड कम से कम 8 अक्षरों का होना चाहिए।",
+    "passwordCommonError": "यह पासवर्ड बहुत आम है। कोई कठिन पासवर्ड चुनें।",
+    "passwordEmailError": "पासवर्ड में आपका ईमेल नहीं होना चाहिए।",
+    "passwordBreachedError": "यह पासवर्ड ज्ञात डेटा लीक में मिला है। कोई दूसरा चुनें।",
+    "emailTakenError": "यह ईमेल पहले से पंजीकृत है।",
+    "emailTakenLogin": "लॉग इन करें",
+    "emailTakenReset": "पासवर्ड रीसेट करें"
   },
   "Legal": {
     "backToHome": "होम पर वापस जाएं",
@@ -1155,12 +1173,16 @@
       "passwordTooShort": "पासवर्ड कम से कम 6 अक्षर का होना चाहिए।",
       "emailInvalid": "दर्ज किया गया ईमेल पता अमान्य है।",
       "waitBeforeRetry": "कृपया पुनः प्रयास करने से पहले थोड़ा इंतज़ार करें।",
-      "genericError": "एक अप्रत्याशित त्रुटि हुई। कृपया फिर से प्रयास करें।"
+      "genericError": "एक अप्रत्याशित त्रुटि हुई। कृपया फिर से प्रयास करें।",
+      "tooManyFailedLogins": "बहुत अधिक असफल प्रयास। कुछ मिनट बाद फिर कोशिश करें।"
     },
     "kyc": {
       "idDocumentRequired": "पहचान पत्र की फोटो आवश्यक है।",
       "uploadFailed": "पहचान दस्तावेज़ अपलोड नहीं हो सका। कृपया फिर से प्रयास करें।",
-      "submitFailed": "सत्यापन अनुरोध नहीं भेजा जा सका। कृपया फिर से प्रयास करें।"
+      "submitFailed": "सत्यापन अनुरोध नहीं भेजा जा सका। कृपया फिर से प्रयास करें।",
+      "fullNameInvalid": "अपना पूरा नाम वैसे ही लिखें जैसे आपकी आईडी पर है।",
+      "idNumberInvalid": "मान्य आईडी नंबर दर्ज करें।",
+      "phoneInvalid": "देश कोड के साथ मान्य फ़ोन नंबर दर्ज करें।"
     },
     "portfolio": {
       "depositAmountInvalid": "जमा राशि शून्य से अधिक एक संख्या होनी चाहिए।",
@@ -1193,7 +1215,8 @@
       "nameEmpty": "नाम खाली नहीं हो सकता।",
       "nameSaveFailed": "नाम सहेजा नहीं जा सका। कृपया फिर से प्रयास करें।",
       "accountTypeUpdateFailed": "खाता प्रकार अपडेट नहीं हो सका। कृपया फिर से प्रयास करें।",
-      "accountSwitchOpenPositions": "अकाउंट बदलने से पहले सभी खुली पोज़िशन बंद करें।"
+      "accountSwitchOpenPositions": "अकाउंट बदलने से पहले सभी खुली पोज़िशन बंद करें।",
+      "phoneInvalid": "देश कोड के साथ मान्य फ़ोन नंबर दर्ज करें।"
     },
     "discover": {
       "copyAmountInvalid": "कॉपी राशि शून्य से अधिक एक संख्या होनी चाहिए।",
@@ -1618,7 +1641,8 @@
     "balanceBelowMin": "आपका बैलेंस ({balance}) इस ट्रेडर की न्यूनतम राशि ({min}) से कम है।",
     "depositCta": "फंड जोड़ें",
     "amountBelowMin": "राशि इस ट्रेडर की न्यूनतम सीमा ({min}) से कम है।",
-    "amountAboveBalance": "राशि आपके उपलब्ध शेष ({balance}) से अधिक है।"
+    "amountAboveBalance": "राशि आपके उपलब्ध शेष ({balance}) से अधिक है।",
+    "amountDecimals": "अधिकतम 2 दशमलव स्थान रखें।"
   },
   "Trades": {
     "title": "ट्रेड",
@@ -2444,7 +2468,8 @@
     "colTxid": "ट्रांज़ैक्शन (TxID)",
     "colAddress": "पता",
     "refundedNote": "राशि आपके बैलेंस में लौटा दी गई",
-    "historyMovementsNote": "इस खाते की हर जमा, निकासी और बैलेंस बदलाव। ट्रेड नतीजे ट्रेड इतिहास में हैं।"
+    "historyMovementsNote": "इस खाते की हर जमा, निकासी और बैलेंस बदलाव। ट्रेड नतीजे ट्रेड इतिहास में हैं।",
+    "amountDecimalsError6": "अधिकतम 6 दशमलव स्थान रखें।"
   },
   "Email": {
     "greeting": "नमस्ते,",

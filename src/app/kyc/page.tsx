@@ -7,6 +7,8 @@ import { formatDate } from "@/lib/locale-format";
 import type { Locale } from "@/i18n/locales";
 import { FlashMessage } from "@/components/ui/Toast";
 import { DraftForm } from "@/components/ui/DraftForm";
+import { PhoneInput } from "@/components/PhoneInput";
+import { SubmitButton } from "@/components/SubmitButton";
 import { FileInputButton } from "@/components/FileInputButton";
 
 export async function generateMetadata() {
@@ -17,12 +19,12 @@ export async function generateMetadata() {
 export default async function KycPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; field?: string }>;
 }) {
-  const { error } = await searchParams;
+  const { error, field } = await searchParams;
   const locale = (await getLocale()) as Locale;
   const t = await getTranslations("Kyc");
-  const fileTexts = { choose: t("chooseFile"), change: t("changeFile"), none: t("noFileChosen") };
+  const fileTexts = { choose: t("chooseFile"), change: t("changeFile"), none: t("noFileChosen"), tooLarge: t("fileTooLarge") };
   const supabase = await createClient();
   const {
     data: { user },
@@ -32,6 +34,7 @@ export default async function KycPage({
     redirect("/login?next=%2Fkyc");
   }
 
+  const { data: profile } = await supabase.from("profiles").select("phone, display_name").eq("id", user.id).single();
   const { data: submission } = await supabase
     .from("kyc_submissions")
     .select("status, submitted_at, reviewed_at")
@@ -104,32 +107,53 @@ export default async function KycPage({
             <p className="text-xs text-muted">{t("whatNext")}</p>
           </section>
 
-          {error && (
+          {error && !field && (
             <FlashMessage tone="error">
               {error}
             </FlashMessage>
           )}
 
           <DraftForm draftKey="kyc" action={submitKyc} className="flex flex-col gap-3">
-            <input
-              name="fullName"
-              type="text"
-              placeholder={t("fullNamePlaceholder")}
-              required
-              className="rounded border border-border bg-surface px-3 py-2"
-            />
-            <input
-              name="nationalIdNumber"
-              type="text"
-              placeholder={t("nationalIdPlaceholder")}
-              required
-              className="rounded border border-border bg-surface px-3 py-2"
-            />
-            <FileInputButton name="idDocument" label={t("idDocumentLabel")} accept="image/*,.pdf" required texts={fileTexts} />
-            <FileInputButton name="addressProof" label={t("addressProofLabel")} accept="image/*,.pdf" texts={fileTexts} />
-            <button type="submit" className="rounded bg-accent px-3 py-2 font-medium text-accent-foreground transition hover:bg-accent-hover">
+            <div className="flex flex-col gap-1.5">
+              <input
+                name="fullName"
+                type="text"
+                placeholder={t("fullNamePlaceholder")}
+                aria-label={t("fullNamePlaceholder")}
+                required
+                minLength={2}
+                maxLength={80}
+                defaultValue={profile?.display_name && profile.display_name.includes(" ") ? profile.display_name : undefined}
+                aria-invalid={field === "fullName" ? true : undefined}
+                className={`rounded border bg-surface px-3 py-2 ${field === "fullName" ? "border-danger" : "border-border"}`}
+              />
+              {field === "fullName" && error && <p className="text-xs text-danger">{error}</p>}
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <input
+                name="nationalIdNumber"
+                type="text"
+                placeholder={t("nationalIdPlaceholder")}
+                aria-label={t("nationalIdPlaceholder")}
+                required
+                minLength={4}
+                maxLength={40}
+                aria-invalid={field === "idNumber" ? true : undefined}
+                className={`rounded border bg-surface px-3 py-2 ${field === "idNumber" ? "border-danger" : "border-border"}`}
+              />
+              {field === "idNumber" && error && <p className="text-xs text-danger">{error}</p>}
+            </div>
+            {!profile?.phone && (
+              <div className="flex flex-col gap-1.5">
+                <PhoneInput label={t("phoneLabel")} errorText={t("phoneInvalid")} />
+                {field === "phone" && error && <p className="text-xs text-danger">{error}</p>}
+              </div>
+            )}
+            <FileInputButton name="idDocument" label={t("idDocumentLabel")} accept="image/*,.pdf" required texts={fileTexts} error={field === "idDocument" ? error : null} />
+            <FileInputButton name="addressProof" label={t("addressProofLabel")} accept="image/*,.pdf" texts={fileTexts} error={field === "addressProof" ? error : null} />
+            <SubmitButton pendingLabel={t("submitting")} className="rounded bg-accent px-3 py-2 font-medium text-accent-foreground transition hover:bg-accent-hover disabled:opacity-60">
               {t("submitForReview")}
-            </button>
+            </SubmitButton>
           </DraftForm>
         </>
       )}

@@ -1,8 +1,9 @@
 // Client-side hints for the copy amount. The database re-validates everything; this only explains,
 // before submitting, why an amount would be refused.
-export type CopyAmountIssue = "below_min" | "above_balance" | null;
+export type CopyAmountIssue = "below_min" | "above_balance" | "decimals" | null;
 
-export function copyAmountIssue(amount: number, minAmount: number, balance?: number | null): CopyAmountIssue {
+export function copyAmountIssue(amount: number, minAmount: number, balance?: number | null, typed?: string): CopyAmountIssue {
+  if (typed != null && /[.,]\d{3,}/.test(typed)) return "decimals"; // dollars have two decimals
   if (!Number.isFinite(amount)) return null; // empty field: the browser's own "required" handles it
   if (amount < minAmount) return "below_min";
   if (balance != null && amount > balance) return "above_balance";

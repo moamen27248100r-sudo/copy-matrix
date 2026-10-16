@@ -2,6 +2,7 @@
 
 import { useActionState, useState } from "react";
 import { useTranslations } from "next-intl";
+import { IdempotencyField } from "@/components/IdempotencyField";
 import { requestCryptoWithdrawal, type WithdrawFormState } from "@/app/portfolio/actions";
 import { useUsdt } from "@/lib/money-client";
 import { CHAINS, isValidAddress, networkLabel, type NetworkId } from "@/lib/crypto/networks";
@@ -34,7 +35,8 @@ export function WithdrawForm({ networks, available }: { networks: WithdrawNetwor
 
   let amountError: string | null = null;
   if (hasAmount) {
-    if (value > available) amountError = t("amountAboveAvailable");
+    if (/\.\d{7,}/.test(amount)) amountError = t("amountDecimalsError6");
+    else if (value > available) amountError = t("amountAboveAvailable");
     else if (value > dailyRemaining) amountError = t("amountAboveDaily");
     else if (value < net.minWithdraw || value <= net.fee) amountError = t("amountBelowMin", { amount: money(net.minWithdraw) });
   }
@@ -51,6 +53,7 @@ export function WithdrawForm({ networks, available }: { networks: WithdrawNetwor
 
   return (
     <form action={formAction} className="flex flex-col gap-5">
+      <IdempotencyField refreshOn={state} />
       <input type="hidden" name="network" value={net.id} />
 
       <div className="flex flex-col gap-2">

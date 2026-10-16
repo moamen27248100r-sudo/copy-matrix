@@ -6,7 +6,11 @@ import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { translateAuthError } from "@/lib/auth-errors";
+import { checkPassword } from "@/lib/password-policy";
+import { toE164 } from "@/lib/phone";
 
+// Name and phone number, asked here and on the verification page (not at sign-up). The name is
+// 2 to 60 characters; the phone is built into E.164 on the server and is unique to one account.
 export async function updateProfile(formData: FormData) {
   const supabase = await createClient();
   const {
@@ -17,10 +21,10 @@ export async function updateProfile(formData: FormData) {
 
   const tSettings = await getTranslations("Actions.settings");
 
-  const displayName = (formData.get("displayName") as string).trim();
+  const displayName = String(formData.get("displayName") ?? "").trim().replace(/\s+/g, " ");
 
-  if (!displayName) {
-    redirect("/settings?error=" + encodeURIComponent(tSettings("nameEmpty")));
+  if (displayName.length < 2 || displayName.length > 60) {
+    redirect("/settings?error=" + encodeURIComponent(tSettings("nameEmpty")) + "&field=name");
   }
 
   const { error } = await supabase
@@ -29,7 +33,7 @@ export async function updateProfile(formData: FormData) {
     .eq("id", user.id);
 
   if (error) {
-    redirect("/settings?error=" + encodeURIComponent(tSettings("nameSaveFailed")));
+    redirect("/settings?error=" + encodeURIComponent(tSettings("nameSaveFailed")) + "&field=name");
   }
 
   revalidatePath("/settings");
@@ -37,31 +41,25 @@ export async function updateProfile(formData: FormData) {
   redirect("/settings?success=1");
 }
 
-export async function updateAccountType(formData: FormData) {
+export async function updatePhone(formData: FormData) {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
   if (!user) redirect("/login");
+  const tSettings = await getTranslations("Actions.settings");
+  const back = formData.get("returnTo") === "/kyc" ? "/kyc" : "/settings";
 
-  const accountType = formData.get("accountType") === "real" ? "real" : "demo";
+  const phone = toE164(String(formData.get("phoneCountryCode") ?? ""), String(formData.get("phoneCountryIso") ?? ""), String(formData.get("phoneNumber") ?? ""));
+  if (!phone) redirect(back + "?error=" + encodeURIComponent(tSettings("phoneInvalid")) + "&field=phone");
 
-  // Swaps the active wallet (demo <-> real) server-side; the two balances are
-  // stored separately and never converted into each other.
-  const { error } = await supabase.rpc("switch_account_type", { p_type: accountType });
-
+  const { error } = await supabase.rpc("set_my_phone", { p_phone: phone });
   if (error) {
-    const tSettings = await getTranslations("Actions.settings");
-    redirect(
-      "/settings?error=" +
-        encodeURIComponent(error.code === "CM010" ? tSettings("accountSwitchOpenPositions") : tSettings("accountTypeUpdateFailed")),
-    );
+    redirect(back + "?error=" + encodeURIComponent(tSettings(error.code === "CM073" ? "phoneTaken" : "phoneInvalid")) + "&field=phone");
   }
-
   revalidatePath("/settings");
-  revalidatePath("/dashboard");
-  redirect("/settings?success=1");
+  revalidatePath("/kyc");
+  redirect(back + (back === "/kyc" ? "?phone=saved" : "?success=1"));
 }
 
 export async function changePassword(formData: FormData) {
@@ -72,8 +70,14 @@ export async function changePassword(formData: FormData) {
 
   if (!user) redirect("/login");
 
-  const password = formData.get("password") as string;
+  const password = String(formData.get("password") ?? "");
   const back = formData.get("returnTo") === "/account/security" ? "/account/security" : "/settings";
+  const tAuth = await getTranslations("Auth");
+  const issue = await checkPassword(password, user.email);
+  if (issue) {
+    const key = { short: "passwordMin8Error", common: "passwordCommonError", email: "passwordEmailError", breached: "passwordBreachedError" }[issue];
+    redirect(back + "?error=" + encodeURIComponent(tAuth(key)));
+  }
   const { error } = await supabase.auth.updateUser({ password });
 
   if (error) {

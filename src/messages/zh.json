@@ -506,7 +506,11 @@
     "performanceEmptyTitle": "还没有跟单交易",
     "performanceEmptyBody": "第一笔跟单交易平仓后，您的结果、胜率和月度报告将显示在这里。",
     "balanceAfterDeposit": "入金后余额",
-    "withdrawRuleNote": "您可以提取未用于跟单的金额。只要有跟单交易未平仓，提现会暂停，直到其平仓。"
+    "withdrawRuleNote": "您可以提取未用于跟单的金额。只要有跟单交易未平仓，提现会暂停，直到其平仓。",
+    "amountDecimalsError": "最多保留 2 位小数。",
+    "amountMinError": "最低金额为 {min} USDT。",
+    "amountMaxError": "最高金额为 {max} USDT。",
+    "amountAboveAvailable": "金额超过了你的可用余额。"
   },
   "TradeHistory": {
     "periodToday": "今天",
@@ -877,7 +881,26 @@
     "notificationPrefsDesc": "选择您在应用内和邮件中接收的通知。",
     "notificationPrefsLink": "通知偏好设置",
     "securityLinkDesc": "双重验证、密码和已登录设备。",
-    "sectionsNav": "设置分区"
+    "sectionsNav": "设置分区",
+    "profileCompleteHint": "请补充姓名和手机号以完善资料，存款和提款前需要填写。",
+    "emailVerified": "邮箱已验证",
+    "emailNotVerified": "邮箱未验证",
+    "emailVerifyHint": "验证邮箱后，才能在真实账户中存款和提款。",
+    "sending": "发送中…",
+    "resendVerify": "重新发送链接",
+    "sendVerify": "发送验证链接",
+    "verifyCodePlaceholder": "邮件中的验证码",
+    "verifyCodeButton": "确认",
+    "verify_done": "你的邮箱已验证。",
+    "verify_sent": "我们已发送链接和验证码，请查收邮件。",
+    "verify_failed": "邮件发送失败，请稍后再试。",
+    "verify_limit": "请求过于频繁，请稍后再试。",
+    "verify_code_invalid": "验证码错误或已过期。",
+    "nameLabel": "姓名",
+    "phoneCurrent": "当前号码：",
+    "phoneLabel": "手机号码",
+    "phoneInvalid": "请输入有效的手机号码。",
+    "savePhone": "保存手机号码"
   },
   "Kyc": {
     "title": "身份验证",
@@ -916,7 +939,11 @@
     "whatNext": "填写只需几分钟。我们的团队审核证件后，您会收到含结果的通知。",
     "chooseFile": "选择文件",
     "changeFile": "更换文件",
-    "noFileChosen": "未选择文件"
+    "noFileChosen": "未选择文件",
+    "fileTooLarge": "文件超过 8 MB。",
+    "phoneLabel": "手机号码",
+    "phoneInvalid": "请输入有效的手机号码。",
+    "submitting": "提交中…"
   },
   "Markets": {
     "title": "市场",
@@ -1007,12 +1034,10 @@
     "noAccount": "还没有账户？",
     "createNewAccount": "创建新账户",
     "signupTitle": "创建新账户",
-    "signupSubtitle": "加入我们，开始自动跟单顶尖交易员的交易。",
+    "signupSubtitle": "几分钟内创建账户，零风险开始",
     "alreadyHaveAccount": "我已有账户 — 登录",
     "fullNamePlaceholder": "全名",
     "emailInvalidError": "请输入真实的电子邮箱地址（例如 name@gmail.com）。",
-    "phoneInvalidError": "该电话号码对此国家/地区无效，请确保输入完整。",
-    "passwordPlaceholder6": "密码（至少 6 个字符）",
     "showPassword": "显示密码",
     "hidePassword": "隐藏密码",
     "passwordMismatch": "两次输入的密码不一致。",
@@ -1035,34 +1060,27 @@
     "requestNewCode": "请求新验证码",
     "resetTitle": "设置新密码",
     "resetSubtitle": "为您的账户输入新密码。",
-    "newPasswordPlaceholder6": "新密码（至少6个字符）",
     "confirmNewPasswordPlaceholder": "确认新密码",
     "updating": "更新中...",
     "updatePasswordButton": "更新密码",
     "checkEmailTitle": "查看您的电子邮箱",
     "checkEmailDesc": "我们已向您的电子邮箱发送了确认链接。请打开链接以激活您的账户，然后登录。",
-    "chooseAccountTypeTitle": "选择您的账户类型",
-    "chooseAccountTypeSubtitle": "您可以随时在设置中稍后更改此选择。",
-    "demoAccountTitle": "模拟账户",
-    "demoAccountDesc": "使用虚拟资金无风险练习跟单交易，在使用真实资金之前熟悉平台。",
-    "realAccountTitle": "真实账户",
-    "realAccountDesc": "使用您的实际余额开始跟单交易，所有真实的跟单盈亏结果都会应用于该余额。",
-    "nameRequiredError": "请输入您的全名。",
-    "passwordTooShortError": "密码至少需要 6 个字符。",
-    "missingPrefix": "仍需填写：",
-    "missingName": "全名",
     "missingEmail": "有效的邮箱",
-    "missingPhone": "有效的手机号",
     "missingPassword": "至少 6 位的密码",
-    "missingConfirm": "一致的确认密码",
     "backHome": "返回首页",
     "emailLabel": "邮箱",
     "passwordLabel": "密码",
     "nameLabel": "全名",
     "phoneLabel": "手机号",
-    "confirmLabel": "确认密码",
-    "stepOf": "第 {step} 步，共 {total} 步",
-    "stepBack": "返回"
+    "passwordPlaceholder8": "密码（至少 8 个字符）",
+    "newPasswordPlaceholder8": "新密码（至少 8 个字符）",
+    "passwordMin8Error": "密码至少需要 8 个字符。",
+    "passwordCommonError": "此密码太常见，请换一个更难猜的。",
+    "passwordEmailError": "密码不能包含你的邮箱。",
+    "passwordBreachedError": "此密码出现在已知的数据泄露中，请换一个。",
+    "emailTakenError": "该邮箱已注册。",
+    "emailTakenLogin": "登录",
+    "emailTakenReset": "重置密码"
   },
   "Legal": {
     "backToHome": "返回首页",
@@ -1155,12 +1173,16 @@
       "passwordTooShort": "密码必须至少6个字符。",
       "emailInvalid": "输入的邮箱地址无效。",
       "waitBeforeRetry": "请稍等片刻再重试。",
-      "genericError": "发生意外错误，请重试。"
+      "genericError": "发生意外错误，请重试。",
+      "tooManyFailedLogins": "失败次数过多，请几分钟后再试。"
     },
     "kyc": {
       "idDocumentRequired": "需要提供身份证件照片。",
       "uploadFailed": "无法上传身份证件，请重试。",
-      "submitFailed": "无法提交验证申请，请重试。"
+      "submitFailed": "无法提交验证申请，请重试。",
+      "fullNameInvalid": "请按证件上的样式填写完整姓名。",
+      "idNumberInvalid": "请输入有效的证件号码。",
+      "phoneInvalid": "请输入带国家区号的有效手机号。"
     },
     "portfolio": {
       "depositAmountInvalid": "存款金额必须是大于零的数字。",
@@ -1193,7 +1215,8 @@
       "nameEmpty": "姓名不能为空。",
       "nameSaveFailed": "无法保存姓名，请重试。",
       "accountTypeUpdateFailed": "无法更新账户类型，请重试。",
-      "accountSwitchOpenPositions": "切换账户前，请先平掉所有持仓。"
+      "accountSwitchOpenPositions": "切换账户前，请先平掉所有持仓。",
+      "phoneInvalid": "请输入带国家区号的有效手机号。"
     },
     "discover": {
       "copyAmountInvalid": "跟单金额必须是大于零的数字。",
@@ -1619,7 +1642,8 @@
     "balanceBelowMin": "你的余额（{balance}）低于该交易员的最低要求（{min}）。",
     "depositCta": "充值",
     "amountBelowMin": "金额低于该交易员的最低要求（{min}）。",
-    "amountAboveBalance": "金额超过您的可用余额（{balance}）。"
+    "amountAboveBalance": "金额超过您的可用余额（{balance}）。",
+    "amountDecimals": "最多保留 2 位小数。"
   },
   "Trades": {
     "title": "交易",
@@ -2445,7 +2469,8 @@
     "colTxid": "交易（TxID）",
     "colAddress": "地址",
     "refundedNote": "金额已退回余额",
-    "historyMovementsNote": "此账户的所有入金、提现和余额变动。交易结果见交易记录。"
+    "historyMovementsNote": "此账户的所有入金、提现和余额变动。交易结果见交易记录。",
+    "amountDecimalsError6": "最多保留 6 位小数。"
   },
   "Email": {
     "greeting": "您好，",
