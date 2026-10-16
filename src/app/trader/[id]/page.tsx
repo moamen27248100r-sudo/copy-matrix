@@ -26,6 +26,7 @@ import { defaultCopyAmount } from "@/lib/copy-amount";
 import { TabStrip } from "@/components/TabStrip";
 import { CopyDialog } from "@/components/CopyDialog";
 import { RiskFooter } from "@/components/RiskFooter";
+import { RiskBadge } from "@/components/TraderBadges";
 import { getBioTranslator } from "@/lib/bio-translations";
 import type { Locale } from "@/i18n/locales";
 import { leaderScores } from "@/lib/leader-scores";
@@ -330,6 +331,7 @@ export default async function TraderPage({
                   className="inline-block rounded-[2px]"
                 />
               )}
+              <RiskBadge level={provider.risk_level} />
               {user ? (
                 <FollowButton providerId={id} providerName={provider.display_name} initialWatching={isWatching} />
               ) : (

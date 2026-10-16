@@ -9,6 +9,7 @@ import { aumBandFloor } from "@/lib/aum-band";
 import { fmtReturn, ltrIsolate } from "@/lib/format-stats";
 import { adjustedMaxDrawdown } from "@/lib/leader-scores";
 import { adjustedDrawdowns } from "@/lib/leader-drawdown";
+import { RiskBadge } from "@/components/TraderBadges";
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
@@ -69,6 +70,15 @@ export default async function ComparePage({ searchParams }: { searchParams: Prom
               </tr>
             </thead>
             <tbody>
+              {/* The same badge as on the cards and the profile (provider_stats.risk_level, migration 0265). */}
+              <tr className="border-b border-border">
+                <td className="px-4 py-3 text-xs text-muted">{t("filterRisk")}</td>
+                {list.map((p) => (
+                  <td key={p.provider_id} className="px-4 py-3">
+                    <RiskBadge level={p.risk_level} />
+                  </td>
+                ))}
+              </tr>
               {rows.map((r) => (
                 <tr key={r.label} className="border-b border-border last:border-b-0">
                   <td className="px-4 py-3 text-xs text-muted">{r.label}</td>

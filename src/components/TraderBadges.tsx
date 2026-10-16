@@ -81,7 +81,7 @@ export async function RiskBadge({ level }: { level: string | null }) {
   const classes = RISK_STYLES[level] ?? "border-border bg-foreground/5 text-muted";
   const label = t(RISK_KEYS[level] ?? "riskMedium");
   return (
-    <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-medium ${classes}`}>
+    <span data-risk={RISK_KEYS[level] ?? "riskMedium"} className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-medium ${classes}`}>
       {level === "منخفضة" ? <ShieldIcon /> : <AlertIcon />}
       {t("riskLabel", { level: label })}
     </span>
