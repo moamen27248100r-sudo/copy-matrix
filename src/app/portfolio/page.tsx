@@ -175,7 +175,7 @@ export default async function PortfolioPage({
     withdrawals: Number(m.withdrawals),
   }));
 
-  const walletMovements = (transactions ?? []).filter((x) => x.type === "deposit" || x.type === "withdrawal" || x.type === "demo_reset");
+  const walletMovements = (transactions ?? []).filter((x) => x.type === "deposit" || x.type === "withdrawal" || x.type === "demo_reset").slice(0, 5);
 
   return (
     <>
@@ -358,16 +358,9 @@ export default async function PortfolioPage({
               </table>
             </div>
           )}
-          {!isDemo && (
-            <div className="flex gap-3 text-sm">
-              <Link href="/portfolio/history" className="font-medium text-accent hover:underline">
-                {tw("tabDeposits")}
-              </Link>
-              <Link href="/portfolio/history?tab=withdrawals" className="font-medium text-accent hover:underline">
-                {tw("tabWithdrawals")}
-              </Link>
-            </div>
-          )}
+          <Link href="/portfolio/history" className="w-fit text-sm font-medium text-accent hover:underline">
+            {tw("viewAllHistory")}
+          </Link>
         </section>
 
         <RiskFooter demo={isDemo} />

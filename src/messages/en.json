@@ -432,7 +432,15 @@
     "copySkippedFreeBody": "The {symbol} trade from {providerName} was not copied because the free amount in this copy ({available}) is in use by open trades. You can raise the copy amount when no trade is open.",
     "copySkippedMinBody": "The {symbol} trade from {providerName} was not copied because its share of the copy amount is below the minimum trade size.",
     "priceAlertTitle": "Price alert: {symbol}",
-    "priceAlertBody": "{symbol} {direction, select, above {rose above} other {fell below}} your target of {target} and now trades at {price}."
+    "priceAlertBody": "{symbol} {direction, select, above {rose above} other {fell below}} your target of {target} and now trades at {price}.",
+    "cat_digest": "Daily copy summary",
+    "dailySummaryTitle": "Your copies today",
+    "dailySummaryBody": "{closed, plural, =0 {No copied trade closed} one {# copied trade closed} other {# copied trades closed}} in the last 24 hours with a result of {positive, select, true {+{amount}} other {-{amount}}}; {open, plural, =0 {none is open} one {# is still open} other {# are still open}}.",
+    "group_today": "Today",
+    "group_yesterday": "Yesterday",
+    "group_week": "This week",
+    "group_earlier": "Earlier",
+    "zeroClosedSummary": "{count, plural, one {# copied trade} other {# copied trades}} closed with no profit or loss."
   },
   "Portfolio": {
     "title": "My Portfolio",
@@ -478,7 +486,7 @@
     "monthlyReportTitle": "Monthly report",
     "monthlyReportEmpty": "No activity yet.",
     "reviewProcessingNote": "Deposits are credited automatically once confirmed on the blockchain. Withdrawals are usually processed within 24 hours.",
-    "demoDepositNote": "Demo funds are credited instantly. The maximum demo balance is 1,000,000 USDT.",
+    "demoDepositNote": "The amount is added to this account's balance instantly.",
     "demoWithdrawNote": "Demo withdrawals are instant and only affect your demo balance.",
     "demoWalletNote": "Your demo balance is virtual and completely separate from your real account. Deposits and withdrawals are instant.",
     "resetDemoButton": "Reset demo balance",
@@ -496,7 +504,9 @@
     "temporarilyUnavailable": "Temporarily unavailable",
     "transactionsTitle": "Transaction history",
     "performanceEmptyTitle": "No copied trades yet",
-    "performanceEmptyBody": "Your results, win rate and monthly report appear here after your first copied trade closes."
+    "performanceEmptyBody": "Your results, win rate and monthly report appear here after your first copied trade closes.",
+    "balanceAfterDeposit": "Balance after the deposit",
+    "withdrawRuleNote": "You can withdraw the amount not used in copies. While a copied trade is open, withdrawals pause until it closes."
   },
   "TradeHistory": {
     "periodToday": "Today",
@@ -895,7 +905,15 @@
     "benefitHigherLimits": "Higher deposit and withdrawal limits",
     "benefitFullFeatures": "Full account features",
     "startNow": "Start verification now",
-    "doItLater": "I will do it later"
+    "doItLater": "I will do it later",
+    "flowStepDetails": "Your details",
+    "flowStepDocuments": "Documents",
+    "flowStepReview": "Review",
+    "acceptedTitle": "Accepted documents",
+    "acceptedId": "Identity: a valid national ID card, passport or driving licence, with all four corners clearly visible.",
+    "acceptedAddress": "Address (optional): a utility bill or bank statement from the last 3 months showing your name and address.",
+    "acceptedFormats": "A photo (JPG or PNG) or a PDF.",
+    "whatNext": "Filling this in takes a few minutes. Our team reviews the documents and you get a notification with the decision."
   },
   "Markets": {
     "title": "Markets",
@@ -2415,7 +2433,6 @@
     "securityLockTitle": "Withdrawals temporarily on hold",
     "securityLockBody": "For your security, withdrawals are disabled for 24 hours after a password or two-factor authentication change. They will be available again on {date}.",
     "historyTitle": "Deposit & withdrawal history",
-    "historyRealOnly": "Deposit and withdrawal history is available on your real account.",
     "historyTeaser": "Every deposit and withdrawal with its network, fees, status and blockchain transaction.",
     "tabDeposits": "Deposits",
     "tabWithdrawals": "Withdrawals",
@@ -2427,7 +2444,8 @@
     "colFee": "Fee",
     "colTxid": "Transaction (TxID)",
     "colAddress": "Address",
-    "refundedNote": "Amount returned to your balance"
+    "refundedNote": "Amount returned to your balance",
+    "historyMovementsNote": "Every deposit, withdrawal and balance change of this account. Trade results are in the trades history."
   },
   "Email": {
     "greeting": "Hello,",

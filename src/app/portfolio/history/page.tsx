@@ -52,19 +52,74 @@ export default async function WalletHistoryPage({
   if (!user) redirect("/login?next=%2Fportfolio%2Fhistory");
 
   const { data: profile } = await supabase.from("profiles").select("account_type").eq("id", user.id).single();
+  const th = "px-3 py-2 text-start font-medium whitespace-nowrap";
+  const td = "px-3 py-2.5 whitespace-nowrap align-top";
   const canDeposit = profile?.account_type !== "real" || (await depositsEnabled(supabase));
-  if (profile?.account_type !== "real") {
-    return (
-      <WalletPageShell title={tw("historyTitle")} wide>
-        <WalletNotice tone="info">{tw("historyRealOnly")}</WalletNotice>
-      </WalletPageShell>
-    );
-  }
-
   const money = await getMoney();
   const locale = (await getLocale()) as Locale;
   const timeZone = await getUserTimeZone();
   const date = (iso: string) => formatDateTime(iso, locale, { dateStyle: "medium", timeStyle: "short", timeZone });
+
+  // This account's own balance movements (deposits, withdrawals, resets, adjustments); trade results
+  // are in the trades history.
+  if (profile?.account_type !== "real") {
+    const TX: Record<string, string> = {
+      deposit: t("txDeposit"),
+      withdrawal: t("txWithdrawal"),
+      demo_reset: t("txDemoReset"),
+      admin_adjustment: t("txAdjustment"),
+      fee: t("txFee"),
+      withdrawal_refund: t("txWithdrawalRefund"),
+    };
+    const { data: moves } = await supabase
+      .from("wallet_transactions")
+      .select("id, type, amount, balance_after, created_at")
+      .eq("user_id", user.id)
+      .eq("account_type", "demo")
+      .in("type", Object.keys(TX))
+      .order("created_at", { ascending: false })
+      .limit(100);
+    return (
+      <WalletPageShell title={tw("historyTitle")} wide>
+        <div className="flex items-center justify-between gap-3">
+          <p className="text-sm text-muted">{tw("historyMovementsNote")}</p>
+          <Link href="/portfolio/deposit" className="shrink-0 text-sm font-medium text-accent hover:underline">
+            {tw("newDeposit")}
+          </Link>
+        </div>
+        {(moves ?? []).length === 0 ? (
+          <p className="text-sm text-muted">{t("noWalletMovements")}</p>
+        ) : (
+          <div className="overflow-x-auto rounded-2xl border border-white/10">
+            <table className="w-full min-w-[480px] text-sm">
+              <thead className="bg-white/[0.03] text-xs text-muted">
+                <tr>
+                  <th className={th}>{t("date")}</th>
+                  <th className={th}>{t("type")}</th>
+                  <th className={th}>{t("amount")}</th>
+                  <th className={th}>{t("balanceAfter")}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(moves ?? []).map((m) => (
+                  <tr key={m.id} className="border-t border-white/5">
+                    <td className={`${td} text-xs text-muted`}>{date(m.created_at)}</td>
+                    <td className={td}>{TX[m.type] ?? m.type}</td>
+                    <td className={`${td} ${Number(m.amount) >= 0 ? "text-success" : "text-danger"}`} dir="ltr">
+                      {money(Number(m.amount), { signed: true })}
+                    </td>
+                    <td className={td} dir="ltr">
+                      {money(Number(m.balance_after))}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </WalletPageShell>
+    );
+  }
 
   const [{ data: deposits }, { data: withdrawals }] = await Promise.all([
     showWithdrawals
@@ -87,8 +142,6 @@ export default async function WalletHistoryPage({
 
   const tabClass = (active: boolean) =>
     `rounded-lg px-4 py-2 text-sm font-medium transition ${active ? "bg-accent/15 text-accent" : "text-muted hover:text-foreground"}`;
-  const th = "px-3 py-2 text-start font-medium whitespace-nowrap";
-  const td = "px-3 py-2.5 whitespace-nowrap align-top";
 
   return (
     <WalletPageShell title={tw("historyTitle")} wide>

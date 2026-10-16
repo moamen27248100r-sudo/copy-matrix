@@ -432,7 +432,15 @@
     "copySkippedFreeBody": "来自 {providerName} 的 {symbol} 交易未被复制，因为此跟单的可用金额（{available}）已被持仓交易占用。没有持仓时可提高跟单金额。",
     "copySkippedMinBody": "来自 {providerName} 的 {symbol} 交易未被复制，因为其在跟单金额中的份额低于最小交易规模。",
     "priceAlertTitle": "价格提醒：{symbol}",
-    "priceAlertBody": "{symbol} 已{direction, select, above {升破} other {跌破}}您设定的 {target}，当前价格 {price}。"
+    "priceAlertBody": "{symbol} 已{direction, select, above {升破} other {跌破}}您设定的 {target}，当前价格 {price}。",
+    "cat_digest": "每日跟单摘要",
+    "dailySummaryTitle": "您今天的跟单",
+    "dailySummaryBody": "过去 24 小时平仓 {closed} 笔跟单交易，结果 {positive, select, true {+{amount}} other {-{amount}}}；仍有 {open} 笔未平仓。",
+    "group_today": "今天",
+    "group_yesterday": "昨天",
+    "group_week": "本周",
+    "group_earlier": "更早",
+    "zeroClosedSummary": "{count} 笔跟单交易以不盈不亏平仓。"
   },
   "Portfolio": {
     "title": "我的资产",
@@ -478,7 +486,7 @@
     "monthlyReportTitle": "月度报告",
     "monthlyReportEmpty": "暂无活动。",
     "reviewProcessingNote": "充值在区块链确认后自动入账，提币通常在 24 小时内处理。",
-    "demoDepositNote": "模拟资金即时到账。模拟账户余额上限为 1,000,000 USDT。",
+    "demoDepositNote": "金额会立即加入此账户余额。",
     "demoWithdrawNote": "模拟提现即时完成，仅影响您的模拟余额。",
     "demoWalletNote": "模拟余额为虚拟资金，与您的真实账户完全独立。充值和提现即时到账。",
     "resetDemoButton": "重置模拟余额",
@@ -496,7 +504,9 @@
     "temporarilyUnavailable": "暂不可用",
     "transactionsTitle": "交易记录",
     "performanceEmptyTitle": "还没有跟单交易",
-    "performanceEmptyBody": "第一笔跟单交易平仓后，您的结果、胜率和月度报告将显示在这里。"
+    "performanceEmptyBody": "第一笔跟单交易平仓后，您的结果、胜率和月度报告将显示在这里。",
+    "balanceAfterDeposit": "入金后余额",
+    "withdrawRuleNote": "您可以提取未用于跟单的金额。只要有跟单交易未平仓，提现会暂停，直到其平仓。"
   },
   "TradeHistory": {
     "periodToday": "今天",
@@ -895,7 +905,15 @@
     "benefitHigherLimits": "更高的存取款限额",
     "benefitFullFeatures": "完整账户功能",
     "startNow": "立即开始验证",
-    "doItLater": "稍后再做"
+    "doItLater": "稍后再做",
+    "flowStepDetails": "您的信息",
+    "flowStepDocuments": "证件",
+    "flowStepReview": "审核",
+    "acceptedTitle": "可接受的证件",
+    "acceptedId": "身份：有效的身份证、护照或驾照，四个角清晰可见。",
+    "acceptedAddress": "地址（可选）：近 3 个月内显示您姓名和地址的水电账单或银行对账单。",
+    "acceptedFormats": "照片（JPG 或 PNG）或 PDF。",
+    "whatNext": "填写只需几分钟。我们的团队审核证件后，您会收到含结果的通知。"
   },
   "Markets": {
     "title": "市场",
@@ -2412,7 +2430,6 @@
     "securityLockTitle": "提币暂时冻结",
     "securityLockBody": "为保障安全，修改密码或双重验证设置后 24 小时内无法提币。将于 {date} 恢复。",
     "historyTitle": "充提记录",
-    "historyRealOnly": "充提记录仅在真实账户中提供。",
     "historyTeaser": "每笔充值和提币的网络、手续费、状态及区块链交易。",
     "tabDeposits": "充值",
     "tabWithdrawals": "提币",
@@ -2424,7 +2441,8 @@
     "colFee": "手续费",
     "colTxid": "交易（TxID）",
     "colAddress": "地址",
-    "refundedNote": "金额已退回余额"
+    "refundedNote": "金额已退回余额",
+    "historyMovementsNote": "此账户的所有入金、提现和余额变动。交易结果见交易记录。"
   },
   "Email": {
     "greeting": "您好，",

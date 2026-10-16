@@ -67,6 +67,16 @@ export function renderNotification(t: Translator, n: NotificationRow, rawMoney: 
         }),
       };
     }
+    case "copy_daily_summary":
+      return {
+        title: t("dailySummaryTitle"),
+        body: t("dailySummaryBody", {
+          closed: Number(d.closed ?? 0),
+          amount: money(Number(d.amount ?? 0)),
+          positive: sign(d.positive),
+          open: Number(d.open ?? 0),
+        }),
+      };
     case "market_price_alert":
       return {
         title: t("priceAlertTitle", { symbol: String(d.symbol ?? "") }),

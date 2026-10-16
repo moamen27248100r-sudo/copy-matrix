@@ -80,6 +80,12 @@ const ICONS = {
       <polyline points="15 7 21 7 21 13" />
     </>
   ),
+  copy_daily_summary: (
+    <>
+      <rect x="4" y="4" width="16" height="16" rx="2" />
+      <path d="M8 15v-3M12 15V9M16 15v-5" />
+    </>
+  ),
   market_price_alert: (
     <>
       <circle cx="12" cy="12" r="8" />
@@ -107,6 +113,7 @@ const ICON_TONE: Record<string, string> = {
   kyc_approved: "bg-success/10 text-success",
   market_move: "bg-warning/10 text-warning",
   market_price_alert: "bg-accent/10 text-accent",
+  copy_daily_summary: "bg-accent/10 text-accent",
 };
 
 function NotificationIcon({ type }: { type: string }) {
@@ -120,6 +127,26 @@ function NotificationIcon({ type }: { type: string }) {
     </div>
   );
 }
+
+// Read once per request (kept out of the render body).
+function requestNow() {
+  return new Date();
+}
+
+// Day buckets in the customer's time zone, like the activity lists of the big apps.
+type DayGroup = "today" | "yesterday" | "week" | "earlier";
+function dayGroup(iso: string, timeZone: string, now: Date): DayGroup {
+  // y-m-d of the day in that zone (from the parts, so no display language is involved)
+  const fmt = new Intl.DateTimeFormat(undefined, { timeZone, year: "numeric", month: "numeric", day: "numeric", numberingSystem: "latn" });
+  const key = (d: Date) => {
+    const part = (type: string) => Number(fmt.formatToParts(d).find((x) => x.type === type)?.value ?? 0);
+    return Date.UTC(part("year"), part("month") - 1, part("day"));
+  };
+  const days = Math.round((key(now) - key(new Date(iso))) / 86400000);
+  return days <= 0 ? "today" : days === 1 ? "yesterday" : days < 7 ? "week" : "earlier";
+}
+const isZeroClose = (n: { type: string; data: Record<string, unknown> | null }) =>
+  n.type === "copy_closed" && n.data != null && Number(n.data.amount ?? NaN) === 0 && Number(n.data.count ?? 1) === 1;
 
 function formatNotificationTime(iso: string, locale: Locale, timeZone: string) {
   const d = new Date(iso);
@@ -144,6 +171,7 @@ const CATEGORY_TYPES: Record<string, string[]> = {
     "auto_stop_copy",
     "loss_alert",
     "leader_stopped",
+    "copy_daily_summary",
   ],
   market: ["market_move", "market_price_alert", "market_news"],
 };
@@ -181,6 +209,13 @@ export default async function NotificationsPage({ searchParams }: { searchParams
   const rows = (notifications ?? []) as { id: string; type: string; title: string; body: string | null; data: Record<string, unknown> | null; is_read: boolean; created_at: string }[];
   const hasUnread = rows.some((n) => !n.is_read);
   const visible = rows.filter((n) => activeCat === "all" || categoryOf(n.type) === activeCat);
+  const now = requestNow();
+  const groups = (["today", "yesterday", "week", "earlier"] as DayGroup[])
+    .map((g) => {
+      const items = visible.filter((n) => dayGroup(n.created_at, userTz, now) === g);
+      return { g, items: items.filter((n) => !isZeroClose(n)), zero: items.filter(isZeroClose) };
+    })
+    .filter((x) => x.items.length + x.zero.length > 0);
 
   return (
     <>
@@ -221,8 +256,17 @@ export default async function NotificationsPage({ searchParams }: { searchParams
         {visible.length === 0 ? (
           <p className="text-sm text-muted">{t("notificationsEmpty")}</p>
         ) : (
-          <div className="flex flex-col gap-2">
-            {visible.map((n) => {
+          <div className="flex flex-col gap-5">
+            {groups.map(({ g, items, zero }) => (
+            <section key={g} className="flex flex-col gap-2">
+              <h2 className="text-xs font-bold uppercase tracking-wide text-muted">{tn(`group_${g}`)}</h2>
+            {zero.length > 0 && (
+              <p className="flex items-center gap-3 rounded-lg border border-border bg-surface p-3.5 text-xs text-muted">
+                <NotificationIcon type="copy_closed" />
+                {tn("zeroClosedSummary", { count: zero.length })}
+              </p>
+            )}
+            {items.map((n) => {
               const { title, body } = renderNotification(tn, n, money);
               return (
                 <form key={n.id} action={markOneRead}>
@@ -252,6 +296,8 @@ export default async function NotificationsPage({ searchParams }: { searchParams
                 </form>
               );
             })}
+            </section>
+            ))}
           </div>
         )}
       </AppMain>

@@ -432,7 +432,15 @@
     "copySkippedFreeBody": "{providerName} کا {symbol} ٹریڈ کاپی نہیں ہوا کیونکہ اس کاپی کی خالی رقم ({available}) کھلے ٹریڈز میں لگی ہے۔ کوئی ٹریڈ کھلا نہ ہو تو آپ کاپی کی رقم بڑھا سکتے ہیں۔",
     "copySkippedMinBody": "{providerName} کا {symbol} ٹریڈ کاپی نہیں ہوا کیونکہ کاپی کی رقم میں اس کا حصہ کم سے کم ٹریڈ سائز سے کم ہے۔",
     "priceAlertTitle": "قیمت کا الرٹ: {symbol}",
-    "priceAlertBody": "{symbol} آپ کے ہدف {target} سے {direction, select, above {اوپر چلا گیا} other {نیچے آ گیا}} اور اب {price} پر ہے۔"
+    "priceAlertBody": "{symbol} آپ کے ہدف {target} سے {direction, select, above {اوپر چلا گیا} other {نیچے آ گیا}} اور اب {price} پر ہے۔",
+    "cat_digest": "کاپی کا روزانہ خلاصہ",
+    "dailySummaryTitle": "آج آپ کی کاپیاں",
+    "dailySummaryBody": "پچھلے 24 گھنٹوں میں {closed} کاپی کی گئی ٹریڈز بند ہوئیں، نتیجہ {positive, select, true {+{amount}} other {-{amount}}}؛ {open} ابھی کھلی ہیں۔",
+    "group_today": "آج",
+    "group_yesterday": "کل",
+    "group_week": "اس ہفتے",
+    "group_earlier": "پہلے",
+    "zeroClosedSummary": "{count} کاپی کی گئی ٹریڈز بغیر نفع یا نقصان کے بند ہوئیں۔"
   },
   "Portfolio": {
     "title": "میرا پورٹ فولیو",
@@ -478,7 +486,7 @@
     "monthlyReportTitle": "ماہانہ رپورٹ",
     "monthlyReportEmpty": "ابھی تک کوئی سرگرمی نہیں۔",
     "reviewProcessingNote": "بلاک چین پر تصدیق ہوتے ہی ڈپازٹ خودکار طور پر جمع ہو جاتے ہیں۔ نکلوانے کی درخواستیں عموماً 24 گھنٹوں میں مکمل ہوتی ہیں۔",
-    "demoDepositNote": "ڈیمو فنڈز فوری طور پر جمع ہو جاتے ہیں۔ ڈیمو بیلنس کی زیادہ سے زیادہ حد 1,000,000 USDT ہے۔",
+    "demoDepositNote": "رقم اس اکاؤنٹ کے بیلنس میں فوراً شامل ہو جاتی ہے۔",
     "demoWithdrawNote": "ڈیمو نکالنا فوری ہے اور صرف آپ کے ڈیمو بیلنس پر اثر انداز ہوتا ہے۔",
     "demoWalletNote": "آپ کا ڈیمو بیلنس ورچوئل ہے اور آپ کے ریئل اکاؤنٹ سے مکمل طور پر الگ ہے۔ ڈپازٹ اور نکالنا فوری ہیں۔",
     "resetDemoButton": "ڈیمو بیلنس ری سیٹ کریں",
@@ -496,7 +504,9 @@
     "temporarilyUnavailable": "عارضی طور پر دستیاب نہیں",
     "transactionsTitle": "لین دین کی تاریخ",
     "performanceEmptyTitle": "ابھی تک کوئی کاپی شدہ ٹریڈ نہیں",
-    "performanceEmptyBody": "پہلا کاپی شدہ ٹریڈ بند ہونے کے بعد آپ کے نتائج، جیت کی شرح اور ماہانہ رپورٹ یہاں نظر آئیں گے۔"
+    "performanceEmptyBody": "پہلا کاپی شدہ ٹریڈ بند ہونے کے بعد آپ کے نتائج، جیت کی شرح اور ماہانہ رپورٹ یہاں نظر آئیں گے۔",
+    "balanceAfterDeposit": "ڈپازٹ کے بعد بیلنس",
+    "withdrawRuleNote": "آپ کاپی میں استعمال نہ ہونے والی رقم نکال سکتے ہیں۔ جب تک کوئی کاپی کی گئی ٹریڈ کھلی ہے، نکاسی رکی رہتی ہے۔"
   },
   "TradeHistory": {
     "periodToday": "آج",
@@ -895,7 +905,15 @@
     "benefitHigherLimits": "زیادہ جمع اور نکلوانے کی حدود",
     "benefitFullFeatures": "اکاؤنٹ کی مکمل خصوصیات",
     "startNow": "ابھی تصدیق شروع کریں",
-    "doItLater": "میں یہ بعد میں کروں گا"
+    "doItLater": "میں یہ بعد میں کروں گا",
+    "flowStepDetails": "آپ کی تفصیلات",
+    "flowStepDocuments": "دستاویزات",
+    "flowStepReview": "جائزہ",
+    "acceptedTitle": "قابل قبول دستاویزات",
+    "acceptedId": "شناخت: درست قومی شناختی کارڈ، پاسپورٹ یا ڈرائیونگ لائسنس، چاروں کونے صاف نظر آئیں۔",
+    "acceptedAddress": "پتہ (اختیاری): پچھلے 3 مہینوں کا یوٹیلیٹی بل یا بینک اسٹیٹمنٹ جس میں آپ کا نام اور پتہ ہو۔",
+    "acceptedFormats": "تصویر (JPG یا PNG) یا PDF۔",
+    "whatNext": "اسے بھرنے میں چند منٹ لگتے ہیں۔ ہماری ٹیم دستاویزات کا جائزہ لیتی ہے اور آپ کو فیصلے کی اطلاع ملتی ہے۔"
   },
   "Markets": {
     "title": "مارکیٹس",
@@ -2411,7 +2429,6 @@
     "securityLockTitle": "رقم نکلوانا عارضی طور پر معطل ہے",
     "securityLockBody": "آپ کی حفاظت کے لیے پاس ورڈ یا ٹو فیکٹر سیٹنگز تبدیل کرنے کے بعد 24 گھنٹے تک رقم نکلوانا بند رہتا ہے۔ یہ {date} کو دوبارہ دستیاب ہوگا۔",
     "historyTitle": "ڈپازٹ اور نکلوانے کی تاریخچہ",
-    "historyRealOnly": "ڈپازٹ اور نکلوانے کی تاریخچہ آپ کے حقیقی اکاؤنٹ میں دستیاب ہے۔",
     "historyTeaser": "ہر ڈپازٹ اور نکلوانے کی تفصیل: نیٹ ورک، فیس، حالت اور بلاک چین ٹرانزیکشن۔",
     "tabDeposits": "ڈپازٹس",
     "tabWithdrawals": "نکلوانا",
@@ -2423,7 +2440,8 @@
     "colFee": "فیس",
     "colTxid": "ٹرانزیکشن (TxID)",
     "colAddress": "ایڈریس",
-    "refundedNote": "رقم آپ کے بیلنس میں واپس کر دی گئی"
+    "refundedNote": "رقم آپ کے بیلنس میں واپس کر دی گئی",
+    "historyMovementsNote": "اس اکاؤنٹ کی ہر ڈپازٹ، نکاسی اور بیلنس کی تبدیلی۔ ٹریڈز کے نتائج ٹریڈ ہسٹری میں ہیں۔"
   },
   "Email": {
     "greeting": "السلام علیکم،",

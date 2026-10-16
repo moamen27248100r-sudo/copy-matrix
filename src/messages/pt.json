@@ -432,7 +432,15 @@
     "copySkippedFreeBody": "A operação {symbol} de {providerName} não foi copiada porque o valor livre desta cópia ({available}) está em uso em operações abertas. Você pode aumentar o valor quando não houver operações abertas.",
     "copySkippedMinBody": "A operação {symbol} de {providerName} não foi copiada porque sua parte do valor da cópia é menor que o tamanho mínimo de operação.",
     "priceAlertTitle": "Alerta de preço: {symbol}",
-    "priceAlertBody": "{symbol} {direction, select, above {subiu acima do} other {caiu abaixo do}} seu alvo de {target} e agora está em {price}."
+    "priceAlertBody": "{symbol} {direction, select, above {subiu acima do} other {caiu abaixo do}} seu alvo de {target} e agora está em {price}.",
+    "cat_digest": "Resumo diário das cópias",
+    "dailySummaryTitle": "Suas cópias hoje",
+    "dailySummaryBody": "{closed, plural, =0 {Nenhuma operação copiada fechada} one {# operação copiada fechada} other {# operações copiadas fechadas}} nas últimas 24 horas com resultado de {positive, select, true {+{amount}} other {-{amount}}}; {open, plural, =0 {nenhuma aberta} one {# ainda aberta} other {# ainda abertas}}.",
+    "group_today": "Hoje",
+    "group_yesterday": "Ontem",
+    "group_week": "Esta semana",
+    "group_earlier": "Anteriores",
+    "zeroClosedSummary": "{count, plural, one {# operação copiada fechada} other {# operações copiadas fechadas}} sem lucro nem prejuízo."
   },
   "Portfolio": {
     "title": "Minha carteira",
@@ -478,7 +486,7 @@
     "monthlyReportTitle": "Relatório mensal",
     "monthlyReportEmpty": "Ainda sem atividade.",
     "reviewProcessingNote": "Os depósitos são creditados automaticamente após a confirmação na blockchain. Os saques costumam ser processados em até 24 horas.",
-    "demoDepositNote": "Os fundos de demonstração são creditados instantaneamente. O saldo demo máximo é de 1.000.000 USDT.",
+    "demoDepositNote": "O valor é adicionado ao saldo desta conta na hora.",
     "demoWithdrawNote": "Os saques demo são instantâneos e afetam apenas o seu saldo demo.",
     "demoWalletNote": "O seu saldo demo é virtual e totalmente separado da sua conta real. Depósitos e saques são instantâneos.",
     "resetDemoButton": "Redefinir saldo demo",
@@ -496,7 +504,9 @@
     "temporarilyUnavailable": "Temporariamente indisponível",
     "transactionsTitle": "Histórico de transações",
     "performanceEmptyTitle": "Ainda não há operações copiadas",
-    "performanceEmptyBody": "Seus resultados, taxa de acerto e relatório mensal aparecem aqui quando sua primeira operação copiada fechar."
+    "performanceEmptyBody": "Seus resultados, taxa de acerto e relatório mensal aparecem aqui quando sua primeira operação copiada fechar.",
+    "balanceAfterDeposit": "Saldo após o depósito",
+    "withdrawRuleNote": "Você pode sacar o valor não usado em cópias. Enquanto houver uma operação copiada aberta, os saques ficam pausados até ela fechar."
   },
   "TradeHistory": {
     "periodToday": "Hoje",
@@ -895,7 +905,15 @@
     "benefitHigherLimits": "Limites de depósito e saque mais altos",
     "benefitFullFeatures": "Todos os recursos da conta",
     "startNow": "Iniciar verificação agora",
-    "doItLater": "Farei isso depois"
+    "doItLater": "Farei isso depois",
+    "flowStepDetails": "Seus dados",
+    "flowStepDocuments": "Documentos",
+    "flowStepReview": "Análise",
+    "acceptedTitle": "Documentos aceitos",
+    "acceptedId": "Identidade: documento de identidade, passaporte ou carteira de motorista válidos, com os quatro cantos bem visíveis.",
+    "acceptedAddress": "Endereço (opcional): conta de consumo ou extrato bancário dos últimos 3 meses com seu nome e endereço.",
+    "acceptedFormats": "Uma foto (JPG ou PNG) ou um PDF.",
+    "whatNext": "Preencher leva alguns minutos. Nossa equipe analisa os documentos e você recebe uma notificação com a decisão."
   },
   "Markets": {
     "title": "Mercados",
@@ -2414,7 +2432,6 @@
     "securityLockTitle": "Saques temporariamente suspensos",
     "securityLockBody": "Para sua segurança, os saques ficam desativados por 24 horas após alterar a senha ou a autenticação de dois fatores. Eles voltarão em {date}.",
     "historyTitle": "Histórico de depósitos e saques",
-    "historyRealOnly": "O histórico de depósitos e saques está disponível na sua conta real.",
     "historyTeaser": "Cada depósito e saque com rede, taxas, status e transação na blockchain.",
     "tabDeposits": "Depósitos",
     "tabWithdrawals": "Saques",
@@ -2426,7 +2443,8 @@
     "colFee": "Taxa",
     "colTxid": "Transação (TxID)",
     "colAddress": "Endereço",
-    "refundedNote": "Valor devolvido ao seu saldo"
+    "refundedNote": "Valor devolvido ao seu saldo",
+    "historyMovementsNote": "Todos os depósitos, saques e alterações de saldo desta conta. Os resultados das operações estão no histórico de operações."
   },
   "Email": {
     "greeting": "Olá,",

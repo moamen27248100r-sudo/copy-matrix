@@ -9,8 +9,8 @@ import { FlashMessage } from "@/components/ui/Toast";
 import { PushPermission } from "@/components/pwa/PushPermission";
 
 // "copy_trades" (one notice per opened / closed copied trade) is opt-in: off until switched on.
-const CATEGORIES = ["copy", "copy_trades", "trades", "market", "account"] as const;
-const OFF_BY_DEFAULT: readonly string[] = ["copy_trades"];
+const CATEGORIES = ["copy", "copy_trades", "digest", "trades", "market", "account"] as const;
+const OFF_BY_DEFAULT: readonly string[] = ["copy_trades", "digest"];
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");

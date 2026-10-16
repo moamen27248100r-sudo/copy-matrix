@@ -432,7 +432,15 @@
     "copySkippedFreeBody": "La operación {symbol} de {providerName} no se copió porque el importe libre de esta copia ({available}) está en uso en operaciones abiertas. Puedes aumentar el importe cuando no haya operaciones abiertas.",
     "copySkippedMinBody": "La operación {symbol} de {providerName} no se copió porque su parte del importe de la copia es menor que el tamaño mínimo de operación.",
     "priceAlertTitle": "Alerta de precio: {symbol}",
-    "priceAlertBody": "{symbol} {direction, select, above {superó} other {cayó por debajo de}} tu objetivo de {target} y ahora cotiza a {price}."
+    "priceAlertBody": "{symbol} {direction, select, above {superó} other {cayó por debajo de}} tu objetivo de {target} y ahora cotiza a {price}.",
+    "cat_digest": "Resumen diario de copias",
+    "dailySummaryTitle": "Tus copias hoy",
+    "dailySummaryBody": "{closed, plural, =0 {Ninguna operación copiada cerrada} one {# operación copiada cerrada} other {# operaciones copiadas cerradas}} en las últimas 24 horas con un resultado de {positive, select, true {+{amount}} other {-{amount}}}; {open, plural, =0 {ninguna abierta} one {# sigue abierta} other {# siguen abiertas}}.",
+    "group_today": "Hoy",
+    "group_yesterday": "Ayer",
+    "group_week": "Esta semana",
+    "group_earlier": "Anteriores",
+    "zeroClosedSummary": "{count, plural, one {# operación copiada cerrada} other {# operaciones copiadas cerradas}} sin ganancia ni pérdida."
   },
   "Portfolio": {
     "title": "Mi cartera",
@@ -478,7 +486,7 @@
     "monthlyReportTitle": "Informe mensual",
     "monthlyReportEmpty": "Aún no hay actividad.",
     "reviewProcessingNote": "Los depósitos se acreditan automáticamente al confirmarse en la blockchain. Los retiros suelen procesarse en 24 horas.",
-    "demoDepositNote": "Los fondos de demostración se acreditan al instante. El saldo demo máximo es de 1.000.000 USDT.",
+    "demoDepositNote": "El monto se añade al saldo de esta cuenta al instante.",
     "demoWithdrawNote": "Los retiros demo son instantáneos y solo afectan a tu saldo demo.",
     "demoWalletNote": "Tu saldo demo es virtual y está totalmente separado de tu cuenta real. Los depósitos y retiros son instantáneos.",
     "resetDemoButton": "Restablecer saldo demo",
@@ -496,7 +504,9 @@
     "temporarilyUnavailable": "No disponible temporalmente",
     "transactionsTitle": "Historial de transacciones",
     "performanceEmptyTitle": "Aún no hay operaciones copiadas",
-    "performanceEmptyBody": "Tus resultados, tasa de acierto e informe mensual aparecen aquí cuando se cierre tu primera operación copiada."
+    "performanceEmptyBody": "Tus resultados, tasa de acierto e informe mensual aparecen aquí cuando se cierre tu primera operación copiada.",
+    "balanceAfterDeposit": "Saldo después del depósito",
+    "withdrawRuleNote": "Puedes retirar el monto no usado en copias. Mientras haya una operación copiada abierta, los retiros se pausan hasta que se cierre."
   },
   "TradeHistory": {
     "periodToday": "Hoy",
@@ -895,7 +905,15 @@
     "benefitHigherLimits": "Límites más altos de depósito y retiro",
     "benefitFullFeatures": "Todas las funciones de la cuenta",
     "startNow": "Comenzar verificación ahora",
-    "doItLater": "Lo haré más tarde"
+    "doItLater": "Lo haré más tarde",
+    "flowStepDetails": "Tus datos",
+    "flowStepDocuments": "Documentos",
+    "flowStepReview": "Revisión",
+    "acceptedTitle": "Documentos aceptados",
+    "acceptedId": "Identidad: documento de identidad, pasaporte o licencia de conducir vigente, con las cuatro esquinas bien visibles.",
+    "acceptedAddress": "Domicilio (opcional): factura de servicios o extracto bancario de los últimos 3 meses con tu nombre y dirección.",
+    "acceptedFormats": "Una foto (JPG o PNG) o un PDF.",
+    "whatNext": "Completarlo lleva unos minutos. Nuestro equipo revisa los documentos y recibes una notificación con la decisión."
   },
   "Markets": {
     "title": "Mercados",
@@ -2412,7 +2430,6 @@
     "securityLockTitle": "Retiros suspendidos temporalmente",
     "securityLockBody": "Por tu seguridad, los retiros se desactivan durante 24 horas tras cambiar la contraseña o la verificación en dos pasos. Volverán a estar disponibles el {date}.",
     "historyTitle": "Historial de depósitos y retiros",
-    "historyRealOnly": "El historial de depósitos y retiros está disponible en tu cuenta real.",
     "historyTeaser": "Cada depósito y retiro con su red, comisiones, estado y transacción en la blockchain.",
     "tabDeposits": "Depósitos",
     "tabWithdrawals": "Retiros",
@@ -2424,7 +2441,8 @@
     "colFee": "Comisión",
     "colTxid": "Transacción (TxID)",
     "colAddress": "Dirección",
-    "refundedNote": "Monto devuelto a tu saldo"
+    "refundedNote": "Monto devuelto a tu saldo",
+    "historyMovementsNote": "Todos los depósitos, retiros y cambios de saldo de esta cuenta. Los resultados de las operaciones están en el historial de operaciones."
   },
   "Email": {
     "greeting": "Hola:",

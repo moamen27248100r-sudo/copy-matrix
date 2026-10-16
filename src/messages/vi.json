@@ -432,7 +432,15 @@
     "copySkippedFreeBody": "Giao dịch {symbol} từ {providerName} không được sao chép vì số tiền trống của bản sao này ({available}) đang dùng cho các giao dịch mở. Bạn có thể tăng số tiền sao chép khi không có giao dịch nào mở.",
     "copySkippedMinBody": "Giao dịch {symbol} từ {providerName} không được sao chép vì phần của nó trong số tiền sao chép thấp hơn quy mô giao dịch tối thiểu.",
     "priceAlertTitle": "Cảnh báo giá: {symbol}",
-    "priceAlertBody": "{symbol} đã {direction, select, above {vượt lên trên} other {giảm xuống dưới}} mục tiêu {target} của bạn và hiện ở {price}."
+    "priceAlertBody": "{symbol} đã {direction, select, above {vượt lên trên} other {giảm xuống dưới}} mục tiêu {target} của bạn và hiện ở {price}.",
+    "cat_digest": "Tóm tắt sao chép hằng ngày",
+    "dailySummaryTitle": "Các bản sao của bạn hôm nay",
+    "dailySummaryBody": "{closed} giao dịch sao chép đã đóng trong 24 giờ qua với kết quả {positive, select, true {+{amount}} other {-{amount}}}; {open} vẫn đang mở.",
+    "group_today": "Hôm nay",
+    "group_yesterday": "Hôm qua",
+    "group_week": "Tuần này",
+    "group_earlier": "Trước đó",
+    "zeroClosedSummary": "{count} giao dịch sao chép đóng không lãi không lỗ."
   },
   "Portfolio": {
     "title": "Danh mục của tôi",
@@ -478,7 +486,7 @@
     "monthlyReportTitle": "Báo cáo hàng tháng",
     "monthlyReportEmpty": "Chưa có hoạt động.",
     "reviewProcessingNote": "Khoản nạp được cộng tự động khi được xác nhận trên blockchain. Lệnh rút thường được xử lý trong 24 giờ.",
-    "demoDepositNote": "Tiền demo được cộng ngay lập tức. Số dư demo tối đa là 1.000.000 USDT.",
+    "demoDepositNote": "Số tiền được cộng vào số dư tài khoản này ngay lập tức.",
     "demoWithdrawNote": "Rút tiền demo diễn ra ngay lập tức và chỉ ảnh hưởng đến số dư demo của bạn.",
     "demoWalletNote": "Số dư demo của bạn là ảo và hoàn toàn tách biệt với tài khoản thực. Nạp và rút tiền diễn ra ngay lập tức.",
     "resetDemoButton": "Đặt lại số dư demo",
@@ -496,7 +504,9 @@
     "temporarilyUnavailable": "Tạm thời không khả dụng",
     "transactionsTitle": "Lịch sử giao dịch",
     "performanceEmptyTitle": "Chưa có giao dịch sao chép",
-    "performanceEmptyBody": "Kết quả, tỷ lệ thắng và báo cáo hằng tháng sẽ hiện ở đây sau khi giao dịch sao chép đầu tiên đóng."
+    "performanceEmptyBody": "Kết quả, tỷ lệ thắng và báo cáo hằng tháng sẽ hiện ở đây sau khi giao dịch sao chép đầu tiên đóng.",
+    "balanceAfterDeposit": "Số dư sau khi nạp",
+    "withdrawRuleNote": "Bạn có thể rút số tiền không dùng cho sao chép. Khi còn giao dịch sao chép đang mở, việc rút tiền tạm dừng cho đến khi giao dịch đóng."
   },
   "TradeHistory": {
     "periodToday": "Hôm nay",
@@ -895,7 +905,15 @@
     "benefitHigherLimits": "Hạn mức nạp và rút cao hơn",
     "benefitFullFeatures": "Đầy đủ tính năng tài khoản",
     "startNow": "Bắt đầu xác minh ngay",
-    "doItLater": "Tôi sẽ làm sau"
+    "doItLater": "Tôi sẽ làm sau",
+    "flowStepDetails": "Thông tin của bạn",
+    "flowStepDocuments": "Giấy tờ",
+    "flowStepReview": "Xét duyệt",
+    "acceptedTitle": "Giấy tờ được chấp nhận",
+    "acceptedId": "Danh tính: CCCD, hộ chiếu hoặc bằng lái xe còn hiệu lực, thấy rõ cả bốn góc.",
+    "acceptedAddress": "Địa chỉ (không bắt buộc): hóa đơn tiện ích hoặc sao kê ngân hàng trong 3 tháng gần nhất có tên và địa chỉ của bạn.",
+    "acceptedFormats": "Ảnh (JPG hoặc PNG) hoặc tệp PDF.",
+    "whatNext": "Điền mất vài phút. Đội ngũ của chúng tôi xét duyệt giấy tờ và bạn sẽ nhận thông báo kết quả."
   },
   "Markets": {
     "title": "Thị trường",
@@ -2411,7 +2429,6 @@
     "securityLockTitle": "Tạm khóa rút tiền",
     "securityLockBody": "Để bảo mật, chức năng rút bị tạm khóa 24 giờ sau khi đổi mật khẩu hoặc cài đặt xác thực hai lớp. Bạn có thể rút lại vào {date}.",
     "historyTitle": "Lịch sử nạp & rút",
-    "historyRealOnly": "Lịch sử nạp và rút có trong tài khoản thực của bạn.",
     "historyTeaser": "Mọi khoản nạp và rút cùng mạng, phí, trạng thái và giao dịch blockchain.",
     "tabDeposits": "Nạp tiền",
     "tabWithdrawals": "Rút tiền",
@@ -2423,7 +2440,8 @@
     "colFee": "Phí",
     "colTxid": "Giao dịch (TxID)",
     "colAddress": "Địa chỉ",
-    "refundedNote": "Đã hoàn tiền về số dư"
+    "refundedNote": "Đã hoàn tiền về số dư",
+    "historyMovementsNote": "Mọi khoản nạp, rút và thay đổi số dư của tài khoản này. Kết quả giao dịch nằm trong lịch sử giao dịch."
   },
   "Email": {
     "greeting": "Xin chào,",

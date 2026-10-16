@@ -44,6 +44,23 @@ export default async function KycPage({
       <main className="mx-auto flex w-full max-w-sm flex-col justify-center gap-4 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-[var(--sidebar-w)] lg:me-0 lg:pb-6">
         <h1 className="text-page-title">{t("title")}</h1>
 
+        {/* 1 your details · 2 documents · 3 review (where the request is now). */}
+        <ol className="flex items-center gap-2" aria-label={t("stepsTitle")}>
+          {[t("flowStepDetails"), t("flowStepDocuments"), t("flowStepReview")].map((label, i) => {
+            const current = submission ? (submission.status === "approved" ? 4 : 3) : 1;
+            const done = i + 1 < current;
+            const active = i + 1 === current;
+            return (
+              <li key={label} className="flex min-w-0 flex-1 flex-col gap-1.5" aria-current={active ? "step" : undefined}>
+                <span className={`h-1.5 rounded-full ${done ? "bg-success" : active ? "bg-accent" : "bg-border"}`} />
+                <span className={`truncate text-xs ${active ? "font-bold text-foreground" : "text-muted"}`}>
+                  {i + 1}. {label}
+                </span>
+              </li>
+            );
+          })}
+        </ol>
+
       {submission ? (
         <div className="flex flex-col gap-3 rounded-[20px] border border-border bg-surface p-5">
           <p className="text-sm">
@@ -74,6 +91,16 @@ export default async function KycPage({
           <p className="text-sm text-muted">
             {t("intro")}
           </p>
+
+          <section className="flex flex-col gap-2 rounded-[20px] border border-border bg-surface p-4 text-sm">
+            <h2 className="font-bold">{t("acceptedTitle")}</h2>
+            <ul className="flex list-disc flex-col gap-1.5 ps-5 text-muted">
+              <li>{t("acceptedId")}</li>
+              <li>{t("acceptedAddress")}</li>
+              <li>{t("acceptedFormats")}</li>
+            </ul>
+            <p className="text-xs text-muted">{t("whatNext")}</p>
+          </section>
 
           {error && (
             <FlashMessage tone="error">

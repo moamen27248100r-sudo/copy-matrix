@@ -432,7 +432,15 @@
     "copySkippedFreeBody": "{providerName} का {symbol} ट्रेड कॉपी नहीं हुआ क्योंकि इस कॉपी की खाली राशि ({available}) खुले ट्रेड में लगी है। कोई ट्रेड खुला न होने पर आप कॉपी राशि बढ़ा सकते हैं।",
     "copySkippedMinBody": "{providerName} का {symbol} ट्रेड कॉपी नहीं हुआ क्योंकि कॉपी राशि में उसका हिस्सा न्यूनतम ट्रेड आकार से कम है।",
     "priceAlertTitle": "मूल्य अलर्ट: {symbol}",
-    "priceAlertBody": "{symbol} आपके लक्ष्य {target} से {direction, select, above {ऊपर चला गया} other {नीचे आ गया}} और अब {price} पर है।"
+    "priceAlertBody": "{symbol} आपके लक्ष्य {target} से {direction, select, above {ऊपर चला गया} other {नीचे आ गया}} और अब {price} पर है।",
+    "cat_digest": "कॉपी का दैनिक सारांश",
+    "dailySummaryTitle": "आज आपकी कॉपी",
+    "dailySummaryBody": "पिछले 24 घंटों में {closed} कॉपी किए गए ट्रेड बंद हुए, नतीजा {positive, select, true {+{amount}} other {-{amount}}}; {open} अभी खुले हैं।",
+    "group_today": "आज",
+    "group_yesterday": "कल",
+    "group_week": "इस सप्ताह",
+    "group_earlier": "पहले",
+    "zeroClosedSummary": "{count} कॉपी किए गए ट्रेड बिना लाभ या हानि के बंद हुए।"
   },
   "Portfolio": {
     "title": "मेरा पोर्टफोलियो",
@@ -478,7 +486,7 @@
     "monthlyReportTitle": "मासिक रिपोर्ट",
     "monthlyReportEmpty": "अभी तक कोई गतिविधि नहीं।",
     "reviewProcessingNote": "ब्लॉकचेन पर पुष्टि होते ही जमा अपने आप क्रेडिट हो जाती है। निकासी आमतौर पर 24 घंटों में प्रोसेस होती है।",
-    "demoDepositNote": "डेमो फंड तुरंत जमा हो जाते हैं। डेमो बैलेंस की अधिकतम सीमा 1,000,000 USDT है।",
+    "demoDepositNote": "राशि इस खाते के बैलेंस में तुरंत जुड़ जाती है।",
     "demoWithdrawNote": "डेमो निकासी तुरंत होती है और केवल आपके डेमो बैलेंस को प्रभावित करती है।",
     "demoWalletNote": "आपका डेमो बैलेंस आभासी है और आपके रियल अकाउंट से पूरी तरह अलग है। जमा और निकासी तुरंत होती है।",
     "resetDemoButton": "डेमो बैलेंस रीसेट करें",
@@ -496,7 +504,9 @@
     "temporarilyUnavailable": "अस्थायी रूप से अनुपलब्ध",
     "transactionsTitle": "लेन-देन का इतिहास",
     "performanceEmptyTitle": "अभी तक कोई कॉपी किया गया ट्रेड नहीं",
-    "performanceEmptyBody": "पहला कॉपी किया गया ट्रेड बंद होने के बाद आपके नतीजे, जीत दर और मासिक रिपोर्ट यहां दिखेंगे।"
+    "performanceEmptyBody": "पहला कॉपी किया गया ट्रेड बंद होने के बाद आपके नतीजे, जीत दर और मासिक रिपोर्ट यहां दिखेंगे।",
+    "balanceAfterDeposit": "जमा के बाद बैलेंस",
+    "withdrawRuleNote": "आप कॉपी में इस्तेमाल न हुई राशि निकाल सकते हैं। जब तक कोई कॉपी किया ट्रेड खुला है, निकासी रुकी रहती है।"
   },
   "TradeHistory": {
     "periodToday": "आज",
@@ -895,7 +905,15 @@
     "benefitHigherLimits": "उच्च जमा और निकासी सीमा",
     "benefitFullFeatures": "खाते की पूर्ण सुविधाएं",
     "startNow": "अभी सत्यापन शुरू करें",
-    "doItLater": "मैं इसे बाद में करूंगा"
+    "doItLater": "मैं इसे बाद में करूंगा",
+    "flowStepDetails": "आपका विवरण",
+    "flowStepDocuments": "दस्तावेज़",
+    "flowStepReview": "समीक्षा",
+    "acceptedTitle": "स्वीकार्य दस्तावेज़",
+    "acceptedId": "पहचान: वैध राष्ट्रीय पहचान पत्र, पासपोर्ट या ड्राइविंग लाइसेंस, चारों कोने साफ़ दिखें।",
+    "acceptedAddress": "पता (वैकल्पिक): पिछले 3 महीनों का यूटिलिटी बिल या बैंक स्टेटमेंट जिसमें आपका नाम और पता हो।",
+    "acceptedFormats": "फ़ोटो (JPG या PNG) या PDF।",
+    "whatNext": "इसे भरने में कुछ मिनट लगते हैं। हमारी टीम दस्तावेज़ों की समीक्षा करती है और आपको फ़ैसले की सूचना मिलती है।"
   },
   "Markets": {
     "title": "बाज़ार",
@@ -2411,7 +2429,6 @@
     "securityLockTitle": "निकासी अस्थायी रूप से रोकी गई है",
     "securityLockBody": "आपकी सुरक्षा के लिए पासवर्ड या टू-फ़ैक्टर सेटिंग बदलने के बाद 24 घंटे तक निकासी बंद रहती है। यह {date} को फिर उपलब्ध होगी।",
     "historyTitle": "जमा और निकासी इतिहास",
-    "historyRealOnly": "जमा और निकासी इतिहास आपके रियल खाते में उपलब्ध है।",
     "historyTeaser": "हर जमा और निकासी उसके नेटवर्क, शुल्क, स्थिति और ब्लॉकचेन ट्रांज़ैक्शन के साथ।",
     "tabDeposits": "जमा",
     "tabWithdrawals": "निकासी",
@@ -2423,7 +2440,8 @@
     "colFee": "शुल्क",
     "colTxid": "ट्रांज़ैक्शन (TxID)",
     "colAddress": "पता",
-    "refundedNote": "राशि आपके बैलेंस में लौटा दी गई"
+    "refundedNote": "राशि आपके बैलेंस में लौटा दी गई",
+    "historyMovementsNote": "इस खाते की हर जमा, निकासी और बैलेंस बदलाव। ट्रेड नतीजे ट्रेड इतिहास में हैं।"
   },
   "Email": {
     "greeting": "नमस्ते,",

@@ -432,7 +432,15 @@
     "copySkippedFreeBody": "La transaction {symbol} de {providerName} n'a pas été copiée car le montant libre de cette copie ({available}) est utilisé par des transactions ouvertes. Vous pouvez augmenter le montant de la copie lorsqu'aucune transaction n'est ouverte.",
     "copySkippedMinBody": "La transaction {symbol} de {providerName} n'a pas été copiée car sa part du montant de la copie est inférieure à la taille minimale d'une transaction.",
     "priceAlertTitle": "Alerte de prix : {symbol}",
-    "priceAlertBody": "{symbol} est {direction, select, above {passé au-dessus de} other {passé sous}} votre cible de {target} et cote maintenant {price}."
+    "priceAlertBody": "{symbol} est {direction, select, above {passé au-dessus de} other {passé sous}} votre cible de {target} et cote maintenant {price}.",
+    "cat_digest": "Résumé quotidien des copies",
+    "dailySummaryTitle": "Vos copies aujourd'hui",
+    "dailySummaryBody": "{closed, plural, =0 {Aucun trade copié clôturé} one {# trade copié clôturé} other {# trades copiés clôturés}} ces dernières 24 heures, résultat {positive, select, true {+{amount}} other {-{amount}}} ; {open, plural, =0 {aucun n'est ouvert} one {# encore ouvert} other {# encore ouverts}}.",
+    "group_today": "Aujourd'hui",
+    "group_yesterday": "Hier",
+    "group_week": "Cette semaine",
+    "group_earlier": "Plus tôt",
+    "zeroClosedSummary": "{count, plural, one {# trade copié clôturé} other {# trades copiés clôturés}} sans gain ni perte."
   },
   "Portfolio": {
     "title": "Mon portefeuille",
@@ -478,7 +486,7 @@
     "monthlyReportTitle": "Rapport mensuel",
     "monthlyReportEmpty": "Aucune activité pour le moment.",
     "reviewProcessingNote": "Les dépôts sont crédités automatiquement dès leur confirmation sur la blockchain. Les retraits sont généralement traités sous 24 heures.",
-    "demoDepositNote": "Les fonds de démonstration sont crédités instantanément. Le solde démo maximal est de 1 000 000 USDT.",
+    "demoDepositNote": "Le montant est ajouté immédiatement au solde de ce compte.",
     "demoWithdrawNote": "Les retraits démo sont instantanés et n'affectent que votre solde démo.",
     "demoWalletNote": "Votre solde démo est virtuel et totalement distinct de votre compte réel. Les dépôts et retraits sont instantanés.",
     "resetDemoButton": "Réinitialiser le solde démo",
@@ -496,7 +504,9 @@
     "temporarilyUnavailable": "Temporairement indisponible",
     "transactionsTitle": "Historique des transactions",
     "performanceEmptyTitle": "Aucune transaction copiée pour l'instant",
-    "performanceEmptyBody": "Vos résultats, votre taux de réussite et votre rapport mensuel apparaissent ici après la clôture de votre première transaction copiée."
+    "performanceEmptyBody": "Vos résultats, votre taux de réussite et votre rapport mensuel apparaissent ici après la clôture de votre première transaction copiée.",
+    "balanceAfterDeposit": "Solde après le dépôt",
+    "withdrawRuleNote": "Vous pouvez retirer le montant non utilisé dans les copies. Tant qu'un trade copié est ouvert, les retraits sont suspendus jusqu'à sa clôture."
   },
   "TradeHistory": {
     "periodToday": "Aujourd'hui",
@@ -895,7 +905,15 @@
     "benefitHigherLimits": "Limites de dépôt et de retrait plus élevées",
     "benefitFullFeatures": "Toutes les fonctionnalités du compte",
     "startNow": "Commencer la vérification maintenant",
-    "doItLater": "Je le ferai plus tard"
+    "doItLater": "Je le ferai plus tard",
+    "flowStepDetails": "Vos informations",
+    "flowStepDocuments": "Pièces justificatives",
+    "flowStepReview": "Vérification",
+    "acceptedTitle": "Documents acceptés",
+    "acceptedId": "Identité : carte d'identité, passeport ou permis de conduire en cours de validité, avec les quatre coins bien visibles.",
+    "acceptedAddress": "Adresse (facultatif) : facture de services ou relevé bancaire des 3 derniers mois avec votre nom et votre adresse.",
+    "acceptedFormats": "Une photo (JPG ou PNG) ou un PDF.",
+    "whatNext": "Le remplissage prend quelques minutes. Notre équipe vérifie les documents et vous recevez une notification avec la décision."
   },
   "Markets": {
     "title": "Marchés",
@@ -2412,7 +2430,6 @@
     "securityLockTitle": "Retraits temporairement suspendus",
     "securityLockBody": "Pour votre sécurité, les retraits sont désactivés pendant 24 heures après un changement de mot de passe ou d'authentification à deux facteurs. Ils seront de nouveau possibles le {date}.",
     "historyTitle": "Historique des dépôts et retraits",
-    "historyRealOnly": "L'historique des dépôts et retraits est disponible sur votre compte réel.",
     "historyTeaser": "Chaque dépôt et retrait avec son réseau, ses frais, son statut et sa transaction blockchain.",
     "tabDeposits": "Dépôts",
     "tabWithdrawals": "Retraits",
@@ -2424,7 +2441,8 @@
     "colFee": "Frais",
     "colTxid": "Transaction (TxID)",
     "colAddress": "Adresse",
-    "refundedNote": "Montant restitué sur votre solde"
+    "refundedNote": "Montant restitué sur votre solde",
+    "historyMovementsNote": "Tous les dépôts, retraits et changements de solde de ce compte. Les résultats des trades sont dans l'historique des trades."
   },
   "Email": {
     "greeting": "Bonjour,",

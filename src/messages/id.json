@@ -432,7 +432,15 @@
     "copySkippedFreeBody": "Transaksi {symbol} dari {providerName} tidak disalin karena dana bebas di salinan ini ({available}) sedang dipakai transaksi terbuka. Anda bisa menambah jumlah salinan saat tidak ada transaksi terbuka.",
     "copySkippedMinBody": "Transaksi {symbol} dari {providerName} tidak disalin karena bagiannya dari jumlah salinan di bawah ukuran transaksi minimum.",
     "priceAlertTitle": "Peringatan harga: {symbol}",
-    "priceAlertBody": "{symbol} {direction, select, above {naik melewati} other {turun di bawah}} target Anda {target} dan kini di {price}."
+    "priceAlertBody": "{symbol} {direction, select, above {naik melewati} other {turun di bawah}} target Anda {target} dan kini di {price}.",
+    "cat_digest": "Ringkasan salinan harian",
+    "dailySummaryTitle": "Salinan Anda hari ini",
+    "dailySummaryBody": "{closed} transaksi salinan ditutup dalam 24 jam terakhir dengan hasil {positive, select, true {+{amount}} other {-{amount}}}; {open} masih terbuka.",
+    "group_today": "Hari ini",
+    "group_yesterday": "Kemarin",
+    "group_week": "Minggu ini",
+    "group_earlier": "Sebelumnya",
+    "zeroClosedSummary": "{count} transaksi salinan ditutup tanpa untung atau rugi."
   },
   "Portfolio": {
     "title": "Portofolio Saya",
@@ -478,7 +486,7 @@
     "monthlyReportTitle": "Laporan bulanan",
     "monthlyReportEmpty": "Belum ada aktivitas.",
     "reviewProcessingNote": "Deposit dikreditkan otomatis setelah dikonfirmasi di blockchain. Penarikan biasanya diproses dalam 24 jam.",
-    "demoDepositNote": "Dana demo dikreditkan secara instan. Saldo demo maksimum adalah 1.000.000 USDT.",
+    "demoDepositNote": "Jumlahnya langsung ditambahkan ke saldo akun ini.",
     "demoWithdrawNote": "Penarikan demo bersifat instan dan hanya memengaruhi saldo demo Anda.",
     "demoWalletNote": "Saldo demo Anda bersifat virtual dan sepenuhnya terpisah dari akun riil. Setoran dan penarikan bersifat instan.",
     "resetDemoButton": "Atur ulang saldo demo",
@@ -496,7 +504,9 @@
     "temporarilyUnavailable": "Sementara tidak tersedia",
     "transactionsTitle": "Riwayat transaksi",
     "performanceEmptyTitle": "Belum ada transaksi salinan",
-    "performanceEmptyBody": "Hasil, tingkat kemenangan, dan laporan bulanan Anda muncul di sini setelah transaksi salinan pertama ditutup."
+    "performanceEmptyBody": "Hasil, tingkat kemenangan, dan laporan bulanan Anda muncul di sini setelah transaksi salinan pertama ditutup.",
+    "balanceAfterDeposit": "Saldo setelah deposit",
+    "withdrawRuleNote": "Anda dapat menarik jumlah yang tidak dipakai untuk salinan. Selama ada transaksi salinan yang terbuka, penarikan dijeda sampai ditutup."
   },
   "TradeHistory": {
     "periodToday": "Hari ini",
@@ -895,7 +905,15 @@
     "benefitHigherLimits": "Batas setor dan tarik lebih tinggi",
     "benefitFullFeatures": "Fitur akun lengkap",
     "startNow": "Mulai verifikasi sekarang",
-    "doItLater": "Saya akan lakukan nanti"
+    "doItLater": "Saya akan lakukan nanti",
+    "flowStepDetails": "Data Anda",
+    "flowStepDocuments": "Dokumen",
+    "flowStepReview": "Peninjauan",
+    "acceptedTitle": "Dokumen yang diterima",
+    "acceptedId": "Identitas: KTP, paspor, atau SIM yang masih berlaku, dengan keempat sudut terlihat jelas.",
+    "acceptedAddress": "Alamat (opsional): tagihan utilitas atau rekening koran 3 bulan terakhir yang memuat nama dan alamat Anda.",
+    "acceptedFormats": "Foto (JPG atau PNG) atau PDF.",
+    "whatNext": "Pengisian hanya beberapa menit. Tim kami meninjau dokumen dan Anda menerima notifikasi berisi keputusannya."
   },
   "Markets": {
     "title": "Pasar",
@@ -2411,7 +2429,6 @@
     "securityLockTitle": "Penarikan ditahan sementara",
     "securityLockBody": "Demi keamanan Anda, penarikan dinonaktifkan selama 24 jam setelah perubahan kata sandi atau autentikasi dua faktor. Penarikan akan tersedia kembali pada {date}.",
     "historyTitle": "Riwayat deposit & penarikan",
-    "historyRealOnly": "Riwayat deposit dan penarikan tersedia di akun riil Anda.",
     "historyTeaser": "Setiap deposit dan penarikan beserta jaringan, biaya, status, dan transaksi blockchain-nya.",
     "tabDeposits": "Deposit",
     "tabWithdrawals": "Penarikan",
@@ -2423,7 +2440,8 @@
     "colFee": "Biaya",
     "colTxid": "Transaksi (TxID)",
     "colAddress": "Alamat",
-    "refundedNote": "Jumlah dikembalikan ke saldo Anda"
+    "refundedNote": "Jumlah dikembalikan ke saldo Anda",
+    "historyMovementsNote": "Semua deposit, penarikan, dan perubahan saldo akun ini. Hasil transaksi ada di riwayat transaksi."
   },
   "Email": {
     "greeting": "Halo,",

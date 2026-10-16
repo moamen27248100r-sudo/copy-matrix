@@ -71,6 +71,7 @@ export default async function WithdrawPage({ searchParams }: { searchParams: Pro
       <WalletPageShell title={t("withdrawTitle")} narrow>
         {error && <WalletNotice tone="danger">{error}</WalletNotice>}
         <p className="text-sm text-muted">{t("demoWithdrawNote")}</p>
+        <WalletNotice tone="info">{t("withdrawRuleNote")}</WalletNotice>
         <WithdrawFlow maxAvailable={available} />
       </WalletPageShell>
     );

@@ -432,7 +432,15 @@
     "copySkippedFreeBody": "Biashara ya {symbol} kutoka kwa {providerName} haikunakiliwa kwa sababu kiasi huru cha unakili huu ({available}) kinatumika katika biashara zilizo wazi. Unaweza kuongeza kiasi wakati hakuna biashara iliyo wazi.",
     "copySkippedMinBody": "Biashara ya {symbol} kutoka kwa {providerName} haikunakiliwa kwa sababu sehemu yake ya kiasi cha unakili iko chini ya ukubwa wa chini wa biashara.",
     "priceAlertTitle": "Arifa ya bei: {symbol}",
-    "priceAlertBody": "{symbol} {direction, select, above {imepanda juu ya} other {imeshuka chini ya}} lengo lako la {target} na sasa iko {price}."
+    "priceAlertBody": "{symbol} {direction, select, above {imepanda juu ya} other {imeshuka chini ya}} lengo lako la {target} na sasa iko {price}.",
+    "cat_digest": "Muhtasari wa kila siku wa nakala",
+    "dailySummaryTitle": "Nakala zako leo",
+    "dailySummaryBody": "Biashara {closed} zilizonakiliwa zimefungwa katika saa 24 zilizopita kwa matokeo ya {positive, select, true {+{amount}} other {-{amount}}}; {open} bado ziko wazi.",
+    "group_today": "Leo",
+    "group_yesterday": "Jana",
+    "group_week": "Wiki hii",
+    "group_earlier": "Awali",
+    "zeroClosedSummary": "Biashara {count} zilizonakiliwa zimefungwa bila faida wala hasara."
   },
   "Portfolio": {
     "title": "Jalada Langu",
@@ -478,7 +486,7 @@
     "monthlyReportTitle": "Ripoti ya kila mwezi",
     "monthlyReportEmpty": "Bado hakuna shughuli.",
     "reviewProcessingNote": "Amana huingizwa kiotomatiki mara zinapothibitishwa kwenye blockchain. Utoaji kwa kawaida hushughulikiwa ndani ya saa 24.",
-    "demoDepositNote": "Fedha za majaribio huwekwa papo hapo. Salio la juu zaidi la demo ni USDT 1,000,000.",
+    "demoDepositNote": "Kiasi kinaongezwa kwenye salio la akaunti hii papo hapo.",
     "demoWithdrawNote": "Uondoaji wa demo ni wa papo hapo na unaathiri salio lako la demo pekee.",
     "demoWalletNote": "Salio lako la demo ni la kidhahania na limetenganishwa kabisa na akaunti yako halisi. Amana na uondoaji ni wa papo hapo.",
     "resetDemoButton": "Weka upya salio la demo",
@@ -496,7 +504,9 @@
     "temporarilyUnavailable": "Haipatikani kwa muda",
     "transactionsTitle": "Historia ya miamala",
     "performanceEmptyTitle": "Bado hakuna biashara zilizonakiliwa",
-    "performanceEmptyBody": "Matokeo yako, kiwango cha ushindi na ripoti ya mwezi vitaonekana hapa baada ya biashara yako ya kwanza iliyonakiliwa kufungwa."
+    "performanceEmptyBody": "Matokeo yako, kiwango cha ushindi na ripoti ya mwezi vitaonekana hapa baada ya biashara yako ya kwanza iliyonakiliwa kufungwa.",
+    "balanceAfterDeposit": "Salio baada ya kuweka",
+    "withdrawRuleNote": "Unaweza kutoa kiasi kisichotumika kwenye nakala. Wakati biashara iliyonakiliwa iko wazi, utoaji unasimama hadi ifungwe."
   },
   "TradeHistory": {
     "periodToday": "Leo",
@@ -895,7 +905,15 @@
     "benefitHigherLimits": "Kiwango cha juu cha kuweka na kutoa fedha",
     "benefitFullFeatures": "Vipengele vyote vya akaunti",
     "startNow": "Anza uthibitishaji sasa",
-    "doItLater": "Nitafanya baadaye"
+    "doItLater": "Nitafanya baadaye",
+    "flowStepDetails": "Taarifa zako",
+    "flowStepDocuments": "Nyaraka",
+    "flowStepReview": "Ukaguzi",
+    "acceptedTitle": "Nyaraka zinazokubalika",
+    "acceptedId": "Utambulisho: kitambulisho cha taifa, pasipoti au leseni ya udereva halali, pembe zote nne zikionekana wazi.",
+    "acceptedAddress": "Anwani (si lazima): bili ya huduma au taarifa ya benki ya miezi 3 iliyopita inayoonyesha jina na anwani yako.",
+    "acceptedFormats": "Picha (JPG au PNG) au PDF.",
+    "whatNext": "Kujaza huchukua dakika chache. Timu yetu hukagua nyaraka na unapokea arifa yenye uamuzi."
   },
   "Markets": {
     "title": "Masoko",
@@ -2411,7 +2429,6 @@
     "securityLockTitle": "Utoaji umesimamishwa kwa muda",
     "securityLockBody": "Kwa usalama wako, utoaji huzimwa kwa saa 24 baada ya kubadilisha nenosiri au mipangilio ya uthibitishaji wa hatua mbili. Utapatikana tena {date}.",
     "historyTitle": "Historia ya kuweka na kutoa",
-    "historyRealOnly": "Historia ya kuweka na kutoa inapatikana kwenye akaunti yako halisi.",
     "historyTeaser": "Kila amana na utoaji pamoja na mtandao, ada, hali na muamala wa blockchain.",
     "tabDeposits": "Amana",
     "tabWithdrawals": "Utoaji",
@@ -2423,7 +2440,8 @@
     "colFee": "Ada",
     "colTxid": "Muamala (TxID)",
     "colAddress": "Anwani",
-    "refundedNote": "Kiasi kimerudishwa kwenye salio lako"
+    "refundedNote": "Kiasi kimerudishwa kwenye salio lako",
+    "historyMovementsNote": "Kila uwekaji, utoaji na mabadiliko ya salio ya akaunti hii. Matokeo ya biashara yako kwenye historia ya biashara."
   },
   "Email": {
     "greeting": "Habari,",

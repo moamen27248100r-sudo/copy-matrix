@@ -30,7 +30,7 @@ export default async function DepositPage({ searchParams }: { searchParams: Prom
 
   if (!user) redirect("/login?next=%2Fportfolio%2Fdeposit");
 
-  const { data: profile } = await supabase.from("profiles").select("account_type").eq("id", user.id).single();
+  const { data: profile } = await supabase.from("profiles").select("account_type, balance").eq("id", user.id).single();
 
   if (profile?.account_type !== "real") {
     return (
@@ -38,7 +38,7 @@ export default async function DepositPage({ searchParams }: { searchParams: Prom
         {error && <WalletNotice tone="danger">{error}</WalletNotice>}
         <p className="text-sm text-muted">{t("demoDepositNote")}</p>
         {/* Demo funds need no network/address and are credited instantly. */}
-        <SimpleDepositForm />
+        <SimpleDepositForm balance={Number(profile?.balance ?? 0)} />
       </WalletPageShell>
     );
   }
