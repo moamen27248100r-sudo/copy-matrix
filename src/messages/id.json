@@ -627,7 +627,7 @@
     "gaugeRiskMedium": "Sedang",
     "gaugeRiskHigh": "Tinggi",
     "gaugeVolatility": "Volatilitas aktual",
-    "gaugeTipRiskLevel": "Tingkat risiko hanya berasal dari volatilitas aktual hasil harian trader: di bawah 15% per tahun rendah, 15% hingga 40% sedang, 40% ke atas tinggi. Tingkat yang sama ditampilkan di kartu trader di semua tempat.",
+    "gaugeTipRiskLevel": "Tingkat risiko adalah yang lebih tinggi dari dua ukuran hasil aktual trader: volatilitas (di bawah 15% per tahun rendah, 15% hingga 40% sedang, 40% ke atas tinggi) dan penurunan maksimum (di bawah 15% rendah, 15% hingga 30% sedang, 30% ke atas tinggi). Tingkat yang sama ditampilkan di kartu trader di semua tempat.",
     "gaugeTipVolatility": "Volatilitas aktual: simpangan baku imbal hasil harian pada hari-hari trader bertransaksi, di seluruh riwayat, secara tahunan. Semakin tinggi, semakin besar ayunan hasil harian.",
     "statSharpeHelp": "Imbal hasil per satuan ayunan; di atas 1 bagus",
     "statProfitFactorHelp": "Total keuntungan ÷ total kerugian; di atas 1 berarti untung bersih",
@@ -913,7 +913,10 @@
     "acceptedId": "Identitas: KTP, paspor, atau SIM yang masih berlaku, dengan keempat sudut terlihat jelas.",
     "acceptedAddress": "Alamat (opsional): tagihan utilitas atau rekening koran 3 bulan terakhir yang memuat nama dan alamat Anda.",
     "acceptedFormats": "Foto (JPG atau PNG) atau PDF.",
-    "whatNext": "Pengisian hanya beberapa menit. Tim kami meninjau dokumen dan Anda menerima notifikasi berisi keputusannya."
+    "whatNext": "Pengisian hanya beberapa menit. Tim kami meninjau dokumen dan Anda menerima notifikasi berisi keputusannya.",
+    "chooseFile": "Pilih file",
+    "changeFile": "Ganti file",
+    "noFileChosen": "Belum ada file yang dipilih"
   },
   "Markets": {
     "title": "Pasar",

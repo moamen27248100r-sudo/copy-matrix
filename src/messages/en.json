@@ -627,7 +627,7 @@
     "gaugeRiskMedium": "Medium",
     "gaugeRiskHigh": "High",
     "gaugeVolatility": "Realized volatility",
-    "gaugeTipRiskLevel": "The risk level comes only from the realized volatility of the trader's daily results: under 15% a year is low, 15% to 40% medium, 40% and more high. It is the same level shown on the trader's card everywhere.",
+    "gaugeTipRiskLevel": "The risk level is the higher of two measures from the trader's actual results: volatility (under 15% a year low, 15% to 40% medium, 40% and more high) and maximum drawdown (under 15% low, 15% to 30% medium, 30% and more high). It is the same level shown on the trader's card everywhere.",
     "gaugeTipVolatility": "Realized volatility: the standard deviation of the daily return on the days the trader traded, over the whole record, on a yearly basis. The higher it is, the more the daily results swing.",
     "statSharpeHelp": "Return per unit of swing; above 1 is good",
     "statProfitFactorHelp": "Total gains ÷ total losses; above 1 means a net profit",
@@ -913,7 +913,10 @@
     "acceptedId": "Identity: a valid national ID card, passport or driving licence, with all four corners clearly visible.",
     "acceptedAddress": "Address (optional): a utility bill or bank statement from the last 3 months showing your name and address.",
     "acceptedFormats": "A photo (JPG or PNG) or a PDF.",
-    "whatNext": "Filling this in takes a few minutes. Our team reviews the documents and you get a notification with the decision."
+    "whatNext": "Filling this in takes a few minutes. Our team reviews the documents and you get a notification with the decision.",
+    "chooseFile": "Choose a file",
+    "changeFile": "Change file",
+    "noFileChosen": "No file chosen"
   },
   "Markets": {
     "title": "Markets",

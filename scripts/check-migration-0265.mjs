@@ -1,3 +1,4 @@
+// Superseded by 0269 (the level now also counts the drawdown): run scripts/check-migration-0269.mjs.
 // Dry run of migration 0265 inside ONE rolled-back transaction: every leader's risk level becomes
 // the one computed from realized volatility, the refresh keeps it that way, and the changes are
 // counted (from -> to).   node scripts/check-migration-0265.mjs [--live]

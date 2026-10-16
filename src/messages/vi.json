@@ -627,7 +627,7 @@
     "gaugeRiskMedium": "Trung bình",
     "gaugeRiskHigh": "Cao",
     "gaugeVolatility": "Biến động thực tế",
-    "gaugeTipRiskLevel": "Mức rủi ro chỉ được tính từ biến động thực tế của kết quả hằng ngày của nhà giao dịch: dưới 15% mỗi năm là thấp, 15% đến 40% là trung bình, từ 40% trở lên là cao. Đây cũng là mức hiển thị trên thẻ nhà giao dịch ở mọi nơi.",
+    "gaugeTipRiskLevel": "Mức rủi ro là mức cao hơn trong hai thước đo từ kết quả thực tế của nhà giao dịch: biến động (dưới 15% mỗi năm là thấp, 15% đến 40% trung bình, từ 40% trở lên cao) và mức sụt giảm tối đa (dưới 15% thấp, 15% đến 30% trung bình, từ 30% trở lên cao). Đây cũng là mức hiển thị trên thẻ nhà giao dịch ở mọi nơi.",
     "gaugeTipVolatility": "Biến động thực tế: độ lệch chuẩn của lợi nhuận hằng ngày vào những ngày nhà giao dịch có giao dịch, trên toàn bộ lịch sử, tính theo năm. Càng cao thì kết quả hằng ngày càng dao động mạnh.",
     "statSharpeHelp": "Lợi nhuận trên mỗi đơn vị dao động; trên 1 là tốt",
     "statProfitFactorHelp": "Tổng lãi ÷ tổng lỗ; trên 1 nghĩa là lãi ròng",
@@ -913,7 +913,10 @@
     "acceptedId": "Danh tính: CCCD, hộ chiếu hoặc bằng lái xe còn hiệu lực, thấy rõ cả bốn góc.",
     "acceptedAddress": "Địa chỉ (không bắt buộc): hóa đơn tiện ích hoặc sao kê ngân hàng trong 3 tháng gần nhất có tên và địa chỉ của bạn.",
     "acceptedFormats": "Ảnh (JPG hoặc PNG) hoặc tệp PDF.",
-    "whatNext": "Điền mất vài phút. Đội ngũ của chúng tôi xét duyệt giấy tờ và bạn sẽ nhận thông báo kết quả."
+    "whatNext": "Điền mất vài phút. Đội ngũ của chúng tôi xét duyệt giấy tờ và bạn sẽ nhận thông báo kết quả.",
+    "chooseFile": "Chọn tệp",
+    "changeFile": "Đổi tệp",
+    "noFileChosen": "Chưa chọn tệp"
   },
   "Markets": {
     "title": "Thị trường",

@@ -627,7 +627,7 @@
     "gaugeRiskMedium": "Wastani",
     "gaugeRiskHigh": "Juu",
     "gaugeVolatility": "Mabadiliko halisi",
-    "gaugeTipRiskLevel": "Kiwango cha hatari kinatokana tu na mabadiliko halisi ya matokeo ya kila siku ya mfanyabiashara: chini ya 15% kwa mwaka ni chini, 15% hadi 40% ni wastani, na 40% au zaidi ni juu. Ni kiwango kilekile kinachoonyeshwa kwenye kadi ya mfanyabiashara kila mahali.",
+    "gaugeTipRiskLevel": "Kiwango cha hatari ni kikubwa zaidi kati ya vipimo viwili vya matokeo halisi ya mfanyabiashara: mabadiliko (chini ya 15% kwa mwaka ni chini, 15% hadi 40% wastani, 40% au zaidi juu) na anguko kubwa zaidi (chini ya 15% chini, 15% hadi 30% wastani, 30% au zaidi juu). Ni kiwango kilekile kinachoonyeshwa kwenye kadi ya mfanyabiashara kila mahali.",
     "gaugeTipVolatility": "Mabadiliko halisi: mkengeuko sanifu wa faida ya kila siku katika siku ambazo mfanyabiashara alifanya biashara, katika rekodi yote, kwa mwaka. Kadiri ulivyo juu, ndivyo matokeo ya kila siku yanavyobadilika zaidi.",
     "statSharpeHelp": "Faida kwa kila kipimo cha mabadiliko; zaidi ya 1 ni nzuri",
     "statProfitFactorHelp": "Jumla ya faida ÷ jumla ya hasara; zaidi ya 1 ni faida halisi",
@@ -913,7 +913,10 @@
     "acceptedId": "Utambulisho: kitambulisho cha taifa, pasipoti au leseni ya udereva halali, pembe zote nne zikionekana wazi.",
     "acceptedAddress": "Anwani (si lazima): bili ya huduma au taarifa ya benki ya miezi 3 iliyopita inayoonyesha jina na anwani yako.",
     "acceptedFormats": "Picha (JPG au PNG) au PDF.",
-    "whatNext": "Kujaza huchukua dakika chache. Timu yetu hukagua nyaraka na unapokea arifa yenye uamuzi."
+    "whatNext": "Kujaza huchukua dakika chache. Timu yetu hukagua nyaraka na unapokea arifa yenye uamuzi.",
+    "chooseFile": "Chagua faili",
+    "changeFile": "Badilisha faili",
+    "noFileChosen": "Hakuna faili iliyochaguliwa"
   },
   "Markets": {
     "title": "Masoko",

@@ -627,7 +627,7 @@
     "gaugeRiskMedium": "中",
     "gaugeRiskHigh": "高",
     "gaugeVolatility": "实际波动率",
-    "gaugeTipRiskLevel": "风险等级仅根据交易员每日结果的实际波动率计算：年化低于 15% 为低，15% 至 40% 为中，40% 及以上为高。与各处交易员卡片上显示的等级相同。",
+    "gaugeTipRiskLevel": "风险等级取交易员实际结果中两项指标的较高者：波动率（年化低于 15% 为低，15% 至 40% 为中，40% 及以上为高）和最大回撤（低于 15% 为低，15% 至 30% 为中，30% 及以上为高）。与各处交易员卡片上显示的等级相同。",
     "gaugeTipVolatility": "实际波动率：交易员在有交易的日子里的日收益标准差，基于全部记录并按年计算。数值越高，每日结果波动越大。",
     "statSharpeHelp": "每单位波动带来的收益；高于 1 为佳",
     "statProfitFactorHelp": "总盈利 ÷ 总亏损；高于 1 表示净盈利",
@@ -913,7 +913,10 @@
     "acceptedId": "身份：有效的身份证、护照或驾照，四个角清晰可见。",
     "acceptedAddress": "地址（可选）：近 3 个月内显示您姓名和地址的水电账单或银行对账单。",
     "acceptedFormats": "照片（JPG 或 PNG）或 PDF。",
-    "whatNext": "填写只需几分钟。我们的团队审核证件后，您会收到含结果的通知。"
+    "whatNext": "填写只需几分钟。我们的团队审核证件后，您会收到含结果的通知。",
+    "chooseFile": "选择文件",
+    "changeFile": "更换文件",
+    "noFileChosen": "未选择文件"
   },
   "Markets": {
     "title": "市场",

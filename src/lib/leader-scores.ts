@@ -9,8 +9,8 @@
 //             + 0.18 x positive_months / months_counted         consistency (last 12 full months, 0.5 if none)
 //             + 0.15 x min(1, track_days / 540)                 length of the record
 //             + 0.10 x clamp01((win_rate_all% - 35) / 35) )     win rate
-//   (risk: one measure only, provider_stats.risk_level from realized volatility, migration 0265;
-//    see riskLevelKey below)
+//   (risk: one measure only, the stored provider_stats.risk_level, which is the higher of the realized-volatility and
+//    the drawdown level, migrations 0265 / 0269; see riskLevelKey below)
 //   limit       = limit_pct: share of closed trades that ended at their stop loss or take
 //                 profit (the rest closed by hand or on time); higher is better
 //   activity    = trades_per_week (closed trades of the last 90 days per week):
@@ -165,7 +165,7 @@ export function adjustedMaxDrawdown(stored: number | null | undefined, computed:
   return s == null ? computed : Math.max(s, computed);
 }
 
-/** provider_stats.risk_level (0265, realized volatility; stored as the Arabic word) as a key. */
+/** provider_stats.risk_level (0265 / 0269: volatility and drawdown; stored as the Arabic word) as a key. */
 export function riskLevelKey(level: string | null | undefined): "low" | "medium" | "high" | null {
   return level === "منخفضة" ? "low" : level === "متوسطة" ? "medium" : level === "مرتفعة" ? "high" : null;
 }

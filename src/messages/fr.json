@@ -627,7 +627,7 @@
     "gaugeRiskMedium": "Moyen",
     "gaugeRiskHigh": "Élevé",
     "gaugeVolatility": "Volatilité réalisée",
-    "gaugeTipRiskLevel": "Le niveau de risque provient uniquement de la volatilité réalisée des résultats quotidiens du trader : moins de 15 % par an = faible, de 15 % à 40 % = moyen, 40 % et plus = élevé. C'est le même niveau que sur la carte du trader partout.",
+    "gaugeTipRiskLevel": "Le niveau de risque est le plus élevé de deux mesures tirées des résultats réels du trader : la volatilité (moins de 15 % par an = faible, de 15 % à 40 % = moyen, 40 % et plus = élevé) et la baisse maximale (moins de 15 % = faible, de 15 % à 30 % = moyen, 30 % et plus = élevé). C'est le même niveau que sur la carte du trader partout.",
     "gaugeTipVolatility": "Volatilité réalisée : l'écart type du rendement quotidien les jours où le trader a négocié, sur tout l'historique, en base annuelle. Plus elle est élevée, plus les résultats quotidiens varient.",
     "statSharpeHelp": "Rendement par unité de variation ; au-dessus de 1, c'est bien",
     "statProfitFactorHelp": "Total des gains ÷ total des pertes ; au-dessus de 1 = bénéfice net",
@@ -913,7 +913,10 @@
     "acceptedId": "Identité : carte d'identité, passeport ou permis de conduire en cours de validité, avec les quatre coins bien visibles.",
     "acceptedAddress": "Adresse (facultatif) : facture de services ou relevé bancaire des 3 derniers mois avec votre nom et votre adresse.",
     "acceptedFormats": "Une photo (JPG ou PNG) ou un PDF.",
-    "whatNext": "Le remplissage prend quelques minutes. Notre équipe vérifie les documents et vous recevez une notification avec la décision."
+    "whatNext": "Le remplissage prend quelques minutes. Notre équipe vérifie les documents et vous recevez une notification avec la décision.",
+    "chooseFile": "Choisir un fichier",
+    "changeFile": "Changer de fichier",
+    "noFileChosen": "Aucun fichier choisi"
   },
   "Markets": {
     "title": "Marchés",

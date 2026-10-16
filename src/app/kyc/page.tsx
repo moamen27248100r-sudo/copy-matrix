@@ -7,6 +7,7 @@ import { formatDate } from "@/lib/locale-format";
 import type { Locale } from "@/i18n/locales";
 import { FlashMessage } from "@/components/ui/Toast";
 import { DraftForm } from "@/components/ui/DraftForm";
+import { FileInputButton } from "@/components/FileInputButton";
 
 export async function generateMetadata() {
   const t = await getTranslations("Metadata");
@@ -21,6 +22,7 @@ export default async function KycPage({
   const { error } = await searchParams;
   const locale = (await getLocale()) as Locale;
   const t = await getTranslations("Kyc");
+  const fileTexts = { choose: t("chooseFile"), change: t("changeFile"), none: t("noFileChosen") };
   const supabase = await createClient();
   const {
     data: { user },
@@ -123,25 +125,8 @@ export default async function KycPage({
               required
               className="rounded border border-border bg-surface px-3 py-2"
             />
-            <label className="flex flex-col gap-1 text-sm">
-              {t("idDocumentLabel")}
-              <input
-                name="idDocument"
-                type="file"
-                accept="image/*,.pdf"
-                required
-                className="rounded border border-border bg-surface px-3 py-2 text-sm"
-              />
-            </label>
-            <label className="flex flex-col gap-1 text-sm">
-              {t("addressProofLabel")}
-              <input
-                name="addressProof"
-                type="file"
-                accept="image/*,.pdf"
-                className="rounded border border-border bg-surface px-3 py-2 text-sm"
-              />
-            </label>
+            <FileInputButton name="idDocument" label={t("idDocumentLabel")} accept="image/*,.pdf" required texts={fileTexts} />
+            <FileInputButton name="addressProof" label={t("addressProofLabel")} accept="image/*,.pdf" texts={fileTexts} />
             <button type="submit" className="rounded bg-accent px-3 py-2 font-medium text-accent-foreground transition hover:bg-accent-hover">
               {t("submitForReview")}
             </button>

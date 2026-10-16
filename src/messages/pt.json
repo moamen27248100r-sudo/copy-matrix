@@ -627,7 +627,7 @@
     "gaugeRiskMedium": "Médio",
     "gaugeRiskHigh": "Alto",
     "gaugeVolatility": "Volatilidade realizada",
-    "gaugeTipRiskLevel": "O nível de risco vem apenas da volatilidade realizada dos resultados diários do trader: abaixo de 15% ao ano é baixo, de 15% a 40% médio e 40% ou mais alto. É o mesmo nível exibido no cartão do trader em todo lugar.",
+    "gaugeTipRiskLevel": "O nível de risco é o maior de duas medidas dos resultados reais do trader: a volatilidade (abaixo de 15% ao ano baixo, de 15% a 40% médio, 40% ou mais alto) e a queda máxima (abaixo de 15% baixo, de 15% a 30% médio, 30% ou mais alto). É o mesmo nível exibido no cartão do trader em todo lugar.",
     "gaugeTipVolatility": "Volatilidade realizada: o desvio padrão do retorno diário nos dias em que o trader operou, em todo o histórico, em base anual. Quanto maior, mais os resultados diários oscilam.",
     "statSharpeHelp": "Retorno por unidade de oscilação; acima de 1 é bom",
     "statProfitFactorHelp": "Ganhos totais ÷ perdas totais; acima de 1 é lucro líquido",
@@ -913,7 +913,10 @@
     "acceptedId": "Identidade: documento de identidade, passaporte ou carteira de motorista válidos, com os quatro cantos bem visíveis.",
     "acceptedAddress": "Endereço (opcional): conta de consumo ou extrato bancário dos últimos 3 meses com seu nome e endereço.",
     "acceptedFormats": "Uma foto (JPG ou PNG) ou um PDF.",
-    "whatNext": "Preencher leva alguns minutos. Nossa equipe analisa os documentos e você recebe uma notificação com a decisão."
+    "whatNext": "Preencher leva alguns minutos. Nossa equipe analisa os documentos e você recebe uma notificação com a decisão.",
+    "chooseFile": "Escolher um arquivo",
+    "changeFile": "Trocar arquivo",
+    "noFileChosen": "Nenhum arquivo escolhido"
   },
   "Markets": {
     "title": "Mercados",
