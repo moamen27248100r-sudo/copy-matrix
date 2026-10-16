@@ -50,13 +50,13 @@ export function HeroVideo({ lang }: { lang: "ar" | "en" }) {
   }, [src]);
 
   return (
-    <div ref={box} className="relative aspect-square w-full overflow-hidden rounded-2xl bg-surface md:aspect-[32/15]">
+    <div ref={box} className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-[#06080c] md:aspect-video">
       <picture>
-        <source media="(min-width: 768px)" srcSet={`${base}-desktop.jpg`} width={1280} height={600} />
+        <source media="(min-width: 768px)" srcSet={`${base}-desktop.jpg`} width={1920} height={1080} />
         <img
           src={`${base}-mobile.jpg`}
-          width={720}
-          height={720}
+          width={1080}
+          height={1350}
           alt=""
           fetchPriority="high"
           decoding="async"

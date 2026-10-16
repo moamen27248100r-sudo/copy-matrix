@@ -1,24 +1,41 @@
 # Hero video credits
 
-The landing page film (`public/video/hero-{ar,en}-{mobile,desktop}.{webm,mp4,jpg}`) alternates
-footage of people with recordings of the platform.
+The landing page film (`public/video/hero-{ar,en}-{mobile,desktop}.{webm,mp4,jpg}`): a 3D studio
+scene of a laptop and a phone showing the platform, cut with two shots of the same person.
+Mobile 4:5 (1080x1350), desktop 16:9 (1920x1080); rendered at 60 fps and encoded at 30 fps.
+Arabic version for the Arabic interface, English for every other language.
+
+## How it is made
+
+- **3D scene**: Remotion 4.0.535 with @remotion/three, React Three Fiber, drei and postprocessing
+  (depth of field, light bloom, grain, vignette). The scene, the camera moves and the six shots are
+  in the film project (kept outside this repository).
+- **Laptop and phone models**: modelled in code for this film (rounded aluminium base and lid,
+  keyboard, trackpad, glass bezel; titanium phone frame, glass front, camera island). No third-party
+  model is used, so no model licence applies, and there is no brand mark or logo on either device.
+- **Device screens**: real screens of Copy Matrix recorded frame by frame with Playwright on the
+  Demo Preview test account (dashboard scroll, phone home, the copy sheet with an amount being
+  typed and the copy button pressed -- nothing is submitted --, a trader's chart drawing with the
+  crosshair moving along it, the portfolio). Account e-mail, number and account-type badges are
+  hidden in the recordings.
 
 ## People footage (Mixkit, Stock Video Free License)
 
-Each clip's page was checked on 2026-10-16 and is under the **Mixkit Stock Video Free License**
-(not the Restricted License): free for commercial and non-commercial projects, may be modified and
-distributed, no account or key needed, attribution not required (credited here anyway).
+Both shots are the same person in the same room, from one Mixkit series. Each clip's page was
+checked on 2026-10-16 and is under the **Mixkit Stock Video Free License** (not the Restricted
+License): free for commercial and non-commercial projects, may be modified and distributed, no
+account or key needed, attribution not required (credited here anyway).
 License text: https://mixkit.co/license/#videoFree
 
-| Clip | Source page | Used |
-| --- | --- | --- |
-| Programmer using his cell phone while working at his desk (41638) | https://mixkit.co/free-stock-video/programmer-using-his-cell-phone-while-working-at-his-desk-41638/ | 1.0 s to 3.2 s, cropped, slightly darkened |
-| Girl lying down chatting on her cell phone before sleeping (39789) | https://mixkit.co/free-stock-video/girl-lying-down-chatting-on-her-cell-phone-before-sleeping-39789/ | 2.0 s to 4.0 s, cropped, slightly darkened |
-| Hands of a person typing on a cell phone (4915) | https://mixkit.co/free-stock-video/hands-of-a-person-typing-on-a-cell-phone-4915/ | 3.0 s to 5.0 s, cropped, slightly darkened |
+| Shot | Clip | Source page | Used |
+| --- | --- | --- | --- |
+| 3 | Skilled programmer working in front of a computer (41651) | https://mixkit.co/free-stock-video/skilled-programmer-working-in-front-of-a-computer-41651/ | 0.0–2.0 s, colour graded, slow push in |
+| 5 | Experienced programmer working very concentrated (41645) | https://mixkit.co/free-stock-video/experienced-programmer-working-very-concentrated-41645/ | 0.2–1.7 s, colour graded, slow push in |
 
-## Platform footage
+Colour grade (both): lower saturation, cooler shadows and highlights, slightly darker, vignette,
+to match the 3D studio and the platform's colours.
 
-Recorded with Playwright from the Copy Matrix app itself (the Demo Preview test account, Arabic and
-English): home, a trader's profile with the performance chart, the copy button, and the
-notifications. Shown inside phone and browser-window frames drawn for this film; composed and
-encoded with ffmpeg (h264 mp4 and vp9 webm, muted, 13.8 s loop).
+## Reference
+
+The shot order, camera language and pacing follow the public.com home page hero, studied from a
+local copy that is not part of this repository and not published.
