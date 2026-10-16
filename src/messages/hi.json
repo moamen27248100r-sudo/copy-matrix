@@ -425,12 +425,14 @@
     "cat_market": "बाज़ार",
     "marketMoveTitle": "{symbol} में बड़ी हलचल",
     "marketMoveBody": "{symbol} पिछले 24 घंटे में {pct} {direction, select, up {बढ़ा} other {गिरा}} और अब {price} पर है।",
-    "prefsMarket": "बाज़ार की हलचल",
+    "prefsMarket": "बाज़ार की हलचल और मूल्य अलर्ट",
     "copyReducedTitle": "ट्रेड कम राशि के साथ कॉपी हुआ",
     "copyReducedBody": "{providerName} का {symbol} ट्रेड {required} की जगह {opened} के साथ कॉपी हुआ, क्योंकि इस कॉपी में {available} उपलब्ध था।",
     "copySkippedTitle": "एक ट्रेड कॉपी नहीं हुआ",
     "copySkippedFreeBody": "{providerName} का {symbol} ट्रेड कॉपी नहीं हुआ क्योंकि इस कॉपी की खाली राशि ({available}) खुले ट्रेड में लगी है। कोई ट्रेड खुला न होने पर आप कॉपी राशि बढ़ा सकते हैं।",
-    "copySkippedMinBody": "{providerName} का {symbol} ट्रेड कॉपी नहीं हुआ क्योंकि कॉपी राशि में उसका हिस्सा न्यूनतम ट्रेड आकार से कम है।"
+    "copySkippedMinBody": "{providerName} का {symbol} ट्रेड कॉपी नहीं हुआ क्योंकि कॉपी राशि में उसका हिस्सा न्यूनतम ट्रेड आकार से कम है।",
+    "priceAlertTitle": "मूल्य अलर्ट: {symbol}",
+    "priceAlertBody": "{symbol} आपके लक्ष्य {target} से {direction, select, above {ऊपर चला गया} other {नीचे आ गया}} और अब {price} पर है।"
   },
   "Portfolio": {
     "title": "मेरा पोर्टफोलियो",
@@ -935,7 +937,22 @@
     "type_gold": "एक औंस सोने की अमेरिकी डॉलर में कीमत, चौबीसों घंटे उपलब्ध",
     "type_forex": "दुनिया की दो प्रमुख मुद्राओं के बीच विनिमय दर",
     "source_binance": "Binance के सार्वजनिक बाज़ार डेटा से लाइव कीमत, हर कुछ सेकंड में ताज़ा।",
-    "source_ecb": "दैनिक संदर्भ दर। स्रोत: यूरोपीय सेंट्रल बैंक (ECB) के आँकड़े, हर कार्यदिवस एक बार प्रकाशित।"
+    "source_ecb": "दैनिक संदर्भ दर। स्रोत: यूरोपीय सेंट्रल बैंक (ECB) के आँकड़े, हर कार्यदिवस एक बार प्रकाशित।",
+    "alertsTitle": "मूल्य अलर्ट",
+    "alertsHint": "एक कीमत तय करें, वहाँ पहुँचते ही हम आपको सूचित करेंगे।",
+    "alertTargetLabel": "लक्ष्य मूल्य",
+    "alertCreate": "अलर्ट बनाएँ",
+    "alertAbove": "{price} से ऊपर",
+    "alertBelow": "{price} से नीचे",
+    "alertRemove": "अलर्ट हटाएँ",
+    "alertCreated": "अलर्ट बन गया। कीमत वहाँ पहुँचते ही हम सूचित करेंगे।",
+    "alertErrInvalid": "शून्य से अधिक कीमत दर्ज करें।",
+    "alertErrSame": "मौजूदा कीमत से अलग कीमत दर्ज करें।",
+    "alertErrMax": "आपके 20 सक्रिय अलर्ट हैं। नया जोड़ने के लिए एक हटाएँ।",
+    "alertsActive": "सक्रिय अलर्ट",
+    "alertsEmpty": "इस इंस्ट्रूमेंट पर कोई सक्रिय अलर्ट नहीं।",
+    "alertsRecent": "हाल में पहुँचे",
+    "alertsActiveCount": "{count} सक्रिय मूल्य अलर्ट"
   },
   "Support": {
     "pageTitle": "सहायता — Copy Matrix",

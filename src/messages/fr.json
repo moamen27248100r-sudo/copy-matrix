@@ -425,12 +425,14 @@
     "cat_market": "Marché",
     "marketMoveTitle": "Gros mouvement sur {symbol}",
     "marketMoveBody": "{symbol} {direction, select, up {a progressé de} other {a reculé de}} {pct} sur 24 heures et s’échange à {price}.",
-    "prefsMarket": "Mouvements du marché",
+    "prefsMarket": "Mouvements du marché et alertes de prix",
     "copyReducedTitle": "Transaction copiée avec un montant réduit",
     "copyReducedBody": "La transaction {symbol} de {providerName} a été copiée avec {opened} au lieu de {required}, car {available} était disponible dans cette copie.",
     "copySkippedTitle": "Une transaction n'a pas été copiée",
     "copySkippedFreeBody": "La transaction {symbol} de {providerName} n'a pas été copiée car le montant libre de cette copie ({available}) est utilisé par des transactions ouvertes. Vous pouvez augmenter le montant de la copie lorsqu'aucune transaction n'est ouverte.",
-    "copySkippedMinBody": "La transaction {symbol} de {providerName} n'a pas été copiée car sa part du montant de la copie est inférieure à la taille minimale d'une transaction."
+    "copySkippedMinBody": "La transaction {symbol} de {providerName} n'a pas été copiée car sa part du montant de la copie est inférieure à la taille minimale d'une transaction.",
+    "priceAlertTitle": "Alerte de prix : {symbol}",
+    "priceAlertBody": "{symbol} est {direction, select, above {passé au-dessus de} other {passé sous}} votre cible de {target} et cote maintenant {price}."
   },
   "Portfolio": {
     "title": "Mon portefeuille",
@@ -935,7 +937,22 @@
     "type_gold": "le prix d’une once d’or en dollars américains, coté en continu",
     "type_forex": "le taux de change entre deux grandes devises mondiales",
     "source_binance": "Prix en direct issu des données de marché publiques de Binance, actualisé toutes les quelques secondes.",
-    "source_ecb": "Taux de référence quotidien. Source : statistiques de la Banque centrale européenne (BCE), publiées une fois par jour ouvré."
+    "source_ecb": "Taux de référence quotidien. Source : statistiques de la Banque centrale européenne (BCE), publiées une fois par jour ouvré.",
+    "alertsTitle": "Alertes de prix",
+    "alertsHint": "Fixez un prix et nous vous avertirons dès qu'il sera atteint.",
+    "alertTargetLabel": "Prix cible",
+    "alertCreate": "Créer l'alerte",
+    "alertAbove": "Au-dessus de {price}",
+    "alertBelow": "En dessous de {price}",
+    "alertRemove": "Supprimer l'alerte",
+    "alertCreated": "Alerte créée. Nous vous avertirons quand le prix sera atteint.",
+    "alertErrInvalid": "Saisissez un prix supérieur à zéro.",
+    "alertErrSame": "Saisissez un prix différent du prix actuel.",
+    "alertErrMax": "Vous avez 20 alertes actives. Supprimez-en une pour en ajouter une autre.",
+    "alertsActive": "Alertes actives",
+    "alertsEmpty": "Aucune alerte active sur cet instrument.",
+    "alertsRecent": "Atteintes récemment",
+    "alertsActiveCount": "{count, plural, one {# alerte de prix active} other {# alertes de prix actives}}"
   },
   "Support": {
     "pageTitle": "Support — Copy Matrix",

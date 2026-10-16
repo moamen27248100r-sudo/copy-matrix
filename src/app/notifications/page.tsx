@@ -80,6 +80,13 @@ const ICONS = {
       <polyline points="15 7 21 7 21 13" />
     </>
   ),
+  market_price_alert: (
+    <>
+      <circle cx="12" cy="12" r="8" />
+      <circle cx="12" cy="12" r="3" />
+      <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+    </>
+  ),
   default: (
     <>
       <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
@@ -99,6 +106,7 @@ const ICON_TONE: Record<string, string> = {
   wallet_withdrawal_approved: "bg-foreground/10 text-foreground",
   kyc_approved: "bg-success/10 text-success",
   market_move: "bg-warning/10 text-warning",
+  market_price_alert: "bg-accent/10 text-accent",
 };
 
 function NotificationIcon({ type }: { type: string }) {
@@ -137,7 +145,7 @@ const CATEGORY_TYPES: Record<string, string[]> = {
     "loss_alert",
     "leader_stopped",
   ],
-  market: ["market_move", "market_news"],
+  market: ["market_move", "market_price_alert", "market_news"],
 };
 const CATEGORY_KEYS = ["all", "copy", "account", "market"] as const;
 

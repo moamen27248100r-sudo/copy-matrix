@@ -425,12 +425,14 @@
     "cat_market": "Mercado",
     "marketMoveTitle": "Gran movimiento en {symbol}",
     "marketMoveBody": "{symbol} {direction, select, up {subió} other {bajó}} {pct} en las últimas 24 horas y ahora cotiza a {price}.",
-    "prefsMarket": "Movimientos del mercado",
+    "prefsMarket": "Movimientos del mercado y alertas de precio",
     "copyReducedTitle": "Operación copiada con un importe menor",
     "copyReducedBody": "La operación {symbol} de {providerName} se copió con {opened} en lugar de {required}, porque había {available} libre en esta copia.",
     "copySkippedTitle": "Una operación no se copió",
     "copySkippedFreeBody": "La operación {symbol} de {providerName} no se copió porque el importe libre de esta copia ({available}) está en uso en operaciones abiertas. Puedes aumentar el importe cuando no haya operaciones abiertas.",
-    "copySkippedMinBody": "La operación {symbol} de {providerName} no se copió porque su parte del importe de la copia es menor que el tamaño mínimo de operación."
+    "copySkippedMinBody": "La operación {symbol} de {providerName} no se copió porque su parte del importe de la copia es menor que el tamaño mínimo de operación.",
+    "priceAlertTitle": "Alerta de precio: {symbol}",
+    "priceAlertBody": "{symbol} {direction, select, above {superó} other {cayó por debajo de}} tu objetivo de {target} y ahora cotiza a {price}."
   },
   "Portfolio": {
     "title": "Mi cartera",
@@ -935,7 +937,22 @@
     "type_gold": "el precio de una onza de oro en dólares estadounidenses, cotizado las 24 horas",
     "type_forex": "el tipo de cambio entre dos de las principales monedas del mundo",
     "source_binance": "Precio en vivo de los datos públicos de mercado de Binance, actualizado cada pocos segundos.",
-    "source_ecb": "Tipo de referencia diario. Fuente: estadísticas del Banco Central Europeo (BCE), publicadas una vez por día hábil."
+    "source_ecb": "Tipo de referencia diario. Fuente: estadísticas del Banco Central Europeo (BCE), publicadas una vez por día hábil.",
+    "alertsTitle": "Alertas de precio",
+    "alertsHint": "Fija un precio y te avisaremos en cuanto llegue a él.",
+    "alertTargetLabel": "Precio objetivo",
+    "alertCreate": "Crear alerta",
+    "alertAbove": "Por encima de {price}",
+    "alertBelow": "Por debajo de {price}",
+    "alertRemove": "Eliminar alerta",
+    "alertCreated": "Alerta creada. Te avisaremos cuando el precio llegue.",
+    "alertErrInvalid": "Introduce un precio mayor que cero.",
+    "alertErrSame": "Introduce un precio distinto del actual.",
+    "alertErrMax": "Tienes 20 alertas activas. Elimina una para añadir otra.",
+    "alertsActive": "Alertas activas",
+    "alertsEmpty": "No hay alertas activas en este instrumento.",
+    "alertsRecent": "Alcanzadas recientemente",
+    "alertsActiveCount": "{count, plural, one {# alerta de precio activa} other {# alertas de precio activas}}"
   },
   "Support": {
     "pageTitle": "Soporte — Copy Matrix",

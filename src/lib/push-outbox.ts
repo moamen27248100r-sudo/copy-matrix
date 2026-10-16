@@ -33,7 +33,7 @@ async function loadMessages(locale: Locale): Promise<Messages> {
 
 // The page a tap on the notification opens.
 function targetPath(type: string, data: Record<string, unknown>): string {
-  if (type === "market_move" && typeof data.symbol === "string") return `/markets/${data.symbol}`;
+  if ((type === "market_move" || type === "market_price_alert") && typeof data.symbol === "string") return `/markets/${data.symbol}`;
   if (["loss_alert", "copy_started", "copy_stopped", "leader_stopped", "copy_reduced", "copy_skipped"].includes(type)) return "/copies";
   if (["copy_opened", "copy_closed", "auto_stop_copy"].includes(type)) return "/trades";
   if (type.startsWith("wallet_")) return "/portfolio";

@@ -425,12 +425,14 @@
     "cat_market": "Pasar",
     "marketMoveTitle": "Pergerakan besar di {symbol}",
     "marketMoveBody": "{symbol} {direction, select, up {naik} other {turun}} {pct} dalam 24 jam terakhir dan kini di {price}.",
-    "prefsMarket": "Pergerakan pasar",
+    "prefsMarket": "Pergerakan pasar dan peringatan harga",
     "copyReducedTitle": "Transaksi disalin dengan jumlah lebih kecil",
     "copyReducedBody": "Transaksi {symbol} dari {providerName} disalin dengan {opened}, bukan {required}, karena dana bebas di salinan ini {available}.",
     "copySkippedTitle": "Satu transaksi tidak disalin",
     "copySkippedFreeBody": "Transaksi {symbol} dari {providerName} tidak disalin karena dana bebas di salinan ini ({available}) sedang dipakai transaksi terbuka. Anda bisa menambah jumlah salinan saat tidak ada transaksi terbuka.",
-    "copySkippedMinBody": "Transaksi {symbol} dari {providerName} tidak disalin karena bagiannya dari jumlah salinan di bawah ukuran transaksi minimum."
+    "copySkippedMinBody": "Transaksi {symbol} dari {providerName} tidak disalin karena bagiannya dari jumlah salinan di bawah ukuran transaksi minimum.",
+    "priceAlertTitle": "Peringatan harga: {symbol}",
+    "priceAlertBody": "{symbol} {direction, select, above {naik melewati} other {turun di bawah}} target Anda {target} dan kini di {price}."
   },
   "Portfolio": {
     "title": "Portofolio Saya",
@@ -935,7 +937,22 @@
     "type_gold": "harga satu ons emas dalam dolar AS, dikutip sepanjang waktu",
     "type_forex": "kurs antara dua mata uang utama dunia",
     "source_binance": "Harga langsung dari data pasar publik Binance, diperbarui setiap beberapa detik.",
-    "source_ecb": "Kurs referensi harian. Sumber: statistik Bank Sentral Eropa (ECB), diterbitkan sekali per hari kerja."
+    "source_ecb": "Kurs referensi harian. Sumber: statistik Bank Sentral Eropa (ECB), diterbitkan sekali per hari kerja.",
+    "alertsTitle": "Peringatan harga",
+    "alertsHint": "Tetapkan harga dan kami akan memberi tahu Anda begitu harga mencapainya.",
+    "alertTargetLabel": "Harga target",
+    "alertCreate": "Buat peringatan",
+    "alertAbove": "Di atas {price}",
+    "alertBelow": "Di bawah {price}",
+    "alertRemove": "Hapus peringatan",
+    "alertCreated": "Peringatan dibuat. Kami akan memberi tahu saat harga mencapainya.",
+    "alertErrInvalid": "Masukkan harga di atas nol.",
+    "alertErrSame": "Masukkan harga yang berbeda dari harga saat ini.",
+    "alertErrMax": "Anda memiliki 20 peringatan aktif. Hapus satu untuk menambah yang lain.",
+    "alertsActive": "Peringatan aktif",
+    "alertsEmpty": "Tidak ada peringatan aktif pada instrumen ini.",
+    "alertsRecent": "Baru saja tercapai",
+    "alertsActiveCount": "{count} peringatan harga aktif"
   },
   "Support": {
     "pageTitle": "Dukungan — Copy Matrix",

@@ -15,6 +15,7 @@ import { getMarketNewsFor, topicsForSymbols } from "@/lib/market-news";
 import { localeTag } from "@/lib/locale-format";
 import { nowMs } from "@/lib/now";
 import { toggleWatch } from "@/app/markets/actions";
+import { PriceAlerts } from "@/components/markets/PriceAlerts";
 import type { Locale } from "@/i18n/locales";
 
 export async function generateMetadata({ params }: { params: Promise<{ symbol: string }> }) {
@@ -42,8 +43,9 @@ function RangeBar({ lo, hi, price, decimals }: { lo: number; hi: number; price: 
 // 3M | 1Y, today's and the 52-week range, the volume for crypto, a short description, the headlines
 // that concern it and the leaders who trade it most. An instrument whose price source is not
 // answering is not shown at all.
-export default async function InstrumentPage({ params }: { params: Promise<{ symbol: string }> }) {
+export default async function InstrumentPage({ params, searchParams }: { params: Promise<{ symbol: string }>; searchParams: Promise<{ alert?: string }> }) {
   const { symbol } = await params;
+  const { alert } = await searchParams;
   const inst = instrumentBySymbol(symbol);
   if (!inst) notFound();
 
@@ -136,6 +138,8 @@ export default async function InstrumentPage({ params }: { params: Promise<{ sym
         <section className="rounded-[20px] border border-border bg-surface p-5">
           <InstrumentChart symbol={symbol} initial={initial} decimals={inst.decimals} label={inst.label} />
         </section>
+
+        <PriceAlerts userId={user.id} symbol={symbol} price={row.price} decimals={inst.decimals} result={alert} locale={locale} />
 
         <div className="grid gap-4 sm:grid-cols-2">
           {lo != null && hi != null && (

@@ -12,10 +12,13 @@ export async function HomeWatchlist({ userId }: { userId: string }) {
   const t = await getTranslations("Dashboard");
   const tm = await getTranslations("Markets");
   const supabase = await createClient();
-  const [{ data: watch }, live] = await Promise.all([
+  const [{ data: watch }, live, { data: alerts }] = await Promise.all([
     supabase.from("market_watchlist").select("symbol, created_at").eq("user_id", userId).order("created_at", { ascending: true }),
     getLiveInstruments(),
+    supabase.from("price_alerts").select("symbol").eq("user_id", userId).eq("status", "active"),
   ]);
+  const alertCount = new Map<string, number>();
+  for (const a of alerts ?? []) alertCount.set(String(a.symbol), (alertCount.get(String(a.symbol)) ?? 0) + 1);
   const bySymbol = new Map(live.map((r) => [r.symbol, r]));
   const rows = (watch ?? []).flatMap((w) => {
     const r = bySymbol.get(w.symbol as string);
@@ -69,16 +72,16 @@ export async function HomeWatchlist({ userId }: { userId: string }) {
           </ul>
         </div>
       ) : (
-        <WatchlistGrid items={rows.slice(0, 6).map((r) => ({ symbol: r.symbol, label: r.instrument.label, name: r.instrument.name, glyph: r.instrument.glyph, tone: r.instrument.tone, price: r.price, decimals: r.instrument.decimals, change: r.change_pct }))} />
+        <WatchlistGrid items={rows.slice(0, 6).map((r) => ({ symbol: r.symbol, label: r.instrument.label, name: r.instrument.name, glyph: r.instrument.glyph, tone: r.instrument.tone, price: r.price, decimals: r.instrument.decimals, change: r.change_pct, alerts: alertCount.get(r.symbol) ?? 0 }))} alertLabel={(n) => tm("alertsActiveCount", { count: n })} />
       )}
     </section>
   );
 }
 
-export type WatchItem = { symbol: string; label: string; name: string; glyph: string; tone: string; price: number; decimals: number; change: number | null };
+export type WatchItem = { symbol: string; label: string; name: string; glyph: string; tone: string; price: number; decimals: number; change: number | null; alerts?: number };
 
 // The watchlist rows. The home-page mock-up renders the same rows with fixed values.
-export function WatchlistGrid({ items }: { items: WatchItem[] }) {
+export function WatchlistGrid({ items, alertLabel }: { items: WatchItem[]; alertLabel?: (count: number) => string }) {
   return (
     <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
       {items.map((r) => {
@@ -91,8 +94,18 @@ export function WatchlistGrid({ items }: { items: WatchItem[] }) {
             >
               <InstrumentIcon glyph={r.glyph} toneClass={r.tone} size="h-8 w-8" />
               <span className="min-w-0 flex-1">
-                <span dir="ltr" className="block truncate text-sm font-bold">
-                  {r.label}
+                <span className="flex items-center gap-1.5">
+                  <span dir="ltr" className="truncate text-sm font-bold">
+                    {r.label}
+                  </span>
+                  {!!r.alerts && alertLabel && (
+                    <span title={alertLabel(r.alerts)} aria-label={alertLabel(r.alerts)} className="shrink-0 text-accent-text">
+                      <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                      </svg>
+                    </span>
+                  )}
                 </span>
                 <span className="block truncate text-xs text-muted">{r.name}</span>
               </span>

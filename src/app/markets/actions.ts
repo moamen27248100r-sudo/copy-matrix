@@ -40,3 +40,36 @@ export async function toggleWatch(formData: FormData) {
   revalidatePath(`/markets/${symbol}`);
   redirect(returnTo.startsWith("/") && !returnTo.startsWith("//") ? returnTo : "/discover?tab=markets");
 }
+
+// Price alerts (0266): created and cancelled through the database functions, which check the
+// instrument, the target and the limit of 20 active alerts. Back to the instrument page either way.
+const ALERT_ERRORS: Record<string, string> = { CM061: "invalid", CM062: "same", CM063: "max" };
+
+export async function createPriceAlert(formData: FormData) {
+  const symbol = String(formData.get("symbol") ?? "");
+  if (!instrumentBySymbol(symbol)) redirect("/discover?tab=markets");
+  const target = Number(String(formData.get("target") ?? "").replace(/,/g, ""));
+  const back = `/markets/${symbol}`;
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect(`/login?next=${encodeURIComponent(back)}`);
+
+  const { error } = await supabase.rpc("create_price_alert", { p_symbol: symbol, p_target: Number.isFinite(target) ? target : 0 });
+  revalidatePath(back);
+  revalidatePath("/dashboard");
+  redirect(`${back}?alert=${error ? (ALERT_ERRORS[error.code ?? ""] ?? "invalid") : "created"}#alerts`);
+}
+
+export async function cancelPriceAlert(formData: FormData) {
+  const id = String(formData.get("id") ?? "");
+  const symbol = String(formData.get("symbol") ?? "");
+  const back = instrumentBySymbol(symbol) ? `/markets/${symbol}` : "/discover?tab=markets";
+  const supabase = await createClient();
+  await supabase.rpc("cancel_price_alert", { p_id: id });
+  revalidatePath(back);
+  revalidatePath("/dashboard");
+  redirect(`${back}#alerts`);
+}

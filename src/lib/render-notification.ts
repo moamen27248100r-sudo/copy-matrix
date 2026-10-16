@@ -67,6 +67,16 @@ export function renderNotification(t: Translator, n: NotificationRow, rawMoney: 
         }),
       };
     }
+    case "market_price_alert":
+      return {
+        title: t("priceAlertTitle", { symbol: String(d.symbol ?? "") }),
+        body: t("priceAlertBody", {
+          symbol: String(d.symbol ?? ""),
+          direction: d.direction === "above" ? "above" : "below",
+          target: "\u2066" + fmtNotifPrice(Number(d.target ?? 0)) + "\u2069",
+          price: "\u2066" + fmtNotifPrice(Number(d.price ?? 0)) + "\u2069",
+        }),
+      };
     case "security_new_login":
       return { title: t("securityNewLoginTitle"), body: t("securityNewLoginBody") };
     case "copy_opened":

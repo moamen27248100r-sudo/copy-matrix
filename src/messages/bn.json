@@ -425,12 +425,14 @@
     "cat_market": "বাজার",
     "marketMoveTitle": "{symbol}-এ বড় নড়াচড়া",
     "marketMoveBody": "{symbol} গত ২৪ ঘণ্টায় {pct} {direction, select, up {বেড়েছে} other {কমেছে}} এবং এখন {price}।",
-    "prefsMarket": "বাজারের নড়াচড়া",
+    "prefsMarket": "বাজারের নড়াচড়া ও দামের সতর্কতা",
     "copyReducedTitle": "কম পরিমাণে ট্রেড কপি হয়েছে",
     "copyReducedBody": "{providerName}-এর {symbol} ট্রেড {required}-এর বদলে {opened} দিয়ে কপি হয়েছে, কারণ এই কপিতে {available} খালি ছিল।",
     "copySkippedTitle": "একটি ট্রেড কপি হয়নি",
     "copySkippedFreeBody": "{providerName}-এর {symbol} ট্রেড কপি হয়নি, কারণ এই কপির খালি অর্থ ({available}) খোলা ট্রেডে ব্যবহৃত। কোনো ট্রেড খোলা না থাকলে আপনি কপির পরিমাণ বাড়াতে পারেন।",
-    "copySkippedMinBody": "{providerName}-এর {symbol} ট্রেড কপি হয়নি, কারণ কপির অর্থে এর অংশ ন্যূনতম ট্রেড আকারের চেয়ে কম।"
+    "copySkippedMinBody": "{providerName}-এর {symbol} ট্রেড কপি হয়নি, কারণ কপির অর্থে এর অংশ ন্যূনতম ট্রেড আকারের চেয়ে কম।",
+    "priceAlertTitle": "দামের সতর্কতা: {symbol}",
+    "priceAlertBody": "{symbol} আপনার লক্ষ্য {target}-এর {direction, select, above {উপরে উঠেছে} other {নিচে নেমেছে}}, এখন দাম {price}।"
   },
   "Portfolio": {
     "title": "আমার পোর্টফোলিও",
@@ -935,7 +937,22 @@
     "type_gold": "এক আউন্স সোনার মার্কিন ডলার মূল্য, সার্বক্ষণিক",
     "type_forex": "বিশ্বের দুটি প্রধান মুদ্রার বিনিময় হার",
     "source_binance": "Binance-এর পাবলিক মার্কেট ডেটা থেকে লাইভ দাম, কয়েক সেকেন্ড পরপর হালনাগাদ।",
-    "source_ecb": "দৈনিক রেফারেন্স রেট। সূত্র: ইউরোপীয় কেন্দ্রীয় ব্যাংক (ECB) পরিসংখ্যান, প্রতি কার্যদিবসে একবার প্রকাশিত।"
+    "source_ecb": "দৈনিক রেফারেন্স রেট। সূত্র: ইউরোপীয় কেন্দ্রীয় ব্যাংক (ECB) পরিসংখ্যান, প্রতি কার্যদিবসে একবার প্রকাশিত।",
+    "alertsTitle": "দামের সতর্কতা",
+    "alertsHint": "একটি দাম ঠিক করুন, দাম সেখানে পৌঁছালেই আমরা আপনাকে জানাব।",
+    "alertTargetLabel": "লক্ষ্য দাম",
+    "alertCreate": "সতর্কতা তৈরি করুন",
+    "alertAbove": "{price}-এর উপরে",
+    "alertBelow": "{price}-এর নিচে",
+    "alertRemove": "সতর্কতা সরান",
+    "alertCreated": "সতর্কতা তৈরি হয়েছে। দাম সেখানে পৌঁছালে আমরা জানাব।",
+    "alertErrInvalid": "শূন্যের বেশি একটি দাম লিখুন।",
+    "alertErrSame": "বর্তমান দামের থেকে আলাদা দাম লিখুন।",
+    "alertErrMax": "আপনার ২০টি সক্রিয় সতর্কতা আছে। আরেকটি যোগ করতে একটি সরান।",
+    "alertsActive": "সক্রিয় সতর্কতা",
+    "alertsEmpty": "এই ইনস্ট্রুমেন্টে কোনো সক্রিয় সতর্কতা নেই।",
+    "alertsRecent": "সম্প্রতি পৌঁছেছে",
+    "alertsActiveCount": "{count}টি সক্রিয় দামের সতর্কতা"
   },
   "Support": {
     "pageTitle": "সহায়তা — Copy Matrix",

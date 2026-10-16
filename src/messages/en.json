@@ -425,12 +425,14 @@
     "cat_market": "Market",
     "marketMoveTitle": "Big move in {symbol}",
     "marketMoveBody": "{symbol} {direction, select, up {rose} other {fell}} {pct} over the last 24 hours and now trades at {price}.",
-    "prefsMarket": "Market moves",
+    "prefsMarket": "Market moves and price alerts",
     "copyReducedTitle": "Trade copied with a smaller amount",
     "copyReducedBody": "The {symbol} trade from {providerName} was copied with {opened} instead of {required}, because {available} was free in this copy.",
     "copySkippedTitle": "A trade was not copied",
     "copySkippedFreeBody": "The {symbol} trade from {providerName} was not copied because the free amount in this copy ({available}) is in use by open trades. You can raise the copy amount when no trade is open.",
-    "copySkippedMinBody": "The {symbol} trade from {providerName} was not copied because its share of the copy amount is below the minimum trade size."
+    "copySkippedMinBody": "The {symbol} trade from {providerName} was not copied because its share of the copy amount is below the minimum trade size.",
+    "priceAlertTitle": "Price alert: {symbol}",
+    "priceAlertBody": "{symbol} {direction, select, above {rose above} other {fell below}} your target of {target} and now trades at {price}."
   },
   "Portfolio": {
     "title": "My Portfolio",
@@ -935,7 +937,22 @@
     "type_gold": "the price of one ounce of gold in US dollars, quoted around the clock",
     "type_forex": "the exchange rate between two of the world’s major currencies",
     "source_binance": "Live price from Binance public market data, refreshed every few seconds.",
-    "source_ecb": "Daily reference rate. Source: European Central Bank (ECB) statistics, published once per business day."
+    "source_ecb": "Daily reference rate. Source: European Central Bank (ECB) statistics, published once per business day.",
+    "alertsTitle": "Price alerts",
+    "alertsHint": "Set a price and we'll notify you as soon as it gets there.",
+    "alertTargetLabel": "Target price",
+    "alertCreate": "Create alert",
+    "alertAbove": "Above {price}",
+    "alertBelow": "Below {price}",
+    "alertRemove": "Remove alert",
+    "alertCreated": "Alert created. We'll notify you when the price gets there.",
+    "alertErrInvalid": "Enter a price above zero.",
+    "alertErrSame": "Enter a price different from the current one.",
+    "alertErrMax": "You have 20 active alerts. Remove one to add another.",
+    "alertsActive": "Active alerts",
+    "alertsEmpty": "No active alerts on this instrument.",
+    "alertsRecent": "Recently reached",
+    "alertsActiveCount": "{count, plural, one {# active price alert} other {# active price alerts}}"
   },
   "Support": {
     "pageTitle": "Support — Copy Matrix",

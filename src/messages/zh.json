@@ -425,12 +425,14 @@
     "cat_market": "市场",
     "marketMoveTitle": "{symbol} 大幅波动",
     "marketMoveBody": "{symbol} 过去 24 小时{direction, select, up {上涨} other {下跌}} {pct}，现价 {price}。",
-    "prefsMarket": "市场波动",
+    "prefsMarket": "市场波动与价格提醒",
     "copyReducedTitle": "交易已按较小金额复制",
     "copyReducedBody": "来自 {providerName} 的 {symbol} 交易以 {opened} 复制，而非 {required}，因为此跟单的可用金额为 {available}。",
     "copySkippedTitle": "有一笔交易未被复制",
     "copySkippedFreeBody": "来自 {providerName} 的 {symbol} 交易未被复制，因为此跟单的可用金额（{available}）已被持仓交易占用。没有持仓时可提高跟单金额。",
-    "copySkippedMinBody": "来自 {providerName} 的 {symbol} 交易未被复制，因为其在跟单金额中的份额低于最小交易规模。"
+    "copySkippedMinBody": "来自 {providerName} 的 {symbol} 交易未被复制，因为其在跟单金额中的份额低于最小交易规模。",
+    "priceAlertTitle": "价格提醒：{symbol}",
+    "priceAlertBody": "{symbol} 已{direction, select, above {升破} other {跌破}}您设定的 {target}，当前价格 {price}。"
   },
   "Portfolio": {
     "title": "我的资产",
@@ -935,7 +937,22 @@
     "type_gold": "每盎司黄金的美元价格，全天候报价",
     "type_forex": "全球两种主要货币之间的汇率",
     "source_binance": "来自币安公开行情数据的实时价格，每几秒刷新一次。",
-    "source_ecb": "每日参考汇率。来源：欧洲中央银行（ECB）统计数据，每个工作日发布一次。"
+    "source_ecb": "每日参考汇率。来源：欧洲中央银行（ECB）统计数据，每个工作日发布一次。",
+    "alertsTitle": "价格提醒",
+    "alertsHint": "设定一个价格，价格一到就通知您。",
+    "alertTargetLabel": "目标价格",
+    "alertCreate": "创建提醒",
+    "alertAbove": "高于 {price}",
+    "alertBelow": "低于 {price}",
+    "alertRemove": "删除提醒",
+    "alertCreated": "提醒已创建。价格到达时我们会通知您。",
+    "alertErrInvalid": "请输入大于零的价格。",
+    "alertErrSame": "请输入与当前价格不同的价格。",
+    "alertErrMax": "您已有 20 个有效提醒。删除一个后才能再添加。",
+    "alertsActive": "有效提醒",
+    "alertsEmpty": "此品种暂无有效提醒。",
+    "alertsRecent": "最近已触达",
+    "alertsActiveCount": "{count} 个有效价格提醒"
   },
   "Support": {
     "pageTitle": "支持 — Copy Matrix",

@@ -425,12 +425,14 @@
     "cat_market": "السوق",
     "marketMoveTitle": "حركة كبيرة في {symbol}",
     "marketMoveBody": "{symbol} {direction, select, up {ارتفع} other {انخفض}} بنسبة {pct} خلال آخر 24 ساعة، والسعر الآن {price}.",
-    "prefsMarket": "حركة السوق",
+    "prefsMarket": "حركة السوق وتنبيهات السعر",
     "copyReducedTitle": "نُسخت صفقة بمبلغ أقل",
     "copyReducedBody": "نُسخت صفقة {symbol} من {providerName} بمبلغ {opened} بدل {required}، لأن المتاح في هذا النسخ كان {available}.",
     "copySkippedTitle": "لم تُنسخ صفقة",
     "copySkippedFreeBody": "لم تُنسخ صفقة {symbol} من {providerName} لأن المبلغ المتاح في هذا النسخ ({available}) مستخدم في صفقات مفتوحة. يمكنك زيادة مبلغ النسخ عندما لا تكون هناك صفقات مفتوحة.",
-    "copySkippedMinBody": "لم تُنسخ صفقة {symbol} من {providerName} لأن حصتها من مبلغ النسخ أقل من الحد الأدنى لحجم الصفقة."
+    "copySkippedMinBody": "لم تُنسخ صفقة {symbol} من {providerName} لأن حصتها من مبلغ النسخ أقل من الحد الأدنى لحجم الصفقة.",
+    "priceAlertTitle": "تنبيه سعر: {symbol}",
+    "priceAlertBody": "{symbol} {direction, select, above {ارتفع فوق} other {انخفض دون}} السعر المستهدف {target}، والسعر الآن {price}."
   },
   "Portfolio": {
     "title": "محفظتي",
@@ -935,7 +937,22 @@
     "type_gold": "سعر أونصة الذهب بالدولار الأمريكي، يُسعَّر على مدار الساعة",
     "type_forex": "سعر الصرف بين عملتين رئيسيتين في العالم",
     "source_binance": "السعر الحي من بيانات السوق العامة لـ Binance ويُحدَّث كل بضع ثوانٍ.",
-    "source_ecb": "سعر مرجعي يومي. المصدر: إحصاءات البنك المركزي الأوروبي (ECB)، تُنشر مرة واحدة كل يوم عمل."
+    "source_ecb": "سعر مرجعي يومي. المصدر: إحصاءات البنك المركزي الأوروبي (ECB)، تُنشر مرة واحدة كل يوم عمل.",
+    "alertsTitle": "تنبيهات السعر",
+    "alertsHint": "حدّد سعرًا وسنرسل لك إشعارًا فور وصول السعر إليه.",
+    "alertTargetLabel": "السعر المستهدف",
+    "alertCreate": "إنشاء التنبيه",
+    "alertAbove": "فوق {price}",
+    "alertBelow": "تحت {price}",
+    "alertRemove": "حذف التنبيه",
+    "alertCreated": "تم إنشاء التنبيه. سنُعلمك عند وصول السعر إليه.",
+    "alertErrInvalid": "أدخل سعرًا أكبر من صفر.",
+    "alertErrSame": "أدخل سعرًا مختلفًا عن السعر الحالي.",
+    "alertErrMax": "لديك 20 تنبيهًا نشطًا. احذف أحدها لإضافة تنبيه جديد.",
+    "alertsActive": "التنبيهات النشطة",
+    "alertsEmpty": "لا توجد تنبيهات نشطة على هذا الأصل.",
+    "alertsRecent": "تنبيهات وصل إليها السعر مؤخرًا",
+    "alertsActiveCount": "{count, plural, one {تنبيه سعر نشط} two {تنبيهان نشطان} few {# تنبيهات نشطة} other {# تنبيه نشط}}"
   },
   "Support": {
     "pageTitle": "الدعم الفني — Copy Matrix",

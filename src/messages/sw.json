@@ -425,12 +425,14 @@
     "cat_market": "Soko",
     "marketMoveTitle": "Mabadiliko makubwa kwenye {symbol}",
     "marketMoveBody": "{symbol} {direction, select, up {imepanda} other {imeshuka}} {pct} ndani ya saa 24 zilizopita na sasa iko {price}.",
-    "prefsMarket": "Mabadiliko ya soko",
+    "prefsMarket": "Mabadiliko ya soko na arifa za bei",
     "copyReducedTitle": "Biashara imenakiliwa kwa kiasi kidogo",
     "copyReducedBody": "Biashara ya {symbol} kutoka kwa {providerName} imenakiliwa kwa {opened} badala ya {required}, kwa sababu {available} ndicho kilichokuwa huru katika unakili huu.",
     "copySkippedTitle": "Biashara moja haikunakiliwa",
     "copySkippedFreeBody": "Biashara ya {symbol} kutoka kwa {providerName} haikunakiliwa kwa sababu kiasi huru cha unakili huu ({available}) kinatumika katika biashara zilizo wazi. Unaweza kuongeza kiasi wakati hakuna biashara iliyo wazi.",
-    "copySkippedMinBody": "Biashara ya {symbol} kutoka kwa {providerName} haikunakiliwa kwa sababu sehemu yake ya kiasi cha unakili iko chini ya ukubwa wa chini wa biashara."
+    "copySkippedMinBody": "Biashara ya {symbol} kutoka kwa {providerName} haikunakiliwa kwa sababu sehemu yake ya kiasi cha unakili iko chini ya ukubwa wa chini wa biashara.",
+    "priceAlertTitle": "Arifa ya bei: {symbol}",
+    "priceAlertBody": "{symbol} {direction, select, above {imepanda juu ya} other {imeshuka chini ya}} lengo lako la {target} na sasa iko {price}."
   },
   "Portfolio": {
     "title": "Jalada Langu",
@@ -935,7 +937,22 @@
     "type_gold": "bei ya wakia moja ya dhahabu kwa dola za Marekani, inayotolewa kila wakati",
     "type_forex": "kiwango cha ubadilishaji kati ya sarafu mbili kuu za dunia",
     "source_binance": "Bei ya moja kwa moja kutoka data ya soko ya umma ya Binance, husasishwa kila sekunde chache.",
-    "source_ecb": "Kiwango cha marejeo cha kila siku. Chanzo: takwimu za Benki Kuu ya Ulaya (ECB), huchapishwa mara moja kila siku ya kazi."
+    "source_ecb": "Kiwango cha marejeo cha kila siku. Chanzo: takwimu za Benki Kuu ya Ulaya (ECB), huchapishwa mara moja kila siku ya kazi.",
+    "alertsTitle": "Arifa za bei",
+    "alertsHint": "Weka bei na tutakujulisha mara itakapofika hapo.",
+    "alertTargetLabel": "Bei lengwa",
+    "alertCreate": "Unda arifa",
+    "alertAbove": "Juu ya {price}",
+    "alertBelow": "Chini ya {price}",
+    "alertRemove": "Ondoa arifa",
+    "alertCreated": "Arifa imeundwa. Tutakujulisha bei itakapofika hapo.",
+    "alertErrInvalid": "Weka bei iliyo juu ya sifuri.",
+    "alertErrSame": "Weka bei tofauti na ya sasa.",
+    "alertErrMax": "Una arifa 20 zinazoendelea. Ondoa moja ili kuongeza nyingine.",
+    "alertsActive": "Arifa zinazoendelea",
+    "alertsEmpty": "Hakuna arifa zinazoendelea kwa kifaa hiki.",
+    "alertsRecent": "Zilizofikiwa hivi karibuni",
+    "alertsActiveCount": "Arifa {count} za bei zinazoendelea"
   },
   "Support": {
     "pageTitle": "Msaada — Copy Matrix",

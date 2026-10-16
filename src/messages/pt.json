@@ -425,12 +425,14 @@
     "cat_market": "Mercado",
     "marketMoveTitle": "Grande movimento em {symbol}",
     "marketMoveBody": "{symbol} {direction, select, up {subiu} other {caiu}} {pct} nas últimas 24 horas e agora está em {price}.",
-    "prefsMarket": "Movimentos do mercado",
+    "prefsMarket": "Movimentos do mercado e alertas de preço",
     "copyReducedTitle": "Operação copiada com valor menor",
     "copyReducedBody": "A operação {symbol} de {providerName} foi copiada com {opened} em vez de {required}, porque havia {available} livre nesta cópia.",
     "copySkippedTitle": "Uma operação não foi copiada",
     "copySkippedFreeBody": "A operação {symbol} de {providerName} não foi copiada porque o valor livre desta cópia ({available}) está em uso em operações abertas. Você pode aumentar o valor quando não houver operações abertas.",
-    "copySkippedMinBody": "A operação {symbol} de {providerName} não foi copiada porque sua parte do valor da cópia é menor que o tamanho mínimo de operação."
+    "copySkippedMinBody": "A operação {symbol} de {providerName} não foi copiada porque sua parte do valor da cópia é menor que o tamanho mínimo de operação.",
+    "priceAlertTitle": "Alerta de preço: {symbol}",
+    "priceAlertBody": "{symbol} {direction, select, above {subiu acima do} other {caiu abaixo do}} seu alvo de {target} e agora está em {price}."
   },
   "Portfolio": {
     "title": "Minha carteira",
@@ -935,7 +937,22 @@
     "type_gold": "o preço de uma onça de ouro em dólares americanos, cotado o dia todo",
     "type_forex": "a taxa de câmbio entre duas das principais moedas do mundo",
     "source_binance": "Preço ao vivo dos dados públicos de mercado da Binance, atualizado a cada poucos segundos.",
-    "source_ecb": "Taxa de referência diária. Fonte: estatísticas do Banco Central Europeu (BCE), publicadas uma vez por dia útil."
+    "source_ecb": "Taxa de referência diária. Fonte: estatísticas do Banco Central Europeu (BCE), publicadas uma vez por dia útil.",
+    "alertsTitle": "Alertas de preço",
+    "alertsHint": "Defina um preço e avisaremos assim que ele for atingido.",
+    "alertTargetLabel": "Preço-alvo",
+    "alertCreate": "Criar alerta",
+    "alertAbove": "Acima de {price}",
+    "alertBelow": "Abaixo de {price}",
+    "alertRemove": "Remover alerta",
+    "alertCreated": "Alerta criado. Avisaremos quando o preço chegar lá.",
+    "alertErrInvalid": "Informe um preço maior que zero.",
+    "alertErrSame": "Informe um preço diferente do atual.",
+    "alertErrMax": "Você tem 20 alertas ativos. Remova um para adicionar outro.",
+    "alertsActive": "Alertas ativos",
+    "alertsEmpty": "Nenhum alerta ativo neste ativo.",
+    "alertsRecent": "Atingidos recentemente",
+    "alertsActiveCount": "{count, plural, one {# alerta de preço ativo} other {# alertas de preço ativos}}"
   },
   "Support": {
     "pageTitle": "Suporte — Copy Matrix",

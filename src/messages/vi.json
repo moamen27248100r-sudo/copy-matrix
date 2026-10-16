@@ -425,12 +425,14 @@
     "cat_market": "Thị trường",
     "marketMoveTitle": "{symbol} biến động mạnh",
     "marketMoveBody": "{symbol} {direction, select, up {tăng} other {giảm}} {pct} trong 24 giờ qua, hiện ở mức {price}.",
-    "prefsMarket": "Biến động thị trường",
+    "prefsMarket": "Biến động thị trường và cảnh báo giá",
     "copyReducedTitle": "Giao dịch được sao chép với số tiền nhỏ hơn",
     "copyReducedBody": "Giao dịch {symbol} từ {providerName} được sao chép với {opened} thay vì {required}, vì bản sao này chỉ còn trống {available}.",
     "copySkippedTitle": "Một giao dịch không được sao chép",
     "copySkippedFreeBody": "Giao dịch {symbol} từ {providerName} không được sao chép vì số tiền trống của bản sao này ({available}) đang dùng cho các giao dịch mở. Bạn có thể tăng số tiền sao chép khi không có giao dịch nào mở.",
-    "copySkippedMinBody": "Giao dịch {symbol} từ {providerName} không được sao chép vì phần của nó trong số tiền sao chép thấp hơn quy mô giao dịch tối thiểu."
+    "copySkippedMinBody": "Giao dịch {symbol} từ {providerName} không được sao chép vì phần của nó trong số tiền sao chép thấp hơn quy mô giao dịch tối thiểu.",
+    "priceAlertTitle": "Cảnh báo giá: {symbol}",
+    "priceAlertBody": "{symbol} đã {direction, select, above {vượt lên trên} other {giảm xuống dưới}} mục tiêu {target} của bạn và hiện ở {price}."
   },
   "Portfolio": {
     "title": "Danh mục của tôi",
@@ -935,7 +937,22 @@
     "type_gold": "giá một ounce vàng tính bằng đô la Mỹ, niêm yết suốt ngày",
     "type_forex": "tỷ giá giữa hai đồng tiền lớn của thế giới",
     "source_binance": "Giá trực tiếp từ dữ liệu thị trường công khai của Binance, cập nhật mỗi vài giây.",
-    "source_ecb": "Tỷ giá tham chiếu hằng ngày. Nguồn: thống kê Ngân hàng Trung ương châu Âu (ECB), công bố mỗi ngày làm việc một lần."
+    "source_ecb": "Tỷ giá tham chiếu hằng ngày. Nguồn: thống kê Ngân hàng Trung ương châu Âu (ECB), công bố mỗi ngày làm việc một lần.",
+    "alertsTitle": "Cảnh báo giá",
+    "alertsHint": "Đặt một mức giá và chúng tôi sẽ báo cho bạn ngay khi giá chạm tới.",
+    "alertTargetLabel": "Giá mục tiêu",
+    "alertCreate": "Tạo cảnh báo",
+    "alertAbove": "Trên {price}",
+    "alertBelow": "Dưới {price}",
+    "alertRemove": "Xóa cảnh báo",
+    "alertCreated": "Đã tạo cảnh báo. Chúng tôi sẽ báo khi giá chạm tới.",
+    "alertErrInvalid": "Nhập giá lớn hơn 0.",
+    "alertErrSame": "Nhập giá khác với giá hiện tại.",
+    "alertErrMax": "Bạn có 20 cảnh báo đang hoạt động. Xóa một cái để thêm cái khác.",
+    "alertsActive": "Cảnh báo đang hoạt động",
+    "alertsEmpty": "Không có cảnh báo nào cho công cụ này.",
+    "alertsRecent": "Mới đạt gần đây",
+    "alertsActiveCount": "{count} cảnh báo giá đang hoạt động"
   },
   "Support": {
     "pageTitle": "Hỗ trợ — Copy Matrix",

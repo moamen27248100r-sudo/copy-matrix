@@ -425,12 +425,14 @@
     "cat_market": "مارکیٹ",
     "marketMoveTitle": "{symbol} میں بڑی حرکت",
     "marketMoveBody": "{symbol} پچھلے 24 گھنٹوں میں {pct} {direction, select, up {بڑھا} other {گرا}} اور اب {price} پر ہے۔",
-    "prefsMarket": "مارکیٹ کی حرکت",
+    "prefsMarket": "مارکیٹ کی حرکت اور قیمت کے الرٹس",
     "copyReducedTitle": "ٹریڈ کم رقم کے ساتھ کاپی ہوا",
     "copyReducedBody": "{providerName} کا {symbol} ٹریڈ {required} کے بجائے {opened} کے ساتھ کاپی ہوا، کیونکہ اس کاپی میں {available} دستیاب تھا۔",
     "copySkippedTitle": "ایک ٹریڈ کاپی نہیں ہوا",
     "copySkippedFreeBody": "{providerName} کا {symbol} ٹریڈ کاپی نہیں ہوا کیونکہ اس کاپی کی خالی رقم ({available}) کھلے ٹریڈز میں لگی ہے۔ کوئی ٹریڈ کھلا نہ ہو تو آپ کاپی کی رقم بڑھا سکتے ہیں۔",
-    "copySkippedMinBody": "{providerName} کا {symbol} ٹریڈ کاپی نہیں ہوا کیونکہ کاپی کی رقم میں اس کا حصہ کم سے کم ٹریڈ سائز سے کم ہے۔"
+    "copySkippedMinBody": "{providerName} کا {symbol} ٹریڈ کاپی نہیں ہوا کیونکہ کاپی کی رقم میں اس کا حصہ کم سے کم ٹریڈ سائز سے کم ہے۔",
+    "priceAlertTitle": "قیمت کا الرٹ: {symbol}",
+    "priceAlertBody": "{symbol} آپ کے ہدف {target} سے {direction, select, above {اوپر چلا گیا} other {نیچے آ گیا}} اور اب {price} پر ہے۔"
   },
   "Portfolio": {
     "title": "میرا پورٹ فولیو",
@@ -935,7 +937,22 @@
     "type_gold": "ایک اونس سونے کی امریکی ڈالر میں قیمت، چوبیس گھنٹے دستیاب",
     "type_forex": "دنیا کی دو بڑی کرنسیوں کے درمیان شرح تبادلہ",
     "source_binance": "Binance کے عوامی مارکیٹ ڈیٹا سے لائیو قیمت، ہر چند سیکنڈ میں تازہ۔",
-    "source_ecb": "روزانہ حوالہ شرح۔ ماخذ: یورپی مرکزی بینک (ECB) کے اعداد و شمار، ہر کام کے دن ایک بار شائع۔"
+    "source_ecb": "روزانہ حوالہ شرح۔ ماخذ: یورپی مرکزی بینک (ECB) کے اعداد و شمار، ہر کام کے دن ایک بار شائع۔",
+    "alertsTitle": "قیمت کے الرٹس",
+    "alertsHint": "ایک قیمت مقرر کریں، وہاں پہنچتے ہی ہم آپ کو اطلاع دیں گے۔",
+    "alertTargetLabel": "ہدف قیمت",
+    "alertCreate": "الرٹ بنائیں",
+    "alertAbove": "{price} سے اوپر",
+    "alertBelow": "{price} سے نیچے",
+    "alertRemove": "الرٹ ہٹائیں",
+    "alertCreated": "الرٹ بن گیا۔ قیمت وہاں پہنچتے ہی ہم اطلاع دیں گے۔",
+    "alertErrInvalid": "صفر سے زیادہ قیمت درج کریں۔",
+    "alertErrSame": "موجودہ قیمت سے مختلف قیمت درج کریں۔",
+    "alertErrMax": "آپ کے 20 فعال الرٹس ہیں۔ نیا شامل کرنے کے لیے ایک ہٹائیں۔",
+    "alertsActive": "فعال الرٹس",
+    "alertsEmpty": "اس انسٹرومنٹ پر کوئی فعال الرٹ نہیں۔",
+    "alertsRecent": "حال ہی میں پہنچے",
+    "alertsActiveCount": "{count} فعال قیمت الرٹ"
   },
   "Support": {
     "pageTitle": "سپورٹ — Copy Matrix",
