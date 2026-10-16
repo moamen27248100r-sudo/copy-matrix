@@ -145,7 +145,7 @@ export function FeaturedLeaders({ leaders, hrefBase = "/trader" }: { leaders: Fe
         onTouchStart={touchStart}
         onTouchEnd={touchEnd}
         onTouchCancel={touchEnd}
-        className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth px-4 pb-1 sm:mx-0 sm:px-0"
+        className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0"
       >
         {leaders.map((l, i) => {
           const tone = badgeColors(l.id);
