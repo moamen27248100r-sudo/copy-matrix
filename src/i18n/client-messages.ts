@@ -12,6 +12,7 @@ export const GLOBAL_CLIENT_NAMESPACES = [
   "AccountSecurity",
   "Auth",
   "Common",
+  "CopyCalculator",
   "CopyDialog",
   "Countries",
   "Dashboard",

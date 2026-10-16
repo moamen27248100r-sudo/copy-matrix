@@ -568,8 +568,6 @@
     "statOverallWinRate": "Taxa de acerto geral",
     "statMaxDrawdown": "Drawdown máximo",
     "reliabilitySectionTitle": "Nível de confiabilidade de negociação",
-    "gaugeSafety": "Pontuação de segurança",
-    "gaugeRiskExposure": "Exposição ao risco",
     "equityChartTitle": "Desempenho acumulado",
     "periodsPerformanceTitle": "Desempenho por período",
     "winRateInline": "Taxa de acerto {pct}%",
@@ -579,12 +577,10 @@
     "reliabilityStatusHigh": "Confiabilidade excelente",
     "reliabilityStatusMedium": "Boa confiabilidade",
     "reliabilityStatusLow": "Confiabilidade baixa",
-    "gaugeLimitScore": "Pontuação de limite",
+    "gaugeLimitScore": "Fechadas no TP/SL",
     "gaugeTradingDays": "Dias de negociação ativos",
     "gaugeTipReliability": "Confiabilidade geral (0–100): combina o retorno de 6 meses, a maior queda, a parcela de meses lucrativos, a extensão do histórico e a taxa de acerto. Quanto maior, melhor.",
-    "gaugeTipSafety": "Pontuação de segurança (0–100): 100 menos 1,5 × a volatilidade anual dos retornos diários; retornos mais estáveis pontuam mais. Quanto maior, melhor.",
-    "gaugeTipRisk": "Exposição ao risco (0–100): 1,6 × a maior queda do capital a partir do pico (drawdown máximo). Quanto menor, melhor; em vermelho a partir de uma queda de cerca de 31%.",
-    "gaugeTipLimit": "Pontuação de limites: parcela das operações fechadas no stop loss ou take profit, em vez de fechadas manualmente ou ao fim do tempo de permanência.",
+    "gaugeTipLimit": "A parcela de operações fechadas no take profit (TP) ou stop loss (SL) definidos antes pelo trader, em vez de fechadas manualmente ou ao fim do prazo. Uma parcela maior indica um plano de saída definido para cada operação.",
     "gaugeTipTradingDays": "Número de dias em que o trader abriu ou fechou pelo menos uma operação.",
     "followingLabel": "Seguindo",
     "followToastTitle": "Seguindo com sucesso",
@@ -615,7 +611,18 @@
     "statProfitFactor": "Fator de lucro",
     "statAvgWinLoss": "Ganho / perda médios",
     "copyingBadge": "Copiando · {amount}",
-    "manageCopy": "Gerenciar cópia"
+    "manageCopy": "Gerenciar cópia",
+    "gaugeRiskLevel": "Nível de risco",
+    "gaugeRiskLow": "Baixo",
+    "gaugeRiskMedium": "Médio",
+    "gaugeRiskHigh": "Alto",
+    "gaugeVolatility": "Volatilidade realizada",
+    "gaugeTipRiskLevel": "O nível de risco vem apenas da volatilidade realizada dos resultados diários do trader: abaixo de 15% ao ano é baixo, de 15% a 40% médio e 40% ou mais alto. É o mesmo nível exibido no cartão do trader em todo lugar.",
+    "gaugeTipVolatility": "Volatilidade realizada: o desvio padrão do retorno diário nos dias em que o trader operou, em todo o histórico, em base anual. Quanto maior, mais os resultados diários oscilam.",
+    "statSharpeHelp": "Retorno por unidade de oscilação; acima de 1 é bom",
+    "statProfitFactorHelp": "Ganhos totais ÷ perdas totais; acima de 1 é lucro líquido",
+    "statAvgWinLossHelp": "% médio de uma operação vencedora / perdedora",
+    "insufficientData": "Dados insuficientes para este período"
   },
   "Discover": {
     "title": "Descobrir traders",
@@ -2510,5 +2517,23 @@
       "p2": "A conta real usa dinheiro real: depósitos, saques e verificação de identidade se aplicam, e os resultados são reais. As duas contas são totalmente separadas.",
       "p3": "Você pode alternar entre elas pelo menu. Alternar interrompe as cópias atuais, então inicie de novo as que quiser na conta escolhida."
     }
+  },
+  "CopyCalculator": {
+    "title": "Se você tivesse copiado este trader",
+    "subtitle": "Escolha um valor e um início; o resultado é calculado com os resultados diários reais do trader.",
+    "amount": "Valor da cópia",
+    "since": "Desde",
+    "start_m1": "1 mês",
+    "start_m3": "3 meses",
+    "start_m6": "6 meses",
+    "start_y1": "1 ano",
+    "start_all": "Todo o histórico",
+    "belowMin": "O mínimo para copiar este trader é {min}.",
+    "valueNow": "Valor hoje",
+    "result": "Resultado",
+    "lowestPoint": "Maior queda no caminho",
+    "note": "Uma cópia acompanha os resultados do trader na proporção do seu valor, então isto aplica os retornos diários reais dele ao valor escolhido.",
+    "noteWithShare": "Uma cópia acompanha os resultados do trader na proporção do seu valor; isto aplica os retornos diários reais dele ao valor escolhido, após a participação nos lucros de {pct}% sobre o lucro.",
+    "pastPerformance": "Desempenho passado não garante resultados futuros."
   }
 }

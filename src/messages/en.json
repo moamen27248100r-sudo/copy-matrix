@@ -568,8 +568,6 @@
     "statOverallWinRate": "Overall win rate",
     "statMaxDrawdown": "Max drawdown",
     "reliabilitySectionTitle": "Trading reliability level",
-    "gaugeSafety": "Safety score",
-    "gaugeRiskExposure": "Risk exposure",
     "equityChartTitle": "Cumulative performance",
     "periodsPerformanceTitle": "Performance by period",
     "winRateInline": "Win rate {pct}%",
@@ -579,12 +577,10 @@
     "reliabilityStatusHigh": "Excellent reliability",
     "reliabilityStatusMedium": "Good reliability",
     "reliabilityStatusLow": "Low reliability",
-    "gaugeLimitScore": "Limit Score",
+    "gaugeLimitScore": "Closed at TP/SL",
     "gaugeTradingDays": "Active Trading Days",
     "gaugeTipReliability": "Overall trading reliability (0–100): combines the 6-month return, the largest drawdown, the share of profitable months, the length of the track record and the win rate. Higher is better.",
-    "gaugeTipSafety": "Safety score (0–100): 100 minus 1.5 × the yearly volatility of the trader's daily returns, so steadier returns score higher. Higher is better.",
-    "gaugeTipRisk": "Risk exposure (0–100): 1.6 × the largest drop of the trader's equity from its peak (maximum drawdown). Lower is better; red from about a 31% drawdown.",
-    "gaugeTipLimit": "Limit score: the share of closed trades that ended at their stop loss or take profit, rather than being closed by hand or when their holding time ran out.",
+    "gaugeTipLimit": "The share of closed trades that ended at the take profit (TP) or stop loss (SL) the trader set in advance, rather than being closed by hand or when their time ran out. A higher share means each trade had an exit plan set beforehand.",
     "gaugeTipTradingDays": "Number of days on which the trader opened or closed at least one trade.",
     "followingLabel": "Following",
     "followToastTitle": "Followed successfully",
@@ -615,7 +611,18 @@
     "statProfitFactor": "Profit factor",
     "statAvgWinLoss": "Avg. win / loss",
     "copyingBadge": "Copying · {amount}",
-    "manageCopy": "Manage copy"
+    "manageCopy": "Manage copy",
+    "gaugeRiskLevel": "Risk level",
+    "gaugeRiskLow": "Low",
+    "gaugeRiskMedium": "Medium",
+    "gaugeRiskHigh": "High",
+    "gaugeVolatility": "Realized volatility",
+    "gaugeTipRiskLevel": "The risk level comes only from the realized volatility of the trader's daily results: under 15% a year is low, 15% to 40% medium, 40% and more high. It is the same level shown on the trader's card everywhere.",
+    "gaugeTipVolatility": "Realized volatility: the standard deviation of the daily return on the days the trader traded, over the whole record, on a yearly basis. The higher it is, the more the daily results swing.",
+    "statSharpeHelp": "Return per unit of swing; above 1 is good",
+    "statProfitFactorHelp": "Total gains ÷ total losses; above 1 means a net profit",
+    "statAvgWinLossHelp": "Average % of a winning / losing trade",
+    "insufficientData": "Not enough data for this period"
   },
   "Discover": {
     "title": "Discover traders",
@@ -2511,5 +2518,23 @@
       "p2": "The real account uses real money: deposits, withdrawals and identity verification apply, and results are real. The two accounts are kept completely separate.",
       "p3": "You can switch between them from the menu. Switching stops your current copies, so start the ones you want again on the account you choose."
     }
+  },
+  "CopyCalculator": {
+    "title": "If you had copied this trader",
+    "subtitle": "Pick an amount and a start; the result is calculated from the trader's actual daily results.",
+    "amount": "Copy amount",
+    "since": "Since",
+    "start_m1": "1 month",
+    "start_m3": "3 months",
+    "start_m6": "6 months",
+    "start_y1": "1 year",
+    "start_all": "Whole record",
+    "belowMin": "The minimum to copy this trader is {min}.",
+    "valueNow": "Value today",
+    "result": "Result",
+    "lowestPoint": "Deepest fall on the way",
+    "note": "A copy follows the trader's results in proportion to your amount, so this applies the trader's actual daily returns to the amount you chose.",
+    "noteWithShare": "A copy follows the trader's results in proportion to your amount, so this applies the trader's actual daily returns to the amount you chose, after the {pct}% profit share on the profit.",
+    "pastPerformance": "Past performance does not guarantee future results."
   }
 }

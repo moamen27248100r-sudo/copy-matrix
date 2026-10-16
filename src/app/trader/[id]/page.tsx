@@ -25,11 +25,12 @@ import { ConfirmButton } from "@/components/ConfirmButton";
 import { defaultCopyAmount } from "@/lib/copy-amount";
 import { TabStrip } from "@/components/TabStrip";
 import { CopyDialog } from "@/components/CopyDialog";
+import { CopyCalculator } from "@/components/CopyCalculator";
 import { RiskFooter } from "@/components/RiskFooter";
 import { RiskBadge } from "@/components/TraderBadges";
 import { getBioTranslator } from "@/lib/bio-translations";
 import type { Locale } from "@/i18n/locales";
-import { leaderScores } from "@/lib/leader-scores";
+import { leaderScores, riskLevelKey } from "@/lib/leader-scores";
 import { fmtDrawdown, fmtReturn, fmtWinRate, ltrIsolate, nameIsolate } from "@/lib/format-stats";
 import { aumBandFloor } from "@/lib/aum-band";
 import { adjustedMaxDrawdown, hasEnoughSample } from "@/lib/leader-scores";
@@ -490,12 +491,14 @@ export default async function TraderPage({
                 {enoughData ? (sharpe ?? "—") : "—"}
               </p>
               <p className="text-xs text-muted">{t("statSharpe")}</p>
+              <p className="mt-0.5 text-[11px] leading-snug text-dim">{t("statSharpeHelp")}</p>
             </div>
             <div>
               <p className="font-bold tabular-nums" dir="ltr">
                 {enoughData && provider.profit_factor != null ? Number(provider.profit_factor).toFixed(2) : "—"}
               </p>
               <p className="text-xs text-muted">{t("statProfitFactor")}</p>
+              <p className="mt-0.5 text-[11px] leading-snug text-dim">{t("statProfitFactorHelp")}</p>
             </div>
             <div>
               <p className="font-bold tabular-nums" dir="ltr">
@@ -503,6 +506,7 @@ export default async function TraderPage({
                 {enoughData && provider.avg_loss_pct != null ? `${Number(provider.avg_loss_pct).toFixed(2)}%` : "—"}
               </p>
               <p className="text-xs text-muted">{t("statAvgWinLoss")}</p>
+              <p className="mt-0.5 text-[11px] leading-snug text-dim">{t("statAvgWinLossHelp")}</p>
             </div>
           </div>
         </details>
@@ -511,8 +515,8 @@ export default async function TraderPage({
           <ExnessReliabilitySection
             reliabilityScore={scores.reliability}
             reliabilityStatus={reliabilityStatus}
-            safetyScore={scores.safety}
-            riskExposureScore={scores.risk}
+            riskLevel={riskLevelKey(provider.risk_level)}
+            realizedVol={provider.realized_vol_pct != null ? Number(provider.realized_vol_pct) : null}
             limitScore={scores.limit}
             activeTradingDays={scores.activeDays}
             activity={scores.activity}
@@ -563,6 +567,14 @@ export default async function TraderPage({
               ))}
             </div>
           </div>
+
+          <CopyCalculator
+            daily={dailyForClient}
+            defaultAmount={Math.max(1000, Number(provider.min_copy_amount) || 0)}
+            minAmount={Number(provider.min_copy_amount) || 0}
+            profitSharePct={profitShare}
+            locale={locale}
+          />
 
           <div className="flex flex-col gap-3">
             <h2 className="text-section-title">{t("monthlyReturnsTitle")}</h2>

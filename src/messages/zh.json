@@ -568,8 +568,6 @@
     "statOverallWinRate": "总体胜率",
     "statMaxDrawdown": "最大回撤",
     "reliabilitySectionTitle": "交易可靠性水平",
-    "gaugeSafety": "安全评分",
-    "gaugeRiskExposure": "风险敞口",
     "equityChartTitle": "累计表现",
     "periodsPerformanceTitle": "分期表现",
     "winRateInline": "胜率 {pct}%",
@@ -579,12 +577,10 @@
     "reliabilityStatusHigh": "可靠性极佳",
     "reliabilityStatusMedium": "可靠性良好",
     "reliabilityStatusLow": "可靠性较低",
-    "gaugeLimitScore": "限额评分",
+    "gaugeLimitScore": "按止盈/止损平仓",
     "gaugeTradingDays": "活跃交易天数",
     "gaugeTipReliability": "整体交易可靠性（0–100）：综合 6 个月收益、最大回撤、盈利月份占比、交易记录时长和胜率。越高越好。",
-    "gaugeTipSafety": "安全分（0–100）：100 减去 1.5 × 每日收益的年化波动率，收益越稳定得分越高。越高越好。",
-    "gaugeTipRisk": "风险敞口（0–100）：1.6 × 交易者资金从峰值的最大跌幅（最大回撤）。越低越好；回撤约 31% 起显示为红色。",
-    "gaugeTipLimit": "限价分：在止损或止盈位平仓的交易占已平仓交易的比例，而非手动平仓或持仓时间到期平仓。",
+    "gaugeTipLimit": "在交易员预先设定的止盈 (TP) 或止损 (SL) 处平仓的已平仓交易占比，而不是手动平仓或到期平仓。占比越高，说明每笔交易都有预先设定的退出计划。",
     "gaugeTipTradingDays": "交易者至少开仓或平仓一笔交易的天数。",
     "followingLabel": "已关注",
     "followToastTitle": "关注成功",
@@ -615,7 +611,18 @@
     "statProfitFactor": "盈亏比",
     "statAvgWinLoss": "平均盈利 / 亏损",
     "copyingBadge": "跟单中 · {amount}",
-    "manageCopy": "管理跟单"
+    "manageCopy": "管理跟单",
+    "gaugeRiskLevel": "风险等级",
+    "gaugeRiskLow": "低",
+    "gaugeRiskMedium": "中",
+    "gaugeRiskHigh": "高",
+    "gaugeVolatility": "实际波动率",
+    "gaugeTipRiskLevel": "风险等级仅根据交易员每日结果的实际波动率计算：年化低于 15% 为低，15% 至 40% 为中，40% 及以上为高。与各处交易员卡片上显示的等级相同。",
+    "gaugeTipVolatility": "实际波动率：交易员在有交易的日子里的日收益标准差，基于全部记录并按年计算。数值越高，每日结果波动越大。",
+    "statSharpeHelp": "每单位波动带来的收益；高于 1 为佳",
+    "statProfitFactorHelp": "总盈利 ÷ 总亏损；高于 1 表示净盈利",
+    "statAvgWinLossHelp": "盈利 / 亏损交易的平均百分比",
+    "insufficientData": "该时段数据不足"
   },
   "Discover": {
     "title": "发现交易员",
@@ -2508,5 +2515,23 @@
       "p2": "真实账户使用真实资金：涉及入金、出金和身份验证，结果也是真实的。两个账户完全分开。",
       "p3": "您可以在菜单中切换。切换会停止当前的跟单，请在所选账户中重新开始想要的跟单。"
     }
+  },
+  "CopyCalculator": {
+    "title": "如果您跟单了这位交易员",
+    "subtitle": "选择金额和起始时间；结果根据交易员的实际每日结果计算。",
+    "amount": "跟单金额",
+    "since": "起始",
+    "start_m1": "1 个月",
+    "start_m3": "3 个月",
+    "start_m6": "6 个月",
+    "start_y1": "1 年",
+    "start_all": "全部记录",
+    "belowMin": "跟单此交易员的最低金额为 {min}。",
+    "valueNow": "今日价值",
+    "result": "结果",
+    "lowestPoint": "期间最大回撤",
+    "note": "跟单按您的金额比例跟随交易员的结果，因此此计算将其实际每日收益应用于您选择的金额。",
+    "noteWithShare": "跟单按您的金额比例跟随交易员的结果，因此此计算将其实际每日收益应用于您选择的金额，并扣除盈利部分 {pct}% 的利润分成。",
+    "pastPerformance": "过往业绩不代表未来结果。"
   }
 }

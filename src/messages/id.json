@@ -568,8 +568,6 @@
     "statOverallWinRate": "Tingkat kemenangan keseluruhan",
     "statMaxDrawdown": "Drawdown maksimum",
     "reliabilitySectionTitle": "Tingkat keandalan trading",
-    "gaugeSafety": "Skor keamanan",
-    "gaugeRiskExposure": "Eksposur risiko",
     "equityChartTitle": "Performa kumulatif",
     "periodsPerformanceTitle": "Performa per periode",
     "winRateInline": "Tingkat kemenangan {pct}%",
@@ -579,12 +577,10 @@
     "reliabilityStatusHigh": "Keandalan sangat baik",
     "reliabilityStatusMedium": "Keandalan baik",
     "reliabilityStatusLow": "Keandalan rendah",
-    "gaugeLimitScore": "Skor Batas",
+    "gaugeLimitScore": "Ditutup di TP/SL",
     "gaugeTradingDays": "Hari Trading Aktif",
     "gaugeTipReliability": "Keandalan trading keseluruhan (0–100): menggabungkan imbal hasil 6 bulan, penurunan terbesar, porsi bulan yang untung, lama rekam jejak, dan rasio menang. Semakin tinggi semakin baik.",
-    "gaugeTipSafety": "Skor keamanan (0–100): 100 dikurangi 1,5 × volatilitas tahunan imbal hasil harian, sehingga imbal hasil yang lebih stabil mendapat skor lebih tinggi. Semakin tinggi semakin baik.",
-    "gaugeTipRisk": "Eksposur risiko (0–100): 1,6 × penurunan modal terbesar dari puncaknya (drawdown maksimum). Semakin rendah semakin baik; merah mulai sekitar 31% penurunan.",
-    "gaugeTipLimit": "Skor batas: porsi transaksi tertutup yang berakhir di stop loss atau take profit, bukan ditutup manual atau saat waktu tahannya habis.",
+    "gaugeTipLimit": "Persentase transaksi tertutup yang berakhir di take profit (TP) atau stop loss (SL) yang ditetapkan trader sebelumnya, bukan ditutup manual atau karena waktunya habis. Persentase lebih tinggi berarti setiap transaksi punya rencana keluar sejak awal.",
     "gaugeTipTradingDays": "Jumlah hari trader membuka atau menutup setidaknya satu transaksi.",
     "followingLabel": "Mengikuti",
     "followToastTitle": "Berhasil mengikuti",
@@ -615,7 +611,18 @@
     "statProfitFactor": "Faktor profit",
     "statAvgWinLoss": "Rata-rata untung / rugi",
     "copyingBadge": "Disalin · {amount}",
-    "manageCopy": "Kelola salinan"
+    "manageCopy": "Kelola salinan",
+    "gaugeRiskLevel": "Tingkat risiko",
+    "gaugeRiskLow": "Rendah",
+    "gaugeRiskMedium": "Sedang",
+    "gaugeRiskHigh": "Tinggi",
+    "gaugeVolatility": "Volatilitas aktual",
+    "gaugeTipRiskLevel": "Tingkat risiko hanya berasal dari volatilitas aktual hasil harian trader: di bawah 15% per tahun rendah, 15% hingga 40% sedang, 40% ke atas tinggi. Tingkat yang sama ditampilkan di kartu trader di semua tempat.",
+    "gaugeTipVolatility": "Volatilitas aktual: simpangan baku imbal hasil harian pada hari-hari trader bertransaksi, di seluruh riwayat, secara tahunan. Semakin tinggi, semakin besar ayunan hasil harian.",
+    "statSharpeHelp": "Imbal hasil per satuan ayunan; di atas 1 bagus",
+    "statProfitFactorHelp": "Total keuntungan ÷ total kerugian; di atas 1 berarti untung bersih",
+    "statAvgWinLossHelp": "Rata-rata % transaksi untung / rugi",
+    "insufficientData": "Data tidak cukup untuk periode ini"
   },
   "Discover": {
     "title": "Temukan trader",
@@ -2507,5 +2514,23 @@
       "p2": "Akun nyata memakai uang sungguhan: setoran, penarikan, dan verifikasi identitas berlaku, dan hasilnya nyata. Kedua akun dipisahkan sepenuhnya.",
       "p3": "Anda dapat beralih dari menu. Beralih menghentikan salinan Anda saat ini, jadi mulai lagi yang Anda inginkan di akun pilihan."
     }
+  },
+  "CopyCalculator": {
+    "title": "Jika Anda menyalin trader ini",
+    "subtitle": "Pilih jumlah dan waktu mulai; hasilnya dihitung dari hasil harian aktual trader.",
+    "amount": "Jumlah salin",
+    "since": "Sejak",
+    "start_m1": "1 bulan",
+    "start_m3": "3 bulan",
+    "start_m6": "6 bulan",
+    "start_y1": "1 tahun",
+    "start_all": "Seluruh riwayat",
+    "belowMin": "Minimum untuk menyalin trader ini adalah {min}.",
+    "valueNow": "Nilai hari ini",
+    "result": "Hasil",
+    "lowestPoint": "Penurunan terdalam di perjalanan",
+    "note": "Salinan mengikuti hasil trader sebanding dengan jumlah Anda, jadi perhitungan ini menerapkan imbal hasil harian aktualnya pada jumlah yang Anda pilih.",
+    "noteWithShare": "Salinan mengikuti hasil trader sebanding dengan jumlah Anda; perhitungan ini menerapkan imbal hasil harian aktualnya pada jumlah Anda, setelah bagi hasil {pct}% dari keuntungan.",
+    "pastPerformance": "Kinerja masa lalu tidak menjamin hasil di masa depan."
   }
 }

@@ -568,8 +568,6 @@
     "statOverallWinRate": "Tasa de éxito general",
     "statMaxDrawdown": "Máximo drawdown",
     "reliabilitySectionTitle": "Nivel de fiabilidad de trading",
-    "gaugeSafety": "Puntuación de seguridad",
-    "gaugeRiskExposure": "Exposición al riesgo",
     "equityChartTitle": "Rendimiento acumulado",
     "periodsPerformanceTitle": "Rendimiento por período",
     "winRateInline": "Tasa de éxito {pct}%",
@@ -579,12 +577,10 @@
     "reliabilityStatusHigh": "Fiabilidad excelente",
     "reliabilityStatusMedium": "Buena fiabilidad",
     "reliabilityStatusLow": "Fiabilidad baja",
-    "gaugeLimitScore": "Puntuación de límite",
+    "gaugeLimitScore": "Cerradas en TP/SL",
     "gaugeTradingDays": "Días de trading activos",
     "gaugeTipReliability": "Fiabilidad global (0–100): combina el rendimiento de 6 meses, la mayor caída, la proporción de meses rentables, la antigüedad del historial y la tasa de acierto. Cuanto más alto, mejor.",
-    "gaugeTipSafety": "Puntuación de seguridad (0–100): 100 menos 1,5 × la volatilidad anual de los rendimientos diarios; los rendimientos más estables puntúan más. Cuanto más alto, mejor.",
-    "gaugeTipRisk": "Exposición al riesgo (0–100): 1,6 × la mayor caída del capital desde su máximo (drawdown máximo). Cuanto más bajo, mejor; en rojo desde una caída de alrededor del 31 %.",
-    "gaugeTipLimit": "Puntuación de límites: proporción de operaciones cerradas en su stop loss o take profit, en lugar de cerrarse a mano o al agotarse su tiempo de mantenimiento.",
+    "gaugeTipLimit": "El porcentaje de operaciones cerradas en el take profit (TP) o stop loss (SL) que el trader fijó de antemano, en lugar de cerrarse a mano o al agotar su tiempo. Un porcentaje mayor significa que cada operación tenía un plan de salida previo.",
     "gaugeTipTradingDays": "Número de días en los que el trader abrió o cerró al menos una operación.",
     "followingLabel": "Siguiendo",
     "followToastTitle": "Siguiendo con éxito",
@@ -615,7 +611,18 @@
     "statProfitFactor": "Factor de beneficio",
     "statAvgWinLoss": "Ganancia / pérdida media",
     "copyingBadge": "Copiando · {amount}",
-    "manageCopy": "Gestionar copia"
+    "manageCopy": "Gestionar copia",
+    "gaugeRiskLevel": "Nivel de riesgo",
+    "gaugeRiskLow": "Bajo",
+    "gaugeRiskMedium": "Medio",
+    "gaugeRiskHigh": "Alto",
+    "gaugeVolatility": "Volatilidad realizada",
+    "gaugeTipRiskLevel": "El nivel de riesgo sale solo de la volatilidad realizada de los resultados diarios del trader: menos del 15 % anual es bajo, del 15 % al 40 % medio y 40 % o más alto. Es el mismo nivel que se ve en la tarjeta del trader en todas partes.",
+    "gaugeTipVolatility": "Volatilidad realizada: la desviación estándar del rendimiento diario en los días en que el trader operó, en todo su historial, en base anual. Cuanto más alta, más oscilan los resultados diarios.",
+    "statSharpeHelp": "Rentabilidad por unidad de oscilación; más de 1 es bueno",
+    "statProfitFactorHelp": "Ganancias totales ÷ pérdidas totales; más de 1 es beneficio neto",
+    "statAvgWinLossHelp": "% medio de una operación ganadora / perdedora",
+    "insufficientData": "Datos insuficientes para este periodo"
   },
   "Discover": {
     "title": "Descubrir traders",
@@ -2508,5 +2515,23 @@
       "p2": "La cuenta real usa dinero real: se aplican depósitos, retiros y verificación de identidad, y los resultados son reales. Las dos cuentas están totalmente separadas.",
       "p3": "Puedes cambiar entre ellas desde el menú. Cambiar detiene tus copias actuales, así que vuelve a iniciar las que quieras en la cuenta elegida."
     }
+  },
+  "CopyCalculator": {
+    "title": "Si hubieras copiado a este trader",
+    "subtitle": "Elige un monto y un inicio; el resultado se calcula con los resultados diarios reales del trader.",
+    "amount": "Monto de copia",
+    "since": "Desde",
+    "start_m1": "1 mes",
+    "start_m3": "3 meses",
+    "start_m6": "6 meses",
+    "start_y1": "1 año",
+    "start_all": "Todo el historial",
+    "belowMin": "El mínimo para copiar a este trader es {min}.",
+    "valueNow": "Valor hoy",
+    "result": "Resultado",
+    "lowestPoint": "Mayor caída en el camino",
+    "note": "Una copia sigue los resultados del trader en proporción a tu monto, así que esto aplica sus rendimientos diarios reales al monto elegido.",
+    "noteWithShare": "Una copia sigue los resultados del trader en proporción a tu monto; esto aplica sus rendimientos diarios reales al monto elegido, tras el reparto de beneficios del {pct} % sobre la ganancia.",
+    "pastPerformance": "El rendimiento pasado no garantiza resultados futuros."
   }
 }

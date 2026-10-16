@@ -568,8 +568,6 @@
     "statOverallWinRate": "Kiwango cha ushindi kwa jumla",
     "statMaxDrawdown": "Upungufu wa juu",
     "reliabilitySectionTitle": "Kiwango cha uaminifu wa biashara",
-    "gaugeSafety": "Alama za usalama",
-    "gaugeRiskExposure": "Mfiduo wa hatari",
     "equityChartTitle": "Utendaji wa jumla",
     "periodsPerformanceTitle": "Utendaji kwa kipindi",
     "winRateInline": "Kiwango cha ushindi {pct}%",
@@ -579,12 +577,10 @@
     "reliabilityStatusHigh": "Kuaminika bora",
     "reliabilityStatusMedium": "Kuaminika vizuri",
     "reliabilityStatusLow": "Kuaminika chini",
-    "gaugeLimitScore": "Alama ya Kikomo",
+    "gaugeLimitScore": "Zilifungwa kwa TP/SL",
     "gaugeTradingDays": "Siku za Biashara Zilizo Hai",
     "gaugeTipReliability": "Uaminifu wa jumla wa biashara (0–100): unachanganya faida ya miezi 6, kushuka kukubwa zaidi, sehemu ya miezi yenye faida, urefu wa rekodi na kiwango cha ushindi. Juu zaidi ni bora.",
-    "gaugeTipSafety": "Alama ya usalama (0–100): 100 toa 1.5 × kuyumba kwa mwaka kwa faida za kila siku, hivyo faida thabiti zaidi hupata alama ya juu. Juu zaidi ni bora.",
-    "gaugeTipRisk": "Kiwango cha hatari (0–100): 1.6 × kushuka kukubwa zaidi kwa mtaji kutoka kilele chake (upungufu wa juu zaidi). Chini zaidi ni bora; nyekundu kuanzia kushuka kwa takriban 31%.",
-    "gaugeTipLimit": "Alama ya kikomo: sehemu ya biashara zilizofungwa zilizoishia kwenye stop loss au take profit, badala ya kufungwa kwa mkono au muda wa kushikilia ulipoisha.",
+    "gaugeTipLimit": "Sehemu ya biashara zilizofungwa ambazo ziliishia kwenye take profit (TP) au stop loss (SL) aliyoweka mfanyabiashara mapema, badala ya kufungwa kwa mkono au muda kuisha. Sehemu kubwa zaidi inamaanisha kila biashara ilikuwa na mpango wa kutoka uliowekwa mapema.",
     "gaugeTipTradingDays": "Idadi ya siku ambazo mfanyabiashara alifungua au kufunga angalau biashara moja.",
     "followingLabel": "Unafuata",
     "followToastTitle": "Umefuata kwa mafanikio",
@@ -615,7 +611,18 @@
     "statProfitFactor": "Kigezo cha faida",
     "statAvgWinLoss": "Wastani wa faida / hasara",
     "copyingBadge": "Unanakili · {amount}",
-    "manageCopy": "Simamia nakala"
+    "manageCopy": "Simamia nakala",
+    "gaugeRiskLevel": "Kiwango cha hatari",
+    "gaugeRiskLow": "Chini",
+    "gaugeRiskMedium": "Wastani",
+    "gaugeRiskHigh": "Juu",
+    "gaugeVolatility": "Mabadiliko halisi",
+    "gaugeTipRiskLevel": "Kiwango cha hatari kinatokana tu na mabadiliko halisi ya matokeo ya kila siku ya mfanyabiashara: chini ya 15% kwa mwaka ni chini, 15% hadi 40% ni wastani, na 40% au zaidi ni juu. Ni kiwango kilekile kinachoonyeshwa kwenye kadi ya mfanyabiashara kila mahali.",
+    "gaugeTipVolatility": "Mabadiliko halisi: mkengeuko sanifu wa faida ya kila siku katika siku ambazo mfanyabiashara alifanya biashara, katika rekodi yote, kwa mwaka. Kadiri ulivyo juu, ndivyo matokeo ya kila siku yanavyobadilika zaidi.",
+    "statSharpeHelp": "Faida kwa kila kipimo cha mabadiliko; zaidi ya 1 ni nzuri",
+    "statProfitFactorHelp": "Jumla ya faida ÷ jumla ya hasara; zaidi ya 1 ni faida halisi",
+    "statAvgWinLossHelp": "Wastani wa % ya biashara ya faida / hasara",
+    "insufficientData": "Data haitoshi kwa kipindi hiki"
   },
   "Discover": {
     "title": "Gundua wafanyabiashara",
@@ -2507,5 +2514,23 @@
       "p2": "Akaunti halisi hutumia pesa halisi: uwekaji, utoaji na uthibitisho wa utambulisho vinatumika, na matokeo ni halisi. Akaunti hizo mbili zimetenganishwa kabisa.",
       "p3": "Unaweza kubadilisha kati yao kutoka kwenye menyu. Kubadilisha husimamisha nakala zako za sasa, kwa hiyo anza upya unazotaka kwenye akaunti uliyochagua."
     }
+  },
+  "CopyCalculator": {
+    "title": "Kama ungemnakili mfanyabiashara huyu",
+    "subtitle": "Chagua kiasi na mwanzo; matokeo yanahesabiwa kutokana na matokeo halisi ya kila siku ya mfanyabiashara.",
+    "amount": "Kiasi cha kunakili",
+    "since": "Tangu",
+    "start_m1": "Mwezi 1",
+    "start_m3": "Miezi 3",
+    "start_m6": "Miezi 6",
+    "start_y1": "Mwaka 1",
+    "start_all": "Rekodi yote",
+    "belowMin": "Kiwango cha chini cha kumnakili mfanyabiashara huyu ni {min}.",
+    "valueNow": "Thamani leo",
+    "result": "Matokeo",
+    "lowestPoint": "Anguko kubwa zaidi njiani",
+    "note": "Nakala hufuata matokeo ya mfanyabiashara kwa uwiano wa kiasi chako, kwa hiyo hesabu hii inatumia faida zake halisi za kila siku kwenye kiasi ulichochagua.",
+    "noteWithShare": "Nakala hufuata matokeo ya mfanyabiashara kwa uwiano wa kiasi chako; hesabu hii inatumia faida zake halisi za kila siku kwenye kiasi chako, baada ya mgao wa faida wa {pct}% kwenye faida.",
+    "pastPerformance": "Utendaji wa zamani hauhakikishi matokeo ya baadaye."
   }
 }

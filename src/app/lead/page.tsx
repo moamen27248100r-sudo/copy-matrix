@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { getOwnProviderId, currentTier, nextTier } from "@/lib/lead-trader";
-import { leaderScores } from "@/lib/leader-scores";
+import { leaderScores, riskLevelKey } from "@/lib/leader-scores";
 import { getGaugeTier } from "@/components/CircularGauge";
 import { ExnessReliabilitySection } from "@/components/ExnessReliabilitySection";
 import { MonthlyReturnsCalendar } from "@/components/MonthlyReturnsCalendar";
@@ -185,8 +185,8 @@ export default async function LeadOverviewPage() {
         <ExnessReliabilitySection
           reliabilityScore={scores.reliability}
           reliabilityStatus={reliabilityStatus}
-          safetyScore={scores.safety}
-          riskExposureScore={scores.risk}
+          riskLevel={riskLevelKey(card?.risk_level ?? null)}
+          realizedVol={card?.realized_vol_pct != null ? Number(card.realized_vol_pct) : null}
           limitScore={scores.limit}
           activeTradingDays={activeDays}
           activity={scores.activity}

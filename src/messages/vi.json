@@ -568,8 +568,6 @@
     "statOverallWinRate": "Tỷ lệ thắng tổng thể",
     "statMaxDrawdown": "Sụt giảm tối đa",
     "reliabilitySectionTitle": "Mức độ tin cậy giao dịch",
-    "gaugeSafety": "Điểm an toàn",
-    "gaugeRiskExposure": "Mức độ rủi ro",
     "equityChartTitle": "Hiệu suất tích lũy",
     "periodsPerformanceTitle": "Hiệu suất theo giai đoạn",
     "winRateInline": "Tỷ lệ thắng {pct}%",
@@ -579,12 +577,10 @@
     "reliabilityStatusHigh": "Độ tin cậy xuất sắc",
     "reliabilityStatusMedium": "Độ tin cậy tốt",
     "reliabilityStatusLow": "Độ tin cậy thấp",
-    "gaugeLimitScore": "Điểm giới hạn",
+    "gaugeLimitScore": "Đóng tại TP/SL",
     "gaugeTradingDays": "Số ngày giao dịch hoạt động",
     "gaugeTipReliability": "Độ tin cậy giao dịch tổng thể (0–100): kết hợp lợi nhuận 6 tháng, mức sụt giảm lớn nhất, tỷ lệ tháng có lãi, độ dài lịch sử và tỷ lệ thắng. Càng cao càng tốt.",
-    "gaugeTipSafety": "Điểm an toàn (0–100): 100 trừ 1,5 × độ biến động hằng năm của lợi nhuận hằng ngày, lợi nhuận càng ổn định thì điểm càng cao. Càng cao càng tốt.",
-    "gaugeTipRisk": "Mức độ rủi ro (0–100): 1,6 × mức giảm lớn nhất của vốn so với đỉnh (sụt giảm tối đa). Càng thấp càng tốt; hiển thị màu đỏ từ mức sụt giảm khoảng 31%.",
-    "gaugeTipLimit": "Điểm giới hạn: tỷ lệ lệnh đã đóng kết thúc tại mức cắt lỗ hoặc chốt lời, thay vì đóng thủ công hoặc khi hết thời gian nắm giữ.",
+    "gaugeTipLimit": "Tỷ lệ giao dịch đã đóng kết thúc tại mức chốt lời (TP) hoặc cắt lỗ (SL) mà nhà giao dịch đặt trước, thay vì đóng thủ công hay hết thời gian. Tỷ lệ cao hơn nghĩa là mỗi giao dịch đều có kế hoạch thoát lệnh từ trước.",
     "gaugeTipTradingDays": "Số ngày nhà giao dịch mở hoặc đóng ít nhất một lệnh.",
     "followingLabel": "Đang theo dõi",
     "followToastTitle": "Theo dõi thành công",
@@ -615,7 +611,18 @@
     "statProfitFactor": "Hệ số lợi nhuận",
     "statAvgWinLoss": "Lãi / lỗ trung bình",
     "copyingBadge": "Đang sao chép · {amount}",
-    "manageCopy": "Quản lý sao chép"
+    "manageCopy": "Quản lý sao chép",
+    "gaugeRiskLevel": "Mức rủi ro",
+    "gaugeRiskLow": "Thấp",
+    "gaugeRiskMedium": "Trung bình",
+    "gaugeRiskHigh": "Cao",
+    "gaugeVolatility": "Biến động thực tế",
+    "gaugeTipRiskLevel": "Mức rủi ro chỉ được tính từ biến động thực tế của kết quả hằng ngày của nhà giao dịch: dưới 15% mỗi năm là thấp, 15% đến 40% là trung bình, từ 40% trở lên là cao. Đây cũng là mức hiển thị trên thẻ nhà giao dịch ở mọi nơi.",
+    "gaugeTipVolatility": "Biến động thực tế: độ lệch chuẩn của lợi nhuận hằng ngày vào những ngày nhà giao dịch có giao dịch, trên toàn bộ lịch sử, tính theo năm. Càng cao thì kết quả hằng ngày càng dao động mạnh.",
+    "statSharpeHelp": "Lợi nhuận trên mỗi đơn vị dao động; trên 1 là tốt",
+    "statProfitFactorHelp": "Tổng lãi ÷ tổng lỗ; trên 1 nghĩa là lãi ròng",
+    "statAvgWinLossHelp": "% trung bình của lệnh thắng / thua",
+    "insufficientData": "Không đủ dữ liệu cho giai đoạn này"
   },
   "Discover": {
     "title": "Khám phá nhà giao dịch",
@@ -2507,5 +2514,23 @@
       "p2": "Tài khoản thật dùng tiền thật: áp dụng nạp, rút và xác minh danh tính, kết quả là thật. Hai tài khoản tách biệt hoàn toàn.",
       "p3": "Bạn có thể chuyển qua lại từ menu. Việc chuyển sẽ dừng các bản sao hiện tại, nên hãy bắt đầu lại những bản bạn muốn trên tài khoản đã chọn."
     }
+  },
+  "CopyCalculator": {
+    "title": "Nếu bạn đã sao chép nhà giao dịch này",
+    "subtitle": "Chọn số tiền và thời điểm bắt đầu; kết quả được tính từ kết quả hằng ngày thực tế của nhà giao dịch.",
+    "amount": "Số tiền sao chép",
+    "since": "Từ",
+    "start_m1": "1 tháng",
+    "start_m3": "3 tháng",
+    "start_m6": "6 tháng",
+    "start_y1": "1 năm",
+    "start_all": "Toàn bộ lịch sử",
+    "belowMin": "Số tiền tối thiểu để sao chép nhà giao dịch này là {min}.",
+    "valueNow": "Giá trị hôm nay",
+    "result": "Kết quả",
+    "lowestPoint": "Mức sụt giảm sâu nhất trên đường đi",
+    "note": "Bản sao đi theo kết quả của nhà giao dịch theo tỷ lệ số tiền của bạn, nên phép tính này áp dụng lợi nhuận hằng ngày thực tế của họ lên số tiền bạn chọn.",
+    "noteWithShare": "Bản sao đi theo kết quả của nhà giao dịch theo tỷ lệ số tiền của bạn; phép tính áp dụng lợi nhuận hằng ngày thực tế lên số tiền bạn chọn, sau khi trừ {pct}% chia sẻ lợi nhuận trên phần lãi.",
+    "pastPerformance": "Kết quả trong quá khứ không đảm bảo kết quả trong tương lai."
   }
 }

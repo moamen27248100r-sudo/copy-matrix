@@ -116,7 +116,7 @@ function IconCircle({ tier, size, value, animate, children }: { tier: ColorTier;
 
 // Info tooltip trigger: hover/focus on desktop, tap on touch. The bubble is
 // rendered by the section (see Tip) so it can never overflow a half-width column.
-type TipKey = "reliability" | "safety" | "risk" | "limit" | "days" | "activity";
+type TipKey = "reliability" | "riskLevel" | "volatility" | "limit" | "days" | "activity";
 type TipState = { key: TipKey; top: number } | null;
 
 const ROW_H = 48;
@@ -217,6 +217,26 @@ function SubRing({ tipKey, value, label, icon, inverted, percent, tip }: { tipKe
 
 const ACTIVITY_TIER: Record<ActivityLevel, ColorTier> = { high: "good", medium: "good", low: "medium", none: "neutral" };
 
+export type RiskLevelKey = "low" | "medium" | "high";
+const RISK_TIER: Record<RiskLevelKey, ColorTier> = { low: "good", medium: "medium", high: "bad" };
+const RISK_FILL: Record<RiskLevelKey, number> = { low: 33, medium: 66, high: 100 };
+
+// The one risk measure (the same level as the badge on every card): the ring fills a third per step.
+function RiskLevelRow({ level, label, status, tip }: { level: RiskLevelKey | null; label: string; status: string; tip: TipHandlers }) {
+  const tier = level ? RISK_TIER[level] : "neutral";
+  return (
+    <Row tipKey="riskLevel" tip={tip}>
+      <IconCircle tier={tier} size={RING_SIZE} value={level ? RISK_FILL[level] : 0} animate={tip.animate}>
+        <AlertTriangleIcon className="h-[18px] w-[18px]" />
+      </IconCircle>
+      <div className="flex min-w-0 flex-col items-start leading-tight">
+        <span className="text-xs text-muted">{label}</span>
+        <span className={`text-sm font-bold ${TIER_COLOR[tier].text}`}>{status}</span>
+      </div>
+    </Row>
+  );
+}
+
 function ActivityBadge({ level, label, status, tip }: { level: ActivityLevel; label: string; status: string; tip: TipHandlers }) {
   const tier = ACTIVITY_TIER[level];
   return (
@@ -233,7 +253,7 @@ function ActivityBadge({ level, label, status, tip }: { level: ActivityLevel; la
 }
 
 // A plain count (not a quality score), so it stays neutral.
-function SubNumber({ tipKey, value, label, icon, tip }: { tipKey: TipKey; value: number; label: string; icon: React.ReactNode; tip: TipHandlers }) {
+function SubNumber({ tipKey, value, label, icon, tip }: { tipKey: TipKey; value: number | string; label: string; icon: React.ReactNode; tip: TipHandlers }) {
   return (
     <Row tipKey={tipKey} tip={tip}>
       <IconCircle tier="neutral" size={RING_SIZE} animate={tip.animate}>
@@ -250,8 +270,8 @@ function SubNumber({ tipKey, value, label, icon, tip }: { tipKey: TipKey; value:
 export function ExnessReliabilitySection({
   reliabilityScore,
   reliabilityStatus,
-  safetyScore,
-  riskExposureScore,
+  riskLevel,
+  realizedVol,
   limitScore,
   activeTradingDays,
   activity,
@@ -259,8 +279,8 @@ export function ExnessReliabilitySection({
 }: {
   reliabilityScore: number | null;
   reliabilityStatus: string;
-  safetyScore: number | null;
-  riskExposureScore: number | null;
+  riskLevel: RiskLevelKey | null;
+  realizedVol: number | null;
   limitScore: number | null;
   activeTradingDays: number;
   activity: ActivityLevel;
@@ -340,8 +360,8 @@ export function ExnessReliabilitySection({
 
   const TIP_TEXT: Record<TipKey, string> = {
     reliability: t("gaugeTipReliability"),
-    safety: t("gaugeTipSafety"),
-    risk: t("gaugeTipRisk"),
+    riskLevel: t("gaugeTipRiskLevel"),
+    volatility: t("gaugeTipVolatility"),
     limit: t("gaugeTipLimit"),
     days: t("gaugeTipTradingDays"),
     activity: t("gaugeTipActivity"),
@@ -357,8 +377,13 @@ export function ExnessReliabilitySection({
           <BracketConnector />
           <div className="flex min-w-0 flex-1 flex-col" style={{ gap: ROW_GAP }}>
             <MainRing value={reliabilityScore} status={reliabilityStatus} tier={mainTier} icon={<ShieldIcon className="h-5 w-5" />} tip={tip} />
-            <SubRing tipKey="safety" value={safetyScore} label={t("gaugeSafety")} icon={<LockIcon className="h-[18px] w-[18px]" />} tip={tip} />
-            <SubRing tipKey="risk" value={riskExposureScore} label={t("gaugeRiskExposure")} icon={<AlertTriangleIcon className="h-[18px] w-[18px]" />} inverted tip={tip} />
+            <RiskLevelRow
+              level={riskLevel}
+              label={t("gaugeRiskLevel")}
+              status={riskLevel ? { low: t("gaugeRiskLow"), medium: t("gaugeRiskMedium"), high: t("gaugeRiskHigh") }[riskLevel] : "—"}
+              tip={tip}
+            />
+            <SubNumber tipKey="volatility" value={realizedVol == null ? "—" : `${realizedVol.toFixed(1)}%`} label={t("gaugeVolatility")} icon={<LockIcon className="h-[18px] w-[18px]" />} tip={tip} />
           </div>
         </div>
 

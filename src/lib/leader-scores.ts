@@ -9,10 +9,8 @@
 //             + 0.18 x positive_months / months_counted         consistency (last 12 full months, 0.5 if none)
 //             + 0.15 x min(1, track_days / 540)                 length of the record
 //             + 0.10 x clamp01((win_rate_all% - 35) / 35) )     win rate
-//   safety      = clamp(100 - 1.5 x annualised volatility%)     volatility = stddev of the daily
-//                 returns over 180 days (vol_daily_pct) x sqrt(365); higher is better
-//   risk        = clamp(1.6 x mdd_all%)                         largest drop of the equity curve from
-//                 its peak; higher is WORSE (shown red from 50, i.e. a drawdown over ~31%)
+//   (risk: one measure only, provider_stats.risk_level from realized volatility, migration 0265;
+//    see riskLevelKey below)
 //   limit       = limit_pct: share of closed trades that ended at their stop loss or take
 //                 profit (the rest closed by hand or on time); higher is better
 //   activity    = trades_per_week (closed trades of the last 90 days per week):
@@ -33,8 +31,6 @@ export type ActivityLevel = "high" | "medium" | "low" | "none";
 
 export type LeaderScores = {
   reliability: number | null;
-  safety: number | null;
-  risk: number | null;
   limit: number | null;
   activity: ActivityLevel;
   tradesPerWeek: number;
@@ -53,15 +49,11 @@ export function activityLevel(tradesPerWeek: number): ActivityLevel {
 
 export function leaderScores(row: LeaderStatsRow): LeaderScores {
   const hasTrades = (num(row.closed_signals) ?? 0) > 0;
-  const vol = num(row.return_volatility);
-  const mdd = num(row.mdd_all);
   const rating = num(row.rating_score);
   const limit = num(row.limit_pct);
   const perWeek = num(row.trades_per_week) ?? 0;
   return {
     reliability: hasTrades && rating != null ? clamp(rating) : null,
-    safety: hasTrades && vol != null ? clamp(100 - vol * Math.sqrt(365) * 1.5) : null,
-    risk: hasTrades && mdd != null ? clamp(mdd * 1.6) : null,
     limit: hasTrades && limit != null ? clamp(limit) : null,
     activity: activityLevel(perWeek),
     tradesPerWeek: perWeek,
@@ -171,4 +163,9 @@ export function adjustedMaxDrawdown(stored: number | null | undefined, computed:
   const s = num(stored);
   if (computed == null) return s;
   return s == null ? computed : Math.max(s, computed);
+}
+
+/** provider_stats.risk_level (0265, realized volatility; stored as the Arabic word) as a key. */
+export function riskLevelKey(level: string | null | undefined): "low" | "medium" | "high" | null {
+  return level === "منخفضة" ? "low" : level === "متوسطة" ? "medium" : level === "مرتفعة" ? "high" : null;
 }
