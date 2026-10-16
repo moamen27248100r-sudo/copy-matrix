@@ -3,7 +3,9 @@
 // column set for one period so the discover page, the cards and the compare
 // view all read the same numbers.
 
-export const PERIODS = ["7", "30", "90", "180", "all"] as const;
+// 1D is left out on purpose: a leader's record is kept per day, so a one-day return is not a figure the
+// platform has for leaders. 1Y (365 days) comes from migration 0273.
+export const PERIODS = ["7", "30", "90", "180", "365", "all"] as const;
 export type Period = (typeof PERIODS)[number];
 export const DEFAULT_PERIOD: Period = "30";
 
@@ -27,7 +29,7 @@ export function periodColumns(p: Period) {
   } as const;
 }
 
-import { hasEnoughSample } from "@/lib/leader-scores";
+import { hasEnoughSample } from "./leader-scores.ts";
 
 export type PeriodStats = {
   /** false when fewer than MIN_CLOSED_TRADES trades closed in the period: return, win rate, drawdown and Sharpe are then null */

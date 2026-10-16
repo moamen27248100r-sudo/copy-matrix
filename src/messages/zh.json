@@ -1075,7 +1075,9 @@
     "passwordBreachedError": "此密码出现在已知的数据泄露中，请换一个。",
     "emailTakenError": "该邮箱已注册。",
     "emailTakenLogin": "登录",
-    "emailTakenReset": "重置密码"
+    "emailTakenReset": "重置密码",
+    "googleUnavailable": "暂时无法使用 Google 登录，请使用邮箱和密码。",
+    "googleSignInError": "无法启动 Google 登录，请重试或使用邮箱和密码。"
   },
   "Legal": {
     "backToHome": "返回首页",

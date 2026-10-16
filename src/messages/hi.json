@@ -1075,7 +1075,9 @@
     "passwordBreachedError": "यह पासवर्ड ज्ञात डेटा लीक में मिला है। कोई दूसरा चुनें।",
     "emailTakenError": "यह ईमेल पहले से पंजीकृत है।",
     "emailTakenLogin": "लॉग इन करें",
-    "emailTakenReset": "पासवर्ड रीसेट करें"
+    "emailTakenReset": "पासवर्ड रीसेट करें",
+    "googleUnavailable": "Google से साइन-इन अभी उपलब्ध नहीं है। कृपया अपने ईमेल और पासवर्ड का उपयोग करें।",
+    "googleSignInError": "Google से साइन-इन शुरू नहीं हो सका। कृपया फिर कोशिश करें या ईमेल और पासवर्ड का उपयोग करें।"
   },
   "Legal": {
     "backToHome": "होम पर वापस जाएं",

@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
-import { FeaturedLeaders, type FeaturedLeader } from "@/components/FeaturedLeaders";
+import type { FeaturedLeader } from "@/components/FeaturedLeaders";
+import { FeaturedLeadersLazy } from "@/components/FeaturedLeadersLazy";
 import { getBioTranslator } from "@/lib/bio-translations";
 import { MIN_CLOSED_TRADES } from "@/lib/leader-scores";
 
@@ -56,7 +57,7 @@ export async function FeaturedLeadersSection({ excludeProviderIds = [], viewAllH
           {t("viewAll")}
         </Link>
       </div>
-      <FeaturedLeaders leaders={leaders} />
+      <FeaturedLeadersLazy leaders={leaders} />
     </section>
   );
 }

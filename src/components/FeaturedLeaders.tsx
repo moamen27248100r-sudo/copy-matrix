@@ -30,7 +30,7 @@ export function FeaturedLeaders({ leaders, hrefBase = "/trader" }: { leaders: Fe
   const t = useTranslations("Featured");
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
-  const pausedRef = useRef({ hover: false, touch: false, hidden: false, focus: false });
+  const pausedRef = useRef({ hover: false, touch: false, hidden: true, focus: false }); // hidden until the observer says it is on screen
   const resumeTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const reduced = useRef(false);
 
@@ -161,7 +161,7 @@ export function FeaturedLeaders({ leaders, hrefBase = "/trader" }: { leaders: Fe
             >
               {l.photoUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={l.photoUrl} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
+                <img src={l.photoUrl} alt="" width={304} height={405} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
               ) : (
                 <span
                   aria-hidden="true"

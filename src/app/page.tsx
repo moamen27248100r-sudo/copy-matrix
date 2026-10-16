@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getTranslations, getLocale } from "next-intl/server";
 import { MarketOverview } from "@/components/MarketOverview";
-import { FeaturedLeaders } from "@/components/FeaturedLeaders";
+import { FeaturedLeadersLazy } from "@/components/FeaturedLeadersLazy";
 import { loadFeaturedLeaders } from "@/components/home/FeaturedLeadersSection";
 import { Header } from "@/components/Header";
 import { ArrowRight, ChartCandlestick, Copy, ShieldCheck } from "lucide-react";
@@ -110,7 +110,7 @@ export default async function Home() {
           <h2 className="ty-section">{t("traders.title")}</h2>
           <p className="ty-body mt-3 max-w-xl">{tl("traderSubtitle")}</p>
           <div className="mt-8">
-            <FeaturedLeaders leaders={featured} />
+            <FeaturedLeadersLazy leaders={featured} />
           </div>
           <div className="mt-8 flex justify-center">
             <Link

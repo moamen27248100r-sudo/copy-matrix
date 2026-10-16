@@ -1075,7 +1075,9 @@
     "passwordBreachedError": "Mật khẩu này từng xuất hiện trong các vụ rò rỉ dữ liệu. Hãy chọn mật khẩu khác.",
     "emailTakenError": "Email này đã được đăng ký.",
     "emailTakenLogin": "Đăng nhập",
-    "emailTakenReset": "Đặt lại mật khẩu"
+    "emailTakenReset": "Đặt lại mật khẩu",
+    "googleUnavailable": "Đăng nhập bằng Google chưa khả dụng. Vui lòng dùng email và mật khẩu.",
+    "googleSignInError": "Không thể bắt đầu đăng nhập bằng Google. Hãy thử lại hoặc dùng email và mật khẩu."
   },
   "Legal": {
     "backToHome": "Về trang chủ",

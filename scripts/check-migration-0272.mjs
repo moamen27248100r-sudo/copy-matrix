@@ -28,8 +28,10 @@ try {
   const aclBefore = await acl();
   if (!live) await c.query(up);
   const colsAfter = await cols();
-  check(colsAfter.at(-1) === "mdd_floating_all", "mdd_floating_all is the last column");
-  check(colsAfter.slice(0, -1).join() === colsBefore.filter((x) => x !== "mdd_floating_all").join(), "every earlier column keeps its place");
+  // later migrations (0273) append more columns after it, so only its place right after realized_vol_pct is checked
+  check(colsAfter[colsAfter.indexOf("realized_vol_pct") + 1] === "mdd_floating_all", "mdd_floating_all comes right after realized_vol_pct");
+  check(live || colsAfter.at(-1) === "mdd_floating_all", "mdd_floating_all is the last column of the view as of 0272");
+  check(live || colsAfter.slice(0, -1).join() === colsBefore.filter((x) => x !== "mdd_floating_all").join(), "every earlier column keeps its place");
   check((await acl()) === aclBefore || live, "grants are unchanged");
   const { rows: after } = await c.query("select provider_id, roi_30d, risk_level, realized_vol_pct from provider_cards order by provider_id limit 200");
   check(JSON.stringify(before) === JSON.stringify(after), "values of the existing columns are unchanged");

@@ -237,8 +237,8 @@ export default async function TraderPage({
       trades: todayTrades,
       winRate: todayTrades > 0 ? Math.round((Number(daily!.wins[today]) / todayTrades) * 100) : null,
     },
-    ...(["7d", "30d", "90d", "180d"] as const).map((s, i) => ({
-      labelKey: ["periodWeek", "periodMonth", "periodThreeMonths", "periodSixMonths"][i],
+    ...(["7d", "30d", "90d", "180d", "365d"] as const).map((s, i) => ({
+      labelKey: ["periodWeek", "periodMonth", "periodThreeMonths", "periodSixMonths", "periodYear"][i],
       roi: provider[`roi_${s}`] != null ? Number(provider[`roi_${s}`]) : null,
       trades: Number(provider[`trades_${s}`] ?? 0),
       winRate: provider[`win_rate_${s}`] != null ? Math.round(Number(provider[`win_rate_${s}`])) : null,
@@ -553,7 +553,7 @@ export default async function TraderPage({
         <section className="flex flex-col gap-6">
           <div className="flex flex-col gap-3">
             <h2 className="text-section-title">{t("periodsPerformanceTitle")}</h2>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
               {periods.map((p) => (
                 <div key={p.labelKey} className="rounded-lg border border-border bg-surface p-3 text-center">
                   <p className="text-xs text-muted">{tp(p.labelKey)}</p>

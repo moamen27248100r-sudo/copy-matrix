@@ -1075,7 +1075,9 @@
     "passwordBreachedError": "Esta senha aparece em vazamentos de dados conhecidos. Escolha outra.",
     "emailTakenError": "Este e-mail já está cadastrado.",
     "emailTakenLogin": "Entrar",
-    "emailTakenReset": "Redefinir senha"
+    "emailTakenReset": "Redefinir senha",
+    "googleUnavailable": "O acesso com Google ainda não está disponível. Use o seu e-mail e senha.",
+    "googleSignInError": "Não foi possível iniciar o acesso com Google. Tente novamente ou use o seu e-mail e senha."
   },
   "Legal": {
     "backToHome": "Voltar ao início",

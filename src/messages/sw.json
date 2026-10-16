@@ -1075,7 +1075,9 @@
     "passwordBreachedError": "Nenosiri hili limeonekana katika uvujaji wa data unaojulikana. Chagua jingine.",
     "emailTakenError": "Barua pepe hii tayari imesajiliwa.",
     "emailTakenLogin": "Ingia",
-    "emailTakenReset": "Weka upya nenosiri"
+    "emailTakenReset": "Weka upya nenosiri",
+    "googleUnavailable": "Kuingia kwa Google bado hakupatikani. Tafadhali tumia barua pepe na nenosiri lako.",
+    "googleSignInError": "Hatukuweza kuanza kuingia kwa Google. Jaribu tena au tumia barua pepe na nenosiri lako."
   },
   "Legal": {
     "backToHome": "Rudi mwanzo",

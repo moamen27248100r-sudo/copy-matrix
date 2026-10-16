@@ -1075,7 +1075,9 @@
     "passwordBreachedError": "This password appeared in known data leaks. Choose another one.",
     "emailTakenError": "This email is already registered.",
     "emailTakenLogin": "Log in",
-    "emailTakenReset": "Reset password"
+    "emailTakenReset": "Reset password",
+    "googleUnavailable": "Sign-in with Google is not available yet. Please use your email and password.",
+    "googleSignInError": "We could not start sign-in with Google. Please try again or use your email and password."
   },
   "Legal": {
     "backToHome": "Back to home",

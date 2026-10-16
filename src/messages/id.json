@@ -1075,7 +1075,9 @@
     "passwordBreachedError": "Kata sandi ini muncul dalam kebocoran data yang diketahui. Pilih yang lain.",
     "emailTakenError": "Email ini sudah terdaftar.",
     "emailTakenLogin": "Masuk",
-    "emailTakenReset": "Atur ulang kata sandi"
+    "emailTakenReset": "Atur ulang kata sandi",
+    "googleUnavailable": "Masuk dengan Google belum tersedia. Silakan gunakan email dan kata sandi Anda.",
+    "googleSignInError": "Kami tidak dapat memulai masuk dengan Google. Coba lagi atau gunakan email dan kata sandi Anda."
   },
   "Legal": {
     "backToHome": "Kembali ke beranda",

@@ -1,23 +1,39 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
+import { isGoogleEnabled } from "@/lib/google-auth";
 
 export function GoogleSignInButton({ next, label, loadingLabel }: { next?: string | null; label: string; loadingLabel: string }) {
+  const t = useTranslations("Auth");
   const [loading, setLoading] = useState(false);
+  const [problem, setProblem] = useState<string | null>(null);
 
   async function handleClick() {
+    setProblem(null);
     setLoading(true);
+    // Ask first: when Google sign-in is not switched on yet, say so here instead of opening an error page.
+    const enabled = await isGoogleEnabled(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!);
+    if (enabled === false) {
+      setLoading(false);
+      setProblem(t("googleUnavailable"));
+      return;
+    }
     const supabase = createClient();
     const redirectTo = `${window.location.origin}/auth/callback${next ? `?next=${encodeURIComponent(next)}` : ""}`;
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: { redirectTo },
     });
-    if (error) setLoading(false);
+    if (error) {
+      setLoading(false);
+      setProblem(t("googleSignInError"));
+    }
   }
 
   return (
+    <div className="flex flex-col gap-2">
     <button
       type="button"
       onClick={handleClick}
@@ -32,5 +48,11 @@ export function GoogleSignInButton({ next, label, loadingLabel }: { next?: strin
       </svg>
       {loading ? loadingLabel : label}
     </button>
+    {problem && (
+      <p role="alert" className="text-sm text-danger">
+        {problem}
+      </p>
+    )}
+    </div>
   );
 }

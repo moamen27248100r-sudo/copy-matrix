@@ -1075,7 +1075,9 @@
     "passwordBreachedError": "Ce mot de passe figure dans des fuites de données connues. Choisissez-en un autre.",
     "emailTakenError": "Cet e-mail est déjà enregistré.",
     "emailTakenLogin": "Se connecter",
-    "emailTakenReset": "Réinitialiser le mot de passe"
+    "emailTakenReset": "Réinitialiser le mot de passe",
+    "googleUnavailable": "La connexion avec Google n'est pas encore disponible. Utilisez votre e-mail et votre mot de passe.",
+    "googleSignInError": "Impossible de démarrer la connexion avec Google. Réessayez ou utilisez votre e-mail et votre mot de passe."
   },
   "Legal": {
     "backToHome": "Retour à l'accueil",

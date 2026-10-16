@@ -1,0 +1,343 @@
+-- 0273: the 12-month (1Y) period for leaders, next to 7D / 30D / 90D / 180D / all.
+-- provider_stats gets roi_365d, trades_365d, win_rate_365d, mdd_365d and sharpe_365d; refresh_provider_stats
+-- computes them with the same formula as the other periods (only a 365 is added to its list of periods);
+-- provider_cards shows them at the end of the view. Nothing else of the function changes.
+-- The columns are empty until the stats refresh has run for each leader (scripts/backfill-leader-1y.mjs).
+-- Rollback: supabase/rollback/0273_leader_period_1y.sql
+
+begin;
+
+alter table public.provider_stats
+  add column if not exists roi_365d numeric,
+  add column if not exists trades_365d integer,
+  add column if not exists win_rate_365d numeric,
+  add column if not exists mdd_365d numeric,
+  add column if not exists sharpe_365d numeric;
+
+CREATE OR REPLACE FUNCTION public.refresh_provider_stats(p_ids uuid[] DEFAULT NULL::uuid[], p_full boolean DEFAULT false)
+ RETURNS void
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+begin
+  insert into public.provider_stats (provider_id)
+  select p.id from public.providers p
+  where (p_ids is null or p.id = any(p_ids))
+  on conflict (provider_id) do nothing;
+
+  with ids as (
+    select p.id from public.providers p where p_ids is null or p.id = any(p_ids)
+  ), d as (
+    select pd.provider_id, pd.day, pd.trades, pd.wins, pd.pnl,
+           case when pd.start_equity + pd.cash_flow > 0 then pd.pnl / (pd.start_equity + pd.cash_flow) else 0 end as r,
+           (current_date - pd.day) as age
+    from public.provider_daily pd join ids on ids.id = pd.provider_id
+  ), pd as (
+    select d.*, w.period from d cross join unnest(array[7, 30, 90, 180, 365, 100000]) w(period) where d.age < w.period
+  ), cum as (
+    select pd.*, sum(ln(greatest(1e-9, 1 + r))) over (partition by provider_id, period order by day) as l
+    from pd
+  ), pk as (
+    select cum.*, greatest(0, max(l) over (partition by provider_id, period order by day
+                                           rows between unbounded preceding and current row)) as peak
+    from cum
+  ), agg as (
+    select provider_id, period,
+           exp(sum(ln(greatest(1e-9, 1 + r)))) - 1 as roi,
+           sum(pnl) as pnl, sum(trades)::int as trades, sum(wins)::int as wins,
+           max(1 - exp(l - peak)) as mdd,
+           case when count(*) > 2 and stddev_samp(r) > 0 then avg(r) / stddev_samp(r) * sqrt(365) end as sharpe
+    from pk group by provider_id, period
+  ), piv as (
+    select provider_id,
+      max(roi) filter (where period = 7) roi_7d, max(roi) filter (where period = 30) roi_30d,
+      max(roi) filter (where period = 90) roi_90d, max(roi) filter (where period = 180) roi_180d,
+      max(roi) filter (where period = 365) roi_365d,
+      max(roi) filter (where period = 100000) roi_all,
+      max(pnl) filter (where period = 7) pnl_7d, max(pnl) filter (where period = 30) pnl_30d,
+      max(pnl) filter (where period = 90) pnl_90d, max(pnl) filter (where period = 180) pnl_180d,
+      max(pnl) filter (where period = 100000) pnl_all,
+      max(trades) filter (where period = 7) trades_7d, max(trades) filter (where period = 30) trades_30d,
+      max(trades) filter (where period = 90) trades_90d, max(trades) filter (where period = 180) trades_180d,
+      max(trades) filter (where period = 365) trades_365d,
+      max(trades) filter (where period = 100000) trades_all,
+      max(case when trades > 0 then 100.0 * wins / trades end) filter (where period = 7) win_rate_7d,
+      max(case when trades > 0 then 100.0 * wins / trades end) filter (where period = 30) win_rate_30d,
+      max(case when trades > 0 then 100.0 * wins / trades end) filter (where period = 90) win_rate_90d,
+      max(case when trades > 0 then 100.0 * wins / trades end) filter (where period = 180) win_rate_180d,
+      max(case when trades > 0 then 100.0 * wins / trades end) filter (where period = 365) win_rate_365d,
+      max(case when trades > 0 then 100.0 * wins / trades end) filter (where period = 100000) win_rate_all,
+      max(mdd) filter (where period = 7) mdd_7d, max(mdd) filter (where period = 30) mdd_30d,
+      max(mdd) filter (where period = 90) mdd_90d, max(mdd) filter (where period = 180) mdd_180d,
+      max(mdd) filter (where period = 365) mdd_365d,
+      max(mdd) filter (where period = 100000) mdd_all,
+      max(sharpe) filter (where period = 7) sharpe_7d, max(sharpe) filter (where period = 30) sharpe_30d,
+      max(sharpe) filter (where period = 90) sharpe_90d, max(sharpe) filter (where period = 180) sharpe_180d,
+      max(sharpe) filter (where period = 365) sharpe_365d,
+      max(sharpe) filter (where period = 100000) sharpe_all
+    from agg group by provider_id
+  ), allt as (
+    select pd.provider_id,
+      sum(pd.gross_profit) gp, sum(pd.gross_loss) gl, sum(pd.wins) wins, sum(pd.trades) trades,
+      sum(pd.win_ret_sum) wrs, sum(pd.loss_ret_sum) lrs,
+      min(pd.day) first_day,
+      sum(ln(greatest(1e-9, 1 + case when pd.start_equity + pd.cash_flow > 0 then pd.pnl / (pd.start_equity + pd.cash_flow) else 0 end))) twr_log,
+      avg(case when pd.start_equity + pd.cash_flow > 0 then pd.pnl / (pd.start_equity + pd.cash_flow) else 0 end)
+        filter (where pd.day > current_date - 30) avg_r30,
+      stddev_samp(case when pd.start_equity + pd.cash_flow > 0 then pd.pnl / (pd.start_equity + pd.cash_flow) else 0 end)
+        filter (where pd.day > current_date - 180) sd_r180,
+      (array_agg(pd.followers order by pd.day desc) filter (where pd.followers is not null))[1] last_followers,
+      (array_agg(pd.aum order by pd.day desc) filter (where pd.aum is not null))[1] last_aum
+    from public.provider_daily pd join ids on ids.id = pd.provider_id
+    group by pd.provider_id
+  ), act as (
+    -- Active trading days: UTC days with a public trade opened or closed.
+    select x.provider_id, count(distinct x.d) n
+    from (
+      select s.provider_id, (s.opened_at at time zone 'UTC')::date d
+      from public.signals s join ids on ids.id = s.provider_id where not s.hidden and not s.created_by_admin
+      union all
+      select s.provider_id, (s.closed_at at time zone 'UTC')::date
+      from public.signals s join ids on ids.id = s.provider_id
+      where not s.hidden and not s.created_by_admin and s.status = 'closed' and s.closed_at is not null
+    ) x group by x.provider_id
+  ), months as (
+    select m.provider_id, count(*) filter (where m.ret > 0) positive, count(*) counted
+    from (
+      select pd.provider_id, date_trunc('month', pd.day) mo,
+             exp(sum(ln(greatest(1e-9, 1 + case when pd.start_equity + pd.cash_flow > 0 then pd.pnl / (pd.start_equity + pd.cash_flow) else 0 end)))) - 1 ret
+      from public.provider_daily pd join ids on ids.id = pd.provider_id
+      where pd.day >= date_trunc('month', current_date) - interval '12 months'
+        and pd.day < date_trunc('month', current_date)
+      group by 1, 2
+    ) m group by m.provider_id
+  ), cf as (
+    select c.provider_id,
+           -coalesce(sum(c.amount) filter (where c.kind = 'withdrawal'), 0) withdrawals,
+           coalesce(sum(c.amount) filter (where c.kind = 'deposit'), 0) deposits
+    from public.provider_cash_flows c join ids on ids.id = c.provider_id group by c.provider_id
+  ), subs as (
+    select s.provider_id, count(*) n
+    from public.subscriptions s join ids on ids.id = s.provider_id
+    where s.is_active group by s.provider_id
+  )
+  update public.provider_stats st set
+    dirty = false,
+    updated_at = now(),
+    roi_7d = round(100 * coalesce(piv.roi_7d, 0), 2), roi_30d = round(100 * coalesce(piv.roi_30d, 0), 2),
+    roi_90d = round(100 * coalesce(piv.roi_90d, 0), 2), roi_180d = round(100 * coalesce(piv.roi_180d, 0), 2),
+    roi_365d = round(100 * coalesce(piv.roi_365d, 0), 2),
+    roi_all = round(100 * coalesce(piv.roi_all, 0), 2),
+    pnl_7d = round(coalesce(piv.pnl_7d, 0), 2), pnl_30d = round(coalesce(piv.pnl_30d, 0), 2),
+    pnl_90d = round(coalesce(piv.pnl_90d, 0), 2), pnl_180d = round(coalesce(piv.pnl_180d, 0), 2),
+    pnl_all = round(coalesce(piv.pnl_all, 0), 2),
+    trades_7d = coalesce(piv.trades_7d, 0), trades_30d = coalesce(piv.trades_30d, 0),
+    trades_90d = coalesce(piv.trades_90d, 0), trades_180d = coalesce(piv.trades_180d, 0),
+    trades_365d = coalesce(piv.trades_365d, 0),
+    trades_all = coalesce(piv.trades_all, 0),
+    win_rate_7d = round(piv.win_rate_7d, 1), win_rate_30d = round(piv.win_rate_30d, 1),
+    win_rate_90d = round(piv.win_rate_90d, 1), win_rate_180d = round(piv.win_rate_180d, 1),
+    win_rate_365d = round(piv.win_rate_365d, 1),
+    win_rate_all = round(piv.win_rate_all, 1),
+    mdd_7d = round(100 * coalesce(piv.mdd_7d, 0), 2), mdd_30d = round(100 * coalesce(piv.mdd_30d, 0), 2),
+    mdd_90d = round(100 * coalesce(piv.mdd_90d, 0), 2), mdd_180d = round(100 * coalesce(piv.mdd_180d, 0), 2),
+    mdd_365d = round(100 * coalesce(piv.mdd_365d, 0), 2),
+    mdd_all = round(100 * coalesce(piv.mdd_all, 0), 2),
+    sharpe_7d = round(piv.sharpe_7d::numeric, 2), sharpe_30d = round(piv.sharpe_30d::numeric, 2),
+    sharpe_90d = round(piv.sharpe_90d::numeric, 2), sharpe_180d = round(piv.sharpe_180d::numeric, 2),
+    sharpe_365d = round(piv.sharpe_365d::numeric, 2),
+    sharpe_all = round(piv.sharpe_all::numeric, 2),
+    avg_daily_return_pct = round(100 * coalesce(allt.avg_r30, 0), 3),
+    avg_trade_return = case when allt.trades > 0 then round((allt.wrs + allt.lrs) / allt.trades, 3) end,
+    avg_win_pct = case when allt.wins > 0 then round(allt.wrs / allt.wins, 3) end,
+    avg_loss_pct = case when allt.trades - allt.wins > 0 then round(-allt.lrs / (allt.trades - allt.wins), 3) end,
+    profit_factor = case when allt.gl > 0 then round(allt.gp / allt.gl, 2) end,
+    vol_daily_pct = round(100 * coalesce(allt.sd_r180, 0), 3),
+    positive_months = coalesce(months.positive, 0),
+    months_counted = coalesce(months.counted, 0),
+    active_days = coalesce(act.n, 0),
+    first_day = allt.first_day,
+    track_days = coalesce(current_date - allt.first_day, 0),
+    twr_log_all = coalesce(allt.twr_log, 0),
+    total_withdrawals = round(coalesce(cf.withdrawals, 0), 2),
+    total_deposits = round(coalesce(cf.deposits, 0), 2),
+    followers = coalesce(allt.last_followers, 0) * (case when p.is_simulated then 1 else 0 end) + coalesce(subs.n, 0),
+    aum = round(coalesce(allt.last_aum, 0) * (case when p.is_simulated then 1 else 0 end) + public.provider_aum(p.id), 2)
+  from public.providers p
+  left join piv on piv.provider_id = p.id
+  left join allt on allt.provider_id = p.id
+  left join act on act.provider_id = p.id
+  left join months on months.provider_id = p.id
+  left join cf on cf.provider_id = p.id
+  left join subs on subs.provider_id = p.id
+  where st.provider_id = p.id and (p_ids is null or p.id = any(p_ids));
+
+  if p_full then
+    with ids as (
+      select p.id from public.providers p where p_ids is null or p.id = any(p_ids)
+    ), t as (
+      select s.provider_id, s.symbol, s.close_trigger,
+             extract(epoch from (s.closed_at - s.opened_at)) / 3600.0 as hours,
+             s.closed_at
+      from public.signals s join ids on ids.id = s.provider_id
+      where s.status = 'closed' and not s.hidden and not s.created_by_admin and s.closed_at is not null
+    ), alltime as (
+      select provider_id, avg(hours) hold_h, count(*) n,
+             count(*) filter (where close_trigger in ('tp', 'sl')) limits,
+             count(*) filter (where closed_at > now() - interval '90 days') n90
+      from t group by provider_id
+    ), mix as (
+      select provider_id, jsonb_object_agg(symbol, n) mix,
+             (array_agg(symbol order by n desc, symbol))[1] top_symbol
+      from (select provider_id, symbol, count(*) n from t group by 1, 2) x group by provider_id
+    ), cls as (
+      select provider_id,
+             (array_agg(cls order by n desc, cls))[1] top_class
+      from (
+        select provider_id,
+               case when symbol in ('XAUUSD') then 'gold'
+                    when symbol in ('EURUSD', 'GBPUSD', 'USDJPY') then 'forex'
+                    else 'crypto' end cls,
+               count(*) n
+        from t
+        group by 1, 2
+      ) y group by provider_id
+    )
+    update public.provider_stats st set
+      avg_hold_hours = round(alltime.hold_h::numeric, 2),
+      trades_per_week = round(coalesce(alltime.n90, 0) * 7.0 / greatest(1, least(90, st.track_days)), 2),
+      limit_pct = case when alltime.n > 0 then round(100.0 * alltime.limits / alltime.n, 1) end,
+      asset_mix = mix.mix,
+      primary_symbol = mix.top_symbol,
+      primary_asset = cls.top_class,
+      style = case
+        when alltime.hold_h is null then null
+        when alltime.hold_h < 0.5 then 'scalper'
+        when alltime.hold_h < 24 then 'day'
+        when alltime.hold_h < 288 then 'swing'
+        else 'position' end
+    from ids
+    left join alltime on alltime.provider_id = ids.id
+    left join mix on mix.provider_id = ids.id
+    left join cls on cls.provider_id = ids.id
+    where st.provider_id = ids.id;
+  end if;
+
+  -- Risk level: the higher of the realized-volatility level and the drawdown level (leader_risk_level, 0269);
+  -- rating from return, drawdown, consistency, track length and win rate.
+  update public.provider_stats st set
+    realized_vol_pct = public.leader_realized_vol(st.provider_id)
+  where p_ids is null or st.provider_id = any(p_ids);
+
+  update public.provider_stats st set
+    risk_level = case when st.trades_all = 0 then null else public.leader_risk_level(st.realized_vol_pct, greatest(st.mdd_all, st.mdd_floating_all)) end,
+    rating_score = case when st.trades_all = 0 then null else round(100 * (
+        0.32 * least(1, greatest(0, (st.roi_180d + 20) / 60.0))
+      + 0.25 * least(1, greatest(0, 1 - st.mdd_all / 50.0))
+      + 0.18 * (case when st.months_counted > 0 then st.positive_months::numeric / st.months_counted else 0.5 end)
+      + 0.15 * least(1, st.track_days / 540.0)
+      + 0.10 * least(1, greatest(0, (coalesce(st.win_rate_all, 0) - 35) / 35.0)))) end
+  where p_ids is null or st.provider_id = any(p_ids);
+
+  update public.provider_stats st set
+    tier = case
+      when st.rating_score is null then null
+      when st.rating_score >= 75 then 'نخبة'
+      when st.rating_score >= 62 then 'محترف'
+      when st.rating_score >= 42 then 'متوسط'
+      else 'مبتدئ' end
+  where p_ids is null or st.provider_id = any(p_ids);
+end $function$;
+
+create or replace view public.provider_cards as
+SELECT p.id AS provider_id,
+    p.bio,
+    COALESCE(pr.display_name, p.display_name) AS display_name,
+    COALESCE(st.followers, 0) AS followers_count,
+    ( SELECT count(*) AS count
+           FROM signals s
+          WHERE s.provider_id = p.id AND s.status = 'open'::text AND NOT s.hidden AND NOT s.created_by_admin) AS open_signals,
+    COALESCE(st.trades_all, 0) AS closed_signals,
+    st.win_rate_all AS win_rate_pct,
+    st.avg_trade_return AS avg_return_pct,
+    p.created_at AS joined_at,
+    p.min_copy_amount,
+    COALESCE(st.vol_daily_pct, 0::numeric) AS return_volatility,
+    st.risk_level,
+    st.rating_score,
+    st.tier,
+    st.avg_daily_return_pct,
+    p.country,
+    p.trading_status,
+    p.margin_called_at,
+    p.avatar_url,
+    p.is_archived,
+    p.symbol_bias,
+    st.primary_symbol,
+    p.profit_share_pct,
+    st.roi_7d,
+    st.roi_30d,
+    st.roi_90d,
+    st.roi_180d,
+    st.roi_all,
+    st.trades_7d,
+    st.trades_30d,
+    st.trades_90d,
+    st.trades_180d,
+    st.trades_all,
+    st.win_rate_7d,
+    st.win_rate_30d,
+    st.win_rate_90d,
+    st.win_rate_180d,
+    st.win_rate_all,
+    st.mdd_7d,
+    st.mdd_30d,
+    st.mdd_90d,
+    st.mdd_180d,
+    st.mdd_all,
+    st.sharpe_7d,
+    st.sharpe_30d,
+    st.sharpe_90d,
+    st.sharpe_180d,
+    st.sharpe_all,
+    st.avg_win_pct,
+    st.avg_loss_pct,
+    st.profit_factor,
+    st.positive_months,
+    st.months_counted,
+    st.active_days,
+    st.track_days,
+    st.first_day,
+        CASE
+            WHEN st.aum >= 1000000::numeric THEN 6
+            WHEN st.aum >= 500000::numeric THEN 5
+            WHEN st.aum >= 250000::numeric THEN 4
+            WHEN st.aum >= 100000::numeric THEN 3
+            WHEN st.aum >= 50000::numeric THEN 2
+            WHEN st.aum >= 10000::numeric THEN 1
+            ELSE 0
+        END::smallint AS aum_band,
+    st.avg_hold_hours,
+    st.trades_per_week,
+    st.limit_pct,
+    st.asset_mix,
+    st.primary_asset,
+    st.style,
+    st.realized_vol_pct,
+    st.mdd_floating_all,
+    st.roi_365d,
+    st.trades_365d,
+    st.win_rate_365d,
+    st.mdd_365d,
+    st.sharpe_365d
+   FROM providers p
+     LEFT JOIN profiles pr ON pr.id = p.user_id
+     LEFT JOIN provider_stats st ON st.provider_id = p.id
+  WHERE NOT p.is_simulated OR ( SELECT viewer_sees_simulated() AS viewer_sees_simulated);
+
+-- The 1Y columns are filled by running the stats refresh (select public.refresh_provider_stats(null, true);)
+-- right after this migration, in batches (scripts/backfill-leader-1y.mjs): all leaders at once takes about a
+-- minute, longer than the default statement time limit.
+
+commit;

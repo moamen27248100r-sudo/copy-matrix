@@ -1075,7 +1075,9 @@
     "passwordBreachedError": "Esta contraseña aparece en filtraciones de datos conocidas. Elige otra.",
     "emailTakenError": "Este correo electrónico ya está registrado.",
     "emailTakenLogin": "Iniciar sesión",
-    "emailTakenReset": "Restablecer contraseña"
+    "emailTakenReset": "Restablecer contraseña",
+    "googleUnavailable": "El acceso con Google aún no está disponible. Usa tu correo y contraseña.",
+    "googleSignInError": "No pudimos iniciar el acceso con Google. Inténtalo de nuevo o usa tu correo y contraseña."
   },
   "Legal": {
     "backToHome": "Volver al inicio",

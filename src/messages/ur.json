@@ -1075,7 +1075,9 @@
     "passwordBreachedError": "یہ پاس ورڈ معلوم ڈیٹا لیکس میں پایا گیا ہے۔ کوئی اور چنیں۔",
     "emailTakenError": "یہ ای میل پہلے سے رجسٹرڈ ہے۔",
     "emailTakenLogin": "لاگ ان کریں",
-    "emailTakenReset": "پاس ورڈ ری سیٹ کریں"
+    "emailTakenReset": "پاس ورڈ ری سیٹ کریں",
+    "googleUnavailable": "Google سے سائن اِن ابھی دستیاب نہیں۔ براہ کرم اپنا ای میل اور پاس ورڈ استعمال کریں۔",
+    "googleSignInError": "Google سے سائن اِن شروع نہیں ہو سکا۔ دوبارہ کوشش کریں یا ای میل اور پاس ورڈ استعمال کریں۔"
   },
   "Legal": {
     "backToHome": "ہوم پیج پر واپس جائیں",
