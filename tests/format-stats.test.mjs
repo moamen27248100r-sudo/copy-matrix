@@ -2,7 +2,7 @@
 // the same number must read the same on a card, in the table and on the profile.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { fmtDrawdown, fmtReturn, fmtWinRate } from "../src/lib/format-stats.ts";
+import { fmtDrawdown, fmtReturn, fmtWinRate, nameIsolate } from "../src/lib/format-stats.ts";
 
 test("fmtReturn: two decimals, plus sign only when positive", () => {
   assert.equal(fmtReturn(7.44), "+7.44%");
@@ -36,4 +36,10 @@ test("missing or non-finite values are an em dash", () => {
     assert.equal(f(undefined), "—");
     assert.equal(f(Number.NaN), "—");
   }
+});
+
+test("nameIsolate: a name in another script is one isolated unit inside the sentence", () => {
+  assert.equal(nameIsolate("أنس ريان"), "⁨أنس ريان⁩");
+  assert.equal(nameIsolate(null), "⁨⁩");
+  assert.equal(nameIsolate("Léo Fournier").length, "Léo Fournier".length + 2);
 });

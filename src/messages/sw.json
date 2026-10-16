@@ -52,8 +52,8 @@
       "rights": "Haki zote zimehifadhiwa. Ilianzishwa mwaka 2024."
     },
     "trustStrip": {
-      "demoTitle": "Akaunti ya majaribio bila malipo",
-      "demoDesc": "Bila hatari yoyote halisi",
+      "demoTitle": "Anza bila hatari",
+      "demoDesc": "Jizoeze kunakili kwa salio la $10,000 kabla ya kuweka pesa yoyote",
       "stopLossTitle": "Kikomo cha hasara kiotomatiki kwa kila nakala",
       "stopLossDesc": "Kunakili kunasimama kikomo cha hasara kikifikiwa"
     },
@@ -2094,7 +2094,7 @@
     "steps": [
       {
         "title": "Fungua akaunti yako",
-        "desc": "Jisajili kwa barua pepe yako na uanze na akaunti ya majaribio bila malipo."
+        "desc": "Jisajili kwa barua pepe yako na uanze bila hatari."
       },
       {
         "title": "Chagua mfanyabiashara",
@@ -2145,7 +2145,7 @@
       },
       {
         "title": "Jinsi jukwaa linavyofanya kazi",
-        "body": "Unajisajili kwa barua pepe yako na kuanza na akaunti ya majaribio bila malipo, kisha unalinganisha utendaji na hatari ya wafanyabiashara, kuchagua mmoja na kuweka kiasi cha kumnakili. Biashara zake hunakiliwa kwenye akaunti yako kiotomatiki kwa ukubwa unaolingana na kiasi hicho, na unaweza kusimamisha kunakili mara moja wakati wowote."
+        "body": "Unajisajili kwa barua pepe yako na kuanza bila hatari, kisha unalinganisha utendaji na hatari ya wafanyabiashara, kuchagua mmoja na kuweka kiasi cha kumnakili. Biashara zake hunakiliwa kwenye akaunti yako kiotomatiki kwa ukubwa unaolingana na kiasi hicho, na unaweza kusimamisha kunakili mara moja wakati wowote."
       },
       {
         "title": "Ahadi yetu ya uwazi",

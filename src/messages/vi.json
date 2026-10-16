@@ -52,8 +52,8 @@
       "rights": "Đã đăng ký bản quyền. Thành lập năm 2024."
     },
     "trustStrip": {
-      "demoTitle": "Tài khoản demo miễn phí",
-      "demoDesc": "Hoàn toàn không có rủi ro thực",
+      "demoTitle": "Bắt đầu không rủi ro",
+      "demoDesc": "Luyện tập sao chép với số dư 10.000 $ trước khi nạp tiền",
       "stopLossTitle": "Giới hạn lỗ tự động cho mỗi lệnh sao chép",
       "stopLossDesc": "Việc sao chép dừng khi chạm giới hạn lỗ"
     },
@@ -2094,7 +2094,7 @@
     "steps": [
       {
         "title": "Tạo tài khoản",
-        "desc": "Đăng ký bằng email và bắt đầu với tài khoản demo miễn phí."
+        "desc": "Đăng ký bằng email và bắt đầu mà không có rủi ro."
       },
       {
         "title": "Chọn một trader",
@@ -2145,7 +2145,7 @@
       },
       {
         "title": "Nền tảng hoạt động như thế nào",
-        "body": "Bạn đăng ký bằng email và bắt đầu với tài khoản demo miễn phí, sau đó so sánh hiệu suất và rủi ro của các trader, chọn một trader và đặt số tiền để sao chép. Giao dịch của họ được tự động sao chép vào tài khoản của bạn với quy mô tương ứng số tiền đó, và bạn có thể dừng sao chép ngay lập tức bất cứ lúc nào."
+        "body": "Bạn đăng ký bằng email và bắt đầu mà không có rủi ro, sau đó so sánh hiệu suất và rủi ro của các trader, chọn một trader và đặt số tiền để sao chép. Giao dịch của họ được tự động sao chép vào tài khoản của bạn với quy mô tương ứng số tiền đó, và bạn có thể dừng sao chép ngay lập tức bất cứ lúc nào."
       },
       {
         "title": "Cam kết minh bạch của chúng tôi",

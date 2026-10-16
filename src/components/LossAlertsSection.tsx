@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { saveLossAlerts } from "@/app/settings/actions";
 import { SubmitButton } from "@/components/SubmitButton";
+import { nameIsolate } from "@/lib/format-stats";
 
 // Loss alerts: the customer picks a loss (in %) that should notify them, for the whole portfolio
 // and for each trader they copy right now. The alert is sent once when the loss reaches the value
@@ -43,7 +44,7 @@ export async function LossAlertsSection({ userId }: { userId: string }) {
         ) : (
           (subs ?? []).map((s) => (
             <label key={s.provider_id} className="flex items-center justify-between gap-3 text-sm">
-              <span className="min-w-0 truncate">{t("lossAlertsCopyOf", { name: nameById.get(s.provider_id) ?? "—" })}</span>
+              <span className="min-w-0 truncate">{t("lossAlertsCopyOf", { name: nameIsolate(nameById.get(s.provider_id) ?? "—") })}</span>
               <span className="flex shrink-0 items-center gap-1.5">
                 <input
                   name={`copy_${s.provider_id}`}

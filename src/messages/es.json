@@ -52,8 +52,8 @@
       "rights": "Todos los derechos reservados. Fundada en 2024."
     },
     "trustStrip": {
-      "demoTitle": "Cuenta demo gratis",
-      "demoDesc": "Sin ningún riesgo real",
+      "demoTitle": "Empieza sin riesgo",
+      "demoDesc": "Practica la copia con un saldo de 10.000 $ antes de cualquier depósito",
       "stopLossTitle": "Límite de pérdida automático en cada copia",
       "stopLossDesc": "La copia se detiene al alcanzar el límite de pérdida"
     },
@@ -2095,7 +2095,7 @@
     "steps": [
       {
         "title": "Crea tu cuenta",
-        "desc": "Regístrate con tu correo y empieza con una cuenta demo gratuita."
+        "desc": "Regístrate con tu correo y empieza sin riesgo."
       },
       {
         "title": "Elige un trader",
@@ -2146,7 +2146,7 @@
       },
       {
         "title": "Cómo funciona la plataforma",
-        "body": "Te registras con tu correo y empiezas con una cuenta demo gratuita; luego comparas el rendimiento y el riesgo de los traders, eliges uno y fijas el monto con el que copiarlo. Sus operaciones se copian automáticamente en tu cuenta, con un tamaño proporcional a ese monto, y puedes detener la copia al instante en cualquier momento."
+        "body": "Te registras con tu correo y empiezas sin riesgo; luego comparas el rendimiento y el riesgo de los traders, eliges uno y fijas el monto con el que copiarlo. Sus operaciones se copian automáticamente en tu cuenta, con un tamaño proporcional a ese monto, y puedes detener la copia al instante en cualquier momento."
       },
       {
         "title": "Nuestro compromiso con la transparencia",

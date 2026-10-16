@@ -62,8 +62,8 @@
       "rights": "All rights reserved. Founded in 2024."
     },
     "trustStrip": {
-      "demoTitle": "Free demo account",
-      "demoDesc": "No real risk at all",
+      "demoTitle": "Start without risk",
+      "demoDesc": "Practice copying with a $10,000 balance before any deposit",
       "stopLossTitle": "Automatic loss limit on every copy",
       "stopLossDesc": "Copying stops when the loss limit is reached"
     },
@@ -2098,7 +2098,7 @@
     "steps": [
       {
         "title": "Create your account",
-        "desc": "Sign up with your email and start with a free demo account."
+        "desc": "Sign up with your email and start without risk."
       },
       {
         "title": "Choose a trader",
@@ -2149,7 +2149,7 @@
       },
       {
         "title": "How the platform works",
-        "body": "You sign up with your email and start with a free demo account, then compare traders' performance and risk, choose a trader and set the amount you want to copy them with. The trader's trades are copied to your account automatically, sized in proportion to that amount, and you can stop copying instantly at any time."
+        "body": "You sign up with your email and start without risk, then compare traders' performance and risk, choose a trader and set the amount you want to copy them with. The trader's trades are copied to your account automatically, sized in proportion to that amount, and you can stop copying instantly at any time."
       },
       {
         "title": "Our commitment to transparency",

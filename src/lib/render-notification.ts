@@ -1,3 +1,5 @@
+import { nameIsolate } from "@/lib/format-stats";
+
 // Notification title/body used to be pre-rendered Arabic strings baked in
 // at insert time by SQL triggers, so no amount of frontend translation work
 // could change that text. Since migration 0168, new notifications also
@@ -46,12 +48,12 @@ export function renderNotification(t: Translator, n: NotificationRow, rawMoney: 
     case "copy_started":
       return {
         title: t("copyStartedTitle"),
-        body: t("copyStartedBody", { providerName: String(d.providerName ?? ""), amount: money(Number(d.amount ?? 0)) }),
+        body: t("copyStartedBody", { providerName: nameIsolate(d.providerName), amount: money(Number(d.amount ?? 0)) }),
       };
     case "copy_stopped":
-      return { title: t("copyStoppedTitle"), body: t("copyStoppedBody", { providerName: String(d.providerName ?? "") }) };
+      return { title: t("copyStoppedTitle"), body: t("copyStoppedBody", { providerName: nameIsolate(d.providerName) }) };
     case "leader_stopped":
-      return { title: t("leaderStoppedTitle"), body: t("leaderStoppedBody", { providerName: String(d.providerName ?? "") }) };
+      return { title: t("leaderStoppedTitle"), body: t("leaderStoppedBody", { providerName: nameIsolate(d.providerName) }) };
     case "market_move": {
       const pct = Number(d.changePct ?? 0);
       const price = Number(d.price ?? 0);
@@ -72,7 +74,7 @@ export function renderNotification(t: Translator, n: NotificationRow, rawMoney: 
       if (Number(d.count ?? 1) > 1) {
         return {
           title: t("copyOpenedBulkTitle", { count: Number(d.count) }),
-          body: t("copyOpenedBulkBody", { count: Number(d.count), providerName: String(d.providerName ?? "") }),
+          body: t("copyOpenedBulkBody", { count: Number(d.count), providerName: nameIsolate(d.providerName) }),
         };
       }
       // Rows from before 0231 only carry symbol + side.
@@ -85,7 +87,7 @@ export function renderNotification(t: Translator, n: NotificationRow, rawMoney: 
       return {
         title: t("copyOpenedTitle"),
         body: t("copyOpenedBody", {
-          providerName: String(d.providerName),
+          providerName: nameIsolate(d.providerName),
           symbol: String(d.symbol ?? ""),
           side: String(d.side ?? "buy"),
           size: money(Number(d.size)),
@@ -98,13 +100,13 @@ export function renderNotification(t: Translator, n: NotificationRow, rawMoney: 
           title: t("copyClosedBulkTitle", { count: Number(d.count) }),
           body: t("copyClosedBulkBody", {
             count: Number(d.count),
-            providerName: String(d.providerName ?? ""),
+            providerName: nameIsolate(d.providerName),
             amount: money(d.positive ? Number(d.amount ?? 0) : -Number(d.amount ?? 0), { signed: true }),
           }),
         };
       }
       const values = {
-        providerName: String(d.providerName ?? ""),
+        providerName: nameIsolate(d.providerName),
         symbol: String(d.symbol ?? ""),
         amount: money(d.positive ? Number(d.amount ?? 0) : -Number(d.amount ?? 0), { signed: true }),
       };
@@ -119,7 +121,7 @@ export function renderNotification(t: Translator, n: NotificationRow, rawMoney: 
       return {
         title: t("copyReducedTitle"),
         body: t("copyReducedBody", {
-          providerName: String(d.providerName ?? ""),
+          providerName: nameIsolate(d.providerName),
           symbol: String(d.symbol ?? ""),
           opened: money(Number(d.opened ?? 0)),
           required: money(Number(d.required ?? 0)),
@@ -130,7 +132,7 @@ export function renderNotification(t: Translator, n: NotificationRow, rawMoney: 
       return {
         title: t("copySkippedTitle"),
         body: t(d.reason === "below_minimum_size" ? "copySkippedMinBody" : "copySkippedFreeBody", {
-          providerName: String(d.providerName ?? ""),
+          providerName: nameIsolate(d.providerName),
           symbol: String(d.symbol ?? ""),
           available: money(Number(d.available ?? 0)),
         }),
@@ -145,18 +147,18 @@ export function renderNotification(t: Translator, n: NotificationRow, rawMoney: 
         title: t("lossAlertTitle"),
         body:
           d.scope === "copy"
-            ? t("lossAlertBodyCopy", { providerName: String(d.providerName ?? ""), loss: Number(d.lossPct ?? 0), threshold: Number(d.thresholdPct ?? 0) })
+            ? t("lossAlertBodyCopy", { providerName: nameIsolate(d.providerName), loss: Number(d.lossPct ?? 0), threshold: Number(d.thresholdPct ?? 0) })
             : t("lossAlertBodyPortfolio", { loss: Number(d.lossPct ?? 0), threshold: Number(d.thresholdPct ?? 0) }),
       };
     case "followed_trade_closed":
       return {
         title: t("followedTradeClosedTitle"),
-        body: t("followedTradeClosedBody", { providerName: String(d.providerName ?? ""), symbol: String(d.symbol ?? ""), pct: Number(d.pct ?? 0), positive: sign(d.positive) }),
+        body: t("followedTradeClosedBody", { providerName: nameIsolate(d.providerName), symbol: String(d.symbol ?? ""), pct: Number(d.pct ?? 0), positive: sign(d.positive) }),
       };
     case "followed_trade_opened":
       return {
-        title: t("followedTradeOpenedTitle", { providerName: String(d.providerName ?? "") }),
-        body: t("followedTradeOpenedBody", { providerName: String(d.providerName ?? ""), symbol: String(d.symbol ?? ""), side: String(d.side ?? "buy") }),
+        title: t("followedTradeOpenedTitle", { providerName: nameIsolate(d.providerName) }),
+        body: t("followedTradeOpenedBody", { providerName: nameIsolate(d.providerName), symbol: String(d.symbol ?? ""), side: String(d.side ?? "buy") }),
       };
     case "kyc_approved":
       return { title: t("kycApprovedTitle"), body: t("kycApprovedBody") };

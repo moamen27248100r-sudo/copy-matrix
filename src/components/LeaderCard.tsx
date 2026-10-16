@@ -5,7 +5,7 @@ import { RiskBadge, StoppedBadge } from "@/components/TraderBadges";
 import { Sparkline } from "@/components/Sparkline";
 import { ConfirmButton } from "@/components/ConfirmButton";
 import { periodStats, DEFAULT_PERIOD, type Period } from "@/lib/leader-period";
-import { fmtDrawdown, fmtReturn, fmtWinRate } from "@/lib/format-stats";
+import { fmtDrawdown, fmtReturn, fmtWinRate, nameIsolate } from "@/lib/format-stats";
 import { adjustedMaxDrawdown } from "@/lib/leader-scores";
 
 type ProviderCard = {
@@ -132,7 +132,7 @@ export async function LeaderCard({
           <form action={onStopCopyingAction}>
             <input type="hidden" name="providerId" value={p.provider_id} />
             <input type="hidden" name="returnTo" value="/discover" />
-            <ConfirmButton confirmText={t("stopCopyingConfirm", { name: p.display_name })} className={`${button} border border-border hover:border-muted`}>
+            <ConfirmButton confirmText={t("stopCopyingConfirm", { name: nameIsolate(p.display_name) })} className={`${button} border border-border hover:border-muted`}>
               {t("stopCopying")}
             </ConfirmButton>
           </form>

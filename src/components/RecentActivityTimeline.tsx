@@ -2,6 +2,7 @@ import { getMoney } from "@/lib/money-server";
 import { getLocale, getTranslations } from "next-intl/server";
 import { formatDate } from "@/lib/locale-format";
 import type { Locale } from "@/i18n/locales";
+import { nameIsolate } from "@/lib/format-stats";
 
 export type ActivityEvent = {
   id: string;
@@ -62,7 +63,7 @@ export async function RecentActivityTimeline({ events }: { events: ActivityEvent
       case "position_closed_flat":
         return t("activityPositionClosedFlat", { symbol: e.symbol ?? "" });
       case "copy_started":
-        return t("activityCopyStarted", { name: e.providerName ?? "" });
+        return t("activityCopyStarted", { name: nameIsolate(e.providerName) });
       case "deposit":
         return t("activityDeposit", { amount: money(Number(e.amount ?? 0)) });
       case "withdrawal":

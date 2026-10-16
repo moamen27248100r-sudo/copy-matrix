@@ -29,7 +29,7 @@ import { RiskFooter } from "@/components/RiskFooter";
 import { getBioTranslator } from "@/lib/bio-translations";
 import type { Locale } from "@/i18n/locales";
 import { leaderScores } from "@/lib/leader-scores";
-import { fmtDrawdown, fmtReturn, fmtWinRate, ltrIsolate } from "@/lib/format-stats";
+import { fmtDrawdown, fmtReturn, fmtWinRate, ltrIsolate, nameIsolate } from "@/lib/format-stats";
 import { aumBandFloor } from "@/lib/aum-band";
 import { adjustedMaxDrawdown, hasEnoughSample } from "@/lib/leader-scores";
 import { adjustedDrawdowns } from "@/lib/leader-drawdown";
@@ -273,7 +273,7 @@ export default async function TraderPage({
             <input type="hidden" name="providerId" value={id} />
             <input type="hidden" name="returnTo" value={`/trader/${id}`} />
             <ConfirmButton
-              confirmText={t("stopCopyingConfirm", { name: provider.display_name })}
+              confirmText={t("stopCopyingConfirm", { name: nameIsolate(provider.display_name) })}
               className="rounded-lg border border-border px-4 py-2 text-sm disabled:opacity-60"
             >
               {t("stopCopyingCta")}
@@ -300,8 +300,8 @@ export default async function TraderPage({
         {success === "started" && mySub && (
           <FlashMessage tone="success">
             {t("copyStartedSuccess", {
-              name: provider.display_name,
-              amount: money(Number(mySub.allocated_amount)),
+              name: nameIsolate(provider.display_name),
+              amount: ltrIsolate(money(Number(mySub.allocated_amount))),
             })}
           </FlashMessage>
         )}
@@ -373,7 +373,7 @@ export default async function TraderPage({
           {isStopped ? (
             <div className="flex flex-col gap-2">
               <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-3 text-center text-sm text-danger">
-                {t("stoppedTradingNotice", { name: provider.display_name })}
+                {t("stoppedTradingNotice", { name: nameIsolate(provider.display_name) })}
               </p>
               {/* A follower of a leader who stopped trading can still end the copy. */}
               {isFollowing && (
@@ -381,7 +381,7 @@ export default async function TraderPage({
                   <input type="hidden" name="providerId" value={id} />
                   <input type="hidden" name="returnTo" value={`/trader/${id}`} />
                   <ConfirmButton
-                    confirmText={t("stopCopyingConfirm", { name: provider.display_name })}
+                    confirmText={t("stopCopyingConfirm", { name: nameIsolate(provider.display_name) })}
                     className="rounded-lg border border-border px-4 py-2 text-sm disabled:opacity-60"
                   >
                     {t("stopCopyingCta")}

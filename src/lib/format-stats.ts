@@ -30,3 +30,8 @@ export function fmtWinRate(v: number | null | undefined): string {
 /** Wraps a number or amount that is placed inside a translated sentence, so a reversed-direction
  *  sentence ("أكثر من $100,000") keeps the figure intact and in order. */
 export const ltrIsolate = (s: string): string => `\u2066${s}\u2069`;
+
+/** Wraps a name (a trader's, a customer's) placed inside a translated sentence: a name written in
+ *  another script than the sentence (an Arabic name in English text, a Latin name in Arabic text)
+ *  stays one unit and the words around it keep their order. U+2068 .. U+2069 (first strong isolate). */
+export const nameIsolate = (s: unknown): string => `\u2068${String(s ?? "")}\u2069`;

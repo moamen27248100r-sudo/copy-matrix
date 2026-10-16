@@ -155,7 +155,9 @@ test("switch on: a real account copies a simulated leader end to end", async () 
   );
   const pos = (await db.query("select id, account_type, size from public.simulated_positions where signal_id = $1 and follower_id = $2", [rows[0].id, REAL])).rows[0];
   assert.equal(pos.account_type, "real");
-  await db.query("update public.simulated_positions set opened_at = now() - interval '30 minutes' where id = $1", [pos.id]);
+  // Every copy of this trade (the demo account from the test above copies the same leader) opened at
+  // the transaction's now(); move them back so closing at now() is a trade with a duration.
+  await db.query("update public.simulated_positions set opened_at = now() - interval '30 minutes' where signal_id = $1", [rows[0].id]);
 
   // The leader closes 1% higher: the real wallet gets exactly that result.
   const exit = Math.round(Number(rows[0].entry_price) * 1.01 * 100) / 100;

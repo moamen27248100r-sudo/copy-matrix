@@ -36,6 +36,12 @@ before(async () => {
   ]);
 });
 
+// 0256: the per-trade notices (copy_opened / copy_closed) are off until the customer switches them on.
+test("per-trade copy notices are off by default", async () => {
+  assert.equal((await notify("copy_opened")).rows.length, 0);
+  await db.query("insert into public.notification_preferences (user_id, category, in_app, email) values ($1, 'copy_trades', true, false)", [USER]);
+});
+
 after(async () => {
   await db.query("rollback");
   await db.end();

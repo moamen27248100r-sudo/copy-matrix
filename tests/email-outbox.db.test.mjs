@@ -61,16 +61,26 @@ test("the customer's language comes from sign-up", async () => {
 });
 
 test("real-account notices are queued, demo trading is not", async () => {
-  await notify(REAL, "copy_closed");
+  await notify(REAL, "copy_started");
   await notify(REAL, "wallet_deposit_approved");
-  await notify(DEMO, "copy_closed");
+  await notify(DEMO, "copy_started");
   await notify(DEMO, "kyc_approved");
   assert.deepEqual(await queued(REAL), [
-    { kind: "copy_closed", category: "copy", account_type: "real" },
+    { kind: "copy_started", category: "copy", account_type: "real" },
     { kind: "wallet_deposit_approved", category: "account", account_type: "real" },
   ]);
   // Demo trading stays in the app; account notices are still emailed.
   assert.deepEqual(await queued(DEMO), [{ kind: "kyc_approved", category: "account", account_type: null }]);
+});
+
+// 0256: one email per opened / closed copied trade is opt-in.
+test("per-trade copy emails are off until switched on", async () => {
+  await db.query("delete from public.email_outbox where user_id = $1", [REAL]);
+  await notify(REAL, "copy_closed");
+  assert.equal((await queued(REAL)).length, 0);
+  await setPref(REAL, "copy_trades", true, true);
+  await notify(REAL, "copy_closed");
+  assert.deepEqual(await queued(REAL), [{ kind: "copy_closed", category: "copy_trades", account_type: "real" }]);
 });
 
 test("followed-leader trade emails are off until switched on", async () => {
@@ -86,13 +96,13 @@ test("email and in-app switches are independent", async () => {
   await db.query("delete from public.email_outbox where user_id = $1", [REAL]);
   // In-app off, email on: no notification row, but the email is queued.
   await setPref(REAL, "copy", false, true);
-  await notify(REAL, "copy_opened");
-  const inApp = await db.query("select count(*)::int n from public.notifications where user_id = $1 and type = 'copy_opened'", [REAL]);
+  await notify(REAL, "copy_stopped");
+  const inApp = await db.query("select count(*)::int n from public.notifications where user_id = $1 and type = 'copy_stopped'", [REAL]);
   assert.equal(inApp.rows[0].n, 0);
   assert.equal((await queued(REAL)).length, 1);
   // Email off: nothing queued.
   await setPref(REAL, "copy", true, false);
-  await notify(REAL, "copy_opened");
+  await notify(REAL, "copy_stopped");
   assert.equal((await queued(REAL)).length, 1);
 });
 

@@ -2,6 +2,7 @@ import { createTranslator } from "next-intl";
 import { isRtlLocale, isSupportedLocale, DEFAULT_LOCALE, type Locale } from "@/i18n/locales";
 import { formatMoney } from "@/lib/money";
 import { renderNotification } from "@/lib/render-notification";
+import { nameIsolate } from "@/lib/format-stats";
 
 // Renders a queued email (email_outbox) in the customer's language: the same
 // title / body as the in-app notification, inside a branded, table-based
@@ -81,7 +82,7 @@ export async function renderEmail(row: OutboxRow, opts: { locale: string | null;
   const prefsUrl = `${opts.siteUrl.replace(/\/$/, "")}/notifications/preferences`;
   const dir = isRtlLocale(locale) ? "rtl" : "ltr";
   const align = dir === "rtl" ? "right" : "left";
-  const greeting = opts.name ? te("greetingName", { name: opts.name }) : te("greeting");
+  const greeting = opts.name ? te("greetingName", { name: nameIsolate(opts.name) }) : te("greeting");
   const account = row.account_type === "real" ? te("accountReal") : row.account_type === "demo" ? te("accountDemo") : null;
   const securityNote = row.category === "security" && row.kind.startsWith("security_") ? te("notYou") : null;
   const footer = row.category === "security" ? te("footerSecurity") : te("footerPrefs");

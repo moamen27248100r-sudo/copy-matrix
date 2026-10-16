@@ -10,6 +10,7 @@ import { isRtlLocale, type Locale } from "@/i18n/locales";
 import { formatDate } from "@/lib/locale-format";
 import { translateBio } from "@/lib/bio-translations";
 import { isUuid } from "@/lib/uuid";
+import { nameIsolate } from "@/lib/format-stats";
 
 type FollowEmailTranslator = (key: string, values?: Record<string, string | number>) => string;
 
@@ -40,7 +41,7 @@ function traderFollowEmailHtml(
 
   return `
     <div dir="${dir}" style="font-family:Tahoma,Arial,sans-serif;max-width:480px;margin:auto;">
-      <h2 style="margin-bottom:4px;">${esc(t("heading", { name: provider.display_name ?? "" }))}</h2>
+      <h2 style="margin-bottom:4px;">${esc(t("heading", { name: nameIsolate(provider.display_name) }))}</h2>
       <p style="color:#666;">${t("intro")}</p>
       ${provider.bio ? `<p style="color:#444;">${esc(translateBio(provider.bio, tBio) ?? "")}</p>` : ""}
       <table style="width:100%;border-collapse:collapse;">
@@ -350,7 +351,7 @@ export async function followTrader(formData: FormData) {
         const tBio = await getTranslations("Bios");
         await sendSupportEmail({
           to: user.email,
-          subject: tEmail("subject", { name: provider.display_name ?? "" }),
+          subject: tEmail("subject", { name: nameIsolate(provider.display_name) }),
           html: traderFollowEmailHtml(provider, tEmail, tBio, locale),
         });
       } catch (emailError) {

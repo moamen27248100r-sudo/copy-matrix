@@ -8,6 +8,7 @@ import { useTranslations } from "next-intl";
 import { useBodyScrollLock } from "@/lib/use-body-scroll-lock";
 import { SubmitButton } from "@/components/SubmitButton";
 import { copyAmountIssue } from "@/lib/copy-amount";
+import { nameIsolate } from "@/lib/format-stats";
 
 // Copy-start dialog. Every field is applied by the followProvider action and
 // stored on the subscription: the copy mode and max-per-trade size each copied
@@ -116,7 +117,7 @@ export function CopyDialog({
       </button>
 
       {open && createPortal(
-        <div className="fixed inset-0 z-[10000] flex items-end justify-center sm:items-center" role="dialog" aria-modal="true" aria-label={edit ? t("editTitle", { name: providerName }) : t("title", { name: providerName })}>
+        <div className="fixed inset-0 z-[10000] flex items-end justify-center sm:items-center" role="dialog" aria-modal="true" aria-label={edit ? t("editTitle", { name: nameIsolate(providerName) }) : t("title", { name: nameIsolate(providerName) })}>
           <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" onClick={() => setOpen(false)} aria-hidden="true" />
           <CopyFormView
             action={action}
@@ -211,7 +212,7 @@ export function CopyFormView({
         >
           <input type="hidden" name="providerId" value={providerId} />
           <div className="flex items-center justify-between">
-            <h2 className="text-section-title">{edit ? t("editTitle", { name: providerName }) : t("title", { name: providerName })}</h2>
+            <h2 className="text-section-title">{edit ? t("editTitle", { name: nameIsolate(providerName) }) : t("title", { name: nameIsolate(providerName) })}</h2>
             <button type="button" onClick={onClose} aria-label={t("close")} className="-m-2 flex h-11 w-11 items-center justify-center text-muted hover:text-foreground">
               ✕
             </button>

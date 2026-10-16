@@ -36,6 +36,8 @@ before(async () => {
     "insert into auth.users (id,email,raw_user_meta_data,aud,role) values ($1,'wallet-test@example.test','{\"account_type\":\"demo\"}','authenticated','authenticated')",
     [USER],
   );
+  // Real deposits sit behind the platform switch (0252); on here, inside the rolled-back transaction.
+  await db.query("insert into public.platform_settings (key, value) values ('deposits_enabled', 'true'::jsonb) on conflict (key) do update set value = 'true'::jsonb");
 });
 
 after(async () => {

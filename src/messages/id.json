@@ -52,8 +52,8 @@
       "rights": "Hak cipta dilindungi. Didirikan pada 2024."
     },
     "trustStrip": {
-      "demoTitle": "Akun demo gratis",
-      "demoDesc": "Tanpa risiko nyata sama sekali",
+      "demoTitle": "Mulai tanpa risiko",
+      "demoDesc": "Latih penyalinan dengan saldo $10.000 sebelum deposit apa pun",
       "stopLossTitle": "Batas kerugian otomatis pada setiap salinan",
       "stopLossDesc": "Penyalinan berhenti saat batas kerugian tercapai"
     },
@@ -2094,7 +2094,7 @@
     "steps": [
       {
         "title": "Buat akun Anda",
-        "desc": "Daftar dengan email Anda dan mulai dengan akun demo gratis."
+        "desc": "Daftar dengan email Anda dan mulai tanpa risiko."
       },
       {
         "title": "Pilih trader",
@@ -2145,7 +2145,7 @@
       },
       {
         "title": "Cara kerja platform",
-        "body": "Anda mendaftar dengan email dan memulai dengan akun demo gratis, lalu membandingkan kinerja dan risiko trader, memilih satu trader, dan menentukan jumlah untuk menyalinnya. Transaksinya disalin otomatis ke akun Anda dengan ukuran sebanding dengan jumlah itu, dan Anda dapat menghentikan penyalinan seketika kapan saja."
+        "body": "Anda mendaftar dengan email dan memulai tanpa risiko, lalu membandingkan kinerja dan risiko trader, memilih satu trader, dan menentukan jumlah untuk menyalinnya. Transaksinya disalin otomatis ke akun Anda dengan ukuran sebanding dengan jumlah itu, dan Anda dapat menghentikan penyalinan seketika kapan saja."
       },
       {
         "title": "Komitmen kami pada transparansi",

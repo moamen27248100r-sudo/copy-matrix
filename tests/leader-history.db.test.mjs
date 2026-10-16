@@ -129,7 +129,9 @@ test("every stored stat equals the formula applied to the trades", async () => {
     assert.equal(cents(st.total_withdrawals), withdrawals, `${key} withdrawals`);
     // The page / discover / admin read the same row.
     assert.equal(card.closed_signals, st.trades_all);
-    assert.equal(Number(card.total_profit), Number(st.pnl_all));
+    assert.equal(Number(card.win_rate_pct), Number(st.win_rate_all));
+    // 0258: the public card carries no dollar amounts of the leader.
+    for (const col of ["total_profit", "account_capital", "total_withdrawals", "pnl_all"]) assert.ok(!(col in card), `${key} card hides ${col}`);
     assert.equal(card.open_signals, String(trades.filter((t) => t.status === "open").length));
   }
 });

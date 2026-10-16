@@ -60,6 +60,9 @@ before(async () => {
     );
   }
   await db.query("update public.profiles set is_admin = true where id=$1", [ADMIN]);
+  // Real deposits are behind the platform switch (0252); the deposit rules below are tested with it
+  // on, inside this rolled-back transaction. The switch itself is tested on its own.
+  await db.query("insert into public.platform_settings (key, value) values ('deposits_enabled', 'true'::jsonb) on conflict (key) do update set value = 'true'::jsonb");
   await db.query("update public.crypto_networks set deposit_address = $1, deposit_enabled = true, withdraw_enabled = true, min_deposit = 10, confirmations = 20, withdraw_fee = 1, min_withdraw = 10, daily_withdraw_limit = 1000 where id = 'TRC20'", [OUR_TRON]);
   await db.query("update public.crypto_networks set deposit_address = null where id = 'ERC20'");
   await db.query("update public.crypto_networks set deposit_address = '0x1111111111111111111111111111111111111111', deposit_enabled = true where id = 'BEP20'");
@@ -75,6 +78,13 @@ test("customers cannot write deposits or run the server-side checks themselves",
   await asUser(() => fails("42501", () => q("insert into public.crypto_deposits(user_id,network,tx_hash,deposit_address,required_confirmations) values ($1,'TRC20',$2,'x',1)", [USER, hash("1")])));
   await asUser(() => fails("42501", () => q("select public.crypto_deposit_submit($1,'TRC20',$2)", [USER, hash("1")])));
   await asUser(() => fails("42501", () => q("select public.crypto_deposit_record_check(gen_random_uuid(),'{}')")));
+});
+
+test("while deposits_enabled is off, no deposit can be submitted", async () => {
+  await db.query("savepoint off");
+  await db.query("update public.platform_settings set value = 'false'::jsonb where key = 'deposits_enabled'");
+  await fails("CM035", () => submit(hash("0")));
+  await db.query("rollback to off");
 });
 
 test("valid deposit waits for confirmations (x/N), then credits the chain amount exactly once", async () => {

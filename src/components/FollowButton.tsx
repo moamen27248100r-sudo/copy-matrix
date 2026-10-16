@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
 import { followTrader, unfollowTrader } from "@/app/discover/actions";
+import { nameIsolate } from "@/lib/format-stats";
 
 function CheckIcon({ className }: { className?: string }) {
   return (
@@ -42,7 +43,7 @@ export function FollowButton({
           await followTrader(fd);
           setToast({
             title: t("followToastTitle"),
-            body: t("followToastBody", { name: providerName }),
+            body: t("followToastBody", { name: nameIsolate(providerName) }),
           });
           setTimeout(() => setToast(null), 4500);
         }
