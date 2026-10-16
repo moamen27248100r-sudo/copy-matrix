@@ -193,10 +193,10 @@
     "winRate": "Win rate",
     "avgDailyReturn": "Avg. daily return",
     "noClosedTrades": "No closed trades yet",
-    "periodWeek": "Week",
-    "periodMonth": "Month",
-    "period3Months": "3 months",
-    "periodYear": "Year",
+    "periodWeek": "1W",
+    "periodMonth": "1M",
+    "period3Months": "3M",
+    "periodYear": "1Y",
     "periodAll": "All",
     "noEnoughClosedTrades": "Not enough closed trades in this period to show the chart.",
     "startingPoint": "Start: {amount}",
@@ -503,15 +503,18 @@
     "amountDecimalsError": "Use at most 2 decimal places.",
     "amountMinError": "The minimum is {min} USDT.",
     "amountMaxError": "The maximum is {max} USDT.",
-    "amountAboveAvailable": "This is more than your available balance."
+    "amountAboveAvailable": "This is more than your available balance.",
+    "totalDeposited": "Total deposited",
+    "totalWithdrawn": "Total withdrawn",
+    "chartAfterFirstTrade": "Your chart will appear after your first trade."
   },
   "TradeHistory": {
-    "periodToday": "Today",
-    "periodWeek": "Week",
-    "periodMonth": "Month",
-    "periodThreeMonths": "3 months",
-    "periodSixMonths": "6 months",
-    "periodYear": "Year",
+    "periodToday": "1D",
+    "periodWeek": "1W",
+    "periodMonth": "1M",
+    "periodThreeMonths": "3M",
+    "periodSixMonths": "6M",
+    "periodYear": "1Y",
     "periodAll": "All",
     "tradesCount": "{count} trades",
     "noTradesInPeriod": "No closed trades in this period.",
@@ -722,10 +725,10 @@
     "pnlLabel": "PnL",
     "aumLabel": "AUM",
     "profitShareLabel": "Profit share",
-    "periodShort_7": "7D",
-    "periodShort_30": "30D",
-    "periodShort_90": "90D",
-    "periodShort_180": "180D",
+    "periodShort_7": "1W",
+    "periodShort_30": "1M",
+    "periodShort_90": "3M",
+    "periodShort_180": "6M",
     "periodShort_all": "All",
     "resultsCount": "{count, plural, one {# trader} other {# traders}}",
     "emptyNoLeaders": "No lead traders are available yet. Verified traders will appear here as soon as they start trading.",
@@ -740,7 +743,11 @@
     "tabMarkets": "Markets",
     "aumOver": "Over {amount}",
     "maxDrawdownAll": "Max drawdown (all)",
-    "maxDrawdownAllHint": "The largest fall from a peak over the whole record, floating losses included. The risk level is built on it."
+    "maxDrawdownAllHint": "The largest fall from a peak over the whole record, floating losses included. The risk level is built on it.",
+    "periodShort_365": "1Y",
+    "periodShort_1": "1D",
+    "compareBar": "Compare ({count})",
+    "comparePickOneMore": "pick one more"
   },
   "Countries": {
     "US": "United States",
@@ -950,8 +957,8 @@
     "allInstruments": "All instruments",
     "noData": "There is no price data right now.",
     "dataNote": "The change is calculated over the last 24 hours of the platform prices. Past performance does not guarantee future results.",
-    "rangeDay": "Day",
-    "rangeWeek": "Week",
+    "rangeDay": "1D",
+    "rangeWeek": "1W",
     "backToMarkets": "Markets",
     "last24h": "last 24 hours",
     "dayRange": "Day range",
@@ -2580,5 +2587,86 @@
     "viewProfile": "View profile",
     "dotsLabel": "Choose a trader",
     "goTo": "Show trader {n}"
+  },
+  "VisitorFooter": {
+    "intro": "Copy trading made simple: follow traders, copy their trades, and stay in control of your money.",
+    "product": "Product",
+    "platform": "Platform",
+    "support": "Support",
+    "company": "Company",
+    "legal": "Legal",
+    "copyTrading": "Copy trading",
+    "discoverTraders": "Discover traders",
+    "markets": "Markets",
+    "crypto": "Crypto",
+    "gold": "Gold",
+    "forex": "Forex",
+    "howItWorks": "How copy trading works",
+    "riskManagement": "Risk management",
+    "fees": "Fees and profit sharing",
+    "becomeLeader": "Become a lead trader",
+    "helpCenter": "Help center",
+    "contact": "Contact us",
+    "riskDisclosure": "Risk disclosure",
+    "about": "About us",
+    "terms": "Terms and conditions",
+    "privacy": "Privacy policy",
+    "cookies": "Cookie policy",
+    "riskWarning": "Trading and copying trades carry a high risk of loss, and you may lose all of your capital. Past performance does not guarantee future results.",
+    "notBroker": "Copy Matrix is a software platform, not a licensed broker."
+  },
+  "FooterPages": {
+    "feesMeta": "Fees and profit sharing | Copy Matrix",
+    "feesTitle": "Fees and profit sharing",
+    "feesIntro": "What copying costs, in plain words. There is no subscription fee and no fee for opening an account.",
+    "feesSections": [
+      {
+        "title": "Profit share",
+        "body": "Each trader sets a profit share between 5% and 30% of the profit you make by copying them. The percentage is shown on the trader's card and profile before you start copying."
+      },
+      {
+        "title": "How it is calculated",
+        "body": "A share is taken only from new profit above your own previous highest result on that copy (the high-water mark). If the copy loses money, nothing is owed, and later gains must first recover the loss before a share is taken again."
+      },
+      {
+        "title": "Fixed once settled",
+        "body": "The percentage that applies to your copy is fixed when it is first settled, so a later change by the trader does not change it for your existing copy."
+      },
+      {
+        "title": "An example",
+        "body": "If your copy reaches a new high of $120 after a previous high of $100, and the trader's share is 20%, the share is 20% of the $20 above the high-water mark: $4."
+      },
+      {
+        "title": "Other costs",
+        "body": "Withdrawals show their network fee before you confirm. Copying itself has no subscription fee, and nothing is charged on a practice account."
+      }
+    ],
+    "contactMeta": "Contact us | Copy Matrix",
+    "contactTitle": "Contact us",
+    "contactIntro": "Questions about your account, copying or security? Write to us or use the support chat.",
+    "contactEmail": "By email",
+    "contactChat": "Open the support chat",
+    "contactSafety": "We never ask for your password, verification codes or recovery phrases. Do not share them with anyone.",
+    "cookiesMeta": "Cookie policy | Copy Matrix",
+    "cookiesTitle": "Cookie policy",
+    "cookiesSections": [
+      {
+        "title": "Only what the platform needs",
+        "body": "Copy Matrix uses the cookies it needs to work. It does not use advertising or tracking cookies."
+      },
+      {
+        "title": "What is stored",
+        "body": "A sign-in cookie that keeps you logged in; your language choice; your time zone; and your answer to the risk questions if you filled them in."
+      },
+      {
+        "title": "Third-party content",
+        "body": "Some pages show charts and market data from third-party providers. Those providers may set their own cookies when their content loads."
+      },
+      {
+        "title": "Your control",
+        "body": "You can delete cookies in your browser settings. You will be signed out and the platform will open in English again."
+      }
+    ],
+    "feesRiskLink": "Read the risk disclosure"
   }
 }

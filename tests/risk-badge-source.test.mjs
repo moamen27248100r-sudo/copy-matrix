@@ -29,7 +29,7 @@ test("the places that show a leader all use the badge or the one card", () => {
     "src/app/discover/compare/page.tsx": /<RiskBadge level=\{p\.risk_level\}/,
     "src/app/discover/page.tsx": /<LeaderCard/,
     "src/components/home/FeaturedLeadersSection.tsx": /<FeaturedLeaders/,
-    "src/app/page.tsx": /<LeaderCard/,
+    "src/app/page.tsx": /loadFeaturedLeaders/,
   };
   for (const [p, re] of Object.entries(needs)) assert.match(src(p), re, p);
 });
@@ -37,7 +37,6 @@ test("the places that show a leader all use the badge or the one card", () => {
 test("risk filters read the risk_level column", () => {
   const discover = src("src/app/discover/page.tsx");
   assert.match(discover, /\.eq\("risk_level", RISK_DB_VALUE\[risk\]\)/);
-  assert.match(src("src/app/page.tsx"), /\.in\("risk_level", \[/);
   assert.match(src("src/components/home/FeaturedLeadersSection.tsx"), /risk_level/);
 });
 

@@ -4,6 +4,7 @@ import { TraderAvatar } from "@/components/TraderAvatar";
 import { RiskBadge, StoppedBadge } from "@/components/TraderBadges";
 import { Sparkline } from "@/components/Sparkline";
 import { ConfirmButton } from "@/components/ConfirmButton";
+import { GitCompareArrows } from "lucide-react";
 import { periodStats, DEFAULT_PERIOD, type Period } from "@/lib/leader-period";
 import { fmtDrawdown, fmtReturn, fmtWinRate, nameIsolate } from "@/lib/format-stats";
 import { drawdownBehindRisk } from "@/lib/leader-scores";
@@ -37,6 +38,8 @@ export async function LeaderCard({
   copyState = "copy",
   onStopCopyingAction,
   period = DEFAULT_PERIOD,
+  fluid = false,
+  compare,
 }: {
   provider: ProviderCard;
   copyHref: string;
@@ -55,6 +58,10 @@ export async function LeaderCard({
   copyState?: "copy" | "stopCopying" | "stoppedDisabled" | "blockedDisabled";
   onStopCopyingAction?: (formData: FormData) => void | Promise<void>;
   period?: Period;
+  /** Fills the width of its grid cell (Discover) instead of the fixed card width (carousels). */
+  fluid?: boolean;
+  /** A small "compare" toggle in the header, beside the save mark. */
+  compare?: { href: string; active: boolean; label: string };
 }) {
   const t = await getTranslations("Discover");
   const stats = periodStats(p, period);
@@ -67,7 +74,7 @@ export async function LeaderCard({
   const button = "w-full rounded-lg px-3 py-2.5 text-center text-sm font-bold transition";
 
   return (
-    <div className={`group relative flex shrink-0 flex-col gap-3 overflow-hidden rounded-[20px] border border-white/[0.08] bg-surface p-4 transition hover:border-accent/30 ${LEADER_CARD_SIZE}`}>
+    <div className={`group relative flex shrink-0 flex-col gap-3 overflow-hidden rounded-[20px] border border-white/[0.08] bg-surface p-4 transition hover:border-accent/30 ${fluid ? "h-[24rem] w-full" : LEADER_CARD_SIZE}`}>
       <Link href={`/trader/${p.provider_id}`} aria-label={p.display_name ?? ""} className="absolute inset-0 z-0" />
 
       <div className="flex items-start gap-2.5">
@@ -79,6 +86,19 @@ export async function LeaderCard({
             <StoppedBadge stopped={isStopped} />
           </div>
         </div>
+        {compare && (
+          <Link
+            href={compare.href}
+            aria-label={compare.label}
+            title={compare.label}
+            aria-pressed={compare.active}
+            className={`tap-44 relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition ${
+              compare.active ? "border-accent/40 bg-accent/10 text-accent" : "border-border text-muted hover:border-accent/40 hover:text-accent"
+            }`}
+          >
+            <GitCompareArrows className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        )}
         {onFollowAction && (
           <form action={onFollowAction} className="relative z-10 shrink-0">
             <input type="hidden" name={followFormField} value={p.provider_id} />

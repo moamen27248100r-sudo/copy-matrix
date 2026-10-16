@@ -3,6 +3,7 @@ import { getSparklines } from "@/lib/sparklines";
 import { AppMain } from "@/components/AppMain";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
+import { Star } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { redirect } from "next/navigation";
@@ -127,6 +128,7 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
   const compareIds = (params.compare ?? "").split(",").filter(Boolean).slice(0, 4);
 
   const t = await getTranslations("Discover");
+  const tNav = await getTranslations("Nav");
   const money = await getMoney();
   const supabase = await createClient();
   const {
@@ -330,7 +332,7 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
     <>
       <AppNav />
       <AppMain>
-        <h1 className="text-page-title">{t("title")}</h1>
+        <h1 className="text-page-title">{tNav("navDiscover")}</h1>
         {user && <DiscoverTabs active="traders" />}
 
         {error && <FlashMessage tone="error">{error}</FlashMessage>}
@@ -360,12 +362,6 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
             hidden={{ q, view: current.view, favorites: current.favorites, per: current.per }}
             resetHref={href({ sort: null, pill: null, risk: null, style: null, share: null, minWin: null, roiMin: null, followers: null, aum: null, minEntry: null, assetClass: null, trackRecord: null, period: null, dd: null, compare: null })}
             sections={[
-              {
-                name: "period",
-                label: t("filterPeriod"),
-                current: period,
-                options: PERIODS.map((p) => ({ value: p, label: p === "all" ? t("periodAllTime") : t("periodDays", { days: Number(p) }) })),
-              },
               {
                 name: "sort",
                 label: t("sortSectionLabel"),
@@ -446,6 +442,17 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
               },
             ]}
           />
+          <Link
+            href={href({ favorites: favoritesOnly ? null : "1", page: null })}
+            aria-label={t("favoritesOnly")}
+            title={t("favoritesOnly")}
+            aria-pressed={favoritesOnly}
+            className={`tap-44 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition ${
+              favoritesOnly ? "border-accent bg-accent/10 text-accent" : "border-border text-muted hover:border-accent/40"
+            }`}
+          >
+            <Star className="h-5 w-5" fill={favoritesOnly ? "currentColor" : "none"} aria-hidden="true" />
+          </Link>
         </div>
 
         {/* Period switch, like the 7D / 30D / 90D tabs on copy-trading platforms. */}
@@ -467,16 +474,6 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
 
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <Link
-              href={href({ favorites: favoritesOnly ? null : "1", page: null })}
-              className={
-                favoritesOnly
-                  ? "rounded-full border border-accent bg-accent/10 px-3 py-1.5 text-xs font-medium text-accent"
-                  : "rounded-full border border-border px-3 py-1.5 text-xs font-medium text-muted transition hover:border-accent/40"
-              }
-            >
-              {t("favoritesOnly")}
-            </Link>
             <span className="text-xs text-muted">{t("resultsCount", { count: total })}</span>
           </div>
           <div className="flex items-center gap-1 rounded-full border border-border p-0.5">
@@ -496,18 +493,17 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
         </div>
 
         {compareIds.length > 0 && (
-          <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-accent/30 bg-accent/10 px-4 py-2 text-sm">
-            <span>{t("compareSelected", { count: compareIds.length })}</span>
-            <div className="flex gap-2">
-              <Link href={href({ compare: null })} className="text-muted hover:text-foreground">
-                {t("compareClear")}
+          <div className="fixed inset-x-3 bottom-24 z-30 mx-auto flex max-w-md items-center justify-between gap-3 rounded-full border border-accent/40 bg-surface px-4 py-2 shadow-xl shadow-black/40 lg:bottom-6">
+            <Link href={href({ compare: null })} className="text-sm text-muted hover:text-foreground">
+              {t("compareClear")}
+            </Link>
+            {compareIds.length >= 2 ? (
+              <Link href={`/discover/compare?ids=${compareIds.join(",")}&period=${period}`} className="rounded-full bg-accent px-4 py-1.5 text-sm font-bold text-accent-foreground">
+                {t("compareBar", { count: compareIds.length })}
               </Link>
-              {compareIds.length >= 2 && (
-                <Link href={`/discover/compare?ids=${compareIds.join(",")}&period=${period}`} className="rounded-full bg-accent px-3 py-1 text-xs font-bold text-accent-foreground">
-                  {t("compareNow")}
-                </Link>
-              )}
-            </div>
+            ) : (
+              <span className="text-sm text-muted">{t("compareBar", { count: compareIds.length })} · {t("comparePickOneMore")}</span>
+            )}
           </div>
         )}
 
@@ -567,7 +563,7 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
             </table>
           </div>
         ) : (
-          <div className="grid grid-cols-[repeat(auto-fill,17.5rem)] justify-center gap-4 sm:justify-start">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {providers.map((p) => {
               const isFollowing = followingIds.has(p.provider_id);
               const isStopped = p.trading_status === "stopped";
@@ -576,6 +572,8 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
               return (
                 <div key={p.provider_id} className="flex flex-col gap-1">
                   <LeaderCard
+                    fluid
+                    compare={{ href: compareHref(p.provider_id), active: compareIds.includes(p.provider_id), label: compareIds.includes(p.provider_id) ? t("compareRemove") : t("compareAdd") }}
                     provider={p}
                     period={period}
                     sparkline={spark[String(p.provider_id)]}
@@ -585,12 +583,6 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
                     copyState={isFollowing ? "stopCopying" : isStopped ? "stoppedDisabled" : "copy"}
                     onStopCopyingAction={unfollowProvider}
                   />
-                  <Link
-                    href={compareHref(p.provider_id)}
-                    className={compareIds.includes(p.provider_id) ? "tap-44 self-end px-2 text-xs font-medium text-accent" : "tap-44 self-end px-2 text-xs text-muted hover:text-accent"}
-                  >
-                    {compareIds.includes(p.provider_id) ? t("compareRemove") : t("compareAdd")}
-                  </Link>
                 </div>
               );
             })}

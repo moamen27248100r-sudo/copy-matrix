@@ -193,14 +193,14 @@
     "winRate": "Kiwango cha ushindi",
     "avgDailyReturn": "Wastani wa faida ya kila siku",
     "noClosedTrades": "Hakuna biashara zilizofungwa bado",
-    "periodWeek": "Wiki",
-    "periodMonth": "Mwezi",
+    "periodWeek": "Wiki 1",
+    "periodMonth": "Mwezi 1",
     "period3Months": "Miezi 3",
-    "periodYear": "Mwaka",
-    "periodAll": "Zote",
+    "periodYear": "Mwaka 1",
+    "periodAll": "Yote",
     "noEnoughClosedTrades": "Hakuna biashara za kutosha zilizofungwa katika kipindi hiki kuonyesha chati.",
     "startingPoint": "Mwanzo: {amount}",
-    "periodDay": "1S",
+    "periodDay": "Siku 1",
     "copiedPositionsTitle": "Nafasi Zinazonakiliwa Sasa",
     "closeTrade": "Funga",
     "closeTradeConfirm": "Funga nafasi hii sasa kwa bei ya sasa ya soko?",
@@ -503,16 +503,19 @@
     "amountDecimalsError": "Tumia desimali zisizozidi 2.",
     "amountMinError": "Kiwango cha chini ni {min} USDT.",
     "amountMaxError": "Kiwango cha juu ni {max} USDT.",
-    "amountAboveAvailable": "Kiasi hiki ni kikubwa kuliko salio lako linalopatikana."
+    "amountAboveAvailable": "Kiasi hiki ni kikubwa kuliko salio lako linalopatikana.",
+    "totalDeposited": "Jumla iliyowekwa",
+    "totalWithdrawn": "Jumla iliyotolewa",
+    "chartAfterFirstTrade": "Chati yako itaonekana baada ya biashara yako ya kwanza."
   },
   "TradeHistory": {
-    "periodToday": "Leo",
-    "periodWeek": "Wiki",
-    "periodMonth": "Mwezi",
+    "periodToday": "Siku 1",
+    "periodWeek": "Wiki 1",
+    "periodMonth": "Mwezi 1",
     "periodThreeMonths": "Miezi 3",
     "periodSixMonths": "Miezi 6",
-    "periodYear": "Mwaka",
-    "periodAll": "Zote",
+    "periodYear": "Mwaka 1",
+    "periodAll": "Yote",
     "tradesCount": "Biashara {count}",
     "noTradesInPeriod": "Hakuna biashara zilizofungwa katika kipindi hiki.",
     "chart": "Chati",
@@ -722,11 +725,11 @@
     "pnlLabel": "Faida/hasara",
     "aumLabel": "Fedha zilizonakiliwa",
     "profitShareLabel": "Mgao wa faida",
-    "periodShort_7": "Siku 7",
-    "periodShort_30": "Siku 30",
-    "periodShort_90": "Siku 90",
-    "periodShort_180": "Siku 180",
-    "periodShort_all": "Zote",
+    "periodShort_7": "Wiki 1",
+    "periodShort_30": "Mwezi 1",
+    "periodShort_90": "Miezi 3",
+    "periodShort_180": "Miezi 6",
+    "periodShort_all": "Yote",
     "resultsCount": "Wafanyabiashara {count}",
     "emptyNoLeaders": "Bado hakuna wafanyabiashara wanaopatikana. Wafanyabiashara waliothibitishwa wataonekana hapa mara tu wanapoanza biashara.",
     "paginationLabel": "Kurasa",
@@ -740,7 +743,11 @@
     "tabMarkets": "Masoko",
     "aumOver": "Zaidi ya {amount}",
     "maxDrawdownAll": "Kushuka juu zaidi (yote)",
-    "maxDrawdownAllHint": "Kushuka kukubwa zaidi kutoka kilele katika rekodi nzima, ikijumuisha hasara zinazoelea. Kiwango cha hatari kinatokana nayo."
+    "maxDrawdownAllHint": "Kushuka kukubwa zaidi kutoka kilele katika rekodi nzima, ikijumuisha hasara zinazoelea. Kiwango cha hatari kinatokana nayo.",
+    "periodShort_365": "Mwaka 1",
+    "periodShort_1": "Siku 1",
+    "compareBar": "Linganisha ({count})",
+    "comparePickOneMore": "chagua mmoja zaidi"
   },
   "Countries": {
     "US": "Marekani",
@@ -950,8 +957,8 @@
     "allInstruments": "Vyombo vyote",
     "noData": "Hakuna data ya bei kwa sasa.",
     "dataNote": "Mabadiliko yamekokotolewa kwa saa 24 zilizopita za bei za jukwaa. Utendaji wa zamani hauhakikishi matokeo ya baadaye.",
-    "rangeDay": "Siku",
-    "rangeWeek": "Wiki",
+    "rangeDay": "Siku 1",
+    "rangeWeek": "Wiki 1",
     "backToMarkets": "Masoko",
     "last24h": "saa 24 zilizopita",
     "dayRange": "Wigo wa leo",
@@ -2576,5 +2583,86 @@
     "viewProfile": "Tazama wasifu",
     "dotsLabel": "Chagua mfanyabiashara",
     "goTo": "Onyesha mfanyabiashara {n}"
+  },
+  "VisitorFooter": {
+    "intro": "Biashara ya kunakili iliyo rahisi: fuata wafanyabiashara, nakili biashara zao, na udhibiti pesa zako.",
+    "product": "Bidhaa",
+    "platform": "Jukwaa",
+    "support": "Msaada",
+    "company": "Kampuni",
+    "legal": "Kisheria",
+    "copyTrading": "Biashara ya kunakili",
+    "discoverTraders": "Gundua wafanyabiashara",
+    "markets": "Masoko",
+    "crypto": "Kripto",
+    "gold": "Dhahabu",
+    "forex": "Forex",
+    "howItWorks": "Jinsi biashara ya kunakili inavyofanya kazi",
+    "riskManagement": "Usimamizi wa hatari",
+    "fees": "Ada na kugawana faida",
+    "becomeLeader": "Kuwa mfanyabiashara kiongozi",
+    "helpCenter": "Kituo cha msaada",
+    "contact": "Wasiliana nasi",
+    "riskDisclosure": "Ufichuzi wa hatari",
+    "about": "Kuhusu sisi",
+    "terms": "Sheria na masharti",
+    "privacy": "Sera ya faragha",
+    "cookies": "Sera ya vidakuzi",
+    "riskWarning": "Biashara na kunakili biashara kuna hatari kubwa ya hasara, na unaweza kupoteza mtaji wako wote. Utendaji wa zamani haudhamini matokeo ya baadaye.",
+    "notBroker": "Copy Matrix ni jukwaa la programu, si wakala mwenye leseni."
+  },
+  "FooterPages": {
+    "feesMeta": "Ada na kugawana faida | Copy Matrix",
+    "feesTitle": "Ada na kugawana faida",
+    "feesIntro": "Gharama ya kunakili, kwa maneno rahisi. Hakuna ada ya usajili wala ada ya kufungua akaunti.",
+    "feesSections": [
+      {
+        "title": "Kugawana faida",
+        "body": "Kila mfanyabiashara huweka mgao kati ya 5% na 30% ya faida unayopata kwa kumnakili. Asilimia huonyeshwa kwenye kadi na wasifu wa mfanyabiashara kabla ya kuanza kunakili."
+      },
+      {
+        "title": "Jinsi inavyokokotolewa",
+        "body": "Mgao huchukuliwa tu kutoka faida mpya iliyo juu ya matokeo yako ya juu ya awali kwenye nakala hiyo (high-water mark). Nakala ikipata hasara, hakuna kinachodaiwa, na faida zinazofuata lazima kwanza zirudishe hasara kabla mgao kuchukuliwa tena."
+      },
+      {
+        "title": "Hubaki baada ya makazi",
+        "body": "Asilimia inayotumika kwa nakala yako hutulia wakati wa makazi ya kwanza, kwa hivyo mabadiliko ya baadaye ya mfanyabiashara hayabadilishi nakala yako iliyopo."
+      },
+      {
+        "title": "Mfano",
+        "body": "Nakala yako ikifikia kilele kipya cha $120 baada ya kilele cha awali cha $100, na mgao wa mfanyabiashara ni 20%, mgao ni 20% ya $20 iliyo juu ya high-water mark: $4."
+      },
+      {
+        "title": "Gharama nyingine",
+        "body": "Utoaji pesa huonyesha ada ya mtandao kabla ya kuthibitisha. Kunakili hakuna ada ya usajili, na hakuna kinachotozwa kwenye akaunti ya mazoezi."
+      }
+    ],
+    "contactMeta": "Wasiliana nasi | Copy Matrix",
+    "contactTitle": "Wasiliana nasi",
+    "contactIntro": "Una maswali kuhusu akaunti, kunakili au usalama? Tuandikie au tumia gumzo la msaada.",
+    "contactEmail": "Kwa barua pepe",
+    "contactChat": "Fungua gumzo la msaada",
+    "contactSafety": "Hatuombi kamwe nenosiri lako, misimbo ya uthibitisho au misemo ya urejeshaji. Usiyashiriki na yeyote.",
+    "cookiesMeta": "Sera ya vidakuzi | Copy Matrix",
+    "cookiesTitle": "Sera ya vidakuzi",
+    "cookiesSections": [
+      {
+        "title": "Kile tu ambacho jukwaa linahitaji",
+        "body": "Copy Matrix hutumia vidakuzi vinavyohitajika ili ifanye kazi tu. Haitumii vidakuzi vya matangazo wala vya kufuatilia."
+      },
+      {
+        "title": "Kinachohifadhiwa",
+        "body": "Kidakuzi cha kuingia kinachokuweka umeingia; lugha uliyochagua; ukanda wako wa saa; na jibu lako kwa maswali ya hatari ikiwa uliyajaza."
+      },
+      {
+        "title": "Maudhui ya wengine",
+        "body": "Baadhi ya kurasa huonyesha chati na data ya soko kutoka kwa watoa huduma wengine. Watoa huduma hao wanaweza kuweka vidakuzi vyao maudhui yao yanapopakia."
+      },
+      {
+        "title": "Udhibiti wako",
+        "body": "Unaweza kufuta vidakuzi kwenye mipangilio ya kivinjari chako. Utatolewa kwenye akaunti na jukwaa litafunguka kwa Kiingereza tena."
+      }
+    ],
+    "feesRiskLink": "Soma ufichuzi wa hatari"
   }
 }

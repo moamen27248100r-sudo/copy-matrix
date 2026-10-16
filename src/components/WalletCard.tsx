@@ -40,6 +40,7 @@ export async function WalletCard({
   netInvested,
   benchmarks,
   returnTo = "/portfolio",
+  hasTrades = true,
 }: {
   isDemo: boolean;
   depositsOn: boolean;
@@ -51,6 +52,8 @@ export async function WalletCard({
   netInvested: number | null;
   benchmarks: Benchmarks | null;
   returnTo?: string;
+  /** Until the first trade the chart has nothing to draw: it shrinks to one line. */
+  hasTrades?: boolean;
 }) {
   const t = await getTranslations("Dashboard");
   const tp = await getTranslations("Portfolio");
@@ -96,7 +99,11 @@ export async function WalletCard({
         </span>
       </p>
 
-      <MyEquityChart wallet positions={series} netInvested={netInvested} benchmarks={benchmarks} />
+      {hasTrades ? (
+        <MyEquityChart wallet positions={series} netInvested={netInvested} benchmarks={benchmarks} />
+      ) : (
+        <p className="rounded-xl border border-dashed border-border px-3 py-2 text-center text-xs text-muted">{tp("chartAfterFirstTrade")}</p>
+      )}
 
       <div className="grid grid-cols-3 gap-2">
         {[

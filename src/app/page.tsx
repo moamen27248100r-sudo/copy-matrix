@@ -1,19 +1,15 @@
 import Link from "next/link";
-import { getSparklines } from "@/lib/sparklines";
 import { getTranslations, getLocale } from "next-intl/server";
-import { createClient } from "@/lib/supabase/server";
 import { MarketOverview } from "@/components/MarketOverview";
-import { LeaderCard } from "@/components/LeaderCard";
+import { FeaturedLeaders } from "@/components/FeaturedLeaders";
+import { loadFeaturedLeaders } from "@/components/home/FeaturedLeadersSection";
 import { Header } from "@/components/Header";
 import { ArrowRight, ChartCandlestick, Copy, ShieldCheck } from "lucide-react";
 import { HeroVideo } from "@/components/landing/HeroVideo";
 import { FactCards, FeatureStrip, SECTION, Steps } from "@/components/landing/Sections";
-import { CardsCarousel } from "@/components/landing/CardsCarousel";
 import { StickyCta } from "@/components/landing/StickyCta";
 import { FAQAccordion } from "@/components/FAQAccordion";
-import { Footer } from "@/components/Footer";
 import { isRtlLocale, type Locale } from "@/i18n/locales";
-import { getBioTranslator } from "@/lib/bio-translations";
 
 export const dynamic = "force-dynamic";
 
@@ -41,44 +37,14 @@ const HERO_STRIP = [
 ] as const;
 
 export default async function Home() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
   const t = await getTranslations("Home");
   const tl = await getTranslations("Home.landing");
   const tShowcase = await getTranslations("HomeShowcase");
   const th = await getTranslations("Home.heroV2");
   const locale = (await getLocale()) as Locale;
-  const translateBio = await getBioTranslator();
 
-  // The six leaders with the highest 30-day return among low- and medium-risk ones with enough
-  // closed trades in the period (a return over a handful of trades says nothing); archived and
-  // stopped ones excluded.
-  // Same two retries as before: the cards should be on the page, not there only when the first try
-  // happens to succeed.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let topProviders: any[] | null = null;
-  for (let attempt = 1; attempt <= 3; attempt++) {
-    const { data, error } = await supabase
-      .from("provider_cards")
-      .select("*")
-      .eq("is_archived", false)
-      .neq("trading_status", "stopped")
-      .in("risk_level", ["منخفضة", "متوسطة"])
-      .gt("roi_30d", 0)
-      .gte("trades_30d", 20)
-      .order("roi_30d", { ascending: false })
-      .limit(6);
-    if (!error) {
-      topProviders = data ?? [];
-      break;
-    }
-    console.error(`provider_cards fetch attempt ${attempt} failed:`, error.message);
-  }
-
-  // Return (%) over each featured leader's last 30 days, for the curve on the card.
-  const sparkSeries = await getSparklines(supabase, (topProviders ?? []).map((p) => String(p.provider_id)));
+  // The suggested traders: the same portrait cards, with the same rotation, as on the customer's home.
+  const featured = await loadFeaturedLeaders();
 
   const navLinks = NAV_HASHES.map((h) => ({ href: `#${h}`, label: t(`nav.${h === "how-it-works" ? "howItWorks" : h}`) }));
   const dir = isRtlLocale(locale) ? "rtl" : "ltr";
@@ -139,28 +105,12 @@ export default async function Home() {
       <Steps />
       <FactCards />
 
-      {topProviders && topProviders.length > 0 && (
+      {featured.length > 0 && (
         <section id="traders" className={SECTION}>
           <h2 className="ty-section">{t("traders.title")}</h2>
           <p className="ty-body mt-3 max-w-xl">{tl("traderSubtitle")}</p>
           <div className="mt-8">
-            <CardsCarousel prevLabel={tl("prev")} nextLabel={tl("next")}>
-              {topProviders.map((p) => {
-                const copyHref = user
-                  ? `/trader/${p.provider_id}#copy`
-                  : `/signup?next=${encodeURIComponent(`/trader/${p.provider_id}#copy`)}`;
-                return (
-                  <LeaderCard
-                    key={p.provider_id}
-                    provider={p}
-                    copyHref={copyHref}
-                    bio={p.bio ? translateBio(p.bio) : null}
-                    sparkline={sparkSeries[String(p.provider_id)]}
-                    maxDrawdownPct={p.mdd_30d != null ? Number(p.mdd_30d) : null}
-                  />
-                );
-              })}
-            </CardsCarousel>
+            <FeaturedLeaders leaders={featured} />
           </div>
           <div className="mt-8 flex justify-center">
             <Link
@@ -193,7 +143,6 @@ export default async function Home() {
         </div>
       </section>
 
-      <Footer dir={dir} navLinks={navLinks} />
       <StickyCta href="/signup" label={t("hero.start")} heroId="hero-cta" endId="final-cta" />
     </main>
   );

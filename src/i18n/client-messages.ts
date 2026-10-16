@@ -32,6 +32,7 @@ export const GLOBAL_CLIENT_NAMESPACES = [
   "Portfolio",
   "Pwa",
   "SiteFooter",
+  "VisitorFooter",
   "Support",
   "Symbols",
   "TradeHistory",

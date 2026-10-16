@@ -193,14 +193,14 @@
     "winRate": "Tasa de éxito",
     "avgDailyReturn": "Rendimiento diario promedio",
     "noClosedTrades": "Aún no hay operaciones cerradas",
-    "periodWeek": "Semana",
-    "periodMonth": "Mes",
-    "period3Months": "3 meses",
-    "periodYear": "Año",
+    "periodWeek": "1 sem",
+    "periodMonth": "1 m",
+    "period3Months": "3 m",
+    "periodYear": "1 a",
     "periodAll": "Todo",
     "noEnoughClosedTrades": "No hay suficientes operaciones cerradas en este período para mostrar el gráfico.",
     "startingPoint": "Inicio: {amount}",
-    "periodDay": "1D",
+    "periodDay": "1 d",
     "copiedPositionsTitle": "Posiciones copiadas activas",
     "closeTrade": "Cerrar",
     "closeTradeConfirm": "¿Cerrar esta posición ahora al precio de mercado actual?",
@@ -503,15 +503,18 @@
     "amountDecimalsError": "Usa como máximo 2 decimales.",
     "amountMinError": "El mínimo es {min} USDT.",
     "amountMaxError": "El máximo es {max} USDT.",
-    "amountAboveAvailable": "Este importe supera tu saldo disponible."
+    "amountAboveAvailable": "Este importe supera tu saldo disponible.",
+    "totalDeposited": "Total depositado",
+    "totalWithdrawn": "Total retirado",
+    "chartAfterFirstTrade": "Tu gráfico aparecerá tras tu primera operación."
   },
   "TradeHistory": {
-    "periodToday": "Hoy",
-    "periodWeek": "Semana",
-    "periodMonth": "Mes",
-    "periodThreeMonths": "3 meses",
-    "periodSixMonths": "6 meses",
-    "periodYear": "Año",
+    "periodToday": "1 d",
+    "periodWeek": "1 sem",
+    "periodMonth": "1 m",
+    "periodThreeMonths": "3 m",
+    "periodSixMonths": "6 m",
+    "periodYear": "1 a",
     "periodAll": "Todo",
     "tradesCount": "{count} operaciones",
     "noTradesInPeriod": "No hay operaciones cerradas en este período.",
@@ -722,10 +725,10 @@
     "pnlLabel": "Ganancia/pérdida",
     "aumLabel": "Capital copiado",
     "profitShareLabel": "Reparto de beneficios",
-    "periodShort_7": "7 días",
-    "periodShort_30": "30 días",
-    "periodShort_90": "90 días",
-    "periodShort_180": "180 días",
+    "periodShort_7": "1 sem",
+    "periodShort_30": "1 m",
+    "periodShort_90": "3 m",
+    "periodShort_180": "6 m",
     "periodShort_all": "Todo",
     "resultsCount": "{count, plural, one {# operador} other {# operadores}}",
     "emptyNoLeaders": "Todavía no hay traders disponibles. Los traders verificados aparecerán aquí en cuanto empiecen a operar.",
@@ -740,7 +743,11 @@
     "tabMarkets": "Mercados",
     "aumOver": "Más de {amount}",
     "maxDrawdownAll": "Caída máx. (total)",
-    "maxDrawdownAllHint": "La mayor caída desde un máximo en todo el historial, incluidas las pérdidas flotantes. El nivel de riesgo se basa en ella."
+    "maxDrawdownAllHint": "La mayor caída desde un máximo en todo el historial, incluidas las pérdidas flotantes. El nivel de riesgo se basa en ella.",
+    "periodShort_365": "1 a",
+    "periodShort_1": "1 d",
+    "compareBar": "Comparar ({count})",
+    "comparePickOneMore": "elige otro"
   },
   "Countries": {
     "US": "Estados Unidos",
@@ -950,8 +957,8 @@
     "allInstruments": "Todos los instrumentos",
     "noData": "No hay datos de precios por ahora.",
     "dataNote": "La variación se calcula sobre las últimas 24 horas de precios de la plataforma. El rendimiento pasado no garantiza resultados futuros.",
-    "rangeDay": "Día",
-    "rangeWeek": "Semana",
+    "rangeDay": "1 d",
+    "rangeWeek": "1 sem",
     "backToMarkets": "Mercados",
     "last24h": "últimas 24 horas",
     "dayRange": "Rango del día",
@@ -2577,5 +2584,86 @@
     "viewProfile": "Ver perfil",
     "dotsLabel": "Elige un trader",
     "goTo": "Mostrar trader {n}"
+  },
+  "VisitorFooter": {
+    "intro": "El copy trading, sencillo: sigue a traders, copia sus operaciones y mantén el control de tu dinero.",
+    "product": "Producto",
+    "platform": "Plataforma",
+    "support": "Soporte",
+    "company": "Empresa",
+    "legal": "Legal",
+    "copyTrading": "Copy trading",
+    "discoverTraders": "Descubrir traders",
+    "markets": "Mercados",
+    "crypto": "Cripto",
+    "gold": "Oro",
+    "forex": "Forex",
+    "howItWorks": "Cómo funciona el copy trading",
+    "riskManagement": "Gestión del riesgo",
+    "fees": "Comisiones y reparto de beneficios",
+    "becomeLeader": "Ser trader líder",
+    "helpCenter": "Centro de ayuda",
+    "contact": "Contáctanos",
+    "riskDisclosure": "Aviso de riesgos",
+    "about": "Sobre nosotros",
+    "terms": "Términos y condiciones",
+    "privacy": "Política de privacidad",
+    "cookies": "Política de cookies",
+    "riskWarning": "Operar y copiar operaciones conlleva un alto riesgo de pérdida y puedes perder todo tu capital. El rendimiento pasado no garantiza resultados futuros.",
+    "notBroker": "Copy Matrix es una plataforma de software, no un bróker autorizado."
+  },
+  "FooterPages": {
+    "feesMeta": "Comisiones y reparto de beneficios | Copy Matrix",
+    "feesTitle": "Comisiones y reparto de beneficios",
+    "feesIntro": "Lo que cuesta copiar, en palabras sencillas. No hay cuota de suscripción ni coste por abrir una cuenta.",
+    "feesSections": [
+      {
+        "title": "Reparto de beneficios",
+        "body": "Cada trader fija un reparto entre el 5 % y el 30 % del beneficio que obtienes al copiarlo. El porcentaje se muestra en su tarjeta y perfil antes de empezar a copiar."
+      },
+      {
+        "title": "Cómo se calcula",
+        "body": "El reparto solo se toma del beneficio nuevo por encima de tu anterior mejor resultado en esa copia (el máximo histórico). Si la copia pierde dinero, no se debe nada, y las ganancias posteriores deben recuperar primero la pérdida antes de que se vuelva a cobrar."
+      },
+      {
+        "title": "Fijo tras la liquidación",
+        "body": "El porcentaje aplicable a tu copia se fija en su primera liquidación, así que un cambio posterior del trader no afecta a tu copia existente."
+      },
+      {
+        "title": "Un ejemplo",
+        "body": "Si tu copia alcanza un nuevo máximo de 120 $ tras un máximo anterior de 100 $, y el reparto del trader es del 20 %, se cobra el 20 % de los 20 $ por encima del máximo: 4 $."
+      },
+      {
+        "title": "Otros costes",
+        "body": "Los retiros muestran su comisión de red antes de confirmar. Copiar no tiene cuota de suscripción y en una cuenta de práctica no se cobra nada."
+      }
+    ],
+    "contactMeta": "Contáctanos | Copy Matrix",
+    "contactTitle": "Contáctanos",
+    "contactIntro": "¿Dudas sobre tu cuenta, la copia o la seguridad? Escríbenos o usa el chat de soporte.",
+    "contactEmail": "Por correo",
+    "contactChat": "Abrir el chat de soporte",
+    "contactSafety": "Nunca pedimos tu contraseña, códigos de verificación ni frases de recuperación. No los compartas con nadie.",
+    "cookiesMeta": "Política de cookies | Copy Matrix",
+    "cookiesTitle": "Política de cookies",
+    "cookiesSections": [
+      {
+        "title": "Solo lo que la plataforma necesita",
+        "body": "Copy Matrix usa las cookies necesarias para funcionar. No usa cookies publicitarias ni de seguimiento."
+      },
+      {
+        "title": "Qué se guarda",
+        "body": "Una cookie de inicio de sesión que te mantiene conectado; tu idioma; tu zona horaria; y tu respuesta a las preguntas de riesgo si las completaste."
+      },
+      {
+        "title": "Contenido de terceros",
+        "body": "Algunas páginas muestran gráficos y datos de mercado de proveedores externos. Esos proveedores pueden colocar sus propias cookies al cargar su contenido."
+      },
+      {
+        "title": "Tu control",
+        "body": "Puedes borrar las cookies en los ajustes de tu navegador. Se cerrará tu sesión y la plataforma se abrirá de nuevo en inglés."
+      }
+    ],
+    "feesRiskLink": "Leer el aviso de riesgos"
   }
 }

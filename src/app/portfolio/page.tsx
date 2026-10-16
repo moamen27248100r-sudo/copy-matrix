@@ -1,7 +1,6 @@
 import { getMoney } from "@/lib/money-server";
 import { AppMain } from "@/components/AppMain";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { SuggestedLeaders } from "@/components/SuggestedLeaders";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations, getLocale } from "next-intl/server";
@@ -39,6 +38,7 @@ export default async function PortfolioPage({
   if (tab === "positions") redirect("/trades");
   const locale = (await getLocale()) as Locale;
   const t = await getTranslations("Portfolio");
+  const tNav = await getTranslations("Nav");
   const td = await getTranslations("Dashboard");
   const tc = await getTranslations("Copies");
   const tw = await getTranslations("Wallet");
@@ -76,6 +76,7 @@ export default async function PortfolioPage({
     { data: dashSummary },
     { data: benchmarkBundle },
     depositsOn,
+    { data: movementRows },
   ] = await Promise.all([
     supabase.from("subscriptions").select("provider_id, allocated_amount").eq("follower_id", user.id).eq("is_active", true),
     // Wallet history is per account: the demo and real ledgers never mix.
@@ -104,6 +105,14 @@ export default async function PortfolioPage({
     supabase.rpc("dashboard_summary", { p_tz: userTz }),
     supabase.rpc("benchmark_bundle"),
     depositsEnabled(supabase),
+    // Everything this account ever deposited and withdrew (real accounts only show it).
+    supabase
+      .from("wallet_transactions")
+      .select("type, amount")
+      .eq("user_id", user.id)
+      .eq("account_type", accountType)
+      .in("type", ["deposit", "withdrawal"])
+      .limit(5000),
   ]);
 
   type PortfolioSummary = {
@@ -175,13 +184,26 @@ export default async function PortfolioPage({
     withdrawals: Number(m.withdrawals),
   }));
 
+  const totalDeposited = (movementRows ?? []).filter((x) => x.type === "deposit").reduce((s, x) => s + Math.abs(Number(x.amount)), 0);
+  const totalWithdrawn = (movementRows ?? []).filter((x) => x.type === "withdrawal").reduce((s, x) => s + Math.abs(Number(x.amount)), 0);
+  const summaryTiles = isDemo
+    ? [
+        { label: td("netRealizedProfit"), value: money(realized, { signed: realized !== 0 }), tone: realized > 0 ? "text-success" : realized < 0 ? "text-danger" : "" },
+        { label: td("unrealizedPnl"), value: money(unrealized, { signed: unrealized !== 0 }), tone: unrealized > 0 ? "text-success" : unrealized < 0 ? "text-danger" : "" },
+      ]
+    : [
+        { label: td("netRealizedProfit"), value: money(realized, { signed: realized !== 0 }), tone: realized > 0 ? "text-success" : realized < 0 ? "text-danger" : "" },
+        { label: t("totalDeposited"), value: money(totalDeposited), tone: "" },
+        { label: t("totalWithdrawn"), value: money(totalWithdrawn), tone: "" },
+      ];
+
   const walletMovements = (transactions ?? []).filter((x) => x.type === "deposit" || x.type === "withdrawal" || x.type === "demo_reset").slice(0, 5);
 
   return (
     <>
       <AppNav />
       <AppMain>
-        <h1 className="text-page-title">{t("title")}</h1>
+        <h1 className="text-page-title">{tNav("navPortfolio")}</h1>
 
         {error && <FlashMessage tone="error">{error}</FlashMessage>}
         {demo && (
@@ -190,9 +212,22 @@ export default async function PortfolioPage({
           </AutoDismissMessage>
         )}
 
+        {/* Summary: what the account has made, and (real account) what went in and out. */}
+        <section className={`grid gap-2 text-center ${summaryTiles.length === 3 ? "grid-cols-3" : "grid-cols-2"}`}>
+          {summaryTiles.map((x) => (
+            <div key={x.label} className="rounded-2xl border border-border bg-surface px-2 py-3">
+              <p className={`text-base font-bold tabular-nums ${x.tone}`}>
+                <bdi dir="ltr">{x.value}</bdi>
+              </p>
+              <p className="mt-0.5 text-xs text-muted">{x.label}</p>
+            </div>
+          ))}
+        </section>
+
         <div className="grid items-start gap-6 lg:grid-cols-2">
           <div className="flex flex-col gap-4">
             <WalletCard
+              hasTrades={closedCount > 0 || (dash?.open?.count ?? 0) > 0}
               isDemo={isDemo}
               depositsOn={depositsOn}
               totalValue={balance + unrealized}
@@ -226,6 +261,7 @@ export default async function PortfolioPage({
           </div>
 
           <div className="flex flex-col gap-4">
+            {byProvider.length > 0 && (
             <section className="flex flex-col gap-3">
               <h2 className="text-section-title">{td("portfolioAllocationTitle")}</h2>
               <div className="rounded-[20px] border border-border bg-surface p-5">
@@ -237,6 +273,7 @@ export default async function PortfolioPage({
                 />
               </div>
             </section>
+            )}
             <PortfolioRiskCard
               risk={risk}
               reservedPct={balance > 0 ? Math.min(100, (totalAllocated / balance) * 100) : 0}
@@ -247,10 +284,7 @@ export default async function PortfolioPage({
         </div>
 
         {closedCount === 0 ? (
-          <>
-            <EmptyState title={t("performanceEmptyTitle")} message={t("performanceEmptyBody")} actionHref="/discover" actionLabel={tc("discover")} />
-            <SuggestedLeaders excludeProviderIds={byProvider.map((p) => p.provider_id)} />
-          </>
+          <EmptyState title={t("performanceEmptyTitle")} message={t("performanceEmptyBody")} actionHref="/discover" actionLabel={tc("discover")} />
         ) : (
           <>
           <section className="flex flex-col gap-3">

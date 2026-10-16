@@ -49,6 +49,8 @@
     "Symbols.XRPUSDT",
     "TraderBadges.tierPro",
     "Trades.filterTrader",
+    "VisitorFooter.copyTrading",
+    "VisitorFooter.legal",
     "Wallet.arrivalValue"
   ],
   "fr": [
@@ -128,6 +130,8 @@
     "TraderProfile.tab_performance",
     "Trades.filterTrader",
     "Trades.title",
+    "VisitorFooter.copyTrading",
+    "VisitorFooter.crypto",
     "Wallet.amountPlaceholder",
     "Wallet.arrivalValue",
     "Wallet.colTxid",
@@ -209,6 +213,8 @@
     "TraderHistory.summaryProfit",
     "TraderProfile.statTotalProfit",
     "Trades.filterTrader",
+    "VisitorFooter.copyTrading",
+    "VisitorFooter.platform",
     "Wallet.amountPlaceholder"
   ],
   "pt": [
@@ -256,6 +262,7 @@
     "TraderBadges.tierElite",
     "TraderBadges.tierPro",
     "Trades.filterTrader",
+    "VisitorFooter.copyTrading",
     "Wallet.arrivalValue"
   ],
   "sw": [
@@ -363,7 +370,8 @@
     "Nav.menuAriaLabel",
     "Symbols.BNBUSDT",
     "Symbols.SOLUSDT",
-    "Symbols.XRPUSDT"
+    "Symbols.XRPUSDT",
+    "VisitorFooter.copyTrading"
   ],
   "zh": [
     "Dashboard.newsSourceOnly",

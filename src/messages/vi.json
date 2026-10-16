@@ -193,14 +193,14 @@
     "winRate": "Tỷ lệ thắng",
     "avgDailyReturn": "Lợi nhuận trung bình hằng ngày",
     "noClosedTrades": "Chưa có giao dịch nào đóng",
-    "periodWeek": "Tuần",
-    "periodMonth": "Tháng",
-    "period3Months": "3 tháng",
-    "periodYear": "Năm",
+    "periodWeek": "1 tuần",
+    "periodMonth": "1 th",
+    "period3Months": "3 th",
+    "periodYear": "1 năm",
     "periodAll": "Tất cả",
     "noEnoughClosedTrades": "Không đủ giao dịch đã đóng trong khoảng thời gian này để hiển thị biểu đồ.",
     "startingPoint": "Bắt đầu: {amount}",
-    "periodDay": "1N",
+    "periodDay": "1 ngày",
     "copiedPositionsTitle": "Vị thế sao chép đang mở",
     "closeTrade": "Đóng",
     "closeTradeConfirm": "Đóng vị thế này ngay bây giờ theo giá thị trường hiện tại?",
@@ -503,15 +503,18 @@
     "amountDecimalsError": "Chỉ dùng tối đa 2 chữ số thập phân.",
     "amountMinError": "Mức tối thiểu là {min} USDT.",
     "amountMaxError": "Mức tối đa là {max} USDT.",
-    "amountAboveAvailable": "Số tiền này vượt quá số dư khả dụng của bạn."
+    "amountAboveAvailable": "Số tiền này vượt quá số dư khả dụng của bạn.",
+    "totalDeposited": "Tổng đã nạp",
+    "totalWithdrawn": "Tổng đã rút",
+    "chartAfterFirstTrade": "Biểu đồ sẽ xuất hiện sau giao dịch đầu tiên của bạn."
   },
   "TradeHistory": {
-    "periodToday": "Hôm nay",
-    "periodWeek": "Tuần",
-    "periodMonth": "Tháng",
-    "periodThreeMonths": "3 tháng",
-    "periodSixMonths": "6 tháng",
-    "periodYear": "Năm",
+    "periodToday": "1 ngày",
+    "periodWeek": "1 tuần",
+    "periodMonth": "1 th",
+    "periodThreeMonths": "3 th",
+    "periodSixMonths": "6 th",
+    "periodYear": "1 năm",
     "periodAll": "Tất cả",
     "tradesCount": "{count} giao dịch",
     "noTradesInPeriod": "Không có giao dịch nào đã đóng trong khoảng thời gian này.",
@@ -722,10 +725,10 @@
     "pnlLabel": "Lãi/lỗ",
     "aumLabel": "Vốn sao chép",
     "profitShareLabel": "Chia sẻ lợi nhuận",
-    "periodShort_7": "7 ngày",
-    "periodShort_30": "30 ngày",
-    "periodShort_90": "90 ngày",
-    "periodShort_180": "180 ngày",
+    "periodShort_7": "1 tuần",
+    "periodShort_30": "1 th",
+    "periodShort_90": "3 th",
+    "periodShort_180": "6 th",
     "periodShort_all": "Tất cả",
     "resultsCount": "{count} nhà giao dịch",
     "emptyNoLeaders": "Hiện chưa có nhà giao dịch nào. Các nhà giao dịch đã xác minh sẽ xuất hiện tại đây ngay khi họ bắt đầu giao dịch.",
@@ -740,7 +743,11 @@
     "tabMarkets": "Thị trường",
     "aumOver": "Trên {amount}",
     "maxDrawdownAll": "Sụt giảm tối đa (tất cả)",
-    "maxDrawdownAllHint": "Mức sụt giảm lớn nhất từ đỉnh trong toàn bộ lịch sử, gồm cả lỗ tạm tính. Mức rủi ro dựa trên con số này."
+    "maxDrawdownAllHint": "Mức sụt giảm lớn nhất từ đỉnh trong toàn bộ lịch sử, gồm cả lỗ tạm tính. Mức rủi ro dựa trên con số này.",
+    "periodShort_365": "1 năm",
+    "periodShort_1": "1 ngày",
+    "compareBar": "So sánh ({count})",
+    "comparePickOneMore": "chọn thêm một"
   },
   "Countries": {
     "US": "Hoa Kỳ",
@@ -950,8 +957,8 @@
     "allInstruments": "Tất cả công cụ",
     "noData": "Hiện chưa có dữ liệu giá.",
     "dataNote": "Mức thay đổi tính trên 24 giờ gần nhất của giá nền tảng. Hiệu suất trong quá khứ không đảm bảo kết quả tương lai.",
-    "rangeDay": "Ngày",
-    "rangeWeek": "Tuần",
+    "rangeDay": "1 ngày",
+    "rangeWeek": "1 tuần",
     "backToMarkets": "Thị trường",
     "last24h": "24 giờ qua",
     "dayRange": "Biên độ trong ngày",
@@ -2576,5 +2583,86 @@
     "viewProfile": "Xem hồ sơ",
     "dotsLabel": "Chọn một trader",
     "goTo": "Hiện trader {n}"
+  },
+  "VisitorFooter": {
+    "intro": "Copy trading đơn giản: theo dõi trader, sao chép giao dịch của họ và luôn kiểm soát tiền của bạn.",
+    "product": "Sản phẩm",
+    "platform": "Nền tảng",
+    "support": "Hỗ trợ",
+    "company": "Công ty",
+    "legal": "Pháp lý",
+    "copyTrading": "Copy trading",
+    "discoverTraders": "Khám phá trader",
+    "markets": "Thị trường",
+    "crypto": "Tiền số",
+    "gold": "Vàng",
+    "forex": "Ngoại hối",
+    "howItWorks": "Copy trading hoạt động thế nào",
+    "riskManagement": "Quản lý rủi ro",
+    "fees": "Phí và chia sẻ lợi nhuận",
+    "becomeLeader": "Trở thành lead trader",
+    "helpCenter": "Trung tâm trợ giúp",
+    "contact": "Liên hệ",
+    "riskDisclosure": "Công bố rủi ro",
+    "about": "Giới thiệu",
+    "terms": "Điều khoản và điều kiện",
+    "privacy": "Chính sách quyền riêng tư",
+    "cookies": "Chính sách cookie",
+    "riskWarning": "Giao dịch và sao chép giao dịch có rủi ro thua lỗ cao, bạn có thể mất toàn bộ vốn. Hiệu suất trong quá khứ không đảm bảo kết quả tương lai.",
+    "notBroker": "Copy Matrix là một nền tảng phần mềm, không phải nhà môi giới được cấp phép."
+  },
+  "FooterPages": {
+    "feesMeta": "Phí và chia sẻ lợi nhuận | Copy Matrix",
+    "feesTitle": "Phí và chia sẻ lợi nhuận",
+    "feesIntro": "Chi phí sao chép, nói đơn giản. Không có phí đăng ký và không có phí mở tài khoản.",
+    "feesSections": [
+      {
+        "title": "Chia sẻ lợi nhuận",
+        "body": "Mỗi trader đặt mức chia sẻ từ 5% đến 30% lợi nhuận bạn kiếm được khi sao chép họ. Tỷ lệ hiển thị trên thẻ và hồ sơ của trader trước khi bạn bắt đầu sao chép."
+      },
+      {
+        "title": "Cách tính",
+        "body": "Chỉ thu phần chia sẻ từ lợi nhuận mới vượt kết quả cao nhất trước đó của lệnh sao chép đó (ngưỡng đỉnh). Nếu lệnh sao chép thua lỗ thì không phải trả gì, và lãi sau đó phải bù khoản lỗ trước khi lại bị thu phần chia sẻ."
+      },
+      {
+        "title": "Cố định khi quyết toán",
+        "body": "Tỷ lệ áp dụng cho lệnh sao chép của bạn được cố định ở lần quyết toán đầu tiên, nên việc trader thay đổi sau đó không ảnh hưởng đến lệnh sao chép hiện có."
+      },
+      {
+        "title": "Ví dụ",
+        "body": "Nếu lệnh sao chép của bạn đạt đỉnh mới $120 sau đỉnh trước $100, và mức chia sẻ của trader là 20%, phần chia sẻ là 20% của $20 trên ngưỡng đỉnh: $4."
+      },
+      {
+        "title": "Chi phí khác",
+        "body": "Rút tiền hiển thị phí mạng trước khi bạn xác nhận. Sao chép không có phí đăng ký, và tài khoản luyện tập không bị tính phí."
+      }
+    ],
+    "contactMeta": "Liên hệ | Copy Matrix",
+    "contactTitle": "Liên hệ",
+    "contactIntro": "Có câu hỏi về tài khoản, sao chép hoặc bảo mật? Hãy viết cho chúng tôi hoặc dùng trò chuyện hỗ trợ.",
+    "contactEmail": "Qua email",
+    "contactChat": "Mở trò chuyện hỗ trợ",
+    "contactSafety": "Chúng tôi không bao giờ hỏi mật khẩu, mã xác minh hay cụm từ khôi phục của bạn. Đừng chia sẻ với ai.",
+    "cookiesMeta": "Chính sách cookie | Copy Matrix",
+    "cookiesTitle": "Chính sách cookie",
+    "cookiesSections": [
+      {
+        "title": "Chỉ những gì nền tảng cần",
+        "body": "Copy Matrix chỉ dùng các cookie cần thiết để hoạt động. Nền tảng không dùng cookie quảng cáo hay theo dõi."
+      },
+      {
+        "title": "Những gì được lưu",
+        "body": "Cookie đăng nhập giữ bạn ở trạng thái đăng nhập; lựa chọn ngôn ngữ; múi giờ; và câu trả lời của bạn cho các câu hỏi về rủi ro nếu bạn đã điền."
+      },
+      {
+        "title": "Nội dung bên thứ ba",
+        "body": "Một số trang hiển thị biểu đồ và dữ liệu thị trường từ nhà cung cấp bên thứ ba. Các nhà cung cấp này có thể đặt cookie riêng khi nội dung của họ tải."
+      },
+      {
+        "title": "Quyền kiểm soát của bạn",
+        "body": "Bạn có thể xóa cookie trong cài đặt trình duyệt. Bạn sẽ bị đăng xuất và nền tảng sẽ mở lại bằng tiếng Anh."
+      }
+    ],
+    "feesRiskLink": "Đọc công bố rủi ro"
   }
 }

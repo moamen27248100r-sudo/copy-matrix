@@ -12,7 +12,7 @@ import { closeAllPositions } from "@/app/trades/actions";
 import { fetchClosedTrades } from "@/lib/my-trades";
 import { FlashMessage } from "@/components/ui/Toast";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { SuggestedLeaders } from "@/components/SuggestedLeaders";
+import { RiskFooter } from "@/components/RiskFooter";
 
 type PositionSignal = { symbol: string; side: string; stop_loss: number | null; take_profit: number | null };
 
@@ -29,6 +29,7 @@ export default async function TradesPage({
   const { tab, symbol, provider, result, days, error, tpsl } = await searchParams;
   const activeTab = tab === "history" ? "history" : "open";
   const t = await getTranslations("Trades");
+  const tNav = await getTranslations("Nav");
   const tc = await getTranslations("Copies");
   const supabase = await createClient();
   const {
@@ -87,7 +88,7 @@ export default async function TradesPage({
     <>
       <AppNav />
       <AppMain>
-        <h1 className="text-page-title">{t("title")}</h1>
+        <h1 className="text-page-title">{tNav("navTrades")}</h1>
         {error && <FlashMessage tone="error">{error}</FlashMessage>}
         {tpsl && (
           <AutoDismissMessage className="rounded border border-success/30 bg-success/10 px-3 py-2 text-sm text-success" clearParams={["tpsl"]}>
@@ -126,10 +127,7 @@ export default async function TradesPage({
               </div>
             )}
             {open.length === 0 ? (
-              <>
-                <EmptyState title={t("emptyOpenTitle")} message={t("emptyOpenBody")} actionHref="/discover" actionLabel={tc("discover")} />
-                <SuggestedLeaders />
-              </>
+              <EmptyState title={t("emptyOpenTitle")} message={t("emptyOpenBody")} actionHref="/discover" actionLabel={tc("discover")} />
             ) : (
               <MyOpenPositions positions={open} initialPrices={initialPrices} />
             )}
@@ -186,6 +184,8 @@ export default async function TradesPage({
             )}
           </>
         )}
+
+        <RiskFooter />
       </AppMain>
     </>
   );

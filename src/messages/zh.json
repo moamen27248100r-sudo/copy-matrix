@@ -193,10 +193,10 @@
     "winRate": "胜率",
     "avgDailyReturn": "平均每日回报",
     "noClosedTrades": "暂无已平仓交易",
-    "periodWeek": "周",
-    "periodMonth": "月",
-    "period3Months": "3个月",
-    "periodYear": "年",
+    "periodWeek": "1周",
+    "periodMonth": "1月",
+    "period3Months": "3月",
+    "periodYear": "1年",
     "periodAll": "全部",
     "noEnoughClosedTrades": "此期间已平仓交易不足，无法显示图表。",
     "startingPoint": "起点：{amount}",
@@ -503,15 +503,18 @@
     "amountDecimalsError": "最多保留 2 位小数。",
     "amountMinError": "最低金额为 {min} USDT。",
     "amountMaxError": "最高金额为 {max} USDT。",
-    "amountAboveAvailable": "金额超过了你的可用余额。"
+    "amountAboveAvailable": "金额超过了你的可用余额。",
+    "totalDeposited": "累计存入",
+    "totalWithdrawn": "累计提取",
+    "chartAfterFirstTrade": "完成第一笔交易后将显示图表。"
   },
   "TradeHistory": {
-    "periodToday": "今天",
-    "periodWeek": "本周",
-    "periodMonth": "本月",
-    "periodThreeMonths": "3个月",
-    "periodSixMonths": "6个月",
-    "periodYear": "一年",
+    "periodToday": "1天",
+    "periodWeek": "1周",
+    "periodMonth": "1月",
+    "periodThreeMonths": "3月",
+    "periodSixMonths": "6月",
+    "periodYear": "1年",
     "periodAll": "全部",
     "tradesCount": "{count} 笔交易",
     "noTradesInPeriod": "该时段内没有已平仓交易。",
@@ -722,10 +725,10 @@
     "pnlLabel": "盈亏",
     "aumLabel": "跟单资金",
     "profitShareLabel": "利润分成",
-    "periodShort_7": "7天",
-    "periodShort_30": "30天",
-    "periodShort_90": "90天",
-    "periodShort_180": "180天",
+    "periodShort_7": "1周",
+    "periodShort_30": "1月",
+    "periodShort_90": "3月",
+    "periodShort_180": "6月",
     "periodShort_all": "全部",
     "resultsCount": "{count} 位交易员",
     "emptyNoLeaders": "目前还没有可跟单的交易员。经过验证的交易员开始交易后会显示在这里。",
@@ -740,7 +743,11 @@
     "tabMarkets": "市场",
     "aumOver": "超过 {amount}",
     "maxDrawdownAll": "最大回撤（全部）",
-    "maxDrawdownAllHint": "整个历史记录中从峰值起的最大跌幅，包含浮动亏损。风险等级以此为依据。"
+    "maxDrawdownAllHint": "整个历史记录中从峰值起的最大跌幅，包含浮动亏损。风险等级以此为依据。",
+    "periodShort_365": "1年",
+    "periodShort_1": "1天",
+    "compareBar": "对比（{count}）",
+    "comparePickOneMore": "再选一位"
   },
   "Countries": {
     "US": "美国",
@@ -950,8 +957,8 @@
     "allInstruments": "全部品种",
     "noData": "暂无价格数据。",
     "dataNote": "涨跌幅按平台价格最近 24 小时计算。过往业绩不代表未来表现。",
-    "rangeDay": "日",
-    "rangeWeek": "周",
+    "rangeDay": "1天",
+    "rangeWeek": "1周",
     "backToMarkets": "市场",
     "last24h": "过去 24 小时",
     "dayRange": "今日区间",
@@ -2577,5 +2584,86 @@
     "viewProfile": "查看资料",
     "dotsLabel": "选择交易员",
     "goTo": "显示第 {n} 位交易员"
+  },
+  "VisitorFooter": {
+    "intro": "简单的跟单交易：关注交易员、复制他们的交易，并始终掌控你的资金。",
+    "product": "产品",
+    "platform": "平台",
+    "support": "支持",
+    "company": "公司",
+    "legal": "法律",
+    "copyTrading": "跟单交易",
+    "discoverTraders": "发现交易员",
+    "markets": "市场",
+    "crypto": "加密货币",
+    "gold": "黄金",
+    "forex": "外汇",
+    "howItWorks": "跟单交易如何运作",
+    "riskManagement": "风险管理",
+    "fees": "费用与利润分成",
+    "becomeLeader": "成为带单交易员",
+    "helpCenter": "帮助中心",
+    "contact": "联系我们",
+    "riskDisclosure": "风险披露",
+    "about": "关于我们",
+    "terms": "条款与条件",
+    "privacy": "隐私政策",
+    "cookies": "Cookie 政策",
+    "riskWarning": "交易和跟单存在较高的亏损风险，你可能损失全部本金。过往表现不代表未来结果。",
+    "notBroker": "Copy Matrix 是一个软件平台，不是持牌经纪商。"
+  },
+  "FooterPages": {
+    "feesMeta": "费用与利润分成 | Copy Matrix",
+    "feesTitle": "费用与利润分成",
+    "feesIntro": "跟单的成本，用简单的话说明。没有订阅费，也没有开户费。",
+    "feesSections": [
+      {
+        "title": "利润分成",
+        "body": "每位交易员会设定 5% 至 30% 的利润分成，按你跟单所得利润计算。开始跟单前，该比例会显示在交易员的卡片和资料页上。"
+      },
+      {
+        "title": "如何计算",
+        "body": "仅对超过该笔跟单此前最高结果（高水位线）的新增利润收取分成。如果跟单亏损则无需支付，之后的盈利要先弥补亏损，才会再次收取分成。"
+      },
+      {
+        "title": "首次结算后固定",
+        "body": "适用于你这笔跟单的比例在首次结算时固定，交易员之后调整比例不会影响你已有的跟单。"
+      },
+      {
+        "title": "示例",
+        "body": "如果你的跟单在此前最高 $100 之后创出 $120 的新高，且交易员的分成为 20%，则分成为高水位线以上 $20 的 20%，即 $4。"
+      },
+      {
+        "title": "其他费用",
+        "body": "提现时会在确认前显示网络费用。跟单本身没有订阅费，训练账户不收取任何费用。"
+      }
+    ],
+    "contactMeta": "联系我们 | Copy Matrix",
+    "contactTitle": "联系我们",
+    "contactIntro": "对账户、跟单或安全有疑问？请给我们写信或使用客服聊天。",
+    "contactEmail": "通过邮件",
+    "contactChat": "打开客服聊天",
+    "contactSafety": "我们绝不会索要你的密码、验证码或助记词，请勿向任何人透露。",
+    "cookiesMeta": "Cookie 政策 | Copy Matrix",
+    "cookiesTitle": "Cookie 政策",
+    "cookiesSections": [
+      {
+        "title": "仅限平台所需",
+        "body": "Copy Matrix 只使用平台运行所必需的 Cookie，不使用广告或跟踪 Cookie。"
+      },
+      {
+        "title": "存储的内容",
+        "body": "保持你登录状态的登录 Cookie；你选择的语言；你的时区；以及你填写的风险问卷答案（如已填写）。"
+      },
+      {
+        "title": "第三方内容",
+        "body": "部分页面显示第三方提供商的图表和市场数据。这些提供商在其内容加载时可能设置自己的 Cookie。"
+      },
+      {
+        "title": "你的控制权",
+        "body": "你可以在浏览器设置中删除 Cookie。删除后你将被退出登录，平台会重新以英语打开。"
+      }
+    ],
+    "feesRiskLink": "阅读风险披露"
   }
 }

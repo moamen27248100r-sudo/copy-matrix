@@ -1,3 +1,4 @@
+import { VisitorFooter } from "@/components/VisitorFooter";
 import { NoTranslateMarker } from "@/components/NoTranslateMarker";
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans_Arabic, Inter } from "next/font/google";
@@ -65,6 +66,9 @@ export default async function RootLayout({
   // Set by the proxy from the validated session: the signed-in app shell (bottom nav, sidebar offset)
   // appears only for a real signed-in user, never for a visitor.
   const hasSession = (await headers()).get("x-cm-authed") === "1";
+  // Visitors get the footer on every page except the sign-in screens and the staff area.
+  const path = (await headers()).get("x-cm-path") ?? "";
+  const showFooter = !hasSession && !/^\/(login|signup|forgot-password|reset-password|auth|suspended|admin|preview)(\/|$)/.test(path);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -106,6 +110,7 @@ export default async function RootLayout({
           </Suspense>
           <NoTranslateMarker />
           <ToastProvider>{children}</ToastProvider>
+          {showFooter && <VisitorFooter />}
           {hasSession && <BottomNav />}
         </NextIntlClientProvider>
       </body>

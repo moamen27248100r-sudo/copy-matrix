@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getSparklines } from "@/lib/sparklines";
 import { LeaderCard } from "@/components/LeaderCard";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { ArrowLeft, Star } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
@@ -56,7 +56,7 @@ export default async function InstrumentPage({ params, searchParams }: { params:
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect(`/login?next=${encodeURIComponent(`/markets/${symbol}`)}`);
+  // Open to visitors too (the footer links here); the watchlist star and price alerts need an account.
 
   const [snapshot, volumes, initial, range52, { data: leaders }, { data: watch }, news] = await Promise.all([
     getSnapshot(),
@@ -64,7 +64,7 @@ export default async function InstrumentPage({ params, searchParams }: { params:
     getHistory(inst, "1D"),
     get52Week(inst),
     supabase.rpc("top_leaders_for_symbol", { p_symbol: symbol, p_limit: 5 }),
-    supabase.from("market_watchlist").select("symbol").eq("user_id", user.id).eq("symbol", symbol).maybeSingle(),
+    user ? supabase.from("market_watchlist").select("symbol").eq("user_id", user.id).eq("symbol", symbol).maybeSingle() : Promise.resolve({ data: null }),
     getMarketNewsFor(topicsForSymbols([symbol]), 5),
   ]);
   const row = liveRows(snapshot).find((r) => r.symbol === symbol);
@@ -102,11 +102,13 @@ export default async function InstrumentPage({ params, searchParams }: { params:
   return (
     <>
       <AppNav />
-      <main className="mx-auto flex w-full max-w-4xl flex-col gap-6 p-6 pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-[var(--sidebar-w)] lg:me-0 lg:pb-6">
-        <Link href="/discover?tab=markets" className="tap-44 inline-flex w-fit items-center gap-1.5 text-sm text-muted transition hover:text-foreground">
+      <main className={`mx-auto flex w-full max-w-4xl flex-col gap-6 p-6 ${user ? "pb-[calc(var(--bottom-nav-h)+1.5rem)] lg:ms-[var(--sidebar-w)] lg:me-0 lg:pb-6" : ""}`}>
+        {user && (
+          <Link href="/discover?tab=markets" className="tap-44 inline-flex w-fit items-center gap-1.5 text-sm text-muted transition hover:text-foreground">
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
           {t("backToMarkets")}
         </Link>
+        )}
 
         <header className="flex items-start justify-between gap-3">
           <div className="flex min-w-0 items-start gap-3">
@@ -121,6 +123,7 @@ export default async function InstrumentPage({ params, searchParams }: { params:
               <LivePrice symbol={symbol} price={row.price} change={row.change_pct} decimals={inst.decimals} daily={!!inst.daily} />
             </div>
           </div>
+          {user && (
           <form action={toggleWatch}>
             <input type="hidden" name="symbol" value={symbol} />
             <input type="hidden" name="returnTo" value={`/markets/${symbol}`} />
@@ -133,13 +136,14 @@ export default async function InstrumentPage({ params, searchParams }: { params:
               {starred ? t("unwatch") : t("watch")}
             </button>
           </form>
+          )}
         </header>
 
         <section className="rounded-[20px] border border-border bg-surface p-5">
           <InstrumentChart symbol={symbol} initial={initial} decimals={inst.decimals} label={inst.label} />
         </section>
 
-        <PriceAlerts userId={user.id} symbol={symbol} price={row.price} decimals={inst.decimals} result={alert} locale={locale} />
+        {user && <PriceAlerts userId={user.id} symbol={symbol} price={row.price} decimals={inst.decimals} result={alert} locale={locale} />}
 
         <div className="grid gap-4 sm:grid-cols-2">
           {lo != null && hi != null && (
@@ -215,7 +219,7 @@ export default async function InstrumentPage({ params, searchParams }: { params:
                 {leaderRows.map((l) => {
                   const c = cardById.get(l.provider_id);
                   if (!c) return null;
-                  return <LeaderCard key={l.provider_id} provider={c} copyHref={`/trader/${l.provider_id}#copy`} sparkline={spark[l.provider_id]} />;
+                  return <LeaderCard key={l.provider_id} provider={c} copyHref={user ? `/trader/${l.provider_id}#copy` : `/signup?next=${encodeURIComponent(`/trader/${l.provider_id}#copy`)}`} sparkline={spark[l.provider_id]} />;
                 })}
               </div>
             )}

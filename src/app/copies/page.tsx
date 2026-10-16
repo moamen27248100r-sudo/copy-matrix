@@ -3,7 +3,6 @@ import { AppMain } from "@/components/AppMain";
 import { getUserTimeZone } from "@/lib/timezone";
 import { getMoney } from "@/lib/money-server";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { SuggestedLeaders } from "@/components/SuggestedLeaders";
 import { redirect } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
@@ -34,6 +33,7 @@ export default async function CopiesPage({
   const tab: Tab = TABS.includes(rawTab as Tab) ? (rawTab as Tab) : "active";
   const tr = await getTranslations("CopyRisk");
   const t = await getTranslations("Copies");
+  const tNav = await getTranslations("Nav");
   const money = await getMoney();
   const locale = (await getLocale()) as Locale;
   const supabase = await createClient();
@@ -127,7 +127,7 @@ export default async function CopiesPage({
     <>
       <AppNav />
       <AppMain>
-        <h1 className="text-page-title">{t("title")}</h1>
+        <h1 className="text-page-title">{tNav("navMyCopies")}</h1>
         <LinkTabs
           active={tab}
           items={[
@@ -141,10 +141,7 @@ export default async function CopiesPage({
 
         {tab === "active" &&
           (copies.length === 0 ? (
-            <>
-              <EmptyState title={t("empty")} message={t("emptyBody")} actionHref="/discover" actionLabel={t("discover")} />
-              <SuggestedLeaders />
-            </>
+            <EmptyState title={t("empty")} message={t("emptyBody")} actionHref="/discover" actionLabel={t("discover")} />
           ) : (
             <>
               <section className="grid grid-cols-2 rounded-[20px] border border-border bg-surface text-center sm:grid-cols-4">

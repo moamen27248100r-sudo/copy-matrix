@@ -193,14 +193,14 @@
     "winRate": "Tingkat kemenangan",
     "avgDailyReturn": "Rata-rata return harian",
     "noClosedTrades": "Belum ada transaksi yang ditutup",
-    "periodWeek": "Minggu",
-    "periodMonth": "Bulan",
-    "period3Months": "3 bulan",
-    "periodYear": "Tahun",
+    "periodWeek": "1 mgg",
+    "periodMonth": "1 bln",
+    "period3Months": "3 bln",
+    "periodYear": "1 thn",
     "periodAll": "Semua",
     "noEnoughClosedTrades": "Transaksi tertutup tidak cukup pada periode ini untuk menampilkan grafik.",
     "startingPoint": "Mulai: {amount}",
-    "periodDay": "1H",
+    "periodDay": "1 hr",
     "copiedPositionsTitle": "Posisi Salinan Aktif",
     "closeTrade": "Tutup",
     "closeTradeConfirm": "Tutup posisi ini sekarang pada harga pasar saat ini?",
@@ -503,15 +503,18 @@
     "amountDecimalsError": "Gunakan maksimal 2 angka desimal.",
     "amountMinError": "Minimum adalah {min} USDT.",
     "amountMaxError": "Maksimum adalah {max} USDT.",
-    "amountAboveAvailable": "Jumlah ini melebihi saldo tersedia Anda."
+    "amountAboveAvailable": "Jumlah ini melebihi saldo tersedia Anda.",
+    "totalDeposited": "Total disetor",
+    "totalWithdrawn": "Total ditarik",
+    "chartAfterFirstTrade": "Grafik Anda akan muncul setelah transaksi pertama."
   },
   "TradeHistory": {
-    "periodToday": "Hari ini",
-    "periodWeek": "Minggu",
-    "periodMonth": "Bulan",
-    "periodThreeMonths": "3 bulan",
-    "periodSixMonths": "6 bulan",
-    "periodYear": "Tahun",
+    "periodToday": "1 hr",
+    "periodWeek": "1 mgg",
+    "periodMonth": "1 bln",
+    "periodThreeMonths": "3 bln",
+    "periodSixMonths": "6 bln",
+    "periodYear": "1 thn",
     "periodAll": "Semua",
     "tradesCount": "{count} trade",
     "noTradesInPeriod": "Tidak ada trade tertutup pada periode ini.",
@@ -722,10 +725,10 @@
     "pnlLabel": "Laba/rugi",
     "aumLabel": "Dana disalin",
     "profitShareLabel": "Bagi hasil",
-    "periodShort_7": "7 hari",
-    "periodShort_30": "30 hari",
-    "periodShort_90": "90 hari",
-    "periodShort_180": "180 hari",
+    "periodShort_7": "1 mgg",
+    "periodShort_30": "1 bln",
+    "periodShort_90": "3 bln",
+    "periodShort_180": "6 bln",
     "periodShort_all": "Semua",
     "resultsCount": "{count} trader",
     "emptyNoLeaders": "Belum ada trader yang tersedia. Trader terverifikasi akan muncul di sini begitu mereka mulai trading.",
@@ -740,7 +743,11 @@
     "tabMarkets": "Pasar",
     "aumOver": "Lebih dari {amount}",
     "maxDrawdownAll": "Penurunan maks. (semua)",
-    "maxDrawdownAllHint": "Penurunan terbesar dari puncak sepanjang rekam jejak, termasuk kerugian mengambang. Tingkat risiko didasarkan padanya."
+    "maxDrawdownAllHint": "Penurunan terbesar dari puncak sepanjang rekam jejak, termasuk kerugian mengambang. Tingkat risiko didasarkan padanya.",
+    "periodShort_365": "1 thn",
+    "periodShort_1": "1 hr",
+    "compareBar": "Bandingkan ({count})",
+    "comparePickOneMore": "pilih satu lagi"
   },
   "Countries": {
     "US": "Amerika Serikat",
@@ -950,8 +957,8 @@
     "allInstruments": "Semua instrumen",
     "noData": "Belum ada data harga saat ini.",
     "dataNote": "Perubahan dihitung dari 24 jam terakhir harga platform. Kinerja masa lalu tidak menjamin hasil di masa depan.",
-    "rangeDay": "Hari",
-    "rangeWeek": "Minggu",
+    "rangeDay": "1 hr",
+    "rangeWeek": "1 mgg",
     "backToMarkets": "Pasar",
     "last24h": "24 jam terakhir",
     "dayRange": "Rentang hari ini",
@@ -2576,5 +2583,86 @@
     "viewProfile": "Lihat profil",
     "dotsLabel": "Pilih trader",
     "goTo": "Tampilkan trader {n}"
+  },
+  "VisitorFooter": {
+    "intro": "Copy trading yang sederhana: ikuti trader, salin transaksi mereka, dan tetap kendalikan uang Anda.",
+    "product": "Produk",
+    "platform": "Platform",
+    "support": "Dukungan",
+    "company": "Perusahaan",
+    "legal": "Hukum",
+    "copyTrading": "Copy trading",
+    "discoverTraders": "Temukan trader",
+    "markets": "Pasar",
+    "crypto": "Kripto",
+    "gold": "Emas",
+    "forex": "Forex",
+    "howItWorks": "Cara kerja copy trading",
+    "riskManagement": "Manajemen risiko",
+    "fees": "Biaya dan bagi hasil",
+    "becomeLeader": "Jadi lead trader",
+    "helpCenter": "Pusat bantuan",
+    "contact": "Hubungi kami",
+    "riskDisclosure": "Pengungkapan risiko",
+    "about": "Tentang kami",
+    "terms": "Syarat dan ketentuan",
+    "privacy": "Kebijakan privasi",
+    "cookies": "Kebijakan cookie",
+    "riskWarning": "Trading dan menyalin transaksi memiliki risiko kerugian yang tinggi, dan Anda dapat kehilangan seluruh modal. Kinerja masa lalu tidak menjamin hasil di masa depan.",
+    "notBroker": "Copy Matrix adalah platform perangkat lunak, bukan broker berlisensi."
+  },
+  "FooterPages": {
+    "feesMeta": "Biaya dan bagi hasil | Copy Matrix",
+    "feesTitle": "Biaya dan bagi hasil",
+    "feesIntro": "Berapa biaya menyalin, dengan kata sederhana. Tidak ada biaya langganan dan tidak ada biaya membuka akun.",
+    "feesSections": [
+      {
+        "title": "Bagi hasil",
+        "body": "Setiap trader menetapkan bagi hasil antara 5% dan 30% dari keuntungan yang Anda peroleh dengan menyalinnya. Persentasenya tampil di kartu dan profil trader sebelum Anda mulai menyalin."
+      },
+      {
+        "title": "Cara menghitungnya",
+        "body": "Bagi hasil hanya diambil dari keuntungan baru di atas hasil tertinggi Anda sebelumnya pada salinan itu (high-water mark). Jika salinan merugi, tidak ada yang terutang, dan keuntungan berikutnya harus lebih dulu menutup kerugian sebelum bagi hasil diambil lagi."
+      },
+      {
+        "title": "Tetap setelah penyelesaian",
+        "body": "Persentase yang berlaku untuk salinan Anda ditetapkan saat penyelesaian pertama, sehingga perubahan trader kemudian tidak mengubah salinan Anda yang sudah berjalan."
+      },
+      {
+        "title": "Contoh",
+        "body": "Jika salinan Anda mencapai puncak baru $120 setelah puncak sebelumnya $100, dan bagi hasil trader 20%, bagi hasilnya 20% dari $20 di atas high-water mark: $4."
+      },
+      {
+        "title": "Biaya lain",
+        "body": "Penarikan menampilkan biaya jaringan sebelum Anda konfirmasi. Menyalin tidak memiliki biaya langganan, dan tidak ada yang dikenakan pada akun latihan."
+      }
+    ],
+    "contactMeta": "Hubungi kami | Copy Matrix",
+    "contactTitle": "Hubungi kami",
+    "contactIntro": "Pertanyaan tentang akun, penyalinan, atau keamanan? Tulis kepada kami atau gunakan chat dukungan.",
+    "contactEmail": "Lewat email",
+    "contactChat": "Buka chat dukungan",
+    "contactSafety": "Kami tidak pernah meminta kata sandi, kode verifikasi, atau frasa pemulihan Anda. Jangan bagikan kepada siapa pun.",
+    "cookiesMeta": "Kebijakan cookie | Copy Matrix",
+    "cookiesTitle": "Kebijakan cookie",
+    "cookiesSections": [
+      {
+        "title": "Hanya yang dibutuhkan platform",
+        "body": "Copy Matrix hanya menggunakan cookie yang diperlukan agar berfungsi. Platform ini tidak memakai cookie iklan atau pelacakan."
+      },
+      {
+        "title": "Apa yang disimpan",
+        "body": "Cookie masuk yang menjaga Anda tetap login; pilihan bahasa Anda; zona waktu Anda; dan jawaban Anda atas pertanyaan risiko jika Anda mengisinya."
+      },
+      {
+        "title": "Konten pihak ketiga",
+        "body": "Beberapa halaman menampilkan grafik dan data pasar dari penyedia pihak ketiga. Penyedia itu dapat menetapkan cookie sendiri saat kontennya dimuat."
+      },
+      {
+        "title": "Kendali Anda",
+        "body": "Anda dapat menghapus cookie di pengaturan peramban. Anda akan keluar dan platform akan terbuka lagi dalam bahasa Inggris."
+      }
+    ],
+    "feesRiskLink": "Baca pengungkapan risiko"
   }
 }
