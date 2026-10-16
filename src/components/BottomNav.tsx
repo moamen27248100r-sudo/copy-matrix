@@ -200,7 +200,7 @@ export function BottomNav({ embedded = false, activeHref }: { embedded?: boolean
               >
                 {active ? item.icon.filled : item.icon.outline}
               </svg>
-              <span className="line-clamp-2 w-full break-words text-center leading-[1.1]">{item.label}</span>
+              <span title={item.label} className="w-full truncate text-center text-[0.6875rem] leading-tight">{item.label}</span>
             </Link>
           );
         })}

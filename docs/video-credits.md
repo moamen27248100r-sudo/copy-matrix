@@ -13,6 +13,14 @@ Arabic version for the Arabic interface, English for every other language.
 - **Laptop and phone models**: modelled in code for this film (rounded aluminium base and lid,
   keyboard, trackpad, glass bezel; titanium phone frame, glass front, camera island). No third-party
   model is used, so no model licence applies, and there is no brand mark or logo on either device.
+  On 2026-10-16 a search for a CC0 / CC-BY laptop or phone model in glTF form (Poly Haven, Quaternius,
+  Kenney, the Khronos sample set, Sketchfab) found no model with a clearly verifiable licence and a
+  usable format (the candidates were paid, FBX-only, or of unstated licence), so none was used; if one
+  is added later, record its author, licence and URL in a table here.
+- **Screens**: brighter than the first version (emissive level raised from 1.3 to 1.6 on the laptop
+  and from 1.2 to 1.5 on the phone) so the platform reads clearly.
+- **Mobile (4:5) shot 4**: framed wider (field of view 36 to 44 degrees, camera pulled back) so more of
+  the chart and its page is visible.
 - **Device screens**: real screens of Copy Matrix recorded frame by frame with Playwright on the
   Demo Preview test account (dashboard scroll, phone home, the copy sheet with an amount being
   typed and the copy button pressed -- nothing is submitted --, a trader's chart drawing with the
