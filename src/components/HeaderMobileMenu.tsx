@@ -7,7 +7,7 @@ import type { Locale } from "@/i18n/locales";
 type NavLink = { href: string; label: string };
 
 // Phone-only header menu: the section links, login and language switcher
-// live here so the bar itself stays logo + sign-up + hamburger.
+// live here so the bar itself stays logo + log in + sign-up + menu icon.
 export function HeaderMobileMenu({
   locale,
   navLinks,
@@ -28,7 +28,7 @@ export function HeaderMobileMenu({
         aria-label={menuLabel}
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="tap-44 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border text-foreground touch-manipulation"
+        className="tap-44 -me-2 flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-foreground transition hover:bg-white/5 touch-manipulation"
       >
         <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
           {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}

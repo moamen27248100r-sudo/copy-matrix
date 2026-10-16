@@ -108,6 +108,20 @@
       "traderSubtitle": "Lợi nhuận, số người sao chép và toàn bộ hồ sơ, tất cả ngay trước mắt bạn trước khi quyết định.",
       "prev": "Trước",
       "next": "Tiếp theo"
+    },
+    "heroV2": {
+      "feature1": "Tự động sao chép giao dịch của các nhà giao dịch",
+      "feature2": "Toàn quyền kiểm soát rủi ro",
+      "feature3": "Thị trường tiền mã hóa, vàng và ngoại hối",
+      "stripLabel": "Khám phá nền tảng",
+      "strip": {
+        "traders": "Nhà giao dịch",
+        "crypto": "Tiền mã hóa",
+        "gold": "Vàng",
+        "forex": "Ngoại hối",
+        "copy": "Sao chép",
+        "portfolio": "Danh mục"
+      }
     }
   },
   "Nav": {

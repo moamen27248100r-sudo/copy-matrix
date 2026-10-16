@@ -108,6 +108,20 @@
       "traderSubtitle": "收益、跟单人数和完整记录，决定之前一目了然。",
       "prev": "上一个",
       "next": "下一个"
+    },
+    "heroV2": {
+      "feature1": "自动跟单交易员的交易",
+      "feature2": "全面掌控您的风险",
+      "feature3": "加密货币、黄金和外汇市场",
+      "stripLabel": "探索平台",
+      "strip": {
+        "traders": "交易员",
+        "crypto": "加密货币",
+        "gold": "黄金",
+        "forex": "外汇",
+        "copy": "跟单",
+        "portfolio": "投资组合"
+      }
     }
   },
   "Nav": {

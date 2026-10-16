@@ -108,6 +108,20 @@
       "traderSubtitle": "Return, number of copiers and the full record, all in front of you before you decide.",
       "prev": "Previous",
       "next": "Next"
+    },
+    "heroV2": {
+      "feature1": "Automatic copying of traders' trades",
+      "feature2": "Full control over your risk",
+      "feature3": "Crypto, gold and forex markets",
+      "stripLabel": "Explore the platform",
+      "strip": {
+        "traders": "Traders",
+        "crypto": "Crypto",
+        "gold": "Gold",
+        "forex": "Forex",
+        "copy": "Copying",
+        "portfolio": "Portfolio"
+      }
     }
   },
   "Nav": {

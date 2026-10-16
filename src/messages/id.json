@@ -108,6 +108,20 @@
       "traderSubtitle": "Imbal hasil, jumlah penyalin, dan rekam lengkap, semuanya di depan Anda sebelum memutuskan.",
       "prev": "Sebelumnya",
       "next": "Berikutnya"
+    },
+    "heroV2": {
+      "feature1": "Penyalinan otomatis trading para trader",
+      "feature2": "Kendali penuh atas risiko Anda",
+      "feature3": "Pasar kripto, emas, dan forex",
+      "stripLabel": "Jelajahi platform",
+      "strip": {
+        "traders": "Trader",
+        "crypto": "Kripto",
+        "gold": "Emas",
+        "forex": "Valas",
+        "copy": "Salin",
+        "portfolio": "Portofolio"
+      }
     }
   },
   "Nav": {

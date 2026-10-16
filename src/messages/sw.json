@@ -108,6 +108,20 @@
       "traderSubtitle": "Faida, idadi ya wanaonakili na rekodi kamili, vyote mbele yako kabla ya kuamua.",
       "prev": "Iliyotangulia",
       "next": "Inayofuata"
+    },
+    "heroV2": {
+      "feature1": "Kunakili biashara za wafanyabiashara kiotomatiki",
+      "feature2": "Udhibiti kamili wa hatari yako",
+      "feature3": "Masoko ya kripto, dhahabu na forex",
+      "stripLabel": "Gundua jukwaa",
+      "strip": {
+        "traders": "Wafanyabiashara",
+        "crypto": "Kripto",
+        "gold": "Dhahabu",
+        "forex": "Fedha za kigeni",
+        "copy": "Kunakili",
+        "portfolio": "Jalada"
+      }
     }
   },
   "Nav": {

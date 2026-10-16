@@ -108,6 +108,20 @@
       "traderSubtitle": "Rendimiento, número de copiadores y el historial completo, todo ante ti antes de decidir.",
       "prev": "Anterior",
       "next": "Siguiente"
+    },
+    "heroV2": {
+      "feature1": "Copia automática de las operaciones de los traders",
+      "feature2": "Control total de tu riesgo",
+      "feature3": "Mercados de cripto, oro y forex",
+      "stripLabel": "Explora la plataforma",
+      "strip": {
+        "traders": "Operadores",
+        "crypto": "Cripto",
+        "gold": "Oro",
+        "forex": "Divisas",
+        "copy": "Copia",
+        "portfolio": "Cartera"
+      }
     }
   },
   "Nav": {

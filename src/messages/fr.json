@@ -108,6 +108,20 @@
       "traderSubtitle": "Rendement, nombre de copieurs et historique complet, tout sous vos yeux avant de décider.",
       "prev": "Précédent",
       "next": "Suivant"
+    },
+    "heroV2": {
+      "feature1": "Copie automatique des trades des traders",
+      "feature2": "Contrôle total de votre risque",
+      "feature3": "Marchés crypto, or et forex",
+      "stripLabel": "Explorer la plateforme",
+      "strip": {
+        "traders": "Les traders",
+        "crypto": "Cryptos",
+        "gold": "Or",
+        "forex": "Devises",
+        "copy": "Copie",
+        "portfolio": "Portefeuille"
+      }
     }
   },
   "Nav": {

@@ -5,7 +5,8 @@ import { createClient } from "@/lib/supabase/server";
 import { MarketOverview } from "@/components/MarketOverview";
 import { LeaderCard } from "@/components/LeaderCard";
 import { Header } from "@/components/Header";
-import { HeroMockupB } from "@/components/mockup/HeroB";
+import { ArrowRight, ChartCandlestick, Copy, ShieldCheck } from "lucide-react";
+import { HeroVideo } from "@/components/landing/HeroVideo";
 import { FactCards, FeatureStrip, SECTION, Steps } from "@/components/landing/Sections";
 import { CardsCarousel } from "@/components/landing/CardsCarousel";
 import { StickyCta } from "@/components/landing/StickyCta";
@@ -23,6 +24,22 @@ export async function generateMetadata() {
 
 const NAV_HASHES = ["how-it-works", "traders", "markets", "faq"] as const;
 
+const HERO_POINTS = [
+  { key: "feature1", Icon: Copy },
+  { key: "feature2", Icon: ShieldCheck },
+  { key: "feature3", Icon: ChartCandlestick },
+] as const;
+
+// Each market goes to its best-known instrument's page; copying to the guide on how it works.
+const HERO_STRIP = [
+  { key: "traders", href: "/discover" },
+  { key: "crypto", href: "/markets/BTCUSDT" },
+  { key: "gold", href: "/markets/XAUUSD" },
+  { key: "forex", href: "/markets/EURUSD" },
+  { key: "copy", href: "/learn/how_copy_works" },
+  { key: "portfolio", href: "/portfolio" },
+] as const;
+
 export default async function Home() {
   const supabase = await createClient();
   const {
@@ -31,6 +48,7 @@ export default async function Home() {
   const t = await getTranslations("Home");
   const tl = await getTranslations("Home.landing");
   const tShowcase = await getTranslations("HomeShowcase");
+  const th = await getTranslations("Home.heroV2");
   const locale = (await getLocale()) as Locale;
   const translateBio = await getBioTranslator();
 
@@ -69,30 +87,49 @@ export default async function Home() {
     <main className="flex min-h-screen flex-col overflow-x-clip pb-20 md:pb-0">
       <Header locale={locale} dir={dir} navLinks={navLinks} loginLabel={t("nav.login")} signupLabel={t("nav.signup")} menuLabel={t("nav.menu")} />
 
-      <section className="mx-auto w-full max-w-6xl px-5 pb-6 pt-8 md:px-6 md:pb-12 md:pt-16 lg:grid lg:grid-cols-2 lg:items-center lg:gap-12">
-        <div className="flex flex-col items-stretch gap-5 text-start lg:items-start">
-          <h1 className="ty-display max-w-xl">
-            {t.rich("hero.title", { accent: (chunks) => <span className="text-[#7FA2F5]">{chunks}</span> })}
-          </h1>
-          <p className="ty-body max-w-md">{t("hero.subtitle")}</p>
-          <div className="flex w-full flex-col items-center gap-3 pt-1 md:w-auto md:flex-row md:flex-wrap">
-            <Link
-              id="hero-cta"
-              href="/signup"
-              className="w-full rounded bg-accent px-6 py-3 text-center font-medium text-accent-foreground transition hover:bg-accent-hover md:w-auto"
-            >
-              {t("hero.start")}
-            </Link>
-            <Link href="/discover" className="text-sm font-medium text-muted md:rounded md:border md:border-border md:px-6 md:py-3 md:text-base md:text-foreground">
-              {t("hero.browse")} <span className="md:hidden">{dir === "rtl" ? "←" : "→"}</span>
-            </Link>
-          </div>
+      {/* Hero: headline, three short points, the button, the film, then a strip of places to go. */}
+      <section className="mx-auto w-full max-w-6xl px-4 pb-6 pt-8 md:px-6 md:pb-12 md:pt-14">
+        <h1 className={`${dir === "rtl" ? "max-w-[6em] md:max-w-4xl" : "max-w-4xl"} text-[2.75rem] font-bold leading-[1.08] tracking-tight text-foreground md:text-6xl md:leading-[1.05] lg:text-7xl`}>
+          {t.rich("hero.title", { accent: (chunks) => <span className="text-[#7FA2F5]">{chunks}</span> })}
+        </h1>
+        <div className="mt-6 flex flex-col gap-6 md:mt-8 md:flex-row md:items-center md:justify-between">
+          <ul className="flex flex-col gap-3 md:flex-row md:gap-8">
+            {HERO_POINTS.map(({ key, Icon }) => (
+              <li key={key} className="flex items-center gap-2.5 text-base text-[var(--text-secondary)]">
+                <Icon className="h-5 w-5 shrink-0 text-accent-text" aria-hidden="true" />
+                {th(key)}
+              </li>
+            ))}
+          </ul>
+          <Link
+            id="hero-cta"
+            href="/signup"
+            className="inline-flex w-fit shrink-0 items-center gap-3 rounded-full bg-accent px-8 py-4 text-lg font-bold text-accent-foreground transition hover:bg-accent-hover"
+          >
+            {t("hero.start")}
+            <ArrowRight className="h-5 w-5 rtl:rotate-180" aria-hidden="true" />
+          </Link>
         </div>
 
-        <div className="mt-6 flex flex-col lg:mt-0">
-          <HeroMockupB />
-          <p className="ty-small mx-auto mt-2 max-w-sm px-3 text-center">{tShowcase("disclaimer")}</p>
+        <div className="mt-8 md:mt-10">
+          <HeroVideo lang={locale === "ar" ? "ar" : "en"} />
+          <p className="ty-small mt-2 px-3 text-center">{tShowcase("disclaimer")}</p>
         </div>
+
+        <nav aria-label={th("stripLabel")} className="no-scrollbar -mx-4 mt-4 overflow-x-auto px-4 md:mx-0 md:px-0">
+          <ul className="flex w-max gap-6 py-2 md:gap-8">
+            {HERO_STRIP.map(({ key, href }) => (
+              <li key={key}>
+                <Link
+                  href={href}
+                  className="whitespace-nowrap text-base font-medium text-foreground underline decoration-white/40 underline-offset-[6px] transition hover:text-accent-text hover:decoration-accent-text"
+                >
+                  {th(`strip.${key}`)}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </section>
 
       <FeatureStrip />

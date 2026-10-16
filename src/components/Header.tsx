@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/Button";
+import Link from "next/link";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/Logo";
 import { HeaderMobileMenu } from "@/components/HeaderMobileMenu";
@@ -6,6 +6,8 @@ import type { Locale } from "@/i18n/locales";
 
 type NavLink = { href: string; label: string };
 
+// A plain bar: the logo, "log in" as text, sign-up as an outlined button, and the menu (phones) or
+// the section links and the language switcher (wider screens).
 export function Header({
   locale,
   dir,
@@ -21,45 +23,35 @@ export function Header({
   signupLabel: string;
   menuLabel: string;
 }) {
+  const login = "tap-44 inline-flex items-center whitespace-nowrap text-sm font-medium text-foreground transition hover:text-accent-text";
+  const signup =
+    "tap-44 inline-flex h-9 items-center whitespace-nowrap rounded-full border border-white/25 px-4 text-sm font-medium text-foreground transition hover:border-white/50 hover:bg-white/5";
   return (
     <nav dir={dir} className="sticky top-0 z-[9999] border-b border-glass-border bg-background/95 backdrop-blur-xl">
-      {/* Phones: logo + small sign-up button + hamburger; everything else is in the menu. */}
-      <div className="relative mx-auto max-w-6xl px-4 py-2.5 md:hidden">
-        <div className="flex items-center justify-between gap-2">
-          <Logo iconClassName="h-4 w-4" textClassName="text-base" />
-          <div className="flex items-center gap-2">
-            <Button href="/signup" variant="primary" size="sm" className="tap-44 h-9 px-3 text-xs">
-              {signupLabel}
-            </Button>
-            <HeaderMobileMenu locale={locale} navLinks={navLinks} loginLabel={loginLabel} menuLabel={menuLabel} />
-          </div>
-        </div>
-      </div>
+      <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2.5 md:px-6 md:py-3.5">
+        <Logo iconClassName="h-4 w-4 md:h-5 md:w-5" textClassName="text-base md:text-xl" />
 
-      <div className="mx-auto hidden max-w-6xl px-2 py-3 sm:px-6 sm:py-4 md:block">
-        <div className="grid grid-cols-[auto_1fr_auto] items-center gap-0.5 sm:gap-3">
-          <Button href="/signup" variant="primary" size="sm" className="tap-44 min-w-0 px-1 sm:px-4">
-            {signupLabel}
-          </Button>
-
-          <span className="flex min-w-0 items-center justify-center overflow-hidden">
-            <Logo iconClassName="h-4 w-4 sm:h-5 sm:w-5" textClassName="text-base sm:text-xl" />
-          </span>
-
-          <div className="flex min-w-0 items-center gap-0.5 sm:gap-3">
-            <LanguageSwitcher currentLocale={locale} />
-            <Button href="/login" variant="outline" size="sm" className="tap-44 min-w-0 px-0.5 sm:px-4">
-              {loginLabel}
-            </Button>
-          </div>
-        </div>
-
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-2 text-xs text-muted sm:gap-x-6 sm:pt-3 sm:text-sm">
+        <div className="hidden flex-1 items-center justify-center gap-6 text-sm text-muted md:flex">
           {navLinks.map((l) => (
-            <a key={l.href} href={l.href} className="line-clamp-1 hover:text-foreground">
+            <a key={l.href} href={l.href} className="whitespace-nowrap hover:text-foreground">
               {l.label}
             </a>
           ))}
+        </div>
+
+        <div className="flex items-center gap-3 md:gap-4">
+          <span className="hidden md:inline-flex">
+            <LanguageSwitcher currentLocale={locale} />
+          </span>
+          <Link href="/login" className={login}>
+            {loginLabel}
+          </Link>
+          <Link href="/signup" className={signup}>
+            {signupLabel}
+          </Link>
+          <span className="md:hidden">
+            <HeaderMobileMenu locale={locale} navLinks={navLinks} loginLabel={loginLabel} menuLabel={menuLabel} />
+          </span>
         </div>
       </div>
     </nav>
