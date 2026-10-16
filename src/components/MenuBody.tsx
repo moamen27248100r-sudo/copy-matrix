@@ -241,7 +241,7 @@ export function MenuBody({
                   next={pathname || "/dashboard"}
                   variant="link"
                   linkLabel={t("demoStripSwitch")}
-                  linkClassName="font-medium text-accent underline-offset-2 transition hover:underline"
+                  linkClassName="font-medium text-accent-text underline-offset-2 transition hover:underline"
                   ariaLabel={t("demoStripSwitch")}
                   options={[
                     { key: "real", label: tDash("accountTypeShortReal") },
