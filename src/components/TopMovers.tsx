@@ -23,7 +23,7 @@ export async function TopMovers() {
     <section className="flex flex-col gap-3">
       <div className="flex items-baseline justify-between gap-3">
         <h2 className="text-section-title">{t("marketPulseTitle")}</h2>
-        <Link href="/discover?tab=markets" className="text-sm text-accent hover:underline">
+        <Link href="/discover?tab=markets" className="text-sm text-accent-text hover:underline">
           {t("topMoversAll")}
         </Link>
       </div>

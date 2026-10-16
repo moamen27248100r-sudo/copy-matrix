@@ -88,6 +88,7 @@ export function MainMenu({
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
         aria-hidden={!open}
+        inert={!open}
         className={`fixed inset-y-0 start-0 z-[10001] flex w-[86%] max-w-xs scroll-subtle flex-col overflow-y-auto overscroll-contain border-e border-white/[0.06] bg-[#0B132B] shadow-2xl shadow-black/50 transition-transform duration-300 ease-out ${
           open ? "translate-x-0" : "-translate-x-full rtl:translate-x-full"
         }`}

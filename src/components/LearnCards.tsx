@@ -31,7 +31,7 @@ export async function LearnCards() {
               </span>
               <span className="text-sm font-bold leading-snug">{t(`${slug}.title`)}</span>
               <span className="text-xs leading-relaxed text-muted">{t(`${slug}.summary`)}</span>
-              <span className="mt-auto text-xs font-medium text-accent">{t("readMore")}</span>
+              <span className="mt-auto text-xs font-medium text-accent-text">{t("readMore")}</span>
             </Link>
           );
         })}

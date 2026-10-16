@@ -29,7 +29,7 @@ export async function HomeWatchlist({ userId }: { userId: string }) {
     <section className="flex flex-col gap-3">
       <div className="flex items-baseline justify-between gap-3">
         <h2 className="text-section-title">{t("watchlistTitle")}</h2>
-        <Link href="/discover?tab=markets" className="text-sm text-accent hover:underline">
+        <Link href="/discover?tab=markets" className="text-sm text-accent-text hover:underline">
           {tm("backToMarkets")}
         </Link>
       </div>

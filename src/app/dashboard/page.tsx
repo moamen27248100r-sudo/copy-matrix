@@ -23,11 +23,13 @@ import { RiskFooter } from "@/components/RiskFooter";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { FlashMessage } from "@/components/ui/Toast";
 
-function SectionSkeleton() {
+// The place of a section that is still loading, at the height the section usually has (phone /
+// wide screen), so nothing below it jumps when it arrives.
+function SectionSkeleton({ height = "h-36" }: { height?: string }) {
   return (
-    <div className="flex flex-col gap-3" aria-busy="true">
-      <Skeleton className="h-5 w-40" />
-      <Skeleton className="h-28 w-full" />
+    <div className={`flex flex-col gap-3 ${height}`} aria-busy="true">
+      <Skeleton className="h-5 w-40 shrink-0" />
+      <Skeleton className="w-full flex-1" />
     </div>
   );
 }
@@ -363,22 +365,22 @@ export default async function DashboardPage({
             />
           );
           const watchlist = (
-            <Suspense fallback={null}>
+            <Suspense fallback={<SectionSkeleton height="h-[347px] md:h-[206px]" />}>
               <HomeWatchlist userId={user.id} />
             </Suspense>
           );
           const moves = (
-            <Suspense fallback={null}>
+            <Suspense fallback={<SectionSkeleton height="h-[305px] md:h-[216px]" />}>
               <TopMovers />
             </Suspense>
           );
           const news = (
-            <Suspense fallback={null}>
+            <Suspense fallback={<SectionSkeleton height="h-[388px] md:h-[314px]" />}>
               <HomeNews symbols={(watchRows ?? []).map((w) => String(w.symbol))} />
             </Suspense>
           );
           const traders = (
-            <Suspense fallback={<SectionSkeleton />}>
+            <Suspense fallback={<SectionSkeleton height="h-[497px] md:h-[460px]" />}>
               <TopTradersWeek excludeProviderIds={providerIds} />
             </Suspense>
           );
