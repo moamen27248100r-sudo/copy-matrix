@@ -9,7 +9,7 @@ test.describe.serial("Copy Matrix smoke tests", () => {
   test.beforeAll(async ({ browser }) => {
     // The suite asserts Arabic copy (the default locale); pin it regardless of browser language.
     const context = await browser.newContext({ locale: "ar" });
-    await context.addCookies([{ name: "locale", value: "ar", url: "http://localhost:3000" }]);
+    await context.addCookies([{ name: "cm_lang", value: "ar", url: "http://localhost:3000" }]);
     page = await context.newPage();
   });
 

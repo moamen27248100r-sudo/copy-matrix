@@ -29,7 +29,7 @@ test.beforeAll(async () => {
 test.afterAll(closeDb);
 
 async function open(page: Page, tab = "history") {
-  await page.context().addCookies([{ name: "locale", value: "en", url: BASE }]);
+  await page.context().addCookies([{ name: "cm_lang", value: "en", url: BASE }]);
   await page.goto(`/trader/${id}?tab=${tab}`);
   await expect(page.getByRole("heading", { name: String(card.display_name) })).toBeVisible();
 }
@@ -93,7 +93,7 @@ test("asset allocation tab shows each symbol's share of the trades", async ({ pa
 });
 
 test("the discover card shows the same 30-day numbers", async ({ page }) => {
-  await page.context().addCookies([{ name: "locale", value: "en", url: BASE }]);
+  await page.context().addCookies([{ name: "cm_lang", value: "en", url: BASE }]);
   await page.goto(`/discover?period=30&q=${encodeURIComponent(String(card.display_name))}`);
   const cardText = clean(await page.locator(`a[href="/trader/${id}"]`).first().locator("xpath=ancestor::*[contains(@class,'rounded')][1]").innerText());
   expect(cardText).toContain(pct(card.roi_30d));

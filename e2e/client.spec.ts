@@ -37,7 +37,7 @@ let realWallet = 0; // the parked real wallet when the trading chapters start
 
 async function newCtx(browser: Browser, locale: "en" | "ar") {
   const ctx = await browser.newContext({ locale, viewport: { width: 1280, height: 900 } });
-  await ctx.addCookies([{ name: "locale", value: locale, url: BASE }]);
+  await ctx.addCookies([{ name: "cm_lang", value: locale, url: BASE }]);
   return ctx;
 }
 
@@ -1094,14 +1094,14 @@ test.describe.serial("Client dashboard — full journey", () => {
     expect(rows.length).toBeGreaterThan(8);
     const samples: [string, string][] = [["ar", "تم الوصول إلى جني الأرباح"], ["fr", "Objectif de profit atteint"], ["es", "Objetivo de beneficio alcanzado"], ["zh", "已达到止盈"], ["th", "ถึงเป้าหมายทำกำไรแล้ว"], ["ur", "ٹیک پرافٹ حاصل ہو گیا"]];
     for (const [loc, title] of samples) {
-      await clientCtx.addCookies([{ name: "locale", value: loc, url: BASE }]);
+      await clientCtx.addCookies([{ name: "cm_lang", value: loc, url: BASE }]);
       await client.goto(`${BASE}/notifications`);
       const text = await bodyText(client);
       expect(text, loc).toContain(title);
       expect(text, loc).not.toMatch(/\{[a-zA-Z]+\}|\bundefined\b|\bNaN\b|\[object|copyClosed|Notifications\./);
       expect(text, loc).toMatch(/\d[\d,]*\.\d{2}/); // amounts are present
     }
-    await clientCtx.addCookies([{ name: "locale", value: "en", url: BASE }]);
+    await clientCtx.addCookies([{ name: "cm_lang", value: "en", url: BASE }]);
   });
 
   // ---------------------------------------------------------------- 8. wording: no technical text anywhere
@@ -1110,7 +1110,7 @@ test.describe.serial("Client dashboard — full journey", () => {
     const paths = ["/dashboard", "/portfolio", "/portfolio?tab=positions", "/portfolio?tab=activity", "/portfolio/deposit", "/portfolio/withdraw", "/discover", "/copies", "/trades", "/trades?tab=history", "/notifications", "/notifications/preferences", "/settings", "/account/security", "/account/sessions", "/kyc", "/markets", "/support", `/trader/${fx.providerId}`];
     const bad = /\bCM\d{3}\b|\bLT\d{3}\b|\bundefined\b|\bNaN\b|\[object|\bnull\b|\{[a-zA-Z]+\}|[a-z]+_[a-z]+_[a-z_]+|\bTODO\b|Error:|\bexception\b|(?<!\/)\bUSD\b(?![T\/])|\$\d/;
     for (const loc of ["en", "ar"]) {
-      await clientCtx.addCookies([{ name: "locale", value: loc, url: BASE }]);
+      await clientCtx.addCookies([{ name: "cm_lang", value: loc, url: BASE }]);
       for (const path of paths) {
         await client.goto(`${BASE}${path}`);
         const text = await bodyText(client);
@@ -1118,7 +1118,7 @@ test.describe.serial("Client dashboard — full journey", () => {
         expect(m ? `${loc} ${path}: "${text.slice(Math.max(0, m.index - 40), m.index + 60).replace(/\n/g, " ")}"` : "ok", `${loc} ${path}`).toBe("ok");
       }
     }
-    await clientCtx.addCookies([{ name: "locale", value: "en", url: BASE }]);
+    await clientCtx.addCookies([{ name: "cm_lang", value: "en", url: BASE }]);
   });
 
   // ---------------------------------------------------------------- 1g. sign out

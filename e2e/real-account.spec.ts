@@ -82,7 +82,7 @@ test.describe.serial("Real account — full journey", () => {
     rosterLeader = r.id;
     rosterMin = Number(r.min);
     ctx = await browser.newContext({ locale: "en", viewport: { width: 1280, height: 900 } });
-    await ctx.addCookies([{ name: "locale", value: "en", url: BASE }]);
+    await ctx.addCookies([{ name: "cm_lang", value: "en", url: BASE }]);
     page = await ctx.newPage();
   });
 
